@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+    <Asset Type="System.Collections.Generic.List[DataModels.StageData]">
+        <Item>
+            <Id>1</Id>
+            <Name>LullabyTown</Name>
+            <Path>LullabyTown.tmx</Path>
+            <MapType>Exterior</MapType>
+            <AmbientSoundPackageName>Overworld_Outside</AmbientSoundPackageName>
+        </Item>
+        <Item>
+            <Id>2</Id>
+            <Name>Town</Name>
+            <Path>Town.tmx</Path>
+            <MapType>Exterior</MapType>
+            <AmbientSoundPackageName>Overworld_Outside</AmbientSoundPackageName>
+
+        </Item>
+        <Item>
+            <Id>3</Id>
+            <Name>Restaurant</Name>
+            <Path>Restaurant.tmx</Path>
+            <MapType>Interior</MapType>
+            <AmbientSoundPackageName>Overworld_Outside</AmbientSoundPackageName>
+
+        </Item>
+    </Asset>
+</XnaContent>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+    <Asset Type="System.Collections.Generic.List[DataModels.ItemData]">
+        <Item>
+            <Id>1</Id>
+            <Name>Stone Axe</Name>
+            <Description>A basic tool for chopping trees</Description>
+            <MaxStackSize>1</MaxStackSize>
+            <Price>25</Price>
+        </Item>
+        
+        <Item>
+            <Id>2</Id>
+            <Name>Steel Axe</Name>
+            <Description>A basic tool for chopping trees</Description>
+            <MaxStackSize>1</MaxStackSize>
+            <Price>25</Price>
+        </Item>
+        <Item>
+            <Id>3</Id>
+            <Name>Steel Axe</Name>
+            <Description>A basic tool for chopping trees</Description>
+            <MaxStackSize>1</MaxStackSize>
+            <Price>25</Price>
+        </Item>
+        <Item>
+            <Id>4</Id>
+            <Name>Monzanite  Axe</Name>
+            <Description>A basic tool for chopping trees</Description>
+            <MaxStackSize>1</MaxStackSize>
+            <Price>25</Price>
+        </Item>
+        <Item>
+            <Id>15</Id>
+            <Name>Fish Bones</Name>
+            <Description>All that's left of a fish.</Description>
+            <MaxStackSize>99</MaxStackSize>
+            <Price>25</Price>
+        </Item>
+        <Item>
+            <Id>16</Id>
+            <Name>SwordFish</Name>
+            <Description>A fierce, pointy fish.</Description>
+            <MaxStackSize>99</MaxStackSize>
+            <Price>25</Price>
+        </Item>
+
+    </Asset>
+</XnaContent>

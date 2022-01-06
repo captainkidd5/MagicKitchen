@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <DefineConstants>DESKTOPGL</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>MonoGame.Penumbra.DesktopGL</PackageId>
+    <Title>MonoGame.Penumbra</Title>
+    <Version>2.1.0</Version>
+    <Authors>Jaanus Varus</Authors>
+    <Description>Penumbra allows users to easily add 2D lighting and shadow effects to their games.</Description>
+    <PackageTags>monogame penumbra lighting shadowing 2d</PackageTags>
+    <RepositoryUrl>https://github.com/discosultan/penumbra</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.DesktopGL.mgcb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resource.DesktopGL.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.DesktopGL.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resource.DesktopGL.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.DesktopGL.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**/*Windows*/**;**/*WindowsDX*</DefaultItemExcludes>
+  </PropertyGroup>
+
+</Project>

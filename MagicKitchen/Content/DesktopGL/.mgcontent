@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/tucke/Desktop/MagicKitchen/Content/Font.spritefont</File>
+    <File>C:/Users/tucke/Desktop/MagicKitchen/Content/Items/ItemData.xml</File>
+    <File>C:/Users/tucke/Desktop/MagicKitchen/Content/Items/ItemSpriteSheet.png</File>
+    <File>C:/Users/tucke/Desktop/MagicKitchen/Content/Maps/MasterSpriteSheet.png</File>
+    <File>C:/Users/tucke/Desktop/MagicKitchen/Content/Maps/StageData.xml</File>
+    <File>C:/Users/tucke/Desktop/MagicKitchen/Content/UI/Buttons.png</File>
+    <File>C:/Users/tucke/Desktop/MagicKitchen/Content/UI/GeneralInterface.png</File>
+    <File>C:/Users/tucke/Desktop/MagicKitchen/Content/UI/MouseIcons.png</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>

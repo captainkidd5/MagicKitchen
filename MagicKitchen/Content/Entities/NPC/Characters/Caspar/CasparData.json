@@ -1,0 +1,68 @@
+{
+    "Name": "Caspar",
+    "StartingStage": "LullabyTown",
+    "StartingTileX": 30,
+    "StartingTileY": 32,
+    "Schedules": [
+        {
+        "Date": "Jan1,12:00_AM-12:20AM",
+        "StageEndLocation": "Restaurant",
+        "TileX": 40,
+        "TileY": 54,
+        "Dialogue":{
+            "SpeechTree":
+                {
+                    "default": "This is my default response",
+                    "option2": "response2",
+                    "option3": "response3"
+
+
+                }
+
+                
+            
+        }
+    },
+    {
+        "Date": "Jan1,12:40_AM-12:20AM",
+        "StageEndLocation": "Town",
+        "TileX": 40,
+        "TileY": 54,
+        "Dialogue":{
+            "SpeechTree":
+                {
+                    "default": "This is my default response",
+                    "option2": "response2",
+
+                    "option3": "response3"
+
+
+                }
+
+                
+            
+        }
+    },
+    {
+        "Date": "Jan1,01:00_AM-1:20AM",
+        "StageEndLocation": "LullabyTown",
+        "TileX": 15,
+        "TileY": 16,
+        "Dialogue":{
+            "SpeechTree":
+                {
+                    "default": "This is my default response",
+                    "option2": "response2",
+
+                    "option3": "response3"
+
+
+                }
+
+                
+            
+        }
+    }
+        
+]
+}

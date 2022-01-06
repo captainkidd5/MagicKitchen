@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Globals.Classes
+{
+    public static class Flags
+    {
+        public static bool FirstTimeLoad { get; set; }
+        public static bool ShowTileSelector { get; set; } = true;
+
+        public static bool Pause { get; set; }
+
+        public static bool DebugVelcro { get; 
+            set; } = true;
+
+        public static bool DebugGrid { get; set; } = false;
+        public static bool ShowEntityPaths { get; set; } = true;
+        public static bool EnableShadows { get; set; } = true;
+
+        public static bool DisplayMousePosition { get; set; } = false;
+
+        public static bool IsNightTime {get;set;} = false;
+
+
+        public static bool IsStageLoading { get; set; } = false;
+
+    }
+}

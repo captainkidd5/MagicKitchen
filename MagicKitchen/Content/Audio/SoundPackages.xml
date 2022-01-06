@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+    <Asset Type="System.Collections.Generic.List[DataModels.SoundStuff.SoundPackage]">
+        <Item>
+            <Name>Rock</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>RockSmash1</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Tiles/Rocks</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
+
+        <Item>
+            <Name>Step</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>StepDirt</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Steps</LocalPath>
+                </Item>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>StepGrass1</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Steps</LocalPath>
+                </Item>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>StepWood1</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Steps</LocalPath>
+                </Item>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>StepStone1</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Steps</LocalPath>
+                </Item>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>StepSand</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Steps</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
+
+         <Item>
+            <Name>AmbientDay</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>AmbientDay1</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Ambient</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
+        
+
+       
+
+    </Asset>
+</XnaContent>

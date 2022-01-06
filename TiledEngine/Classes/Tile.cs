@@ -1,0 +1,149 @@
+﻿using Globals.Classes;
+using InputEngine.Classes.Input;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using PhysicsEngine.Classes;
+using PhysicsEngine.Classes.Pathfinding;
+using SpriteEngine.Classes;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using TiledEngine.Classes.TileAddons;
+using static Globals.Classes.Settings;
+
+namespace TiledEngine.Classes
+{
+
+    public enum TileType
+    {
+        None = 0,
+        Basic = 1
+
+    }
+    public class Tile
+    {
+
+        internal static bool TileIndexDebug = false;
+
+        private int gid;
+
+        //The icon the mouse should change to when hovered over this tile
+        internal CursorIconType CursorIconType;
+        internal TileType TileType { get; set; }
+        internal int GID { get { return gid - 1; } set { gid = value; } }
+
+        //public TileType TileType { get; set; }
+        internal float Layer { get; set; }
+        internal int X { get; set; }
+        internal int Y { get; set; }
+        internal Rectangle SourceRectangle { get; set; }
+        internal Rectangle DestinationRectangle { get; set; }
+
+        public Sprite Sprite { get; set; }
+
+        internal float ColorMultiplier { get; set; }
+
+        internal List<ITileAddon> Addons { get; set; }
+        public Vector2 Position { get; set; }
+
+        public bool WithinRangeOfPlayer { get; internal set; }
+
+        internal Tile(int gid, float layer, int x, int y)
+        {
+            
+            GID = gid;
+            Layer = layer;
+            if (Layer == .3)
+            {
+                Console.WriteLine("test");
+            }
+            X = x;
+            Y = y;
+            ColorMultiplier = 1f;
+            Addons = new List<ITileAddon>();
+            CursorIconType = CursorIconType.None;
+
+        }
+
+        public void Update(GameTime gameTime, PathGrid pathGrid)
+        {
+            WithinRangeOfPlayer = false;
+            Sprite.Update(gameTime, Position);
+
+            for (int i = 0; i < Addons.Count; i++)
+            {
+                Addons[i].Update(gameTime);
+            }
+            Sprite.UpdateColor(Color.White * ColorMultiplier);
+
+            if (Flags.DebugGrid)
+            {
+                if (pathGrid.Weight[X, Y] == (byte)GridStatus.Obstructed)
+                {
+                    Sprite.UpdateColor(Color.Red);
+                }
+            }
+
+        }
+        internal void Draw(SpriteBatch spriteBatch, Texture2D texture)
+        {
+            
+
+            Sprite.Draw(spriteBatch);
+            for (int i = 0; i < Addons.Count; i++)
+            {
+                Addons[i].Draw(spriteBatch);
+            }
+
+           
+
+            //if (TileIndexDebug)
+                //spriteBatch.DrawString(Game1.MainFont, X + "," + Y, Position, Color.Orange, 0f, Vector2.Zero, .35f, SpriteEffects.None, .99f);
+        }
+
+        /// <summary>
+        /// returns unique tile key thru bitwise shifting.
+        /// </summary>
+        /// <returns>Tile Key</returns>
+        internal int GetKey(int layer, int x, int y)
+        {
+            return ((x << 32) | (y << 18) | layer); //14 bits for x and y, 4 bits for layer.
+        }
+
+        internal string GetTileKeyString(int layer, int x, int y)
+        {
+            return "" + X + "," + Y + "," + layer;
+        }
+
+
+        /// <summary>
+        /// Call at the end of assign properties.
+        /// </summary>
+        internal void Load()
+        {
+            foreach (ITileAddon addon in Addons)  
+                addon.Load();               
+        }
+        internal void Interact()
+        {
+            foreach (ITileAddon addon in Addons)
+                addon.Interact();
+        }
+
+        public void Unload()
+        {
+            foreach(ITileAddon addon in Addons)
+            {
+                addon.Unload();
+            }
+            Addons.Clear();
+            Sprite = null;
+            CursorIconType = CursorIconType.None;
+            
+        }
+
+        
+
+
+    }
+}

@@ -1,0 +1,360 @@
+﻿using DataModels;
+using Globals.Classes;
+using Globals.Classes.Helpers;
+using InputEngine.Classes.Input;
+using IOEngine.Classes;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Penumbra;
+using PhysicsEngine.Classes.Pathfinding;
+using SpriteEngine.Classes;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
+using TiledEngine.Classes.Misc;
+using TiledSharp;
+using static Globals.Classes.Settings;
+using static TiledEngine.Classes.TileLoader;
+
+namespace TiledEngine.Classes
+{
+    public class TileManager : Component, ISaveable
+    {
+
+        //Top left of tilesheet is the tile selector. Very nice!
+        internal readonly Rectangle TileSelectorSourceRectangle = new Rectangle(384, 0, 16, 16);
+
+        //How many tiles outside of the viewport should be rendered.
+        //some tiles (trees, buildings) are quite large so we have to extend culling a bit so as to not cut them off!
+        private readonly int CullingLeeWay = 8;
+        private readonly Camera2D camera;
+        internal readonly PenumbraComponent penumbra;
+
+        internal Texture2D TileSetTexture { get; private set; }
+        public PathGrid PathGrid { get; private set; }
+
+
+        public int TileSetWidth { get; private set; }
+        internal Dictionary<int, TmxTilesetTile> TileSetDictionary { get; private set; }
+        internal Dictionary<int, float> OffSetLayersDictionary { get; private set; }
+        public int MapWidth { get; private set; }
+        public Rectangle MapRectangle { get; private set; }
+
+        internal List<Tile[,]> Tiles { get; private set; }
+
+        public List<PortalData> Portals { get; private set; }
+
+        private Sprite TileSelectorSprite { get; set; }
+
+        public MapType MapType { get; set; }
+        public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera, PenumbraComponent penumbra) :
+            base(graphics, content)
+        {
+            OffSetLayersDictionary = new Dictionary<int, float>();
+            Portals = new List<PortalData>();
+
+            this.camera = camera;
+            this.penumbra = penumbra;
+        }
+
+        /// <summary>
+        /// Generic load, should only be called by <see cref="TileLoader.LoadTileManager(string, TileManager)"/>
+        /// </summary>
+        internal void Load(List<Tile[,]> tiles, int mapWidth, Texture2D tileSetTexture)
+        {
+
+            if (MapType == MapType.Exterior)
+                TileSetDictionary = TileLoader.MasterTileSetDictionary;
+            else if (MapType == MapType.Interior)
+                TileSetDictionary = TileLoader.InteriorTileSetDictionary;
+
+            TileSetTexture = tileSetTexture;
+
+            MapWidth = mapWidth;
+            TileSetWidth = (int)tileSetTexture.Width / Settings.TileSize;
+
+            PathGrid = new PathGrid(MapWidth, MapWidth);
+
+            Tiles = tiles;
+            TileSelectorSprite = SpriteFactory.CreateWorldSprite(Vector2.Zero, TileSelectorSourceRectangle, tileSetTexture, customLayer: .99f);
+            AssignProperties();
+        }
+
+        /// <summary>
+        /// Grabs all of the objects from tmx map LAYER "Portal"
+        /// </summary>
+        internal List<PortalData> LoadPortals(TmxMap tmxMap)
+        {
+            TmxObjectGroup portals;
+
+            tmxMap.ObjectGroups.TryGetValue("Portal", out portals);
+            foreach (TmxObject portal in portals.Objects)
+            {
+                Portals.Add(new PortalData(new Rectangle((int)portal.X, (int)portal.Y, (int)portal.Width, (int)portal.Height),
+                    portal.Properties["from"], portal.Properties["to"], int.Parse(portal.Properties["xOffSet"]), int.Parse(portal.Properties["yOffSet"]), bool.Parse(portal.Properties["Click"])));
+            }
+            return Portals;
+        }
+
+        private void AssignProperties()
+        {
+            for (int z = 0; z < Tiles.Count; z++)
+            {
+                for (int x = 0; x < MapWidth; x++)
+                {
+                    for (int y = 0; y < MapWidth; y++)
+                    {
+                        TileUtility.AssignProperties(Tiles[z][x, y], (Layers)z, this);
+                    }
+                }
+            }
+
+            MapRectangle = new Rectangle(0, 0, Settings.TileSize * MapWidth, Settings.TileSize * MapWidth);
+        }
+        public void Unload()
+        {
+            for (int z = 0; z < Tiles.Count; z++)
+            {
+                for (int x = 0; x < MapWidth; x++)
+                {
+                    for (int y = 0; y < MapWidth; y++)
+                    {
+                        //Remove any hullbodies or penumbra lights
+                        Tiles[z][x, y].Unload();
+                    }
+                }
+            }
+            Tiles.Clear();
+        }
+
+
+
+        #region INDEX VARIABLES
+        private int StartX { get; set; }
+        private int StartY { get; set; }
+        private int EndX { get; set; }
+
+        private int EndY { get; set; }
+
+        private int MouseX { get; set; }
+        private int MouseY { get; set; }
+        #endregion
+        public Tile MouseOverTile { get; private set; }
+        public void Update(GameTime gameTime)
+        {
+            CalculateStartAndEndIndexes();
+            CalculateMouseIndex();
+            Tile tileToInteractWith = null;
+            for (int z = 0; z < Tiles.Count; z++)
+            {
+                for (int x = StartX; x < EndX; x++)
+                {
+                    for (int y = StartY; y < EndY; y++)
+                    {
+                        Tiles[z][x, y].Update(gameTime, PathGrid);
+                    }
+                }
+                Tile hoveredLayerTile = Tiles[z][MouseX, MouseY];
+                if (CheckIfCursorIconChangedFromTile(hoveredLayerTile))
+                {
+                    tileToInteractWith = hoveredLayerTile;
+
+                }
+            }
+            if (tileToInteractWith != null)
+            {
+                if (Controls.IsClicked)
+                    tileToInteractWith.Interact();
+            }
+            MouseOverTile = Tiles[0][MouseX, MouseY];
+            TileSelectorSprite.Update(gameTime, new Vector2(MouseOverTile.DestinationRectangle.X, MouseOverTile.DestinationRectangle.Y));
+        }
+
+        /// <summary>
+        /// Loops through all layers of current tile, if any of them are not the default cursor, we should be using that. If
+        /// there are more than 1 distinct type, use the top level one.
+        /// </summary>
+        /// <param name="hoveredLayerTile"></param>
+        private bool CheckIfCursorIconChangedFromTile(Tile hoveredLayerTile)
+        {
+            if (hoveredLayerTile.WithinRangeOfPlayer && hoveredLayerTile.CursorIconType != CursorIconType.None)
+            {
+                if (Controls.CursorIconType != hoveredLayerTile.CursorIconType)
+                {
+                    Controls.CursorIconType = hoveredLayerTile.CursorIconType;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            for (int z = 0; z < Tiles.Count; z++)
+            {
+                for (int x = StartX; x < EndX; x++)
+                {
+                    for (int y = StartY; y < EndY; y++)
+                    {
+                        Tiles[z][x, y].Draw(spriteBatch, TileSetTexture);
+                      
+                    }
+                }
+            }
+            if (Flags.ShowTileSelector)
+                TileSelectorSprite.Draw(spriteBatch);
+
+        }
+
+
+
+        /// <summary>
+        /// Change grid value at specified index.
+        /// </summary>
+        public void UpdateGrid(int indexI, int indexJ, GridStatus newValue)
+        {
+            PathGrid.UpdateGrid(indexI, indexJ, newValue);
+        }
+
+        /// <summary>
+        /// This method will cull tiles, so that only the tiles within the screen are updated/drawn.
+        /// </summary>
+        private void CalculateStartAndEndIndexes()
+        {
+
+            int screenHalfTiles = (int)(Settings.ScreenWidth / camera.Zoom / 2 / Settings.TileSize);
+
+            StartX = (int)(camera.X / Settings.TileSize) - screenHalfTiles - CullingLeeWay;
+            if (StartX < 0)
+                StartX = 0;
+
+            StartY = (int)(camera.Y / Settings.TileSize) - screenHalfTiles - CullingLeeWay;
+            if (StartY < 0)
+                StartY = 0;
+
+            EndX = (int)(camera.X / Settings.TileSize) + screenHalfTiles + CullingLeeWay;
+            if (EndX > MapWidth)
+                EndX = MapWidth;
+
+            EndY = (int)(camera.Y / Settings.TileSize) + screenHalfTiles + CullingLeeWay;
+            if (EndY > MapWidth)
+                EndY = MapWidth;
+        }
+
+        /// <summary>
+        /// Ensures that mouse indices given from controls are within the bounds of the current map. 
+        /// </summary>
+        private void CalculateMouseIndex()
+        {
+            MouseX = Controls.CursorTileIndex.X;
+            MouseY = Controls.CursorTileIndex.Y;
+            if (MouseX >= MapWidth)
+                MouseX = MapWidth - 1;
+            if (MouseY >= MapWidth)
+                MouseY = MapWidth - 1;
+        }
+
+
+        public void Save(BinaryWriter writer)
+        {
+            writer.Write(Tiles.Count);
+
+            int xLength = Tiles[0].GetLength(0);
+            writer.Write(xLength);
+
+            int yLength = Tiles[0].GetLength(1);
+            writer.Write(yLength);
+
+            for (int z = 0; z < Tiles.Count; z++)
+            {
+                for (int x = 0; x < xLength; x++)
+                {
+                    for (int y = 0; y < yLength; y++)
+                    {
+                        writer.Write(Tiles[z][x, y].GID + 1);
+                        writer.Write(Tiles[z][x, y].X);
+                        writer.Write(Tiles[z][x, y].Y);
+
+                    }
+                }
+            }
+        }
+
+        public Tile GetTileFromWorldPosition( Vector2 position, Layers layer)
+        {
+            Point coord = Vector2Helper.GetTileIndexPosition(position);
+            return GetTileFromPoint(coord, layer);
+        }
+        public Tile GetTileFromPoint( Point point, Layers layer)
+        {
+            if (point.X > Tiles[(int)layer].GetLength(0) || point.X < 0)
+            {
+                Debug.Assert(point.X > Tiles[(int)layer].GetLength(0) || point.X < 0, $"{point.X} is outside the bounds of the array of length {Tiles[(int)layer].GetLength(0)}");
+
+                return null;
+            }
+
+            if (point.Y> Tiles[(int)layer].GetLength(1) || point.Y < 0)
+            {
+                Debug.Assert(point.Y > Tiles[(int)layer].GetLength(1) || point.Y < 0, $"{point.Y} is outside the bounds of the array of length {Tiles[(int)layer].GetLength(1)}");
+                return null;
+
+            }
+
+            return Tiles[(int)layer][point.X, point.Y];
+        }
+
+        /// <summary>
+        /// Gets the tile underfoot the Npcs position, and returns the sound at layer 0, if exists
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public string GetStepSoundFromPosition(Vector2 position)
+        {
+            //Use the top layer sound if available (ex: grass should be used over dirt)
+            for(int i = 1; i >= 0; i--)
+            {
+                Tile tile = GetTileFromWorldPosition(position, (Layers)i);
+                if (tile == null)
+                    continue;
+                string step = "step";
+                if (TileSetDictionary.ContainsKey(tile.GID))
+                {
+                    if (TileSetDictionary[tile.GID].Properties.TryGetValue(step, out step))
+                    {
+                        return step;
+                    }
+                }
+            }
+           
+            return string.Empty;
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            Tiles = new List<Tile[,]>();
+            int layerCount = reader.ReadInt32();
+            int length0 = reader.ReadInt32();
+            int length1 = reader.ReadInt32();
+
+            for (int z = 0; z < layerCount; z++)
+            {
+                Tiles.Add(new Tile[length0, length1]);
+                for (int x = 0; x < length0; x++)
+                {
+                    for (int y = 0; y < length1; y++)
+                    {
+                        Tiles[z][x, y] = new Tile(reader.ReadInt32(), z, reader.ReadInt32(), reader.ReadInt32());
+
+                    }
+                }
+            }
+
+            AssignProperties();
+        }
+
+    }
+}
