@@ -36,7 +36,7 @@ namespace EntityEngine.Classes.NPCStuff
             Name = npcsData.Name;
             CurrentStageName = npcsData.StartingStage;
             Move(Vector2Helper.GetWorldPositionFromTileIndex(npcsData.StartingTileX, npcsData.StartingTileY));
-            Speed = 2f;
+            Speed = 10f;
             XOffSet = 8;
             YOffSet = 16;
         }

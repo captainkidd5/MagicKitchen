@@ -13,7 +13,6 @@ namespace SpriteEngine.Classes
 
     public abstract class BaseSprite : Component
     {
-
         protected ElementType SpriteType { get; set; }
         protected Texture2D Texture { get; set; }
         protected Vector2 Position { get; set; }
@@ -37,6 +36,9 @@ namespace SpriteEngine.Classes
         public SpriteEffects SpriteEffects { get; set; }
 
         public IEnumerable<ISpriteAddon> SpriteAddons { get; set; }
+
+        public bool IsOpaque => PrimaryColor.A == 255;
+        public bool IsTransparent => PrimaryColor.A == 51;
 
         Fader Fader { get; set; }
 
@@ -65,7 +67,11 @@ namespace SpriteEngine.Classes
         public virtual void Update(GameTime gameTime, Vector2 position)
         {
             if (Fader != null)
+            {
                 Fader.Update(gameTime, this);
+                if (Fader.FlaggedForRemovalUponFinish && Fader.IsOpaque)
+                    Fader = null;
+            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -82,19 +88,30 @@ namespace SpriteEngine.Classes
         {
             Fader.TriggerReturnOpaque();
         }
-        public void AddFader(float? minOpac, float? maxOpac, float? speed)
+        public void AddFader(float? minOpac, float? maxOpac, float? speed, bool immediatelyTriggerFade = false)
         {
             if (Fader != null)
                 throw new Exception($"Fader is already instantiated");
             Fader = new Fader(minOpac, maxOpac, speed);
+            if(immediatelyTriggerFade)
+                TurnTransparent(); 
         }
 
-        public void RemoveFader()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="flagForRemoval">Will remove fader after fader has returned opacity to full</param>
+        public void RemoveFader(bool flagForRemoval = false)
         {
             if (Fader == null)
                 throw (new Exception($"Fader does not exists"));
-
-            Fader = null;
+            if (flagForRemoval)
+            {
+                Fader.FlaggedForRemovalUponFinish = true;
+                Fader.TriggerReturnOpaque();
+            }
+            else
+                Fader = null;
         }
         public void SetEffectToDefault()
         {

@@ -145,6 +145,28 @@ namespace EntityEngine.Classes.HumanoidCreation
             }
         }
 
+        internal virtual void FadeIn(bool flagForRemovalUponFinish)
+        {
+            CurrentSet[CurrentDirection].RemoveFader(flagForRemovalUponFinish);
+
+        }
+
+        internal virtual void FadeOut()
+        {
+            CurrentSet[CurrentDirection].AddFader(null, null, null, true);
+
+        }
+
+        internal virtual bool IsOpaque()
+        {
+            return CurrentSet[CurrentDirection].IsOpaque;
+        }
+
+        internal virtual bool IsTransparent()
+        {
+            return CurrentSet[CurrentDirection].IsTransparent;
+        }
+
         //internal virtual void ChangeTextureColor(Color color)
         //{
 

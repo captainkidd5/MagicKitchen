@@ -60,8 +60,16 @@ namespace EntityEngine.Classes.PlayerStuff
         }
 
 
-       
 
+        public override void AddedToPlayerStage()
+        {
+            //base.AddedToPlayerStage();
+        }
+
+        public override void RemovedFromPlayerStage()
+        {
+            //base.RemovedFromPlayerStage();
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

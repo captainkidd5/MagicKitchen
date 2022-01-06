@@ -72,6 +72,8 @@ namespace EntityEngine.Classes
         protected Behaviour Behaviour { get; set; }
 
         protected List<Category> BigSensorCollidesWithCategories { get; set; }
+
+        protected bool IsWarping { get; set; }
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
         {
             this.graphics = graphics;
@@ -83,15 +85,35 @@ namespace EntityEngine.Classes
             Behaviour = new WanderBehaviour(this, StatusIcon, Navigator, null);
 
         }
-        public void Warp(string stageTo, Vector2 positionTo, TileManager tileManager)
+
+        private Vector2 _intermediateWarpPosition;
+        private string _intermediateStageTo;
+        public void FinishWarp()
         {
-            Move(positionTo);
-            LoadToNewStage(stageTo, tileManager);
+            EntityAnimator.FadeIn();
+
+            Move(_intermediateWarpPosition);
+            LoadToNewStage(_intermediateStageTo, TileManager);
+
+            IsWarping = false;
+
+            if (IsInStage)
+                AddedToPlayerStage();
+            else
+                RemovedFromPlayerStage();
+        }
+        public void StartWarp(string stageTo, Vector2 positionTo, TileManager tileManager)
+        {
+            EntityAnimator.FadeOut();
+
+            _intermediateStageTo = stageTo;
+            _intermediateWarpPosition = positionTo;
+            TileManager = tileManager;
             AbleToWarp = false;
             WarpTimer.SetNewTargetTime(TimeBetweenWarp);
             WarpTimer.ResetToZero();
-            //IsInStage = CurrentStageName == stageTo;
 
+            IsWarping = true;
         }
         internal void LoadAnimations(Animator animator)
         {
@@ -112,6 +134,15 @@ namespace EntityEngine.Classes
 
         }
 
+        public void FadeInToStage()
+        {
+            EntityAnimator.FadeIn();
+        }
+
+        public void FadeOutOfStage()
+        {
+            EntityAnimator.FadeOut();
+        }
         protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnCollides(fixtureA, fixtureB, contact);
@@ -135,8 +166,9 @@ namespace EntityEngine.Classes
         }
         public virtual new void Update(GameTime gameTime)
         {
-            if (WarpTimer.Run(gameTime))
+            if (!AbleToWarp && WarpTimer.Run(gameTime))
                 AbleToWarp = true;
+           
             base.Update(gameTime);
 
             Behaviour.Update(gameTime, ref Velocity);
@@ -164,7 +196,14 @@ namespace EntityEngine.Classes
                 MainHullBody.Hull.Position = Position;
 
             EntityAnimator.Update(gameTime, IsMoving, Position, DirectionMoving);
+            if (IsWarping)
+            {
+                if (EntityAnimator.IsTransparent())
+                {
+                    FinishWarp();
 
+                }
+            }
             //if(CurrentBehaviour == CurrentBehaviour.Wander && !Navigator.HasActivePath)
             //{
 
@@ -229,7 +268,7 @@ namespace EntityEngine.Classes
         /// <summary>
         /// Was previously not in player stage, now is. Activate main body and allow click interactions.
         /// </summary>
-        public void AddedToPlayerStage()
+        public virtual void AddedToPlayerStage()
         {
             MainHullBody.Body.IsSensor = false;
             AddBigSensorCat(Category.Cursor);
@@ -237,7 +276,7 @@ namespace EntityEngine.Classes
         /// <summary>
         /// Was previously in player stage, no longer is. Disable collisions and remove click interactions.
         /// </summary>
-        public void RemovedFromPlayerStage()
+        public virtual void RemovedFromPlayerStage()
         {
             MainHullBody.Body.IsSensor = true;
             //Shouldn't be able to click on entity when not in same stage.

@@ -9,7 +9,7 @@ namespace SpriteEngine.Classes.Addons
 {
     internal class Fader 
     {
-        private readonly float _minOpacity = .2f;
+        private readonly float _minOpacity = .2f; //51
         private readonly float _maxOpcacity = 1f;
         private readonly float _speed = .005f;
         private float _opacity = 1f;
@@ -17,6 +17,10 @@ namespace SpriteEngine.Classes.Addons
         private bool _isTurningTransparent;
         private bool _isReturningToOpaque;
 
+        internal bool IsOpaque => _opacity == 1;
+        internal bool Istransparent => _opacity == 0;
+
+        internal bool FlaggedForRemovalUponFinish;
         internal Fader(float? minOpac, float? maxOpac, float? speed)
         {
             _minOpacity = minOpac ?? _minOpacity;

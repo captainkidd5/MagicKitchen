@@ -69,6 +69,7 @@ namespace SpriteEngine.Classes.Animations
         }
         public override void Update(GameTime gameTime, Vector2 position)
         {
+            base.Update(gameTime, position);
             FrameLastFrame = CurrentFrame;
             AnimationFrame frame = AnimationFrames[CurrentFrame];
             

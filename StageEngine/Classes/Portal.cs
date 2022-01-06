@@ -52,28 +52,31 @@ namespace StageEngine.Classes
                MainHullBody.Body.Position = Position;
             if (PlayerInClickRange)
             {
-                if (!_mustBeClicked)
+                if (From == PlayerManager.Player1.CurrentStageName)
                 {
-                    if (PlayerManager.Player1.AbleToWarp)
+                    if (!_mustBeClicked)
                     {
-                        StageManager.RequestSwitchStage(To, PortalManager.GetDestinationPosition(this));
-                        PlayerManager.Player1.Warp(To, PortalManager.GetDestinationPosition(this), StageManager.GetStage(To).TileManager);
+                        if (PlayerManager.Player1.AbleToWarp)
+                        {
+                            StageManager.RequestSwitchStage(To, PortalManager.GetDestinationPosition(this));
+                            PlayerManager.Player1.StartWarp(To, PortalManager.GetDestinationPosition(this), StageManager.GetStage(To).TileManager);
 
+                        }
+
+                        return;
                     }
-
-                    return;
-                }
-                if (_mustBeClicked && PlayerInClickRange && MouseHovering)
-                {
-                    Controls.CursorIconType = CursorIconType.Door;
-                    Controls.UpdateCursor();
-
-                    if (Controls.IsClicked)
+                    if (_mustBeClicked && PlayerInClickRange && MouseHovering)
                     {
+                        Controls.CursorIconType = CursorIconType.Door;
+                        Controls.UpdateCursor();
 
-                        StageManager.RequestSwitchStage(To, PortalManager.GetDestinationPosition(this));
-                        Controls.CursorIconType = CursorIconType.None;
+                        if (Controls.IsClicked)
+                        {
 
+                            StageManager.RequestSwitchStage(To, PortalManager.GetDestinationPosition(this));
+                            Controls.CursorIconType = CursorIconType.None;
+
+                        }
                     }
                 }
             }
@@ -95,13 +98,9 @@ namespace StageEngine.Classes
                     //Ex: player should not be warping to home from within another house, even if the portal is technically at 50,50 in both places.
                     if (entity.AbleToWarp)
                     {
-                        entity.Warp(To, PortalManager.GetDestinationPosition(this), StageManager.GetStage(To).TileManager);
+                        entity.StartWarp(To, PortalManager.GetDestinationPosition(this), StageManager.GetStage(To).TileManager);
 
-                        entity.IsInStage = entity.CurrentStageName == StageManager.CurrentStage.Name;
-                        if (entity.IsInStage)
-                            entity.AddedToPlayerStage();
-                        else
-                            entity.RemovedFromPlayerStage();
+                        entity.IsInStage = To == StageManager.CurrentStage.Name;
                         
                     }
                 }

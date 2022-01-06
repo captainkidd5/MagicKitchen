@@ -89,5 +89,31 @@ namespace EntityEngine.Classes.Animators
                 Animations[i].Draw(spriteBatch);
             }
         }
+
+        internal override void FadeIn(bool flagForRemovalUponFinish = true)
+        {
+            for (int i = 0; i < Animations.Length; i++)
+            {
+                Animations[i].FadeIn(flagForRemovalUponFinish);
+            }
+        }
+
+        internal override void FadeOut()
+        {
+            for (int i = 0; i < Animations.Length; i++)
+            {
+                Animations[i].FadeOut();
+            }
+        }
+
+        internal override bool IsOpaque(int bodyIndex = 0)
+        {
+            return Animations[bodyIndex].IsOpaque();
+        }
+
+        internal override bool IsTransparent(int bodyIndex = 0)
+        {
+            return Animations[bodyIndex].IsTransparent();
+        }
     }
 }

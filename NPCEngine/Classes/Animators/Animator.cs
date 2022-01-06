@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using SoundEngine.Classes;
 using SpriteEngine.Classes;
+using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,6 +17,7 @@ namespace EntityEngine.Classes.Animators
         protected readonly int xOffset = 8;
         //Entire height of a character
         protected readonly int yOffset = 32;
+        protected AnimatedSprite[] AnimatedSprites { get; set; }
 
         /// <summary>
         /// Note: this is the position where the sprite is drawn, and is an offset of the entity position.
@@ -28,6 +30,7 @@ namespace EntityEngine.Classes.Animators
         /// </summary>
 
         protected bool HasLoadUpdatedOnce { get; set; }
+
 
         public Animator(int xOffset = 8, int yOffset = 32)
         {
@@ -43,7 +46,26 @@ namespace EntityEngine.Classes.Animators
         {
 
         }
+        internal virtual void FadeOut()
+        {
+            foreach (AnimatedSprite sprite in AnimatedSprites)
+                sprite.AddFader(null, null, null,true);
+        }
+        internal virtual void FadeIn(bool flagForRemovalUponFinish = true)
+        {
+            foreach (AnimatedSprite sprite in AnimatedSprites)
+                sprite.RemoveFader(flagForRemovalUponFinish);
+        }
 
+        internal virtual bool IsOpaque(int bodyIndex = 0)
+        {
+            return AnimatedSprites[bodyIndex].IsOpaque;
+        }
+
+        internal virtual bool IsTransparent(int bodyIndex = 0)
+        {
+            return AnimatedSprites[bodyIndex].IsTransparent;
+        }
         public Rectangle GetClickRectangle()
         {
             return new Rectangle((int)Position.X, (int)Position.Y, xOffset * 2, yOffset);

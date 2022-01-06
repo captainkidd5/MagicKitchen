@@ -11,7 +11,6 @@ namespace EntityEngine.Classes.Animators
 {
     internal class NPCAnimator : Animator
     {
-        protected AnimatedSprite[] AnimatedSprites { get; set; }
 
         public NPCAnimator(AnimatedSprite[] animatedSprites)
         {
