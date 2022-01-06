@@ -10,6 +10,8 @@ using TiledSharp;
 using Penumbra;
 using TiledEngine.Classes.Misc;
 using Microsoft.Xna.Framework;
+using System.Reflection;
+using System.IO;
 
 namespace TiledEngine.Classes
 {
@@ -24,7 +26,7 @@ namespace TiledEngine.Classes
                 .5f,
             };
 
-        private static readonly string MapPath = $"../../../Content/Maps/";
+        private static string MapPath;
         public static Dictionary<int, TmxTilesetTile> MasterTileSetDictionary { get; private set; }
         public static Dictionary<int, TmxTilesetTile> InteriorTileSetDictionary { get; private set; }
 
@@ -49,6 +51,7 @@ namespace TiledEngine.Classes
         /// </summary>
         public static void LoadContent(ContentManager content)
         {
+            MapPath = content.RootDirectory + "/Maps/";
             TmxMap worldMap = new TmxMap(MapPath + "LullabyTown.tmx");
             TmxMap interiorMap = new TmxMap(MapPath + "Restaurant.tmx");
             MasterTileSetDictionary = worldMap.Tilesets[0].Tiles;

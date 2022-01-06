@@ -20,17 +20,11 @@ namespace TiledEngine.Classes.TileAddons
     public class TileTransparency : Collidable, ITileAddon
     {
 
-        private readonly float MinOpacity = .2f;
-        private readonly float MaxOpcacity = 1f;
-        private readonly float Speed = .005f;
         private readonly Rectangle destinationRectangle;
 
 
         public Tile Tile { get; set; }
-        private float Opacity { get; set; }
 
-        private bool IsTurningTransparent { get; set; }
-        private bool IsReturningToOpaque { get; set; }
 
         public TileTransparency(Tile tile, Vector2 position, Rectangle destinationRectangle)
         {
@@ -41,44 +35,10 @@ namespace TiledEngine.Classes.TileAddons
 
         public override void Update(GameTime gameTime)
         {
-            if (IsTurningTransparent)
-                TurnTransparent(gameTime);
-            
-            else if (IsReturningToOpaque)
-                ReturnToOpaque(gameTime);
+   
             
         }
-        /// <summary>
-        /// When player moves behind a tile, turn the tile transparent at rate SPEED until MIN-OPACITY
-        /// </summary>
-        private void TurnTransparent(GameTime gameTime)
-        {
-            Opacity -= (float)gameTime.ElapsedGameTime.TotalMilliseconds * Speed;
-            if (Opacity < MinOpacity)
-            {
-                IsTurningTransparent = false;
-                Opacity = MinOpacity;
-            }
 
-
-            Tile.ColorMultiplier = Opacity;
-        }
-
-        /// <summary>
-        /// When player is no longer behind the tile, return it back to its normal opacity at rate SPEED.
-        /// </summary>
-        private void ReturnToOpaque(GameTime gameTime)
-        {
-            Opacity += (float)gameTime.ElapsedGameTime.TotalMilliseconds * Speed;
-            if (Opacity > MaxOpcacity)
-            {
-                IsReturningToOpaque = false;
-                Opacity = MaxOpcacity;
-            }
-
-
-            Tile.ColorMultiplier = Opacity;
-        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -88,7 +48,8 @@ namespace TiledEngine.Classes.TileAddons
         public void Load()
         {
             CreateBody(Position);
-            Opacity = 1f;
+            Tile.Sprite.AddFader(null, null, null);
+
         }
 
         public void Destroy()
@@ -105,15 +66,16 @@ namespace TiledEngine.Classes.TileAddons
 
         public void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            IsTurningTransparent = true;
-            IsReturningToOpaque = false;
+            if (Tile.Sprite != null)
 
+                Tile.Sprite.TurnTransparent();
+            
         }
 
         public void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            IsReturningToOpaque = true;
-            IsTurningTransparent = false;
+            if(Tile.Sprite != null)
+             Tile.Sprite.TriggerOpaque();
         }
 
         public void Interact()

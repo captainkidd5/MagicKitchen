@@ -41,7 +41,6 @@ namespace TiledEngine.Classes
 
         public Sprite Sprite { get; set; }
 
-        internal float ColorMultiplier { get; set; }
 
         internal List<ITileAddon> Addons { get; set; }
         public Vector2 Position { get; set; }
@@ -59,7 +58,6 @@ namespace TiledEngine.Classes
             }
             X = x;
             Y = y;
-            ColorMultiplier = 1f;
             Addons = new List<ITileAddon>();
             CursorIconType = CursorIconType.None;
 
@@ -74,8 +72,8 @@ namespace TiledEngine.Classes
             {
                 Addons[i].Update(gameTime);
             }
-            Sprite.UpdateColor(Color.White * ColorMultiplier);
 
+#if DEBUG
             if (Flags.DebugGrid)
             {
                 if (pathGrid.Weight[X, Y] == (byte)GridStatus.Obstructed)
@@ -83,6 +81,7 @@ namespace TiledEngine.Classes
                     Sprite.UpdateColor(Color.Red);
                 }
             }
+#endif
 
         }
         internal void Draw(SpriteBatch spriteBatch, Texture2D texture)

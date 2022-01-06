@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes.Addons;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -35,6 +36,9 @@ namespace SpriteEngine.Classes
 
         public SpriteEffects SpriteEffects { get; set; }
 
+        public IEnumerable<ISpriteAddon> SpriteAddons { get; set; }
+
+        Fader Fader { get; set; }
 
         public BaseSprite(GraphicsDevice graphics, ContentManager content, Vector2 position, Texture2D texture, Color primaryColor,
              Vector2 origin, float scale, Layers layer) : base(graphics, content)
@@ -54,11 +58,14 @@ namespace SpriteEngine.Classes
             PrimaryColor = primaryColor;
             Origin = origin;
             Scale = scale;
+
+
         }
 
         public virtual void Update(GameTime gameTime, Vector2 position)
         {
-                   
+            if (Fader != null)
+                Fader.Update(gameTime, this);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -66,8 +73,29 @@ namespace SpriteEngine.Classes
 
         }
 
-       
 
+        public void TurnTransparent()
+        {
+            Fader.TriggerTurnTransparent();
+        }
+        public void TriggerOpaque()
+        {
+            Fader.TriggerReturnOpaque();
+        }
+        public void AddFader(float? minOpac, float? maxOpac, float? speed)
+        {
+            if (Fader != null)
+                throw new Exception($"Fader is already instantiated");
+            Fader = new Fader(minOpac, maxOpac, speed);
+        }
+
+        public void RemoveFader()
+        {
+            if (Fader == null)
+                throw (new Exception($"Fader does not exists"));
+
+            Fader = null;
+        }
         public void SetEffectToDefault()
         {
             SpriteEffects = SpriteEffectsAnchor;
@@ -77,6 +105,7 @@ namespace SpriteEngine.Classes
         {
             PrimaryColor = colorToUse;
         }
+
 
         
     }

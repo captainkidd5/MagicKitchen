@@ -12,11 +12,11 @@ namespace Globals.Classes
         public static bool Pause { get; set; }
 
         public static bool DebugVelcro { get; 
-            set; } = true;
+            set; } = false;
 
         public static bool DebugGrid { get; set; } = false;
-        public static bool ShowEntityPaths { get; set; } = true;
-        public static bool EnableShadows { get; set; } = true;
+        public static bool ShowEntityPaths { get; set; } = false;
+        public static bool EnableShadows { get; set; } = false;
 
         public static bool DisplayMousePosition { get; set; } = false;
 
