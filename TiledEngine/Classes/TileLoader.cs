@@ -47,7 +47,7 @@ namespace TiledEngine.Classes
         // <summary>
         /// This should only be called ONCE per save file.
         /// </summary>
-        public static void InitialLoad(ContentManager content)
+        public static void LoadContent(ContentManager content)
         {
             TmxMap worldMap = new TmxMap(MapPath + "LullabyTown.tmx");
             TmxMap interiorMap = new TmxMap(MapPath + "Restaurant.tmx");
@@ -126,9 +126,8 @@ namespace TiledEngine.Classes
             {
                 tilesToReturn.Add(new Tile[map.Width, map.Width]);
                 foreach (TmxLayerTile layerNameTile in allLayers[i].Tiles)
-                {
                     tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new Tile(layerNameTile.Gid, MapDepths[i], layerNameTile.X, layerNameTile.Y);
-                }
+
             }
             return tilesToReturn;
         }

@@ -74,7 +74,6 @@ namespace StageEngine.Classes
             CurrentStage.FirstEntryLoad();
 
             CurrentStage.LoadPortals();
-            //PortalManager.LoadStagePortals(CurrentStage.Name);
             PlayerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager);
 
             foreach (Character character in CharacterManager.AllCharacters)
@@ -113,7 +112,6 @@ namespace StageEngine.Classes
         public static void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
             StageStartSwitchEvent?.Invoke(.00055f);
-           // Flags.Pause = true;
             StageSwitchingTo = newStage;
             NewPlayerPositionOnStageSwitch = newPlayerPos;
             Flags.Pause = true;
@@ -168,9 +166,6 @@ namespace StageEngine.Classes
                 if (SoundFactory.AllowAmbientSounds && !SoundFactory.IsPlayingAmbient)
                     SoundFactory.PlayAmbientNoise(CurrentStage.Name);
             }
-           
-
-            //WasStageSwitchingLastFrame = Flags.IsStageLoading;
         }
 
         public static void Draw(SpriteBatch spriteBatch, GameTime gameTime)

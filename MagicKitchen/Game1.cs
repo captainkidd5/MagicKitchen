@@ -107,7 +107,7 @@ namespace MagicKitchen
             Texture2D buttonTexture = Content.Load<Texture2D>("UI/Buttons");
             Texture2D generalInterfaceTexture = Content.Load<Texture2D>("UI/GeneralInterface");
             TextFactory.Load(MainFont);
-            TileLoader.InitialLoad(Content);
+            TileLoader.LoadContent(Content);
             ItemFactory.LoadContent(Content);
             EntityFactory.Load(Content);
             CharacterManager.LoadCharacterData(GraphicsDevice, Content);

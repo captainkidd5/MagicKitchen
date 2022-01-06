@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using Globals;
+using Globals.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -19,7 +20,7 @@ namespace PhysicsEngine.Classes.Pathfinding
     /// this class should be aware of it and update its grid status to 1 (obstructed). Conversely, if an object is cleared from that location,
     /// this classs should be aware of it and update gridstatus back to 0 (unobstructed).
     /// </summary>
-    public class PathGrid
+    public class PathGrid : IDebuggable
     {
 
         private Rectangle Size;

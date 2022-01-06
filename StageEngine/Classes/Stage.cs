@@ -28,18 +28,18 @@ namespace StageEngine.Classes
         public string Name { get; private set; }
         internal bool InitialLoadDone { get; private set; }
 
-        private readonly StageData stageData;
+        private readonly StageData _stageData;
 
-        private readonly ContentManager content;
-        private readonly GraphicsDevice graphics;
-        private readonly Camera2D camera;
-        private readonly PenumbraComponent penumbra;
+        private readonly ContentManager _content;
+        private readonly GraphicsDevice _graphics;
+        private readonly Camera2D _camera;
+        private readonly PenumbraComponent _penumbra;
 
-        private string _ambientSoundPackageName => stageData.AmbientSoundPackageName;
+        private string _ambientSoundPackageName => _stageData.AmbientSoundPackageName;
         internal TileManager TileManager { get; private set; }
         private Rectangle MapRectangle { get; set; }
 
-        public string PathExtension => Name + ".dat";
+        private string _pathExtension => Name + ".dat";
 
         public List<Item> Items { get; set; }
 
@@ -47,61 +47,63 @@ namespace StageEngine.Classes
 
         public List<Entity> NPCs { get; set; }
 
-        public PathGrid PathGrid => TileManager.PathGrid;
+        private PathGrid _pathGrid => TileManager.PathGrid;
 
-        public bool CamLock => stageData.MapType == MapType.Exterior;
-        public Stage(StageData stageData,ContentManager content,
+        internal bool CamLock => _stageData.MapType == MapType.Exterior;
+        public Stage(StageData stageData, ContentManager content,
             GraphicsDevice graphics, Camera2D camera, PenumbraComponent penumbra)
         {
             Name = stageData.Name;
 
 
-            this.stageData = stageData;
+            _stageData = stageData;
 
-            this.content = content;
-            this.graphics = graphics;
-            this.camera = camera;
-            this.penumbra = penumbra;
+            _content = content;
+            _graphics = graphics;
+            _camera = camera;
+            _penumbra = penumbra;
             Player1 = PlayerManager.Player1;
             TileManager = new TileManager(graphics, content, camera, penumbra);
             Items = new List<Item>();
             NPCs = new List<Entity>();
-            
+
 
         }
 
-       
+
 
         public void Update(GameTime gameTime)
         {
             Clock.Update(gameTime);
             PlayerManager.Update(gameTime);
-            camera.Follow(Player1.Position, MapRectangle);
+            _camera.Follow(Player1.Position, MapRectangle);
 
             TileManager.Update(gameTime);
-            foreach(Item item in Items)
-            {
+
+            foreach (Item item in Items)
                 item.Update(gameTime);
-            }
             
+
         }
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            
-            penumbra.AmbientColor = Color.DarkSlateGray;
-            
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: camera.GetTransform(graphics));
-            graphics.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
-           // spriteBatch.Draw(Settings.DebugTexture, new Rectangle(0, 0, 500, 500), null,Color.White, 0f, Vector2.Zero, SpriteEffects.None, .99f);
-           PlayerManager.Draw(spriteBatch);
+
+            _penumbra.AmbientColor = Color.DarkSlateGray;
+
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: _camera.GetTransform(_graphics));
+            _graphics.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
+            PlayerManager.Draw(spriteBatch);
             CharacterManager.Draw(spriteBatch, Name);
             TileManager.Draw(spriteBatch);
-            foreach(Item item in Items)
-            {
+
+            foreach (Item item in Items)
                 item.Draw(spriteBatch);
-            }
+
+#if DEBUG
             if (Flags.DebugGrid)
-                PathGrid.DrawDebug(spriteBatch);
+                _pathGrid.DrawDebug(spriteBatch);
+#endif
+
             spriteBatch.End();
 
         }
@@ -110,7 +112,7 @@ namespace StageEngine.Classes
         /// </summary>
         public void LoadPortals()
         {
-            TileLoader.LoadStagePortals(stageData, TileManager);
+            TileLoader.LoadStagePortals(_stageData, TileManager);
             PortalManager.LoadNewStage(Name, TileManager);
         }
         /// <summary>
@@ -118,8 +120,8 @@ namespace StageEngine.Classes
         /// </summary>
         public void FirstEntryLoad()
         {
-            
-            TileLoader.InitializeStage(stageData, TileManager, content);
+
+            TileLoader.InitializeStage(_stageData, TileManager, _content);
             MapRectangle = TileManager.MapRectangle;
 
             InitialLoadDone = true;
@@ -129,22 +131,22 @@ namespace StageEngine.Classes
             //NPCs.Add(Caspar);
             SaveToIndividualFile();
         }
-        
+
 
         /// <summary>
         /// Saves to individual file, called whenever a player leaves a stage. 
         /// </summary>
         public void SaveToIndividualFile()
         {
-            File.WriteAllText(SaveLoadManager.CurrentSave.StageFilePath + @"\" + PathExtension, string.Empty);
-            BinaryWriter stageWriter = SaveLoadManager.GetCurrentSaveFileWriter(@"\Stages\" + PathExtension);
+            File.WriteAllText(SaveLoadManager.CurrentSave.StageFilePath + @"\" + _pathExtension, string.Empty);
+            BinaryWriter stageWriter = SaveLoadManager.GetCurrentSaveFileWriter(@"\Stages\" + _pathExtension);
             Save(stageWriter);
             SaveLoadManager.DestroyWriter(stageWriter);
         }
 
         public void LoadFromIndividualFile()
         {
-            BinaryReader stageReader = SaveLoadManager.GetCurrentSaveFileReader(@"\Stages\" + PathExtension);
+            BinaryReader stageReader = SaveLoadManager.GetCurrentSaveFileReader(@"\Stages\" + _pathExtension);
             LoadSave(stageReader);
             SaveLoadManager.DestroyReader(stageReader);
             MapRectangle = TileManager.MapRectangle;

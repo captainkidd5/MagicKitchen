@@ -19,10 +19,10 @@ namespace StageEngine.Classes
         internal readonly int xOffSet;
         internal readonly int yOffSet;
 
-        public string From { get; set; }
-        public string To { get; set; }
-        public Rectangle Rectangle { get; set; }
-        public bool MustBeClicked { get; set; }
+        internal string From { get; set; }
+        internal string To { get; set; }
+        private Rectangle Rectangle { get; set; }
+        private bool _mustBeClicked;
         public Portal(Rectangle rectangle, string from, string to, int xOffSet, int yOffSet, bool mustBeClicked) : base()
         {
             Move(new Vector2(rectangle.X, rectangle.Y));
@@ -31,7 +31,7 @@ namespace StageEngine.Classes
             To = to;
             this.xOffSet = xOffSet;
             this.yOffSet = yOffSet;
-            MustBeClicked = mustBeClicked;
+            _mustBeClicked = mustBeClicked;
         }
         public void Load(Vector2 position)
         {
@@ -52,7 +52,7 @@ namespace StageEngine.Classes
                MainHullBody.Body.Position = Position;
             if (PlayerInClickRange)
             {
-                if (!MustBeClicked)
+                if (!_mustBeClicked)
                 {
                     if (PlayerManager.Player1.AbleToWarp)
                     {
@@ -63,7 +63,7 @@ namespace StageEngine.Classes
 
                     return;
                 }
-                if (MustBeClicked && PlayerInClickRange && MouseHovering)
+                if (_mustBeClicked && PlayerInClickRange && MouseHovering)
                 {
                     Controls.CursorIconType = CursorIconType.Door;
                     Controls.UpdateCursor();
