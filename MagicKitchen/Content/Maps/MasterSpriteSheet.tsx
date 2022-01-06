@@ -2357,37 +2357,37 @@
  <tile id="1300">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1301">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1302">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1303">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1304">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1305">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1306">
@@ -2460,31 +2460,31 @@
  <tile id="1400">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1401">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1402">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1403">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1404">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1406">
@@ -2582,31 +2582,31 @@
  <tile id="1500">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1501">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1502">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1503">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1504">
   <properties>
    <property name="generate" value="Sand"/>
-   <property name="step" value="sand"/>
+   <property name="step" value="stepsand"/>
   </properties>
  </tile>
  <tile id="1506">

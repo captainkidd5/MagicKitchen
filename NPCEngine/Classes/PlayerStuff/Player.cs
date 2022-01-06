@@ -1,4 +1,5 @@
 ﻿using EntityEngine.Classes.HumanoidCreation;
+using EntityEngine.Classes.NPCStuff;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -40,6 +41,7 @@ namespace EntityEngine.Classes.PlayerStuff
             base.Load(content);
             GiveItem((int)15, (int)20);
             IsInStage = true;
+
             //LoadAnimations()
 
         }

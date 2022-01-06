@@ -1,5 +1,6 @@
 ﻿using EntityEngine.Classes.Animators;
 using EntityEngine.Classes.HumanoidCreation;
+using EntityEngine.Classes.NPCStuff;
 using EntityEngine.Classes.PlayerStuff;
 using Globals.Classes;
 using InputEngine.Classes.Input;
@@ -105,6 +106,8 @@ namespace EntityEngine.Classes
                 };
             CustomizeableAnimator customizeableAnimator = new CustomizeableAnimator(bodyPieces);
             LoadAnimations(customizeableAnimator);
+            StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
+
         }
 
         public override void Unload()

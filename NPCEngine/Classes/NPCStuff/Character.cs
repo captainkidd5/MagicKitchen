@@ -44,7 +44,6 @@ namespace EntityEngine.Classes.NPCStuff
         public override void Load(ContentManager content)
         {
             base.Load(content);
-            StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
             Behaviour = new RouteBehaviour(this, StatusIcon, Navigator, TileManager, ActiveSchedule, npcData.Schedules, null);
 
 
@@ -53,11 +52,7 @@ namespace EntityEngine.Classes.NPCStuff
         public override void Update(GameTime gameTime)
         {
 
-         
 
-            StatusIcon.Update(gameTime, Position);
-
-            //Velocity = new Vector2(1, 0);
             base.Update(gameTime);
 
             if(PlayerInClickRange && MouseHovering)

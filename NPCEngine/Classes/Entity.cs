@@ -138,6 +138,7 @@ namespace EntityEngine.Classes
             base.Update(gameTime);
 
             Behaviour.Update(gameTime, ref Velocity);
+            StatusIcon.Update(gameTime, Position);
 
             IsMoving = Velocity != Vector2.Zero;
 

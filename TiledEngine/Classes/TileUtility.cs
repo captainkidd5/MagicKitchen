@@ -192,7 +192,7 @@ namespace TiledEngine.Classes
         /// <param name="dictionary">Dictionary to search through.</param>
         private static float GetTileVariedLayerDepth(Vector2 position, Rectangle sourceRectangle, Dictionary<int, float> dictionary)
         {
-            float randomOffset = Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .01f;
+            float randomOffset = Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f;
             float yAxisLayerDepth = SpriteUtility.GetYAxisLayerDepth(position, sourceRectangle);
             float variedLayerDepth = yAxisLayerDepth + randomOffset;
             while (dictionary.ContainsValue(variedLayerDepth))
