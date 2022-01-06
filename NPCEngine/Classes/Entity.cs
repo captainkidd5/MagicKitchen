@@ -70,6 +70,8 @@ namespace EntityEngine.Classes
         public bool IsInStage { get; set; }
 
         protected Behaviour Behaviour { get; set; }
+
+        protected List<Category> BigSensorCollidesWithCategories { get; set; }
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
         {
             this.graphics = graphics;
@@ -88,7 +90,7 @@ namespace EntityEngine.Classes
             AbleToWarp = false;
             WarpTimer.SetNewTargetTime(TimeBetweenWarp);
             WarpTimer.ResetToZero();
-            IsInStage = CurrentStageName == stageTo;
+            //IsInStage = CurrentStageName == stageTo;
 
         }
         internal void LoadAnimations(Animator animator)
@@ -104,8 +106,8 @@ namespace EntityEngine.Classes
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.Player },
                 new List<Category>() { Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal }, OnCollides, OnSeparates, blocksLight: true, userData: this);
 
-
-            BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { Category.PlayerBigSensor }, new List<Category>() { Category.Item, Category.Portal, Category.Solid },
+            BigSensorCollidesWithCategories = new List<Category>() { Category.Item, Category.Portal, Category.Solid };
+            BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { Category.PlayerBigSensor }, BigSensorCollidesWithCategories,
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
 
         }
@@ -169,6 +171,11 @@ namespace EntityEngine.Classes
             //}
         }
 
+       
+        public bool IsInSameStageAs(Entity otherEntity)
+        {
+            return CurrentStageName == otherEntity.CurrentStageName;
+        }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             EntityAnimator.Draw(spriteBatch);
@@ -184,6 +191,57 @@ namespace EntityEngine.Classes
         {
             spriteBatch.DrawString(TextFactory.DefaultFont, $"{Name} \n {CurrentStageName}", CenteredPosition, Color.Red, 0f, Vector2.Zero, .5f, SpriteEffects.None, .99f);
 
+        }
+
+        protected void RemoveBigSensorCat(Category cat)
+        {
+            if (BigSensorCollidesWithCategories.Contains(cat))
+            {
+                BigSensorCollidesWithCategories.Remove(cat);
+                BigSensor.Body.SetCollidesWith(Category.All);
+
+                foreach (Category category in BigSensorCollidesWithCategories)
+                 BigSensor.Body.SetCollidesWith(category);
+            }
+        }
+        protected void AddBigSensorCat(Category cat)
+        {
+            if (BigSensorCollidesWithCategories.Contains(cat))
+            {
+                throw new Exception($"Big sensor already contains {cat}");
+
+            }
+            else
+            {
+                BigSensorCollidesWithCategories.Add(cat);
+
+                foreach (Category category in BigSensorCollidesWithCategories)
+                    BigSensor.Body.SetCollidesWith(category);
+            }
+                
+        }
+        protected void SetCollidesWith(List<Category> categories)
+        {
+            foreach (Category category in categories)
+                BigSensor.Body.SetCollisionCategory(category);
+        }
+
+        /// <summary>
+        /// Was previously not in player stage, now is. Activate main body and allow click interactions.
+        /// </summary>
+        public void AddedToPlayerStage()
+        {
+            MainHullBody.Body.IsSensor = false;
+            AddBigSensorCat(Category.Cursor);
+        }
+        /// <summary>
+        /// Was previously in player stage, no longer is. Disable collisions and remove click interactions.
+        /// </summary>
+        public void RemovedFromPlayerStage()
+        {
+            MainHullBody.Body.IsSensor = true;
+            //Shouldn't be able to click on entity when not in same stage.
+            RemoveBigSensorCat(Category.Cursor);
         }
         /// <summary>
         /// This should be called whenever a player switches stages. If this entity exists in the stage being switched TO, then its body should be loaded
@@ -201,10 +259,15 @@ namespace EntityEngine.Classes
             {
 
                 if (MainHullBody == null)
+                {
                     CreateBody(Position);
 
+                }
+
                 else
-                    MainHullBody.Body.IsSensor = false;
+                {
+                    AddedToPlayerStage();
+                }
             }
             else if (MainHullBody != null)
             {
@@ -213,7 +276,9 @@ namespace EntityEngine.Classes
                     Unload();
 
                 else
-                    MainHullBody.Body.IsSensor = true;
+                {
+                    RemovedFromPlayerStage();
+                }
 
             }
         }

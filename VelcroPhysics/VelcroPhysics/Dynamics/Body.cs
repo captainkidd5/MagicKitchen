@@ -591,8 +591,11 @@ namespace VelcroPhysics.Dynamics
             for (int i = 0; i < FixtureList.Count; i++)
             {
                 Fixture f = FixtureList[i];
-                if (f.CollidesWith == Category.All)
+                if (f.CollidesWith == Category.All || cat == Category.None)
+                {
                     f.CollidesWith = Category.None;
+                   // continue;
+                }
                 f.CollidesWith |= cat;
             }
 

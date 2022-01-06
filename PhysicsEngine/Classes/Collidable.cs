@@ -103,7 +103,7 @@ namespace PhysicsEngine.Classes
 
         protected virtual void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag(Category.Cursor))
+            if (fixtureB.CollisionCategories.HasFlag(Category.Cursor) && fixtureA.CollidesWith.HasFlag(Category.Cursor))
             {
                 MouseHovering = true;
                 

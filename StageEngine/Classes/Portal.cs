@@ -98,6 +98,11 @@ namespace StageEngine.Classes
                         entity.Warp(To, PortalManager.GetDestinationPosition(this), StageManager.GetStage(To).TileManager);
 
                         entity.IsInStage = entity.CurrentStageName == StageManager.CurrentStage.Name;
+                        if (entity.IsInStage)
+                            entity.AddedToPlayerStage();
+                        else
+                            entity.RemovedFromPlayerStage();
+                        
                     }
                 }
                 
