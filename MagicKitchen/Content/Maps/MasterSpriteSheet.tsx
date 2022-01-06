@@ -4908,6 +4908,11 @@
    <frame tileid="6546" duration="100"/>
   </animation>
  </tile>
+ <tile id="6546">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
  <tile id="6751">
   <properties>
    <property name="action" value="triggerQuest"/>
@@ -4983,6 +4988,11 @@
    <property name="newSource" value="-16,-32,48,48"/>
   </properties>
  </tile>
+ <tile id="7506">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
  <tile id="7527">
   <properties>
    <property name="newHitBox" value="-16,-32,48,48"/>
@@ -5011,6 +5021,36 @@
    <frame tileid="7804" duration="80"/>
    <frame tileid="7805" duration="80"/>
   </animation>
+ </tile>
+ <tile id="7801">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="7802">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="7803">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="7804">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="7805">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="7806">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
  </tile>
  <tile id="7934">
   <properties>
@@ -5461,7 +5501,7 @@
  </tile>
  <tile id="9635">
   <properties>
-   <property name="newHitBox" value="-64,-96,144,112"/>
+   <property name="newHitBox" value="-48,-80,116,96"/>
    <property name="newSource" value="-64,-112,144,128"/>
   </properties>
  </tile>
