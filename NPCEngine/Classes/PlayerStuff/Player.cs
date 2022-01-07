@@ -61,12 +61,12 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
 
-        public override void AddedToPlayerStage()
+        public override void RestoreEntityPhysics()
         {
             //base.AddedToPlayerStage();
         }
 
-        public override void RemovedFromPlayerStage()
+        public override void RemoveEntityPhysics()
         {
             //base.RemovedFromPlayerStage();
         }

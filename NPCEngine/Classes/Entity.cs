@@ -33,23 +33,26 @@ namespace EntityEngine.Classes
     /// </summary>
     public abstract class Entity : Collidable
     {
-        private readonly GraphicsDevice graphics;
-        private readonly ContentManager content;
+        private readonly GraphicsDevice _graphics;
+        private readonly ContentManager _content;
 
+        //Movement
         protected float StartingSpeed { get; set; } = 12f;
+        public float Speed { get; protected set; }
+
+        protected Vector2 Velocity;
+        public Direction DirectionMoving { get; set; }
+        public bool IsMoving { get; protected set; }
+
 
 
         //Entity gets the data representation of inventory while ui handles actual visuals
         public StorageContainer StorageContainer { get; set; }
 
-        public bool IsMoving { get; protected set; }
         protected HullBody BigSensor { get; set; }
         public string CurrentStageName { get; protected set; }
 
-        public float Speed { get; protected set; }
-
-        protected Vector2 Velocity;
-        public Direction DirectionMoving { get; set; }
+       
 
         internal Animator EntityAnimator { get; set; }
 
@@ -69,13 +72,15 @@ namespace EntityEngine.Classes
         protected Behaviour Behaviour { get; set; }
 
         protected List<Category> BigSensorCollidesWithCategories { get; set; }
+
+        //warp
         private WarpHelper _warpHelper;
         public bool AbleToWarp => _warpHelper.AbleToWarp;
 
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
         {
-            this.graphics = graphics;
-            this.content = content;
+            this._graphics = graphics;
+            this._content = content;
             Name = this.GetType().ToString();
             Navigator = new Navigator(Name);
             Speed = StartingSpeed;
@@ -97,8 +102,6 @@ namespace EntityEngine.Classes
 
         protected override void CreateBody(Vector2 position)
         {
-            //base.CreateBody(position);
-
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.Player },
                 new List<Category>() { Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal }, OnCollides, OnSeparates, blocksLight: true, userData: this);
 
@@ -107,21 +110,11 @@ namespace EntityEngine.Classes
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
 
         }
-
-        public void FadeInToStage()
-        {
-            EntityAnimator.FadeIn();
-        }
-
-        public void FadeOutOfStage()
-        {
-            EntityAnimator.FadeOut();
-        }
         protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnCollides(fixtureA, fixtureB, contact);
             //Collision logic changes based on current behaviour!
-           Behaviour.OnCollides(fixtureA,fixtureB, contact);
+            Behaviour.OnCollides(fixtureA, fixtureB, contact);
         }
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
@@ -149,15 +142,9 @@ namespace EntityEngine.Classes
             IsMoving = Velocity != Vector2.Zero;
 
             if (IsMoving)
-            {
                 DirectionMoving = UpdateDirection();
 
-            }
-
-            float deltaTime = (float)gameTime.ElapsedGameTime.Milliseconds;
-
-
-            MainHullBody.Body.LinearVelocity = Velocity * Speed * deltaTime;
+            MainHullBody.Body.LinearVelocity = Velocity * Speed * (float)gameTime.ElapsedGameTime.Milliseconds;
 
             //Position is changed so that our sprite knows where to draw, and position
             //snaps to where the physics system moved the main hullbody
@@ -168,26 +155,24 @@ namespace EntityEngine.Classes
                 MainHullBody.Hull.Position = Position;
 
             EntityAnimator.Update(gameTime, IsMoving, Position, DirectionMoving);
+            CheckOnWarpStatus();
+        }
+
+        private void CheckOnWarpStatus()
+        {
             if (_warpHelper.IsWarping)
             {
+                //if is warping and animator is now transparent, it means we're now ready to actually warp
                 if (EntityAnimator.IsTransparent())
                 {
-                    if (_warpHelper.FinishWarp(EntityAnimator, TileManager))
-                    {
-                        AddedToPlayerStage();
-
-                    }
+                    if (_warpHelper.FinishedWarpAndReady(EntityAnimator, TileManager))
+                        RestoreEntityPhysics();
                     else
-                    {
-                        RemovedFromPlayerStage();
-
-                    }
-
+                        RemoveEntityPhysics();
                 }
             }
         }
 
-       
         public bool IsInSameStageAs(Entity otherEntity)
         {
             return CurrentStageName == otherEntity.CurrentStageName;
@@ -195,18 +180,16 @@ namespace EntityEngine.Classes
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             EntityAnimator.Draw(spriteBatch);
-
 #if DEBUG
             if (Flags.ShowEntityPaths)
                 Behaviour.DrawDebug(spriteBatch);
 #endif
-
         }
 
         public virtual void DrawDebug(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(TextFactory.DefaultFont, $"{Name} \n {CurrentStageName}", CenteredPosition, Color.Red, 0f, Vector2.Zero, .5f, SpriteEffects.None, .99f);
-
+            spriteBatch.DrawString(TextFactory.DefaultFont, $"{Name} \n {CurrentStageName}",
+                CenteredPosition, Color.Red, 0f, Vector2.Zero, .5f, SpriteEffects.None, .99f);
         }
 
         protected void RemoveBigSensorCat(Category cat)
@@ -217,7 +200,7 @@ namespace EntityEngine.Classes
                 BigSensor.Body.SetCollidesWith(Category.All);
 
                 foreach (Category category in BigSensorCollidesWithCategories)
-                 BigSensor.Body.SetCollidesWith(category);
+                    BigSensor.Body.SetCollidesWith(category);
             }
         }
         protected void AddBigSensorCat(Category cat)
@@ -225,7 +208,6 @@ namespace EntityEngine.Classes
             if (BigSensorCollidesWithCategories.Contains(cat))
             {
                 throw new Exception($"Big sensor already contains {cat}");
-
             }
             else
             {
@@ -234,7 +216,7 @@ namespace EntityEngine.Classes
                 foreach (Category category in BigSensorCollidesWithCategories)
                     BigSensor.Body.SetCollidesWith(category);
             }
-                
+
         }
         protected void SetCollidesWith(List<Category> categories)
         {
@@ -245,7 +227,7 @@ namespace EntityEngine.Classes
         /// <summary>
         /// Was previously not in player stage, now is. Activate main body and allow click interactions.
         /// </summary>
-        public virtual void AddedToPlayerStage()
+        public virtual void RestoreEntityPhysics()
         {
             MainHullBody.Body.IsSensor = false;
             AddBigSensorCat(Category.Cursor);
@@ -253,7 +235,7 @@ namespace EntityEngine.Classes
         /// <summary>
         /// Was previously in player stage, no longer is. Disable collisions and remove click interactions.
         /// </summary>
-        public virtual void RemovedFromPlayerStage()
+        public virtual void RemoveEntityPhysics()
         {
             MainHullBody.Body.IsSensor = true;
             //Shouldn't be able to click on entity when not in same stage.
@@ -271,31 +253,20 @@ namespace EntityEngine.Classes
         {
             IsInStage = CurrentStageName == newStage;
 
-            if (CurrentStageName == newStage)
+            if (IsInStage)
             {
-
                 if (MainHullBody == null)
-                {
                     CreateBody(Position);
-
-                }
-
                 else
-                {
-                    AddedToPlayerStage();
-                }
+                    RestoreEntityPhysics();
             }
             else if (MainHullBody != null)
             {
-
                 if (fullyUnload)
                     Unload();
 
                 else
-                {
-                    RemovedFromPlayerStage();
-                }
-
+                    RemoveEntityPhysics();
             }
         }
 
@@ -311,28 +282,15 @@ namespace EntityEngine.Classes
         protected Direction UpdateDirection()
         {
             if (Velocity.X > .5f)
-            {
                 return Direction.Right; //right
-            }
             else if (Velocity.X < -.5f)
-            {
                 return Direction.Left; //left
-            }
             else if (Velocity.Y < .5f) // up
-            {
                 return Direction.Up;
-            }
-
             else if (Velocity.Y > .5f)
-            {
                 return Direction.Down;
-            }
             else
-            {
                 return Direction.Down;
-            }
-
-
         }
         public virtual void ClickInteraction()
         {
@@ -349,9 +307,6 @@ namespace EntityEngine.Classes
 
                 SoundModuleManager.PlaySpecificSound(soundName);
             }
-
-
-
         }
     }
 }

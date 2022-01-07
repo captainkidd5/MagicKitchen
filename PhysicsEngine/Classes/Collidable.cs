@@ -26,7 +26,7 @@ namespace PhysicsEngine.Classes
         public Vector2 CenteredPosition { get { return new Vector2(Position.X - XOffSet, Position.Y - YOffSet); } }
 
         //primary hull, defaults to HullBodies[0]
-        public HullBody MainHullBody { get; set; }
+        public HullBody MainHullBody { get; protected set; }
 
         private List<HullBody> HullBodies { get; set; }
 
@@ -50,12 +50,12 @@ namespace PhysicsEngine.Classes
             SoundModuleManager = new SoundModuleManager();
         }
 
-        public void AddPrimaryBody(HullBody body)
+        protected void AddPrimaryBody(HullBody body)
         {
             MainHullBody = body;
 
         }
-        public void AddSecondaryBody(HullBody body)
+        protected void AddSecondaryBody(HullBody body)
         {
             HullBodies.Add(body);
         }
@@ -84,22 +84,6 @@ namespace PhysicsEngine.Classes
         {
             Position = position;
         }
-
-
-        /// <summary>
-        /// Returns true if position enters circle of radius centered at target position
-        /// </summary>
-        /// <returns></returns>
-        public virtual bool WithinRangeOf(Vector2 target, float radius)
-        {
-            if (target.X > Position.X - radius && target.X < Position.X + radius &&
-            (target.Y > Position.Y - radius && target.Y < Position.Y + radius))
-            { return true; }
-
-            return false;
-        }
-
-
 
         protected virtual void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {

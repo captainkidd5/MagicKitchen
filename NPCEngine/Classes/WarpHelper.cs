@@ -16,7 +16,7 @@ namespace EntityEngine.Classes
         private const float TimeBetweenWarp = 6f;
         private readonly Entity entity;
 
-        public SimpleTimer WarpTimer { get; private set; }
+        private SimpleTimer WarpTimer { get; set; }
         public bool AbleToWarp { get; set; }
         public bool IsWarping { get; set; }
         public WarpHelper(Entity entity)
@@ -34,13 +34,14 @@ namespace EntityEngine.Classes
                 AbleToWarp = true;
         }
         /// <summary>
-        /// 
+        /// Fades animator in, and finally actually moves the npc to the new stage
         /// </summary>
         /// <param name="animator"></param>
         /// <param name="tileManager"></param>
         /// <returns>Returns true if entity is now in the players stage, else returns false.</returns>
-        public bool FinishWarp(Animator animator, TileManager tileManager)
+        public bool FinishedWarpAndReady(Animator animator, TileManager tileManager)
         {
+
             animator.FadeIn();
 
             entity.Move(_intermediateWarpPosition);
@@ -53,6 +54,13 @@ namespace EntityEngine.Classes
             
             return false;
         }
+        /// <summary>
+        /// Intiates warp and starts fade out. Will trigger Finish warp once timer runs down.
+        /// </summary>
+        /// <param name="animator"></param>
+        /// <param name="stageTo"></param>
+        /// <param name="positionTo"></param>
+        /// <param name="tileManager"></param>
         public void StartWarp(Animator animator, string stageTo, Vector2 positionTo, TileManager tileManager)
         {
             animator.FadeOut();
