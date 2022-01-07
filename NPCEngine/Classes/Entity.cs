@@ -204,10 +204,6 @@ namespace EntityEngine.Classes
 
                 }
             }
-            //if(CurrentBehaviour == CurrentBehaviour.Wander && !Navigator.HasActivePath)
-            //{
-
-            //}
         }
 
        
