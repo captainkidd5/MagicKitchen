@@ -60,9 +60,6 @@ namespace EntityEngine.Classes
 
         protected StatusIcon StatusIcon { get; set; }
 
-        private const float TimeBetweenWarp = 6f;
-        public SimpleTimer WarpTimer { get; private set; }
-        public bool AbleToWarp { get; private set; } = true;
 
         /// <summary>
         /// If entity is present at the current stage
@@ -72,8 +69,9 @@ namespace EntityEngine.Classes
         protected Behaviour Behaviour { get; set; }
 
         protected List<Category> BigSensorCollidesWithCategories { get; set; }
+        private WarpHelper _warpHelper;
+        public bool AbleToWarp => _warpHelper.AbleToWarp;
 
-        protected bool IsWarping { get; set; }
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
         {
             this.graphics = graphics;
@@ -81,39 +79,15 @@ namespace EntityEngine.Classes
             Name = this.GetType().ToString();
             Navigator = new Navigator(Name);
             Speed = StartingSpeed;
-            WarpTimer = new SimpleTimer(TimeBetweenWarp, false);
             Behaviour = new WanderBehaviour(this, StatusIcon, Navigator, null);
-
+            _warpHelper = new WarpHelper(this);
         }
 
-        private Vector2 _intermediateWarpPosition;
-        private string _intermediateStageTo;
-        public void FinishWarp()
-        {
-            EntityAnimator.FadeIn();
 
-            Move(_intermediateWarpPosition);
-            LoadToNewStage(_intermediateStageTo, TileManager);
-
-            IsWarping = false;
-
-            if (IsInStage)
-                AddedToPlayerStage();
-            else
-                RemovedFromPlayerStage();
-        }
         public void StartWarp(string stageTo, Vector2 positionTo, TileManager tileManager)
         {
-            EntityAnimator.FadeOut();
-
-            _intermediateStageTo = stageTo;
-            _intermediateWarpPosition = positionTo;
             TileManager = tileManager;
-            AbleToWarp = false;
-            WarpTimer.SetNewTargetTime(TimeBetweenWarp);
-            WarpTimer.ResetToZero();
-
-            IsWarping = true;
+            _warpHelper.StartWarp(EntityAnimator, stageTo, positionTo, tileManager);
         }
         internal void LoadAnimations(Animator animator)
         {
@@ -166,9 +140,7 @@ namespace EntityEngine.Classes
         }
         public virtual new void Update(GameTime gameTime)
         {
-            if (!AbleToWarp && WarpTimer.Run(gameTime))
-                AbleToWarp = true;
-           
+            _warpHelper.CheckWarp(gameTime);
             base.Update(gameTime);
 
             Behaviour.Update(gameTime, ref Velocity);
@@ -196,11 +168,20 @@ namespace EntityEngine.Classes
                 MainHullBody.Hull.Position = Position;
 
             EntityAnimator.Update(gameTime, IsMoving, Position, DirectionMoving);
-            if (IsWarping)
+            if (_warpHelper.IsWarping)
             {
                 if (EntityAnimator.IsTransparent())
                 {
-                    FinishWarp();
+                    if (_warpHelper.FinishWarp(EntityAnimator, TileManager))
+                    {
+                        AddedToPlayerStage();
+
+                    }
+                    else
+                    {
+                        RemovedFromPlayerStage();
+
+                    }
 
                 }
             }

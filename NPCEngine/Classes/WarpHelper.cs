@@ -18,7 +18,7 @@ namespace EntityEngine.Classes
 
         public SimpleTimer WarpTimer { get; private set; }
         public bool AbleToWarp { get; set; }
-
+        public bool IsWarping { get; set; }
         public WarpHelper(Entity entity)
         {
             WarpTimer = new SimpleTimer(TimeBetweenWarp, false);
@@ -28,6 +28,11 @@ namespace EntityEngine.Classes
         private Vector2 _intermediateWarpPosition;
         private string _intermediateStageTo;
 
+        public void CheckWarp(GameTime gameTime)
+        {
+            if (!AbleToWarp && WarpTimer.Run(gameTime))
+                AbleToWarp = true;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -44,13 +49,9 @@ namespace EntityEngine.Classes
             IsWarping = false;
 
             if (entity.IsInStage)
-            {
                 return true;
-            }
+            
             return false;
-                AddedToPlayerStage();
-            else
-                RemovedFromPlayerStage();
         }
         public void StartWarp(Animator animator, string stageTo, Vector2 positionTo, TileManager tileManager)
         {
@@ -63,24 +64,6 @@ namespace EntityEngine.Classes
             WarpTimer.ResetToZero();
 
             IsWarping = true;
-        }
-
-        /// <summary>
-        /// Was previously not in player stage, now is. Activate main body and allow click interactions.
-        /// </summary>
-        public virtual void AddedToPlayerStage(HullBody mainHullBody)
-        {
-            mainHullBody.Body.IsSensor = false;
-            AddBigSensorCat(Category.Cursor);
-        }
-        /// <summary>
-        /// Was previously in player stage, no longer is. Disable collisions and remove click interactions.
-        /// </summary>
-        public virtual void RemovedFromPlayerStage()
-        {
-            MainHullBody.Body.IsSensor = true;
-            //Shouldn't be able to click on entity when not in same stage.
-            RemoveBigSensorCat(Category.Cursor);
         }
     }
 }
