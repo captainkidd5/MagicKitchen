@@ -53,14 +53,14 @@ namespace UIEngine.Classes
             GeneralInterfaceTexture = generalInterface;
 
 
-            ToolBar = new ToolBar(graphics, content, null);
-            ClockBar = new ClockBar(graphics, content,  null);
+            ToolBar = new ToolBar(null,graphics, content, null);
+            ClockBar = new ClockBar(null,graphics, content,  null);
 
             ToolBar.Load(null);
 
-            CommandConsole = new CustomConsole(graphics, content, null);
-            TalkingWindow = new DialogueWindow(graphics, content,null);
-            Curtain = new Curtain(graphics, content, null);
+            CommandConsole = new CustomConsole(null,graphics, content, null);
+            TalkingWindow = new DialogueWindow(null, graphics, content,null);
+            Curtain = new Curtain(null, graphics, content, null);
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, CommandConsole, TalkingWindow, Curtain };
 
 

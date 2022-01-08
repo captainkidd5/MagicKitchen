@@ -25,8 +25,8 @@ namespace UIEngine.Classes
         private Inventory Inventory { get; set; }
 
 
-        public ToolBar(GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) :
-            base(graphicsDevice, content, position)
+        public ToolBar(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) :
+            base(interfaceSection, graphicsDevice, content, position)
         {
 
         }
@@ -45,8 +45,8 @@ namespace UIEngine.Classes
             //X and y actually don't matter, multiply by 10 because toolbar is 10 slots wide, at 64 pixels per slot
             Rectangle totalToolBarRectangle = new Rectangle(0, 0, 64 * 10, 64);
 
-            Inventory = inventory ?? new Inventory(graphics, content, PlayerManager.Player1.StorageContainer,
-                RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle));
+            Inventory = inventory ?? new Inventory(this, graphics, content,
+                RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle), PlayerManager.Player1.StorageContainer);
 
             ChildSections.Add(Inventory);
         }

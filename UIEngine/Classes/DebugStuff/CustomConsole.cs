@@ -43,11 +43,11 @@ namespace UIEngine.Classes.DebugStuff
             set; }
 
         public List<Command> Commands { get; set; }
-        public CustomConsole( GraphicsDevice graphicsDevice, ContentManager content, Vector2? position)
-            : base(graphicsDevice, content, position)
+        public CustomConsole(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position)
+            : base(interfaceSection,graphicsDevice, content, position)
         {
             Position = RectangleHelper.PlaceBottomLeftScreen(TypingBox.DefaultHeight);
-            typingBox = new TypingBox(graphicsDevice, content, this, Position, null, null, Color.White * .5f);
+            typingBox = new TypingBox(interfaceSection,graphicsDevice, content, Position, null, null, Color.White * .5f);
             typingBox.ExecuteCommand += ProcessCommand;
             DDWidnow = new DebugDetailWindow();
             ConsoleList = new ConsoleList(Position);

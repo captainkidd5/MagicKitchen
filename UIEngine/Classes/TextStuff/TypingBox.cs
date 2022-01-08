@@ -21,7 +21,7 @@ namespace UIEngine.Classes.TextStuff
     public delegate void ExecuteCommand(string command);
 
 
-    internal class TypingBox : InterfaceElement
+    internal class TypingBox : InterfaceSection
     {
         public static readonly int DefaultWidth = 256;
 
@@ -36,8 +36,8 @@ namespace UIEngine.Classes.TextStuff
         private List<Keys> AcceptableKeys { get; set; }
 
 
-        public TypingBox(GraphicsDevice graphicsDevice, ContentManager content, InterfaceSection interfaceSection, Vector2 position, int? width, int? height, Color? color)
-            : base(graphicsDevice, content, interfaceSection, position)
+        public TypingBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, int? width, int? height, Color? color)
+            : base(interfaceSection,graphicsDevice, content, position)
         {
             NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, width ?? DefaultWidth, height ?? DefaultHeight, null, color, null, null);
             SendButton = new Button(interfaceSection, graphicsDevice, content,
@@ -116,12 +116,12 @@ namespace UIEngine.Classes.TextStuff
                             TextBuilder.ClearText();
                             break;
                         //Up and Down used to scroll through previous commands.
-                        case Keys.Up:
-                            TextBuilder.SetText(TextFactory.CreateUIText((interfaceSection as CustomConsole).GetPreviousCommand(Direction.Up)));
-                            break;
-                        case Keys.Down:
-                            TextBuilder.SetText(TextFactory.CreateUIText((interfaceSection as CustomConsole).GetPreviousCommand(Direction.Down)));
-                            break;
+                        //case Keys.Up:
+                        //    TextBuilder.SetText(TextFactory.CreateUIText((interfaceSection as CustomConsole).GetPreviousCommand(Direction.Up)));
+                        //    break;
+                        //case Keys.Down:
+                        //    TextBuilder.SetText(TextFactory.CreateUIText((interfaceSection as CustomConsole).GetPreviousCommand(Direction.Down)));
+                        //    break;
                         default:
                             break;
                     }

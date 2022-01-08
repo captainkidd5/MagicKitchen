@@ -22,8 +22,8 @@ namespace UIEngine.Classes.TextStuff
     {
         private UINineSliceSprite BackdropSprite { get; set; }
         private TextBuilder TextBuilder { get; set; }
-        public DialogueWindow(GraphicsDevice graphicsDevice, ContentManager content,  Vector2? position) :
-           base(graphicsDevice, content, position)
+        public DialogueWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,  Vector2? position) :
+           base(interfaceSection, graphicsDevice, content, position)
         {
             Rectangle totalBackDropRectangleDimensions = new Rectangle(0, 240, Settings.ScreenWidth, 128);
             Position = RectangleHelper.PlaceBottomLeftScreen(totalBackDropRectangleDimensions);

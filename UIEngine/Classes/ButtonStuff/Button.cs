@@ -13,7 +13,7 @@ using static Globals.Classes.Settings;
 
 namespace UIEngine.Classes.ButtonStuff
 {
-    internal class Button : InterfaceElement
+    internal class Button : InterfaceSection
     {
 
         protected Rectangle SourceRectangle = new Rectangle(0, 0, 48, 48);
@@ -21,7 +21,7 @@ namespace UIEngine.Classes.ButtonStuff
         private readonly int DefaultButtonWidth = 64;
         private readonly int DefaultButtonHeight = 64;
 
-        public override  Rectangle HitBox { get => NineSliceSprite.HitBox; protected set => hitBox = value; }
+        public new  Rectangle HitBox { get => NineSliceSprite.HitBox; protected set => hitBox = value; }
 
 
         protected Action OnClick { get; set; }
@@ -41,7 +41,7 @@ namespace UIEngine.Classes.ButtonStuff
         public Button(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
              Vector2 position, Rectangle? sourceRectangle, Sprite? foregroundSprite, Action buttonAction = null,
             Texture2D texture = null, bool hoverTransparency = false)
-        : base(graphicsDevice, content, interfaceSection, position)
+        : base(interfaceSection, graphicsDevice, content, position)
         {
             if (sourceRectangle != null)
                 SourceRectangle = (Rectangle)sourceRectangle;
@@ -49,31 +49,18 @@ namespace UIEngine.Classes.ButtonStuff
             ForegroundSprite = foregroundSprite;
 
             Color = Color.White;
-            OnClick = new Action(ButtonAction);
-
 
             //Allows you to provide your own texture.
-            Texture2D spriteTexture;
-            if (texture == null)
-                spriteTexture = UserInterface.ButtonTexture;
-            else
-                spriteTexture = texture;
-
+            Texture2D spriteTexture = texture ?? UserInterface.ButtonTexture;
 
             NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, DefaultButtonWidth, DefaultButtonHeight, null, null, null, null, Layers.buildings);
 
-            if (buttonAction != null)
-                OnClick = buttonAction;
-            else
-                OnClick = new Action(ButtonAction);
+            OnClick = buttonAction ?? new Action(ButtonAction);
+
 
             HoverTransparency = hoverTransparency;
         }
 
-        protected override Layers SetUILayer()
-        {
-            return Layers.buildings;
-        }
 
         public void SwapForeGroundSprite(Sprite sprite)
         {
@@ -85,7 +72,7 @@ namespace UIEngine.Classes.ButtonStuff
         public Button(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
 
             Vector2 position, Rectangle? sourceRectangle)
-        : base(graphicsDevice, content, interfaceSection, position)
+        : base(interfaceSection,graphicsDevice, content, position)
         {
             if (sourceRectangle != null)
                 SourceRectangle = (Rectangle)sourceRectangle;

@@ -33,7 +33,8 @@ namespace UIEngine.Classes.Storage
 
         public int Capacity { get { return StorageContainer.Capacity; } set { StorageContainer.ChangeCapacity(value); } }
 
-        public Inventory(GraphicsDevice graphics, ContentManager content, StorageContainer? storageContainer, Vector2? position) : base(graphics, content, position)
+        public Inventory(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,  Vector2? position, StorageContainer? storageContainer) :
+           base(interfaceSection, graphicsDevice, content, position)
         {
             StorageContainer = storageContainer ?? new StorageContainer(10);
 
@@ -78,11 +79,11 @@ namespace UIEngine.Classes.Storage
 
             for (int i = 0; i < StorageContainer.Slots.Count; i++)
             {
-                InventorySlots.Add(new InventorySlot(graphics, content, this, StorageContainer.Slots[i],
+                InventorySlots.Add(new InventorySlot(this, graphics, content, StorageContainer.Slots[i],
                     new Vector2(Position.X + i * 64,
                     Position.Y + i % Rows * 64)));
             }
-            Elements.AddRange(InventorySlots);
+            ChildSections.AddRange(InventorySlots);
         }
         public override void Update(GameTime gameTime)
         {
@@ -107,19 +108,19 @@ namespace UIEngine.Classes.Storage
         //    return Inventory.remo
         //}
 
-        internal class InventorySlot : InterfaceElement
+        internal class InventorySlot : InterfaceSection
         {
             private readonly StorageSlot storageSlot;
             private Button Button { get; set; }
 
             private Text Text { get; set; }
 
-            public override bool Clicked { get => Button.Clicked; }
-            internal protected override bool Hovered { get => Button.Hovered; }
+            public new bool Clicked { get => Button.Clicked; }
+            internal protected new bool Hovered { get => Button.Hovered; }
 
-            public InventorySlot(GraphicsDevice graphicsDevice, ContentManager content
-                , InterfaceSection interfaceSection, StorageSlot storageSlot, Vector2 position)
-                : base(graphicsDevice, content, interfaceSection, position)
+            public InventorySlot(InterfaceSection interfaceSection,GraphicsDevice graphicsDevice, ContentManager content
+                 , StorageSlot storageSlot, Vector2 position)
+                : base(interfaceSection, graphicsDevice, content,position)
             {
                 this.storageSlot = storageSlot;
                 storageSlot.ItemChanged += ItemChanged;
@@ -135,7 +136,7 @@ namespace UIEngine.Classes.Storage
 
                 if (Clicked)
                 {
-                    (interfaceSection as Inventory).SelectSlot(this);
+                    (parentSection as Inventory).SelectSlot(this);
                     
                     storageSlot.ClickInteraction(Controls.HeldItem, Controls.PickUp, Controls.DropToSlot);
 

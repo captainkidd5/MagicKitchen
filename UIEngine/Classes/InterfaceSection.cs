@@ -6,28 +6,29 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Globals.Classes.Settings;
 
 namespace UIEngine.Classes
 {
     public abstract class InterfaceSection : Component
     {
+        internal protected readonly InterfaceSection parentSection;
 
         public bool IsActive { get; set; }
 
-        internal protected List<InterfaceElement> Elements { get; protected set; }
 
         //Some Interface sections can contain other interface sections
         internal protected List<InterfaceSection> ChildSections { get; protected set; }
         internal protected float LayerDepth { get; set; }
-        protected Vector2 Position { get; set; }
+        internal protected Vector2 Position { get;  set; }
         internal Rectangle HitBox { get; set; }
-        public bool Hovered { get; protected set; }
+        public virtual bool Hovered { get; protected set; }
         internal protected bool Clicked { get; set; }
 
-        public InterfaceSection( GraphicsDevice graphicsDevice, ContentManager content , Vector2? position) :
+        public InterfaceSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content , Vector2? position) :
             base(graphicsDevice, content)
         {
-            Elements = new List<InterfaceElement>();
+            parentSection = interfaceSection;
             Position = position ?? Vector2.Zero;
 
             ChildSections = new List<InterfaceSection>();
@@ -44,23 +45,21 @@ namespace UIEngine.Classes
             Hovered = false;
             Clicked = false;
 
-            foreach (InterfaceSection element in ChildSections)
+            //baseline check
+            if (Controls.IsHovering(ElementType.UI, HitBox))
             {
-                element.Update(gameTime);
-                if (element.Hovered)
-                {
-                    Hovered = true;
-                    if (element.Clicked)
-                        Clicked = true;
-                }
+                Hovered = true;
+                if (Controls.IsClicked)
+                    Clicked = true;
+                return;
             }
-            foreach (InterfaceElement element in Elements)
+            foreach (InterfaceSection section in ChildSections)
             {
-                element.Update(gameTime);
-                if (element.Hovered)
+                section.Update(gameTime);
+                if (section.Hovered)
                 {
                     Hovered = true;
-                    if (element.Clicked)
+                    if (section.Clicked)
                         Clicked = true;
                 }
             }
@@ -69,21 +68,10 @@ namespace UIEngine.Classes
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            foreach (InterfaceElement element in Elements)
-                element.Draw(spriteBatch);
+            foreach (InterfaceSection section in ChildSections)
+                section.Draw(spriteBatch);
             
         }
-
-        public virtual void AddElement(InterfaceElement interfaceElement)
-        {
-            Elements.Add(interfaceElement);
-        }
-
-        public virtual void RemoveElement(InterfaceElement interfaceElement)
-        {
-            Elements.Remove(interfaceElement);
-        }
-
         public virtual void Toggle()
         {
             IsActive = !IsActive;

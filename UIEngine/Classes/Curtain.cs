@@ -17,7 +17,7 @@ namespace UIEngine.Classes
         private float FadeRate { get; set; }
         private bool IsFadingIn { get; set; }
 
-        public Curtain(GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) : base(graphicsDevice, content, position)
+        public Curtain(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) : base(interfaceSection,graphicsDevice, content, position)
         {
         }
         public override void Load()
