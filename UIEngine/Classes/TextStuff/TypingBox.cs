@@ -29,7 +29,7 @@ namespace UIEngine.Classes.TextStuff
 
 
         public event ExecuteCommand ExecuteCommand;
-        private UINineSliceSprite NineSliceSprite { get; set; }
+        private NineSliceSprite NineSliceSprite { get; set; }
         private Button SendButton { get; set; }
         private TextBuilder TextBuilder { get; set; }
         private Text Text { get; set; }

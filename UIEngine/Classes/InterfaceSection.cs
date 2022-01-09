@@ -31,7 +31,7 @@ namespace UIEngine.Classes
         internal protected List<InterfaceSection> ChildSections { get; protected set; }
         internal protected float LayerDepth { get; set; }
         internal protected Vector2 Position { get;  set; }
-        internal Rectangle HitBox { get; set; }
+        internal virtual  Rectangle HitBox { get; set; }
         public virtual bool Hovered { get; protected set; }
         internal protected bool Clicked { get; set; }
 

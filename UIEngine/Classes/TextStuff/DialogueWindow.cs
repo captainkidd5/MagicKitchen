@@ -20,7 +20,7 @@ namespace UIEngine.Classes.TextStuff
 {
     internal class DialogueWindow : InterfaceSection
     {
-        private UINineSliceSprite BackdropSprite { get; set; }
+        private NineSliceSprite BackdropSprite { get; set; }
         private TextBuilder TextBuilder { get; set; }
         public DialogueWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,  Vector2? position) :
            base(interfaceSection, graphicsDevice, content, position)

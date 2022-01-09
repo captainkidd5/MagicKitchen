@@ -21,7 +21,7 @@ namespace UIEngine.Classes
     internal class ToolBar : InterfaceSection
     {
 
-        private UINineSliceSprite BackdropSprite { get; set; }
+        private NineSliceSprite BackdropSprite { get; set; }
         private Inventory Inventory { get; set; }
 
 
@@ -35,7 +35,7 @@ namespace UIEngine.Classes
         {
             base.Load();
 
-            Rectangle totalBackDropRectangleDimensions = new Rectangle(0, 240, 336, 64);
+            Rectangle totalBackDropRectangleDimensions = new Rectangle(0, 240, 800, 64);
             Position = RectangleHelper.PlaceBottomLeftScreen(totalBackDropRectangleDimensions);
             BackdropSprite = SpriteFactory.CreateNineSliceSprite(Position, 
                 totalBackDropRectangleDimensions.Width,

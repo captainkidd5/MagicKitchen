@@ -7,18 +7,25 @@ using System.Threading.Tasks;
 
 namespace SpriteEngine.Classes.Addons
 {
-    internal class Fader 
+    internal enum FaderState
+    {
+        Opaque = 1,
+        Turning_Opaque = 2,
+        Transparent = 3,
+        Turning_Transparent = 4
+        
+    }
+    internal class Fader : ISpriteAddon
     {
         private readonly float _minOpacity = .2f; //51
         private readonly float _maxOpcacity = 1f;
         private readonly float _speed = .005f;
         private float _opacity = 1f;
 
-        private bool _isTurningTransparent;
-        private bool _isReturningToOpaque;
 
-        internal bool IsOpaque => _opacity == 1;
-        internal bool Istransparent => _opacity == 0;
+        internal FaderState FaderState = FaderState.Opaque;
+        internal bool IsOpaque => FaderState == FaderState.Opaque;
+        internal bool Istransparent => FaderState == FaderState.Transparent;
 
         internal bool FlaggedForRemovalUponFinish;
         internal Fader(float? minOpac, float? maxOpac, float? speed)
@@ -27,12 +34,12 @@ namespace SpriteEngine.Classes.Addons
             _maxOpcacity = maxOpac ?? _maxOpcacity;
             _speed = speed ?? _speed;
         }
-        internal void Update(GameTime gameTime, BaseSprite sprite)
+        public void Update(GameTime gameTime, BaseSprite sprite)
         {
-            if (_isTurningTransparent)
+            if (FaderState == FaderState.Turning_Transparent)
                 TurnTransparent(gameTime,sprite);
 
-            else if (_isReturningToOpaque)
+            else if (FaderState == FaderState.Turning_Opaque)
                 ReturnToOpaque(gameTime,sprite);
         }
 
@@ -41,7 +48,7 @@ namespace SpriteEngine.Classes.Addons
             _opacity -= (float)gameTime.ElapsedGameTime.TotalMilliseconds * _speed;
             if (_opacity < _minOpacity)
             {
-                _isTurningTransparent = false;
+                FaderState = FaderState.Transparent;
                 _opacity = _minOpacity;
             }
 
@@ -56,7 +63,8 @@ namespace SpriteEngine.Classes.Addons
             _opacity += (float)gameTime.ElapsedGameTime.TotalMilliseconds * _speed;
             if (_opacity > _maxOpcacity)
             {
-                _isReturningToOpaque = false;
+                FaderState = FaderState.Opaque;
+
                 _opacity = _maxOpcacity;
             }
             sprite.UpdateColor(Color.White * _opacity);
@@ -66,14 +74,13 @@ namespace SpriteEngine.Classes.Addons
 
         internal void TriggerTurnTransparent()
         {
-            _isTurningTransparent = true;
-            _isReturningToOpaque = false;
+            FaderState = FaderState.Turning_Transparent;
         }
 
         internal void TriggerReturnOpaque()
         {
-            _isReturningToOpaque = true;
-            _isTurningTransparent = false;
+            FaderState = FaderState.Turning_Opaque;
+
         }
     }
 }

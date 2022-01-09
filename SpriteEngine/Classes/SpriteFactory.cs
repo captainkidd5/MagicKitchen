@@ -67,7 +67,7 @@ namespace SpriteEngine.Classes
                 randomizeLayers, flip, customLayer);
         }
 
-        public static UINineSliceSprite CreateNineSliceSprite(Vector2 position, int width, int height,
+        public static NineSliceSprite CreateNineSliceSprite(Vector2 position, int width, int height,
             Texture2D? texture = null, Color? primaryColor = null, Vector2? origin = null, float? scale = null,
             Layers layer = Layers.background)
         {
@@ -75,7 +75,7 @@ namespace SpriteEngine.Classes
                 layer, width, height, primaryColor ?? Color.White);
 
 
-            return new UINineSliceSprite(Graphics, Content, position, newNineSlice, texture ?? NineSliceTexture,
+            return new NineSliceSprite(Graphics, Content, position, newNineSlice, texture ?? NineSliceTexture,
                 primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Settings.GameScale, layer);
         }
 
@@ -83,7 +83,7 @@ namespace SpriteEngine.Classes
         /// Nine slice to support text
         /// </summary>
         /// <returns></returns>
-        public static UINineSliceSprite CreateNineSliceSprite(Vector2 position, Text text,
+        public static NineSliceSprite CreateNineSliceSprite(Vector2 position, Text text,
             Texture2D? texture = null, Color? primaryColor = null, Vector2? origin = null, float? scale = null,
             Layers layer = Layers.background)
         {
@@ -91,7 +91,7 @@ namespace SpriteEngine.Classes
                 layer, text, primaryColor ?? Color.White);
 
 
-            return new UINineSliceSprite(Graphics, Content, position, newNineSlice, texture ?? NineSliceTexture,
+            return new NineSliceSprite(Graphics, Content, position, newNineSlice, texture ?? NineSliceTexture,
                 primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Settings.GameScale, layer);
         }
 

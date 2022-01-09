@@ -21,11 +21,11 @@ namespace UIEngine.Classes.ButtonStuff
         private readonly int DefaultButtonWidth = 64;
         private readonly int DefaultButtonHeight = 64;
 
-        public new  Rectangle HitBox { get => NineSliceSprite.HitBox; protected set => hitBox = value; }
+        internal  override Rectangle HitBox { get => NineSliceSprite.HitBox;  set => hitBox = value; }
 
 
         protected Action OnClick { get; set; }
-        protected UINineSliceSprite NineSliceSprite { get; set; }
+        protected NineSliceSprite NineSliceSprite { get; set; }
 
         protected Sprite ForegroundSprite { get; set; }
         public Color Color { get; set; }

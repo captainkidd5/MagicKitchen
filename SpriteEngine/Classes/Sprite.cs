@@ -65,7 +65,6 @@ namespace SpriteEngine.Classes
         {
             base.Update(gameTime, position);
 
-            Position = position;
         }
 
 

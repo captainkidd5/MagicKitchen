@@ -18,7 +18,7 @@ namespace UIEngine.Classes
 {
     internal class ClockBar : InterfaceSection
     {
-        private UINineSliceSprite BackdropSprite { get; set; }
+        private NineSliceSprite BackdropSprite { get; set; }
 
         private Text ClockTimeText { get; set; }
 

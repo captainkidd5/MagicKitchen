@@ -15,7 +15,7 @@ namespace UIEngine.Classes.DebugStuff
     {
         private readonly int width = 240;
         private readonly int height = 168;
-        private UINineSliceSprite NineSliceSprite { get; set; }
+        private NineSliceSprite NineSliceSprite { get; set; }
 
         private Vector2 Position { get; set; }
         public bool IsActive { get; set; }

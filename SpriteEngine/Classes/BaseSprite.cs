@@ -72,6 +72,8 @@ namespace SpriteEngine.Classes
                 if (Fader.FlaggedForRemovalUponFinish && Fader.IsOpaque)
                     Fader = null;
             }
+            Position = position;
+
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
