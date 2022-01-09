@@ -24,20 +24,20 @@ namespace SpriteEngine.Classes
         private Texture2D Texture { get; set; }
         internal Color Color { get; set; }
 
-        private readonly int Unit = 16;
+        private readonly int _unit = 16;
 
-        private readonly Rectangle TopLeftCorner = new Rectangle(0, 0, 16, 16);
-        private readonly Rectangle TopEdge = new Rectangle(16, 0, 16, 16);
-        private readonly Rectangle TopRightCorner = new Rectangle(32, 0, 16, 16);
+        private readonly Rectangle _topLeftCorner = new Rectangle(0, 0, 16, 16);
+        private readonly Rectangle _topEdge = new Rectangle(16, 0, 16, 16);
+        private readonly Rectangle _topRightCorner = new Rectangle(32, 0, 16, 16);
 
-        private readonly Rectangle LeftEdge = new Rectangle(0, 16, 16, 16);
-        private readonly Rectangle Center = new Rectangle(16, 16, 16, 16);
-        private readonly Rectangle RightEdge = new Rectangle(32, 16, 16, 16);
+        private readonly Rectangle _leftEdge = new Rectangle(0, 16, 16, 16);
+        private readonly Rectangle _center = new Rectangle(16, 16, 16, 16);
+        private readonly Rectangle _rightEdge = new Rectangle(32, 16, 16, 16);
 
-        private readonly Rectangle BottomLeftCorner = new Rectangle(0, 32, 16, 16);
-        private readonly Rectangle BottomEdge = new Rectangle(16, 32, 16, 16);
-        private readonly Rectangle BottomRightCorner = new Rectangle(32, 32, 16, 16);
-        private readonly float uiLayer;
+        private readonly Rectangle _bottomLeftCorner = new Rectangle(0, 32, 16, 16);
+        private readonly Rectangle _bottomEdge = new Rectangle(16, 32, 16, 16);
+        private readonly Rectangle _bottomRightCorner = new Rectangle(32, 32, 16, 16);
+        private readonly float _uiLayer;
 
         internal Rectangle HitBox
         {
@@ -56,7 +56,7 @@ namespace SpriteEngine.Classes
             Color = color ?? Color.White;
             Texture = texture;
             Scale = Globals.Classes.Settings.GameScale;
-            this.uiLayer = Settings.GetLayerDepth(uiLayer);
+            _uiLayer = Settings.GetLayerDepth(uiLayer);
             int totalRequiredWidth = width;
             int totalRequireHeight = height;
             BuildRectangle(position, totalRequiredWidth, totalRequireHeight);
@@ -75,7 +75,7 @@ namespace SpriteEngine.Classes
             Color = color ?? Color.White;
 
             Texture = texture;
-            this.uiLayer = Settings.GetLayerDepth(uiLayer);
+            this._uiLayer = Settings.GetLayerDepth(uiLayer);
             Scale = Globals.Classes.Settings.GameScale;
 
             int totalRequiredWidth = (int)text.GetTextLength() + 48;
@@ -91,19 +91,19 @@ namespace SpriteEngine.Classes
         {
             int currentWidth;
             int currentHeight = 0;
-            currentWidth = AddRow(totalRequiredWidth, position, TopLeftCorner, TopEdge, TopRightCorner);
-            currentHeight += (int)(Unit * this.Scale);
-            position = new Vector2(position.X, position.Y + Unit * this.Scale);
+            currentWidth = AddRow(totalRequiredWidth, position, _topLeftCorner, _topEdge, _topRightCorner);
+            currentHeight += (int)(_unit * this.Scale);
+            position = new Vector2(position.X, position.Y + _unit * this.Scale);
 
-            while (currentHeight < totalRequireHeight - Unit)
+            while (currentHeight < totalRequireHeight - _unit)
             {
-                AddRow(totalRequiredWidth, position, LeftEdge, Center, RightEdge);
+                AddRow(totalRequiredWidth, position, _leftEdge, _center, _rightEdge);
                 currentHeight += (int)(16 * this.Scale);
-                position = new Vector2(position.X, position.Y + Unit * this.Scale);
+                position = new Vector2(position.X, position.Y + _unit * this.Scale);
             }
 
-            AddRow(totalRequiredWidth, position, BottomLeftCorner, BottomEdge, BottomRightCorner);
-            currentHeight += (int)(Unit * this.Scale);
+            AddRow(totalRequiredWidth, position, _bottomLeftCorner, _bottomEdge, _bottomRightCorner);
+            currentHeight += (int)(_unit * this.Scale);
             Position = new Vector2((int)RectanglePositions[0].X, (int)RectanglePositions[0].Y);
 
         }
@@ -121,10 +121,10 @@ namespace SpriteEngine.Classes
         {
             int totalWidth = 0;
             int startingPositionX = (int)position.X;
-            int numberNeeded = (int)(length / this.Scale / Unit);
+            int numberNeeded = (int)(length / this.Scale / _unit);
             AddRectangle(left, position);
             totalWidth += left.Width;
-            startingPositionX += (int)(Unit * this.Scale);
+            startingPositionX += (int)(_unit * this.Scale);
 
             numberNeeded--;
 
@@ -135,7 +135,7 @@ namespace SpriteEngine.Classes
                 AddRectangle(middle, newPosition);
                 totalWidth += middle.Width;
                 numberNeeded--;
-                startingPositionX += (int)(Unit * this.Scale);
+                startingPositionX += (int)(_unit * this.Scale);
             }
             AddRectangle(right, new Vector2(startingPositionX, position.Y));
             totalWidth += right.Width;
@@ -147,7 +147,7 @@ namespace SpriteEngine.Classes
         {
             for (int i = 0; i < CombinedRectangle.Count; i++)
             {
-               spriteBatch.Draw(Texture, RectanglePositions[i], CombinedRectangle[i], Color, 0f, Vector2.One, Scale, SpriteEffects.None, uiLayer);
+               spriteBatch.Draw(Texture, RectanglePositions[i], CombinedRectangle[i], Color, 0f, Vector2.One, Scale, SpriteEffects.None, _uiLayer);
             }
         }
 

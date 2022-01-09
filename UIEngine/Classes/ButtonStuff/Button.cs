@@ -82,15 +82,6 @@ namespace UIEngine.Classes.ButtonStuff
             OnClick = new Action(ButtonAction);
         }
 
-        internal void Lock()
-        {
-            Locked = true;
-        }
-
-        internal void Unlock()
-        {
-            Locked = false;
-        }
 
         public override void Update(GameTime gameTime)
         {

@@ -10,10 +10,20 @@ using static Globals.Classes.Settings;
 
 namespace UIEngine.Classes
 {
+    internal enum SectionState
+    {
+        None = 1,
+        Opening = 2,
+        Open = 3,
+        Closing = 4,
+        Closed = 5,
+       
+    }
     public abstract class InterfaceSection : Component
     {
         internal protected readonly InterfaceSection parentSection;
 
+        internal SectionState State;
         public bool IsActive { get; set; }
 
 
@@ -33,6 +43,7 @@ namespace UIEngine.Classes
 
             ChildSections = new List<InterfaceSection>();
             IsActive = true;
+            State = SectionState.None;
         }
 
         public virtual void Load()
