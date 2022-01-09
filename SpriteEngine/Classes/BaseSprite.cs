@@ -125,7 +125,14 @@ namespace SpriteEngine.Classes
             PrimaryColor = colorToUse;
         }
 
-
+        public void UpdateColor(float? r, float? g, float? b, float? a)
+        {
+            float r0 = r ?? PrimaryColor.R;
+            float g0 = g ?? PrimaryColor.G;
+            float b0 = b ?? PrimaryColor.B;
+            float a0 = a ?? PrimaryColor.A;
+            PrimaryColor = new Color(r0,g0,b0,a0);
+        }
         
     }
 }
