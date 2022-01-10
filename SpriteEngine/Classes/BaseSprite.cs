@@ -40,7 +40,7 @@ namespace SpriteEngine.Classes
         public bool IsOpaque => PrimaryColor.A == 255;
         public bool IsTransparent => PrimaryColor.A == 51;
 
-        Fader Fader { get; set; }
+        HueShifter Fader { get; set; }
 
         public BaseSprite(GraphicsDevice graphics, ContentManager content, Vector2 position, Texture2D texture, Color primaryColor,
              Vector2 origin, float scale, Layers layer) : base(graphics, content)
@@ -69,7 +69,7 @@ namespace SpriteEngine.Classes
             if (Fader != null)
             {
                 Fader.Update(gameTime, this);
-                if (Fader.FlaggedForRemovalUponFinish && Fader.IsOpaque)
+                if (Fader.FlaggedForRemovalUponFinish && Fader.IsNormal)
                     Fader = null;
             }
             Position = position;
@@ -84,17 +84,17 @@ namespace SpriteEngine.Classes
 
         public void TurnTransparent()
         {
-            Fader.TriggerTurnTransparent();
+            Fader.TriggerIntensifyEffect();
         }
         public void TriggerOpaque()
         {
-            Fader.TriggerReturnOpaque();
+            Fader.TriggerReduceEffect();
         }
         public void AddFader(float? minOpac, float? maxOpac, float? speed, bool immediatelyTriggerFade = false)
         {
             if (Fader != null)
                 throw new Exception($"Fader is already instantiated");
-            Fader = new Fader(minOpac, maxOpac, speed);
+            Fader = new HueShifter(PrimaryColor, maxOpac);
             if(immediatelyTriggerFade)
                 TurnTransparent(); 
         }
@@ -110,7 +110,7 @@ namespace SpriteEngine.Classes
             if (flagForRemoval)
             {
                 Fader.FlaggedForRemovalUponFinish = true;
-                Fader.TriggerReturnOpaque();
+                Fader.TriggerReduceEffect();
             }
             else
                 Fader = null;
@@ -125,12 +125,12 @@ namespace SpriteEngine.Classes
             PrimaryColor = colorToUse;
         }
 
-        public void UpdateColor(float? r, float? g, float? b, float? a)
+        public void UpdateColor(byte? r, byte? g, byte? b, byte? a)
         {
-            float r0 = r ?? PrimaryColor.R;
-            float g0 = g ?? PrimaryColor.G;
-            float b0 = b ?? PrimaryColor.B;
-            float a0 = a ?? PrimaryColor.A;
+            byte r0 = r ?? PrimaryColor.R;
+            byte g0 = g ?? PrimaryColor.G;
+            byte b0 = b ?? PrimaryColor.B;
+            byte a0 = a ?? PrimaryColor.A;
             PrimaryColor = new Color(r0,g0,b0,a0);
         }
         
