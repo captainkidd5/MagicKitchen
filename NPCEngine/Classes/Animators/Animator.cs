@@ -54,7 +54,7 @@ namespace EntityEngine.Classes.Animators
         internal virtual void FadeIn(bool flagForRemovalUponFinish = true)
         {
             foreach (AnimatedSprite sprite in AnimatedSprites)
-                sprite.RemoveFader(flagForRemovalUponFinish);
+                sprite.RemoveColorEffect(flagForRemovalUponFinish);
         }
 
         internal virtual bool IsOpaque(int bodyIndex = 0)

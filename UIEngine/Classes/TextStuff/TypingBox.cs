@@ -39,9 +39,9 @@ namespace UIEngine.Classes.TextStuff
         public TypingBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, int? width, int? height, Color? color)
             : base(interfaceSection,graphicsDevice, content, position)
         {
-            NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, width ?? DefaultWidth, height ?? DefaultHeight, null, color, null, null);
+            NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, width ?? DefaultWidth, height ?? DefaultHeight, UserInterface.ButtonTexture, color, null, null);
             SendButton = new Button(interfaceSection, graphicsDevice, content,
-                 position, null, null);
+                 position, null, null,null,null);
             TextBuilder = new TextBuilder(TextFactory.CreateUIText(string.Empty));
         }
         public override void Update(GameTime gameTime)

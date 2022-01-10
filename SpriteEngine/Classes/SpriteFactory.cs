@@ -14,14 +14,12 @@ namespace SpriteEngine.Classes
 {
     public static class SpriteFactory 
     {
-        private static Texture2D NineSliceTexture { get; set; }
         private static GraphicsDevice Graphics { get; set; }
 
         private static ContentManager Content { get; set; }
 
-        public static void LoadContent(GraphicsDevice graphics, ContentManager content, Texture2D nineSliceTexture)
+        public static void LoadContent(GraphicsDevice graphics, ContentManager content)
         {
-            NineSliceTexture = nineSliceTexture;
             Graphics = graphics;
             Content = content;
         }
@@ -68,14 +66,14 @@ namespace SpriteEngine.Classes
         }
 
         public static NineSliceSprite CreateNineSliceSprite(Vector2 position, int width, int height,
-            Texture2D? texture = null, Color? primaryColor = null, Vector2? origin = null, float? scale = null,
+            Texture2D texture, Color? primaryColor = null, Vector2? origin = null, float? scale = null,
             Layers layer = Layers.background)
         {
-            NineSlice newNineSlice = new NineSlice(position, texture ?? NineSliceTexture,
+            NineSlice newNineSlice = new NineSlice(position, texture,
                 layer, width, height, primaryColor ?? Color.White);
 
 
-            return new NineSliceSprite(Graphics, Content, position, newNineSlice, texture ?? NineSliceTexture,
+            return new NineSliceSprite(Graphics, Content, position, newNineSlice, texture,
                 primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Settings.GameScale, layer);
         }
 
@@ -84,14 +82,14 @@ namespace SpriteEngine.Classes
         /// </summary>
         /// <returns></returns>
         public static NineSliceSprite CreateNineSliceSprite(Vector2 position, Text text,
-            Texture2D? texture = null, Color? primaryColor = null, Vector2? origin = null, float? scale = null,
+            Texture2D texture, Color? primaryColor = null, Vector2? origin = null, float? scale = null,
             Layers layer = Layers.background)
         {
-            NineSlice newNineSlice = new NineSlice(position, texture ?? NineSliceTexture,
+            NineSlice newNineSlice = new NineSlice(position, texture,
                 layer, text, primaryColor ?? Color.White);
 
 
-            return new NineSliceSprite(Graphics, Content, position, newNineSlice, texture ?? NineSliceTexture,
+            return new NineSliceSprite(Graphics, Content, position, newNineSlice, texture,
                 primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Settings.GameScale, layer);
         }
 

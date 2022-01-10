@@ -29,6 +29,9 @@ namespace UIEngine.Classes
         private static List<InterfaceSection> s_activeSections;
         internal static Texture2D ButtonTexture { get; set; }
         internal static Texture2D GeneralInterfaceTexture { get; set; }
+
+        internal static Color[] ButtonTextureDat;
+        internal static Color[] GeneralInterfaceTexDat;
         //test
         internal static bool IsHovered { get; set; }
 
@@ -45,13 +48,17 @@ namespace UIEngine.Classes
 
 
 
-        public static void Load( GraphicsDevice graphics, ContentManager content  ,Texture2D buttonsTexture, Texture2D generalInterface)
+        public static void Load( GraphicsDevice graphics, ContentManager content)
         {
             s_graphics = graphics;
             s_content = content;
-            ButtonTexture = buttonsTexture;
-            GeneralInterfaceTexture = generalInterface;
+            ButtonTexture = content.Load<Texture2D>("UI/Buttons");
+            ButtonTextureDat = new Color[ButtonTexture.Width * ButtonTexture.Height];
+            ButtonTexture.GetData<Color>(ButtonTextureDat);
 
+            GeneralInterfaceTexture = content.Load<Texture2D>("UI/GeneralInterface");
+            GeneralInterfaceTexDat = new Color[GeneralInterfaceTexture.Width * GeneralInterfaceTexture.Height];
+            GeneralInterfaceTexture.GetData<Color>(GeneralInterfaceTexDat);
 
             ToolBar = new ToolBar(null,graphics, content, null);
             ClockBar = new ClockBar(null,graphics, content,  null);

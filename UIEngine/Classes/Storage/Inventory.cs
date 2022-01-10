@@ -124,7 +124,7 @@ namespace UIEngine.Classes.Storage
             {
                 this.storageSlot = storageSlot;
                 storageSlot.ItemChanged += ItemChanged;
-                Button = new Button(interfaceSection, graphicsDevice, content, position, null, null, hoverTransparency: true);
+                Button = new Button(interfaceSection, graphicsDevice, content, position, null, null,null,null, hoverTransparency: true);
                 Text = TextFactory.CreateUIText("0");
             }
 

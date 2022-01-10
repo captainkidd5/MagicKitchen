@@ -29,14 +29,16 @@ namespace SpriteEngine.Classes.Addons
         internal bool FlaggedForRemovalUponFinish;
 
         /// <summary>
-        /// 
+        /// Constructor for hue shifting
         /// </summary>
         /// <param name="originalColor">Normal, baseline color</param>
         /// <param name="targetColor">Color to change to</param>
-        public ColorShifter(Color originalColor, Color? targetColor)
+        public ColorShifter(Color originalColor, float? speed, Color? targetColor)
         {
             _originalColor = originalColor;
             _alternativeColor = targetColor ?? new Color(255,255,255,255);
+            _speed = speed ?? .5f;
+
         }
 
         /// <summary>

@@ -92,8 +92,7 @@ namespace SpriteEngine.Classes
 
         public void AddFaderEffect(float? maxOpac, float? speed, bool immediatelyTriggerFade = false)
         {
-            if (ColorShifter != null)
-                throw new Exception($"Fader is already instantiated");
+            CheckCE();
             ColorShifter = new ColorShifter(PrimaryColor, speed, maxOpac);
             if(immediatelyTriggerFade)
                 TriggerIntensityEffect(); 
@@ -101,18 +100,21 @@ namespace SpriteEngine.Classes
 
         public void AddSaturateEffect(Color? targetColor, bool immediatelyTriggerSaturation = false)
         {
-            if (ColorShifter != null)
-                throw new Exception($"Fader is already instantiated");
-            ColorShifter = new ColorShifter(PrimaryColor, targetColor);
+            CheckCE();
+            ColorShifter = new ColorShifter(PrimaryColor,null, targetColor);
             if (immediatelyTriggerSaturation)
                 TriggerIntensityEffect();
         }
-
+        private void CheckCE()
+        {
+            if (ColorShifter != null)
+                throw new Exception($"Color Effect is already instantiated");
+        }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="flagForRemoval">Will remove fader after fader has returned opacity to full</param>
-        public void RemoveFader(bool flagForRemoval = false)
+        public void RemoveColorEffect(bool flagForRemoval = false)
         {
             if (ColorShifter == null)
                 throw (new Exception($"Fader does not exists"));

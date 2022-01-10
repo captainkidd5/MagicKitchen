@@ -104,8 +104,6 @@ namespace MagicKitchen
             Clock.Load();
             List<StageData> stageData = Content.Load<List<StageData>>("Maps/StageData");
             MainFont = Content.Load<SpriteFont>("Fonts/Font");
-            Texture2D buttonTexture = Content.Load<Texture2D>("UI/Buttons");
-            Texture2D generalInterfaceTexture = Content.Load<Texture2D>("UI/GeneralInterface");
             TextFactory.Load(MainFont);
             TileLoader.LoadContent(Content);
             ItemFactory.LoadContent(Content);
@@ -117,13 +115,13 @@ namespace MagicKitchen
 
             StageManager.LoadContent(GraphicsDevice, Penumbra, Content, Camera);
             Controls.Load(Camera, GraphicsDevice, Content);
-            SpriteFactory.LoadContent(GraphicsDevice, Content, buttonTexture);
+            SpriteFactory.LoadContent(GraphicsDevice, Content);
 
 
             Settings.SetResolution(1280, 720);
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
 
-            UserInterface.Load(GraphicsDevice, Content, buttonTexture, generalInterfaceTexture);
+            UserInterface.Load(GraphicsDevice, Content);
             UserInterface.RegisterCharacterClickEvents();
             RenderTargetManager.Load(GraphicsDevice);
             SoundFactory.Load(Content);

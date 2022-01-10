@@ -147,7 +147,7 @@ namespace EntityEngine.Classes.HumanoidCreation
 
         internal virtual void FadeIn(bool flagForRemovalUponFinish)
         {
-            CurrentSet[CurrentDirection].RemoveFader(flagForRemovalUponFinish);
+            CurrentSet[CurrentDirection].RemoveColorEffect(flagForRemovalUponFinish);
 
         }
 
