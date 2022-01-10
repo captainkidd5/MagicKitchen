@@ -54,6 +54,7 @@ namespace SpriteEngine.Classes.Addons
         }
         public void Update(GameTime gameTime, BaseSprite sprite)
         {
+
             if(_hueState == ColorState.Intensifying)
                 IntensifyEffect(gameTime, sprite);
             else if(_hueState == ColorState.Reducing)

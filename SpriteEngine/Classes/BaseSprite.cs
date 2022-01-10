@@ -35,7 +35,6 @@ namespace SpriteEngine.Classes
 
         public SpriteEffects SpriteEffects { get; set; }
 
-        public IEnumerable<ISpriteAddon> SpriteAddons { get; set; }
 
         public bool IsOpaque => PrimaryColor.A == 255;
         public bool IsTransparent => PrimaryColor.A == 51;
