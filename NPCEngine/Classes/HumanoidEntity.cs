@@ -44,15 +44,7 @@ namespace EntityEngine.Classes
         protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnCollides(fixtureA, fixtureB, contact);
-            if (fixtureB.CollisionCategories == Category.Portal)
-            {
-                if (fixtureA.Body.UserData.GetType() == typeof(Player))
-                {
-                    Console.WriteLine("test");
-                    //StageManager.
 
-                }
-            }
             if (fixtureB.CollisionCategories == Category.Item)
             {
                 Item item = fixtureB.Body.UserData as Item;
@@ -89,11 +81,9 @@ namespace EntityEngine.Classes
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-        public virtual void Load(ContentManager content)
+        public override void LoadContent(ContentManager content)
         {
-            DirectionMoving = Direction.Down;
-            CreateBody(Position);
-            StorageContainer = new StorageContainer(10);
+            base.LoadContent(content);
             BodyPiece[] bodyPieces = new BodyPiece[]
                 {
                     new Pants(0),
@@ -107,7 +97,6 @@ namespace EntityEngine.Classes
                 };
             CustomizeableAnimator customizeableAnimator = new CustomizeableAnimator(bodyPieces);
             LoadAnimations(customizeableAnimator);
-            StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
 
         }
 

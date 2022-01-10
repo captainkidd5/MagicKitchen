@@ -82,7 +82,7 @@ namespace StageEngine.Classes
                 if (stage == null)
                     throw new Exception($"Stage {character.CurrentStageName} does not exist, check to make sure" +
                         $"both a tmx map with name and npcdata stage name match");
-                character.Load(content);
+                character.LoadContent(content);
                 character.LoadToNewStage(stage.Name, stage.TileManager);
                 stage.NPCs.Add(character);
                 character.PlayerSwitchedStage(CurrentStage.Name, false);

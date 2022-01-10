@@ -36,7 +36,7 @@ namespace UIEngine.Classes
         private bool _hoveredLastFrame;
 
         protected bool WasHovered => (_hoveredLastFrame && !Hovered);
-        internal protected bool Clicked { get; set; }
+        internal virtual protected bool Clicked { get; set; }
 
         public InterfaceSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content , Vector2? position) :
             base(graphicsDevice, content)

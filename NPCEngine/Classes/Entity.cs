@@ -35,59 +35,59 @@ namespace EntityEngine.Classes
     {
         private readonly GraphicsDevice _graphics;
         private readonly ContentManager _content;
-
         //Movement
         protected float StartingSpeed { get; set; } = 12f;
+        protected int StorageCapacity { get; set; } = 4;
         public float Speed { get; protected set; }
-
         protected Vector2 Velocity;
         public Direction DirectionMoving { get; set; }
         public bool IsMoving { get; protected set; }
-
-
-
         //Entity gets the data representation of inventory while ui handles actual visuals
         public StorageContainer StorageContainer { get; set; }
-
         protected HullBody BigSensor { get; set; }
-        public string CurrentStageName { get; protected set; }
-
-       
-
+        public string CurrentStageName { get; protected set; }   
         internal Animator EntityAnimator { get; set; }
-
         protected Navigator Navigator { get; set; }
         protected TileManager TileManager { get; set; }
-
         public string Name { get; protected set; }
-
         protected StatusIcon StatusIcon { get; set; }
-
-
         /// <summary>
         /// If entity is present at the current stage
         /// </summary>
         public bool IsInStage { get; set; }
-
         protected Behaviour Behaviour { get; set; }
-
         protected List<Category> BigSensorCollidesWithCategories { get; set; }
+
+        private protected EntityInventoryHandler InventoryHandler { get; set; }
 
         //warp
         private WarpHelper _warpHelper;
         public bool AbleToWarp => _warpHelper.AbleToWarp;
 
+        
+
+
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
         {
-            this._graphics = graphics;
-            this._content = content;
-            Name = this.GetType().ToString();
+            _graphics = graphics;
+            _content = content;
+            StorageContainer = new StorageContainer(StorageCapacity);
+
+            Name = GetType().ToString();
             Navigator = new Navigator(Name);
             Speed = StartingSpeed;
             Behaviour = new WanderBehaviour(this, StatusIcon, Navigator, null);
             _warpHelper = new WarpHelper(this);
         }
 
+        public virtual void LoadContent(ContentManager content)
+        {
+            CreateBody(Position);
+
+            DirectionMoving = Direction.Down;
+            StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
+
+        }
 
         public void StartWarp(string stageTo, Vector2 positionTo, TileManager tileManager)
         {
@@ -307,6 +307,21 @@ namespace EntityEngine.Classes
 
                 SoundModuleManager.PlaySpecificSound(soundName);
             }
+        }
+
+        //Items
+
+        /// <summary>
+        /// Give Entity a non-unique item. Non-unique items include stackable items, or items with full durability.
+        /// </summary>
+        public void GiveItem(int itemId, int amountToGive)
+        {
+            InventoryHandler.GiveItem(itemId, amountToGive);
+        }
+
+        public void TakeItem(int itemId, int amountToTake, bool dropInFrontOfEntity = false)
+        {
+            InventoryHandler.TakeItem(itemId, amountToTake, dropInFrontOfEntity);
         }
     }
 }

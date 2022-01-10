@@ -22,7 +22,7 @@ namespace EntityEngine.Classes.PlayerStuff
             Content = content;
 
             Players.Add(Player1);
-            Player1.Load(content);
+            Player1.LoadContent(content);
         }
         public static void Update(GameTime gameTime)
         {

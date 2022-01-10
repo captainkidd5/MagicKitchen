@@ -36,9 +36,9 @@ namespace EntityEngine.Classes.PlayerStuff
             
         }
 
-        public override void Load(ContentManager content)
+        public override void LoadContent(ContentManager content)
         {
-            base.Load(content);
+            base.LoadContent(content);
             GiveItem((int)15, (int)20);
             IsInStage = true;
 

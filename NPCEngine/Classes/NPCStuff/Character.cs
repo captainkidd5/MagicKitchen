@@ -41,9 +41,9 @@ namespace EntityEngine.Classes.NPCStuff
             YOffSet = 16;
         }
 
-        public override void Load(ContentManager content)
+        public override void LoadContent(ContentManager content)
         {
-            base.Load(content);
+            base.LoadContent(content);
             Behaviour = new RouteBehaviour(this, StatusIcon, Navigator, TileManager, ActiveSchedule, npcData.Schedules, null);
 
 
