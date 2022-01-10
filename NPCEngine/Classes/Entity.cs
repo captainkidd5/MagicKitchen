@@ -43,7 +43,6 @@ namespace EntityEngine.Classes
         public Direction DirectionMoving { get; set; }
         public bool IsMoving { get; protected set; }
         //Entity gets the data representation of inventory while ui handles actual visuals
-        public StorageContainer StorageContainer { get; set; }
         protected HullBody BigSensor { get; set; }
         public string CurrentStageName { get; protected set; }   
         internal Animator EntityAnimator { get; set; }
@@ -59,6 +58,7 @@ namespace EntityEngine.Classes
         protected List<Category> BigSensorCollidesWithCategories { get; set; }
 
         private protected EntityInventoryHandler InventoryHandler { get; set; }
+        public StorageContainer StorageContainer => InventoryHandler.StorageContainer;
 
         //warp
         private WarpHelper _warpHelper;
@@ -71,8 +71,7 @@ namespace EntityEngine.Classes
         {
             _graphics = graphics;
             _content = content;
-            StorageContainer = new StorageContainer(StorageCapacity);
-
+            InventoryHandler = new EntityInventoryHandler(StorageCapacity);
             Name = GetType().ToString();
             Navigator = new Navigator(Name);
             Speed = StartingSpeed;
@@ -314,11 +313,17 @@ namespace EntityEngine.Classes
         /// <summary>
         /// Give Entity a non-unique item. Non-unique items include stackable items, or items with full durability.
         /// </summary>
-        public void GiveItem(int itemId, int amountToGive)
+        public int GiveStackableItem(int itemId, int amountToGive)
         {
-            InventoryHandler.GiveItem(itemId, amountToGive);
+            return InventoryHandler.GiveItem(itemId, amountToGive);
         }
-
+        /// <summary>
+        /// Give Entity a non-unique item. Non-unique items include stackable items, or items with full durability.
+        /// </summary>
+        public int GiveUniqueItem(Item item, int amountToGive)
+        {
+            return InventoryHandler.GiveItem(item, amountToGive);
+        }
         public void TakeItem(int itemId, int amountToTake, bool dropInFrontOfEntity = false)
         {
             InventoryHandler.TakeItem(itemId, amountToTake, dropInFrontOfEntity);

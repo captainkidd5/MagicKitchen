@@ -14,20 +14,20 @@ using System.Text;
 using TextEngine.Classes;
 using TextEngine;
 using static Globals.Classes.Settings;
+using EntityEngine.Classes;
 
 namespace UIEngine.Classes.Storage
 {
     /// <summary>
     /// Graphical and interactable wrapper of storage container
     /// </summary>
-    internal class Inventory : InterfaceSection
+    internal class InventoryDisplay : InterfaceSection
     {
-        private Sprite _selectorSprite;
         private int _rows;
         private int _columns;
-        private StorageContainer StorageContainer { get; set; }
+        protected StorageContainer StorageContainer { get; set; }
 
-        private List<InventorySlot> InventorySlots { get; set; }
+        protected List<InventorySlot> InventorySlots { get; set; }
 
         internal InventorySlot SelectedSlot { get; set; }
 
@@ -35,17 +35,15 @@ namespace UIEngine.Classes.Storage
 
         public int Capacity { get { return StorageContainer.Capacity; } set { StorageContainer.ChangeCapacity(value); } }
 
-        public Inventory(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, StorageContainer? storageContainer) :
+        public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, Entity? entity) :
            base(interfaceSection, graphicsDevice, content, position)
         {
-            StorageContainer = storageContainer ?? new StorageContainer(10);
-
+            StorageContainer = entity.StorageContainer;
             _rows = Capacity <= 10 ? 1 : 2;
             _columns = 10;
             GenerateUI();
             SelectedSlot = InventorySlots[0];
-            _selectorSprite = SpriteFactory.CreateUISprite(SelectedSlot.Position, new Rectangle(272, 0, 64, 64),
-                UserInterface.ButtonTexture, null, layer: Settings.Layers.foreground);
+
         }
 
         public override void Load()
@@ -53,24 +51,7 @@ namespace UIEngine.Classes.Storage
             base.Load();
         }
 
-        /// <summary>
-        /// Changes selected slot based on the controls scroll wheel behavior
-        /// </summary>
-        private void UpdateSelectorIndex()
-        {
-            if (Controls.ScrollWheelIncreased)
-            {
-                SelectedSlot = InventorySlots[ScrollHelper.GetIndexFromScroll(
-                    Direction.Up, InventorySlots.IndexOf(SelectedSlot),
-                    InventorySlots.Count)];
-            }
-            else if (Controls.ScrollWheelDecreased)
-            {
-                SelectedSlot = InventorySlots[ScrollHelper.GetIndexFromScroll(
-                    Direction.Down, InventorySlots.IndexOf(SelectedSlot),
-                    InventorySlots.Count)];
-            }
-        }
+       
         public void SelectSlot(InventorySlot slotToSelect)
         {
             SelectedSlot = slotToSelect;
@@ -90,8 +71,7 @@ namespace UIEngine.Classes.Storage
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            UpdateSelectorIndex();
-            _selectorSprite.Update(gameTime, SelectedSlot.Position);
+            
 
 
         }
@@ -102,7 +82,6 @@ namespace UIEngine.Classes.Storage
                 slot.Draw(spriteBatch);
 
             }
-            _selectorSprite.Draw(spriteBatch);
         }
 
         //internal protected int RemoveItem(Item item)

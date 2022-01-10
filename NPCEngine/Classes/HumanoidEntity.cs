@@ -20,7 +20,7 @@ using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes
 {
-    public class HumanoidEntity : Entity, IStoreableEntity
+    public class HumanoidEntity : Entity
     {
        
         public HumanoidEntity(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
@@ -52,14 +52,14 @@ namespace EntityEngine.Classes
 
                 if (item.Unique)
                 {
-                    if (StorageContainer.FillUniqueItem(item))
+                    if (GiveUniqueItem(item, 1) == 0)
                     {
                         item.PickUp();
                     }
                 }
                 else
                 {
-                    int amtAbleToRemove = StorageContainer.FillStackableItem(item.Id, item.StackSize);
+                    int amtAbleToRemove = GiveStackableItem(item.Id, item.StackSize);
                     if (amtAbleToRemove == 0)
                     {
                         item.PickUp();
@@ -114,39 +114,6 @@ namespace EntityEngine.Classes
         {
             base.Draw(spriteBatch);
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>Returns amount unable to give</returns>
-        public virtual int GiveItem(Item item, int amountToGive)
-        {
-            if (item.Unique)
-            {
-                for (int i = 0; i < amountToGive; i++)
-                {
-                    if (!StorageContainer.FillUniqueItem(item))
-                        return amountToGive - i;
-                }
-                //Entity's inventory could hold all of given amount.
-                return 0;
-            }
-            else
-                return StorageContainer.FillStackableItem(item.Id, amountToGive);
-        }
 
-        public virtual int GiveItem(int itemId, int amountToGive)
-        {
-            return StorageContainer.FillStackableItem(itemId, amountToGive);
-        }
-
-        public virtual Item TakeItem(int itemId, int amountToTake, bool dropInFrontOfEntity = false)
-        {
-            Item item = StorageContainer.RemoveStackableItem(itemId, amountToTake);
-
-            //if (dropInFrontOfEntity)
-            //    item.Drop(Position);
-
-            return item;
-        }
     }
 }

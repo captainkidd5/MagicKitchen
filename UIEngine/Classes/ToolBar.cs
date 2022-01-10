@@ -22,7 +22,7 @@ namespace UIEngine.Classes
     {
 
        // private NineSliceSprite _backDropSprite;
-        private Inventory _inventory;
+        private InventoryDisplay _playerInventoryDisplay;
         //private static readonly Rectangle _totalBackDropRectangleDimensions = new Rectangle(0, 0, 800, 64);
         private int _totalToolbarSlots = 10;
         private int _toolBarSlotWidth = 64;
@@ -33,7 +33,7 @@ namespace UIEngine.Classes
 
         }
 
-        public void Load(Inventory inventory)
+        public void Load(InventoryDisplay inventory)
         {
             base.Load();
 
@@ -42,10 +42,10 @@ namespace UIEngine.Classes
             //X and y actually don't matter, multiply by 10 because toolbar is 10 slots wide, at 64 pixels per slot
             Rectangle totalToolBarRectangle = new Rectangle(0, 0, _toolBarSlotWidth * _totalToolbarSlots, _toolBarSlotWidth);
 
-            _inventory = inventory ?? new Inventory(this, graphics, content,
-                RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle), PlayerManager.Player1.StorageContainer);
+            _playerInventoryDisplay = inventory ?? new InventoryDisplay(this, graphics, content,
+                RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle), PlayerManager.Player1);
 
-            ChildSections.Add(_inventory);
+            ChildSections.Add(_playerInventoryDisplay);
         }
 
         public override void Update(GameTime gameTime)
@@ -65,7 +65,7 @@ namespace UIEngine.Classes
         /// </summary>
         private void TryEjectItem()
         {
-            Item itemToDrop = _inventory.SelectedSlot.RemoveOne();
+            Item itemToDrop = _playerInventoryDisplay.SelectedSlot.RemoveOne();
             if (itemToDrop != null)
             {
                 itemToDrop.Drop(PlayerManager.Player1.Position, PlayerManager.Player1.DirectionMoving, StageManager.CurrentStage.Items);
@@ -75,7 +75,7 @@ namespace UIEngine.Classes
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            _inventory.Draw(spriteBatch);
+            _playerInventoryDisplay.Draw(spriteBatch);
         }
     }
 }

@@ -43,7 +43,7 @@ namespace UIEngine.Classes.Storage
 
             if (Clicked)
             {
-                (parentSection as Inventory).SelectSlot(this);
+                (parentSection as InventoryDisplay).SelectSlot(this);
 
                 _storageSlot.ClickInteraction(Controls.HeldItem, Controls.PickUp, Controls.DropToSlot);
 

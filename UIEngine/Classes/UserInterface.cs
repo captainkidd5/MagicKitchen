@@ -13,6 +13,7 @@ using UIEngine.Classes.TextStuff;
 using EntityEngine.Classes.NPCStuff;
 using QuakeConsole;
 using UIEngine.Classes.SultanInterpreter;
+using UIEngine.Classes.Storage;
 
 namespace UIEngine.Classes
 {
@@ -45,6 +46,8 @@ namespace UIEngine.Classes
 
         internal static Curtain Curtain { get; set; }
 
+        internal static InventoryDisplay SecondaryInventoryDisplay { get; set; }
+
 
 
 
@@ -70,7 +73,7 @@ namespace UIEngine.Classes
             Curtain = new Curtain(null, graphics, content, null);
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, CommandConsole, TalkingWindow, Curtain };
 
-
+            SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null, null);
             s_activeSections = s_standardSections;
 
             foreach (InterfaceSection section in s_standardSections)

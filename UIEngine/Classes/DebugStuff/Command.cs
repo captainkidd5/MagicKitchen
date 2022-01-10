@@ -388,9 +388,9 @@ namespace UIEngine.Classes.DebugStuff
 
             }
 
-            int amountLeftOver = player.GiveItem((int)id, (int)countToGive);
+           // int amountLeftOver = player.GiveItem((int)id, (int)countToGive);
 
-            CommandConsole.Append($"Gave player {player.Name} {(int)countToGive - amountLeftOver} of {id}");
+           // CommandConsole.Append($"Gave player {player.Name} {(int)countToGive - amountLeftOver} of {id}");
 
         }
     }
