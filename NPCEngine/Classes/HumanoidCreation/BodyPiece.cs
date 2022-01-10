@@ -153,7 +153,7 @@ namespace EntityEngine.Classes.HumanoidCreation
 
         internal virtual void FadeOut()
         {
-            CurrentSet[CurrentDirection].AddFader(null, null, null, true);
+            CurrentSet[CurrentDirection].AddFaderEffect(null, null, true);
 
         }
 

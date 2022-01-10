@@ -48,7 +48,7 @@ namespace TiledEngine.Classes.TileAddons
         public void Load()
         {
             CreateBody(Position);
-            Tile.Sprite.AddFader(null, null, null);
+            Tile.Sprite.AddFaderEffect(null, null);
 
         }
 
@@ -68,14 +68,14 @@ namespace TiledEngine.Classes.TileAddons
         {
             if (Tile.Sprite != null)
 
-                Tile.Sprite.TurnTransparent();
+                Tile.Sprite.TriggerIntensityEffect();
             
         }
 
         public void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if(Tile.Sprite != null)
-             Tile.Sprite.TriggerOpaque();
+             Tile.Sprite.TriggerReduceEffect();
         }
 
         public void Interact()

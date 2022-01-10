@@ -29,7 +29,7 @@ namespace SpriteEngine.Classes
         public Rectangle HitBox { get; protected set; }
 
         /// <see cref="UpdateColor(Color)"/>
-        public Color PrimaryColor { get; protected set; }
+        public virtual Color PrimaryColor { get; protected set; }
 
         protected SpriteEffects SpriteEffectsAnchor { get; set; } //this is set when sprite is created and never changed
 
@@ -40,7 +40,7 @@ namespace SpriteEngine.Classes
         public bool IsOpaque => PrimaryColor.A == 255;
         public bool IsTransparent => PrimaryColor.A == 51;
 
-        HueShifter Fader { get; set; }
+        ColorShifter ColorShifter { get; set; }
 
         public BaseSprite(GraphicsDevice graphics, ContentManager content, Vector2 position, Texture2D texture, Color primaryColor,
              Vector2 origin, float scale, Layers layer) : base(graphics, content)
@@ -66,11 +66,11 @@ namespace SpriteEngine.Classes
 
         public virtual void Update(GameTime gameTime, Vector2 position)
         {
-            if (Fader != null)
+            if (ColorShifter != null)
             {
-                Fader.Update(gameTime, this);
-                if (Fader.FlaggedForRemovalUponFinish && Fader.IsNormal)
-                    Fader = null;
+                ColorShifter.Update(gameTime, this);
+                if (ColorShifter.FlaggedForRemovalUponFinish && ColorShifter.IsNormal)
+                    ColorShifter = null;
             }
             Position = position;
 
@@ -82,21 +82,31 @@ namespace SpriteEngine.Classes
         }
 
 
-        public void TurnTransparent()
+        public void TriggerIntensityEffect()
         {
-            Fader.TriggerIntensifyEffect();
+            ColorShifter.TriggerIntensifyEffect();
         }
-        public void TriggerOpaque()
+        public void TriggerReduceEffect()
         {
-            Fader.TriggerReduceEffect();
+            ColorShifter.TriggerReduceEffect();
         }
-        public void AddFader(float? minOpac, float? maxOpac, float? speed, bool immediatelyTriggerFade = false)
+
+        public void AddFaderEffect(float? maxOpac, float? speed, bool immediatelyTriggerFade = false)
         {
-            if (Fader != null)
+            if (ColorShifter != null)
                 throw new Exception($"Fader is already instantiated");
-            Fader = new HueShifter(PrimaryColor, maxOpac);
+            ColorShifter = new ColorShifter(PrimaryColor, speed, maxOpac);
             if(immediatelyTriggerFade)
-                TurnTransparent(); 
+                TriggerIntensityEffect(); 
+        }
+
+        public void AddSaturateEffect(Color? targetColor, bool immediatelyTriggerSaturation = false)
+        {
+            if (ColorShifter != null)
+                throw new Exception($"Fader is already instantiated");
+            ColorShifter = new ColorShifter(PrimaryColor, targetColor);
+            if (immediatelyTriggerSaturation)
+                TriggerIntensityEffect();
         }
 
         /// <summary>
@@ -105,15 +115,15 @@ namespace SpriteEngine.Classes
         /// <param name="flagForRemoval">Will remove fader after fader has returned opacity to full</param>
         public void RemoveFader(bool flagForRemoval = false)
         {
-            if (Fader == null)
+            if (ColorShifter == null)
                 throw (new Exception($"Fader does not exists"));
             if (flagForRemoval)
             {
-                Fader.FlaggedForRemovalUponFinish = true;
-                Fader.TriggerReduceEffect();
+                ColorShifter.FlaggedForRemovalUponFinish = true;
+                ColorShifter.TriggerReduceEffect();
             }
             else
-                Fader = null;
+                ColorShifter = null;
         }
         public void SetEffectToDefault()
         {

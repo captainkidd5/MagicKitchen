@@ -7,31 +7,36 @@ using System.Threading.Tasks;
 
 namespace SpriteEngine.Classes.Addons
 {
-    internal enum HueState
+    internal enum ColorState
     {
         Normal = 1,
         Intensifying = 2,
-        Saturated = 3,
+        FullyAltered = 3,
         Reducing = 4,
     }
-    internal class HueShifter : ISpriteAddon
+    internal class ColorShifter : ISpriteAddon
     {
         private const float ColorMaxVal = 255;
         private const float ColorMinVal = 0;
         private readonly float _speed = .5f;
-        private HueState _hueState = HueState.Normal;
+        private ColorState _hueState = ColorState.Normal;
         private Color _originalColor;
-        private Color _targetColor;
+        private Color _alternativeColor;
 
-        internal bool IsNormal => _hueState == HueState.Normal;
-        internal bool IsSaturated => _hueState == HueState.Saturated;
+        internal bool IsNormal => _hueState == ColorState.Normal;
+        internal bool FullyAltered => _hueState == ColorState.FullyAltered;
 
         internal bool FlaggedForRemovalUponFinish;
 
-        public HueShifter(Color originalColor, Color targetColor)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="originalColor">Normal, baseline color</param>
+        /// <param name="targetColor">Color to change to</param>
+        public ColorShifter(Color originalColor, Color? targetColor)
         {
             _originalColor = originalColor;
-            _targetColor = targetColor;
+            _alternativeColor = targetColor ?? new Color(255,255,255,255);
         }
 
         /// <summary>
@@ -39,29 +44,34 @@ namespace SpriteEngine.Classes.Addons
         /// </summary>
         /// <param name="originalColor"></param>
         /// <param name="transparentColor"></param>
-        public HueShifter(Color originalColor,  float? maxOpac)
+        public ColorShifter(Color originalColor, float? speed, float? maxOpac)
         {
             float opac = maxOpac ?? 51;
             maxOpac = maxOpac ?? 51;
+            _speed = speed ?? .5f;
             _originalColor = originalColor;
-            _targetColor = new Color((int)opac, (int)opac, (int)opac, (int)opac);
+            _alternativeColor = new Color((int)opac, (int)opac, (int)opac, (int)opac);
         }
         public void Update(GameTime gameTime, BaseSprite sprite)
         {
-            if(_hueState == HueState.Intensifying)
+            if(_hueState == ColorState.Intensifying)
                 IntensifyEffect(gameTime, sprite);
-            else if(_hueState == HueState.Reducing)
+            else if(_hueState == ColorState.Reducing)
                 ReduceEffect(gameTime, sprite);
         }
 
         private void IntensifyEffect(GameTime gameTime, BaseSprite sprite)
         {
-            UpdateColors(gameTime, sprite, _targetColor);
+            UpdateColors(gameTime, sprite, _alternativeColor);
 
-            if (sprite.PrimaryColor == _targetColor)
-                _hueState = HueState.Saturated;
+            if (sprite.PrimaryColor == _alternativeColor)
+                _hueState = ColorState.FullyAltered;
         }
 
+        /// <summary>
+        /// Checks rgba values to see if current sprite color matches them. If not, it will increase or decrease the values
+        /// each frame so they are closer to the target color.
+        /// </summary>
         private void UpdateColors(GameTime gameTime, BaseSprite sprite, Color target)
         {
             Color sColor = sprite.PrimaryColor;
@@ -95,6 +105,13 @@ namespace SpriteEngine.Classes.Addons
             }
         }
 
+        /// <summary>
+        /// Moves current color rgba val closer to target rgba val
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="col">Current color r, g, b, or a value</param>
+        /// <param name="target">Target color r, g, b, or a value</param>
+        /// <returns></returns>
         private byte CheckColorValue(GameTime gameTime, byte col, byte target)
         {
 
@@ -125,16 +142,16 @@ namespace SpriteEngine.Classes.Addons
             UpdateColors(gameTime, sprite, _originalColor);
 
             if (sprite.PrimaryColor == _originalColor)
-                _hueState = HueState.Normal;
+                _hueState = ColorState.Normal;
         }
         internal void TriggerIntensifyEffect()
         {
-            _hueState = HueState.Intensifying;
+            _hueState = ColorState.Intensifying;
         }
 
         internal void TriggerReduceEffect()
         {
-            _hueState = HueState.Reducing;
+            _hueState = ColorState.Reducing;
 
 
         }

@@ -33,6 +33,9 @@ namespace UIEngine.Classes
         internal protected Vector2 Position { get;  set; }
         internal virtual  Rectangle HitBox { get; set; }
         public virtual bool Hovered { get; protected set; }
+        private bool _hoveredLastFrame;
+
+        protected bool WasHovered => (_hoveredLastFrame && !Hovered);
         internal protected bool Clicked { get; set; }
 
         public InterfaceSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content , Vector2? position) :
@@ -53,6 +56,7 @@ namespace UIEngine.Classes
 
         public virtual void Update(GameTime gameTime)
         {
+            _hoveredLastFrame = Hovered;
             Hovered = false;
             Clicked = false;
 

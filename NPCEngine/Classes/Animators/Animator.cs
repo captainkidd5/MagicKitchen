@@ -49,7 +49,7 @@ namespace EntityEngine.Classes.Animators
         internal virtual void FadeOut()
         {
             foreach (AnimatedSprite sprite in AnimatedSprites)
-                sprite.AddFader(null, null, null,true);
+                sprite.AddFaderEffect(null, null,true);
         }
         internal virtual void FadeIn(bool flagForRemovalUponFinish = true)
         {

@@ -54,7 +54,7 @@ namespace UIEngine.Classes.ButtonStuff
             Texture2D spriteTexture = texture ?? UserInterface.ButtonTexture;
 
             NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, DefaultButtonWidth, DefaultButtonHeight, null, null, null, null, Layers.buildings);
-
+            NineSliceSprite.AddSaturateEffect(new Color(150, 150, 150, 150), false);
             OnClick = buttonAction ?? new Action(ButtonAction);
 
 
@@ -95,13 +95,15 @@ namespace UIEngine.Classes.ButtonStuff
                 NineSliceSprite.Update(gameTime, Position);
                 if (Hovered)
                 {
-                    
                     if (HoverTransparency)
-                        NineSliceSprite.Color = Color * .5f;
+                        NineSliceSprite.TriggerIntensityEffect();
+
 
                     if (Clicked)
                         OnClick();
                 }
+                else if (WasHovered)
+                    NineSliceSprite.TriggerReduceEffect();
             }
 
         }
