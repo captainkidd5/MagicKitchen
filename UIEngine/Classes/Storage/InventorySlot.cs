@@ -18,7 +18,7 @@ namespace UIEngine.Classes.Storage
     internal class InventorySlot : InterfaceSection
     {
         private readonly StorageSlot _storageSlot;
-        private Button Button { get; set; }
+        private NineSliceButton Button { get; set; }
 
         private Text Text { get; set; }
 
@@ -31,7 +31,7 @@ namespace UIEngine.Classes.Storage
         {
             _storageSlot = storageSlot;
             storageSlot.ItemChanged += ItemChanged;
-            Button = new Button(interfaceSection, graphicsDevice, content, position, null, null, null, null, hoverTransparency: true);
+            Button = new NineSliceButton(interfaceSection, graphicsDevice, content, position, null, null, null, null, hoverTransparency: true);
             Text = TextFactory.CreateUIText("0");
         }
 

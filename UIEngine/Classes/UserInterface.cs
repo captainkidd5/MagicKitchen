@@ -66,14 +66,14 @@ namespace UIEngine.Classes
             ToolBar = new ToolBar(null,graphics, content, null);
             ClockBar = new ClockBar(null,graphics, content,  null);
 
-            ToolBar.Load(null);
+            ToolBar.Load();
 
             CommandConsole = new CustomConsole(null,graphics, content, null);
             TalkingWindow = new DialogueWindow(null, graphics, content,null);
             Curtain = new Curtain(null, graphics, content, null);
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, CommandConsole, TalkingWindow, Curtain };
 
-            SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null, null);
+            SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null);
             s_activeSections = s_standardSections;
 
             foreach (InterfaceSection section in s_standardSections)

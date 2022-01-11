@@ -30,7 +30,7 @@ namespace UIEngine.Classes.TextStuff
 
         public event ExecuteCommand ExecuteCommand;
         private NineSliceSprite NineSliceSprite { get; set; }
-        private Button SendButton { get; set; }
+        private NineSliceButton SendButton { get; set; }
         private TextBuilder TextBuilder { get; set; }
         private Text Text { get; set; }
         private List<Keys> AcceptableKeys { get; set; }
@@ -40,7 +40,7 @@ namespace UIEngine.Classes.TextStuff
             : base(interfaceSection,graphicsDevice, content, position)
         {
             NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, width ?? DefaultWidth, height ?? DefaultHeight, UserInterface.ButtonTexture, color, null, null);
-            SendButton = new Button(interfaceSection, graphicsDevice, content,
+            SendButton = new NineSliceButton(interfaceSection, graphicsDevice, content,
                  position, null, null,null,null);
             TextBuilder = new TextBuilder(TextFactory.CreateUIText(string.Empty));
         }

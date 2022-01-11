@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UIEngine.Classes.ButtonStuff;
 using static Globals.Classes.Settings;
 
 namespace UIEngine.Classes.Storage
@@ -18,24 +19,34 @@ namespace UIEngine.Classes.Storage
     internal class PlayerInventoryDisplay : InventoryDisplay
     {
         private Sprite _selectorSprite;
+        private Button _openBigInventoryButton;
+        private Rectangle _openBigInventoryUpArrow = new Rectangle(112, 16, 16, 32);
 
-        public PlayerInventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, Entity entity) : base(interfaceSection, graphicsDevice, content, position, entity)
+        public PlayerInventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) : base(interfaceSection, graphicsDevice, content, position)
         {
-            _selectorSprite = SpriteFactory.CreateUISprite(SelectedSlot.Position, new Rectangle(272, 0, 64, 64),
-                UserInterface.ButtonTexture, null, layer: Settings.Layers.foreground);
+            
         }
 
+        public override void Load()
+        {
+            base.Load();
+            _selectorSprite = SpriteFactory.CreateUISprite(SelectedSlot.Position, new Rectangle(272, 0, 64, 64),
+                UserInterface.ButtonTexture, null, layer: Settings.Layers.foreground);
+            _openBigInventoryButton = new Button(this, graphics, content, new Vector2(200, 200), _openBigInventoryUpArrow, null, null, null);
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
             UpdateSelectorIndex();
             _selectorSprite.Update(gameTime, SelectedSlot.Position);
+            _openBigInventoryButton.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
             _selectorSprite.Draw(spriteBatch);
+            _openBigInventoryButton.Draw(spriteBatch);
         }
 
         /// <summary>

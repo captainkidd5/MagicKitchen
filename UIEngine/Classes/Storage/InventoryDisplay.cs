@@ -35,23 +35,29 @@ namespace UIEngine.Classes.Storage
 
         public int Capacity { get { return StorageContainer.Capacity; } set { StorageContainer.ChangeCapacity(value); } }
 
-        public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, Entity? entity) :
+        public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) :
            base(interfaceSection, graphicsDevice, content, position)
         {
-            StorageContainer = entity.StorageContainer;
-            _rows = Capacity <= 10 ? 1 : 2;
-            _columns = 10;
-            GenerateUI();
-            SelectedSlot = InventorySlots[0];
+           
 
         }
 
         public override void Load()
         {
             base.Load();
+
         }
 
-       
+        public void LoadNewEntityInventory(Entity? entity)
+        {
+            StorageContainer = entity.StorageContainer;
+            _rows = Capacity <= 10 ? 1 : 2;
+            _columns = 10;
+            GenerateUI();
+            SelectedSlot = InventorySlots[0];
+        }
+
+
         public void SelectSlot(InventorySlot slotToSelect)
         {
             SelectedSlot = slotToSelect;
