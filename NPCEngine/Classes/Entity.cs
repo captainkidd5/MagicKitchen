@@ -37,7 +37,7 @@ namespace EntityEngine.Classes
         private readonly ContentManager _content;
         //Movement
         protected float StartingSpeed { get; set; } = 12f;
-        protected int StorageCapacity { get; set; } = 4;
+        protected int StorageCapacity { get; set; }
         public float Speed { get; protected set; }
         protected Vector2 Velocity;
         public Direction DirectionMoving { get; set; }
@@ -71,7 +71,8 @@ namespace EntityEngine.Classes
         {
             _graphics = graphics;
             _content = content;
-            InventoryHandler = new EntityInventoryHandler(StorageCapacity);
+            StorageCapacity = 4;
+
             Name = GetType().ToString();
             Navigator = new Navigator(Name);
             Speed = StartingSpeed;
@@ -85,6 +86,8 @@ namespace EntityEngine.Classes
 
             DirectionMoving = Direction.Down;
             StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
+            InventoryHandler = new EntityInventoryHandler(StorageCapacity);
+
 
         }
 

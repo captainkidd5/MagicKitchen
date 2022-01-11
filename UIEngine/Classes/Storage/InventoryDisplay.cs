@@ -23,6 +23,7 @@ namespace UIEngine.Classes.Storage
     /// </summary>
     internal class InventoryDisplay : InterfaceSection
     {
+        private static readonly int _buttonWidth = 64;
         private int _rows;
         private int _columns;
         protected StorageContainer StorageContainer { get; set; }
@@ -31,6 +32,7 @@ namespace UIEngine.Classes.Storage
 
         internal InventorySlot SelectedSlot { get; set; }
 
+        internal int Width { get { return InventorySlots.Count * _buttonWidth; }}
 
 
         public int Capacity { get { return StorageContainer.Capacity; } set { StorageContainer.ChangeCapacity(value); } }
@@ -69,8 +71,8 @@ namespace UIEngine.Classes.Storage
             for (int i = 0; i < StorageContainer.Slots.Count; i++)
             {
                 InventorySlots.Add(new InventorySlot(this, graphics, content, StorageContainer.Slots[i],
-                    new Vector2(Position.X + i * 64,
-                    Position.Y + i % _rows * 64)));
+                    new Vector2(Position.X + i * _buttonWidth,
+                    Position.Y + i % _rows * _buttonWidth)));
             }
             ChildSections.AddRange(InventorySlots);
         }

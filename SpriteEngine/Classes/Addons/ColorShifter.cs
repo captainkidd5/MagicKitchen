@@ -18,7 +18,7 @@ namespace SpriteEngine.Classes.Addons
     {
         private const float ColorMaxVal = 255;
         private const float ColorMinVal = 0;
-        private readonly float _speed = .5f;
+        private readonly float _speed = 2f;
         private ColorState _hueState = ColorState.Normal;
         private Color _originalColor;
         private Color _alternativeColor;

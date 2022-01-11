@@ -20,8 +20,12 @@ namespace UIEngine.Classes.Storage
     {
         private Sprite _selectorSprite;
         private Button _openBigInventoryButton;
-        private Rectangle _openBigInventoryUpArrow = new Rectangle(112, 16, 16, 32);
+        private Rectangle _openBigInventoryUpArrowSourceRectangle = new Rectangle(112, 16, 16, 32);
+        private Rectangle _closeBigInventoryUpArrowSourceRectangle = new Rectangle(128, 16, 16, 32);
 
+
+
+        private bool _isOpen;
         public PlayerInventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) : base(interfaceSection, graphicsDevice, content, position)
         {
             
@@ -32,7 +36,7 @@ namespace UIEngine.Classes.Storage
             base.Load();
             _selectorSprite = SpriteFactory.CreateUISprite(SelectedSlot.Position, new Rectangle(272, 0, 64, 64),
                 UserInterface.ButtonTexture, null, layer: Settings.Layers.foreground);
-            _openBigInventoryButton = new Button(this, graphics, content, new Vector2(200, 200), _openBigInventoryUpArrow, null, null, null);
+            _openBigInventoryButton = new Button(this, graphics, content, new Vector2(Position.X + Width, Position.Y), _openBigInventoryUpArrowSourceRectangle, null, null,null, new Action(ToggleOpen));
             _openBigInventoryButton.Load();
         }
         public override void Update(GameTime gameTime)
@@ -67,6 +71,24 @@ namespace UIEngine.Classes.Storage
                     Direction.Down, InventorySlots.IndexOf(SelectedSlot),
                     InventorySlots.Count)];
             }
+        }
+
+        /// <summary>
+        /// Button action for arrow sprite, swaps between two sprites and opens/closes extended inventory
+        /// </summary>
+        private void ToggleOpen()
+        {
+            _isOpen = !_isOpen;
+            SwitchSpriteFromToggleStatus();
+        }
+
+        private void SwitchSpriteFromToggleStatus()
+        {
+            if (_isOpen)
+                _openBigInventoryButton.SwapBackgroundSprite(_closeBigInventoryUpArrowSourceRectangle);
+            else
+                _openBigInventoryButton.SwapBackgroundSprite(_openBigInventoryUpArrowSourceRectangle);
+
         }
     }
 }

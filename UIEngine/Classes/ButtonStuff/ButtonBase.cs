@@ -67,6 +67,19 @@ namespace UIEngine.Classes.ButtonStuff
             ForegroundSprite = sprite;
         }
 
+        public void SwapBackgroundSprite(Sprite sprite)
+        {
+            BackGroundSprite = sprite;
+        }
+        public void SwapForeGroundSprite(Rectangle newSourceRectangle)
+        {
+            ForegroundSprite.SwapSourceRectangle(newSourceRectangle);
+        }
+
+        public void SwapBackgroundSprite(Rectangle newSourceRectangle)
+        {
+            BackGroundSprite.SwapSourceRectangle(newSourceRectangle);
+        }
 
         public override void Update(GameTime gameTime)
         {
