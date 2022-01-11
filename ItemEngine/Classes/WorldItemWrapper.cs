@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Filtering;
+using VelcroPhysics.Dynamics;
 using static Globals.Classes.Settings;
 
 namespace ItemEngine.Classes
@@ -26,14 +28,19 @@ namespace ItemEngine.Classes
         {
             _item = item;
             Count = count;
-            Sprite = SpriteFactory.CreateWorldSprite(new Rectangle((int)_position.X, (int)_position.Y, _width, _width), Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet);
+            Sprite = SpriteFactory.CreateWorldSprite(new Rectangle((int)position.X, (int)position.Y, _width, _width), Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet);
+            CreateBody(position);
+            Move(position);
+
         }
         protected override void CreateBody(Vector2 position)
         {
-            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.Player },
+            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.Item },
                new List<Category>() { Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal }, OnCollides, OnSeparates, blocksLight: true, userData: this);
 
         }
+
+        
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -41,7 +48,17 @@ namespace ItemEngine.Classes
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            Sprite.Draw(spriteBatch);
+        }
 
+        protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            base.OnCollides(fixtureA, fixtureB, contact);
+        }
+
+        protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
         private static readonly float directionMagnitude = 10;

@@ -43,37 +43,7 @@ namespace EntityEngine.Classes
 
         protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            base.OnCollides(fixtureA, fixtureB, contact);
-
-            if (fixtureB.CollisionCategories == Category.Item)
-            {
-                Item item = fixtureB.Body.UserData as Item;
-
-
-                if (item.Unique)
-                {
-                    if (GiveUniqueItem(item, 1) == 0)
-                    {
-                        item.PickUp();
-                    }
-                }
-                else
-                {
-                    int amtAbleToRemove = GiveStackableItem(item.Id, item.StackSize);
-                    if (amtAbleToRemove == 0)
-                    {
-                        item.PickUp();
-                    }
-                    else
-                    {
-                        item.StackSize -= amtAbleToRemove;
-                    }
-                }
-
-
-            }
-
-         
+            base.OnCollides(fixtureA, fixtureB, contact);  
         }
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
