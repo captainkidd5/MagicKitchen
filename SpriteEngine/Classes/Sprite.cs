@@ -11,51 +11,20 @@ namespace SpriteEngine.Classes
 {
     public class Sprite : BaseSprite
     {
-
-
-        public Rectangle SourceRectangle { get; private set; }
-
-        public float Rotation { get; set; }
-
-        public float? CustomLayer { get; set; }
-
-
-        internal Sprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Vector2 position, Rectangle sourceRectangle, Texture2D texture, Color primaryColor,
-             Vector2 origin, float scale, float rotation, Layers layer,
-            bool randomizeLayers, bool flip, float? customLayer) : base(graphics,content, position, texture, primaryColor ,origin,scale,layer)
+        public Sprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Vector2 position,
+            Rectangle sourceRectangle, Texture2D texture, Color primaryColor, Vector2 origin, float scale,
+            float rotation, Layers layer, bool randomizeLayers, bool flip, float? customLayer)
+            : base(graphics, content, spriteType, position, sourceRectangle, texture, primaryColor, origin, scale, rotation, layer, randomizeLayers, flip, customLayer)
         {
-            SharedConstructor(spriteType, sourceRectangle, rotation, layer, randomizeLayers, flip, customLayer);
         }
 
-  
-
-        internal Sprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Rectangle destinationRectangle, Rectangle sourceRectangle, Texture2D texture, Color primaryColor,
-             Vector2 origin, float scale, float rotation, Layers layer, 
-            bool randomizeLayers, bool flip, float? customLayer) : base(graphics, content, texture,destinationRectangle, primaryColor, origin, scale, layer)
+        public Sprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Rectangle destinationRectangle,
+            Rectangle sourceRectangle, Texture2D texture, Color primaryColor, Vector2 origin, float scale, float rotation,
+            Layers layer, bool randomizeLayers, bool flip, float? customLayer)
+            : base(graphics, content, spriteType, destinationRectangle, sourceRectangle, texture, primaryColor, origin, scale, rotation, layer, randomizeLayers, flip, customLayer)
         {
-            SharedConstructor(spriteType, sourceRectangle, rotation, layer, randomizeLayers, flip, customLayer);
         }
 
-        private void SharedConstructor(ElementType spriteType, Rectangle sourceRectangle, float rotation, Layers layer, bool randomizeLayers, bool flip, float? customLayer)
-        {
-            SpriteType = spriteType;
-            SourceRectangle = sourceRectangle;
-
-
-            if (randomizeLayers)
-                this.LayerDepth = SpriteUtility.GetSpriteVariedLayerDepth(layer);
-            else
-                this.LayerDepth = Settings.GetLayerDepth(layer);
-
-            if (customLayer != null)
-                CustomLayer = customLayer;
-            if (flip)
-                SpriteEffectsAnchor = SpriteEffects.FlipHorizontally;
-            else
-                SpriteEffectsAnchor = SpriteEffects.None;
-
-            Rotation = rotation;
-        }
         public void Load(ContentManager contentManager)
         {
 

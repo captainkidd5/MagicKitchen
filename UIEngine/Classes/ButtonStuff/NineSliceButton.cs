@@ -27,17 +27,6 @@ namespace UIEngine.Classes.ButtonStuff
             BackGroundSprite.AddSaturateEffect(sampleCol, false);     
         }
 
-
-        //If locked, button will not respond to hover or click events.
-        private bool Locked { get; set; }
-        private bool HoverTransparency { get; set; }
-
-        /// <summary>
-        /// Nineslice constructor
-        /// </summary>
-
-   
-
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

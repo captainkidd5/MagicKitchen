@@ -35,7 +35,7 @@ namespace UIEngine.Classes.ButtonStuff
         /// </summary>
 
         public ButtonBase(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
-             Vector2 position, Rectangle? sourceRectangle, Sprite? foregroundSprite, Texture2D? texture, Point? samplePoint, Action buttonAction = null, bool hoverTransparency = false)
+             Vector2 position, Rectangle? sourceRectangle, Sprite? foregroundSprite, Texture2D? texture, Point? samplePoint, Action buttonAction = null, bool hoverTransparency = true)
         : base(interfaceSection, graphicsDevice, content, position)
         {
             if (sourceRectangle != null)
@@ -56,6 +56,7 @@ namespace UIEngine.Classes.ButtonStuff
         public override void Load()
         {
             base.Load();
+            HitBox = BackGroundSprite.HitBox;
 
 
         }

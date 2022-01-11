@@ -33,6 +33,7 @@ namespace UIEngine.Classes.Storage
             _selectorSprite = SpriteFactory.CreateUISprite(SelectedSlot.Position, new Rectangle(272, 0, 64, 64),
                 UserInterface.ButtonTexture, null, layer: Settings.Layers.foreground);
             _openBigInventoryButton = new Button(this, graphics, content, new Vector2(200, 200), _openBigInventoryUpArrow, null, null, null);
+            _openBigInventoryButton.Load();
         }
         public override void Update(GameTime gameTime)
         {

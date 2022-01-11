@@ -17,7 +17,7 @@ namespace UIEngine.Classes.ButtonStuff
     {
         public Button(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2 position, Rectangle? sourceRectangle, Sprite foregroundSprite, Texture2D texture,
-            Point? samplePoint, Action buttonAction = null, bool hoverTransparency = false) :
+            Point? samplePoint, Action buttonAction = null, bool hoverTransparency = true) :
             base(interfaceSection, graphicsDevice, content, position, sourceRectangle, foregroundSprite, texture, samplePoint, buttonAction, hoverTransparency)
         {
             BackGroundSprite = SpriteFactory.CreateUISprite(position, sourceRectangle.Value,ButtonTexture, null, null, 2f);
@@ -25,6 +25,17 @@ namespace UIEngine.Classes.ButtonStuff
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
 
 
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
         }
     }
 }

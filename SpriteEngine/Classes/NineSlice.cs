@@ -16,6 +16,8 @@ namespace SpriteEngine.Classes
         internal int Width { get; private set; }
         internal int Height { get; private set; }
 
+
+        public Rectangle Rectangle => new Rectangle((int)Position.X, (int)Position.Y, Width, Height);
         private Vector2 Position { get; set; }
 
         private float Scale { get; set; }
@@ -39,10 +41,6 @@ namespace SpriteEngine.Classes
         private readonly Rectangle _bottomRightCorner = new Rectangle(32, 32, 16, 16);
         private readonly float _uiLayer;
 
-        internal Rectangle HitBox
-        {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, Width, Height); }
-        }
         /// <summary>
         /// Create a dynamic UI rectangle of any size.
         /// </summary>

@@ -16,17 +16,23 @@ namespace SpriteEngine.Classes
         protected ElementType SpriteType { get; set; }
         protected Texture2D Texture { get; set; }
         protected Vector2 Position { get; set; }
+        public Rectangle SourceRectangle { get; protected set; }
 
         public Rectangle? DestinationRectangle { get; set; }
         public Vector2 Origin { get; set; }
 
         protected float Scale { get; set; }
+        public float Rotation { get; set; }
 
+        public float? CustomLayer { get; set; }
         protected float LayerDepth { get; set; }
 
-        public int Width => (int)(HitBox.Width * Scale);
-        public int Height => (int)(HitBox.Height * Scale);
-        public Rectangle HitBox { get; protected set; }
+        public int Width { get { if (DestinationRectangle == null) return SourceRectangle.Width; else return DestinationRectangle.Value.Width; } }
+        public int Height { get { if (DestinationRectangle == null) return SourceRectangle.Height; else return DestinationRectangle.Value.Height; } }
+        public virtual Rectangle HitBox
+        {
+            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)(Width * Scale), (int)(Height * Scale)); }
+        }
 
         /// <see cref="UpdateColor(Color)"/>
         public virtual Color PrimaryColor { get; protected set; }
@@ -41,18 +47,22 @@ namespace SpriteEngine.Classes
 
         ColorShifter ColorShifter { get; set; }
 
-        public BaseSprite(GraphicsDevice graphics, ContentManager content, Vector2 position, Texture2D texture, Color primaryColor,
-             Vector2 origin, float scale, Layers layer) : base(graphics, content)
+        public BaseSprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Vector2 position, Rectangle sourceRectangle, Texture2D texture, Color primaryColor,
+             Vector2 origin, float scale, float rotation, Layers layer,
+            bool randomizeLayers, bool flip, float? customLayer) : base(graphics, content)
         {
             Position = position;
             Texture = texture;
             PrimaryColor = primaryColor ;
             Origin = origin ;
             Scale = scale;
+            SharedConstructor(spriteType, sourceRectangle, rotation, layer, randomizeLayers, flip, customLayer);
+
         }
 
-        public BaseSprite(GraphicsDevice graphics, ContentManager content, Texture2D texture, Rectangle destinationRectangle, Color primaryColor,
-            Vector2 origin, float scale, Layers layer) : base(graphics, content)
+        public BaseSprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Rectangle destinationRectangle, Rectangle sourceRectangle, Texture2D texture, Color primaryColor,
+             Vector2 origin, float scale, float rotation, Layers layer,
+            bool randomizeLayers, bool flip, float? customLayer) : base(graphics, content)
         {
             Texture = texture;
             DestinationRectangle = destinationRectangle;
@@ -60,9 +70,39 @@ namespace SpriteEngine.Classes
             Origin = origin;
             Scale = scale;
 
+            SharedConstructor(spriteType, sourceRectangle, rotation, layer, randomizeLayers, flip, customLayer);
 
         }
+        private void SharedConstructor(ElementType spriteType, Rectangle sourceRectangle, float rotation, Layers layer, bool randomizeLayers, bool flip, float? customLayer)
+        {
+            SpriteType = spriteType;
+            SourceRectangle = sourceRectangle;
 
+
+            if (randomizeLayers)
+                this.LayerDepth = SpriteUtility.GetSpriteVariedLayerDepth(layer);
+            else
+                this.LayerDepth = Settings.GetLayerDepth(layer);
+
+            if (customLayer != null)
+                CustomLayer = customLayer;
+            if (flip)
+                SpriteEffectsAnchor = SpriteEffects.FlipHorizontally;
+            else
+                SpriteEffectsAnchor = SpriteEffects.None;
+
+            Rotation = rotation;
+        }
+
+        public BaseSprite(GraphicsDevice graphics, ContentManager content, Vector2 position, Texture2D texture, Color primaryColor,
+            Vector2 origin, float scale, Layers layer) : base(graphics, content)
+        {
+            Position = position;
+            Texture = texture;
+            PrimaryColor = primaryColor;
+            Origin = origin;
+            Scale = scale;
+        }
         public virtual void Update(GameTime gameTime, Vector2 position)
         {
             if (ColorShifter != null)
