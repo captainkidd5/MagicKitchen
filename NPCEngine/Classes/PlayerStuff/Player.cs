@@ -33,7 +33,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             Name = name;
             Move(StartingPosition);
-            StorageCapacity = 16;
+            StorageCapacity = 24;
             
         }
 

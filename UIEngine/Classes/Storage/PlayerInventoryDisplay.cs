@@ -57,6 +57,7 @@ namespace UIEngine.Classes.Storage
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            
             UpdateSelectorIndex();
             _selectorSprite.Update(gameTime, SelectedSlot.Position);
             _openBigInventoryButton.Update(gameTime);
@@ -96,38 +97,25 @@ namespace UIEngine.Classes.Storage
         {
             InventorySlots = new List<InventorySlot>();
             Vector2 slotPos = Vector2.Zero;
-            for(int b = 0; b < StorageContainer.Capacity; b++)
+            for(int i = 0; i < StorageContainer.Capacity; i++)
             {
-                if(b < _extendedInventoryCutoff)
+                //Always visible row
+                if(i < _extendedInventoryCutoff)
                 {
-                    slotPos = new Vector2(Position.X + b * _buttonWidth, Position.Y);
+                    slotPos = new Vector2(Position.X + i * _buttonWidth, Position.Y);
                 }
                 else
                 {
-                    int newIndex = b - _extendedInventoryCutoff;
-                    slotPos = new Vector2(Position.X + newIndex * _buttonWidth, (Position.Y - ((Rows - 1) * _buttonWidth)) + newIndex % Rows);
+                    int newIndex = i - _extendedInventoryCutoff;
+                    int row = (int)Math.Floor((float)newIndex / (float)_extendedInventoryCutoff);
+                    int column = newIndex % _extendedInventoryCutoff;
+                    slotPos = new Vector2(Position.X + ((column * _buttonWidth)), ((Position.Y - ((Rows - 1) * _buttonWidth) + _buttonWidth * row)));
 
                 }
 
-                InventorySlots.Add(new InventorySlot(this, graphics, content, StorageContainer.Slots[b], slotPos));
+                InventorySlots.Add(new InventorySlot(this, graphics, content, StorageContainer.Slots[i], slotPos));
             }
 
-
-            //for (int i = 0; i < _extendedInventoryCutoff; i++)
-            //{
-            //    InventorySlots.Add(new InventorySlot(this, graphics, content, StorageContainer.Slots[i],
-            //        new Vector2(Position.X + i * _buttonWidth,
-            //        Position.Y + i % Rows * _buttonWidth)));
-            //}
-            //int z = 0;
-            //Vector2 extendedInvPosition = new Vector2(Position.X, Position.Y - _buttonWidth);
-            //for(int j = _extendedInventoryCutoff - 1; j <StorageContainer.Slots.Count; j++)
-            //{
-            //    InventorySlots.Add(new InventorySlot(this, graphics, content, StorageContainer.Slots[j],
-            //        new Vector2(extendedInvPosition.X + z * _buttonWidth,
-            //        extendedInvPosition.Y + z % Rows * _buttonWidth)));
-            //    z++;
-            //}
             ChildSections.AddRange(InventorySlots);
 
         }

@@ -80,8 +80,11 @@ namespace UIEngine.Classes.Storage
         }
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-            
+           // base.Update(gameTime);
+            for (int i = 0; i < DrawEndIndex; i++)
+            {
+                InventorySlots[i].Update(gameTime);
+            }
 
 
         }
