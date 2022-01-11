@@ -47,10 +47,15 @@ namespace ItemEngine.Classes
 
             return false;
         }
+
+        public static WorldItemWrapper GenerateWorldItem(int itemId, int count, Vector2 worldPosition)
+        {
+            return new WorldItemWrapper(new Item(ItemDictionary[itemId]), count);
+        }
         public static Item GenerateItem(int id, int count, Vector2? position)
         {
 
-            return new Item(ItemDictionary[id], count, SpriteFactory.CreateUISprite(position ?? Vector2.Zero, Item.GetItemSourceRectangle(id), ItemFactory.ItemSpriteSheet, Color.White));
+            return new Item(ItemDictionary[id], SpriteFactory.CreateUISprite(position ?? Vector2.Zero, Item.GetItemSourceRectangle(id), ItemFactory.ItemSpriteSheet, Color.White));
         }
     }
 }
