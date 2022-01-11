@@ -23,19 +23,20 @@ namespace UIEngine.Classes.Storage
     /// </summary>
     internal class InventoryDisplay : InterfaceSection
     {
-        private static readonly int _buttonWidth = 64;
-        private int _rows;
-        private int _columns;
+        protected static readonly int _buttonWidth = 64;
+        protected int Rows;
+        protected int Columns;
         protected StorageContainer StorageContainer { get; set; }
 
         protected List<InventorySlot> InventorySlots { get; set; }
 
         internal InventorySlot SelectedSlot { get; set; }
 
-        internal int Width { get { return InventorySlots.Count * _buttonWidth; }}
+        internal int Width { get { return DrawEndIndex * _buttonWidth; }}
 
 
         public int Capacity { get { return StorageContainer.Capacity; } set { StorageContainer.ChangeCapacity(value); } }
+        protected int DrawEndIndex { get; set; }
 
         public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) :
            base(interfaceSection, graphicsDevice, content, position)
@@ -50,11 +51,12 @@ namespace UIEngine.Classes.Storage
 
         }
 
-        public void LoadNewEntityInventory(Entity? entity)
+        public virtual void LoadNewEntityInventory(Entity? entity)
         {
             StorageContainer = entity.StorageContainer;
-            _rows = Capacity <= 10 ? 1 : 2;
-            _columns = 10;
+            DrawEndIndex = StorageContainer.Capacity;
+            Rows = (int)Math.Floor((float)Capacity / (float)DrawEndIndex);
+            Columns = DrawEndIndex;
             GenerateUI();
             SelectedSlot = InventorySlots[0];
         }
@@ -64,15 +66,15 @@ namespace UIEngine.Classes.Storage
         {
             SelectedSlot = slotToSelect;
         }
-        private void GenerateUI()
+        protected virtual void GenerateUI()
         {
             InventorySlots = new List<InventorySlot>();
 
-            for (int i = 0; i < StorageContainer.Slots.Count; i++)
+            for (int i = 0; i < StorageContainer.Capacity; i++)
             {
                 InventorySlots.Add(new InventorySlot(this, graphics, content, StorageContainer.Slots[i],
                     new Vector2(Position.X + i * _buttonWidth,
-                    Position.Y + i % _rows * _buttonWidth)));
+                    Position.Y + i % Rows * _buttonWidth)));
             }
             ChildSections.AddRange(InventorySlots);
         }
@@ -85,10 +87,9 @@ namespace UIEngine.Classes.Storage
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            foreach (InventorySlot slot in InventorySlots)
+            for(int i =0; i < DrawEndIndex; i++)
             {
-                slot.Draw(spriteBatch);
-
+                InventorySlots[i].Draw(spriteBatch);
             }
         }
 
