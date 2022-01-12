@@ -53,12 +53,16 @@ namespace UIEngine.Classes
 
         public override void Update(GameTime gameTime)
         {
-            CursorIconType = CursorIconType.None;
 
             Move(Controls.CursorWorldPosition);
             CursorSprite.Update(gameTime, Controls.CursorUIPosition);
             if (Flags.DisplayMousePosition)
                 MouseDebugText.UpdateText($"{Controls.CursorUIPosition.X.ToString()} , {Controls.CursorUIPosition.Y.ToString()}");
+            if(CursorIconType != OldCursorIconType)
+                SwapMouseSpriteRectangle(GetCursorIconSourcRectangleFromType(CursorIconType), CursorTexture);
+            OldCursorIconType = CursorIconType;
+            CursorIconType = CursorIconType.None;
+
         }
 
         /// <summary>

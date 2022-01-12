@@ -139,10 +139,10 @@ namespace MagicKitchen
                 Exit();
             Controls.Update(gameTime);
 
+         
+            StageManager.Update(gameTime);
             //Command console within ui should still be useable even if game is paused
             UI.Update(gameTime);
-            StageManager.Update(gameTime);
-
             if (!Flags.Pause)
             {
                 PhysicsManager.Update(gameTime);
