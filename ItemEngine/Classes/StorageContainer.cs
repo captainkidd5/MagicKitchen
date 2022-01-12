@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace ItemEngine.Classes
@@ -30,7 +31,7 @@ namespace ItemEngine.Classes
                 {
                     if (slot.Item.Id == worldItem.Id)
                     {
-                        while (worldItem.Count > 0 && (slot.Add(worldItem.Id)))
+                        while (worldItem.Count > 0 && (slot.Add(worldItem.Name)))
                         {
                             worldItem.Remove(1);
                         }
@@ -40,7 +41,7 @@ namespace ItemEngine.Classes
                 {
                     if (slot.Empty)
                     {
-                        slot.Add(worldItem.Id);
+                        slot.Add(worldItem.Name);
                         worldItem.Remove(1);
                         return;
                     }
@@ -50,33 +51,36 @@ namespace ItemEngine.Classes
 
         public void AddItem(Item item, ref int count)
         {
-            foreach (StorageSlot slot in Slots)
+            while(count > 0)
             {
-                if (item.Stackable)
+                StorageSlot partiallyFilledSlot = Slots.FirstOrDefault(x => !x.Empty && x.StoredCount < x.Item.MaxStackSize);
+                if (partiallyFilledSlot != null)
                 {
-                    if (!slot.Empty && slot.Item.Id == item.Id)
+                    while (count > 0 && (partiallyFilledSlot.Add(item.Name)))
                     {
-                        while (count > 0 && (slot.Add(item.Id)))
-                        {
-                            count--;
-                        }
+                        count--;
                     }
                 }
                 else
+                    break;
+            }
+            if(count > 0)
+            {
+                StorageSlot emptySlot = Slots.FirstOrDefault(x => x.Empty);
+                //Inventory is completely full
+                if (emptySlot == null)
+                    return;
+                while (count > 0 && (emptySlot.Add(item.Name)))
                 {
-                    if (slot.Empty)
-                    {
-                        slot.Add(item.Id);
-                        count--;
-                        return;
-                    }
+                    count--;
                 }
             }
+
         }
 
     }
 
-    public delegate void ItemChanged(int id);
+    public delegate void ItemChanged(string name);
     public class StorageSlot
     {
         public event ItemChanged ItemChanged;
@@ -100,18 +104,25 @@ namespace ItemEngine.Classes
             Item item = Item;
             Item = itemToSwap;
             itemToSwap = item;
-            OnItemChanged(Item.Id);
+            OnItemChanged(Item.Name);
 
             return itemToSwap;
         }
 
-        public bool Add(int itemId)
+        public bool Add(string itemName)
         {
-            if (itemId != Item.Id)
-                throw new Exception($"{itemId} does not match {Item.Id}");
+            if (Item == null)
+            {
+                Item = ItemFactory.GetItem(itemName);
+                OnItemChanged(itemName);
+            }
+            if (itemName != Item.Name)
+                throw new Exception($"{itemName} does not match {Item.Name}");
             if (StoredCount <= Item.MaxStackSize)
             {
                 StoredCount++;
+                OnItemChanged(itemName);
+
                 return true;
             }
             return false;
@@ -126,6 +137,11 @@ namespace ItemEngine.Classes
             if(StoredCount - count > 0)
             {
                 StoredCount -= count;
+                if (StoredCount < 1)
+                {
+                    OnItemChanged(String.Empty);
+                    Item = null;
+                }
                 return true;
             }
             return false;
@@ -142,9 +158,9 @@ namespace ItemEngine.Classes
         {
 
         }
-        protected virtual void OnItemChanged(int id)
+        protected virtual void OnItemChanged(string name)
         {
-            ItemChanged?.Invoke(id);
+            ItemChanged?.Invoke(name);
         }
     }
 }

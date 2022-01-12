@@ -27,9 +27,9 @@ namespace UIEngine.Classes.Storage
         protected int Columns;
         protected StorageContainer StorageContainer { get; set; }
 
-        protected List<InventorySlot> InventorySlots { get; set; }
+        protected List<InventorySlotDisplay> InventorySlots { get; set; }
 
-        internal InventorySlot SelectedSlot { get; set; }
+        internal InventorySlotDisplay SelectedSlot { get; set; }
 
         internal int Width { get { return DrawEndIndex * _buttonWidth; }}
 
@@ -61,17 +61,17 @@ namespace UIEngine.Classes.Storage
         }
 
 
-        public void SelectSlot(InventorySlot slotToSelect)
+        public void SelectSlot(InventorySlotDisplay slotToSelect)
         {
             SelectedSlot = slotToSelect;
         }
         protected virtual void GenerateUI()
         {
-            InventorySlots = new List<InventorySlot>();
+            InventorySlots = new List<InventorySlotDisplay>();
 
             for (int i = 0; i < StorageContainer.Capacity; i++)
             {
-                InventorySlots.Add(new InventorySlot(this, graphics, content, StorageContainer.Slots[i],
+                InventorySlots.Add(new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[i],
                     new Vector2(Position.X + i * _buttonWidth,
                     Position.Y + i % Rows * _buttonWidth)));
             }

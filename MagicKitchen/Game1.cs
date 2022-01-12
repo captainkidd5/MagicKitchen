@@ -125,7 +125,7 @@ namespace MagicKitchen
             RenderTargetManager.Load(GraphicsDevice);
             SoundFactory.Load(Content);
             Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs { VirtualWidth = 1280, VirtualHeight = 720 });
-
+            Player1.GiveItem("Fish Bones", 20);
             // _graphics.IsFullScreen = true;
             // _graphics.ApplyChanges();
             SaveCurrentGame();

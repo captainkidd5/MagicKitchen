@@ -15,7 +15,7 @@ using UIEngine.Classes.ButtonStuff;
 
 namespace UIEngine.Classes.Storage
 {
-    internal class InventorySlot : InterfaceSection
+    internal class InventorySlotDisplay : InterfaceSection
     {
         private readonly StorageSlot _storageSlot;
         private NineSliceButton Button { get; set; }
@@ -25,7 +25,7 @@ namespace UIEngine.Classes.Storage
         internal protected override bool Clicked => Button.Clicked;
         internal protected new bool Hovered => Button.Hovered; 
 
-        public InventorySlot(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content
+        public InventorySlotDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content
              , StorageSlot storageSlot, Vector2 position)
             : base(interfaceSection, graphicsDevice, content, position)
         {
@@ -63,9 +63,9 @@ namespace UIEngine.Classes.Storage
             Button.Draw(spriteBatch);
         }
 
-        private void ItemChanged(int id)
+        private void ItemChanged(string name)
         {
-            if (id == (int)ItemType.None)
+            if (string.IsNullOrEmpty(name))
             {
                 Button.SwapForeGroundSprite(null);
                 Text.SetFullString(string.Empty);
@@ -73,7 +73,7 @@ namespace UIEngine.Classes.Storage
             else
             {
                 Button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
-                Item.GetItemSourceRectangle(id), ItemFactory.ItemSpriteSheet, Color.White, Vector2.Zero, 4f));
+                Item.GetItemSourceRectangle(ItemFactory.GetItemData(name).Id), ItemFactory.ItemSpriteSheet, Color.White, Vector2.Zero, 4f));
                 Text.SetFullString(_storageSlot.StoredCount.ToString());
 
             }

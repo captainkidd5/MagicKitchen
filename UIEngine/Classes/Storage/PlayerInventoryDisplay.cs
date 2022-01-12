@@ -95,7 +95,7 @@ namespace UIEngine.Classes.Storage
         }
         protected override void GenerateUI()
         {
-            InventorySlots = new List<InventorySlot>();
+            InventorySlots = new List<InventorySlotDisplay>();
             Vector2 slotPos = Vector2.Zero;
             for(int i = 0; i < StorageContainer.Capacity; i++)
             {
@@ -113,7 +113,7 @@ namespace UIEngine.Classes.Storage
 
                 }
 
-                InventorySlots.Add(new InventorySlot(this, graphics, content, StorageContainer.Slots[i], slotPos));
+                InventorySlots.Add(new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[i], slotPos));
             }
 
             ChildSections.AddRange(InventorySlots);

@@ -58,9 +58,7 @@ namespace UIEngine.Classes
             CursorSprite.Update(gameTime, Controls.CursorUIPosition);
             if (Flags.DisplayMousePosition)
                 MouseDebugText.UpdateText($"{Controls.CursorUIPosition.X.ToString()} , {Controls.CursorUIPosition.Y.ToString()}");
-            if(CursorIconType != OldCursorIconType)
-                SwapMouseSpriteRectangle(GetCursorIconSourcRectangleFromType(CursorIconType), CursorTexture);
-            OldCursorIconType = CursorIconType;
+            UpdateCursor();
             CursorIconType = CursorIconType.None;
 
         }

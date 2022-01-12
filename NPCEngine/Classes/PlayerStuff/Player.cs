@@ -40,11 +40,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
-            GiveItem("Fish Bones",20);
             IsInStage = true;
-
-            //LoadAnimations()
-
         }
 
         protected override void CreateBody(Vector2 position)
