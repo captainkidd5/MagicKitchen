@@ -20,10 +20,13 @@ namespace UIEngine.Classes
 {
     public class Cursor : Collidable
     {
-        public Item HeldItem { get; set; }
+        public Item HeldItem;
+        public int HeldItemCount;
+        private bool _heldItemStatus;
+        private bool _oldHeldItemStatus;
         public Texture2D CursorTexture { get; set; }
 
-        private Rectangle CursorSourceRectangle = new Rectangle(32, 0, 32, 32);
+        private Rectangle CursorSourceRectangle = new Rectangle(0, 0, 32, 32);
 
         public Sprite CursorSprite { get; private set; }
         private Text MouseDebugText { get; set; }
@@ -57,14 +60,15 @@ namespace UIEngine.Classes
 
         public override void Update(GameTime gameTime)
         {
-
+            _heldItemStatus = HeldItem != null;
             Move(Controls.CursorWorldPosition);
             CursorSprite.Update(gameTime, Controls.CursorUIPosition);
             if (Flags.DisplayMousePosition)
                 MouseDebugText.UpdateText($"{Controls.CursorUIPosition.X.ToString()} , {Controls.CursorUIPosition.Y.ToString()}");
             UpdateCursor();
             CursorIconType = CursorIconType.None;
-
+            _oldHeldItemStatus = _heldItemStatus;
+            _heldItemStatus = false;
         }
 
         /// <summary>
@@ -109,13 +113,28 @@ namespace UIEngine.Classes
             }
         }
 
+        
+
         public void UpdateCursor()
         {
-            if (OldCursorIconType != CursorIconType)
+            if (OldCursorIconType != CursorIconType && HeldItem == null)
             {
                 SwapMouseSpriteRectangle(GetCursorIconSourcRectangleFromType(CursorIconType), null);
             }
             OldCursorIconType = CursorIconType;
+
+            if(_heldItemStatus != _oldHeldItemStatus)
+            {
+                if(HeldItem != null)
+                {
+                    SwapMouseSpriteRectangle(Item.GetItemSourceRectangle(HeldItem.Id), ItemFactory.ItemSpriteSheet);
+
+                }
+                else
+                {
+                    SwapMouseSpriteRectangle(null, null);
+                }
+            }
         }
 
         

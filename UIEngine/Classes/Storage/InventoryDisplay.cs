@@ -95,13 +95,6 @@ namespace UIEngine.Classes.Storage
             }
         }
 
-        //internal protected int RemoveItem(Item item)
-        //{
-        //    return Inventory.remo
-        //}
-
-    
-
     }
 }
 

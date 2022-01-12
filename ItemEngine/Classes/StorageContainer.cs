@@ -170,14 +170,29 @@ namespace ItemEngine.Classes
         /// Performs different action based on if the cursor is holding an item, what type of
         /// item it is, whether or not the storage slot has an item, and what type it is
         /// </summary>
-        public void ClickInteraction(Item itemToDeposit, ref int count, Action<Item> pickUpItem, Action dropItem)
+        public void ClickInteraction(ref Item itemToDeposit, ref int count, Action<Item> pickUpItem, Action dropItem)
         {
+            //Grabbing item from slot, no held item
+            if(itemToDeposit == null)
+            {
+                itemToDeposit = Item;
+                count = StoredCount;
+                Item = null;
+                StoredCount = 0;
+                OnItemChanged();
+
+                return;
+            }
             if (count > itemToDeposit.MaxStackSize)
                 throw new Exception($"Should not be possible to be holding more than max stack size of item {itemToDeposit}");
             if (Empty)
             {
                 Item = itemToDeposit;
                 StoredCount = count;
+                itemToDeposit = null;
+                count = 0;
+                OnItemChanged();
+
                 return;
             }
             else if (Item.Id == itemToDeposit.Id && Item.Stackable)
@@ -188,6 +203,8 @@ namespace ItemEngine.Classes
                     StoredCount++;
                     count--;
                 }
+                OnItemChanged();
+
                 return;
 
             }
@@ -195,6 +212,7 @@ namespace ItemEngine.Classes
             {
                 //swap the two items. Same id, but unique (might have different durability or something)
                 Swap(itemToDeposit);
+                OnItemChanged();
 
             }
 

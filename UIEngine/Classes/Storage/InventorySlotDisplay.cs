@@ -45,7 +45,7 @@ namespace UIEngine.Classes.Storage
             {
                 (parentSection as InventoryDisplay).SelectSlot(this);
 
-                _storageSlot.ClickInteraction(UI.Cursor.HeldItem, UI.Cursor.PickUpAction, UI.Cursor.DropToSlot);
+                _storageSlot.ClickInteraction(ref UI.Cursor.HeldItem,ref UI.Cursor.HeldItemCount, UI.Cursor.PickUpAction, UI.Cursor.DropToSlot);
 
             }
 
@@ -63,9 +63,9 @@ namespace UIEngine.Classes.Storage
             Button.Draw(spriteBatch);
         }
 
-        private void ItemChanged(string name)
+        private void ItemChanged(Item item, int count)
         {
-            if (string.IsNullOrEmpty(name))
+            if (item == null)
             {
                 Button.SwapForeGroundSprite(null);
                 Text.SetFullString(string.Empty);
@@ -73,7 +73,7 @@ namespace UIEngine.Classes.Storage
             else
             {
                 Button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
-                Item.GetItemSourceRectangle(ItemFactory.GetItemData(name).Id), ItemFactory.ItemSpriteSheet, Color.White, Vector2.Zero, 4f));
+                Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, Color.White, Vector2.Zero, 4f));
                 Text.SetFullString(_storageSlot.StoredCount.ToString());
 
             }
