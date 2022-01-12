@@ -177,11 +177,20 @@ namespace ItemEngine.Classes
             return false;
 
         }
+
+        public void Drop(int count)
+        {
+            if (Remove(count))
+            {
+
+            }
+            OnItemChanged();
+        }
         /// <summary>
         /// Performs different action based on if the cursor is holding an item, what type of
         /// item it is, whether or not the storage slot has an item, and what type it is
         /// </summary>
-        public void ClickInteraction(ref Item itemToDeposit, ref int count, Action<Item> pickUpItem, Action dropItem)
+        public void ClickInteraction(ref Item itemToDeposit, ref int count)
         {
             //Grabbing item from slot, no held item
             if(itemToDeposit == null)

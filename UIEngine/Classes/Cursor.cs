@@ -32,8 +32,6 @@ namespace UIEngine.Classes
         private Text MouseDebugText { get; set; }
         public CursorIconType CursorIconType { get; set; }
         public CursorIconType OldCursorIconType { get; set; }
-        public Action<Item> PickUpAction;
-        public Action DropToSlotAction;
 
         protected override void CreateBody(Vector2 position)
         {
@@ -54,24 +52,18 @@ namespace UIEngine.Classes
 
             MouseDebugText = TextFactory.CreateUIText("test");
             CreateBody(Controls.CursorWorldPosition);
-            PickUpAction = PickUpFromSlot;
-            DropToSlotAction = DropToSlot;
+   
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (HeldItem == null)
-                _heldItemId = 0;
-            else
-                _heldItemId = HeldItem.Id;
-
+            
             Move(Controls.CursorWorldPosition);
             CursorSprite.Update(gameTime, Controls.CursorUIPosition);
             if (Flags.DisplayMousePosition)
                 MouseDebugText.UpdateText($"{Controls.CursorUIPosition.X.ToString()} , {Controls.CursorUIPosition.Y.ToString()}");
             UpdateCursor();
-            CursorIconType = CursorIconType.None;
-            _oldHeldItemId = _heldItemId;
+            
         }
 
         /// <summary>
@@ -120,6 +112,12 @@ namespace UIEngine.Classes
 
         public void UpdateCursor()
         {
+
+            if (HeldItem == null)
+                _heldItemId = 0;
+            else
+                _heldItemId = HeldItem.Id;
+
             if (OldCursorIconType != CursorIconType && HeldItem == null)
             {
                 SwapMouseSpriteRectangle(GetCursorIconSourcRectangleFromType(CursorIconType), null);
@@ -129,27 +127,16 @@ namespace UIEngine.Classes
             if(_heldItemId != _oldHeldItemId)
             {
                 if(HeldItem != null)
-                {
                     SwapMouseSpriteRectangle(Item.GetItemSourceRectangle(HeldItem.Id), ItemFactory.ItemSpriteSheet, 2f);
-
-                }
+ 
                 else
-                {
                     SwapMouseSpriteRectangle(null, null);
-                }
-            }
-        }
 
-        
-        public void PickUpFromSlot(Item itemToPickup)
-        {
-            if (HeldItem != null)
-                HeldItem = itemToPickup;
-        }
-        public void DropToSlot()
-        {
-           //
-        }
+            }
+
+            CursorIconType = CursorIconType.None;
+            _oldHeldItemId = _heldItemId;
+        }     
 
     }
 }

@@ -291,14 +291,14 @@ namespace TiledEngine.Classes
         }
         public Tile GetTileFromPoint( Point point, Layers layer)
         {
-            if (point.X > Tiles[(int)layer].GetLength(0) || point.X < 0)
+            if (point.X >= Tiles[(int)layer].GetLength(0)  || point.X < 0)
             {
                 Debug.Assert(point.X > Tiles[(int)layer].GetLength(0) || point.X < 0, $"{point.X} is outside the bounds of the array of length {Tiles[(int)layer].GetLength(0)}");
 
                 return null;
             }
 
-            if (point.Y> Tiles[(int)layer].GetLength(1) || point.Y < 0)
+            if (point.Y >= Tiles[(int)layer].GetLength(1) || point.Y < 0)
             {
                 Debug.Assert(point.Y > Tiles[(int)layer].GetLength(1) || point.Y < 0, $"{point.Y} is outside the bounds of the array of length {Tiles[(int)layer].GetLength(1)}");
                 return null;

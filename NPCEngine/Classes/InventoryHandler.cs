@@ -36,5 +36,8 @@ namespace EntityEngine.Classes
             StorageContainer.AddItem(ItemFactory.GetItem(name), ref count);
 
         }
+
+       
+
     }
 }
