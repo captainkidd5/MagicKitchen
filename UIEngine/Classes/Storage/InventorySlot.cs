@@ -45,17 +45,14 @@ namespace UIEngine.Classes.Storage
             {
                 (parentSection as InventoryDisplay).SelectSlot(this);
 
-                _storageSlot.ClickInteraction(Controls.HeldItem, Controls.PickUp, Controls.DropToSlot);
+                _storageSlot.ClickInteraction(UserInterface.HeldItem, Controls.PickUp, Controls.DropToSlot);
 
             }
 
         }
 
-        public Item RemoveOne()
-        {
-            return _storageSlot.RemoveSingle();
-        }
-
+        public Item Item => _storageSlot.Item;
+        public bool Remove(int count) => _storageSlot.Remove(count);
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);

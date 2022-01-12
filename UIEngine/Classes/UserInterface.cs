@@ -14,6 +14,7 @@ using EntityEngine.Classes.NPCStuff;
 using QuakeConsole;
 using UIEngine.Classes.SultanInterpreter;
 using UIEngine.Classes.Storage;
+using ItemEngine.Classes;
 
 namespace UIEngine.Classes
 {
@@ -48,7 +49,7 @@ namespace UIEngine.Classes
 
         internal static InventoryDisplay SecondaryInventoryDisplay { get; set; }
 
-
+        internal static Item HeldItem { get; set; }
 
 
         public static void Load( GraphicsDevice graphics, ContentManager content)
@@ -136,7 +137,7 @@ namespace UIEngine.Classes
             //Reached end of update loop and nothing was hovered
             if (!IsHovered)
             {
-                if(Controls.IsClicked && Controls.HeldItem != null)
+                if(Controls.IsClicked && HeldItem != null)
                 {
                     Controls.DropAndAddToWorld(PlayerManager.Player1.Position, PlayerManager.Player1.DirectionMoving, StageManager.CurrentStage.Items);
                 }

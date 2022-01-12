@@ -50,8 +50,6 @@ namespace InputEngine.Classes.Input
         public static Direction SecondaryDirectionFacing => CurrentControls.SecondaryDirectionFacing;
         #endregion
 
-        public static Item HeldItem { get; private set; }
-
         #region Buttons
         public static bool StartMenuPressed => CurrentControls.EscapePressed;
         public static List<Keys> TappedKeys => CurrentControls.TappedKeys;
@@ -174,30 +172,6 @@ namespace InputEngine.Classes.Input
             CurrentControls.ClearRecentlyPressedKeys();
         }
         
-        /// <summary>
-        /// Have item shown under cursor
-        /// </summary>
-        public static void PickUp(Item item)
-        {
-                HeldItem = item;
-                CurrentControls.SwapCursorRectangle(Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet);
 
-        }
-        public static void DropToSlot()
-        {
-            if (HeldItem == null)
-                throw new Exception("tried to drop an item which doesn't exist");
-            HeldItem = null;
-            CurrentControls.SwapCursorRectangle(null, null);
-
-        }
-        public static void DropAndAddToWorld(Vector2 playerPosition, Direction directionFacing, List<Item> items)
-        {
-            if (HeldItem == null)
-                throw new Exception("tried to drop an item which doesn't exist");
-            HeldItem.Drop(playerPosition, directionFacing, items);
-            HeldItem = null;
-            CurrentControls.SwapCursorRectangle(null, null);
-        }
     }
 }

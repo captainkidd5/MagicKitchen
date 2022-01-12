@@ -14,17 +14,22 @@ using static Globals.Classes.Settings;
 
 namespace ItemEngine.Classes
 {
-    public class WorldItemWrapper : Collidable
+    public class WorldItem : Collidable
     {
         private static readonly int _width = 16;
         private Item _item;
 
+        public string Name => _item.Name;
+        public int Id => _item.Id;
+        public bool Stackable => _item.Stackable;   
+        public int MaxStackSize => _item.MaxStackSize;
         //How many items this item represents
 
         public int Count { get; private set; }
         public Sprite Sprite { get; set; }
 
-        public WorldItemWrapper(Item item, int count, Vector2 position)
+        public bool FlaggedForRemoval { get; private set; }
+        public WorldItem(Item item, int count, Vector2 position)
         {
             _item = item;
             Count = count;
@@ -40,7 +45,15 @@ namespace ItemEngine.Classes
 
         }
 
-        
+        public void Remove(int count)
+        {
+            if ((Count - count) > 1)
+                throw new Exception($"Unable to remove more than contained");
+            Count -= count;
+
+            if (Count == 0)
+                FlaggedForRemoval = true;
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

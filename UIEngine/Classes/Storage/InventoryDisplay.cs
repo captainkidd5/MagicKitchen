@@ -35,7 +35,7 @@ namespace UIEngine.Classes.Storage
         internal int Width { get { return DrawEndIndex * _buttonWidth; }}
 
 
-        public int Capacity { get { return StorageContainer.Capacity; } set { StorageContainer.ChangeCapacity(value); } }
+        public int Capacity { get { return StorageContainer.Capacity; }  }
         protected int DrawEndIndex { get; set; }
 
         public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) :

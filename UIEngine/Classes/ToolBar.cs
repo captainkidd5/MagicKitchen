@@ -67,11 +67,13 @@ namespace UIEngine.Classes
         /// </summary>
         private void TryEjectItem()
         {
-            Item itemToDrop = _playerInventoryDisplay.SelectedSlot.RemoveOne();
-            if (itemToDrop != null)
-            {
-                itemToDrop.Drop(PlayerManager.Player1.Position, PlayerManager.Player1.DirectionMoving, StageManager.CurrentStage.Items);
-            }
+            Item item = _playerInventoryDisplay.SelectedSlot.Item;
+            if(item != null)
+                _playerInventoryDisplay.SelectedSlot.Remove(1);
+            //if (itemToDrop != null)
+            //{
+            //    itemToDrop.Drop(PlayerManager.Player1.Position, PlayerManager.Player1.DirectionMoving, StageManager.CurrentStage.Items);
+            //}
         }
 
         public override void Draw(SpriteBatch spriteBatch)

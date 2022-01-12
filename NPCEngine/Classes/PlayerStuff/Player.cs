@@ -40,7 +40,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
-            GiveStackableItem((int)15, (int)20);
+            GiveItem("FishBones",20);
             IsInStage = true;
 
             //LoadAnimations()

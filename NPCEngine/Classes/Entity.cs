@@ -57,7 +57,7 @@ namespace EntityEngine.Classes
         protected Behaviour Behaviour { get; set; }
         protected List<Category> BigSensorCollidesWithCategories { get; set; }
 
-        private protected EntityInventoryHandler InventoryHandler { get; set; }
+        private protected InventoryHandler InventoryHandler { get; set; }
         public StorageContainer StorageContainer => InventoryHandler.StorageContainer;
 
         //warp
@@ -86,7 +86,7 @@ namespace EntityEngine.Classes
 
             DirectionMoving = Direction.Down;
             StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
-            InventoryHandler = new EntityInventoryHandler(StorageCapacity);
+            InventoryHandler = new InventoryHandler(StorageCapacity);
 
 
         }
@@ -117,6 +117,11 @@ namespace EntityEngine.Classes
             base.OnCollides(fixtureA, fixtureB, contact);
             //Collision logic changes based on current behaviour!
             Behaviour.OnCollides(fixtureA, fixtureB, contact);
+            if (fixtureB.CollisionCategories.HasFlag(Category.Item))
+            {
+                WorldItem worldItem = (fixtureA.UserData as WorldItem);
+                InventoryHandler.GiveItem(worldItem);
+            }
         }
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
@@ -313,23 +318,11 @@ namespace EntityEngine.Classes
 
         //Items
 
-        /// <summary>
-        /// Give Entity a non-unique item. Non-unique items include stackable items, or items with full durability.
-        /// </summary>
-        public int GiveStackableItem(int itemId, int amountToGive)
-        {
-            return InventoryHandler.GiveItem(itemId, amountToGive);
-        }
-        /// <summary>
-        /// Give Entity a non-unique item. Non-unique items include stackable items, or items with full durability.
-        /// </summary>
-        public int GiveUniqueItem(Item item, int amountToGive)
-        {
-            return InventoryHandler.GiveItem(item, amountToGive);
-        }
-        public void TakeItem(int itemId, int amountToTake, bool dropInFrontOfEntity = false)
-        {
-            InventoryHandler.TakeItem(itemId, amountToTake, dropInFrontOfEntity);
-        }
+        public void GiveItem(WorldItem item) => InventoryHandler.GiveItem(item);
+        public void GiveItem(Item item, ref int count) => InventoryHandler.GiveItem(item, ref count);
+
+        public void GiveItem(string name, int count) => InventoryHandler.GiveItem(name, count);
+
+
     }
 }

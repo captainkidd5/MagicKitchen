@@ -23,6 +23,7 @@ namespace ItemEngine.Classes
 
         private static readonly int SpriteSheetDimension = 100;
 
+        public bool Stackable => MaxStackSize > 1;
         public int MaxStackSize => _itemData.MaxStackSize;
         public int Id => _itemData.Id;
         public string Name => _itemData.Name;

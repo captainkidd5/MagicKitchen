@@ -41,7 +41,7 @@ namespace StageEngine.Classes
 
         private string _pathExtension => Name + ".dat";
 
-        public List<Item> Items { get; set; }
+        public List<WorldItem> Items { get; set; }
 
         private Player Player1 { get; set; }
 
@@ -64,7 +64,7 @@ namespace StageEngine.Classes
             _penumbra = penumbra;
             Player1 = PlayerManager.Player1;
             TileManager = new TileManager(graphics, content, camera, penumbra);
-            Items = new List<Item>();
+            Items = new List<WorldItem>();
             NPCs = new List<Entity>();
 
 
@@ -80,9 +80,17 @@ namespace StageEngine.Classes
 
             TileManager.Update(gameTime);
 
-            foreach (Item item in Items)
+            foreach (WorldItem item in Items)
+            {
                 item.Update(gameTime);
-            
+                if (item.FlaggedForRemoval)
+                {
+                    item.Unload();
+                    Items.Remove(item);
+                }
+
+            }
+
 
         }
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -96,7 +104,7 @@ namespace StageEngine.Classes
             CharacterManager.Draw(spriteBatch, Name);
             TileManager.Draw(spriteBatch);
 
-            foreach (Item item in Items)
+            foreach (WorldItem item in Items)
                 item.Draw(spriteBatch);
 
 #if DEBUG
