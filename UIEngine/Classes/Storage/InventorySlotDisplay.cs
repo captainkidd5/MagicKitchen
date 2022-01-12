@@ -74,7 +74,7 @@ namespace UIEngine.Classes.Storage
             {
                 Button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
                 Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, Color.White, Vector2.Zero, 4f));
-                Text.SetFullString(_storageSlot.StoredCount.ToString());
+                Text.SetFullString(count.ToString());
 
             }
         }

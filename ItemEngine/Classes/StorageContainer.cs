@@ -51,9 +51,10 @@ namespace ItemEngine.Classes
 
         public void AddItem(Item item, ref int count)
         {
+            //Try to find partially filled stackable item slot matching stackable item
             while (count > 0)
             {
-                StorageSlot partiallyFilledSlot = Slots.FirstOrDefault(x => !x.Empty && x.StoredCount < x.Item.MaxStackSize);
+                StorageSlot partiallyFilledSlot = Slots.FirstOrDefault(x => !x.Empty && x.Item.Id == item.Id && x.StoredCount < x.Item.MaxStackSize);
                 if (partiallyFilledSlot != null)
                 {
                     while (count > 0 && (partiallyFilledSlot.Add(item.Name)))
@@ -63,8 +64,10 @@ namespace ItemEngine.Classes
                 }
                 else
                     break;
+
             }
-            if (count > 0)
+            //Try to find empty slot
+            while (count > 0)
             {
                 StorageSlot emptySlot = Slots.FirstOrDefault(x => x.Empty);
                 //Inventory is completely full
@@ -73,12 +76,16 @@ namespace ItemEngine.Classes
                 if (!item.Stackable)
                 {
                     emptySlot.AddUniqueItem(item);
-                    return;
-                }
-                while (count > 0 && (emptySlot.Add(item.Name)))
-                {
                     count--;
                 }
+                else if(item.Stackable)
+                {
+                    while (count > 0 && (emptySlot.Add(item.Name)))
+                    {
+                        count--;
+                    }
+                }
+                
             }
 
         }
@@ -104,18 +111,22 @@ namespace ItemEngine.Classes
         /// <summary>
         /// The ol' switcheroo
         /// </summary>
-        public Item Swap(Item itemToSwap)
+        public Item Swap(ref Item itemToSwap, ref int count)
         {
+
+            int newCount = StoredCount;
             Item item = Item;
             Item = itemToSwap;
+            StoredCount = count;
+
+            count = newCount;
             itemToSwap = item;
-            OnItemChanged();
 
             return itemToSwap;
         }
         public bool AddUniqueItem(Item uniqueItem)
         {
-            if (!uniqueItem.Stackable)
+            if (uniqueItem.Stackable)
                 throw new Exception($"This method is not intended for stackable items");
 
             if (Item == null)
@@ -208,10 +219,10 @@ namespace ItemEngine.Classes
                 return;
 
             }
-            else if (!Item.Stackable)
+            else if (!Item.Stackable || Item.Id != itemToDeposit.Id)
             {
-                //swap the two items. Same id, but unique (might have different durability or something)
-                Swap(itemToDeposit);
+                //swap the two items. Same id, but unique (might have different durability or something) or just different id
+                Swap(ref itemToDeposit,ref count);
                 OnItemChanged();
 
             }

@@ -22,8 +22,8 @@ namespace UIEngine.Classes
     {
         public Item HeldItem;
         public int HeldItemCount;
-        private bool _heldItemStatus;
-        private bool _oldHeldItemStatus;
+        private int _heldItemId;
+        private int _oldHeldItemId;
         public Texture2D CursorTexture { get; set; }
 
         private Rectangle CursorSourceRectangle = new Rectangle(0, 0, 32, 32);
@@ -60,28 +60,31 @@ namespace UIEngine.Classes
 
         public override void Update(GameTime gameTime)
         {
-            _heldItemStatus = HeldItem != null;
+            if (HeldItem == null)
+                _heldItemId = 0;
+            else
+                _heldItemId = HeldItem.Id;
+
             Move(Controls.CursorWorldPosition);
             CursorSprite.Update(gameTime, Controls.CursorUIPosition);
             if (Flags.DisplayMousePosition)
                 MouseDebugText.UpdateText($"{Controls.CursorUIPosition.X.ToString()} , {Controls.CursorUIPosition.Y.ToString()}");
             UpdateCursor();
             CursorIconType = CursorIconType.None;
-            _oldHeldItemStatus = _heldItemStatus;
-            _heldItemStatus = false;
+            _oldHeldItemId = _heldItemId;
         }
 
         /// <summary>
         /// Swaps cursor texture
         /// </summary>
         /// <param name="newSourceRectangle">Leave null to put back as default</param>
-        internal void SwapMouseSpriteRectangle(Rectangle? newSourceRectangle, Texture2D? texture = null)
+        internal void SwapMouseSpriteRectangle(Rectangle? newSourceRectangle, Texture2D? texture = null, float scale = 1f)
         {
             Rectangle newRectangle = newSourceRectangle ?? CursorSourceRectangle;
             Texture2D textureToUse = texture ?? CursorTexture;
             CursorSprite.SwapSourceRectangle(newRectangle);
             CursorSprite.SwapTexture(textureToUse);
-            CursorSprite.SwapScale(texture == null ? Settings.GameScale : Settings.GameScale);
+            CursorSprite.SwapScale(scale);
         }
 
         internal void Draw(SpriteBatch spriteBatch)
@@ -123,11 +126,11 @@ namespace UIEngine.Classes
             }
             OldCursorIconType = CursorIconType;
 
-            if(_heldItemStatus != _oldHeldItemStatus)
+            if(_heldItemId != _oldHeldItemId)
             {
                 if(HeldItem != null)
                 {
-                    SwapMouseSpriteRectangle(Item.GetItemSourceRectangle(HeldItem.Id), ItemFactory.ItemSpriteSheet);
+                    SwapMouseSpriteRectangle(Item.GetItemSourceRectangle(HeldItem.Id), ItemFactory.ItemSpriteSheet, 2f);
 
                 }
                 else
