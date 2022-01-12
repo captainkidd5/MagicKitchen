@@ -29,6 +29,8 @@ namespace UIEngine.Classes
         private Text MouseDebugText { get; set; }
         public CursorIconType CursorIconType { get; set; }
         public CursorIconType OldCursorIconType { get; set; }
+        public Action<Item> PickUpAction;
+        public Action DropToSlotAction;
 
         protected override void CreateBody(Vector2 position)
         {
@@ -49,6 +51,8 @@ namespace UIEngine.Classes
 
             MouseDebugText = TextFactory.CreateUIText("test");
             CreateBody(Controls.CursorWorldPosition);
+            PickUpAction = PickUpFromSlot;
+            DropToSlotAction = DropToSlot;
         }
 
         public override void Update(GameTime gameTime)
@@ -113,5 +117,17 @@ namespace UIEngine.Classes
             }
             OldCursorIconType = CursorIconType;
         }
+
+        
+        public void PickUpFromSlot(Item itemToPickup)
+        {
+            if (HeldItem != null)
+                HeldItem = itemToPickup;
+        }
+        public void DropToSlot()
+        {
+           //
+        }
+
     }
 }
