@@ -72,7 +72,7 @@ namespace StageEngine.Classes
             CurrentStage.FirstEntryLoad();
 
             CurrentStage.LoadPortals();
-            PlayerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager);
+            PlayerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
             foreach (Character character in CharacterManager.AllCharacters)
             {
@@ -81,7 +81,7 @@ namespace StageEngine.Classes
                     throw new Exception($"Stage {character.CurrentStageName} does not exist, check to make sure" +
                         $"both a tmx map with name and npcdata stage name match");
                 character.LoadContent(content);
-                character.LoadToNewStage(stage.Name, stage.TileManager);
+                character.LoadToNewStage(stage.Name, stage.TileManager,stage.ItemManager);
                 stage.NPCs.Add(character);
                 character.PlayerSwitchedStage(CurrentStage.Name, false);
             }
@@ -136,7 +136,7 @@ namespace StageEngine.Classes
             NewPlayerPositionOnStageSwitch = Vector2.Zero;
 
             WasStageSwitchingLastFrame = Flags.IsStageLoading;
-            PlayerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager);
+            PlayerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             Flags.Pause = false;
             UI.FadeOut(.00055f);
 

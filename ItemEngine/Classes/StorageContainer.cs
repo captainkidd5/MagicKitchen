@@ -12,15 +12,17 @@ namespace ItemEngine.Classes
     /// </summary>
     public class StorageContainer
     {
+        private ItemManager ItemManager { get; set; }
         public int Capacity { get; private set; }
         public List<StorageSlot> Slots { get; set; }
-        public StorageContainer(int capacity)
+        public StorageContainer(ItemManager itemManager, int capacity)
         {
+            ItemManager = itemManager;
             Capacity = capacity;
             Slots = new List<StorageSlot>();
             for (int i = 0; i < Capacity; i++)
             {
-                Slots.Add(new StorageSlot());
+                Slots.Add(new StorageSlot(ItemManager));
             }
         }
         public void AddItem(WorldItem worldItem)
@@ -102,10 +104,11 @@ namespace ItemEngine.Classes
         public int StoredCount { get; private set; }
         public bool Empty => Item == null;
 
+        private ItemManager ItemManager { get; set; }
 
-
-        public StorageSlot()
+        public StorageSlot(ItemManager itemManager)
         {
+            ItemManager = itemManager;
         }
 
         /// <summary>

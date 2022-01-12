@@ -41,7 +41,7 @@ namespace StageEngine.Classes
 
         private string _pathExtension => Name + ".dat";
 
-        private ItemManager ItemManager { get; set; }
+        internal ItemManager ItemManager { get; private set; }
 
         private Player Player1 { get; set; }
 
@@ -64,7 +64,7 @@ namespace StageEngine.Classes
             _penumbra = penumbra;
             Player1 = PlayerManager.Player1;
             TileManager = new TileManager(graphics, content, camera, penumbra);
-            ItemManager = new ItemManager();
+            ItemManager = new ItemManager(Name);
             NPCs = new List<Entity>();
 
 

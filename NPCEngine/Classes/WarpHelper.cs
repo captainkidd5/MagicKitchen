@@ -1,5 +1,6 @@
 ﻿using EntityEngine.Classes.Animators;
 using Globals.Classes;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
 using System;
@@ -39,13 +40,13 @@ namespace EntityEngine.Classes
         /// <param name="animator"></param>
         /// <param name="tileManager"></param>
         /// <returns>Returns true if entity is now in the players stage, else returns false.</returns>
-        public bool FinishedWarpAndReady(Animator animator, TileManager tileManager)
+        public bool FinishedWarpAndReady(Animator animator, TileManager tileManager, ItemManager itemManager)
         {
 
             animator.FadeIn();
 
             entity.Move(_intermediateWarpPosition);
-            entity.LoadToNewStage(_intermediateStageTo, tileManager);
+            entity.LoadToNewStage(_intermediateStageTo, tileManager, itemManager);
 
             IsWarping = false;
 
@@ -61,7 +62,7 @@ namespace EntityEngine.Classes
         /// <param name="stageTo"></param>
         /// <param name="positionTo"></param>
         /// <param name="tileManager"></param>
-        public void StartWarp(Animator animator, string stageTo, Vector2 positionTo, TileManager tileManager)
+        public void StartWarp(Animator animator, string stageTo, Vector2 positionTo)
         {
             animator.FadeOut();
 

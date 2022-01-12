@@ -48,6 +48,7 @@ namespace EntityEngine.Classes
         internal Animator EntityAnimator { get; set; }
         protected Navigator Navigator { get; set; }
         protected TileManager TileManager { get; set; }
+        protected ItemManager ItemManager { get; set; }
         public string Name { get; protected set; }
         protected StatusIcon StatusIcon { get; set; }
         /// <summary>
@@ -86,15 +87,16 @@ namespace EntityEngine.Classes
 
             DirectionMoving = Direction.Down;
             StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
-            InventoryHandler = new InventoryHandler(StorageCapacity);
+            InventoryHandler = new InventoryHandler(ItemManager, StorageCapacity);
 
 
         }
 
-        public void StartWarp(string stageTo, Vector2 positionTo, TileManager tileManager)
+        public void StartWarp(string stageTo, Vector2 positionTo, TileManager tileManager, ItemManager itemManager)
         {
             TileManager = tileManager;
-            _warpHelper.StartWarp(EntityAnimator, stageTo, positionTo, tileManager);
+            ItemManager = itemManager;
+            _warpHelper.StartWarp(EntityAnimator, stageTo, positionTo);
         }
         internal void LoadAnimations(Animator animator)
         {
@@ -172,7 +174,7 @@ namespace EntityEngine.Classes
                 //if is warping and animator is now transparent, it means we're now ready to actually warp
                 if (EntityAnimator.IsTransparent())
                 {
-                    if (_warpHelper.FinishedWarpAndReady(EntityAnimator, TileManager))
+                    if (_warpHelper.FinishedWarpAndReady(EntityAnimator, TileManager, ItemManager))
                         RestoreEntityPhysics();
                     else
                         RemoveEntityPhysics();
@@ -281,13 +283,14 @@ namespace EntityEngine.Classes
             }
         }
 
-        public virtual void LoadToNewStage(string newStage, TileManager tileManager)
+        public virtual void LoadToNewStage(string newStage, TileManager tileManager, ItemManager itemManager)
         {
             CurrentStageName = newStage;
             Navigator.Unload();
 
             Navigator.Load(tileManager.PathGrid);
             TileManager = tileManager;
+            ItemManager = itemManager;
         }
 
         protected Direction UpdateDirection()

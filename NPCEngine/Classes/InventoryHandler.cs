@@ -10,10 +10,12 @@ namespace EntityEngine.Classes
     internal class InventoryHandler
     {
         public StorageContainer StorageContainer { get; private set; }
+        public ItemManager ItemManager { get; }
 
-        public InventoryHandler(int capacity)
+        public InventoryHandler(ItemManager itemManager, int capacity)
         {
-            StorageContainer = new StorageContainer(capacity);
+            StorageContainer = new StorageContainer(itemManager,capacity);
+            ItemManager = itemManager;
         }
 
         /// <summary>

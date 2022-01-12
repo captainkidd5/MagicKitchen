@@ -60,7 +60,7 @@ namespace StageEngine.Classes
                         if (PlayerManager.Player1.AbleToWarp)
                         {
                             StageManager.RequestSwitchStage(To, PortalManager.GetDestinationPosition(this));
-                            PlayerManager.Player1.StartWarp(To, PortalManager.GetDestinationPosition(this), StageManager.GetStage(To).TileManager);
+                            PlayerManager.Player1.StartWarp(To, PortalManager.GetDestinationPosition(this), StageManager.GetStage(To).TileManager, StageManager.GetStage(To).ItemManager);
 
                         }
 
@@ -99,7 +99,7 @@ namespace StageEngine.Classes
                     //Ex: player should not be warping to home from within another house, even if the portal is technically at 50,50 in both places.
                     if (entity.AbleToWarp)
                     {
-                        entity.StartWarp(To, PortalManager.GetDestinationPosition(this), StageManager.GetStage(To).TileManager);
+                        entity.StartWarp(To, PortalManager.GetDestinationPosition(this), StageManager.GetStage(To).TileManager, StageManager.GetStage(To).ItemManager);
 
                         entity.IsInStage = To == StageManager.CurrentStage.Name;
                         
