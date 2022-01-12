@@ -330,6 +330,10 @@ namespace EntityEngine.Classes
 
         public void GiveItem(string name, int count) => InventoryHandler.GiveItem(name, count);
 
+        public void DropItem(string name, int count) => InventoryHandler.DropItem(Position, name, count);
+        public void DropItem(Item item, int count) => InventoryHandler.DropItem(Position, item, count);
+
+
 
     }
 }

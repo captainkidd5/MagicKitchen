@@ -1,4 +1,5 @@
 ﻿using ItemEngine.Classes;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace EntityEngine.Classes
 
         public InventoryHandler(ItemManager itemManager, int capacity)
         {
-            StorageContainer = new StorageContainer(itemManager,capacity);
+            StorageContainer = new StorageContainer(capacity);
             ItemManager = itemManager;
         }
 
@@ -23,14 +24,16 @@ namespace EntityEngine.Classes
         /// </summary>
         public void GiveItem(WorldItem worldItem)
         {
-            StorageContainer.AddItem(worldItem);
+            int count = worldItem.Count;
+            StorageContainer.AddItem(worldItem.Item, ref count);
+            worldItem.Remove(worldItem.Count - count);
         }
         /// <summary>
         /// Gives as much of item as possible to entity. May not give all or any.Remainder can be found in count
         /// </summary>
-        public void GiveItem(Item item,ref  int count)
+        public void GiveItem(Item item, ref int count)
         {
-            StorageContainer.AddItem(item,ref count);
+            StorageContainer.AddItem(item, ref count);
         }
 
         public void GiveItem(string name, int count)
@@ -39,7 +42,21 @@ namespace EntityEngine.Classes
 
         }
 
-       
+        public void DropItem(Vector2 entityPosition, string name, int count)
+        {
+            int originalCount = count;
+            StorageContainer.RemoveItem(ItemFactory.GetItem(name), ref count);
+
+            ItemManager.AddWorldItem(entityPosition,ItemFactory.GetItem(name), originalCount - count);
+        }
+
+        public void DropItem(Vector2 entityPosition, Item item, int count)
+        {
+            int originalCount = count;
+            StorageContainer.RemoveItem(item, ref count);
+
+            ItemManager.AddWorldItem(entityPosition,item, originalCount - count);
+        }
 
     }
 }

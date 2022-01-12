@@ -12,44 +12,19 @@ namespace ItemEngine.Classes
     /// </summary>
     public class StorageContainer
     {
-        private ItemManager ItemManager { get; set; }
+
         public int Capacity { get; private set; }
         public List<StorageSlot> Slots { get; set; }
-        public StorageContainer(ItemManager itemManager, int capacity)
+        public StorageContainer(int capacity)
         {
-            ItemManager = itemManager;
             Capacity = capacity;
             Slots = new List<StorageSlot>();
             for (int i = 0; i < Capacity; i++)
             {
-                Slots.Add(new StorageSlot(ItemManager));
+                Slots.Add(new StorageSlot());
             }
         }
-        public void AddItem(WorldItem worldItem)
-        {
-            foreach (StorageSlot slot in Slots)
-            {
-                if (worldItem.Stackable)
-                {
-                    if (slot.Item.Id == worldItem.Id)
-                    {
-                        while (worldItem.Count > 0 && (slot.Add(worldItem.Name)))
-                        {
-                            worldItem.Remove(1);
-                        }
-                    }
-                }
-                else
-                {
-                    if (slot.Empty)
-                    {
-                        slot.Add(worldItem.Name);
-                        worldItem.Remove(1);
-                        return;
-                    }
-                }
-            }
-        }
+       
 
         public void AddItem(Item item, ref int count)
         {
@@ -92,6 +67,21 @@ namespace ItemEngine.Classes
 
         }
 
+        public void RemoveItem(Item item, ref int countToRemove)
+        {
+            while(countToRemove > 0)
+            {
+                StorageSlot slot = Slots.FirstOrDefault(x => x.Item.Id == item.Id);
+                if (slot == null)
+                    return;
+                else
+                {
+                    slot.Remove(1);
+                    countToRemove--;
+                }
+            }
+        }
+
     }
 
     public delegate void ItemChanged(Item item, int storedCount);
@@ -104,11 +94,10 @@ namespace ItemEngine.Classes
         public int StoredCount { get; private set; }
         public bool Empty => Item == null;
 
-        private ItemManager ItemManager { get; set; }
 
-        public StorageSlot(ItemManager itemManager)
+
+        public StorageSlot()
         {
-            ItemManager = itemManager;
         }
 
         /// <summary>

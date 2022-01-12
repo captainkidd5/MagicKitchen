@@ -17,12 +17,12 @@ namespace ItemEngine.Classes
     public class WorldItem : Collidable
     {
         private static readonly int _width = 16;
-        private Item _item;
+        public Item Item { get; private set; }
 
-        public string Name => _item.Name;
-        public int Id => _item.Id;
-        public bool Stackable => _item.Stackable;   
-        public int MaxStackSize => _item.MaxStackSize;
+        public string Name => Item.Name;
+        public int Id => Item.Id;
+        public bool Stackable => Item.Stackable;   
+        public int MaxStackSize => Item.MaxStackSize;
         //How many items this item represents
 
         public int Count { get; private set; }
@@ -31,7 +31,7 @@ namespace ItemEngine.Classes
         public bool FlaggedForRemoval { get; private set; }
         public WorldItem(Item item, int count, Vector2 position)
         {
-            _item = item;
+            Item = item;
             Count = count;
             Sprite = SpriteFactory.CreateWorldSprite(new Rectangle((int)position.X, (int)position.Y, _width, _width), Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet);
             CreateBody(position);

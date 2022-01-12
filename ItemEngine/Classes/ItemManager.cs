@@ -38,5 +38,11 @@ namespace ItemEngine.Classes
             foreach (WorldItem item in Items)
                 item.Draw(spriteBatch);
         }
+
+        public void AddWorldItem(Vector2 position, Item item, int count)
+        {
+            Items.Add(ItemFactory.GenerateWorldItem(item.Name, count, position));
+            
+        }
     }
 }
