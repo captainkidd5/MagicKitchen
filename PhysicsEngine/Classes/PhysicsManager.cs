@@ -120,6 +120,8 @@ namespace PhysicsEngine.Classes
             if (categoriesCollidesWith != null)
                 foreach (Category category in categoriesCollidesWith)
                     body.SetCollidesWith(category);
+            else
+                body.SetCollidesWith(Category.None);
 
             if (collisionCategories != null)
                 foreach (Category category in collisionCategories)

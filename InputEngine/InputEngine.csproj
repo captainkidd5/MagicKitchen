@@ -10,6 +10,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Globals\Globals.csproj" />
     <ProjectReference Include="..\ItemEngine\ItemEngine.csproj" />
-    <ProjectReference Include="..\SpriteEngine\SpriteEngine.csproj" />
   </ItemGroup>
 </Project>

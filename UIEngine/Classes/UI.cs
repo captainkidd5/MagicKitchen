@@ -15,7 +15,7 @@ using ItemEngine.Classes;
 
 namespace UIEngine.Classes
 {
-    public static class UserInterface
+    public static class UI
     {
 
 
@@ -42,7 +42,7 @@ namespace UIEngine.Classes
         internal static ToolBar ToolBar { get; set; }
         internal static ClockBar ClockBar { get; set; }
 
-        public static Curtain Curtain { get; set; }
+        internal static Curtain Curtain { get; set; }
 
         internal static InventoryDisplay SecondaryInventoryDisplay { get; set; }
 

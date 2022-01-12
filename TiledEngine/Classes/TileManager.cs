@@ -183,9 +183,9 @@ namespace TiledEngine.Classes
         {
             if (hoveredLayerTile.WithinRangeOfPlayer && hoveredLayerTile.CursorIconType != CursorIconType.None)
             {
-                if (UserInterface.Cursor.CursorIconType != hoveredLayerTile.CursorIconType)
+                if (UI.Cursor.CursorIconType != hoveredLayerTile.CursorIconType)
                 {
-                    UserInterface.Cursor.CursorIconType = hoveredLayerTile.CursorIconType;
+                    UI.Cursor.CursorIconType = hoveredLayerTile.CursorIconType;
                     return true;
                 }
             }

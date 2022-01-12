@@ -9,7 +9,7 @@ using System.Text;
 
 namespace UIEngine.Classes
 {
-    public class Curtain : InterfaceSection
+    internal class Curtain : InterfaceSection
     {
         public Sprite BackdropSprite { get; set; }
         private float Opacity { get; set; } = 0f;

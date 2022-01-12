@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TextEngine.Classes;
-using static UIEngine.Classes.UserInterface;
+using static UIEngine.Classes.UI;
 using static Globals.Classes.Settings;
 using TextEngine;
 
@@ -39,7 +39,7 @@ namespace UIEngine.Classes.TextStuff
         public TypingBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, int? width, int? height, Color? color)
             : base(interfaceSection,graphicsDevice, content, position)
         {
-            NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, width ?? DefaultWidth, height ?? DefaultHeight, UserInterface.ButtonTexture, color, null, null);
+            NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, width ?? DefaultWidth, height ?? DefaultHeight, UI.ButtonTexture, color, null, null);
             SendButton = new NineSliceButton(interfaceSection, graphicsDevice, content,
                  position, null, null,null,null);
             TextBuilder = new TextBuilder(TextFactory.CreateUIText(string.Empty));

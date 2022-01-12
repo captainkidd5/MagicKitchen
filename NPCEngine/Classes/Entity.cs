@@ -238,6 +238,8 @@ namespace EntityEngine.Classes
         {
             MainHullBody.Body.IsSensor = false;
             AddBigSensorCat(Category.Cursor);
+            AddBigSensorCat(Category.TransparencySensor);
+
         }
         /// <summary>
         /// Was previously in player stage, no longer is. Disable collisions and remove click interactions.
@@ -247,6 +249,8 @@ namespace EntityEngine.Classes
             MainHullBody.Body.IsSensor = true;
             //Shouldn't be able to click on entity when not in same stage.
             RemoveBigSensorCat(Category.Cursor);
+            RemoveBigSensorCat(Category.TransparencySensor);
+
         }
         /// <summary>
         /// This should be called whenever a player switches stages. If this entity exists in the stage being switched TO, then its body should be loaded

@@ -49,7 +49,7 @@ namespace UIEngine.Classes.Storage
         {
             base.Load();
             _selectorSprite = SpriteFactory.CreateUISprite(SelectedSlot.Position, new Rectangle(272, 0, 64, 64),
-                UserInterface.ButtonTexture, null, layer: Settings.Layers.foreground);
+                UI.ButtonTexture, null, layer: Settings.Layers.foreground);
             DrawEndIndex = _extendedInventoryCutoff;
             _openBigInventoryButton = new Button(this, graphics, content, new Vector2(Position.X + Width, Position.Y), _openBigInventoryUpArrowSourceRectangle, null, null,null, new Action(ToggleOpen));
             _openBigInventoryButton.Load();

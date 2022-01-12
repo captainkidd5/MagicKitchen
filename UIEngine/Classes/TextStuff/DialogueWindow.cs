@@ -27,7 +27,7 @@ namespace UIEngine.Classes.TextStuff
             Position = RectangleHelper.PlaceBottomLeftScreen(totalBackDropRectangleDimensions);
             BackdropSprite = SpriteFactory.CreateNineSliceSprite(Position,
                 totalBackDropRectangleDimensions.Width,
-                totalBackDropRectangleDimensions.Height, UserInterface.ButtonTexture, layer: Layers.foreground);
+                totalBackDropRectangleDimensions.Height, UI.ButtonTexture, layer: Layers.foreground);
             TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test"), .25f);
             IsActive = false;
 
@@ -49,7 +49,7 @@ namespace UIEngine.Classes.TextStuff
 
                 if (Controls.IsClicked)
                 {
-                    UserInterface.ReactiveSections();
+                    UI.ReactiveSections();
                     IsActive = false;
                 }
             }
@@ -76,7 +76,7 @@ namespace UIEngine.Classes.TextStuff
             //TODO
             TextBuilder.SetText(TextFactory.CreateUIText(speech, scale: 2f, layer: Layers.front), false);
             IsActive = true;
-            UserInterface.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UserInterface.ClockBar });
+            UI.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UI.ClockBar });
         }
 
     }

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Globals.Classes.Settings;
-using static UIEngine.Classes.UserInterface;
+using static UIEngine.Classes.UI;
 
 namespace UIEngine.Classes.ButtonStuff
 {

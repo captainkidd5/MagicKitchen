@@ -59,7 +59,7 @@ namespace EntityEngine.Classes.NPCStuff
 
             if(PlayerInClickRange && MouseHovering)
             {
-                UserInterface.Cursor.CursorIconType = CursorIconType.Speech;
+                UI.Cursor.CursorIconType = CursorIconType.Speech;
 
                 if (Controls.IsClicked)
                 {
@@ -79,7 +79,7 @@ namespace EntityEngine.Classes.NPCStuff
 
         public void OnCharacterClicked(Schedule schedule)
         {
-            UserInterface.TalkingWindow.CharacterClicked(DialogueInterpreter.GetSpeech(schedule.Dialogue));
+            UI.TalkingWindow.CharacterClicked(DialogueInterpreter.GetSpeech(schedule.Dialogue));
             CharacterClicked?.Invoke(schedule);
         }
         public void Save(BinaryWriter writer)

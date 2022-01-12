@@ -60,7 +60,8 @@ namespace TiledEngine.Classes.TileAddons
         protected override void CreateBody(Vector2 position )
         {
             base.CreateBody(position);
-            AddSecondaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Static, Position, destinationRectangle.Width, destinationRectangle.Height, new List<Category>() { Category.TransparencySensor }, null,
+            AddSecondaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Static, Position, destinationRectangle.Width, destinationRectangle.Height, new List<Category>() { Category.TransparencySensor },
+                new List<Category>() { Category.PlayerBigSensor, Category.NPCBigSensor},
                 OnCollides, OnSeparates, isSensor: true, blocksLight: false));
         }
 

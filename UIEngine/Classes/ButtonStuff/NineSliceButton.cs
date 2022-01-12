@@ -8,7 +8,7 @@ using SpriteEngine.Classes.InterfaceStuff;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using static UIEngine.Classes.UserInterface;
+using static UIEngine.Classes.UI;
 using static Globals.Classes.Settings;
 using Globals.Classes.Helpers;
 
@@ -22,7 +22,7 @@ namespace UIEngine.Classes.ButtonStuff
             Sprite foregroundSprite, Texture2D texture, Point? samplePoint, Action buttonAction = null, bool hoverTransparency = false)
             : base(interfaceSection, graphicsDevice, content, position, sourceRectangle, foregroundSprite, texture, samplePoint, buttonAction, hoverTransparency)
         {
-                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(position, DefaultButtonWidth, DefaultButtonHeight, UserInterface.ButtonTexture, null, null, null, Layers.buildings);
+                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(position, DefaultButtonWidth, DefaultButtonHeight, UI.ButtonTexture, null, null, null, Layers.buildings);
                 Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);     
         }

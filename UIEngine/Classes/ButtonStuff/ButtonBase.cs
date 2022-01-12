@@ -46,7 +46,7 @@ namespace UIEngine.Classes.ButtonStuff
             Color = Color.White;
 
             //Allows you to provide your own texture.
-            Texture2D spriteTexture = texture ?? UserInterface.ButtonTexture;
+            Texture2D spriteTexture = texture ?? UI.ButtonTexture;
 
             OnClick = buttonAction ?? new Action(ButtonAction);
 

@@ -121,7 +121,7 @@ namespace MagicKitchen
             Settings.SetResolution(1280, 720);
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
 
-            UserInterface.Load(GraphicsDevice, Content, Player1.StorageContainer);
+            UI.Load(GraphicsDevice, Content, Player1.StorageContainer);
             RenderTargetManager.Load(GraphicsDevice);
             SoundFactory.Load(Content);
             Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs { VirtualWidth = 1280, VirtualHeight = 720 });
@@ -140,7 +140,7 @@ namespace MagicKitchen
             Controls.Update(gameTime);
 
             //Command console within ui should still be useable even if game is paused
-            UserInterface.Update(gameTime);
+            UI.Update(gameTime);
             StageManager.Update(gameTime);
 
             if (!Flags.Pause)
@@ -173,7 +173,7 @@ namespace MagicKitchen
 
             if (Flags.DebugVelcro)
                 PhysicsManager.Draw(GraphicsDevice, Camera);
-            UserInterface.Draw(_spriteBatch);
+            UI.Draw(_spriteBatch);
 
             RenderTargetManager.RemoveRenderTarget();
             // Everything between penumbra.BeginDraw and penumbra.Draw will be

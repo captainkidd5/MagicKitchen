@@ -68,14 +68,14 @@ namespace StageEngine.Classes
                     }
                     if (_mustBeClicked && PlayerInClickRange && MouseHovering)
                     {
-                        UserInterface.Cursor.CursorIconType = CursorIconType.Door;
+                        UI.Cursor.CursorIconType = CursorIconType.Door;
                         //Controls.UpdateCursor();
 
                         if (Controls.IsClicked)
                         {
 
                             StageManager.RequestSwitchStage(To, PortalManager.GetDestinationPosition(this));
-                            UserInterface.Cursor.CursorIconType = CursorIconType.None;
+                            UI.Cursor.CursorIconType = CursorIconType.None;
 
                         }
                     }
