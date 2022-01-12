@@ -57,7 +57,7 @@ namespace EntityEngine.Classes.NPCStuff
 
             if(PlayerInClickRange && MouseHovering)
             {
-                Controls.CursorIconType = CursorIconType.Speech;
+                UserInterface.Cursor.CursorIconType = CursorIconType.Speech;
 
                 if (Controls.IsClicked)
                 {

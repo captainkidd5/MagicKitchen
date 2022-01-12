@@ -6,11 +6,8 @@ using System.Collections.Generic;
 using UIEngine.Classes.DebugStuff;
 using Microsoft.Xna.Framework.Input;
 using Globals.Classes;
-using EntityEngine.Classes.PlayerStuff;
 using InputEngine.Classes.Input;
-using StageEngine.Classes;
 using UIEngine.Classes.TextStuff;
-using EntityEngine.Classes.NPCStuff;
 using QuakeConsole;
 using UIEngine.Classes.SultanInterpreter;
 using UIEngine.Classes.Storage;
@@ -49,7 +46,8 @@ namespace UIEngine.Classes
 
         internal static InventoryDisplay SecondaryInventoryDisplay { get; set; }
 
-        internal static Item HeldItem { get; set; }
+
+        public static Cursor Cursor { get; set; }
 
 
         public static void Load( GraphicsDevice graphics, ContentManager content)
@@ -137,10 +135,7 @@ namespace UIEngine.Classes
             //Reached end of update loop and nothing was hovered
             if (!IsHovered)
             {
-                if(Controls.IsClicked && HeldItem != null)
-                {
-                    Controls.DropAndAddToWorld(PlayerManager.Player1.Position, PlayerManager.Player1.DirectionMoving, StageManager.CurrentStage.Items);
-                }
+
                 if(Controls.IsClicked && TalkingWindow.IsActive && !TalkingWindow.Hovered)
                 {
                     ReactiveSections();
@@ -184,7 +179,6 @@ namespace UIEngine.Classes
                 }
             }
 
-                Controls.Draw(spriteBatch);
             spriteBatch.End();
             //RenderTargetManager.RemoveRenderTarget();
             //RenderTargetManager.DrawMainTarget(spriteBatch);

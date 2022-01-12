@@ -340,7 +340,7 @@ namespace UIEngine.Classes.DebugStuff
             Keyword = "give";
             Args = new CmdArg[3] {
                 new CmdArg(typeof(string), 0, "Entity to give"),
-                new CmdArg(typeof(int), 1, "Id of thing"),
+                new CmdArg(typeof(string), 1, "Id of thing"),
                 new CmdArg(typeof(int), 2, "Amount to give") };
             CommandConsole.RegisterCommand(Keyword, Description, ExecuteCommand);
 
@@ -372,7 +372,7 @@ namespace UIEngine.Classes.DebugStuff
 
             }
 
-            if (!ItemFactory.DoesItemExist((int)id))
+            if (!ItemFactory.DoesItemExist((string)id))
             {
                 CommandConsole.Append($"Item with id {id} does not exist");
                 return;
@@ -422,7 +422,7 @@ namespace UIEngine.Classes.DebugStuff
             switch (thingToList)
             {
                 case "items":
-                    foreach (KeyValuePair<int, ItemData> pair in ItemFactory.ItemDictionary)
+                    foreach (KeyValuePair<string, ItemData> pair in ItemFactory.ItemDictionary)
                     {
                         returnString += $"{pair.Value.Id}: {pair.Value.Name} \n";
                     }

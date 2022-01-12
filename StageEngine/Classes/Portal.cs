@@ -67,7 +67,7 @@ namespace StageEngine.Classes
                     }
                     if (_mustBeClicked && PlayerInClickRange && MouseHovering)
                     {
-                        Controls.CursorIconType = CursorIconType.Door;
+                        Cursor.CursorIconType = CursorIconType.Door;
                         Controls.UpdateCursor();
 
                         if (Controls.IsClicked)

@@ -31,10 +31,7 @@ namespace InputEngine.Classes
 
         List<Keys> AcceptableKeysForTyping { get; }
 
-        internal void SwapCursorRectangle(Rectangle? rectangle, Texture2D? texture);
-        internal void Load(Texture2D cursorTexture);
         internal void Update(GameTime gameTime);
-        internal void Draw(SpriteBatch spriteBatch);
 
         internal bool IsHoveringRectangle(ElementType elementType,Rectangle rectangle);
 

@@ -9,8 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InputEngine\InputEngine.csproj" />
-    <ProjectReference Include="..\NPCEngine\EntityEngine.csproj" />
     <ProjectReference Include="..\SpriteEngine\SpriteEngine.csproj" />
-    <ProjectReference Include="..\StageEngine\StageEngine.csproj" />
   </ItemGroup>
 </Project>

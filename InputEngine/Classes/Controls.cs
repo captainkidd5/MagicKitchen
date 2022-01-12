@@ -37,8 +37,7 @@ namespace InputEngine.Classes.Input
         private static IInput PcControls { get; set; }
         private static IInput CurrentControls { get; set; }
 
-        public static CursorIconType CursorIconType { get; set; }
-        public static CursorIconType OldCursorIconType { get; set; }
+      
         public static InputType InputType { get; set; }
 
         private static Camera2D Camera { get; set; }
@@ -84,12 +83,9 @@ namespace InputEngine.Classes.Input
             PcControls = new PcControls(camera, graphics);
             //Default is Pc controls
             CurrentControls = PcControls;
-            Texture2D cursorTexture = Content.Load<Texture2D>("ui/MouseIcons");
-            PcControls.Load(cursorTexture);
         }
         public static void Update(GameTime gameTime)
         {
-            CursorIconType = CursorIconType.None;
             CurrentControls.Update(gameTime);
 
             if (IsPlayerControllable)
@@ -97,45 +93,8 @@ namespace InputEngine.Classes.Input
                 IsPlayerMoving = !(DirectionFacing == Direction.None);
                 CursorTileIndex = GetTileIndexPosition();
             }
-            UpdateCursor();
         }
 
-        public static void UpdateCursor()
-        {
-            if (OldCursorIconType != CursorIconType)
-            {
-                CurrentControls.SwapCursorRectangle(GetCursorIconSourcRectangleFromType(CursorIconType), null);
-            }
-            OldCursorIconType = CursorIconType;
-        }
-
-        private static Rectangle GetCursorIconSourcRectangleFromType(CursorIconType ctype)
-        {
-            switch (ctype)
-            {
-                case CursorIconType.None:
-                    return new Rectangle(0, 0, 32, 32);
-                case CursorIconType.Selectable:
-                    return new Rectangle(32, 0, 32, 32);
-                case CursorIconType.Rock:
-                    return new Rectangle(96, 0, 32, 32);
-                case CursorIconType.Speech:
-                    return new Rectangle(160, 0, 32, 32);
-                case CursorIconType.Door:
-                    return new Rectangle(96, 32, 32, 32);
-
-
-                default:
-                    goto case 0;
-            }
-        }
-
-        public static void Draw(SpriteBatch spriteBatch)
-        {
-
-            CurrentControls.Draw(spriteBatch);
-
-        }
         /// <summary>
         /// We need element type because the mouse hitbox is different for ui vs world.
         /// </summary>

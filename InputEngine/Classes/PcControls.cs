@@ -45,10 +45,7 @@ namespace InputEngine.Classes
             MouseManager = new MouseManager(camera, graphics);
         }
 
-         void IInput.Load(Texture2D cursorTexture)
-        {
-            MouseManager.LoadContent(cursorTexture);
-        }
+
 
 
         void IInput.Update(GameTime gameTime)
@@ -59,10 +56,7 @@ namespace InputEngine.Classes
         }
 
         
-        void IInput.Draw(SpriteBatch spriteBatch)
-        {
-            MouseManager.Draw(spriteBatch);
-        }
+
 
         bool IInput.IsHoveringRectangle(ElementType elementType, Rectangle rectangle)
         {
@@ -84,9 +78,5 @@ namespace InputEngine.Classes
             KeyboardManager.ClearUseableKeys();
         }
 
-        void IInput.SwapCursorRectangle(Rectangle? rectangle, Texture2D? texture)
-        {
-            MouseManager.SwapMouseSpriteRectangle(rectangle, texture);
-        }
     }
 }
