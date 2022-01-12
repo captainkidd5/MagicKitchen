@@ -18,6 +18,7 @@ using EntityEngine.Classes.NPCStuff;
 using System.Diagnostics;
 using SoundEngine.Classes;
 using TiledEngine.Classes;
+using UIEngine.Classes;
 
 namespace StageEngine.Classes
 {
@@ -31,9 +32,6 @@ namespace StageEngine.Classes
         public static Stage CurrentStage { get; private set; }
         public static PenumbraComponent Penumbra { get; private set; }
 
-        public delegate void StageSwitch(float rate);
-        public static event StageSwitch StageStartSwitchEvent;
-        public static event StageSwitch StageEndSwitchEvent;
 
         private static string StageSwitchingTo { get; set; }
 
@@ -111,7 +109,8 @@ namespace StageEngine.Classes
         /// <exception cref="Exception"></exception>
         public static void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
-            StageStartSwitchEvent?.Invoke(.00055f);
+            UserInterface.Curtain.FadeIn(.00055f);
+
             StageSwitchingTo = newStage;
             NewPlayerPositionOnStageSwitch = newPlayerPos;
             Flags.Pause = true;
@@ -139,19 +138,12 @@ namespace StageEngine.Classes
             WasStageSwitchingLastFrame = Flags.IsStageLoading;
             PlayerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager);
             Flags.Pause = false;
-            StageEndSwitchEvent?.Invoke(.00055f);
+            UserInterface.Curtain.FadeOut(.00055f);
 
             Settings.Camera.LockBounds = CurrentStage.CamLock;
 
         }
-        public static void OnStageStartSwitch(float rate)
-        {
-            StageStartSwitchEvent?.Invoke(rate);
-        }
-        public static void OnStageEndSwitch(float rate)
-        {
-            StageEndSwitchEvent?.Invoke(rate);
-        }
+
         public static void Update(GameTime gameTime)
         {
             if(WasStageSwitchingLastFrame != Flags.IsStageLoading)

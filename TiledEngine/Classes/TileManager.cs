@@ -16,6 +16,7 @@ using System.IO;
 using System.Text;
 using TiledEngine.Classes.Misc;
 using TiledSharp;
+using UIEngine.Classes;
 using static Globals.Classes.Settings;
 using static TiledEngine.Classes.TileLoader;
 
@@ -182,9 +183,9 @@ namespace TiledEngine.Classes
         {
             if (hoveredLayerTile.WithinRangeOfPlayer && hoveredLayerTile.CursorIconType != CursorIconType.None)
             {
-                if (Controls.CursorIconType != hoveredLayerTile.CursorIconType)
+                if (UserInterface.Cursor.CursorIconType != hoveredLayerTile.CursorIconType)
                 {
-                    Controls.CursorIconType = hoveredLayerTile.CursorIconType;
+                    UserInterface.Cursor.CursorIconType = hoveredLayerTile.CursorIconType;
                     return true;
                 }
             }

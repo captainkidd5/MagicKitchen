@@ -14,6 +14,7 @@
     <ProjectReference Include="..\IOEngine\IOEngine.csproj" />
     <ProjectReference Include="..\PhysicsEngine\PhysicsEngine.csproj" />
     <ProjectReference Include="..\SpriteEngine\SpriteEngine.csproj" />
+    <ProjectReference Include="..\UIEngine\UIEngine.csproj" />
     <ProjectReference Include="..\VelcroPhysics\VelcroPhysics\VelcroPhysics.MonoGame.csproj" />
   </ItemGroup>
   <ItemGroup>

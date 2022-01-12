@@ -15,7 +15,6 @@ using System.Linq;
 using System.Text;
 using TextEngine.Classes;
 using static Globals.Classes.Settings;
-using EntityEngine.Classes.PlayerStuff;
 using QuakeConsole;
 using UIEngine.Classes.SultanInterpreter;
 
@@ -55,14 +54,11 @@ namespace UIEngine.Classes.DebugStuff
 
             Commands = new List<Command>()
             {
-                new TeleportCommand(this),
                 new Toggle_Debug(this),
                 new Toggle_Shadows(this),
                 new Toggle_Night(this),
                 new Toggle_Path(this),
                 new ExitCommand(this),
-                new GetPositionCommand(this),
-                new GiveCommand(this),
                 new ListCommand(this),
                 new SetResolutionCommand(this),
                 new HelpCommand(this), 

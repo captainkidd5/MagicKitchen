@@ -7,6 +7,7 @@ using StageEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UIEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
@@ -67,14 +68,14 @@ namespace StageEngine.Classes
                     }
                     if (_mustBeClicked && PlayerInClickRange && MouseHovering)
                     {
-                        Cursor.CursorIconType = CursorIconType.Door;
-                        Controls.UpdateCursor();
+                        UserInterface.Cursor.CursorIconType = CursorIconType.Door;
+                        //Controls.UpdateCursor();
 
                         if (Controls.IsClicked)
                         {
 
                             StageManager.RequestSwitchStage(To, PortalManager.GetDestinationPosition(this));
-                            Controls.CursorIconType = CursorIconType.None;
+                            UserInterface.Cursor.CursorIconType = CursorIconType.None;
 
                         }
                     }

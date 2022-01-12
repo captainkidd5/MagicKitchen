@@ -12,5 +12,6 @@
     <ProjectReference Include="..\InputEngine\InputEngine.csproj" />
     <ProjectReference Include="..\ItemEngine\ItemEngine.csproj" />
     <ProjectReference Include="..\TiledEngine\TiledEngine.csproj" />
+    <ProjectReference Include="..\UIEngine\UIEngine.csproj" />
   </ItemGroup>
 </Project>

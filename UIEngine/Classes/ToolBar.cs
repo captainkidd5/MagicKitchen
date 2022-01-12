@@ -13,8 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using static Globals.Classes.Settings;
-using EntityEngine.Classes.PlayerStuff;
-using StageEngine.Classes;
 
 namespace UIEngine.Classes
 {
@@ -33,9 +31,8 @@ namespace UIEngine.Classes
 
         }
 
-        public override void Load()
+        public void Load(StorageContainer playerStorageContainer)
         {
-            base.Load();
 
 
 
@@ -44,7 +41,7 @@ namespace UIEngine.Classes
 
             _playerInventoryDisplay = new PlayerInventoryDisplay(this, graphics, content,
                 RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle));
-            _playerInventoryDisplay.LoadNewEntityInventory(PlayerManager.Player1);
+            _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer);
             _playerInventoryDisplay.Load();
 
             ChildSections.Add(_playerInventoryDisplay);

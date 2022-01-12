@@ -14,7 +14,6 @@ using System.Text;
 using TextEngine.Classes;
 using TextEngine;
 using static Globals.Classes.Settings;
-using EntityEngine.Classes;
 
 namespace UIEngine.Classes.Storage
 {
@@ -51,9 +50,9 @@ namespace UIEngine.Classes.Storage
 
         }
 
-        public virtual void LoadNewEntityInventory(Entity? entity)
+        public virtual void LoadNewEntityInventory(StorageContainer storageContainer)
         {
-            StorageContainer = entity.StorageContainer;
+            StorageContainer = storageContainer;
             DrawEndIndex = StorageContainer.Capacity;
             Rows = (int)Math.Floor((float)Capacity / (float)DrawEndIndex);
             Columns = DrawEndIndex;

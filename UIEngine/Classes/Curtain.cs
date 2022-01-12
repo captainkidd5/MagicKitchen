@@ -3,14 +3,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
-using StageEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace UIEngine.Classes
 {
-    internal class Curtain : InterfaceSection
+    public class Curtain : InterfaceSection
     {
         public Sprite BackdropSprite { get; set; }
         private float Opacity { get; set; } = 0f;
@@ -24,8 +23,7 @@ namespace UIEngine.Classes
         {
             base.Load();
             BackdropSprite = SpriteFactory.CreateUISprite(Settings.ScreenRectangle, new Rectangle(0, 0, 1, 1), Settings.DebugTexture, Color.White);
-            StageManager.StageStartSwitchEvent += FadeIn;
-            StageManager.StageEndSwitchEvent += FadeOut;
+
         }
         public override void Update(GameTime gameTime)
         {
@@ -75,14 +73,14 @@ namespace UIEngine.Classes
             }
         }
 
-        internal void FadeIn(float rate)
+        public void FadeIn(float rate)
         {
             FadeRate = rate;
             IsFadingIn = true;
             IsActive = true;
         }
 
-        internal void FadeOut(float rate)
+        public void FadeOut(float rate)
         {
             FadeRate = rate;
             IsFadingIn = false;

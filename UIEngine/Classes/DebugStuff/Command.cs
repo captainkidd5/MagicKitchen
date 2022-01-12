@@ -1,5 +1,4 @@
 ﻿using DataModels;
-using EntityEngine.Classes.PlayerStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
 using ItemEngine.Classes;
@@ -137,68 +136,7 @@ namespace UIEngine.Classes.DebugStuff
         }
     }
 
-    internal class TeleportCommand : Command
-    {
-        public TeleportCommand(CustomConsole console) : base(console)
-        {
-            Keyword = "tp";
-            Args = new CmdArg[2] { new CmdArg(typeof(float), 0, "X pos"), new CmdArg(typeof(float), 1, "Y pos") };
-            Description = "Teleports player to specified position";
-
-            CommandConsole.RegisterCommand(Keyword, Description, ExecuteCommand);
-        }
-        public override void ExecuteCommand(string[] userInput)
-        {
-            base.ExecuteCommand(userInput);
-
-            var x = Args[0].Validate(userInput[0], ref returnInfo);
-
-            if (x == null)
-            {
-                CommandConsole.Append(returnInfo);
-                return;
-
-            }
-
-            var y = Args[0].Validate(userInput[1], ref returnInfo);
-
-            if (y == null)
-            {
-                CommandConsole.Append(returnInfo);
-                return;
-            }
-
-
-            PlayerManager.Player1.Move(new Vector2((float)x, (float)y));
-
-            CommandConsole.Append($"Teleported player to {x},{y}");
-
-        }
-    }
-
-    internal class GetPositionCommand : Command
-    {
-        public GetPositionCommand(CustomConsole console) : base(console)
-        {
-            Keyword = "pos";
-            Args = new CmdArg[1] { new CmdArg(typeof(float), 0, "X pos")};
-            Description = "Gets player's position";
-
-            CommandConsole.RegisterCommand(Keyword, Description, ExecuteCommand);
-        }
-        public override void ExecuteCommand(string[] userInput)
-        {
-            base.ExecuteCommand(userInput);
-
-
-                CommandConsole.Append(PlayerManager.Player1.Position.ToString());
-                return;
-
-
-
-
-        }
-    }
+   
 
     internal class Toggle_Debug : Command
     {
@@ -331,69 +269,7 @@ namespace UIEngine.Classes.DebugStuff
         }
     }
 
-    internal class GiveCommand : Command
-    {
-        public GiveCommand(CustomConsole console) : base(console)
-        {
-            Description = "Gives entity x amount of item";
-
-            Keyword = "give";
-            Args = new CmdArg[3] {
-                new CmdArg(typeof(string), 0, "Entity to give"),
-                new CmdArg(typeof(string), 1, "Id of thing"),
-                new CmdArg(typeof(int), 2, "Amount to give") };
-            CommandConsole.RegisterCommand(Keyword, Description, ExecuteCommand);
-
-        }
-        public override void ExecuteCommand(string[] userInput)
-        {
-            base.ExecuteCommand(userInput);
-            if (!CorrectArgAmount(userInput))
-            {
-                CommandConsole.Append($"Error: Expected {Args.Length + 1} arguments but received {userInput.Length}.");
-                return;
-            }
-            //TODO have this depend on input
-            Player player = PlayerManager.Player1;
-            var entityToGive = Args[0].Validate(userInput[0], ref returnInfo);
-
-            if (entityToGive == null)
-            {
-                CommandConsole.Append($"Invalid entity {userInput[0]}");
-                return;
-            }
-
-            var id = Args[1].Validate(userInput[1], ref returnInfo);
-
-            if (id == null)
-            {
-                CommandConsole.Append($"Invalid item id: {userInput[1]}");
-                return;
-
-            }
-
-            if (!ItemFactory.DoesItemExist((string)id))
-            {
-                CommandConsole.Append($"Item with id {id} does not exist");
-                return;
-
-            }
-
-            var countToGive = Args[2].Validate(userInput[2], ref returnInfo);
-
-            if (countToGive == null)
-            {
-                CommandConsole.Append($"Invalid count: {userInput[2]}");
-                return;
-
-            }
-
-           // int amountLeftOver = player.GiveItem((int)id, (int)countToGive);
-
-           // CommandConsole.Append($"Gave player {player.Name} {(int)countToGive - amountLeftOver} of {id}");
-
-        }
-    }
+  
 
     internal class ListCommand : Command
     {

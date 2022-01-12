@@ -1,6 +1,4 @@
 ﻿using DataModels;
-using EntityEngine.Classes.NPCStuff;
-using EntityEngine.Classes.NPCStuff.DialogueStuff;
 using Globals.Classes;
 using Globals.Classes.Helpers;
 using InputEngine.Classes.Input;
@@ -18,7 +16,7 @@ using static Globals.Classes.Settings;
 
 namespace UIEngine.Classes.TextStuff
 {
-    internal class DialogueWindow : InterfaceSection
+    public class DialogueWindow : InterfaceSection
     {
         private NineSliceSprite BackdropSprite { get; set; }
         private TextBuilder TextBuilder { get; set; }
@@ -35,10 +33,7 @@ namespace UIEngine.Classes.TextStuff
 
         }
 
-        public void RegisterCharacterClickEvent(Character character)
-        {
-            character.CharacterClicked += OnCharacterClicked;
-        }
+
 
         public override void Update(GameTime gameTime)
         {
@@ -75,14 +70,14 @@ namespace UIEngine.Classes.TextStuff
 
 
         }
-
-        public void OnCharacterClicked(Schedule schedule)
+        public void CharacterClicked(string speech)
         {
             TextBuilder.ClearText();
             //TODO
-            TextBuilder.SetText(TextFactory.CreateUIText(DialogueInterpreter.GetSpeech(schedule.Dialogue), scale: 2f, layer: Layers.front), false);
+            TextBuilder.SetText(TextFactory.CreateUIText(speech, scale: 2f, layer: Layers.front), false);
             IsActive = true;
             UserInterface.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UserInterface.ClockBar });
         }
+
     }
 }

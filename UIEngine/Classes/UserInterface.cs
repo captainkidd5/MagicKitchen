@@ -37,12 +37,12 @@ namespace UIEngine.Classes
         private static List<InterfaceSection> s_standardSections { get; set; }
 
         internal static CustomConsole CommandConsole { get; set; }
-        internal static DialogueWindow TalkingWindow { get; set; }
+        public static DialogueWindow TalkingWindow { get; set; }
 
         internal static ToolBar ToolBar { get; set; }
         internal static ClockBar ClockBar { get; set; }
 
-        internal static Curtain Curtain { get; set; }
+        public static Curtain Curtain { get; set; }
 
         internal static InventoryDisplay SecondaryInventoryDisplay { get; set; }
 
@@ -50,7 +50,7 @@ namespace UIEngine.Classes
         public static Cursor Cursor { get; set; }
 
 
-        public static void Load( GraphicsDevice graphics, ContentManager content)
+        public static void Load(GraphicsDevice graphics, ContentManager content, StorageContainer playerStorageContainer)
         {
             s_graphics = graphics;
             s_content = content;
@@ -65,7 +65,7 @@ namespace UIEngine.Classes
             ToolBar = new ToolBar(null,graphics, content, null);
             ClockBar = new ClockBar(null,graphics, content,  null);
 
-            ToolBar.Load();
+            ToolBar.Load(playerStorageContainer);
 
             CommandConsole = new CustomConsole(null,graphics, content, null);
             TalkingWindow = new DialogueWindow(null, graphics, content,null);
@@ -74,22 +74,14 @@ namespace UIEngine.Classes
 
             SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null);
             s_activeSections = s_standardSections;
-
+            Cursor = new Cursor();
+            Cursor.LoadContent(content);
             foreach (InterfaceSection section in s_standardSections)
             {
                 section.Load();
             }
         }
-        /// <summary>
-        /// Allows the talking window to respond to character clicks and load in their dialogue trees
-        /// </summary>
-        public static void RegisterCharacterClickEvents()
-        {
-            foreach(Character character in CharacterManager.AllCharacters)
-            {
-                TalkingWindow.RegisterCharacterClickEvent(character);
-            }
-        }
+
 
         /// <summary>
         /// Deactivates all current sections not contained in passed in list
@@ -142,6 +134,7 @@ namespace UIEngine.Classes
                     TalkingWindow.IsActive = false;
                 }
             }
+            Cursor.Update(gameTime);
         }
 
         /// <summary>
@@ -169,7 +162,7 @@ namespace UIEngine.Classes
         {
          //   RenderTargetManager.SetToMainTarget();
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
-
+            Cursor.Draw(spriteBatch);
             foreach (InterfaceSection section in s_activeSections)
             {
                 if (section.IsActive)

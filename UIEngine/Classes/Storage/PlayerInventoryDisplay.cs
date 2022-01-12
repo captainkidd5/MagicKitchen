@@ -1,7 +1,7 @@
-﻿using EntityEngine.Classes;
-using Globals.Classes;
+﻿using Globals.Classes;
 using Globals.Classes.Helpers;
 using InputEngine.Classes.Input;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -32,10 +32,10 @@ namespace UIEngine.Classes.Storage
             
         }
 
-        public override void LoadNewEntityInventory(Entity entity)
+        public override void LoadNewEntityInventory(StorageContainer storageContainer)
         {
 
-            StorageContainer = entity.StorageContainer;
+            StorageContainer = storageContainer;
 
             if (StorageContainer.Capacity % _extendedInventoryCutoff != 0)
                 throw new Exception($"Inventory must form a full number of rows {StorageContainer.Capacity} / {_extendedInventoryCutoff} does not have remainder of zero");

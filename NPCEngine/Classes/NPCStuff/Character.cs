@@ -16,6 +16,8 @@ using VelcroPhysics.Dynamics;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Filtering;
 using EntityEngine.Classes.BehaviourStuff;
+using UIEngine.Classes;
+using EntityEngine.Classes.NPCStuff.DialogueStuff;
 
 namespace EntityEngine.Classes.NPCStuff
 {
@@ -77,6 +79,7 @@ namespace EntityEngine.Classes.NPCStuff
 
         public void OnCharacterClicked(Schedule schedule)
         {
+            UserInterface.TalkingWindow.CharacterClicked(DialogueInterpreter.GetSpeech(schedule.Dialogue));
             CharacterClicked?.Invoke(schedule);
         }
         public void Save(BinaryWriter writer)

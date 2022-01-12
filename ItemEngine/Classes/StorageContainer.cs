@@ -54,7 +54,7 @@ namespace ItemEngine.Classes
             {
                 if (item.Stackable)
                 {
-                    if (slot.Item.Id == item.Id)
+                    if (!slot.Empty && slot.Item.Id == item.Id)
                     {
                         while (count > 0 && (slot.Add(item.Id)))
                         {

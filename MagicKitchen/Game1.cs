@@ -121,8 +121,7 @@ namespace MagicKitchen
             Settings.SetResolution(1280, 720);
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
 
-            UserInterface.Load(GraphicsDevice, Content);
-            UserInterface.RegisterCharacterClickEvents();
+            UserInterface.Load(GraphicsDevice, Content, Player1.StorageContainer);
             RenderTargetManager.Load(GraphicsDevice);
             SoundFactory.Load(Content);
             Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs { VirtualWidth = 1280, VirtualHeight = 720 });
@@ -150,7 +149,7 @@ namespace MagicKitchen
                 SoundFactory.Update(gameTime, PlayerManager.Player1.Position);
 
             }
-            Controls.UpdateCursor();
+
             base.Update(gameTime);
         }
 
