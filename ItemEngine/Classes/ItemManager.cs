@@ -39,9 +39,9 @@ namespace ItemEngine.Classes
                 item.Draw(spriteBatch);
         }
 
-        public void AddWorldItem(Vector2 position, Item item, int count)
+        public void AddWorldItem(Vector2 position, Item item, int count, Vector2? jettisonDirection)
         {
-            Items.Add(ItemFactory.GenerateWorldItem(item.Name, count, position));
+            Items.Add(ItemFactory.GenerateWorldItem(item.Name, count, position, jettisonDirection));
             
         }
     }

@@ -38,6 +38,8 @@ namespace EntityEngine.Classes
         private readonly ContentManager _content;
         //Movement
         protected float StartingSpeed { get; set; } = 12f;
+        protected Vector2 Velocity;
+        protected float Speed { get; set; }
         protected int StorageCapacity { get; set; }
         public Direction DirectionMoving { get; set; }
         public bool IsMoving { get; protected set; }
@@ -329,14 +331,33 @@ namespace EntityEngine.Classes
 
         public void GiveItem(string name, int count) => InventoryHandler.GiveItem(name, count);
 
-        public void DropItem(string name, int count) => InventoryHandler.DropItem(Position, name, count);
-        public void DropItem(Item item, int count) => InventoryHandler.DropItem(Position, item, count);
+        public void DropItem(string name, int count) => InventoryHandler.DropItem(Position, GetTossDirectionFromDirectionFacing(DirectionMoving),name, count);
+        public void DropItem(Item item, int count) => InventoryHandler.DropItem(Position, GetTossDirectionFromDirectionFacing(DirectionMoving),item, count);
 
 
         protected virtual void DropCurrentlyHeldItemToWorld()
         {
-            ItemManager.AddWorldItem(Position, UI.Cursor.HeldItem, UI.Cursor.HeldItemCount);
+            ItemManager.AddWorldItem(Position, UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, GetTossDirectionFromDirectionFacing(DirectionMoving));
 
+        }
+        private static readonly float directionMagnitude = 10;
+
+        protected Vector2 GetTossDirectionFromDirectionFacing(Direction directionFacing)
+        {
+            switch (directionFacing)
+            {
+                case Direction.Down:
+                    return new Vector2(0, directionMagnitude);
+                case Direction.Up:
+                    return new Vector2(0, -directionMagnitude);
+                case Direction.Left:
+                    return new Vector2(-directionMagnitude, 0);
+                case Direction.Right:
+                    return new Vector2(directionMagnitude, 0);
+
+                default:
+                    throw new Exception(directionFacing.ToString() + " is invalid");
+            }
         }
     }
 }

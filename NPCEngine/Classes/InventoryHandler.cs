@@ -42,20 +42,20 @@ namespace EntityEngine.Classes
 
         }
 
-        public void DropItem(Vector2 entityPosition, string name, int count)
+        public void DropItem(Vector2 entityPosition,Vector2 jettisonVector, string name, int count)
         {
             int originalCount = count;
             StorageContainer.RemoveItem(ItemFactory.GetItem(name), ref count);
 
-            ItemManager.AddWorldItem(entityPosition,ItemFactory.GetItem(name), originalCount - count);
+            ItemManager.AddWorldItem(entityPosition,ItemFactory.GetItem(name), originalCount - count, jettisonVector);
         }
 
-        public void DropItem(Vector2 entityPosition, Item item, int count)
+        public void DropItem(Vector2 entityPosition, Vector2 jettisonVector, Item item, int count)
         {
             int originalCount = count;
             StorageContainer.RemoveItem(item, ref count);
 
-            ItemManager.AddWorldItem(entityPosition,item, originalCount - count);
+            ItemManager.AddWorldItem(entityPosition,item, originalCount - count, jettisonVector);
         }
 
     }

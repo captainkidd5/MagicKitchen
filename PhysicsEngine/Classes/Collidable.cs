@@ -18,8 +18,6 @@ namespace PhysicsEngine.Classes
     public class Collidable
     {
         public Vector2 Position { get; private set; }
-        protected Vector2 Velocity;
-        public float Speed { get; protected set; }
 
         protected int XOffSet { get; set; } 
         protected int YOffSet { get; set; } 
@@ -81,7 +79,7 @@ namespace PhysicsEngine.Classes
             }
             SoundModuleManager.Update(CenteredPosition);
 
-            MainHullBody.Body.LinearVelocity = Velocity * Speed * (float)gameTime.ElapsedGameTime.Milliseconds;
+           // MainHullBody.Body.LinearVelocity = Velocity * Speed * (float)gameTime.ElapsedGameTime.Milliseconds;
 
             //Position is changed so that our sprite knows where to draw, and position
             //snaps to where the physics system moved the main hullbody
@@ -157,6 +155,19 @@ namespace PhysicsEngine.Classes
             return MainHullBody.Body.LinearVelocity.X < .2 && MainHullBody.Body.LinearVelocity.Y < .2;
         }
 
+        /// <summary>
+        /// Jetison's body in given direction
+        /// </summary>
+        /// <param name="directionVector"></param>
+        public void Jettison(Vector2 directionVector)
+        {
+            MainHullBody.Body.ApplyLinearImpulse(directionVector);
+            MainHullBody.Body.IgnoreGravity = false;
+            MainHullBody.Body.GravityScale = 5f;
+            MainHullBody.Body.Restitution = .65f;
+
+            MainHullBody.Body.Mass = 2;
+        }
         public virtual void Unload()
         {
             foreach(HullBody body in HullBodies)

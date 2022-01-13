@@ -56,9 +56,9 @@ namespace ItemEngine.Classes
             return false;
         }
 
-        public static WorldItem GenerateWorldItem(string itemName, int count, Vector2 worldPosition)
+        public static WorldItem GenerateWorldItem(string itemName, int count, Vector2 worldPosition, Vector2? jettisonDirection)
         {
-            return new WorldItem(new Item(ItemDictionary[itemName]), count, worldPosition);
+            return new WorldItem(new Item(ItemDictionary[itemName]), count, worldPosition, jettisonDirection);
         }
     }
 }

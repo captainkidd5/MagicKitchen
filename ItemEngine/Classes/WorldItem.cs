@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
+using PhysicsEngine.Classes.Gadgets;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace ItemEngine.Classes
         public Sprite Sprite { get; set; }
 
         public bool FlaggedForRemoval { get; private set; }
-        public WorldItem(Item item, int count, Vector2 position)
+        public WorldItem(Item item, int count, Vector2 position, Vector2? jettisonDirection)
         {
             Item = item;
             Count = count;
@@ -38,12 +39,14 @@ namespace ItemEngine.Classes
             Move(position);
             XOffSet = 8;
             YOffSet = 8;
+            if(jettisonDirection != null)
+                Jettison(jettisonDirection.Value);
+
         }
         protected override void CreateBody(Vector2 position)
         {
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.Item },
-               new List<Category>() { Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal }, OnCollides, OnSeparates, blocksLight: true, userData: this);
-
+               new List<Category>() { Category.Solid, Category.TransparencySensor, Category.Item, Category.Grass}, OnCollides, OnSeparates, blocksLight: true, userData: this);
         }
 
         public void Remove(int count)
@@ -75,23 +78,6 @@ namespace ItemEngine.Classes
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-        private static readonly float directionMagnitude = 10;
-        private Vector2 GetTossDirectionFromDirectionFacing(Direction directionFacing)
-        {
-            switch (directionFacing)
-            {
-                case Direction.Down:
-                    return new Vector2(0, directionMagnitude);
-                case Direction.Up:
-                    return new Vector2(0, -directionMagnitude);
-                case Direction.Left:
-                    return new Vector2(-directionMagnitude, 0);
-                case Direction.Right:
-                    return new Vector2(directionMagnitude, 0);
-
-                default:
-                    throw new Exception(directionFacing.ToString() + " is invalid");
-            }
-        }
+       
     }
 }

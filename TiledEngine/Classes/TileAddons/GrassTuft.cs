@@ -36,7 +36,7 @@ namespace TiledEngine.Classes.TileAddons
         public void Load()
         {
             Tile.Sprite.Origin = new Vector2(8, 32);
-            Move(new Vector2(Tile.Position.X + 8, Tile.Position.Y + 32));
+            Move(new Vector2(Tile.Position.X + Tile.Sprite.Origin.X, Tile.Position.Y + Tile.Sprite.Origin.Y));
             CreateBody(Position);
             Tile.Sprite.DestinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, Tile.Sprite.DestinationRectangle.Value.Width, Tile.Sprite.DestinationRectangle.Value.Height);
 
@@ -49,7 +49,7 @@ namespace TiledEngine.Classes.TileAddons
             
             HullBody body = PhysicsManager.CreateCircularHullBody(BodyType.Static, Position, 4f, new List<Category>() { Category.Grass }, new List<Category>() { Category.Player, Category.NPC },
                 OnCollides, OnSeparates, isSensor:true);
-            Tuft =  PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, new Vector2(Position.X, Position.Y), 2f, 4f, new List<Category>() { Category.Grass }, new List<Category>() { Category.Player, Category.NPC },
+            Tuft =  PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, new Vector2(Position.X, Position.Y), 2f, 4f, new List<Category>() { Category.Grass }, new List<Category>() { Category.Player, Category.NPC,Category.Item },
                 OnCollides, OnSeparates, isSensor: false);
             Tuft.Body.Restitution = .1f;
             Tuft.Body.Friction = .4f;
