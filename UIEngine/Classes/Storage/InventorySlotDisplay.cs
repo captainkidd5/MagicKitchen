@@ -24,6 +24,8 @@ namespace UIEngine.Classes.Storage
         private Text Text { get; set; }
 
         internal protected override bool Clicked => Button.Clicked;
+        internal protected override bool RightClicked => Button.RightClicked;
+
         internal protected new bool Hovered => Button.Hovered; 
 
         public InventorySlotDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content
@@ -48,7 +50,8 @@ namespace UIEngine.Classes.Storage
 
                 _storageSlot.LeftClickInteraction(ref UI.Cursor.HeldItem,ref UI.Cursor.HeldItemCount, Controls.IsKeyPressed(Keys.LeftShift));
 
-            }else if (RightClicked)
+            }
+            if (RightClicked)
             {
                 (parentSection as InventoryDisplay).SelectSlot(this);
 

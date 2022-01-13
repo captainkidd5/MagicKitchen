@@ -40,11 +40,19 @@ namespace InputEngine.Classes.Input
         internal Vector2 UIPosition { get; private set; }
         internal Vector2 WorldPosition { get; private set; }
 
+        private float _clickTimerThreshold = .2f;
 
+        private SimpleTimer _leftClickHeldTimer;
+        private bool _tooLateForLeftClick = false;
+
+        private SimpleTimer _rightClickHeldTimer;
+        private bool _tooLateForRightClick = false;
         internal MouseManager(Camera2D camera, GraphicsDevice graphics )
         {
             this.camera = camera;
             this.graphics = graphics;
+            _leftClickHeldTimer = new SimpleTimer(_clickTimerThreshold);
+            _rightClickHeldTimer = new SimpleTimer(_clickTimerThreshold);
 
         }
 
@@ -55,7 +63,7 @@ namespace InputEngine.Classes.Input
 
 
 
-            Vector2 renderTargetResolution = new Vector2(RenderTargetManager.CurrentOverlayTarget.Width/(float)Settings.ScreenRectangle.Width, RenderTargetManager.CurrentOverlayTarget.Height/ (float)Settings.ScreenRectangle.Height);
+            Vector2 renderTargetResolution = new Vector2(RenderTargetManager.CurrentOverlayTarget.Width / (float)Settings.ScreenRectangle.Width, RenderTargetManager.CurrentOverlayTarget.Height / (float)Settings.ScreenRectangle.Height);
 
             UIPosition = new Vector2(NewMouseState.Position.X, NewMouseState.Position.Y) * renderTargetResolution;
 
@@ -63,8 +71,8 @@ namespace InputEngine.Classes.Input
 
 
 
-            WorldPosition = WorldPosition - RenderTargetManager.HalfScreen() +camera.GetZoomOffSetPatch();
-           // float deltaTime = (float)gameTime.ElapsedGameTime.Milliseconds;
+            WorldPosition = WorldPosition - RenderTargetManager.HalfScreen() + camera.GetZoomOffSetPatch();
+            // float deltaTime = (float)gameTime.ElapsedGameTime.Milliseconds;
 
 
 
@@ -72,21 +80,63 @@ namespace InputEngine.Classes.Input
             UIRectangle = new Rectangle((int)UIPosition.X, (int)UIPosition.Y, 2, 2);
             WorldRectangle = new Rectangle((int)WorldPosition.X, (int)WorldPosition.Y, 2, 2);
 
-            LeftClicked = DidLeftClick(OldMouseState, NewMouseState);
-            LeftHeld = DidHoldLeft(OldMouseState, NewMouseState);
+            
+            HandleLeftClicks(gameTime);
 
-            RightClicked = DidRightClick(OldMouseState, NewMouseState);
-            RightHeld = DidHoldRight(OldMouseState, NewMouseState);
+            HandleRightClicks(gameTime);
 
-            ScrollWheelIncreased = DidScrollIncrease(OldMouseState, NewMouseState);
-            ScrollWheelDecreased = DidScrollDecrease(OldMouseState, NewMouseState);
+            ScrollWheelIncreased = DidScrollIncrease();
+            ScrollWheelDecreased = DidScrollDecrease();
 
 
 
         }
 
+        /// <summary>
+        /// Logic here will not register a click if it is held for more than <see cref="_clickTimerThreshold"/> and then released.
+        /// This helps prevent accidental clicks which players may try to undo by not releasing the mouse button.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        private void HandleRightClicks(GameTime gameTime)
+        {
+           
+            if (NewMouseState.RightButton == ButtonState.Released)
+                _tooLateForRightClick = false;
+            RightHeld = DidHoldButton(OldMouseState.RightButton, NewMouseState.RightButton);
+            if (RightHeld)
+                if (_rightClickHeldTimer.Run(gameTime))
+                    _tooLateForRightClick = true;
+            RightClicked = DidTapButton(OldMouseState.RightButton, NewMouseState.RightButton, _tooLateForRightClick);
+            if (RightClicked)
+                _rightClickHeldTimer.ResetToZero();
+            if (_tooLateForRightClick && NewMouseState.RightButton == ButtonState.Released)
+            {
+                _tooLateForRightClick = false;
+                _rightClickHeldTimer.ResetToZero();
+            }
+        }
 
+        private void HandleLeftClicks(GameTime gameTime)
+        {
+          
+            if (NewMouseState.LeftButton == ButtonState.Pressed && OldMouseState.LeftButton == ButtonState.Released)
+                _leftClickHeldTimer.Run(gameTime);
+           
+            LeftHeld = DidHoldButton(OldMouseState.LeftButton, NewMouseState.LeftButton);
 
+            if (LeftHeld)
+                if (_leftClickHeldTimer.Run(gameTime))
+                    _tooLateForLeftClick = true;
+            LeftClicked = DidTapButton(OldMouseState.LeftButton, NewMouseState.LeftButton, _tooLateForLeftClick);
+            if(LeftClicked)
+                _leftClickHeldTimer.ResetToZero();
+
+            if (_tooLateForLeftClick && NewMouseState.LeftButton == ButtonState.Released)
+            {
+                _tooLateForLeftClick = false;
+                _leftClickHeldTimer.ResetToZero();
+            }
+        }
 
         internal bool IsHoveringUIRectangle(Rectangle rectangle)
         {
@@ -102,43 +152,32 @@ namespace InputEngine.Classes.Input
             return false;
         }
 
-        private bool DidLeftClick(MouseState oldMouseState, MouseState newMouseState)
+        private bool DidTapButton(ButtonState oldButtonState, ButtonState newButtonState, bool tooLate)
         {
-            if (oldMouseState.LeftButton == ButtonState.Pressed &&
-                NewMouseState.LeftButton == ButtonState.Released)
+           
+
+            if (!tooLate && oldButtonState == ButtonState.Pressed &&
+                newButtonState == ButtonState.Released)
                 return true;
             return false;
         }
-        private bool DidHoldLeft(MouseState oldMouseState, MouseState newMouseState)
+        private bool DidHoldButton(ButtonState oldButtonState, ButtonState newButtonState)
         {
-            if (oldMouseState.LeftButton == ButtonState.Pressed &&
-                NewMouseState.LeftButton == ButtonState.Pressed)
+            if (oldButtonState == ButtonState.Pressed &&
+                newButtonState == ButtonState.Pressed)
                 return true;
             return false;
         }
-        private bool DidRightClick(MouseState oldMouseState, MouseState newMouseState)
+       
+        private bool DidScrollIncrease()
         {
-            if (oldMouseState.RightButton == ButtonState.Pressed &&
-                NewMouseState.RightButton == ButtonState.Released)
+            if (NewMouseState.ScrollWheelValue > OldMouseState.ScrollWheelValue)
                 return true;
             return false;
         }
-        private bool DidHoldRight(MouseState oldMouseState, MouseState newMouseState)
+        private bool DidScrollDecrease()
         {
-            if (oldMouseState.RightButton == ButtonState.Pressed &&
-                NewMouseState.RightButton == ButtonState.Pressed)
-                return true;
-            return false;
-        }
-        private bool DidScrollIncrease(MouseState oldMouseState, MouseState newMouseState)
-        {
-            if (newMouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue)
-                return true;
-            return false;
-        }
-        private bool DidScrollDecrease(MouseState oldMouseState, MouseState newMouseState)
-        {
-            if (newMouseState.ScrollWheelValue < oldMouseState.ScrollWheelValue)
+            if (NewMouseState.ScrollWheelValue < OldMouseState.ScrollWheelValue)
                 return true;
             return false;
         }

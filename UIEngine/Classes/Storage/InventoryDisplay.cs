@@ -84,8 +84,9 @@ namespace UIEngine.Classes.Storage
             // base.Update(gameTime);
             for (int i = 0; i < DrawEndIndex; i++)
             {
-                InventorySlots[i].Update(gameTime);
-                if (InventorySlots[i].Hovered)
+                InventorySlotDisplay slot = InventorySlots[i];
+                slot.Update(gameTime);
+                if (slot.Hovered)
                     Hovered = true;
             }
 

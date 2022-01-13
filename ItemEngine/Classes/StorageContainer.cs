@@ -190,28 +190,20 @@ namespace ItemEngine.Classes
             }
             if (count > heldItem.MaxStackSize)
                 throw new Exception($"Should not be possible to be holding more than max stack size of item {heldItem}");
-            if (Empty)
+         if (Item.Id == heldItem.Id && Item.Stackable)
             {
-                //no interaction
-
-                return;
-            }
-            else if (Item.Id == heldItem.Id && Item.Stackable)
-            {
-                //Add 1 to held stack, if possible
-                while ((count < Item.MaxStackSize) && StoredCount > 0)
+                //remove 1 from held stack, if possible
+                if ((StoredCount < Item.MaxStackSize) && count > 0)
                 {
-                    StoredCount--;
-                    count++;
+                    StoredCount++;
+                    count--;
                 }
+                if (StoredCount == 0)
+                    Item = null;
                 OnItemChanged();
 
                 return;
 
-            }
-            else if (!Item.Stackable || Item.Id != heldItem.Id)
-            {
-                //no interaction
             }
         }
         /// <summary>
