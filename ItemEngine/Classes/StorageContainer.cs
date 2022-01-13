@@ -24,7 +24,7 @@ namespace ItemEngine.Classes
                 Slots.Add(new StorageSlot());
             }
         }
-       
+
 
         public void AddItem(Item item, ref int count)
         {
@@ -55,21 +55,21 @@ namespace ItemEngine.Classes
                     emptySlot.AddUniqueItem(item);
                     count--;
                 }
-                else if(item.Stackable)
+                else if (item.Stackable)
                 {
                     while (count > 0 && (emptySlot.Add(item.Name)))
                     {
                         count--;
                     }
                 }
-                
+
             }
 
         }
 
         public void RemoveItem(Item item, ref int countToRemove)
         {
-            while(countToRemove > 0)
+            while (countToRemove > 0)
             {
                 StorageSlot slot = Slots.FirstOrDefault(x => x.Item.Id == item.Id);
                 if (slot == null)
@@ -183,28 +183,48 @@ namespace ItemEngine.Classes
         public void RightClickInteraction(ref Item heldItem, ref int count)
         {
             //Grabbing item from slot, no held item
-            if (heldItem == null)
+            if (Item == null)
             {
                 //no interaction
                 return;
             }
-            if (count > heldItem.MaxStackSize)
-                throw new Exception($"Should not be possible to be holding more than max stack size of item {heldItem}");
-         if (Item.Id == heldItem.Id && Item.Stackable)
+           
+            if(heldItem != null)
             {
-                //remove 1 from held stack, if possible
-                if ((StoredCount < Item.MaxStackSize) && count > 0)
+                if (count > heldItem.MaxStackSize)
+                    throw new Exception($"Should not be possible to be holding more than max stack size of item {heldItem}");
+                if (Item.Id == heldItem.Id && Item.Stackable)
                 {
-                    StoredCount++;
-                    count--;
+                    //add 1 to held stack, if possible
+                    if ((count < Item.MaxStackSize) && StoredCount > 0)
+                    {
+                        StoredCount--;
+                        count++;
+                    }
+                    if (StoredCount == 0)
+                        Item = null;
+                    OnItemChanged();
+
+                    return;
+
+                }
+            }
+            else
+            {
+                //No held item, but items in slot, grab 1
+                if ((count < Item.MaxStackSize) && StoredCount > 0)
+                {
+                    StoredCount--;
+                    count++;
+                    heldItem = Item;
                 }
                 if (StoredCount == 0)
                     Item = null;
                 OnItemChanged();
 
                 return;
-
             }
+            
         }
         /// <summary>
         /// Performs different action based on if the cursor is holding an item, what type of
@@ -213,7 +233,7 @@ namespace ItemEngine.Classes
         public void LeftClickInteraction(ref Item heldItem, ref int count, bool shiftHeld)
         {
             //Grabbing item from slot, no held item
-            if(heldItem == null)
+            if (heldItem == null)
             {
                 heldItem = Item;
                 if (shiftHeld)
@@ -264,7 +284,7 @@ namespace ItemEngine.Classes
             else if (!Item.Stackable || Item.Id != heldItem.Id)
             {
                 //swap the two items. Same id, but unique (might have different durability or something) or just different id
-                Swap(ref heldItem,ref count);
+                Swap(ref heldItem, ref count);
                 OnItemChanged();
 
             }

@@ -12,12 +12,12 @@ namespace TiledEngine.Classes.TileAddons
     internal class TileBody : Collidable, ITileAddon
     {
         public Tile Tile { get; set; }
-        protected readonly TileManager tileManager;
+        protected readonly TileManager TileManager;
         protected IntermediateTmxShape IntermediateTmxShape { get; set; }
         public TileBody(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape)
         {
             Tile = tile;
-            this.tileManager = tileManager;
+            TileManager = tileManager;
             IntermediateTmxShape = intermediateTmxShape;
         }
         public void Draw(SpriteBatch spriteBatch)
