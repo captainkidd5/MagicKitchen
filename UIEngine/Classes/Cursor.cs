@@ -64,21 +64,11 @@ namespace UIEngine.Classes
                 MouseDebugText.UpdateText($"{Controls.CursorUIPosition.X.ToString()} , {Controls.CursorUIPosition.Y.ToString()}");
             UpdateCursor();
 
-            if (Controls.IsClicked)
-            {
-                //Item should not eject if any part of the ui is hovered
-                if (HeldItem != null && !UI.IsHovered)
-                {
-                    DropCurrentlyHeldItemToWorld();
-                }
-            }
+            
             
         }
 
-        private void DropCurrentlyHeldItemToWorld()
-        {
-
-        }
+        
         /// <summary>
         /// Swaps cursor texture
         /// </summary>

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TiledEngine.Classes;
+using UIEngine.Classes;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
 using static Globals.Classes.Settings;
@@ -71,6 +72,21 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            if (Controls.IsClicked)
+            {
+                //Item should not eject if any part of the ui is hovered
+                if (UI.Cursor.HeldItem != null && !UI.IsHovered)
+                {
+                    DropCurrentlyHeldItemToWorld();
+                }
+            }
+        }
+
+        protected override void DropCurrentlyHeldItemToWorld()
+        {
+            base.DropCurrentlyHeldItemToWorld();
+            UI.Cursor.HeldItemCount = 0;
+            UI.Cursor.HeldItem = null;
 
         }
 

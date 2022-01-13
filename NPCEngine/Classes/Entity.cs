@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Text;
 using TextEngine;
 using TiledEngine.Classes;
+using UIEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
@@ -336,6 +337,10 @@ namespace EntityEngine.Classes
         public void DropItem(Item item, int count) => InventoryHandler.DropItem(Position, item, count);
 
 
+        protected virtual void DropCurrentlyHeldItemToWorld()
+        {
+            ItemManager.AddWorldItem(Position, UI.Cursor.HeldItem, UI.Cursor.HeldItemCount);
 
+        }
     }
 }

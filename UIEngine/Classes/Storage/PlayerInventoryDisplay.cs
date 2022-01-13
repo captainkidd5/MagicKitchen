@@ -61,7 +61,10 @@ namespace UIEngine.Classes.Storage
             UpdateSelectorIndex();
             _selectorSprite.Update(gameTime, SelectedSlot.Position);
             _openBigInventoryButton.Update(gameTime);
+
         }
+
+
 
         public override void Draw(SpriteBatch spriteBatch)
         {
