@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Gadgets;
@@ -18,6 +19,7 @@ namespace ItemEngine.Classes
     public class WorldItem : Collidable
     {
         private static readonly int _width = 16;
+        private static readonly float _timeUntilTouchable = 2f;
         public Item Item { get; private set; }
 
         public string Name => Item.Name;
@@ -29,6 +31,8 @@ namespace ItemEngine.Classes
         public int Count { get; private set; }
         public Sprite Sprite { get; set; }
 
+        private SimpleTimer _simpleTimer;
+
         public bool FlaggedForRemoval { get; private set; }
         public WorldItem(Item item, int count, Vector2 position, Vector2? jettisonDirection)
         {
@@ -39,6 +43,7 @@ namespace ItemEngine.Classes
             Move(position);
             XOffSet = 8;
             YOffSet = 8;
+            _simpleTimer = new SimpleTimer(_timeUntilTouchable);
             if(jettisonDirection != null)
                 Jettison(jettisonDirection.Value);
 
@@ -46,7 +51,7 @@ namespace ItemEngine.Classes
         protected override void CreateBody(Vector2 position)
         {
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.Item },
-               new List<Category>() { Category.Solid, Category.TransparencySensor, Category.Item, Category.Grass}, OnCollides, OnSeparates, blocksLight: true, userData: this);
+               new List<Category>() { Category.Solid}, OnCollides, OnSeparates, blocksLight: true, userData: this);
         }
 
         public void Remove(int count)
@@ -61,6 +66,14 @@ namespace ItemEngine.Classes
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            if (_simpleTimer != null && _simpleTimer.Run(gameTime))
+            {
+
+                SetCollidesWith(MainHullBody.Body, new List<Category>() { Category.Solid, Category.Player, Category.TransparencySensor, Category.Item, Category.Grass });
+                _simpleTimer = null;
+            }
+          //  Jettison(new Vector2(10,10));
+
             Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet));
         }
         public void Draw(SpriteBatch spriteBatch)

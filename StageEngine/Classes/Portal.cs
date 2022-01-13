@@ -42,13 +42,13 @@ namespace StageEngine.Classes
         {
             base.CreateBody(position);
             AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, Position, Rectangle.Width, Rectangle.Height,
-                new List<Category>() { Category.Portal }, new List<Category>() { Category.Player, Category.Cursor, Category.PlayerBigSensor, Category.NPCBigSensor }, OnCollides, OnSeparates));
+                new List<Category>() { Category.Portal }, new List<Category>() { Category.Player,Category.NPC, Category.Cursor, Category.PlayerBigSensor, Category.NPCBigSensor }, OnCollides, OnSeparates));
 ;
         }
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            //base.Update(gameTime);
             if(MainHullBody != null)
                MainHullBody.Body.Position = Position;
             if (PlayerInClickRange)

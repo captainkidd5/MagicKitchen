@@ -60,8 +60,13 @@ namespace PhysicsEngine.Classes
             HullBodies.Add(body);
         }
 
-
-
+        protected void SetCollidesWith(Body body, List<Category> collisionCategories)
+        {
+            foreach (var category in collisionCategories)
+            {
+                body.SetCollidesWith(category);
+            }
+        }
 
         public void PlaySound(string soundName)
         {
@@ -161,12 +166,13 @@ namespace PhysicsEngine.Classes
         /// <param name="directionVector"></param>
         public void Jettison(Vector2 directionVector)
         {
-            MainHullBody.Body.ApplyLinearImpulse(directionVector);
-            MainHullBody.Body.IgnoreGravity = false;
-            MainHullBody.Body.GravityScale = 5f;
-            MainHullBody.Body.Restitution = .65f;
-
-            MainHullBody.Body.Mass = 2;
+            MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000, new Vector2(0,0));
+            MainHullBody.Body.IgnoreGravity = true;
+           // MainHullBody.Body.GravityScale = 5f;
+            MainHullBody.Body.Restitution = .2f;
+            MainHullBody.Body.LinearDamping = .75f;
+            MainHullBody.Body.Friction = .75f;
+            MainHullBody.Body.Mass = 1;
         }
         public virtual void Unload()
         {

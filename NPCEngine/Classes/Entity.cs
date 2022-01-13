@@ -124,8 +124,8 @@ namespace EntityEngine.Classes
             Behaviour.OnCollides(fixtureA, fixtureB, contact);
             if (fixtureB.CollisionCategories.HasFlag(Category.Item))
             {
-                //WorldItem worldItem = (fixtureB.Body.UserData as WorldItem);
-                //InventoryHandler.GiveItem(worldItem);
+                WorldItem worldItem = (fixtureB.Body.UserData as WorldItem);
+                InventoryHandler.GiveItem(worldItem);
             }
         }
 
@@ -337,7 +337,7 @@ namespace EntityEngine.Classes
 
         protected virtual void DropCurrentlyHeldItemToWorld()
         {
-            ItemManager.AddWorldItem(Position, UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, GetTossDirectionFromDirectionFacing(DirectionMoving));
+            ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y), UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, GetTossDirectionFromDirectionFacing(DirectionMoving));
 
         }
         private static readonly float directionMagnitude = 10;

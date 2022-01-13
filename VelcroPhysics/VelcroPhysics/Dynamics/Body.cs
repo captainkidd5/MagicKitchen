@@ -576,7 +576,13 @@ namespace VelcroPhysics.Dynamics
 
             for (int i = 0; i < FixtureList.Count; i++)
             {
+                
                 Fixture f = FixtureList[i];
+                if (cat == Category.None)
+                {
+                    f.CollisionCategories = Category.None;
+                    continue;
+                }
                 f.CollisionCategories |= cat;
             }
 
