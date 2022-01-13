@@ -36,7 +36,8 @@ namespace EntityEngine.Classes.PlayerStuff
             Name = name;
             Move(StartingPosition);
             StorageCapacity = 24;
-            
+            XOffSet = 8;
+            YOffSet = 16;
         }
 
         public override void LoadContent(ContentManager content, TileManager tileManager, ItemManager itemManager)

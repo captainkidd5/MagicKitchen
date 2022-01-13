@@ -166,9 +166,12 @@ namespace PhysicsEngine.Classes
         /// <param name="directionVector"></param>
         public void Jettison(Vector2 directionVector)
         {
-            MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000, new Vector2(0,0));
-            MainHullBody.Body.IgnoreGravity = true;
-           // MainHullBody.Body.GravityScale = 5f;
+            MainHullBody.Body.ApplyLinearImpulse(directionVector * 500, new Vector2(0,0));
+            MainHullBody.Body.IgnoreGravity = false;
+            if (directionVector.X == 0)
+                MainHullBody.Body.GravityScale = 4f;
+            else
+                MainHullBody.Body.GravityScale = 15f;
             MainHullBody.Body.Restitution = .2f;
             MainHullBody.Body.LinearDamping = .75f;
             MainHullBody.Body.Friction = .75f;

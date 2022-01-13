@@ -128,8 +128,13 @@ namespace PhysicsEngine.Classes
                 body.SetCollidesWith(Category.None);
 
             if (collisionCategories != null)
-                foreach (Category category in collisionCategories)
+            {
+
+                body.SetCollisionCategory(Category.None);
+                     foreach (Category category in collisionCategories)
                     body.SetCollisionCategory(category);
+
+            }
 
 
             body.OnCollision += cDelegate;

@@ -337,7 +337,7 @@ namespace EntityEngine.Classes
 
         protected virtual void DropCurrentlyHeldItemToWorld()
         {
-            ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y), UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, GetTossDirectionFromDirectionFacing(DirectionMoving));
+            ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet/2), UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, GetTossDirectionFromDirectionFacing(DirectionMoving));
 
         }
         private static readonly float directionMagnitude = 10;
@@ -351,9 +351,9 @@ namespace EntityEngine.Classes
                 case Direction.Up:
                     return new Vector2(0, -directionMagnitude);
                 case Direction.Left:
-                    return new Vector2(-directionMagnitude, 0);
+                    return new Vector2(-directionMagnitude, -10);
                 case Direction.Right:
-                    return new Vector2(directionMagnitude, 0);
+                    return new Vector2(directionMagnitude, -10);
 
                 default:
                     throw new Exception(directionFacing.ToString() + " is invalid");

@@ -19,7 +19,7 @@ namespace ItemEngine.Classes
     public class WorldItem : Collidable
     {
         private static readonly int _width = 16;
-        private static readonly float _timeUntilTouchable = 2f;
+        private static readonly float _timeUntilTouchable = .4f;
         public Item Item { get; private set; }
 
         public string Name => Item.Name;
@@ -70,6 +70,7 @@ namespace ItemEngine.Classes
             {
 
                 SetCollidesWith(MainHullBody.Body, new List<Category>() { Category.Solid, Category.Player, Category.TransparencySensor, Category.Item, Category.Grass });
+                MainHullBody.Body.IgnoreGravity = true;
                 _simpleTimer = null;
             }
           //  Jettison(new Vector2(10,10));
