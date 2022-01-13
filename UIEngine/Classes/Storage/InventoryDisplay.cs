@@ -75,14 +75,18 @@ namespace UIEngine.Classes.Storage
                     new Vector2(Position.X + i * _buttonWidth,
                     Position.Y + i % Rows * _buttonWidth)));
             }
-            ChildSections.AddRange(InventorySlots);
+
         }
         public override void Update(GameTime gameTime)
         {
-           // base.Update(gameTime);
+            Hovered = false;
+
+            // base.Update(gameTime);
             for (int i = 0; i < DrawEndIndex; i++)
             {
                 InventorySlots[i].Update(gameTime);
+                if (InventorySlots[i].Hovered)
+                    Hovered = true;
             }
 
 

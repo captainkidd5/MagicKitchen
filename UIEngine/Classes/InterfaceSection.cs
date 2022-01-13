@@ -47,6 +47,8 @@ namespace UIEngine.Classes
             ChildSections = new List<InterfaceSection>();
             IsActive = true;
             State = SectionState.None;
+            if(interfaceSection != null && interfaceSection.ChildSections != null && !interfaceSection.ChildSections.Contains(this))
+                interfaceSection.ChildSections.Add(this);
         }
 
         public virtual void Load()

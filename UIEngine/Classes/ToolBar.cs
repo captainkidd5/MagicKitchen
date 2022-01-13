@@ -44,15 +44,12 @@ namespace UIEngine.Classes
             _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer);
             _playerInventoryDisplay.Load();
 
-            ChildSections.Add(_playerInventoryDisplay);
         }
 
         public override void Update(GameTime gameTime)
         {
 
             base.Update(gameTime);
-
-
             if (!Flags.Pause)
                 if (Controls.WasKeyTapped(Keys.Q))
                     TryEjectItem();
