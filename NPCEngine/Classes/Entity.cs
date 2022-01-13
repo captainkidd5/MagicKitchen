@@ -39,8 +39,6 @@ namespace EntityEngine.Classes
         //Movement
         protected float StartingSpeed { get; set; } = 12f;
         protected int StorageCapacity { get; set; }
-        public float Speed { get; protected set; }
-        protected Vector2 Velocity;
         public Direction DirectionMoving { get; set; }
         public bool IsMoving { get; protected set; }
         //Entity gets the data representation of inventory while ui handles actual visuals
@@ -124,8 +122,8 @@ namespace EntityEngine.Classes
             Behaviour.OnCollides(fixtureA, fixtureB, contact);
             if (fixtureB.CollisionCategories.HasFlag(Category.Item))
             {
-                WorldItem worldItem = (fixtureB.Body.UserData as WorldItem);
-                InventoryHandler.GiveItem(worldItem);
+                //WorldItem worldItem = (fixtureB.Body.UserData as WorldItem);
+                //InventoryHandler.GiveItem(worldItem);
             }
         }
 
@@ -160,11 +158,9 @@ namespace EntityEngine.Classes
 
             //Position is changed so that our sprite knows where to draw, and position
             //snaps to where the physics system moved the main hullbody
-            Move(new Vector2(MainHullBody.Position.X, MainHullBody.Position.Y));
             //Big sensor position just sticks on top of our main hullbody
             BigSensor.Position = Position;
-            if (MainHullBody.Hull != null)
-                MainHullBody.Hull.Position = Position;
+
 
             EntityAnimator.Update(gameTime, IsMoving, Position, DirectionMoving);
             CheckOnWarpStatus();

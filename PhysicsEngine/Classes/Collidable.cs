@@ -18,6 +18,8 @@ namespace PhysicsEngine.Classes
     public class Collidable
     {
         public Vector2 Position { get; private set; }
+        protected Vector2 Velocity;
+        public float Speed { get; protected set; }
 
         protected int XOffSet { get; set; } 
         protected int YOffSet { get; set; } 
@@ -78,7 +80,14 @@ namespace PhysicsEngine.Classes
                 body.Position = Position;
             }
             SoundModuleManager.Update(CenteredPosition);
-            
+
+            MainHullBody.Body.LinearVelocity = Velocity * Speed * (float)gameTime.ElapsedGameTime.Milliseconds;
+
+            //Position is changed so that our sprite knows where to draw, and position
+            //snaps to where the physics system moved the main hullbody
+            Move(new Vector2(MainHullBody.Position.X, MainHullBody.Position.Y));
+
+
         }
         protected virtual void CreateBody(Vector2 position)
         {

@@ -113,6 +113,8 @@ namespace SpriteEngine.Classes
             }
             Position = position;
 
+            if(DestinationRectangle != null)
+                DestinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, Width, Height);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

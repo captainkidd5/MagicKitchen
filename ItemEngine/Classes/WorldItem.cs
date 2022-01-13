@@ -36,7 +36,8 @@ namespace ItemEngine.Classes
             Sprite = SpriteFactory.CreateWorldSprite(new Rectangle((int)position.X, (int)position.Y, _width, _width), Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet);
             CreateBody(position);
             Move(position);
-
+            XOffSet = 8;
+            YOffSet = 8;
         }
         protected override void CreateBody(Vector2 position)
         {
@@ -57,7 +58,7 @@ namespace ItemEngine.Classes
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            Sprite.Update(gameTime, Position);
+            Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet));
         }
         public void Draw(SpriteBatch spriteBatch)
         {
