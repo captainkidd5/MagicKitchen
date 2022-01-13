@@ -18,6 +18,8 @@ using VelcroPhysics.Collision.Filtering;
 using EntityEngine.Classes.BehaviourStuff;
 using UIEngine.Classes;
 using EntityEngine.Classes.NPCStuff.DialogueStuff;
+using TiledEngine.Classes;
+using ItemEngine.Classes;
 
 namespace EntityEngine.Classes.NPCStuff
 {
@@ -43,9 +45,9 @@ namespace EntityEngine.Classes.NPCStuff
             YOffSet = 16;
         }
 
-        public override void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager content, TileManager tileManager, ItemManager itemManager)
         {
-            base.LoadContent(content);
+            base.LoadContent(content,  tileManager,  itemManager);
             Behaviour = new RouteBehaviour(this, StatusIcon, Navigator, TileManager, ActiveSchedule, npcData.Schedules, null);
 
 

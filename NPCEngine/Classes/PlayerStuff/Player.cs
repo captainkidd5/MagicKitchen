@@ -12,6 +12,7 @@ using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TiledEngine.Classes;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
 using static Globals.Classes.Settings;
@@ -37,9 +38,9 @@ namespace EntityEngine.Classes.PlayerStuff
             
         }
 
-        public override void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager content, TileManager tileManager, ItemManager itemManager)
         {
-            base.LoadContent(content);
+            base.LoadContent(content,  tileManager,  itemManager);
             IsInStage = true;
         }
 

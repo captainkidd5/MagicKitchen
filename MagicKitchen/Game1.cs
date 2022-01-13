@@ -109,11 +109,12 @@ namespace MagicKitchen
             ItemFactory.LoadContent(Content);
             EntityFactory.Load(Content);
             CharacterManager.LoadCharacterData(GraphicsDevice, Content);
-            PlayerManager.LoadContent(GraphicsDevice, Content);
             PortalManager.IntialLoad();
             QuestManager.Load(GraphicsDevice, Content);
-
+            PlayerManager.Initialize(GraphicsDevice,Content);
             StageManager.LoadContent(GraphicsDevice, Penumbra, Content, Camera);
+            PlayerManager.LoadContent();
+
             Controls.Load(Camera, GraphicsDevice, Content);
             SpriteFactory.LoadContent(GraphicsDevice, Content);
 
@@ -127,6 +128,7 @@ namespace MagicKitchen
             Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs { VirtualWidth = 1280, VirtualHeight = 720 });
             Player1.GiveItem("Fish Bones", 20);
             Player1.GiveItem("Steel Axe", 2);
+            Player1.DropItem("Steel Axe", 1);
 
             // _graphics.IsFullScreen = true;
             // _graphics.ApplyChanges();

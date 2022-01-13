@@ -71,16 +71,17 @@ namespace StageEngine.Classes
             }
             CurrentStage.FirstEntryLoad();
 
+            PlayerManager.Player1.LoadContent(Content, CurrentStage.TileManager, CurrentStage.ItemManager);
             CurrentStage.LoadPortals();
             PlayerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
-
+            
             foreach (Character character in CharacterManager.AllCharacters)
             {
                 Stage stage = Stages[character.CurrentStageName];
                 if (stage == null)
                     throw new Exception($"Stage {character.CurrentStageName} does not exist, check to make sure" +
                         $"both a tmx map with name and npcdata stage name match");
-                character.LoadContent(content);
+                character.LoadContent(content, stage.TileManager, stage.ItemManager);
                 character.LoadToNewStage(stage.Name, stage.TileManager,stage.ItemManager);
                 stage.NPCs.Add(character);
                 character.PlayerSwitchedStage(CurrentStage.Name, false);

@@ -81,12 +81,14 @@ namespace EntityEngine.Classes
             _warpHelper = new WarpHelper(this);
         }
 
-        public virtual void LoadContent(ContentManager content)
+        public virtual void LoadContent(ContentManager content, TileManager tileManager,ItemManager itemManager )
         {
             CreateBody(Position);
 
             DirectionMoving = Direction.Down;
             StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
+            ItemManager = itemManager;
+            TileManager = tileManager;
             InventoryHandler = new InventoryHandler(ItemManager, StorageCapacity);
 
 
@@ -121,7 +123,7 @@ namespace EntityEngine.Classes
             Behaviour.OnCollides(fixtureA, fixtureB, contact);
             if (fixtureB.CollisionCategories.HasFlag(Category.Item))
             {
-                WorldItem worldItem = (fixtureA.UserData as WorldItem);
+                WorldItem worldItem = (fixtureB.Body.UserData as WorldItem);
                 InventoryHandler.GiveItem(worldItem);
             }
         }

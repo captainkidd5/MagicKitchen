@@ -21,15 +21,15 @@ namespace ItemEngine.Classes
 
         public void Update(GameTime gameTime)
         {
-            foreach (WorldItem item in Items)
+            for(int i = Items.Count - 1; i >= 0; i--)
             {
+                WorldItem item = Items[i];
                 item.Update(gameTime);
                 if (item.FlaggedForRemoval)
                 {
                     item.Unload();
-                    Items.Remove(item);
+                    Items.RemoveAt(i);
                 }
-
             }
         }
 

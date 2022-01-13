@@ -12,6 +12,7 @@ using PhysicsEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TiledEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
@@ -51,9 +52,9 @@ namespace EntityEngine.Classes
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-        public override void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager content, TileManager tileManager,ItemManager itemManager )
         {
-            base.LoadContent(content);
+            base.LoadContent(content, tileManager, itemManager);
             BodyPiece[] bodyPieces = new BodyPiece[]
                 {
                     new Pants(0),
