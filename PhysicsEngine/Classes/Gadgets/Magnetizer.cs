@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes.Helpers;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,18 +11,44 @@ namespace PhysicsEngine.Classes.Gadgets
     /// </summary>
     public class Magnetizer : PhysicsGadget
     {
-        private readonly Collidable collidableToMoveTowards;
-        private readonly float speed;
+        private readonly Collidable _collidableToMoveTowards;
+        private readonly int _errorMargin;
+        private readonly float _speed;
 
-        public Magnetizer(Collidable collidable, Collidable collidableToMoveTowards, float speed = 1f) :base(collidable)
+        public Magnetizer(Collidable collidable, Collidable collidableToMoveTowards,int errorMargin = 4, float speed = 1f) :base(collidable)
         {
-            this.collidableToMoveTowards = collidableToMoveTowards;
-            this.speed = speed;
+            _collidableToMoveTowards = collidableToMoveTowards;
+            _errorMargin = errorMargin;
+            _speed = speed;
         }
         public override void Update(GameTime gameTime)
         {
-           // collidable.MoveTowardsVector(collidableToMoveTowards.Position, gameTime, speed);
+            MoveTowardsVector();
         }
+        private bool MoveTowardsVector()
+        {
+            // If we're already at the goal return immediatly
+            Vector2 currentPos = collidable.Position;
+            Vector2 goal = _collidableToMoveTowards.Position;
+            if (Vector2Helper.WithinRangeOf(currentPos, goal, _errorMargin))
+                return true;
 
+            // Find direction from current MainHull.Position to goal
+            Vector2 direction = Vector2.Normalize(goal - currentPos);
+
+            // If we moved PAST the goal, move it back to the goal
+            if (Math.Abs(Vector2.Dot(direction, Vector2.Normalize(goal - currentPos)) + 1) < 0.1f)
+                currentPos = goal;
+
+            // Return whether we've reached the goal or not, leeway of 2 pixels 
+            if (currentPos.X + _errorMargin > goal.X && currentPos.Y - _errorMargin < goal.X
+               && currentPos.Y + _errorMargin > goal.Y && currentPos.Y - _errorMargin < goal.Y)
+            {
+                return true;
+            }
+            collidable.Jettison(direction, null);
+
+            return false;
+        }
     }
 }

@@ -69,7 +69,7 @@ namespace ItemEngine.Classes
             if (_simpleTimer != null && _simpleTimer.Run(gameTime))
             {
 
-                SetCollidesWith(MainHullBody.Body, new List<Category>() { Category.Solid, Category.Player, Category.TransparencySensor, Category.Item, Category.Grass });
+                SetCollidesWith(MainHullBody.Body, new List<Category>() { Category.Solid, Category.Player, Category.PlayerBigSensor, Category.TransparencySensor, Category.Item, Category.Grass });
                 MainHullBody.Body.IgnoreGravity = true;
                 _simpleTimer = null;
             }
@@ -85,6 +85,12 @@ namespace ItemEngine.Classes
         protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnCollides(fixtureA, fixtureB, contact);
+            if (fixtureB.CollisionCategories.HasFlag(Category.PlayerBigSensor))
+            {
+                if(Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null){
+                    Gadgets.Add(new Magnetizer(this, (fixtureB.Body.UserData as Collidable)));
+                }
+            }
         }
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)

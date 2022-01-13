@@ -93,20 +93,7 @@ namespace PhysicsEngine.Classes.Pathfinding
             return true;
         }
 
-        /// <summary>
-        /// Checks if two given positions are close to one another
-        /// </summary>
-        /// <param name="marginOfErrorInPixels">Larger the value, the less precise you have to be</param>
-        /// <returns></returns>
-        public static bool WithinRangeOf(Vector2 currentPos, Vector2 goal, int marginOfErrorInPixels = 2)
-        {
-            if (currentPos.X + marginOfErrorInPixels > goal.X && currentPos.X - marginOfErrorInPixels < goal.X
-                && currentPos.Y + marginOfErrorInPixels > goal.Y && currentPos.Y - marginOfErrorInPixels < goal.Y)
-            {
-                return true;
-            }
-            return false;
-        }
+     
 
         /// <summary>
         /// Draws a line between each position on the NPCs current path, resulting in a long path line representing their path. Does not draw already-traversed path
@@ -122,7 +109,7 @@ namespace PhysicsEngine.Classes.Pathfinding
         {
             // If we're already at the goal return immediatly
 
-            if (WithinRangeOf(currentPos, goal, ErrorMargin))
+            if (Vector2Helper.WithinRangeOf(currentPos, goal, ErrorMargin))
                 return true;
 
             // Find direction from current MainHull.Position to goal

@@ -122,7 +122,7 @@ namespace EntityEngine.Classes
             base.OnCollides(fixtureA, fixtureB, contact);
             //Collision logic changes based on current behaviour!
             Behaviour.OnCollides(fixtureA, fixtureB, contact);
-            if (fixtureB.CollisionCategories.HasFlag(Category.Item))
+            if (fixtureB.CollisionCategories.HasFlag(Category.Item) && fixtureA.CollisionCategories.HasFlag(Category.Player))
             {
                 WorldItem worldItem = (fixtureB.Body.UserData as WorldItem);
                 InventoryHandler.GiveItem(worldItem);

@@ -35,5 +35,20 @@ namespace Globals.Classes.Helpers
         {
             return new Point((int)(worldPos.X / Settings.TileSize), (int)(worldPos.Y / Settings.TileSize));
         }
+
+        /// <summary>
+        /// Checks if two given positions are close to one another
+        /// </summary>
+        /// <param name="marginOfErrorInPixels">Larger the value, the less precise you have to be</param>
+        /// <returns></returns>
+        public static bool WithinRangeOf(Vector2 currentPos, Vector2 goal, int marginOfErrorInPixels = 2)
+        {
+            if (currentPos.X + marginOfErrorInPixels > goal.X && currentPos.X - marginOfErrorInPixels < goal.X
+                && currentPos.Y + marginOfErrorInPixels > goal.Y && currentPos.Y - marginOfErrorInPixels < goal.Y)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

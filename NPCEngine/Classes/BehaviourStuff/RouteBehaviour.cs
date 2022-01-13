@@ -1,6 +1,7 @@
 ﻿using DataModels;
 using EntityEngine.Classes.NPCStuff;
 using Globals.Classes;
+using Globals.Classes.Helpers;
 using Globals.Classes.Time;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -68,7 +69,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                 base.GetPath(targetpos, _activeSchedule.StageEndLocation);
 
 
-                if (Navigator.WithinRangeOf(Entity.Position, targetpos))
+                if (Vector2Helper.WithinRangeOf(Entity.Position, targetpos))
                 {
                     return;
                 }
