@@ -124,6 +124,7 @@ namespace ItemEngine.Classes
             if (Item == null)
             {
                 Item = uniqueItem;
+                StoredCount++;
                 OnItemChanged();
                 return true;
             }

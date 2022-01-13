@@ -45,7 +45,7 @@ namespace ItemEngine.Classes
             YOffSet = 8;
             _simpleTimer = new SimpleTimer(_timeUntilTouchable);
             if(jettisonDirection != null)
-                Jettison(jettisonDirection.Value);
+                Jettison(jettisonDirection.Value, null);
 
         }
         protected override void CreateBody(Vector2 position)
