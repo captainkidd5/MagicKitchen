@@ -63,9 +63,22 @@ namespace ItemEngine.Classes
             if (Count == 0)
                 FlaggedForRemoval = true;
         }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            TestIfImmunityDone(gameTime);
+            //  Jettison(new Vector2(10,10));
+
+            Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet));
+        }
+
+        /// <summary>
+        /// Waits <see cref="_timeUntilTouchable"/> amount until entities can interact with it
+        /// </summary>
+        private void TestIfImmunityDone(GameTime gameTime)
+        {
             if (_simpleTimer != null && _simpleTimer.Run(gameTime))
             {
 
@@ -73,10 +86,8 @@ namespace ItemEngine.Classes
                 MainHullBody.Body.IgnoreGravity = true;
                 _simpleTimer = null;
             }
-          //  Jettison(new Vector2(10,10));
-
-            Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet));
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);

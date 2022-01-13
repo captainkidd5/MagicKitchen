@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using static Globals.Classes.Settings;
 
@@ -13,7 +14,7 @@ namespace InputEngine.Classes
 
         private KeyboardState OldKeyBoardState { get; set; }
         private KeyboardState NewKeyBoardState { get; set; }
-        internal Keys[] NewelyPressedKeys { get; private set; }
+        internal List<Keys> PressedKeys { get; private set; }
 
         //These are keys which were pressed LAST FRAME and released THIS FRAME
         internal List<Keys> TappedKeys { get; private set; }
@@ -50,7 +51,7 @@ namespace InputEngine.Classes
             OldKeyBoardState = NewKeyBoardState;
             NewKeyBoardState = Keyboard.GetState();
 
-            NewelyPressedKeys = NewKeyBoardState.GetPressedKeys();
+            PressedKeys = NewKeyBoardState.GetPressedKeys().ToList();
             ClearUseableKeys();
             CalculateUseableKeys();
             CalculateRecentlyPressedKeys();
@@ -70,7 +71,7 @@ namespace InputEngine.Classes
         /// </summary>
         private void CalculateRecentlyPressedKeys()
         {
-            foreach (Keys key in NewelyPressedKeys)
+            foreach (Keys key in PressedKeys)
             {
                 KeysRecentlyPressed.Add(new KeyTimer(key, KeysRecentlyPressed));
             }
@@ -81,7 +82,7 @@ namespace InputEngine.Classes
         /// </summary>
         private void CalculateUseableKeys()
         {
-            foreach (Keys key in NewelyPressedKeys)
+            foreach (Keys key in PressedKeys)
             {
                 if (CanUsePressedKey(key))
                     UseableRecentKeys.Add(key);
@@ -100,10 +101,10 @@ namespace InputEngine.Classes
         /// <returns>Returns true if the key is pressed, and has not yet been added to recently pressed keys.</returns>
         public bool CanUsePressedKey(Keys key)
         {
-            for (int i = 0; i < NewelyPressedKeys.Length; i++)
+            for (int i = 0; i < PressedKeys.Count; i++)
             {
                 //If pressed keys this frame contains the key, and recently pressed keys does NOT contain this key.
-                if (NewelyPressedKeys[i] == key && KeysRecentlyPressed.Find(x => x.Key == key) == null)
+                if (PressedKeys[i] == key && KeysRecentlyPressed.Find(x => x.Key == key) == null)
                     return true;
             }
             return false;

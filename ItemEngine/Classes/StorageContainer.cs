@@ -179,36 +179,82 @@ namespace ItemEngine.Classes
             }
             OnItemChanged();
         }
+
+        public void RightClickInteraction(ref Item heldItem, ref int count)
+        {
+            //Grabbing item from slot, no held item
+            if (heldItem == null)
+            {
+                //no interaction
+                return;
+            }
+            if (count > heldItem.MaxStackSize)
+                throw new Exception($"Should not be possible to be holding more than max stack size of item {heldItem}");
+            if (Empty)
+            {
+                //no interaction
+
+                return;
+            }
+            else if (Item.Id == heldItem.Id && Item.Stackable)
+            {
+                //Add 1 to held stack, if possible
+                while ((count < Item.MaxStackSize) && StoredCount > 0)
+                {
+                    StoredCount--;
+                    count++;
+                }
+                OnItemChanged();
+
+                return;
+
+            }
+            else if (!Item.Stackable || Item.Id != heldItem.Id)
+            {
+                //no interaction
+            }
+        }
         /// <summary>
         /// Performs different action based on if the cursor is holding an item, what type of
         /// item it is, whether or not the storage slot has an item, and what type it is
         /// </summary>
-        public void ClickInteraction(ref Item itemToDeposit, ref int count)
+        public void LeftClickInteraction(ref Item heldItem, ref int count, bool shiftHeld)
         {
             //Grabbing item from slot, no held item
-            if(itemToDeposit == null)
+            if(heldItem == null)
             {
-                itemToDeposit = Item;
-                count = StoredCount;
-                Item = null;
-                StoredCount = 0;
+                heldItem = Item;
+                if (shiftHeld)
+                {
+                    int countToRemove = StoredCount / 2;
+                    count = countToRemove;
+                    StoredCount = StoredCount - countToRemove;
+                }
+                else
+                {
+                    count = StoredCount;
+                    Item = null;
+                    StoredCount = 0;
+
+                }
+
                 OnItemChanged();
 
                 return;
             }
-            if (count > itemToDeposit.MaxStackSize)
-                throw new Exception($"Should not be possible to be holding more than max stack size of item {itemToDeposit}");
+            if (count > heldItem.MaxStackSize)
+                throw new Exception($"Should not be possible to be holding more than max stack size of item {heldItem}");
             if (Empty)
             {
-                Item = itemToDeposit;
+                Item = heldItem;
                 StoredCount = count;
-                itemToDeposit = null;
+                heldItem = null;
                 count = 0;
                 OnItemChanged();
 
                 return;
             }
-            else if (Item.Id == itemToDeposit.Id && Item.Stackable)
+            else if (Item.Id == heldItem.Id && Item.Stackable)
             {
                 //deposit rest of held item stack into slot stack, until slot stack is full
                 while ((StoredCount < Item.MaxStackSize) && count > 0)
@@ -216,15 +262,17 @@ namespace ItemEngine.Classes
                     StoredCount++;
                     count--;
                 }
+                if (count == 0)
+                    heldItem = null;
                 OnItemChanged();
 
                 return;
 
             }
-            else if (!Item.Stackable || Item.Id != itemToDeposit.Id)
+            else if (!Item.Stackable || Item.Id != heldItem.Id)
             {
                 //swap the two items. Same id, but unique (might have different durability or something) or just different id
-                Swap(ref itemToDeposit,ref count);
+                Swap(ref heldItem,ref count);
                 OnItemChanged();
 
             }

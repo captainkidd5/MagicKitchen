@@ -13,13 +13,14 @@ namespace InputEngine.Classes
     internal interface IInput
     {
         bool DidClick { get; }
+        bool DidRightClick { get; }
         bool EscapePressed { get; }
         Vector2 MouseUIPosition { get; }
         Vector2 MouseWorldPosition { get;  }
 
-        
 
-        Keys[] PressedKeys { get; }
+
+        List<Keys> PressedKeys { get; }
         List<Keys> TappedKeys { get; }
 
         Direction GetDirectionFacing { get; }

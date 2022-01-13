@@ -37,6 +37,8 @@ namespace UIEngine.Classes
 
         protected bool WasHovered => (_hoveredLastFrame && !Hovered);
         internal virtual protected bool Clicked { get; set; }
+        internal virtual protected bool RightClicked { get; set; }
+
 
         public InterfaceSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content , Vector2? position) :
             base(graphicsDevice, content)
@@ -61,6 +63,7 @@ namespace UIEngine.Classes
             _hoveredLastFrame = Hovered;
             Hovered = false;
             Clicked = false;
+            RightClicked = false;
 
             //baseline check
             if (Controls.IsHovering(ElementType.UI, HitBox))
@@ -68,6 +71,8 @@ namespace UIEngine.Classes
                 Hovered = true;
                 if (Controls.IsClicked)
                     Clicked = true;
+                if(Controls.IsRightClicked)
+                    RightClicked = true;
                 return;
             }
             foreach (InterfaceSection section in ChildSections)
@@ -78,6 +83,8 @@ namespace UIEngine.Classes
                     Hovered = true;
                     if (section.Clicked)
                         Clicked = true;
+                    if(section.RightClicked)
+                        RightClicked= true;
                 }
             }
 

@@ -3,6 +3,7 @@ using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
@@ -45,8 +46,13 @@ namespace UIEngine.Classes.Storage
             {
                 (parentSection as InventoryDisplay).SelectSlot(this);
 
-                _storageSlot.ClickInteraction(ref UI.Cursor.HeldItem,ref UI.Cursor.HeldItemCount);
+                _storageSlot.LeftClickInteraction(ref UI.Cursor.HeldItem,ref UI.Cursor.HeldItemCount, Controls.IsKeyPressed(Keys.LeftShift));
 
+            }else if (RightClicked)
+            {
+                (parentSection as InventoryDisplay).SelectSlot(this);
+
+                _storageSlot.RightClickInteraction(ref UI.Cursor.HeldItem, ref UI.Cursor.HeldItemCount);
             }
 
         }

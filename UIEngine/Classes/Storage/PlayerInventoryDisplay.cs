@@ -83,18 +83,34 @@ namespace UIEngine.Classes.Storage
         /// </summary>
         private void UpdateSelectorIndex()
         {
+            int newSelectedSlot = 0;
+            Direction newDir = Direction.None;
+
             if (Controls.ScrollWheelIncreased)
-            {
-                SelectedSlot = InventorySlots[ScrollHelper.GetIndexFromScroll(
-                    Direction.Up, InventorySlots.IndexOf(SelectedSlot),
-                    InventorySlots.Count)];
-            }
+                newDir = Direction.Down;
             else if (Controls.ScrollWheelDecreased)
+                newDir = Direction.Up;
+            else
+                return;
+
+            newSelectedSlot = ScrollHelper.GetIndexFromScroll(
+                    newDir, InventorySlots.IndexOf(SelectedSlot),
+                    InventorySlots.Count);
+
+            //Selector shouldn't extend past main toolbar row if extended inventory is closed
+            if (!_isOpen)
             {
-                SelectedSlot = InventorySlots[ScrollHelper.GetIndexFromScroll(
-                    Direction.Down, InventorySlots.IndexOf(SelectedSlot),
-                    InventorySlots.Count)];
+                if (newSelectedSlot == Capacity - 1)
+                    newSelectedSlot = _extendedInventoryCutoff - 1;
+                else if (newSelectedSlot >= _extendedInventoryCutoff)
+                    newSelectedSlot = 0;
+
+                
             }
+               
+
+
+            SelectedSlot = InventorySlots[newSelectedSlot];
         }
         protected override void GenerateUI()
         {
@@ -128,6 +144,10 @@ namespace UIEngine.Classes.Storage
         private void ToggleOpen()
         {
             _isOpen = !_isOpen;
+            //reset selector to 0 if just closed
+            if(!_isOpen)
+                SelectedSlot = InventorySlots[0];
+
             SwitchSpriteFromToggleStatus();
         }
 

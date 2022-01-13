@@ -52,6 +52,7 @@ namespace InputEngine.Classes.Input
         #region Buttons
         public static bool StartMenuPressed => CurrentControls.EscapePressed;
         public static List<Keys> TappedKeys => CurrentControls.TappedKeys;
+        public static List<Keys> PressedKeys => CurrentControls.PressedKeys;
         #endregion
 
         #region CURSOR
@@ -71,6 +72,12 @@ namespace InputEngine.Classes.Input
         public static List<Keys> AcceptableKeysForTyping => CurrentControls.AcceptableKeysForTyping;
         public static Point CursorTileIndex { get; private set; }
         public static bool IsClicked => CurrentControls.DidClick;
+        public static bool IsRightClicked => CurrentControls.DidRightClick;
+
+        public static bool WasKeyTapped(Keys key) => TappedKeys.Contains(key);
+
+        public static bool IsKeyPressed(Keys key) => PressedKeys.Contains(key);
+
         //private static Collidable MouseBody { get; set; }
 
         #endregion
@@ -115,13 +122,7 @@ namespace InputEngine.Classes.Input
             return Vector2Helper.GetTileIndexPosition(CursorWorldPosition);
         }
         #endregion
-        public static bool WasKeyTapped(Keys key)
-        {
-            if (TappedKeys.Contains(key))
-                return true;
 
-            return false;
-        }
 
         /// <summary>
         /// Called by typing box after every key press.

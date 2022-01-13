@@ -23,9 +23,9 @@ namespace PhysicsEngine.Classes.Gadgets
         }
         public override void Update(GameTime gameTime)
         {
-            MoveTowardsVector();
+            JettisonTowardsVector();
         }
-        private bool MoveTowardsVector()
+        private bool JettisonTowardsVector()
         {
             // If we're already at the goal return immediatly
             Vector2 currentPos = collidable.Position;

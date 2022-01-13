@@ -50,25 +50,10 @@ namespace UIEngine.Classes
         {
 
             base.Update(gameTime);
-            if (!Flags.Pause)
-                if (Controls.WasKeyTapped(Keys.Q))
-                    TryEjectItem();
+
 
         }
 
-        /// <summary>
-        /// If player inventory selected slot contains an item, eject 1 count of it in front of the player.
-        /// </summary>
-        private void TryEjectItem()
-        {
-            Item item = _playerInventoryDisplay.SelectedSlot.Item;
-            if(item != null)
-                _playerInventoryDisplay.SelectedSlot.Remove(1);
-            //if (itemToDrop != null)
-            //{
-            //    itemToDrop.Drop(PlayerManager.Player1.Position, PlayerManager.Player1.DirectionMoving, StageManager.CurrentStage.Items);
-            //}
-        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {

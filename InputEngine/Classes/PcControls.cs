@@ -20,9 +20,10 @@ namespace InputEngine.Classes
         public bool EscapePressed => KeyboardManager.WasKeyPressed(Keys.Escape);
 
         public bool DidClick => MouseManager.LeftClicked;
+        public bool DidRightClick => MouseManager.RightClicked;
         public Vector2 MouseUIPosition => MouseManager.UIPosition;
         public Vector2 MouseWorldPosition => MouseManager.WorldPosition;
-        public Keys[] PressedKeys => KeyboardManager.NewelyPressedKeys;
+        public List<Keys> PressedKeys => KeyboardManager.PressedKeys;
         public List<Keys> TappedKeys => KeyboardManager.TappedKeys;
         public List<Keys> AcceptableKeysForTyping => KeyboardManager.UseableRecentKeys;
         /// <summary>
