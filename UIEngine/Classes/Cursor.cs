@@ -27,7 +27,7 @@ namespace UIEngine.Classes
         public Texture2D CursorTexture { get; set; }
 
         private Rectangle CursorSourceRectangle = new Rectangle(0, 0, 32, 32);
-
+        private CursorItemToolTip _toolTip;
         public Sprite CursorSprite { get; private set; }
         private Text MouseDebugText { get; set; }
         public CursorIconType CursorIconType { get; set; }
@@ -52,7 +52,7 @@ namespace UIEngine.Classes
 
             MouseDebugText = TextFactory.CreateUIText("test");
             CreateBody(Controls.CursorWorldPosition);
-   
+            _toolTip = new CursorItemToolTip();
         }
 
         public override void Update(GameTime gameTime)
@@ -64,7 +64,7 @@ namespace UIEngine.Classes
                 MouseDebugText.UpdateText($"{Controls.CursorUIPosition.X.ToString()} , {Controls.CursorUIPosition.Y.ToString()}");
             UpdateCursor();
 
-            
+            _toolTip.Update(gameTime, Controls.CursorUIPosition);
             
         }
 
@@ -77,9 +77,15 @@ namespace UIEngine.Classes
         {
             Rectangle newRectangle = newSourceRectangle ?? CursorSourceRectangle;
             Texture2D textureToUse = texture ?? CursorTexture;
-            CursorSprite.SwapSourceRectangle(newRectangle);
-            CursorSprite.SwapTexture(textureToUse);
-            CursorSprite.SwapScale(scale);
+            if(HeldItem != null)
+                _toolTip.SwapSprite(newRectangle, textureToUse, 1.5f);
+            else
+            {
+                CursorSprite.SwapSourceRectangle(newRectangle);
+                CursorSprite.SwapScale(scale);
+                CursorSprite.SwapTexture(textureToUse);
+            }
+                
         }
 
         internal void Draw(SpriteBatch spriteBatch)
@@ -88,7 +94,8 @@ namespace UIEngine.Classes
             if (Globals.Classes.Flags.DisplayMousePosition)
                 MouseDebugText.Draw(spriteBatch, new Vector2(Controls.CursorUIPosition.X + 48, Controls.CursorUIPosition.Y + 48));
 
-
+            if(HeldItem != null)
+             _toolTip.Draw(spriteBatch);
         }
         private Rectangle GetCursorIconSourcRectangleFromType(CursorIconType ctype)
         {
@@ -127,7 +134,7 @@ namespace UIEngine.Classes
             }
             OldCursorIconType = CursorIconType;
 
-            if(_heldItemId != _oldHeldItemId)
+            if(DidCHeldItemChange())
             {
                 if(HeldItem != null)
                     SwapMouseSpriteRectangle(Item.GetItemSourceRectangle(HeldItem.Id), ItemFactory.ItemSpriteSheet, 2f);
@@ -141,5 +148,9 @@ namespace UIEngine.Classes
             _oldHeldItemId = _heldItemId;
         }     
 
+        public bool DidCHeldItemChange()
+        {
+            return _heldItemId != _oldHeldItemId;
+        }
     }
 }

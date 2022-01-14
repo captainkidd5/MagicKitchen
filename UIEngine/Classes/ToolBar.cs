@@ -40,7 +40,7 @@ namespace UIEngine.Classes
             Rectangle totalToolBarRectangle = new Rectangle(0, 0, _toolBarSlotWidth * _totalToolbarSlots, _toolBarSlotWidth);
 
             _playerInventoryDisplay = new PlayerInventoryDisplay(this, graphics, content,
-                RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle));
+                RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle) + new Vector2(0, -32));
             _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer);
             _playerInventoryDisplay.Load();
 
