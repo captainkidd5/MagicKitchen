@@ -11,7 +11,7 @@ namespace TiledEngine.Classes.TileAddons
 {
     internal class TileBody : Collidable, ITileAddon
     {
-        public Tile Tile { get; set; }
+        public Tile Tile { get; private set; }
         protected readonly TileManager TileManager;
         protected IntermediateTmxShape IntermediateTmxShape { get; set; }
         public TileBody(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape)

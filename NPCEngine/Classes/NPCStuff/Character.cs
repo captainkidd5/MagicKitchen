@@ -81,6 +81,7 @@ namespace EntityEngine.Classes.NPCStuff
 
         public void OnCharacterClicked(Schedule schedule)
         {
+            
             UI.TalkingWindow.CharacterClicked(DialogueInterpreter.GetSpeech(schedule.Dialogue));
             CharacterClicked?.Invoke(schedule);
         }

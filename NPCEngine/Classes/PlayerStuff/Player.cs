@@ -49,10 +49,10 @@ namespace EntityEngine.Classes.PlayerStuff
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.Player },
-            new List<Category>() { Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal }, OnCollides, OnSeparates,blocksLight:true, userData: this));
+            new List<Category>() { Category.Solid, Category.Grass,Category.NPC, Category.TransparencySensor, Category.Item, Category.NPCBigSensor, Category.Portal }, OnCollides, OnSeparates,blocksLight:true, userData: this));
 
 
-            BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() { Category.PlayerBigSensor }, new List<Category>() { Category.Item, Category.Portal, Category.Solid, Category.PlayerBigSensor },
+            BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() { Category.PlayerBigSensor }, new List<Category>() { Category.Item, Category.Portal,Category.Solid, Category.NPC },
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
             // MainHullBody = HullBodies[0];

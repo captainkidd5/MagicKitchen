@@ -69,8 +69,8 @@ namespace TiledEngine.Classes.TileAddons
             if ((Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
             {
 
-                TileUtility.SwitchGid(Tile, tileManager, layer);
-                tileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
+                TileUtility.SwitchGid(Tile, TileManager, layer);
+                TileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
 
 
             }
