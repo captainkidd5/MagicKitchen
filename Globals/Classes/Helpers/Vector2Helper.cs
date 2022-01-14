@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Globals.Classes.Settings;
 
 namespace Globals.Classes.Helpers
 {
@@ -49,6 +50,42 @@ namespace Globals.Classes.Helpers
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Returns direction of Entity 2 in comparison to Entity 1 (ex if entity 2 is right of entity 1, return direction.right)
+        /// </summary>
+        public static Direction GetDirectionOfEntityInRelationToEntity(Vector2 entity1, Vector2 entity2)
+        {
+            Direction directionToReturn = Direction.None;
+            double degrees = MathHelper.ToDegrees((float)Math.Atan2(entity2.Y - entity1.Y, entity2.X - entity1.X)) ;
+            degrees = (degrees + 360) % 360;
+            if (degrees < 135 && degrees >= 45)
+                return Direction.Up;
+            else if (degrees < 315 && degrees >= 225)
+                return Direction.Down;
+            else if (degrees < 225 && degrees >= 135)
+                return Direction.Left;
+            else if ((degrees < 45 && degrees >= 0) || (degrees >= 315))
+                return Direction.Right;
+
+            if (directionToReturn == Direction.None)
+                throw new Exception("Direction not found");
+            return directionToReturn;
+        }
+
+        public static Direction GetOppositeDirection(Direction dir)
+        {
+            switch (dir)
+            {
+                case Direction.Up: return Direction.Down;
+                case Direction.Down: return Direction.Right;
+                case Direction.Left: return Direction.Right;
+                case Direction.Right: return Direction.Left;
+
+                default:
+                    throw new Exception($"Directoin {dir} is invalid");
+            }
         }
     }
 }

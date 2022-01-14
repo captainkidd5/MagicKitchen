@@ -73,6 +73,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            UI.Cursor.PlayerPosition = Position;
             if (Controls.IsClicked)
             {
                 //Item should not eject if any part of the ui is hovered

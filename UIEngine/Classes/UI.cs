@@ -100,6 +100,7 @@ namespace UIEngine.Classes
         public static void Update(GameTime gameTime)
         {
             IsHovered = false;
+
             if (Controls.WasKeyTapped(Keys.F1))
             {
                 Flags.Pause = !Flags.Pause;
@@ -125,15 +126,7 @@ namespace UIEngine.Classes
 
 
             //Reached end of update loop and nothing was hovered
-            if (!IsHovered)
-            {
-
-                if(Controls.IsClicked && TalkingWindow.IsActive && !TalkingWindow.Hovered)
-                {
-                    ReactiveSections();
-                    TalkingWindow.IsActive = false;
-                }
-            }
+            
             Cursor.Update(gameTime);
 
         }

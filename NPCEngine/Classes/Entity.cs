@@ -4,6 +4,7 @@ using EntityEngine.Classes.HumanoidCreation;
 using EntityEngine.Classes.NPCStuff;
 using EntityEngine.Classes.PlayerStuff;
 using Globals.Classes;
+using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -43,6 +44,7 @@ namespace EntityEngine.Classes
         protected int StorageCapacity { get; set; }
         public Direction DirectionMoving { get; set; }
         public bool IsMoving { get; protected set; }
+        protected bool ForceStop { get; private set; }
         //Entity gets the data representation of inventory while ui handles actual visuals
         protected HullBody BigSensor { get; set; }
         public string CurrentStageName { get; protected set; }   
@@ -139,23 +141,29 @@ namespace EntityEngine.Classes
             base.Unload();
         }
 
-        public virtual void Halt()
+        public virtual void Halt(bool forceStop = false)
         {
             Velocity = Vector2.Zero;
+            ForceStop = forceStop;
+        }
+        public void Resume()
+        {
+            ForceStop = false;
         }
         public virtual new void Update(GameTime gameTime)
         {
             _warpHelper.CheckWarp(gameTime);
             base.Update(gameTime);
-
+            if(!ForceStop)
             Behaviour.Update(gameTime, ref Velocity);
             StatusIcon.Update(gameTime, Position);
 
             IsMoving = Velocity != Vector2.Zero;
 
-            if (IsMoving)
+            if (IsMoving && !ForceStop)
                 DirectionMoving = UpdateDirection();
 
+            
             MainHullBody.Body.LinearVelocity = Velocity * Speed * (float)gameTime.ElapsedGameTime.Milliseconds;
 
             //Position is changed so that our sprite knows where to draw, and position
@@ -358,6 +366,11 @@ namespace EntityEngine.Classes
                 default:
                     throw new Exception(directionFacing.ToString() + " is invalid");
             }
+        }
+
+        protected void FaceTowardsOtherEntity(Vector2 otherEntityPos)
+        {
+            DirectionMoving = Vector2Helper.GetOppositeDirection(Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos));
         }
     }
 }

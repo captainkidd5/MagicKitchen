@@ -24,15 +24,14 @@ using ItemEngine.Classes;
 namespace EntityEngine.Classes.NPCStuff
 {
     public delegate void CharacterClicked(Schedule schedule);
-    public class Character : HumanoidEntity, ISaveable
+    public class Character : HumanoidEntity
     {
         private readonly NPCData npcData;
 
-
+        private bool _isInteractingWithPlayer;
         private Schedule ActiveSchedule { get; set; }
 
 
-        public event CharacterClicked CharacterClicked;
         public Character(GraphicsDevice graphics, ContentManager content, NPCData npcsData) : base(graphics, content)
         {
             
@@ -63,14 +62,12 @@ namespace EntityEngine.Classes.NPCStuff
             {
                 UI.Cursor.CursorIconType = CursorIconType.Speech;
 
-                if (Controls.IsClicked)
+                if (Controls.IsClicked && !_isInteractingWithPlayer)
                 {
                     ClickInteraction();
 
                 }
             }
-
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -83,16 +80,7 @@ namespace EntityEngine.Classes.NPCStuff
         {
             
             UI.TalkingWindow.CharacterClicked(DialogueInterpreter.GetSpeech(schedule.Dialogue));
-            CharacterClicked?.Invoke(schedule);
-        }
-        public void Save(BinaryWriter writer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void LoadSave(BinaryReader reader)
-        {
-            throw new NotImplementedException();
+            FaceTowardsOtherEntity(UI.Cursor.PlayerPosition);
         }
 
         public override void ClickInteraction()
@@ -103,17 +91,15 @@ namespace EntityEngine.Classes.NPCStuff
             if (ActiveSchedule == null)
                 ActiveSchedule = Scheduler.GetScheduleFromCurrentTime(npcData.Schedules);
 
-            OnCharacterClicked(ActiveSchedule);
+            if(!_isInteractingWithPlayer)
+                OnCharacterClicked(ActiveSchedule);
+            Halt(true);
             base.ClickInteraction();
-
         }
         protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnCollides(fixtureA, fixtureB, contact);
 
         }
-
-
-
     }
 }
