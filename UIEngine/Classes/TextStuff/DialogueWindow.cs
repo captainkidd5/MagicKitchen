@@ -20,6 +20,8 @@ namespace UIEngine.Classes.TextStuff
     {
         private NineSliceSprite BackdropSprite { get; set; }
         private TextBuilder TextBuilder { get; set; }
+
+        public Direction DirectionPlayerShouldFace { get; set; }
         public DialogueWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,  Vector2? position) :
            base(interfaceSection, graphicsDevice, content, position)
         {
@@ -73,7 +75,6 @@ namespace UIEngine.Classes.TextStuff
         public void CharacterClicked(string speech)
         {
             TextBuilder.ClearText();
-            //TODO
             TextBuilder.SetText(TextFactory.CreateUIText(speech, scale: 2f, layer: Layers.front), false);
             IsActive = true;
             UI.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UI.ClockBar });

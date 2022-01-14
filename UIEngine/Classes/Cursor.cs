@@ -24,6 +24,8 @@ namespace UIEngine.Classes
         public int HeldItemCount;
         private int _heldItemId;
         private int _oldHeldItemId;
+
+        
         public Texture2D CursorTexture { get; set; }
 
         private Rectangle CursorSourceRectangle = new Rectangle(0, 0, 32, 32);

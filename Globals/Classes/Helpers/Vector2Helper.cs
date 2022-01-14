@@ -58,7 +58,7 @@ namespace Globals.Classes.Helpers
         public static Direction GetDirectionOfEntityInRelationToEntity(Vector2 entity1, Vector2 entity2)
         {
             Direction directionToReturn = Direction.None;
-            double degrees = MathHelper.ToDegrees((float)Math.Atan2(entity2.Y - entity1.Y, entity2.X - entity1.X)) ;
+            double degrees = MathHelper.ToDegrees((float)Math.Atan2(entity1.Y - entity2.Y, entity2.X - entity1.X)) ;
             degrees = (degrees + 360) % 360;
             if (degrees < 135 && degrees >= 45)
                 return Direction.Up;

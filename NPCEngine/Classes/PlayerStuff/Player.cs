@@ -82,6 +82,14 @@ namespace EntityEngine.Classes.PlayerStuff
                     DropCurrentlyHeldItemToWorld();
                 }
             }
+
+            if (UI.TalkingWindow.IsActive)
+            {
+                Halt(true);
+                DirectionFacing = UI.TalkingWindow.DirectionPlayerShouldFace;
+            }
+            else
+                Resume();
         }
 
         protected override void DropCurrentlyHeldItemToWorld()
@@ -100,12 +108,16 @@ namespace EntityEngine.Classes.PlayerStuff
         //Keep input updates separate from update because of multiplayer.
         public bool UpdateFromInput()
         {
+            if (!ForceStop)
+            {
+
             Velocity = Vector2.Zero;
             DirectionFacing = Controls.DirectionFacing;
             SecondaryDirectionFacing = Controls.SecondaryDirectionFacing;
             IsMoving = Controls.IsPlayerMoving;
             GetPlayerMovementDirectionAndVelocity(DirectionFacing);
             GetPlayerMovementDirectionAndVelocity(SecondaryDirectionFacing);
+            }
 
             return (WasMovingLastFrame != IsMoving); //This frame's movement is different from last frames.
         }

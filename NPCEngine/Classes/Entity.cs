@@ -146,7 +146,7 @@ namespace EntityEngine.Classes
             Velocity = Vector2.Zero;
             ForceStop = forceStop;
         }
-        public void Resume()
+        protected virtual void Resume()
         {
             ForceStop = false;
         }
@@ -370,7 +370,7 @@ namespace EntityEngine.Classes
 
         protected void FaceTowardsOtherEntity(Vector2 otherEntityPos)
         {
-            DirectionMoving = Vector2Helper.GetOppositeDirection(Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos));
+            DirectionMoving = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos);
         }
     }
 }

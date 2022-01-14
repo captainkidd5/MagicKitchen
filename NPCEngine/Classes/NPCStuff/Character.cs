@@ -56,7 +56,6 @@ namespace EntityEngine.Classes.NPCStuff
         {
 
 
-            base.Update(gameTime);
 
             if(PlayerInClickRange && MouseHovering)
             {
@@ -68,8 +67,17 @@ namespace EntityEngine.Classes.NPCStuff
 
                 }
             }
+            base.Update(gameTime);
+
+            if (!UI.TalkingWindow.IsActive)
+                Resume();
         }
 
+        protected override void Resume()
+        {
+            base.Resume();
+            _isInteractingWithPlayer = false;
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
@@ -81,6 +89,7 @@ namespace EntityEngine.Classes.NPCStuff
             
             UI.TalkingWindow.CharacterClicked(DialogueInterpreter.GetSpeech(schedule.Dialogue));
             FaceTowardsOtherEntity(UI.Cursor.PlayerPosition);
+            UI.TalkingWindow.DirectionPlayerShouldFace = Vector2Helper.GetOppositeDirection(DirectionMoving);
         }
 
         public override void ClickInteraction()
