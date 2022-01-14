@@ -124,6 +124,8 @@ namespace PhysicsEngine.Classes
             height = height ?? 4f;
             position = position ?? Vector2.Zero;
             Body body = BodyFactory.CreateRectangle(PhysicsManager.VelcroWorld, (float)width,(float) height, density,(Vector2)position, rotation, bodyType, userData);
+            body.Friction = friction;
+            body.Mass = mass;
 
             if (categoriesCollidesWith != null)
                 foreach (Category category in categoriesCollidesWith)

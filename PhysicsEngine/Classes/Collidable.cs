@@ -34,7 +34,7 @@ namespace PhysicsEngine.Classes
         /// These modify the position of the Collidable
         /// </summary>
         /// 
-        public List<PhysicsGadget> Gadgets { get; set; }
+        protected List<PhysicsGadget> Gadgets { get; private set; }
 
         protected SoundModuleManager SoundModuleManager { get; set; }
 
@@ -164,10 +164,10 @@ namespace PhysicsEngine.Classes
         /// Jetison's body in given direction
         /// </summary>
         /// <param name="directionVector"></param>
-        public void Jettison(Vector2 directionVector, Vector2? pointAppliedTo, bool ignoreGrav = false, float gScaleUp = 4f,float gScaleDown = 15f, float restitution = .2f,
-            float linearDamp = .75f, float friction = .75f, float bodyMass = 1f)
+        public void Jettison(Vector2 directionVector, Vector2? pointAppliedTo, bool ignoreGrav = false, float gScaleUp = 4f,float gScaleDown = 15f, float restitution = 1f,
+            float linearDamp = 2f, float friction = .15f, float bodyMass = 1f)
         {
-            MainHullBody.Body.ApplyLinearImpulse(directionVector * 500, pointAppliedTo ?? new Vector2(0,0));
+            MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000, pointAppliedTo ?? new Vector2(0,0));
             MainHullBody.Body.IgnoreGravity = ignoreGrav;
             if (directionVector.X == 0)
                 MainHullBody.Body.GravityScale = gScaleUp;
@@ -189,7 +189,10 @@ namespace PhysicsEngine.Classes
             HullBodies.Clear();
 
         }
-
+        protected void AddGadget(PhysicsGadget gadget)
+        {
+            Gadgets.Add(gadget);
+        }
         protected void ClearGadgets()
         {
             for(int i = Gadgets.Count - 1; i >= 0; i--)
@@ -197,6 +200,15 @@ namespace PhysicsEngine.Classes
                 Gadgets[i].Destroy();
                 Gadgets.RemoveAt(i);
             }
+        }
+
+        protected bool IsResting(float xThreshold = 2f, float yThreshold = 2f)
+        {
+            bool isResting = ((MainHullBody.Body.LinearVelocity.X < xThreshold) && (MainHullBody.Body.LinearVelocity.X > xThreshold * -1) &&
+                (MainHullBody.Body.LinearVelocity.Y < yThreshold) && (MainHullBody.Body.LinearVelocity.Y > yThreshold * -1));
+            if(isResting)
+                Console.WriteLine("test");
+            return isResting;
         }
     }
 }
