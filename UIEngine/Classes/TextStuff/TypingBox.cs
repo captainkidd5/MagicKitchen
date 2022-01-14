@@ -51,7 +51,7 @@ namespace UIEngine.Classes.TextStuff
             AcceptableKeys = Controls.AcceptableKeysForTyping;
             if (AcceptableKeys.Count > 0)
                 ProcessKey(gameTime, AcceptableKeys);
-
+            TextBuilder.Update(gameTime,Position);
         }
 
 
@@ -64,7 +64,7 @@ namespace UIEngine.Classes.TextStuff
             base.Draw(spriteBatch);
             NineSliceSprite.Draw(spriteBatch);
             //SendButton.Draw(spriteBatch);
-            TextBuilder.Draw(spriteBatch, Position);
+            TextBuilder.Draw(spriteBatch);
         }
         /// <summary>
         /// Determines what value should be given to the Text Builder, if any.
@@ -133,7 +133,7 @@ namespace UIEngine.Classes.TextStuff
             if (wasAnyKeyPressed)
                 Controls.ClearUseableKeys();
 
-            TextBuilder.Update(gameTime, keyValue, NineSliceSprite.Width);
+            TextBuilder.Update(gameTime,Position, keyValue, NineSliceSprite.Width);
 
         }
     }

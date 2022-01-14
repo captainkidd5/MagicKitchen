@@ -20,38 +20,41 @@ namespace TextEngine.Classes
         public float TotalStringHeight => GetTextHeight(FullString);
         public string CurrentString { get; set; }
         public string FullString { get; private set; }
-        private float Scale { get; set; }
-        private Color Color { get; set; }
-
-        private SpriteFont SpriteFont { get; set; }
+        private float _scale;
+        private Color _color;
+        private Vector2 _position;
+        private SpriteFont _spriteFont;
 
         private float LayerDepth { get; set; }
 
 
         internal Text(String value, float scale, SpriteFont spriteFont, Layers layers)
         {
-            this.CurrentString = string.Empty;
-            this.FullString = value;
-            this.Scale = scale;
-            this.Color = Color.White;
-            SpriteFont = spriteFont;
-            this.SpriteFont = spriteFont;
+            CurrentString = string.Empty;
+            FullString = value;
+            _scale = scale;
+            _color = Color.White;
+            _spriteFont = spriteFont;
 
             LayerDepth = Settings.GetLayerDepth(layers);
 
         }
 
+        public void Update(GameTime gameTime, Vector2 position)
+        {
+            _position = position;
+        }
         //TODO There is currently key delay because a key is only recorded if it was pressed AND released. This needs to be changed so if a key
         //is pressed and not released, it is recorded. If held longer than a certain interval, it should be repeated.
         /// <param name="fullString">Set to true if you want to ignore the current string and draw the entire string at once.</param>
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, bool fullString = false)
+        public void Draw(SpriteBatch spriteBatch, bool fullString = false)
         {
             if (fullString)
-                spriteBatch.DrawString(SpriteFont, FullString.ToLower(),
-                    position, Color, 0f, Vector2.Zero, Scale, SpriteEffects.None, LayerDepth);
+                spriteBatch.DrawString(_spriteFont, FullString.ToLower(),
+                    _position, _color, 0f, Vector2.Zero, _scale, SpriteEffects.None, LayerDepth);
             else
-                spriteBatch.DrawString(SpriteFont, CurrentString.ToLower(),
-                    position, Color, 0f, Vector2.Zero, Scale, SpriteEffects.None, LayerDepth);
+                spriteBatch.DrawString(_spriteFont, CurrentString.ToLower(),
+                    _position, _color, 0f, Vector2.Zero, _scale, SpriteEffects.None, LayerDepth);
 
         }
 
@@ -67,7 +70,7 @@ namespace TextEngine.Classes
                 WrapInputText(textBoxWidth);
 
         }
-
+       
         /// <summary>
         /// Appends the next letter of the target string.
         /// </summary>
@@ -106,7 +109,7 @@ namespace TextEngine.Classes
 
             foreach (String word in wordArray)
             {
-                if (SpriteFont.MeasureString(line + word).Length() * Scale > lineLimit)
+                if (_spriteFont.MeasureString(line + word).Length() * _scale > lineLimit)
                 {
                     returnString = returnString + line + '\n';
                     line = String.Empty;
@@ -123,7 +126,7 @@ namespace TextEngine.Classes
         /// </summary>
         private float GetWidth(string value)
         {
-            return SpriteFont.MeasureString(value).Length() * Scale;
+            return _spriteFont.MeasureString(value).Length() * _scale;
         }
         private void WrapInputText(float lineLimit)
         {
@@ -139,7 +142,7 @@ namespace TextEngine.Classes
             float lengthToReturn = 0f;
             for (int i = 0; i < lineArray.Length; i++)
             {
-                float length = SpriteFont.MeasureString(lineArray[i]).X * Scale;
+                float length = _spriteFont.MeasureString(lineArray[i]).X * _scale;
                 if (length > lengthToReturn)
                 {
                     lengthToReturn = length;
@@ -156,7 +159,7 @@ namespace TextEngine.Classes
 
             foreach (string line in lineArray)
             {
-                totalHeight += SpriteFont.MeasureString(line).Y * Scale;
+                totalHeight += _spriteFont.MeasureString(line).Y * _scale;
             }
 
             return totalHeight;
@@ -170,9 +173,9 @@ namespace TextEngine.Classes
         {
             string[] splitString = CurrentString.Split('\n');
             if (splitString.Length > 0)
-                return SpriteFont.MeasureString(splitString[splitString.Length - 1]).X * Scale;
+                return _spriteFont.MeasureString(splitString[splitString.Length - 1]).X * _scale;
             else
-                return SpriteFont.MeasureString(CurrentString).X * Scale;
+                return _spriteFont.MeasureString(CurrentString).X * _scale;
 
         }
 

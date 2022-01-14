@@ -57,7 +57,7 @@ namespace UIEngine.Classes.Storage
 
                 _storageSlot.RightClickInteraction(ref UI.Cursor.HeldItem, ref UI.Cursor.HeldItemCount);
             }
-
+            Text.Update(gameTime,Position);
         }
 
         public Item Item => _storageSlot.Item;
@@ -67,7 +67,7 @@ namespace UIEngine.Classes.Storage
             base.Draw(spriteBatch);
 
             if (_storageSlot.StoredCount > 0)
-                Text.Draw(spriteBatch, Position, true);
+                Text.Draw(spriteBatch, true);
 
             Button.Draw(spriteBatch);
         }

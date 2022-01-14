@@ -39,7 +39,7 @@ namespace UIEngine.Classes.DebugStuff
             for(int i = Info.Count - 1; i > 0; i--)
             {
                 height += Info[i].TotalStringHeight;
-                Info[i].Draw(spriteBatch, new Vector2(position.X, position.Y - height), true);
+              //  Info[i].Draw(spriteBatch, new Vector2(position.X, position.Y - height), true);
             }
 
         }

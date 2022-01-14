@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
@@ -99,7 +100,10 @@ namespace UIEngine.Classes.ButtonStuff
 
 
                     if (Clicked)
+                    {
                         OnClick();
+                        SoundFactory.PlaySoundEffect("Click1");
+                    }
                 }
                 else if (WasHovered)
                     BackGroundSprite.TriggerReduceEffect();

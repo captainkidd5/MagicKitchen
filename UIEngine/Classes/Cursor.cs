@@ -91,8 +91,8 @@ namespace UIEngine.Classes
         internal void Draw(SpriteBatch spriteBatch)
         {
             CursorSprite.Draw(spriteBatch);
-            if (Globals.Classes.Flags.DisplayMousePosition)
-                MouseDebugText.Draw(spriteBatch, new Vector2(Controls.CursorUIPosition.X + 48, Controls.CursorUIPosition.Y + 48));
+            //if (Globals.Classes.Flags.DisplayMousePosition)
+            //    MouseDebugText.Draw(spriteBatch, new Vector2(Controls.CursorUIPosition.X + 48, Controls.CursorUIPosition.Y + 48));
 
             if(HeldItem != null)
              _toolTip.Draw(spriteBatch);
@@ -141,12 +141,13 @@ namespace UIEngine.Classes
  
                 else
                     SwapMouseSpriteRectangle(null, null);
-
             }
 
             CursorIconType = CursorIconType.None;
             _oldHeldItemId = _heldItemId;
-        }     
+            _toolTip.UpdateItemCount(HeldItemCount);
+
+        }
 
         public bool DidCHeldItemChange()
         {

@@ -111,12 +111,10 @@ namespace SoundEngine.Classes
 
         }
 
-        public static void PlaySoundEffect(SoundType soundType, string effectName)
+        public static void PlaySoundEffect(string effectName)
         {
-            EffectPlayer player = GetEffectPlayer(soundType);
-            if (player == null)
-                throw new ArgumentException("Player may not be null");
-
+            SoundChancer chncer = GetChancerFromName(effectName);
+            chncer.SoundEffect.CreateInstance().Play();
 
         }
         /// <summary>
@@ -136,7 +134,7 @@ namespace SoundEngine.Classes
         /// <param name="soundPackageName">Name of the sound package</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public static SoundEffect GetRandomSoundEffect(string soundPackageName)
+        internal static SoundEffect GetRandomSoundEffect(string soundPackageName)
         {
             SoundPackage package = new SoundPackage();
             if (s_soundPackages.TryGetValue(soundPackageName, out package))
@@ -153,7 +151,7 @@ namespace SoundEngine.Classes
         /// <param name="soundEffectName"></param>
         /// <returns>Returns specific sound effect if found, otherwise throws</returns>
         /// <exception cref="Exception"></exception>
-        public static SoundEffect GetSpecificSoundEffect(string soundEffectName)
+        internal static SoundEffect GetSpecificSoundEffect(string soundEffectName)
         {
 
             SoundChancer chncer = GetChancerFromName(soundEffectName);

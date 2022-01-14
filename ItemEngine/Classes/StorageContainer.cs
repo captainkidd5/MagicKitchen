@@ -180,51 +180,61 @@ namespace ItemEngine.Classes
             OnItemChanged();
         }
 
-        public void RightClickInteraction(ref Item heldItem, ref int count)
+        public void RightClickInteraction(ref Item heldItem, ref int heldCount)
         {
-            //Grabbing item from slot, no held item
-            if (Item == null)
+            ////Grabbing item from slot, no held item
+            //if (Item == null)
+            //{
+            //    //no interaction
+            //    return;
+            //}
+
+            if (heldItem != null)
             {
-                //no interaction
-                return;
-            }
-           
-            if(heldItem != null)
-            {
-                if (count > heldItem.MaxStackSize)
-                    throw new Exception($"Should not be possible to be holding more than max stack size of item {heldItem}");
-                if (Item.Id == heldItem.Id && Item.Stackable)
+                if (StoredCount > heldItem.MaxStackSize)
+                    throw new Exception($"Should not be possible to be add more than max stack size of item {heldItem}");
+                if (Item == null)
+                {
+                    Item = heldItem;
+                    StoredCount++;
+                    heldCount--;
+                    if (heldCount == 0)
+                        heldItem = null;
+                    OnItemChanged();
+                    return;
+                }
+                if (Item.Id == heldItem.Id)
                 {
                     //add 1 to held stack, if possible
-                    if ((count < Item.MaxStackSize) && StoredCount > 0)
+                    if ((StoredCount < Item.MaxStackSize) && heldCount > 0)
                     {
-                        StoredCount--;
-                        count++;
+                        StoredCount++;
+                        heldCount--;
                     }
-                    if (StoredCount == 0)
-                        Item = null;
+                    if (heldCount == 0)
+                        heldItem = null;
                     OnItemChanged();
 
                     return;
 
                 }
             }
-            else
-            {
-                //No held item, but items in slot, grab 1
-                if ((count < Item.MaxStackSize) && StoredCount > 0)
-                {
-                    StoredCount--;
-                    count++;
-                    heldItem = Item;
-                }
-                if (StoredCount == 0)
-                    Item = null;
-                OnItemChanged();
+            //else
+            //{
+            //    //No held item, but items in slot, grab 1
+            //    if ((StoredCount < Item.MaxStackSize) && heldCount > 0)
+            //    {
+            //        StoredCount++;
+            //        heldCount--;
+            //        heldItem = Item;
+            //    }
+            //    if (StoredCount == 0)
+            //        Item = null;
+            //    OnItemChanged();
 
-                return;
-            }
-            
+            //    return;
+            //}
+
         }
         /// <summary>
         /// Performs different action based on if the cursor is holding an item, what type of

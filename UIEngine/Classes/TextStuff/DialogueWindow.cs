@@ -44,7 +44,7 @@ namespace UIEngine.Classes.TextStuff
             Hovered = Controls.IsHovering(ElementType.UI, BackdropSprite.HitBox);
 
 
-            if (TextBuilder.Update(gameTime))
+            if (TextBuilder.Update(gameTime, Position))
             {
 
                 if (Controls.IsClicked)
@@ -66,7 +66,7 @@ namespace UIEngine.Classes.TextStuff
             base.Draw(spriteBatch);
 
             BackdropSprite.Draw(spriteBatch);
-            TextBuilder.Draw(spriteBatch, Position);
+            TextBuilder.Draw(spriteBatch);
 
 
         }

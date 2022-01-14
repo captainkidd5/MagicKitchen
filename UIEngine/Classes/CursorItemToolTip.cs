@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextEngine;
+using TextEngine.Classes;
 
 namespace UIEngine.Classes
 {
@@ -17,27 +19,32 @@ namespace UIEngine.Classes
     internal class CursorItemToolTip
     {
         private Sprite ItemSprite { get; set; }
-        private Rectangle _sourceRectangle;
 
         private Vector2 _cursorOffset = new Vector2(16, 16);
 
+        private Text _text;
         public CursorItemToolTip()
         {
-            _sourceRectangle = new Rectangle(0, 0, 16, 16);
-            ItemSprite = SpriteFactory.CreateUISprite(Vector2.Zero, _sourceRectangle,
+            ItemSprite = SpriteFactory.CreateUISprite(Vector2.Zero, new Rectangle(0, 0, 16, 16),
                 ItemFactory.ItemSpriteSheet, Color.White, scale: 1f, layer: Settings.Layers.front);
+            _text = TextFactory.CreateUIText("tst", null, null, null);
         }
         public void Update(GameTime gameTime, Vector2 position)
         {
-
             ItemSprite.Update(gameTime, position + _cursorOffset);
+            _text.Update(gameTime, position + _cursorOffset * 2);
+
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-          //  if(ItemSprite.
             ItemSprite.Draw(spriteBatch);
+            _text.Draw(spriteBatch, true);
         }
 
+        public void UpdateItemCount(int newCount)
+        {
+            _text.SetFullString(newCount.ToString());
+        }
         public void SwapSprite(Rectangle newSource, Texture2D texture, float scale)
         {
             ItemSprite.SwapSourceRectangle(newSource);

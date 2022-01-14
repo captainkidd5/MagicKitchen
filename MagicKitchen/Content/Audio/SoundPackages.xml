@@ -53,6 +53,16 @@
                 </Item>
             </SoundChancers>
         </Item>
+        <Item>
+        <Name>ButtonClick</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Click1</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/UI</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
         
 
        

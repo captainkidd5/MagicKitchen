@@ -50,9 +50,9 @@ namespace TextEngine.Classes
         /// <param name="textBoxWidth">Provide if you want the text to wrap.</param>
         /// <param name="stringToAppend">Leave null if you are not manually typing (Like command console).</param>
         /// <returns>Returns true if finished with current assignment</returns>
-        public bool Update(GameTime gameTime, string stringToAppend = null, int textBoxWidth = 0)
+        public bool Update(GameTime gameTime, Vector2 position, string stringToAppend = null, int textBoxWidth = 0)
         {
-
+            Text.Update(gameTime, position);
             if (SimpleTimer != null)
             {
                 if (Text.CurrentString != Text.FullString)
@@ -81,9 +81,9 @@ namespace TextEngine.Classes
         /// <param name="spriteBatch"></param>
         /// <param name="position"></param>
         /// <param name="fullString">Set to true if you just want to print a predefine string as is.</param>
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, bool fullString = false)
+        public void Draw(SpriteBatch spriteBatch, bool fullString = false)
         {
-            Text.Draw(spriteBatch, position, fullString);
+            Text.Draw(spriteBatch, fullString);
         }
 
 

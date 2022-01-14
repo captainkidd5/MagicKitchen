@@ -89,10 +89,11 @@ namespace UIEngine.Classes.DebugStuff
             public void Update(GameTime gameTime, string value)
             {
                 valueText.UpdateText(titleText + " : " + value);
+                valueText.Update(gameTime,position);
             }
             public void Draw(SpriteBatch spriteBatch)
             {
-                valueText.Draw(spriteBatch, position, true);
+                valueText.Draw(spriteBatch, true);
             }
         }
     }
