@@ -28,7 +28,7 @@ namespace PhysicsEngine.Classes.Gadgets
         private bool JettisonTowardsVector()
         {
             // If we're already at the goal return immediatly
-            Vector2 currentPos = collidable.Position;
+            Vector2 currentPos = CollidableToInteractWith.Position;
             Vector2 goal = _collidableToMoveTowards.Position;
             if (Vector2Helper.WithinRangeOf(currentPos, goal, _errorMargin))
                 return true;
@@ -46,7 +46,7 @@ namespace PhysicsEngine.Classes.Gadgets
             {
                 return true;
             }
-            collidable.Jettison(direction, null);
+            CollidableToInteractWith.Jettison(direction, null);
 
             return false;
         }

@@ -45,13 +45,16 @@ namespace ItemEngine.Classes
             YOffSet = 8;
             _simpleTimer = new SimpleTimer(_timeUntilTouchable);
             if(jettisonDirection != null)
+            {
                 Jettison(jettisonDirection.Value, null);
+                Gadgets.Add(new ArtificialFloor(this));
+            }
 
         }
         protected override void CreateBody(Vector2 position)
         {
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.Item },
-               new List<Category>() { Category.Solid}, OnCollides, OnSeparates, blocksLight: true, userData: this);
+               new List<Category>() { Category.Solid, Category.ArtificialFloor}, OnCollides, OnSeparates, blocksLight: true, userData: this);
         }
 
         public void Remove(int count)
@@ -85,6 +88,7 @@ namespace ItemEngine.Classes
                 SetCollidesWith(MainHullBody.Body, new List<Category>() { Category.Solid, Category.Player, Category.PlayerBigSensor, Category.TransparencySensor, Category.Item, Category.Grass });
                 MainHullBody.Body.IgnoreGravity = true;
                 _simpleTimer = null;
+                ClearGadgets();
             }
         }
 

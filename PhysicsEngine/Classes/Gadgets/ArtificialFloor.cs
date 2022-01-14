@@ -11,26 +11,27 @@ namespace PhysicsEngine.Classes.Gadgets
     public class ArtificialFloor : PhysicsGadget
     {
 
-        private static int width = 150;
-        private static int height = 5;
-        public Body FloorBody { get; set; }
-        public ArtificialFloor(Collidable collidable, Category categoryToCollideWith) : base(collidable)
+        private static int _width = 150;
+        private static int _height = 5;
+        public HullBody FloorBody { get; set; }
+        public ArtificialFloor(Collidable collidable) : base(collidable)
         {
-            FloorBody = BodyFactory.CreateRectangle(PhysicsManager.VelcroWorld,width,height,1f,
-                new Vector2(collidable.Position.X, collidable.Position.Y + 25), 0f, BodyType.Static);
-            
-            FloorBody.SetCollisionCategory(categoryToCollideWith);
-            
-            //collidable.MainHull.Body.CollidesWith = FloorBody;
+            FloorBody = PhysicsManager.CreateRectangularHullBody(BodyType.Static, GetRandomPosition(), _width,_height, new List<Category>() { Category.ArtificialFloor },
+                new List<Category>() { Category.Item}, null, null, userData: this);
+
         }
 
+        private Vector2 GetRandomPosition()
+        {
+            return new Vector2(CollidableToInteractWith.Position.X, CollidableToInteractWith.Position.Y + PhysicsManager.Random.Next(0, 25));
+        }
         public override void Update(GameTime gameTime)
         {
         }
 
-        public override void Remove()
+        public override void Destroy()
         {
-            PhysicsManager.VelcroWorld.RemoveBody(FloorBody);
+            FloorBody.Destroy();
         }
     }
 }

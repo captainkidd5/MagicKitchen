@@ -7,11 +7,11 @@ namespace PhysicsEngine.Classes.Gadgets
 {
     public abstract class PhysicsGadget
     {
-        protected Collidable collidable;
+        protected Collidable CollidableToInteractWith;
 
         public PhysicsGadget(Collidable collidable)
         {
-            this.collidable = collidable;
+            this.CollidableToInteractWith = collidable;
         }
         public virtual void Update(GameTime gameTime)
         {
@@ -26,9 +26,8 @@ namespace PhysicsEngine.Classes.Gadgets
 
         }
 
-        public virtual void Remove()
+        public virtual void Destroy()
         {
-            collidable.Gadgets.Remove(this);
         }
     }
 }

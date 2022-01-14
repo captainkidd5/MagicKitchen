@@ -189,5 +189,14 @@ namespace PhysicsEngine.Classes
             HullBodies.Clear();
 
         }
+
+        protected void ClearGadgets()
+        {
+            for(int i = Gadgets.Count - 1; i >= 0; i--)
+            {
+                Gadgets[i].Destroy();
+                Gadgets.RemoveAt(i);
+            }
+        }
     }
 }

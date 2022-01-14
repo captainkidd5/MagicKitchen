@@ -11,6 +11,7 @@ using VelcroPhysics.Collision.Handlers;
 using VelcroPhysics.Factories;
 using Globals.Classes.Console;
 using VelcroPhysics.Dynamics.Joints;
+using System;
 
 namespace PhysicsEngine.Classes
 {
@@ -19,6 +20,8 @@ namespace PhysicsEngine.Classes
         public static PenumbraComponent Penumbra;
         public static World VelcroWorld { get; set; }
         public static DebugView VelcroDebugger { get; set; }
+
+        internal static Random Random;
 
         public static void Initialize(GraphicsDevice graphics, PenumbraComponent penumbra)
         {
@@ -32,6 +35,7 @@ namespace PhysicsEngine.Classes
             }
 
             Penumbra = penumbra;
+            Random = new Random();
         }
 
         public static void Clear()
