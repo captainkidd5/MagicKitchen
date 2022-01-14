@@ -75,6 +75,10 @@ namespace EntityEngine.Classes.HumanoidCreation
         {
             return (int)BodyPart * .000001f;
         }
+        public void ChangeCurrentDirection(Direction newDirection)
+        {
+            CurrentDirection = GetAnimationFromDirection(newDirection);
+        }
         internal virtual void Update(GameTime gameTime, bool isMoving, Direction direction, Vector2 position, float entityLayer)
         {
             if (isMoving)

@@ -52,7 +52,14 @@ namespace EntityEngine.Classes.Animators
             }
 
         }
-
+        internal override void ChangeDirection(Direction newDirection)
+        {
+            base.ChangeDirection(newDirection);
+            for (int i = 0; i < Animations.Length; i++)
+            {
+                Animations[i].ChangeCurrentDirection(newDirection);
+            }
+        }
         internal override void LoadUpdate(GameTime gameTime, float entityLayer)
         {
             for (int i = 0; i < Animations.Length; i++)

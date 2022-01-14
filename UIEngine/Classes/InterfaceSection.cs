@@ -25,8 +25,9 @@ namespace UIEngine.Classes
 
         internal SectionState State;
         public bool IsActive { get; set; }
+        private bool _activeLastFrame { get; set; }
 
-
+        public bool WasJustActived => IsActive != _activeLastFrame;
         //Some Interface sections can contain other interface sections
         internal protected List<InterfaceSection> ChildSections { get; protected set; }
         internal protected float LayerDepth { get; set; }
@@ -87,7 +88,7 @@ namespace UIEngine.Classes
                         RightClicked= true;
                 }
             }
-
+            _activeLastFrame = IsActive;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

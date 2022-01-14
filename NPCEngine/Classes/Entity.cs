@@ -131,6 +131,10 @@ namespace EntityEngine.Classes
             }
         }
 
+        protected virtual void ChangeVisualDirection(Direction direction)
+        {
+            EntityAnimator.ChangeDirection(direction);
+        }
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnSeparates(fixtureA, fixtureB, contact);

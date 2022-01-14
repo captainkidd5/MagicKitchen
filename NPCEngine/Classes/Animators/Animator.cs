@@ -31,6 +31,7 @@ namespace EntityEngine.Classes.Animators
 
         protected bool HasLoadUpdatedOnce { get; set; }
 
+        
 
         public Animator(int xOffset = 8, int yOffset = 32)
         {
@@ -46,6 +47,11 @@ namespace EntityEngine.Classes.Animators
         {
 
         }
+        internal virtual void ChangeDirection(Direction newDirection)
+        {
+
+        }
+
         internal virtual void FadeOut()
         {
             foreach (AnimatedSprite sprite in AnimatedSprites)
