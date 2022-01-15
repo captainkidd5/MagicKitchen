@@ -12,9 +12,16 @@ using QuakeConsole;
 using UIEngine.Classes.SultanInterpreter;
 using UIEngine.Classes.Storage;
 using ItemEngine.Classes;
+using UIEngine.Classes.MainMenuStuff;
 
 namespace UIEngine.Classes
 {
+    public enum GameDisplayState
+    {
+        None = 0,
+        MainMenu = 1,
+        InGame = 2
+    }
     public static class UI
     {
 
@@ -22,7 +29,7 @@ namespace UIEngine.Classes
         private static  GraphicsDevice s_graphics;
         private static  ContentManager s_content;
 
-
+        public static GameDisplayState GameDisplayState { get; private set; } = GameDisplayState.MainMenu;
 
 
         private static List<InterfaceSection> s_activeSections;
@@ -34,6 +41,7 @@ namespace UIEngine.Classes
         public static bool IsHovered { get;private set; }
 
         private static List<InterfaceSection> s_standardSections { get; set; }
+        private static List<InterfaceSection> s_mainMenuSections { get; set; }
 
         internal static CustomConsole CommandConsole { get; set; }
         public static DialogueWindow TalkingWindow { get; set; }
@@ -45,11 +53,12 @@ namespace UIEngine.Classes
 
         internal static InventoryDisplay SecondaryInventoryDisplay { get; set; }
 
+        internal static MainMenu MainMenu { get; set; }
 
         public static Cursor Cursor { get; set; }
 
 
-        public static void Load(GraphicsDevice graphics, ContentManager content, StorageContainer playerStorageContainer)
+        public static void Load(GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager, StorageContainer playerStorageContainer)
         {
             s_graphics = graphics;
             s_content = content;
@@ -72,13 +81,22 @@ namespace UIEngine.Classes
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, CommandConsole, TalkingWindow, Curtain };
 
             SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null);
-            s_activeSections = s_standardSections;
             Cursor = new Cursor();
             Cursor.LoadContent(content);
+
+            MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null);
+            s_mainMenuSections = new List<InterfaceSection>() { MainMenu };
+            foreach (InterfaceSection section in s_mainMenuSections)
+            {
+                section.Load();
+            }
             foreach (InterfaceSection section in s_standardSections)
             {
                 section.Load();
             }
+
+            s_activeSections = s_mainMenuSections;
+
         }
 
 
@@ -111,6 +129,7 @@ namespace UIEngine.Classes
                 Globals.Classes.Console.CommandConsole.Toggle();
 
             }
+            
             foreach (InterfaceSection section in s_activeSections)
             {
                 if (section.IsActive)
@@ -124,7 +143,6 @@ namespace UIEngine.Classes
             }
 
 
-            //Reached end of update loop and nothing was hovered
             
             Cursor.Update(gameTime);
 
@@ -153,7 +171,6 @@ namespace UIEngine.Classes
         }
         public static void Draw(SpriteBatch spriteBatch)
         {
-         //   RenderTargetManager.SetToMainTarget();
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
             Cursor.Draw(spriteBatch);
             foreach (InterfaceSection section in s_activeSections)
@@ -166,8 +183,7 @@ namespace UIEngine.Classes
             }
 
             spriteBatch.End();
-            //RenderTargetManager.RemoveRenderTarget();
-            //RenderTargetManager.DrawMainTarget(spriteBatch);
+
         }
 
         public static void FadeIn(float rate) => Curtain.FadeIn(rate);

@@ -22,7 +22,8 @@ namespace UIEngine.Classes.ButtonStuff
             Sprite foregroundSprite, Texture2D texture, Point? samplePoint, Action buttonAction = null, bool hoverTransparency = false)
             : base(interfaceSection, graphicsDevice, content, position, sourceRectangle, foregroundSprite, texture, samplePoint, buttonAction, hoverTransparency)
         {
-                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(position, DefaultButtonWidth, DefaultButtonHeight, UI.ButtonTexture, null, null, null, Layers.buildings);
+                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(position, sourceRectangle == null ? DefaultButtonWidth : sourceRectangle.Value.Width,
+                    sourceRectangle == null ? DefaultButtonHeight : sourceRectangle.Value.Height, UI.ButtonTexture, null, null, null, Layers.buildings);
                 Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);     
         }

@@ -372,6 +372,18 @@
 /processorParam:TextureFormat=Color
 /build:UI/GeneralInterface.png
 
+#begin UI/MainMenu/MainMenuBackdrop.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/MainMenu/MainMenuBackdrop.png
+
 #begin UI/MouseIcons.png
 /importer:TextureImporter
 /processor:TextureProcessor

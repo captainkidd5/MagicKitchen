@@ -111,7 +111,7 @@ namespace MagicKitchen
             CharacterManager.LoadCharacterData(GraphicsDevice, Content);
             PortalManager.IntialLoad();
             QuestManager.Load(GraphicsDevice, Content);
-            PlayerManager.Initialize(GraphicsDevice,Content);
+            PlayerManager.Initialize(GraphicsDevice, Content);
             StageManager.LoadContent(GraphicsDevice, Penumbra, Content, Camera);
             PlayerManager.LoadContent();
 
@@ -122,7 +122,7 @@ namespace MagicKitchen
             Settings.SetResolution(1280, 720);
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
 
-            UI.Load(GraphicsDevice, Content, Player1.StorageContainer);
+            UI.Load(GraphicsDevice, Content, MainMenuContentManager, Player1.StorageContainer);
             RenderTargetManager.Load(GraphicsDevice);
             SoundFactory.Load(Content);
             Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs { VirtualWidth = 1280, VirtualHeight = 720 });
@@ -143,9 +143,11 @@ namespace MagicKitchen
                 Exit();
             Controls.Update(gameTime);
 
-         
-            StageManager.Update(gameTime);
-            //Command console within ui should still be useable even if game is paused
+            if (UI.GameDisplayState == GameDisplayState.InGame)
+            {
+                StageManager.Update(gameTime);
+
+            }
             UI.Update(gameTime);
             if (!Flags.Pause)
             {
@@ -161,18 +163,24 @@ namespace MagicKitchen
         {
 
             RenderTargetManager.SetTarget(RenderTargetManager.MainTarget);
-            if (Flags.EnableShadows && Flags.IsNightTime)
+
+            if (UI.GameDisplayState == GameDisplayState.InGame)
             {
-                Penumbra.BeginDraw();
-            }
-            StageManager.Draw(_spriteBatch, gameTime);
-            if (Flags.EnableShadows && Flags.IsNightTime)
-            {
-                Penumbra.Transform = Camera.GetTransform(GraphicsDevice);
-                Penumbra.Draw(gameTime);
+                StageManager.Update(gameTime);
+
+                if (Flags.EnableShadows && Flags.IsNightTime)
+                {
+                    Penumbra.BeginDraw();
+                }
+                StageManager.Draw(_spriteBatch, gameTime);
+                if (Flags.EnableShadows && Flags.IsNightTime)
+                {
+                    Penumbra.Transform = Camera.GetTransform(GraphicsDevice);
+                    Penumbra.Draw(gameTime);
+
+                }
 
             }
-
 
 
             if (Flags.DebugVelcro)
