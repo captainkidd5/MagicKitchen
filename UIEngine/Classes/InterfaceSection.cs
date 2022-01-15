@@ -30,7 +30,7 @@ namespace UIEngine.Classes
         public bool WasJustActived => IsActive != _activeLastFrame;
         //Some Interface sections can contain other interface sections
         internal protected List<InterfaceSection> ChildSections { get; protected set; }
-        internal protected float LayerDepth { get; set; }
+        internal float LayerDepth { get; private set; }
         internal protected Vector2 Position { get;  set; }
         internal virtual  Rectangle HitBox { get; set; }
         public virtual bool Hovered { get; protected set; }
@@ -41,7 +41,7 @@ namespace UIEngine.Classes
         internal virtual protected bool RightClicked { get; set; }
 
 
-        public InterfaceSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content , Vector2? position) :
+        public InterfaceSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(graphicsDevice, content)
         {
             parentSection = interfaceSection;
@@ -50,8 +50,13 @@ namespace UIEngine.Classes
             ChildSections = new List<InterfaceSection>();
             IsActive = true;
             State = SectionState.None;
+            LayerDepth = layerDepth;
             if(interfaceSection != null && interfaceSection.ChildSections != null && !interfaceSection.ChildSections.Contains(this))
+            {
                 interfaceSection.ChildSections.Add(this);
+                LayerDepth = UI.GetChildUILayerDepth(layerDepth);
+            }
+
         }
 
         public virtual void Load()

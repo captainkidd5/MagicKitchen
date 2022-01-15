@@ -45,29 +45,28 @@ namespace SpriteEngine.Classes
                 randomizeLayers, flip, customLayer);
         }
         /// <summary>
-        /// For UI vector2 position
+        /// For UI vector2 position.  Note ui sprites are required to pass in a custom layer
         /// </summary>
-        public static Sprite CreateUISprite(Vector2 position, Rectangle sourceRectangle, Texture2D texture, Color? primaryColor = null,
-             Vector2? origin = null, float? scale = null, float rotation = 0f, Layers layer = Layers.buildings, 
-            bool randomizeLayers = true, bool flip = false, float? customLayer = null)
+        public static Sprite CreateUISprite(Vector2 position, Rectangle sourceRectangle, Texture2D texture,float customLayer, Color? primaryColor = null,
+             Vector2? origin = null, float? scale = null, float rotation = 0f, 
+            bool randomizeLayers = true, bool flip = false)
         {
-            return new Sprite(Graphics, Content, ElementType.UI, position, sourceRectangle, texture, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Settings.GameScale, rotation, layer, 
+            return new Sprite(Graphics, Content, ElementType.UI, position, sourceRectangle, texture, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Settings.GameScale, rotation, Layers.buildings, 
                 randomizeLayers, flip, customLayer);
         }
         /// <summary>
-        /// For UI Destination Rectangle
+        /// For UI Destination Rectangle. Note ui sprites are required to pass in a custom layer
         /// </summary>
-        public static Sprite CreateUISprite(Rectangle destinationRectangle, Rectangle sourceRectangle, Texture2D texture, Color? primaryColor,
-             Vector2? origin = null, float? scale = null, float rotation = 0f, Layers layer = Layers.buildings, 
-            bool randomizeLayers = true, bool flip = false, float? customLayer = null)
+        public static Sprite CreateUISprite(Rectangle destinationRectangle, Rectangle sourceRectangle, Texture2D texture,float customLayer, Color? primaryColor,
+             Vector2? origin = null, float? scale = null, float rotation = 0f, 
+            bool randomizeLayers = true, bool flip = false)
         {
-            return new Sprite(Graphics, Content, ElementType.UI, destinationRectangle, sourceRectangle, texture, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Settings.GameScale, rotation, layer, 
+            return new Sprite(Graphics, Content, ElementType.UI, destinationRectangle, sourceRectangle, texture, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Settings.GameScale, rotation, Layers.buildings, 
                 randomizeLayers, flip, customLayer);
         }
 
         public static NineSliceSprite CreateNineSliceSprite(Vector2 position, int width, int height,
-            Texture2D texture, Color? primaryColor = null, Vector2? origin = null, float? scale = null,
-            Layers layer = Layers.background)
+            Texture2D texture,float layer, Color? primaryColor = null, Vector2? origin = null, float? scale = null)
         {
             NineSlice newNineSlice = new NineSlice(position, texture,
                 layer, width, height, primaryColor ?? Color.White);

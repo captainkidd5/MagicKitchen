@@ -27,7 +27,8 @@ namespace UIEngine.Classes.Storage
 
 
         private bool _isOpen;
-        public PlayerInventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) : base(interfaceSection, graphicsDevice, content, position)
+        public PlayerInventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
+            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             
         }
@@ -49,9 +50,9 @@ namespace UIEngine.Classes.Storage
         {
             base.Load();
             _selectorSprite = SpriteFactory.CreateUISprite(SelectedSlot.Position, new Rectangle(272, 0, 64, 64),
-                UI.ButtonTexture, null, layer: Settings.Layers.foreground);
+                UI.ButtonTexture, .6f,null);
             DrawEndIndex = _extendedInventoryCutoff;
-            _openBigInventoryButton = new Button(this, graphics, content, new Vector2(Position.X + Width, Position.Y), _openBigInventoryUpArrowSourceRectangle, null, null,null, new Action(ToggleOpen));
+            _openBigInventoryButton = new Button(this, graphics, content, new Vector2(Position.X + Width, Position.Y),LayerDepth, _openBigInventoryUpArrowSourceRectangle, null, null,null,LayerDepth, new Action(ToggleOpen));
             _openBigInventoryButton.Load();
         }
         public override void Update(GameTime gameTime)
@@ -132,7 +133,7 @@ namespace UIEngine.Classes.Storage
 
                 }
 
-                InventorySlots.Add(new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[i], slotPos));
+                InventorySlots.Add(new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[i], slotPos,LayerDepth));
             }
 
             ChildSections.AddRange(InventorySlots);

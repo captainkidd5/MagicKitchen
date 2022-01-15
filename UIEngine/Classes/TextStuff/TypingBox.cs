@@ -36,12 +36,12 @@ namespace UIEngine.Classes.TextStuff
         private List<Keys> AcceptableKeys { get; set; }
 
 
-        public TypingBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, int? width, int? height, Color? color)
-            : base(interfaceSection,graphicsDevice, content, position)
+        public TypingBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth, int? width, int? height, Color? color)
+            : base(interfaceSection,graphicsDevice, content, position, layerDepth)
         {
             NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, width ?? DefaultWidth, height ?? DefaultHeight, UI.ButtonTexture, color, null, null);
             SendButton = new NineSliceButton(interfaceSection, graphicsDevice, content,
-                 position, null, null,null,null);
+                 position,LayerDepth, null, null,null,null);
             TextBuilder = new TextBuilder(TextFactory.CreateUIText(string.Empty));
         }
         public override void Update(GameTime gameTime)

@@ -17,7 +17,8 @@ namespace UIEngine.Classes.MainMenuStuff
         private Rectangle _backDropDimensions => _mainMenuBackDropTexture.Bounds;
         private Sprite _backDropSprite;
         private OuterMenu _outerMenu;
-        public MainMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) : base(interfaceSection, graphicsDevice, content, position)
+        public MainMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
+            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
         }
 
@@ -25,8 +26,8 @@ namespace UIEngine.Classes.MainMenuStuff
         {
             base.Load();
             _mainMenuBackDropTexture = content.Load<Texture2D>("UI/MainMenu/MainMenuBackdrop");
-            _backDropSprite = SpriteFactory.CreateUISprite(Settings.GetScreenRectangle(), _backDropDimensions, _mainMenuBackDropTexture, null);
-            _outerMenu = new OuterMenu(this, graphics, content, null);
+            _backDropSprite = SpriteFactory.CreateUISprite(Settings.GetScreenRectangle(), _backDropDimensions, _mainMenuBackDropTexture, LayerDepth, null);
+            _outerMenu = new OuterMenu(this, graphics, content, null, LayerDepth);
             _outerMenu.Load();
         }
         public override void Update(GameTime gameTime)
@@ -37,7 +38,7 @@ namespace UIEngine.Classes.MainMenuStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            //_backDropSprite.Draw(spriteBatch);
+            _backDropSprite.Draw(spriteBatch);
         }
     }
 }

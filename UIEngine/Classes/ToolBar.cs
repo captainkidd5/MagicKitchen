@@ -25,8 +25,8 @@ namespace UIEngine.Classes
         private int _totalToolbarSlots = 10;
         private int _toolBarSlotWidth = 64;
 
-        public ToolBar(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) :
-            base(interfaceSection, graphicsDevice, content, position)
+        public ToolBar(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
+            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
 
         }
@@ -40,7 +40,7 @@ namespace UIEngine.Classes
             Rectangle totalToolBarRectangle = new Rectangle(0, 0, _toolBarSlotWidth * _totalToolbarSlots, _toolBarSlotWidth);
 
             _playerInventoryDisplay = new PlayerInventoryDisplay(this, graphics, content,
-                RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle) + new Vector2(0, -32));
+                RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle) + new Vector2(0, -32), LayerDepth);
             _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer);
             _playerInventoryDisplay.Load();
 

@@ -16,13 +16,14 @@ namespace UIEngine.Classes
         private float FadeRate { get; set; }
         private bool IsFadingIn { get; set; }
 
-        public Curtain(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) : base(interfaceSection,graphicsDevice, content, position)
+        public Curtain(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
+            base(interfaceSection,graphicsDevice, content, position, layerDepth)
         {
         }
         public override void Load()
         {
             base.Load();
-            BackdropSprite = SpriteFactory.CreateUISprite(Settings.ScreenRectangle, new Rectangle(0, 0, 1, 1), Settings.DebugTexture, Color.White);
+            BackdropSprite = SpriteFactory.CreateUISprite(Settings.ScreenRectangle, new Rectangle(0, 0, 1, 1), Settings.DebugTexture,LayerDepth, Color.White);
 
         }
         public override void Update(GameTime gameTime)

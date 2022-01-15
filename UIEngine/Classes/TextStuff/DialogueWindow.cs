@@ -24,8 +24,8 @@ namespace UIEngine.Classes.TextStuff
         public Direction DirectionPlayerShouldFace { get; set; }
 
         private Vector2 _textOffSet = new Vector2(16, 16);
-        public DialogueWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,  Vector2? position) :
-           base(interfaceSection, graphicsDevice, content, position)
+        public DialogueWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,  Vector2? position, float layerDepth) :
+           base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             Rectangle totalBackDropRectangleDimensions = new Rectangle(0, 240, Settings.ScreenWidth, 128);
             Position = RectangleHelper.PlaceBottomLeftScreen(totalBackDropRectangleDimensions);

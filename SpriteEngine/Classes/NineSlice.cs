@@ -44,7 +44,7 @@ namespace SpriteEngine.Classes
         /// <summary>
         /// Create a dynamic UI rectangle of any size.
         /// </summary>
-        internal NineSlice(Vector2 position, Texture2D texture, Layers uiLayer,
+        internal NineSlice(Vector2 position, Texture2D texture, float layer,
             int width, int height, Color? color)
         {
             Width = width;
@@ -54,7 +54,7 @@ namespace SpriteEngine.Classes
             Color = color ?? Color.White;
             Texture = texture;
             Scale = Globals.Classes.Settings.GameScale;
-            _uiLayer = Settings.GetLayerDepth(uiLayer);
+            _uiLayer = layer;
             int totalRequiredWidth = width;
             int totalRequireHeight = height;
             BuildRectangle(position, totalRequiredWidth, totalRequireHeight);

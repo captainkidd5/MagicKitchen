@@ -29,12 +29,12 @@ namespace UIEngine.Classes.Storage
         internal protected new bool Hovered => Button.Hovered; 
 
         public InventorySlotDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content
-             , StorageSlot storageSlot, Vector2 position)
-            : base(interfaceSection, graphicsDevice, content, position)
+             , StorageSlot storageSlot, Vector2 position, float layerDepth)
+            : base(interfaceSection, graphicsDevice, content, position,  layerDepth)
         {
             _storageSlot = storageSlot;
             storageSlot.ItemChanged += ItemChanged;
-            Button = new NineSliceButton(interfaceSection, graphicsDevice, content, position, null, null, null, null, hoverTransparency: true);
+            Button = new NineSliceButton(interfaceSection, graphicsDevice, content, position,LayerDepth, null, null, null, null, hoverTransparency: true);
             Text = TextFactory.CreateUIText("0");
         }
 
@@ -82,7 +82,7 @@ namespace UIEngine.Classes.Storage
             else
             {
                 Button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
-                Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, Color.White, Vector2.Zero, 4f));
+                Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, UI.GetChildUILayerDepth(LayerDepth) + .1f, Color.White, Vector2.Zero, 4f));
                 Text.SetFullString(count.ToString());
 
             }

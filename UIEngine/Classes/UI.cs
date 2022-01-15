@@ -13,6 +13,7 @@ using UIEngine.Classes.SultanInterpreter;
 using UIEngine.Classes.Storage;
 using ItemEngine.Classes;
 using UIEngine.Classes.MainMenuStuff;
+using SpriteEngine.Classes;
 
 namespace UIEngine.Classes
 {
@@ -29,7 +30,8 @@ namespace UIEngine.Classes
         private static  GraphicsDevice s_graphics;
         private static  ContentManager s_content;
 
-        public static GameDisplayState GameDisplayState { get; private set; } = GameDisplayState.MainMenu;
+        private static float s_baseLayerDepth = .01f;
+        public static GameDisplayState GameDisplayState { get; private set; } = GameDisplayState.InGame;
 
 
         private static List<InterfaceSection> s_activeSections;
@@ -70,21 +72,21 @@ namespace UIEngine.Classes
             GeneralInterfaceTexDat = new Color[GeneralInterfaceTexture.Width * GeneralInterfaceTexture.Height];
             GeneralInterfaceTexture.GetData<Color>(GeneralInterfaceTexDat);
 
-            ToolBar = new ToolBar(null,graphics, content, null);
-            ClockBar = new ClockBar(null,graphics, content,  null);
+            ToolBar = new ToolBar(null,graphics, content, null, s_baseLayerDepth);
+            ClockBar = new ClockBar(null,graphics, content,  null, s_baseLayerDepth);
 
             ToolBar.Load(playerStorageContainer);
 
-            CommandConsole = new CustomConsole(null,graphics, content, null);
-            TalkingWindow = new DialogueWindow(null, graphics, content,null);
-            Curtain = new Curtain(null, graphics, content, null);
+            CommandConsole = new CustomConsole(null,graphics, content, null, s_baseLayerDepth);
+            TalkingWindow = new DialogueWindow(null, graphics, content,null, s_baseLayerDepth);
+            Curtain = new Curtain(null, graphics, content, null, s_baseLayerDepth);
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, CommandConsole, TalkingWindow, Curtain };
 
-            SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null);
+            SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null, s_baseLayerDepth);
             Cursor = new Cursor();
             Cursor.LoadContent(content);
 
-            MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null);
+            MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null, s_baseLayerDepth);
             s_mainMenuSections = new List<InterfaceSection>() { MainMenu };
             foreach (InterfaceSection section in s_mainMenuSections)
             {
@@ -95,16 +97,30 @@ namespace UIEngine.Classes
                 section.Load();
             }
 
-            s_activeSections = s_mainMenuSections;
+            s_activeSections = GetActiveSections();
 
         }
 
+        private static List<InterfaceSection> GetActiveSections()
+        {
+            switch (GameDisplayState)
+            {
+                case GameDisplayState.None:
+                    throw new System.Exception("Must have a game display state");
+                case GameDisplayState.MainMenu:
+                    return s_mainMenuSections;
+                case GameDisplayState.InGame:
+                    return s_standardSections;
+                default:
+                    throw new System.Exception("Must have a game display state");
 
-        /// <summary>
-        /// Deactivates all current sections not contained in passed in list
-        /// </summary>
-        /// <param name="sections">The sections to exclude from deactivation</param>
-        public static void DeactivateAllCurrentSectionsExcept(List<InterfaceSection> sections)
+            }
+        }
+            /// <summary>
+            /// Deactivates all current sections not contained in passed in list
+            /// </summary>
+            /// <param name="sections">The sections to exclude from deactivation</param>
+            public static void DeactivateAllCurrentSectionsExcept(List<InterfaceSection> sections)
         {
             foreach(InterfaceSection section in s_activeSections)
             {
@@ -188,6 +204,18 @@ namespace UIEngine.Classes
 
         public static void FadeIn(float rate) => Curtain.FadeIn(rate);
         public static void FadeOut(float rate) => Curtain.FadeOut(rate);
-       
+
+        /// <summary>
+        /// Returns a float value which is at least slightly larger than the given layerDepth
+        /// </summary>
+        internal static float GetChildUILayerDepth(float parentLayerDepth)
+        {
+            float randomOffset = Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f;
+            float variedLayerDepth = parentLayerDepth + randomOffset;
+            return variedLayerDepth;
+
+        }
+
+        
     }
 }

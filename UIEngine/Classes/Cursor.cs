@@ -24,8 +24,9 @@ namespace UIEngine.Classes
         public int HeldItemCount;
         private int _heldItemId;
         private int _oldHeldItemId;
+        private readonly float _cursorLayerDepth = .5f;
 
-        
+
         public Texture2D CursorTexture { get; set; }
 
         private Rectangle CursorSourceRectangle = new Rectangle(0, 0, 32, 32);
@@ -52,7 +53,7 @@ namespace UIEngine.Classes
             CursorTexture = content.Load<Texture2D>("ui/MouseIcons");
             
             CursorSprite = SpriteFactory.CreateUISprite(Vector2.Zero, CursorSourceRectangle,
-                CursorTexture, Color.White, scale: 1f, layer: Settings.Layers.front);
+                CursorTexture,_cursorLayerDepth, Color.White, scale: 1f);
 
             MouseDebugText = TextFactory.CreateUIText("test");
             CreateBody(Controls.CursorWorldPosition);

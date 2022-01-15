@@ -16,7 +16,8 @@ namespace UIEngine.Classes.MainMenuStuff
         private Rectangle _buttonRectangle;
         private NineSliceButton _playButton;
         private NineSliceButton _exitButton;
-        public OuterMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) : base(interfaceSection, graphicsDevice, content, position)
+        public OuterMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
+            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
 
         }
@@ -25,7 +26,7 @@ namespace UIEngine.Classes.MainMenuStuff
         {
             base.Load();
             _buttonRectangle = new Rectangle(0, 0, 128, 64);
-            _playButton = new NineSliceButton(this, graphics, content, RectangleHelper.CenterRectangleOnScreen(_buttonRectangle), _buttonRectangle, null, UI.ButtonTexture,
+            _playButton = new NineSliceButton(this, graphics, content, RectangleHelper.CenterRectangleOnScreen(_buttonRectangle), LayerDepth, _buttonRectangle, null, UI.ButtonTexture,
                 null, null, true);
         }
 

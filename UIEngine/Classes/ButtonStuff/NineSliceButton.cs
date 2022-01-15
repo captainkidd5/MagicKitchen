@@ -18,9 +18,9 @@ namespace UIEngine.Classes.ButtonStuff
     {
 
 
-        public NineSliceButton(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, Rectangle? sourceRectangle,
+        public NineSliceButton(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position,float layerDepth, Rectangle? sourceRectangle,
             Sprite foregroundSprite, Texture2D texture, Point? samplePoint, Action buttonAction = null, bool hoverTransparency = false)
-            : base(interfaceSection, graphicsDevice, content, position, sourceRectangle, foregroundSprite, texture, samplePoint, buttonAction, hoverTransparency)
+            : base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, foregroundSprite, texture, samplePoint, buttonAction, hoverTransparency)
         {
                 BackGroundSprite = SpriteFactory.CreateNineSliceSprite(position, sourceRectangle == null ? DefaultButtonWidth : sourceRectangle.Value.Width,
                     sourceRectangle == null ? DefaultButtonHeight : sourceRectangle.Value.Height, UI.ButtonTexture, null, null, null, Layers.buildings);

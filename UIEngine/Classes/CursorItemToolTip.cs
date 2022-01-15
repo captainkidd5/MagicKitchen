@@ -23,10 +23,11 @@ namespace UIEngine.Classes
         private Vector2 _cursorOffset = new Vector2(16, 16);
 
         private Text _text;
+        private float _customLayer = .9f;
         public CursorItemToolTip()
         {
             ItemSprite = SpriteFactory.CreateUISprite(Vector2.Zero, new Rectangle(0, 0, 16, 16),
-                ItemFactory.ItemSpriteSheet, Color.White, scale: 1f, layer: Settings.Layers.front);
+                ItemFactory.ItemSpriteSheet, _customLayer, Color.White, scale: 1f);
             _text = TextFactory.CreateUIText("tst", null, null, null);
         }
         public void Update(GameTime gameTime, Vector2 position)

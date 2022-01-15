@@ -37,8 +37,8 @@ namespace UIEngine.Classes.Storage
         public int Capacity { get { return StorageContainer.Capacity; }  }
         protected int DrawEndIndex { get; set; }
 
-        public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position) :
-           base(interfaceSection, graphicsDevice, content, position)
+        public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
+           base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
            
 
@@ -73,7 +73,7 @@ namespace UIEngine.Classes.Storage
             {
                 InventorySlots.Add(new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[i],
                     new Vector2(Position.X + i * _buttonWidth,
-                    Position.Y + i % Rows * _buttonWidth)));
+                    Position.Y + i % Rows * _buttonWidth), LayerDepth));
             }
 
         }

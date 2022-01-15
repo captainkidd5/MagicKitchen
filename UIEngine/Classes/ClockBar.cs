@@ -22,8 +22,8 @@ namespace UIEngine.Classes
 
         private Text ClockTimeText { get; set; }
 
-        public ClockBar(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,Vector2? position) :
-           base(interfaceSection,graphicsDevice, content, position)
+        public ClockBar(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,Vector2? position, float layerDepth) :
+           base(interfaceSection,graphicsDevice, content, position, layerDepth)
         {
             Rectangle totalBackDropRectangleDimensions = new Rectangle(0, 240, 144, 64);
             Position = RectangleHelper.PlaceBottomRightScreen(totalBackDropRectangleDimensions);
