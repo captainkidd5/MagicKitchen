@@ -65,7 +65,7 @@ namespace SpriteEngine.Classes
         /// </summary>
         internal NineSlice(
             Vector2 position, Texture2D? texture,
-            Layers uiLayer, Text text, Color? color)
+            float uiLayer, Text text, Color? color)
         {
             CombinedRectangle = new List<Rectangle>();
             RectanglePositions = new List<Vector2>();
@@ -73,7 +73,7 @@ namespace SpriteEngine.Classes
             Color = color ?? Color.White;
 
             Texture = texture;
-            this._uiLayer = Settings.GetLayerDepth(uiLayer);
+            _uiLayer = uiLayer;
             Scale = Globals.Classes.Settings.GameScale;
 
             int totalRequiredWidth = (int)text.GetTextLength() + 48;

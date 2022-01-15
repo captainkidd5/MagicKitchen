@@ -13,6 +13,7 @@ namespace UIEngine.Classes.MainMenuStuff
 {
     internal class OuterMenu : InterfaceSection
     {
+        private Action _playGameAction;
         private Rectangle _buttonRectangle;
         private NineSliceButton _playButton;
         private NineSliceButton _exitButton;
@@ -26,8 +27,9 @@ namespace UIEngine.Classes.MainMenuStuff
         {
             base.Load();
             _buttonRectangle = new Rectangle(0, 0, 128, 64);
+            _playGameAction = PlayGame;
             _playButton = new NineSliceButton(this, graphics, content, RectangleHelper.CenterRectangleOnScreen(_buttonRectangle), LayerDepth, _buttonRectangle, null, UI.ButtonTexture,
-                null, null, true);
+                null, _playGameAction, true);
         }
 
         public override void Update(GameTime gameTime)
@@ -42,6 +44,10 @@ namespace UIEngine.Classes.MainMenuStuff
             _playButton.Draw(spriteBatch);
         }
 
+        private void PlayGame()
+        {
+            UI.ChangeGameState(GameDisplayState.InGame);
+        }
         
     }
 }

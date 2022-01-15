@@ -64,6 +64,12 @@ namespace UIEngine.Classes
 
         }
 
+        public virtual void Unload()
+        {
+            foreach (InterfaceSection interfaceSection in ChildSections)
+                interfaceSection.Unload();
+        }
+
         public virtual void Update(GameTime gameTime)
         {
             _hoveredLastFrame = Hovered;

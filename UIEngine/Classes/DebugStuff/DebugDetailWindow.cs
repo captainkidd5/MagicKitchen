@@ -28,8 +28,8 @@ namespace UIEngine.Classes.DebugStuff
         private Vector2 bottomDebugPosition { get; set; }
         public DebugDetailWindow()
         {
-            NineSliceSprite = SpriteFactory.CreateNineSliceSprite(Position, width, height,
-                null,null,null,null);
+            //NineSliceSprite = SpriteFactory.CreateNineSliceSprite(Position, width, height,
+            //    null,null,null);
         }
 
         /// <summary>

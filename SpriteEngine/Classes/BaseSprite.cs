@@ -48,7 +48,7 @@ namespace SpriteEngine.Classes
         ColorShifter ColorShifter { get; set; }
 
         public BaseSprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Vector2 position, Rectangle sourceRectangle, Texture2D texture, Color primaryColor,
-             Vector2 origin, float scale, float rotation, Layers layer,
+             Vector2 origin, float scale, float rotation,
             bool randomizeLayers, bool flip, float? customLayer) : base(graphics, content)
         {
             Position = position;
@@ -56,12 +56,12 @@ namespace SpriteEngine.Classes
             PrimaryColor = primaryColor ;
             Origin = origin ;
             Scale = scale;
-            SharedConstructor(spriteType, sourceRectangle, rotation, layer, randomizeLayers, flip, customLayer);
+            SharedConstructor(spriteType, sourceRectangle, rotation,  randomizeLayers, flip, customLayer);
 
         }
 
         public BaseSprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Rectangle destinationRectangle, Rectangle sourceRectangle, Texture2D texture, Color primaryColor,
-             Vector2 origin, float scale, float rotation, Layers layer,
+             Vector2 origin, float scale, float rotation,
             bool randomizeLayers, bool flip, float? customLayer) : base(graphics, content)
         {
             Texture = texture;
@@ -70,19 +70,16 @@ namespace SpriteEngine.Classes
             Origin = origin;
             Scale = scale;
 
-            SharedConstructor(spriteType, sourceRectangle, rotation, layer, randomizeLayers, flip, customLayer);
+            SharedConstructor(spriteType, sourceRectangle, rotation, randomizeLayers, flip, customLayer);
 
         }
-        private void SharedConstructor(ElementType spriteType, Rectangle sourceRectangle, float rotation, Layers layer, bool randomizeLayers, bool flip, float? customLayer)
+        private void SharedConstructor(ElementType spriteType, Rectangle sourceRectangle, float rotation, bool randomizeLayers, bool flip, float? customLayer)
         {
             SpriteType = spriteType;
             SourceRectangle = sourceRectangle;
 
 
-            if (randomizeLayers)
-                this.LayerDepth = SpriteUtility.GetSpriteVariedLayerDepth(layer);
-            else
-                this.LayerDepth = Settings.GetLayerDepth(layer);
+          
 
             if (customLayer != null)
                 CustomLayer = customLayer;
@@ -95,13 +92,14 @@ namespace SpriteEngine.Classes
         }
 
         public BaseSprite(GraphicsDevice graphics, ContentManager content, Vector2 position, Texture2D texture, Color primaryColor,
-            Vector2 origin, float scale, Layers layer) : base(graphics, content)
+            Vector2 origin, float scale, float layer) : base(graphics, content)
         {
             Position = position;
             Texture = texture;
             PrimaryColor = primaryColor;
             Origin = origin;
             Scale = scale;
+            CustomLayer = layer;
         }
         public virtual void Update(GameTime gameTime, Vector2 position)
         {

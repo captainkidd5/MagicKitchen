@@ -31,7 +31,7 @@ namespace UIEngine.Classes.TextStuff
             Position = RectangleHelper.PlaceBottomLeftScreen(totalBackDropRectangleDimensions);
             BackdropSprite = SpriteFactory.CreateNineSliceSprite(Position,
                 totalBackDropRectangleDimensions.Width,
-                totalBackDropRectangleDimensions.Height, UI.ButtonTexture, layer: Layers.foreground);
+                totalBackDropRectangleDimensions.Height, UI.ButtonTexture, LayerDepth);
             TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test"), .05f);
             IsActive = false;
 

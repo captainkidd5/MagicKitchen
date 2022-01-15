@@ -14,15 +14,26 @@ namespace SpriteEngine.Classes
         public Sprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Vector2 position,
             Rectangle sourceRectangle, Texture2D texture, Color primaryColor, Vector2 origin, float scale,
             float rotation, Layers layer, bool randomizeLayers, bool flip, float? customLayer)
-            : base(graphics, content, spriteType, position, sourceRectangle, texture, primaryColor, origin, scale, rotation, layer, randomizeLayers, flip, customLayer)
+            : base(graphics, content, spriteType, position, sourceRectangle, texture, primaryColor, origin, scale, rotation, randomizeLayers, flip, customLayer)
         {
+            CheckIfRandomizeLayers(layer, randomizeLayers);
+
         }
 
         public Sprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Rectangle destinationRectangle,
             Rectangle sourceRectangle, Texture2D texture, Color primaryColor, Vector2 origin, float scale, float rotation,
             Layers layer, bool randomizeLayers, bool flip, float? customLayer)
-            : base(graphics, content, spriteType, destinationRectangle, sourceRectangle, texture, primaryColor, origin, scale, rotation, layer, randomizeLayers, flip, customLayer)
+            : base(graphics, content, spriteType, destinationRectangle, sourceRectangle, texture, primaryColor, origin, scale, rotation, randomizeLayers, flip, customLayer)
         {
+            CheckIfRandomizeLayers(layer, randomizeLayers);
+        }
+
+        private void CheckIfRandomizeLayers(Layers layer, bool randomizeLayers)
+        {
+            if (randomizeLayers)
+                this.LayerDepth = SpriteUtility.GetSpriteVariedLayerDepth(layer);
+            else
+                this.LayerDepth = Settings.GetLayerDepth(layer);
         }
 
         public void Load(ContentManager contentManager)

@@ -30,7 +30,7 @@ namespace UIEngine.Classes
             BackdropSprite = SpriteFactory.CreateNineSliceSprite(Position,
                 totalBackDropRectangleDimensions.Width,
                 totalBackDropRectangleDimensions.Height,
-                UI.ButtonTexture, null, null, null, Layers.background);
+                UI.ButtonTexture, layerDepth, null, null);
         }
 
         public override void Load()

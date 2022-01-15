@@ -27,11 +27,11 @@ namespace UIEngine.Classes
     {
 
 
-        private static  GraphicsDevice s_graphics;
-        private static  ContentManager s_content;
+        private static GraphicsDevice s_graphics;
+        private static ContentManager s_content;
 
         private static float s_baseLayerDepth = .01f;
-        public static GameDisplayState GameDisplayState { get; private set; } = GameDisplayState.InGame;
+        public static GameDisplayState GameDisplayState { get; private set; } = GameDisplayState.MainMenu;
 
 
         private static List<InterfaceSection> s_activeSections;
@@ -40,7 +40,7 @@ namespace UIEngine.Classes
 
         internal static Color[] ButtonTextureDat;
         internal static Color[] GeneralInterfaceTexDat;
-        public static bool IsHovered { get;private set; }
+        public static bool IsHovered { get; private set; }
 
         private static List<InterfaceSection> s_standardSections { get; set; }
         private static List<InterfaceSection> s_mainMenuSections { get; set; }
@@ -72,13 +72,13 @@ namespace UIEngine.Classes
             GeneralInterfaceTexDat = new Color[GeneralInterfaceTexture.Width * GeneralInterfaceTexture.Height];
             GeneralInterfaceTexture.GetData<Color>(GeneralInterfaceTexDat);
 
-            ToolBar = new ToolBar(null,graphics, content, null, s_baseLayerDepth);
-            ClockBar = new ClockBar(null,graphics, content,  null, s_baseLayerDepth);
+            ToolBar = new ToolBar(null, graphics, content, null, s_baseLayerDepth);
+            ClockBar = new ClockBar(null, graphics, content, null, s_baseLayerDepth);
 
             ToolBar.Load(playerStorageContainer);
 
-            CommandConsole = new CustomConsole(null,graphics, content, null, s_baseLayerDepth);
-            TalkingWindow = new DialogueWindow(null, graphics, content,null, s_baseLayerDepth);
+            CommandConsole = new CustomConsole(null, graphics, content, null, s_baseLayerDepth);
+            TalkingWindow = new DialogueWindow(null, graphics, content, null, s_baseLayerDepth);
             Curtain = new Curtain(null, graphics, content, null, s_baseLayerDepth);
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, CommandConsole, TalkingWindow, Curtain };
 
@@ -88,16 +88,22 @@ namespace UIEngine.Classes
 
             MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null, s_baseLayerDepth);
             s_mainMenuSections = new List<InterfaceSection>() { MainMenu };
-            foreach (InterfaceSection section in s_mainMenuSections)
-            {
-                section.Load();
-            }
-            foreach (InterfaceSection section in s_standardSections)
-            {
-                section.Load();
-            }
-
             s_activeSections = GetActiveSections();
+
+            LoadCurrentSection();
+
+        }
+
+        private static void LoadCurrentSection()
+        {
+            foreach (InterfaceSection section in s_activeSections)
+                section.Load();
+        }
+
+        private static void UnloadCurrentSection()
+        {
+            foreach (InterfaceSection section in s_activeSections)
+                section.Unload();
 
         }
 
@@ -116,13 +122,13 @@ namespace UIEngine.Classes
 
             }
         }
-            /// <summary>
-            /// Deactivates all current sections not contained in passed in list
-            /// </summary>
-            /// <param name="sections">The sections to exclude from deactivation</param>
-            public static void DeactivateAllCurrentSectionsExcept(List<InterfaceSection> sections)
+        /// <summary>
+        /// Deactivates all current sections not contained in passed in list
+        /// </summary>
+        /// <param name="sections">The sections to exclude from deactivation</param>
+        public static void DeactivateAllCurrentSectionsExcept(List<InterfaceSection> sections)
         {
-            foreach(InterfaceSection section in s_activeSections)
+            foreach (InterfaceSection section in s_activeSections)
             {
                 if (!sections.Contains(section))
                 {
@@ -145,21 +151,21 @@ namespace UIEngine.Classes
                 Globals.Classes.Console.CommandConsole.Toggle();
 
             }
-            
+
             foreach (InterfaceSection section in s_activeSections)
             {
                 if (section.IsActive)
                 {
 
-                section.Update(gameTime);
-                if (section.Hovered)
-                    IsHovered = true;
+                    section.Update(gameTime);
+                    if (section.Hovered)
+                        IsHovered = true;
                 }
 
             }
 
 
-            
+
             Cursor.Update(gameTime);
 
         }
@@ -170,7 +176,7 @@ namespace UIEngine.Classes
         /// <param name="sectionsToReactive">If list is not null, sections within list will be exempted from reactivation</param>
         public static void ReactiveSections(List<InterfaceSection> sectionsToReactive = null)
         {
-            if(sectionsToReactive == null)
+            if (sectionsToReactive == null)
             {
                 foreach (InterfaceSection section in s_activeSections)
                 {
@@ -216,6 +222,13 @@ namespace UIEngine.Classes
 
         }
 
-        
+        internal static void ChangeGameState(GameDisplayState newState)
+        {
+            UnloadCurrentSection();
+            GameDisplayState = newState;
+            s_activeSections = GetActiveSections();
+            LoadCurrentSection();
+        }
+
     }
 }

@@ -30,6 +30,10 @@ namespace UIEngine.Classes.MainMenuStuff
             _outerMenu = new OuterMenu(this, graphics, content, null, LayerDepth);
             _outerMenu.Load();
         }
+        public override void Unload()
+        {
+            content.Unload();
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

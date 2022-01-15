@@ -166,7 +166,6 @@ namespace MagicKitchen
 
             if (UI.GameDisplayState == GameDisplayState.InGame)
             {
-                StageManager.Update(gameTime);
 
                 if (Flags.EnableShadows && Flags.IsNightTime)
                 {
