@@ -78,7 +78,6 @@ namespace EntityEngine.Classes
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-         //  MainHullBody.Hull.Position = Position;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

@@ -52,19 +52,19 @@ namespace EntityEngine.Classes.Animators
             }
 
         }
-        internal override void ChangeDirection(Direction newDirection)
+        internal override void ChangeDirection(Direction newDirection, Vector2 position )
         {
-            base.ChangeDirection(newDirection);
+            base.ChangeDirection(newDirection, position);
             for (int i = 0; i < Animations.Length; i++)
             {
-                Animations[i].ChangeCurrentDirection(newDirection);
+                Animations[i].ChangeCurrentDirection(newDirection, position, xOffset, yOffset, Layer);
             }
         }
-        internal override void LoadUpdate(GameTime gameTime, float entityLayer)
+        internal override void LoadUpdate(GameTime gameTime)
         {
             for (int i = 0; i < Animations.Length; i++)
             {
-                Animations[i].Update(gameTime, true, Direction.Down, Position, entityLayer);
+                Animations[i].Update(gameTime, true, Direction.Down, Position, Layer);
             }
             HasLoadUpdatedOnce = true;
         }
@@ -78,14 +78,14 @@ namespace EntityEngine.Classes.Animators
             {
                 isMoving = true;
             }
-            float entityLayer = SetPositionAndGetEntityLayer(position);
+             Layer = SetPositionAndGetEntityLayer(position);
             for (int i =0; i < Animations.Length; i++)
             {
-                Animations[i].Update(gameTime, isMoving,currentDirection, Position, entityLayer);
+                Animations[i].Update(gameTime, isMoving,currentDirection, Position, Layer);
             }
 
             if (!HasLoadUpdatedOnce)
-                LoadUpdate(gameTime, entityLayer);
+                LoadUpdate(gameTime);
             PositionLastFrame = position;
         }
 

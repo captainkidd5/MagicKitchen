@@ -18,6 +18,7 @@ namespace EntityEngine.Classes.Animators
         //Entire height of a character
         protected readonly int yOffset = 32;
         protected AnimatedSprite[] AnimatedSprites { get; set; }
+        protected float Layer { get; set; }
 
         /// <summary>
         /// Note: this is the position where the sprite is drawn, and is an offset of the entity position.
@@ -43,11 +44,11 @@ namespace EntityEngine.Classes.Animators
 
 
         }
-        internal virtual void LoadUpdate(GameTime gameTime, float entityLayer)
+        internal virtual void LoadUpdate(GameTime gameTime)
         {
 
         }
-        internal virtual void ChangeDirection(Direction newDirection)
+        internal virtual void ChangeDirection(Direction newDirection, Vector2 position)
         {
 
         }
@@ -80,9 +81,9 @@ namespace EntityEngine.Classes.Animators
         {
 
 
-            float entityLayer = SetPositionAndGetEntityLayer(position);
+             Layer = SetPositionAndGetEntityLayer(position);
             if (!HasLoadUpdatedOnce)
-                LoadUpdate(gameTime, entityLayer);
+                LoadUpdate(gameTime);
         }
 
         protected virtual float SetPositionAndGetEntityLayer(Vector2 position)

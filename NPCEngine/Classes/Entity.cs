@@ -131,10 +131,6 @@ namespace EntityEngine.Classes
             }
         }
 
-        protected virtual void ChangeVisualDirection(Direction direction)
-        {
-            EntityAnimator.ChangeDirection(direction);
-        }
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnSeparates(fixtureA, fixtureB, contact);
@@ -374,7 +370,9 @@ namespace EntityEngine.Classes
 
         protected void FaceTowardsOtherEntity(Vector2 otherEntityPos)
         {
-            DirectionMoving = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos);
+            Direction directionToFace = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos);
+            EntityAnimator.ChangeDirection(directionToFace, Position);
+            DirectionMoving = directionToFace;
         }
     }
 }

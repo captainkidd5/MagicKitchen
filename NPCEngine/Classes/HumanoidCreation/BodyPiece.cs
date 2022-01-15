@@ -75,9 +75,15 @@ namespace EntityEngine.Classes.HumanoidCreation
         {
             return (int)BodyPart * .000001f;
         }
-        public void ChangeCurrentDirection(Direction newDirection)
+        public void ChangeCurrentDirection(Direction newDirection, Vector2 position, int xOffset, int yOffset, float layer)
         {
             CurrentDirection = GetAnimationFromDirection(newDirection);
+            for (int i = 0; i < CurrentSet.Length; i++)
+            {
+                CurrentSet[i].ForceSetFrame(new Vector2(position.X - xOffset, position.Y - yOffset), layer + LayerOffSet);
+
+            };
+
         }
         internal virtual void Update(GameTime gameTime, bool isMoving, Direction direction, Vector2 position, float entityLayer)
         {
@@ -97,7 +103,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             }
             else if(!HasReset)
             {
-                SetRestingFrameIndex();
+                SetRestingFrameIndex(position);
                 HasReset = true;
             }
             
@@ -106,8 +112,9 @@ namespace EntityEngine.Classes.HumanoidCreation
         /// <summary>
         /// Resets sprite to resting frame for specified direction
         /// </summary>
-        private void SetRestingFrameIndex()
+        private void SetRestingFrameIndex(Vector2 position)
         {
+            
             CurrentSet[CurrentDirection].ResetSpriteToRestingFrame();
         }
 

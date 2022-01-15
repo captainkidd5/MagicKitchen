@@ -90,6 +90,9 @@ namespace SpriteEngine.Classes.Animations
             DestinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, SourceRectangle.Width, SourceRectangle.Height);
         }
 
+
+
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
@@ -121,12 +124,22 @@ namespace SpriteEngine.Classes.Animations
                 CurrentFrame++;
         }
 
+        public void ForceSetFrame(Vector2 position, float layer)
+        {
+            ResetSpriteToRestingFrame();
+            CustomLayer = layer; 
+            Position = new Vector2(position.X + AnimationFrames[0].XOffSet, position.Y + AnimationFrames[0].YOffSet * -1);
+            if (DestinationRectangle != null)
+                DestinationRectangle = new Rectangle((int)Position.X + (int)Origin.X, (int)Position.Y + (int)Origin.Y, Width, Height);
+        }
         /// <summary>
         /// Set animations to their default position. E.x. when the player stops running. Default is zero
         /// </summary>
-        public void ResetSpriteToRestingFrame()
+        public void ResetSpriteToRestingFrame( )
         {
-            if(ResetIndex < 0)
+
+            
+            if (ResetIndex < 0)
             {
                 UpdateSourceRectangle(AnimationFrames[0]);
                 return;

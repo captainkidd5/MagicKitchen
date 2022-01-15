@@ -92,7 +92,7 @@ namespace EntityEngine.Classes.PlayerStuff
             else
                 Resume();
             if (UI.TalkingWindow.WasJustActived)
-                ChangeVisualDirection(DirectionFacing);
+                EntityAnimator.ChangeDirection(DirectionFacing, Position);
         }
 
         protected override void DropCurrentlyHeldItemToWorld()
