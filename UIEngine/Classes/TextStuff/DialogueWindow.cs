@@ -22,6 +22,8 @@ namespace UIEngine.Classes.TextStuff
         private TextBuilder TextBuilder { get; set; }
 
         public Direction DirectionPlayerShouldFace { get; set; }
+
+        private Vector2 _textOffSet = new Vector2(16, 16);
         public DialogueWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,  Vector2? position) :
            base(interfaceSection, graphicsDevice, content, position)
         {
@@ -30,7 +32,7 @@ namespace UIEngine.Classes.TextStuff
             BackdropSprite = SpriteFactory.CreateNineSliceSprite(Position,
                 totalBackDropRectangleDimensions.Width,
                 totalBackDropRectangleDimensions.Height, UI.ButtonTexture, layer: Layers.foreground);
-            TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test"), .25f);
+            TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test"), .05f);
             IsActive = false;
 
         }
@@ -42,7 +44,7 @@ namespace UIEngine.Classes.TextStuff
             Hovered = Controls.IsHovering(ElementType.UI, BackdropSprite.HitBox);
 
 
-            if (TextBuilder.Update(gameTime, Position))
+            if (TextBuilder.Update(gameTime, Position + _textOffSet))
             {
 
                 if (Controls.IsClicked)

@@ -61,7 +61,7 @@ namespace TiledEngine.Classes.TileAddons
         {
             base.CreateBody(position);
             AddSecondaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Static, Position, destinationRectangle.Width, destinationRectangle.Height, new List<Category>() { Category.TransparencySensor },
-                new List<Category>() { Category.PlayerBigSensor, Category.NPCBigSensor},
+                new List<Category>() { Category.PlayerBigSensor,Category.Player, Category.NPCBigSensor},
                 OnCollides, OnSeparates, isSensor: true, blocksLight: false));
         }
 

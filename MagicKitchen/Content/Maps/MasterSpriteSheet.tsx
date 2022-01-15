@@ -3056,6 +3056,12 @@
    <property name="transparent" value="-32,-96, 64, 94"/>
   </properties>
  </tile>
+ <tile id="2331">
+  <properties>
+   <property name="newSource" value="-16,-80,48,96"/>
+   <property name="transparent" value="-16,-64, 48, 65"/>
+  </properties>
+ </tile>
  <tile id="2402">
   <properties>
    <property name="generate" value="SandStoneWall"/>

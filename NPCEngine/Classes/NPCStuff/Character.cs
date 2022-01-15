@@ -70,7 +70,11 @@ namespace EntityEngine.Classes.NPCStuff
             base.Update(gameTime);
 
             if (!UI.TalkingWindow.IsActive)
+            {
                 Resume();
+            StatusIcon.SetStatus(StatusIconType.None);
+
+            }
         }
 
         protected override void Resume()
