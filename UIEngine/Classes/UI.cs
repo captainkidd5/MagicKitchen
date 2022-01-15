@@ -59,9 +59,11 @@ namespace UIEngine.Classes
 
         public static Cursor Cursor { get; set; }
 
+        private static Game s_game;
 
-        public static void Load(GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager, StorageContainer playerStorageContainer)
+        public static void Load(Game game, GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager, StorageContainer playerStorageContainer)
         {
+            s_game = game;
             s_graphics = graphics;
             s_content = content;
             ButtonTexture = content.Load<Texture2D>("UI/Buttons");
@@ -230,5 +232,9 @@ namespace UIEngine.Classes
             LoadCurrentSection();
         }
 
+        internal static void Exit()
+        {
+            s_game.Exit();
+        }
     }
 }
