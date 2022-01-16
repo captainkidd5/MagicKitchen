@@ -10,6 +10,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataModels\DataModels.csproj" />
-    <ProjectReference Include="..\IOEngine\IOEngine.csproj" />
   </ItemGroup>
 </Project>

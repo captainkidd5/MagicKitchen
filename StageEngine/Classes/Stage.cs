@@ -3,7 +3,6 @@ using EntityEngine.Classes.PlayerStuff;
 using EntityEngine.Classes.NPCStuff;
 using Globals.Classes;
 using InputEngine.Classes.Input;
-using IOEngine.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -136,18 +135,18 @@ namespace StageEngine.Classes
         /// </summary>
         public void SaveToIndividualFile()
         {
-            File.WriteAllText(SaveLoadManager.CurrentSave.StageFilePath + @"\" + _pathExtension, string.Empty);
-            BinaryWriter stageWriter = SaveLoadManager.GetCurrentSaveFileWriter(@"\Stages\" + _pathExtension);
-            Save(stageWriter);
-            SaveLoadManager.DestroyWriter(stageWriter);
+            //File.WriteAllText(SaveLoadManager.CurrentSave.StageFilePath + @"\" + _pathExtension, string.Empty);
+            //BinaryWriter stageWriter = SaveLoadManager.GetCurrentSaveFileWriter(@"\Stages\" + _pathExtension);
+            //Save(stageWriter);
+            //SaveLoadManager.DestroyWriter(stageWriter);
         }
 
         public void LoadFromIndividualFile()
         {
-            BinaryReader stageReader = SaveLoadManager.GetCurrentSaveFileReader(@"\Stages\" + _pathExtension);
-            LoadSave(stageReader);
-            SaveLoadManager.DestroyReader(stageReader);
-            MapRectangle = TileManager.MapRectangle;
+            //BinaryReader stageReader = SaveLoadManager.GetCurrentSaveFileReader(@"\Stages\" + _pathExtension);
+            //LoadSave(stageReader);
+            //SaveLoadManager.DestroyReader(stageReader);
+            //MapRectangle = TileManager.MapRectangle;
 
         }
         public void Unload()

@@ -90,7 +90,7 @@ namespace MagicKitchen
 
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            SaveLoadManager.InitialLoad();
+            SaveLoadManager.InitialLoad(SaveCurrentGame, LoadSave);
 
             if (SaveLoadManager.IsSaveNameAvailable("testSave"))
             {

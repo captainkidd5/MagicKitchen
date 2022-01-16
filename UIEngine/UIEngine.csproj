@@ -9,6 +9,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InputEngine\InputEngine.csproj" />
+    <ProjectReference Include="..\IOEngine\IOEngine.csproj" />
     <ProjectReference Include="..\SpriteEngine\SpriteEngine.csproj" />
   </ItemGroup>
 </Project>

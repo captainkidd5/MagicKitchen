@@ -203,10 +203,10 @@ namespace TextEngine.Classes
         /// <summary>
         /// String width and height already have their scale applied to them, scale parameter is for unscaled rectangle.
         /// </summary>
-        internal Vector2 CenterInRectangle(Vector2 rectanglePosition, Rectangle rectangleToCenterOn, float scale = 1f)
+        public static Vector2 CenterInRectangle(Rectangle rectangleToCenterOn,Text text, float scale = 1f)
         {
-            return new Vector2(rectanglePosition.X + rectangleToCenterOn.Width / 2f * scale - TotalStringWidth / 2f,
-                rectanglePosition.Y + rectangleToCenterOn.Height / 2f * scale - TotalStringHeight / 2f);
+            return new Vector2(rectangleToCenterOn.X + rectangleToCenterOn.Width / 2f * scale - text.TotalStringWidth / 2f,
+                rectangleToCenterOn.Y + rectangleToCenterOn.Height / 2f * scale - text.TotalStringHeight / 2f);
         }
 
     }
