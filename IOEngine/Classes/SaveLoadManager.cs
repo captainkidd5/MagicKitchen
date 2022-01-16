@@ -15,16 +15,16 @@ namespace IOEngine.Classes
         public static SaveFile CurrentSave { get; set; }
         public static string BasePath;
 
-        private static Action _loadAction;
-        private static Action _saveAction;
+        private static Action _game1LoadAction;
+        private static Action _game1SaveAction;
 
         /// <summary>
         /// Call once on game open, loads all the metadata files into memory
         /// </summary>
         public static void InitialLoad(Action saveAction, Action loadAction)
         {
-            _saveAction = saveAction;
-            _loadAction = loadAction;
+            _game1SaveAction = saveAction;
+            _game1LoadAction = loadAction;
             SaveFiles = new List<SaveFile>();
             BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\SaveFiles";
             Directory.CreateDirectory(BasePath);
@@ -155,8 +155,8 @@ namespace IOEngine.Classes
 
         }
 
-        public static void Load() => _loadAction();
-        public static void Save() => _saveAction();
+        public static void Load() => _game1LoadAction();
+        public static void Save() => _game1SaveAction();
 
     }
 }
