@@ -11,14 +11,10 @@ using TextEngine;
 using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
 
-namespace UIEngine.Classes.MainMenuStuff
+namespace UIEngine.Classes.MainMenuStuff.ViewGames
 {
-    /// <summary>
-    /// Panel which contains information on an existing save file, available to load into
-    /// </summary>
-    internal class SaveSlotPanel : InterfaceSection
+    internal class CreateNewGamePanel : InterfaceSection
     {
-
         private readonly SaveFile _saveFile;
 
         private NineSliceButton _slotButton;
@@ -31,18 +27,18 @@ namespace UIEngine.Classes.MainMenuStuff
         private Vector2 _dateTextPosition;
 
 
-        public SaveSlotPanel(SaveFile saveFile, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
+        public CreateNewGamePanel(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            _saveFile = saveFile;
         }
 
         public override void Load()
         {
             base.Load();
-            _slotButton = new NineSliceButton(parentSection, graphics, content, Position, LayerDepth, _slotButtonDimensions, null, null, null, SaveLoadManager.Load,true);
+            Action saveAction = LoadSave;
+            _slotButton = new NineSliceButton(parentSection, graphics, content, Position, LayerDepth, _slotButtonDimensions, null, null, null, saveAction, true);
 
-            _nameText = TextFactory.CreateUIText(_saveFile.Name);
+            _nameText = TextFactory.CreateUIText("Create New");
             Vector2 _centeredTextInRectanglePosition = Text.CenterInRectangle(_slotButton.HitBox, _nameText);
             _nameTextPosition = new Vector2(_centeredTextInRectanglePosition.X, _centeredTextInRectanglePosition.Y - _slotButtonDimensions.Height / 4);
 
@@ -73,8 +69,9 @@ namespace UIEngine.Classes.MainMenuStuff
             _dateText.Draw(spriteBatch, true);
         }
 
-       
-
-       
+        private void LoadSave()
+        {
+            UI.LoadGame(_saveFile);
+        }
     }
 }

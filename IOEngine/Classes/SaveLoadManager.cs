@@ -15,16 +15,18 @@ namespace IOEngine.Classes
         public static SaveFile CurrentSave { get; set; }
         public static string BasePath;
 
-        private static Action _game1LoadAction;
-        private static Action _game1SaveAction;
+        public static EventHandler<FileLoadedEventArgs> SaveLoaded;
+        public static void Load(SaveFile file) => SaveLoaded.Invoke(null, new FileLoadedEventArgs() { BinaryReader = CreateReader(file.MainSaveFilePath)});
+
+        public static EventHandler<FileSavedEventArgs> SaveSaved;
+        public static void Save(SaveFile file) => SaveSaved.Invoke(null, new FileSavedEventArgs() { BinaryWriter = CreateWriter(file.MainSaveFilePath) });
 
         /// <summary>
         /// Call once on game open, loads all the metadata files into memory
         /// </summary>
-        public static void InitialLoad(Action saveAction, Action loadAction)
+        public static void InitialLoad()
         {
-            _game1SaveAction = saveAction;
-            _game1LoadAction = loadAction;
+
             SaveFiles = new List<SaveFile>();
             BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\SaveFiles";
             Directory.CreateDirectory(BasePath);
@@ -127,36 +129,18 @@ namespace IOEngine.Classes
         public static BinaryWriter GetCurrentSaveFileWriter(string extension = null)
         {
             if (!string.IsNullOrEmpty(extension))
-            {
                 return CreateWriter(CurrentSave.FolderPath + extension);
-
-            }
-            else
-            {
-                return CreateWriter(CurrentSave.MainSaveFilePath);
-            }
-
-           
-
+            else       
+                return CreateWriter(CurrentSave.MainSaveFilePath);         
         }
         public static BinaryReader GetCurrentSaveFileReader(string extension = null)
         {
             if (!string.IsNullOrEmpty(extension))
-            {
                 return CreateReader(CurrentSave.FolderPath + extension);
-
-            }
             else
-            {
                 return CreateReader(CurrentSave.MainSaveFilePath);
-
-            }
-
-
         }
 
-        public static void Load() => _game1LoadAction();
-        public static void Save() => _game1SaveAction();
 
     }
 }

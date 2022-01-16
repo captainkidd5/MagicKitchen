@@ -14,6 +14,7 @@ using UIEngine.Classes.Storage;
 using ItemEngine.Classes;
 using UIEngine.Classes.MainMenuStuff;
 using SpriteEngine.Classes;
+using IOEngine.Classes;
 
 namespace UIEngine.Classes
 {
@@ -237,6 +238,14 @@ namespace UIEngine.Classes
             s_game.Exit();
         }
 
+        public static void SaveGame(SaveFile saveFile)
+        {
+            SaveLoadManager.Save(saveFile);
+        }
 
+        public static void LoadGame(SaveFile saveFile)
+        {
+            SaveLoadManager.Load(saveFile);
+        }
     }
 }

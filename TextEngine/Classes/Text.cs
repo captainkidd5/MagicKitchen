@@ -58,6 +58,10 @@ namespace TextEngine.Classes
 
         }
 
+        public void ChangeColor(Color newColor)
+        {
+            _color = newColor;
+        }
 
         /// <summary>
         /// Append key presses

@@ -32,6 +32,8 @@ namespace UIEngine.Classes
         internal protected List<InterfaceSection> ChildSections { get; protected set; }
         internal float LayerDepth { get; private set; }
         internal protected Vector2 Position { get;  set; }
+        private Vector2 _positionLastFrame;
+        protected bool DidPositionChange => (Position != _positionLastFrame);
         internal virtual  Rectangle HitBox { get; set; }
         public virtual bool Hovered { get; protected set; }
         private bool _hoveredLastFrame;
@@ -73,6 +75,7 @@ namespace UIEngine.Classes
         public virtual void Update(GameTime gameTime)
         {
             _hoveredLastFrame = Hovered;
+            _positionLastFrame = Position;
             Hovered = false;
             Clicked = false;
             RightClicked = false;
