@@ -19,7 +19,7 @@ namespace UIEngine.Classes.MainMenuStuff.ViewGames
     /// </summary>
     internal class ViewGamesMenu : InterfaceSection
     {
-        private NineSliceButton _createNewButton;
+        private NineSliceTextButton _createNewButton;
         private Text _createNewGameText;
             
         private static Rectangle _saveSlotRectangle = new Rectangle(0, 0, 128, 64);
@@ -36,8 +36,10 @@ namespace UIEngine.Classes.MainMenuStuff.ViewGames
             base.Load();
             Position = RectangleHelper.CenterRectangleOnScreen(_saveSlotRectangle);
             Vector2 _saveSlotPosition = Position;
-            _createNewButton = new NineSliceButton(this, graphics, content, Position, LayerDepth, _saveSlotRectangle, null, null, null, null,true);
             _createNewGameText = TextFactory.CreateUIText("Create New");
+
+            _createNewButton = new NineSliceTextButton(this, graphics, content, Position, LayerDepth,
+                _saveSlotRectangle, null, null, new List<Text>() { _createNewGameText, TextFactory.CreateUIText("Second Line") },null, null,true);
             List<SaveFile> saveFiles = SaveLoadManager.SaveFiles;
 
             for(int i =0; i < saveFiles.Count; i++)
@@ -56,12 +58,12 @@ namespace UIEngine.Classes.MainMenuStuff.ViewGames
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            _createNewGameText.Update(gameTime, _createNewButton.Position);
+          //  _createNewGameText.Update(gameTime, _createNewButton.Position);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            _createNewGameText.Draw(spriteBatch, true);
+            //_createNewGameText.Draw(spriteBatch, true);
         }
 
        

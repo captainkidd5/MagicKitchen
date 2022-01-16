@@ -15,19 +15,38 @@ namespace UIEngine.Classes.ButtonStuff
     {
         public override bool Hovered { get => base.Hovered; protected set => base.Hovered = value; }
 
-        private Text _text;
-        private Vector2 _textPosition;
+        private List<Vector2> _textPositions;
 
+        private List<Text> _textList;
 
         public NineSliceTextButton(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth, Rectangle? sourceRectangle,
-            Sprite foregroundSprite, Texture2D texture,Text text, Point? samplePoint, Action buttonAction = null, bool hoverTransparency = false) :
+            Sprite foregroundSprite, Texture2D texture,List<Text> textList, Point? samplePoint, Action buttonAction = null, bool hoverTransparency = false) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, foregroundSprite, texture, samplePoint, buttonAction, hoverTransparency)
         {
-            _text = text;
-            _textPosition = Text.CenterInRectangle(HitBox, _text);
+            _textPositions = new List<Vector2>();
+           _textList = textList;
+            GeneratePositionsForLines();
         }
 
+        /// <summary>
+        /// Fills <see cref="_textPositions"/> for each line of text provided. Increases by height x => x.Height == text.TotalStringHeight
+        /// </summary>
+        /// <param name="textIndexPos">Increases each loop</param>
+        private void GeneratePositionsForLines()
+        {
+            Vector2 textIndexPos = Position;
+            float y = Position.Y;
+            for (int i = 0; i < _textList.Count; i++)
+            {
 
+                textIndexPos = Text.CenterInRectangle(HitBox, _textList[i]);
+                y += _textList[i].TotalStringHeight;
+                textIndexPos = new Vector2(textIndexPos.X, y);
+
+
+                _textPositions.Add(textIndexPos);
+            }
+        }
 
         public override void Load()
         {
@@ -41,16 +60,23 @@ namespace UIEngine.Classes.ButtonStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            _text.Update(gameTime, Position);
-            if(DidPositionChange)
-                _textPosition = Text.CenterInRectangle(HitBox, _text);
-            _text.ChangeColor(Color);
+            for(int i = _textList.Count - 1; i >= 0; i--)
+            {
+                Text text = _textList[i];
+                text.Update(gameTime, _textPositions[i]);
+                    text.ChangeColor(Color);
+            }
+            if (DidPositionChange)
+                GeneratePositionsForLines();
+            
 
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            _text.Draw(spriteBatch, true);
+            for (int i = _textList.Count - 1; i >= 0; i--)
+                _textList[i].Draw(spriteBatch,true);
+            
         }
 
 

@@ -25,7 +25,7 @@ namespace UIEngine.Classes.ButtonStuff
         protected Action OnClick { get; set; }
 
         protected Sprite ForegroundSprite { get; set; }
-        public Color Color { get; set; }
+        public Color Color => BackGroundSprite.PrimaryColor;
 
         //If locked, button will not respond to hover or click events.
         private bool Locked { get; set; }
@@ -44,7 +44,6 @@ namespace UIEngine.Classes.ButtonStuff
 
             ForegroundSprite = foregroundSprite;
 
-            Color = Color.White;
 
             //Allows you to provide your own texture.
             Texture2D spriteTexture = texture ?? UI.ButtonTexture;
