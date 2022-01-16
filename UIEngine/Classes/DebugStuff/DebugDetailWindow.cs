@@ -88,7 +88,7 @@ namespace UIEngine.Classes.DebugStuff
 
             public void Update(GameTime gameTime, string value)
             {
-                valueText.UpdateText(titleText + " : " + value);
+                valueText.ReplaceCurrentText(titleText + " : " + value);
                 valueText.Update(gameTime,position);
             }
             public void Draw(SpriteBatch spriteBatch)

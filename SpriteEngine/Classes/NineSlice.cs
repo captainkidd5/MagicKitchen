@@ -39,42 +39,33 @@ namespace SpriteEngine.Classes
         private readonly Rectangle _bottomLeftCorner = new Rectangle(0, 32, 16, 16);
         private readonly Rectangle _bottomEdge = new Rectangle(16, 32, 16, 16);
         private readonly Rectangle _bottomRightCorner = new Rectangle(32, 32, 16, 16);
-        private readonly float _uiLayer;
+        private float _uiLayer;
 
         /// <summary>
         /// Create a dynamic UI rectangle of any size.
         /// </summary>
         internal NineSlice(Vector2 position, Texture2D texture, float layer,
-            int width, int height, Color? color)
+            int width, int height, Color? color, float? scale)
         {
+            
+            SharedConstructor(position, texture, layer, color, scale);
             Width = width;
             Height = height;
-            CombinedRectangle = new List<Rectangle>();
-            RectanglePositions = new List<Vector2>();
-            Color = color ?? Color.White;
-            Texture = texture;
-            Scale = Globals.Classes.Settings.GameScale;
-            _uiLayer = layer;
             int totalRequiredWidth = width;
             int totalRequireHeight = height;
             BuildRectangle(position, totalRequiredWidth, totalRequireHeight);
         }
 
+       
         /// <summary>
         /// Create a dynamic UI rectangle to support given text.
         /// </summary>
         internal NineSlice(
             Vector2 position, Texture2D? texture,
-            float uiLayer, Text text, Color? color)
+            float layer, Text text, Color? color, float? scale)
         {
-            CombinedRectangle = new List<Rectangle>();
-            RectanglePositions = new List<Vector2>();
 
-            Color = color ?? Color.White;
-
-            Texture = texture;
-            _uiLayer = uiLayer;
-            Scale = Globals.Classes.Settings.GameScale;
+            SharedConstructor(position, texture, layer, color, scale);
 
             int totalRequiredWidth = (int)text.GetTextLength() + 48;
             int totalRequireHeight = (int)text.CurrentStringHeight + 32;
@@ -84,7 +75,18 @@ namespace SpriteEngine.Classes
             BuildRectangle(position, totalRequiredWidth, totalRequireHeight);
 
         }
+        private void SharedConstructor(Vector2 position, Texture2D? texture,
+           float layer, Color? color, float? scale)
+        {
+            CombinedRectangle = new List<Rectangle>();
+            RectanglePositions = new List<Vector2>();
 
+            Color = color ?? Color.White;
+
+            Texture = texture;
+            _uiLayer = layer;
+            Scale = scale ?? Globals.Classes.Settings.GameScale;
+        }
         private void BuildRectangle(Vector2 position, int totalRequiredWidth, int totalRequireHeight)
         {
             int currentWidth;
@@ -96,7 +98,7 @@ namespace SpriteEngine.Classes
             while (currentHeight < totalRequireHeight - _unit)
             {
                 AddRow(totalRequiredWidth, position, _leftEdge, _center, _rightEdge);
-                currentHeight += (int)(16 * this.Scale);
+                currentHeight += (int)(_unit * this.Scale);
                 position = new Vector2(position.X, position.Y + _unit * this.Scale);
             }
 

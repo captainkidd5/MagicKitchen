@@ -187,7 +187,7 @@ namespace TextEngine.Classes
         /// <summary>
         /// Completely replaces text
         /// </summary>
-        public void UpdateText(string value)
+        public void ReplaceCurrentText(string value)
         {
             CurrentString = value;
         }

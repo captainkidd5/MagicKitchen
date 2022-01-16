@@ -36,7 +36,7 @@ namespace UIEngine.Classes.MainMenuStuff
             _viewGamesMenu = new ViewGamesMenu(this, graphics, content, Position, LayerDepth);
             _viewGamesMenu.Load();
 
-            _activeSection = _outerMenu;
+            _activeSection = _viewGamesMenu;
         }
         public override void Unload()
         {

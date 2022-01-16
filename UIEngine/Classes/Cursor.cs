@@ -66,7 +66,7 @@ namespace UIEngine.Classes
             Move(Controls.CursorWorldPosition);
             CursorSprite.Update(gameTime, Controls.CursorUIPosition);
             if (Flags.DisplayMousePosition)
-                MouseDebugText.UpdateText($"{Controls.CursorUIPosition.X.ToString()} , {Controls.CursorUIPosition.Y.ToString()}");
+                MouseDebugText.ReplaceCurrentText($"{Controls.CursorUIPosition.X.ToString()} , {Controls.CursorUIPosition.Y.ToString()}");
             UpdateCursor();
 
             _toolTip.Update(gameTime, Controls.CursorUIPosition);

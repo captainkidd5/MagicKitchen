@@ -69,26 +69,26 @@ namespace SpriteEngine.Classes
             Texture2D texture,float layer, Color? primaryColor = null, Vector2? origin = null, float? scale = null)
         {
             NineSlice newNineSlice = new NineSlice(position, texture,
-                layer, width, height, primaryColor ?? Color.White);
+                layer, width, height, primaryColor ?? Color.White, scale);
 
 
             return new NineSliceSprite(Graphics, Content, position, newNineSlice, texture,
-                primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Settings.GameScale, layer);
+                primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Settings.GameScale, layer, null);
         }
 
         /// <summary>
         /// Nine slice to support text
         /// </summary>
         /// <returns></returns>
-        public static NineSliceSprite CreateNineSliceSprite(Vector2 position, Text text,
+        public static NineSliceSprite CreateNineSliceTextSprite(Vector2 position, Text text,
             Texture2D texture,float layer, Color? primaryColor = null, Vector2? origin = null, float? scale = null)
         {
             NineSlice newNineSlice = new NineSlice(position, texture,
-                layer, text, primaryColor ?? Color.White);
+                layer, text, primaryColor ?? Color.White, scale);
 
 
             return new NineSliceSprite(Graphics, Content, position, newNineSlice, texture,
-                primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Settings.GameScale, layer);
+                primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Settings.GameScale, layer, text);
         }
 
 

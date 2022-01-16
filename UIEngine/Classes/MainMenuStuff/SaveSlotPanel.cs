@@ -7,15 +7,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextEngine;
+using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
 
 namespace UIEngine.Classes.MainMenuStuff
 {
+    /// <summary>
+    /// Panel which contains information on an existing save file, available to load into
+    /// </summary>
     internal class SaveSlotPanel : InterfaceSection
     {
+
+        private readonly SaveFile _saveFile;
+
         private NineSliceButton _slotButton;
         private static Rectangle _slotButtonDimensions = new Rectangle(0, 0, 96, 80);
-        private readonly SaveFile _saveFile;
+
+        private Text _saveFileNameText;
+
+
 
         public SaveSlotPanel(SaveFile saveFile, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -26,7 +37,8 @@ namespace UIEngine.Classes.MainMenuStuff
         public override void Load()
         {
             base.Load();
-            _slotButton = new NineSliceButton(parentSection, graphics, content, Position, LayerDepth, _slotButtonDimensions, null, null, null);
+            _slotButton = new NineSliceButton(parentSection, graphics, content, Position, LayerDepth, _slotButtonDimensions, null, null, null, null,true);
+            _saveFileNameText = TextFactory.CreateUIText(_saveFile.Name);
         }
 
         public override void Unload()
@@ -38,11 +50,13 @@ namespace UIEngine.Classes.MainMenuStuff
         {
             base.Update(gameTime);
             _slotButton.Update(gameTime);
+            _saveFileNameText.Update(gameTime, Position);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
             _slotButton.Draw(spriteBatch);
+            _saveFileNameText.Draw(spriteBatch, true);
         }
 
        
