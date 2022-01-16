@@ -59,12 +59,12 @@ namespace UIEngine.Classes
 
         }
 
-        public virtual void Load()
+        public override void Load()
         {
 
         }
 
-        public virtual void Unload()
+        public override void Unload()
         {
             foreach (InterfaceSection interfaceSection in ChildSections)
                 interfaceSection.Unload();

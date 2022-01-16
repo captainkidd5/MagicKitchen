@@ -37,6 +37,10 @@ namespace UIEngine.Classes.MainMenuStuff
                 null, _exitGameAction, true);
         }
 
+        public override void Unload()
+        {
+            base.Unload();
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

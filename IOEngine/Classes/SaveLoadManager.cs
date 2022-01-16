@@ -11,7 +11,7 @@ namespace IOEngine.Classes
     //Save here at some point
     public static class SaveLoadManager
     {
-        private static List<SaveFile> SaveFiles { get; set; }
+        public static List<SaveFile> SaveFiles { get; private set; }
         public static SaveFile CurrentSave { get; set; }
         public static string BasePath;
 
@@ -42,8 +42,7 @@ namespace IOEngine.Classes
                 CurrentSave = SaveFiles[0];
         }
 
-
-
+        
 
         private static List<string> GetSaveFileFolders(bool fullPath = false)
         {

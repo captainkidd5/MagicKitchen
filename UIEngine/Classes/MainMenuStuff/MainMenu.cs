@@ -17,6 +17,9 @@ namespace UIEngine.Classes.MainMenuStuff
         private Rectangle _backDropDimensions => _mainMenuBackDropTexture.Bounds;
         private Sprite _backDropSprite;
         private OuterMenu _outerMenu;
+        private ViewGamesMenu _viewGamesMenu;
+
+        private InterfaceSection _activeSection;
         public MainMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -29,6 +32,11 @@ namespace UIEngine.Classes.MainMenuStuff
             _backDropSprite = SpriteFactory.CreateUISprite(Settings.GetScreenRectangle(), _backDropDimensions, _mainMenuBackDropTexture, LayerDepth, null);
             _outerMenu = new OuterMenu(this, graphics, content, null, LayerDepth);
             _outerMenu.Load();
+
+            _viewGamesMenu = new ViewGamesMenu(this, graphics, content, Position, LayerDepth);
+            _viewGamesMenu.Load();
+
+            _activeSection = _outerMenu;
         }
         public override void Unload()
         {
@@ -36,13 +44,15 @@ namespace UIEngine.Classes.MainMenuStuff
         }
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            //base.Update(gameTime);
             _backDropSprite.Update(gameTime, Position);
+            _activeSection.Update(gameTime);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            //base.Draw(spriteBatch);
             _backDropSprite.Draw(spriteBatch);
+            _activeSection.Draw(spriteBatch);
         }
     }
 }

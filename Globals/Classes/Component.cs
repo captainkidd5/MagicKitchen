@@ -21,6 +21,14 @@ namespace Globals.Classes
             this.content = content;
         }
 
+        public virtual void Load()
+        {
+
+        }
+        public virtual void Unload()
+        {
+
+        }
         //public Template(GraphicsDevice graphics, ContentManager content) : base(graphics,content)
         //{ }
     }
