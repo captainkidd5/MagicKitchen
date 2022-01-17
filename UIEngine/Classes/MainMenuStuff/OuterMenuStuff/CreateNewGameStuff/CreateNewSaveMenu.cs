@@ -1,7 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes.Helpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
+using SpriteEngine.Classes.InterfaceStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +14,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 {
     internal class CreateNewSaveMenu : InterfaceSection
     {
-        private readonly Rectangle _backGroundRectangleDimensions = new Rectangle(0,0, 128,64);
-        private Sprite _backGroundSprite;
+      //  private readonly Rectangle _backGroundRectangleDimensions = new Rectangle(0,0, 360,480);
+     //   private NineSliceSprite _backGroundSprite;
         public CreateNewSaveMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
 
@@ -22,7 +24,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         public override void Load()
         {
             base.Load();
-            _backGroundSprite = SpriteFactory.CreateUISprite(Position, _backGroundRectangleDimensions, UI.ButtonTexture, LayerDepth);
+            //Vector2 backGroundPos = RectangleHelper.CenterRectangleOnScreen(_backGroundRectangleDimensions);
+            //_backGroundSprite = SpriteFactory.CreateNineSliceSprite(backGroundPos, _backGroundRectangleDimensions.Width, _backGroundRectangleDimensions.Height,
+            //    UI.ButtonTexture, LayerDepth);
         }
 
         public override void Unload()
@@ -35,12 +39,12 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            _backGroundSprite.Update(gameTime, Position);
+           // _backGroundSprite.Update(gameTime, Position);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            _backGroundSprite.Draw(spriteBatch);  
+           // _backGroundSprite.Draw(spriteBatch);  
         }
 
     }

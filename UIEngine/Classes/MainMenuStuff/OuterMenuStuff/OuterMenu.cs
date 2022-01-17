@@ -32,7 +32,12 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
 
         private ViewGamesMenu _viewGamesMenu;
+
+
         private CreateNewSaveMenu _createNewSaveMenu;
+        private readonly Rectangle _createNewSaveMenuBackGroundRectangleDimensions = new Rectangle(0, 0, 360, 480);
+
+
         private PlayOrExitMenu _playOrExitMenu;
 
         private readonly Rectangle _backGroundSourceRectangle = new Rectangle(0, 0, 180, 240);
@@ -58,13 +63,19 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
                 case OuterMenuState.ViewGames:
                     _activeSection = _viewGamesMenu;
+                    AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
+
                     break;
                 case OuterMenuState.CreateNewSave:
                     _activeSection = _createNewSaveMenu;
+                    AdjustBackgroundRectangleAndBackButton(_createNewSaveMenuBackGroundRectangleDimensions);
+
                     break;
                
                 case OuterMenuState.PlaySettingsAndExit:
                     _activeSection = null;
+                    AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
+
                     break;
                 default:
                     throw new Exception("Must have a state");
@@ -88,16 +99,22 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             
 
 
-            _backGroundSpritePosition = RectangleHelper.CenterRectangleOnScreen(_backGroundSourceRectangle);
-            _backGroundSpritePosition = new Vector2(_backGroundSpritePosition.X, _backGroundSpritePosition.Y + 64);
-            _backGroundSprite = SpriteFactory.CreateNineSliceSprite(_backGroundSpritePosition, _backGroundSourceRectangle.Width, _backGroundSourceRectangle.Height, UI.ButtonTexture, LayerDepth);
+            
 
+            AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
+
+        }
+
+        private void AdjustBackgroundRectangleAndBackButton(Rectangle newRectangle)
+        {
+            _backGroundSpritePosition = RectangleHelper.CenterRectangleOnScreen(newRectangle);
+            _backGroundSpritePosition = new Vector2(_backGroundSpritePosition.X, _backGroundSpritePosition.Y + 64);
+            _backGroundSprite = SpriteFactory.CreateNineSliceSprite(_backGroundSpritePosition, newRectangle.Width, newRectangle.Height, UI.ButtonTexture, LayerDepth);
             Action backAction = ChangeToPlayOrExitState;
             Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
                 new Rectangle((int)_backGroundSpritePosition.X,
-                (int)_backGroundSpritePosition.Y, _backGroundSourceRectangle.Width, _backGroundSourceRectangle.Height), UISourceRectangles._backButtonRectangle);
+                (int)_backGroundSpritePosition.Y, newRectangle.Width, newRectangle.Height), UISourceRectangles._backButtonRectangle);
             _backButton = new Button(this, graphics, content, backButtonPosition, LayerDepth, UISourceRectangles._backButtonRectangle, null, UI.ButtonTexture, null, LayerDepth, backAction, true);
-
         }
 
         public override void Unload()
@@ -132,6 +149,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             ChangeState(OuterMenuState.PlaySettingsAndExit);
             _activeSection = _playOrExitMenu;
         }
+
 
     }
 }

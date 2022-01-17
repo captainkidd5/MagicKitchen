@@ -38,8 +38,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             Vector2 _saveSlotPosition = Position;
             _createNewGameText = TextFactory.CreateUIText("Create New");
 
+            Action _createNewButtonAction = ChangeToCreateNewSaveMenu;
             _createNewButton = new NineSliceTextButton(this, graphics, content, Position, LayerDepth,
-                _saveSlotRectangle, null, null, new List<Text>() { _createNewGameText, TextFactory.CreateUIText("Second Line") },null, null,true);
+                _saveSlotRectangle, null, null, new List<Text>() { _createNewGameText, TextFactory.CreateUIText("Second Line") },null, _createNewButtonAction, true);
             List<SaveFile> saveFiles = SaveLoadManager.SaveFiles;
 
             for(int i =0; i < saveFiles.Count; i++)
@@ -67,7 +68,10 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             //_createNewGameText.Draw(spriteBatch, true);
         }
 
-       
+       private void ChangeToCreateNewSaveMenu()
+        {
+            (parentSection as OuterMenu).ChangeState(OuterMenuState.CreateNewSave);
+        }
 
        
     }
