@@ -25,9 +25,9 @@ namespace TextEngine.Classes
         /// <param name="textRate">How fast the text should be written.</param>
         public TextBuilder(Text text, float textRate)
         {
-            this.Text = text;
-            this.AnchorTextRate = textRate;
-            this.SimpleTimer = new SimpleTimer(textRate);
+            Text = text;
+            AnchorTextRate = textRate;
+            SimpleTimer = new SimpleTimer(textRate);
         }
 
         /// <summary>

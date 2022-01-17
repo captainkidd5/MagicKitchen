@@ -9,13 +9,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UIEngine.Classes.TextStuff;
 
 namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 {
     internal class CreateNewSaveMenu : InterfaceSection
     {
-      //  private readonly Rectangle _backGroundRectangleDimensions = new Rectangle(0,0, 360,480);
-     //   private NineSliceSprite _backGroundSprite;
+        private Rectangle _nameWindowRectangle = new Rectangle(0, 0, 80, 32);
+        private TypingBox _nameTypingBox;
         public CreateNewSaveMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
 
@@ -24,9 +25,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         public override void Load()
         {
             base.Load();
-            //Vector2 backGroundPos = RectangleHelper.CenterRectangleOnScreen(_backGroundRectangleDimensions);
-            //_backGroundSprite = SpriteFactory.CreateNineSliceSprite(backGroundPos, _backGroundRectangleDimensions.Width, _backGroundRectangleDimensions.Height,
-            //    UI.ButtonTexture, LayerDepth);
+
+            Vector2 typingBoxPos = RectangleHelper.CenterRectangleOnScreen(_nameWindowRectangle);
+            _nameTypingBox = new TypingBox(this,graphics, content, typingBoxPos, LayerDepth, _nameWindowRectangle.Width, _nameWindowRectangle.Height, null);
         }
 
         public override void Unload()
@@ -38,12 +39,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            //base.Update(gameTime);
            // _backGroundSprite.Update(gameTime, Position);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            //base.Draw(spriteBatch);
+            _nameTypingBox.Draw(spriteBatch);
            // _backGroundSprite.Draw(spriteBatch);  
         }
 

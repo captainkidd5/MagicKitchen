@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,11 +38,11 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             _playGameAction = ChangeToViewGamesMenu;
             _exitGameAction = UI.Exit;
             Vector2 _anchorPos = RectangleHelper.CenterRectangleOnScreen(_buttonRectangle);
-            _playButton = new NineSliceTextButton(this, graphics, content, _anchorPos, LayerDepth, _buttonRectangle, null, UI.ButtonTexture,
-                new List<Text>() { TextFactory.CreateUIText("Play") },
+            _playButton = new NineSliceTextButton(this, graphics, content, _anchorPos, GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null, UI.ButtonTexture,
+                new List<Text>() { TextFactory.CreateUIText("Play", GetLayeringDepth(UILayeringDepths.Medium)) },
                 null, _playGameAction, true);
-            _exitButton = new NineSliceTextButton(this, graphics, content, new Vector2(_anchorPos.X, _anchorPos.Y + 128), LayerDepth, _buttonRectangle, null,
-                UI.ButtonTexture, new List<Text>() { TextFactory.CreateUIText("Exit") }, null, _exitGameAction, true);
+            _exitButton = new NineSliceTextButton(this, graphics, content, new Vector2(_anchorPos.X, _anchorPos.Y + 128), GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null,
+                UI.ButtonTexture, new List<Text>() { TextFactory.CreateUIText("Exit", GetLayeringDepth(UILayeringDepths.Medium)) }, null, _exitGameAction, true);
 
         }
 

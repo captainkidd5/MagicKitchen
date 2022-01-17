@@ -23,9 +23,9 @@ namespace UIEngine.Classes.TextStuff
 
     internal class TypingBox : InterfaceSection
     {
-        public static readonly int DefaultWidth = 256;
+        public static readonly int DefaultWidth = 80;
 
-        public static readonly int DefaultHeight = 168;
+        public static readonly int DefaultHeight = 32;
 
 
         public event ExecuteCommand ExecuteCommand;
@@ -40,14 +40,14 @@ namespace UIEngine.Classes.TextStuff
             : base(interfaceSection,graphicsDevice, content, position, layerDepth)
         {
             NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, width ?? DefaultWidth, height ?? DefaultHeight, UI.ButtonTexture,LayerDepth, color, null, null);
-            SendButton = new NineSliceButton(interfaceSection, graphicsDevice, content,
-                 position,LayerDepth, null, null,null,null);
-            TextBuilder = new TextBuilder(TextFactory.CreateUIText(string.Empty));
+           // SendButton = new NineSliceButton(interfaceSection, graphicsDevice, content,
+           //      position,LayerDepth, null, null,null,null);
+            TextBuilder = new TextBuilder(TextFactory.CreateUIText(string.Empty, LayerDepth));
         }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            SendButton.Update(gameTime);
+           // SendButton.Update(gameTime);
             AcceptableKeys = Controls.AcceptableKeysForTyping;
             if (AcceptableKeys.Count > 0)
                 ProcessKey(gameTime, AcceptableKeys);
@@ -62,9 +62,9 @@ namespace UIEngine.Classes.TextStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            NineSliceSprite.Draw(spriteBatch);
             //SendButton.Draw(spriteBatch);
             TextBuilder.Draw(spriteBatch);
+            NineSliceSprite.Draw(spriteBatch);
         }
         /// <summary>
         /// Determines what value should be given to the Text Builder, if any.

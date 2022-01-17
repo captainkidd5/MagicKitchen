@@ -217,7 +217,7 @@ namespace UIEngine.Classes
         /// <summary>
         /// Returns a float value which is at least slightly larger than the given layerDepth
         /// </summary>
-        internal static float GetChildUILayerDepth(float parentLayerDepth)
+        internal static float IncrementLD(float parentLayerDepth)
         {
             float randomOffset = Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f;
             float variedLayerDepth = parentLayerDepth + randomOffset;

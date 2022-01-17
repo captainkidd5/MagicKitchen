@@ -85,13 +85,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         {
             base.Load();
 
-            _viewGamesMenu = new ViewGamesMenu(this, graphics, content, Position, LayerDepth);
+            _viewGamesMenu = new ViewGamesMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
             _viewGamesMenu.Load();
 
-            _createNewSaveMenu = new CreateNewSaveMenu(this, graphics, content, Position, LayerDepth);
+            _createNewSaveMenu = new CreateNewSaveMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
             _createNewSaveMenu.Load();
 
-            _playOrExitMenu = new PlayOrExitMenu(this, graphics, content, Position, LayerDepth);
+            _playOrExitMenu = new PlayOrExitMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
             _playOrExitMenu.Load();
 
             _outerMenuState = OuterMenuState.PlaySettingsAndExit;
@@ -109,12 +109,12 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         {
             _backGroundSpritePosition = RectangleHelper.CenterRectangleOnScreen(newRectangle);
             _backGroundSpritePosition = new Vector2(_backGroundSpritePosition.X, _backGroundSpritePosition.Y + 64);
-            _backGroundSprite = SpriteFactory.CreateNineSliceSprite(_backGroundSpritePosition, newRectangle.Width, newRectangle.Height, UI.ButtonTexture, LayerDepth);
+            _backGroundSprite = SpriteFactory.CreateNineSliceSprite(_backGroundSpritePosition, newRectangle.Width, newRectangle.Height, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low));
             Action backAction = ChangeToPlayOrExitState;
             Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
                 new Rectangle((int)_backGroundSpritePosition.X,
                 (int)_backGroundSpritePosition.Y, newRectangle.Width, newRectangle.Height), UISourceRectangles._backButtonRectangle);
-            _backButton = new Button(this, graphics, content, backButtonPosition, LayerDepth, UISourceRectangles._backButtonRectangle, null, UI.ButtonTexture, null, LayerDepth, backAction, true);
+            _backButton = new Button(this, graphics, content, backButtonPosition, GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle, null, UI.ButtonTexture, null, backAction, true);
         }
 
         public override void Unload()

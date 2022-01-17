@@ -28,7 +28,7 @@ namespace UIEngine.Classes
         {
             ItemSprite = SpriteFactory.CreateUISprite(Vector2.Zero, new Rectangle(0, 0, 16, 16),
                 ItemFactory.ItemSpriteSheet, _customLayer, Color.White, scale: 1f);
-            _text = TextFactory.CreateUIText("tst", null, null, null);
+            _text = TextFactory.CreateUIText("tst", _customLayer);
         }
         public void Update(GameTime gameTime, Vector2 position)
         {

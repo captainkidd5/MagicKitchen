@@ -28,7 +28,7 @@ namespace TextEngine.Classes
         private float LayerDepth { get; set; }
 
 
-        internal Text(String value, float scale, SpriteFont spriteFont, Layers layers)
+        internal Text(String value, float scale, SpriteFont spriteFont, float layerDepth)
         {
             CurrentString = string.Empty;
             FullString = value;
@@ -36,7 +36,7 @@ namespace TextEngine.Classes
             _color = Color.White;
             _spriteFont = spriteFont;
 
-            LayerDepth = Settings.GetLayerDepth(layers);
+            LayerDepth = layerDepth;
 
         }
 

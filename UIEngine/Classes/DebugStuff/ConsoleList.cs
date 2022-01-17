@@ -27,7 +27,7 @@ namespace UIEngine.Classes.DebugStuff
 
         internal void AddInfo(string str)
         {
-            Info.Add(TextFactory.CreateUIText(str));
+            Info.Add(TextFactory.CreateUIText(str, .9f));
         }
         /// <summary>
         /// Measure each text height individually to support various font sizes, if we ever need it for some reason?

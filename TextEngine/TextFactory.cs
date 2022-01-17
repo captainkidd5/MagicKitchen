@@ -20,9 +20,9 @@ namespace TextEngine
         }
 
         //UI
-        public static Text CreateUIText(String value, float? scale = null, SpriteFont spriteFont = null, Layers? layer = null)
+        public static Text CreateUIText(String value, float layer, float? scale = null, SpriteFont spriteFont = null)
         {
-            return new Text(value, scale ?? Settings.GameScale, spriteFont ?? DefaultFont, layer ?? Layers.foreground);
+            return new Text(value, scale ?? Settings.GameScale, spriteFont ?? DefaultFont, layer);
         }
     }
 }

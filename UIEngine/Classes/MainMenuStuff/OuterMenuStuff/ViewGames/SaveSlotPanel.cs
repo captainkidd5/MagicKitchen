@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,11 +41,11 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         {
             base.Load();
             Action saveAction = LoadSave;
-            _nameText = TextFactory.CreateUIText(_saveFile.Name);
-            _dateText = TextFactory.CreateUIText(_saveFile.DateCreated.Date.ToString("d"));
-            _timeText = TextFactory.CreateUIText(_saveFile.DateCreated.ToString("HH:mm"));
+            _nameText = TextFactory.CreateUIText(_saveFile.Name, GetLayeringDepth(UILayeringDepths.High));
+            _dateText = TextFactory.CreateUIText(_saveFile.DateCreated.Date.ToString("d"), GetLayeringDepth(UILayeringDepths.High));
+            _timeText = TextFactory.CreateUIText(_saveFile.DateCreated.ToString("HH:mm"), GetLayeringDepth(UILayeringDepths.High));
 
-            _slotButton = new NineSliceTextButton(parentSection, graphics, content, Position, LayerDepth, _slotButtonDimensions, null, null, new List<Text>() { _nameText, _dateText, _timeText },null, saveAction, true);
+            _slotButton = new NineSliceTextButton(parentSection, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), _slotButtonDimensions, null, null, new List<Text>() { _nameText, _dateText, _timeText },null, saveAction, true);
 
            
 

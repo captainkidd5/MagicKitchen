@@ -3,6 +3,7 @@ using InputEngine.Classes.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,10 +20,11 @@ namespace UIEngine.Classes
         Closed = 5,
        
     }
+   
     public abstract class InterfaceSection : Component
     {
         internal protected readonly InterfaceSection parentSection;
-
+        protected float[] LayeringDepths;
         internal SectionState State;
         public bool IsActive { get; set; }
         private bool _activeLastFrame { get; set; }
@@ -53,12 +55,29 @@ namespace UIEngine.Classes
             IsActive = true;
             State = SectionState.None;
             LayerDepth = layerDepth;
-            if(interfaceSection != null && interfaceSection.ChildSections != null && !interfaceSection.ChildSections.Contains(this))
+            AssignLayeringDepths();
+
+            if (interfaceSection != null && interfaceSection.ChildSections != null && !interfaceSection.ChildSections.Contains(this))
             {
                 interfaceSection.ChildSections.Add(this);
-                LayerDepth = UI.GetChildUILayerDepth(layerDepth);
+                //LayerDepth = UI.IncrementLD(layerDepth);
             }
 
+        }
+
+        private void AssignLayeringDepths()
+        {
+            LayeringDepths = new float[5];
+            float tempDepth = LayerDepth;
+            for (int i = 0; i < 5; i++)
+            {
+                tempDepth = UI.IncrementLD(tempDepth);
+                LayeringDepths[i] = tempDepth;
+            }
+        }
+        protected float GetLayeringDepth(UILayeringDepths depth)
+        {
+            return LayeringDepths[(int)depth];
         }
 
         public override void Load()

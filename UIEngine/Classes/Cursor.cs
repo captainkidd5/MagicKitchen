@@ -55,7 +55,7 @@ namespace UIEngine.Classes
             CursorSprite = SpriteFactory.CreateUISprite(Vector2.Zero, CursorSourceRectangle,
                 CursorTexture,_cursorLayerDepth, Color.White, scale: 1f);
 
-            MouseDebugText = TextFactory.CreateUIText("test");
+            MouseDebugText = TextFactory.CreateUIText("test", _cursorLayerDepth);
             CreateBody(Controls.CursorWorldPosition);
             _toolTip = new CursorItemToolTip();
         }

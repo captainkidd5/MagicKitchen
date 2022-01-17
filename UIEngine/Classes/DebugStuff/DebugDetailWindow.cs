@@ -38,7 +38,7 @@ namespace UIEngine.Classes.DebugStuff
         public void AddDebugInfo(string title, string info )
         {
             bottomDebugPosition = new Vector2(bottomDebugPosition.X, bottomDebugPosition.Y + 32);
-            DebugInfoList.Add(new DebugInfo(TextFactory.CreateUIText(title), TextFactory.CreateUIText(info), bottomDebugPosition));
+            DebugInfoList.Add(new DebugInfo(TextFactory.CreateUIText(title, .1f), TextFactory.CreateUIText(info, .1f), bottomDebugPosition));
 
         }
 

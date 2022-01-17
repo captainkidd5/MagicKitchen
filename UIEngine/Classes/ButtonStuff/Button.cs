@@ -17,7 +17,7 @@ namespace UIEngine.Classes.ButtonStuff
     {
         public Button(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2 position,float layerDepth,  Rectangle? sourceRectangle, Sprite foregroundSprite, Texture2D texture,
-            Point? samplePoint, float customLayerDepth, Action buttonAction = null, bool hoverTransparency = true) :
+            Point? samplePoint, Action buttonAction = null, bool hoverTransparency = true) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, foregroundSprite, texture, samplePoint, buttonAction, hoverTransparency)
         {
             BackGroundSprite = SpriteFactory.CreateUISprite(position, sourceRectangle.Value,ButtonTexture, LayerDepth, null, null, 2f);

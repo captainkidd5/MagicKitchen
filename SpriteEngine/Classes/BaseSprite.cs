@@ -10,7 +10,15 @@ using static Globals.Classes.Settings;
 
 namespace SpriteEngine.Classes
 {
+    public enum UILayeringDepths
+    {
+        Back = 0,
+        Low = 1,
+        Medium = 2,
+        High = 3,
+        Front = 4
 
+    }
     public abstract class BaseSprite : Component
     {
         protected ElementType SpriteType { get; set; }

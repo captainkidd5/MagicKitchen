@@ -32,7 +32,7 @@ namespace UIEngine.Classes.TextStuff
             BackdropSprite = SpriteFactory.CreateNineSliceSprite(Position,
                 totalBackDropRectangleDimensions.Width,
                 totalBackDropRectangleDimensions.Height, UI.ButtonTexture, LayerDepth);
-            TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test"), .05f);
+            TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", LayerDepth), .05f);
             IsActive = false;
 
         }
@@ -77,7 +77,7 @@ namespace UIEngine.Classes.TextStuff
         public void CharacterClicked(string speech)
         {
             TextBuilder.ClearText();
-            TextBuilder.SetText(TextFactory.CreateUIText(speech, scale: 2f, layer: Layers.front), false);
+            TextBuilder.SetText(TextFactory.CreateUIText(speech,LayerDepth, scale: 2f), false);
             IsActive = true;
             UI.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UI.ClockBar });
         }

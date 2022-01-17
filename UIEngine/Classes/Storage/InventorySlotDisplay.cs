@@ -35,7 +35,7 @@ namespace UIEngine.Classes.Storage
             _storageSlot = storageSlot;
             storageSlot.ItemChanged += ItemChanged;
             Button = new NineSliceButton(interfaceSection, graphicsDevice, content, position,LayerDepth, null, null, null, null, hoverTransparency: true);
-            Text = TextFactory.CreateUIText("0");
+            Text = TextFactory.CreateUIText("0", LayerDepth);
         }
 
 
@@ -82,7 +82,7 @@ namespace UIEngine.Classes.Storage
             else
             {
                 Button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
-                Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, UI.GetChildUILayerDepth(LayerDepth) + .1f, Color.White, Vector2.Zero, 4f));
+                Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, UI.IncrementLD(LayerDepth) + .1f, Color.White, Vector2.Zero, 4f));
                 Text.SetFullString(count.ToString());
 
             }
