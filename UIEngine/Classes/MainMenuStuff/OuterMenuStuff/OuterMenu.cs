@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes;
+using SpriteEngine.Classes.InterfaceStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +35,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         private CreateNewSaveMenu _createNewSaveMenu;
         private PlayOrExitMenu _playOrExitMenu;
 
+        private readonly Rectangle _backGroundSourceRectangle = new Rectangle(0, 0, 180, 240);
+        private NineSliceSprite _backGroundSprite;
+        private Vector2 _backGroundSpritePosition;
         private Button _backButton;
 
         public OuterMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
@@ -80,8 +85,18 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
             _outerMenuState = OuterMenuState.PlaySettingsAndExit;
             _activeSection = _playOrExitMenu;
+            
+
+
+            _backGroundSpritePosition = RectangleHelper.CenterRectangleOnScreen(_backGroundSourceRectangle);
+            _backGroundSpritePosition = new Vector2(_backGroundSpritePosition.X, _backGroundSpritePosition.Y + 64);
+            _backGroundSprite = SpriteFactory.CreateNineSliceSprite(_backGroundSpritePosition, _backGroundSourceRectangle.Width, _backGroundSourceRectangle.Height, UI.ButtonTexture, LayerDepth);
+
             Action backAction = ChangeToPlayOrExitState;
-            _backButton = new Button(this, graphics, content, Position, LayerDepth, UISourceRectangles._backButtonRectangle, null, UI.ButtonTexture, null, LayerDepth, backAction,true);
+            Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
+                new Rectangle((int)_backGroundSpritePosition.X,
+                (int)_backGroundSpritePosition.Y, _backGroundSourceRectangle.Width, _backGroundSourceRectangle.Height), UISourceRectangles._backButtonRectangle);
+            _backButton = new Button(this, graphics, content, backButtonPosition, LayerDepth, UISourceRectangles._backButtonRectangle, null, UI.ButtonTexture, null, LayerDepth, backAction, true);
 
         }
 
@@ -91,6 +106,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         }
         public override void Update(GameTime gameTime)
         {
+            _backGroundSprite.Update(gameTime, _backGroundSpritePosition);
                _activeSection.Update(gameTime);
 
             if(_outerMenuState != OuterMenuState.PlaySettingsAndExit)
@@ -100,6 +116,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+            _backGroundSprite.Draw(spriteBatch);
                _activeSection.Draw(spriteBatch);
 
             if (_outerMenuState != OuterMenuState.PlaySettingsAndExit)

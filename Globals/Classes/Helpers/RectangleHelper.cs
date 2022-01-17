@@ -91,10 +91,19 @@ namespace Globals.Classes.Helpers
         /// <summary>
         ///  <see cref="EscButton"/> 
         /// </summary>
-        public static Vector2 PlaceRectangleAtTopRight(Rectangle rectangleToPlayOn, Rectangle rectangleToPlace)
+        public static Vector2 PlaceRectangleAtTopRightOfParentRectangle(Rectangle parentRectangle, Rectangle rectangleToPlace)
         {
-            return new Vector2(rectangleToPlayOn.X + rectangleToPlayOn.Width - rectangleToPlace.Width,
-                rectangleToPlayOn.Y);
+            return new Vector2(parentRectangle.X + parentRectangle.Width - rectangleToPlace.Width,
+                parentRectangle.Y);
+        }
+
+        /// <summary>
+        ///  <see cref="EscButton"/> 
+        /// </summary>
+        public static Vector2 PlaceRectangleAtBottomLeftOfParentRectangle(Rectangle parentRectangle, Rectangle rectangleToPlace)
+        {
+            return new Vector2(parentRectangle.X ,
+                parentRectangle.Y + parentRectangle.Height - rectangleToPlace.Height * 2);
         }
 
         public static Rectangle GetEntireSourceRectangle(Texture2D texture)
