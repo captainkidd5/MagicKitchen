@@ -246,6 +246,7 @@ namespace UIEngine.Classes
         public static void LoadGame(SaveFile saveFile)
         {
             SaveLoadManager.Load(saveFile);
+            ChangeGameState(GameDisplayState.InGame);
         }
     }
 }

@@ -66,10 +66,7 @@ namespace IOEngine.Classes
         {
             List<string> saveFileFolders = GetSaveFileFolders();
             if (saveFileFolders.Contains(name))
-            {
                 return false;
-                throw new Exception("SaveFile with name " + name + " already exists");
-            }
             return true;
         }
 

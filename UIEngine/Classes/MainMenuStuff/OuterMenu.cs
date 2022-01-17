@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextEngine;
+using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
 
 namespace UIEngine.Classes.MainMenuStuff
@@ -16,8 +18,8 @@ namespace UIEngine.Classes.MainMenuStuff
         private Action _playGameAction;
         private Action _exitGameAction;
         private Rectangle _buttonRectangle;
-        private NineSliceButton _playButton;
-        private NineSliceButton _exitButton;
+        private NineSliceTextButton _playButton;
+        private NineSliceTextButton _exitButton;
         public OuterMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -31,10 +33,11 @@ namespace UIEngine.Classes.MainMenuStuff
             _playGameAction = PlayGame;
             _exitGameAction = UI.Exit;
             Vector2 _anchorPos = RectangleHelper.CenterRectangleOnScreen(_buttonRectangle);
-            _playButton = new NineSliceButton(this, graphics, content, _anchorPos, LayerDepth, _buttonRectangle, null, UI.ButtonTexture,
+            _playButton = new NineSliceTextButton(this, graphics, content, _anchorPos, LayerDepth, _buttonRectangle, null, UI.ButtonTexture,
+                new List<Text>() { TextFactory.CreateUIText("Play") },
                 null, _playGameAction, true);
-            _exitButton = new NineSliceButton(this, graphics, content,new Vector2(_anchorPos.X, _anchorPos.Y + 128), LayerDepth, _buttonRectangle, null, UI.ButtonTexture,
-                null, _exitGameAction, true);
+            _exitButton = new NineSliceTextButton(this, graphics, content,new Vector2(_anchorPos.X, _anchorPos.Y + 128), LayerDepth, _buttonRectangle, null,
+                UI.ButtonTexture,new List<Text>() { TextFactory.CreateUIText("Play") },null, _exitGameAction, true);
         }
 
         public override void Unload()
@@ -53,7 +56,9 @@ namespace UIEngine.Classes.MainMenuStuff
 
         private void PlayGame()
         {
-            UI.ChangeGameState(GameDisplayState.InGame);
+            if (parentSection.GetType() != typeof(MainMenu))
+                throw new Exception($"Parent of{this.GetType()} should only be main menu");
+            (parentSection as MainMenu).ChangeState(MainMenuState.ViewGamesMenu);
         }
         
     }
