@@ -12,7 +12,7 @@ using TextEngine;
 using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
 
-namespace UIEngine.Classes.MainMenuStuff.ViewGames
+namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 {
     /// <summary>
     /// Menu which CONTAINS a list of your saves, and additionally a button at the top for creating a new game

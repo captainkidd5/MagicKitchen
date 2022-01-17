@@ -11,7 +11,7 @@ using TextEngine;
 using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
 
-namespace UIEngine.Classes.MainMenuStuff.ViewGames
+namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 {
     internal class CreateNewGamePanel : InterfaceSection
     {

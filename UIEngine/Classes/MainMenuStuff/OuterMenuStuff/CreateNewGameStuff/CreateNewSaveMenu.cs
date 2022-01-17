@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UIEngine.Classes.MainMenuStuff.ViewGames.CreateNewGameStuff
+namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 {
     internal class CreateNewSaveMenu : InterfaceSection
     {

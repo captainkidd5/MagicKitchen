@@ -11,33 +11,38 @@ using TextEngine;
 using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
 
-namespace UIEngine.Classes.MainMenuStuff
+namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 {
-    internal class OuterMenu : InterfaceSection
+    internal class PlayOrExitMenu : InterfaceSection
     {
+
+
         private Action _playGameAction;
         private Action _exitGameAction;
         private Rectangle _buttonRectangle;
         private NineSliceTextButton _playButton;
         private NineSliceTextButton _exitButton;
-        public OuterMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
+
+
+        public PlayOrExitMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
 
         }
-
+      
         public override void Load()
         {
             base.Load();
             _buttonRectangle = new Rectangle(0, 0, 128, 64);
-            _playGameAction = PlayGame;
+            _playGameAction = ChangeToViewGamesMenu;
             _exitGameAction = UI.Exit;
             Vector2 _anchorPos = RectangleHelper.CenterRectangleOnScreen(_buttonRectangle);
             _playButton = new NineSliceTextButton(this, graphics, content, _anchorPos, LayerDepth, _buttonRectangle, null, UI.ButtonTexture,
                 new List<Text>() { TextFactory.CreateUIText("Play") },
                 null, _playGameAction, true);
-            _exitButton = new NineSliceTextButton(this, graphics, content,new Vector2(_anchorPos.X, _anchorPos.Y + 128), LayerDepth, _buttonRectangle, null,
-                UI.ButtonTexture,new List<Text>() { TextFactory.CreateUIText("Play") },null, _exitGameAction, true);
+            _exitButton = new NineSliceTextButton(this, graphics, content, new Vector2(_anchorPos.X, _anchorPos.Y + 128), LayerDepth, _buttonRectangle, null,
+                UI.ButtonTexture, new List<Text>() { TextFactory.CreateUIText("Play") }, null, _exitGameAction, true);
+
         }
 
         public override void Unload()
@@ -46,20 +51,19 @@ namespace UIEngine.Classes.MainMenuStuff
         }
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+                base.Update(gameTime);
+
+
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+                base.Draw(spriteBatch);
 
         }
 
-        private void PlayGame()
+        private void ChangeToViewGamesMenu()
         {
-            if (parentSection.GetType() != typeof(MainMenu))
-                throw new Exception($"Parent of{this.GetType()} should only be main menu");
-            (parentSection as MainMenu).ChangeState(MainMenuState.ViewGamesMenu);
+            (parentSection as OuterMenu).ChangeState(OuterMenuState.ViewGames);
         }
-        
     }
 }

@@ -8,7 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UIEngine.Classes.MainMenuStuff.ViewGames;
+using UIEngine.Classes.MainMenuStuff.OuterMenuStuff;
+using UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames;
 
 namespace UIEngine.Classes.MainMenuStuff
 {
@@ -16,19 +17,19 @@ namespace UIEngine.Classes.MainMenuStuff
     {
         None =0,
         OuterMenu = 1,
-        ViewGamesMenu =2
     }
     internal class MainMenu : InterfaceSection
     {
         private MainMenuState _mainMenuState;
+        private InterfaceSection _activeSection;
+
+
 
         private Texture2D _mainMenuBackDropTexture;
         private Rectangle _backDropDimensions => _mainMenuBackDropTexture.Bounds;
         private Sprite _backDropSprite;
         private OuterMenu _outerMenu;
-        private ViewGamesMenu _viewGamesMenu;
 
-        private InterfaceSection _activeSection;
         public MainMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -42,8 +43,6 @@ namespace UIEngine.Classes.MainMenuStuff
             _outerMenu = new OuterMenu(this, graphics, content, null, LayerDepth);
             _outerMenu.Load();
 
-            _viewGamesMenu = new ViewGamesMenu(this, graphics, content, Position, LayerDepth);
-            _viewGamesMenu.Load();
 
             _activeSection = _outerMenu;
         }
@@ -60,9 +59,6 @@ namespace UIEngine.Classes.MainMenuStuff
             {
                 case MainMenuState.OuterMenu:
                     _activeSection = _outerMenu;
-                    break;
-                case MainMenuState.ViewGamesMenu:
-                    _activeSection = _viewGamesMenu;
                     break;
                 default:
                     throw new Exception("Must have a state");
