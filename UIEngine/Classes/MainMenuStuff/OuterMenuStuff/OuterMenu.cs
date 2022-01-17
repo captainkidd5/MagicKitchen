@@ -33,6 +33,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         private CreateNewSaveMenu _createNewSaveMenu;
         private PlayOrExitMenu _playOrExitMenu;
 
+        private Button _backButton;
+
         public OuterMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -78,6 +80,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
             _outerMenuState = OuterMenuState.PlaySettingsAndExit;
             _activeSection = _playOrExitMenu;
+            Action backAction = ChangeToPlayOrExitState;
+            _backButton = new Button(this, graphics, content, Position, LayerDepth, UISourceRectangles._backButtonRectangle, null, UI.ButtonTexture, null, LayerDepth, backAction,true);
 
         }
 
@@ -89,17 +93,27 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         {
                _activeSection.Update(gameTime);
 
-                
+            if(_outerMenuState != OuterMenuState.PlaySettingsAndExit)
+            _backButton.Update(gameTime);
+
+
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
                _activeSection.Draw(spriteBatch);
 
+            if (_outerMenuState != OuterMenuState.PlaySettingsAndExit)
+                _backButton.Draw(spriteBatch);
         }
 
         private void ChangeToViewGamesMenu()
         {
             ChangeState(OuterMenuState.ViewGames);
+        }
+        private void ChangeToPlayOrExitState()
+        {
+            ChangeState(OuterMenuState.PlaySettingsAndExit);
+            _activeSection = _playOrExitMenu;
         }
 
     }

@@ -41,7 +41,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                 new List<Text>() { TextFactory.CreateUIText("Play") },
                 null, _playGameAction, true);
             _exitButton = new NineSliceTextButton(this, graphics, content, new Vector2(_anchorPos.X, _anchorPos.Y + 128), LayerDepth, _buttonRectangle, null,
-                UI.ButtonTexture, new List<Text>() { TextFactory.CreateUIText("Play") }, null, _exitGameAction, true);
+                UI.ButtonTexture, new List<Text>() { TextFactory.CreateUIText("Exit") }, null, _exitGameAction, true);
 
         }
 
