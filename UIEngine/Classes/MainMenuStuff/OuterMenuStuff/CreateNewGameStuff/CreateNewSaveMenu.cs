@@ -27,7 +27,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             base.Load();
 
             Vector2 typingBoxPos = RectangleHelper.CenterRectangleOnScreen(_nameWindowRectangle);
-            _nameTypingBox = new TypingBox(this,graphics, content, typingBoxPos, LayerDepth, _nameWindowRectangle.Width, _nameWindowRectangle.Height, null);
+            _nameTypingBox = new TypingBox(this,graphics, content, typingBoxPos, GetLayeringDepth(UILayeringDepths.Low), _nameWindowRectangle.Width, _nameWindowRectangle.Height, null);
         }
 
         public override void Unload()
@@ -40,7 +40,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         public override void Update(GameTime gameTime)
         {
             //base.Update(gameTime);
-           // _backGroundSprite.Update(gameTime, Position);
+            _nameTypingBox.Update(gameTime);
+
+            // _backGroundSprite.Update(gameTime, Position);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

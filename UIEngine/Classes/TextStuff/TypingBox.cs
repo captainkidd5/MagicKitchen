@@ -39,10 +39,10 @@ namespace UIEngine.Classes.TextStuff
         public TypingBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth, int? width, int? height, Color? color)
             : base(interfaceSection,graphicsDevice, content, position, layerDepth)
         {
-            NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, width ?? DefaultWidth, height ?? DefaultHeight, UI.ButtonTexture,LayerDepth, color, null, null);
+            NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, width ?? DefaultWidth, height ?? DefaultHeight, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), color, null, null);
            // SendButton = new NineSliceButton(interfaceSection, graphicsDevice, content,
            //      position,LayerDepth, null, null,null,null);
-            TextBuilder = new TextBuilder(TextFactory.CreateUIText(string.Empty, LayerDepth));
+            TextBuilder = new TextBuilder(TextFactory.CreateUIText(string.Empty, GetLayeringDepth(UILayeringDepths.High)));
         }
         public override void Update(GameTime gameTime)
         {
@@ -51,7 +51,7 @@ namespace UIEngine.Classes.TextStuff
             AcceptableKeys = Controls.AcceptableKeysForTyping;
             if (AcceptableKeys.Count > 0)
                 ProcessKey(gameTime, AcceptableKeys);
-            TextBuilder.Update(gameTime,Position);
+            //TextBuilder.Update(gameTime,Position, NineSliceSprite.Width);
         }
 
 
@@ -133,7 +133,7 @@ namespace UIEngine.Classes.TextStuff
             if (wasAnyKeyPressed)
                 Controls.ClearUseableKeys();
 
-            TextBuilder.Update(gameTime,Position, keyValue, NineSliceSprite.Width);
+            TextBuilder.Update(gameTime,Position, NineSliceSprite.Width, keyValue);
 
         }
     }

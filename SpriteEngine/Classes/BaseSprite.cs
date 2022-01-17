@@ -35,8 +35,8 @@ namespace SpriteEngine.Classes
         public float? CustomLayer { get; set; }
         protected float LayerDepth { get; set; }
 
-        public int Width { get { if (DestinationRectangle == null) return SourceRectangle.Width; else return DestinationRectangle.Value.Width; } }
-        public int Height { get { if (DestinationRectangle == null) return SourceRectangle.Height; else return DestinationRectangle.Value.Height; } }
+        public virtual int Width { get { if (DestinationRectangle == null) return SourceRectangle.Width; else return DestinationRectangle.Value.Width; } }
+        public virtual int Height { get { if (DestinationRectangle == null) return SourceRectangle.Height; else return DestinationRectangle.Value.Height; } }
         public virtual Rectangle HitBox
         {
             get { return new Rectangle((int)Position.X, (int)Position.Y, (int)(Width * Scale), (int)(Height * Scale)); }

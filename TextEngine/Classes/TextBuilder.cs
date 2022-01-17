@@ -50,7 +50,7 @@ namespace TextEngine.Classes
         /// <param name="textBoxWidth">Provide if you want the text to wrap.</param>
         /// <param name="stringToAppend">Leave null if you are not manually typing (Like command console).</param>
         /// <returns>Returns true if finished with current assignment</returns>
-        public bool Update(GameTime gameTime, Vector2 position, string stringToAppend = null, int textBoxWidth = 0)
+        public bool Update(GameTime gameTime, Vector2 position,int textBoxWidth, string stringToAppend = null)
         {
             Text.Update(gameTime, position);
             if (SimpleTimer != null)
@@ -66,7 +66,7 @@ namespace TextEngine.Classes
                     return true;
 
             }
-            else
+            else if(!string.IsNullOrEmpty(stringToAppend))
             {
                 Text.Append(stringToAppend, textBoxWidth);
                 return true;
