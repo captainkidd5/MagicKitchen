@@ -92,11 +92,11 @@ namespace MagicKitchen
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             SaveLoadManager.InitialLoad();
 
-            if (SaveLoadManager.IsSaveNameAvailable("testSave"))
-            {
-                SaveLoadManager.CreateNewSave("testSave");
+            //if (SaveLoadManager.IsSaveNameAvailable("testSave"))
+            //{
+            //    SaveLoadManager.CreateNewSave("testSave");
 
-            }
+            //}
 
             CommandConsole.Load(consoleComponent);
 
@@ -133,6 +133,7 @@ namespace MagicKitchen
             // _graphics.IsFullScreen = true;
             // _graphics.ApplyChanges();
 
+            SaveLoadManager.SaveCreated += OnSaveCreated;
             SaveLoadManager.SaveLoaded += OnSaveLoaded;
             SaveLoadManager.SaveSaved += OnSaveSaved;
 
@@ -223,7 +224,13 @@ namespace MagicKitchen
 
         }
 
-
+        public void OnSaveCreated(object? sender, FileCreatedEventArgs e)
+        {
+            BinaryWriter writer = e.BinaryWriter;
+            StageManager.Save(writer);
+            writer.Flush();
+            writer.Close();
+        }
         public void OnSaveLoaded(object? sender, FileLoadedEventArgs e)
         {
             BinaryReader reader = e.BinaryReader;

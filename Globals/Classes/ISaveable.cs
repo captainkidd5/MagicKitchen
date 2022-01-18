@@ -9,6 +9,10 @@ namespace Globals.Classes
 {
     public interface ISaveable
     {
+        public void CreateNewSave(BinaryWriter writer)
+        {
+
+        }
         public void Save(BinaryWriter writer)
         {
         }

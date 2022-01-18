@@ -6,7 +6,6 @@ namespace Globals.Classes
 {
     public static class Flags
     {
-        public static bool FirstTimeLoad { get; set; }
         public static bool ShowTileSelector { get; set; } = true;
 
         public static bool Pause { get; set; }

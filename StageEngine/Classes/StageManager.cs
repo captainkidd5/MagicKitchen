@@ -49,24 +49,24 @@ namespace StageEngine.Classes
             Camera = camera;
             List<StageData> stageData = content.Load<List<StageData>>("maps/StageData");
 
-            foreach(StageData sd in stageData)
+            foreach (StageData sd in stageData)
             {
-                Stages.Add(sd.Name, new Stage( sd,  content, graphics, camera, Penumbra));
+                Stages.Add(sd.Name, new Stage(sd, content, graphics, camera, Penumbra));
             }
 
             if (Flags.FirstTimeLoad)
             {
                 CurrentStage = GetStage("LullabyTown");
-                foreach(KeyValuePair<string, Stage> stage in Stages)
+                foreach (KeyValuePair<string, Stage> stage in Stages)
                 {
-                    if(stage.Value != CurrentStage)
+                    if (stage.Value != CurrentStage)
                     {
                         stage.Value.FirstEntryLoad();
                         stage.Value.LoadPortals();
 
                         stage.Value.Unload();
                     }
-                  
+
                 }
             }
             CurrentStage.FirstEntryLoad();
@@ -74,7 +74,7 @@ namespace StageEngine.Classes
             PlayerManager.Player1.LoadContent(Content, CurrentStage.TileManager, CurrentStage.ItemManager);
             CurrentStage.LoadPortals();
             PlayerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
-            
+
             foreach (Character character in CharacterManager.AllCharacters)
             {
                 Stage stage = Stages[character.CurrentStageName];
@@ -82,7 +82,7 @@ namespace StageEngine.Classes
                     throw new Exception($"Stage {character.CurrentStageName} does not exist, check to make sure" +
                         $"both a tmx map with name and npcdata stage name match");
                 character.LoadContent(content, stage.TileManager, stage.ItemManager);
-                character.LoadToNewStage(stage.Name, stage.TileManager,stage.ItemManager);
+                character.LoadToNewStage(stage.Name, stage.TileManager, stage.ItemManager);
                 stage.NPCs.Add(character);
                 character.PlayerSwitchedStage(CurrentStage.Name, false);
             }
@@ -147,7 +147,7 @@ namespace StageEngine.Classes
 
         public static void Update(GameTime gameTime)
         {
-            if(WasStageSwitchingLastFrame != Flags.IsStageLoading)
+            if (WasStageSwitchingLastFrame != Flags.IsStageLoading)
             {
                 SwitchStage();
             }
@@ -163,7 +163,7 @@ namespace StageEngine.Classes
 
         public static void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            CurrentStage.Draw(spriteBatch,  gameTime);
+            CurrentStage.Draw(spriteBatch, gameTime);
         }
 
         public static void Save(BinaryWriter writer)
@@ -174,7 +174,12 @@ namespace StageEngine.Classes
         public static void LoadSave(BinaryReader reader)
         {
             string name = reader.ReadString();
-            CurrentStage = GetStage(reader.ReadString());
+            CurrentStage = GetStage(name);
+        }
+
+        public static void CreateNewSave(BinaryWriter writer)
+        {
+
         }
     }
 }

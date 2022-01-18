@@ -19,6 +19,7 @@ using EntityEngine.Classes;
 using PhysicsEngine.Classes.Pathfinding;
 using Globals.Classes.Time;
 using static Globals.Classes.Settings;
+using IOEngine.Classes;
 
 namespace StageEngine.Classes
 {
@@ -135,18 +136,18 @@ namespace StageEngine.Classes
         /// </summary>
         public void SaveToIndividualFile()
         {
-            //File.WriteAllText(SaveLoadManager.CurrentSave.StageFilePath + @"\" + _pathExtension, string.Empty);
-            //BinaryWriter stageWriter = SaveLoadManager.GetCurrentSaveFileWriter(@"\Stages\" + _pathExtension);
-            //Save(stageWriter);
-            //SaveLoadManager.DestroyWriter(stageWriter);
+            File.WriteAllText(SaveLoadManager.CurrentSave.StageFilePath + @"\" + _pathExtension, string.Empty);
+            BinaryWriter stageWriter = SaveLoadManager.GetCurrentSaveFileWriter(@"\Stages\" + _pathExtension);
+            Save(stageWriter);
+            SaveLoadManager.DestroyWriter(stageWriter);
         }
 
         public void LoadFromIndividualFile()
         {
-            //BinaryReader stageReader = SaveLoadManager.GetCurrentSaveFileReader(@"\Stages\" + _pathExtension);
-            //LoadSave(stageReader);
-            //SaveLoadManager.DestroyReader(stageReader);
-            //MapRectangle = TileManager.MapRectangle;
+            BinaryReader stageReader = SaveLoadManager.GetCurrentSaveFileReader(@"\Stages\" + _pathExtension);
+            LoadSave(stageReader);
+            SaveLoadManager.DestroyReader(stageReader);
+            MapRectangle = TileManager.MapRectangle;
 
         }
         public void Unload()

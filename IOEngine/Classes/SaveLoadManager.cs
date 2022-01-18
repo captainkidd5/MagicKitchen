@@ -15,6 +15,9 @@ namespace IOEngine.Classes
         public static SaveFile CurrentSave { get; set; }
         public static string BasePath;
 
+        public static EventHandler<FileCreatedEventArgs> SaveCreated;
+        public static void Create(SaveFile file) => SaveCreated.Invoke(null, new FileCreatedEventArgs() { BinaryWriter = CreateWriter(file.MainSaveFilePath) });
+
         public static EventHandler<FileLoadedEventArgs> SaveLoaded;
         public static void Load(SaveFile file) => SaveLoaded.Invoke(null, new FileLoadedEventArgs() { BinaryReader = CreateReader(file.MainSaveFilePath)});
 
@@ -85,6 +88,8 @@ namespace IOEngine.Classes
             SaveFiles.Add(name, saveFile);
             DestroyWriter(writer);
 
+            //Fire up game to save empty initial values to the save for everything. This triggers the event in game1.cs
+            Create(saveFile);
         }
 
         /// <summary>
