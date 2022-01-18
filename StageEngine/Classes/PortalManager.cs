@@ -12,15 +12,18 @@ namespace StageEngine.Classes
     {
         public static Dictionary<string, List<Portal>> PortalDictionary;
 
+        private static StageManager _stageManager;
+
         /// <summary>
         /// Creates new dictionary key value pair with new stages portals, call once per stage only.
         /// </summary>
-        public static void LoadNewStage(string stageName,TileManager tileManager)
+        public static void LoadNewStage(string stageName,StageManager stageManager, TileManager tileManager)
         {
+            _stageManager = stageManager;
             List<Portal> stagePortals = new List<Portal>();
             foreach(PortalData portalData in tileManager.Portals)
             {
-                Portal portal = new Portal(portalData.Rectangle, portalData.From, portalData.To, portalData.XOffSet, portalData.YOffSet, portalData.MustBeClicked);
+                Portal portal = new Portal(_stageManager,portalData.Rectangle, portalData.From, portalData.To, portalData.XOffSet, portalData.YOffSet, portalData.MustBeClicked);
                 //if(StageManager.CurrentStage == StageManager.GetStage(stageName))
                 //    portal.CreateBody(portal.Position);
                 

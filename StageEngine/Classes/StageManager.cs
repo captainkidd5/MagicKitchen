@@ -22,25 +22,25 @@ using UIEngine.Classes;
 
 namespace StageEngine.Classes
 {
-    public static class StageManager
+    public class StageManager
     {
-        private static ContentManager Content;
-        private static GraphicsDevice Graphics;
-        private static Camera2D Camera;
+        private ContentManager Content;
+        private  GraphicsDevice Graphics;
+        private  Camera2D Camera;
 
-        private static Dictionary<string, Stage> Stages { get; set; }
-        public static Stage CurrentStage { get; private set; }
-        public static PenumbraComponent Penumbra { get; private set; }
+        private  Dictionary<string, Stage> Stages { get; set; }
+        public  Stage CurrentStage { get; private set; }
+        public  PenumbraComponent Penumbra { get; private set; }
 
 
-        private static string StageSwitchingTo { get; set; }
+        private  string StageSwitchingTo { get; set; }
 
-        private static bool WasStageSwitchingLastFrame { get; set; }
-        private static Vector2 NewPlayerPositionOnStageSwitch { get; set; }
+        private  bool WasStageSwitchingLastFrame { get; set; }
+        private  Vector2 NewPlayerPositionOnStageSwitch { get; set; }
         /// <summary>
         /// Should be called once per session
         /// </summary>
-        public static void LoadContent(GraphicsDevice graphics, PenumbraComponent penumbra, ContentManager content, Camera2D camera)
+        public  void LoadContent(GraphicsDevice graphics, PenumbraComponent penumbra, ContentManager content, Camera2D camera)
         {
             Stages = new Dictionary<string, Stage>();
             Graphics = graphics;
@@ -51,24 +51,9 @@ namespace StageEngine.Classes
 
             foreach (StageData sd in stageData)
             {
-                Stages.Add(sd.Name, new Stage(sd, content, graphics, camera, Penumbra));
+                Stages.Add(sd.Name, new Stage(this, sd, content, graphics, camera, Penumbra));
             }
 
-            if (Flags.FirstTimeLoad)
-            {
-                CurrentStage = GetStage("LullabyTown");
-                foreach (KeyValuePair<string, Stage> stage in Stages)
-                {
-                    if (stage.Value != CurrentStage)
-                    {
-                        stage.Value.FirstEntryLoad();
-                        stage.Value.LoadPortals();
-
-                        stage.Value.Unload();
-                    }
-
-                }
-            }
             CurrentStage.FirstEntryLoad();
 
             PlayerManager.Player1.LoadContent(Content, CurrentStage.TileManager, CurrentStage.ItemManager);
@@ -90,12 +75,12 @@ namespace StageEngine.Classes
             TileLoader.LoadFinished();
         }
 
-        internal static void Unload()
+        internal  void Unload()
         {
 
         }
 
-        public static Stage GetStage(string stageName)
+        public  Stage GetStage(string stageName)
         {
             Stage stage = Stages[stageName];
             if (stage == null)
@@ -108,7 +93,7 @@ namespace StageEngine.Classes
         /// </summary>
         /// <param name="newStage"></param>
         /// <exception cref="Exception"></exception>
-        public static void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
+        public  void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
             UI.FadeIn(.00055f);
 
@@ -117,7 +102,7 @@ namespace StageEngine.Classes
             Flags.Pause = true;
 
         }
-        internal static void SwitchStage()
+        internal  void SwitchStage()
         {
             CurrentStage.SaveToIndividualFile();
             CurrentStage.Unload();
@@ -145,7 +130,7 @@ namespace StageEngine.Classes
 
         }
 
-        public static void Update(GameTime gameTime)
+        public  void Update(GameTime gameTime)
         {
             if (WasStageSwitchingLastFrame != Flags.IsStageLoading)
             {
@@ -161,25 +146,36 @@ namespace StageEngine.Classes
             }
         }
 
-        public static void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public  void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             CurrentStage.Draw(spriteBatch, gameTime);
         }
 
-        public static void Save(BinaryWriter writer)
+        public  void Save(BinaryWriter writer)
         {
             writer.Write(CurrentStage.Name);
         }
 
-        public static void LoadSave(BinaryReader reader)
+        public  void LoadSave(BinaryReader reader)
         {
             string name = reader.ReadString();
             CurrentStage = GetStage(name);
         }
 
-        public static void CreateNewSave(BinaryWriter writer)
+        public  void CreateNewSave(BinaryWriter writer)
         {
+            CurrentStage = GetStage("LullabyTown");
+            foreach (KeyValuePair<string, Stage> stage in Stages)
+            {
+                if (stage.Value != CurrentStage)
+                {
+                    stage.Value.FirstEntryLoad();
+                    stage.Value.LoadPortals();
 
+                    stage.Value.Unload();
+                }
+
+            }
         }
     }
 }

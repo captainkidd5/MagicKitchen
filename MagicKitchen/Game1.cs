@@ -38,6 +38,8 @@ namespace MagicKitchen
 
         private ContentManager MainMenuContentManager { get; set; }
 
+        private StageManager _stageManager;
+
         public static Player Player1 => PlayerManager.Player1;
 
         public static SpriteFont MainFont { get; set; }
@@ -69,8 +71,7 @@ namespace MagicKitchen
             Settings.Load(_graphics, Camera, Window);
 
             Settings.SetResolution(Settings.ScreenWidth, Settings.ScreenHeight);
-            //Todo: Change this to false if loading save
-            Flags.FirstTimeLoad = true;
+
             PhysicsManager.Initialize(GraphicsDevice, Penumbra);
 
 
@@ -78,6 +79,7 @@ namespace MagicKitchen
 
 
             Penumbra.Initialize();
+            _stageManager = new StageManager();
             //Penumbra.SpriteBatchTransformEnabled = true;
 
             base.Initialize();
@@ -112,7 +114,7 @@ namespace MagicKitchen
             PortalManager.IntialLoad();
             QuestManager.Load(GraphicsDevice, Content);
             PlayerManager.Initialize(GraphicsDevice, Content);
-            StageManager.LoadContent(GraphicsDevice, Penumbra, Content, Camera);
+            _stageManager.LoadContent(GraphicsDevice, Penumbra, Content, Camera);
             PlayerManager.LoadContent();
 
             Controls.Load(Camera, GraphicsDevice, Content);
@@ -149,7 +151,7 @@ namespace MagicKitchen
 
             if (UI.GameDisplayState == GameDisplayState.InGame)
             {
-                StageManager.Update(gameTime);
+                _stageManager.Update(gameTime);
 
             }
             UI.Update(gameTime);
@@ -175,7 +177,7 @@ namespace MagicKitchen
                 {
                     Penumbra.BeginDraw();
                 }
-                StageManager.Draw(_spriteBatch, gameTime);
+                _stageManager.Draw(_spriteBatch, gameTime);
                 if (Flags.EnableShadows && Flags.IsNightTime)
                 {
                     Penumbra.Transform = Camera.GetTransform(GraphicsDevice);
@@ -227,14 +229,14 @@ namespace MagicKitchen
         public void OnSaveCreated(object? sender, FileCreatedEventArgs e)
         {
             BinaryWriter writer = e.BinaryWriter;
-            StageManager.Save(writer);
+            _stageManager.Save(writer);
             writer.Flush();
             writer.Close();
         }
         public void OnSaveLoaded(object? sender, FileLoadedEventArgs e)
         {
             BinaryReader reader = e.BinaryReader;
-            StageManager.LoadSave(reader);
+            _stageManager.LoadSave(reader);
         }
 
         
@@ -242,7 +244,7 @@ namespace MagicKitchen
         public void OnSaveSaved(object? sender, FileSavedEventArgs e)
         {
             BinaryWriter writer = e.BinaryWriter;
-            StageManager.Save(writer);
+            _stageManager.Save(writer);
         }
        
     }

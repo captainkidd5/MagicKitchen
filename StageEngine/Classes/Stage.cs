@@ -28,6 +28,7 @@ namespace StageEngine.Classes
         public string Name { get; private set; }
         internal bool InitialLoadDone { get; private set; }
 
+        private readonly StageManager _stageManager;
         private readonly StageData _stageData;
 
         private readonly ContentManager _content;
@@ -50,12 +51,11 @@ namespace StageEngine.Classes
         private PathGrid _pathGrid => TileManager.PathGrid;
 
         internal bool CamLock => _stageData.MapType == MapType.Exterior;
-        public Stage(StageData stageData, ContentManager content,
+        public Stage(StageManager stageManager, StageData stageData, ContentManager content,
             GraphicsDevice graphics, Camera2D camera, PenumbraComponent penumbra)
         {
             Name = stageData.Name;
-
-
+            this._stageManager = stageManager;
             _stageData = stageData;
 
             _content = content;
@@ -111,7 +111,7 @@ namespace StageEngine.Classes
         public void LoadPortals()
         {
             TileLoader.LoadStagePortals(_stageData, TileManager);
-            PortalManager.LoadNewStage(Name, TileManager);
+            PortalManager.LoadNewStage(Name, _stageManager, TileManager);
         }
         /// <summary>
         /// Loads tiles into memory, then saves them, from tmx map. Should only be called ONCE per stage, per save
