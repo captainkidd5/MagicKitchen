@@ -17,14 +17,16 @@ namespace EntityEngine.Classes.NPCStuff
 {
     public class CharacterManager : Component
     {
-        
+        private readonly QuestManager _questManager;
 
         public List<Character> AllCharacters { get; set; }
 
         internal static Texture2D StatusIconTexture { get; set; }
 
+
         public CharacterManager(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
+            _questManager = new QuestManager(graphics,content);
         }
         public void LoadCharacterData(GraphicsDevice graphics, ContentManager content)
         {
@@ -55,7 +57,7 @@ namespace EntityEngine.Classes.NPCStuff
                 
                 allNpcData.Add(data);
             }
-            QuestManager.LoadQuestData(allQuests);
+            _questManager.LoadQuestData(allQuests);
             StatusIconTexture = content.Load<Texture2D>("entities/npc/characters/statusicons");
 
         }

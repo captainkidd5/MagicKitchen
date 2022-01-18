@@ -21,8 +21,8 @@ namespace EntityEngine.Classes.PlayerStuff
             Players.Add(Player1);
         }
 
-        public static List<Player> Players { get; set; }
-        public static Player Player1 { get; set; }
+        public List<Player> Players { get; set; }
+        public Player Player1 { get; set; }
 
 
         public void LoadContent()

@@ -27,6 +27,7 @@ namespace StageEngine.Classes
         private  Camera2D _camera;
         private readonly CharacterManager _characterManager;
         private readonly PlayerManager _playerManager;
+        private readonly PortalManager _portalManager;
 
         public StageManager(GraphicsDevice graphics, ContentManager content,
             CharacterManager characterManager,PlayerManager playerManager, PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
@@ -36,7 +37,8 @@ namespace StageEngine.Classes
             Stages = new Dictionary<string, Stage>();
             Penumbra = penumbra;
             _camera = camera;
-            
+            _portalManager = new PortalManager(this, playerManager);
+            _portalManager.IntialLoad();
         }
 
         public override void Load()
@@ -46,14 +48,14 @@ namespace StageEngine.Classes
 
             foreach (StageData sd in stageData)
             {
-                Stages.Add(sd.Name, new Stage(this, _characterManager, _playerManager, sd, content, graphics, _camera, Penumbra));
+                Stages.Add(sd.Name, new Stage(this, _characterManager, _playerManager,_portalManager, sd, content, graphics, _camera, Penumbra));
             }
 
             CurrentStage.FirstEntryLoad();
 
-            PlayerManager.Player1.LoadContent(content, CurrentStage.TileManager, CurrentStage.ItemManager);
+            _playerManager.Player1.LoadContent(content, CurrentStage.TileManager, CurrentStage.ItemManager);
             CurrentStage.LoadPortals();
-            PlayerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
+            _playerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
             foreach (Character character in _characterManager.AllCharacters)
             {
@@ -115,15 +117,15 @@ namespace StageEngine.Classes
 
             CurrentStage.LoadFromIndividualFile();
             _characterManager.SwitchStage(StageSwitchingTo);
-            _camera.Jump(PlayerManager.Player1.Position);
+            _camera.Jump(_playerManager.Player1.Position);
             StageSwitchingTo = null;
             Flags.IsStageLoading = false;
             Debug.Assert(NewPlayerPositionOnStageSwitch != Vector2.Zero, "New player position should not be zero");
-            PlayerManager.Player1.Move(NewPlayerPositionOnStageSwitch);
+            _playerManager.Player1.Move(NewPlayerPositionOnStageSwitch);
             NewPlayerPositionOnStageSwitch = Vector2.Zero;
 
             WasStageSwitchingLastFrame = Flags.IsStageLoading;
-            PlayerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
+            _playerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             Flags.Pause = false;
             UI.FadeOut(.00055f);
 
@@ -139,7 +141,7 @@ namespace StageEngine.Classes
             }
             if (!Flags.Pause)
             {
-                PortalManager.Update(gameTime);
+                _portalManager.Update(gameTime);
                 _characterManager.Update(gameTime, CurrentStage.Name);
                 CurrentStage.Update(gameTime);
                 if (SoundFactory.AllowAmbientSounds && !SoundFactory.IsPlayingAmbient)

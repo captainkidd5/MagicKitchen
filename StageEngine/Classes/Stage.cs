@@ -31,6 +31,7 @@ namespace StageEngine.Classes
         private readonly StageManager _stageManager;
         private readonly CharacterManager _characterManager;
         private readonly PlayerManager _playerManager;
+        private readonly PortalManager _portalManager;
         private readonly StageData _stageData;
 
         private readonly ContentManager _content;
@@ -53,20 +54,21 @@ namespace StageEngine.Classes
         private PathGrid _pathGrid => TileManager.PathGrid;
 
         internal bool CamLock => _stageData.MapType == MapType.Exterior;
-        public Stage(StageManager stageManager,CharacterManager characterManager,PlayerManager playerManager, StageData stageData, ContentManager content,
+        public Stage(StageManager stageManager,CharacterManager characterManager,PlayerManager playerManager,PortalManager portalManager, StageData stageData, ContentManager content,
             GraphicsDevice graphics, Camera2D camera, PenumbraComponent penumbra)
         {
             Name = stageData.Name;
             _stageManager = stageManager;
             _characterManager = characterManager;
            _playerManager = playerManager;
+            _portalManager = portalManager;
             _stageData = stageData;
 
             _content = content;
             _graphics = graphics;
             _camera = camera;
             _penumbra = penumbra;
-            Player1 = PlayerManager.Player1;
+            Player1 = playerManager.Player1;
             TileManager = new TileManager(graphics, content, camera, penumbra);
             ItemManager = new ItemManager(Name);
             NPCs = new List<Entity>();
@@ -115,7 +117,7 @@ namespace StageEngine.Classes
         public void LoadPortals()
         {
             TileLoader.LoadStagePortals(_stageData, TileManager);
-            PortalManager.LoadNewStage(Name, _stageManager, TileManager);
+            _portalManager.LoadNewStage(Name, TileManager);
         }
         /// <summary>
         /// Loads tiles into memory, then saves them, from tmx map. Should only be called ONCE per stage, per save

@@ -41,7 +41,7 @@ namespace MagicKitchen
         private StageManager _stageManager;
         private CharacterManager _characterManager;
         private PlayerManager _playerManager;
-        public static Player Player1 => PlayerManager.Player1;
+        public Player Player1 => _playerManager.Player1;
 
         public static SpriteFont MainFont { get; set; }
 
@@ -80,8 +80,9 @@ namespace MagicKitchen
 
 
             Penumbra.Initialize();
-            _stageManager = new StageManager(GraphicsDevice, Content, _characterManager, _playerManager, Penumbra,Camera);
             _playerManager = new PlayerManager(GraphicsDevice, Content);
+
+            _stageManager = new StageManager(GraphicsDevice, Content, _characterManager, _playerManager, Penumbra,Camera);
             //Penumbra.SpriteBatchTransformEnabled = true;
 
             base.Initialize();
@@ -113,8 +114,6 @@ namespace MagicKitchen
             ItemFactory.LoadContent(Content);
             EntityFactory.Load(Content);
             _characterManager.LoadCharacterData(GraphicsDevice, Content);
-            PortalManager.IntialLoad();
-            QuestManager.Load(GraphicsDevice, Content);
             _stageManager.Load();
             _playerManager.LoadContent();
 
@@ -159,7 +158,7 @@ namespace MagicKitchen
             if (!Flags.Pause)
             {
                 PhysicsManager.Update(gameTime);
-                SoundFactory.Update(gameTime, PlayerManager.Player1.Position);
+                SoundFactory.Update(gameTime, _playerManager.Player1.Position);
 
             }
 

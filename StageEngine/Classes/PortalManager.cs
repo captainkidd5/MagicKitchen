@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EntityEngine.Classes.PlayerStuff;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,22 +9,28 @@ using TiledEngine.Classes.Misc;
 
 namespace StageEngine.Classes
 {
-    public static class PortalManager
+    public class PortalManager
     {
-        public static Dictionary<string, List<Portal>> PortalDictionary;
+        public Dictionary<string, List<Portal>> PortalDictionary;
 
-        private static StageManager _stageManager;
+        private readonly StageManager _stageManager;
+        private readonly PlayerManager _playerManager;
 
+
+        public PortalManager(StageManager stageManager, PlayerManager playerManager)
+        {
+            _stageManager = stageManager;
+            _playerManager = playerManager;
+        }
         /// <summary>
         /// Creates new dictionary key value pair with new stages portals, call once per stage only.
         /// </summary>
-        public static void LoadNewStage(string stageName,StageManager stageManager, TileManager tileManager)
+        public void LoadNewStage(string stageName, TileManager tileManager)
         {
-            _stageManager = stageManager;
             List<Portal> stagePortals = new List<Portal>();
             foreach(PortalData portalData in tileManager.Portals)
             {
-                Portal portal = new Portal(_stageManager,portalData.Rectangle, portalData.From, portalData.To, portalData.XOffSet, portalData.YOffSet, portalData.MustBeClicked);
+                Portal portal = new Portal(this,_stageManager,_playerManager,portalData.Rectangle, portalData.From, portalData.To, portalData.XOffSet, portalData.YOffSet, portalData.MustBeClicked);
                 //if(StageManager.CurrentStage == StageManager.GetStage(stageName))
                 //    portal.CreateBody(portal.Position);
                 
@@ -41,7 +48,7 @@ namespace StageEngine.Classes
             PortalDictionary.Add(stageName, stagePortals);
         }
         
-        public static void IntialLoad()
+        public void IntialLoad()
         {
             PortalDictionary = new Dictionary<string, List<Portal>>();
         }
@@ -54,7 +61,7 @@ namespace StageEngine.Classes
         //    }
         //}
 
-        public static void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             foreach (List<Portal> portalList in PortalDictionary.Values)
             {
@@ -72,7 +79,7 @@ namespace StageEngine.Classes
         /// </summary>
         /// <param name="portal">From portal </param>
         /// <returns></returns>
-        public static Vector2 GetDestinationPosition(Portal portal)
+        public Vector2 GetDestinationPosition(Portal portal)
         {
             Portal toPortal = PortalDictionary[portal.To].FirstOrDefault(x => x.From == portal.To && x.To == portal.From);
             return new Vector2(toPortal.Position.X + toPortal.xOffSet, toPortal.Position.Y + toPortal.yOffSet);

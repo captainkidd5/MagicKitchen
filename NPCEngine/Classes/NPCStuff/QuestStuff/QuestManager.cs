@@ -1,4 +1,5 @@
 ﻿using DataModels.QuestStuff;
+using Globals.Classes;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,19 +10,15 @@ using System.Text;
 
 namespace EntityEngine.Classes.NPCStuff.QuestStuff
 {
-    public static class QuestManager
+    public class QuestManager : Component
     {
-        private static GraphicsDevice Graphics { get; set; }
-        private static ContentManager ContentManager { get; set; }
+       
 
         private static List<Quest> AllQuests { get; set; }
-        public static void Load(GraphicsDevice graphics, ContentManager content)
+        public QuestManager(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            Graphics = graphics;
-            ContentManager = content;
         }
-
-        public static void LoadQuestData(List<Quest> allQuests)
+        public void LoadQuestData(List<Quest> allQuests)
         {
             AllQuests = allQuests;
         }
@@ -35,7 +32,7 @@ namespace EntityEngine.Classes.NPCStuff.QuestStuff
         /// </summary>
         /// <param name="characterSpecificQuests">quests originating with this character</param>
         /// <returns></returns>
-        public static List<Quest> GetPossibleQuests(List<Quest> characterSpecificQuests)
+        public List<Quest> GetPossibleQuests(List<Quest> characterSpecificQuests)
         {
             List<Quest> possibleQuests = characterSpecificQuests.Where(
                 x => !x.Completed).ToList();
@@ -56,7 +53,7 @@ namespace EntityEngine.Classes.NPCStuff.QuestStuff
         /// </summary>
         /// <param name="quest"></param>
         /// <returns></returns>
-        private static bool CheckAllPreReqs(Quest quest)
+        private bool CheckAllPreReqs(Quest quest)
         {
             foreach(PreRequisite req in quest.PreRequisites)
             {
@@ -71,7 +68,7 @@ namespace EntityEngine.Classes.NPCStuff.QuestStuff
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        private static bool CheckPreRequisite(PreRequisite req)
+        private bool CheckPreRequisite(PreRequisite req)
         {
             return CheckIfQuestsDone(req);
         }
@@ -81,7 +78,7 @@ namespace EntityEngine.Classes.NPCStuff.QuestStuff
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        private static bool CheckIfQuestsDone(PreRequisite req)
+        private bool CheckIfQuestsDone(PreRequisite req)
         {
             if (req.RequiredQuestNames != null)
             {
