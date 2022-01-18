@@ -1,5 +1,6 @@
 ﻿using Globals.Classes;
 using Globals.Classes.Helpers;
+using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,6 +30,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
         private Rectangle _createNewGameButtonRectangle = new Rectangle(0, 0, 32, 32);
         private NineSliceTextButton _createNewGameButton;
+        private Action _createNewGameAction;
         public CreateNewSaveMenu(InterfaceSection interfaceSection,Rectangle backGroundRectangle, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             _backGroundRectangle = backGroundRectangle;
@@ -48,10 +50,12 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             typingBoxPos = new Vector2(typingBoxPos.X, _createNewTextPosition.Y + _createNewText.TotalStringHeight * 2);
             _nameTypingBox = new TypingBox(this,graphics, content, typingBoxPos, GetLayeringDepth(UILayeringDepths.Low), _nameWindowRectangle.Width, _nameWindowRectangle.Height, null);
 
+            _createNewGameAction = CreateNewSaveAction;
             _createNewGameButton = new NineSliceTextButton(this, graphics, content,
                 RectangleHelper.PlaceBottomRightQuadrant(_backGroundRectangle, _createNewGameButtonRectangle),
                 GetLayeringDepth(UILayeringDepths.Low), null, null, UI.ButtonTexture,new List<Text>()
-                { TextFactory.CreateUIText("Go!", GetLayeringDepth(UILayeringDepths.Medium))  }, null, null,true);
+                { TextFactory.CreateUIText("Go!", GetLayeringDepth(UILayeringDepths.Medium))  }, null, _createNewGameAction, true);
+            _createNewGameButton.SetLock(true);
 
 
         }
@@ -66,11 +70,25 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         public override void Update(GameTime gameTime)
         {
             //base.Update(gameTime);
+            CheckButtonLock();
+
             _nameTypingBox.Update(gameTime);
             _createNewText.Update(gameTime, _createNewTextPosition);
             _createNewGameButton.Update(gameTime);
             // _backGroundSprite.Update(gameTime, Position);
         }
+
+        /// <summary>
+        /// Disallow create new game if name is empty 
+        /// </summary>
+        private void CheckButtonLock()
+        {
+            if (_nameTypingBox.IsEmpty)
+                _createNewGameButton.SetLock(true);
+            else
+                _createNewGameButton.SetLock(false);
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             //base.Draw(spriteBatch);
@@ -80,5 +98,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
            // _backGroundSprite.Draw(spriteBatch);  
         }
 
+
+        private void CreateNewSaveAction()
+        {
+            SaveLoadManager.CreateNewSave(_nameTypingBox.CurrentString);
+            SaveLoadManager.SetCurrentSave(_nameTypingBox.CurrentString);
+
+            UI.LoadGame(SaveLoadManager.CurrentSave);
+        }
     }
 }

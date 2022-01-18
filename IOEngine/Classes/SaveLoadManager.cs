@@ -11,7 +11,7 @@ namespace IOEngine.Classes
     //Save here at some point
     public static class SaveLoadManager
     {
-        public static List<SaveFile> SaveFiles { get; private set; }
+        public static Dictionary<string, SaveFile> SaveFiles { get; private set; }
         public static SaveFile CurrentSave { get; set; }
         public static string BasePath;
 
@@ -27,7 +27,7 @@ namespace IOEngine.Classes
         public static void InitialLoad()
         {
 
-            SaveFiles = new List<SaveFile>();
+            SaveFiles = new Dictionary<string, SaveFile>();
             BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\SaveFiles";
             Directory.CreateDirectory(BasePath);
 
@@ -42,11 +42,9 @@ namespace IOEngine.Classes
                 BinaryReader reader = CreateReader(metaDataFile);
                 SaveFile saveFile = new SaveFile();
                 saveFile.LoadSave(reader);
-                SaveFiles.Add(saveFile);
+                SaveFiles.Add(saveFile.Name, saveFile);
             }
-            //Temporary
-            if(SaveFiles.Count > 0)
-                CurrentSave = SaveFiles[0];
+
         }
 
         
@@ -70,6 +68,10 @@ namespace IOEngine.Classes
             return true;
         }
 
+        public static void SetCurrentSave(string name)
+        {
+            CurrentSave = SaveFiles[name];
+        }
         public static void CreateNewSave(string name)
         {
             
@@ -80,12 +82,7 @@ namespace IOEngine.Classes
             BinaryWriter writer = CreateWriter(saveFile.MetaDataPath);
 
             saveFile.Save(writer);
-            SaveFiles.Add(saveFile);
-
-
-            //Temporary
-            if (SaveFiles.Count > 0)
-                CurrentSave = SaveFiles[0];
+            SaveFiles.Add(name, saveFile);
             DestroyWriter(writer);
 
         }
@@ -100,6 +97,7 @@ namespace IOEngine.Classes
             FileStream fileStream = File.OpenWrite(path);
             return new BinaryWriter(fileStream);
         }
+
 
         public static void DestroyWriter(BinaryWriter writer)
         {

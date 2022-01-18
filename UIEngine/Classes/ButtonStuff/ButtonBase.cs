@@ -124,5 +124,10 @@ namespace UIEngine.Classes.ButtonStuff
         {
 
         }
+
+        public void SetLock(bool newVal)
+        {
+            Locked = newVal;
+        }
     }
 }

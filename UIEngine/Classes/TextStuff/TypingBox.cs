@@ -31,6 +31,9 @@ namespace UIEngine.Classes.TextStuff
 
        
         public event ExecuteCommand ExecuteCommand;
+
+        public string CurrentString => TextBuilder.GetText();
+        public bool IsEmpty => TextBuilder.GetText().Length == 0;
         private NineSliceSprite NineSliceSprite { get; set; }
         private NineSliceButton SendButton { get; set; }
         private TextBuilder TextBuilder { get; set; }
