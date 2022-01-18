@@ -11,7 +11,7 @@ namespace StageEngine.Classes
 {
     public class PortalManager
     {
-        public Dictionary<string, List<Portal>> PortalDictionary;
+        public Dictionary<string, List<Portal>> PortalDictionary { get; set; }
 
         private readonly StageManager _stageManager;
         private readonly PlayerManager _playerManager;
@@ -21,6 +21,8 @@ namespace StageEngine.Classes
         {
             _stageManager = stageManager;
             _playerManager = playerManager;
+            PortalDictionary = new Dictionary<string, List<Portal>>();
+
         }
         /// <summary>
         /// Creates new dictionary key value pair with new stages portals, call once per stage only.
@@ -48,10 +50,7 @@ namespace StageEngine.Classes
             PortalDictionary.Add(stageName, stagePortals);
         }
         
-        public void IntialLoad()
-        {
-            PortalDictionary = new Dictionary<string, List<Portal>>();
-        }
+
 
         //public static void UnloadStagePortals(string stagename)
         //{

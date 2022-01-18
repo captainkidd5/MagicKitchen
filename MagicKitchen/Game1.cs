@@ -92,20 +92,10 @@ namespace MagicKitchen
         protected override void LoadContent()
         {
 
-
-
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             SaveLoadManager.InitialLoad();
 
-            //if (SaveLoadManager.IsSaveNameAvailable("testSave"))
-            //{
-            //    SaveLoadManager.CreateNewSave("testSave");
-
-            //}
-
             CommandConsole.Load(consoleComponent);
-
-
             Clock.Load();
             List<StageData> stageData = Content.Load<List<StageData>>("Maps/StageData");
             MainFont = Content.Load<SpriteFont>("Fonts/Font");
@@ -128,9 +118,7 @@ namespace MagicKitchen
             RenderTargetManager.Load(GraphicsDevice);
             SoundFactory.Load(Content);
             Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs { VirtualWidth = 1280, VirtualHeight = 720 });
-            Player1.GiveItem("Fish Bones", 20);
-            Player1.GiveItem("Steel Axe", 2);
-            Player1.DropItem("Steel Axe", 1);
+            
 
             // _graphics.IsFullScreen = true;
             // _graphics.ApplyChanges();

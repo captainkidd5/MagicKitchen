@@ -13,7 +13,8 @@ namespace EntityEngine.Classes.PlayerStuff
 {
     public class PlayerManager : Component
     {
-
+        public List<Player> Players { get; set; }
+        public Player Player1 { get; set; }
         public PlayerManager(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             Players = new List<Player>();
@@ -21,8 +22,7 @@ namespace EntityEngine.Classes.PlayerStuff
             Players.Add(Player1);
         }
 
-        public List<Player> Players { get; set; }
-        public Player Player1 { get; set; }
+     
 
 
         public void LoadContent()

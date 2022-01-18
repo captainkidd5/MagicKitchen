@@ -129,10 +129,7 @@ namespace StageEngine.Classes
             MapRectangle = TileManager.MapRectangle;
 
             InitialLoadDone = true;
-            //Character Caspar = new Character(graphics, content, "Caspar") { Position = new Vector2(200, 400) };
-            //Caspar.Load(content);
-            //Caspar.LoadToNewStage(Name, TileManager.PathGrid);
-            //NPCs.Add(Caspar);
+            
             SaveToIndividualFile();
         }
 

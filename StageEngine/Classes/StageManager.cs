@@ -29,6 +29,16 @@ namespace StageEngine.Classes
         private readonly PlayerManager _playerManager;
         private readonly PortalManager _portalManager;
 
+        private Dictionary<string, Stage> Stages { get; set; }
+        public Stage CurrentStage { get; private set; }
+        public PenumbraComponent Penumbra { get; private set; }
+
+
+        private string StageSwitchingTo { get; set; }
+
+        private bool WasStageSwitchingLastFrame { get; set; }
+        private Vector2 NewPlayerPositionOnStageSwitch { get; set; }
+
         public StageManager(GraphicsDevice graphics, ContentManager content,
             CharacterManager characterManager,PlayerManager playerManager, PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
         {
@@ -38,7 +48,6 @@ namespace StageEngine.Classes
             Penumbra = penumbra;
             _camera = camera;
             _portalManager = new PortalManager(this, playerManager);
-            _portalManager.IntialLoad();
         }
 
         public override void Load()
@@ -72,15 +81,7 @@ namespace StageEngine.Classes
             TileLoader.LoadFinished();
         }
 
-        private  Dictionary<string, Stage> Stages { get; set; }
-        public  Stage CurrentStage { get; private set; }
-        public  PenumbraComponent Penumbra { get; private set; }
-
-
-        private  string StageSwitchingTo { get; set; }
-
-        private  bool WasStageSwitchingLastFrame { get; set; }
-        private  Vector2 NewPlayerPositionOnStageSwitch { get; set; }
+       
 
 
         public  Stage GetStage(string stageName)
