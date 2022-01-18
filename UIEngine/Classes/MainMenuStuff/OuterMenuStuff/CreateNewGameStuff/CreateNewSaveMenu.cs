@@ -15,7 +15,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 {
     internal class CreateNewSaveMenu : InterfaceSection
     {
-        private Rectangle _nameWindowRectangle = new Rectangle(0, 0, 80, 32);
+        private Rectangle _nameWindowRectangle = new Rectangle(0, 0, 128, 32);
         private TypingBox _nameTypingBox;
         public CreateNewSaveMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {

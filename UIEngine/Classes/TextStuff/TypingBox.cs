@@ -26,15 +26,20 @@ namespace UIEngine.Classes.TextStuff
         public static readonly int DefaultWidth = 80;
 
         public static readonly int DefaultHeight = 32;
+        //No 
+        private int DissallowTypingAfterLine = 0;
 
 
         public event ExecuteCommand ExecuteCommand;
         private NineSliceSprite NineSliceSprite { get; set; }
         private NineSliceButton SendButton { get; set; }
         private TextBuilder TextBuilder { get; set; }
-        private Text Text { get; set; }
+        private Vector2 _textBuilderPosition;
         private List<Keys> AcceptableKeys { get; set; }
 
+        //Textbox will be considered full when text length reaches width of nineslice minus this value
+        private static int _textCutOffSet = 2;
+        private bool ExceedsWidth => TextBuilder.ExceedsWidth(NineSliceSprite.Width - _textCutOffSet, DissallowTypingAfterLine);
 
         public TypingBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth, int? width, int? height, Color? color)
             : base(interfaceSection,graphicsDevice, content, position, layerDepth)
@@ -43,6 +48,7 @@ namespace UIEngine.Classes.TextStuff
            // SendButton = new NineSliceButton(interfaceSection, graphicsDevice, content,
            //      position,LayerDepth, null, null,null,null);
             TextBuilder = new TextBuilder(TextFactory.CreateUIText(string.Empty, GetLayeringDepth(UILayeringDepths.High)));
+            _textBuilderPosition  = new Vector2(Position.X + 6, Position.Y + 6);    
         }
         public override void Update(GameTime gameTime)
         {
@@ -66,6 +72,7 @@ namespace UIEngine.Classes.TextStuff
             TextBuilder.Draw(spriteBatch);
             NineSliceSprite.Draw(spriteBatch);
         }
+
         /// <summary>
         /// Determines what value should be given to the Text Builder, if any.
         /// </summary>
@@ -132,8 +139,10 @@ namespace UIEngine.Classes.TextStuff
 
             if (wasAnyKeyPressed)
                 Controls.ClearUseableKeys();
-
-            TextBuilder.Update(gameTime,Position, NineSliceSprite.Width, keyValue);
+            if(ExceedsWidth)
+                Console.WriteLine("test");
+            if(!ExceedsWidth)
+                TextBuilder.Update(gameTime, _textBuilderPosition, NineSliceSprite.Width, keyValue);
 
         }
     }

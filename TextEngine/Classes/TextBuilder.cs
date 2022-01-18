@@ -18,6 +18,8 @@ namespace TextEngine.Classes
         private float AnchorTextRate { get; set; }
         private SimpleTimer SimpleTimer { get; set; }
 
+
+        public bool ExceedsWidth(int width, int? line) => Text.ExceedsWidth(width, line);
         /// <summary>
         /// Constructor for text which should type itself out over a given rate.
         /// </summary>

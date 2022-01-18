@@ -70,9 +70,17 @@ namespace TextEngine.Classes
         {
             CurrentString += letter;
 
-            if (GetLengthOfCurrentLine() >= textBoxWidth)
+            if (ExceedsWidth(textBoxWidth))
                 WrapInputText(textBoxWidth);
 
+        }
+
+        internal bool ExceedsWidth(int width, int? line = null)
+        {
+            if (line == null)
+                return GetLengthOfCurrentLine() >= width;
+            else
+                return GetLengthOfLine(line.Value) >= width;
         }
        
         /// <summary>
@@ -173,14 +181,24 @@ namespace TextEngine.Classes
         /// Gets length of the last line in a paragraph separated at the \n
         /// </summary>
         /// <returns></returns>
-        private float GetLengthOfCurrentLine()
+        public float GetLengthOfCurrentLine()
         {
             string[] splitString = CurrentString.Split('\n');
-            if (splitString.Length > 0)
-                return _spriteFont.MeasureString(splitString[splitString.Length - 1]).X * _scale;
-            else
-                return _spriteFont.MeasureString(CurrentString).X * _scale;
+            return GetLengthOfLine(splitString.Length - 1);
 
+          
+        }
+
+        public float GetLengthOfLine(int line)
+        {
+            string[] splitString = CurrentString.Split('\n');
+            float returnedLength;
+            
+            if (splitString.Length > 0)
+                returnedLength = _spriteFont.MeasureString(splitString[line]).X * _scale;
+            else
+                returnedLength = _spriteFont.MeasureString(CurrentString).X * _scale;
+            return returnedLength;
         }
 
         internal void Clear()
