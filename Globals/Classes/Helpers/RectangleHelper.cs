@@ -22,6 +22,8 @@ namespace Globals.Classes.Helpers
             return new Vector2(centerScreen.X - width / 2 * (float)scale, centerScreen.Y - height / 2 * (float)scale);
         }
 
+       
+
         public static Vector2 PlaceTopRightScreen(Rectangle rectangleToPlace, float? scale = null)
         {
             scale = scale ?? Settings.GameScale;
@@ -60,6 +62,12 @@ namespace Globals.Classes.Helpers
             return new Vector2(Settings.ScreenWidth / 2 - rectangleToPlace.Width / 2 * (float)scale, Settings.ScreenHeight - rectangleToPlace.Height * (float)scale);
         }
         #region INNER
+
+        public static Vector2 CenterRectangleInRectangle(Rectangle childRectangle, Rectangle parentRectangle, float? scale = null)
+        {
+            scale = scale ?? Settings.GameScale;
+            return new Vector2(parentRectangle.X + parentRectangle.Width / 2 - childRectangle.Width/2, parentRectangle.Y + parentRectangle.Height/2 - childRectangle.Height/2);
+        }
         public static Vector2 PlaceUpperLeftQuadrant(Rectangle backGroundRectangle, float? scale = null)
         {
             return new Vector2(backGroundRectangle.X + backGroundRectangle.Width / 4 * (float)scale,
@@ -81,6 +89,8 @@ namespace Globals.Classes.Helpers
 
         public static Vector2 PlaceBottomRightQuadrant(Rectangle backGroundRectangle, Rectangle rectangleToPlace, float? scale = null)
         {
+            scale = scale ?? Settings.GameScale;
+
             return new Vector2(backGroundRectangle.X + backGroundRectangle.Width * (float)scale - backGroundRectangle.Width / 4 * (float)scale - rectangleToPlace.Width * (float)scale,
                 backGroundRectangle.Y + backGroundRectangle.Height * (float)scale - backGroundRectangle.Height / 4 * (float)scale);
         }

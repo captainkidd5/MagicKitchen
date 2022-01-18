@@ -29,7 +29,7 @@ namespace UIEngine.Classes.TextStuff
         //No 
         private int DissallowTypingAfterLine = 0;
 
-
+       
         public event ExecuteCommand ExecuteCommand;
         private NineSliceSprite NineSliceSprite { get; set; }
         private NineSliceButton SendButton { get; set; }
@@ -52,6 +52,7 @@ namespace UIEngine.Classes.TextStuff
         }
         public override void Update(GameTime gameTime)
         {
+            
             base.Update(gameTime);
            // SendButton.Update(gameTime);
             AcceptableKeys = Controls.AcceptableKeysForTyping;
