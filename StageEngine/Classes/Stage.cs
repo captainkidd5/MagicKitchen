@@ -29,6 +29,8 @@ namespace StageEngine.Classes
         internal bool InitialLoadDone { get; private set; }
 
         private readonly StageManager _stageManager;
+        private readonly CharacterManager _characterManager;
+        private readonly PlayerManager _playerManager;
         private readonly StageData _stageData;
 
         private readonly ContentManager _content;
@@ -51,11 +53,13 @@ namespace StageEngine.Classes
         private PathGrid _pathGrid => TileManager.PathGrid;
 
         internal bool CamLock => _stageData.MapType == MapType.Exterior;
-        public Stage(StageManager stageManager, StageData stageData, ContentManager content,
+        public Stage(StageManager stageManager,CharacterManager characterManager,PlayerManager playerManager, StageData stageData, ContentManager content,
             GraphicsDevice graphics, Camera2D camera, PenumbraComponent penumbra)
         {
             Name = stageData.Name;
-            this._stageManager = stageManager;
+            _stageManager = stageManager;
+            _characterManager = characterManager;
+           _playerManager = playerManager;
             _stageData = stageData;
 
             _content = content;
@@ -75,7 +79,7 @@ namespace StageEngine.Classes
         public void Update(GameTime gameTime)
         {
             Clock.Update(gameTime);
-            PlayerManager.Update(gameTime);
+            _playerManager.Update(gameTime);
             _camera.Follow(Player1.Position, MapRectangle);
 
             TileManager.Update(gameTime);
@@ -91,8 +95,8 @@ namespace StageEngine.Classes
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: _camera.GetTransform(_graphics));
             _graphics.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
-            PlayerManager.Draw(spriteBatch);
-            CharacterManager.Draw(spriteBatch, Name);
+            _playerManager.Draw(spriteBatch);
+            _characterManager.Draw(spriteBatch, Name);
             TileManager.Draw(spriteBatch);
 
             ItemManager.Draw(spriteBatch);

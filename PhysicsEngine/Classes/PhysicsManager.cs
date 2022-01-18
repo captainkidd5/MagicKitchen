@@ -23,7 +23,7 @@ namespace PhysicsEngine.Classes
 
         internal static Random Random;
 
-        public static void Initialize(GraphicsDevice graphics, PenumbraComponent penumbra)
+        public static void Initialize(PenumbraComponent penumbra)
         {
             VelcroWorld = new World(new Vector2(0, 9.8f));
             if (VelcroDebugger == null)

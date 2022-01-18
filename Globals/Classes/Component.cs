@@ -29,6 +29,8 @@ namespace Globals.Classes
         {
 
         }
+
+       
         //public Template(GraphicsDevice graphics, ContentManager content) : base(graphics,content)
         //{ }
     }

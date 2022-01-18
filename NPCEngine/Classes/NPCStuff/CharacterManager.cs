@@ -15,19 +15,19 @@ using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.NPCStuff
 {
-    public static class CharacterManager
+    public class CharacterManager : Component
     {
-        private static GraphicsDevice Graphics { get; set; }
-        private static ContentManager ContentManager { get; set; }
-        public static List<Character> AllCharacters { get; set; }
+        
+
+        public List<Character> AllCharacters { get; set; }
 
         internal static Texture2D StatusIconTexture { get; set; }
 
-
-        public static void LoadCharacterData(GraphicsDevice graphics, ContentManager content)
+        public CharacterManager(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            Graphics = graphics;
-            ContentManager = content;
+        }
+        public void LoadCharacterData(GraphicsDevice graphics, ContentManager content)
+        {
             AllCharacters = new List<Character>();
             List<NPCData> allNpcData = new List<NPCData>();
 
@@ -60,7 +60,7 @@ namespace EntityEngine.Classes.NPCStuff
 
         }
 
-        public static void Update(GameTime gameTime, string stage)
+        public void Update(GameTime gameTime, string stage)
         {
             foreach (Character character in AllCharacters)
             {
@@ -74,7 +74,7 @@ namespace EntityEngine.Classes.NPCStuff
             }
         }
 
-        public static void Draw(SpriteBatch spriteBatch, string stage)
+        public void Draw(SpriteBatch spriteBatch, string stage)
         {
             foreach (Character character in AllCharacters)
             {
@@ -89,7 +89,7 @@ namespace EntityEngine.Classes.NPCStuff
             }
         }
 
-        public static void SwitchStage(string newStage)
+        public void SwitchStage(string newStage)
         {
             foreach (Character character in AllCharacters)
             {

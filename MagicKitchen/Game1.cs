@@ -36,10 +36,11 @@ namespace MagicKitchen
         public Camera2D Camera;
 
 
-        private ContentManager MainMenuContentManager { get; set; }
+        private ContentManager _mainMenuContentManager;
 
         private StageManager _stageManager;
-
+        private CharacterManager _characterManager;
+        private PlayerManager _playerManager;
         public static Player Player1 => PlayerManager.Player1;
 
         public static SpriteFont MainFont { get; set; }
@@ -64,22 +65,23 @@ namespace MagicKitchen
 
         protected override void Initialize()
         {
-            MainMenuContentManager = new ContentManager(Content.ServiceProvider);
-            MainMenuContentManager.RootDirectory = "Content";
+            _mainMenuContentManager = new ContentManager(Content.ServiceProvider);
+            _mainMenuContentManager.RootDirectory = "Content";
             Camera = new Camera2D(GraphicsDevice.Viewport);
 
             Settings.Load(_graphics, Camera, Window);
 
             Settings.SetResolution(Settings.ScreenWidth, Settings.ScreenHeight);
 
-            PhysicsManager.Initialize(GraphicsDevice, Penumbra);
-
+            PhysicsManager.Initialize(Penumbra);
+            _characterManager = new CharacterManager(GraphicsDevice,Content);
 
 
 
 
             Penumbra.Initialize();
-            _stageManager = new StageManager();
+            _stageManager = new StageManager(GraphicsDevice, Content, _characterManager, _playerManager, Penumbra,Camera);
+            _playerManager = new PlayerManager(GraphicsDevice, Content);
             //Penumbra.SpriteBatchTransformEnabled = true;
 
             base.Initialize();
@@ -110,12 +112,11 @@ namespace MagicKitchen
             TileLoader.LoadContent(Content);
             ItemFactory.LoadContent(Content);
             EntityFactory.Load(Content);
-            CharacterManager.LoadCharacterData(GraphicsDevice, Content);
+            _characterManager.LoadCharacterData(GraphicsDevice, Content);
             PortalManager.IntialLoad();
             QuestManager.Load(GraphicsDevice, Content);
-            PlayerManager.Initialize(GraphicsDevice, Content);
-            _stageManager.LoadContent(GraphicsDevice, Penumbra, Content, Camera);
-            PlayerManager.LoadContent();
+            _stageManager.Load();
+            _playerManager.LoadContent();
 
             Controls.Load(Camera, GraphicsDevice, Content);
             SpriteFactory.LoadContent(GraphicsDevice, Content);
@@ -124,7 +125,7 @@ namespace MagicKitchen
             Settings.SetResolution(1280, 720);
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
 
-            UI.Load(this,GraphicsDevice, Content, MainMenuContentManager, Player1.StorageContainer);
+            UI.Load(this,GraphicsDevice, Content, _mainMenuContentManager, Player1.StorageContainer);
             RenderTargetManager.Load(GraphicsDevice);
             SoundFactory.Load(Content);
             Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs { VirtualWidth = 1280, VirtualHeight = 720 });
@@ -187,7 +188,6 @@ namespace MagicKitchen
 
             }
 
-
             if (Flags.DebugVelcro)
                 PhysicsManager.Draw(GraphicsDevice, Camera);
             UI.Draw(_spriteBatch);
@@ -196,33 +196,12 @@ namespace MagicKitchen
             // Everything between penumbra.BeginDraw and penumbra.Draw will be
             // lit by the lighting system.
 
-
-
             RenderTargetManager.DrawTarget(_spriteBatch, RenderTargetManager.MainTarget);
-
-
-
-            //RenderTargetManager.SetTarget(RenderTargetManager.UITarget);
             RenderTargetManager.RemoveRenderTarget();
-
-            //_spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Camera.getTransformAndSet(GraphicsDevice));
-            //GraphicsDevice.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
-
-
-            //_spriteBatch.End();
-
-            // UI.Draw(_spriteBatch);
-            //if (GlobalFlags.DebugVelcro)
-            //    PhysicsManager.Draw(GraphicsDevice, Camera);
-
-            //RenderTargetManager.RemoveRenderTarget();
 
             base.Draw(gameTime);
 
-            //_spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Camera.getTransformation(GraphicsDevice));
 
-            //_spriteBatch.End();
-            // UI.Draw(_spriteBatch);
 
         }
 

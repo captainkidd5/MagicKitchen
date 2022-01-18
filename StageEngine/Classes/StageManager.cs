@@ -22,45 +22,40 @@ using UIEngine.Classes;
 
 namespace StageEngine.Classes
 {
-    public class StageManager
+    public class StageManager : Component
     {
-        private ContentManager Content;
-        private  GraphicsDevice Graphics;
-        private  Camera2D Camera;
+        private  Camera2D _camera;
+        private readonly CharacterManager _characterManager;
+        private readonly PlayerManager _playerManager;
 
-        private  Dictionary<string, Stage> Stages { get; set; }
-        public  Stage CurrentStage { get; private set; }
-        public  PenumbraComponent Penumbra { get; private set; }
-
-
-        private  string StageSwitchingTo { get; set; }
-
-        private  bool WasStageSwitchingLastFrame { get; set; }
-        private  Vector2 NewPlayerPositionOnStageSwitch { get; set; }
-        /// <summary>
-        /// Should be called once per session
-        /// </summary>
-        public  void LoadContent(GraphicsDevice graphics, PenumbraComponent penumbra, ContentManager content, Camera2D camera)
+        public StageManager(GraphicsDevice graphics, ContentManager content,
+            CharacterManager characterManager,PlayerManager playerManager, PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
         {
+            _characterManager = characterManager;
+            _playerManager = playerManager;
             Stages = new Dictionary<string, Stage>();
-            Graphics = graphics;
             Penumbra = penumbra;
-            Content = content;
-            Camera = camera;
+            _camera = camera;
+            
+        }
+
+        public override void Load()
+        {
+            base.Load();
             List<StageData> stageData = content.Load<List<StageData>>("maps/StageData");
 
             foreach (StageData sd in stageData)
             {
-                Stages.Add(sd.Name, new Stage(this, sd, content, graphics, camera, Penumbra));
+                Stages.Add(sd.Name, new Stage(this, _characterManager, _playerManager, sd, content, graphics, _camera, Penumbra));
             }
 
             CurrentStage.FirstEntryLoad();
 
-            PlayerManager.Player1.LoadContent(Content, CurrentStage.TileManager, CurrentStage.ItemManager);
+            PlayerManager.Player1.LoadContent(content, CurrentStage.TileManager, CurrentStage.ItemManager);
             CurrentStage.LoadPortals();
             PlayerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
-            foreach (Character character in CharacterManager.AllCharacters)
+            foreach (Character character in _characterManager.AllCharacters)
             {
                 Stage stage = Stages[character.CurrentStageName];
                 if (stage == null)
@@ -75,10 +70,16 @@ namespace StageEngine.Classes
             TileLoader.LoadFinished();
         }
 
-        internal  void Unload()
-        {
+        private  Dictionary<string, Stage> Stages { get; set; }
+        public  Stage CurrentStage { get; private set; }
+        public  PenumbraComponent Penumbra { get; private set; }
 
-        }
+
+        private  string StageSwitchingTo { get; set; }
+
+        private  bool WasStageSwitchingLastFrame { get; set; }
+        private  Vector2 NewPlayerPositionOnStageSwitch { get; set; }
+
 
         public  Stage GetStage(string stageName)
         {
@@ -113,8 +114,8 @@ namespace StageEngine.Classes
                 throw new Exception("Stage with name" + StageSwitchingTo + "does not exist");
 
             CurrentStage.LoadFromIndividualFile();
-            CharacterManager.SwitchStage(StageSwitchingTo);
-            Camera.Jump(PlayerManager.Player1.Position);
+            _characterManager.SwitchStage(StageSwitchingTo);
+            _camera.Jump(PlayerManager.Player1.Position);
             StageSwitchingTo = null;
             Flags.IsStageLoading = false;
             Debug.Assert(NewPlayerPositionOnStageSwitch != Vector2.Zero, "New player position should not be zero");
@@ -139,7 +140,7 @@ namespace StageEngine.Classes
             if (!Flags.Pause)
             {
                 PortalManager.Update(gameTime);
-                CharacterManager.Update(gameTime, CurrentStage.Name);
+                _characterManager.Update(gameTime, CurrentStage.Name);
                 CurrentStage.Update(gameTime);
                 if (SoundFactory.AllowAmbientSounds && !SoundFactory.IsPlayingAmbient)
                     SoundFactory.PlayAmbientNoise(CurrentStage.Name);

@@ -1,4 +1,5 @@
-﻿using InputEngine.Classes.Input;
+﻿using Globals.Classes;
+using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -10,27 +11,26 @@ using TiledEngine.Classes;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
-    public static class PlayerManager
+    public class PlayerManager : Component
     {
-        private static ContentManager Content;
+
+        public PlayerManager(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        {
+            Players = new List<Player>();
+            Player1 = new Player(graphics, content);
+            Players.Add(Player1);
+        }
 
         public static List<Player> Players { get; set; }
         public static Player Player1 { get; set; }
 
-        public static void Initialize(GraphicsDevice graphics, ContentManager content)
-        {
-            Players = new List<Player>();
-            Player1 = new Player(graphics, content);
-            Content = content;
-            Players.Add(Player1);
 
-        }
-        public static void LoadContent()
+        public void LoadContent()
         {
            
 
         }
-        public static void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             Player1.UpdateFromInput();
             foreach(Player player in Players)
@@ -39,7 +39,7 @@ namespace EntityEngine.Classes.PlayerStuff
             }
         }
 
-        public static void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Player player in Players)
             {
