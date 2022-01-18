@@ -94,7 +94,7 @@ namespace TiledEngine.Classes
         /// </summary>
         /// <param name="stageData">Stage data is loaded in as a datamodel</param>
         /// <param name="tileManager"></param>
-        public static void InitializeStage(StageData stageData, TileManager tileManager, ContentManager content)
+        public static void CreateNewSave(StageData stageData, TileManager tileManager, ContentManager content)
         {
             TmxMap mapToLoad = new TmxMap(MapPath + stageData.Path);
             tileManager.MapType = stageData.MapType;

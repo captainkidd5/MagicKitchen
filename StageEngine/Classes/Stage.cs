@@ -26,7 +26,6 @@ namespace StageEngine.Classes
     public class Stage : ISaveable
     {
         public string Name { get; private set; }
-        internal bool InitialLoadDone { get; private set; }
 
         private readonly StageManager _stageManager;
         private readonly CharacterManager _characterManager;
@@ -112,32 +111,24 @@ namespace StageEngine.Classes
 
         }
         /// <summary>
-        /// Loads the portals into memory, should only be called ONCE per stage, per save
-        /// </summary>
-        public void LoadPortals()
-        {
-            TileLoader.LoadStagePortals(_stageData, TileManager);
-            _portalManager.LoadNewStage(Name, TileManager);
-        }
-        /// <summary>
         /// Loads tiles into memory, then saves them, from tmx map. Should only be called ONCE per stage, per save
         /// </summary>
-        public void FirstEntryLoad()
+        public void CreateNewSave()
         {
 
-            TileLoader.InitializeStage(_stageData, TileManager, _content);
+            TileLoader.CreateNewSave(_stageData, TileManager, _content);
             MapRectangle = TileManager.MapRectangle;
+            TileLoader.LoadStagePortals(_stageData, TileManager);
+            _portalManager.LoadNewStage(Name, TileManager);
 
-            InitialLoadDone = true;
-            
-            SaveToIndividualFile();
+            SaveToStageFile();
         }
 
 
         /// <summary>
-        /// Saves to individual file, called whenever a player leaves a stage. 
+        /// Saves to individual file, called whenever a player leaves a stage. Note that stage data is saved separately from the main save data
         /// </summary>
-        public void SaveToIndividualFile()
+        public void SaveToStageFile()
         {
             File.WriteAllText(SaveLoadManager.CurrentSave.StageFilePath + @"\" + _pathExtension, string.Empty);
             BinaryWriter stageWriter = SaveLoadManager.GetCurrentSaveFileWriter(@"\Stages\" + _pathExtension);
@@ -145,7 +136,7 @@ namespace StageEngine.Classes
             SaveLoadManager.DestroyWriter(stageWriter);
         }
 
-        public void LoadFromIndividualFile()
+        public void LoadFromStageFile()
         {
             BinaryReader stageReader = SaveLoadManager.GetCurrentSaveFileReader(@"\Stages\" + _pathExtension);
             LoadSave(stageReader);
@@ -159,13 +150,11 @@ namespace StageEngine.Classes
         }
         public void Save(BinaryWriter writer)
         {
-            writer.Write(InitialLoadDone);
             TileManager.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
         {
-            InitialLoadDone = reader.ReadBoolean();
             TileManager.LoadSave(reader);
         }
     }

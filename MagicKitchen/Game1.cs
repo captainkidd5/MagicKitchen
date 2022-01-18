@@ -103,9 +103,7 @@ namespace MagicKitchen
             TileLoader.LoadContent(Content);
             ItemFactory.LoadContent(Content);
             EntityFactory.Load(Content);
-            _characterManager.LoadCharacterData(GraphicsDevice, Content);
-            _stageManager.Load();
-            _playerManager.LoadContent();
+            
 
             Controls.Load(Camera, GraphicsDevice, Content);
             SpriteFactory.LoadContent(GraphicsDevice, Content);
@@ -119,10 +117,6 @@ namespace MagicKitchen
             SoundFactory.Load(Content);
             Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs { VirtualWidth = 1280, VirtualHeight = 720 });
             
-
-            // _graphics.IsFullScreen = true;
-            // _graphics.ApplyChanges();
-
             SaveLoadManager.SaveCreated += OnSaveCreated;
             SaveLoadManager.SaveLoaded += OnSaveLoaded;
             SaveLoadManager.SaveSaved += OnSaveSaved;
@@ -131,6 +125,7 @@ namespace MagicKitchen
             Settings.DebugTexture.SetData<Color>(new Color[] { Color.White });
         }
 
+       
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -191,18 +186,24 @@ namespace MagicKitchen
 
 
         }
-
+        private void LoadInGameManagers()
+        {
+            _characterManager.LoadCharacterData(GraphicsDevice, Content);
+            _stageManager.Load();
+            _playerManager.LoadContent();
+        }
         public void OnSaveCreated(object? sender, FileCreatedEventArgs e)
         {
             BinaryWriter writer = e.BinaryWriter;
-            _stageManager.Save(writer);
-            writer.Flush();
-            writer.Close();
+            _stageManager.CreateNewSave(writer);
+            SaveLoadManager.DestroyWriter(writer);
         }
         public void OnSaveLoaded(object? sender, FileLoadedEventArgs e)
         {
             BinaryReader reader = e.BinaryReader;
             _stageManager.LoadSave(reader);
+            SaveLoadManager.DestroyReader(reader);
+            LoadInGameManagers();
         }
 
         

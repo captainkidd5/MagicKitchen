@@ -22,7 +22,7 @@ using UIEngine.Classes;
 
 namespace StageEngine.Classes
 {
-    public class StageManager : Component
+    public class StageManager : Component , ISaveable
     {
         private  Camera2D _camera;
         private readonly CharacterManager _characterManager;
@@ -53,17 +53,9 @@ namespace StageEngine.Classes
         public override void Load()
         {
             base.Load();
-            List<StageData> stageData = content.Load<List<StageData>>("maps/StageData");
-
-            foreach (StageData sd in stageData)
-            {
-                Stages.Add(sd.Name, new Stage(this, _characterManager, _playerManager,_portalManager, sd, content, graphics, _camera, Penumbra));
-            }
-
-            CurrentStage.FirstEntryLoad();
+            LoadStageData();
 
             _playerManager.Player1.LoadContent(content, CurrentStage.TileManager, CurrentStage.ItemManager);
-            CurrentStage.LoadPortals();
             _playerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
             foreach (Character character in _characterManager.AllCharacters)
@@ -108,7 +100,7 @@ namespace StageEngine.Classes
         }
         internal  void SwitchStage()
         {
-            CurrentStage.SaveToIndividualFile();
+            CurrentStage.SaveToStageFile();
             CurrentStage.Unload();
 
             CurrentStage = GetStage(StageSwitchingTo);
@@ -116,7 +108,7 @@ namespace StageEngine.Classes
             if (CurrentStage == null)
                 throw new Exception("Stage with name" + StageSwitchingTo + "does not exist");
 
-            CurrentStage.LoadFromIndividualFile();
+            CurrentStage.LoadFromStageFile();
             _characterManager.SwitchStage(StageSwitchingTo);
             _camera.Jump(_playerManager.Player1.Position);
             StageSwitchingTo = null;
@@ -165,16 +157,25 @@ namespace StageEngine.Classes
             string name = reader.ReadString();
             CurrentStage = GetStage(name);
         }
-
-        public  void CreateNewSave(BinaryWriter writer)
+        private void LoadStageData()
         {
+            List<StageData> stageData = content.Load<List<StageData>>("maps/StageData");
+
+            foreach (StageData sd in stageData)
+            {
+                Stages.Add(sd.Name, new Stage(this, _characterManager, _playerManager, _portalManager, sd, content, graphics, _camera, Penumbra));
+            }
+        }
+        public void CreateNewSave(BinaryWriter writer)
+        {
+            LoadStageData();
             CurrentStage = GetStage("LullabyTown");
             foreach (KeyValuePair<string, Stage> stage in Stages)
             {
                 if (stage.Value != CurrentStage)
                 {
-                    stage.Value.FirstEntryLoad();
-                    stage.Value.LoadPortals();
+                    stage.Value.CreateNewSave();
+                    stage.Value.CreateNewSave();
 
                     stage.Value.Unload();
                 }

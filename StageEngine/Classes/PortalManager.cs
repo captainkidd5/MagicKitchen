@@ -32,9 +32,8 @@ namespace StageEngine.Classes
             List<Portal> stagePortals = new List<Portal>();
             foreach(PortalData portalData in tileManager.Portals)
             {
-                Portal portal = new Portal(this,_stageManager,_playerManager,portalData.Rectangle, portalData.From, portalData.To, portalData.XOffSet, portalData.YOffSet, portalData.MustBeClicked);
-                //if(StageManager.CurrentStage == StageManager.GetStage(stageName))
-                //    portal.CreateBody(portal.Position);
+                Portal portal = new Portal(this,_stageManager,_playerManager,portalData.Rectangle,
+                    portalData.From, portalData.To, portalData.XOffSet, portalData.YOffSet, portalData.MustBeClicked);
                 
                 stagePortals.Add(portal);
                     portal.Load(portal.Position);
