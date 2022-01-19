@@ -44,6 +44,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.LoadContent(content,  tileManager,  itemManager);
             IsInStage = true;
+            UI.LoadPlayerInventory(StorageContainer);
         }
 
         protected override void CreateBody(Vector2 position)

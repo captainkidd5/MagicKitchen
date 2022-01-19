@@ -22,9 +22,9 @@ using UIEngine.Classes;
 
 namespace StageEngine.Classes
 {
-    public class StageManager : Component , ISaveable
+    public class StageManager : Component, ISaveable
     {
-        private  Camera2D _camera;
+        private Camera2D _camera;
         private readonly CharacterManager _characterManager;
         private readonly PlayerManager _playerManager;
         private readonly PortalManager _portalManager;
@@ -40,7 +40,7 @@ namespace StageEngine.Classes
         private Vector2 NewPlayerPositionOnStageSwitch { get; set; }
 
         public StageManager(GraphicsDevice graphics, ContentManager content,
-            CharacterManager characterManager,PlayerManager playerManager, PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
+            CharacterManager characterManager, PlayerManager playerManager, PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
         {
             _characterManager = characterManager;
             _playerManager = playerManager;
@@ -55,28 +55,12 @@ namespace StageEngine.Classes
             base.Load();
             LoadStageData();
 
-            _playerManager.Player1.LoadContent(content, CurrentStage.TileManager, CurrentStage.ItemManager);
-            _playerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
-
-            foreach (Character character in _characterManager.AllCharacters)
-            {
-                Stage stage = Stages[character.CurrentStageName];
-                if (stage == null)
-                    throw new Exception($"Stage {character.CurrentStageName} does not exist, check to make sure" +
-                        $"both a tmx map with name and npcdata stage name match");
-                character.LoadContent(content, stage.TileManager, stage.ItemManager);
-                character.LoadToNewStage(stage.Name, stage.TileManager, stage.ItemManager);
-                stage.NPCs.Add(character);
-                character.PlayerSwitchedStage(CurrentStage.Name, false);
-            }
-
-            TileLoader.LoadFinished();
         }
 
-       
 
 
-        public  Stage GetStage(string stageName)
+
+        public Stage GetStage(string stageName)
         {
             Stage stage = Stages[stageName];
             if (stage == null)
@@ -89,7 +73,7 @@ namespace StageEngine.Classes
         /// </summary>
         /// <param name="newStage"></param>
         /// <exception cref="Exception"></exception>
-        public  void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
+        public void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
             UI.FadeIn(.00055f);
 
@@ -98,17 +82,18 @@ namespace StageEngine.Classes
             Flags.Pause = true;
 
         }
-        internal  void SwitchStage()
+        internal void SwitchStage()
         {
             CurrentStage.SaveToStageFile();
             CurrentStage.Unload();
 
             CurrentStage = GetStage(StageSwitchingTo);
+            CurrentStage.LoadFromStageFile();
 
             if (CurrentStage == null)
                 throw new Exception("Stage with name" + StageSwitchingTo + "does not exist");
 
-            CurrentStage.LoadFromStageFile();
+            //CurrentStage.LoadFromStageFile();
             _characterManager.SwitchStage(StageSwitchingTo);
             _camera.Jump(_playerManager.Player1.Position);
             StageSwitchingTo = null;
@@ -126,7 +111,7 @@ namespace StageEngine.Classes
 
         }
 
-        public  void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             if (WasStageSwitchingLastFrame != Flags.IsStageLoading)
             {
@@ -142,20 +127,47 @@ namespace StageEngine.Classes
             }
         }
 
-        public  void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             CurrentStage.Draw(spriteBatch, gameTime);
         }
 
-        public  void Save(BinaryWriter writer)
+        public void Save(BinaryWriter writer)
         {
             writer.Write(CurrentStage.Name);
         }
 
-        public  void LoadSave(BinaryReader reader)
+        public void LoadSave(BinaryReader reader)
         {
             string name = reader.ReadString();
             CurrentStage = GetStage(name);
+
+            //Still need to load all stages for portals and graph
+            foreach (KeyValuePair<string, Stage> pair in Stages)
+            {
+                pair.Value.LoadFromStageFile();
+                if (pair.Value.Name != name)
+                    pair.Value.Unload();
+            }
+
+            _playerManager.Player1.LoadContent(content, CurrentStage.TileManager, CurrentStage.ItemManager);
+            _playerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
+
+            foreach (Character character in _characterManager.AllCharacters)
+            {
+                Stage stage = Stages[character.CurrentStageName];
+                if (stage == null)
+                    throw new Exception($"Stage {character.CurrentStageName} does not exist, check to make sure" +
+                        $"both a tmx map with name and npcdata stage name match");
+                character.LoadContent(content, stage.TileManager, stage.ItemManager);
+                character.LoadToNewStage(stage.Name, stage.TileManager, stage.ItemManager);
+                stage.NPCs.Add(character);
+                character.PlayerSwitchedStage(CurrentStage.Name, false);
+            }
+
+            TileLoader.LoadFinished();
+
+
         }
         private void LoadStageData()
         {
@@ -168,19 +180,20 @@ namespace StageEngine.Classes
         }
         public void CreateNewSave(BinaryWriter writer)
         {
+
             LoadStageData();
-            CurrentStage = GetStage("LullabyTown");
+            string startingStageName = "LullabyTown";
+            writer.Write(startingStageName);
+
             foreach (KeyValuePair<string, Stage> stage in Stages)
             {
-                if (stage.Value != CurrentStage)
-                {
-                    stage.Value.CreateNewSave();
-                    stage.Value.CreateNewSave();
+                stage.Value.CreateNewSave();
+                if(stage.Key != startingStageName)
+                stage.Value.Unload();
 
-                    stage.Value.Unload();
-                }
 
             }
+            Stages.Clear();
         }
     }
 }

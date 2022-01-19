@@ -27,7 +27,7 @@ namespace IOEngine.Classes
         /// <summary>
         /// Call once on game open, loads all the metadata files into memory
         /// </summary>
-        public static void InitialLoad()
+        public static void FetchAllMetadata()
         {
 
             SaveFiles = new Dictionary<string, SaveFile>();
@@ -80,14 +80,14 @@ namespace IOEngine.Classes
             
             SaveFile saveFile = new SaveFile();
             saveFile.CreateNew(name);
-            File.WriteAllText(saveFile.Name, string.Empty);
 
             BinaryWriter writer = CreateWriter(saveFile.MetaDataPath);
 
             saveFile.Save(writer);
-            SaveFiles.Add(name, saveFile);
             DestroyWriter(writer);
 
+            SaveFiles.Add(name, saveFile);
+            CurrentSave = saveFile;
             //Fire up game to save empty initial values to the save for everything. This triggers the event in game1.cs
             Create(saveFile);
         }

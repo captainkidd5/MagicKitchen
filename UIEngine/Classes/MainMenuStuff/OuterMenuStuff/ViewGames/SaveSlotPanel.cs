@@ -62,13 +62,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            _slotButton.Update(gameTime);
+            //_slotButton.Update(gameTime);
 
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            _slotButton.Draw(spriteBatch);
+            //_slotButton.Draw(spriteBatch);
 
         }
 

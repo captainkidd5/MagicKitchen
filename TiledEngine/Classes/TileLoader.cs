@@ -41,7 +41,7 @@ namespace TiledEngine.Classes
         private static bool s_hasDoneInitialLoad;
 
         public static bool HasEdge(string stageFromName, string stageToName) => _portalLoader.HasEdge(stageFromName, stageToName);
-        public static string GetNextNodeStageName(string stageFromName, string stageToName) => _portalLoader.GetNextNodeStageName( stageFromName,  stageToName);
+        public static string GetNextNodeStageName(string stageFromName, string stageToName) => _portalLoader.GetNextNodeStageName(stageFromName, stageToName);
 
         public static Rectangle GetNextNodePortalRectangle(string stageFromName, string stageToName) => _portalLoader.GetNextPortalRectangle(stageFromName, stageToName);
 
@@ -69,7 +69,7 @@ namespace TiledEngine.Classes
         {
             if (s_hasDoneInitialLoad)
                 throw new Exception("May not load twice");
-         _portalLoader.FillPortalGraph();
+            _portalLoader.FillPortalGraph();
             s_hasDoneInitialLoad = true;
         }
 
@@ -82,7 +82,7 @@ namespace TiledEngine.Classes
         {
             TmxMap mapToLoad = new TmxMap(MapPath + stageData.Path);
             _portalLoader.AddPortals(tileManager.LoadPortals(mapToLoad));
-           
+
 
         }
 
@@ -98,17 +98,20 @@ namespace TiledEngine.Classes
         {
             TmxMap mapToLoad = new TmxMap(MapPath + stageData.Path);
             tileManager.MapType = stageData.MapType;
-
-            if (stageData.MapType == MapType.Exterior)
-                tileManager.Load(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width, MasterSpriteSheet);
-
-            
-            else if (stageData.MapType == MapType.Interior)
-                tileManager.Load(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width, InteriorSpriteSheet);
-
-            
+            tileManager.Load(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width, GetTextureFromMapType(stageData.MapType));
         }
 
+        public static Texture2D GetTextureFromMapType(MapType mapType)
+        {
+            if (mapType == MapType.Exterior)
+                return MasterSpriteSheet;
+
+
+            if (mapType == MapType.Interior)
+                return InteriorSpriteSheet;
+
+            throw new Exception($"No sprite sheet associated with map type {mapType.ToString()}");
+        }
         /// <summary>
         /// Create new tiles based on tiles found in TMX map file. This should
         /// only be done once per map per save.

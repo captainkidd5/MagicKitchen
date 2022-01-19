@@ -38,6 +38,8 @@ namespace StageEngine.Classes
         private readonly Camera2D _camera;
         private readonly PenumbraComponent _penumbra;
 
+        private bool _hasLoadedPortals = false;
+
         private string _ambientSoundPackageName => _stageData.AmbientSoundPackageName;
         internal TileManager TileManager { get; private set; }
         private Rectangle MapRectangle { get; set; }
@@ -68,7 +70,7 @@ namespace StageEngine.Classes
             _camera = camera;
             _penumbra = penumbra;
             Player1 = playerManager.Player1;
-            TileManager = new TileManager(graphics, content, camera, penumbra);
+            TileManager = new TileManager(graphics, content, camera, penumbra, _stageData.MapType);
             ItemManager = new ItemManager(Name);
             NPCs = new List<Entity>();
 
@@ -143,6 +145,7 @@ namespace StageEngine.Classes
             SaveLoadManager.DestroyReader(stageReader);
             MapRectangle = TileManager.MapRectangle;
 
+
         }
         public void Unload()
         {
@@ -156,6 +159,14 @@ namespace StageEngine.Classes
         public void LoadSave(BinaryReader reader)
         {
             TileManager.LoadSave(reader);
+            TileLoader.LoadStagePortals(_stageData, TileManager);
+            if (!_hasLoadedPortals)
+            {
+                _portalManager.LoadNewStage(Name, TileManager);
+
+                _hasLoadedPortals = true;
+            }
+
         }
     }
 }

@@ -29,9 +29,9 @@ namespace TiledEngine.Classes
 
         //How many tiles outside of the viewport should be rendered.
         //some tiles (trees, buildings) are quite large so we have to extend culling a bit so as to not cut them off!
-        private readonly int CullingLeeWay = 8;
-        private readonly Camera2D camera;
-        internal readonly PenumbraComponent penumbra;
+        private readonly int _cullingLeeWay = 8;
+        private readonly Camera2D _camera;
+        internal readonly PenumbraComponent _penumbra;
 
         internal Texture2D TileSetTexture { get; private set; }
         public PathGrid PathGrid { get; private set; }
@@ -50,14 +50,14 @@ namespace TiledEngine.Classes
         private Sprite TileSelectorSprite { get; set; }
 
         public MapType MapType { get; set; }
-        public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera, PenumbraComponent penumbra) :
+        public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera, PenumbraComponent penumbra, MapType mapType) :
             base(graphics, content)
         {
             OffSetLayersDictionary = new Dictionary<int, float>();
             Portals = new List<PortalData>();
-
-            this.camera = camera;
-            this.penumbra = penumbra;
+            MapType = mapType;
+            this._camera = camera;
+            this._penumbra = penumbra;
         }
 
         /// <summary>
@@ -225,21 +225,21 @@ namespace TiledEngine.Classes
         private void CalculateStartAndEndIndexes()
         {
 
-            int screenHalfTiles = (int)(Settings.ScreenWidth / camera.Zoom / 2 / Settings.TileSize);
+            int screenHalfTiles = (int)(Settings.ScreenWidth / _camera.Zoom / 2 / Settings.TileSize);
 
-            StartX = (int)(camera.X / Settings.TileSize) - screenHalfTiles - CullingLeeWay;
+            StartX = (int)(_camera.X / Settings.TileSize) - screenHalfTiles - _cullingLeeWay;
             if (StartX < 0)
                 StartX = 0;
 
-            StartY = (int)(camera.Y / Settings.TileSize) - screenHalfTiles - CullingLeeWay;
+            StartY = (int)(_camera.Y / Settings.TileSize) - screenHalfTiles - _cullingLeeWay;
             if (StartY < 0)
                 StartY = 0;
 
-            EndX = (int)(camera.X / Settings.TileSize) + screenHalfTiles + CullingLeeWay;
+            EndX = (int)(_camera.X / Settings.TileSize) + screenHalfTiles + _cullingLeeWay;
             if (EndX > MapWidth)
                 EndX = MapWidth;
 
-            EndY = (int)(camera.Y / Settings.TileSize) + screenHalfTiles + CullingLeeWay;
+            EndY = (int)(_camera.Y / Settings.TileSize) + screenHalfTiles + _cullingLeeWay;
             if (EndY > MapWidth)
                 EndY = MapWidth;
         }
@@ -258,30 +258,7 @@ namespace TiledEngine.Classes
         }
 
 
-        public void Save(BinaryWriter writer)
-        {
-            writer.Write(Tiles.Count);
-
-            int xLength = Tiles[0].GetLength(0);
-            writer.Write(xLength);
-
-            int yLength = Tiles[0].GetLength(1);
-            writer.Write(yLength);
-
-            for (int z = 0; z < Tiles.Count; z++)
-            {
-                for (int x = 0; x < xLength; x++)
-                {
-                    for (int y = 0; y < yLength; y++)
-                    {
-                        writer.Write(Tiles[z][x, y].GID + 1);
-                        writer.Write(Tiles[z][x, y].X);
-                        writer.Write(Tiles[z][x, y].Y);
-
-                    }
-                }
-            }
-        }
+       
 
         public Tile GetTileFromWorldPosition( Vector2 position, Layers layer)
         {
@@ -332,9 +309,36 @@ namespace TiledEngine.Classes
            
             return string.Empty;
         }
+        public void Save(BinaryWriter writer)
+        {
+            writer.Write((int)MapType);
+            writer.Write(MapWidth);
+            writer.Write(Tiles.Count);
 
+            int xLength = Tiles[0].GetLength(0);
+            writer.Write(xLength);
+
+            int yLength = Tiles[0].GetLength(1);
+            writer.Write(yLength);
+
+            for (int z = 0; z < Tiles.Count; z++)
+            {
+                for (int x = 0; x < xLength; x++)
+                {
+                    for (int y = 0; y < yLength; y++)
+                    {
+                        writer.Write(Tiles[z][x, y].GID + 1);
+                        writer.Write(Tiles[z][x, y].X);
+                        writer.Write(Tiles[z][x, y].Y);
+
+                    }
+                }
+            }
+        }
         public void LoadSave(BinaryReader reader)
         {
+            MapType mapType = (MapType)reader.ReadInt32();
+            MapWidth = reader.ReadInt32();
             Tiles = new List<Tile[,]>();
             int layerCount = reader.ReadInt32();
             int length0 = reader.ReadInt32();
@@ -352,8 +356,8 @@ namespace TiledEngine.Classes
                     }
                 }
             }
+            Load(Tiles, MapWidth, TileLoader.GetTextureFromMapType(mapType));
 
-            AssignProperties();
         }
 
     }

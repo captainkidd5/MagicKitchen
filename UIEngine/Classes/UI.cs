@@ -62,7 +62,7 @@ namespace UIEngine.Classes
 
         private static Game s_game;
 
-        public static void Load(Game game, GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager, StorageContainer playerStorageContainer)
+        public static void Load(Game game, GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager)
         {
             s_game = game;
             s_graphics = graphics;
@@ -78,7 +78,6 @@ namespace UIEngine.Classes
             ToolBar = new ToolBar(null, graphics, content, null, s_baseLayerDepth);
             ClockBar = new ClockBar(null, graphics, content, null, s_baseLayerDepth);
 
-            ToolBar.Load(playerStorageContainer);
 
             CommandConsole = new CustomConsole(null, graphics, content, null, s_baseLayerDepth);
             TalkingWindow = new DialogueWindow(null, graphics, content, null, s_baseLayerDepth);
@@ -96,7 +95,11 @@ namespace UIEngine.Classes
             LoadCurrentSection();
 
         }
+        public static void LoadPlayerInventory(StorageContainer playerStorageContainer)
+        {
+            ToolBar.Load(playerStorageContainer);
 
+        }
         private static void LoadCurrentSection()
         {
             foreach (InterfaceSection section in s_activeSections)
@@ -245,6 +248,7 @@ namespace UIEngine.Classes
 
         public static void LoadGame(SaveFile saveFile)
         {
+            SaveLoadManager.CurrentSave = saveFile;
             SaveLoadManager.Load(saveFile);
             ChangeGameState(GameDisplayState.InGame);
         }

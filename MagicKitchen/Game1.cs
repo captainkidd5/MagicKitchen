@@ -93,7 +93,7 @@ namespace MagicKitchen
         {
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            SaveLoadManager.InitialLoad();
+            SaveLoadManager.FetchAllMetadata();
 
             CommandConsole.Load(consoleComponent);
             Clock.Load();
@@ -112,7 +112,7 @@ namespace MagicKitchen
             Settings.SetResolution(1280, 720);
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
 
-            UI.Load(this,GraphicsDevice, Content, _mainMenuContentManager, Player1.StorageContainer);
+            UI.Load(this,GraphicsDevice, Content, _mainMenuContentManager);
             RenderTargetManager.Load(GraphicsDevice);
             SoundFactory.Load(Content);
             Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs { VirtualWidth = 1280, VirtualHeight = 720 });
@@ -200,10 +200,10 @@ namespace MagicKitchen
         }
         public void OnSaveLoaded(object? sender, FileLoadedEventArgs e)
         {
+            LoadInGameManagers();
             BinaryReader reader = e.BinaryReader;
             _stageManager.LoadSave(reader);
             SaveLoadManager.DestroyReader(reader);
-            LoadInGameManagers();
         }
 
         
