@@ -16,6 +16,7 @@ using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using TextEngine;
 using TiledEngine.Classes;
@@ -33,7 +34,7 @@ namespace EntityEngine.Classes
     /// <summary>
     /// Represents any character-like thing
     /// </summary>
-    public abstract class Entity : Collidable
+    public abstract class Entity : Collidable, ISaveable
     {
         private readonly GraphicsDevice _graphics;
         private readonly ContentManager _content;
@@ -373,6 +374,16 @@ namespace EntityEngine.Classes
             Direction directionToFace = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos);
             EntityAnimator.ChangeDirection(directionToFace, Position);
             DirectionMoving = directionToFace;
+        }
+
+        public virtual void Save(BinaryWriter writer)
+        {
+
+        }
+
+        public virtual void Load(BinaryReader reader)
+        {
+
         }
     }
 }

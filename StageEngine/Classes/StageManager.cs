@@ -135,6 +135,8 @@ namespace StageEngine.Classes
         public void Save(BinaryWriter writer)
         {
             writer.Write(CurrentStage.Name);
+            CurrentStage.SaveToStageFile();
+
         }
 
         public void LoadSave(BinaryReader reader)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Globals.Classes.Console;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace IOEngine.Classes
         public static EventHandler<FileSavedEventArgs> SaveSaved;
         public static void Save(SaveFile file) => SaveSaved.Invoke(null, new FileSavedEventArgs() { BinaryWriter = CreateWriter(file.MainSaveFilePath) });
 
+
         /// <summary>
         /// Call once on game open, loads all the metadata files into memory
         /// </summary>
@@ -47,10 +49,13 @@ namespace IOEngine.Classes
                 saveFile.LoadSave(reader);
                 SaveFiles.Add(saveFile.Name, saveFile);
             }
-
         }
 
-        
+        public static void SaveGame(string[] commands)
+        {
+            Save(CurrentSave);
+
+        }
 
         private static List<string> GetSaveFileFolders(bool fullPath = false)
         {

@@ -15,7 +15,7 @@ using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.NPCStuff
 {
-    public class CharacterManager : Component
+    public class CharacterManager : Component, ISaveable
     {
         private readonly QuestManager _questManager;
 
@@ -100,6 +100,15 @@ namespace EntityEngine.Classes.NPCStuff
 
                 
             }
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+
+        }
+        public void Load(BinaryReader reader)
+        {
+
         }
     }
 }

@@ -120,6 +120,7 @@ namespace MagicKitchen
             SaveLoadManager.SaveCreated += OnSaveCreated;
             SaveLoadManager.SaveLoaded += OnSaveLoaded;
             SaveLoadManager.SaveSaved += OnSaveSaved;
+            CommandConsole.RegisterCommand("save", "saves current game", SaveLoadManager.SaveGame);
 
             Settings.DebugTexture = new Texture2D(GraphicsDevice, 1, 1);
             Settings.DebugTexture.SetData<Color>(new Color[] { Color.White });
@@ -210,8 +211,11 @@ namespace MagicKitchen
 
         public void OnSaveSaved(object? sender, FileSavedEventArgs e)
         {
+            CommandConsole.Append("Saving current game..");
+
             BinaryWriter writer = e.BinaryWriter;
             _stageManager.Save(writer);
+            CommandConsole.Append("...Saved!");
         }
        
     }
