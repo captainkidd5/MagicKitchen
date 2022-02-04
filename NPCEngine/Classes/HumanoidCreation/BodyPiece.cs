@@ -31,7 +31,7 @@ namespace EntityEngine.Classes.HumanoidCreation
         /// <summary>
         /// Will reset to idle position, use this bool so that we don't reset every frame even if we haven't moved last frame.
         /// </summary>
-        private bool HasReset { get; set; }
+        private bool WasMovingLastFrame { get; set; }
         protected int FrameWidth { get; set; }
         protected int FrameHeight { get; set; }
 
@@ -87,25 +87,21 @@ namespace EntityEngine.Classes.HumanoidCreation
         }
         internal virtual void Update(GameTime gameTime, bool isMoving, Direction direction, Vector2 position, float entityLayer)
         {
-            if (isMoving)
-            {
-                CurrentDirection = GetAnimationFromDirection(direction);
-                if (direction != Direction.None)
-                {
-                   
-                    CurrentSet[CurrentDirection].Update(gameTime, position);
-                    
-                    //So that the bodypart overlaps correctly, and is drawn relative to the entity's y position on the map.
-                    CurrentSet[CurrentDirection].CustomLayer = entityLayer + LayerOffSet;
-                    HasReset = false;
 
-                }
-            }
-            else if(!HasReset)
-            {
+            if(WasMovingLastFrame && !isMoving)
                 SetRestingFrameIndex(position);
-                HasReset = true;
+
+            CurrentDirection = GetAnimationFromDirection(direction);
+            if (direction != Direction.None)
+            {
+
+                CurrentSet[CurrentDirection].Update(gameTime, position, isMoving);
+
+                //So that the bodypart overlaps correctly, and is drawn relative to the entity's y position on the map.
+                CurrentSet[CurrentDirection].CustomLayer = entityLayer + LayerOffSet;
             }
+
+            WasMovingLastFrame = isMoving;
             
         }
 

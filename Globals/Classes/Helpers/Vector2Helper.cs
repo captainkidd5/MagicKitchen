@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using static Globals.Classes.Settings;
 
@@ -86,6 +87,17 @@ namespace Globals.Classes.Helpers
                 default:
                     throw new Exception($"Directoin {dir} is invalid");
             }
+        }
+
+        public static void WriteVector2(BinaryWriter writer, Vector2 val)
+        {
+            writer.Write(val.X);
+            writer.Write(val.Y);
+        }
+
+        public static Vector2 ReadVector2(BinaryReader reader)
+        {
+            return new Vector2(reader.ReadSingle(), reader.ReadSingle());
         }
     }
 }

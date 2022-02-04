@@ -67,9 +67,13 @@ namespace SpriteEngine.Classes.Animations
         {
             return CurrentFrame != FrameLastFrame;
         }
-        public override void Update(GameTime gameTime, Vector2 position)
+        public void Update(GameTime gameTime, Vector2 position, bool updateAnimations = true)
         {
             base.Update(gameTime, position);
+
+            if (updateAnimations)
+            {
+
             FrameLastFrame = CurrentFrame;
             AnimationFrame frame = AnimationFrames[CurrentFrame];
             
@@ -88,6 +92,8 @@ namespace SpriteEngine.Classes.Animations
 
             Position = new Vector2(position.X + frame.XOffSet, position.Y + frame.YOffSet * -1);
             DestinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, SourceRectangle.Width, SourceRectangle.Height);
+            }
+
         }
 
 

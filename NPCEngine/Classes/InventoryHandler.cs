@@ -1,14 +1,16 @@
-﻿using ItemEngine.Classes;
+﻿using Globals.Classes;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EntityEngine.Classes
 {
-    internal class InventoryHandler
+    internal class InventoryHandler : ISaveable
     {
         public StorageContainer StorageContainer { get; private set; }
         public ItemManager ItemManager { get; }
@@ -58,5 +60,14 @@ namespace EntityEngine.Classes
             ItemManager.AddWorldItem(entityPosition,item, originalCount - count, jettisonVector);
         }
 
+        public void Save(BinaryWriter writer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

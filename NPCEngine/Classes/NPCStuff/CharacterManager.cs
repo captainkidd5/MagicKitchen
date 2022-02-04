@@ -54,7 +54,7 @@ namespace EntityEngine.Classes.NPCStuff
                 data.Schedules.Sort(0, data.Schedules.Count, new ScheduleTimeComparer());
                 Character newCharacter = new Character(graphics, content, data);
                 AllCharacters.Add(newCharacter);
-                
+
                 allNpcData.Add(data);
             }
             _questManager.LoadQuestData(allQuests);
@@ -109,6 +109,11 @@ namespace EntityEngine.Classes.NPCStuff
         public void Load(BinaryReader reader)
         {
 
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            throw new NotImplementedException();
         }
     }
 }

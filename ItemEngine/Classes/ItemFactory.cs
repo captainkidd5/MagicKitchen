@@ -20,6 +20,7 @@ namespace ItemEngine.Classes
         private static List<ItemData> ItemData { get; set; }
 
         public static Dictionary<string, ItemData> ItemDictionary { get; private set; }
+        public static Dictionary<int, ItemData> IntItemDictionary { get; private set; }
 
 
         public static Texture2D ItemSpriteSheet { get; private set; }
@@ -28,10 +29,12 @@ namespace ItemEngine.Classes
         {
             ItemData = content.Load<List<ItemData>>("items/itemData");
             ItemDictionary = new Dictionary<string, ItemData>();
+            IntItemDictionary = new Dictionary<int, ItemData>();
             ItemSpriteSheet = content.Load<Texture2D>("items/ItemSpriteSheet");
             foreach(ItemData data in ItemData)
             {
                 ItemDictionary.Add(data.Name, data);
+                IntItemDictionary.Add(data.Id, data);
             }
         }
 
@@ -41,12 +44,27 @@ namespace ItemEngine.Classes
                 return ItemDictionary[name];
             return null;
         }
+        public static Item GetItem(int id)
+        {
+            if (DoesItemExist(id))
+                return new Item(IntItemDictionary[id]);
+
+            throw new Exception($"Item with id {id} does not exist");
+        }
         public static Item GetItem(string name)
         {
             if(DoesItemExist(name))
                 return new Item(ItemDictionary[name]);
 
             throw new Exception($"Item with name {name} does not exist");
+        }
+
+        public static bool DoesItemExist(int id)
+        {
+            if (IntItemDictionary.ContainsKey(id))
+                return true;
+
+            return false;
         }
         public static bool DoesItemExist(string name)
         {

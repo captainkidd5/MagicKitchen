@@ -6,6 +6,7 @@ using PhysicsEngine.Classes.Gadgets;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ using static Globals.Classes.Settings;
 
 namespace ItemEngine.Classes
 {
-    public class WorldItem : Collidable
+    public class WorldItem : Collidable, ISaveable
     {
         private static readonly int _width = 16;
         private static readonly float _timeUntilTouchable = 1f;
@@ -37,6 +38,16 @@ namespace ItemEngine.Classes
 
 
         public bool FlaggedForRemoval { get; private set; }
+
+        public void Save(BinaryWriter writer)
+        {
+           
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            throw new NotImplementedException();
+        }
         public WorldItem(Item item, int count, Vector2 position, Vector2? jettisonDirection)
         {
             Item = item;

@@ -75,7 +75,7 @@ namespace StageEngine.Classes
         /// <exception cref="Exception"></exception>
         public void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
-            UI.FadeIn(.00055f);
+            UI.DropCurtain(.00055f);
 
             StageSwitchingTo = newStage;
             NewPlayerPositionOnStageSwitch = newPlayerPos;
@@ -105,7 +105,7 @@ namespace StageEngine.Classes
             WasStageSwitchingLastFrame = Flags.IsStageLoading;
             _playerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             Flags.Pause = false;
-            UI.FadeOut(.00055f);
+            UI.RaiseCurtain(.00055f);
 
             Settings.Camera.LockBounds = CurrentStage.CamLock;
 

@@ -214,8 +214,8 @@ namespace UIEngine.Classes
 
         }
 
-        public static void FadeIn(float rate) => Curtain.FadeIn(rate);
-        public static void FadeOut(float rate) => Curtain.FadeOut(rate);
+        public static void DropCurtain(float rate) => Curtain.FadeIn(rate);
+        public static void RaiseCurtain(float rate) => Curtain.FadeOut(rate);
 
         /// <summary>
         /// Returns a float value which is at least slightly larger than the given layerDepth

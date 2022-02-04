@@ -69,7 +69,15 @@ namespace EntityEngine.Classes
         private WarpHelper _warpHelper;
         public bool AbleToWarp => _warpHelper.AbleToWarp;
 
-        
+        public virtual void Save(BinaryWriter writer)
+        {
+
+        }
+
+        public virtual void Load(BinaryReader reader)
+        {
+
+        }
 
 
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
@@ -159,7 +167,7 @@ namespace EntityEngine.Classes
             Behaviour.Update(gameTime, ref Velocity);
             StatusIcon.Update(gameTime, Position);
 
-            IsMoving = Velocity != Vector2.Zero;
+            IsMoving = ((Velocity != Vector2.Zero));
 
             if (IsMoving && !ForceStop)
                 DirectionMoving = UpdateDirection();
@@ -376,14 +384,9 @@ namespace EntityEngine.Classes
             DirectionMoving = directionToFace;
         }
 
-        public virtual void Save(BinaryWriter writer)
+        public void LoadSave(BinaryReader reader)
         {
-
-        }
-
-        public virtual void Load(BinaryReader reader)
-        {
-
+            throw new NotImplementedException();
         }
     }
 }

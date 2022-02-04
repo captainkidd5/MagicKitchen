@@ -58,7 +58,7 @@ namespace UIEngine.Classes
             if (Opacity >= 1f)
             {
                 IsFadingIn = false;
-                IsActive = false;
+                //IsActive = false;
 
                 Flags.IsStageLoading = true;
             }

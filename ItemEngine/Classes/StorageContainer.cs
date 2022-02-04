@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Globals.Classes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace ItemEngine.Classes
     /// <summary>
     /// Does not include visuals
     /// </summary>
-    public class StorageContainer
+    public class StorageContainer : ISaveable
     {
 
         public int Capacity { get; private set; }
@@ -81,10 +82,25 @@ namespace ItemEngine.Classes
             }
         }
 
+        public void Save(BinaryWriter writer)
+        {
+           foreach(StorageSlot slot in Slots)
+            {
+                slot.Save(writer);
+            }
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            foreach (StorageSlot slot in Slots)
+            {
+                slot.LoadSave(reader);
+            }
+        }
     }
 
     public delegate void ItemChanged(Item item, int storedCount);
-    public class StorageSlot
+    public class StorageSlot : ISaveable
     {
         public event ItemChanged ItemChanged;
         public Item Item { get; private set; }
@@ -302,6 +318,16 @@ namespace ItemEngine.Classes
         protected virtual void OnItemChanged()
         {
             ItemChanged?.Invoke(Item, StoredCount);
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            throw new NotImplementedException();
         }
     }
 }
