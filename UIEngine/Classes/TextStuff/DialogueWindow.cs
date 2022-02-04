@@ -29,10 +29,12 @@ namespace UIEngine.Classes.TextStuff
         {
             Rectangle totalBackDropRectangleDimensions = new Rectangle(0, 240, Settings.ScreenWidth, 128);
             Position = RectangleHelper.PlaceBottomLeftScreen(totalBackDropRectangleDimensions);
+            float backLayerDepth = GetLayeringDepth(UILayeringDepths.Back);
+            float fronLayerDepth = GetLayeringDepth(UILayeringDepths.Front);
             BackdropSprite = SpriteFactory.CreateNineSliceSprite(Position,
                 totalBackDropRectangleDimensions.Width,
-                totalBackDropRectangleDimensions.Height, UI.ButtonTexture, LayerDepth);
-            TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", LayerDepth), .05f);
+                totalBackDropRectangleDimensions.Height, UI.ButtonTexture, backLayerDepth);
+            TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", fronLayerDepth), .05f);
             IsActive = false;
 
         }
@@ -77,7 +79,7 @@ namespace UIEngine.Classes.TextStuff
         public void CharacterClicked(string speech)
         {
             TextBuilder.ClearText();
-            TextBuilder.SetText(TextFactory.CreateUIText(speech,LayerDepth, scale: 2f), false);
+            TextBuilder.SetText(TextFactory.CreateUIText(speech, GetLayeringDepth(UILayeringDepths.Front), scale: 2f), false);
             IsActive = true;
             UI.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UI.ClockBar });
         }
