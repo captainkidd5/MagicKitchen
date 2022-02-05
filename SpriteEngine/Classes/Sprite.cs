@@ -41,9 +41,9 @@ namespace SpriteEngine.Classes
 
         }
 
-        public override void Update(GameTime gameTime, Vector2 position)
+        public override void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true)
         {
-            base.Update(gameTime, position);
+            base.Update(gameTime, position, updatePeripheralActoins);
 
         }
 

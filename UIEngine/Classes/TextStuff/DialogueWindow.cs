@@ -29,12 +29,10 @@ namespace UIEngine.Classes.TextStuff
         {
             Rectangle totalBackDropRectangleDimensions = new Rectangle(0, 240, Settings.ScreenWidth, 128);
             Position = RectangleHelper.PlaceBottomLeftScreen(totalBackDropRectangleDimensions);
-            float backLayerDepth = GetLayeringDepth(UILayeringDepths.Back);
-            float fronLayerDepth = GetLayeringDepth(UILayeringDepths.Front);
             BackdropSprite = SpriteFactory.CreateNineSliceSprite(Position,
                 totalBackDropRectangleDimensions.Width,
-                totalBackDropRectangleDimensions.Height, UI.ButtonTexture, backLayerDepth);
-            TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", fronLayerDepth), .05f);
+                totalBackDropRectangleDimensions.Height, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back));
+            TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front)), .05f);
             IsActive = false;
 
         }

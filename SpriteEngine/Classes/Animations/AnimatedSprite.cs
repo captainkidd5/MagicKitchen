@@ -67,11 +67,11 @@ namespace SpriteEngine.Classes.Animations
         {
             return CurrentFrame != FrameLastFrame;
         }
-        public void Update(GameTime gameTime, Vector2 position, bool updateAnimations = true)
+        public override void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true)
         {
             base.Update(gameTime, position);
 
-            if (updateAnimations)
+            if (updatePeripheralActoins)
             {
 
             FrameLastFrame = CurrentFrame;

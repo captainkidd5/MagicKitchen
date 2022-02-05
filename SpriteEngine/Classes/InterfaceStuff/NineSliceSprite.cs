@@ -25,9 +25,9 @@ namespace SpriteEngine.Classes.InterfaceStuff
             NineSlice = nineSlice;
             _text = text;
         }
-        public override void Update(GameTime gameTime,Vector2 position)
+        public override void Update(GameTime gameTime,Vector2 position, bool updatePeripheralActoins = true)
         {
-            base.Update(gameTime, position);
+            base.Update(gameTime, position, updatePeripheralActoins);
             NineSlice.Color = PrimaryColor;
 
             if (_text != null)

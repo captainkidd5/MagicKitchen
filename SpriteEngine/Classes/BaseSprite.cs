@@ -99,6 +99,7 @@ namespace SpriteEngine.Classes
             Rotation = rotation;
         }
 
+        ///
         public BaseSprite(GraphicsDevice graphics, ContentManager content, Vector2 position, Texture2D texture, Color primaryColor,
             Vector2 origin, float scale, float layer) : base(graphics, content)
         {
@@ -109,14 +110,24 @@ namespace SpriteEngine.Classes
             Scale = scale;
             CustomLayer = layer;
         }
-        public virtual void Update(GameTime gameTime, Vector2 position)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="position"></param>
+        /// <param name="updatePeripheralActoins">If true, will update more than just the sprite position/destination rectangle, such as animations or color shifters</param>
+        public virtual void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true)
         {
-            if (ColorShifter != null)
+            if (updatePeripheralActoins)
             {
-                ColorShifter.Update(gameTime, this);
-                if (ColorShifter.FlaggedForRemovalUponFinish && ColorShifter.IsNormal)
-                    ColorShifter = null;
+                if (ColorShifter != null)
+                {
+                    ColorShifter.Update(gameTime, this);
+                    if (ColorShifter.FlaggedForRemovalUponFinish && ColorShifter.IsNormal)
+                        ColorShifter = null;
+                }
             }
+            
             Position = position;
 
             if(DestinationRectangle != null)
