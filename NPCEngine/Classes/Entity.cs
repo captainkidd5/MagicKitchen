@@ -106,11 +106,11 @@ namespace EntityEngine.Classes
 
         }
 
-        public void StartWarp(string stageTo, Vector2 positionTo, TileManager tileManager, ItemManager itemManager)
+        public void StartWarp(string stageTo, Vector2 positionTo, TileManager tileManager, ItemManager itemManager, Direction directionToFace)
         {
             TileManager = tileManager;
             ItemManager = itemManager;
-            _warpHelper.StartWarp(EntityAnimator, stageTo, positionTo);
+            _warpHelper.StartWarp(EntityAnimator, stageTo, positionTo, directionToFace);
         }
         internal void LoadAnimations(Animator animator)
         {
@@ -254,7 +254,7 @@ namespace EntityEngine.Classes
         /// <summary>
         /// Was previously not in player stage, now is. Activate main body and allow click interactions.
         /// </summary>
-        public virtual void RestoreEntityPhysics()
+        protected virtual void RestoreEntityPhysics()
         {
             MainHullBody.Body.IsSensor = false;
             AddBigSensorCat(Category.Cursor);
@@ -264,7 +264,7 @@ namespace EntityEngine.Classes
         /// <summary>
         /// Was previously in player stage, no longer is. Disable collisions and remove click interactions.
         /// </summary>
-        public virtual void RemoveEntityPhysics()
+        protected virtual void RemoveEntityPhysics()
         {
             MainHullBody.Body.IsSensor = true;
             //Shouldn't be able to click on entity when not in same stage.
@@ -380,10 +380,14 @@ namespace EntityEngine.Classes
         protected void FaceTowardsOtherEntity(Vector2 otherEntityPos)
         {
             Direction directionToFace = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos);
+            FaceDirection(directionToFace);
+        }
+
+        public void FaceDirection(Direction directionToFace)
+        {
             EntityAnimator.ChangeDirection(directionToFace, Position);
             DirectionMoving = directionToFace;
         }
-
         public void LoadSave(BinaryReader reader)
         {
             throw new NotImplementedException();

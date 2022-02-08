@@ -94,7 +94,8 @@ namespace TiledEngine.Classes
             foreach (TmxObject portal in portals.Objects)
             {
                 Portals.Add(new PortalData(new Rectangle((int)portal.X, (int)portal.Y, (int)portal.Width, (int)portal.Height),
-                    portal.Properties["from"], portal.Properties["to"], int.Parse(portal.Properties["xOffSet"]), int.Parse(portal.Properties["yOffSet"]), bool.Parse(portal.Properties["Click"])));
+                    portal.Properties["from"], portal.Properties["to"], int.Parse(portal.Properties["xOffSet"]), int.Parse(portal.Properties["yOffSet"]),
+                    (Direction)Enum.Parse(typeof(Direction), portal.Properties["directionToFace"]), bool.Parse(portal.Properties["Click"])));
             }
             return Portals;
         }

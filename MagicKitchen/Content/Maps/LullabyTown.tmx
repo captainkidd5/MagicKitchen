@@ -345,6 +345,7 @@
   <object id="49" x="1016" y="487" width="4" height="26.75">
    <properties>
     <property name="Click" value="false"/>
+    <property name="directionToFace" value="Right"/>
     <property name="from" value="LullabyTown"/>
     <property name="to" value="Town"/>
     <property name="xOffSet" value="-64"/>

@@ -11,6 +11,7 @@ using UIEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
+using static Globals.Classes.Settings;
 
 namespace StageEngine.Classes
 
@@ -27,7 +28,9 @@ namespace StageEngine.Classes
         internal string To { get; set; }
         private Rectangle Rectangle { get; set; }
         private bool _mustBeClicked;
-        public Portal(PortalManager portalManager,StageManager stageManager,PlayerManager playerManager, Rectangle rectangle, string from, string to, int xOffSet, int yOffSet, bool mustBeClicked) : base()
+        private Direction _directionToFace;
+        public Portal(PortalManager portalManager,StageManager stageManager,PlayerManager playerManager,
+            Rectangle rectangle, string from, string to, int xOffSet, int yOffSet,Direction directionToFace, bool mustBeClicked) : base()
         {
             Move(new Vector2(rectangle.X, rectangle.Y));
             _portalManager = portalManager;
@@ -39,6 +42,7 @@ namespace StageEngine.Classes
             this.xOffSet = xOffSet;
             this.yOffSet = yOffSet;
             _mustBeClicked = mustBeClicked;
+            _directionToFace = directionToFace;
         }
         public void Load(Vector2 position)
         {
@@ -66,7 +70,8 @@ namespace StageEngine.Classes
                         if (_playerManager.Player1.AbleToWarp)
                         {
                             _stageManager.RequestSwitchStage(To, _portalManager.GetDestinationPosition(this));
-                            _playerManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this), _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager);
+                            _playerManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this),
+                                _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
 
                         }
 
@@ -105,7 +110,7 @@ namespace StageEngine.Classes
                     //Ex: player should not be warping to home from within another house, even if the portal is technically at 50,50 in both places.
                     if (entity.AbleToWarp)
                     {
-                        entity.StartWarp(To, _portalManager.GetDestinationPosition(this), _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager);
+                        entity.StartWarp(To, _portalManager.GetDestinationPosition(this), _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
 
                         entity.IsInStage = To == _stageManager.CurrentStage.Name;
                         

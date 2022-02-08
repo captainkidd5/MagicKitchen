@@ -662,9 +662,10 @@
 </data>
  </layer>
  <objectgroup id="5" name="Portal">
-  <object id="53" x="25" y="983.125" width="6" height="57.875">
+  <object id="53" x="5" y="982" width="6" height="57.875">
    <properties>
     <property name="Click" value="false"/>
+    <property name="directionToFace" value="Left"/>
     <property name="from" value="Town"/>
     <property name="to" value="LullabyTown"/>
     <property name="xOffSet" value="64"/>

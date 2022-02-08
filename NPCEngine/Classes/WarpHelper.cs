@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes;
+using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes
 {
@@ -28,6 +29,7 @@ namespace EntityEngine.Classes
 
         private Vector2 _intermediateWarpPosition;
         private string _intermediateStageTo;
+        private Direction _directionToFace;
 
         public void CheckWarp(GameTime gameTime)
         {
@@ -47,7 +49,7 @@ namespace EntityEngine.Classes
 
             entity.Move(_intermediateWarpPosition);
             entity.LoadToNewStage(_intermediateStageTo, tileManager, itemManager);
-
+            entity.FaceDirection(_directionToFace);
             IsWarping = false;
 
             if (entity.IsInStage)
@@ -62,12 +64,13 @@ namespace EntityEngine.Classes
         /// <param name="stageTo"></param>
         /// <param name="positionTo"></param>
         /// <param name="tileManager"></param>
-        public void StartWarp(Animator animator, string stageTo, Vector2 positionTo)
+        public void StartWarp(Animator animator, string stageTo, Vector2 positionTo, Direction directionToFace)
         {
             animator.FadeOut();
 
             _intermediateStageTo = stageTo;
             _intermediateWarpPosition = positionTo;
+            _directionToFace = directionToFace;
             AbleToWarp = false;
             WarpTimer.SetNewTargetTime(TimeBetweenWarp);
             WarpTimer.ResetToZero();

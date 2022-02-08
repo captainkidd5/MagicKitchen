@@ -33,7 +33,7 @@ namespace StageEngine.Classes
             foreach(PortalData portalData in tileManager.Portals)
             {
                 Portal portal = new Portal(this,_stageManager,_playerManager,portalData.Rectangle,
-                    portalData.From, portalData.To, portalData.XOffSet, portalData.YOffSet, portalData.MustBeClicked);
+                    portalData.From, portalData.To, portalData.XOffSet, portalData.YOffSet,portalData.DirectionToFace, portalData.MustBeClicked);
                 
                 stagePortals.Add(portal);
                     portal.Load(portal.Position);

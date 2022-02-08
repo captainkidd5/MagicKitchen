@@ -345,6 +345,7 @@
   <object id="1" x="500" y="938" width="24" height="5.75">
    <properties>
     <property name="Click" value="false"/>
+    <property name="directionToFace" value="Down"/>
     <property name="from" value="Restaurant"/>
     <property name="to" value="Town"/>
     <property name="xOffSet" value="0"/>

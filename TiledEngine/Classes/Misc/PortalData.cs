@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.Misc
 {
@@ -21,13 +22,15 @@ namespace TiledEngine.Classes.Misc
         public Rectangle Rectangle { get; private set; }
 
         public bool MustBeClicked { get; set; }
-        public PortalData(Rectangle rectangle, string from, string to, int xOffSet, int yOffSet, bool mustBeClicked = false)
+        public Direction DirectionToFace { get; set; }
+        public PortalData(Rectangle rectangle, string from, string to, int xOffSet, int yOffSet, Direction directionToFace, bool mustBeClicked = false)
         {
             Rectangle = rectangle;
             From = from;
             To = to;
             XOffSet = xOffSet;
             YOffSet = yOffSet;
+            DirectionToFace = directionToFace;
             MustBeClicked = mustBeClicked;
 
         }
@@ -40,6 +43,7 @@ namespace TiledEngine.Classes.Misc
         /// </summary>
         public static PortalData PortalFromPropertyString(string info, Vector2 tilePosition)
         {
+            
             return new PortalData(new Rectangle(int.Parse(info.Split(',')[3]) + (int)tilePosition.X,
                 int.Parse(info.Split(',')[4]) + (int)tilePosition.Y,
                 int.Parse(info.Split(',')[5]),
@@ -47,7 +51,7 @@ namespace TiledEngine.Classes.Misc
                 info.Split(',')[1],
                 info.Split(',')[2],
                 int.Parse(info.Split(',')[7]),
-                int.Parse(info.Split(',')[8]), bool.Parse(info.Split(',')[0]));
+                int.Parse(info.Split(',')[8]),(Direction)Enum.Parse(typeof(Direction), info.Split(',')[9]),bool.Parse(info.Split(',')[0]));
 
 
         }

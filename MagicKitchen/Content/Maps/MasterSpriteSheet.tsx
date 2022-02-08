@@ -5062,7 +5062,7 @@
   <properties>
    <property name="newHitBox" value="-48, -80, 124, 96"/>
    <property name="newSource" value="-48, -124, 136,144"/>
-   <property name="portal" value="true,Town,Restaurant,48,0,32,32,0,48"/>
+   <property name="portal" value="true,Town,Restaurant,48,0,32,32,0,48,Up"/>
   </properties>
  </tile>
  <tile id="8018">
