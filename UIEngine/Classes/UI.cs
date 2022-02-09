@@ -32,8 +32,10 @@ namespace UIEngine.Classes
         private static ContentManager s_content;
 
         private static float s_baseLayerDepth = .01f;
-        public static GameDisplayState GameDisplayState { get; private set; } = GameDisplayState.MainMenu;
+        public static float CurtainDropRate => Curtain.DropRate;
 
+        public static GameDisplayState GameDisplayState { get; private set; } = GameDisplayState.MainMenu;
+        private static GameDisplayState s_requestedGameState;
 
         private static List<InterfaceSection> s_activeSections;
         internal static Texture2D ButtonTexture { get; set; }
@@ -89,7 +91,7 @@ namespace UIEngine.Classes
             Cursor.LoadContent(content);
 
             MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null, s_baseLayerDepth);
-            s_mainMenuSections = new List<InterfaceSection>() { MainMenu };
+            s_mainMenuSections = new List<InterfaceSection>() { MainMenu, Curtain };
             s_activeSections = GetActiveSections();
 
             LoadCurrentSection();
@@ -145,7 +147,8 @@ namespace UIEngine.Classes
         public static void Update(GameTime gameTime)
         {
             IsHovered = false;
-
+            if (s_requestedGameState != GameDisplayState.None && Curtain.FullyDropped )
+                FinishChangeGameState();
             if (Controls.WasKeyTapped(Keys.F1))
             {
                 Flags.Pause = !Flags.Pause;
@@ -170,7 +173,7 @@ namespace UIEngine.Classes
 
             }
 
-
+           
 
             Cursor.Update(gameTime);
 
@@ -228,10 +231,19 @@ namespace UIEngine.Classes
 
         }
 
-        internal static void ChangeGameState(GameDisplayState newState)
+        internal static void StartChangeGameState(GameDisplayState newState)
         {
+            DropCurtain(CurtainDropRate);
+            s_requestedGameState = newState;
+
+           
+        }
+        internal static void FinishChangeGameState()
+        {
+            Flags.IsStageLoading = false;
             UnloadCurrentSection();
-            GameDisplayState = newState;
+            GameDisplayState = s_requestedGameState;
+            s_requestedGameState = GameDisplayState.None;
             s_activeSections = GetActiveSections();
             LoadCurrentSection();
         }
@@ -250,7 +262,7 @@ namespace UIEngine.Classes
         {
             SaveLoadManager.CurrentSave = saveFile;
             SaveLoadManager.Load(saveFile);
-            ChangeGameState(GameDisplayState.InGame);
+            StartChangeGameState(GameDisplayState.InGame);
         }
     }
 }

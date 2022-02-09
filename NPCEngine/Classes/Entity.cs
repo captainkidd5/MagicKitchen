@@ -69,6 +69,8 @@ namespace EntityEngine.Classes
         private WarpHelper _warpHelper;
         public bool AbleToWarp => _warpHelper.AbleToWarp;
 
+        public bool IsWarping => _warpHelper.IsWarping;
+
         public virtual void Save(BinaryWriter writer)
         {
 

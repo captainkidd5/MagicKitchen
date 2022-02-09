@@ -16,6 +16,12 @@ namespace UIEngine.Classes
         private float FadeRate { get; set; }
         private bool IsFadingIn { get; set; }
 
+        public static readonly float DropRate = .00055f;
+        public bool FullyDropped => Opacity >= 1f;
+
+        private readonly float _layerDepth = .8f;
+
+
         public Curtain(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection,graphicsDevice, content, position, layerDepth)
         {
@@ -23,7 +29,7 @@ namespace UIEngine.Classes
         public override void Load()
         {
             base.Load();
-            BackdropSprite = SpriteFactory.CreateUISprite(Settings.ScreenRectangle, new Rectangle(0, 0, 1, 1), Settings.DebugTexture,LayerDepth, Color.White);
+            BackdropSprite = SpriteFactory.CreateUISprite(Settings.ScreenRectangle, new Rectangle(0, 0, 1, 1), Settings.DebugTexture, _layerDepth, Color.White);
 
         }
         public override void Update(GameTime gameTime)
