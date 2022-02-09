@@ -268,6 +268,8 @@ namespace TiledEngine.Classes
         }
         public Tile GetTileFromPoint( Point point, Layers layer)
         {
+            if (Tiles.Count < (int)layer)
+                throw new Exception("Tiles cannot be null");
             if (point.X >= Tiles[(int)layer].GetLength(0)  || point.X < 0)
             {
                 Debug.Assert(point.X > Tiles[(int)layer].GetLength(0) || point.X < 0, $"{point.X} is outside the bounds of the array of length {Tiles[(int)layer].GetLength(0)}");

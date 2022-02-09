@@ -87,6 +87,8 @@ namespace StageEngine.Classes
 
                             _stageManager.RequestSwitchStage(To, _portalManager.GetDestinationPosition(this));
                             UI.Cursor.CursorIconType = CursorIconType.None;
+                            _playerManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this),
+                                _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
 
                         }
                     }
