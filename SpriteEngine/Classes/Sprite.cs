@@ -12,7 +12,7 @@ namespace SpriteEngine.Classes
     public class Sprite : BaseSprite
     {
         public Sprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Vector2 position,
-            Rectangle sourceRectangle, Texture2D texture, Color primaryColor, Vector2 origin, float scale,
+            Rectangle sourceRectangle, Texture2D texture, Color primaryColor, Vector2 origin, Vector2 scale,
             float rotation, Layers layer, bool randomizeLayers, bool flip, float? customLayer)
             : base(graphics, content, spriteType, position, sourceRectangle, texture, primaryColor, origin, scale, rotation, randomizeLayers, flip, customLayer)
         {
@@ -20,13 +20,6 @@ namespace SpriteEngine.Classes
 
         }
 
-        public Sprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Rectangle destinationRectangle,
-            Rectangle sourceRectangle, Texture2D texture, Color primaryColor, Vector2 origin, float scale, float rotation,
-            Layers layer, bool randomizeLayers, bool flip, float? customLayer)
-            : base(graphics, content, spriteType, destinationRectangle, sourceRectangle, texture, primaryColor, origin, scale, rotation, randomizeLayers, flip, customLayer)
-        {
-            CheckIfRandomizeLayers(layer, randomizeLayers);
-        }
 
         private void CheckIfRandomizeLayers(Layers layer, bool randomizeLayers)
         {
@@ -62,11 +55,9 @@ namespace SpriteEngine.Classes
 
         private void DrawUI(SpriteBatch spriteBatch)
         {
-            if (DestinationRectangle == null)
                 spriteBatch.Draw(Texture, Position, SourceRectangle, PrimaryColor, Rotation, Origin, Scale, SpriteEffects, CustomLayer ?? LayerDepth);
 
-            else
-                spriteBatch.Draw(Texture, (Rectangle)DestinationRectangle, SourceRectangle, PrimaryColor, Rotation, Origin, SpriteEffects, CustomLayer ?? LayerDepth);
+
         }
 
         private void DrawWorld(SpriteBatch spriteBatch)

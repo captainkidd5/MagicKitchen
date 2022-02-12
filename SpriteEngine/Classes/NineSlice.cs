@@ -20,7 +20,7 @@ namespace SpriteEngine.Classes
         public Rectangle Rectangle => new Rectangle((int)Position.X, (int)Position.Y, Width, Height);
         private Vector2 Position { get; set; }
 
-        private float Scale { get; set; }
+        private Vector2 Scale { get; set; }
         private List<Rectangle> CombinedRectangle { get; set; }
         private List<Vector2> RectanglePositions { get; set; }
         private Texture2D Texture { get; set; }
@@ -45,7 +45,7 @@ namespace SpriteEngine.Classes
         /// Create a dynamic UI rectangle of any size.
         /// </summary>
         internal NineSlice(Vector2 position, Texture2D texture, float layer,
-            int width, int height, Color? color, float? scale)
+            int width, int height, Color color, Vector2 scale)
         {
             
             SharedConstructor(position, texture, layer, color, scale);
@@ -62,7 +62,7 @@ namespace SpriteEngine.Classes
         /// </summary>
         internal NineSlice(
             Vector2 position, Texture2D? texture,
-            float layer, Text text, Color? color, float? scale)
+            float layer, Text text, Color color, Vector2 scale)
         {
 
             SharedConstructor(position, texture, layer, color, scale);
@@ -76,34 +76,34 @@ namespace SpriteEngine.Classes
 
         }
         private void SharedConstructor(Vector2 position, Texture2D? texture,
-           float layer, Color? color, float? scale)
+           float layer, Color color, Vector2 scale)
         {
             CombinedRectangle = new List<Rectangle>();
             RectanglePositions = new List<Vector2>();
 
-            Color = color ?? Color.White;
+            Color = color;
 
             Texture = texture;
             _uiLayer = layer;
-            Scale = scale ?? Globals.Classes.Settings.GameScale;
+            Scale = scale;
         }
         private void BuildRectangle(Vector2 position, int totalRequiredWidth, int totalRequireHeight)
         {
             int currentWidth;
             int currentHeight = 0;
             currentWidth = AddRow(totalRequiredWidth, position, _topLeftCorner, _topEdge, _topRightCorner);
-            currentHeight += (int)(_unit * this.Scale);
-            position = new Vector2(position.X, position.Y + _unit * this.Scale);
+            currentHeight += (int)(_unit * this.Scale.Y);
+            position = new Vector2(position.X, position.Y + _unit * this.Scale.Y);
 
             while (currentHeight < totalRequireHeight - _unit)
             {
                 AddRow(totalRequiredWidth, position, _leftEdge, _center, _rightEdge);
-                currentHeight += (int)(_unit * this.Scale);
-                position = new Vector2(position.X, position.Y + _unit * this.Scale);
+                currentHeight += (int)(_unit * this.Scale.Y);
+                position = new Vector2(position.X, position.Y + _unit * this.Scale.Y);
             }
 
             AddRow(totalRequiredWidth, position, _bottomLeftCorner, _bottomEdge, _bottomRightCorner);
-            currentHeight += (int)(_unit * this.Scale);
+            currentHeight += (int)(_unit * this.Scale.Y);
             Position = new Vector2((int)RectanglePositions[0].X, (int)RectanglePositions[0].Y);
 
         }
@@ -121,10 +121,10 @@ namespace SpriteEngine.Classes
         {
             int totalWidth = 0;
             int startingPositionX = (int)position.X;
-            int numberNeeded = (int)(length / this.Scale / _unit);
+            int numberNeeded = (int)(length / this.Scale.Y / _unit);
             AddRectangle(left, position);
             totalWidth += left.Width;
-            startingPositionX += (int)(_unit * this.Scale);
+            startingPositionX += (int)(_unit * this.Scale.X);
 
             numberNeeded--;
 
@@ -135,7 +135,7 @@ namespace SpriteEngine.Classes
                 AddRectangle(middle, newPosition);
                 totalWidth += middle.Width;
                 numberNeeded--;
-                startingPositionX += (int)(_unit * this.Scale);
+                startingPositionX += (int)(_unit * this.Scale.X);
             }
             AddRectangle(right, new Vector2(startingPositionX, position.Y));
             totalWidth += right.Width;

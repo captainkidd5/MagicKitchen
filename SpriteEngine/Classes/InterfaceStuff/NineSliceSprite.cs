@@ -20,7 +20,7 @@ namespace SpriteEngine.Classes.InterfaceStuff
         /// Note if using Text, the text is expecting to fill up the nineslice. Draw text separately over the nineslice if planning using additional graphics.
         /// </summary>
         internal NineSliceSprite(GraphicsDevice graphics, ContentManager content, Vector2 position, NineSlice nineSlice, Texture2D texture, Color primaryColor,
-             Vector2 origin, float scale, float customLayer, Text? text) : base(graphics, content, position, texture, primaryColor, origin, scale,customLayer)
+             Vector2 origin, Vector2 scale, float customLayer, Text? text) : base(graphics, content, position, texture, primaryColor, origin, scale,customLayer)
         {
             NineSlice = nineSlice;
             _text = text;

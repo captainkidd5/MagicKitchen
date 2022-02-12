@@ -120,7 +120,7 @@ namespace TiledEngine.Classes
             AssignTileLayer(tile, layer, tileManager.OffSetLayersDictionary);
             //Will be null if animation frames were not present
             if (tile.Sprite == null)
-                tile.Sprite = SpriteFactory.CreateWorldSprite(tile.DestinationRectangle, tile.SourceRectangle, tileManager.TileSetTexture, customLayer: tile.Layer, randomizeLayers: false);
+                tile.Sprite = SpriteFactory.CreateWorldSprite(tile.Position, tile.SourceRectangle, tileManager.TileSetTexture, customLayer: tile.Layer, randomizeLayers: false);
 
 
             tile.Load();
@@ -163,8 +163,7 @@ namespace TiledEngine.Classes
                 }
                 if (tile.Layer > 1)
                     tile.Layer = tile.Layer * .1f;
-                tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(
-                    tile.DestinationRectangle, tile.SourceRectangle,
+                tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
                     tileManager.TileSetTexture, frames, customLayer: tile.Layer, randomizeLayers: false);
             }
 

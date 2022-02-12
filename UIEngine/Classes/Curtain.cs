@@ -29,7 +29,7 @@ namespace UIEngine.Classes
         public override void Load()
         {
             base.Load();
-            BackdropSprite = SpriteFactory.CreateUISprite(Settings.ScreenRectangle, new Rectangle(0, 0, 1, 1), Settings.DebugTexture, _layerDepth, Color.White);
+            BackdropSprite = SpriteFactory.CreateUISprite(Vector2.Zero,Settings.ScreenRectangle,Settings.DebugTexture, _layerDepth, Color.White);
 
         }
         public override void Update(GameTime gameTime)

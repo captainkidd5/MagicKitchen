@@ -27,7 +27,7 @@ namespace UIEngine.Classes
         public CursorItemToolTip()
         {
             ItemSprite = SpriteFactory.CreateUISprite(Vector2.Zero, new Rectangle(0, 0, 16, 16),
-                ItemFactory.ItemSpriteSheet, _customLayer, Color.White, scale: 1f);
+                ItemFactory.ItemSpriteSheet, _customLayer, Color.White, null);
             _text = TextFactory.CreateUIText("tst", _customLayer);
         }
         public void Update(GameTime gameTime, Vector2 position)
@@ -46,7 +46,7 @@ namespace UIEngine.Classes
         {
             _text.SetFullString(newCount.ToString());
         }
-        public void SwapSprite(Rectangle newSource, Texture2D texture, float scale)
+        public void SwapSprite(Rectangle newSource, Texture2D texture, Vector2 scale)
         {
             ItemSprite.SwapSourceRectangle(newSource);
             ItemSprite.SwapScale(scale);

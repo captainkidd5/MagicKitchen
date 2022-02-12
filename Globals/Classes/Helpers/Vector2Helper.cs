@@ -88,6 +88,16 @@ namespace Globals.Classes.Helpers
                     throw new Exception($"Directoin {dir} is invalid");
             }
         }
+        /// <summary>
+        /// Returns a scale to be used within a sprite. Basically a substiute for a destination rectangle
+        /// </summary>
+        /// <param name="currentSpriteSize">Unscaled size of your sprite</param>
+        /// <param name="desiredSize">size to scale up to</param>
+        /// <returns></returns>
+        public static Vector2 GetScaleFromRequiredDimensions(Rectangle currentSpriteSize, Rectangle desiredSize)
+        {
+            return new Vector2(desiredSize.Width/currentSpriteSize.Width, desiredSize.Height/currentSpriteSize.Height);
+        }
 
         public static void WriteVector2(BinaryWriter writer, Vector2 val)
         {

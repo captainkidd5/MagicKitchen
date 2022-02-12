@@ -53,7 +53,7 @@ namespace UIEngine.Classes
             CursorTexture = content.Load<Texture2D>("ui/MouseIcons");
             
             CursorSprite = SpriteFactory.CreateUISprite(Vector2.Zero, CursorSourceRectangle,
-                CursorTexture,_cursorLayerDepth, Color.White, scale: 1f);
+                CursorTexture,_cursorLayerDepth, Color.White, null);
 
             MouseDebugText = TextFactory.CreateUIText("test", _cursorLayerDepth);
             CreateBody(Controls.CursorWorldPosition);
@@ -78,16 +78,16 @@ namespace UIEngine.Classes
         /// Swaps cursor texture
         /// </summary>
         /// <param name="newSourceRectangle">Leave null to put back as default</param>
-        internal void SwapMouseSpriteRectangle(Rectangle? newSourceRectangle, Texture2D? texture = null, float scale = 1f)
+        internal void SwapMouseSpriteRectangle(Rectangle? newSourceRectangle, Texture2D? texture = null, Vector2? scale = null)
         {
             Rectangle newRectangle = newSourceRectangle ?? CursorSourceRectangle;
             Texture2D textureToUse = texture ?? CursorTexture;
             if(HeldItem != null)
-                _toolTip.SwapSprite(newRectangle, textureToUse, 1.5f);
+                _toolTip.SwapSprite(newRectangle, textureToUse, new Vector2(1.5f, 1.5f));
             else
             {
                 CursorSprite.SwapSourceRectangle(newRectangle);
-                CursorSprite.SwapScale(scale);
+                CursorSprite.SwapScale(scale ?? Vector2.One);
                 CursorSprite.SwapTexture(textureToUse);
             }
                 
@@ -140,7 +140,7 @@ namespace UIEngine.Classes
             if(DidCHeldItemChange())
             {
                 if(HeldItem != null)
-                    SwapMouseSpriteRectangle(Item.GetItemSourceRectangle(HeldItem.Id), ItemFactory.ItemSpriteSheet, 2f);
+                    SwapMouseSpriteRectangle(Item.GetItemSourceRectangle(HeldItem.Id), ItemFactory.ItemSpriteSheet, new Vector2(2f,2f));
  
                 else
                     SwapMouseSpriteRectangle(null, null);

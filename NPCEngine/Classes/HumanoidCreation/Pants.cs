@@ -31,7 +31,7 @@ namespace EntityEngine.Classes.HumanoidCreation
                new AnimationFrame(1, 0, 0, WalkDownAnimationDuration,true),
                 new AnimationFrame(2, 0, 0, WalkDownAnimationDuration,true),
         };
-            WalkUp = SpriteFactory.CreateWorldAnimatedSprite(destinationRectangle, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            WalkUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkUpFrames);
 
             AnimationFrame[] walkDownFrames = new AnimationFrame[]
@@ -43,7 +43,7 @@ namespace EntityEngine.Classes.HumanoidCreation
                new AnimationFrame(4, 0, 0, WalkDownAnimationDuration,true),
                 new AnimationFrame(5, 0, 0, WalkDownAnimationDuration,true),
         };
-            WalkDown = SpriteFactory.CreateWorldAnimatedSprite(destinationRectangle, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            WalkDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkDownFrames);
             AnimationFrame[] walkLeftFrames = new AnimationFrame[]
             {
@@ -54,7 +54,7 @@ namespace EntityEngine.Classes.HumanoidCreation
                 new AnimationFrame(9, 0, 0, WalkLeftAnimationDuration,true),
                 new AnimationFrame(10, 0, 0, WalkLeftAnimationDuration,true)
         };
-            WalkLeft = SpriteFactory.CreateWorldAnimatedSprite(destinationRectangle, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            WalkLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkLeftFrames, idleFrame: 0);
 
             AnimationFrame[] walkRightFrames = new AnimationFrame[]
@@ -66,7 +66,7 @@ namespace EntityEngine.Classes.HumanoidCreation
                 new AnimationFrame(9, 0, 0, WalkLeftAnimationDuration),
                 new AnimationFrame(10, 0, 0, WalkLeftAnimationDuration)
        };
-            WalkRight = SpriteFactory.CreateWorldAnimatedSprite(destinationRectangle, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            WalkRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkRightFrames, idleFrame: 0);
             WalkingSet = new AnimatedSprite[] { WalkUp,WalkDown, WalkLeft, WalkRight };
 

@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -39,7 +40,7 @@ namespace UIEngine.Classes.MainMenuStuff
         {
             base.Load();
             _mainMenuBackDropTexture = content.Load<Texture2D>("UI/MainMenu/MainMenuBackdrop");
-            _backDropSprite = SpriteFactory.CreateUISprite(Settings.GetScreenRectangle(), _backDropDimensions, _mainMenuBackDropTexture, LayerDepth, null);
+            _backDropSprite = SpriteFactory.CreateUISprite(Vector2Helper.GetScaleFromRequiredDimensions(_backDropDimensions, Settings.GetScreenRectangle()), _backDropDimensions, _mainMenuBackDropTexture, LayerDepth);
             _outerMenu = new OuterMenu(this, graphics, content, null, LayerDepth);
             _outerMenu.Load();
 

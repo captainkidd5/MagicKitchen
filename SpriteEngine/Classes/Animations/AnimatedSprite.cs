@@ -44,10 +44,10 @@ namespace SpriteEngine.Classes.Animations
         /// <param name="standardDuration">How long each frame should run for.</param>
         /// <param name="flip">Enable if the source rectangle should be mirrored.</param>
         internal AnimatedSprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType,
-            Rectangle detinationRectangle, Rectangle sourceRectangle, Texture2D texture, AnimationFrame[] animationFrames, float standardDuration, Color primaryColor,
-             Vector2 origin, float scale, float rotation, Layers layer,
+            Vector2 position, Rectangle sourceRectangle, Texture2D texture, AnimationFrame[] animationFrames, float standardDuration, Color primaryColor,
+             Vector2 origin, Vector2 scale, float rotation, Layers layer,
             bool randomizeLayers, bool flip, float? customLayer, int idleFrame =-1) :
-            base(graphics, content, spriteType, detinationRectangle, sourceRectangle, texture, primaryColor, origin, scale, rotation,
+            base(graphics, content, spriteType,position, sourceRectangle, texture, primaryColor, origin, scale, rotation,
                 layer, randomizeLayers, flip, customLayer)
         {
             AnimationFrames = animationFrames;
@@ -91,7 +91,6 @@ namespace SpriteEngine.Classes.Animations
             }
 
             Position = new Vector2(position.X + frame.XOffSet, position.Y + frame.YOffSet * -1);
-            DestinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, SourceRectangle.Width, SourceRectangle.Height);
             }
 
         }
@@ -135,8 +134,7 @@ namespace SpriteEngine.Classes.Animations
             ResetSpriteToRestingFrame();
             CustomLayer = layer; 
             Position = new Vector2(position.X + AnimationFrames[0].XOffSet, position.Y + AnimationFrames[0].YOffSet * -1);
-            if (DestinationRectangle != null)
-                DestinationRectangle = new Rectangle((int)Position.X + (int)Origin.X, (int)Position.Y + (int)Origin.Y, Width, Height);
+
         }
         /// <summary>
         /// Set animations to their default position. E.x. when the player stops running. Default is zero
