@@ -71,11 +71,8 @@ namespace SpriteEngine.Classes
 
         private void DrawWorld(SpriteBatch spriteBatch)
         {
-           // if (DestinationRectangle == null)
                 spriteBatch.Draw(Texture, Position, SourceRectangle, PrimaryColor, Rotation, Origin, Scale, SpriteEffects, CustomLayer ?? GetYAxisLayerDepth());
 
-          //  else
-                //spriteBatch.Draw(Texture, (Rectangle)DestinationRectangle, SourceRectangle, PrimaryColor, Rotation, Origin, SpriteEffects, CustomLayer ?? GetYAxisLayerDepth());
         }
 
 

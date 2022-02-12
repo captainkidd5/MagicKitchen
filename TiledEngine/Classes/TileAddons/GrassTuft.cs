@@ -36,7 +36,7 @@ namespace TiledEngine.Classes.TileAddons
         public void Load()
         {
             Tile.Sprite.Origin = new Vector2(8, 32);
-            Move(new Vector2(Tile.Position.X + Tile.Sprite.Origin.X, Tile.Position.Y + Tile.Sprite.Origin.Y));
+            Move(new Vector2(Tile.Position.X , Tile.Position.Y ));
             CreateBody(Position);
             Tile.Sprite.DestinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, Tile.Sprite.DestinationRectangle.Value.Width, Tile.Sprite.DestinationRectangle.Value.Height);
 
