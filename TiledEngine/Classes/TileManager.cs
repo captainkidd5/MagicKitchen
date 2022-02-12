@@ -79,7 +79,7 @@ namespace TiledEngine.Classes
             PathGrid = new PathGrid(MapWidth, MapWidth);
 
             Tiles = tiles;
-            TileSelectorSprite = SpriteFactory.CreateWorldSprite(Vector2.Zero, TileSelectorSourceRectangle, tileSetTexture);
+            TileSelectorSprite = SpriteFactory.CreateWorldSprite(new Rectangle(0,0,16,16), TileSelectorSourceRectangle, tileSetTexture);
             AssignProperties();
         }
 

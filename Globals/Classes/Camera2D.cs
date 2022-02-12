@@ -16,7 +16,7 @@ namespace Globals.Classes
         private float zoom { get; set; }
         private float Rotation { get; set; }
 
-        public Rectangle ViewPortRectangle { get; private set; }
+        private Rectangle _viewPortRectangle;
 
 
         public float Zoom { get { return zoom; } set { zoom = value; if (zoom < 0.1f) zoom = 0.1f; } }
@@ -76,28 +76,28 @@ namespace Globals.Classes
 
            
 
-            this.ViewPortRectangle = new Rectangle((int)(mapRectangle.X + Settings.ScreenWidth / 2 / Zoom),
+            _viewPortRectangle = new Rectangle((int)(mapRectangle.X + Settings.ScreenWidth / 2 / Zoom),
               (int)(mapRectangle.Y + Settings.ScreenHeight / 2 / Zoom),
                 (int)(mapRectangle.Width - Settings.ScreenWidth / 2 / Zoom),
-                (int)(mapRectangle.Height - Settings.ScreenHeight / 2 / Zoom));
+                (int)(mapRectangle.Height - Settings.ScreenHeight/ 2 / Zoom));
 
             if (LockBounds)
             {
-                if (position.X < this.ViewPortRectangle.X)
+                if (position.X < this._viewPortRectangle.X - Settings.BarWidth * Zoom)
                 {
-                    position.X = this.ViewPortRectangle.X;
+                    position.X = this._viewPortRectangle.X - Settings.BarWidth * Zoom;
                 }
-                if (position.X > this.ViewPortRectangle.Width)
+                if (position.X > this._viewPortRectangle.Width + Settings.BarWidth * Zoom)
                 {
-                    position.X = this.ViewPortRectangle.Width;
+                    position.X = this._viewPortRectangle.Width + Settings.BarWidth * Zoom;
                 }
-                if (position.Y < this.ViewPortRectangle.Y)
+                if (position.Y < this._viewPortRectangle.Y)
                 {
-                    position.Y = this.ViewPortRectangle.Y;
+                    position.Y = this._viewPortRectangle.Y;
                 }
-                if (position.Y > this.ViewPortRectangle.Height)
+                if (position.Y > this._viewPortRectangle.Height)
                 {
-                    position.Y = this.ViewPortRectangle.Height;
+                    position.Y = this._viewPortRectangle.Height;
                 }
             }
         }

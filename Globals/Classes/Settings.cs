@@ -73,6 +73,10 @@ namespace Globals.Classes
             GameWindow.ClientSizeChanged += Window_ClientSizeChanged;
         }
 
+
+        public static int BarHeight;
+        public static int BarWidth;
+
         /// <summary>
         /// Will fill in black bars on the top and bottom of the screen (like movies do!) so that
         /// the aspect ratio is maintined.
@@ -84,15 +88,15 @@ namespace Globals.Classes
             {
                 // output is taller than it is wider, bars on top/bottom
                 int presentHeight = (int)((ScreenWidth / PreferredAspect) + 0.5f);
-                int barHeight = (ScreenHeight - presentHeight) / 2;
-                screenRectangle = new Rectangle(0, barHeight, ScreenWidth, presentHeight);
+                 BarHeight = (ScreenHeight - presentHeight) / 2;
+                screenRectangle = new Rectangle(0, BarHeight, ScreenWidth, presentHeight);
             }
             else
             {
                 // output is wider than it is tall, bars left/right
                 int presentWidth = (int)((ScreenHeight * PreferredAspect) + 0.5f);
-                int barWidth = (ScreenWidth - presentWidth) / 2;
-                screenRectangle = new Rectangle(barWidth, 0, presentWidth, ScreenHeight);
+                BarWidth = (ScreenWidth - presentWidth) / 2;
+                screenRectangle = new Rectangle(BarWidth, 0, presentWidth, ScreenHeight);
             }
             return screenRectangle;
         }
