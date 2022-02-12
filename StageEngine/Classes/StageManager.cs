@@ -168,7 +168,7 @@ namespace StageEngine.Classes
             }
 
             TileLoader.LoadFinished();
-
+            _camera.Jump(_playerManager.Player1.Position);
 
         }
         private void LoadStageData()

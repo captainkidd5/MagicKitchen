@@ -231,14 +231,14 @@ namespace UIEngine.Classes
 
         }
 
-        internal static void StartChangeGameState(GameDisplayState newState)
+        private static void StartChangeGameState(GameDisplayState newState)
         {
             DropCurtain(CurtainDropRate);
             s_requestedGameState = newState;
 
            
         }
-        internal static void FinishChangeGameState()
+        private static void FinishChangeGameState()
         {
             Flags.IsStageLoading = false;
             UnloadCurrentSection();

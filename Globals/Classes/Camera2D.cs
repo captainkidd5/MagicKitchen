@@ -47,6 +47,7 @@ namespace Globals.Classes
         public void Jump(Vector2 jumpToPos)
         {
             position = jumpToPos;
+            
         }
         public Vector2 GetZoomOffSetPatch()
         {
