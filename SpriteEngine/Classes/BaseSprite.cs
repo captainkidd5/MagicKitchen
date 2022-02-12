@@ -63,7 +63,20 @@ namespace SpriteEngine.Classes
             PrimaryColor = primaryColor ;
             Origin = origin ;
             Scale = scale;
-            SharedConstructor(spriteType, sourceRectangle, rotation,  randomizeLayers, flip, customLayer);
+            SpriteType = spriteType;
+            SourceRectangle = sourceRectangle;
+
+
+          
+
+            if (customLayer != null)
+                CustomLayer = customLayer;
+            if (flip)
+                SpriteEffectsAnchor = SpriteEffects.FlipHorizontally;
+            else
+                SpriteEffectsAnchor = SpriteEffects.None;
+
+            Rotation = rotation;
 
         }
 

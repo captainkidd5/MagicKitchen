@@ -96,7 +96,7 @@ namespace Globals.Classes.Helpers
         /// <returns></returns>
         public static Vector2 GetScaleFromRequiredDimensions(Rectangle currentSpriteSize, Rectangle desiredSize)
         {
-            return new Vector2(desiredSize.Width/currentSpriteSize.Width, desiredSize.Height/currentSpriteSize.Height);
+            return new Vector2((float)desiredSize.Width/ (float)currentSpriteSize.Width, (float)desiredSize.Height/ (float)currentSpriteSize.Height);
         }
 
         public static void WriteVector2(BinaryWriter writer, Vector2 val)

@@ -40,7 +40,8 @@ namespace UIEngine.Classes.MainMenuStuff
         {
             base.Load();
             _mainMenuBackDropTexture = content.Load<Texture2D>("UI/MainMenu/MainMenuBackdrop");
-            _backDropSprite = SpriteFactory.CreateUISprite(Vector2Helper.GetScaleFromRequiredDimensions(_backDropDimensions, Settings.GetScreenRectangle()), _backDropDimensions, _mainMenuBackDropTexture, LayerDepth);
+            Vector2 scale = Vector2Helper.GetScaleFromRequiredDimensions(_backDropDimensions, Settings.GetScreenRectangle());
+            _backDropSprite = SpriteFactory.CreateUISprite(Vector2.Zero, _backDropDimensions, _mainMenuBackDropTexture, LayerDepth, scale:scale);
             _outerMenu = new OuterMenu(this, graphics, content, null, LayerDepth);
             _outerMenu.Load();
 
