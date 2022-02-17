@@ -36,6 +36,7 @@ namespace TiledEngine.Classes.TileAddons
         public void Load()
         {
             Tile.Sprite.Origin = new Vector2(8, 32);
+            Tile.Sprite.CustomLayer = SpriteUtility.GetYAxisLayerDepth(Tile.Position - Tile.Sprite.Origin, Tile.SourceRectangle);
             Move(new Vector2(Tile.Position.X , Tile.Position.Y ));
             CreateBody(Position);
 

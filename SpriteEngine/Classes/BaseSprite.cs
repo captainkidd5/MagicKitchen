@@ -205,9 +205,10 @@ namespace SpriteEngine.Classes
         /// Returns a layer depth which is relative to how far up or down the sprite is on the map.
         /// Useful for allowing the sprite to move "in front" or "behind of" other objects.
         /// </summary>
-        protected float GetYAxisLayerDepth()
+        protected float GetYAxisLayerDepth( )
         {
-            return SpriteUtility.GetYAxisLayerDepth(Position, SourceRectangle);
+                return SpriteUtility.GetYAxisLayerDepth(Position, SourceRectangle);
+
         }
         public void SwapSourceRectangle(Rectangle newRectangle)
         {
