@@ -15,22 +15,20 @@ using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.NPCStuff
 {
-    public class CharacterManager : Component, ISaveable
+    public class CharacterContainer : EntityContainer
     {
         private readonly QuestManager _questManager;
 
-        public List<Character> AllCharacters { get; set; }
 
         internal static Texture2D StatusIconTexture { get; set; }
 
 
-        public CharacterManager(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public CharacterContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             _questManager = new QuestManager(graphics,content);
         }
         public void LoadCharacterData(GraphicsDevice graphics, ContentManager content)
         {
-            AllCharacters = new List<Character>();
             List<NPCData> allNpcData = new List<NPCData>();
 
             string pathExtension = "/entities/NPC/Characters";
@@ -53,7 +51,7 @@ namespace EntityEngine.Classes.NPCStuff
 
                 data.Schedules.Sort(0, data.Schedules.Count, new ScheduleTimeComparer());
                 Character newCharacter = new Character(graphics, content, data);
-                AllCharacters.Add(newCharacter);
+                Entities.Add(newCharacter);
 
                 allNpcData.Add(data);
             }
@@ -64,7 +62,7 @@ namespace EntityEngine.Classes.NPCStuff
 
         public void Update(GameTime gameTime, string stage)
         {
-            foreach (Character character in AllCharacters)
+            foreach (Character character in Entities)
             {
                // character.UpdatePath(gameTime);
 
@@ -78,7 +76,7 @@ namespace EntityEngine.Classes.NPCStuff
 
         public void Draw(SpriteBatch spriteBatch, string stage)
         {
-            foreach (Character character in AllCharacters)
+            foreach (Character character in Entities)
             {
                 if(character.CurrentStageName == stage)
                 {
@@ -93,7 +91,7 @@ namespace EntityEngine.Classes.NPCStuff
 
         public void SwitchStage(string newStage)
         {
-            foreach (Character character in AllCharacters)
+            foreach (Character character in Entities)
             {
                
                     character.PlayerSwitchedStage(newStage, false);

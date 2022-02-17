@@ -11,15 +11,13 @@ using TiledEngine.Classes;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
-    public class PlayerManager : Component
+    public class PlayerContainer : EntityContainer
     {
-        public List<Player> Players { get; set; }
         public Player Player1 { get; set; }
-        public PlayerManager(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public PlayerContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            Players = new List<Player>();
             Player1 = new Player(graphics, content);
-            Players.Add(Player1);
+            Entities.Add(Player1);
         }
 
      
@@ -33,7 +31,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public void Update(GameTime gameTime)
         {
             Player1.UpdateFromInput();
-            foreach(Player player in Players)
+            foreach(Player player in Entities)
             {
                 player.Update(gameTime);
             }
@@ -41,7 +39,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Player player in Players)
+            foreach (Player player in Entities)
             {
                 player.Draw(spriteBatch);
             }

@@ -20,7 +20,7 @@ namespace StageEngine.Classes
     {
         private readonly PortalManager _portalManager;
         private readonly StageManager _stageManager;
-        private readonly PlayerManager _playerManager;
+        private readonly PlayerContainer _playerManager;
         internal readonly int xOffSet;
         internal readonly int yOffSet;
 
@@ -29,7 +29,7 @@ namespace StageEngine.Classes
         private Rectangle Rectangle { get; set; }
         private bool _mustBeClicked;
         private Direction _directionToFace;
-        public Portal(PortalManager portalManager,StageManager stageManager,PlayerManager playerManager,
+        public Portal(PortalManager portalManager,StageManager stageManager,PlayerContainer playerManager,
             Rectangle rectangle, string from, string to, int xOffSet, int yOffSet,Direction directionToFace, bool mustBeClicked) : base()
         {
             Move(new Vector2(rectangle.X, rectangle.Y));

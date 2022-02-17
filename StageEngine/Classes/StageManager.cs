@@ -25,8 +25,8 @@ namespace StageEngine.Classes
     public class StageManager : Component, ISaveable
     {
         private Camera2D _camera;
-        private readonly CharacterManager _characterManager;
-        private readonly PlayerManager _playerManager;
+        private readonly CharacterContainer _characterManager;
+        private readonly PlayerContainer _playerManager;
         private readonly PortalManager _portalManager;
 
         private Dictionary<string, Stage> Stages { get; set; }
@@ -40,7 +40,7 @@ namespace StageEngine.Classes
         private Vector2 NewPlayerPositionOnStageSwitch { get; set; }
 
         public StageManager(GraphicsDevice graphics, ContentManager content,
-            CharacterManager characterManager, PlayerManager playerManager, PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
+            CharacterContainer characterManager, PlayerContainer playerManager, PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
         {
             _characterManager = characterManager;
             _playerManager = playerManager;
@@ -155,7 +155,7 @@ namespace StageEngine.Classes
             _playerManager.Player1.LoadContent(content, CurrentStage.TileManager, CurrentStage.ItemManager);
             _playerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
-            foreach (Character character in _characterManager.AllCharacters)
+            foreach (Character character in _characterManager.Entities)
             {
                 Stage stage = Stages[character.CurrentStageName];
                 if (stage == null)

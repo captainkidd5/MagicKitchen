@@ -39,8 +39,7 @@ namespace MagicKitchen
         private ContentManager _mainMenuContentManager;
 
         private StageManager _stageManager;
-        private CharacterManager _characterManager;
-        private PlayerManager _playerManager;
+
         public Player Player1 => _playerManager.Player1;
 
         public static SpriteFont MainFont { get; set; }
@@ -74,13 +73,11 @@ namespace MagicKitchen
             Settings.SetResolution(Settings.ScreenWidth, Settings.ScreenHeight);
 
             PhysicsManager.Initialize(Penumbra);
-            _characterManager = new CharacterManager(GraphicsDevice,Content);
 
 
 
 
             Penumbra.Initialize();
-            _playerManager = new PlayerManager(GraphicsDevice, Content);
 
             _stageManager = new StageManager(GraphicsDevice, Content, _characterManager, _playerManager, Penumbra,Camera);
             //Penumbra.SpriteBatchTransformEnabled = true;

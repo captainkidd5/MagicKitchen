@@ -28,8 +28,8 @@ namespace StageEngine.Classes
         public string Name { get; private set; }
 
         private readonly StageManager _stageManager;
-        private readonly CharacterManager _characterManager;
-        private readonly PlayerManager _playerManager;
+        private readonly CharacterContainer _characterManager;
+        private readonly PlayerContainer _playerManager;
         private readonly PortalManager _portalManager;
         private readonly StageData _stageData;
 
@@ -55,7 +55,7 @@ namespace StageEngine.Classes
         private PathGrid _pathGrid => TileManager.PathGrid;
 
         internal bool CamLock => _stageData.MapType == MapType.Exterior;
-        public Stage(StageManager stageManager,CharacterManager characterManager,PlayerManager playerManager,PortalManager portalManager, StageData stageData, ContentManager content,
+        public Stage(StageManager stageManager,CharacterContainer characterManager,PlayerContainer playerManager,PortalManager portalManager, StageData stageData, ContentManager content,
             GraphicsDevice graphics, Camera2D camera, PenumbraComponent penumbra)
         {
             Name = stageData.Name;

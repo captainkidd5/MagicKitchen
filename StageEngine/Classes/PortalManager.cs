@@ -14,10 +14,10 @@ namespace StageEngine.Classes
         public Dictionary<string, List<Portal>> PortalDictionary { get; set; }
 
         private readonly StageManager _stageManager;
-        private readonly PlayerManager _playerManager;
+        private readonly PlayerContainer _playerManager;
 
 
-        public PortalManager(StageManager stageManager, PlayerManager playerManager)
+        public PortalManager(StageManager stageManager, PlayerContainer playerManager)
         {
             _stageManager = stageManager;
             _playerManager = playerManager;
