@@ -138,6 +138,7 @@ namespace StageEngine.Classes
         {
             writer.Write(CurrentStage.Name);
             CurrentStage.SaveToStageFile();
+            _entityManager.Save(writer);
 
         }
 
@@ -153,7 +154,7 @@ namespace StageEngine.Classes
                 if (pair.Value.Name != name)
                     pair.Value.Unload();
             }
-
+            _entityManager.LoadSave(reader);
             _player1.LoadContent(content, CurrentStage.TileManager, CurrentStage.ItemManager);
             _player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
@@ -198,6 +199,8 @@ namespace StageEngine.Classes
 
             }
             Stages.Clear();
+
+            _entityManager.Save(writer);
         }
     }
 }

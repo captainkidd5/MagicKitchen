@@ -30,7 +30,7 @@ namespace EntityEngine.Classes
             foreach (KeyValuePair<string, Entity> entity in Entities)
             {
             
-                entity.Value.LoadContent(content, tileManager, itemManager);
+                entity.Value.LoadContent(tileManager, itemManager);
             }
         }
 

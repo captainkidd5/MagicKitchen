@@ -52,7 +52,6 @@ namespace EntityEngine.Classes
         internal Animator EntityAnimator { get; set; }
         protected Navigator Navigator { get; set; }
         protected TileManager TileManager { get; set; }
-        protected ItemManager ItemManager { get; set; }
         public string Name { get; protected set; }
         protected StatusIcon StatusIcon { get; set; }
         /// <summary>
@@ -90,15 +89,13 @@ namespace EntityEngine.Classes
             _warpHelper = new WarpHelper(this);
         }
 
-        public virtual void LoadContent(TileManager tileManager,ItemManager itemManager )
+        public virtual void LoadContent(ItemManager itemManager )
         {
             CreateBody(Position);
 
             DirectionMoving = Direction.Down;
             StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
-            ItemManager = itemManager;
-            TileManager = tileManager;
-            InventoryHandler = new InventoryHandler(ItemManager, StorageCapacity);
+            InventoryHandler = new InventoryHandler(itemManager, StorageCapacity);
 
 
         }
@@ -123,7 +120,6 @@ namespace EntityEngine.Classes
         public void StartWarp(string stageTo, Vector2 positionTo, TileManager tileManager, ItemManager itemManager, Direction directionToFace)
         {
             TileManager = tileManager;
-            ItemManager = itemManager;
             _warpHelper.StartWarp(EntityAnimator, stageTo, positionTo, directionToFace);
         }
         internal void LoadAnimations(Animator animator)
@@ -206,7 +202,7 @@ namespace EntityEngine.Classes
                 //if is warping and animator is now transparent, it means we're now ready to actually warp
                 if (EntityAnimator.IsTransparent())
                 {
-                    if (_warpHelper.FinishedWarpAndReady(EntityAnimator, TileManager, ItemManager))
+                    if (_warpHelper.FinishedWarpAndReady(EntityAnimator, TileManager, InventoryHandler.ItemManager))
                         RestoreEntityPhysics();
                     else
                         RemoveEntityPhysics();
@@ -322,7 +318,7 @@ namespace EntityEngine.Classes
 
             Navigator.Load(tileManager.PathGrid);
             TileManager = tileManager;
-            ItemManager = itemManager;
+            InventoryHandler.SwapItemManager(itemManager);
         }
 
         protected Direction UpdateDirection()
@@ -368,7 +364,7 @@ namespace EntityEngine.Classes
 
         protected virtual void DropCurrentlyHeldItemToWorld()
         {
-            ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet/2), UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, GetTossDirectionFromDirectionFacing(DirectionMoving));
+            InventoryHandler.ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet/2), UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, GetTossDirectionFromDirectionFacing(DirectionMoving));
 
         }
         private static readonly float directionMagnitude = 10;

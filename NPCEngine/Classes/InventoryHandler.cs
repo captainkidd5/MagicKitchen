@@ -13,14 +13,21 @@ namespace EntityEngine.Classes
     internal class InventoryHandler : ISaveable
     {
         public StorageContainer StorageContainer { get; private set; }
-        public ItemManager ItemManager { get; }
+        public ItemManager ItemManager { get; private set; }
 
         public InventoryHandler(ItemManager itemManager, int capacity)
         {
             StorageContainer = new StorageContainer(capacity);
             ItemManager = itemManager;
         }
-
+        /// <summary>
+        /// Need reference to new stage items
+        /// </summary>
+        /// <param name="newManager"></param>
+        public void SwapItemManager(ItemManager newManager)
+        {
+            ItemManager = newManager;
+        }
         /// <summary>
         /// Gives as much of world item as possible to entity. May not give all or any.Remainder can be found in world item passed in
         /// </summary>

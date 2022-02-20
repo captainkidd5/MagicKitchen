@@ -48,7 +48,7 @@ namespace EntityEngine.Classes
             animator.FadeIn();
 
             entity.Move(_intermediateWarpPosition);
-            entity.LoadToNewStage(_intermediateStageTo, tileManager, itemManager);
+            entity.SwitchStage(_intermediateStageTo, tileManager, itemManager);
             entity.FaceDirection(_directionToFace);
             IsWarping = false;
 
@@ -63,7 +63,6 @@ namespace EntityEngine.Classes
         /// <param name="animator"></param>
         /// <param name="stageTo"></param>
         /// <param name="positionTo"></param>
-        /// <param name="tileManager"></param>
         public void StartWarp(Animator animator, string stageTo, Vector2 positionTo, Direction directionToFace)
         {
             animator.FadeOut();

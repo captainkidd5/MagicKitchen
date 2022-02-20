@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using TiledEngine.Classes;
 
@@ -37,6 +38,15 @@ namespace EntityEngine.Classes.PlayerStuff
         internal override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+        }
+
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+        }
+        public override void LoadSave(BinaryReader reader)
+        {
+            base.LoadSave(reader);
         }
     }
 }
