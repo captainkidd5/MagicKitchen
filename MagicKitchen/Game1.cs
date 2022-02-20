@@ -80,7 +80,7 @@ namespace MagicKitchen
 
             Penumbra.Initialize();
 
-            _stageManager = new StageManager(GraphicsDevice, Content, _characterManager, _playerManager, Penumbra,Camera);
+            _entityManager = new EntityManager(GraphicsDevice, Content, Penumbra,Camera);
             //Penumbra.SpriteBatchTransformEnabled = true;
 
             base.Initialize();
@@ -140,7 +140,7 @@ namespace MagicKitchen
             if (!Flags.Pause)
             {
                 PhysicsManager.Update(gameTime);
-                SoundFactory.Update(gameTime, _playerManager.Player1.Position);
+                SoundFactory.Update(gameTime, Player1.Position);
 
             }
 
@@ -187,9 +187,8 @@ namespace MagicKitchen
         }
         private void LoadInGameManagers()
         {
-            _characterManager.LoadCharacterData(GraphicsDevice, Content);
+            _entityManager.Load();
             _stageManager.Load();
-            _playerManager.LoadContent();
         }
         public void OnSaveCreated(object? sender, FileCreatedEventArgs e)
         {

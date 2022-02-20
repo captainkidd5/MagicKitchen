@@ -28,11 +28,19 @@ namespace EntityEngine.Classes
 
         }
 
+        public override void Load()
+        {
+            foreach (EntityContainer container in _containers)
+            {
+                container.Load();
+            }
+        }
+        
         public void Update(GameTime gameTime)
         {
             foreach (EntityContainer container in _containers)
             {
-                container.Update(gameTime
+                container.Update(gameTime);
             }
         }
 

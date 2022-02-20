@@ -12,13 +12,20 @@ using System.Threading.Tasks;
 
 namespace EntityEngine.Classes
 {
-    public class EntityContainer : Component, ISaveable
+    public abstract class EntityContainer : Component, ISaveable
     {
 
-        public List<Entity> Entities { get; set; }
+        public Dictionary<string, Entity> Entities { get; set; }
+        public virtual Entity GetEntity(string name) => Entities[name];
+
         public EntityContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            Entities = new List<Entity>();
+            Entities = new Dictionary<string, Entity>();
+
+        }
+
+        public override void Load()
+        {
 
         }
 
@@ -31,9 +38,17 @@ namespace EntityEngine.Classes
         {
 
         }
+
+        public virtual void SwitchStage(string stageName)
+        {
+            foreach (KeyValuePair<string, Entity> entity in Entities)
+            {
+                entity.Value.IsInStage = entity.Value.CurrentStageName == stageName;
+            }
+        }
         public void GiveEntityItem(string entityName, WorldItem worldItem)
         {
-            Entity entity = Entities.FirstOrDefault(x => x.Name == entityName);
+            Entity entity = GetEntity(entityName);
             if (entity == null)
             {
                 throw new Exception($"Could not find entity with name {entityName}");

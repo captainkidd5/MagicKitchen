@@ -27,7 +27,7 @@ namespace EntityEngine.Classes.NPCStuff
         {
             _questManager = new QuestManager(graphics,content);
         }
-        public void LoadCharacterData(GraphicsDevice graphics, ContentManager content)
+        public override void Load()
         {
             List<NPCData> allNpcData = new List<NPCData>();
 
@@ -51,7 +51,7 @@ namespace EntityEngine.Classes.NPCStuff
 
                 data.Schedules.Sort(0, data.Schedules.Count, new ScheduleTimeComparer());
                 Character newCharacter = new Character(graphics, content, data);
-                Entities.Add(newCharacter);
+                Entities.Add(newCharacter.Name, newCharacter);
 
                 allNpcData.Add(data);
             }
@@ -60,41 +60,41 @@ namespace EntityEngine.Classes.NPCStuff
 
         }
 
-        public void Update(GameTime gameTime, string stage)
+        public override void Update(GameTime gameTime)
         {
-            foreach (Character character in Entities)
+            foreach(KeyValuePair<string, Entity> character in Entities)
             {
-               // character.UpdatePath(gameTime);
+                Character charac = (Character)character.Value;
+                charac.Update(gameTime);
 
-               // if (character.CurrentStage == stage)
-               //{
-                    character.Update(gameTime);
-
-                //}
             }
+
         }
 
-        public void Draw(SpriteBatch spriteBatch, string stage)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Character character in Entities)
+            foreach (KeyValuePair<string, Entity> character in Entities)
             {
-                if(character.CurrentStageName == stage)
+                Character charac = (Character)character.Value;
+                if (charac.IsInStage)
                 {
-                    character.Draw(spriteBatch);
+                    charac.Draw(spriteBatch);
 
                 }
 
-                if(Flags.DebugVelcro)
-                    character.DrawDebug(spriteBatch);
+                if (Flags.DebugVelcro)
+                    charac.DrawDebug(spriteBatch);
+
             }
+
         }
 
-        public void SwitchStage(string newStage)
+        public override void SwitchStage(string newStage)
         {
-            foreach (Character character in Entities)
+            foreach (KeyValuePair<string, Entity> character in Entities)
             {
-               
-                    character.PlayerSwitchedStage(newStage, false);
+                Character charac = (Character)character.Value;
+                charac.PlayerSwitchedStage(newStage, false);
 
                 
             }
