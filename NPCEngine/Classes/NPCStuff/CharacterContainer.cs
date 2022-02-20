@@ -3,6 +3,7 @@ using DataModels.QuestStuff;
 using EntityEngine.Classes.NPCStuff.QuestStuff;
 using Globals.Classes;
 using InputEngine.Classes.Input;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,12 +11,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using TiledEngine.Classes;
 using static EntityEngine.Classes.NPCStuff.Scheduler;
 using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.NPCStuff
 {
-    public class CharacterContainer : EntityContainer
+    internal class CharacterContainer : EntityContainer
     {
         private readonly QuestManager _questManager;
 
@@ -27,7 +29,7 @@ namespace EntityEngine.Classes.NPCStuff
         {
             _questManager = new QuestManager(graphics,content);
         }
-        public override void Load()
+        public override void Load(string stageName, TileManager tileManager, ItemManager itemManager)
         {
             List<NPCData> allNpcData = new List<NPCData>();
 
@@ -60,7 +62,7 @@ namespace EntityEngine.Classes.NPCStuff
 
         }
 
-        public override void Update(GameTime gameTime)
+        internal override void Update(GameTime gameTime)
         {
             foreach(KeyValuePair<string, Entity> character in Entities)
             {
@@ -71,7 +73,7 @@ namespace EntityEngine.Classes.NPCStuff
 
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        internal override void Draw(SpriteBatch spriteBatch)
         {
             foreach (KeyValuePair<string, Entity> character in Entities)
             {
@@ -89,7 +91,7 @@ namespace EntityEngine.Classes.NPCStuff
 
         }
 
-        public override void SwitchStage(string newStage)
+        internal override void SwitchStage(string newStage)
         {
             foreach (KeyValuePair<string, Entity> character in Entities)
             {
@@ -100,16 +102,11 @@ namespace EntityEngine.Classes.NPCStuff
             }
         }
 
-        public void Save(BinaryWriter writer)
+        public override void Save(BinaryWriter writer)
         {
 
         }
-        public void Load(BinaryReader reader)
-        {
-
-        }
-
-        public void LoadSave(BinaryReader reader)
+        public override void LoadSave(BinaryReader reader)
         {
             throw new NotImplementedException();
         }

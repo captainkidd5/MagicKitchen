@@ -1,18 +1,24 @@
 ﻿using EntityEngine.Classes.NPCStuff;
 using EntityEngine.Classes.PlayerStuff;
 using Globals.Classes;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiledEngine.Classes;
 
 namespace EntityEngine.Classes
 {
-    public class EntityManager : Component
+    /// <summary>
+    /// Wrapper class to access different types of entity managers
+    /// </summary>
+    public class EntityManager : Component, ISaveable
     {
         private CharacterContainer _characterManager;
         private PlayerContainer _playerManager;
@@ -28,11 +34,29 @@ namespace EntityEngine.Classes
 
         }
 
-        public override void Load()
+        public void GivePlayerItem(string playerName, WorldItem worldItem)
+        {
+            _playerManager.GiveEntityItem(playerName, worldItem);
+        }
+
+        public void GiveCharacterItem(string characterName, WorldItem worldItem)
+        {
+            _characterManager.GiveEntityItem(characterName, worldItem);
+        }
+        public void Load(string stageName, TileManager tileManager, ItemManager itemManager)
         {
             foreach (EntityContainer container in _containers)
             {
-                container.Load();
+                container.Load(stageName, tileManager, itemManager);
+            }
+        }
+
+        public void SwitchStage(string newStage)
+        {
+
+            foreach (EntityContainer container in _containers)
+            {
+                container.SwitchStage(newStage);
             }
         }
         
@@ -49,6 +73,22 @@ namespace EntityEngine.Classes
             foreach (EntityContainer container in _containers)
             {
                 container.Draw(spriteBatch);
+            }
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+            foreach (EntityContainer container in _containers)
+            {
+                container.Save(writer);
+            }
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            foreach (EntityContainer container in _containers)
+            {
+                container.LoadSave(reader);
             }
         }
     }

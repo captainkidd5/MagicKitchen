@@ -76,11 +76,6 @@ namespace EntityEngine.Classes
 
         }
 
-        public virtual void Load(BinaryReader reader)
-        {
-
-        }
-
 
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
         {
@@ -95,7 +90,7 @@ namespace EntityEngine.Classes
             _warpHelper = new WarpHelper(this);
         }
 
-        public virtual void LoadContent(ContentManager content, TileManager tileManager,ItemManager itemManager )
+        public virtual void LoadContent(TileManager tileManager,ItemManager itemManager )
         {
             CreateBody(Position);
 
@@ -108,6 +103,23 @@ namespace EntityEngine.Classes
 
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newStageName"></param>
+        /// <param name="isPlayerPresent"></param>
+        public virtual void SwitchStage(string newStageName, bool isPlayerPresent, TileManager tileManager, ItemManager itemManager)
+        {
+            if(isPlayerPresent)
+            {
+                LoadToNewStage(newStageName, tileManager, itemManager);
+            }
+            else
+            {
+                RemoveEntityPhysics();
+            }
+        }
         public void StartWarp(string stageTo, Vector2 positionTo, TileManager tileManager, ItemManager itemManager, Direction directionToFace)
         {
             TileManager = tileManager;
@@ -303,7 +315,7 @@ namespace EntityEngine.Classes
             }
         }
 
-        public virtual void LoadToNewStage(string newStage, TileManager tileManager, ItemManager itemManager)
+        protected virtual void LoadToNewStage(string newStage, TileManager tileManager, ItemManager itemManager)
         {
             CurrentStageName = newStage;
             Navigator.Unload();

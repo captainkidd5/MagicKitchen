@@ -52,9 +52,9 @@ namespace EntityEngine.Classes
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-        public override void LoadContent(ContentManager content, TileManager tileManager,ItemManager itemManager )
+        public override void LoadContent(TileManager tileManager,ItemManager itemManager )
         {
-            base.LoadContent(content, tileManager, itemManager);
+            base.LoadContent(tileManager, itemManager);
             BodyPiece[] bodyPieces = new BodyPiece[]
                 {
                     new Pants(0),

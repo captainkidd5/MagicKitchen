@@ -27,6 +27,8 @@ namespace StageEngine.Classes
     {
   
         private readonly EntityManager _entityManager;
+
+        private Player _player1 => _entityManager.Player1;
         private Camera2D _camera;
         private readonly PortalManager _portalManager;
 
@@ -94,16 +96,16 @@ namespace StageEngine.Classes
                 throw new Exception("Stage with name" + StageSwitchingTo + "does not exist");
 
             //CurrentStage.LoadFromStageFile();
-            _characterManager.SwitchStage(StageSwitchingTo);
-            _camera.Jump(_playerManager.Player1.Position);
+            _entityManager.SwitchStage(StageSwitchingTo);
+            _camera.Jump(_player1.Position);
             StageSwitchingTo = null;
             Flags.IsStageLoading = false;
             Debug.Assert(NewPlayerPositionOnStageSwitch != Vector2.Zero, "New player position should not be zero");
-            _playerManager.Player1.Move(NewPlayerPositionOnStageSwitch);
+            _player1.Move(NewPlayerPositionOnStageSwitch);
             NewPlayerPositionOnStageSwitch = Vector2.Zero;
 
             WasStageSwitchingLastFrame = Flags.IsStageLoading;
-            _playerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
+            _player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             Flags.Pause = false;
             UI.RaiseCurtain(UI.CurtainDropRate);
 
@@ -120,7 +122,7 @@ namespace StageEngine.Classes
             if (!Flags.Pause)
             {
                 _portalManager.Update(gameTime);
-                _characterManager.Update(gameTime, CurrentStage.Name);
+                _entityManager.Update(gameTime);
                 CurrentStage.Update(gameTime);
                 if (SoundFactory.AllowAmbientSounds && !SoundFactory.IsPlayingAmbient)
                     SoundFactory.PlayAmbientNoise(CurrentStage.Name);
@@ -152,8 +154,8 @@ namespace StageEngine.Classes
                     pair.Value.Unload();
             }
 
-            _playerManager.Player1.LoadContent(content, CurrentStage.TileManager, CurrentStage.ItemManager);
-            _playerManager.Player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
+            _player1.LoadContent(content, CurrentStage.TileManager, CurrentStage.ItemManager);
+            _player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
             foreach (Character character in _characterManager.Entities)
             {
@@ -168,7 +170,7 @@ namespace StageEngine.Classes
             }
 
             TileLoader.LoadFinished();
-            _camera.Jump(_playerManager.Player1.Position);
+            _camera.Jump(_player1.Position);
 
         }
         private void LoadStageData()

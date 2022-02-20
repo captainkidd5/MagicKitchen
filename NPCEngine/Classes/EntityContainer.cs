@@ -9,10 +9,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiledEngine.Classes;
 
 namespace EntityEngine.Classes
 {
-    public abstract class EntityContainer : Component, ISaveable
+    internal abstract class EntityContainer : Component, ISaveable
     {
 
         public Dictionary<string, Entity> Entities { get; set; }
@@ -24,29 +25,41 @@ namespace EntityEngine.Classes
 
         }
 
-        public override void Load()
+        public virtual void Load(string stageName, TileManager tileManager, ItemManager itemManager)
         {
-
+            foreach (KeyValuePair<string, Entity> entity in Entities)
+            {
+            
+                entity.Value.LoadContent(content, tileManager, itemManager);
+            }
         }
 
-        public virtual void Update(GameTime gameTime)
+        internal virtual void Update(GameTime gameTime)
         {
+            foreach (KeyValuePair<string, Entity> entity in Entities)
+            {
+                entity.Value.Update(gameTime);
 
+            }
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        internal virtual void Draw(SpriteBatch spriteBatch)
         {
+            foreach (KeyValuePair<string, Entity> entity in Entities)
+            {
+                entity.Value.Draw(spriteBatch);
 
+            }
         }
 
-        public virtual void SwitchStage(string stageName)
+        internal virtual void SwitchStage(string stageName)
         {
             foreach (KeyValuePair<string, Entity> entity in Entities)
             {
                 entity.Value.IsInStage = entity.Value.CurrentStageName == stageName;
             }
         }
-        public void GiveEntityItem(string entityName, WorldItem worldItem)
+        internal void GiveEntityItem(string entityName, WorldItem worldItem)
         {
             Entity entity = GetEntity(entityName);
             if (entity == null)
@@ -56,12 +69,12 @@ namespace EntityEngine.Classes
             entity.GiveItem(worldItem);
         }
 
-        public void LoadSave(BinaryReader reader)
+        public virtual void LoadSave(BinaryReader reader)
         {
             throw new NotImplementedException();
         }
 
-        public void Save(BinaryWriter writer)
+        public virtual void Save(BinaryWriter writer)
         {
             throw new NotImplementedException();
         }

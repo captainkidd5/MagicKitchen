@@ -80,7 +80,7 @@ namespace MagicKitchen
 
             Penumbra.Initialize();
 
-            _entityManager = new EntityManager(GraphicsDevice, Content, Penumbra,Camera);
+            _entityManager = new EntityManager(GraphicsDevice, Content);
             //Penumbra.SpriteBatchTransformEnabled = true;
 
             base.Initialize();
