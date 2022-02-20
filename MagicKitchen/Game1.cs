@@ -40,7 +40,8 @@ namespace MagicKitchen
 
         private StageManager _stageManager;
 
-        public Player Player1 => _playerManager.Player1;
+        private EntityManager _entityManager;
+        public Player Player1 => _entityManager.Player1;
 
         public static SpriteFont MainFont { get; set; }
 

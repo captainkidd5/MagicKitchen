@@ -1,5 +1,6 @@
 ﻿using Globals.Classes;
 using ItemEngine.Classes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -21,6 +22,15 @@ namespace EntityEngine.Classes
 
         }
 
+        public virtual void Update(GameTime gameTime)
+        {
+
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+
+        }
         public void GiveEntityItem(string entityName, WorldItem worldItem)
         {
             Entity entity = Entities.FirstOrDefault(x => x.Name == entityName);

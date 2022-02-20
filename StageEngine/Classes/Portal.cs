@@ -20,7 +20,7 @@ namespace StageEngine.Classes
     {
         private readonly PortalManager _portalManager;
         private readonly StageManager _stageManager;
-        private readonly PlayerContainer _playerManager;
+        private readonly EntityManager _entityManager;
         internal readonly int xOffSet;
         internal readonly int yOffSet;
 
@@ -29,13 +29,13 @@ namespace StageEngine.Classes
         private Rectangle Rectangle { get; set; }
         private bool _mustBeClicked;
         private Direction _directionToFace;
-        public Portal(PortalManager portalManager,StageManager stageManager,PlayerContainer playerManager,
+        public Portal(PortalManager portalManager,StageManager stageManager,EntityManager entityManager,
             Rectangle rectangle, string from, string to, int xOffSet, int yOffSet,Direction directionToFace, bool mustBeClicked) : base()
         {
             Move(new Vector2(rectangle.X, rectangle.Y));
             _portalManager = portalManager;
             _stageManager = stageManager;
-            _playerManager = playerManager;
+            _entityManager = entityManager;
             Rectangle = rectangle;
             From = from;
             To = to;
@@ -63,14 +63,14 @@ namespace StageEngine.Classes
                MainHullBody.Body.Position = Position;
             if (PlayerInClickRange)
             {
-                if (From == _playerManager.Player1.CurrentStageName)
+                if (From == _entityManager.Player1.CurrentStageName)
                 {
                     if (!_mustBeClicked)
                     {
-                        if (_playerManager.Player1.AbleToWarp)
+                        if (_entityManager.Player1.AbleToWarp)
                         {
                             _stageManager.RequestSwitchStage(To, _portalManager.GetDestinationPosition(this));
-                            _playerManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this),
+                            _entityManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this),
                                 _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
 
                         }
@@ -87,7 +87,7 @@ namespace StageEngine.Classes
 
                             _stageManager.RequestSwitchStage(To, _portalManager.GetDestinationPosition(this));
                             UI.Cursor.CursorIconType = CursorIconType.None;
-                            _playerManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this),
+                            _entityManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this),
                                 _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
 
                         }

@@ -1,4 +1,5 @@
-﻿using EntityEngine.Classes.PlayerStuff;
+﻿using EntityEngine.Classes;
+using EntityEngine.Classes.PlayerStuff;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,13 @@ namespace StageEngine.Classes
         public Dictionary<string, List<Portal>> PortalDictionary { get; set; }
 
         private readonly StageManager _stageManager;
-        private readonly PlayerContainer _playerManager;
+        private readonly EntityManager _entityManager;
 
 
-        public PortalManager(StageManager stageManager, PlayerContainer playerManager)
+        public PortalManager(StageManager stageManager, EntityManager entityManager)
         {
             _stageManager = stageManager;
-            _playerManager = playerManager;
+            _entityManager = entityManager;
             PortalDictionary = new Dictionary<string, List<Portal>>();
 
         }
@@ -32,7 +33,7 @@ namespace StageEngine.Classes
             List<Portal> stagePortals = new List<Portal>();
             foreach(PortalData portalData in tileManager.Portals)
             {
-                Portal portal = new Portal(this,_stageManager,_playerManager,portalData.Rectangle,
+                Portal portal = new Portal(this,_stageManager, _entityManager, portalData.Rectangle,
                     portalData.From, portalData.To, portalData.XOffSet, portalData.YOffSet,portalData.DirectionToFace, portalData.MustBeClicked);
                 
                 stagePortals.Add(portal);

@@ -19,14 +19,15 @@ using System.Diagnostics;
 using SoundEngine.Classes;
 using TiledEngine.Classes;
 using UIEngine.Classes;
+using EntityEngine.Classes;
 
 namespace StageEngine.Classes
 {
     public class StageManager : Component, ISaveable
     {
+  
+        private readonly EntityManager _entityManager;
         private Camera2D _camera;
-        private readonly CharacterContainer _characterManager;
-        private readonly PlayerContainer _playerManager;
         private readonly PortalManager _portalManager;
 
         private Dictionary<string, Stage> Stages { get; set; }
@@ -39,15 +40,14 @@ namespace StageEngine.Classes
         private bool WasStageSwitchingLastFrame { get; set; }
         private Vector2 NewPlayerPositionOnStageSwitch { get; set; }
 
-        public StageManager(GraphicsDevice graphics, ContentManager content,
-            CharacterContainer characterManager, PlayerContainer playerManager, PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
+        public StageManager(GraphicsDevice graphics, ContentManager content,EntityManager entityManager, PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
         {
-            _characterManager = characterManager;
-            _playerManager = playerManager;
+
             Stages = new Dictionary<string, Stage>();
+            _entityManager = entityManager;
             Penumbra = penumbra;
             _camera = camera;
-            _portalManager = new PortalManager(this, playerManager);
+            _portalManager = new PortalManager(this, _entityManager);
         }
 
         public override void Load()
