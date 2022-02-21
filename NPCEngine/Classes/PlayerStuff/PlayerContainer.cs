@@ -24,7 +24,7 @@ namespace EntityEngine.Classes.PlayerStuff
      
 
 
-        public override void Load()
+        public override void LoadContent()
         {
            
 

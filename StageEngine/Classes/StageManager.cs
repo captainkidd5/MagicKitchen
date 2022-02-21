@@ -52,9 +52,9 @@ namespace StageEngine.Classes
             _portalManager = new PortalManager(this, _entityManager);
         }
 
-        public override void Load()
+        public override void LoadContent()
         {
-            base.Load();
+            base.LoadContent();
             LoadStageData();
 
         }
@@ -105,7 +105,8 @@ namespace StageEngine.Classes
             NewPlayerPositionOnStageSwitch = Vector2.Zero;
 
             WasStageSwitchingLastFrame = Flags.IsStageLoading;
-            _player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
+            _player1.SwitchStage(CurrentStage.Name,true, CurrentStage.TileManager, CurrentStage.ItemManager);
+            //_player1.LoadToNewStage(CurrentStage.Name, CurrentStage.ItemManager);
             Flags.Pause = false;
             UI.RaiseCurtain(UI.CurtainDropRate);
 
@@ -155,9 +156,9 @@ namespace StageEngine.Classes
                     pair.Value.Unload();
             }
             _entityManager.LoadSave(reader);
-            _player1.LoadContent(content, CurrentStage.TileManager, CurrentStage.ItemManager);
-            _player1.LoadToNewStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
-
+            _entityManager.LoadContent(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
+            _player1.LoadContent(CurrentStage.ItemManager);
+          
             foreach (Character character in _characterManager.Entities)
             {
                 Stage stage = Stages[character.CurrentStageName];

@@ -21,7 +21,7 @@ namespace Globals.Classes
             this.content = content;
         }
 
-        public virtual void Load()
+        public virtual void LoadContent()
         {
 
         }

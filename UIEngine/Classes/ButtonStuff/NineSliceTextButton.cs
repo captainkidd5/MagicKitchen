@@ -48,9 +48,9 @@ namespace UIEngine.Classes.ButtonStuff
             }
         }
 
-        public override void Load()
+        public override void LoadContent()
         {
-            base.Load();
+            base.LoadContent();
         }
 
         public override void Unload()

@@ -187,8 +187,8 @@ namespace MagicKitchen
         }
         private void LoadInGameManagers()
         {
-            _entityManager.Load();
-            _stageManager.Load();
+            _entityManager.LoadContent();
+            _stageManager.LoadContent();
         }
         public void OnSaveCreated(object? sender, FileCreatedEventArgs e)
         {

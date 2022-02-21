@@ -26,9 +26,9 @@ namespace UIEngine.Classes
             base(interfaceSection,graphicsDevice, content, position, layerDepth)
         {
         }
-        public override void Load()
+        public override void LoadContent()
         {
-            base.Load();
+            base.LoadContent();
             BackdropSprite = SpriteFactory.CreateUISprite(Vector2.Zero,Settings.ScreenRectangle,Settings.DebugTexture, _layerDepth, Color.White);
 
         }

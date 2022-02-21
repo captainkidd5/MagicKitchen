@@ -29,7 +29,7 @@ namespace EntityEngine.Classes.NPCStuff
         {
             _questManager = new QuestManager(graphics,content);
         }
-        public override void Load(string stageName, TileManager tileManager, ItemManager itemManager)
+        public override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
             List<NPCData> allNpcData = new List<NPCData>();
 

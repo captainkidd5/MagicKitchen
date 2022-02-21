@@ -32,9 +32,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
         }
 
-        public override void Load()
+        public override void LoadContent()
         {
-            base.Load();
+            base.LoadContent();
             Position = RectangleHelper.CenterRectangleOnScreen(_saveSlotRectangle);
             Vector2 _saveSlotPosition = Position;
             _createNewGameText = TextFactory.CreateUIText("Create New", GetLayeringDepth(UILayeringDepths.Medium));
@@ -49,7 +49,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
                 _saveSlotPosition = new Vector2(_saveSlotPosition.X, _saveSlotPosition.Y + (i + 1) * _saveSlotRectangle.Height);
 
                 SaveSlotPanel panel = new SaveSlotPanel(file.Value, this, graphics, content, _saveSlotPosition, GetLayeringDepth(UILayeringDepths.Low));
-                panel.Load();
+                panel.LoadContent();
             }
         }
 

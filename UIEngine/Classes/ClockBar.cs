@@ -33,9 +33,9 @@ namespace UIEngine.Classes
                 UI.ButtonTexture, layerDepth, null, null);
         }
 
-        public override void Load()
+        public override void LoadContent()
         {
-            base.Load();
+            base.LoadContent();
 
 
 

@@ -25,12 +25,12 @@ namespace EntityEngine.Classes
 
         }
 
-        public virtual void Load(string stageName, TileManager tileManager, ItemManager itemManager)
+        public virtual void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
             foreach (KeyValuePair<string, Entity> entity in Entities)
             {
-            
-                entity.Value.LoadContent(tileManager, itemManager);
+
+                entity.Value.LoadContent(itemManager);
             }
         }
 
@@ -71,12 +71,19 @@ namespace EntityEngine.Classes
 
         public virtual void LoadSave(BinaryReader reader)
         {
-            throw new NotImplementedException();
+            foreach (KeyValuePair<string, Entity> entity in Entities)
+            {
+                entity.Value.LoadSave(reader);
+            }
         }
 
         public virtual void Save(BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            foreach (KeyValuePair<string, Entity> entity in Entities)
+            {
+                entity.Value.Save(writer);
+            }
+
         }
     }
 }

@@ -31,9 +31,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
         }
       
-        public override void Load()
+        public override void LoadContent()
         {
-            base.Load();
+            base.LoadContent();
             _buttonRectangle = new Rectangle(0, 0, 128, 64);
             _playGameAction = ChangeToViewGamesMenu;
             _exitGameAction = UI.Exit;

@@ -81,18 +81,18 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                     throw new Exception("Must have a state");
             }
         }
-        public override void Load()
+        public override void LoadContent()
         {
-            base.Load();
+            base.LoadContent();
 
             _viewGamesMenu = new ViewGamesMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
-            _viewGamesMenu.Load();
+            _viewGamesMenu.LoadContent();
 
             _createNewSaveMenu = new CreateNewSaveMenu(this, AdjustBackgroundRectangleAndBackButton(_createNewSaveMenuBackGroundRectangleDimensions), graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
-            _createNewSaveMenu.Load();
+            _createNewSaveMenu.LoadContent();
 
             _playOrExitMenu = new PlayOrExitMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
-            _playOrExitMenu.Load();
+            _playOrExitMenu.LoadContent();
 
             _outerMenuState = OuterMenuState.PlaySettingsAndExit;
             _activeSection = _playOrExitMenu;

@@ -42,7 +42,7 @@ namespace UIEngine.Classes
             _playerInventoryDisplay = new PlayerInventoryDisplay(this, graphics, content,
                 RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle) + new Vector2(0, -32), LayerDepth);
             _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer);
-            _playerInventoryDisplay.Load();
+            _playerInventoryDisplay.LoadContent();
 
         }
 

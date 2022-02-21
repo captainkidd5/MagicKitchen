@@ -36,14 +36,14 @@ namespace UIEngine.Classes.MainMenuStuff
         {
         }
 
-        public override void Load()
+        public override void LoadContent()
         {
-            base.Load();
+            base.LoadContent();
             _mainMenuBackDropTexture = content.Load<Texture2D>("UI/MainMenu/MainMenuBackdrop");
             Vector2 scale = Vector2Helper.GetScaleFromRequiredDimensions(_backDropDimensions, Settings.GetScreenRectangle());
             _backDropSprite = SpriteFactory.CreateUISprite(Vector2.Zero, _backDropDimensions, _mainMenuBackDropTexture, LayerDepth, scale:scale);
             _outerMenu = new OuterMenu(this, graphics, content, null, LayerDepth);
-            _outerMenu.Load();
+            _outerMenu.LoadContent();
 
 
             _activeSection = _outerMenu;

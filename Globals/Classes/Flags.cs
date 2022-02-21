@@ -24,5 +24,7 @@ namespace Globals.Classes
 
         public static bool IsStageLoading { get; set; } = false;
 
+        public static string StagePlayerIn { get; set; }
+
     }
 }

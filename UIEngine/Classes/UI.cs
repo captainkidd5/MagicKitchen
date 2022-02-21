@@ -105,7 +105,7 @@ namespace UIEngine.Classes
         private static void LoadCurrentSection()
         {
             foreach (InterfaceSection section in s_activeSections)
-                section.Load();
+                section.LoadContent();
         }
 
         private static void UnloadCurrentSection()

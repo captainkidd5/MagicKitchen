@@ -37,9 +37,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             _saveFile = saveFile;
         }
 
-        public override void Load()
+        public override void LoadContent()
         {
-            base.Load();
+            base.LoadContent();
             Action saveAction = LoadSave;
             _nameText = TextFactory.CreateUIText(_saveFile.Name, GetLayeringDepth(UILayeringDepths.High));
             _dateText = TextFactory.CreateUIText(_saveFile.DateCreated.Date.ToString("d"), GetLayeringDepth(UILayeringDepths.High));

@@ -1,5 +1,6 @@
 ﻿using EntityEngine.Classes.HumanoidCreation;
 using EntityEngine.Classes.NPCStuff;
+using Globals.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -39,10 +40,14 @@ namespace EntityEngine.Classes.PlayerStuff
             XOffSet = 8;
             YOffSet = 16;
         }
-
-        public override void LoadContent(ContentManager content, TileManager tileManager, ItemManager itemManager)
+        public override void SwitchStage(string newStageName, bool isPlayerPresent, TileManager tileManager, ItemManager itemManager)
         {
-            base.LoadContent(content,  tileManager,  itemManager);
+            base.SwitchStage(newStageName, isPlayerPresent, tileManager, itemManager);
+            Flags.StagePlayerIn = newStageName;
+        }
+        public override void LoadContent(ItemManager itemManager)
+        {
+            base.LoadContent( itemManager);
             IsInStage = true;
             UI.LoadPlayerInventory(StorageContainer);
         }

@@ -34,6 +34,15 @@ namespace EntityEngine.Classes
 
         }
 
+
+        public void WarpPlayerToStage(string stageName, ItemManager itemManager, string? playerName)
+        {
+            Player player;
+            if(playerName == null)
+                 player = Player1;
+            else
+                player = (Player)_playerManager.GetEntity(playerName);
+        }
         public void GivePlayerItem(string playerName, WorldItem worldItem)
         {
             _playerManager.GiveEntityItem(playerName, worldItem);
@@ -43,11 +52,11 @@ namespace EntityEngine.Classes
         {
             _characterManager.GiveEntityItem(characterName, worldItem);
         }
-        public void Load(string stageName, TileManager tileManager, ItemManager itemManager)
+        public void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
             foreach (EntityContainer container in _containers)
             {
-                container.Load(stageName, tileManager, itemManager);
+                container.LoadContent(stageName, tileManager, itemManager);
             }
         }
 

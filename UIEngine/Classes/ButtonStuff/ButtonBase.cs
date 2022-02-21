@@ -53,9 +53,9 @@ namespace UIEngine.Classes.ButtonStuff
 
             HoverTransparency = hoverTransparency;
         }
-        public override void Load()
+        public override void LoadContent()
         {
-            base.Load();
+            base.LoadContent();
             HitBox = BackGroundSprite.HitBox;
 
 

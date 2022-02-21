@@ -44,9 +44,9 @@ namespace UIEngine.Classes.Storage
 
         }
 
-        public override void Load()
+        public override void LoadContent()
         {
-            base.Load();
+            base.LoadContent();
 
         }
 
