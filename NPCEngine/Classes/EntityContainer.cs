@@ -13,19 +13,29 @@ using TiledEngine.Classes;
 
 namespace EntityEngine.Classes
 {
-    internal abstract class EntityContainer : Component, ISaveable
+    public abstract class EntityContainer : Component, ISaveable
     {
 
-        public Dictionary<string, Entity> Entities { get; set; }
-        public virtual Entity GetEntity(string name) => Entities[name];
+        internal Dictionary<string, Entity> Entities { get; set; }
+        protected  EntityManager EntityManager { get; }
 
-        public EntityContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        internal virtual Entity GetEntity(string name) => Entities[name];
+
+        public EntityContainer(EntityManager entityManager,GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             Entities = new Dictionary<string, Entity>();
-
+            EntityManager = entityManager;
         }
+        internal virtual void PlayerSwitchedStage(string stageTo)
+        {
+            foreach (KeyValuePair<string, Entity> entity in Entities)
+            {
+                Entity e = entity.Value;
+                e.PlayerSwitchedStage(stageTo);
 
-        public virtual void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
+            }
+        }
+        internal virtual void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
             foreach (KeyValuePair<string, Entity> entity in Entities)
             {

@@ -25,11 +25,16 @@ namespace EntityEngine.Classes.NPCStuff
         internal static Texture2D StatusIconTexture { get; set; }
 
 
-        public CharacterContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public CharacterContainer(EntityManager entityManager, GraphicsDevice graphics, ContentManager content) : base(entityManager, graphics, content)
         {
             _questManager = new QuestManager(graphics,content);
         }
-        public override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
+
+        internal override void PlayerSwitchedStage(string stageTo)
+        {
+            base.PlayerSwitchedStage(stageTo);
+        }
+        internal override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
             List<NPCData> allNpcData = new List<NPCData>();
 

@@ -12,17 +12,21 @@ using TiledEngine.Classes;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
-    internal class PlayerContainer : EntityContainer
+    public class PlayerContainer : EntityContainer
     {
+
         public Player Player1 { get; set; }
-        public PlayerContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public PlayerContainer(EntityManager entityManager, GraphicsDevice graphics, ContentManager content) : base(entityManager,graphics, content)
         {
-            Player1 = new Player(graphics, content);
+            Player1 = new Player(graphics, content,this);
             Entities.Add("Player1",Player1);
         }
 
-     
 
+        internal void PlayerSwitchedStage(string stageTo)
+        {
+            EntityManager.PlayerSwitchedStage(stageTo);
+        }
 
         public override void LoadContent()
         {

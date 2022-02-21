@@ -105,7 +105,7 @@ namespace StageEngine.Classes
             NewPlayerPositionOnStageSwitch = Vector2.Zero;
 
             WasStageSwitchingLastFrame = Flags.IsStageLoading;
-            _player1.SwitchStage(CurrentStage.Name,true, CurrentStage.TileManager, CurrentStage.ItemManager);
+            _player1.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             //_player1.LoadToNewStage(CurrentStage.Name, CurrentStage.ItemManager);
             Flags.Pause = false;
             UI.RaiseCurtain(UI.CurtainDropRate);
@@ -158,18 +158,7 @@ namespace StageEngine.Classes
             _entityManager.LoadSave(reader);
             _entityManager.LoadContent(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             _player1.LoadContent(CurrentStage.ItemManager);
-          
-            foreach (Character character in _characterManager.Entities)
-            {
-                Stage stage = Stages[character.CurrentStageName];
-                if (stage == null)
-                    throw new Exception($"Stage {character.CurrentStageName} does not exist, check to make sure" +
-                        $"both a tmx map with name and npcdata stage name match");
-                character.LoadContent(content, stage.TileManager, stage.ItemManager);
-                character.LoadToNewStage(stage.Name, stage.TileManager, stage.ItemManager);
-                stage.NPCs.Add(character);
-                character.PlayerSwitchedStage(CurrentStage.Name, false);
-            }
+
 
             TileLoader.LoadFinished();
             _camera.Jump(_player1.Position);
@@ -181,7 +170,7 @@ namespace StageEngine.Classes
 
             foreach (StageData sd in stageData)
             {
-                Stages.Add(sd.Name, new Stage(this, _characterManager, _playerManager, _portalManager, sd, content, graphics, _camera, Penumbra));
+                Stages.Add(sd.Name, new Stage(this,_entityManager, _portalManager, sd, content, graphics, _camera, Penumbra));
             }
         }
         public void CreateNewSave(BinaryWriter writer)

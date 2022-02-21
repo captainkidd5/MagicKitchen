@@ -28,8 +28,7 @@ namespace StageEngine.Classes
         public string Name { get; private set; }
 
         private readonly StageManager _stageManager;
-        private readonly CharacterContainer _characterManager;
-        private readonly PlayerContainer _playerManager;
+        private readonly EntityManager _entityManager;
         private readonly PortalManager _portalManager;
         private readonly StageData _stageData;
 
@@ -50,18 +49,16 @@ namespace StageEngine.Classes
 
         private Player Player1 { get; set; }
 
-        public List<Entity> NPCs { get; set; }
 
         private PathGrid _pathGrid => TileManager.PathGrid;
 
         internal bool CamLock => _stageData.MapType == MapType.Exterior;
-        public Stage(StageManager stageManager,CharacterContainer characterManager,PlayerContainer playerManager,PortalManager portalManager, StageData stageData, ContentManager content,
+        public Stage(StageManager stageManager,EntityManager entityManager, PortalManager portalManager, StageData stageData, ContentManager content,
             GraphicsDevice graphics, Camera2D camera, PenumbraComponent penumbra)
         {
             Name = stageData.Name;
             _stageManager = stageManager;
-            _characterManager = characterManager;
-           _playerManager = playerManager;
+            _entityManager = entityManager;
             _portalManager = portalManager;
             _stageData = stageData;
 
@@ -69,10 +66,9 @@ namespace StageEngine.Classes
             _graphics = graphics;
             _camera = camera;
             _penumbra = penumbra;
-            Player1 = playerManager.Player1;
+
             TileManager = new TileManager(graphics, content, camera, penumbra, _stageData.MapType);
             ItemManager = new ItemManager(Name);
-            NPCs = new List<Entity>();
 
 
         }
@@ -82,7 +78,7 @@ namespace StageEngine.Classes
         public void Update(GameTime gameTime)
         {
             Clock.Update(gameTime);
-            _playerManager.Update(gameTime);
+            _entityManager.Update(gameTime);
             _camera.Follow(Player1.Position, MapRectangle);
 
             TileManager.Update(gameTime);
@@ -98,8 +94,7 @@ namespace StageEngine.Classes
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: _camera.GetTransform(_graphics));
             _graphics.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
-            _playerManager.Draw(spriteBatch);
-            _characterManager.Draw(spriteBatch, Name);
+            _entityManager.Draw(spriteBatch);
             TileManager.Draw(spriteBatch);
 
             ItemManager.Draw(spriteBatch);

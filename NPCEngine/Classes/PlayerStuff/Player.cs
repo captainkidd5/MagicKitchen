@@ -25,6 +25,7 @@ namespace EntityEngine.Classes.PlayerStuff
     {
         public byte Id { get; private set; }
         public readonly Vector2 StartingPosition = new Vector2(440, 700);
+        private readonly PlayerContainer _playerContainer;
 
         private Direction DirectionFacing { get; set; }
         private Direction SecondaryDirectionFacing { get; set; }
@@ -32,18 +33,20 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
         public Light TestLight { get; set; }
-        public Player(GraphicsDevice graphics, ContentManager content, string name = "playerName") : base(graphics,content)
+        public Player(GraphicsDevice graphics, ContentManager content,PlayerContainer playerContainer, string name = "playerName") : base(graphics,content)
         {
             Name = name;
             Move(StartingPosition);
             StorageCapacity = 24;
             XOffSet = 8;
             YOffSet = 16;
+            _playerContainer = playerContainer;
         }
-        public override void SwitchStage(string newStageName, bool isPlayerPresent, TileManager tileManager, ItemManager itemManager)
+        public override void SwitchStage(string newStageName,  TileManager tileManager, ItemManager itemManager)
         {
-            base.SwitchStage(newStageName, isPlayerPresent, tileManager, itemManager);
+            base.SwitchStage(newStageName,tileManager, itemManager);
             Flags.StagePlayerIn = newStageName;
+            _playerContainer.PlayerSwitchedStage(newStageName);
         }
         public override void LoadContent(ItemManager itemManager)
         {

@@ -20,37 +20,43 @@ namespace EntityEngine.Classes
     /// </summary>
     public class EntityManager : Component, ISaveable
     {
-        private CharacterContainer _characterManager;
-        private PlayerContainer _playerManager;
+        private CharacterContainer _characterContainer;
+        private PlayerContainer _playerContainer;
         private List<EntityContainer> _containers;
 
-        public Player Player1 => _playerManager.Player1;
+        public Player Player1 => _playerContainer.Player1;
         public EntityManager(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            _characterManager = new CharacterContainer(graphics, content);
-            _playerManager = new PlayerContainer(graphics, content);
+            _characterContainer = new CharacterContainer(this,graphics, content);
+            _playerContainer = new PlayerContainer(this, graphics, content);
 
             _containers = new List<EntityContainer>();
 
         }
 
+        internal void PlayerSwitchedStage(string stageTo)
+        {
+            _characterContainer.PlayerSwitchedStage(stageTo);
+        }
 
-        public void WarpPlayerToStage(string stageName, ItemManager itemManager, string? playerName)
+        public void WarpPlayerToStage(string stageName,TileManager tileManager, ItemManager itemManager, string? playerName)
         {
             Player player;
             if(playerName == null)
                  player = Player1;
             else
-                player = (Player)_playerManager.GetEntity(playerName);
+                player = (Player)_playerContainer.GetEntity(playerName);
+
+            player.SwitchStage(stageName, tileManager, itemManager);
         }
         public void GivePlayerItem(string playerName, WorldItem worldItem)
         {
-            _playerManager.GiveEntityItem(playerName, worldItem);
+            _playerContainer.GiveEntityItem(playerName, worldItem);
         }
 
         public void GiveCharacterItem(string characterName, WorldItem worldItem)
         {
-            _characterManager.GiveEntityItem(characterName, worldItem);
+            _characterContainer.GiveEntityItem(characterName, worldItem);
         }
         public void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {

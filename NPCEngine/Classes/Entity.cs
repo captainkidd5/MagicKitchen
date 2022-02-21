@@ -106,9 +106,9 @@ namespace EntityEngine.Classes
         /// </summary>
         /// <param name="newStageName"></param>
         /// <param name="isPlayerPresent"></param>
-        public virtual void SwitchStage(string newStageName, bool isPlayerPresent, TileManager tileManager, ItemManager itemManager)
+        public virtual void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
         {
-            if(isPlayerPresent)
+            if(CurrentStageName == Flags.StagePlayerIn)
             {
                 LoadToNewStage(newStageName, tileManager, itemManager);
             }
