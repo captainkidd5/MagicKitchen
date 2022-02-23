@@ -64,8 +64,9 @@ namespace EntityEngine.Classes.NPCStuff
             }
             _questManager.LoadQuestData(allQuests);
             StatusIconTexture = content.Load<Texture2D>("entities/npc/characters/statusicons");
-
+            base.LoadContent(stageName,tileManager,itemManager);
         }
+
 
         internal override void Update(GameTime gameTime)
         {
@@ -96,6 +97,11 @@ namespace EntityEngine.Classes.NPCStuff
 
         }
 
+        internal void AssignCharactersToStages()
+        {
+
+        }
+
         internal override void SwitchStage(string newStage)
         {
             foreach (KeyValuePair<string, Entity> character in Entities)
@@ -109,11 +115,23 @@ namespace EntityEngine.Classes.NPCStuff
 
         public override void Save(BinaryWriter writer)
         {
+            foreach (KeyValuePair<string, Entity> character in Entities)
+            {
+                Character charac = (Character)character.Value;
+                charac.Save(writer);
 
+
+            }
         }
         public override void LoadSave(BinaryReader reader)
         {
-            throw new NotImplementedException();
+            foreach (KeyValuePair<string, Entity> character in Entities)
+            {
+                Character charac = (Character)character.Value;
+                charac.LoadSave(reader);
+
+
+            }
         }
     }
 }

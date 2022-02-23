@@ -81,6 +81,7 @@ namespace MagicKitchen
             Penumbra.Initialize();
 
             _entityManager = new EntityManager(GraphicsDevice, Content);
+            _stageManager = new StageManager(GraphicsDevice, Content, _entityManager, Penumbra, Camera);
             //Penumbra.SpriteBatchTransformEnabled = true;
 
             base.Initialize();

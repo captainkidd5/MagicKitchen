@@ -47,7 +47,7 @@ namespace StageEngine.Classes
 
         internal ItemManager ItemManager { get; private set; }
 
-        private Player Player1 { get; set; }
+        private Player Player1 => _entityManager.Player1 as Player;
 
 
         private PathGrid _pathGrid => TileManager.PathGrid;

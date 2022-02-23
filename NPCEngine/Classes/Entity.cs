@@ -48,7 +48,7 @@ namespace EntityEngine.Classes
         protected bool ForceStop { get; private set; }
         //Entity gets the data representation of inventory while ui handles actual visuals
         protected HullBody BigSensor { get; set; }
-        public string CurrentStageName { get; protected set; }   
+        public string CurrentStageName { get; protected set; }
         internal Animator EntityAnimator { get; set; }
         protected Navigator Navigator { get; set; }
         protected TileManager TileManager { get; set; }
@@ -89,7 +89,7 @@ namespace EntityEngine.Classes
             _warpHelper = new WarpHelper(this);
         }
 
-        public virtual void LoadContent(ItemManager itemManager )
+        public virtual void LoadContent(ItemManager itemManager)
         {
             CreateBody(Position);
 
@@ -108,7 +108,7 @@ namespace EntityEngine.Classes
         /// <param name="isPlayerPresent"></param>
         public virtual void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
         {
-            if(CurrentStageName == Flags.StagePlayerIn)
+            if (CurrentStageName == Flags.StagePlayerIn)
             {
                 LoadToNewStage(newStageName, tileManager, itemManager);
             }
@@ -173,8 +173,8 @@ namespace EntityEngine.Classes
         {
             _warpHelper.CheckWarp(gameTime);
             base.Update(gameTime);
-            if(!ForceStop)
-            Behaviour.Update(gameTime, ref Velocity);
+            if (!ForceStop)
+                Behaviour.Update(gameTime, ref Velocity);
             StatusIcon.Update(gameTime, Position);
 
             IsMoving = ((Velocity != Vector2.Zero));
@@ -182,7 +182,7 @@ namespace EntityEngine.Classes
             if (IsMoving && !ForceStop)
                 DirectionMoving = UpdateDirection();
 
-            
+
             MainHullBody.Body.LinearVelocity = Velocity * Speed * (float)gameTime.ElapsedGameTime.Milliseconds;
 
             //Position is changed so that our sprite knows where to draw, and position
@@ -192,22 +192,28 @@ namespace EntityEngine.Classes
 
 
             EntityAnimator.Update(gameTime, IsMoving, Position, DirectionMoving);
-            CheckOnWarpStatus();
+
+            if (_warpHelper.IsWarping)
+                CheckOnWarpStatus();
         }
 
+        public void ForceWarpTo(string stageTo, Vector2 position, TileManager tileManager, ItemManager itemManager)
+        {
+           Move(position);
+            SwitchStage(stageTo, tileManager, itemManager);
+            FaceDirection(Direction.Down);
+        }
         private void CheckOnWarpStatus()
         {
-            if (_warpHelper.IsWarping)
+            //if is warping and animator is now transparent, it means we're now ready to actually warp
+            if (EntityAnimator.IsTransparent())
             {
-                //if is warping and animator is now transparent, it means we're now ready to actually warp
-                if (EntityAnimator.IsTransparent())
-                {
-                    if (_warpHelper.FinishedWarpAndReady(EntityAnimator, TileManager, InventoryHandler.ItemManager))
-                        RestoreEntityPhysics();
-                    else
-                        RemoveEntityPhysics();
-                }
+                if (_warpHelper.FinishWarpAndFinalMove(EntityAnimator, TileManager, InventoryHandler.ItemManager))
+                    RestoreEntityPhysics();
+                else
+                    RemoveEntityPhysics();
             }
+
         }
 
         public bool IsInSameStageAs(Entity otherEntity)
@@ -358,13 +364,13 @@ namespace EntityEngine.Classes
 
         public void GiveItem(string name, int count) => InventoryHandler.GiveItem(name, count);
 
-        public void DropItem(string name, int count) => InventoryHandler.DropItem(Position, GetTossDirectionFromDirectionFacing(DirectionMoving),name, count);
-        public void DropItem(Item item, int count) => InventoryHandler.DropItem(Position, GetTossDirectionFromDirectionFacing(DirectionMoving),item, count);
+        public void DropItem(string name, int count) => InventoryHandler.DropItem(Position, GetTossDirectionFromDirectionFacing(DirectionMoving), name, count);
+        public void DropItem(Item item, int count) => InventoryHandler.DropItem(Position, GetTossDirectionFromDirectionFacing(DirectionMoving), item, count);
 
 
         protected virtual void DropCurrentlyHeldItemToWorld()
         {
-            InventoryHandler.ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet/2), UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, GetTossDirectionFromDirectionFacing(DirectionMoving));
+            InventoryHandler.ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet / 2), UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, GetTossDirectionFromDirectionFacing(DirectionMoving));
 
         }
         private static readonly float directionMagnitude = 10;
@@ -400,7 +406,7 @@ namespace EntityEngine.Classes
         }
         public void LoadSave(BinaryReader reader)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

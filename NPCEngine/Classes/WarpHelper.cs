@@ -42,7 +42,7 @@ namespace EntityEngine.Classes
         /// <param name="animator"></param>
         /// <param name="tileManager"></param>
         /// <returns>Returns true if entity is now in the players stage, else returns false.</returns>
-        public bool FinishedWarpAndReady(Animator animator, TileManager tileManager, ItemManager itemManager)
+        public bool FinishWarpAndFinalMove(Animator animator, TileManager tileManager, ItemManager itemManager)
         {
 
             animator.FadeIn();

@@ -30,10 +30,25 @@ namespace EntityEngine.Classes
             _characterContainer = new CharacterContainer(this,graphics, content);
             _playerContainer = new PlayerContainer(this, graphics, content);
 
-            _containers = new List<EntityContainer>();
+            _containers = new List<EntityContainer>() { _playerContainer,_characterContainer  };
 
         }
 
+        public void LoadEntitiesToStage(string stageTo, TileManager tileManager, ItemManager itemManager)
+        {
+            foreach (EntityContainer container in _containers)
+            {
+                container.LoadEntitiesToStage(stageTo, tileManager, itemManager);
+            }
+        }
+        public override void LoadContent()
+        {
+            base.LoadContent();
+            foreach(EntityContainer container in _containers)
+            {
+                container.LoadContent();
+            }
+        }
         internal void PlayerSwitchedStage(string stageTo)
         {
             _characterContainer.PlayerSwitchedStage(stageTo);

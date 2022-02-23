@@ -61,7 +61,15 @@ namespace EntityEngine.Classes
 
             }
         }
-
+        internal virtual void LoadEntitiesToStage(string stageTo, TileManager tileManager, ItemManager itemManager)
+        {
+            foreach (KeyValuePair<string, Entity> entity in Entities)
+            {
+                entity.Value.IsInStage = entity.Value.CurrentStageName == stageTo;
+                if(entity.Value.IsInStage)
+                    entity.Value.ForceWarpTo(stageTo, entity.Value.Position, tileManager, itemManager);
+            }
+        }
         internal virtual void SwitchStage(string stageName)
         {
             foreach (KeyValuePair<string, Entity> entity in Entities)
