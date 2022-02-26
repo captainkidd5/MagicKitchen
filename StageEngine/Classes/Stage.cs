@@ -78,7 +78,6 @@ namespace StageEngine.Classes
         public void Update(GameTime gameTime)
         {
             Clock.Update(gameTime);
-            _entityManager.Update(gameTime);
             _camera.Follow(Player1.Position, MapRectangle);
 
             TileManager.Update(gameTime);

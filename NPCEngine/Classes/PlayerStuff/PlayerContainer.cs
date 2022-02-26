@@ -27,7 +27,12 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             EntityManager.PlayerSwitchedStage(stageTo);
         }
+        internal override void LoadEntitiesToStage(string stageTo, TileManager tileManager, ItemManager itemManager)
+        {
+            if (Player1.CurrentStageName == stageTo)
+             Player1.SwitchStage(stageTo, tileManager, itemManager);
 
+        }
         public override void LoadContent()
         {
            

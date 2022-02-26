@@ -70,10 +70,7 @@ namespace EntityEngine.Classes
 
         public bool IsWarping => _warpHelper.IsWarping;
 
-        public virtual void Save(BinaryWriter writer)
-        {
-
-        }
+        
 
 
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
@@ -108,14 +105,14 @@ namespace EntityEngine.Classes
         /// <param name="isPlayerPresent"></param>
         public virtual void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
         {
-            if (CurrentStageName == Flags.StagePlayerIn)
-            {
-                LoadToNewStage(newStageName, tileManager, itemManager);
-            }
-            else
+            if (CurrentStageName != Flags.StagePlayerIn)
             {
                 RemoveEntityPhysics();
+
             }
+
+            LoadToNewStage(newStageName, tileManager, itemManager);
+
         }
         public void StartWarp(string stageTo, Vector2 positionTo, TileManager tileManager, ItemManager itemManager, Direction directionToFace)
         {
@@ -404,9 +401,15 @@ namespace EntityEngine.Classes
             EntityAnimator.ChangeDirection(directionToFace, Position);
             DirectionMoving = directionToFace;
         }
+
+        public virtual void Save(BinaryWriter writer)
+        {
+            writer.Write(CurrentStageName);
+        }
         public void LoadSave(BinaryReader reader)
         {
             //throw new NotImplementedException();
+            CurrentStageName = reader.ReadString();
         }
     }
 }

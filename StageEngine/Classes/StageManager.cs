@@ -159,7 +159,6 @@ namespace StageEngine.Classes
                 if (pair.Value.Name != name)
                     pair.Value.Unload();
             }
-           
 
             TileLoader.LoadFinished();
             _camera.Jump(_player1.Position);
