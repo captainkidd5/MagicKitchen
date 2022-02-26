@@ -47,8 +47,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
             _slotButton = new NineSliceTextButton(parentSection, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), _slotButtonDimensions, null, null, new List<Text>() { _nameText, _dateText, _timeText },null, saveAction, true);
 
-           
 
+            CreateCloseButton(new Rectangle((int)Position.X, (int)Position.Y, _slotButtonDimensions.Width, _slotButtonDimensions.Height));
 
 
             //_loadFileAction = _saveFile.LoadSave

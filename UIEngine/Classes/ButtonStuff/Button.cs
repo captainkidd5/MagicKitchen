@@ -17,10 +17,10 @@ namespace UIEngine.Classes.ButtonStuff
     {
         public Button(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2 position,float layerDepth,  Rectangle? sourceRectangle, Sprite foregroundSprite, Texture2D texture,
-            Point? samplePoint, Action buttonAction = null, bool hoverTransparency = true) :
+            Point? samplePoint, Action buttonAction = null, bool hoverTransparency = true, float scale = 2f) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, foregroundSprite, texture, samplePoint, buttonAction, hoverTransparency)
         {
-            BackGroundSprite = SpriteFactory.CreateUISprite(position, sourceRectangle.Value,ButtonTexture, LayerDepth, null, null, new Vector2(2f,2f));
+            BackGroundSprite = SpriteFactory.CreateUISprite(position, sourceRectangle.Value,ButtonTexture, LayerDepth, null, null, new Vector2(scale, scale));
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
 

@@ -404,7 +404,10 @@ namespace EntityEngine.Classes
 
         public virtual void Save(BinaryWriter writer)
         {
-            writer.Write(CurrentStageName);
+            if (CurrentStageName != null)
+                writer.Write(CurrentStageName);
+            else
+                writer.Write("test");
         }
         public void LoadSave(BinaryReader reader)
         {

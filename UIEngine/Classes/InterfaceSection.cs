@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using Globals.Classes.Helpers;
 using InputEngine.Classes.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -7,6 +8,7 @@ using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UIEngine.Classes.ButtonStuff;
 using static Globals.Classes.Settings;
 
 namespace UIEngine.Classes
@@ -43,9 +45,17 @@ namespace UIEngine.Classes
         protected bool WasHovered => (_hoveredLastFrame && !Hovered);
         internal virtual protected bool Clicked { get; set; }
         internal virtual protected bool RightClicked { get; set; }
+        internal virtual protected void Close() => IsActive = false;
 
+        internal bool SupressParentSection { get; private set; }
 
-        public InterfaceSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
+        internal Button CloseButton { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="suppressParentSection">Set to true if clicking on this section should not trigger parent click</param>
+        public InterfaceSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth, bool suppressParentSection = true) :
             base(graphicsDevice, content)
         {
             parentSection = interfaceSection;
@@ -62,7 +72,15 @@ namespace UIEngine.Classes
                 interfaceSection.ChildSections.Add(this);
                 //LayerDepth = UI.IncrementLD(layerDepth);
             }
+            SupressParentSection = suppressParentSection;
+        }
 
+        protected void CreateCloseButton(Rectangle backgroundRectangle)
+        {
+            Rectangle redExRectangle = new Rectangle(0, 80, 32, 32);
+            Vector2 positionToPlace = RectangleHelper.PlaceRectangleAtTopRightOfParentRectangle(backgroundRectangle, redExRectangle);
+            CloseButton = new Button(this, graphics, content, positionToPlace, GetLayeringDepth(UILayeringDepths.High), redExRectangle,
+                null, UI.ButtonTexture, null, new Action(Close), scale: 1f);
         }
 
         private void AssignLayeringDepths()
@@ -100,15 +118,27 @@ namespace UIEngine.Classes
             RightClicked = false;
 
             //baseline check
+            if (CloseButton != null)
+                CloseButton.Update(gameTime);
             if (Controls.IsHovering(ElementType.UI, HitBox))
             {
                 Hovered = true;
                 if (Controls.IsClicked)
-                    Clicked = true;
+                {
+                    //Don't register click if any shallow child section should suppress click events
+
+                    if (!ChildSections.Contains(x => x.SupressParentSection == true))
+                    {
+                        Clicked = true;
+
+                    }
+
+                }
                 if(Controls.IsRightClicked)
                     RightClicked = true;
                 return;
             }
+            
             foreach (InterfaceSection section in ChildSections)
             {
                 section.Update(gameTime);
@@ -128,12 +158,15 @@ namespace UIEngine.Classes
         {
             foreach (InterfaceSection section in ChildSections)
                 section.Draw(spriteBatch);
-            
+            if (CloseButton != null)
+                CloseButton.Draw(spriteBatch);
+
         }
         public virtual void Toggle()
         {
             IsActive = !IsActive;
         }
+
 
     }
 }
