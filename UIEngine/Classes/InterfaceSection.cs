@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UIEngine.Classes.ButtonStuff;
 using static Globals.Classes.Settings;
@@ -20,9 +21,9 @@ namespace UIEngine.Classes
         Open = 3,
         Closing = 4,
         Closed = 5,
-       
+
     }
-   
+
     public abstract class InterfaceSection : Component
     {
         internal protected readonly InterfaceSection parentSection;
@@ -35,10 +36,10 @@ namespace UIEngine.Classes
         //Some Interface sections can contain other interface sections
         internal protected List<InterfaceSection> ChildSections { get; protected set; }
         internal float LayerDepth { get; private set; }
-        internal protected Vector2 Position { get;  set; }
+        internal protected Vector2 Position { get; set; }
         private Vector2 _positionLastFrame;
         protected bool DidPositionChange => (Position != _positionLastFrame);
-        internal virtual  Rectangle HitBox { get; set; }
+        internal virtual Rectangle HitBox { get; set; }
         public virtual bool Hovered { get; protected set; }
         private bool _hoveredLastFrame;
 
@@ -47,9 +48,11 @@ namespace UIEngine.Classes
         internal virtual protected bool RightClicked { get; set; }
         internal virtual protected void Close() => IsActive = false;
 
-        internal bool SupressParentSection { get; private set; }
+        internal protected bool SupressParentSection { get; set; }
 
         internal Button CloseButton { get; set; }
+
+        public bool FlaggedForRemoval { get; set; }
 
         /// <summary>
         /// 
@@ -119,45 +122,52 @@ namespace UIEngine.Classes
 
             //baseline check
             if (CloseButton != null)
+            {
                 CloseButton.Update(gameTime);
+                if (CloseButton.Hovered)
+                {
+                    return;
+                }
+            }
             if (Controls.IsHovering(ElementType.UI, HitBox))
             {
-                Hovered = true;
-                if (Controls.IsClicked)
-                {
-                    //Don't register click if any shallow child section should suppress click events
+                //Don't register click if any immediate child section should suppress click events
 
-                    if (!ChildSections.Contains(x => x.SupressParentSection == true))
-                    {
-                        Clicked = true;
-
-                    }
-
-                }
-                if(Controls.IsRightClicked)
-                    RightClicked = true;
-                return;
-            }
-            
-            foreach (InterfaceSection section in ChildSections)
-            {
-                section.Update(gameTime);
-                if (section.Hovered)
+                if (!ChildSections.Any(x => x.SupressParentSection == true))
                 {
                     Hovered = true;
-                    if (section.Clicked)
+                    parentSection.Hovered = true;
+                    if (Controls.IsClicked)
+                    {
                         Clicked = true;
-                    if(section.RightClicked)
-                        RightClicked= true;
+                        parentSection.Clicked = true;
+                    }
+                    if (Controls.IsRightClicked)
+                    {
+                        RightClicked = true;
+                        parentSection.RightClicked = true;
+
+                    }
                 }
+             //   return;
+            }
+
+            for (int i = ChildSections.Count - 1; i >= 0; i--)
+            {
+                ChildSections[i].Update(gameTime);
+                if (ChildSections[i].FlaggedForRemoval)
+                    ChildSections.RemoveAt(i);
             }
             _activeLastFrame = IsActive;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            foreach (InterfaceSection section in ChildSections)
-                section.Draw(spriteBatch);
+            for (int i = ChildSections.Count -1; i >= 0; i--)
+            {
+               ChildSections[i].Draw(spriteBatch);
+            }
+
             if (CloseButton != null)
                 CloseButton.Draw(spriteBatch);
 
