@@ -48,6 +48,7 @@ namespace IOEngine.Classes
                 SaveFile saveFile = new SaveFile();
                 saveFile.LoadSave(reader);
                 SaveFiles.Add(saveFile.Name, saveFile);
+                reader.Dispose();
             }
         }
 

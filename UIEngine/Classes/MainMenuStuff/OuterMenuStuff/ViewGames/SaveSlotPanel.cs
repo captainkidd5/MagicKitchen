@@ -70,6 +70,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             base.Close();
             _saveFile.Delete();
             FlaggedForRemoval = true;
+            parentSection.Reset();
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -87,6 +88,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         internal override void Reset()
         {
             base.Reset();
+            FlaggedForRemoval = true;
+
         }
 
 
