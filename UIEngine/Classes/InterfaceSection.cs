@@ -181,7 +181,7 @@ namespace UIEngine.Classes
         {
             for (int i = ChildSections.Count - 1; i >= 0; i--)
             {
-                ChildSections[i].Reset();
+                ChildSections[i].FlaggedForRemoval = true;
             }
         }
     }

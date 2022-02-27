@@ -407,7 +407,7 @@ namespace EntityEngine.Classes
             if (CurrentStageName != null)
                 writer.Write(CurrentStageName);
             else
-                writer.Write("test");
+                writer.Write("LullabyTown");
         }
         public void LoadSave(BinaryReader reader)
         {

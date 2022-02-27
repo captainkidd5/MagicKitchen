@@ -114,8 +114,8 @@ namespace StageEngine.Classes
 
             TileLoader.CreateNewSave(_stageData, TileManager, _content);
             MapRectangle = TileManager.MapRectangle;
-            TileLoader.LoadStagePortals(_stageData, TileManager);
-            _portalManager.LoadNewStage(Name, TileManager);
+            //TileLoader.LoadStagePortals(_stageData, TileManager);
+            //_portalManager.LoadNewStage(Name, TileManager);
 
             SaveToStageFile();
         }

@@ -127,9 +127,9 @@ namespace IOEngine.Classes
             return new BinaryReader(fileStream);
         }
 
-        public static void DestroyReader(BinaryReader writer)
+        public static void DestroyReader(BinaryReader reader)
         {
-            writer.Close();
+            reader.Close();
         }
 
         public static BinaryWriter GetCurrentSaveFileWriter(string extension = null)

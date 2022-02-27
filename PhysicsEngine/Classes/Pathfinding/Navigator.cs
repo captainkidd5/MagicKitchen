@@ -30,6 +30,8 @@ namespace PhysicsEngine.Classes.Pathfinding
 
         public void Load(PathGrid pathGrid)
         {
+            if (pathGrid == null)
+                throw new Exception("pathgrid may not be null");
             PathGrid = pathGrid;
             PathFinder = new PathFinderFast(PathGrid.Weight);
 
