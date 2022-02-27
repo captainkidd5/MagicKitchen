@@ -130,5 +130,11 @@ namespace UIEngine.Classes.ButtonStuff
         {
             Locked = newVal;
         }
+
+        internal override void Reset()
+        {
+            base.Reset();
+            BackGroundSprite.ResetColors();
+        }
     }
 }

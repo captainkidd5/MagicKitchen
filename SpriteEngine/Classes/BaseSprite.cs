@@ -54,6 +54,8 @@ namespace SpriteEngine.Classes
 
         ColorShifter ColorShifter { get; set; }
 
+        public void ResetColors() => ColorShifter.Reset(this);
+
         public BaseSprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Vector2 position, Rectangle sourceRectangle, Texture2D texture, Color primaryColor,
              Vector2 origin, Vector2 scale, float rotation,
             bool randomizeLayers, bool flip, float? customLayer) : base(graphics, content)

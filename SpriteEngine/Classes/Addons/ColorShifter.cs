@@ -36,7 +36,7 @@ namespace SpriteEngine.Classes.Addons
         public ColorShifter(Color originalColor, float? speed, Color? targetColor)
         {
             _originalColor = originalColor;
-            _alternativeColor = targetColor ?? new Color(255,255,255,255);
+            _alternativeColor = targetColor ?? new Color(255, 255, 255, 255);
             _speed = speed ?? .5f;
 
         }
@@ -57,9 +57,9 @@ namespace SpriteEngine.Classes.Addons
         public void Update(GameTime gameTime, BaseSprite sprite)
         {
 
-            if(_hueState == ColorState.Intensifying)
+            if (_hueState == ColorState.Intensifying)
                 IntensifyEffect(gameTime, sprite);
-            else if(_hueState == ColorState.Reducing)
+            else if (_hueState == ColorState.Reducing)
                 ReduceEffect(gameTime, sprite);
         }
 
@@ -118,16 +118,16 @@ namespace SpriteEngine.Classes.Addons
         private byte CheckColorValue(GameTime gameTime, byte col, byte target)
         {
 
-                if (col < target)
-                    return IncreaseColorValue(gameTime, col, target);
-                else if (col > target)
-                    return DecreaseColorValue(gameTime, col, target);
+            if (col < target)
+                return IncreaseColorValue(gameTime, col, target);
+            else if (col > target)
+                return DecreaseColorValue(gameTime, col, target);
             return col;
         }
         private byte IncreaseColorValue(GameTime gameTime, float val, float maxVal = ColorMaxVal)
         {
             val += (float)gameTime.ElapsedGameTime.TotalMilliseconds * _speed;
-            if(val > maxVal)
+            if (val > maxVal)
                 val = maxVal;
             return (byte)val;
         }
@@ -146,6 +146,12 @@ namespace SpriteEngine.Classes.Addons
 
             if (sprite.PrimaryColor == _originalColor)
                 _hueState = ColorState.Normal;
+        }
+
+        internal void Reset(BaseSprite sprite)
+        {
+            sprite.UpdateColor(_originalColor);
+            _hueState = ColorState.Normal;
         }
         internal void TriggerIntensifyEffect()
         {

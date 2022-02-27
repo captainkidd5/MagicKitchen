@@ -45,6 +45,10 @@ namespace IOEngine.Classes
 
         }
 
+        public void Delete()
+        {
+            Directory.Delete(FolderPath, true);
+        }
         /// <summary>
         /// Creates the metadata file 
         /// </summary>

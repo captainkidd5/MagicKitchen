@@ -36,6 +36,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         {
             base.LoadContent();
             Position = RectangleHelper.CenterRectangleOnScreen(_saveSlotRectangle);
+            SaveLoadManager.FetchAllMetadata();
             Vector2 _saveSlotPosition = Position;
             _createNewGameText = TextFactory.CreateUIText("Create New", GetLayeringDepth(UILayeringDepths.Medium));
 
@@ -53,7 +54,11 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             }
         }
 
-
+        internal override void Reset()
+        {
+            base.Reset();
+            LoadContent();
+        }
         public override void Unload()
         {
             base.Unload();

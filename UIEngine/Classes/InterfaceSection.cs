@@ -24,7 +24,7 @@ namespace UIEngine.Classes
 
     }
 
-    public abstract class InterfaceSection : Component
+    public abstract class InterfaceSection : Component, IDirtyFlaggable
     {
         internal protected readonly InterfaceSection parentSection;
         protected float[] LayeringDepths;
@@ -149,7 +149,7 @@ namespace UIEngine.Classes
 
                     }
                 }
-             //   return;
+                //   return;
             }
 
             for (int i = ChildSections.Count - 1; i >= 0; i--)
@@ -163,9 +163,9 @@ namespace UIEngine.Classes
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = ChildSections.Count -1; i >= 0; i--)
+            for (int i = ChildSections.Count - 1; i >= 0; i--)
             {
-               ChildSections[i].Draw(spriteBatch);
+                ChildSections[i].Draw(spriteBatch);
             }
 
             if (CloseButton != null)
@@ -177,6 +177,12 @@ namespace UIEngine.Classes
             IsActive = !IsActive;
         }
 
-
+        internal virtual void Reset()
+        {
+            for (int i = ChildSections.Count - 1; i >= 0; i--)
+            {
+                ChildSections[i].Reset();
+            }
+        }
     }
 }

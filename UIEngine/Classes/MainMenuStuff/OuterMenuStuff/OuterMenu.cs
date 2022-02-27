@@ -58,13 +58,14 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             if (_outerMenuState == newState)
                 throw new Exception($"Already in state {newState}!");
             _outerMenuState = newState;
+            _activeSection.Reset();
+
             switch (_outerMenuState)
             {
 
                 case OuterMenuState.ViewGames:
                     _activeSection = _viewGamesMenu;
                     AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
-
                     break;
                 case OuterMenuState.CreateNewSave:
                     _activeSection = _createNewSaveMenu;

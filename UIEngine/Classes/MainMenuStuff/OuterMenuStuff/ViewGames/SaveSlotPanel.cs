@@ -45,7 +45,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             _dateText = TextFactory.CreateUIText(_saveFile.DateCreated.Date.ToString("d"), GetLayeringDepth(UILayeringDepths.High));
             _timeText = TextFactory.CreateUIText(_saveFile.DateCreated.ToString("HH:mm"), GetLayeringDepth(UILayeringDepths.High));
 
-            _slotButton = new NineSliceTextButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), _slotButtonDimensions, null, null, new List<Text>() { _nameText, _dateText, _timeText },null, saveAction, true);
+            _slotButton = new NineSliceTextButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), _slotButtonDimensions, null, null, new List<Text>() { _nameText, _dateText, _timeText }, null, saveAction, true);
 
             CreateCloseButton(new Rectangle((int)Position.X, (int)Position.Y, _slotButtonDimensions.Width, _slotButtonDimensions.Height));
 
@@ -68,6 +68,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         protected internal override void Close()
         {
             base.Close();
+            _saveFile.Delete();
             FlaggedForRemoval = true;
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -82,9 +83,14 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             UI.LoadGame(_saveFile);
         }
 
-        
-       
 
-       
+        internal override void Reset()
+        {
+            base.Reset();
+        }
+
+
+
+
     }
 }
