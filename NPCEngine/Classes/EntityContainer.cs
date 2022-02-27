@@ -65,8 +65,8 @@ namespace EntityEngine.Classes
         {
             foreach (KeyValuePair<string, Entity> entity in Entities)
             {
-                entity.Value.IsInStage = entity.Value.CurrentStageName == stageTo;
-                if(entity.Value.IsInStage)
+                //entity.Value.IsInStage = entity.Value.CurrentStageName == stageTo;
+                if(entity.Value.CurrentStageName == stageTo)
                     entity.Value.ForceWarpTo(stageTo, entity.Value.Position, tileManager, itemManager);
             }
         }

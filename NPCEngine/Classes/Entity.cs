@@ -57,7 +57,8 @@ namespace EntityEngine.Classes
         /// <summary>
         /// If entity is present at the current stage
         /// </summary>
-        public bool IsInStage { get; set; }
+        public bool IsInStage { get; 
+            set; }
         protected Behaviour Behaviour { get; set; }
         protected List<Category> BigSensorCollidesWithCategories { get; set; }
 
