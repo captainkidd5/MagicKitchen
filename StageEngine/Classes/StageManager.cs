@@ -96,7 +96,7 @@ namespace StageEngine.Classes
                 throw new Exception("Stage with name" + StageSwitchingTo + "does not exist");
 
             //CurrentStage.LoadFromStageFile();
-            _entityManager.SwitchStage(StageSwitchingTo);
+           // _entityManager.SwitchStage(StageSwitchingTo);
             _camera.Jump(_player1.Position);
             StageSwitchingTo = null;
             Flags.IsStageLoading = false;

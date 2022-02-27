@@ -45,7 +45,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void SwitchStage(string newStageName,  TileManager tileManager, ItemManager itemManager)
         {
             Flags.StagePlayerIn = newStageName;
-
+            CurrentStageName = newStageName;
             base.SwitchStage(newStageName,tileManager, itemManager);
             _playerContainer.PlayerSwitchedStage(newStageName);
         }

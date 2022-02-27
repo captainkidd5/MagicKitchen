@@ -1,4 +1,5 @@
 ﻿using EntityEngine.Classes.Animators;
+using EntityEngine.Classes.PlayerStuff;
 using Globals.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -48,7 +49,8 @@ namespace EntityEngine.Classes
             animator.FadeIn();
 
             entity.Move(_intermediateWarpPosition);
-            entity.SwitchStage(_intermediateStageTo, tileManager, itemManager);
+            if(entity.GetType()!=typeof(Player))
+             entity.SwitchStage(_intermediateStageTo, tileManager, itemManager);
             entity.FaceDirection(_directionToFace);
             IsWarping = false;
 
