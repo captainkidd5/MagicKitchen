@@ -20,7 +20,7 @@ namespace EntityEngine.Classes.NPCStuff
     internal class CharacterContainer : EntityContainer
     {
         private readonly QuestManager _questManager;
-
+        private readonly string _pathExtension = "/entities/NPC/Characters";
 
         internal static Texture2D StatusIconTexture { get; set; }
 
@@ -38,8 +38,7 @@ namespace EntityEngine.Classes.NPCStuff
         {
             List<NPCData> allNpcData = new List<NPCData>();
 
-            string pathExtension = "/entities/NPC/Characters";
-            string basePath = content.RootDirectory + pathExtension;
+            string basePath = content.RootDirectory + _pathExtension;
             string[] directories = Directory.GetDirectories(basePath);
             List<Quest> allQuests = new List<Quest>();
             foreach (string directory in directories)

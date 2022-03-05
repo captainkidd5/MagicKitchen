@@ -31,7 +31,7 @@ namespace EntityEngine.Classes
             foreach (KeyValuePair<string, Entity> entity in Entities)
             {
                 Entity e = entity.Value;
-                e.PlayerSwitchedStage(stageTo);
+                e.PlayerSwitchedStage(stageTo, false);
 
             }
         }
