@@ -114,62 +114,64 @@ namespace UIEngine.Classes
 
         public virtual void Update(GameTime gameTime)
         {
-            _hoveredLastFrame = Hovered;
-            _positionLastFrame = Position;
-            Hovered = false;
-            Clicked = false;
-            RightClicked = false;
-
-            //baseline check
-            if (CloseButton != null)
+            if (IsActive)
             {
-                CloseButton.Update(gameTime);
-                if (CloseButton.Hovered)
+
+                _hoveredLastFrame = Hovered;
+                _positionLastFrame = Position;
+                Hovered = false;
+                Clicked = false;
+                RightClicked = false;
+
+                //baseline check
+                if (CloseButton != null)
                 {
-                    return;
+                    CloseButton.Update(gameTime);
+                    if (CloseButton.Hovered)
+                    {
+                        return;
+                    }
                 }
-            }
-            if (Controls.IsHovering(ElementType.UI, HitBox))
-            {
-                //Don't register click if any immediate child section should suppress click events
-
-                if (!ChildSections.Any(x => x.SupressParentSection == true))
+                if (Controls.IsHovering(ElementType.UI, HitBox))
                 {
+
                     Hovered = true;
-                    parentSection.Hovered = true;
                     if (Controls.IsClicked)
                     {
                         Clicked = true;
-                        parentSection.Clicked = true;
                     }
                     if (Controls.IsRightClicked)
                     {
                         RightClicked = true;
-                        parentSection.RightClicked = true;
 
                     }
-                }
-                //   return;
-            }
 
-            for (int i = ChildSections.Count - 1; i >= 0; i--)
-            {
-                ChildSections[i].Update(gameTime);
-                if (ChildSections[i].FlaggedForRemoval)
-                    ChildSections.RemoveAt(i);
+                }
+
+                for (int i = ChildSections.Count - 1; i >= 0; i--)
+                {
+                    ChildSections[i].Update(gameTime);
+                    if (ChildSections[i].FlaggedForRemoval)
+                        ChildSections.RemoveAt(i);
+                }
+
             }
             _activeLastFrame = IsActive;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = ChildSections.Count - 1; i >= 0; i--)
+            if (IsActive)
             {
-                ChildSections[i].Draw(spriteBatch);
-            }
 
-            if (CloseButton != null)
-                CloseButton.Draw(spriteBatch);
+                for (int i = ChildSections.Count - 1; i >= 0; i--)
+                {
+                    ChildSections[i].Draw(spriteBatch);
+                }
+
+                if (CloseButton != null)
+                    CloseButton.Draw(spriteBatch);
+            }
 
         }
         public virtual void Toggle()

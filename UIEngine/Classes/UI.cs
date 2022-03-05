@@ -15,6 +15,7 @@ using ItemEngine.Classes;
 using UIEngine.Classes.MainMenuStuff;
 using SpriteEngine.Classes;
 using IOEngine.Classes;
+using UIEngine.Classes.EscMenuStuff;
 
 namespace UIEngine.Classes
 {
@@ -53,9 +54,9 @@ namespace UIEngine.Classes
 
         internal static ToolBar ToolBar { get; set; }
         internal static ClockBar ClockBar { get; set; }
-
+        
         internal static Curtain Curtain { get; set; }
-
+        internal static EscMenu EscMenu { get; set; }
         internal static InventoryDisplay SecondaryInventoryDisplay { get; set; }
 
         internal static MainMenu MainMenu { get; set; }
@@ -79,12 +80,12 @@ namespace UIEngine.Classes
 
             ToolBar = new ToolBar(null, graphics, content, null, s_baseLayerDepth);
             ClockBar = new ClockBar(null, graphics, content, null, s_baseLayerDepth);
-
+            EscMenu = new EscMenu(null, graphics, content, null, s_baseLayerDepth);
 
             CommandConsole = new CustomConsole(null, graphics, content, null, s_baseLayerDepth);
             TalkingWindow = new DialogueWindow(null, graphics, content, null, s_baseLayerDepth);
             Curtain = new Curtain(null, graphics, content, null, s_baseLayerDepth);
-            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, CommandConsole, TalkingWindow, Curtain };
+            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, CommandConsole, TalkingWindow, Curtain, EscMenu };
 
             SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null, s_baseLayerDepth);
             Cursor = new Cursor();
@@ -163,13 +164,11 @@ namespace UIEngine.Classes
 
             foreach (InterfaceSection section in s_activeSections)
             {
-                if (section.IsActive)
-                {
-
+        
                     section.Update(gameTime);
                     if (section.Hovered)
                         IsHovered = true;
-                }
+                
 
             }
 
@@ -206,11 +205,10 @@ namespace UIEngine.Classes
             Cursor.Draw(spriteBatch);
             foreach (InterfaceSection section in s_activeSections)
             {
-                if (section.IsActive)
-                {
+      
                     section.Draw(spriteBatch);
 
-                }
+                
             }
 
             spriteBatch.End();

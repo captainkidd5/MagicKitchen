@@ -41,6 +41,9 @@ namespace UIEngine.Classes.TextStuff
 
         public override void Update(GameTime gameTime)
         {
+            if (IsActive)
+            {
+
             Hovered = Controls.IsHovering(ElementType.UI, BackdropSprite.HitBox);
 
 
@@ -57,6 +60,8 @@ namespace UIEngine.Classes.TextStuff
             {
                 TextBuilder.ForceComplete();
             }
+            }
+
             base.Update(gameTime);
 
 
@@ -68,9 +73,12 @@ namespace UIEngine.Classes.TextStuff
         {
 
             base.Draw(spriteBatch);
+            if (IsActive)
+            {
 
             BackdropSprite.Draw(spriteBatch);
             TextBuilder.Draw(spriteBatch);
+            }
 
 
         }
