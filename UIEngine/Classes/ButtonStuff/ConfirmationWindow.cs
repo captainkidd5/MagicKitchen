@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextEngine;
+using TextEngine.Classes;
 
 namespace UIEngine.Classes.ButtonStuff
 {
@@ -22,6 +24,9 @@ namespace UIEngine.Classes.ButtonStuff
         private Action _cancelAction;
         private Button _confirmButton;
         private Button _cancelButton;
+
+        private Text _text;
+        private Vector2 _textPosition;
         /// <summary>
         /// Default cancel action is to just close this window
         /// </summary>
@@ -47,14 +52,23 @@ namespace UIEngine.Classes.ButtonStuff
             cancelButtonPos = new Vector2(cancelButtonPos.X - 64, cancelButtonPos.Y);
             _cancelButton = new Button(this, graphics, content, cancelButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_redExRectangle, null, UI.ButtonTexture, null, _cancelAction, scale: 1f);
 
+            _text = TextFactory.CreateUIText($"Are you sure?", GetLayeringDepth(UILayeringDepths.High));
+            _textPosition = Text.CenterInRectangle(HitBox, _text);
+
             IsActive = false;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            if (IsActive)
+            {
+                Vector2 textPos = Text.CenterInRectangle(_backGroundSprite.HitBox, _text);
+                _text.Update(gameTime, new Vector2(textPos.X, textPos.Y - _backGroundSprite.HitBox.Height / 3));
 
-            
+            }
+
+
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -63,6 +77,7 @@ namespace UIEngine.Classes.ButtonStuff
             if (IsActive)
             {
                 _backGroundSprite.Draw(spriteBatch);
+                _text.Draw(spriteBatch, true);
 
             }
         }
