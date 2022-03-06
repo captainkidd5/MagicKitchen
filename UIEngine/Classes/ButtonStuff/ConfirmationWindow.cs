@@ -25,16 +25,18 @@ namespace UIEngine.Classes.ButtonStuff
         private Button _confirmButton;
         private Button _cancelButton;
 
+        private string _confirmationText;
         private Text _text;
         private Vector2 _textPosition;
         /// <summary>
         /// Default cancel action is to just close this window
         /// </summary>
         public ConfirmationWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth, 
-            Action confirmAction, Action? cancelAction = null, bool suppressParentSection = true) : base(interfaceSection, graphicsDevice, content, position, layerDepth, suppressParentSection)
+            Action confirmAction, Action? cancelAction = null, bool suppressParentSection = true, string confirmationText = null) : base(interfaceSection, graphicsDevice, content, position, layerDepth, suppressParentSection)
         {
             _confirmAction = confirmAction;
             _cancelAction = cancelAction ?? new Action(() => Close());
+            _confirmationText = confirmationText ?? "Are you sure?";
             
         }
         public override void LoadContent()
@@ -52,7 +54,7 @@ namespace UIEngine.Classes.ButtonStuff
             cancelButtonPos = new Vector2(cancelButtonPos.X - 64, cancelButtonPos.Y);
             _cancelButton = new Button(this, graphics, content, cancelButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_redExRectangle, null, UI.ButtonTexture, null, _cancelAction, scale: 1f);
 
-            _text = TextFactory.CreateUIText($"Are you sure?", GetLayeringDepth(UILayeringDepths.High));
+            _text = TextFactory.CreateUIText(_confirmationText, GetLayeringDepth(UILayeringDepths.High));
             _textPosition = Text.CenterInRectangle(HitBox, _text);
 
             IsActive = false;

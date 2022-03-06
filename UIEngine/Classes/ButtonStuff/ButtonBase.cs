@@ -21,7 +21,7 @@ namespace UIEngine.Classes.ButtonStuff
 
         protected readonly int DefaultButtonWidth = 64;
         protected readonly int DefaultButtonHeight = 64;
-        private readonly bool _requireConfirmation;
+        private bool _requireConfirmation;
 
         protected Action OnClick { get; set; }
 
@@ -39,7 +39,7 @@ namespace UIEngine.Classes.ButtonStuff
         /// </summary>
 
         public ButtonBase(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
-             Vector2 position,float layerDepth, Rectangle? sourceRectangle, Sprite? foregroundSprite, Texture2D? texture, Point? samplePoint, Action buttonAction, bool hoverTransparency = true, bool requireConfirmation = false)
+             Vector2 position,float layerDepth, Rectangle? sourceRectangle, Sprite? foregroundSprite, Texture2D? texture, Point? samplePoint, Action buttonAction, bool hoverTransparency = true)
         : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             if (sourceRectangle != null)
@@ -56,9 +56,15 @@ namespace UIEngine.Classes.ButtonStuff
             SupressParentSection = true;
 
             HoverTransparency = hoverTransparency;
-            _requireConfirmation = requireConfirmation;
 
            
+        }
+
+        public void AddConfirmationWindow(string confirmationText = null)
+        {
+            _requireConfirmation = true;
+            _confirmationWindow = new ConfirmationWindow(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Back), OnClick, suppressParentSection: true, confirmationText: confirmationText);
+
         }
         public override void LoadContent()
         {
@@ -67,7 +73,6 @@ namespace UIEngine.Classes.ButtonStuff
 
             if (_requireConfirmation)
             {
-                _confirmationWindow = new ConfirmationWindow(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Back), OnClick, suppressParentSection: true);
                 _confirmationWindow.LoadContent();
             }
         }
