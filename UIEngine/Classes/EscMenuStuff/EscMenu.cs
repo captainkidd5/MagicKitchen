@@ -1,4 +1,5 @@
-﻿using Globals.Classes.Helpers;
+﻿using Globals.Classes;
+using Globals.Classes.Helpers;
 using InputEngine.Classes.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -24,8 +25,10 @@ namespace UIEngine.Classes.EscMenuStuff
 
 
 
-        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 148, 240);
+        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 224, 320);
         private NineSliceSprite _backGroundSprite;
+
+        private Action _returnToMainMenuAction;
         public EscMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth, bool suppressParentSection = true) : base(interfaceSection, graphicsDevice, content, position, layerDepth, suppressParentSection)
         {
             IsActive = false;
@@ -33,22 +36,41 @@ namespace UIEngine.Classes.EscMenuStuff
         public override void LoadContent()
         {
             base.LoadContent();
-            _backGroundSprite = SpriteFactory.CreateNineSliceSprite(RectangleHelper.CenterRectangleOnScreen(_backGroundSpriteDimensions), _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height,
+            _returnToMainMenuAction = new Action(ReturnToMainMenu);
+            Vector2 escMenuPos = RectangleHelper.CenterRectangleOnScreen(_backGroundSpriteDimensions);
+            _backGroundSprite = SpriteFactory.CreateNineSliceSprite(escMenuPos, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back));
-            _returnToMainMenuButton = new NineSliceTextButton(this, graphics, content, RectangleHelper.CenterRectangleInRectangle(_returnToMainMenuButtonBackgroundDimensions, _backGroundSpriteDimensions),
+            _returnToMainMenuButton = new NineSliceTextButton(this, graphics, content, RectangleHelper.CenterRectangleInRectangle(_returnToMainMenuButtonBackgroundDimensions, _backGroundSprite.HitBox),
                 GetLayeringDepth(UILayeringDepths.Low), _returnToMainMenuButtonBackgroundDimensions, null, UI.ButtonTexture,
-                new List<Text>() {TextFactory.CreateUIText("Return to main menu", GetLayeringDepth(UILayeringDepths.Medium)) }, null);
+                new List<Text>() {TextFactory.CreateUIText("Return to main menu", GetLayeringDepth(UILayeringDepths.Medium)) }, null, _returnToMainMenuAction);
+            CreateCloseButton(new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, _backGroundSprite.Width, _backGroundSprite.Height));
+
+        }
+
+        private void ReturnToMainMenu()
+        {
+            UI.ReturnToMainMenu();
         }
         public override void Update(GameTime gameTime)
         {
             if (Controls.WasKeyTapped(Keys.Escape))
+            {
                 Toggle();
+
+                Flags.Pause = IsActive;
+
+            }
             base.Update(gameTime);
           
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if (IsActive)
+            {
+                _backGroundSprite.Draw(spriteBatch);
+            }
             base.Draw(spriteBatch);
+           
         }
 
        

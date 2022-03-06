@@ -229,6 +229,10 @@ namespace UIEngine.Classes
 
         }
 
+        internal static void ReturnToMainMenu()
+        {
+            StartChangeGameState(GameDisplayState.MainMenu);
+        }
         private static void StartChangeGameState(GameDisplayState newState)
         {
             DropCurtain(CurtainDropRate);
