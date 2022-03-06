@@ -40,11 +40,14 @@ namespace UIEngine.Classes.EscMenuStuff
             Vector2 escMenuPos = RectangleHelper.CenterRectangleOnScreen(_backGroundSpriteDimensions);
             _backGroundSprite = SpriteFactory.CreateNineSliceSprite(escMenuPos, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back));
+
+            _backGroundSprite.LoadContent();
             _returnToMainMenuButton = new NineSliceTextButton(this, graphics, content, RectangleHelper.CenterRectangleInRectangle(_returnToMainMenuButtonBackgroundDimensions, _backGroundSprite.HitBox),
                 GetLayeringDepth(UILayeringDepths.Low), _returnToMainMenuButtonBackgroundDimensions, null, UI.ButtonTexture,
-                new List<Text>() {TextFactory.CreateUIText("Return to main menu", GetLayeringDepth(UILayeringDepths.Medium)) }, null, _returnToMainMenuAction);
-            CreateCloseButton(new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, _backGroundSprite.Width, _backGroundSprite.Height));
-
+                new List<Text>() {TextFactory.CreateUIText("Return to main menu", GetLayeringDepth(UILayeringDepths.Medium)) }, null, _returnToMainMenuAction, requireConfirmation:true);
+            _returnToMainMenuButton.LoadContent();
+            CloseButton = UI.ButtonFactory.CreateCloseButton(this, new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, _backGroundSprite.Width, _backGroundSprite.Height), GetLayeringDepth(UILayeringDepths.Medium));
+            CloseButton.LoadContent();
         }
 
         private void ReturnToMainMenu()

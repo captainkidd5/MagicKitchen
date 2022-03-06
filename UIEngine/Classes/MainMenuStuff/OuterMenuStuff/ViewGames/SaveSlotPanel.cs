@@ -47,7 +47,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
             _slotButton = new NineSliceTextButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), _slotButtonDimensions, null, null, new List<Text>() { _nameText, _dateText, _timeText }, null, saveAction, true);
 
-            CreateCloseButton(new Rectangle((int)Position.X, (int)Position.Y, _slotButtonDimensions.Width, _slotButtonDimensions.Height));
+            CloseButton = UI.ButtonFactory.CreateCloseButton(this,new Rectangle((int)Position.X, (int)Position.Y, _slotButtonDimensions.Width, _slotButtonDimensions.Height), GetLayeringDepth(UILayeringDepths.Medium));
 
 
             //_loadFileAction = _saveFile.LoadSave
@@ -65,7 +65,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
         }
 
-        protected internal override void Close()
+         internal override void Close()
         {
             base.Close();
             _saveFile.Delete();

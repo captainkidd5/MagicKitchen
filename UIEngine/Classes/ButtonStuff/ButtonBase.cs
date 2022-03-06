@@ -21,6 +21,7 @@ namespace UIEngine.Classes.ButtonStuff
 
         protected readonly int DefaultButtonWidth = 64;
         protected readonly int DefaultButtonHeight = 64;
+        private readonly bool _requireConfirmation;
 
         protected Action OnClick { get; set; }
 
@@ -31,6 +32,8 @@ namespace UIEngine.Classes.ButtonStuff
         private bool Locked { get; set; }
         private bool HoverTransparency { get; set; }
         protected BaseSprite BackGroundSprite { get; set; }
+
+        private ConfirmationWindow _confirmationWindow;
         /// <summary>
         /// Nineslice constructor
         /// </summary>
@@ -53,13 +56,20 @@ namespace UIEngine.Classes.ButtonStuff
             SupressParentSection = true;
 
             HoverTransparency = hoverTransparency;
+            _requireConfirmation = requireConfirmation;
+
+           
         }
         public override void LoadContent()
         {
             base.LoadContent();
             HitBox = BackGroundSprite.HitBox;
 
-
+            if (_requireConfirmation)
+            {
+                _confirmationWindow = new ConfirmationWindow(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Back), OnClick, suppressParentSection: true);
+                _confirmationWindow.LoadContent();
+            }
         }
 
 
@@ -101,8 +111,16 @@ namespace UIEngine.Classes.ButtonStuff
 
                     if (Clicked)
                     {
-                        OnClick();
                         SoundFactory.PlaySoundEffect("Click1");
+                        if (_requireConfirmation)
+                        {
+                            _confirmationWindow.IsActive = true;
+                        }
+                        else
+                        {
+                            OnClick();
+                        }
+
                     }
                 }
                 else if (WasHovered)
@@ -113,6 +131,7 @@ namespace UIEngine.Classes.ButtonStuff
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            base.Draw(spriteBatch);
             BackGroundSprite.Draw(spriteBatch);
             if (ForegroundSprite != null)
                 ForegroundSprite.Draw(spriteBatch);

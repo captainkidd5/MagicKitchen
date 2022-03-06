@@ -17,6 +17,7 @@ using SpriteEngine.Classes;
 using IOEngine.Classes;
 using UIEngine.Classes.EscMenuStuff;
 using System;
+using UIEngine.Classes.ButtonStuff;
 
 namespace UIEngine.Classes
 {
@@ -34,6 +35,8 @@ namespace UIEngine.Classes
         private static ContentManager s_content;
 
         private static float s_baseLayerDepth = .01f;
+
+        internal static ButtonFactory ButtonFactory;
         public static float CurtainDropRate => Curtain.DropRate;
 
         public static GameDisplayState GameDisplayState { get; private set; } = GameDisplayState.MainMenu;
@@ -71,6 +74,7 @@ namespace UIEngine.Classes
             s_game = game;
             s_graphics = graphics;
             s_content = content;
+            ButtonFactory = new ButtonFactory(graphics, content);
             ButtonTexture = content.Load<Texture2D>("UI/Buttons");
             ButtonTextureDat = new Color[ButtonTexture.Width * ButtonTexture.Height];
             ButtonTexture.GetData<Color>(ButtonTextureDat);

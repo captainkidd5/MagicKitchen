@@ -15,7 +15,7 @@ namespace UIEngine.Classes.ButtonStuff
     internal class ConfirmationWindow : InterfaceSection
     {
 
-        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 80, 128);
+        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 240, 128);
         private NineSliceSprite _backGroundSprite;
 
         private Action _confirmAction;
@@ -37,13 +37,17 @@ namespace UIEngine.Classes.ButtonStuff
             base.LoadContent();
             Position = RectangleHelper.CenterRectangleOnScreen(_backGroundSpriteDimensions);
             _backGroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height,
-                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back));
+                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low));
 
-            Vector2 confirmButtonPos = RectangleHelper.CenterRectangleInRectangle(ButtonFactory.s_greenCheckRectangle, HitBox);
-            _confirmButton = new Button(this, graphics, content, confirmButtonPos, GetLayeringDepth(UILayeringDepths.Low), ButtonFactory.s_greenCheckRectangle, null, UI.ButtonTexture, null, _confirmAction);
+            Vector2 confirmButtonPos = RectangleHelper.CenterRectangleInRectangle(ButtonFactory.s_greenCheckRectangle, _backGroundSprite.HitBox);
+            confirmButtonPos = new Vector2(confirmButtonPos.X + 64, confirmButtonPos.Y);
+            _confirmButton = new Button(this, graphics, content, confirmButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_greenCheckRectangle, null, UI.ButtonTexture, null, _confirmAction, scale: 1f); ;
 
-            Vector2 cancelButtonPos = RectangleHelper.CenterRectangleInRectangle(ButtonFactory.s_redExRectangle, HitBox);
-            _cancelButton = new Button(this, graphics, content, confirmButtonPos, GetLayeringDepth(UILayeringDepths.Low), ButtonFactory.s_redExRectangle, null, UI.ButtonTexture, null, _cancelAction);
+            Vector2 cancelButtonPos = RectangleHelper.CenterRectangleInRectangle(ButtonFactory.s_redExRectangle, _backGroundSprite.HitBox);
+            cancelButtonPos = new Vector2(cancelButtonPos.X - 64, cancelButtonPos.Y);
+            _cancelButton = new Button(this, graphics, content, cancelButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_redExRectangle, null, UI.ButtonTexture, null, _cancelAction, scale: 1f);
+
+            IsActive = false;
         }
 
         public override void Update(GameTime gameTime)
@@ -55,6 +59,12 @@ namespace UIEngine.Classes.ButtonStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+
+            if (IsActive)
+            {
+                _backGroundSprite.Draw(spriteBatch);
+
+            }
         }
 
        
