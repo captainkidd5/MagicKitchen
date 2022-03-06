@@ -39,7 +39,6 @@ namespace StageEngine.Classes
 
         private string StageSwitchingTo { get; set; }
 
-        private bool WasStageSwitchingLastFrame { get; set; }
         private Vector2 NewPlayerPositionOnStageSwitch { get; set; }
 
         public StageManager(GraphicsDevice graphics, ContentManager content,EntityManager entityManager, PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
@@ -77,7 +76,7 @@ namespace StageEngine.Classes
         /// <exception cref="Exception"></exception>
         public void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
-            UI.DropCurtain(UI.CurtainDropRate);
+            UI.DropCurtain(UI.CurtainDropRate, new Action(SwitchStage));
 
             StageSwitchingTo = newStage;
             NewPlayerPositionOnStageSwitch = newPlayerPos;
@@ -99,12 +98,10 @@ namespace StageEngine.Classes
            // _entityManager.SwitchStage(StageSwitchingTo);
             _camera.Jump(_player1.Position);
             StageSwitchingTo = null;
-            Flags.IsStageLoading = false;
             Debug.Assert(NewPlayerPositionOnStageSwitch != Vector2.Zero, "New player position should not be zero");
             _player1.Move(NewPlayerPositionOnStageSwitch);
             NewPlayerPositionOnStageSwitch = Vector2.Zero;
 
-            WasStageSwitchingLastFrame = Flags.IsStageLoading;
             _player1.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             //_player1.LoadToNewStage(CurrentStage.Name, CurrentStage.ItemManager);
             Flags.Pause = false;
@@ -116,10 +113,7 @@ namespace StageEngine.Classes
 
         public void Update(GameTime gameTime)
         {
-            if (WasStageSwitchingLastFrame != Flags.IsStageLoading)
-            {
-                SwitchStage();
-            }
+
             if (!Flags.Pause)
             {
                 _portalManager.Update(gameTime);

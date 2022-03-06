@@ -16,6 +16,7 @@ using UIEngine.Classes.MainMenuStuff;
 using SpriteEngine.Classes;
 using IOEngine.Classes;
 using UIEngine.Classes.EscMenuStuff;
+using System;
 
 namespace UIEngine.Classes
 {
@@ -148,8 +149,8 @@ namespace UIEngine.Classes
         public static void Update(GameTime gameTime)
         {
             IsHovered = false;
-            if (s_requestedGameState != GameDisplayState.None && Curtain.FullyDropped )
-                FinishChangeGameState();
+            //if (s_requestedGameState != GameDisplayState.None && Curtain.FullyDropped )
+            //    FinishChangeGameState();
             if (Controls.WasKeyTapped(Keys.F1))
             {
                 Flags.Pause = !Flags.Pause;
@@ -215,7 +216,7 @@ namespace UIEngine.Classes
 
         }
 
-        public static void DropCurtain(float rate) => Curtain.FadeIn(rate);
+        public static void DropCurtain(float rate, Action actionOnDrop) => Curtain.FadeIn(rate, actionOnDrop);
         public static void RaiseCurtain(float rate) => Curtain.FadeOut(rate);
 
         /// <summary>
@@ -235,14 +236,13 @@ namespace UIEngine.Classes
         }
         private static void StartChangeGameState(GameDisplayState newState)
         {
-            DropCurtain(CurtainDropRate);
+            DropCurtain(CurtainDropRate, new Action(FinishChangeGameState));
             s_requestedGameState = newState;
 
            
         }
         private static void FinishChangeGameState()
         {
-            Flags.IsStageLoading = false;
             UnloadCurrentSection();
             GameDisplayState = s_requestedGameState;
             s_requestedGameState = GameDisplayState.None;

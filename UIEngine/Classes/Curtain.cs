@@ -16,6 +16,8 @@ namespace UIEngine.Classes
         private float FadeRate { get; set; }
         private bool IsFadingIn { get; set; }
 
+        private Action _actionOnDrop;
+
         public static readonly float DropRate = .00055f;
         public bool FullyDropped => Opacity >= 1f;
 
@@ -65,8 +67,7 @@ namespace UIEngine.Classes
             {
                 IsFadingIn = false;
                 //IsActive = false;
-
-                Flags.IsStageLoading = true;
+                _actionOnDrop();
             }
 
         }
@@ -80,11 +81,12 @@ namespace UIEngine.Classes
             }
         }
 
-        public void FadeIn(float rate)
+        public void FadeIn(float rate, Action actionOnDrop)
         {
             FadeRate = rate;
             IsFadingIn = true;
             IsActive = true;
+            _actionOnDrop = actionOnDrop;
         }
 
         public void FadeOut(float rate)
