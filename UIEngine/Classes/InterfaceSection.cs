@@ -46,7 +46,7 @@ namespace UIEngine.Classes
         protected bool WasHovered => (_hoveredLastFrame && !Hovered);
         internal virtual protected bool Clicked { get; set; }
         internal virtual protected bool RightClicked { get; set; }
-        internal virtual protected void Close() => IsActive = false;
+        internal virtual void Close() => IsActive = false;
 
         internal protected bool SupressParentSection { get; set; }
 
@@ -76,14 +76,6 @@ namespace UIEngine.Classes
                 //LayerDepth = UI.IncrementLD(layerDepth);
             }
             SupressParentSection = suppressParentSection;
-        }
-
-        protected void CreateCloseButton(Rectangle backgroundRectangle)
-        {
-            Rectangle redExRectangle = new Rectangle(0, 80, 32, 32);
-            Vector2 positionToPlace = RectangleHelper.PlaceRectangleAtTopRightOfParentRectangle(backgroundRectangle, redExRectangle);
-            CloseButton = new Button(this, graphics, content, positionToPlace, GetLayeringDepth(UILayeringDepths.High), redExRectangle,
-                null, UI.ButtonTexture, null, new Action(Close), scale: 1f);
         }
 
         private void AssignLayeringDepths()
