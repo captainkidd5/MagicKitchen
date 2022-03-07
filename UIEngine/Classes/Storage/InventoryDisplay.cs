@@ -46,6 +46,7 @@ namespace UIEngine.Classes.Storage
 
         public override void LoadContent()
         {
+            HitBox = 
             base.LoadContent();
 
         }

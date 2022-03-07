@@ -39,7 +39,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
         public override void LoadContent()
         {
-            base.LoadContent();
             Action saveAction = LoadSave;
             _nameText = TextFactory.CreateUIText(_saveFile.Name, GetLayeringDepth(UILayeringDepths.High));
             _dateText = TextFactory.CreateUIText(_saveFile.DateCreated.Date.ToString("d"), GetLayeringDepth(UILayeringDepths.High));
@@ -49,6 +48,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
             CloseButton = UI.ButtonFactory.CreateCloseButton(this,new Rectangle((int)Position.X, (int)Position.Y, _slotButtonDimensions.Width, _slotButtonDimensions.Height), GetLayeringDepth(UILayeringDepths.Medium));
 
+            HitBox = new Rectangle((int)Position.X, (int)Position.Y, _slotButtonDimensions.Width, _slotButtonDimensions.Height);
+            base.LoadContent();
 
             //_loadFileAction = _saveFile.LoadSave
         }

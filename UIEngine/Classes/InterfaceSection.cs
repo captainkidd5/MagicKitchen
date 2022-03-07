@@ -76,6 +76,8 @@ namespace UIEngine.Classes
                 //LayerDepth = UI.IncrementLD(layerDepth);
             }
             SupressParentSection = suppressParentSection;
+
+         
         }
 
         private void AssignLayeringDepths()
@@ -95,7 +97,8 @@ namespace UIEngine.Classes
 
         public override void LoadContent()
         {
-
+            if (HitBox.Width == 0 || HitBox.Height == 0)
+                throw new Exception("Hitbox must be greater than 0");
         }
 
         public override void Unload()
@@ -115,28 +118,35 @@ namespace UIEngine.Classes
                 Clicked = false;
                 RightClicked = false;
 
-                //baseline check
-                if (CloseButton != null)
+                ////baseline check
+                //if (CloseButton != null)
+                //{
+                //    CloseButton.Update(gameTime);
+                //    if (CloseButton.Hovered)
+                //    {
+                //        return;
+                //    }
+                //}
+                if (Controls.IsHovering(ElementType.UI, HitBox))
                 {
-                    CloseButton.Update(gameTime);
-                    if (CloseButton.Hovered)
+                    if (CloseButton != null && CloseButton.Hovered)
                     {
                         return;
                     }
-                }
-                if (Controls.IsHovering(ElementType.UI, HitBox))
-                {
-
-                    Hovered = true;
-                    if (Controls.IsClicked)
+                    if (!ChildSections.Any(x => x.SupressParentSection && x.IsActive))
                     {
-                        Clicked = true;
-                    }
-                    if (Controls.IsRightClicked)
-                    {
-                        RightClicked = true;
+                        Hovered = true;
+                        if (Controls.IsClicked)
+                        {
+                            Clicked = true;
+                        }
+                        if (Controls.IsRightClicked)
+                        {
+                            RightClicked = true;
 
+                        }
                     }
+
 
                 }
 

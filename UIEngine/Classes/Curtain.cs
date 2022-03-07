@@ -30,8 +30,12 @@ namespace UIEngine.Classes
         }
         public override void LoadContent()
         {
-            base.LoadContent();
+
             BackdropSprite = SpriteFactory.CreateUISprite(Vector2.Zero,Settings.ScreenRectangle,Settings.DebugTexture, _layerDepth, Color.White);
+
+            HitBox = Settings.ScreenRectangle;
+            base.LoadContent();
+
 
         }
         public override void Update(GameTime gameTime)

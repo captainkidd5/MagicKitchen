@@ -58,7 +58,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             if (_outerMenuState == newState)
                 throw new Exception($"Already in state {newState}!");
             _outerMenuState = newState;
-            _activeSection.Reset();
+            //_activeSection.Reset();
 
             switch (_outerMenuState)
             {
@@ -84,7 +84,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         }
         public override void LoadContent()
         {
-            base.LoadContent();
 
             _viewGamesMenu = new ViewGamesMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
             _viewGamesMenu.LoadContent();
@@ -103,6 +102,10 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             
 
             AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
+
+            HitBox = _backGroundSourceRectangle;
+            base.LoadContent();
+
 
         }
 
