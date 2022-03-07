@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace UIEngine.Classes.DebugStuff
+namespace MagicKitchen.Classes.ConsoleStuff
 {
     abstract class Command
     {
@@ -15,13 +15,7 @@ namespace UIEngine.Classes.DebugStuff
 
         protected string Keyword;
         protected CmdArg[] Args;
-        protected CustomConsole console;
         public string Description { get; protected set; }
-
-        internal Command(CustomConsole console)
-        {
-            this.console = console;
-        }
 
         /// <summary>
         /// Returns true if this is the correct command to use with the arguments
@@ -140,7 +134,7 @@ namespace UIEngine.Classes.DebugStuff
 
     internal class Toggle_Debug : Command
     {
-        public Toggle_Debug(CustomConsole console) : base(console)
+        public Toggle_Debug() : base()
         {
             Keyword = "toggle_debug";
             Args = new CmdArg[0] { };
@@ -167,7 +161,7 @@ namespace UIEngine.Classes.DebugStuff
     }
     internal class Toggle_Night : Command
     {
-        public Toggle_Night(CustomConsole console) : base(console)
+        public Toggle_Night()
         {
             Keyword = "t_night";
             Args = new CmdArg[0] { };
@@ -193,7 +187,7 @@ namespace UIEngine.Classes.DebugStuff
     }
     internal class Toggle_Shadows : Command
     {
-        public Toggle_Shadows(CustomConsole console) : base(console)
+        public Toggle_Shadows()
         {
             Keyword = "toggle_shadows";
             Args = new CmdArg[0] { };
@@ -221,7 +215,7 @@ namespace UIEngine.Classes.DebugStuff
     }
     internal class Toggle_Path : Command
     {
-        public Toggle_Path(CustomConsole console) : base(console)
+        public Toggle_Path()
         {
             Keyword = "toggle_path";
             Args = new CmdArg[0] { };
@@ -246,7 +240,7 @@ namespace UIEngine.Classes.DebugStuff
 
     internal class ExitCommand : Command
     {
-        public ExitCommand(CustomConsole console) : base(console)
+        public ExitCommand()
         {
             Keyword = "exit";
             Args = new CmdArg[0] { };
@@ -273,7 +267,7 @@ namespace UIEngine.Classes.DebugStuff
 
     internal class ListCommand : Command
     {
-        public ListCommand(CustomConsole console) : base(console)
+        public ListCommand()
         {
             Description = "Lists all of x type";
 
@@ -315,7 +309,7 @@ namespace UIEngine.Classes.DebugStuff
 
     internal class SetResolutionCommand : Command
     {
-        public SetResolutionCommand(CustomConsole console) : base(console)
+        public SetResolutionCommand()
         {
             Description = "Sets resolution to specified preset resolution";
 
@@ -378,7 +372,7 @@ namespace UIEngine.Classes.DebugStuff
 
     internal class SetZoomCommand : Command
     {
-        public SetZoomCommand(CustomConsole console) : base(console)
+        public SetZoomCommand()
         {
             Description = "Sets camera zoom to given float";
 
@@ -417,7 +411,7 @@ namespace UIEngine.Classes.DebugStuff
 
     internal class CamLockCommand : Command
     {
-        public CamLockCommand(CustomConsole console) : base(console)
+        public CamLockCommand()
         {
             Description = "Prevents camera from moving outside of map bounds";
 
@@ -445,7 +439,7 @@ namespace UIEngine.Classes.DebugStuff
     }
     internal class HelpCommand : Command
     {
-        public HelpCommand(CustomConsole console) : base(console)
+        public HelpCommand()
         {
             Description = "Shows the list of all commands";
 
@@ -465,7 +459,6 @@ namespace UIEngine.Classes.DebugStuff
 
             }
 
-          //  console.Help();
             CommandConsole.Append("Requested help");
 
         }

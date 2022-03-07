@@ -53,7 +53,6 @@ namespace UIEngine.Classes
         private static List<InterfaceSection> s_standardSections { get; set; }
         private static List<InterfaceSection> s_mainMenuSections { get; set; }
 
-        internal static CustomConsole CommandConsole { get; set; }
         public static DialogueWindow TalkingWindow { get; set; }
 
         internal static ToolBar ToolBar { get; set; }
@@ -87,10 +86,9 @@ namespace UIEngine.Classes
             ClockBar = new ClockBar(null, graphics, content, null, s_baseLayerDepth);
             EscMenu = new EscMenu(null, graphics, content, null, s_baseLayerDepth);
 
-            CommandConsole = new CustomConsole(null, graphics, content, null, s_baseLayerDepth);
             TalkingWindow = new DialogueWindow(null, graphics, content, null, s_baseLayerDepth);
             Curtain = new Curtain(null, graphics, content, null, s_baseLayerDepth);
-            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, CommandConsole, TalkingWindow, Curtain, EscMenu };
+            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow, Curtain, EscMenu };
 
             SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null, s_baseLayerDepth);
             Cursor = new Cursor();
@@ -158,7 +156,6 @@ namespace UIEngine.Classes
             if (Controls.WasKeyTapped(Keys.F1))
             {
                 Flags.Pause = !Flags.Pause;
-                CommandConsole.Toggle();
             }
             if (Controls.WasKeyTapped(Keys.OemTilde))
             {

@@ -26,6 +26,7 @@ using SoundEngine;
 using SoundEngine.Classes;
 using QuakeConsole;
 using Globals.Classes.Console;
+using MagicKitchen.Classes.ConsoleStuff;
 
 namespace MagicKitchen
 {
@@ -41,6 +42,8 @@ namespace MagicKitchen
         private StageManager _stageManager;
 
         private EntityManager _entityManager;
+
+        private CommandList _commandList;
         public Player Player1 => _entityManager.Player1;
 
         public static SpriteFont MainFont { get; set; }
@@ -83,7 +86,7 @@ namespace MagicKitchen
             _entityManager = new EntityManager(GraphicsDevice, Content);
             _stageManager = new StageManager(GraphicsDevice, Content, _entityManager, Penumbra, Camera);
             //Penumbra.SpriteBatchTransformEnabled = true;
-
+            _commandList = new CommandList();
             base.Initialize();
 
         }
@@ -95,6 +98,7 @@ namespace MagicKitchen
             SaveLoadManager.FetchAllMetadata();
 
             CommandConsole.Load(consoleComponent);
+            _commandList.Load();
             Clock.Load();
             List<StageData> stageData = Content.Load<List<StageData>>("Maps/StageData");
             MainFont = Content.Load<SpriteFont>("Fonts/Font");
