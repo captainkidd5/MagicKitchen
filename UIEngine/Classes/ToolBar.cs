@@ -43,7 +43,7 @@ namespace UIEngine.Classes
                 RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle) + new Vector2(0, -32), LayerDepth);
             _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer);
             _playerInventoryDisplay.LoadContent();
-            HitBox = new Rectangle((int)Position.X, (int)Position.Y, totalToolBarRectangle.Width, totalToolBarRectangle.Height);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, totalToolBarRectangle.Width, totalToolBarRectangle.Height);
 
         }
 

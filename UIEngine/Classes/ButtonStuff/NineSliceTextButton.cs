@@ -39,7 +39,7 @@ namespace UIEngine.Classes.ButtonStuff
             for (int i = 0; i < _textList.Count; i++)
             {
 
-                textIndexPos = Text.CenterInRectangle(HitBox, _textList[i]);
+                textIndexPos = Text.CenterInRectangle(TotalBounds, _textList[i]);
                 y += _textList[i].TotalStringHeight;
                 textIndexPos = new Vector2(textIndexPos.X, y);
 

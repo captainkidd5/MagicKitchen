@@ -48,7 +48,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
             CloseButton = UI.ButtonFactory.CreateCloseButton(this,new Rectangle((int)Position.X, (int)Position.Y, _slotButtonDimensions.Width, _slotButtonDimensions.Height), GetLayeringDepth(UILayeringDepths.Medium));
 
-            HitBox = new Rectangle((int)Position.X, (int)Position.Y, _slotButtonDimensions.Width, _slotButtonDimensions.Height);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _slotButtonDimensions.Width, _slotButtonDimensions.Height);
             base.LoadContent();
 
             //_loadFileAction = _saveFile.LoadSave

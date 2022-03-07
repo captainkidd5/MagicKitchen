@@ -35,7 +35,6 @@ namespace UIEngine.Classes.EscMenuStuff
         }
         public override void LoadContent()
         {
-            base.LoadContent();
             _returnToMainMenuAction = new Action(ReturnToMainMenu);
             Vector2 escMenuPos = RectangleHelper.CenterRectangleOnScreen(_backGroundSpriteDimensions);
             _backGroundSprite = SpriteFactory.CreateNineSliceSprite(escMenuPos, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height,
@@ -50,6 +49,9 @@ namespace UIEngine.Classes.EscMenuStuff
             _returnToMainMenuButton.LoadContent();
             CloseButton = UI.ButtonFactory.CreateCloseButton(this, new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, _backGroundSprite.Width, _backGroundSprite.Height), GetLayeringDepth(UILayeringDepths.Medium));
             CloseButton.LoadContent();
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height);
+            base.LoadContent();
+
         }
 
         private void ReturnToMainMenu()

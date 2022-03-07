@@ -35,6 +35,8 @@ namespace UIEngine.Classes.TextStuff
             TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front)), .05f);
             IsActive = false;
 
+            TotalBounds = BackdropSprite.HitBox;
+
         }
 
 

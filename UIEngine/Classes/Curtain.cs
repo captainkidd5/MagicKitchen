@@ -33,7 +33,7 @@ namespace UIEngine.Classes
 
             BackdropSprite = SpriteFactory.CreateUISprite(Vector2.Zero,Settings.ScreenRectangle,Settings.DebugTexture, _layerDepth, Color.White);
 
-            HitBox = Settings.ScreenRectangle;
+            TotalBounds = Settings.ScreenRectangle;
             base.LoadContent();
 
 

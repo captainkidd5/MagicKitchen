@@ -17,7 +17,7 @@ namespace UIEngine.Classes.ButtonStuff
 
         protected Rectangle SourceRectangle = new Rectangle(0, 0, 48, 48);
         protected Rectangle hitBox;
-        internal override Rectangle HitBox { get => BackGroundSprite.HitBox; set => hitBox = value; }
+        internal override Rectangle TotalBounds { get => BackGroundSprite.HitBox; set => hitBox = value; }
 
         protected readonly int DefaultButtonWidth = 64;
         protected readonly int DefaultButtonHeight = 64;
@@ -69,7 +69,7 @@ namespace UIEngine.Classes.ButtonStuff
         public override void LoadContent()
         {
             base.LoadContent();
-            HitBox = BackGroundSprite.HitBox;
+            TotalBounds = BackGroundSprite.HitBox;
 
             if (_requireConfirmation)
             {

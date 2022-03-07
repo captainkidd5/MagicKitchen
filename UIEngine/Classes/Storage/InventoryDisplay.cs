@@ -46,7 +46,7 @@ namespace UIEngine.Classes.Storage
 
         public override void LoadContent()
         {
-            HitBox = 
+            TotalBounds = new Rectangle(0, 0, 1, 1);
             base.LoadContent();
 
         }
@@ -76,7 +76,7 @@ namespace UIEngine.Classes.Storage
                     new Vector2(Position.X + i * _buttonWidth,
                     Position.Y + i % Rows * _buttonWidth), LayerDepth));
             }
-
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
         }
         public override void Update(GameTime gameTime)
         {

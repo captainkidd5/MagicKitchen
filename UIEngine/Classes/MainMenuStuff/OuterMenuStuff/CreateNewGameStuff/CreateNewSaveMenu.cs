@@ -56,7 +56,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
                 { TextFactory.CreateUIText("Go!", GetLayeringDepth(UILayeringDepths.Medium))  }, null, _createNewGameAction, true);
             _createNewGameButton.SetLock(true);
 
-            HitBox = new Rectangle((int)Position.X, (int)Position.Y, _backGroundRectangle.Width, _backGroundRectangle.Height);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundRectangle.Width, _backGroundRectangle.Height);
             base.LoadContent();
 
         }

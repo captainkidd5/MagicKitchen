@@ -209,6 +209,10 @@ namespace UIEngine.Classes.DebugStuff
             PreviousCommandIndex = AllPreviousCommands.Count;
         }
 
+        public override void LoadContent()
+        {
+           // base.LoadContent();
+        }
     }
 
     

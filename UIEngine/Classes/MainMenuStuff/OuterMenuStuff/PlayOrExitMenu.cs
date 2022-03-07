@@ -42,7 +42,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                 null, _playGameAction, true);
             _exitButton = new NineSliceTextButton(this, graphics, content, new Vector2(_anchorPos.X, _anchorPos.Y + 128), GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null,
                 UI.ButtonTexture, new List<Text>() { TextFactory.CreateUIText("Exit", GetLayeringDepth(UILayeringDepths.Medium)) }, null, _exitGameAction, true);
-            HitBox = new Rectangle((int)Position.X, (int)Position.Y, _buttonRectangle.Width, _buttonRectangle.Height);  
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonRectangle.Width, _buttonRectangle.Height);  
             base.LoadContent();
 
         }

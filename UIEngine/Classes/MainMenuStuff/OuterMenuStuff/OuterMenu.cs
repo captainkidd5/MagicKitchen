@@ -103,7 +103,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
             AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
 
-            HitBox = _backGroundSourceRectangle;
+            TotalBounds = _backGroundSourceRectangle;
             base.LoadContent();
 
 

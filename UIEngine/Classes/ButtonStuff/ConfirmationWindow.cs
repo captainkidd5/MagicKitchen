@@ -41,7 +41,6 @@ namespace UIEngine.Classes.ButtonStuff
         }
         public override void LoadContent()
         {
-            base.LoadContent();
             Position = RectangleHelper.CenterRectangleOnScreen(_backGroundSpriteDimensions);
             _backGroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low));
@@ -55,9 +54,12 @@ namespace UIEngine.Classes.ButtonStuff
             _cancelButton = new Button(this, graphics, content, cancelButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_redExRectangle, null, UI.ButtonTexture, null, _cancelAction, scale: 1f);
 
             _text = TextFactory.CreateUIText(_confirmationText, GetLayeringDepth(UILayeringDepths.High));
-            _textPosition = Text.CenterInRectangle(HitBox, _text);
+            _textPosition = Text.CenterInRectangle(TotalBounds, _text);
 
             IsActive = false;
+            TotalBounds = _backGroundSprite.HitBox;
+            base.LoadContent();
+
         }
 
         public override void Update(GameTime gameTime)

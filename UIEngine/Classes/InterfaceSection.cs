@@ -39,7 +39,7 @@ namespace UIEngine.Classes
         internal protected Vector2 Position { get; set; }
         private Vector2 _positionLastFrame;
         protected bool DidPositionChange => (Position != _positionLastFrame);
-        internal virtual Rectangle HitBox { get; set; }
+        internal virtual Rectangle TotalBounds { get; set; }
         public virtual bool Hovered { get; protected set; }
         private bool _hoveredLastFrame;
 
@@ -97,7 +97,7 @@ namespace UIEngine.Classes
 
         public override void LoadContent()
         {
-            if (HitBox.Width == 0 || HitBox.Height == 0)
+            if (TotalBounds.Width == 0 || TotalBounds.Height == 0)
                 throw new Exception("Hitbox must be greater than 0");
         }
 
@@ -127,7 +127,7 @@ namespace UIEngine.Classes
                 //        return;
                 //    }
                 //}
-                if (Controls.IsHovering(ElementType.UI, HitBox))
+                if (Controls.IsHovering(ElementType.UI, TotalBounds))
                 {
                     if (CloseButton != null && CloseButton.Hovered)
                     {

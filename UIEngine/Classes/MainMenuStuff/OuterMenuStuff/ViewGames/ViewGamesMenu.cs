@@ -51,7 +51,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
                 SaveSlotPanel panel = new SaveSlotPanel(file.Value, this, graphics, content, _saveSlotPosition, GetLayeringDepth(UILayeringDepths.Low));
                 panel.LoadContent();
             }
-            HitBox = new Rectangle((int)Position.X, (int)Position.Y, _saveSlotRectangle.Width, _saveSlotRectangle.Height);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _saveSlotRectangle.Width, _saveSlotRectangle.Height);
             base.LoadContent();
 
         }

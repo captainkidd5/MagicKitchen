@@ -46,7 +46,7 @@ namespace UIEngine.Classes.MainMenuStuff
 
 
             _activeSection = _outerMenu;
-            HitBox = _backDropDimensions;
+            TotalBounds = _backDropDimensions;
             base.LoadContent();
 
         }

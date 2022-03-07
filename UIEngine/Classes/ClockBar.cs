@@ -35,6 +35,7 @@ namespace UIEngine.Classes
 
         public override void LoadContent()
         {
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, BackdropSprite.Width, BackdropSprite.Width);
             base.LoadContent();
 
 
