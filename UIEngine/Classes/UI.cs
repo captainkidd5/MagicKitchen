@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using UIEngine.Classes.DebugStuff;
 using Microsoft.Xna.Framework.Input;
 using Globals.Classes;
 using InputEngine.Classes.Input;
@@ -153,10 +152,6 @@ namespace UIEngine.Classes
             IsHovered = false;
             //if (s_requestedGameState != GameDisplayState.None && Curtain.FullyDropped )
             //    FinishChangeGameState();
-            if (Controls.WasKeyTapped(Keys.F1))
-            {
-                Flags.Pause = !Flags.Pause;
-            }
             if (Controls.WasKeyTapped(Keys.OemTilde))
             {
                 Flags.Pause = !Flags.Pause;

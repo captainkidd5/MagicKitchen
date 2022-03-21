@@ -129,7 +129,7 @@ namespace EntityEngine.Classes
         protected override void CreateBody(Vector2 position)
         {
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.Player },
-                new List<Category>() { Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal }, OnCollides, OnSeparates, blocksLight: true, userData: this);
+                new List<Category>() { Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal }, OnCollides, OnSeparates,ignoreGravity:true, blocksLight: true, userData: this);
 
             BigSensorCollidesWithCategories = new List<Category>() { Category.Item, Category.Portal, Category.Solid };
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { Category.PlayerBigSensor }, BigSensorCollidesWithCategories,

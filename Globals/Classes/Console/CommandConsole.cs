@@ -27,7 +27,6 @@ namespace Globals.Classes.Console
             RegisterCommand("list", "lists all commands", ListCommandsAction);
 
             s_consoleComponent.Output.Append("test output");
-          
         }
 
         /// <summary>

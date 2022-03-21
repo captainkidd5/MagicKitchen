@@ -79,7 +79,7 @@ namespace PhysicsEngine.Classes
 
         public static HullBody CreateCircularHullBody(BodyType bodyType, Vector2? position,float? radius, List<Category>? collisionCategories, List<Category>? categoriesCollidesWith,
             OnCollisionHandler? cDelegate, OnSeparationHandler? sDelegate, float density = 1f,
-            float restitution = 1f, float friction = 1f, float mass = 1f, float inertia = 0, bool sleepingAllowed = true,bool isSensor = false, bool ignoreGravity = true,
+            float restitution = 1f, float friction = 1f, float mass = 1f, float inertia = 0, bool sleepingAllowed = true,bool isSensor = false, bool ignoreGravity = false,
             object userData = null, int xOffset = 0, int yOffset = 0,bool blocksLight = false, Light light = null)
         {
             radius = radius ?? 6f;
@@ -96,9 +96,10 @@ namespace PhysicsEngine.Classes
                 foreach (Category category in collisionCategories)
                     body.SetCollisionCategory(category);
             }
-           
 
 
+            body.IgnoreGravity = ignoreGravity;
+            body.SleepingAllowed = sleepingAllowed;
             body.OnCollision += cDelegate;
             body.OnSeparation += sDelegate;
             body.IsSensor = isSensor;
@@ -116,7 +117,7 @@ namespace PhysicsEngine.Classes
 
         public static HullBody CreateRectangularHullBody(BodyType bodyType, Vector2? position, float? width,float? height, List<Category>? collisionCategories, List<Category>? categoriesCollidesWith,
             OnCollisionHandler? cDelegate, OnSeparationHandler? sDelegate, float density = 1f, float rotation = 0f,
-            float restitution = 1f, float friction = 1f, float mass = 1f, float inertia = 0, bool sleepingAllowed = true, bool isSensor = false, bool ignoreGravity = true,
+            float restitution = 1f, float friction = 1f, float mass = 1f, float inertia = 0, bool sleepingAllowed = true, bool isSensor = false, bool ignoreGravity = false,
             object userData = null, int xOffset = 0, int yOffset = 0, bool blocksLight = false, Light light = null)
         {
             
@@ -142,6 +143,8 @@ namespace PhysicsEngine.Classes
 
             }
 
+            body.IgnoreGravity = ignoreGravity;
+            body.SleepingAllowed = sleepingAllowed;
 
             body.OnCollision += cDelegate;
             body.OnSeparation += sDelegate;
