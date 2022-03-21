@@ -62,6 +62,16 @@ namespace UIEngine.Classes.ButtonStuff
 
         }
 
+        internal override void Close()
+        {
+            base.Close();
+            UI.RemoveCriticalSection(this);
+        }
+        public override void Activate()
+        {
+            base.Activate();
+            UI.AddCriticalSection(this);
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

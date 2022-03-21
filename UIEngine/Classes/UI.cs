@@ -44,6 +44,12 @@ namespace UIEngine.Classes
         private static GameDisplayState s_requestedGameState;
 
         private static List<InterfaceSection> s_activeSections;
+        /// <summary>
+        /// "critical sections" are UI sections which take priority over everything else until dealt with. If this list has at least one element, complete update control is switched over to it.
+        /// Ex: confirmation windows
+        /// </summary>
+
+        private static List<InterfaceSection> s_criticalSections;
         internal static Texture2D ButtonTexture { get; set; }
         internal static Texture2D GeneralInterfaceTexture { get; set; }
 
@@ -58,7 +64,7 @@ namespace UIEngine.Classes
 
         internal static ToolBar ToolBar { get; set; }
         internal static ClockBar ClockBar { get; set; }
-        
+
         internal static Curtain Curtain { get; set; }
         internal static EscMenu EscMenu { get; set; }
         internal static InventoryDisplay SecondaryInventoryDisplay { get; set; }
@@ -99,6 +105,7 @@ namespace UIEngine.Classes
             MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null, GetLayeringDepth(UILayeringDepths.Front));
             s_mainMenuSections = new List<InterfaceSection>() { MainMenu, Curtain };
             s_activeSections = GetActiveSections();
+            s_criticalSections = new List<InterfaceSection>();
 
             LoadCurrentSection();
 
@@ -175,22 +182,58 @@ namespace UIEngine.Classes
 
             }
 
-            foreach (InterfaceSection section in s_activeSections)
+            if (s_criticalSections.Count > 0)
             {
-        
+                for(int i = s_criticalSections.Count - 1; i >= 0; i--)
+                {
+                    InterfaceSection section = s_criticalSections[i];
+                    if (section.FlaggedForCriticalRemoval)
+                    {
+                        section.FlaggedForCriticalRemoval = false;
+                        s_criticalSections.RemoveAt(i);
+                    }
+                    else
+                    {
+                        section.Update(gameTime);
+                        if (section.Hovered)
+                            IsHovered = true;
+                    }
+                    
+                }
+
+            }
+            else
+            {
+                foreach (InterfaceSection section in s_activeSections)
+                {
+
                     section.Update(gameTime);
                     if (section.Hovered)
                         IsHovered = true;
-                
 
+
+                }
             }
 
-           
 
             Cursor.Update(gameTime);
 
         }
 
+
+        public static void AddCriticalSection(InterfaceSection section)
+        {
+            if (s_criticalSections.Contains(section))
+                throw new Exception("Section already contained");
+            s_criticalSections.Add(section);
+        }
+
+        public static void RemoveCriticalSection(InterfaceSection section)
+        {
+            if (!s_criticalSections.Contains(section))
+                throw new Exception("Section not found");
+            section.FlaggedForCriticalRemoval = true;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -221,10 +264,10 @@ namespace UIEngine.Classes
             Cursor.Draw(spriteBatch);
             foreach (InterfaceSection section in s_activeSections)
             {
-      
-                    section.Draw(spriteBatch);
 
-                
+                section.Draw(spriteBatch);
+
+
             }
 
             spriteBatch.End();
@@ -254,7 +297,7 @@ namespace UIEngine.Classes
             DropCurtain(CurtainDropRate, new Action(FinishChangeGameState));
             s_requestedGameState = newState;
 
-           
+
         }
         private static void FinishChangeGameState()
         {

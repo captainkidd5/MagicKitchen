@@ -27,6 +27,7 @@ namespace StageEngine.Classes
     {
   
         private readonly EntityManager _entityManager;
+        private readonly string _startingStageName = "LullabyTown";
 
         private Player _player1 => _entityManager.Player1;
         private Camera2D _camera;
@@ -171,13 +172,12 @@ namespace StageEngine.Classes
         {
 
             LoadStageData();
-            string startingStageName = "LullabyTown";
-            writer.Write(startingStageName);
+            writer.Write(_startingStageName);
 
             foreach (KeyValuePair<string, Stage> stage in Stages)
             {
                 stage.Value.CreateNewSave();
-                if(stage.Key != startingStageName)
+                if(stage.Key != _startingStageName)
                 stage.Value.Unload();
 
 

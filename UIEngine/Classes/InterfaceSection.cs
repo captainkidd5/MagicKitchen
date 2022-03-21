@@ -58,6 +58,7 @@ namespace UIEngine.Classes
         internal Button CloseButton { get; set; }
 
         public bool FlaggedForRemoval { get; set; }
+        public bool FlaggedForCriticalRemoval { get; set; }
 
         /// <summary>
         /// 
@@ -94,6 +95,7 @@ namespace UIEngine.Classes
             CleanUp();
             IsActive = false;
         }
+        
         protected float GetLayeringDepth(UILayeringDepths depth)
         {
             return LayeringDepths[(int)depth];
