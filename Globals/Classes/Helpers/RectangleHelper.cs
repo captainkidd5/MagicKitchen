@@ -13,7 +13,8 @@ namespace Globals.Classes.Helpers
         {
             scale = scale ?? Settings.GameScale;
             Vector2 centerScreen = Settings.CenterScreen();
-            return new Vector2(centerScreen.X - rectangle.Width * (float)scale / 2, centerScreen.Y - rectangle.Height / 2 * (float)scale);
+            Vector2 returnVal = new Vector2(centerScreen.X - rectangle.Width * (float)scale / 2, centerScreen.Y - rectangle.Height / 2 * (float)scale);
+            return returnVal;
         }
         public static Vector2 CenterRectangleOnScreen(int width, int height, float? scale = null)
         {
@@ -27,39 +28,39 @@ namespace Globals.Classes.Helpers
         public static Vector2 PlaceTopRightScreen(Rectangle rectangleToPlace, float? scale = null)
         {
             scale = scale ?? Settings.GameScale;
-            return new Vector2(Settings.ScreenWidth - rectangleToPlace.Width * (float)scale, 0);
+            return new Vector2(Settings.NativeWidth - rectangleToPlace.Width * (float)scale, 0);
         }
         public static Vector2 PlaceTopRightScreen(int width, float? scale = null)
         {
             scale = scale ?? Settings.GameScale;
-            return new Vector2(Settings.ScreenWidth * (float)scale - width, 0);
+            return new Vector2(Settings.NativeWidth * (float)scale - width, 0);
         }
 
         public static Vector2 PlaceBottomLeftScreen(Rectangle rectangleToPlace, float? scale = null)
         {
             scale = scale ?? Settings.GameScale;
-            return new Vector2(0, Settings.ScreenHeight - rectangleToPlace.Height * (float)scale);
+            return new Vector2(0, Settings.NativeHeight - rectangleToPlace.Height * (float)scale);
         }
         public static Vector2 PlaceBottomLeftScreen(int height, float? scale = null)
         {
-            return new Vector2(0, Settings.ScreenHeight - height * (scale ?? Settings.GameScale));
+            return new Vector2(0, Settings.NativeHeight - height * (scale ?? Settings.GameScale));
         }
 
         public static Vector2 PlaceBottomRightScreen(Rectangle rectangleToPlace, float? scale = null)
         {
             scale = scale ?? Settings.GameScale;
-            return new Vector2(Settings.ScreenWidth - rectangleToPlace.Width * (float)scale, Settings.ScreenHeight - rectangleToPlace.Height * (float)scale);
+            return new Vector2(Settings.NativeWidth - rectangleToPlace.Width * (float)scale, Settings.NativeHeight - rectangleToPlace.Height * (float)scale);
         }
         public static Vector2 PlaceBottomRightScreen(int width, int height, float? scale = null)
         {
             scale = scale ?? Settings.GameScale;
-            return new Vector2(Settings.ScreenWidth - width * (float)scale, Settings.ScreenHeight - height * (float)scale);
+            return new Vector2(Settings.NativeWidth - width * (float)scale, Settings.NativeHeight - height * (float)scale);
         }
 
         public static Vector2 PlaceBottomCenterScreen(Rectangle rectangleToPlace, float? scale = null)
         {
             scale = scale ?? Settings.GameScale;
-            return new Vector2(Settings.ScreenWidth / 2 - rectangleToPlace.Width / 2 * (float)scale, Settings.ScreenHeight - rectangleToPlace.Height * (float)scale);
+            return new Vector2(Settings.NativeWidth / 2 - rectangleToPlace.Width / 2 * (float)scale, Settings.NativeHeight - rectangleToPlace.Height * (float)scale);
         }
         #region INNER
 

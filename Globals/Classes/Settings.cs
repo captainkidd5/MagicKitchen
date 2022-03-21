@@ -44,7 +44,11 @@ namespace Globals.Classes
         public static int GameScale = 1;
 
         public static float AspectRatio => (float)ScreenWidth / (float)ScreenHeight;
-        public static float PreferredAspect = (float)1280 / (float)720;
+
+        public static float NativeWidth = 1280;
+        public static float NativeHeight = 720;
+
+        public static float PreferredAspect = NativeWidth / NativeHeight;
         public static Rectangle ScreenRectangle;
 
         public static Camera2D Camera;
@@ -102,7 +106,7 @@ namespace Globals.Classes
         }
         public static Vector2 CenterScreen()
         {
-            return new Vector2(Graphics.PreferredBackBufferWidth / 2, Graphics.PreferredBackBufferHeight / 2);
+            return new Vector2(NativeWidth / 2, NativeHeight / 2);
         }
 
         

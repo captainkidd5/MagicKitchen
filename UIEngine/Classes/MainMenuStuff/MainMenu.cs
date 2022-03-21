@@ -59,10 +59,13 @@ namespace UIEngine.Classes.MainMenuStuff
             if (_mainMenuState == newState)
                 throw new Exception($"Already in state {newState}!");
             _mainMenuState = newState;
+            _activeSection.Deactivate();
             switch (_mainMenuState)
             {
                 case MainMenuState.OuterMenu:
                     _activeSection = _outerMenu;
+                    _activeSection.Activate();
+
                     break;
                 default:
                     throw new Exception("Must have a state");

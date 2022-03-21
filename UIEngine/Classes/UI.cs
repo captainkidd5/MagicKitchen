@@ -17,6 +17,7 @@ using IOEngine.Classes;
 using UIEngine.Classes.EscMenuStuff;
 using System;
 using UIEngine.Classes.ButtonStuff;
+using Globals.Classes.Console;
 
 namespace UIEngine.Classes
 {
@@ -87,7 +88,7 @@ namespace UIEngine.Classes
             ClockBar = new ClockBar(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
             EscMenu = new EscMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
 
-            TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
+            TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow, Curtain, EscMenu };
 
@@ -159,7 +160,7 @@ namespace UIEngine.Classes
             {
                 if (!sections.Contains(section))
                 {
-                    section.IsActive = false;
+                    section.Deactivate();
                 }
             }
         }
@@ -170,8 +171,7 @@ namespace UIEngine.Classes
             //    FinishChangeGameState();
             if (Controls.WasKeyTapped(Keys.OemTilde))
             {
-                Flags.Pause = !Flags.Pause;
-                Globals.Classes.Console.CommandConsole.Toggle();
+                CommandConsole.Toggle();
 
             }
 
@@ -201,8 +201,8 @@ namespace UIEngine.Classes
             {
                 foreach (InterfaceSection section in s_activeSections)
                 {
-                    if(section.NormallyActivated)
-                     section.IsActive = true;
+                    if (section.NormallyActivated)
+                        section.Activate();
                 }
             }
             else
@@ -210,7 +210,8 @@ namespace UIEngine.Classes
                 foreach (InterfaceSection section in sectionsToReactive)
                 {
                     if (section.NormallyActivated)
-                        section.IsActive = true;
+                        section.Activate();
+
                 }
             }
         }

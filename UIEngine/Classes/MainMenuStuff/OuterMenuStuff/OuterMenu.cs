@@ -59,23 +59,33 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                 throw new Exception($"Already in state {newState}!");
             _outerMenuState = newState;
             //_activeSection.Reset();
-
             switch (_outerMenuState)
             {
 
                 case OuterMenuState.ViewGames:
+                    _activeSection.Deactivate();
+
                     _activeSection = _viewGamesMenu;
                     AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
+                    _activeSection.Activate();
+
                     break;
                 case OuterMenuState.CreateNewSave:
+                    _activeSection.Deactivate();
+
                     _activeSection = _createNewSaveMenu;
                     AdjustBackgroundRectangleAndBackButton(_createNewSaveMenuBackGroundRectangleDimensions);
+                    _activeSection.Activate();
+
 
                     break;
                
                 case OuterMenuState.PlaySettingsAndExit:
-                    _activeSection = null;
+                    _activeSection.Deactivate();
+
+                    _activeSection = _playOrExitMenu;
                     AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
+                    _activeSection.Activate();
 
                     break;
                 default:

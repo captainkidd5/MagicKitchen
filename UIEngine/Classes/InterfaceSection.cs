@@ -29,7 +29,7 @@ namespace UIEngine.Classes
         internal protected readonly InterfaceSection parentSection;
         protected float[] LayeringDepths;
         internal SectionState State;
-        public bool IsActive { get; set; }
+        public bool IsActive { get; protected set; }
 
         /// <summary>
         /// UI elements such as escape window should not be re-activated when something like the talking window ends, even though its part of the same UI group. Default is true
@@ -85,7 +85,15 @@ namespace UIEngine.Classes
          
         }
 
-
+        public virtual void Activate()
+        {
+            IsActive = true;
+        }
+        public virtual void Deactivate()
+        {
+            CleanUp();
+            IsActive = false;
+        }
         protected float GetLayeringDepth(UILayeringDepths depth)
         {
             return LayeringDepths[(int)depth];
@@ -174,7 +182,10 @@ namespace UIEngine.Classes
         }
         public virtual void Toggle()
         {
-            IsActive = !IsActive;
+            if (IsActive)
+                Deactivate();
+            else
+                Activate();
         }
 
         internal virtual void Reset()
@@ -182,6 +193,13 @@ namespace UIEngine.Classes
             for (int i = ChildSections.Count - 1; i >= 0; i--)
             {
                 ChildSections[i].FlaggedForRemoval = true;
+            }
+        }
+        internal virtual void CleanUp()
+        {
+            for (int i = ChildSections.Count - 1; i >= 0; i--)
+            {
+                ChildSections[i].CleanUp();
             }
         }
     }

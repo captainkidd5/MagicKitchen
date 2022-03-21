@@ -119,7 +119,7 @@ namespace UIEngine.Classes.ButtonStuff
                         SoundFactory.PlaySoundEffect("Click1");
                         if (_requireConfirmation)
                         {
-                            _confirmationWindow.IsActive = true;
+                            _confirmationWindow.Activate();
                         }
                         else
                         {
@@ -155,9 +155,9 @@ namespace UIEngine.Classes.ButtonStuff
             Locked = newVal;
         }
 
-        internal override void Reset()
+        internal override void CleanUp()
         {
-            base.Reset();
+            base.CleanUp();
             BackGroundSprite.ResetColors();
         }
     }
