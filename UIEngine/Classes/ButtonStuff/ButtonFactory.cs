@@ -16,15 +16,17 @@ namespace UIEngine.Classes.ButtonStuff
 
         public static readonly Rectangle s_redExRectangle = new Rectangle(0, 80, 32, 32);
         public static readonly Rectangle s_greenCheckRectangle = new Rectangle(32, 80, 32, 32);
+
+        private float _scale = .5f;
         public ButtonFactory(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
         }
 
         public Button CreateCloseButton(InterfaceSection section, Rectangle backGroundRectangleToPlaceOn, float layer, Action? customAction = null)
         {
-            Vector2 positionToPlace = RectangleHelper.PlaceRectangleAtTopRightOfParentRectangle(backGroundRectangleToPlaceOn, s_redExRectangle);
+            Vector2 positionToPlace = RectangleHelper.PlaceRectangleAtTopRightOfParentRectangle(backGroundRectangleToPlaceOn, new Rectangle(0,0, (int)(s_redExRectangle.Width * _scale), (int)(s_redExRectangle.Height * _scale)));
             return new Button(section, graphics, content, positionToPlace, layer, s_redExRectangle,
-                null, UI.ButtonTexture, null,customAction ?? new Action(section.Close), scale: 1f);
+                null, UI.ButtonTexture, null,customAction ?? new Action(section.Close), scale: _scale);
         }
 
       
