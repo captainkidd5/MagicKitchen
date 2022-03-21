@@ -30,6 +30,11 @@ namespace UIEngine.Classes
         protected float[] LayeringDepths;
         internal SectionState State;
         public bool IsActive { get; set; }
+
+        /// <summary>
+        /// UI elements such as escape window should not be re-activated when something like the talking window ends, even though its part of the same UI group. Default is true
+        /// </summary>
+        public bool NormallyActivated { get; protected set; } = true;
         private bool _activeLastFrame { get; set; }
 
         public bool WasJustActived => IsActive != _activeLastFrame;
@@ -68,7 +73,7 @@ namespace UIEngine.Classes
             IsActive = true;
             State = SectionState.None;
             LayerDepth = layerDepth;
-            AssignLayeringDepths();
+            UI.AssignLayeringDepths(ref LayeringDepths, layerDepth);
 
             if (interfaceSection != null && interfaceSection.ChildSections != null && !interfaceSection.ChildSections.Contains(this))
             {
@@ -80,16 +85,7 @@ namespace UIEngine.Classes
          
         }
 
-        private void AssignLayeringDepths()
-        {
-            LayeringDepths = new float[5];
-            float tempDepth = LayerDepth;
-            for (int i = 0; i < 5; i++)
-            {
-                tempDepth = UI.IncrementLD(tempDepth);
-                LayeringDepths[i] = tempDepth;
-            }
-        }
+
         protected float GetLayeringDepth(UILayeringDepths depth)
         {
             return LayeringDepths[(int)depth];

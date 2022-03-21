@@ -32,6 +32,7 @@ namespace UIEngine.Classes.EscMenuStuff
         public EscMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth, bool suppressParentSection = true) : base(interfaceSection, graphicsDevice, content, position, layerDepth, suppressParentSection)
         {
             IsActive = false;
+            NormallyActivated = false;
         }
         public override void LoadContent()
         {

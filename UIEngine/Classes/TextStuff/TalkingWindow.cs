@@ -16,7 +16,7 @@ using static Globals.Classes.Settings;
 
 namespace UIEngine.Classes.TextStuff
 {
-    public class DialogueWindow : InterfaceSection
+    public class TalkingWindow : InterfaceSection
     {
         private NineSliceSprite BackdropSprite { get; set; }
         private TextBuilder TextBuilder { get; set; }
@@ -24,7 +24,7 @@ namespace UIEngine.Classes.TextStuff
         public Direction DirectionPlayerShouldFace { get; set; }
 
         private Vector2 _textOffSet = new Vector2(16, 16);
-        public DialogueWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,  Vector2? position, float layerDepth) :
+        public TalkingWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,  Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             Rectangle totalBackDropRectangleDimensions = new Rectangle(0, 240, Settings.ScreenWidth, 128);

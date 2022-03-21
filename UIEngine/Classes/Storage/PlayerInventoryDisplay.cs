@@ -50,7 +50,7 @@ namespace UIEngine.Classes.Storage
         {
             base.LoadContent();
             _selectorSprite = SpriteFactory.CreateUISprite(SelectedSlot.Position, new Rectangle(272, 0, 64, 64),
-                UI.ButtonTexture, .6f,null);
+                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium),null);
             DrawEndIndex = _extendedInventoryCutoff;
             _openBigInventoryButton = new Button(this, graphics, content, new Vector2(Position.X + Width, Position.Y),LayerDepth, _openBigInventoryUpArrowSourceRectangle, null, null,null, new Action(ToggleOpen));
             _openBigInventoryButton.LoadContent();
@@ -133,7 +133,7 @@ namespace UIEngine.Classes.Storage
 
                 }
 
-                InventorySlots.Add(new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[i], slotPos,LayerDepth));
+                InventorySlots.Add(new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[i], slotPos,GetLayeringDepth(UILayeringDepths.Low)));
             }
 
             ChildSections.AddRange(InventorySlots);

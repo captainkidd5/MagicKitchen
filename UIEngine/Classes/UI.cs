@@ -34,6 +34,7 @@ namespace UIEngine.Classes
         private static ContentManager s_content;
 
         private static float s_baseLayerDepth = .01f;
+        private static float[] LayeringDepths;
 
         internal static ButtonFactory ButtonFactory;
         public static float CurtainDropRate => Curtain.DropRate;
@@ -52,7 +53,7 @@ namespace UIEngine.Classes
         private static List<InterfaceSection> s_standardSections { get; set; }
         private static List<InterfaceSection> s_mainMenuSections { get; set; }
 
-        public static DialogueWindow TalkingWindow { get; set; }
+        public static TalkingWindow TalkingWindow { get; set; }
 
         internal static ToolBar ToolBar { get; set; }
         internal static ClockBar ClockBar { get; set; }
@@ -72,6 +73,7 @@ namespace UIEngine.Classes
             s_game = game;
             s_graphics = graphics;
             s_content = content;
+            AssignLayeringDepths(ref LayeringDepths, s_baseLayerDepth);
             ButtonFactory = new ButtonFactory(graphics, content);
             ButtonTexture = content.Load<Texture2D>("UI/Buttons");
             ButtonTextureDat = new Color[ButtonTexture.Width * ButtonTexture.Height];
@@ -81,24 +83,38 @@ namespace UIEngine.Classes
             GeneralInterfaceTexDat = new Color[GeneralInterfaceTexture.Width * GeneralInterfaceTexture.Height];
             GeneralInterfaceTexture.GetData<Color>(GeneralInterfaceTexDat);
 
-            ToolBar = new ToolBar(null, graphics, content, null, s_baseLayerDepth);
-            ClockBar = new ClockBar(null, graphics, content, null, s_baseLayerDepth);
-            EscMenu = new EscMenu(null, graphics, content, null, s_baseLayerDepth);
+            ToolBar = new ToolBar(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
+            ClockBar = new ClockBar(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
+            EscMenu = new EscMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
 
-            TalkingWindow = new DialogueWindow(null, graphics, content, null, s_baseLayerDepth);
-            Curtain = new Curtain(null, graphics, content, null, s_baseLayerDepth);
+            TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
+            Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow, Curtain, EscMenu };
 
-            SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null, s_baseLayerDepth);
+            SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
             Cursor = new Cursor();
             Cursor.LoadContent(content);
 
-            MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null, s_baseLayerDepth);
+            MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null, GetLayeringDepth(UILayeringDepths.Front));
             s_mainMenuSections = new List<InterfaceSection>() { MainMenu, Curtain };
             s_activeSections = GetActiveSections();
 
             LoadCurrentSection();
 
+        }
+        internal static void AssignLayeringDepths(ref float[] layeringDepths, float baseDepth)
+        {
+            layeringDepths = new float[5];
+            float tempDepth = baseDepth;
+            for (int i = 0; i < 5; i++)
+            {
+                tempDepth = UI.IncrementLD(tempDepth);
+                layeringDepths[i] = tempDepth;
+            }
+        }
+        private static float GetLayeringDepth(UILayeringDepths depth)
+        {
+            return LayeringDepths[(int)depth];
         }
         public static void LoadPlayerInventory(StorageContainer playerStorageContainer)
         {
@@ -185,14 +201,16 @@ namespace UIEngine.Classes
             {
                 foreach (InterfaceSection section in s_activeSections)
                 {
-                    section.IsActive = true;
+                    if(section.NormallyActivated)
+                     section.IsActive = true;
                 }
             }
             else
             {
                 foreach (InterfaceSection section in sectionsToReactive)
                 {
-                    section.IsActive = true;
+                    if (section.NormallyActivated)
+                        section.IsActive = true;
                 }
             }
         }
