@@ -20,11 +20,11 @@ namespace UIEngine.Classes.ButtonStuff
         {
         }
 
-        public Button CreateCloseButton(InterfaceSection section, Rectangle backGroundRectangleToPlaceOn, float layer)
+        public Button CreateCloseButton(InterfaceSection section, Rectangle backGroundRectangleToPlaceOn, float layer, Action? customAction = null)
         {
             Vector2 positionToPlace = RectangleHelper.PlaceRectangleAtTopRightOfParentRectangle(backGroundRectangleToPlaceOn, s_redExRectangle);
             return new Button(section, graphics, content, positionToPlace, layer, s_redExRectangle,
-                null, UI.ButtonTexture, null, new Action(section.Close), scale: 1f);
+                null, UI.ButtonTexture, null,customAction ?? new Action(section.Close), scale: 1f);
         }
 
       

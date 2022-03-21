@@ -320,9 +320,16 @@ namespace UIEngine.Classes
 
         public static void LoadGame(SaveFile saveFile)
         {
-            SaveLoadManager.CurrentSave = saveFile;
-            SaveLoadManager.Load(saveFile);
-            StartChangeGameState(GameDisplayState.InGame);
+        
+            DropCurtain(CurtainDropRate, new Action(() =>
+            {
+                SaveLoadManager.CurrentSave = saveFile;
+                SaveLoadManager.Load(saveFile);
+                s_requestedGameState = GameDisplayState.InGame;
+
+                FinishChangeGameState();
+
+            }));
         }
     }
 }

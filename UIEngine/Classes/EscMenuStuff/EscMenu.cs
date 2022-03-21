@@ -48,7 +48,12 @@ namespace UIEngine.Classes.EscMenuStuff
             _returnToMainMenuButton.AddConfirmationWindow($"Return to main menu?");
 
             _returnToMainMenuButton.LoadContent();
-            CloseButton = UI.ButtonFactory.CreateCloseButton(this, new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, _backGroundSprite.Width, _backGroundSprite.Height), GetLayeringDepth(UILayeringDepths.Medium));
+            CloseButton = UI.ButtonFactory.CreateCloseButton(this, new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, _backGroundSprite.Width, _backGroundSprite.Height), GetLayeringDepth(UILayeringDepths.Medium),
+                new Action(() =>
+                {
+                    Close();
+                    Flags.Pause = false;
+                }));
             CloseButton.LoadContent();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height);
             base.LoadContent();
