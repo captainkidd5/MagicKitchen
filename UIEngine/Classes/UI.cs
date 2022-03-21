@@ -96,17 +96,17 @@ namespace UIEngine.Classes
 
             TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
-            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow, Curtain, EscMenu };
+            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow, EscMenu };
 
             SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
             Cursor = new Cursor();
             Cursor.LoadContent(content);
 
             MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null, GetLayeringDepth(UILayeringDepths.Front));
-            s_mainMenuSections = new List<InterfaceSection>() { MainMenu, Curtain };
+            s_mainMenuSections = new List<InterfaceSection>() { MainMenu };
             s_activeSections = GetActiveSections();
             s_criticalSections = new List<InterfaceSection>();
-
+            Curtain.LoadContent();
             LoadCurrentSection();
 
         }
@@ -214,7 +214,7 @@ namespace UIEngine.Classes
 
                 }
             }
-
+            Curtain.Update(gameTime);
 
             Cursor.Update(gameTime);
 
@@ -269,7 +269,7 @@ namespace UIEngine.Classes
 
 
             }
-
+            Curtain.Draw(spriteBatch);
             spriteBatch.End();
 
         }

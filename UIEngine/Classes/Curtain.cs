@@ -49,6 +49,7 @@ namespace UIEngine.Classes
                 else
                     DecreaseOpacity(gameTime);
 
+                
                 BackdropSprite.UpdateColor(Color.Black * Opacity);
 
             }

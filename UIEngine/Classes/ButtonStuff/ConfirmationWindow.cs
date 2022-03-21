@@ -47,7 +47,14 @@ namespace UIEngine.Classes.ButtonStuff
 
             Vector2 confirmButtonPos = RectangleHelper.CenterRectangleInRectangle(ButtonFactory.s_greenCheckRectangle, _backGroundSprite.HitBox);
             confirmButtonPos = new Vector2(confirmButtonPos.X + 64, confirmButtonPos.Y);
-            _confirmButton = new Button(this, graphics, content, confirmButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_greenCheckRectangle, null, UI.ButtonTexture, null, _confirmAction, scale: 1f); ;
+            _confirmButton = new Button(this, graphics, content, confirmButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_greenCheckRectangle, null, UI.ButtonTexture, null,
+                new Action(() =>
+                {
+                    _confirmAction();
+                    UI.RemoveCriticalSection(this);
+                }),
+                
+                scale: 1f); ;
 
             Vector2 cancelButtonPos = RectangleHelper.CenterRectangleInRectangle(ButtonFactory.s_redExRectangle, _backGroundSprite.HitBox);
             cancelButtonPos = new Vector2(cancelButtonPos.X - 64, cancelButtonPos.Y);
