@@ -89,9 +89,12 @@ namespace StageEngine.Classes
         public void Save(BinaryWriter writer)
         {
             writer.Write(PortalDictionary.Count);
-            foreach (List<Portal> portalList in PortalDictionary.Values)
+            foreach (KeyValuePair<string, List<Portal>> pair in PortalDictionary)
             {
-                foreach (Portal portal in portalList)
+                writer.Write(pair.Key);
+                writer.Write(pair.Value.Count);
+
+                foreach (Portal portal in pair.Value)
                 {
                     portal.Save(writer);
 
@@ -101,11 +104,20 @@ namespace StageEngine.Classes
 
         public void LoadSave(BinaryReader reader)
         {
-            int portalcount = reader.ReadInt32();
+            int portalListCount = reader.ReadInt32();
 
-            for (int i = 0; i < portalcount; i++)
+            for (int i = 0; i < portalListCount; i++)
             {
+                string stageName = reader.ReadString();
+                int subCount = reader.ReadInt32();
+                List<Portal> portalList = new List<Portal>();
+                for(int j = 0; j < subCount; j++)
+                {
+                    Portal portal = new Portal(this, _stageManager, _entityManager);
+                    portalList.Add(portal);
 
+                }
+                PortalDictionary.Add(stageName, portalList);
             }
         }
 

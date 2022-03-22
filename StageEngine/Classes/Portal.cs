@@ -37,7 +37,6 @@ namespace StageEngine.Classes
         public Portal(PortalManager portalManager,StageManager stageManager,EntityManager entityManager,
             Rectangle rectangle, string from, string to, int xOffSet, int yOffSet,Direction directionToFace, bool mustBeClicked) : base()
         {
-            Move(new Vector2(rectangle.X, rectangle.Y));
             _portalManager = portalManager;
             _stageManager = stageManager;
             _entityManager = entityManager;
@@ -49,8 +48,16 @@ namespace StageEngine.Classes
             _mustBeClicked = mustBeClicked;
             _directionToFace = directionToFace;
         }
+        public Portal(PortalManager portalManager, StageManager stageManager, EntityManager entityManager)
+        {
+            _portalManager = portalManager;
+            _stageManager = stageManager;
+            _entityManager = entityManager;
+        }
         public void Load(Vector2 position)
         {
+            Move(new Vector2(Rectangle.X, Rectangle.Y));
+
             CreateBody(position);
         }
         protected override void CreateBody(Vector2 position)
