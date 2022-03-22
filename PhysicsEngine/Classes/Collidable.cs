@@ -178,7 +178,7 @@ namespace PhysicsEngine.Classes
             MainHullBody.Body.Friction = friction;
             MainHullBody.Body.Mass = bodyMass;
         }
-        public virtual void Unload()
+        public virtual void CleanUp()
         {
             foreach(HullBody body in HullBodies)
             {

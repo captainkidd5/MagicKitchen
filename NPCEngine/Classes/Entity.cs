@@ -153,9 +153,9 @@ namespace EntityEngine.Classes
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-        public override void Unload()
+        public override void CleanUp()
         {
-            base.Unload();
+            base.CleanUp();
         }
 
         public virtual void Halt(bool forceStop = false)
@@ -308,7 +308,7 @@ namespace EntityEngine.Classes
             else if (MainHullBody != null)
             {
                 if (fullyUnload)
-                    Unload();
+                    CleanUp();
 
                 else
                     RemoveEntityPhysics();

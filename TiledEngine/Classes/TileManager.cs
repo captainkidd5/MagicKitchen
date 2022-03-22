@@ -115,21 +115,7 @@ namespace TiledEngine.Classes
 
             MapRectangle = new Rectangle(0, 0, Settings.TileSize * MapWidth, Settings.TileSize * MapWidth);
         }
-        public void Unload()
-        {
-            for (int z = 0; z < Tiles.Count; z++)
-            {
-                for (int x = 0; x < MapWidth; x++)
-                {
-                    for (int y = 0; y < MapWidth; y++)
-                    {
-                        //Remove any hullbodies or penumbra lights
-                        Tiles[z][x, y].Unload();
-                    }
-                }
-            }
-            Tiles.Clear();
-        }
+      
 
 
 
@@ -363,5 +349,20 @@ namespace TiledEngine.Classes
 
         }
 
+        public void CleanUp()
+        {
+            for (int z = 0; z < Tiles.Count; z++)
+            {
+                for (int x = 0; x < MapWidth; x++)
+                {
+                    for (int y = 0; y < MapWidth; y++)
+                    {
+                        //Remove any hullbodies or penumbra lights
+                        Tiles[z][x, y].Unload();
+                    }
+                }
+            }
+            Tiles.Clear();
+        }
     }
 }

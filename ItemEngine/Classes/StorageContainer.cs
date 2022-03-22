@@ -97,6 +97,11 @@ namespace ItemEngine.Classes
                 slot.LoadSave(reader);
             }
         }
+
+        public void CleanUp()
+        {
+            Slots.Clear();
+        }
     }
 
     public delegate void ItemChanged(Item item, int storedCount);
@@ -326,6 +331,11 @@ namespace ItemEngine.Classes
         }
 
         public void LoadSave(BinaryReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CleanUp()
         {
             throw new NotImplementedException();
         }

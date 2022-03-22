@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Globals.Classes.Helpers
@@ -122,6 +123,17 @@ namespace Globals.Classes.Helpers
             return new Rectangle(0, 0, texture.Width, texture.Height);
         }
 
-        
+        public static void WriteRectangle(BinaryWriter writer, Rectangle val)
+        {
+            writer.Write(val.X);
+            writer.Write(val.Y);
+            writer.Write(val.Width);
+            writer.Write(val.Height);
+        }
+
+        public static Rectangle ReadRectangle(BinaryReader reader)
+        {
+            return new Rectangle(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
+        }
     }
 }

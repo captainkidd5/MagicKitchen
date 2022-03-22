@@ -144,5 +144,10 @@ namespace Globals.Classes
         {
             this.Zoom = reader.ReadSingle();
         }
+
+        public void CleanUp()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

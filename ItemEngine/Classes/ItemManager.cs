@@ -30,7 +30,7 @@ namespace ItemEngine.Classes
                 item.Update(gameTime);
                 if (item.FlaggedForRemoval)
                 {
-                    item.Unload();
+                    item.CleanUp();
                     Items.RemoveAt(i);
                 }
             }
@@ -61,16 +61,16 @@ namespace ItemEngine.Classes
                 WorldItem item = Items[i];
                 writer.Write(item.Id);
                 writer.Write(item.Count);
-                
+
                 Vector2Helper.WriteVector2(writer, item.Position);
-               item.Item.Save(writer);
+                item.Item.Save(writer);
             }
         }
 
         public void LoadSave(BinaryReader reader)
         {
             int count = reader.ReadInt32();
-            for(int i =0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
                 int id = reader.ReadInt32();
                 int itemCount = reader.ReadInt32();
@@ -79,6 +79,16 @@ namespace ItemEngine.Classes
             }
 
             throw new NotImplementedException();
+        }
+
+        public void CleanUp()
+        {
+            for (int i = 0; i < Items.Count; i++)
+            {
+                WorldItem item = Items[i];
+                item.CleanUp();
+            }
+            Items.Clear();
         }
     }
 }

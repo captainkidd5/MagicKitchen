@@ -66,9 +66,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
         }
 
-         internal override void Close()
+        public override void Deactivate()
         {
-            base.Close();
+            base.Deactivate();
             _saveFile.Delete();
             FlaggedForRemoval = true;
             parentSection.Reset();

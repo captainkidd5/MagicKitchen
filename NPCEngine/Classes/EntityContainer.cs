@@ -103,5 +103,14 @@ namespace EntityEngine.Classes
             }
 
         }
+
+        public void CleanUp()
+        {
+            foreach (KeyValuePair<string, Entity> entity in Entities)
+            {
+                entity.Value.CleanUp();
+            }
+            Entities.Clear();
+        }
     }
 }

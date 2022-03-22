@@ -27,10 +27,9 @@ namespace EntityEngine.Classes
         public Player Player1 => _playerContainer.Player1;
         public EntityManager(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            _characterContainer = new CharacterContainer(this,graphics, content);
+            _characterContainer = new CharacterContainer(this, graphics, content);
             _playerContainer = new PlayerContainer(this, graphics, content);
 
-            _containers = new List<EntityContainer>() { _playerContainer,_characterContainer  };
 
         }
 
@@ -43,8 +42,11 @@ namespace EntityEngine.Classes
         }
         public override void LoadContent()
         {
+
             base.LoadContent();
-            foreach(EntityContainer container in _containers)
+            _containers = new List<EntityContainer>() { _playerContainer, _characterContainer };
+
+            foreach (EntityContainer container in _containers)
             {
                 container.LoadContent();
             }
@@ -54,11 +56,11 @@ namespace EntityEngine.Classes
             _characterContainer.PlayerSwitchedStage(stageTo);
         }
 
-        public void WarpPlayerToStage(string stageName,TileManager tileManager, ItemManager itemManager, string? playerName)
+        public void WarpPlayerToStage(string stageName, TileManager tileManager, ItemManager itemManager, string? playerName)
         {
             Player player;
-            if(playerName == null)
-                 player = Player1;
+            if (playerName == null)
+                player = Player1;
             else
                 player = (Player)_playerContainer.GetEntity(playerName);
 
@@ -89,7 +91,7 @@ namespace EntityEngine.Classes
                 container.SwitchStage(newStage);
             }
         }
-        
+
         public void Update(GameTime gameTime)
         {
             foreach (EntityContainer container in _containers)
@@ -120,6 +122,14 @@ namespace EntityEngine.Classes
             {
                 container.LoadSave(reader);
             }
+        }
+        public void CleanUp()
+        {
+            foreach (EntityContainer container in _containers)
+            {
+                container.CleanUp();
+            }
+            _containers.Clear();
         }
     }
 

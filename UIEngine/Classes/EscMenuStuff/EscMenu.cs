@@ -51,7 +51,7 @@ namespace UIEngine.Classes.EscMenuStuff
             CloseButton = UI.ButtonFactory.CreateCloseButton(this, new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, _backGroundSprite.Width, _backGroundSprite.Height), GetLayeringDepth(UILayeringDepths.Medium),
                 new Action(() =>
                 {
-                    Close();
+                    Deactivate();
                     Flags.Pause = false;
                 }));
             CloseButton.LoadContent();

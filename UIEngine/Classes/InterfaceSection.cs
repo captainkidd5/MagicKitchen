@@ -51,7 +51,6 @@ namespace UIEngine.Classes
         protected bool WasHovered => (_hoveredLastFrame && !Hovered);
         internal virtual protected bool Clicked { get; set; }
         internal virtual protected bool RightClicked { get; set; }
-        internal virtual void Close() => IsActive = false;
 
         internal protected bool SupressParentSection { get; set; }
 

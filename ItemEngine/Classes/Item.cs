@@ -49,5 +49,10 @@ namespace ItemEngine.Classes
         public void LoadSave(BinaryReader reader)
         {
         }
+
+        public void CleanUp()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

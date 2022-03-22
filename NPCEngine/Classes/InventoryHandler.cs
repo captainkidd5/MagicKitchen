@@ -69,12 +69,17 @@ namespace EntityEngine.Classes
 
         public void Save(BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            ItemManager.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
         {
-            throw new NotImplementedException();
+            ItemManager.LoadSave(reader);
+        }
+
+        public void CleanUp()
+        {
+            ItemManager.CleanUp();
         }
     }
 }

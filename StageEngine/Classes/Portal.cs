@@ -1,11 +1,14 @@
 ﻿using EntityEngine.Classes;
 using EntityEngine.Classes.PlayerStuff;
+using Globals.Classes;
+using Globals.Classes.Helpers;
 using InputEngine.Classes.Input;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
 using StageEngine.Classes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using UIEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
@@ -16,16 +19,18 @@ using static Globals.Classes.Settings;
 namespace StageEngine.Classes
 
 {
-    public class Portal : Collidable
+    public class Portal : Collidable, ISaveable
     {
         private readonly PortalManager _portalManager;
         private readonly StageManager _stageManager;
         private readonly EntityManager _entityManager;
-        internal readonly int xOffSet;
-        internal readonly int yOffSet;
 
         internal string From { get; set; }
         internal string To { get; set; }
+        internal int xOffSet;
+        internal int yOffSet;
+
+     
         private Rectangle Rectangle { get; set; }
         private bool _mustBeClicked;
         private Direction _directionToFace;
@@ -128,5 +133,41 @@ namespace StageEngine.Classes
            base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
+
+
+        public void Save(BinaryWriter writer)
+        {
+            writer.Write(From);
+            writer.Write(To);
+
+            RectangleHelper.WriteRectangle(writer, Rectangle);
+            writer.Write(xOffSet);
+            writer.Write(yOffSet);
+            writer.Write(_mustBeClicked);
+
+            writer.Write((int)_directionToFace);
+
+
+
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            From = reader.ReadString();
+            To = reader.ReadString();
+            Rectangle = RectangleHelper.ReadRectangle(reader);
+            xOffSet = reader.ReadInt32();
+            yOffSet = reader.ReadInt32();
+            _mustBeClicked = reader.ReadBoolean();
+            _directionToFace = (Direction)reader.ReadInt32();
+        }
+
+        public override void CleanUp()
+        {
+            base.CleanUp();
+            From = null;
+            To = null;
+            _mustBeClicked =false;
+        }
     }
 }

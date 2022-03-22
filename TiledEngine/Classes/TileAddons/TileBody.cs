@@ -45,9 +45,9 @@ namespace TiledEngine.Classes.TileAddons
             }
           
         }
-        public override void Unload()
+        public override void CleanUp()
         {
-            base.Unload();
+            base.CleanUp();
         }
 
         public virtual void Interact()

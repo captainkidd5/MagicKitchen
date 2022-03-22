@@ -12,5 +12,7 @@ namespace Globals.Classes
         public void Save(BinaryWriter writer);
         public void LoadSave(BinaryReader reader);
 
+        public void CleanUp();
+
     }
 }

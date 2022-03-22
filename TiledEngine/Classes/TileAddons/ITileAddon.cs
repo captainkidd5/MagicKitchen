@@ -18,7 +18,7 @@ namespace TiledEngine.Classes.TileAddons
         void Draw(SpriteBatch spriteBatch);
 
 
-        void Unload();
+        void CleanUp();
 
         void Interact();
     }

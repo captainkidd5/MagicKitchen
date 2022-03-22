@@ -150,6 +150,5 @@ namespace ItemEngine.Classes
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-       
     }
 }

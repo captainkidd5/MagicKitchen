@@ -143,7 +143,7 @@ namespace StageEngine.Classes
         }
         public void Unload()
         {
-            TileManager.Unload();
+            TileManager.CleanUp();
         }
         public void Save(BinaryWriter writer)
         {
@@ -161,6 +161,11 @@ namespace StageEngine.Classes
                 _hasLoadedPortals = true;
             }
 
+        }
+
+        public void CleanUp()
+        {
+            TileManager.CleanUp();
         }
     }
 }

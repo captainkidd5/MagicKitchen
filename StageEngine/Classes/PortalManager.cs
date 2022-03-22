@@ -1,8 +1,10 @@
 ﻿using EntityEngine.Classes;
 using EntityEngine.Classes.PlayerStuff;
+using Globals.Classes;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using TiledEngine.Classes;
@@ -10,7 +12,7 @@ using TiledEngine.Classes.Misc;
 
 namespace StageEngine.Classes
 {
-    public class PortalManager
+    public class PortalManager : ISaveable
     {
         public Dictionary<string, List<Portal>> PortalDictionary { get; set; }
 
@@ -82,6 +84,34 @@ namespace StageEngine.Classes
         {
             Portal toPortal = PortalDictionary[portal.To].FirstOrDefault(x => x.From == portal.To && x.To == portal.From);
             return new Vector2(toPortal.Position.X + toPortal.xOffSet, toPortal.Position.Y + toPortal.yOffSet);
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+            writer.Write(PortalDictionary.Count);
+            foreach (List<Portal> portalList in PortalDictionary.Values)
+            {
+                foreach (Portal portal in portalList)
+                {
+                    portal.Save(writer);
+
+                }
+            }
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            int portalcount = reader.ReadInt32();
+
+            for (int i = 0; i < portalcount; i++)
+            {
+
+            }
+        }
+
+        public void CleanUp()
+        {
+            throw new NotImplementedException();
         }
     }
 }

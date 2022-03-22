@@ -35,7 +35,7 @@ namespace UIEngine.Classes.ButtonStuff
             Action confirmAction, Action? cancelAction = null, bool suppressParentSection = true, string confirmationText = null) : base(interfaceSection, graphicsDevice, content, position, layerDepth, suppressParentSection)
         {
             _confirmAction = confirmAction;
-            _cancelAction = cancelAction ?? new Action(() => Close());
+            _cancelAction = cancelAction ?? new Action(() => Deactivate());
             _confirmationText = confirmationText ?? "Are you sure?";
             
         }
@@ -69,9 +69,9 @@ namespace UIEngine.Classes.ButtonStuff
 
         }
 
-        internal override void Close()
+        public override void Deactivate()
         {
-            base.Close();
+            base.Deactivate();
             UI.RemoveCriticalSection(this);
         }
         public override void Activate()

@@ -26,7 +26,7 @@ namespace UIEngine.Classes.ButtonStuff
         {
             Vector2 positionToPlace = RectangleHelper.PlaceRectangleAtTopRightOfParentRectangle(backGroundRectangleToPlaceOn, new Rectangle(0,0, (int)(s_redExRectangle.Width * _scale), (int)(s_redExRectangle.Height * _scale)));
             return new Button(section, graphics, content, positionToPlace, layer, s_redExRectangle,
-                null, UI.ButtonTexture, null,customAction ?? new Action(section.Close), scale: _scale);
+                null, UI.ButtonTexture, null,customAction ?? new Action(section.Deactivate), scale: _scale);
         }
 
       

@@ -71,9 +71,9 @@ namespace EntityEngine.Classes
 
         }
 
-        public override void Unload()
+        public override void CleanUp()
         {
-            base.Unload();
+            base.CleanUp();
         }
         public override void Update(GameTime gameTime)
         {
