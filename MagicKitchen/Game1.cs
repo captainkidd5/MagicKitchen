@@ -27,6 +27,7 @@ using SoundEngine.Classes;
 using QuakeConsole;
 using Globals.Classes.Console;
 using MagicKitchen.Classes.ConsoleStuff;
+using System;
 
 namespace MagicKitchen
 {
@@ -106,7 +107,7 @@ namespace MagicKitchen
             TileLoader.LoadContent(Content);
             ItemFactory.LoadContent(Content);
             EntityFactory.Load(Content);
-            
+
 
             Controls.Load(Camera, GraphicsDevice, Content);
             SpriteFactory.LoadContent(GraphicsDevice, Content);
@@ -115,21 +116,22 @@ namespace MagicKitchen
             Settings.SetResolution(1280, 720);
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
 
-            UI.Load(this,GraphicsDevice, Content, _mainMenuContentManager);
+            UI.Load(this, GraphicsDevice, Content, _mainMenuContentManager);
             RenderTargetManager.Load(GraphicsDevice);
             SoundFactory.Load(Content);
             Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs { VirtualWidth = 1280, VirtualHeight = 720 });
-            
+
             SaveLoadManager.SaveCreated += OnSaveCreated;
             SaveLoadManager.SaveLoaded += OnSaveLoaded;
             SaveLoadManager.SaveSaved += OnSaveSaved;
+            UI.ReturnedToMainMenu += OnReturnToMainMenu;
             CommandConsole.RegisterCommand("save", "saves current game", SaveLoadManager.SaveGame);
 
             Settings.DebugTexture = new Texture2D(GraphicsDevice, 1, 1);
             Settings.DebugTexture.SetData<Color>(new Color[] { Color.White });
         }
 
-       
+
         protected override void Update(GameTime gameTime)
         {
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -190,11 +192,7 @@ namespace MagicKitchen
 
 
         }
-        private void LoadInGameManagers()
-        {
-            _entityManager.LoadContent();
-            _stageManager.LoadContent();
-        }
+
         public void OnSaveCreated(object? sender, FileCreatedEventArgs e)
         {
             BinaryWriter writer = e.BinaryWriter;
@@ -203,13 +201,14 @@ namespace MagicKitchen
         }
         public void OnSaveLoaded(object? sender, FileLoadedEventArgs e)
         {
-            LoadInGameManagers();
+            _entityManager.LoadContent();
+            _stageManager.LoadContent();
             BinaryReader reader = e.BinaryReader;
             _stageManager.LoadSave(reader);
             SaveLoadManager.DestroyReader(reader);
         }
 
-        
+
 
         public void OnSaveSaved(object? sender, FileSavedEventArgs e)
         {
@@ -219,6 +218,11 @@ namespace MagicKitchen
             _stageManager.Save(writer);
             CommandConsole.Append("...Saved!");
         }
-       
+
+        public void OnReturnToMainMenu(object? sender, EventArgs e)
+        {
+            _stageManager.CleanUp();
+        }
+
     }
 }

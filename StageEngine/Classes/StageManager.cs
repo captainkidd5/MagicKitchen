@@ -186,5 +186,17 @@ namespace StageEngine.Classes
 
             _entityManager.Save(writer);
         }
+
+        public void CleanUp()
+        {
+           foreach(Stage stage in Stages.Values)
+            {
+                stage.CleanUp();
+            }
+            Stages.Clear();
+            _entityManager.CleanUp();
+            CurrentStage = null;
+
+        }
     }
 }

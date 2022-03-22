@@ -123,7 +123,18 @@ namespace StageEngine.Classes
 
         public void CleanUp()
         {
-            throw new NotImplementedException();
+            foreach (KeyValuePair<string, List<Portal>> pair in PortalDictionary)
+            {
+
+
+                foreach (Portal portal in pair.Value)
+                {
+                   portal.CleanUp();
+
+                }
+                pair.Value.Clear();
+            }
+            PortalDictionary.Clear();
         }
     }
 }

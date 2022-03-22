@@ -287,10 +287,24 @@ namespace UIEngine.Classes
             return variedLayerDepth;
 
         }
+        public static EventHandler<EventArgs> ReturnedToMainMenu;
 
+        /// <summary>
+        /// After curtain drops, event fired will cause main menu to have child components to cleanup and get rid of save-specific data so that
+        /// a fresh save can be safely loaded in.
+        /// </summary>
         internal static void ReturnToMainMenu()
         {
-            StartChangeGameState(GameDisplayState.MainMenu);
+            s_requestedGameState = GameDisplayState.MainMenu;
+
+            DropCurtain(CurtainDropRate,
+                new Action(() =>
+                {
+                    ReturnedToMainMenu.Invoke(null, null);
+                    FinishChangeGameState();
+
+                }));
+                
         }
         private static void StartChangeGameState(GameDisplayState newState)
         {
