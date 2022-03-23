@@ -166,6 +166,8 @@ namespace StageEngine.Classes
         public void CleanUp()
         {
             TileManager.CleanUp();
+            _portalManager.CleanUp();
+
         }
     }
 }

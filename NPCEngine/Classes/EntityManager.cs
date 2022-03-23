@@ -30,6 +30,7 @@ namespace EntityEngine.Classes
             _characterContainer = new CharacterContainer(this, graphics, content);
             _playerContainer = new PlayerContainer(this, graphics, content);
 
+            _containers = new List<EntityContainer>() { _playerContainer, _characterContainer };
 
         }
 
@@ -44,7 +45,6 @@ namespace EntityEngine.Classes
         {
 
             base.LoadContent();
-            _containers = new List<EntityContainer>() { _playerContainer, _characterContainer };
 
             foreach (EntityContainer container in _containers)
             {
@@ -129,7 +129,7 @@ namespace EntityEngine.Classes
             {
                 container.CleanUp();
             }
-            _containers.Clear();
+            //_containers.Clear();
         }
     }
 

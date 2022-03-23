@@ -49,7 +49,7 @@ namespace TiledEngine.Classes.TileAddons
             
             HullBody body = PhysicsManager.CreateCircularHullBody(BodyType.Static, Position, 4f, new List<Category>() { Category.Grass }, new List<Category>() { Category.Player, Category.NPC },
                 OnCollides, OnSeparates, isSensor:true);
-            Tuft =  PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, new Vector2(Position.X, Position.Y), 2f, 4f, new List<Category>() { Category.Grass }, new List<Category>() { Category.Player, Category.NPC,Category.Item },
+            Tuft =  PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, new Vector2(Position.X, Position.Y), 8f, 6f, new List<Category>() { Category.Grass }, new List<Category>() { Category.Player, Category.NPC,Category.Item },
                 OnCollides, OnSeparates, isSensor: false);
             Tuft.Body.Restitution = .1f;
             Tuft.Body.Friction = .4f;

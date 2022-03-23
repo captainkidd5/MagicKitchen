@@ -58,13 +58,13 @@ namespace StageEngine.Classes
         {
             Move(new Vector2(Rectangle.X, Rectangle.Y));
 
-            CreateBody(position);
+            CreateBody(Position);
         }
         protected override void CreateBody(Vector2 position)
         {
             base.CreateBody(position);
             AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, Position, Rectangle.Width, Rectangle.Height,
-                new List<Category>() { Category.Portal }, new List<Category>() { Category.Player,Category.NPC, Category.Cursor, Category.PlayerBigSensor, Category.NPCBigSensor }, OnCollides, OnSeparates));
+                new List<Category>() { Category.Portal }, new List<Category>() { Category.Player,Category.NPC, Category.Cursor, Category.PlayerBigSensor, Category.NPCBigSensor }, OnCollides, OnSeparates, ignoreGravity:true));
 ;
         }
 

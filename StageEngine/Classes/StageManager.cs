@@ -183,7 +183,6 @@ namespace StageEngine.Classes
 
             }
             Stages.Clear();
-
             _entityManager.Save(writer);
         }
 
