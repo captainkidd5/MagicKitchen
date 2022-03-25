@@ -18,10 +18,12 @@ namespace TiledEngine.Classes.Helpers
         {
             //if (gid == -1 || gid == 0)
             //    return NoTextureRectangle;
-            int Column = gid % tileSetWidth;
-            int Row = (int)Math.Floor((float)gid / (float)tileSetWidth);
+            int Column = (gid % 100);
+            int Row = (int)Math.Floor((float)gid / (float)100);
             int tileWidth = Settings.TileSize;
-            return new Rectangle(tileWidth * Column, tileWidth * Row, tileWidth, tileWidth);
+            if(gid == 2800)
+                Console.WriteLine("test");
+            return new Rectangle((tileWidth * Column) +(3 * Column) + 1, (tileWidth * Row) + (3 * Row) + 1, tileWidth, tileWidth);
         }
 
         public static Rectangle GetDestinationRectangle(Tile tile)

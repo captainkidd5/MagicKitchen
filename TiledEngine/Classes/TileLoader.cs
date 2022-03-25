@@ -57,7 +57,7 @@ namespace TiledEngine.Classes
             MasterTileSetDictionary = worldMap.Tilesets[0].Tiles;
             InteriorTileSetDictionary = interiorMap.Tilesets[0].Tiles;
 
-            MasterSpriteSheet = content.Load<Texture2D>("maps/MasterSpriteSheet");
+            MasterSpriteSheet = content.Load<Texture2D>("maps/MasterSpriteSheet_Spaced");
             InteriorSpriteSheet = content.Load<Texture2D>("maps/InteriorSpriteSheet1");
             _portalLoader = new PortalLoader();
         }

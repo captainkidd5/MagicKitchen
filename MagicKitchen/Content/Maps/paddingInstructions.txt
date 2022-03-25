@@ -1,0 +1,5 @@
+Tilset packing instructions:
+
+1). Import to gimp --> Filtering --> Tilesets, Padding: 1 Spacing: 1
+
+2). Create new tilset in tiled, margin: 1 spacing: 3

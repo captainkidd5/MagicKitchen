@@ -343,6 +343,18 @@
 /processorParam:TextureFormat=Color
 /build:Maps/MasterSpriteSheet.png
 
+#begin Maps/MasterSpriteSheet_Spaced.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Maps/MasterSpriteSheet_Spaced.png
+
 #begin Maps/StageData.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
