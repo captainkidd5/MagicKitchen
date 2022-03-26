@@ -47,7 +47,8 @@ namespace TiledEngine.Classes
         {
 
             tile.TileType = TileType.Basic;
-            Dictionary<int, TmxTilesetTile> tileSet = tileManager.TileSetDictionary;
+            TileSetPackage tileSetPackage = tileManager.TileSetPackage;
+            Dictionary<int, TmxTilesetTile> tileSet = tileSetPackage.GetDictionary(tile.GID);
 
             tile.SourceRectangle = TileRectangleHelper.GetTileSourceRectangle(tile.GID, tileManager.TileSetWidth);
             tile.DestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);

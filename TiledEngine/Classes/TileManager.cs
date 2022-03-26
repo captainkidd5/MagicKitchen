@@ -32,13 +32,10 @@ namespace TiledEngine.Classes
         private readonly int _cullingLeeWay = 8;
         private readonly Camera2D _camera;
         internal readonly PenumbraComponent _penumbra;
-
-        internal Texture2D TileSetTexture { get; private set; }
         public PathGrid PathGrid { get; private set; }
 
 
-        public int TileSetWidth { get; private set; }
-        internal Dictionary<int, TmxTilesetTile> TileSetDictionary { get; private set; }
+        internal TileSetPackage TileSetPackage { get; private set; }
         internal Dictionary<int, float> OffSetLayersDictionary { get; private set; }
         public int MapWidth { get; private set; }
         public Rectangle MapRectangle { get; private set; }
@@ -63,23 +60,17 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Generic load, should only be called by <see cref="TileLoader.LoadTileManager(string, TileManager)"/>
         /// </summary>
-        internal void Load(List<Tile[,]> tiles, int mapWidth, Texture2D tileSetTexture)
+        internal void Load(List<Tile[,]> tiles, int mapWidth, TileSetPackage tileSetPackage)
         {
 
-            if (MapType == MapType.Exterior)
-                TileSetDictionary = TileLoader.MasterTileSetDictionary;
-            else if (MapType == MapType.Interior)
-                TileSetDictionary = TileLoader.InteriorTileSetDictionary;
-
-            TileSetTexture = tileSetTexture;
+           TileSetPackage = tileSetPackage;
 
             MapWidth = mapWidth;
-            TileSetWidth = (int)tileSetTexture.Width / Settings.TileSize;
 
             PathGrid = new PathGrid(MapWidth, MapWidth);
 
             Tiles = tiles;
-            TileSelectorSprite = SpriteFactory.CreateWorldSprite(Vector2.Zero, TileSelectorSourceRectangle, tileSetTexture);
+            TileSelectorSprite = SpriteFactory.CreateWorldSprite(Vector2.Zero, TileSelectorSourceRectangle, TileSetPackage.BackgroundSpriteSheet);
             AssignProperties();
         }
 
@@ -186,7 +177,7 @@ namespace TiledEngine.Classes
                 {
                     for (int y = StartY; y < EndY; y++)
                     {
-                        Tiles[z][x, y].Draw(spriteBatch, TileSetTexture);
+                        Tiles[z][x, y].Draw(spriteBatch, TileSetPackage.GetTexture(Tiles[z][x, y].GID));
                       
                     }
                 }
@@ -286,14 +277,15 @@ namespace TiledEngine.Classes
                 Tile tile = GetTileFromWorldPosition(position, (Layers)i);
                 if (tile == null)
                     continue;
+
                 string step = "step";
-                if (TileSetDictionary.ContainsKey(tile.GID))
+                TmxTilesetTile tmxTile = TileSetPackage.GetProperty(tile.GID);
+                if(tmxTile != null)
                 {
-                    if (TileSetDictionary[tile.GID].Properties.TryGetValue(step, out step))
-                    {
+                    if (tmxTile.Properties.TryGetValue(step, out step))
                         return step;
-                    }
                 }
+
             }
            
             return string.Empty;
@@ -345,7 +337,7 @@ namespace TiledEngine.Classes
                     }
                 }
             }
-            Load(Tiles, MapWidth, TileLoader.GetTextureFromMapType(mapType));
+            Load(Tiles, MapWidth, TileLoader.GetPackageFromMapType(mapType));
 
         }
 

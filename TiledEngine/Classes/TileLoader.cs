@@ -30,15 +30,10 @@ namespace TiledEngine.Classes
 
         internal static TileSetPackage ExteriorTileSetPackage { get;private set; }
 
-        public static Dictionary<int, TmxTilesetTile> MasterTileSetDictionary { get; private set; }
-        public static Dictionary<int, TmxTilesetTile> ForegroundMasterTileSetDictionary { get; private set; }
+        internal static TileSetPackage InteriorTileSetPackage { get; private set; }
 
-        public static Dictionary<int, TmxTilesetTile> InteriorTileSetDictionary { get; private set; }
 
-        public static Texture2D MasterSpriteSheet { get; private set; }
-        public static Texture2D ForegroundMasterSpriteSheet { get; private set; }
 
-        public static Texture2D InteriorSpriteSheet { get; private set; }
 
         private static PortalLoader _portalLoader;
 
@@ -61,14 +56,13 @@ namespace TiledEngine.Classes
             MapPath = content.RootDirectory + "/Maps/";
             TmxMap worldMap = new TmxMap(MapPath + "LullabyTown.tmx");
             ExteriorTileSetPackage = new TileSetPackage(worldMap);
+            ExteriorTileSetPackage.LoadContent(content, "maps/MasterSpriteSheet_Spaced", "maps/ForegroundMasterSpriteSheet");
+
 
             TmxMap interiorMap = new TmxMap(MapPath + "Restaurant.tmx");
-            MasterTileSetDictionary = worldMap.Tilesets[0].Tiles;
-            InteriorTileSetDictionary = interiorMap.Tilesets[0].Tiles;
+            InteriorTileSetPackage = new TileSetPackage(interiorMap);
+            InteriorTileSetPackage.LoadContent(content, "maps/InteriorSpriteSheet1", "maps/ForegroundMasterSpriteSheet");
 
-            MasterSpriteSheet = content.Load<Texture2D>("maps/MasterSpriteSheet_Spaced");
-            ForegroundMasterSpriteSheet = content.Load<Texture2D>("maps/ForegroundMasterSpriteSheet");
-            InteriorSpriteSheet = content.Load<Texture2D>("maps/InteriorSpriteSheet1");
             _portalLoader = new PortalLoader();
         }
 
@@ -108,17 +102,17 @@ namespace TiledEngine.Classes
         {
             TmxMap mapToLoad = new TmxMap(MapPath + stageData.Path);
             tileManager.MapType = stageData.MapType;
-            tileManager.Load(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width, GetTextureFromMapType(stageData.MapType));
+            tileManager.Load(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width, GetPackageFromMapType(stageData.MapType));
         }
 
-        public static Texture2D GetTextureFromMapType(MapType mapType)
+        internal static TileSetPackage GetPackageFromMapType(MapType mapType)
         {
             if (mapType == MapType.Exterior)
-                return MasterSpriteSheet;
+                return ExteriorTileSetPackage;
 
 
             if (mapType == MapType.Interior)
-                return InteriorSpriteSheet;
+                return InteriorTileSetPackage;
 
             throw new Exception($"No sprite sheet associated with map type {mapType.ToString()}");
         }
