@@ -137,8 +137,6 @@ namespace TiledEngine.Classes
                 tilesToReturn.Add(new Tile[map.Width, map.Width]);
                 foreach (TmxLayerTile layerNameTile in allLayers[i].Tiles)
                 {
-                    if (layerNameTile.Gid > 10000)
-                        Console.WriteLine("test");
 
                     tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new Tile(layerNameTile.Gid, MapDepths[i], layerNameTile.X, layerNameTile.Y);
 

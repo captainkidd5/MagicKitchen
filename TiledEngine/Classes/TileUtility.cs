@@ -26,9 +26,9 @@ namespace TiledEngine.Classes
         /// </summary>
         /// <param name="property">Property value will be stored in this string reference.</param>
 
-        private static bool GetProperty(Dictionary<int, TmxTilesetTile> tileSet, int tileGID, ref string property)
+        private static bool GetProperty(TileSetPackage tileSetPackage, int tileGID, ref string property)
         {
-            return tileSet[tileGID].Properties.TryGetValue(property, out property);
+            return tileSetPackage.GetProperty(tileGID).Properties.TryGetValue(property, out property);
         }
 
         /// <summary>
@@ -49,14 +49,15 @@ namespace TiledEngine.Classes
             tile.TileType = TileType.Basic;
             TileSetPackage tileSetPackage = tileManager.TileSetPackage;
             Dictionary<int, TmxTilesetTile> tileSet = tileSetPackage.GetDictionary(tile.GID);
-
-            tile.SourceRectangle = TileRectangleHelper.GetTileSourceRectangle(tile.GID, tileManager.TileSetWidth);
+            int tileSetDimension = tileSetPackage.GetDimension(tile.GID);
+            Texture2D texture = tileSetPackage.GetTexture(tile.GID);
+            tile.SourceRectangle = TileRectangleHelper.GetTileSourceRectangle(tile.GID, tileSetDimension);
             tile.DestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
             tile.Position = (Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle));
-
-
+            if (tileSetDimension != 100)
+                Console.WriteLine("test");
             //tile has some sort of property.
-            if (tileSet.ContainsKey(tile.GID))
+            if (tileSetPackage.ContainsKey(tile.GID))
             {
 
                 string propertyString;
@@ -64,7 +65,7 @@ namespace TiledEngine.Classes
 
                 propertyString = "portal";
 
-                if (GetProperty(tileSet, tile.GID, ref propertyString))
+                if (GetProperty(tileSetPackage, tile.GID, ref propertyString))
                 {
 
                     PortalData portaldata = PortalData.PortalFromPropertyString(propertyString, tile.Position);
@@ -72,10 +73,12 @@ namespace TiledEngine.Classes
                 }
                 propertyString = "newSource";
 
-                if (GetProperty(tileSet, tile.GID, ref propertyString))
+                if (GetProperty(tileSetPackage, tile.GID, ref propertyString))
                 {
                     Rectangle propertySourceRectangle = TileRectangleHelper.GetSourceRectangleFromTileProperty(propertyString);
-                    tile.SourceRectangle = TileRectangleHelper.AdjustSourceRectangle(TileRectangleHelper.GetLargeSourceRectangle(tile.GID,tileManager.TileSetWidth), propertySourceRectangle);
+                    if(tileSetDimension != 100)
+                        Console.WriteLine("test");
+                    tile.SourceRectangle = TileRectangleHelper.AdjustSourceRectangle(TileRectangleHelper.GetLargeSourceRectangle(tileSetPackage.OffSetForegroundGID(tile.GID), tileSetDimension), propertySourceRectangle);
                     tile.DestinationRectangle = TileRectangleHelper.AdjustDestinationRectangle(tile, propertySourceRectangle);
                     tile.Position = (Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle));
                 }
@@ -83,7 +86,7 @@ namespace TiledEngine.Classes
                
 
                 ////CREATE ANIMATION FRAMES
-                CheckForAnimationFrames(tile, tileManager, tileSet, propertyString);
+                CheckForAnimationFrames(tile, tileManager, tileSetPackage, propertyString);
 
                 if (tileSet[tile.GID].ObjectGroups.Count > 0)
                 {
@@ -95,21 +98,21 @@ namespace TiledEngine.Classes
                 }
 
                 propertyString = "newHitBox";
-                if (GetProperty(tileSet, tile.GID, ref propertyString))
+                if (GetProperty(tileSetPackage, tile.GID, ref propertyString))
                 {
                     TileObjectHelper.AddObjectFromProperty(tile, tileManager, TileRectangleHelper.GetSourceRectangleFromTileProperty(propertyString));
                 }
 
                 propertyString = "lightSource";
-                if (GetProperty(tileSet, tile.GID, ref propertyString))
+                if (GetProperty(tileSetPackage, tile.GID, ref propertyString))
                 {
                     TileLightSourceHelper.AddJustLightSource(tile,tileManager, propertyString, 3f);
                 }
 
                 propertyString = "replace";
-                if (GetProperty(tileSet, tile.GID, ref propertyString))
+                if (GetProperty(tileSetPackage, tile.GID, ref propertyString))
                 {
-                    tile.Addons.Add(new GrassTuft(tile,  tileManager.TileSetTexture));
+                    tile.Addons.Add(new GrassTuft(tile, texture));
 
                 }
                 
@@ -121,7 +124,7 @@ namespace TiledEngine.Classes
             AssignTileLayer(tile, layer, tileManager.OffSetLayersDictionary);
             //Will be null if animation frames were not present
             if (tile.Sprite == null)
-                tile.Sprite = SpriteFactory.CreateWorldSprite(tile.Position, tile.SourceRectangle, tileManager.TileSetTexture, customLayer: tile.Layer, randomizeLayers: false);
+                tile.Sprite = SpriteFactory.CreateWorldSprite(tile.Position, tile.SourceRectangle, texture, customLayer: tile.Layer, randomizeLayers: false);
 
 
             tile.Load();
@@ -133,10 +136,14 @@ namespace TiledEngine.Classes
         /// if they exist in the tilesheet. The only restriction is that the hitbox must stay constant throughout the animation frames
         /// as the frame only accounts for the image, not additional data
         /// </summary>
-        private static void CheckForAnimationFrames(Tile tile, TileManager tileManager, Dictionary<int, TmxTilesetTile> tileSet, string propertyString)
+        private static void CheckForAnimationFrames(Tile tile, TileManager tileManager, TileSetPackage tileSetPackage, string propertyString)
         {
+            Dictionary<int, TmxTilesetTile> tileSet = tileSetPackage.GetDictionary(tile.GID);
+
             Collection<TmxAnimationFrame> animationFrames = tileSet[tile.GID].AnimationFrames;
-            
+
+            int tileSetDimension = tileSetPackage.GetDimension(tile.GID);
+            Texture2D texture = tileSetPackage.GetTexture(tile.GID);
             if (animationFrames.Count > 0)
             {
                 AnimationFrame[] frames = new AnimationFrame[animationFrames.Count];
@@ -148,10 +155,10 @@ namespace TiledEngine.Classes
                     if (i > 0)
                     {
                         propertyString = "newSource";
-                        frameRectangle = TileRectangleHelper.GetTileSourceRectangle(animationFrames[i].Id, tileManager.TileSetWidth);
+                        frameRectangle = TileRectangleHelper.GetTileSourceRectangle(animationFrames[i].Id, tileSetDimension);
                         if (tileSet.ContainsKey(animationFrames[i].Id))
                         {
-                            if (GetProperty(tileSet, animationFrames[i].Id, ref propertyString))
+                            if (GetProperty(tileSetPackage, animationFrames[i].Id, ref propertyString))
                             {
                                 frameRectangle = TileRectangleHelper.AdjustSourceRectangle(frameRectangle, TileRectangleHelper.GetSourceRectangleFromTileProperty(propertyString));
                             }
@@ -165,7 +172,7 @@ namespace TiledEngine.Classes
                 if (tile.Layer > 1)
                     tile.Layer = tile.Layer * .1f;
                 tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
-                    tileManager.TileSetTexture, frames, customLayer: tile.Layer, randomizeLayers: false);
+                    texture, frames, customLayer: tile.Layer, randomizeLayers: false);
             }
 
         }

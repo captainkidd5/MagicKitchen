@@ -16,7 +16,8 @@ namespace TiledEngine.Classes.Helpers
         /// <returns></returns>
         public static Rectangle GetLargeSourceRectangle(int gid, int tileSetWidth)
         {
-
+            if(tileSetWidth != 100)
+                Console.WriteLine("test");
             int Column = gid % tileSetWidth;
             int Row = (int)Math.Floor((float)gid / (float)tileSetWidth);
             int tileWidth = Settings.TileSize;
@@ -27,14 +28,14 @@ namespace TiledEngine.Classes.Helpers
         /// Cut out a rectangle from the tileset based on the tile GID.
         /// </summary>
         /// <param name="gid">Tile gid seen on the tileset</param>
-        /// <param name="tileSetWidth">Width of tileset in units of tiles.</param>
+        /// <param name="tileSetDimension">Width of tileset in units of tiles.</param>
         /// <returns></returns>
-        public static Rectangle GetTileSourceRectangle(int gid, int tileSetWidth)
+        public static Rectangle GetTileSourceRectangle(int gid, int tileSetDimension)
         {
             //if (gid == -1 || gid == 0)
             //    return NoTextureRectangle;
-            int Column = (gid % 100);
-            int Row = (int)Math.Floor((float)gid / (float)100);
+            int Column = (gid % tileSetDimension);
+            int Row = (int)Math.Floor((float)gid / (float)tileSetDimension);
             int tileWidth = Settings.TileSize;
             if (gid == 2800)
                 Console.WriteLine("test");
