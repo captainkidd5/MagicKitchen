@@ -26,9 +26,9 @@ namespace TiledEngine.Classes
         /// </summary>
         /// <param name="property">Property value will be stored in this string reference.</param>
 
-        private static bool GetProperty(TileSetPackage tileSetPackage, int tileGID, ref string property)
+        private static bool GetProperty(TileSetPackage tileSetPackage, TmxTilesetTile tile, ref string property)
         {
-            return tileSetPackage.GetProperty(tileGID).Properties.TryGetValue(property, out property);
+            return tile.Properties.TryGetValue(property, out property);
         }
 
         /// <summary>
@@ -53,17 +53,18 @@ namespace TiledEngine.Classes
             tile.SourceRectangle = TileRectangleHelper.GetTileSourceRectangle(tile.GID, tileSetDimension);
             tile.DestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
             tile.Position = (Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle));
-
+            if(tile.GID > 10064)
+                Console.WriteLine("test");
             //tile has some sort of property.
             if (tileSetPackage.ContainsKey(tile.GID))
             {
 
                 string propertyString;
 
-                TmxTilesetTile tileSetTile = tileSetPackage.GetProperty(tile.GID);
+                TmxTilesetTile tileSetTile = tileSetPackage.GetTmxTileSetTile(tile.GID);
                 propertyString = "portal";
 
-                if (GetProperty(tileSetPackage, tile.GID, ref propertyString))
+                if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
 
                     PortalData portaldata = PortalData.PortalFromPropertyString(propertyString, tile.Position);
@@ -71,7 +72,7 @@ namespace TiledEngine.Classes
                 }
                 propertyString = "newSource";
 
-                if (GetProperty(tileSetPackage, tile.GID, ref propertyString))
+                if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
                     Rectangle propertySourceRectangle = TileRectangleHelper.GetSourceRectangleFromTileProperty(propertyString);
 
@@ -95,19 +96,19 @@ namespace TiledEngine.Classes
                 }
 
                 propertyString = "newHitBox";
-                if (GetProperty(tileSetPackage, tile.GID, ref propertyString))
+                if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
                     TileObjectHelper.AddObjectFromProperty(tile, tileManager, TileRectangleHelper.GetSourceRectangleFromTileProperty(propertyString));
                 }
 
                 propertyString = "lightSource";
-                if (GetProperty(tileSetPackage, tile.GID, ref propertyString))
+                if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
                     TileLightSourceHelper.AddJustLightSource(tile,tileManager, propertyString, 3f);
                 }
 
                 propertyString = "replace";
-                if (GetProperty(tileSetPackage, tile.GID, ref propertyString))
+                if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
                     tile.Addons.Add(new GrassTuft(tile, texture));
 
@@ -136,7 +137,7 @@ namespace TiledEngine.Classes
         private static void CheckForAnimationFrames(Tile tile, TileManager tileManager, TileSetPackage tileSetPackage, string propertyString)
         {
 
-            Collection<TmxAnimationFrame> animationFrames = tileSetPackage.GetProperty(tile.GID).AnimationFrames;
+            Collection<TmxAnimationFrame> animationFrames = tileSetPackage.GetTmxTileSetTile(tile.GID).AnimationFrames;
 
             int tileSetDimension = tileSetPackage.GetDimension(tile.GID);
             Texture2D texture = tileSetPackage.GetTexture(tile.GID);
@@ -152,9 +153,10 @@ namespace TiledEngine.Classes
                     {
                         propertyString = "newSource";
                         frameRectangle = TileRectangleHelper.GetTileSourceRectangle(animationFrames[i].Id, tileSetDimension);
-                        if (tileSetPackage.ContainsKey(animationFrames[i].Id))
+                        TmxTilesetTile tileSetTile = tileSetPackage.GetTmxTileSetTile(animationFrames[i].Id);
+                        if (tileSetTile != null)
                         {
-                            if (GetProperty(tileSetPackage, animationFrames[i].Id, ref propertyString))
+                            if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
                             {
                                 frameRectangle = TileRectangleHelper.AdjustSourceRectangle(frameRectangle, TileRectangleHelper.GetSourceRectangleFromTileProperty(propertyString));
                             }

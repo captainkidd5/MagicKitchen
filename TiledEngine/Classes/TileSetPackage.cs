@@ -11,14 +11,14 @@ namespace TiledEngine.Classes
 {
     internal class TileSetPackage
     {
-        private Dictionary<int, TmxTilesetTile> BackgroundDictionary { get;  set; }
+        private Dictionary<int, TmxTilesetTile> _backgroundDictionary;
         public Texture2D BackgroundSpriteSheet { get; private set; }
 
         private int _backgroundDimension;
         private int _backgroundTileCount;
 
 
-        private Dictionary<int, TmxTilesetTile> ForegroundDictionary { get;  set; }
+        private Dictionary<int, TmxTilesetTile> _foregroundDictionary;
 
         public Texture2D ForegroundSpriteSheet { get; private set; }
         private int _foregroundDimension;
@@ -27,13 +27,13 @@ namespace TiledEngine.Classes
 
         public TileSetPackage(TmxMap tmxMap)
         {
-            BackgroundDictionary = tmxMap.Tilesets[0].Tiles;
+            _backgroundDictionary = tmxMap.Tilesets[0].Tiles;
             _backgroundDimension = (int)tmxMap.Tilesets[0].Columns;
             _backgroundTileCount = (int)tmxMap.Tilesets[0].TileCount;
 
             if (tmxMap.Tilesets.Count > 1)
             {
-                ForegroundDictionary = tmxMap.Tilesets[1].Tiles;
+                _foregroundDictionary = tmxMap.Tilesets[1].Tiles;
                 _foregroundDimension = (int)tmxMap.Tilesets[1].Columns;
                 _foregroundTileCount = (int)tmxMap.Tilesets[1].TileCount;
 
@@ -59,13 +59,10 @@ namespace TiledEngine.Classes
         }
         public bool ContainsKey(int gid)
         {
-            if (gid > _backgroundTileCount)
-                gid = OffSetForegroundGID(gid);
-
-             return (GetProperty(gid) != null);
+             return (GetTmxTileSetTile(gid) != null);
 
         }
-        public TmxTilesetTile GetProperty(int gid)
+        public TmxTilesetTile GetTmxTileSetTile(int gid)
         {
             int gidToCheck = gid;
             if (gid > _backgroundTileCount)
@@ -78,8 +75,8 @@ namespace TiledEngine.Classes
         private Dictionary<int, TmxTilesetTile> GetDictionary(int gid)
         {
             if (gid < _backgroundTileCount)
-                return BackgroundDictionary;
-            return ForegroundDictionary;
+                return _backgroundDictionary;
+            return _foregroundDictionary;
 
         }
 

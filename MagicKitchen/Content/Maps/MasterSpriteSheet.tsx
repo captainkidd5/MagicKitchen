@@ -1123,31 +1123,26 @@
  <tile id="534">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
-   <property name="replace" value="0"/>
   </properties>
  </tile>
  <tile id="535">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
-   <property name="replace" value="1"/>
   </properties>
  </tile>
  <tile id="536">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
-   <property name="replace" value="2"/>
   </properties>
  </tile>
  <tile id="537">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
-   <property name="replace" value="3"/>
   </properties>
  </tile>
  <tile id="538">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
-   <property name="replace" value="4"/>
   </properties>
  </tile>
  <tile id="561">

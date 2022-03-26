@@ -279,7 +279,7 @@ namespace TiledEngine.Classes
                     continue;
 
                 string step = "step";
-                TmxTilesetTile tmxTile = TileSetPackage.GetProperty(tile.GID);
+                TmxTilesetTile tmxTile = TileSetPackage.GetTmxTileSetTile(tile.GID);
                 if(tmxTile != null)
                 {
                     if (tmxTile.Properties.TryGetValue(step, out step))
