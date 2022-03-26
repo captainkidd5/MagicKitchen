@@ -20,11 +20,11 @@ namespace TiledEngine.Classes.Helpers
         /// <summary>
         /// Handles Tmx Object Groups by adding them to the tile's collision list. Updates pathgrid accordingly.
         /// </summary>
-        internal static void AddObjectsFromObjectGroups(Tile tile, Layers tileLayer, TileManager tileManager, Dictionary<int, TmxTilesetTile> tileSet)
+        internal static void AddObjectsFromObjectGroups(Tile tile, Layers tileLayer, TileManager tileManager, TmxTilesetTile tileSetTile)
         {
-            for (int k = 0; k < tileSet[tile.GID].ObjectGroups[0].Objects.Count; k++)
+            for (int k = 0; k < tileSetTile.ObjectGroups[0].Objects.Count; k++)
             {
-                TmxObject tempObj = tileSet[tile.GID].ObjectGroups[0].Objects[k];
+                TmxObject tempObj = tileSetTile.ObjectGroups[0].Objects[k];
                 bool blocksLight = true;
                 //This OBJECT within the tile OBJECT LIST may contain this property, which will allow light to pass through
                 //the otherwise light-impassible body. This is NOT a tile property, it is a property of an object within a tile.

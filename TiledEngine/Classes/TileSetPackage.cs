@@ -11,14 +11,14 @@ namespace TiledEngine.Classes
 {
     internal class TileSetPackage
     {
-        public Dictionary<int, TmxTilesetTile> BackgroundDictionary { get; private set; }
+        private Dictionary<int, TmxTilesetTile> BackgroundDictionary { get;  set; }
         public Texture2D BackgroundSpriteSheet { get; private set; }
 
         private int _backgroundDimension;
         private int _backgroundTileCount;
 
 
-        public Dictionary<int, TmxTilesetTile> ForegroundDictionary { get; private set; }
+        private Dictionary<int, TmxTilesetTile> ForegroundDictionary { get;  set; }
 
         public Texture2D ForegroundSpriteSheet { get; private set; }
         private int _foregroundDimension;
@@ -75,7 +75,7 @@ namespace TiledEngine.Classes
             return null;
         }
 
-        public Dictionary<int, TmxTilesetTile> GetDictionary(int gid)
+        private Dictionary<int, TmxTilesetTile> GetDictionary(int gid)
         {
             if (gid < _backgroundTileCount)
                 return BackgroundDictionary;
