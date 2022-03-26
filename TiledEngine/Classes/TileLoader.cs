@@ -27,10 +27,17 @@ namespace TiledEngine.Classes
             };
 
         private static string MapPath;
+
+        internal static TileSetPackage ExteriorTileSetPackage { get;private set; }
+
         public static Dictionary<int, TmxTilesetTile> MasterTileSetDictionary { get; private set; }
+        public static Dictionary<int, TmxTilesetTile> ForegroundMasterTileSetDictionary { get; private set; }
+
         public static Dictionary<int, TmxTilesetTile> InteriorTileSetDictionary { get; private set; }
 
         public static Texture2D MasterSpriteSheet { get; private set; }
+        public static Texture2D ForegroundMasterSpriteSheet { get; private set; }
+
         public static Texture2D InteriorSpriteSheet { get; private set; }
 
         private static PortalLoader _portalLoader;
@@ -53,11 +60,14 @@ namespace TiledEngine.Classes
         {
             MapPath = content.RootDirectory + "/Maps/";
             TmxMap worldMap = new TmxMap(MapPath + "LullabyTown.tmx");
+            ExteriorTileSetPackage = new TileSetPackage(worldMap);
+
             TmxMap interiorMap = new TmxMap(MapPath + "Restaurant.tmx");
             MasterTileSetDictionary = worldMap.Tilesets[0].Tiles;
             InteriorTileSetDictionary = interiorMap.Tilesets[0].Tiles;
 
             MasterSpriteSheet = content.Load<Texture2D>("maps/MasterSpriteSheet_Spaced");
+            ForegroundMasterSpriteSheet = content.Load<Texture2D>("maps/ForegroundMasterSpriteSheet");
             InteriorSpriteSheet = content.Load<Texture2D>("maps/InteriorSpriteSheet1");
             _portalLoader = new PortalLoader();
         }
@@ -132,7 +142,14 @@ namespace TiledEngine.Classes
             {
                 tilesToReturn.Add(new Tile[map.Width, map.Width]);
                 foreach (TmxLayerTile layerNameTile in allLayers[i].Tiles)
+                {
+                    if (layerNameTile.Gid > 10000)
+                        Console.WriteLine("test");
+
                     tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new Tile(layerNameTile.Gid, MapDepths[i], layerNameTile.X, layerNameTile.Y);
+
+
+                }
 
             }
             return tilesToReturn;

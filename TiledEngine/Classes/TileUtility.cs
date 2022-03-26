@@ -74,7 +74,7 @@ namespace TiledEngine.Classes
                 if (GetProperty(tileSet, tile.GID, ref propertyString))
                 {
                     Rectangle propertySourceRectangle = TileRectangleHelper.GetSourceRectangleFromTileProperty(propertyString);
-                    tile.SourceRectangle = TileRectangleHelper.AdjustSourceRectangle(tile.SourceRectangle, propertySourceRectangle);
+                    tile.SourceRectangle = TileRectangleHelper.AdjustSourceRectangle(TileRectangleHelper.GetLargeSourceRectangle(tile.GID,tileManager.TileSetWidth), propertySourceRectangle);
                     tile.DestinationRectangle = TileRectangleHelper.AdjustDestinationRectangle(tile, propertySourceRectangle);
                     tile.Position = (Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle));
                 }

@@ -14,6 +14,21 @@ namespace TiledEngine.Classes.Helpers
         /// <param name="gid">Tile gid seen on the tileset</param>
         /// <param name="tileSetWidth">Width of tileset in units of tiles.</param>
         /// <returns></returns>
+        public static Rectangle GetLargeSourceRectangle(int gid, int tileSetWidth)
+        {
+
+            int Column = gid % tileSetWidth;
+            int Row = (int)Math.Floor((float)gid / (float)tileSetWidth);
+            int tileWidth = Settings.TileSize;
+            return new Rectangle(tileWidth * Column, tileWidth * Row, tileWidth, tileWidth);
+        }
+
+        /// <summary>
+        /// Cut out a rectangle from the tileset based on the tile GID.
+        /// </summary>
+        /// <param name="gid">Tile gid seen on the tileset</param>
+        /// <param name="tileSetWidth">Width of tileset in units of tiles.</param>
+        /// <returns></returns>
         public static Rectangle GetTileSourceRectangle(int gid, int tileSetWidth)
         {
             //if (gid == -1 || gid == 0)
@@ -21,9 +36,11 @@ namespace TiledEngine.Classes.Helpers
             int Column = (gid % 100);
             int Row = (int)Math.Floor((float)gid / (float)100);
             int tileWidth = Settings.TileSize;
-            if(gid == 2800)
+            if (gid == 2800)
                 Console.WriteLine("test");
-            return new Rectangle((tileWidth * Column) +(3 * Column) + 1, (tileWidth * Row) + (3 * Row) + 1, tileWidth, tileWidth);
+            return new Rectangle((tileWidth * Column) + (3 * Column) + 1, (tileWidth * Row) + (3 * Row) + 1, tileWidth, tileWidth);
+
+
         }
 
         public static Rectangle GetDestinationRectangle(Tile tile)

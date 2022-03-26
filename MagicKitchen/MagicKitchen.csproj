@@ -42,6 +42,9 @@
     <None Update="Content\Entities\NPC\Characters\Oslo\OsloData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Content\Maps\ForegroundMasterSpriteSheet.tsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Maps\InteriorSpriteSheet1.tsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

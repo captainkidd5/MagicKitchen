@@ -86,7 +86,6 @@ namespace TiledEngine.Classes
         }
         internal void Draw(SpriteBatch spriteBatch, Texture2D texture)
         {
-
             Sprite.Draw(spriteBatch);
             for (int i = 0; i < Addons.Count; i++)
             {
