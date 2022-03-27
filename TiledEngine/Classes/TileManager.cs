@@ -24,7 +24,7 @@ namespace TiledEngine.Classes
     public class TileManager : Component, ISaveable
     {
 
-        //Top left of tilesheet is the tile selector. Very nice!
+        //Top left of tilesheet is the tile selector. Very nice! Bro this is no longer tru u playin
         internal readonly Rectangle TileSelectorSourceRectangle = new Rectangle(457, 1, 16, 16);
 
         //How many tiles outside of the viewport should be rendered.
