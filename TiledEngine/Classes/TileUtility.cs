@@ -34,27 +34,30 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Default gid is blank tile
         /// </summary>
-        public static void SwitchGid(Tile tile, TileManager tileManager, Layers layer,int newGid = 0)
+        public static void SwitchGid(Tile tile, TileManager tileManager, Layers layer, int newGid = 0)
         {
             tile.Unload();
             tile.Sprite = null;
-           // tile = new Tile(newGid, MapDepths[(int)layer], tile.X, tile.Y);
+            // tile = new Tile(newGid, MapDepths[(int)layer], tile.X, tile.Y);
             tile.GID = newGid;
             AssignProperties(tile, layer, tileManager);
         }
 
-        public static void AssignProperties(Tile tile, Layers layer,  TileManager tileManager)
+        public static void AssignProperties(Tile tile, Layers layer, TileManager tileManager)
         {
 
             tile.TileType = TileType.Basic;
             TileSetPackage tileSetPackage = tileManager.TileSetPackage;
             int tileSetDimension = tileSetPackage.GetDimension(tile.GID);
             Texture2D texture = tileSetPackage.GetTexture(tile.GID);
-            tile.SourceRectangle = TileRectangleHelper.GetTileSourceRectangle(tile.GID, tileSetDimension);
+            if (!tileSetPackage.IsForeground(tile.GID))
+                tile.SourceRectangle = TileRectangleHelper.GetBackgroundSourceRectangle(tile.GID, tileSetDimension);
+            else
+                tile.SourceRectangle = TileRectangleHelper.GetNormalSourceRectangle(tileSetPackage.OffSetForegroundGID(tile.GID), tileSetDimension);
+
             tile.DestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
             tile.Position = (Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle));
-            if(tile.GID > 10064)
-                Console.WriteLine("test");
+
             //tile has some sort of property.
             if (tileSetPackage.ContainsKey(tile.GID))
             {
@@ -76,23 +79,23 @@ namespace TiledEngine.Classes
                 {
                     Rectangle propertySourceRectangle = TileRectangleHelper.GetSourceRectangleFromTileProperty(propertyString);
 
-                    tile.SourceRectangle = TileRectangleHelper.AdjustSourceRectangle(TileRectangleHelper.GetLargeSourceRectangle(tileSetPackage.OffSetForegroundGID(tile.GID), tileSetDimension), propertySourceRectangle);
+                    tile.SourceRectangle = TileRectangleHelper.AdjustSourceRectangle(TileRectangleHelper.GetNormalSourceRectangle(tileSetPackage.OffSetForegroundGID(tile.GID), tileSetDimension), propertySourceRectangle);
                     tile.DestinationRectangle = TileRectangleHelper.AdjustDestinationRectangle(tile, propertySourceRectangle);
                     tile.Position = (Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle));
                 }
 
-               
+
 
                 ////CREATE ANIMATION FRAMES
                 CheckForAnimationFrames(tile, tileManager, tileSetPackage, propertyString);
 
                 if (tileSetTile.ObjectGroups.Count > 0)
                 {
-                   
 
-                        TileObjectHelper.AddObjectsFromObjectGroups(tile, layer, tileManager, tileSetTile);
 
-                    
+                    TileObjectHelper.AddObjectsFromObjectGroups(tile, layer, tileManager, tileSetTile);
+
+
                 }
 
                 propertyString = "newHitBox";
@@ -104,7 +107,7 @@ namespace TiledEngine.Classes
                 propertyString = "lightSource";
                 if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
-                    TileLightSourceHelper.AddJustLightSource(tile,tileManager, propertyString, 3f);
+                    TileLightSourceHelper.AddJustLightSource(tile, tileManager, propertyString, 3f);
                 }
 
                 propertyString = "replace";
@@ -113,11 +116,11 @@ namespace TiledEngine.Classes
                     tile.Addons.Add(new GrassTuft(tile, texture));
 
                 }
-                
+
 
             }
 
-           
+
             //this should come after new source rectangles are calculated because we need the height of those to calculate layer depth!
             AssignTileLayer(tile, layer, tileManager.OffSetLayersDictionary);
             //Will be null if animation frames were not present
@@ -152,7 +155,7 @@ namespace TiledEngine.Classes
                     if (i > 0)
                     {
                         propertyString = "newSource";
-                        frameRectangle = TileRectangleHelper.GetTileSourceRectangle(animationFrames[i].Id, tileSetDimension);
+                        frameRectangle = TileRectangleHelper.GetBackgroundSourceRectangle(animationFrames[i].Id, tileSetDimension);
                         TmxTilesetTile tileSetTile = tileSetPackage.GetTmxTileSetTile(animationFrames[i].Id);
                         if (tileSetTile != null)
                         {
@@ -209,6 +212,6 @@ namespace TiledEngine.Classes
 
         }
 
-      
+
     }
 }

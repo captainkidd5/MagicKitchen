@@ -46,7 +46,10 @@ namespace TiledEngine.Classes
             ForegroundSpriteSheet = content.Load<Texture2D>(interiorTexturePath);
 
         }
-
+        public bool IsForeground(int tileGID)
+        {
+            return tileGID > _backgroundTileCount;
+        }
         public int OffSetForegroundGID(int oldGID)
         {
             return oldGID - _backgroundTileCount;

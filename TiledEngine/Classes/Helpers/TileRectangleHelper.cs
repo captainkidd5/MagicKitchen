@@ -14,7 +14,7 @@ namespace TiledEngine.Classes.Helpers
         /// <param name="gid">Tile gid seen on the tileset</param>
         /// <param name="tileSetWidth">Width of tileset in units of tiles.</param>
         /// <returns></returns>
-        public static Rectangle GetLargeSourceRectangle(int gid, int tileSetWidth)
+        public static Rectangle GetNormalSourceRectangle(int gid, int tileSetWidth)
         {
             if(tileSetWidth != 100)
                 Console.WriteLine("test");
@@ -30,15 +30,14 @@ namespace TiledEngine.Classes.Helpers
         /// <param name="gid">Tile gid seen on the tileset</param>
         /// <param name="tileSetDimension">Width of tileset in units of tiles.</param>
         /// <returns></returns>
-        public static Rectangle GetTileSourceRectangle(int gid, int tileSetDimension)
+        public static Rectangle GetBackgroundSourceRectangle(int gid, int tileSetDimension)
         {
             //if (gid == -1 || gid == 0)
             //    return NoTextureRectangle;
             int Column = (gid % tileSetDimension);
             int Row = (int)Math.Floor((float)gid / (float)tileSetDimension);
             int tileWidth = Settings.TileSize;
-            if (gid == 2800)
-                Console.WriteLine("test");
+
             return new Rectangle((tileWidth * Column) + (3 * Column) + 1, (tileWidth * Row) + (3 * Row) + 1, tileWidth, tileWidth);
 
 
