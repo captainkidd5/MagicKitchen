@@ -25,7 +25,7 @@ namespace TiledEngine.Classes
     {
 
         //Top left of tilesheet is the tile selector. Very nice!
-        internal readonly Rectangle TileSelectorSourceRectangle = new Rectangle(384, 0, 16, 16);
+        internal readonly Rectangle TileSelectorSourceRectangle = new Rectangle(457, 1, 16, 16);
 
         //How many tiles outside of the viewport should be rendered.
         //some tiles (trees, buildings) are quite large so we have to extend culling a bit so as to not cut them off!

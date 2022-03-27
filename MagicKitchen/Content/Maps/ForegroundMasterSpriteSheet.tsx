@@ -63,7 +63,6 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="964" duration="200"/>
    <frame tileid="965" duration="200"/>
    <frame tileid="966" duration="200"/>
    <frame tileid="967" duration="200"/>
@@ -81,7 +80,6 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1014" duration="200"/>
    <frame tileid="1065" duration="200"/>
    <frame tileid="1066" duration="200"/>
    <frame tileid="1067" duration="200"/>
@@ -98,7 +96,6 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1015" duration="200"/>
    <frame tileid="1065" duration="200"/>
    <frame tileid="1066" duration="200"/>
    <frame tileid="1067" duration="200"/>
@@ -115,7 +112,6 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1064" duration="200"/>
    <frame tileid="1065" duration="200"/>
    <frame tileid="1066" duration="200"/>
    <frame tileid="1067" duration="200"/>
@@ -132,7 +128,6 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1114" duration="200"/>
    <frame tileid="1115" duration="200"/>
    <frame tileid="1116" duration="200"/>
    <frame tileid="1117" duration="200"/>

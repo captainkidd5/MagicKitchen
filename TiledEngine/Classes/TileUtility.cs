@@ -155,7 +155,11 @@ namespace TiledEngine.Classes
                     if (i > 0)
                     {
                         propertyString = "newSource";
-                        frameRectangle = TileRectangleHelper.GetBackgroundSourceRectangle(animationFrames[i].Id, tileSetDimension);
+                        if (tileSetPackage.IsForeground(tile.GID))
+                            frameRectangle = TileRectangleHelper.GetNormalSourceRectangle(animationFrames[i].Id, tileSetDimension);
+                        else
+                            frameRectangle = TileRectangleHelper.GetBackgroundSourceRectangle(animationFrames[i].Id, tileSetDimension);
+
                         TmxTilesetTile tileSetTile = tileSetPackage.GetTmxTileSetTile(animationFrames[i].Id);
                         if (tileSetTile != null)
                         {
