@@ -55,6 +55,7 @@ namespace IOEngine.Classes
 
         public static void SaveGame(string[] commands)
         {
+            Flags.IsNewGame = false;
             Save(CurrentSave);
 
         }

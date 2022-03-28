@@ -78,15 +78,14 @@ namespace EntityEngine.Classes
         {
             _graphics = graphics;
             _content = content;
-            StorageCapacity = 4;
-
             Name = GetType().ToString();
+
+            StorageCapacity = 4;
             Navigator = new Navigator(Name);
             Speed = StartingSpeed;
             Behaviour = new WanderBehaviour(this, StatusIcon, Navigator, null);
             _warpHelper = new WarpHelper(this);
         }
-
         public virtual void LoadContent(ItemManager itemManager)
         {
             CreateBody(Position);
@@ -418,5 +417,7 @@ namespace EntityEngine.Classes
             CurrentStageName = reader.ReadString();
             Move(Vector2Helper.ReadVector2(reader));
         }
+
+        
     }
 }

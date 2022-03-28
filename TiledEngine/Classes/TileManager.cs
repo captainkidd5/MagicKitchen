@@ -53,8 +53,8 @@ namespace TiledEngine.Classes
             OffSetLayersDictionary = new Dictionary<int, float>();
             Portals = new List<PortalData>();
             MapType = mapType;
-            this._camera = camera;
-            this._penumbra = penumbra;
+            _camera = camera;
+            _penumbra = penumbra;
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace TiledEngine.Classes
         internal void Load(List<Tile[,]> tiles, int mapWidth, TileSetPackage tileSetPackage)
         {
 
-           TileSetPackage = tileSetPackage;
+            TileSetPackage = tileSetPackage;
 
             MapWidth = mapWidth;
 
@@ -106,7 +106,7 @@ namespace TiledEngine.Classes
 
             MapRectangle = new Rectangle(0, 0, Settings.TileSize * MapWidth, Settings.TileSize * MapWidth);
         }
-      
+
 
 
 
@@ -178,7 +178,7 @@ namespace TiledEngine.Classes
                     for (int y = StartY; y < EndY; y++)
                     {
                         Tiles[z][x, y].Draw(spriteBatch, TileSetPackage.GetTexture(Tiles[z][x, y].GID));
-                      
+
                     }
                 }
             }
@@ -236,18 +236,18 @@ namespace TiledEngine.Classes
         }
 
 
-       
 
-        public Tile GetTileFromWorldPosition( Vector2 position, Layers layer)
+
+        public Tile GetTileFromWorldPosition(Vector2 position, Layers layer)
         {
             Point coord = Vector2Helper.GetTileIndexPosition(position);
             return GetTileFromPoint(coord, layer);
         }
-        public Tile GetTileFromPoint( Point point, Layers layer)
+        public Tile GetTileFromPoint(Point point, Layers layer)
         {
             if (Tiles.Count < (int)layer)
                 throw new Exception("Tiles cannot be null");
-            if (point.X >= Tiles[(int)layer].GetLength(0)  || point.X < 0)
+            if (point.X >= Tiles[(int)layer].GetLength(0) || point.X < 0)
             {
                 Debug.Assert(point.X > Tiles[(int)layer].GetLength(0) || point.X < 0, $"{point.X} is outside the bounds of the array of length {Tiles[(int)layer].GetLength(0)}");
 
@@ -272,7 +272,7 @@ namespace TiledEngine.Classes
         public string GetStepSoundFromPosition(Vector2 position)
         {
             //Use the top layer sound if available (ex: grass should be used over dirt)
-            for(int i = 1; i >= 0; i--)
+            for (int i = 1; i >= 0; i--)
             {
                 Tile tile = GetTileFromWorldPosition(position, (Layers)i);
                 if (tile == null)
@@ -280,14 +280,14 @@ namespace TiledEngine.Classes
 
                 string step = "step";
                 TmxTilesetTile tmxTile = TileSetPackage.GetTmxTileSetTile(tile.GID);
-                if(tmxTile != null)
+                if (tmxTile != null)
                 {
                     if (tmxTile.Properties.TryGetValue(step, out step))
                         return step;
                 }
 
             }
-           
+
             return string.Empty;
         }
         public void Save(BinaryWriter writer)

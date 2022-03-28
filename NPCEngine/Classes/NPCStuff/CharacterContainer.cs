@@ -36,32 +36,7 @@ namespace EntityEngine.Classes.NPCStuff
         }
         internal override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
-            List<NPCData> allNpcData = new List<NPCData>();
-
-            string basePath = content.RootDirectory + _pathExtension;
-            string[] directories = Directory.GetDirectories(basePath);
-            List<Quest> allQuests = new List<Quest>();
-            foreach (string directory in directories)
-            {
-                string npcName = directory.Split("Characters\\")[1];
-
-                string characterSubDirectory = directory + "/";
-                NPCData data = NPCData.GetNPCData(characterSubDirectory, npcName);
-                
-                List<Quest> npcQuests = Quest.GetQuests(characterSubDirectory);
-                allQuests.AddRange(npcQuests);
-                data.Quests = npcQuests;
-
-                foreach (Schedule sch in data.Schedules)
-                    sch.ConvertTimeString();
-
-                data.Schedules.Sort(0, data.Schedules.Count, new ScheduleTimeComparer());
-                Character newCharacter = new Character(graphics, content, data);
-                Entities.Add(newCharacter.Name, newCharacter);
-
-                allNpcData.Add(data);
-            }
-            _questManager.LoadQuestData(allQuests);
+           
             StatusIconTexture = content.Load<Texture2D>("entities/npc/characters/statusicons");
             base.LoadContent(stageName,tileManager,itemManager);
         }
@@ -114,6 +89,7 @@ namespace EntityEngine.Classes.NPCStuff
 
         public override void Save(BinaryWriter writer)
         {
+            if(!Flags.IsNewGame)
             foreach (KeyValuePair<string, Entity> character in Entities)
             {
                 Character charac = (Character)character.Value;
@@ -124,6 +100,33 @@ namespace EntityEngine.Classes.NPCStuff
         }
         public override void LoadSave(BinaryReader reader)
         {
+            List<NPCData> allNpcData = new List<NPCData>();
+
+            string basePath = content.RootDirectory + _pathExtension;
+            string[] directories = Directory.GetDirectories(basePath);
+            List<Quest> allQuests = new List<Quest>();
+            foreach (string directory in directories)
+            {
+                string npcName = directory.Split("Characters\\")[1];
+
+                string characterSubDirectory = directory + "/";
+                NPCData data = NPCData.GetNPCData(characterSubDirectory, npcName);
+
+                List<Quest> npcQuests = Quest.GetQuests(characterSubDirectory);
+                allQuests.AddRange(npcQuests);
+                data.Quests = npcQuests;
+
+                foreach (Schedule sch in data.Schedules)
+                    sch.ConvertTimeString();
+
+                data.Schedules.Sort(0, data.Schedules.Count, new ScheduleTimeComparer());
+                Character newCharacter = new Character(graphics, content, data);
+                Entities.Add(newCharacter.Name, newCharacter);
+
+                allNpcData.Add(data);
+            }
+            _questManager.LoadQuestData(allQuests);
+            if(!Flags.IsNewGame)
             foreach (KeyValuePair<string, Entity> character in Entities)
             {
                 Character charac = (Character)character.Value;
