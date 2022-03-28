@@ -409,11 +409,14 @@ namespace EntityEngine.Classes
                 writer.Write(CurrentStageName);
             else
                 writer.Write("LullabyTown");
+
+            Vector2Helper.WriteVector2(writer, Position);
         }
-        public void LoadSave(BinaryReader reader)
+        public virtual void LoadSave(BinaryReader reader)
         {
             //throw new NotImplementedException();
             CurrentStageName = reader.ReadString();
+            Move(Vector2Helper.ReadVector2(reader));
         }
     }
 }

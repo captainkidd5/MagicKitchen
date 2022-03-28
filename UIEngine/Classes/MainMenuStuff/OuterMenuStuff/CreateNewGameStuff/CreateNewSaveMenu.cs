@@ -104,7 +104,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         {
             SaveLoadManager.CreateNewSave(_nameTypingBox.CurrentString);
             SaveLoadManager.SetCurrentSave(_nameTypingBox.CurrentString);
-
+            Flags.IsNewGame = true;
             UI.LoadGame(SaveLoadManager.CurrentSave);
         }
     }

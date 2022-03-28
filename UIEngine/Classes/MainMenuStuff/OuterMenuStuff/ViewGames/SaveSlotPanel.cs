@@ -1,4 +1,5 @@
-﻿using IOEngine.Classes;
+﻿using Globals.Classes;
+using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -82,6 +83,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
         private void LoadSave()
         {
+            Flags.IsNewGame = false;
             UI.LoadGame(_saveFile);
         }
 

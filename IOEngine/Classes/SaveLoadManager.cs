@@ -1,4 +1,5 @@
-﻿using Globals.Classes.Console;
+﻿using Globals.Classes;
+using Globals.Classes.Console;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -96,6 +97,7 @@ namespace IOEngine.Classes
             CurrentSave = saveFile;
             //Fire up game to save empty initial values to the save for everything. This triggers the event in game1.cs
             Create(saveFile);
+            Flags.IsNewGame = true;
         }
 
         /// <summary>

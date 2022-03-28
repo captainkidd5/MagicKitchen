@@ -195,6 +195,8 @@ namespace MagicKitchen
 
         public void OnSaveCreated(object? sender, FileCreatedEventArgs e)
         {
+            Flags.IsNewGame = true;
+
             BinaryWriter writer = e.BinaryWriter;
             _stageManager.CreateNewSave(writer);
             SaveLoadManager.DestroyWriter(writer);
@@ -217,6 +219,8 @@ namespace MagicKitchen
             BinaryWriter writer = e.BinaryWriter;
             _stageManager.Save(writer);
             CommandConsole.Append("...Saved!");
+            SaveLoadManager.DestroyWriter(writer);
+
         }
 
         public void OnReturnToMainMenu(object? sender, EventArgs e)

@@ -9,6 +9,7 @@ namespace Globals.Classes
 {
     public interface ISaveable
     {
+        public void SetDefaultValues();
         public void Save(BinaryWriter writer);
         public void LoadSave(BinaryReader reader);
 

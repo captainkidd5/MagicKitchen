@@ -26,7 +26,7 @@ namespace EntityEngine.Classes.NPCStuff
     public delegate void CharacterClicked(Schedule schedule);
     public class Character : HumanoidEntity
     {
-        private readonly NPCData npcData;
+        private readonly NPCData _npcData;
 
         private bool _isInteractingWithPlayer;
         private Schedule ActiveSchedule { get; set; }
@@ -35,7 +35,7 @@ namespace EntityEngine.Classes.NPCStuff
         public Character(GraphicsDevice graphics, ContentManager content, NPCData npcsData) : base(graphics, content)
         {
             
-            this.npcData = npcsData;
+            _npcData = npcsData;
             Name = npcsData.Name;
             CurrentStageName = npcsData.StartingStage;
             Move(Vector2Helper.GetWorldPositionFromTileIndex(npcsData.StartingTileX, npcsData.StartingTileY));
@@ -47,7 +47,7 @@ namespace EntityEngine.Classes.NPCStuff
         public override void LoadContent(ItemManager itemManager)
         {
             base.LoadContent(  itemManager);
-            Behaviour = new RouteBehaviour(this, StatusIcon, Navigator, TileManager, ActiveSchedule, npcData.Schedules, null);
+            Behaviour = new RouteBehaviour(this, StatusIcon, Navigator, TileManager, ActiveSchedule, _npcData.Schedules, null);
 
 
         }
@@ -102,7 +102,7 @@ namespace EntityEngine.Classes.NPCStuff
             StatusIcon.SetStatus(StatusIconType.Speak);
 
             if (ActiveSchedule == null)
-                ActiveSchedule = Scheduler.GetScheduleFromCurrentTime(npcData.Schedules);
+                ActiveSchedule = Scheduler.GetScheduleFromCurrentTime(_npcData.Schedules);
 
             if(!_isInteractingWithPlayer)
                 OnCharacterClicked(ActiveSchedule);
@@ -113,6 +113,16 @@ namespace EntityEngine.Classes.NPCStuff
         {
             base.OnCollides(fixtureA, fixtureB, contact);
 
+        }
+
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+        }
+
+        public override void LoadSave(BinaryReader reader)
+        {
+            base.LoadSave(reader);
         }
     }
 }
