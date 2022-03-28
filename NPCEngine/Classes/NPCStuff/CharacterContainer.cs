@@ -89,6 +89,8 @@ namespace EntityEngine.Classes.NPCStuff
 
         public override void Save(BinaryWriter writer)
         {
+            //Test if new game because characters are initially loaded in after save/load logic, therefore the entity list is not populated
+            //before first load and therefore not saved
             if(!Flags.IsNewGame)
             foreach (KeyValuePair<string, Entity> character in Entities)
             {
