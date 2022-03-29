@@ -340,6 +340,7 @@ namespace UIEngine.Classes
                 SaveLoadManager.CurrentSave = saveFile;
                 SaveLoadManager.Load(saveFile);
                 s_requestedGameState = GameDisplayState.InGame;
+                SaveLoadManager.SaveGame(null);
 
                 FinishChangeGameState();
 

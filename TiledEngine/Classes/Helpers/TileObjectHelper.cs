@@ -26,7 +26,8 @@ namespace TiledEngine.Classes.Helpers
             {
                 TmxObject tempObj = tileSetTile.ObjectGroups[0].Objects[k];
                 Rectangle tempObjBody = new Rectangle((int)tempObj.X, (int)tempObj.Y, (int)tempObj.Width, (int)tempObj.Height);
-
+                if(tempObj.ObjectType == TmxObjectType.Ellipse)
+                    Console.WriteLine("test");
                 IntermediateTmxShape intermediateTmxShape = GetIntermediateShape(tile, tempObjBody, tempObj.ObjectType);
 
                 bool blocksLight = true;
@@ -51,17 +52,12 @@ namespace TiledEngine.Classes.Helpers
         {
             Rectangle tileDestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
             TileLocationHelper.UpdateMultiplePathGrid(tileManager, tmxShape.ColliderRectangle);
-            //tileManager.UpdateGrid(tile.X, tile.Y, GridStatus.Obstructed);
 
             if (properties.ContainsKey("destructable"))
             {
-
-
-
                 //Using layer here is fine because we haven't yet randomized it in tile utility
 
                 tile.Addons.Add(new DestructableTile(tile, tileManager, tmxShape, tileLayer, properties["destructable"]));
-
             }
             else
             {
@@ -131,14 +127,13 @@ namespace TiledEngine.Classes.Helpers
             string[] splitInfo = info.Split(',');
             if (splitInfo.Length == 4)
             {
-                bounds = new Rectangle(int.Parse(info.Split(',')[0]),
-                int.Parse(info.Split(',')[1]),
-                int.Parse(info.Split(',')[2]),
-                int.Parse(info.Split(',')[3]));
+                bounds = GetSourceRectangleFromTileProperty(info);
+
             }
             else if(splitInfo.Length == 3)
             {
-                bounds = GetSourceRectangleFromTileProperty(info);
+                bounds = GetSourceCircleFromTileProperty(info);
+                tmxObjectType = TmxObjectType.Ellipse;
             }
             else
             {
@@ -160,6 +155,19 @@ namespace TiledEngine.Classes.Helpers
                 int.Parse(info.Split(',')[1]),
                 int.Parse(info.Split(',')[2]),
                 int.Parse(info.Split(',')[3]));
+        }
+
+        /// <summary>
+        /// Creates a source circular hitbox at given location. 0 is offset from normal tile starting X, 1 is y offset for same thing, 2 is radius of circle
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public static Rectangle GetSourceCircleFromTileProperty(string info)
+        {
+            return new Rectangle(int.Parse(info.Split(',')[0]),
+                int.Parse(info.Split(',')[1]),
+                int.Parse(info.Split(',')[2]),
+                int.Parse(info.Split(',')[2]));
         }
     }
 }

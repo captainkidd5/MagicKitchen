@@ -63,11 +63,11 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1440" duration="200"/>
-   <frame tileid="1441" duration="200"/>
-   <frame tileid="1442" duration="200"/>
-   <frame tileid="1443" duration="200"/>
-   <frame tileid="1444" duration="200"/>
+   <frame tileid="1440" duration="100"/>
+   <frame tileid="1441" duration="100"/>
+   <frame tileid="1442" duration="100"/>
+   <frame tileid="1443" duration="100"/>
+   <frame tileid="1444" duration="100"/>
   </animation>
  </tile>
  <tile id="1514">
@@ -80,10 +80,10 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1590" duration="200"/>
-   <frame tileid="1591" duration="200"/>
-   <frame tileid="1592" duration="200"/>
-   <frame tileid="1593" duration="200"/>
+   <frame tileid="1590" duration="100"/>
+   <frame tileid="1591" duration="100"/>
+   <frame tileid="1592" duration="100"/>
+   <frame tileid="1593" duration="100"/>
   </animation>
  </tile>
  <tile id="1515">
@@ -96,10 +96,10 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1590" duration="200"/>
-   <frame tileid="1591" duration="200"/>
-   <frame tileid="1592" duration="200"/>
-   <frame tileid="1593" duration="200"/>
+   <frame tileid="1590" duration="100"/>
+   <frame tileid="1592" duration="100"/>
+   <frame tileid="1593" duration="100"/>
+   <frame tileid="1591" duration="100"/>
   </animation>
  </tile>
  <tile id="1589">
@@ -112,10 +112,10 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1590" duration="200"/>
-   <frame tileid="1591" duration="200"/>
-   <frame tileid="1592" duration="200"/>
-   <frame tileid="1593" duration="200"/>
+   <frame tileid="1590" duration="100"/>
+   <frame tileid="1591" duration="100"/>
+   <frame tileid="1592" duration="100"/>
+   <frame tileid="1593" duration="100"/>
   </animation>
  </tile>
  <tile id="1664">
@@ -128,11 +128,11 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1665" duration="200"/>
-   <frame tileid="1666" duration="200"/>
-   <frame tileid="1667" duration="200"/>
-   <frame tileid="1668" duration="200"/>
-   <frame tileid="1669" duration="200"/>
+   <frame tileid="1665" duration="100"/>
+   <frame tileid="1666" duration="100"/>
+   <frame tileid="1667" duration="100"/>
+   <frame tileid="1668" duration="100"/>
+   <frame tileid="1669" duration="100"/>
   </animation>
  </tile>
  <tile id="2778">
@@ -145,7 +145,7 @@
  <tile id="4296">
   <properties>
    <property name="action" value="ignite"/>
-   <property name="newHitBox" value="0, 0, 32, 16"/>
+   <property name="newHitBox" value="4, -8, 26"/>
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
  </tile>
