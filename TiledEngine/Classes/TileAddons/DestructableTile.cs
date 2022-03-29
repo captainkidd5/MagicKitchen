@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TiledEngine.Classes.Helpers;
+using UIEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Collision.Handlers;
@@ -25,7 +26,7 @@ namespace TiledEngine.Classes.TileAddons
         public DestructableTile(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, Layers layer, string destructionType) : base(tile, tileManager, intermediateTmxShape)
         {
             _layer = layer;
-            CursorIconType = GetDestructionTypeFromString(destructionType);
+            CursorIconType = Cursor.GetCursorIconTypeFromString(destructionType.Split(',')[0]);
             tile.CursorIconType = CursorIconType;
             if (tile.Sprite.GetType() == typeof(AnimatedSprite))
             {
@@ -84,13 +85,6 @@ namespace TiledEngine.Classes.TileAddons
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnSeparates(fixtureA, fixtureB, contact);
-        }
-
-
-
-        private CursorIconType GetDestructionTypeFromString(string str)
-        {
-            return (CursorIconType)Enum.Parse(typeof(CursorIconType), str.Split(',')[0]);
         }
 
         public override void Interact()

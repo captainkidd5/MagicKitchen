@@ -1,10 +1,13 @@
-﻿using PhysicsEngine.Classes;
+﻿using InputEngine.Classes.Input;
+using Microsoft.Xna.Framework;
+using PhysicsEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes.Helpers;
+using UIEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
@@ -14,8 +17,12 @@ namespace TiledEngine.Classes.TileAddons.Actions
 
     internal class ActionTile : TileBody
     {
+        public CursorIconType CursorIconType { get; private set; }
+
         public ActionTile(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, tileManager, intermediateTmxShape)
         {
+            CursorIconType = Cursor.GetCursorIconTypeFromString(actionType);
+
         }
 
         public override void Load()
@@ -26,12 +33,12 @@ namespace TiledEngine.Classes.TileAddons.Actions
             {
                 AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, IntermediateTmxShape.HullPosition,
                IntermediateTmxShape.Width, IntermediateTmxShape.Height,
-             collisionCategories, categoriesCollidesWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+             collisionCategories, categoriesCollidesWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight, mass: 0f)); ;
             }
             else if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Ellipse)
             {
                 AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, IntermediateTmxShape.HullPosition, IntermediateTmxShape.Radius,
-                collisionCategories, categoriesCollidesWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+                collisionCategories, categoriesCollidesWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight, mass:0f));
             }
             else
             {
@@ -40,14 +47,22 @@ namespace TiledEngine.Classes.TileAddons.Actions
 
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            Move(IntermediateTmxShape.HullPosition);
+            if (PlayerInClickRange && MouseHovering)
+            {
+                UI.Cursor.CursorIconType = CursorIconType;
+
+            }
+        }
+
         protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnCollides(fixtureA, fixtureB, contact);
 
-            if (fixtureB.CollisionCategories.HasFlag(Category.Cursor))
-            {
 
-            }
         }
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)

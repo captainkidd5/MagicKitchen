@@ -54,16 +54,16 @@ namespace TiledEngine.Classes.Helpers
             Rectangle tileDestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
             TileLocationHelper.UpdateMultiplePathGrid(tileManager, tmxShape.ColliderRectangle);
 
+            if (properties.ContainsKey("action"))
+            {
+                tile.Addons.Add(TileActionFactory.GetActionTile(properties["action"], tile, tileManager, tmxShape, tileLayer));
+
+            }
             if (properties.ContainsKey("destructable"))
             {
                 //Using layer here is fine because we haven't yet randomized it in tile utility
 
                 tile.Addons.Add(new DestructableTile(tile, tileManager, tmxShape, tileLayer, properties["destructable"]));
-            }
-            else if (properties.ContainsKey("action"))
-            {
-                tile.Addons.Add(TileActionFactory.GetActionTile(properties["action"], tile,tileManager,tmxShape,tileLayer));
-
             }
             else
             {

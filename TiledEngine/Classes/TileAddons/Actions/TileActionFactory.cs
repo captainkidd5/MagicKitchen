@@ -16,7 +16,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
         {
             switch (action)
             {
-                case "ignite":
+                case "Ignite":
                     return new IgniteActionTile(tile, tileManager, intermediateTmxShape, action);
 
                 default:

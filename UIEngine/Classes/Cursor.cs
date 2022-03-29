@@ -37,7 +37,10 @@ namespace UIEngine.Classes
         public CursorIconType OldCursorIconType { get; set; }
 
         public Vector2 PlayerPosition { get; set; }
-
+        public static CursorIconType GetCursorIconTypeFromString(string str)
+        {
+            return (CursorIconType)Enum.Parse(typeof(CursorIconType), str);
+        }
         protected override void CreateBody(Vector2 position)
         {
             base.CreateBody(position);
@@ -113,6 +116,8 @@ namespace UIEngine.Classes
                 case CursorIconType.Speech:
                     return new Rectangle(160, 0, 32, 32);
                 case CursorIconType.Door:
+                    return new Rectangle(96, 32, 32, 32);
+                case CursorIconType.Ignite:
                     return new Rectangle(96, 32, 32, 32);
 
 

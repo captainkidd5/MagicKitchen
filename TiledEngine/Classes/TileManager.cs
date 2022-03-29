@@ -136,7 +136,7 @@ namespace TiledEngine.Classes
                     }
                 }
                 Tile hoveredLayerTile = Tiles[z][MouseX, MouseY];
-                if (CheckIfCursorIconChangedFromTile(hoveredLayerTile))
+                if (UI.Cursor.CursorIconType == CursorIconType.None && CheckIfCursorIconChangedFromTile(hoveredLayerTile))
                 {
                     tileToInteractWith = hoveredLayerTile;
 

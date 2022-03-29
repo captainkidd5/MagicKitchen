@@ -27,7 +27,8 @@ namespace InputEngine.Classes.Input
         Selectable = 1,
         Rock = 2,
         Speech = 3,
-        Door = 4
+        Door = 4,
+        Ignite =5,
     }
     public static class Controls
     {

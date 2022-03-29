@@ -144,7 +144,7 @@
  </tile>
  <tile id="4296">
   <properties>
-   <property name="action" value="ignite"/>
+   <property name="action" value="Ignite"/>
    <property name="newHitBox" value="4, -8, 26"/>
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
