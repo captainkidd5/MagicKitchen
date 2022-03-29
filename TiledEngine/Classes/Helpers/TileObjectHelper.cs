@@ -25,6 +25,10 @@ namespace TiledEngine.Classes.Helpers
             for (int k = 0; k < tileSetTile.ObjectGroups[0].Objects.Count; k++)
             {
                 TmxObject tempObj = tileSetTile.ObjectGroups[0].Objects[k];
+                Rectangle tempObjBody = new Rectangle((int)tempObj.X, (int)tempObj.Y, (int)tempObj.Width, (int)tempObj.Height);
+
+                IntermediateTmxShape intermediateTmxShape = GetIntermediateShape(tile, tempObjBody, tempObj.ObjectType);
+
                 bool blocksLight = true;
                 //This OBJECT within the tile OBJECT LIST may contain this property, which will allow light to pass through
                 //the otherwise light-impassible body. This is NOT a tile property, it is a property of an object within a tile.
@@ -33,60 +37,51 @@ namespace TiledEngine.Classes.Helpers
                     blocksLight = false;
                 }
 
-                Rectangle tempObjBody = new Rectangle((int)tempObj.X, (int)tempObj.Y, (int)tempObj.Width, (int)tempObj.Height);
 
 
+                CreateTileBodies(tile, tileLayer, tileManager, intermediateTmxShape, tempObj.Properties);
 
-
-                Rectangle tileDestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
-                TileLocationHelper.UpdateMultiplePathGrid(tileManager, new Rectangle(tileDestinationRectangle.X + tempObjBody.X, tileDestinationRectangle.Y + tempObjBody.Y, tempObjBody.Width, tempObjBody.Height));
-                //tileManager.UpdateGrid(tile.X, tile.Y, GridStatus.Obstructed);
-                IntermediateTmxShape intermediateTmxShape = GetIntermediateShape(tile, tempObjBody, tempObj.ObjectType, blocksLight);
-
-                if (tempObj.Properties.ContainsKey("destructable"))
-                {
-
-
-
-                    //Using layer here is fine because we haven't yet randomized it in tile utility
-
-                    tile.Addons.Add(new DestructableTile(tile, tileManager, intermediateTmxShape, tileLayer, tempObj.Properties["destructable"]));
-
-                }
-                else
-                {
-                    TileBody tileBody = new TileBody(tile, tileManager, intermediateTmxShape);
-                    tile.Addons.Add(tileBody);
-                }
-                TestForTransparencyTile(tile, tempObjBody);
+                
 
             }
         }
 
      
+        private static void CreateTileBodies(Tile tile, Layers tileLayer, TileManager tileManager, IntermediateTmxShape tmxShape, Dictionary<string, string> properties)
+        {
+            Rectangle tileDestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
+            TileLocationHelper.UpdateMultiplePathGrid(tileManager, tmxShape.ColliderRectangle);
+            //tileManager.UpdateGrid(tile.X, tile.Y, GridStatus.Obstructed);
 
+            if (properties.ContainsKey("destructable"))
+            {
+
+
+
+                //Using layer here is fine because we haven't yet randomized it in tile utility
+
+                tile.Addons.Add(new DestructableTile(tile, tileManager, tmxShape, tileLayer, properties["destructable"]));
+
+            }
+            else
+            {
+                TileBody tileBody = new TileBody(tile, tileManager, tmxShape);
+                tile.Addons.Add(tileBody);
+            }
+            TestForTransparencyTile(tile, tmxShape.ColliderRectangle);
+        }
 
 
         /// <summary>
         /// For use with tile properties such as "newHitBox". Updates pathgrid accordingly.
         /// </summary>
-        internal static void AddObjectFromProperty(Tile tile, TileManager tileManager,string info)
+        internal static void AddObjectFromProperty(Tile tile, Layers layer,Dictionary<string,string> tileProperties, TileManager tileManager,string info)
         {
-
-            IntermediateTmxShape shape = GetShapeFromNewHitBox(tile,info);
-            TileBody tileBody = new TileBody(tile, tileManager, shape);
-            tile.Addons.Add(tileBody);
-            Rectangle tileRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
-            Rectangle adjustedRectangleForGrid = new Rectangle(tileRectangle.X + (int)shape.HullPosition.X, tileRectangle.Y + (int)shape.HullPosition.Y, (int)shape.Width, (int)shape.Height);
-            TileLocationHelper.UpdateMultiplePathGrid(tileManager, adjustedRectangleForGrid);
-
-            TestForTransparencyTile(tile, tileRectangle);
-
-
+            CreateTileBodies(tile, layer, tileManager, GetShapeFromNewHitBox(tile, info), tileProperties);
 
         }
 
-        private static IntermediateTmxShape GetIntermediateShape(Tile tile, Rectangle tempObj, TmxObjectType objectType, bool blocksLight = true)
+        private static IntermediateTmxShape GetIntermediateShape(Tile tile, Rectangle tempObj, TmxObjectType objectType)
         {
             Rectangle destinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
             Rectangle colliderRectangle = new Rectangle(destinationRectangle.X + tempObj.X,

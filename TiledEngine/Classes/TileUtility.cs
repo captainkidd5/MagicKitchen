@@ -101,7 +101,7 @@ namespace TiledEngine.Classes
                 propertyString = "newHitBox";
                 if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
-                    TileObjectHelper.AddObjectFromProperty(tile, tileManager, propertyString);
+                    TileObjectHelper.AddObjectFromProperty(tile, layer, tileSetTile.Properties, tileManager, propertyString);
                 }
 
                 propertyString = "lightSource";
