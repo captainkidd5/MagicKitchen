@@ -78,7 +78,7 @@ namespace SoundEngine.Classes
 
             s_ambientPlayer = new EffectPlayer();
             s_ambientPlayer.Load(s_random, s_soundPackages["AmbientDay"], "AmbientDay");
-            CommandConsole.RegisterCommand("play", "plays effect", PlayEffectAction);
+            CommandConsole.RegisterCommand("play_e", "plays effect", PlayEffectAction);
             CommandConsole.RegisterCommand("listeffects", "lists all effects", ListEffectsAction);
 
             AllowAmbientSounds = true;
