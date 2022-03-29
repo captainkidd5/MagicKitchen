@@ -11,7 +11,16 @@
                 </Item>
             </SoundChancers>
         </Item>
-
+<Item>
+            <Name>Ignite</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Ignite1</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Tiles/Actions/Ignite</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
         <Item>
             <Name>Step</Name>
             <SoundChancers>

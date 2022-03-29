@@ -30,6 +30,12 @@ namespace TiledEngine.Classes.TileAddons.Actions
 
             if (PlayerInClickRange && MouseHovering && Controls.IsClicked)
             {
+                if (!IsPlayingASound)
+                {
+                    PlaySound(CursorIconType.ToString());
+
+
+                }
                 (spr).Paused = false;
                
             }
