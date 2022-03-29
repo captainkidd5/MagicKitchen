@@ -64,17 +64,6 @@ namespace TiledEngine.Classes.Helpers
            sourceRectangle.Width, sourceRectangle.Height);
         }
 
-        /// <summary>
-        /// Gets the UNADJUSTED rectangle from tile property. Needs to be manually added to the
-        /// standard tile rectangle if that's what you want to do. <see cref="AdjustSourceRectangle(Rectangle, Rectangle)"/>
-        /// or <see cref="AdjustDestinationRectangle(Tile, Rectangle)"/>
-        /// </summary>
-        public static Rectangle GetSourceRectangleFromTileProperty(string info)
-        {
-            return new Rectangle(int.Parse(info.Split(',')[0]),
-                int.Parse(info.Split(',')[1]),
-                int.Parse(info.Split(',')[2]),
-                int.Parse(info.Split(',')[3]));
-        }
+       
     }
 }

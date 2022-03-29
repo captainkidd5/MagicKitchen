@@ -77,7 +77,7 @@ namespace TiledEngine.Classes
 
                 if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
-                    Rectangle propertySourceRectangle = TileRectangleHelper.GetSourceRectangleFromTileProperty(propertyString);
+                    Rectangle propertySourceRectangle = TileObjectHelper.GetSourceRectangleFromTileProperty(propertyString);
 
                     tile.SourceRectangle = TileRectangleHelper.AdjustSourceRectangle(TileRectangleHelper.GetNormalSourceRectangle(tileSetPackage.OffSetForegroundGID(tile.GID), tileSetDimension), propertySourceRectangle);
                     tile.DestinationRectangle = TileRectangleHelper.AdjustDestinationRectangle(tile, propertySourceRectangle);
@@ -101,7 +101,7 @@ namespace TiledEngine.Classes
                 propertyString = "newHitBox";
                 if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
-                    TileObjectHelper.AddObjectFromProperty(tile, tileManager, TileRectangleHelper.GetSourceRectangleFromTileProperty(propertyString));
+                    TileObjectHelper.AddObjectFromProperty(tile, tileManager, propertyString);
                 }
 
                 propertyString = "lightSource";
@@ -165,7 +165,7 @@ namespace TiledEngine.Classes
                         {
                             if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
                             {
-                                frameRectangle = TileRectangleHelper.AdjustSourceRectangle(frameRectangle, TileRectangleHelper.GetSourceRectangleFromTileProperty(propertyString));
+                                frameRectangle = TileRectangleHelper.AdjustSourceRectangle(frameRectangle, TileObjectHelper.GetSourceRectangleFromTileProperty(propertyString));
                             }
 
                         }
