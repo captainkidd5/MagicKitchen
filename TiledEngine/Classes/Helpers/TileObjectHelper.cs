@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TiledEngine.Classes.TileAddons;
+using TiledEngine.Classes.TileAddons.Actions;
 using TiledSharp;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Filtering;
@@ -58,6 +59,11 @@ namespace TiledEngine.Classes.Helpers
                 //Using layer here is fine because we haven't yet randomized it in tile utility
 
                 tile.Addons.Add(new DestructableTile(tile, tileManager, tmxShape, tileLayer, properties["destructable"]));
+            }
+            else if (properties.ContainsKey("action"))
+            {
+                tile.Addons.Add(TileActionFactory.GetActionTile(properties["action"], tile,tileManager,tmxShape,tileLayer));
+
             }
             else
             {

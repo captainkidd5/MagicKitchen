@@ -20,7 +20,7 @@ namespace VelcroPhysics.Collision.Filtering
         Portal = 512,
         Cursor = 1024,
         NPCBigSensor = 2048,
-        Cat13 = 4096,
+        ActionTile = 4096,
         Cat14 = 8192,
         Cat15 = 16384,
         Cat16 = 32768,

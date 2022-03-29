@@ -75,9 +75,6 @@ namespace TiledEngine.Classes.TileAddons
 
 
 
-        /// <summary>
-        /// TODO: Use the entity's direction as the initial shuff direction. If direction is up or down, then do a random direction.
-        /// </summary>
         protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnCollides(fixtureA, fixtureB, contact);
