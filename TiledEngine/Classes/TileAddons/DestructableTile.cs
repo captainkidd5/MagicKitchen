@@ -19,14 +19,19 @@ namespace TiledEngine.Classes.TileAddons
 
     internal class DestructableTile : TileBody
     {
-        private readonly Layers layer;
+        private readonly Layers _layer;
 
         public CursorIconType CursorIconType { get; private set; }
-        public DestructableTile(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape ) : base(tile, tileManager,intermediateTmxShape)
+        public DestructableTile(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, Layers layer, string destructionType) : base(tile, tileManager, intermediateTmxShape)
         {
-
+            _layer = layer;
+            CursorIconType = GetDestructionTypeFromString(destructionType);
+            tile.CursorIconType = CursorIconType;
+            if (tile.Sprite.GetType() == typeof(AnimatedSprite))
+            {
+                (tile.Sprite as AnimatedSprite).Paused = true;
+            }
         }
-
         public override void Load()
         {
             if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Basic)
@@ -46,16 +51,7 @@ namespace TiledEngine.Classes.TileAddons
             }
 
         }
-        public DestructableTile(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, Layers layer, string destructionType) : this(tile, tileManager, intermediateTmxShape)
-        {
-            this.layer = layer;
-            CursorIconType = GetDestructionTypeFromString(destructionType);
-            tile.CursorIconType = CursorIconType;
-            if (tile.Sprite.GetType() == typeof(AnimatedSprite))
-            {
-                (tile.Sprite as AnimatedSprite).Paused = true;
-            }
-        }
+     
 
 
 
@@ -69,7 +65,7 @@ namespace TiledEngine.Classes.TileAddons
             if ((Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
             {
 
-                TileUtility.SwitchGid(Tile, TileManager, layer);
+                TileUtility.SwitchGid(Tile, TileManager, _layer);
                 TileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
 
 

@@ -36,7 +36,7 @@ namespace TiledEngine.Classes.Helpers
                 Rectangle tempObjBody = new Rectangle((int)tempObj.X, (int)tempObj.Y, (int)tempObj.Width, (int)tempObj.Height);
 
 
-              
+
 
                 Rectangle tileDestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
                 TileLocationHelper.UpdateMultiplePathGrid(tileManager, new Rectangle(tileDestinationRectangle.X + tempObjBody.X, tileDestinationRectangle.Y + tempObjBody.Y, tempObjBody.Width, tempObjBody.Height));
@@ -45,7 +45,7 @@ namespace TiledEngine.Classes.Helpers
 
                 if (tempObj.Properties.ContainsKey("destructable"))
                 {
-                    
+
 
 
                     //Using layer here is fine because we haven't yet randomized it in tile utility
@@ -55,20 +55,26 @@ namespace TiledEngine.Classes.Helpers
                 }
                 else
                 {
-                   // HullBody hullBody = CreateBody(tile, tempObjBody, tempObj.ObjectType, blocksLight);
                     TileBody tileBody = new TileBody(tile, tileManager, intermediateTmxShape);
-                   // tileBody.AddPrimaryBody(hullBody);
                     tile.Addons.Add(tileBody);
                 }
-                //Height must also be greater than 32, otherwise kinda pointless as we can already mostly see the player!
-                if (tile.Layer >= .3f && tile.GID != -1 && tile.DestinationRectangle.Height > tempObj.Height && tile.DestinationRectangle.Height > 32)
-                    tile.Addons.Add(new TileTransparency(tile, tile.Position, new Rectangle(tile.DestinationRectangle.X, tile.DestinationRectangle.Y - (int)tempObj.Height, tile.DestinationRectangle.Width, tile.DestinationRectangle.Height - (int)tempObj.Height)));
-
+                TestForTransparencyTile(tile, tempObjBody);
 
             }
         }
 
-       
+        /// <summary>
+        ///Height must also be greater than 32, otherwise kinda pointless as we can already mostly see the player!
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <param name="tempObj"></param>
+        private static void TestForTransparencyTile(Tile tile, Rectangle rectangle)
+        {
+            if (tile.Layer >= .3f && tile.GID != -1 && tile.DestinationRectangle.Height > rectangle.Height && tile.DestinationRectangle.Height > 32)
+                tile.Addons.Add(new TileTransparency(tile, tile.Position, new Rectangle(tile.DestinationRectangle.X, tile.DestinationRectangle.Y - (int)rectangle.Height, tile.DestinationRectangle.Width, tile.DestinationRectangle.Height - (int)rectangle.Height)));
+        }
+
+
 
         /// <summary>
         /// For use with tile properties such as "newHitBox". Updates pathgrid accordingly.
@@ -82,9 +88,9 @@ namespace TiledEngine.Classes.Helpers
             Rectangle tileRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
             Rectangle adjustedRectangleForGrid = new Rectangle(tileRectangle.X + unadjustedSourceRectangle.X, tileRectangle.Y + unadjustedSourceRectangle.Y, unadjustedSourceRectangle.Width, unadjustedSourceRectangle.Height);
             TileLocationHelper.UpdateMultiplePathGrid(tileManager, adjustedRectangleForGrid);
-            if (tile.Layer >= .3f && tile.GID != -1 && tile.DestinationRectangle.Height > unadjustedSourceRectangle.Height)
-                tile.Addons.Add(new TileTransparency(tile, tile.Position, new Rectangle(tile.DestinationRectangle.X, tile.DestinationRectangle.Y - unadjustedSourceRectangle.Height,
-                    tile.DestinationRectangle.Width, tile.DestinationRectangle.Height - unadjustedSourceRectangle.Height)));
+
+            TestForTransparencyTile(tile, unadjustedSourceRectangle);
+
 
 
         }
