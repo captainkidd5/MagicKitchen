@@ -72,12 +72,16 @@ namespace Globals.Classes.Helpers
         }
         public static Vector2 PlaceUpperLeftQuadrant(Rectangle backGroundRectangle, float? scale = null)
         {
+            scale = scale ?? Settings.GameScale;
+
             return new Vector2(backGroundRectangle.X + backGroundRectangle.Width / 4 * (float)scale,
                 backGroundRectangle.Y + backGroundRectangle.Height / 4 * (float)scale);
         }
 
         public static Vector2 PlaceUpperRightQuadrant(Rectangle backGroundRectangle, Rectangle rectangleToPlace, float? scale = null)
         {
+            scale = scale ?? Settings.GameScale;
+
             return new Vector2(backGroundRectangle.X + backGroundRectangle.Width * (float)scale - backGroundRectangle.Width / 4 * (float)scale - rectangleToPlace.Width * (float)scale,
                 backGroundRectangle.Y + backGroundRectangle.Height / 4 * (float)scale);
         }

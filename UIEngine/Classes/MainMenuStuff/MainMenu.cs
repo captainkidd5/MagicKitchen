@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UIEngine.Classes.ButtonStuff;
 using UIEngine.Classes.MainMenuStuff.OuterMenuStuff;
 using UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames;
 
@@ -31,6 +32,7 @@ namespace UIEngine.Classes.MainMenuStuff
         private Sprite _backDropSprite;
         private OuterMenu _outerMenu;
 
+        private ToggleMusic _toggleMusic;
         public MainMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -44,7 +46,8 @@ namespace UIEngine.Classes.MainMenuStuff
             _outerMenu = new OuterMenu(this, graphics, content, null, LayerDepth);
             _outerMenu.LoadContent();
 
-
+            _toggleMusic = new ToggleMusic(this, graphics, content, RectangleHelper.PlaceUpperRightQuadrant(Settings.GetScreenRectangle(),
+                new Rectangle(0, 0, 32, 32)), GetLayeringDepth(UILayeringDepths.Low));
             _activeSection = _outerMenu;
             TotalBounds = _backDropDimensions;
             base.LoadContent();
@@ -81,12 +84,14 @@ namespace UIEngine.Classes.MainMenuStuff
             //base.Update(gameTime);
             _backDropSprite.Update(gameTime, Position);
             _activeSection.Update(gameTime);
+            _toggleMusic.Update(gameTime);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             //base.Draw(spriteBatch);
             _backDropSprite.Draw(spriteBatch);
             _activeSection.Draw(spriteBatch);
+            _toggleMusic.Draw(spriteBatch);
         }
     }
 }
