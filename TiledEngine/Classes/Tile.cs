@@ -34,6 +34,8 @@ namespace TiledEngine.Classes
 
         //public TileType TileType { get; set; }
         internal float Layer { get; set; }
+
+        internal Layers IndexLayer { get; set; }
         internal int X { get; set; }
         internal int Y { get; set; }
         internal Rectangle SourceRectangle { get; set; }
@@ -47,15 +49,12 @@ namespace TiledEngine.Classes
 
         public bool WithinRangeOfPlayer { get; internal set; }
 
-        internal Tile(int gid, float layer, int x, int y)
+        internal Tile(int gid, Layers indexLayer, float layer, int x, int y)
         {
             
             GID = gid;
             Layer = layer;
-            if (Layer == .3)
-            {
-                Console.WriteLine("test");
-            }
+            IndexLayer = indexLayer;
             X = x;
             Y = y;
             Addons = new List<ITileAddon>();

@@ -50,6 +50,10 @@ namespace TiledEngine.Classes
         {
             return tileGID > _backgroundTileCount;
         }
+        public int OffSetBackgroundGID(int oldGID)
+        {
+            return oldGID + _backgroundTileCount;
+        }
         public int OffSetForegroundGID(int oldGID)
         {
             return oldGID - _backgroundTileCount;

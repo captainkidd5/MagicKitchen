@@ -20,12 +20,10 @@ namespace TiledEngine.Classes.TileAddons
 
     internal class DestructableTile : TileBody
     {
-        private readonly Layers _layer;
 
         public CursorIconType CursorIconType { get; private set; }
-        public DestructableTile(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, Layers layer, string destructionType) : base(tile, tileManager, intermediateTmxShape)
+        public DestructableTile(Tile tile, TileManager tileManager, TileSetPackage tileSetPackage, IntermediateTmxShape intermediateTmxShape, string destructionType) : base(tile, tileManager,tileSetPackage, intermediateTmxShape)
         {
-            _layer = layer;
             CursorIconType = Cursor.GetCursorIconTypeFromString(destructionType.Split(',')[0]);
             tile.CursorIconType = CursorIconType;
             if (tile.Sprite.GetType() == typeof(AnimatedSprite))
@@ -66,7 +64,7 @@ namespace TiledEngine.Classes.TileAddons
             if ((Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
             {
 
-                TileUtility.SwitchGid(Tile, TileManager, _layer);
+                TileUtility.SwitchGid(Tile, TileManager, IndexLayer);
                 TileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
 
 

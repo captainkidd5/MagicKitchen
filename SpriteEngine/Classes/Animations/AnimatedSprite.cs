@@ -15,7 +15,7 @@ namespace SpriteEngine.Classes.Animations
         private int CurrentFrame { get; set; }
         public int FrameLastFrame { get; private set; }
         private SimpleTimer Timer { get; set; }
-        private AnimationFrame[] AnimationFrames { get; set; }
+        public AnimationFrame[] AnimationFrames { get; private set; }
         private bool Flip { get; set; }
 
         /// <summary>

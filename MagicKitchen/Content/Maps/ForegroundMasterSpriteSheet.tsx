@@ -142,11 +142,43 @@
    <property name="portal" value="true,Town,Restaurant,48,0,32,32,0,48,Up"/>
   </properties>
  </tile>
+ <tile id="3021">
+  <properties>
+   <property name="newSource" value="0, -32, 32, 48"/>
+  </properties>
+ </tile>
+ <tile id="3246">
+  <properties>
+   <property name="newSource" value="0, -32, 32, 48"/>
+  </properties>
+ </tile>
+ <tile id="3471">
+  <properties>
+   <property name="newSource" value="0, -32, 32, 48"/>
+  </properties>
+ </tile>
+ <tile id="3696">
+  <properties>
+   <property name="newSource" value="0, -32, 32, 48"/>
+  </properties>
+ </tile>
+ <tile id="3996">
+  <properties>
+   <property name="newSource" value="0, -32, 32, 48"/>
+  </properties>
+ </tile>
  <tile id="4296">
   <properties>
    <property name="action" value="Ignite"/>
    <property name="newHitBox" value="4, -8, 26"/>
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
+  <animation>
+   <frame tileid="3996" duration="100"/>
+   <frame tileid="3696" duration="100"/>
+   <frame tileid="3471" duration="100"/>
+   <frame tileid="3246" duration="100"/>
+   <frame tileid="3021" duration="100"/>
+  </animation>
  </tile>
 </tileset>

@@ -19,7 +19,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
     {
         public CursorIconType CursorIconType { get; private set; }
 
-        public ActionTile(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, tileManager, intermediateTmxShape)
+        public ActionTile(Tile tile, TileManager tileManager, TileSetPackage tileSetPackage, IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, tileManager,tileSetPackage, intermediateTmxShape)
         {
             CursorIconType = Cursor.GetCursorIconTypeFromString(actionType);
 

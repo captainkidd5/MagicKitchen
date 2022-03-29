@@ -118,7 +118,7 @@ namespace UIEngine.Classes
                 case CursorIconType.Door:
                     return new Rectangle(96, 32, 32, 32);
                 case CursorIconType.Ignite:
-                    return new Rectangle(96, 32, 32, 32);
+                    return new Rectangle(32, 64, 32, 32);
 
 
                 default:

@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using InputEngine.Classes.Input;
+using Microsoft.Xna.Framework;
+using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +14,35 @@ namespace TiledEngine.Classes.TileAddons.Actions
 {
     internal class IgniteActionTile : ActionTile
     {
-        public IgniteActionTile(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, tileManager, intermediateTmxShape, actionType)
+        public IgniteActionTile(Tile tile, TileManager tileManager, TileSetPackage tileSetPackage, IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, tileManager, tileSetPackage, intermediateTmxShape, actionType)
         {
+            
+            if (tile.Sprite.GetType() == typeof(AnimatedSprite))
+            {
+                (tile.Sprite as AnimatedSprite).Paused = true;
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (MouseHovering)
+            if (PlayerInClickRange && MouseHovering && Controls.IsClicked)
             {
-                Console.WriteLine("test");
+                AnimatedSprite spr = Tile.Sprite as AnimatedSprite;
+                (spr).Paused = false;
+                if ((spr).HasLoopedAtLeastOnce)
+                {
+                    Console.WriteLine("test");
+
+                    for(int i =0; i < spr.AnimationFrames.Length - 1; i++)
+                    {
+
+                    }
+                    //TileUtility.SwitchGid(Tile, TileManager, _layer);
+                    //TileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
+
+
+                }
             }
         }
 

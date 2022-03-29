@@ -6,6 +6,7 @@ using System.Text;
 using TiledEngine.Classes.Helpers;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
+using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TileAddons
 {
@@ -13,11 +14,14 @@ namespace TiledEngine.Classes.TileAddons
     {
         public Tile Tile { get; private set; }
         protected readonly TileManager TileManager;
+        protected readonly TileSetPackage TileSetPackage;
+        protected Layers IndexLayer => Tile.IndexLayer;
         protected IntermediateTmxShape IntermediateTmxShape { get; set; }
-        public TileBody(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape)
+        public TileBody(Tile tile, TileManager tileManager, TileSetPackage tileSetPackage, IntermediateTmxShape intermediateTmxShape)
         {
             Tile = tile;
             TileManager = tileManager;
+            TileSetPackage = tileSetPackage;
             IntermediateTmxShape = intermediateTmxShape;
         }
         public void Draw(SpriteBatch spriteBatch)

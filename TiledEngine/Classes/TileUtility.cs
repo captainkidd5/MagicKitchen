@@ -26,7 +26,7 @@ namespace TiledEngine.Classes
         /// </summary>
         /// <param name="property">Property value will be stored in this string reference.</param>
 
-        private static bool GetProperty(TileSetPackage tileSetPackage, TmxTilesetTile tile, ref string property)
+        public static bool GetTileProperty(TileSetPackage tileSetPackage, TmxTilesetTile tile, ref string property)
         {
             return tile.Properties.TryGetValue(property, out property);
         }
@@ -67,7 +67,7 @@ namespace TiledEngine.Classes
                 TmxTilesetTile tileSetTile = tileSetPackage.GetTmxTileSetTile(tile.GID);
                 propertyString = "portal";
 
-                if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
+                if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
 
                     PortalData portaldata = PortalData.PortalFromPropertyString(propertyString, tile.Position);
@@ -75,7 +75,7 @@ namespace TiledEngine.Classes
                 }
                 propertyString = "newSource";
 
-                if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
+                if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
                     Rectangle propertySourceRectangle = TileObjectHelper.GetSourceRectangleFromTileProperty(propertyString);
 
@@ -87,7 +87,7 @@ namespace TiledEngine.Classes
 
 
                 ////CREATE ANIMATION FRAMES
-                CheckForAnimationFrames(tile, tileManager, tileSetPackage, propertyString);
+                TileAnimationHelper.CheckForAnimationFrames(tile, tileManager, tileSetPackage, propertyString);
 
                 if (tileSetTile.ObjectGroups.Count > 0)
                 {
@@ -99,19 +99,19 @@ namespace TiledEngine.Classes
                 }
 
                 propertyString = "newHitBox";
-                if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
+                if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
                     TileObjectHelper.AddObjectFromProperty(tile, layer, tileSetTile.Properties, tileManager, propertyString);
                 }
 
                 propertyString = "lightSource";
-                if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
+                if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
                     TileLightSourceHelper.AddJustLightSource(tile, tileManager, propertyString, 3f);
                 }
 
                 propertyString = "replace";
-                if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
+                if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
                     tile.Addons.Add(new GrassTuft(tile, texture));
 
@@ -132,55 +132,7 @@ namespace TiledEngine.Classes
 
         }
 
-        /// <summary>
-        /// Checks for, and assigns an animated sprite in liu of the normal sprite. Will automatically adjust for new source rectangles 
-        /// if they exist in the tilesheet. The only restriction is that the hitbox must stay constant throughout the animation frames
-        /// as the frame only accounts for the image, not additional data
-        /// </summary>
-        private static void CheckForAnimationFrames(Tile tile, TileManager tileManager, TileSetPackage tileSetPackage, string propertyString)
-        {
-
-            Collection<TmxAnimationFrame> animationFrames = tileSetPackage.GetTmxTileSetTile(tile.GID).AnimationFrames;
-
-            int tileSetDimension = tileSetPackage.GetDimension(tile.GID);
-            Texture2D texture = tileSetPackage.GetTexture(tile.GID);
-            if (animationFrames.Count > 0)
-            {
-                AnimationFrame[] frames = new AnimationFrame[animationFrames.Count];
-
-                for (int i = 0; i < animationFrames.Count; i++)
-                {
-                    Rectangle frameRectangle = tile.SourceRectangle;
-                    //First animation frame will already have expanded source rectangle
-                    if (i > 0)
-                    {
-                        propertyString = "newSource";
-                        if (tileSetPackage.IsForeground(tile.GID))
-                            frameRectangle = TileRectangleHelper.GetNormalSourceRectangle(animationFrames[i].Id, tileSetDimension);
-                        else
-                            frameRectangle = TileRectangleHelper.GetBackgroundSourceRectangle(animationFrames[i].Id, tileSetDimension);
-
-                        TmxTilesetTile tileSetTile = tileSetPackage.GetTmxTileSetTile(animationFrames[i].Id);
-                        if (tileSetTile != null)
-                        {
-                            if (GetProperty(tileSetPackage, tileSetTile, ref propertyString))
-                            {
-                                frameRectangle = TileRectangleHelper.AdjustSourceRectangle(frameRectangle, TileObjectHelper.GetSourceRectangleFromTileProperty(propertyString));
-                            }
-
-                        }
-                    }
-
-                    frames[i] = new AnimationFrame(i, frameRectangle,
-                    animationFrames[i].Duration * .001f);
-                }
-                if (tile.Layer > 1)
-                    tile.Layer = tile.Layer * .1f;
-                tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
-                    texture, frames, customLayer: tile.Layer, randomizeLayers: false);
-            }
-
-        }
+       
 
         /// <summary>
         /// If tile layer is in the forground we'll offset it according to its Y position. Else just give it the standard layerdepth.
