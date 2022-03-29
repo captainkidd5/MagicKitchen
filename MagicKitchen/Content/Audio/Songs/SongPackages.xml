@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+    <Asset Type="System.Collections.Generic.List[DataModels.SoundStuff.SongPackage]">
+        <Item>
+            <Name>FileSelect</Name>
+            <ViableStages>
+                <Item>MainMenu-SaveMenu
+                </Item>
+            </ViableStages>
+            <LocalPath>MainMenu/FileSelect</LocalPath>
+        </Item>
+    </Asset>
+</XnaContent>

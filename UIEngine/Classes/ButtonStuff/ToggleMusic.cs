@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SoundEngine.Classes.SongStuff;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace UIEngine.Classes.ButtonStuff
 
         private void ToggleMusicAction()
         {
-            Flags.MuteMusic = !Flags.MuteMusic;
+            SongManager.Muted = !SongManager.Muted;
         }
         public override void Update(GameTime gameTime)
         {

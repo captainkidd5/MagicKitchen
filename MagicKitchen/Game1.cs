@@ -28,6 +28,7 @@ using QuakeConsole;
 using Globals.Classes.Console;
 using MagicKitchen.Classes.ConsoleStuff;
 using System;
+using SoundEngine.Classes.SongStuff;
 
 namespace MagicKitchen
 {
@@ -126,7 +127,7 @@ namespace MagicKitchen
             SaveLoadManager.SaveSaved += OnSaveSaved;
             UI.ReturnedToMainMenu += OnReturnToMainMenu;
             CommandConsole.RegisterCommand("save", "saves current game", SaveLoadManager.SaveGame);
-
+            SongManager.Load(Content);
             Settings.DebugTexture = new Texture2D(GraphicsDevice, 1, 1);
             Settings.DebugTexture.SetData<Color>(new Color[] { Color.White });
         }
@@ -137,7 +138,7 @@ namespace MagicKitchen
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //    Exit();
             Controls.Update(gameTime);
-
+            SongManager.Update(gameTime);
             if (UI.GameDisplayState == GameDisplayState.InGame)
             {
                 _stageManager.Update(gameTime);

@@ -14,41 +14,16 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Audio/Songs/OverWorld/armadillogod - 40 yrs of Mouse Milk - 01 Stellar Liftoff.mp3
+#begin Audio/Songs/MainMenu/FileSelect.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Audio/Songs/OverWorld/armadillogod - 40 yrs of Mouse Milk - 01 Stellar Liftoff.mp3
+/build:Audio/Songs/MainMenu/FileSelect.mp3
 
-#begin Audio/Songs/OverWorld/armadillogod - 40 yrs of Mouse Milk - 02 Fall Waves.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Songs/OverWorld/armadillogod - 40 yrs of Mouse Milk - 02 Fall Waves.mp3
-
-#begin Audio/Songs/OverWorld/armadillogod - 40 yrs of Mouse Milk - 05 File Select Music.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Songs/OverWorld/armadillogod - 40 yrs of Mouse Milk - 05 File Select Music.mp3
-
-#begin Audio/Songs/OverWorld/armadillogod - 40 yrs of Mouse Milk - 06 Water Club.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Songs/OverWorld/armadillogod - 40 yrs of Mouse Milk - 06 Water Club.mp3
-
-#begin Audio/Songs/OverWorld/ClearingTheme.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Songs/OverWorld/ClearingTheme.mp3
-
-#begin Audio/Songs/OverWorld/ForestTheme.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Songs/OverWorld/ForestTheme.mp3
+#begin Audio/Songs/SongPackages.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Audio/Songs/SongPackages.xml
 
 #begin Audio/SoundEffects/Ambient/AmbientDay1.wav
 /importer:WavImporter

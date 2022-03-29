@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DataModels.SoundStuff;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
 using System;
@@ -17,7 +18,7 @@ namespace SoundEngine.Classes.SongStuff
 
         private static List<SongPackage> SongPackages { get; set; }
 
-        private static float s_musicVolume;
+        private static float s_musicVolume = 1f;
         public static float MusicVolume { get { return s_musicVolume; }
             set { if (value < 0f || value > 1f) { throw new Exception($"{value} is invalid for music volume"); }
                 s_musicVolume = value; MediaPlayer.Volume = value; } }
@@ -32,15 +33,19 @@ namespace SoundEngine.Classes.SongStuff
         {
             s_content = content;
             s_random = new Random();
+            MediaPlayer.Volume = s_musicVolume;
+            SongPackages = content.Load<List<SongPackage>>(songRootPath + "SongPackages");
+
+            foreach (SongPackage songPackage in SongPackages)
+                songPackage.LoadContent(content, songRootPath);
         }
 
         public static void Update(GameTime gameTime)
         {
-            if (!Muted)
-            {
+          
                 if(MediaPlayer.State == MediaState.Stopped)
-                    MediaPlayer.Play();
-            }
+                    MediaPlayer.Play(_currentSong.Song);
+            
         }
     }
 }
