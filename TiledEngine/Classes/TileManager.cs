@@ -332,7 +332,7 @@ namespace TiledEngine.Classes
                 {
                     for (int y = 0; y < length1; y++)
                     {
-                        Tiles[z][x, y] = new Tile(reader.ReadInt32(), z, reader.ReadInt32(), reader.ReadInt32());
+                        Tiles[z][x, y] = new Tile(reader.ReadInt32(),(Layers)z, z, reader.ReadInt32(), reader.ReadInt32());
 
                     }
                 }

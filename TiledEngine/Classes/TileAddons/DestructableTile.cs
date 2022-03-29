@@ -22,7 +22,7 @@ namespace TiledEngine.Classes.TileAddons
     {
 
         public CursorIconType CursorIconType { get; private set; }
-        public DestructableTile(Tile tile, TileManager tileManager, TileSetPackage tileSetPackage, IntermediateTmxShape intermediateTmxShape, string destructionType) : base(tile, tileManager,tileSetPackage, intermediateTmxShape)
+        public DestructableTile(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string destructionType) : base(tile, tileManager, intermediateTmxShape)
         {
             CursorIconType = Cursor.GetCursorIconTypeFromString(destructionType.Split(',')[0]);
             tile.CursorIconType = CursorIconType;

@@ -63,7 +63,7 @@ namespace TiledEngine.Classes.Helpers
             {
                 //Using layer here is fine because we haven't yet randomized it in tile utility
 
-                tile.Addons.Add(new DestructableTile(tile, tileManager, tmxShape, tileLayer, properties["destructable"]));
+                tile.Addons.Add(new DestructableTile(tile, tileManager, tmxShape, properties["destructable"]));
             }
             else
             {

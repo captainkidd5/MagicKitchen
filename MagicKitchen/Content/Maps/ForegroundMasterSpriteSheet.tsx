@@ -154,8 +154,14 @@
  </tile>
  <tile id="3471">
   <properties>
+   <property name="newHitBox" value="4, -8, 26"/>
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
+  <animation>
+   <frame tileid="3471" duration="100"/>
+   <frame tileid="3246" duration="100"/>
+   <frame tileid="3021" duration="100"/>
+  </animation>
  </tile>
  <tile id="3696">
   <properties>

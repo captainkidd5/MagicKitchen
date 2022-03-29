@@ -12,6 +12,7 @@ using TiledEngine.Classes.Misc;
 using Microsoft.Xna.Framework;
 using System.Reflection;
 using System.IO;
+using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes
 {
@@ -138,7 +139,7 @@ namespace TiledEngine.Classes
                 foreach (TmxLayerTile layerNameTile in allLayers[i].Tiles)
                 {
 
-                    tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new Tile(layerNameTile.Gid, MapDepths[i], layerNameTile.X, layerNameTile.Y);
+                    tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new Tile(layerNameTile.Gid, (Layers)i, MapDepths[i], layerNameTile.X, layerNameTile.Y);
 
 
                 }
