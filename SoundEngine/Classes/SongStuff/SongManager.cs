@@ -30,13 +30,14 @@ namespace SoundEngine.Classes.SongStuff
                 s_musicVolume = value; MediaPlayer.Volume = value;
             }
         }
+        private static bool muted;
         public static bool Muted
         {
             get { return MediaPlayer.Volume > 0; }
             set
             {
-                Muted = value;
-                if (Muted) { MediaPlayer.Volume = MusicVolume; } else { MediaPlayer.Volume = 0f; }
+                muted = value;
+                if (muted) { MediaPlayer.Volume = MusicVolume; } else { MediaPlayer.Volume = 0f; }
             }
         }
 

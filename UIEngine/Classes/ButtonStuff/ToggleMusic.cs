@@ -23,7 +23,7 @@ namespace UIEngine.Classes.ButtonStuff
             bool suppressParentSection = true) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth, suppressParentSection)
         {
-            ToggleMusicButton = new NineSliceButton(this, graphicsDevice, content, Position, GetLayeringDepth(UILayeringDepths.Back), null,
+            ToggleMusicButton = new NineSliceButton(this, graphicsDevice, content, Position, GetLayeringDepth(UILayeringDepths.Back), MusicNoteSourceRectangle,
               SpriteFactory.CreateUISprite(Position, MusicNoteSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium)),
               null,null,new Action(() =>
                {

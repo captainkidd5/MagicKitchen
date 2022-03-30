@@ -46,8 +46,9 @@ namespace UIEngine.Classes.MainMenuStuff
             _outerMenu = new OuterMenu(this, graphics, content, null, LayerDepth);
             _outerMenu.LoadContent();
 
-            _toggleMusic = new ToggleMusic(this, graphics, content, RectangleHelper.PlaceUpperRightQuadrant(Settings.GetScreenRectangle(),
-                new Rectangle(0, 0, 32, 32)), GetLayeringDepth(UILayeringDepths.Low));
+            Vector2 bottomRightScreen = RectangleHelper.PlaceBottomRightScreen(
+                new Rectangle(0, 0, 32, 32));
+            _toggleMusic = new ToggleMusic(this, graphics, content, new Vector2(bottomRightScreen.X-80, bottomRightScreen.Y - 80), GetLayeringDepth(UILayeringDepths.Low));
             _activeSection = _outerMenu;
             TotalBounds = _backDropDimensions;
             base.LoadContent();
