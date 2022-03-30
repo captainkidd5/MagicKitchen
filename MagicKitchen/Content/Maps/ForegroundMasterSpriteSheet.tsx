@@ -180,9 +180,9 @@
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
   <animation>
-   <frame tileid="3996" duration="100"/>
-   <frame tileid="3696" duration="100"/>
-   <frame tileid="3471" duration="100"/>
+   <frame tileid="3996" duration="200"/>
+   <frame tileid="3696" duration="200"/>
+   <frame tileid="3471" duration="200"/>
    <frame tileid="3246" duration="100"/>
    <frame tileid="3021" duration="100"/>
   </animation>
