@@ -86,12 +86,7 @@ namespace SoundEngine.Classes.SongStuff
             else
                 s_fadingOut = true;
         }
-        private static void Play(Song song)
-        {
-            s_fadingOut = true;
-            s_playOnSwitch = true;
-            _currentSong = song;
-        }
+
         public static void Update(GameTime gameTime)
         {
             if (s_fadingIn)
@@ -120,12 +115,16 @@ namespace SoundEngine.Classes.SongStuff
         private static void IncreaseVolume(GameTime gameTime)
         {
             MusicVolume += (float)gameTime.ElapsedGameTime.TotalMilliseconds * FadeRate;
+            if (s_playOnSwitch)
+            {
+                MediaPlayer.Play(_currentSong);
+                s_playOnSwitch = false;
+            }
             if (MusicVolume >= 1f)
             {
                 s_fadingIn = false;
-                if(s_playOnSwitch)
-                    MediaPlayer.Play(_currentSong);
-                s_playOnSwitch = false;
+              
+                    
             }
 
         }

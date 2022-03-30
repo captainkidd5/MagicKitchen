@@ -20,6 +20,12 @@
 /processorParam:Quality=Best
 /build:Audio/Songs/MainMenu/FileSelect.mp3
 
+#begin Audio/Songs/MainMenu/MainMenu.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Songs/MainMenu/MainMenu.mp3
+
 #begin Audio/Songs/SongPackages.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor

@@ -9,5 +9,13 @@
             </ViableStages>
             <LocalPath>MainMenu/FileSelect</LocalPath>
         </Item>
+         <Item>
+            <Name>MainMenu</Name>
+            <ViableStages>
+                <Item>MainMenu-Outer
+                </Item>
+            </ViableStages>
+            <LocalPath>MainMenu/MainMenu</LocalPath>
+        </Item>
     </Asset>
 </XnaContent>

@@ -116,6 +116,7 @@ namespace MagicKitchen
 
             Settings.SetResolution(1280, 720);
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
+            SongManager.Load(Content);
 
             UI.Load(this, GraphicsDevice, Content, _mainMenuContentManager);
             RenderTargetManager.Load(GraphicsDevice);
@@ -127,7 +128,6 @@ namespace MagicKitchen
             SaveLoadManager.SaveSaved += OnSaveSaved;
             UI.ReturnedToMainMenu += OnReturnToMainMenu;
             CommandConsole.RegisterCommand("save", "saves current game", SaveLoadManager.SaveGame);
-            SongManager.Load(Content);
             Settings.DebugTexture = new Texture2D(GraphicsDevice, 1, 1);
             Settings.DebugTexture.SetData<Color>(new Color[] { Color.White });
         }

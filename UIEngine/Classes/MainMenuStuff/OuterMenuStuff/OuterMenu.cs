@@ -89,6 +89,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                     _activeSection = _playOrExitMenu;
                     AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
                     _activeSection.Activate();
+                    SongManager.SwitchSong("MainMenu");
 
                     break;
                 default:
