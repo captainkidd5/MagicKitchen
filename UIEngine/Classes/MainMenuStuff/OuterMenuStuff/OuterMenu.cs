@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SoundEngine.Classes.SongStuff;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.InterfaceStuff;
 using System;
@@ -45,6 +46,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         private Vector2 _backGroundSpritePosition;
         private Button _backButton;
 
+        private string _fileSelect = "FileSelect";
         public OuterMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -64,7 +66,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
                 case OuterMenuState.ViewGames:
                     _activeSection.Deactivate();
-
+                    SongManager.SwitchSong(_fileSelect);
                     _activeSection = _viewGamesMenu;
                     AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
                     _activeSection.Activate();
@@ -72,6 +74,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                     break;
                 case OuterMenuState.CreateNewSave:
                     _activeSection.Deactivate();
+                    SongManager.SwitchSong(_fileSelect);
 
                     _activeSection = _createNewSaveMenu;
                     AdjustBackgroundRectangleAndBackButton(_createNewSaveMenuBackGroundRectangleDimensions);
