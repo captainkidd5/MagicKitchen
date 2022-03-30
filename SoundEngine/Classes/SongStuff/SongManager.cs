@@ -27,17 +27,17 @@ namespace SoundEngine.Classes.SongStuff
             {
                 if (value < 0f) { value = 0f; }
                 if (value > 1f) { value = 1f; }
-                s_musicVolume = value; MediaPlayer.Volume = value;
+                s_musicVolume = value;
             }
         }
         private static bool muted;
         public static bool Muted
         {
-            get { return MediaPlayer.Volume > 0; }
+            get { return muted; }
             set
             {
                 muted = value;
-                if (muted) { MediaPlayer.Volume = MusicVolume; } else { MediaPlayer.Volume = 0f; }
+                if (muted) { MediaPlayer.Volume = 0f; }
             }
         }
 
@@ -90,14 +90,20 @@ namespace SoundEngine.Classes.SongStuff
 
         public static void Update(GameTime gameTime)
         {
+
+            if (!Muted)
+                MediaPlayer.Volume = MusicVolume;
+
             if (s_fadingIn)
-            {
-                IncreaseVolume(gameTime);
-            }
-            else if (s_fadingOut)
-            {
-                DecreaseVolume(gameTime);
-            }
+                {
+                    IncreaseVolume(gameTime);
+                }
+                else if (s_fadingOut)
+                {
+                    DecreaseVolume(gameTime);
+                }
+            
+
             //if (MediaPlayer.State == MediaState.Stopped && _currentSong != null)
             //    MediaPlayer.Play(_currentSong.Song);
 
@@ -106,6 +112,7 @@ namespace SoundEngine.Classes.SongStuff
         private static void DecreaseVolume(GameTime gameTime)
         {
             MusicVolume -= (float)gameTime.ElapsedGameTime.TotalMilliseconds * FadeRate;
+            
             if (MusicVolume <= 0f)
             {
                 s_fadingOut = false;
@@ -124,8 +131,8 @@ namespace SoundEngine.Classes.SongStuff
             if (MusicVolume >= 1f)
             {
                 s_fadingIn = false;
-              
-                    
+
+
             }
 
         }

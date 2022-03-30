@@ -18,6 +18,8 @@ namespace UIEngine.Classes.ButtonStuff
         public NineSliceButton ToggleMusicButton { get; set; }
 
         private readonly Rectangle MusicNoteSourceRectangle = new Rectangle(336, 0, 32, 32);
+        private readonly Rectangle MusicNoteMUTEDSourceRectangle = new Rectangle(368, 0, 32, 32);
+
         public ToggleMusic(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth,
             bool suppressParentSection = true) :
@@ -39,6 +41,11 @@ namespace UIEngine.Classes.ButtonStuff
         private void ToggleMusicAction()
         {
             SongManager.Muted = !SongManager.Muted;
+            if (SongManager.Muted)
+                ToggleMusicButton.SwapForeGroundSprite(MusicNoteMUTEDSourceRectangle);
+            else
+                ToggleMusicButton.SwapForeGroundSprite(MusicNoteSourceRectangle);
+
         }
         public override void Update(GameTime gameTime)
         {
