@@ -45,7 +45,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                 UI.ButtonTexture, new List<Text>() { TextFactory.CreateUIText("Exit", GetLayeringDepth(UILayeringDepths.Medium)) }, null, _exitGameAction, true);
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonRectangle.Width, _buttonRectangle.Height);  
             base.LoadContent();
-            SongManager.SwitchSong("MainMenu");
+            SongManager.ChangePlaylist("MainMenu-Outer");
 
         }
 

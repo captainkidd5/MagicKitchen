@@ -18,6 +18,7 @@ using UIEngine.Classes.EscMenuStuff;
 using System;
 using UIEngine.Classes.ButtonStuff;
 using Globals.Classes.Console;
+using SoundEngine.Classes.SongStuff;
 
 namespace UIEngine.Classes
 {
@@ -300,6 +301,7 @@ namespace UIEngine.Classes
             DropCurtain(CurtainDropRate,
                 new Action(() =>
                 {
+                    SongManager.ChangePlaylist("MainMenu-Outer");
                     ReturnedToMainMenu.Invoke(null, null);
                     FinishChangeGameState();
 

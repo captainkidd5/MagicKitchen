@@ -4,18 +4,24 @@
         <Item>
             <Name>FileSelect</Name>
             <ViableStages>
-                <Item>MainMenu-SaveMenu
-                </Item>
+                <Item>MainMenu-SaveMenu</Item>
             </ViableStages>
             <LocalPath>MainMenu/FileSelect</LocalPath>
         </Item>
          <Item>
             <Name>MainMenu</Name>
             <ViableStages>
-                <Item>MainMenu-Outer
-                </Item>
+                <Item>MainMenu-Outer</Item>
             </ViableStages>
             <LocalPath>MainMenu/MainMenu</LocalPath>
+        </Item>
+         <Item>
+
+            <Name>TitleTheme</Name>
+            <ViableStages>
+                <Item>MainMenu-Outer</Item>
+            </ViableStages>
+            <LocalPath>MainMenu/TitleTheme</LocalPath>
         </Item>
     </Asset>
 </XnaContent>

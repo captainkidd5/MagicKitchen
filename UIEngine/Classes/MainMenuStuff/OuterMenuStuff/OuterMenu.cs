@@ -66,7 +66,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
                 case OuterMenuState.ViewGames:
                     _activeSection.Deactivate();
-                    SongManager.SwitchSong(_fileSelect);
+                    SongManager.ChangePlaylist("MainMenu-SaveMenu");
+
                     _activeSection = _viewGamesMenu;
                     AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
                     _activeSection.Activate();
@@ -74,7 +75,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                     break;
                 case OuterMenuState.CreateNewSave:
                     _activeSection.Deactivate();
-                    SongManager.SwitchSong(_fileSelect);
+                    SongManager.ChangePlaylist("MainMenu-SaveMenu");
+
 
                     _activeSection = _createNewSaveMenu;
                     AdjustBackgroundRectangleAndBackButton(_createNewSaveMenuBackGroundRectangleDimensions);
@@ -89,7 +91,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                     _activeSection = _playOrExitMenu;
                     AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
                     _activeSection.Activate();
-                    SongManager.SwitchSong("MainMenu");
+                    SongManager.ChangePlaylist("MainMenu-Outer");
 
                     break;
                 default:
