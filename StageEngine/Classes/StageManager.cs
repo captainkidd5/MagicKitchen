@@ -20,6 +20,7 @@ using SoundEngine.Classes;
 using TiledEngine.Classes;
 using UIEngine.Classes;
 using EntityEngine.Classes;
+using SoundEngine.Classes.SongStuff;
 
 namespace StageEngine.Classes
 {
@@ -86,6 +87,7 @@ namespace StageEngine.Classes
         }
         internal void SwitchStage()
         {
+            SongManager.ChangePlaylist(StageSwitchingTo);
             CurrentStage.SaveToStageFile();
             CurrentStage.Unload();
 
@@ -157,6 +159,8 @@ namespace StageEngine.Classes
 
             TileLoader.LoadFinished();
             _camera.Jump(_player1.Position);
+            SongManager.ChangePlaylist(CurrentStage.Name);
+
 
         }
         private void LoadStageData()

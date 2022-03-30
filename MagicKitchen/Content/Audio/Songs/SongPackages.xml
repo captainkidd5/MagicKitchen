@@ -23,5 +23,24 @@
             </ViableStages>
             <LocalPath>MainMenu/TitleTheme</LocalPath>
         </Item>
+
+        <Item>
+
+            <Name>FallWaves</Name>
+            <ViableStages>
+                <Item>LullabyTown</Item>
+                <Item>Town</Item>
+            </ViableStages>
+            <LocalPath>OverWorld/FallWaves</LocalPath>
+        </Item>
+        <Item>
+
+            <Name>WaterClub</Name>
+            <ViableStages>
+                <Item>LullabyTown</Item>
+                <Item>Town</Item>
+            </ViableStages>
+            <LocalPath>OverWorld/WaterClub</LocalPath>
+        </Item>
     </Asset>
 </XnaContent>
