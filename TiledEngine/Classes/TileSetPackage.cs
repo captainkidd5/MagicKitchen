@@ -27,15 +27,17 @@ namespace TiledEngine.Classes
 
         public TileSetPackage(TmxMap tmxMap)
         {
-            _backgroundDictionary = tmxMap.Tilesets[0].Tiles;
-            _backgroundDimension = (int)tmxMap.Tilesets[0].Columns;
-            _backgroundTileCount = (int)tmxMap.Tilesets[0].TileCount;
+            var _backGroundSet = tmxMap.Tilesets.FirstOrDefault(x => x.Name.Contains("Back"));
+            _backgroundDictionary = _backGroundSet.Tiles;
+            _backgroundDimension = (int)_backGroundSet.Columns;
+            _backgroundTileCount = (int)_backGroundSet.TileCount;
 
             if (tmxMap.Tilesets.Count > 1)
             {
-                _foregroundDictionary = tmxMap.Tilesets[1].Tiles;
-                _foregroundDimension = (int)tmxMap.Tilesets[1].Columns;
-                _foregroundTileCount = (int)tmxMap.Tilesets[1].TileCount;
+                var foreGroundSet = tmxMap.Tilesets.FirstOrDefault(x => x.Name.Contains("Fore"));
+                _foregroundDictionary = foreGroundSet.Tiles;
+                _foregroundDimension = (int)foreGroundSet.Columns;
+                _foregroundTileCount = (int)foreGroundSet.TileCount;
 
             }
         }

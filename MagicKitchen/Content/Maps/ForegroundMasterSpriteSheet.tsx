@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.0" name="ForegroundMasterSpriteSheet" tilewidth="16" tileheight="16" tilecount="5625" columns="75">
- <image source="ForegroundMasterSpriteSheet.png" width="1200" height="1200"/>
- <tile id="87">
+<tileset version="1.2" tiledversion="1.3.0" name="ForegroundMasterSpriteSheet" tilewidth="16" tileheight="16" tilecount="8281" columns="91">
+ <image source="ForegroundMasterSpriteSheet.png" width="1456" height="1456"/>
+ <tile id="103">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
    <property name="replace" value="0"/>
   </properties>
  </tile>
- <tile id="88">
+ <tile id="104">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
    <property name="replace" value="1"/>
   </properties>
  </tile>
- <tile id="89">
+ <tile id="105">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
    <property name="replace" value="2"/>
   </properties>
  </tile>
- <tile id="90">
+ <tile id="106">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
    <property name="replace" value="3"/>
   </properties>
  </tile>
- <tile id="91">
+ <tile id="107">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
    <property name="replace" value="4"/>
   </properties>
  </tile>
- <tile id="451">
+ <tile id="547">
   <properties>
    <property name="newSource" value="-16,-80,48,96"/>
    <property name="transparent" value="-16,-64, 48, 75"/>
@@ -42,7 +42,7 @@
    </object>
   </objectgroup>
  </tile>
- <tile id="826">
+ <tile id="1002">
   <properties>
    <property name="newSource" value="-16,-64,48,80"/>
    <property name="transparent" value="-16,-48, 48, 60"/>
@@ -53,7 +53,7 @@
    </object>
   </objectgroup>
  </tile>
- <tile id="1439">
+ <tile id="1743">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
@@ -63,14 +63,14 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1440" duration="100"/>
-   <frame tileid="1441" duration="100"/>
-   <frame tileid="1442" duration="100"/>
-   <frame tileid="1443" duration="100"/>
-   <frame tileid="1444" duration="100"/>
+   <frame tileid="1744" duration="100"/>
+   <frame tileid="1745" duration="100"/>
+   <frame tileid="1746" duration="100"/>
+   <frame tileid="1747" duration="100"/>
+   <frame tileid="1748" duration="100"/>
   </animation>
  </tile>
- <tile id="1514">
+ <tile id="1834">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
@@ -80,13 +80,13 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1590" duration="100"/>
-   <frame tileid="1591" duration="100"/>
-   <frame tileid="1592" duration="100"/>
-   <frame tileid="1593" duration="100"/>
+   <frame tileid="1926" duration="100"/>
+   <frame tileid="1927" duration="100"/>
+   <frame tileid="1928" duration="100"/>
+   <frame tileid="1929" duration="100"/>
   </animation>
  </tile>
- <tile id="1515">
+ <tile id="1835">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
@@ -96,13 +96,13 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1590" duration="100"/>
-   <frame tileid="1592" duration="100"/>
-   <frame tileid="1593" duration="100"/>
-   <frame tileid="1591" duration="100"/>
+   <frame tileid="1926" duration="100"/>
+   <frame tileid="1928" duration="100"/>
+   <frame tileid="1929" duration="100"/>
+   <frame tileid="1927" duration="100"/>
   </animation>
  </tile>
- <tile id="1589">
+ <tile id="1925">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
@@ -112,13 +112,13 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1590" duration="100"/>
-   <frame tileid="1591" duration="100"/>
-   <frame tileid="1592" duration="100"/>
-   <frame tileid="1593" duration="100"/>
+   <frame tileid="1926" duration="100"/>
+   <frame tileid="1927" duration="100"/>
+   <frame tileid="1928" duration="100"/>
+   <frame tileid="1929" duration="100"/>
   </animation>
  </tile>
- <tile id="1664">
+ <tile id="2016">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
@@ -128,63 +128,63 @@
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="1665" duration="100"/>
-   <frame tileid="1666" duration="100"/>
-   <frame tileid="1667" duration="100"/>
-   <frame tileid="1668" duration="100"/>
-   <frame tileid="1669" duration="100"/>
+   <frame tileid="2017" duration="100"/>
+   <frame tileid="2018" duration="100"/>
+   <frame tileid="2019" duration="100"/>
+   <frame tileid="2020" duration="100"/>
+   <frame tileid="2021" duration="100"/>
   </animation>
  </tile>
- <tile id="2778">
+ <tile id="3370">
   <properties>
    <property name="newHitBox" value="-48, -80, 124, 96"/>
    <property name="newSource" value="-48, -124, 136,144"/>
    <property name="portal" value="true,Town,Restaurant,48,0,32,32,0,48,Up"/>
   </properties>
  </tile>
- <tile id="3021">
+ <tile id="3661">
   <properties>
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
  </tile>
- <tile id="3246">
+ <tile id="3934">
   <properties>
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
  </tile>
- <tile id="3471">
+ <tile id="4207">
   <properties>
    <property name="newHitBox" value="4, -8, 26"/>
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
   <animation>
-   <frame tileid="3471" duration="100"/>
-   <frame tileid="3246" duration="100"/>
-   <frame tileid="3021" duration="100"/>
+   <frame tileid="4207" duration="100"/>
+   <frame tileid="3934" duration="100"/>
+   <frame tileid="3661" duration="100"/>
   </animation>
  </tile>
- <tile id="3696">
+ <tile id="4480">
   <properties>
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
  </tile>
- <tile id="3996">
+ <tile id="4844">
   <properties>
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
  </tile>
- <tile id="4296">
+ <tile id="5208">
   <properties>
    <property name="action" value="Ignite"/>
    <property name="newHitBox" value="4, -8, 26"/>
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
   <animation>
-   <frame tileid="3996" duration="200"/>
-   <frame tileid="3696" duration="200"/>
-   <frame tileid="3471" duration="200"/>
-   <frame tileid="3246" duration="100"/>
-   <frame tileid="3021" duration="100"/>
+   <frame tileid="4844" duration="200"/>
+   <frame tileid="4480" duration="200"/>
+   <frame tileid="4207" duration="200"/>
+   <frame tileid="3934" duration="100"/>
+   <frame tileid="3661" duration="100"/>
   </animation>
  </tile>
 </tileset>
