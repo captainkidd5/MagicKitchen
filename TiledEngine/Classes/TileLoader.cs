@@ -62,7 +62,7 @@ namespace TiledEngine.Classes
 
             TmxMap interiorMap = new TmxMap(MapPath + "Restaurant.tmx");
             InteriorTileSetPackage = new TileSetPackage(interiorMap);
-            InteriorTileSetPackage.LoadContent(content, "maps/InteriorSpriteSheet1", "maps/ForegroundMasterSpriteSheet");
+            InteriorTileSetPackage.LoadContent(content, "maps/InteriorBackground_Spaced", "maps/InteriorForeground");
 
             _portalLoader = new PortalLoader();
         }

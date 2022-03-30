@@ -342,7 +342,7 @@
 /processorParam:TextureFormat=Color
 /build:Maps/ForegroundMasterSpriteSheet.png
 
-#begin Maps/InteriorSpriteSheet1.png
+#begin Maps/InteriorBackground_Spaced.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -352,7 +352,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Maps/InteriorSpriteSheet1.png
+/build:Maps/InteriorBackground_Spaced.png
+
+#begin Maps/InteriorForeground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Maps/InteriorForeground.png
 
 #begin Maps/MasterSpriteSheet.png
 /importer:TextureImporter
