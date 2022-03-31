@@ -74,7 +74,12 @@ namespace Globals.Classes
             position.X = ((X) * (camera_smoothing - 1) + camera_target_x) / camera_smoothing;
             position.Y = ((Y) * (camera_smoothing - 1) + camera_target_y) / camera_smoothing;
 
-           
+
+            position = new Vector2((Math.Abs(amount.X) < 0.5f) ? amount.X :
+                (float)Math.Round(position.X), (Math.Abs(amount.Y) < 0.5f) ? position.Y
+                : (float)Math.Round(position.Y));
+
+            position = new Vector2((float)Math.Round(position.X), (float)Math.Round(position.Y));
 
             _viewPortRectangle = new Rectangle((int)(mapRectangle.X + Settings.ScreenWidth / 2 / Zoom),
               (int)(mapRectangle.Y + Settings.ScreenHeight / 2 / Zoom),

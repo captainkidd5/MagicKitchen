@@ -47,6 +47,7 @@ namespace SpriteEngine.Classes
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
+
             if(SpriteType == ElementType.World)
                 DrawWorld(spriteBatch);         
             else
@@ -55,14 +56,14 @@ namespace SpriteEngine.Classes
 
         private void DrawUI(SpriteBatch spriteBatch)
         {
-                spriteBatch.Draw(Texture, Position, SourceRectangle, PrimaryColor, Rotation, Origin, Scale, SpriteEffects, CustomLayer ?? LayerDepth);
+                spriteBatch.Draw(Texture,  Position + OffSet, SourceRectangle, PrimaryColor, Rotation, Origin, Scale, SpriteEffects, CustomLayer ?? LayerDepth);
 
 
         }
 
         private void DrawWorld(SpriteBatch spriteBatch)
         {
-                spriteBatch.Draw(Texture, Position, SourceRectangle, PrimaryColor, Rotation, Origin, Scale, SpriteEffects, CustomLayer ?? GetYAxisLayerDepth());
+                spriteBatch.Draw(Texture, Position + OffSet, SourceRectangle, PrimaryColor, Rotation, Origin, Scale, SpriteEffects, CustomLayer ?? GetYAxisLayerDepth());
 
         }
 

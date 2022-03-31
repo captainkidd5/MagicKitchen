@@ -38,7 +38,7 @@ namespace SpriteEngine.Classes
         public virtual int Height { get { return SourceRectangle.Height;} }
         public virtual Rectangle HitBox
         {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)(Width * Scale.X), (int)(Height * Scale.Y)); }
+            get { return new Rectangle((int)(Position.X + OffSet.X), (int)(Position.Y + OffSet.Y), (int)(Width * Scale.X), (int)(Height * Scale.Y)); }
         }
 
         /// <see cref="UpdateColor(Color)"/>
@@ -55,6 +55,8 @@ namespace SpriteEngine.Classes
         ColorShifter ColorShifter { get; set; }
 
         public void ResetColors() => ColorShifter.Reset(this);
+
+        public Vector2 OffSet { get; set; } = Vector2.Zero;
 
         public BaseSprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Vector2 position, Rectangle sourceRectangle, Texture2D texture, Color primaryColor,
              Vector2 origin, Vector2 scale, float rotation,

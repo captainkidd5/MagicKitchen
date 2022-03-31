@@ -27,6 +27,7 @@ namespace TiledEngine.Classes.TileAddons
 
         public HullBody Tuft { get; set; }
 
+        private readonly Vector2 _tuftOffSet = new Vector2(8, 32);
         public GrassTuft(Tile tile, Texture2D texture)
         {
            Tile = tile;
@@ -35,9 +36,10 @@ namespace TiledEngine.Classes.TileAddons
 
         public void Load()
         {
-            Tile.Sprite.Origin = new Vector2(8, 32);
-            Tile.Sprite.CustomLayer = SpriteUtility.GetYAxisLayerDepth(Tile.Position - Tile.Sprite.Origin, Tile.SourceRectangle);
-            Move(new Vector2(Tile.Position.X , Tile.Position.Y ));
+            Tile.Sprite.Origin = _tuftOffSet;
+            Tile.Sprite.CustomLayer = SpriteUtility.GetYAxisLayerDepth(Tile.Position, Tile.SourceRectangle);
+            Tile.Sprite.OffSet = _tuftOffSet;
+            Move(Tile.Position + _tuftOffSet);
             CreateBody(Position);
 
 
@@ -66,7 +68,6 @@ namespace TiledEngine.Classes.TileAddons
         public override void Update(GameTime gameTime)
         {
             Tile.Sprite.Rotation = Tuft.Body.Rotation;
-
         }
 
 
