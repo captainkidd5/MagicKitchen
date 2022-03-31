@@ -11,7 +11,7 @@ namespace SpriteEngine.Classes
 {
     public class Sprite : BaseSprite
     {
-        public Sprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Vector2 position,
+        internal Sprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Vector2 position,
             Rectangle sourceRectangle, Texture2D texture, Color primaryColor, Vector2 origin, Vector2 scale,
             float rotation, Layers layer, bool randomizeLayers, bool flip, float? customLayer)
             : base(graphics, content, spriteType, position, sourceRectangle, texture, primaryColor, origin, scale, rotation, randomizeLayers, flip, customLayer)

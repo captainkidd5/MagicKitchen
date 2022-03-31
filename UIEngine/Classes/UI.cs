@@ -81,7 +81,7 @@ namespace UIEngine.Classes
             s_game = game;
             s_graphics = graphics;
             s_content = content;
-            AssignLayeringDepths(ref LayeringDepths, s_baseLayerDepth);
+            AssignLayeringDepths(ref LayeringDepths, s_baseLayerDepth, true);
             ButtonFactory = new ButtonFactory(graphics, content);
             ButtonTexture = content.Load<Texture2D>("UI/Buttons");
             ButtonTextureDat = new Color[ButtonTexture.Width * ButtonTexture.Height];
@@ -111,13 +111,13 @@ namespace UIEngine.Classes
             LoadCurrentSection();
 
         }
-        internal static void AssignLayeringDepths(ref float[] layeringDepths, float baseDepth)
+        internal static void AssignLayeringDepths(ref float[] layeringDepths, float baseDepth, bool largeIncrement = false)
         {
             layeringDepths = new float[5];
             float tempDepth = baseDepth;
             for (int i = 0; i < 5; i++)
             {
-                tempDepth = UI.IncrementLD(tempDepth);
+                tempDepth = UI.IncrementLD(tempDepth, largeIncrement);
                 layeringDepths[i] = tempDepth;
             }
         }
@@ -281,9 +281,13 @@ namespace UIEngine.Classes
         /// <summary>
         /// Returns a float value which is at least slightly larger than the given layerDepth
         /// </summary>
-        internal static float IncrementLD(float parentLayerDepth)
+        internal static float IncrementLD(float parentLayerDepth, bool largeIncrement)
         {
-            float randomOffset = Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f;
+            float incrementAmount = .001f;
+
+            if (largeIncrement)
+                incrementAmount = .1f;
+            float randomOffset = Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * incrementAmount;
             float variedLayerDepth = parentLayerDepth + randomOffset;
             return variedLayerDepth;
 

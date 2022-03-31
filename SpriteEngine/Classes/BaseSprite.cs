@@ -58,7 +58,7 @@ namespace SpriteEngine.Classes
 
         public Vector2 OffSet { get; set; } = Vector2.Zero;
 
-        public BaseSprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Vector2 position, Rectangle sourceRectangle, Texture2D texture, Color primaryColor,
+        internal BaseSprite(GraphicsDevice graphics, ContentManager content, ElementType spriteType, Vector2 position, Rectangle sourceRectangle, Texture2D texture, Color primaryColor,
              Vector2 origin, Vector2 scale, float rotation,
             bool randomizeLayers, bool flip, float? customLayer) : base(graphics, content)
         {

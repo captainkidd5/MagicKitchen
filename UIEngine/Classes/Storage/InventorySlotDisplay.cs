@@ -82,7 +82,7 @@ namespace UIEngine.Classes.Storage
             else
             {
                 Button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
-                Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, UI.IncrementLD(LayerDepth) + .1f, Color.White, Vector2.Zero, new Vector2(4f,4f)));
+                Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, UI.IncrementLD(LayerDepth, true), Color.White, Vector2.Zero, new Vector2(4f,4f)));
                 Text.SetFullString(count.ToString());
 
             }
