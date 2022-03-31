@@ -3,3 +3,6 @@ Tilset packing instructions:
 1). Import to gimp --> Filtering --> Tilesets, Padding: 1 Spacing: 1
 
 2). Create new tilset in tiled, margin: 1 spacing: 3
+
+Note: Order in which tilesets are added to tiled maps is important. Background must be loaded in first,then foreground. If order gets messed up
+do --> remove tilesets from map --> Map --> Add external tilesets --> add in correct order

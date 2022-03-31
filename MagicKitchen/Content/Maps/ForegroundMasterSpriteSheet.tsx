@@ -53,6 +53,17 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="1010">
+  <properties>
+   <property name="newSource" value="-16,-64,48,80"/>
+   <property name="transparent" value="-16,-48, 48, 60"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="2" y="4" width="13" height="11">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="1743">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
@@ -137,9 +148,9 @@
  </tile>
  <tile id="3370">
   <properties>
-   <property name="newHitBox" value="-48, -80, 124, 96"/>
-   <property name="newSource" value="-48, -124, 136,144"/>
-   <property name="portal" value="true,Town,Restaurant,48,0,32,32,0,48,Up"/>
+   <property name="newHitBox" value="-48, -80, 128, 96"/>
+   <property name="newSource" value="-48, -124, 128,144"/>
+   <property name="portal" value="true,LullabyTown,Restaurant,48,0,32,32,0,48,Up"/>
   </properties>
  </tile>
  <tile id="3661">
