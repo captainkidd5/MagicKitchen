@@ -62,7 +62,8 @@ namespace TiledEngine.Classes.Helpers
             if (properties.ContainsKey("destructable"))
             {
                 //Using layer here is fine because we haven't yet randomized it in tile utility
-
+                if(tile.Addons.Count > 0)
+                    Console.WriteLine("test");
                 tile.Addons.Add(new DestructableTile(tile, tileManager, tmxShape, properties["destructable"]));
             }
             else
