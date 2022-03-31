@@ -64,6 +64,16 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="1412">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="1685">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
  <tile id="1743">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
@@ -129,6 +139,16 @@
    <frame tileid="1929" duration="100"/>
   </animation>
  </tile>
+ <tile id="1958">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+  <animation>
+   <frame tileid="1958" duration="300"/>
+   <frame tileid="1685" duration="300"/>
+   <frame tileid="1412" duration="300"/>
+  </animation>
+ </tile>
  <tile id="2016">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
@@ -151,6 +171,20 @@
    <property name="newHitBox" value="-48, -80, 128, 96"/>
    <property name="newSource" value="-48, -124, 128,144"/>
    <property name="portal" value="true,LullabyTown,Restaurant,48,0,32,32,0,48,Up"/>
+  </properties>
+ </tile>
+ <tile id="3375">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+  <animation>
+   <frame tileid="3375" duration="300"/>
+   <frame tileid="3376" duration="300"/>
+  </animation>
+ </tile>
+ <tile id="3376">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
  <tile id="3661">
