@@ -1,8 +1,8 @@
 {
     "Name": "Caspar",
     "StartingStage": "LullabyTown",
-    "StartingTileX": 30,
-    "StartingTileY": 32,
+    "StartingTileX": 38,
+    "StartingTileY": 36,
     "Schedules": [
         {
         "Date": "Jan1,12:00_AM-12:20AM",
@@ -26,8 +26,8 @@
     {
         "Date": "Jan1,12:40_AM-12:20AM",
         "StageEndLocation": "LullabyTown",
-        "TileX": 20,
-        "TileY": 20,
+        "TileX": 40,
+        "TileY": 36,
         "Dialogue":{
             "SpeechTree":
                 {
@@ -46,8 +46,8 @@
     {
         "Date": "Jan1,01:00_AM-1:20AM",
         "StageEndLocation": "LullabyTown",
-        "TileX": 15,
-        "TileY": 16,
+        "TileX": 22,
+        "TileY": 18,
         "Dialogue":{
             "SpeechTree":
                 {

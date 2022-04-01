@@ -1,8 +1,8 @@
 {
     "Name": "Oslo",
     "StartingStage": "LullabyTown",
-    "StartingTileX": 22,
-    "StartingTileY": 22,
+    "StartingTileX": 40,
+    "StartingTileY": 36,
     "Schedules": [
         {
         "Date": "Jan1,12:00_AM-12:20AM",
@@ -26,8 +26,8 @@
         {
         "Date": "Jan1,12:40_AM-1:20AM",
         "StageEndLocation": "LullabyTown",
-        "TileX": 25,
-        "TileY": 45,
+        "TileX": 26,
+        "TileY": 20,
         "Dialogue":{
             "SpeechTree":
                 {
@@ -45,8 +45,8 @@
         {
             "Date": "Jan1,01:00_AM-1:20AM",
             "StageEndLocation": "LullabyTown",
-            "TileX": 15,
-            "TileY": 16,
+            "TileX": 26,
+            "TileY": 35,
             "Dialogue":{
                 "SpeechTree":
                     {

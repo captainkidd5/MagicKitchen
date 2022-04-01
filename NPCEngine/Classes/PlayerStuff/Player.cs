@@ -24,7 +24,7 @@ namespace EntityEngine.Classes.PlayerStuff
     public class Player : HumanoidEntity
     {
         public byte Id { get; private set; }
-        public readonly Vector2 StartingPosition = new Vector2(440, 700);
+        public readonly Vector2 StartingPosition = new Vector2(630, 500);
         private readonly PlayerContainer _playerContainer;
 
         private Direction DirectionFacing { get; set; }

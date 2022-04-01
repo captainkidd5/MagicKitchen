@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.3.0" name="BackgroundMasterSpriteSheet" tilewidth="16" tileheight="16" tilecount="3600" columns="60">
- <image source="MasterSpriteSheet.png" width="960" height="960"/>
+ <image source="BackgroundMasterSpriteSheet.png" width="960" height="960"/>
  <tile id="381">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
@@ -165,5 +165,40 @@
    <frame tileid="145" duration="800"/>
    <frame tileid="325" duration="800"/>
   </animation>
+ </tile>
+ <tile id="1509">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="5" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="1511">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="11" y="0" width="5" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="1569">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="5" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="1571">
+  <objectgroup draworder="index" id="3">
+   <object id="2" x="11" y="0" width="5" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="1629">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="1630">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="1631">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
 </tileset>

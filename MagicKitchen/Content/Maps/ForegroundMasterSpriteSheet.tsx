@@ -178,6 +178,11 @@
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
+  <objectgroup draworder="index" id="3">
+   <object id="2" x="5" y="9" width="6" height="6">
+    <ellipse/>
+   </object>
+  </objectgroup>
   <animation>
    <frame tileid="3375" duration="300"/>
    <frame tileid="3376" duration="300"/>

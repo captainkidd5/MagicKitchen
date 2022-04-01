@@ -167,8 +167,8 @@ namespace SpriteEngine.Classes
         }
         private void CheckCE()
         {
-            if (ColorShifter != null)
-                throw new Exception($"Color Effect is already instantiated");
+            //if (ColorShifter != null)
+              //  throw new Exception($"Color Effect is already instantiated");
         }
         /// <summary>
         /// 

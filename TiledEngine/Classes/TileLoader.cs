@@ -57,7 +57,7 @@ namespace TiledEngine.Classes
             MapPath = content.RootDirectory + "/Maps/";
             TmxMap worldMap = new TmxMap(MapPath + "LullabyTown.tmx");
             ExteriorTileSetPackage = new TileSetPackage(worldMap);
-            ExteriorTileSetPackage.LoadContent(content, "maps/MasterSpriteSheet_Spaced", "maps/ForegroundMasterSpriteSheet");
+            ExteriorTileSetPackage.LoadContent(content, "maps/BackgroundMasterSpriteSheet_Spaced", "maps/ForegroundMasterSpriteSheet");
 
 
             TmxMap interiorMap = new TmxMap(MapPath + "Restaurant.tmx");
