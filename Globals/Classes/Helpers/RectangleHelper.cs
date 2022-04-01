@@ -37,10 +37,17 @@ namespace Globals.Classes.Helpers
             return new Vector2(Settings.NativeWidth * (float)scale - width, 0);
         }
 
-        public static Vector2 PlaceBottomLeftScreen(Rectangle rectangleToPlace, float? scale = null)
+        public static Vector2 PlaceBottomLeftScreen(Rectangle rectangleToPlace, float? scale = null, bool addGutter = true)
         {
             scale = scale ?? Settings.GameScale;
-            return new Vector2(0, Settings.NativeHeight - rectangleToPlace.Height * (float)scale);
+            float height = Settings.NativeHeight;
+            int x = 0;
+            if (addGutter)
+            {
+                height -= Settings.Gutter;
+                x += Settings.Gutter;
+            }
+            return new Vector2(x, height - rectangleToPlace.Height * (float)scale);
         }
         public static Vector2 PlaceBottomLeftScreen(int height, float? scale = null)
         {

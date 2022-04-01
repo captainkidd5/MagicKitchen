@@ -40,7 +40,7 @@ namespace PhysicsEngine.Classes
 
         public Light Light { get; set; }
 
-
+  
 
         internal HullBody(Body body,Hull hull)
         {

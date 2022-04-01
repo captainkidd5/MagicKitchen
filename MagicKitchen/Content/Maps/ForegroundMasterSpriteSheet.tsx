@@ -171,6 +171,7 @@
    <property name="newHitBox" value="-48, -80, 128, 96"/>
    <property name="newSource" value="-48, -124, 128,144"/>
    <property name="portal" value="true,LullabyTown,Restaurant,48,0,32,32,0,48,Up"/>
+   <property name="transparency" value="-48, -124, 128,128"/>
   </properties>
  </tile>
  <tile id="3375">

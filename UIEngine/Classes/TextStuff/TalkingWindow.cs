@@ -24,10 +24,11 @@ namespace UIEngine.Classes.TextStuff
         public Direction DirectionPlayerShouldFace { get; set; }
 
         private Vector2 _textOffSet = new Vector2(16, 16);
-        public TalkingWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,  Vector2? position, float layerDepth) :
+        public TalkingWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            Rectangle totalBackDropRectangleDimensions = new Rectangle(0, 240, Settings.ScreenWidth, 128);
+            Position = new Vector2(Position.X + Settings.Gutter, Position.Y);
+            Rectangle totalBackDropRectangleDimensions = new Rectangle(0, 0, Settings.ScreenWidth - Settings.Gutter * 2, 128);
             Position = RectangleHelper.PlaceBottomLeftScreen(totalBackDropRectangleDimensions);
             BackdropSprite = SpriteFactory.CreateNineSliceSprite(Position,
                 totalBackDropRectangleDimensions.Width,
@@ -46,28 +47,28 @@ namespace UIEngine.Classes.TextStuff
             if (IsActive)
             {
 
-            Hovered = Controls.IsHovering(ElementType.UI, BackdropSprite.HitBox);
+                Hovered = Controls.IsHovering(ElementType.UI, BackdropSprite.HitBox);
 
 
-            if (TextBuilder.Update(gameTime, Position + _textOffSet, BackdropSprite.HitBox.Width))
-            {
-
-                if (Controls.IsClicked)
+                if (TextBuilder.Update(gameTime, Position + _textOffSet, BackdropSprite.HitBox.Width))
                 {
-                    UI.ReactiveSections();
-                    IsActive = false;
+
+                    if (Controls.IsClicked)
+                    {
+                        UI.ReactiveSections();
+                        IsActive = false;
+                    }
                 }
-            }
-            if (Hovered && Controls.IsClicked)
-            {
-                TextBuilder.ForceComplete();
-            }
+                if (Hovered && Controls.IsClicked)
+                {
+                    TextBuilder.ForceComplete();
+                }
             }
 
             base.Update(gameTime);
 
 
-          
+
 
         }
 
@@ -78,8 +79,8 @@ namespace UIEngine.Classes.TextStuff
             if (IsActive)
             {
 
-            BackdropSprite.Draw(spriteBatch);
-            TextBuilder.Draw(spriteBatch);
+                BackdropSprite.Draw(spriteBatch);
+                TextBuilder.Draw(spriteBatch);
             }
 
 

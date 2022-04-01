@@ -143,7 +143,7 @@ namespace SoundEngine.Classes.SongStuff
                 _currentSong = s_currentPlayList[s_random.Next(0, s_currentPlayList.Count)];
 
             }
-            else
+            else if(s_currentPlayList.Count > 0)
             {
                 _currentSong = s_currentPlayList[0];
             }

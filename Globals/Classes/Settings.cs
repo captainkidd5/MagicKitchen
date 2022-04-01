@@ -41,6 +41,7 @@ namespace Globals.Classes
         #region SCREEN
         public static int ScreenWidth => Graphics.PreferredBackBufferWidth;
         public static int ScreenHeight => Graphics.PreferredBackBufferHeight;
+        public static readonly int Gutter = 32;
         public static int GameScale = 1;
 
         public static float AspectRatio => (float)ScreenWidth / (float)ScreenHeight;

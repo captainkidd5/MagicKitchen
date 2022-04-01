@@ -82,6 +82,8 @@ namespace TiledEngine.Classes
                     tile.SourceRectangle = TileRectangleHelper.AdjustSourceRectangle(TileRectangleHelper.GetNormalSourceRectangle(tileSetPackage.OffSetForegroundGID(tile.GID), tileSetDimension), propertySourceRectangle);
                     tile.DestinationRectangle = TileRectangleHelper.AdjustDestinationRectangle(tile, propertySourceRectangle);
                     tile.Position = (Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle));
+
+                    
                 }
 
 
@@ -102,6 +104,7 @@ namespace TiledEngine.Classes
                 if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
                     TileObjectHelper.AddObjectFromProperty(tile, layer, tileSetTile.Properties, tileManager, propertyString);
+                   
                 }
 
                 propertyString = "lightSource";
@@ -117,6 +120,16 @@ namespace TiledEngine.Classes
 
                 }
 
+                propertyString = "transparent";
+                if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
+                {
+                
+                   
+
+               
+                    TestForTransparencyTile(tile, TileObjectHelper.GetSourceRectangleFromTileProperty(propertyString));
+
+                }
 
             }
 
@@ -132,8 +145,17 @@ namespace TiledEngine.Classes
 
         }
 
-       
 
+        /// <summary>
+        ///Height must also be greater than 32, otherwise kinda pointless as we can already mostly see the player!
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <param name="tempObj"></param>
+        private static void TestForTransparencyTile(Tile tile, Rectangle rectangle)
+        {
+            //if (tile.Layer >= .3f && tile.GID != -1 && tile.DestinationRectangle.Height > rectangle.Height && tile.DestinationRectangle.Height > 32)
+                tile.Addons.Add(new TileTransparency(tile, tile.Position, new Rectangle((int)tile.Position.X + (int)rectangle.Width, (int)tile.Position.X + (int)rectangle.Height, rectangle.Width, rectangle.Height)));
+        }
         /// <summary>
         /// If tile layer is in the forground we'll offset it according to its Y position. Else just give it the standard layerdepth.
         /// </summary>

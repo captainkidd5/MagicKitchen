@@ -9,17 +9,17 @@ namespace TextEngine.Classes
 {
     public class TextBuilder
     {
-        public static float Slow = .1f;
-        public static float Normal = .05f;
-        public static float Fast = .02f;
+        public readonly float Slow = .1f;
+        public readonly float Normal = .05f;
+        public readonly float Fast = .02f;
 
-        private Text Text { get; set; }
+        private Text _text;
 
-        private float AnchorTextRate { get; set; }
-        private SimpleTimer SimpleTimer { get; set; }
+        private float _anchorTextRate;
+        private SimpleTimer _simpleTimer;
 
 
-        public bool ExceedsWidth(int width, int? line) => Text.ExceedsWidth(width, line);
+        public bool ExceedsWidth(int width, int? line) => _text.ExceedsWidth(width, line);
         /// <summary>
         /// Constructor for text which should type itself out over a given rate.
         /// </summary>
@@ -27,9 +27,9 @@ namespace TextEngine.Classes
         /// <param name="textRate">How fast the text should be written.</param>
         public TextBuilder(Text text, float textRate)
         {
-            Text = text;
-            AnchorTextRate = textRate;
-            SimpleTimer = new SimpleTimer(textRate);
+            _text = text;
+            _anchorTextRate = textRate;
+            _simpleTimer = new SimpleTimer(textRate);
         }
 
         /// <summary>
@@ -38,13 +38,13 @@ namespace TextEngine.Classes
         /// <param name="text"></param>
         public TextBuilder(Text text)
         {
-            this.Text = text;
+           _text = text;
         }
 
         /// <param name="autoComplete">Set to true if you want the given text to be show, rather than set.</param>
         public void SetText(Text text, bool autoComplete = true)
         {
-            Text = text;
+            _text = text;
             if (autoComplete)
                 ForceComplete();
         }
@@ -52,25 +52,28 @@ namespace TextEngine.Classes
         /// <param name="textBoxWidth">Provide if you want the text to wrap.</param>
         /// <param name="stringToAppend">Leave null if you are not manually typing (Like command console).</param>
         /// <returns>Returns true if finished with current assignment</returns>
-        public bool Update(GameTime gameTime, Vector2 position,int textBoxWidth, string stringToAppend = null)
+        public bool Update(GameTime gameTime, Vector2 position, int textBoxWidth, string stringToAppend = null)
         {
-            Text.Update(gameTime, position);
-            if (SimpleTimer != null)
+            _text.Update(gameTime, position);
+            if (_simpleTimer != null)
             {
-                if (Text.CurrentString != Text.FullString)
+                if (_text.CurrentString == _text.FullString)
                 {
-                    //text being appended on a timer.
-                    if (SimpleTimer.Run(gameTime))
-                        if (Text.Append())
-                            return true;                  
+                    return true;
                 }
                 else
-                    return true;
+                { 
+                    //text being appended on a timer.
+                    if (_simpleTimer.Run(gameTime))
+                        if (_text.Append())
+                            return true;
+
+                }
 
             }
-            else if(!string.IsNullOrEmpty(stringToAppend))
+            else if (!string.IsNullOrEmpty(stringToAppend))
             {
-                Text.Append(stringToAppend, textBoxWidth);
+                _text.Append(stringToAppend, textBoxWidth);
                 return true;
             }
             return false;
@@ -85,37 +88,29 @@ namespace TextEngine.Classes
         /// <param name="fullString">Set to true if you just want to print a predefine string as is.</param>
         public void Draw(SpriteBatch spriteBatch, bool fullString = false)
         {
-            Text.Draw(spriteBatch, fullString);
+            _text.Draw(spriteBatch, fullString);
         }
 
 
 
         public void BackSpace()
         {
-            Text.Backspace();
+            _text.Backspace();
         }
 
-        public string GetText()
-        {
-            return Text.CurrentString;
-        }
 
-        public void ClearText()
-        {
-            Text.Clear();
-        }
+        public string GetText() => _text.CurrentString;
+
+
+        public void ClearText() => _text.Clear();
 
         /// <summary>
         /// Forces text current string to equal total string
         /// </summary>
-        public void ForceComplete()
-        {
-            Text.ForceComplete();
-        }
+        public void ForceComplete() => _text.ForceComplete();
 
-        public bool IsComplete()
-        {
-            return Text.CurrentString == Text.FullString;
-        }
+
+        public bool IsComplete() => _text.CurrentString == _text.FullString;
+        
     }
 }
