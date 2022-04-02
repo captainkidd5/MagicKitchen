@@ -150,6 +150,7 @@ namespace StageEngine.Classes
         public void Save(BinaryWriter writer)
         {
             TileManager.Save(writer);
+            ItemManager.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
@@ -162,7 +163,7 @@ namespace StageEngine.Classes
 
                 _hasLoadedPortals = true;
             }
-
+            ItemManager.LoadSave(reader);
         }
 
         public void CleanUp()

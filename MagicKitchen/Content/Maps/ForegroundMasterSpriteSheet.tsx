@@ -31,6 +31,11 @@
    <property name="replace" value="4"/>
   </properties>
  </tile>
+ <tile id="526">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
  <tile id="547">
   <properties>
    <property name="newSource" value="-16,-80,48,96"/>
@@ -41,6 +46,22 @@
     <ellipse/>
    </object>
   </objectgroup>
+ </tile>
+ <tile id="708">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="890">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+  <animation>
+   <frame tileid="890" duration="800"/>
+   <frame tileid="708" duration="800"/>
+   <frame tileid="526" duration="800"/>
+   <frame tileid="708" duration="800"/>
+  </animation>
  </tile>
  <tile id="1002">
   <properties>

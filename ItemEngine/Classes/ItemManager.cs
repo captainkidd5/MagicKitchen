@@ -84,7 +84,7 @@ namespace ItemEngine.Classes
                 AddWorldItem(pos, ItemFactory.GetItem(id), itemCount, null);
             }
 
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void CleanUp()

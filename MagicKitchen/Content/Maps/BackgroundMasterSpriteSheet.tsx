@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.3.0" name="BackgroundMasterSpriteSheet" tilewidth="16" tileheight="16" tilecount="3600" columns="60">
  <image source="BackgroundMasterSpriteSheet.png" width="960" height="960"/>
+ <tile id="268">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
  <tile id="381">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
@@ -66,6 +71,11 @@
    <frame tileid="26" duration="800"/>
    <frame tileid="206" duration="800"/>
   </animation>
+ </tile>
+ <tile id="388">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
  </tile>
  <tile id="441">
   <objectgroup draworder="index" id="2">
@@ -164,6 +174,16 @@
    <frame tileid="325" duration="800"/>
    <frame tileid="145" duration="800"/>
    <frame tileid="325" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="508">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+  <animation>
+   <frame tileid="508" duration="800"/>
+   <frame tileid="388" duration="800"/>
+   <frame tileid="268" duration="800"/>
   </animation>
  </tile>
  <tile id="1509">
