@@ -43,7 +43,7 @@ namespace SoundEngine.Classes.Players
 
         internal virtual SoundEffectInstance GetRandomSound()
         {
-            return (WheelSelection.GetSelection(_sounds.SoundChancers.Cast<IWeightable>().ToList(), _random) as SoundChancer).SoundEffect.CreateInstance();
+            return (ChanceHelper.GetWheelSelection(_sounds.SoundChancers.Cast<IWeightable>().ToList(), _random) as SoundChancer).SoundEffect.CreateInstance();
         }
 
         internal virtual void Stop()

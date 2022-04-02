@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework;
 using System.Reflection;
 using System.IO;
 using static Globals.Classes.Settings;
+using System.Linq;
 
 namespace TiledEngine.Classes
 {
@@ -33,7 +34,7 @@ namespace TiledEngine.Classes
 
         internal static TileSetPackage InteriorTileSetPackage { get; private set; }
 
-
+        private static Dictionary<int, TileLootData> s_tileLootData;
 
 
         private static PortalLoader _portalLoader;
@@ -65,8 +66,19 @@ namespace TiledEngine.Classes
             InteriorTileSetPackage.LoadContent(content, "maps/InteriorBackground_Spaced", "maps/InteriorForeground");
 
             _portalLoader = new PortalLoader();
+            List<TileLootData> tileLootData = content.Load<List<TileLootData>>("Items/TileLootData");
+            s_tileLootData = tileLootData.ToDictionary(x => x.TileId, x => x);
         }
-
+        internal static bool HasLootData(int tileId)
+        {
+            return s_tileLootData.ContainsKey(tileId);
+        }
+        internal static TileLootData GetLootData(int tileId)
+        {
+            if (!HasLootData(tileId))
+                throw new Exception($"No loot exists for tile with id {tileId}");
+            return s_tileLootData[tileId];
+        }
         /// <summary>
         /// Call after all stages have been loaded in at least once so that portal data is complete.
         /// </summary>

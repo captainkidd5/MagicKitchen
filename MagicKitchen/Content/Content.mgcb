@@ -330,6 +330,11 @@
 /processorParam:TextureFormat=Color
 /build:Items/ItemSpriteSheet.png
 
+#begin Items/TileLootData.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Items/TileLootData.xml
+
 #begin Maps/BackgroundMasterSpriteSheet_Spaced.png
 /importer:TextureImporter
 /processor:TextureProcessor

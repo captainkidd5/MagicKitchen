@@ -1,7 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using DataModels;
+using Globals.Classes;
+using Globals.Classes.Chance;
+using ItemEngine.Classes;
+using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TiledEngine.Classes.Helpers;
 using VelcroPhysics.Collision.Filtering;
@@ -56,6 +61,15 @@ namespace TiledEngine.Classes.TileAddons
         public virtual void Interact()
         {
             throw new NotImplementedException();
+        }
+        protected void GenerateLoot()
+        {
+            TileLootData tileLootData = TileLoader.GetLootData(Tile.GID);
+            List<LootData> trimmedLoot = ChanceHelper.GetWeightedSelection(tileLootData.Loot.Cast<IWeightable>().ToList(), Settings.Random).Cast<LootData>().ToList();
+            foreach(LootData loot in trimmedLoot)
+            {
+                TileManager._itemManager.AddWorldItem(Position, loot.ItemName, loot.Quantity, null);
+            }
         }
     }
 }

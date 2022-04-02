@@ -1,18 +1,20 @@
 ﻿using DataModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Globals.Classes.Chance
 {
-    public static class WheelSelection
+    public static class ChanceHelper
     {
 
         /// <summary>
         /// Returns a single weighted element from given list.
         /// </summary>
         /// <returns></returns>
-        public static IWeightable GetSelection(List<IWeightable> myList, Random random)
+        public static IWeightable GetWheelSelection(List<IWeightable> myList, Random random)
         {
             int poolSize = 0;
             for (int i = 0; i < myList.Count; i++)
@@ -32,6 +34,21 @@ namespace Globals.Classes.Chance
                     return myList[i];
             }
             return null;
+        }
+
+        /// <summary>
+        /// Returns new list with weighted elements selected from dice roll based on probability of weight
+        /// </summary>
+        /// <returns></returns>
+        public static List<IWeightable> GetWeightedSelection(List<IWeightable> myList, Random random)
+        {
+            List<IWeightable> weightedList = new List<IWeightable>();
+            foreach(IWeightable weightable in myList)
+            {
+                if(random.Next(1, 101) < weightable.Weight)
+                    weightedList.Add(weightable);
+            }
+            return weightedList;
         }
     }
 }

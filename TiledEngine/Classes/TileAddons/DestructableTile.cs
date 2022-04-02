@@ -63,7 +63,8 @@ namespace TiledEngine.Classes.TileAddons
                 Tile.WithinRangeOfPlayer = true;
             if ((Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
             {
-
+                if(TileLoader.HasLootData(Tile.GID))
+                    GenerateLoot();
                 TileUtility.SwitchGid(Tile, TileManager, IndexLayer);
                 TileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
 

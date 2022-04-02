@@ -11,6 +11,7 @@
     <ProjectReference Include="..\DataModels\DataModels.csproj" />
     <ProjectReference Include="..\Globals\Globals.csproj" />
     <ProjectReference Include="..\InputEngine\InputEngine.csproj" />
+    <ProjectReference Include="..\ItemEngine\ItemEngine.csproj" />
     <ProjectReference Include="..\PhysicsEngine\PhysicsEngine.csproj" />
     <ProjectReference Include="..\SpriteEngine\SpriteEngine.csproj" />
     <ProjectReference Include="..\UIEngine\UIEngine.csproj" />

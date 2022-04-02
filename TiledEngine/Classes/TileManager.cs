@@ -2,6 +2,7 @@
 using Globals.Classes;
 using Globals.Classes.Helpers;
 using InputEngine.Classes.Input;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -32,6 +33,8 @@ namespace TiledEngine.Classes
         private readonly int _cullingLeeWay = 8;
         private readonly Camera2D _camera;
         internal readonly PenumbraComponent _penumbra;
+        internal readonly ItemManager _itemManager;
+
         public PathGrid PathGrid { get; private set; }
 
 
@@ -47,12 +50,13 @@ namespace TiledEngine.Classes
         private Sprite TileSelectorSprite { get; set; }
 
         public MapType MapType { get; set; }
-        public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera, PenumbraComponent penumbra, MapType mapType) :
+        public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera, PenumbraComponent penumbra, MapType mapType, ItemManager itemManager) :
             base(graphics, content)
         {
             OffSetLayersDictionary = new Dictionary<int, float>();
             Portals = new List<PortalData>();
             MapType = mapType;
+            _itemManager = itemManager;
             _camera = camera;
             _penumbra = penumbra;
         }

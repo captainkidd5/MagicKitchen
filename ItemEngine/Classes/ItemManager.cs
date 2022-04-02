@@ -48,6 +48,12 @@ namespace ItemEngine.Classes
 
         }
 
+        public void AddWorldItem(Vector2 position, string itemName, int count, Vector2? jettisonDirection)
+        {
+            Items.Add(ItemFactory.GenerateWorldItem(itemName, count, position, jettisonDirection));
+
+        }
+
         public void CreateNewSave(BinaryWriter writer)
         {
             throw new NotImplementedException();

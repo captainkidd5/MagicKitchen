@@ -139,7 +139,7 @@ namespace SoundEngine.Classes
             SoundPackage package = new SoundPackage();
             if (s_soundPackages.TryGetValue(soundPackageName, out package))
             {
-                return (WheelSelection.GetSelection(package.SoundChancers.Cast<IWeightable>().ToList(), s_random) as SoundChancer).SoundEffect;
+                return (ChanceHelper.GetWheelSelection(package.SoundChancers.Cast<IWeightable>().ToList(), s_random) as SoundChancer).SoundEffect;
             }
             else
                 throw new Exception($"Could not find soundeffect {soundPackageName}");
