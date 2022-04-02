@@ -53,7 +53,6 @@ namespace UIEngine.Classes.ButtonStuff
 
             OnClick = buttonAction ?? new Action(ButtonAction);
 
-            SupressParentSection = true;
 
             HoverTransparency = hoverTransparency;
 

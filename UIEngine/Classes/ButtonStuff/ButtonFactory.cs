@@ -17,7 +17,7 @@ namespace UIEngine.Classes.ButtonStuff
         public static readonly Rectangle s_redExRectangle = new Rectangle(0, 80, 32, 32);
         public static readonly Rectangle s_greenCheckRectangle = new Rectangle(32, 80, 32, 32);
 
-        private float _scale = .5f;
+        private float _scale = 1f;
         public ButtonFactory(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
         }

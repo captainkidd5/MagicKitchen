@@ -52,8 +52,7 @@ namespace UIEngine.Classes
         internal virtual protected bool Clicked { get; set; }
         internal virtual protected bool RightClicked { get; set; }
 
-        internal protected bool SupressParentSection { get; set; }
-
+        public bool BlockInteractions { get; set; }
         internal Button CloseButton { get; set; }
 
         public bool FlaggedForRemoval { get; set; }
@@ -78,9 +77,7 @@ namespace UIEngine.Classes
             if (interfaceSection != null && interfaceSection.ChildSections != null && !interfaceSection.ChildSections.Contains(this))
             {
                 interfaceSection.ChildSections.Add(this);
-                //LayerDepth = UI.IncrementLD(layerDepth);
             }
-            SupressParentSection = suppressParentSection;
 
          
         }
@@ -122,48 +119,59 @@ namespace UIEngine.Classes
                 Hovered = false;
                 Clicked = false;
                 RightClicked = false;
+                BlockInteractions = false;
 
-                ////baseline check
-                //if (CloseButton != null)
-                //{
-                //    CloseButton.Update(gameTime);
-                //    if (CloseButton.Hovered)
-                //    {
-                //        return;
-                //    }
-                //}
+
                 if (Controls.IsHovering(ElementType.UI, TotalBounds))
                 {
+                  
+                 
+                        CheckChildHovers();
+
+                    
                     if (CloseButton != null && CloseButton.Hovered)
                     {
-                        return;
-                    }
-                    if (!ChildSections.Any(x => x.SupressParentSection && x.IsActive))
-                    {
-                        Hovered = true;
-                        if (Controls.IsClicked)
-                        {
-                            Clicked = true;
-                        }
-                        if (Controls.IsRightClicked)
-                        {
-                            RightClicked = true;
+                        BlockInteractions = true;
 
-                        }
                     }
-
 
                 }
 
                 for (int i = ChildSections.Count - 1; i >= 0; i--)
                 {
-                    ChildSections[i].Update(gameTime);
+                    if (BlockInteractions)
+                    {
+                        if (ChildSections[i] == CloseButton)
+                            ChildSections[i].Update(gameTime);
+                        
+                    }
+                    else
+                    {
+                        ChildSections[i].Update(gameTime);
+
+                    }
                     if (ChildSections[i].FlaggedForRemoval)
                         ChildSections.RemoveAt(i);
                 }
 
             }
             _activeLastFrame = IsActive;
+        }
+
+        private void CheckChildHovers()
+        {
+
+                Hovered = true;
+                if (Controls.IsClicked)
+                {
+                    Clicked = true;
+                }
+                if (Controls.IsRightClicked)
+                {
+                    RightClicked = true;
+
+                }
+            
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
