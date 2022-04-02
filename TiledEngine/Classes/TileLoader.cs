@@ -34,7 +34,9 @@ namespace TiledEngine.Classes
 
         internal static TileSetPackage InteriorTileSetPackage { get; private set; }
 
-        private static Dictionary<int, TileLootData> s_tileLootData;
+        private static Dictionary<int, TileLootData> s_foreGroundTileLootData;
+        private static Dictionary<int, TileLootData> s_backGroundTileLootData;
+
 
 
         private static PortalLoader _portalLoader;
@@ -66,18 +68,22 @@ namespace TiledEngine.Classes
             InteriorTileSetPackage.LoadContent(content, "maps/InteriorBackground_Spaced", "maps/InteriorForeground");
 
             _portalLoader = new PortalLoader();
-            List<TileLootData> tileLootData = content.Load<List<TileLootData>>("Items/TileLootData");
-            s_tileLootData = tileLootData.ToDictionary(x => x.TileId, x => x);
+            List<TileLootData> tileLootData = content.Load<List<TileLootData>>("Items/ForegroundTileLootData");
+            s_foreGroundTileLootData = tileLootData.ToDictionary(x => x.TileId, x => x);
+
+            tileLootData = content.Load<List<TileLootData>>("Items/BackgroundTileLootData");
+            //Offset background GID here to make it easy to fetch correct loot for GID at runtime
+            s_backGroundTileLootData = tileLootData.ToDictionary(x => ExteriorTileSetPackage.OffSetBackgroundGID(x.TileId), x => x);
         }
         internal static bool HasLootData(int tileId)
         {
-            return s_tileLootData.ContainsKey(tileId);
+            return s_foreGroundTileLootData.ContainsKey(tileId);
         }
         internal static TileLootData GetLootData(int tileId)
         {
             if (!HasLootData(tileId))
                 throw new Exception($"No loot exists for tile with id {tileId}");
-            return s_tileLootData[tileId];
+            return s_foreGroundTileLootData[tileId];
         }
         /// <summary>
         /// Call after all stages have been loaded in at least once so that portal data is complete.

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+    <Asset Type="System.Collections.Generic.List[DataModels.TileLootData]">
+        <Item>
+            <TileId>5525</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>SwordFish</ItemName>
+            <Quantity>2</Quantity>
+            <Weight>100</Weight>
+            </Item>
+            </Loot>
+        </Item>
+    </Asset>
+</XnaContent>

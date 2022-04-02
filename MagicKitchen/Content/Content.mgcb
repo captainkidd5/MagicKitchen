@@ -313,6 +313,16 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Font.spritefont
 
+#begin Items/BackgroundTileLootData.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Items/BackgroundTileLootData.xml
+
+#begin Items/ForegroundTileLootData.xml
+/importer:XmlImporter
+/processor:PassThroughProcessor
+/build:Items/ForegroundTileLootData.xml
+
 #begin Items/ItemData.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor
@@ -329,11 +339,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Items/ItemSpriteSheet.png
-
-#begin Items/TileLootData.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:Items/TileLootData.xml
 
 #begin Maps/BackgroundMasterSpriteSheet_Spaced.png
 /importer:TextureImporter

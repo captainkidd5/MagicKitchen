@@ -67,9 +67,9 @@ namespace StageEngine.Classes
             _camera = camera;
             _penumbra = penumbra;
 
-            TileManager = new TileManager(graphics, content, camera, penumbra, _stageData.MapType, ItemManager);
             ItemManager = new ItemManager(Name);
 
+            TileManager = new TileManager(graphics, content, camera, penumbra, _stageData.MapType, ItemManager);
 
         }
 
