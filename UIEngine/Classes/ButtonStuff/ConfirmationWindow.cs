@@ -32,7 +32,7 @@ namespace UIEngine.Classes.ButtonStuff
         /// Default cancel action is to just close this window
         /// </summary>
         public ConfirmationWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth, 
-            Action confirmAction, Action? cancelAction = null, bool suppressParentSection = true, string confirmationText = null) : base(interfaceSection, graphicsDevice, content, position, layerDepth, suppressParentSection)
+            Action confirmAction, Action? cancelAction = null, string confirmationText = null) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             _confirmAction = confirmAction;
             _cancelAction = cancelAction ?? new Action(() => Deactivate());

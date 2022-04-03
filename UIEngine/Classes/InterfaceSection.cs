@@ -58,11 +58,8 @@ namespace UIEngine.Classes
         public bool FlaggedForRemoval { get; set; }
         public bool FlaggedForCriticalRemoval { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="suppressParentSection">Set to true if clicking on this section should not trigger parent click</param>
-        public InterfaceSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth, bool suppressParentSection = true) :
+
+        public InterfaceSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(graphicsDevice, content)
         {
             parentSection = interfaceSection;

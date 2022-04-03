@@ -24,7 +24,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         private Rectangle _buttonRectangle;
         private NineSliceTextButton _playButton;
         private NineSliceTextButton _exitButton;
+        private NineSliceButton _toggleSettings;
 
+        private Rectangle _settingsCogSourceRectangle = new Rectangle(64, 80, 32, 32);
 
         public PlayOrExitMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -43,7 +45,19 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                 null, _playGameAction, true);
             _exitButton = new NineSliceTextButton(this, graphics, content, new Vector2(_anchorPos.X, _anchorPos.Y + 128), GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null,
                 UI.ButtonTexture, new List<Text>() { TextFactory.CreateUIText("Exit", GetLayeringDepth(UILayeringDepths.Medium)) }, null, _exitGameAction, true);
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonRectangle.Width, _buttonRectangle.Height);  
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonRectangle.Width, _buttonRectangle.Height);
+
+            Vector2 settingsButtonPos = new Vector2(_anchorPos.X, _anchorPos.Y + 64);
+
+            _toggleSettings = new NineSliceTextButton(this, graphics, content, new Vector2(_anchorPos.X, _anchorPos.Y + 64), GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null,
+                UI.ButtonTexture, new List<Text>() { TextFactory.CreateUIText("Settings", GetLayeringDepth(UILayeringDepths.Medium)) }, null, new Action(() =>
+                {
+                    (parentSection as OuterMenu).ChangeState(OuterMenuState.Settings);
+
+                }), true);
+
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonRectangle.Width, _buttonRectangle.Height);
+
             base.LoadContent();
             SongManager.ChangePlaylist("MainMenu-Outer");
 

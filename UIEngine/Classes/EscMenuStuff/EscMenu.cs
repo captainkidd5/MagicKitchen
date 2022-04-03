@@ -29,7 +29,7 @@ namespace UIEngine.Classes.EscMenuStuff
         private NineSliceSprite _backGroundSprite;
 
         private Action _returnToMainMenuAction;
-        public EscMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth, bool suppressParentSection = true) : base(interfaceSection, graphicsDevice, content, position, layerDepth, suppressParentSection)
+        public EscMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             IsActive = false;
             NormallyActivated = false;

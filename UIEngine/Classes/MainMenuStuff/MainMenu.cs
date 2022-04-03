@@ -34,10 +34,8 @@ namespace UIEngine.Classes.MainMenuStuff
 
         private ToggleMusic _toggleMusic;
 
-        private NineSliceButton _toggleSettings;
        
 
-        private Rectangle _settingsCogSourceRectangle = new Rectangle(64, 80, 32, 32);
         public MainMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -55,13 +53,7 @@ namespace UIEngine.Classes.MainMenuStuff
                 new Rectangle(0, 0, 32, 32));
             _toggleMusic = new ToggleMusic(this, graphics, content, new Vector2(bottomRightScreen.X-80, bottomRightScreen.Y - 80), GetLayeringDepth(UILayeringDepths.Low));
 
-            Vector2 settingsButtonPos = new Vector2(bottomRightScreen.X - 144, bottomRightScreen.Y - 80);
-            _toggleSettings  = new NineSliceButton(this, graphics, content, settingsButtonPos, GetLayeringDepth(UILayeringDepths.Back), _settingsCogSourceRectangle,
-              SpriteFactory.CreateUISprite(settingsButtonPos, _settingsCogSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium)),
-              null, null, new Action(() =>
-              {
-                  UI.SettingsMenu.Toggle();
-              }), true);
+
             _activeSection = _outerMenu;
             TotalBounds = _backDropDimensions;
             base.LoadContent();
@@ -99,7 +91,6 @@ namespace UIEngine.Classes.MainMenuStuff
             _backDropSprite.Update(gameTime, Position);
             _activeSection.Update(gameTime);
             _toggleMusic.Update(gameTime);
-            _toggleSettings.Update(gameTime);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -107,7 +98,6 @@ namespace UIEngine.Classes.MainMenuStuff
             _backDropSprite.Draw(spriteBatch);
             _activeSection.Draw(spriteBatch);
             _toggleMusic.Draw(spriteBatch);
-            _toggleSettings.Draw(spriteBatch);
         }
     }
 }

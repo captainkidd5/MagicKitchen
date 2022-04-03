@@ -21,9 +21,8 @@ namespace UIEngine.Classes.ButtonStuff
         private readonly Rectangle MusicNoteMUTEDSourceRectangle = new Rectangle(368, 0, 32, 32);
 
         public ToggleMusic(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
-            ContentManager content, Vector2? position, float layerDepth,
-            bool suppressParentSection = true) :
-            base(interfaceSection, graphicsDevice, content, position, layerDepth, suppressParentSection)
+            ContentManager content, Vector2? position, float layerDepth) :
+            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             ToggleMusicButton = new NineSliceButton(this, graphicsDevice, content, Position, GetLayeringDepth(UILayeringDepths.Back), MusicNoteSourceRectangle,
               SpriteFactory.CreateUISprite(Position, MusicNoteSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium)),

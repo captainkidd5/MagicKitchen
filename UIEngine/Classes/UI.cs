@@ -107,7 +107,7 @@ namespace UIEngine.Classes
             Cursor = new Cursor();
             Cursor.LoadContent(content);
 
-            MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null, GetLayeringDepth(UILayeringDepths.Front));
+            MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null, GetLayeringDepth(UILayeringDepths.Back));
             s_mainMenuSections = new List<InterfaceSection>() { MainMenu, SettingsMenu };
             s_activeSections = GetActiveSections();
             s_criticalSections = new List<InterfaceSection>();

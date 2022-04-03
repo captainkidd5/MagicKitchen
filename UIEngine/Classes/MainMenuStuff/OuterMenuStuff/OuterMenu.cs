@@ -23,7 +23,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         None =0,
         PlaySettingsAndExit = 1,
         ViewGames =2,
-        CreateNewSave = 3
+        CreateNewSave = 3,
+        Settings = 4,
 
     }
     internal class OuterMenu : InterfaceSection
@@ -46,7 +47,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         private Vector2 _backGroundSpritePosition;
         private Button _backButton;
 
-        private string _fileSelect = "FileSelect";
         public OuterMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -84,7 +84,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
 
                     break;
-               
+
                 case OuterMenuState.PlaySettingsAndExit:
                     _activeSection.Deactivate();
 
@@ -94,6 +94,14 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                     SongManager.ChangePlaylist("MainMenu-Outer");
 
                     break;
+                case OuterMenuState.Settings:
+                    _activeSection = UI.SettingsMenu;
+                    _activeSection.Activate();
+
+                    break;
+                case OuterMenuState.None:
+                    break;
+               
                 default:
                     throw new Exception("Must have a state");
             }

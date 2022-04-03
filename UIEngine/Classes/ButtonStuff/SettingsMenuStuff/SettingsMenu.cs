@@ -16,7 +16,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
     {
         private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 224, 320);
         private NineSliceSprite _backGroundSprite;
-        public SettingsMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth, bool suppressParentSection = true) : base(interfaceSection, graphicsDevice, content, position, layerDepth, suppressParentSection)
+        public SettingsMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
         
         }
