@@ -19,6 +19,7 @@ using System;
 using UIEngine.Classes.ButtonStuff;
 using Globals.Classes.Console;
 using SoundEngine.Classes.SongStuff;
+using UIEngine.Classes.ButtonStuff.SettingsMenuStuff;
 
 namespace UIEngine.Classes
 {
@@ -63,6 +64,7 @@ namespace UIEngine.Classes
 
         public static TalkingWindow TalkingWindow { get; set; }
 
+        internal static SettingsMenu SettingsMenu { get; set; }
         internal static ToolBar ToolBar { get; set; }
         internal static ClockBar ClockBar { get; set; }
 
@@ -96,6 +98,8 @@ namespace UIEngine.Classes
             EscMenu = new EscMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
 
             TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
+            SettingsMenu = new SettingsMenu(null,graphics,content, null, GetLayeringDepth(UILayeringDepths.Front));
+            SettingsMenu.LoadContent();
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow, EscMenu };
 
@@ -104,7 +108,7 @@ namespace UIEngine.Classes
             Cursor.LoadContent(content);
 
             MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null, GetLayeringDepth(UILayeringDepths.Front));
-            s_mainMenuSections = new List<InterfaceSection>() { MainMenu };
+            s_mainMenuSections = new List<InterfaceSection>() { MainMenu, SettingsMenu };
             s_activeSections = GetActiveSections();
             s_criticalSections = new List<InterfaceSection>();
             Curtain.LoadContent();
