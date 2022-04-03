@@ -33,6 +33,8 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
                 }));
             CloseButton.LoadContent();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height);
+            IsActive = false;
+            NormallyActivated = false;
         }
         public override void Update(GameTime gameTime)
         {
@@ -40,6 +42,10 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if (IsActive)
+            {
+                _backGroundSprite.Draw(spriteBatch);
+            }
             base.Draw(spriteBatch);
         }
 

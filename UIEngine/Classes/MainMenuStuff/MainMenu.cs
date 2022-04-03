@@ -55,7 +55,7 @@ namespace UIEngine.Classes.MainMenuStuff
                 new Rectangle(0, 0, 32, 32));
             _toggleMusic = new ToggleMusic(this, graphics, content, new Vector2(bottomRightScreen.X-80, bottomRightScreen.Y - 80), GetLayeringDepth(UILayeringDepths.Low));
 
-            Vector2 settingsButtonPos = new Vector2(bottomRightScreen.X - 96, bottomRightScreen.Y - 80);
+            Vector2 settingsButtonPos = new Vector2(bottomRightScreen.X - 144, bottomRightScreen.Y - 80);
             _toggleSettings  = new NineSliceButton(this, graphics, content, settingsButtonPos, GetLayeringDepth(UILayeringDepths.Back), _settingsCogSourceRectangle,
               SpriteFactory.CreateUISprite(settingsButtonPos, _settingsCogSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium)),
               null, null, new Action(() =>
