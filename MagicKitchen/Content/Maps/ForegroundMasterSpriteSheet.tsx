@@ -52,6 +52,22 @@
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
+ <tile id="800">
+  <animation>
+   <frame tileid="800" duration="800"/>
+   <frame tileid="618" duration="800"/>
+   <frame tileid="436" duration="800"/>
+   <frame tileid="618" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="801">
+  <animation>
+   <frame tileid="801" duration="800"/>
+   <frame tileid="619" duration="800"/>
+   <frame tileid="437" duration="800"/>
+   <frame tileid="619" duration="800"/>
+  </animation>
+ </tile>
  <tile id="890">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
@@ -61,6 +77,22 @@
    <frame tileid="708" duration="800"/>
    <frame tileid="526" duration="800"/>
    <frame tileid="708" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="891">
+  <animation>
+   <frame tileid="891" duration="800"/>
+   <frame tileid="709" duration="800"/>
+   <frame tileid="527" duration="800"/>
+   <frame tileid="709" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="892">
+  <animation>
+   <frame tileid="892" duration="800"/>
+   <frame tileid="710" duration="800"/>
+   <frame tileid="528" duration="800"/>
+   <frame tileid="710" duration="800"/>
   </animation>
  </tile>
  <tile id="1002">

@@ -99,7 +99,6 @@ namespace UIEngine.Classes
 
             TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             SettingsMenu = new SettingsMenu(null,graphics,content, null, GetLayeringDepth(UILayeringDepths.Front));
-            SettingsMenu.LoadContent();
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow, EscMenu };
 

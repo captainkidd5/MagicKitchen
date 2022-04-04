@@ -1,6 +1,7 @@
 ﻿using DataModels.SoundStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
+using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
@@ -71,7 +72,8 @@ namespace SoundEngine.Classes.SongStuff
             s_recentlyPlayedQueue = new Queue<SongPackage>(s_minSongsBeforeRepeat);
             _currentSong = s_currentPlayList[0];
             CommandConsole.RegisterCommand("skip_song", "skips current song in playlist", SkipSong);
-
+            MusicVolume = SettingsManager.SettingsFile.MusicVolume;
+            Muted = SettingsManager.SettingsFile.MuteMusic;
         }
 
         public static void ChangePlaylist(string stageName, bool changeSongNow = true)

@@ -77,6 +77,22 @@
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
+ <tile id="439">
+  <animation>
+   <frame tileid="439" duration="800"/>
+   <frame tileid="259" duration="800"/>
+   <frame tileid="79" duration="800"/>
+   <frame tileid="259" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="440">
+  <animation>
+   <frame tileid="440" duration="800"/>
+   <frame tileid="260" duration="800"/>
+   <frame tileid="80" duration="800"/>
+   <frame tileid="260" duration="800"/>
+  </animation>
+ </tile>
  <tile id="441">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
@@ -119,6 +135,38 @@
    <frame tileid="265" duration="800"/>
    <frame tileid="85" duration="800"/>
    <frame tileid="265" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="449">
+  <animation>
+   <frame tileid="449" duration="800"/>
+   <frame tileid="329" duration="800"/>
+   <frame tileid="209" duration="800"/>
+   <frame tileid="329" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="450">
+  <animation>
+   <frame tileid="450" duration="800"/>
+   <frame tileid="330" duration="800"/>
+   <frame tileid="210" duration="800"/>
+   <frame tileid="330" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="499">
+  <animation>
+   <frame tileid="499" duration="800"/>
+   <frame tileid="319" duration="800"/>
+   <frame tileid="139" duration="800"/>
+   <frame tileid="319" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="500">
+  <animation>
+   <frame tileid="500" duration="800"/>
+   <frame tileid="320" duration="800"/>
+   <frame tileid="140" duration="800"/>
+   <frame tileid="320" duration="800"/>
   </animation>
  </tile>
  <tile id="501">
@@ -184,6 +232,21 @@
    <frame tileid="508" duration="800"/>
    <frame tileid="388" duration="800"/>
    <frame tileid="268" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="509">
+  <animation>
+   <frame tileid="389" duration="800"/>
+   <frame tileid="269" duration="800"/>
+   <frame tileid="389" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="510">
+  <animation>
+   <frame tileid="510" duration="800"/>
+   <frame tileid="390" duration="800"/>
+   <frame tileid="270" duration="800"/>
+   <frame tileid="390" duration="800"/>
   </animation>
  </tile>
  <tile id="1509">

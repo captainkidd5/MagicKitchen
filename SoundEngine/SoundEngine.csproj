@@ -9,5 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Globals\Globals.csproj" />
+    <ProjectReference Include="..\IOEngine\IOEngine.csproj" />
   </ItemGroup>
 </Project>

@@ -98,7 +98,7 @@ namespace MagicKitchen
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             SaveLoadManager.FetchAllMetadata();
-
+            SettingsManager.LoadSettings();
             CommandConsole.Load(consoleComponent);
             _commandList.Load();
             Clock.Load();
