@@ -95,10 +95,12 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
                     break;
                 case OuterMenuState.Settings:
-                    _activeSection = UI.SettingsMenu;
+                    _activeSection.Deactivate();
+
+                    //_activeSection = UI.SettingsMenu;
                     UI.SettingsMenu.ReadjustBasedOnParent(_backGroundSourceRectangle, _backGroundSpritePosition);
+                    UI.SettingsMenu.Activate();
                    // UI.SettingsMenu.LoadContent();
-                    _activeSection.Activate();
 
                     break;
                 case OuterMenuState.None:
@@ -180,6 +182,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         {
             ChangeState(OuterMenuState.PlaySettingsAndExit);
             _activeSection = _playOrExitMenu;
+            UI.SettingsMenu.Deactivate();
         }
 
 

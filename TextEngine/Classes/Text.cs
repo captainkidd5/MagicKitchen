@@ -40,6 +40,8 @@ namespace TextEngine.Classes
 
         }
 
+
+        
         public void Update(GameTime gameTime, Vector2 position)
         {
             _position = position;
@@ -150,7 +152,7 @@ namespace TextEngine.Classes
         /// </summary>
         public float GetTextLength()
         {
-            String[] lineArray = CurrentString.Split('\n');
+            String[] lineArray = FullString.Split('\n');
             float lengthToReturn = 0f;
             for (int i = 0; i < lineArray.Length; i++)
             {
@@ -227,8 +229,8 @@ namespace TextEngine.Classes
         /// </summary>
         public static Vector2 CenterInRectangle(Rectangle rectangleToCenterOn,Text text, float scale = 1f)
         {
-            return new Vector2(rectangleToCenterOn.X + rectangleToCenterOn.Width / 2f * scale - text.TotalStringWidth / 2f,
-                rectangleToCenterOn.Y + rectangleToCenterOn.Height / 2f * scale - text.TotalStringHeight / 2f);
+            return new Vector2(rectangleToCenterOn.X ,
+                rectangleToCenterOn.Y );
         }
 
     }

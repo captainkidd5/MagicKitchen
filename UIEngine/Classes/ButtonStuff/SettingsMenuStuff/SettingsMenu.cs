@@ -1,4 +1,5 @@
 ﻿using Globals.Classes.Helpers;
+using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TextEngine;
+using TextEngine.Classes;
 
 namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
 {
@@ -25,6 +27,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
 
         public void ReadjustBasedOnParent(Rectangle newRectangle, Vector2 parentPos)
         {
+            ChildSections.Clear();
             Unload();
             _backGroundSpriteDimensions = newRectangle;
             Position = parentPos;
@@ -42,10 +45,10 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             //    }));
             //CloseButton.LoadContent();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height);
-            _saveSettingsButton = new NineSliceTextButton(this, graphics, content,
-                RectangleHelper.PlaceBottomRightQuadrant(_backGroundSpriteDimensions, _createNewGameButtonRectangle),
+            _saveSettingsButton = new NineSliceTextButton(this, graphics, content,Position,
                 GetLayeringDepth(UILayeringDepths.Low), null, null, UI.ButtonTexture, new List<Text>()
-                { TextFactory.CreateUIText("Save Settings!", GetLayeringDepth(UILayeringDepths.Medium))  }, null, _createNewGameAction, true);
+                { TextFactory.CreateUIText("Save Settings!", GetLayeringDepth(UILayeringDepths.Medium))  },
+                null, new Action(() => { SettingsManager.SaveSettings(); }), true);
             IsActive = false;
             NormallyActivated = false;
         }

@@ -67,8 +67,8 @@ namespace SpriteEngine.Classes
 
             SharedConstructor(position, texture, layer, color, scale);
 
-            int totalRequiredWidth = (int)text.GetTextLength() + 48;
-            int totalRequireHeight = (int)text.CurrentStringHeight + 32;
+            int totalRequiredWidth = (int)text.TotalStringWidth + 32;
+            int totalRequireHeight = (int)text.TotalStringHeight + 32;
             Width = totalRequiredWidth;
             Height = totalRequireHeight;
 

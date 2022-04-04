@@ -54,7 +54,7 @@ namespace SpriteEngine.Classes
 
 
             return new NineSliceSprite(Graphics, Content, position, newNineSlice, texture,
-                primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, layer, null);
+                primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, layer);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace SpriteEngine.Classes
 
 
             return new NineSliceSprite(Graphics, Content, position, newNineSlice, texture,
-                primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, layer, text);
+                primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, layer);
         }
 
 

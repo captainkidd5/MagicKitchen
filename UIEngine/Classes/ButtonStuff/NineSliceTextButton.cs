@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes.Helpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
@@ -7,7 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextEngine;
 using TextEngine.Classes;
+using static UIEngine.Classes.UI;
 
 namespace UIEngine.Classes.ButtonStuff
 {
@@ -26,6 +29,10 @@ namespace UIEngine.Classes.ButtonStuff
             _textPositions = new List<Vector2>();
            _textList = textList;
             GeneratePositionsForLines();
+
+            BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(position,TextFactory.CombineText(textList, LayerDepth), UI.ButtonTexture, LayerDepth, null, null);
+            Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);
+            BackGroundSprite.AddSaturateEffect(sampleCol, false);
         }
 
         /// <summary>
