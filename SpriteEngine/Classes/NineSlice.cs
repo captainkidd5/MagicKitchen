@@ -20,12 +20,11 @@ namespace SpriteEngine.Classes
         public Rectangle Rectangle => new Rectangle((int)_position.X, (int)_position.Y, Width, Height);
         private Vector2 _position;
 
-        
+
 
         private Vector2 _scale;
 
-
-        private List<NSlicePiece> _pieces;
+        private NSlicePiece[,] _nSlicePieces;
         private Texture2D _texture;
         internal Color Color { get; set; }
 
@@ -50,7 +49,7 @@ namespace SpriteEngine.Classes
         internal NineSlice(Vector2 position, Texture2D texture, float layer,
             int width, int height, Color color, Vector2 scale)
         {
-            
+
             SharedConstructor(position, texture, layer, color, scale);
             Width = width;
             Height = height;
@@ -59,7 +58,7 @@ namespace SpriteEngine.Classes
             BuildRectangle(position, totalRequiredWidth, totalRequireHeight);
         }
 
-       
+
         /// <summary>
         /// Create a dynamic UI rectangle to support given text.
         /// </summary>
@@ -87,8 +86,7 @@ namespace SpriteEngine.Classes
            float layer, Color color, Vector2 scale)
         {
 
-            _pieces = new List<NSlicePiece>();
-
+            _position = position;
             Color = color;
 
             _texture = texture;
@@ -97,65 +95,65 @@ namespace SpriteEngine.Classes
         }
         private void BuildRectangle(Vector2 position, int totalRequiredWidth, int totalRequireHeight)
         {
-            int currentWidth;
-            int currentHeight = 0;
-            currentWidth = AddRow(totalRequiredWidth, position, _topLeftCorner, _topEdge, _topRightCorner);
-            currentHeight += (int)(_unit * this._scale.Y);
-            position = new Vector2(position.X, position.Y + _unit * this._scale.Y);
 
-            while (currentHeight < totalRequireHeight - _unit)
+            int totalWidthSlices = totalRequiredWidth / (int)(_unit * _scale.X);
+
+            int totalHeightSlices = totalRequireHeight / (int)(_unit * _scale.Y);
+            _nSlicePieces = new NSlicePiece[totalWidthSlices, totalHeightSlices];
+
+            float xPos = _position.X;
+            float yPos = _position.Y;
+            for (int x = 0; x < totalWidthSlices; x++)
             {
-                AddRow(totalRequiredWidth, position, _leftEdge, _center, _rightEdge);
-                currentHeight += (int)(_unit * this._scale.Y);
-                position = new Vector2(position.X, position.Y + _unit * this._scale.Y);
+                
+                for (int y = 0; y < totalHeightSlices; y++)
+                {
+                    _nSlicePieces[x, y] = new NSlicePiece(GetRequiredRectangle(x, y, totalWidthSlices - 1, totalHeightSlices - 1),
+                        new Vector2(xPos, yPos));
+                    yPos += _unit * _scale.Y;
+                }
+                yPos = _position.Y;
+                xPos += _unit * _scale.Y;
             }
 
-            AddRow(totalRequiredWidth, position, _bottomLeftCorner, _bottomEdge, _bottomRightCorner);
-            currentHeight += (int)(_unit * this._scale.Y);
-            _position = new Vector2(_pieces[0].Position.X, _pieces[0].Position.Y);
 
         }
-
-        private void AddRectangle(Rectangle rectangle, Vector2 position)
+        private Rectangle GetRequiredRectangle(int currentX, int currentY, int totalX, int totalY)
         {
-            _pieces.Add(new NSlicePiece(rectangle,position));
-        }
+            if (currentX == 0 && currentY == 0)
+                return _topLeftCorner;
+            if (currentX == 0 && currentY == totalY)
+                return _bottomLeftCorner;
+            if (currentX == 0 && currentY != 0)
+                return _leftEdge;
+            if (currentX == totalX && currentY == 0)
+                return _topRightCorner;
+            if (currentY == 0 && totalX != 0)
+                return _topEdge;
+            if (currentX == totalX && currentY == totalY)
+                return _bottomRightCorner;
+            if (currentX == totalX && currentY != 0)
+                return _rightEdge;
+            if (currentY == totalY && totalX != 0 && currentX != totalX)
+                return _bottomEdge;
 
-        /// <summary>
-        /// Returns the width of a single row. To be used once in the constructor set our total width!
-        /// </summary>
-        private int AddRow(int length, Vector2 position, Rectangle left, Rectangle middle, Rectangle right)
-        {
-            int totalWidth = 0;
-            int startingPositionX = (int)position.X;
-            int numberNeeded = (int)(length / this._scale.Y / _unit);
-            AddRectangle(left, position);
-            totalWidth += left.Width;
-            startingPositionX += (int)(_unit * this._scale.X);
+            return _center;
 
-            numberNeeded--;
-
-            while (numberNeeded > 1)
-            {
-
-                Vector2 newPosition = new Vector2(startingPositionX, position.Y);
-                AddRectangle(middle, newPosition);
-                totalWidth += middle.Width;
-                numberNeeded--;
-                startingPositionX += (int)(_unit * this._scale.X);
-            }
-            AddRectangle(right, new Vector2(startingPositionX, position.Y));
-            totalWidth += right.Width;
-
-            return totalWidth;
         }
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < _pieces.Count; i++)
+            for (int x = 0; x < _nSlicePieces.GetLength(0); x++)
             {
-               spriteBatch.Draw(_texture, _pieces[i].Position, _pieces[i].SourceRectangle, Color, 0f, Vector2.One, _scale, SpriteEffects.None, _uiLayer);
+
+                for (int y = 0; y < _nSlicePieces.GetLength(1); y++)
+                {
+                    spriteBatch.Draw(_texture, _nSlicePieces[x,y].Position, _nSlicePieces[x, y].SourceRectangle, Color, 0f, Vector2.One, _scale, SpriteEffects.None, _uiLayer);
+
+                }
             }
+
+            
         }
 
         private Vector2 CenterTextHorizontal(int width, Text text)
@@ -166,13 +164,18 @@ namespace SpriteEngine.Classes
         }
         private class NSlicePiece
         {
-            public Rectangle SourceRectangle { get; set; }
-            public Vector2 Position { get; set; }
+            public Rectangle SourceRectangle { get; private set; }
+            public Vector2 Position { get; private set; }
 
             public NSlicePiece(Rectangle sourceRectangle, Vector2 position)
             {
                 SourceRectangle = sourceRectangle;
                 Position = position;
+            }
+
+            public void Move(Vector2 adjustedPosition)
+            {
+                Position = adjustedPosition;
             }
         }
     }
