@@ -78,7 +78,10 @@ namespace UIEngine.Classes
 
          
         }
-
+        public virtual void MovePosition(Vector2 newPos)
+        {
+            Position = newPos;
+        }
         public virtual void Activate()
         {
             IsActive = true;

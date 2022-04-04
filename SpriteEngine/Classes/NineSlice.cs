@@ -20,9 +20,12 @@ namespace SpriteEngine.Classes
         public Rectangle Rectangle => new Rectangle((int)_position.X, (int)_position.Y, Width, Height);
         private Vector2 _position;
 
+        
+
         private Vector2 _scale;
-        private List<Rectangle> _combinedRectangle;
-        private List<Vector2> _rectanglePositions;
+
+
+        private List<NSlicePiece> _pieces;
         private Texture2D _texture;
         internal Color Color { get; set; }
 
@@ -75,11 +78,16 @@ namespace SpriteEngine.Classes
             BuildRectangle(position, totalRequiredWidth, totalRequireHeight);
 
         }
+
+        public void Move(Vector2 newPosition)
+        {
+
+        }
         private void SharedConstructor(Vector2 position, Texture2D? texture,
            float layer, Color color, Vector2 scale)
         {
-            _combinedRectangle = new List<Rectangle>();
-            _rectanglePositions = new List<Vector2>();
+
+            _pieces = new List<NSlicePiece>();
 
             Color = color;
 
@@ -104,14 +112,13 @@ namespace SpriteEngine.Classes
 
             AddRow(totalRequiredWidth, position, _bottomLeftCorner, _bottomEdge, _bottomRightCorner);
             currentHeight += (int)(_unit * this._scale.Y);
-            _position = new Vector2((int)_rectanglePositions[0].X, (int)_rectanglePositions[0].Y);
+            _position = new Vector2(_pieces[0].Position.X, _pieces[0].Position.Y);
 
         }
 
         private void AddRectangle(Rectangle rectangle, Vector2 position)
         {
-            _combinedRectangle.Add(rectangle);
-            _rectanglePositions.Add(position);
+            _pieces.Add(new NSlicePiece(rectangle,position));
         }
 
         /// <summary>
@@ -145,9 +152,9 @@ namespace SpriteEngine.Classes
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < _combinedRectangle.Count; i++)
+            for (int i = 0; i < _pieces.Count; i++)
             {
-               spriteBatch.Draw(_texture, _rectanglePositions[i], _combinedRectangle[i], Color, 0f, Vector2.One, _scale, SpriteEffects.None, _uiLayer);
+               spriteBatch.Draw(_texture, _pieces[i].Position, _pieces[i].SourceRectangle, Color, 0f, Vector2.One, _scale, SpriteEffects.None, _uiLayer);
             }
         }
 
@@ -157,6 +164,16 @@ namespace SpriteEngine.Classes
             float newWidth = (float)width / 2f - textWidth / 2;
             return new Vector2(_position.X + newWidth, _position.Y);
         }
+        private class NSlicePiece
+        {
+            public Rectangle SourceRectangle { get; set; }
+            public Vector2 Position { get; set; }
 
+            public NSlicePiece(Rectangle sourceRectangle, Vector2 position)
+            {
+                SourceRectangle = sourceRectangle;
+                Position = position;
+            }
+        }
     }
 }

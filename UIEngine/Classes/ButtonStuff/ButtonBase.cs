@@ -76,7 +76,11 @@ namespace UIEngine.Classes.ButtonStuff
             }
         }
 
+        public override void MovePosition(Vector2 newPos)
+        {
+            base.MovePosition(newPos);
 
+        }
         public void SwapForeGroundSprite(Sprite sprite)
         {
             ForegroundSprite = sprite;
