@@ -43,10 +43,12 @@ namespace UIEngine.Classes.ButtonStuff
         {
             Vector2 textIndexPos = Position;
             float y = Position.Y;
+            Rectangle backgroundRec = new Rectangle((int)Position.X, (int)Position.Y, BackGroundSprite.HitBox.Width, BackGroundSprite.HitBox.Height);
             for (int i = 0; i < _textList.Count; i++)
             {
-
-                textIndexPos = Text.CenterInRectangle(TotalBounds, _textList[i]);
+                if(_textList[i] != null && _textList[i].FullString.Contains("Pl"))
+                    Console.WriteLine("test");
+                textIndexPos = Text.CenterInRectangle(backgroundRec, _textList[i]);
                 y += _textList[i].TotalStringHeight;
                 textIndexPos = new Vector2(textIndexPos.X, y);
 
@@ -80,10 +82,14 @@ namespace UIEngine.Classes.ButtonStuff
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+     
             base.Draw(spriteBatch);
             for (int i = _textList.Count - 1; i >= 0; i--)
-                _textList[i].Draw(spriteBatch,true);
-            
+            {
+                _textList[i].Draw(spriteBatch, true);
+
+            }
+
         }
 
 

@@ -41,7 +41,10 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
             Action _createNewButtonAction = ChangeToCreateNewSaveMenu;
             _createNewButton = new NineSliceTextButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                _saveSlotRectangle, null, null, new List<Text>() { _createNewGameText, TextFactory.CreateUIText("Second Line", GetLayeringDepth(UILayeringDepths.Medium)) },null, _createNewButtonAction, true);
+                _saveSlotRectangle, null, null, new List<Text>() { 
+                    _createNewGameText, 
+                    TextFactory.CreateUIText("Second Line", GetLayeringDepth(UILayeringDepths.Medium)),
+                TextFactory.CreateUIText("Long Third Lineeeeee", GetLayeringDepth(UILayeringDepths.Medium))},null, _createNewButtonAction, true);
            Dictionary<string,SaveFile> saveFiles = SaveLoadManager.SaveFiles;
 
             int i = 0;

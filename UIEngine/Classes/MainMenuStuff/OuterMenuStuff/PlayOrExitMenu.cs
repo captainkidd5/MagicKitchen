@@ -21,7 +21,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
         private Action _playGameAction;
         private Action _exitGameAction;
-        private Rectangle _buttonRectangle;
+        private Rectangle _buttonRectangle = new Rectangle(0, 0, 128, 64);
         private NineSliceTextButton _playButton;
         private NineSliceTextButton _exitButton;
         private NineSliceButton _toggleSettings;
@@ -36,7 +36,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
       
         public override void LoadContent()
         {
-            _buttonRectangle = new Rectangle(0, 0, 128, 64);
             _playGameAction = ChangeToViewGamesMenu;
             _exitGameAction = UI.Exit;
             Vector2 _anchorPos = RectangleHelper.CenterRectangleOnScreen(_buttonRectangle);
