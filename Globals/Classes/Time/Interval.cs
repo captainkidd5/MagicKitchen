@@ -17,16 +17,19 @@ namespace Globals.Classes.Time
 
 
         public int CurrentFrame { get; private set; } = 0;
-        public Interval()
+        private const int MaxFrames = 100;
+        public Interval(float interval)
         {
-            _timer = new SimpleTimer(1f);
+            _timer = new SimpleTimer(interval);
         }
 
         public void Update(GameTime gameTime)
         {
             if (_timer.Run(gameTime))
             {
-
+                if (CurrentFrame == MaxFrames)
+                    CurrentFrame = 0;
+                else
                     CurrentFrame++;
             }
         }

@@ -42,7 +42,7 @@ namespace SpriteEngine.Classes.Animations
         {
             if (!Paused)
             {
-                int frame = (int)(Clock.Interval.CurrentFrame % AnimationFrames.Length);
+                int frame = (int)(Clock.GetInterval(AnimationFrames[CurrentFrame].Duration).CurrentFrame % AnimationFrames.Length);
                 if (frame != CurrentFrame)
                 {
                     CurrentFrame = frame;

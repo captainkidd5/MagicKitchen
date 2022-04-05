@@ -28,13 +28,17 @@ namespace Globals.Classes.Time
 
         public static bool Paused;
 
-        public static Interval Interval { get; private set; }
+        public static Dictionary<float, Interval> Intervals { get; private set; }
         public static void Load()
         {
             DayStatus = DayStatus.DayTime;
             SimpleTimer = new SimpleTimer(clockSpeed);
             TimeKeeper = new TimeKeeper();
-            Interval = new Interval();
+            Intervals = new Dictionary<float, Interval>();
+            for(int i = 0; i < 10; i++)
+            {
+                Intervals.Add((float)i /10,new Interval(i/4));
+            }
         }
         public static void OnClockTimeChanged(TimeKeeper timeKeeper)
         {
@@ -49,13 +53,20 @@ namespace Globals.Classes.Time
                     IncrementTime();
                 }
 
-                
-                    Interval.Update(gameTime);
-                
+                foreach(Interval interval in Intervals.Values)
+                {
+                    interval.Update(gameTime);
+
+                }
+
+
             }
         }
 
-
+        public static Interval GetInterval(float intervalDuration)
+        {
+            return Intervals[intervalDuration];
+        }
 
         private static void IncrementTime(int minuteToIncrement = 10)
         {
