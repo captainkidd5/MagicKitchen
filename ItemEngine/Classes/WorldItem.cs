@@ -52,7 +52,7 @@ namespace ItemEngine.Classes
         {
             Item = item;
             Count = count;
-            Sprite = SpriteFactory.CreateWorldSprite(position, Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet);
+            Sprite = SpriteFactory.CreateWorldSprite(position, Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, scale:new Vector2(.75f,.75f));
             CreateBody(position);
             Move(position);
             XOffSet = 8;

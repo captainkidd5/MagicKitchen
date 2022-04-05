@@ -37,13 +37,10 @@ namespace Globals.Classes.Time
             Intervals = new Dictionary<float, Interval>();
             for(int i = 0; i < 10; i++)
             {
-                Intervals.Add((float)i /10,new Interval(i/4));
+                Intervals.Add((float)i /10,new Interval((float)i * .15f));
             }
         }
-        public static void OnClockTimeChanged(TimeKeeper timeKeeper)
-        {
-            ClockTimeChanged?.Invoke(timeKeeper);
-        }
+
         public static void Update(GameTime gameTime)
         {
             if (!Paused)
@@ -91,7 +88,7 @@ namespace Globals.Classes.Time
             int maxValue = Enum.GetValues(typeof(DayOfWeek)).Cast<int>().Max();
             if ((int)TimeKeeper.DayOfWeek > maxValue)
                 TimeKeeper.DayOfWeek = DayOfWeek.Sunday;
-            OnClockTimeChanged(TimeKeeper);
+            ClockTimeChanged?.Invoke(TimeKeeper);
         }
     }
 }
