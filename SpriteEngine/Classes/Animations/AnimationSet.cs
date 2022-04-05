@@ -8,9 +8,9 @@ namespace SpriteEngine.Classes.Animations
 {
     public class AnimationSet
     {
-        private AnimatedSprite[] AnimatedSprites { get; set; }
+        private AnimatedSpriteBase[] AnimatedSprites { get; set; }
 
-        public AnimationSet(AnimatedSprite[] animatedSprites)
+        public AnimationSet(AnimatedSpriteBase[] animatedSprites)
         {
             AnimatedSprites = animatedSprites;
         }

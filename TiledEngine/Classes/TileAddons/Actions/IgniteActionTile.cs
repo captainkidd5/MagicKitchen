@@ -17,16 +17,16 @@ namespace TiledEngine.Classes.TileAddons.Actions
         public IgniteActionTile(Tile tile, TileManager tileManager , IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, tileManager, intermediateTmxShape, actionType)
         {
             
-            if (tile.Sprite.GetType() == typeof(AnimatedSprite))
+            if (tile.Sprite.GetType() == typeof(IntervalAnimatedSprite))
             {
-                (tile.Sprite as AnimatedSprite).Paused = true;
+                (tile.Sprite as IntervalAnimatedSprite).Paused = true;
             }
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            AnimatedSprite spr = Tile.Sprite as AnimatedSprite;
+            IntervalAnimatedSprite spr = Tile.Sprite as IntervalAnimatedSprite;
 
             if (PlayerInClickRange && MouseHovering && Controls.IsClicked)
             {

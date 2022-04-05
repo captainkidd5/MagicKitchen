@@ -15,6 +15,8 @@ namespace SpriteEngine.Classes.InterfaceStuff
         public override Rectangle HitBox => NineSlice.Rectangle;
 
         public override int Width => NineSlice.Rectangle.Width;
+        public override int Height => NineSlice.Rectangle.Height;
+
 
         /// <summary>
         /// Note if using Text, the text is expecting to fill up the nineslice. Draw text separately over the nineslice if planning using additional graphics.

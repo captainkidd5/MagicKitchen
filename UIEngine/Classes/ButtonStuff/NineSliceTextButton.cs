@@ -21,6 +21,7 @@ namespace UIEngine.Classes.ButtonStuff
         private List<Vector2> _textPositions;
 
         private List<Text> _textList;
+        
 
         public NineSliceTextButton(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth, Rectangle? sourceRectangle,
             Sprite foregroundSprite, Texture2D texture,List<Text> textList, Point? samplePoint, Action buttonAction = null, bool hoverTransparency = false) :
@@ -30,7 +31,7 @@ namespace UIEngine.Classes.ButtonStuff
            _textList = textList;
             GeneratePositionsForLines();
 
-            BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(position,TextFactory.CombineText(textList, LayerDepth), UI.ButtonTexture, LayerDepth, null, null);
+            BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(position,TextFactory.CombineText(textList, LayerDepth), UI.ButtonTexture, LayerDepth,true, null, null);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
         }
@@ -43,7 +44,7 @@ namespace UIEngine.Classes.ButtonStuff
         {
             Vector2 textIndexPos = Position;
             float y = Position.Y;
-            Rectangle backgroundRec = new Rectangle((int)Position.X, (int)Position.Y, BackGroundSprite.HitBox.Width, BackGroundSprite.HitBox.Height);
+            Rectangle backgroundRec = TotalBounds;
             for (int i = 0; i < _textList.Count; i++)
             {
                 if(_textList[i] != null && _textList[i].FullString.Contains("Pl"))

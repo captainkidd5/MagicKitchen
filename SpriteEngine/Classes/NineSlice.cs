@@ -28,19 +28,19 @@ namespace SpriteEngine.Classes
         private Texture2D _texture;
         internal Color Color { get; set; }
 
-        private readonly int _unit = 16;
+        private static readonly int _unit = 16;
 
-        private readonly Rectangle _topLeftCorner = new Rectangle(0, 0, 16, 16);
-        private readonly Rectangle _topEdge = new Rectangle(16, 0, 16, 16);
-        private readonly Rectangle _topRightCorner = new Rectangle(32, 0, 16, 16);
+        private static readonly Rectangle _topLeftCorner = new Rectangle(0, 0, 16, 16);
+        private static readonly Rectangle _topEdge = new Rectangle(16, 0, 16, 16);
+        private static readonly Rectangle _topRightCorner = new Rectangle(32, 0, 16, 16);
 
-        private readonly Rectangle _leftEdge = new Rectangle(0, 16, 16, 16);
-        private readonly Rectangle _center = new Rectangle(16, 16, 16, 16);
-        private readonly Rectangle _rightEdge = new Rectangle(32, 16, 16, 16);
+        private static readonly Rectangle _leftEdge = new Rectangle(0, 16, 16, 16);
+        private static readonly Rectangle _center = new Rectangle(16, 16, 16, 16);
+        private static readonly Rectangle _rightEdge = new Rectangle(32, 16, 16, 16);
 
-        private readonly Rectangle _bottomLeftCorner = new Rectangle(0, 32, 16, 16);
-        private readonly Rectangle _bottomEdge = new Rectangle(16, 32, 16, 16);
-        private readonly Rectangle _bottomRightCorner = new Rectangle(32, 32, 16, 16);
+        private static readonly Rectangle _bottomLeftCorner = new Rectangle(0, 32, 16, 16);
+        private static readonly Rectangle _bottomEdge = new Rectangle(16, 32, 16, 16);
+        private static readonly Rectangle _bottomRightCorner = new Rectangle(32, 32, 16, 16);
         private float _uiLayer;
 
         /// <summary>
@@ -53,9 +53,8 @@ namespace SpriteEngine.Classes
             SharedConstructor(position, texture, layer, color, scale);
             Width = width;
             Height = height;
-            int totalRequiredWidth = width;
-            int totalRequireHeight = height;
-            BuildRectangle(position, totalRequiredWidth, totalRequireHeight);
+
+            BuildRectangle(position);
         }
 
 
@@ -63,24 +62,26 @@ namespace SpriteEngine.Classes
         /// Create a dynamic UI rectangle to support given text.
         /// </summary>
         internal NineSlice(
-            Vector2 position, Texture2D? texture,
+            Vector2 position, bool centerOnParent, Texture2D? texture,
             float layer, Text text, Color color, Vector2 scale)
         {
-
+           
             SharedConstructor(position, texture, layer, color, scale);
 
-            int totalRequiredWidth = (int)text.TotalStringWidth + 32;
-            int totalRequireHeight = (int)text.TotalStringHeight + 32;
-            Width = totalRequiredWidth;
-            Height = totalRequireHeight;
-
-            BuildRectangle(position, totalRequiredWidth, totalRequireHeight);
+            Width = (int)text.TotalStringWidth + 32;
+            Height = (int)text.TotalStringHeight + 32;
+            if (centerOnParent)
+            {
+                //TODO
+                _position = new Vector2(_position.X, _position.Y );
+            }
+            BuildRectangle(_position);
 
         }
 
         public void Move(Vector2 newPosition)
         {
-
+            BuildRectangle(newPosition);
         }
         private void SharedConstructor(Vector2 position, Texture2D? texture,
            float layer, Color color, Vector2 scale)
@@ -93,12 +94,12 @@ namespace SpriteEngine.Classes
             _uiLayer = layer;
             _scale = scale;
         }
-        private void BuildRectangle(Vector2 position, int totalRequiredWidth, int totalRequireHeight)
+        private void BuildRectangle(Vector2 position)
         {
 
-            int totalWidthSlices = totalRequiredWidth / (int)(_unit * _scale.X);
+            int totalWidthSlices = Width / (int)(_unit * _scale.X);
 
-            int totalHeightSlices = totalRequireHeight / (int)(_unit * _scale.Y);
+            int totalHeightSlices = Height / (int)(_unit * _scale.Y);
             _nSlicePieces = new NSlicePiece[totalWidthSlices, totalHeightSlices];
 
             float xPos = _position.X;

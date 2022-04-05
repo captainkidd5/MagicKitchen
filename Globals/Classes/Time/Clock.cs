@@ -27,11 +27,14 @@ namespace Globals.Classes.Time
         public static TimeKeeper TimeKeeper;
 
         public static bool Paused;
+
+        public static Interval Interval { get; private set; }
         public static void Load()
         {
             DayStatus = DayStatus.DayTime;
             SimpleTimer = new SimpleTimer(clockSpeed);
             TimeKeeper = new TimeKeeper();
+            Interval = new Interval(100);
         }
         public static void OnClockTimeChanged(TimeKeeper timeKeeper)
         {
@@ -45,7 +48,16 @@ namespace Globals.Classes.Time
                 {
                     IncrementTime();
                 }
+
+                
+                    Interval.Update(gameTime);
+                
             }
+        }
+
+        public static void SubscribeToInterval(ITimerSubscribeable obj)
+        {
+            Interval.TimerTargetReached += obj.TimerFrameChanged;
         }
 
         private static void IncrementTime(int minuteToIncrement = 10)

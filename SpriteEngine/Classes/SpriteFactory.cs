@@ -62,9 +62,9 @@ namespace SpriteEngine.Classes
         /// </summary>
         /// <returns></returns>
         public static NineSliceSprite CreateNineSliceTextSprite(Vector2 position, Text text,
-            Texture2D texture,float layer, Color? primaryColor = null, Vector2? origin = null, Vector2? scale = null)
+            Texture2D texture,float layer, bool centerOnParent, Color? primaryColor = null, Vector2? origin = null, Vector2? scale = null)
         {
-            NineSlice newNineSlice = new NineSlice(position, texture,
+            NineSlice newNineSlice = new NineSlice(position, centerOnParent, texture,
                 layer, text, primaryColor ?? Color.White, scale ?? Vector2.One);
 
 
@@ -84,6 +84,16 @@ namespace SpriteEngine.Classes
         {
             return new AnimatedSprite(Graphics, Content, ElementType.World, position, startingSourceRectangle,
                 texture, animationFrames, standardDuration, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ??Vector2.One, rotation, layer,
+                randomizeLayers, flip, customLayer, idleFrame);
+        }
+
+        public static IntervalAnimatedSprite CreateWorldIntervalAnimatedSprite(Vector2 position, Rectangle startingSourceRectangle, Texture2D texture,
+           AnimationFrame[] animationFrames, int milliseconds = 100, Color? primaryColor = null,
+            Vector2? origin = null, Vector2? scale = null, float rotation = 0f, Layers layer = Layers.buildings,
+           bool randomizeLayers = true, bool flip = false, float? customLayer = null, int idleFrame = -1)
+        {
+            return new IntervalAnimatedSprite(Graphics, Content, ElementType.World, position, startingSourceRectangle,
+                texture, animationFrames, milliseconds, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, rotation, layer,
                 randomizeLayers, flip, customLayer, idleFrame);
         }
     }

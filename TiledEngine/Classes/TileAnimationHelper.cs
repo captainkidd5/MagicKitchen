@@ -103,7 +103,7 @@ namespace TiledEngine.Classes
                 }
                 if (tile.Layer > 1)
                     tile.Layer = tile.Layer * .1f;
-                tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
+                tile.Sprite = SpriteFactory.CreateWorldIntervalAnimatedSprite(tile.Position, tile.SourceRectangle,
                     texture, frames, customLayer: tile.Layer, randomizeLayers: false);
             }
 

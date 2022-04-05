@@ -19,7 +19,7 @@ namespace Globals.Classes
 
         public SimpleTimer(float targetTime, bool runContinuously = true)
         {
-            this.TargetTime = targetTime;
+            TargetTime = targetTime;
             RunContinuously = runContinuously;
         }
 
