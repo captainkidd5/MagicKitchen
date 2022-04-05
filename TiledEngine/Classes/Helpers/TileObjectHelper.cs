@@ -27,8 +27,7 @@ namespace TiledEngine.Classes.Helpers
             {
                 TmxObject tempObj = tileSetTile.ObjectGroups[0].Objects[k];
                 Rectangle tempObjBody = new Rectangle((int)tempObj.X, (int)tempObj.Y, (int)tempObj.Width, (int)tempObj.Height);
-                if(tempObj.ObjectType == TmxObjectType.Ellipse)
-                    Console.WriteLine("test");
+    
                 IntermediateTmxShape intermediateTmxShape = GetIntermediateShape(tile, tempObjBody, tempObj.ObjectType);
 
                 bool blocksLight = true;

@@ -26,9 +26,9 @@ namespace TiledEngine.Classes.TileAddons
         {
             CursorIconType = Cursor.GetCursorIconTypeFromString(destructionType.Split(',')[0]);
             tile.CursorIconType = CursorIconType;
-            if (tile.Sprite.GetType() == typeof(IntervalAnimatedSprite))
+            if (tile.Sprite.GetType() == typeof(AnimatedSprite))
             {
-                (tile.Sprite as AnimatedSpriteBase).Paused = true;
+                (tile.Sprite as AnimatedSprite).Paused = true;
             }
         }
         public override void Load()
@@ -61,7 +61,7 @@ namespace TiledEngine.Classes.TileAddons
             base.Update(gameTime);
             if (PlayerInClickRange)
                 Tile.WithinRangeOfPlayer = true;
-            if ((Tile.Sprite as IntervalAnimatedSprite).HasLoopedAtLeastOnce)
+            if ((Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
             {
                 if(TileLoader.HasLootData(Tile.GID))
                     GenerateLoot();
@@ -90,7 +90,7 @@ namespace TiledEngine.Classes.TileAddons
         {
             if (PlayerInClickRange)
             {
-                (Tile.Sprite as IntervalAnimatedSprite).Paused = false;
+                (Tile.Sprite as AnimatedSprite).Paused = false;
                 if (!IsPlayingASound)
                 {
                     PlaySound(CursorIconType.ToString());

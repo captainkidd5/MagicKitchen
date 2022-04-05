@@ -10,7 +10,7 @@ namespace Globals.Classes
     /// </summary>
     public class SimpleTimer
     {
-        public float CurrentTime { get; private set; }
+        private float _currentTime;
         /// <summary>
         /// If true, will reset to zero every time the target time is reached.
         /// </summary>
@@ -31,7 +31,7 @@ namespace Globals.Classes
             bool isDone = Test();
 
             if (!isDone)
-                CurrentTime += (float)gameTime.ElapsedGameTime.TotalSeconds * multiplier;
+                _currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds * multiplier;
 
 
             return isDone;
@@ -39,7 +39,7 @@ namespace Globals.Classes
 
         public void ResetToZero()
         {
-            CurrentTime = 0f;
+            _currentTime = 0f;
         }
 
         public void SetNewTargetTime(float targetTime)
@@ -49,7 +49,7 @@ namespace Globals.Classes
 
         private bool Test()
         {
-            if (CurrentTime >= TargetTime)
+            if (_currentTime >= TargetTime)
             {
                 if(RunContinuously)
                     ResetToZero();

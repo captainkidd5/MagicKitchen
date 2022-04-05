@@ -42,11 +42,10 @@ namespace SpriteEngine.Classes.Animations
         {
             if (!Paused)
             {
-                float totalDuration = AnimationFrames.Length * _intervalDuration;
-                int frame = (int)(Clock.Interval.CurrentTime / totalDuration);
+                int frame = (int)(Clock.Interval.CurrentFrame % AnimationFrames.Length);
                 if (frame != CurrentFrame)
                 {
-                    IncreaseFrames();
+                    CurrentFrame = frame;
                     FrameLastFrame = CurrentFrame;
 
                     UpdateSourceRectangle(AnimationFrames[CurrentFrame]);

@@ -16,7 +16,7 @@ namespace TiledEngine.Classes
     internal static class TileAnimationHelper
     {
 
-        public static void SwitchGidToAnimationFrame(Tile tile,TileManager tileManager, TileSetPackage tileSetPackage)
+        public static void SwitchGidToAnimationFrame(Tile tile, TileManager tileManager, TileSetPackage tileSetPackage)
         {
             Collection<TmxAnimationFrame> baseAnimationFrames = tileSetPackage.GetTmxTileSetTile(tile.GID).AnimationFrames;
 
@@ -41,7 +41,7 @@ namespace TiledEngine.Classes
                         gidToSwapTo = newGID;
                         break;
                         //Found animated gid within animation frames, swap to it and end
-                       
+
                     }
                 }
 
@@ -59,8 +59,8 @@ namespace TiledEngine.Classes
         /// </summary>
         public static void CheckForAnimationFrames(Tile tile, TileManager tileManager, TileSetPackage tileSetPackage, string propertyString)
         {
-
-            Collection<TmxAnimationFrame> animationFrames = tileSetPackage.GetTmxTileSetTile(tile.GID).AnimationFrames;
+            TmxTilesetTile tmxTileSetTile = tileSetPackage.GetTmxTileSetTile(tile.GID);
+            Collection<TmxAnimationFrame> animationFrames = tmxTileSetTile.AnimationFrames;
 
             int tileSetDimension = tileSetPackage.GetDimension(tile.GID);
             Texture2D texture = tileSetPackage.GetTexture(tile.GID);
@@ -103,8 +103,27 @@ namespace TiledEngine.Classes
                 }
                 if (tile.Layer > 1)
                     tile.Layer = tile.Layer * .1f;
-                tile.Sprite = SpriteFactory.CreateWorldIntervalAnimatedSprite(tile.Position, tile.SourceRectangle,
+
+                if (tmxTileSetTile.ObjectGroups.Count > 0)
+                {
+                    for (int k = 0; k < tmxTileSetTile.ObjectGroups[0].Objects.Count; k++)
+                    {
+                        TmxObject tempObj = tmxTileSetTile.ObjectGroups[0].Objects[k];
+                        if (tempObj.Properties.ContainsKey("destructable"))
+                        {
+                            tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
+                   texture, frames, customLayer: tile.Layer, randomizeLayers: false);
+                            return;
+                        }
+
+
+                    }
+                }
+ 
+                    tile.Sprite = SpriteFactory.CreateWorldIntervalAnimatedSprite(tile.Position, tile.SourceRectangle,
                     texture, frames, customLayer: tile.Layer, randomizeLayers: false);
+                
+
             }
 
         }
