@@ -34,7 +34,7 @@ namespace Globals.Classes.Time
             DayStatus = DayStatus.DayTime;
             SimpleTimer = new SimpleTimer(clockSpeed);
             TimeKeeper = new TimeKeeper();
-            Interval = new Interval(100);
+            Interval = new Interval();
         }
         public static void OnClockTimeChanged(TimeKeeper timeKeeper)
         {
@@ -55,10 +55,7 @@ namespace Globals.Classes.Time
             }
         }
 
-        public static void SubscribeToInterval(ITimerSubscribeable obj)
-        {
-            Interval.TimerTargetReached += obj.TimerFrameChanged;
-        }
+
 
         private static void IncrementTime(int minuteToIncrement = 10)
         {

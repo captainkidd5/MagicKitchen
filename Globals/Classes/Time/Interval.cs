@@ -14,17 +14,24 @@ namespace Globals.Classes.Time
     {
         private SimpleTimer _timer;
 
-        public event EventHandler<EventArgs> TimerTargetReached;
-        public Interval(float target)
+
+
+        public int CurrentFrame { get; private set; } = 0;
+        private const int MaxFrames = 100;
+        public Interval()
         {
-            _timer = new SimpleTimer(target / 100);
+            _timer = new SimpleTimer(.001f);
         }
 
+        public float CurrentTime => _timer.CurrentTime;
         public void Update(GameTime gameTime)
         {
             if (_timer.Run(gameTime))
             {
-                TimerTargetReached?.Invoke(this, EventArgs.Empty);
+                if (CurrentFrame >= MaxFrames)
+                    CurrentFrame = 0;         
+                else
+                    CurrentFrame++;
             }
         }
     }

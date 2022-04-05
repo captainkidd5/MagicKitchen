@@ -88,12 +88,12 @@ namespace SpriteEngine.Classes
         }
 
         public static IntervalAnimatedSprite CreateWorldIntervalAnimatedSprite(Vector2 position, Rectangle startingSourceRectangle, Texture2D texture,
-           AnimationFrame[] animationFrames, int milliseconds = 100, Color? primaryColor = null,
+           AnimationFrame[] animationFrames, float standardDuration = .15f, Color? primaryColor = null,
             Vector2? origin = null, Vector2? scale = null, float rotation = 0f, Layers layer = Layers.buildings,
            bool randomizeLayers = true, bool flip = false, float? customLayer = null, int idleFrame = -1)
         {
             return new IntervalAnimatedSprite(Graphics, Content, ElementType.World, position, startingSourceRectangle,
-                texture, animationFrames, milliseconds, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, rotation, layer,
+                texture, animationFrames, standardDuration, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, rotation, layer,
                 randomizeLayers, flip, customLayer, idleFrame);
         }
     }

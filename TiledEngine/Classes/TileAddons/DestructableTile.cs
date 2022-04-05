@@ -26,7 +26,7 @@ namespace TiledEngine.Classes.TileAddons
         {
             CursorIconType = Cursor.GetCursorIconTypeFromString(destructionType.Split(',')[0]);
             tile.CursorIconType = CursorIconType;
-            if (tile.Sprite.GetType() == typeof(AnimatedSpriteBase))
+            if (tile.Sprite.GetType() == typeof(IntervalAnimatedSprite))
             {
                 (tile.Sprite as AnimatedSpriteBase).Paused = true;
             }
