@@ -78,6 +78,11 @@
   </properties>
  </tile>
  <tile id="439">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="6" y="6" width="10" height="10">
+    <ellipse/>
+   </object>
+  </objectgroup>
   <animation>
    <frame tileid="439" duration="800"/>
    <frame tileid="259" duration="800"/>
@@ -86,6 +91,11 @@
   </animation>
  </tile>
  <tile id="440">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="5" width="11" height="11">
+    <ellipse/>
+   </object>
+  </objectgroup>
   <animation>
    <frame tileid="440" duration="800"/>
    <frame tileid="260" duration="800"/>
@@ -154,6 +164,11 @@
   </animation>
  </tile>
  <tile id="499">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="11" height="11">
+    <ellipse/>
+   </object>
+  </objectgroup>
   <animation>
    <frame tileid="499" duration="800"/>
    <frame tileid="319" duration="800"/>
@@ -162,6 +177,11 @@
   </animation>
  </tile>
  <tile id="500">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="8" y="0" width="8" height="8">
+    <ellipse/>
+   </object>
+  </objectgroup>
   <animation>
    <frame tileid="500" duration="800"/>
    <frame tileid="320" duration="800"/>

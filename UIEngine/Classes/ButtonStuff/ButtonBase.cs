@@ -108,8 +108,8 @@ namespace UIEngine.Classes.ButtonStuff
 
             if (ForegroundSprite != null)
                 ForegroundSprite.Update(gameTime, new Vector2(
-                    Position.X +  ForegroundSprite.Width / ForegroundSprite.Scale.X,
-                    Position.Y + ForegroundSprite.Height/ForegroundSprite.Scale.Y  ));
+                    Position.X +  Math.Abs(ForegroundSprite.Width * (1 - ForegroundSprite.Scale.X) / 4),
+                    Position.Y + Math.Abs(ForegroundSprite.Height* (1-ForegroundSprite.Scale.Y  )/4)));
             if (!Locked)
             {
                 BackGroundSprite.Update(gameTime, Position);

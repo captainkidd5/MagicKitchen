@@ -27,11 +27,16 @@ namespace UIEngine.Classes.ButtonStuff
             Sprite foregroundSprite, Texture2D texture,List<Text> textList, Point? samplePoint, Action buttonAction = null, bool hoverTransparency = false) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, foregroundSprite, texture, samplePoint, buttonAction, hoverTransparency)
         {
+            Text combinedtext = TextFactory.CombineText(textList, LayerDepth);
+            int width = (int)combinedtext.TotalStringWidth + 16;
+            int height = (int)combinedtext.TotalStringHeight + 32;
+            Position = new Vector2(Position.X - width/2, Position.Y - height/2);
+
             _textPositions = new List<Vector2>();
            _textList = textList;
-            GeneratePositionsForLines();
-
-            BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(position,TextFactory.CombineText(textList, LayerDepth), UI.ButtonTexture, LayerDepth,true, null, null);
+            GeneratePositionsForLines(new Vector2(Position.X + width /4, Position.Y));
+            
+            BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth,true, null, null);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
         }
@@ -40,16 +45,16 @@ namespace UIEngine.Classes.ButtonStuff
         /// Fills <see cref="_textPositions"/> for each line of text provided. Increases by height x => x.Height == text.TotalStringHeight
         /// </summary>
         /// <param name="textIndexPos">Increases each loop</param>
-        private void GeneratePositionsForLines()
+        private void GeneratePositionsForLines(Vector2 startPosition)
         {
-            Vector2 textIndexPos = Position;
-            float y = Position.Y;
+            Vector2 textIndexPos = startPosition;
+            float y = startPosition.Y;
             Rectangle backgroundRec = TotalBounds;
             for (int i = 0; i < _textList.Count; i++)
             {
                 if(_textList[i] != null && _textList[i].FullString.Contains("Pl"))
                     Console.WriteLine("test");
-                textIndexPos = Text.CenterInRectangle(backgroundRec, _textList[i]);
+                //textIndexPos = Text.CenterInRectangle(backgroundRec, _textList[i]);
                 y += _textList[i].TotalStringHeight;
                 textIndexPos = new Vector2(textIndexPos.X, y);
 
@@ -77,7 +82,7 @@ namespace UIEngine.Classes.ButtonStuff
                     text.ChangeColor(Color);
             }
             if (DidPositionChange)
-                GeneratePositionsForLines();
+                GeneratePositionsForLines(Position);
             
 
         }

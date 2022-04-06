@@ -105,10 +105,8 @@ namespace Globals.Classes
             }
             return screenRectangle;
         }
-        public static Vector2 CenterScreen()
-        {
-            return new Vector2(NativeWidth / 2, NativeHeight / 2);
-        }
+        public static Vector2 CenterScreen => new Vector2(NativeWidth / 2, NativeHeight / 2);
+
 
         
         #endregion

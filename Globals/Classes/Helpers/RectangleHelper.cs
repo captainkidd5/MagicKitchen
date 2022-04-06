@@ -13,14 +13,14 @@ namespace Globals.Classes.Helpers
         public static Vector2 CenterRectangleOnScreen(Rectangle rectangle, float? scale = null)
         {
             scale = scale ?? Settings.GameScale;
-            Vector2 centerScreen = Settings.CenterScreen();
+            Vector2 centerScreen = Settings.CenterScreen;
             Vector2 returnVal = new Vector2(centerScreen.X - rectangle.Width * (float)scale / 2, centerScreen.Y - rectangle.Height / 2 * (float)scale);
             return returnVal;
         }
         public static Vector2 CenterRectangleOnScreen(int width, int height, float? scale = null)
         {
             scale = scale ?? Settings.GameScale;
-            Vector2 centerScreen = Settings.CenterScreen();
+            Vector2 centerScreen = Settings.CenterScreen;
             return new Vector2(centerScreen.X - width / 2 * (float)scale, centerScreen.Y - height / 2 * (float)scale);
         }
 

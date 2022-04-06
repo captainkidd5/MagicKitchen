@@ -1,4 +1,5 @@
-﻿using Globals.Classes.Helpers;
+﻿using Globals.Classes;
+using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -38,17 +39,28 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         {
             _playGameAction = ChangeToViewGamesMenu;
             _exitGameAction = UI.Exit;
-            Vector2 _anchorPos = RectangleHelper.CenterRectangleOnScreen(_buttonRectangle);
-            _playButton = new NineSliceTextButton(this, graphics, content, _anchorPos, GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null, UI.ButtonTexture,
-                new List<Text>() { TextFactory.CreateUIText("Play", GetLayeringDepth(UILayeringDepths.Medium)) },
+            Vector2 _anchorPos = new Vector2(parentSection.TotalBounds.X /2, parentSection.TotalBounds.Y);
+
+            List<Text> playText = new List<Text>() { TextFactory.CreateUIText("Play", GetLayeringDepth(UILayeringDepths.Medium)) };
+            int playTextTotalWidth = (int)TextFactory.CombineText(playText, LayerDepth).TotalStringWidth;
+
+            _playButton = new NineSliceTextButton(this, graphics, content, _anchorPos,
+                GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null, UI.ButtonTexture,
+               playText,
                 null, _playGameAction, true);
-            _exitButton = new NineSliceTextButton(this, graphics, content, new Vector2(_anchorPos.X, _anchorPos.Y + 128), GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null,
-                UI.ButtonTexture, new List<Text>() { TextFactory.CreateUIText("Exit", GetLayeringDepth(UILayeringDepths.Medium)) }, null, _exitGameAction, true);
+
+            _exitButton = new NineSliceTextButton(this, graphics, content,
+                new Vector2(_anchorPos.X, _anchorPos.Y + 128), GetLayeringDepth(UILayeringDepths.Low),
+                _buttonRectangle, null,UI.ButtonTexture, new List<Text>() {
+                    TextFactory.CreateUIText("Exit", GetLayeringDepth(UILayeringDepths.Medium)) },
+                null, _exitGameAction, true);
+
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonRectangle.Width, _buttonRectangle.Height);
 
             Vector2 settingsButtonPos = new Vector2(_anchorPos.X, _anchorPos.Y + 64);
 
-            _toggleSettings = new NineSliceTextButton(this, graphics, content, new Vector2(_anchorPos.X, _anchorPos.Y + 64), GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null,
+            _toggleSettings = new NineSliceTextButton(this, graphics, content, 
+                new Vector2(_anchorPos.X, _anchorPos.Y + 64), GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null,
                 UI.ButtonTexture, new List<Text>() { TextFactory.CreateUIText("Settings", GetLayeringDepth(UILayeringDepths.Medium)) }, null, new Action(() =>
                 {
                     (parentSection as OuterMenu).ChangeState(OuterMenuState.Settings);

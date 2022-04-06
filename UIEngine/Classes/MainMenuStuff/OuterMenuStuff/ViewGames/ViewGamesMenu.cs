@@ -1,4 +1,5 @@
-﻿using Globals.Classes.Helpers;
+﻿using Globals.Classes;
+using Globals.Classes.Helpers;
 using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -34,7 +35,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
         public override void LoadContent()
         {
-            Position = RectangleHelper.CenterRectangleOnScreen(_saveSlotRectangle);
+            Position = Settings.CenterScreen;
             SaveLoadManager.FetchAllMetadata();
             Vector2 _saveSlotPosition = Position;
             _createNewGameText = TextFactory.CreateUIText("Create New", GetLayeringDepth(UILayeringDepths.Medium));

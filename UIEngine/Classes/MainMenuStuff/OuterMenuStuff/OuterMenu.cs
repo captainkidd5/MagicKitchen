@@ -112,6 +112,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         }
         public override void LoadContent()
         {
+            AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
+
+            TotalBounds = new Rectangle((int)_backGroundSpritePosition.X, (int)_backGroundSpritePosition.Y, _backGroundSourceRectangle.Width, _backGroundSourceRectangle.Height);
 
             _viewGamesMenu = new ViewGamesMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
             _viewGamesMenu.LoadContent();
@@ -129,9 +132,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
             
 
-            AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
-
-            TotalBounds = _backGroundSourceRectangle;
+          
             base.LoadContent();
 
 
