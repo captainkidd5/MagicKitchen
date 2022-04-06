@@ -43,7 +43,7 @@ namespace UIEngine.Classes
                 RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle) + new Vector2(0, -32), LayerDepth);
             _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer);
             _playerInventoryDisplay.LoadContent();
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, totalToolBarRectangle.Width, totalToolBarRectangle.Height);
+            TotalBounds = new Rectangle((int)_playerInventoryDisplay.Position.X, (int)_playerInventoryDisplay.Position.Y, totalToolBarRectangle.Width, totalToolBarRectangle.Height);
 
         }
 
@@ -51,7 +51,8 @@ namespace UIEngine.Classes
         {
 
             base.Update(gameTime);
-
+            if(Hovered)
+                Console.WriteLine("test");
 
         }
 

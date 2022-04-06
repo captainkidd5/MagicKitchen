@@ -148,6 +148,8 @@ namespace UIEngine.Classes
                     else
                     {
                         ChildSections[i].Update(gameTime);
+                        if(ChildSections[i].Hovered)
+                            Hovered = true;
 
                     }
                     if (ChildSections[i].FlaggedForRemoval)
