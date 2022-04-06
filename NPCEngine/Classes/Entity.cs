@@ -85,6 +85,8 @@ namespace EntityEngine.Classes
             Speed = StartingSpeed;
             Behaviour = new WanderBehaviour(this, StatusIcon, Navigator, null);
             _warpHelper = new WarpHelper(this);
+            InventoryHandler = new InventoryHandler(StorageCapacity);
+
         }
         public virtual void LoadContent(ItemManager itemManager)
         {
@@ -92,7 +94,7 @@ namespace EntityEngine.Classes
 
             DirectionMoving = Direction.Down;
             StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
-            InventoryHandler = new InventoryHandler(itemManager, StorageCapacity);
+            InventoryHandler.LoadContent(itemManager);
 
 
         }
@@ -410,12 +412,16 @@ namespace EntityEngine.Classes
                 writer.Write("LullabyTown");
 
             Vector2Helper.WriteVector2(writer, Position);
+
+            InventoryHandler.Save(writer);
         }
         public virtual void LoadSave(BinaryReader reader)
         {
             //throw new NotImplementedException();
             CurrentStageName = reader.ReadString();
             Move(Vector2Helper.ReadVector2(reader));
+
+            InventoryHandler.LoadSave(reader);
         }
 
         

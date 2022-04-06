@@ -69,7 +69,6 @@ namespace ItemEngine.Classes
                 writer.Write(item.Count);
 
                 Vector2Helper.WriteVector2(writer, item.Position);
-                item.Item.Save(writer);
             }
         }
 

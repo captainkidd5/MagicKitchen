@@ -17,7 +17,7 @@ using static Globals.Classes.Settings;
 
 namespace ItemEngine.Classes
 {
-    public class Item : ISaveable
+    public class Item
     {
         private readonly ItemData _itemData;
 
@@ -42,13 +42,7 @@ namespace ItemEngine.Classes
             return new Rectangle(16 * Column, 16 * Row, 16, 16);
         }
 
-        public void Save(BinaryWriter writer)
-        {
-        }
 
-        public void LoadSave(BinaryReader reader)
-        {
-        }
 
         public void CleanUp()
         {

@@ -136,7 +136,7 @@ namespace UIEngine.Classes.Storage
                 InventorySlots.Add(new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[i], slotPos,GetLayeringDepth(UILayeringDepths.Low)));
             }
 
-            ChildSections.AddRange(InventorySlots);
+            //ChildSections.AddRange(InventorySlots);
 
         }
         /// <summary>

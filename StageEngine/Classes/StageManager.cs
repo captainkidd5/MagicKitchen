@@ -146,7 +146,7 @@ namespace StageEngine.Classes
             CurrentStage = GetStage(name);
             _entityManager.LoadSave(reader);
             _entityManager.LoadContent(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
-            _player1.LoadContent(CurrentStage.ItemManager);
+            //_player1.LoadContent(CurrentStage.ItemManager);
             //Still need to load all stages for portals and graph
             foreach (KeyValuePair<string, Stage> pair in Stages)
             {

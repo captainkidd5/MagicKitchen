@@ -15,10 +15,15 @@ namespace EntityEngine.Classes
         public StorageContainer StorageContainer { get; private set; }
         public ItemManager ItemManager { get; private set; }
 
-        public InventoryHandler(ItemManager itemManager, int capacity)
+        public InventoryHandler( int capacity)
         {
             StorageContainer = new StorageContainer(capacity);
+        }
+
+        public void LoadContent(ItemManager itemManager)
+        {
             ItemManager = itemManager;
+
         }
         /// <summary>
         /// Need reference to new stage items
@@ -69,12 +74,12 @@ namespace EntityEngine.Classes
 
         public void Save(BinaryWriter writer)
         {
-            ItemManager.Save(writer);
+            StorageContainer.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
         {
-            ItemManager.LoadSave(reader);
+            StorageContainer.LoadSave(reader);
         }
 
         public void CleanUp()

@@ -142,7 +142,7 @@ namespace UIEngine.Classes
             }
             OldCursorIconType = CursorIconType;
 
-            if(DidCHeldItemChange())
+            if(_heldItemId != _oldHeldItemId)
             {
                 if(HeldItem != null)
                     SwapMouseSpriteRectangle(Item.GetItemSourceRectangle(HeldItem.Id), ItemFactory.ItemSpriteSheet, new Vector2(2f,2f));
@@ -157,9 +157,5 @@ namespace UIEngine.Classes
 
         }
 
-        public bool DidCHeldItemChange()
-        {
-            return _heldItemId != _oldHeldItemId;
-        }
     }
 }

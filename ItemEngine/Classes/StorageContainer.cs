@@ -327,12 +327,18 @@ namespace ItemEngine.Classes
 
         public void Save(BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            writer.Write(StoredCount);
+            if(StoredCount > 0)
+            {
+                writer.Write(Item.Id);
+            }
         }
 
         public void LoadSave(BinaryReader reader)
         {
-            throw new NotImplementedException();
+            StoredCount = reader.ReadInt32();
+            if(StoredCount > 0)
+                Item = ItemFactory.GetItem(reader.ReadInt32());
         }
 
         public void CleanUp()

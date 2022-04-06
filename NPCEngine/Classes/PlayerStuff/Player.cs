@@ -41,6 +41,8 @@ namespace EntityEngine.Classes.PlayerStuff
             XOffSet = 8;
             YOffSet = 16;
             _playerContainer = playerContainer;
+            InventoryHandler = new InventoryHandler(StorageCapacity);
+
         }
         public override void SwitchStage(string newStageName,  TileManager tileManager, ItemManager itemManager)
         {
