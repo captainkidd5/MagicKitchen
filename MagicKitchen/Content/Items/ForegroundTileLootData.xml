@@ -5,7 +5,7 @@
             <TileId>5525</TileId>
             <Loot>
             <Item Type="DataModels.LootData">
-            <ItemName>SwordFish</ItemName>
+            <ItemName>Stone</ItemName>
             <Quantity>2</Quantity>
             <Weight>100</Weight>
             </Item>

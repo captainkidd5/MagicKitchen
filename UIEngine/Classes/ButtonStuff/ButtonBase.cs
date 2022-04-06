@@ -107,7 +107,9 @@ namespace UIEngine.Classes.ButtonStuff
                 throw new Exception($"Forgot to add backgroundsprite to button");
 
             if (ForegroundSprite != null)
-                ForegroundSprite.Update(gameTime, Position);
+                ForegroundSprite.Update(gameTime, new Vector2(
+                    Position.X +  ForegroundSprite.Width / ForegroundSprite.Scale.X,
+                    Position.Y + ForegroundSprite.Height/ForegroundSprite.Scale.Y  ));
             if (!Locked)
             {
                 BackGroundSprite.Update(gameTime, Position);

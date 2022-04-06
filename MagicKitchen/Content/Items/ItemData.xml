@@ -44,6 +44,13 @@
             <MaxStackSize>99</MaxStackSize>
             <Price>25</Price>
         </Item>
+        <Item>
+            <Id>2501</Id>
+            <Name>Stone</Name>
+            <Description>A basic crafting material.</Description>
+            <MaxStackSize>99</MaxStackSize>
+            <Price>1</Price>
+        </Item>
 
     </Asset>
 </XnaContent>

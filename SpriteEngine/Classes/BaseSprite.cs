@@ -28,7 +28,7 @@ namespace SpriteEngine.Classes
 
         public Vector2 Origin { get; set; }
 
-        protected Vector2 Scale { get; set; }
+        public Vector2 Scale { get; protected set; }
         public float Rotation { get; set; }
 
         public float? CustomLayer { get; set; }

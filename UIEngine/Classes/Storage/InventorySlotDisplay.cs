@@ -19,10 +19,13 @@ namespace UIEngine.Classes.Storage
     internal class InventorySlotDisplay : InterfaceSection
     {
         private readonly StorageSlot _storageSlot;
+        private readonly Vector2 _itemIconSpriteScale = new Vector2(3f, 3f);
+
         private NineSliceButton Button { get; set; }
 
         private Text Text { get; set; }
 
+        private int _oldItemId;
         internal protected override bool Clicked => Button.Clicked;
         internal protected override bool RightClicked => Button.RightClicked;
 
@@ -78,14 +81,18 @@ namespace UIEngine.Classes.Storage
             {
                 Button.SwapForeGroundSprite(null);
                 Text.SetFullString(string.Empty);
+                _oldItemId = 0;
+                return;
             }
-            else
+            if (_oldItemId != item.Id)
+
             {
                 Button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
-                Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, UI.IncrementLD(LayerDepth, true), Color.White, Vector2.Zero, new Vector2(4f,4f)));
-                Text.SetFullString(count.ToString());
+                Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, UI.IncrementLD(LayerDepth, true), Color.White, Vector2.Zero, _itemIconSpriteScale));
 
             }
+                Text.SetFullString(count.ToString());
+            _oldItemId = item.Id;
         }
     }
 }
