@@ -35,7 +35,7 @@ namespace UIEngine.Classes
         /// UI elements such as escape window should not be re-activated when something like the talking window ends, even though its part of the same UI group. Default is true
         /// </summary>
         public bool NormallyActivated { get; protected set; } = true;
-        private bool _activeLastFrame { get; set; }
+        private bool _activeLastFrame;
 
         public bool WasJustActived => IsActive != _activeLastFrame;
         //Some Interface sections can contain other interface sections
@@ -81,6 +81,7 @@ namespace UIEngine.Classes
         public virtual void MovePosition(Vector2 newPos)
         {
             Position = newPos;
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, TotalBounds.Width, TotalBounds.Height);
         }
         public virtual void Activate()
         {
