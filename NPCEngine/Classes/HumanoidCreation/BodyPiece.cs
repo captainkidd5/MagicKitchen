@@ -26,7 +26,6 @@ namespace EntityEngine.Classes.HumanoidCreation
 
         protected static float WalkLeftAnimationDuration = .15f;
 
-        protected Color[] ColorScale { get; set; }
 
         protected int Index { get; set; }
 
@@ -71,8 +70,6 @@ namespace EntityEngine.Classes.HumanoidCreation
             BodyPart = (BodyParts)Enum.Parse(typeof(BodyParts), this.GetType().Name.ToString());
             LayerOffSet = GetLayerOffSet();
             ClothingBaseColor = Color.Black;
-            ColorScale = new Color[16];
-            Array.Copy(EntityFactory.StartingGrayScale, ColorScale, 16);
             Entity = entity;
 
         }

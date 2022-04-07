@@ -20,7 +20,7 @@ namespace EntityEngine.Classes
         internal static Texture2D PantsTexture;
         internal static Texture2D ShoesTexture;
 
-        internal static Color[] StartingGrayScale;
+
 
         internal static List<Color> SkinColors;
         public static void Load(ContentManager content)
@@ -39,7 +39,6 @@ namespace EntityEngine.Classes
             PantsTexture = content.Load<Texture2D>("Entities/Pants");
 
             ShoesTexture = content.Load<Texture2D>("Entities/Shoes");
-            SetStartingGrayscale();
 
           SkinColors = new List<Color>()
             {
@@ -57,16 +56,5 @@ namespace EntityEngine.Classes
             return SkinColors[Settings.Random.Next(0, SkinColors.Count)];
         }
 
-        /// <summary>
-        /// Starting grayscale is in multiples of 17 for rgb values
-        /// </summary>
-        private static void SetStartingGrayscale()
-        {
-            StartingGrayScale = new Color[16];
-            for (int i = 0; i < 16; i++)
-            {
-                StartingGrayScale[i] = new Color(i * 17, i * 17, i * 17, 255);
-            }
-        }
     }
 }

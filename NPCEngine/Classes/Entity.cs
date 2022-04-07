@@ -90,6 +90,7 @@ namespace EntityEngine.Classes
         }
         public virtual void LoadContent(ItemManager itemManager)
         {
+
             CreateBody(Position);
 
             DirectionMoving = Direction.Down;

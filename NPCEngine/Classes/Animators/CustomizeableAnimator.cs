@@ -134,7 +134,7 @@ namespace EntityEngine.Classes.Animators
             return Animations[bodyIndex].IsTransparent();
         }
 
-        public void Save(BinaryWriter writer)
+        public override void Save(BinaryWriter writer)
         {
             for (int i = 0; i < Animations.Length; i++)
             {
@@ -142,7 +142,7 @@ namespace EntityEngine.Classes.Animators
             }
         }
 
-        public void LoadSave(BinaryReader reader)
+        public override void LoadSave(BinaryReader reader)
         {
             for (int i = 0; i < Animations.Length; i++)
             {
@@ -150,7 +150,7 @@ namespace EntityEngine.Classes.Animators
             }
         }
 
-        public void CleanUp()
+        public override void CleanUp()
         {
             throw new NotImplementedException();
         }

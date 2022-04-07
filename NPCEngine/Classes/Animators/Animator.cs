@@ -99,17 +99,17 @@ namespace EntityEngine.Classes.Animators
 
         }
 
-        public void Save(BinaryWriter writer)
+        public virtual void Save(BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
-        public void LoadSave(BinaryReader reader)
+        public virtual void LoadSave(BinaryReader reader)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
-        public void CleanUp()
+        public virtual void CleanUp()
         {
             throw new NotImplementedException();
         }

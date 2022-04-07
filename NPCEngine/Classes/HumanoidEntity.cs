@@ -27,9 +27,21 @@ namespace EntityEngine.Classes
        
         public HumanoidEntity(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
+            BodyPiece[] bodyPieces = new BodyPiece[]
+           {
+                    new Pants(0),
+                    new Shoes(0),
+                    new Shirt(0),
+                    new Arms(0),
+                    new Eyes(0),
+                    new Head(0),
+                      new Hair(0),
 
+           };
+            EntityAnimator = new CustomizeableAnimator(bodyPieces);
         }
 
+        
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.NPC },
@@ -68,19 +80,9 @@ namespace EntityEngine.Classes
         public override void LoadContent(ItemManager itemManager )
         {
             base.LoadContent(itemManager);
-            BodyPiece[] bodyPieces = new BodyPiece[]
-                {
-                    new Pants(0),
-                    new Shoes(0),
-                    new Shirt(0),
-                    new Arms(0),
-                    new Eyes(0),
-                    new Head(0),
-                      new Hair(0),
+            LoadAnimations(EntityAnimator);
 
-                };
-            CustomizeableAnimator customizeableAnimator = new CustomizeableAnimator(bodyPieces);
-            LoadAnimations(customizeableAnimator);
+
 
         }
 

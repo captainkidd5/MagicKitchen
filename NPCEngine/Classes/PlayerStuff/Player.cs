@@ -60,9 +60,7 @@ namespace EntityEngine.Classes.PlayerStuff
             ChangeClothingColor(typeof(Hair), Color.Gold);
             ChangeClothingColor(typeof(Shirt), Color.BlueViolet);
 
-            Color tone1 = new Color((byte)224, (byte)172, (byte)105);
-            ChangeClothingColor(typeof(Head), tone1);
-            ChangeClothingColor(typeof(Arms), tone1);
+            ChangeSkinTone(EntityFactory.GetRandomSkinTone());
 
             ChangeClothingColor(typeof(Pants), Color.ForestGreen);
 
