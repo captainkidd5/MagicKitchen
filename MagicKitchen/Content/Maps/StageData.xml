@@ -24,5 +24,13 @@
             <AmbientSoundPackageName>Overworld_Outside</AmbientSoundPackageName>
 
         </Item>
+        <Item>
+            <Id>4</Id>
+            <Name>NormalPan</Name>
+            <Path>NormalPan.tmx</Path>
+            <MapType>Interior</MapType>
+            <AmbientSoundPackageName>Overworld_Outside</AmbientSoundPackageName>
+
+        </Item>
     </Asset>
 </XnaContent>
