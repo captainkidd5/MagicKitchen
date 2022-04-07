@@ -204,13 +204,24 @@ namespace EntityEngine.Classes
         private void CheckOnWarpStatus()
         {
             //if is warping and animator is now transparent, it means we're now ready to actually warp
-            if (EntityAnimator.IsTransparent())
+            if (IsInStage)
+            {
+                if (EntityAnimator.IsTransparent())
+                {
+                    if (_warpHelper.FinishWarpAndFinalMove(EntityAnimator, TileManager, InventoryHandler.ItemManager))
+                        RestoreEntityPhysics();
+                    else
+                        RemoveEntityPhysics();
+                }
+            }
+            else
             {
                 if (_warpHelper.FinishWarpAndFinalMove(EntityAnimator, TileManager, InventoryHandler.ItemManager))
                     RestoreEntityPhysics();
                 else
                     RemoveEntityPhysics();
             }
+            
 
         }
 

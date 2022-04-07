@@ -122,7 +122,7 @@ namespace PhysicsEngine.Classes.Pathfinding
                 currentPos = goal;
 
             // Return whether we've reached the goal or not, leeway of 2 pixels 
-            if (currentPos.X + ErrorMargin > goal.X && currentPos.Y - ErrorMargin < goal.X
+            if (currentPos.X + ErrorMargin > goal.X && currentPos.X - ErrorMargin < goal.X
                && currentPos.Y + ErrorMargin > goal.Y && currentPos.Y - ErrorMargin < goal.Y)
             {
                 return true;

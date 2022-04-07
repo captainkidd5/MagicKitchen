@@ -1,6 +1,7 @@
 ﻿using DataModels;
 using EntityEngine.Classes.NPCStuff;
 using Globals.Classes;
+using Globals.Classes.Console;
 using Globals.Classes.Helpers;
 using Globals.Classes.Time;
 using Microsoft.Xna.Framework;
@@ -67,6 +68,9 @@ namespace EntityEngine.Classes.BehaviourStuff
                 Vector2 targetpos = Scheduler.GetTargetFromSchedule(Entity.CurrentStageName, _activeSchedule, _tileManager);
 
                 base.GetPath(targetpos, _activeSchedule.StageEndLocation);
+                CommandConsole.Append($"{Entity.Name} heading to : {_activeSchedule.StageEndLocation}");
+                CommandConsole.Append($"{Entity.Name} current location : {Entity.CurrentStageName}");
+
 
 
                 if (Vector2Helper.WithinRangeOf(Entity.Position, targetpos))

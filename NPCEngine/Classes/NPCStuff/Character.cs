@@ -73,7 +73,8 @@ namespace EntityEngine.Classes.NPCStuff
             if (!UI.TalkingWindow.IsActive)
             {
                 Resume();
-            StatusIcon.SetStatus(StatusIconType.None);
+                if(StatusIcon.StatusIconType == StatusIconType.Speak)
+                  StatusIcon.SetStatus(StatusIconType.None);
 
             }
         }

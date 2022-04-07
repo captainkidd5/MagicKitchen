@@ -27,8 +27,8 @@ namespace StageEngine.Classes
 
         internal string From { get; set; }
         internal string To { get; set; }
-        internal int xOffSet;
-        internal int yOffSet;
+        internal int PortalxOffSet;
+        internal int PortalyOffSet;
 
      
         private Rectangle Rectangle { get; set; }
@@ -43,8 +43,8 @@ namespace StageEngine.Classes
             Rectangle = rectangle;
             From = from;
             To = to;
-            this.xOffSet = xOffSet;
-            this.yOffSet = yOffSet;
+            PortalxOffSet = xOffSet;
+            PortalyOffSet = yOffSet;
             _mustBeClicked = mustBeClicked;
             _directionToFace = directionToFace;
         }
@@ -73,6 +73,8 @@ namespace StageEngine.Classes
             //base.Update(gameTime);
             if(MainHullBody != null)
                MainHullBody.Body.Position = Position;
+
+            MainHullBody.Body.AngularVelocity = 0f;
             if (PlayerInClickRange)
             {
                 if (From == _entityManager.Player1.CurrentStageName)
@@ -149,8 +151,8 @@ namespace StageEngine.Classes
             writer.Write(To);
 
             RectangleHelper.WriteRectangle(writer, Rectangle);
-            writer.Write(xOffSet);
-            writer.Write(yOffSet);
+            writer.Write(PortalxOffSet);
+            writer.Write(PortalyOffSet);
             writer.Write(_mustBeClicked);
 
             writer.Write((int)_directionToFace);
@@ -164,8 +166,8 @@ namespace StageEngine.Classes
             From = reader.ReadString();
             To = reader.ReadString();
             Rectangle = RectangleHelper.ReadRectangle(reader);
-            xOffSet = reader.ReadInt32();
-            yOffSet = reader.ReadInt32();
+            PortalxOffSet = reader.ReadInt32();
+            PortalyOffSet = reader.ReadInt32();
             _mustBeClicked = reader.ReadBoolean();
             _directionToFace = (Direction)reader.ReadInt32();
         }

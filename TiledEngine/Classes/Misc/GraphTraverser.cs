@@ -74,7 +74,7 @@ namespace TiledEngine.Classes.Misc
 
             if (nodeStart.Equals(nodeEnd))
             {
-            CommandConsole.Append(string.Join(" ", localPathList));
+            //CommandConsole.Append(string.Join(" ", localPathList));
 
                 //  Console.WriteLine(string.Join(" ", localPathList));
                 nodeToReturn = localPathList[1];

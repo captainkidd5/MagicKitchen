@@ -27,7 +27,7 @@ namespace EntityEngine.Classes
         }
 
         private Vector2 _intermediateWarpPosition;
-        private string _intermediateStageTo;
+        public string IntermediateStageTo { get; private set; }
         private Direction _directionToFace;
 
 
@@ -44,7 +44,7 @@ namespace EntityEngine.Classes
 
             _entity.Move(_intermediateWarpPosition);
             if(_entity.GetType()!=typeof(Player))
-             _entity.SwitchStage(_intermediateStageTo, tileManager, itemManager);
+             _entity.SwitchStage(IntermediateStageTo, tileManager, itemManager);
             _entity.FaceDirection(_directionToFace);
             IsWarping = false;
             if (_entity.IsInStage)
@@ -62,7 +62,7 @@ namespace EntityEngine.Classes
         {
             animator.FadeOut();
 
-            _intermediateStageTo = stageTo;
+            IntermediateStageTo = stageTo;
             _intermediateWarpPosition = positionTo;
             _directionToFace = directionToFace;
 
