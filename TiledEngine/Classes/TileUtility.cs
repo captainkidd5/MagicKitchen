@@ -139,6 +139,10 @@ namespace TiledEngine.Classes
             //Will be null if animation frames were not present
             if (tile.Sprite == null)
                 tile.Sprite = SpriteFactory.CreateWorldSprite(tile.Position, tile.SourceRectangle, texture, customLayer: tile.Layer, randomizeLayers: false);
+            else
+            {
+                (tile.Sprite as AnimatedSpriteBase).CustomLayer = tile.Layer;
+            }
 
 
             tile.Load();
@@ -169,6 +173,12 @@ namespace TiledEngine.Classes
 
             else
                 tile.Layer = TileLoader.MapDepths[(int)layer];
+
+            //if(tile.Sprite.GetType() == typeof(AnimatedSpriteBase))
+            //{
+            //    AnimatedSpriteBase sprite = (AnimatedSpriteBase)tile.Sprite;
+            //    foreach(Animation)
+            //}
         }
 
         /// <summary>
