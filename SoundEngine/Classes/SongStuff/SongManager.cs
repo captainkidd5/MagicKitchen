@@ -21,7 +21,7 @@ namespace SoundEngine.Classes.SongStuff
 
         private static List<SongPackage> SongPackages { get; set; }
 
-        private static float s_musicVolume = 1f;
+        private static float s_musicVolume = 0f;
         public static float MusicVolume
         {
             get { return s_musicVolume; }

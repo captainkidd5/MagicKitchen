@@ -86,7 +86,8 @@ namespace TiledEngine.Classes
 
                         if (tileSetPackage.IsForeground(tile.GID))
                             frameToCheckGID = tileSetPackage.OffSetBackgroundGID(frameToCheckGID);
-
+                        if(tile.GID == 6975)
+                            Console.WriteLine("test");
                         TmxTilesetTile tileSetTile = tileSetPackage.GetTmxTileSetTile(frameToCheckGID);
                         if (tileSetTile != null)
                         {

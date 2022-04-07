@@ -39,7 +39,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         {
             _playGameAction = ChangeToViewGamesMenu;
             _exitGameAction = UI.Exit;
-            Vector2 _anchorPos = new Vector2(parentSection.TotalBounds.X /2, parentSection.TotalBounds.Y);
+            Vector2 _anchorPos = new Vector2(parentSection.TotalBounds.X
+                + parentSection.TotalBounds.Width /2,
+                parentSection.TotalBounds.Y + parentSection.TotalBounds.Height / 4);
 
             List<Text> playText = new List<Text>() { TextFactory.CreateUIText("Play", GetLayeringDepth(UILayeringDepths.Medium)) };
             int playTextTotalWidth = (int)TextFactory.CombineText(playText, LayerDepth).TotalStringWidth;

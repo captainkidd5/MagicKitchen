@@ -46,6 +46,9 @@ namespace Globals.Classes.Console
                 case "epath":
                     Flags.ShowEntityPaths = !Flags.ShowEntityPaths;
                     break;
+                case "grid":
+                    Flags.DebugGrid = !Flags.DebugGrid;
+                    break;
             }
         }
 

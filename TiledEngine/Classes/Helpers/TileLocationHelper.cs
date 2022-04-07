@@ -16,8 +16,9 @@ namespace TiledEngine.Classes.Helpers
         internal static void UpdateMultiplePathGrid(TileManager tileManager,Rectangle body)
         {
             //how many tiles this body spans
-            int bodyTilesWide = body.Width / Settings.TileSize;
-            int bodyTilesHigh = body.Height / Settings.TileSize;
+            int bodyTilesWide = (int)(((float)body.Width / (float)Settings.TileSize) + .5f);
+
+            int bodyTilesHigh = (int)(((float)body.Height / (float)Settings.TileSize) + .5f);
             if (bodyTilesWide < 1)
                 bodyTilesWide = 1;
 

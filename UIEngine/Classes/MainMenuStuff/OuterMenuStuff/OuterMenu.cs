@@ -112,6 +112,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         }
         public override void LoadContent()
         {
+            _createNewSaveMenu = new CreateNewSaveMenu(this, AdjustBackgroundRectangleAndBackButton(_createNewSaveMenuBackGroundRectangleDimensions), graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
+            _createNewSaveMenu.LoadContent();
             AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
 
             TotalBounds = new Rectangle((int)_backGroundSpritePosition.X, (int)_backGroundSpritePosition.Y, _backGroundSourceRectangle.Width, _backGroundSourceRectangle.Height);
@@ -119,11 +121,11 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             _viewGamesMenu = new ViewGamesMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
             _viewGamesMenu.LoadContent();
 
-            _createNewSaveMenu = new CreateNewSaveMenu(this, AdjustBackgroundRectangleAndBackButton(_createNewSaveMenuBackGroundRectangleDimensions), graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
-            _createNewSaveMenu.LoadContent();
-
             _playOrExitMenu = new PlayOrExitMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
             _playOrExitMenu.LoadContent();
+            
+
+           
 
             _outerMenuState = OuterMenuState.PlaySettingsAndExit;
             _activeSection = _playOrExitMenu;

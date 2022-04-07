@@ -87,7 +87,7 @@ namespace PhysicsEngine.Classes.Pathfinding
             {
                 for (int j = 0; j < Weight.GetLength(1); j++)
                 {
-                   // if (Weight[i, j] == (int)GridStatus.Obstructed)
+                    //if (Weight[i, j] == (int)GridStatus.Obstructed)
                         //spriteBatch.Draw(Settings.DebugTexture, new Rectangle(i * Settings.TileSize, j * Settings.TileSize, Settings.TileSize, Settings.TileSize), null, Color.Red, 0f, Vector2.One, SpriteEffects.None, layerDepth: .99f);
                 }
             }

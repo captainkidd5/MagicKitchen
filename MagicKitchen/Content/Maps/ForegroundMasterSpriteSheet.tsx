@@ -229,7 +229,7 @@
  </tile>
  <tile id="3375">
   <properties>
-   <property name="newSource" value="0,-16,16,32"/>
+   <property name="newSource" value="0,-32,16,48"/>
   </properties>
   <objectgroup draworder="index" id="3">
    <object id="2" x="5" y="9" width="6" height="6">
@@ -243,7 +243,7 @@
  </tile>
  <tile id="3376">
   <properties>
-   <property name="newSource" value="0,-16,16,32"/>
+   <property name="newSource" value="0,-32,16,48"/>
   </properties>
  </tile>
  <tile id="3661">
