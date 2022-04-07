@@ -48,7 +48,7 @@ namespace EntityEngine.Classes.NPCStuff
         {
             base.LoadContent(  itemManager);
             Behaviour = new RouteBehaviour(this, StatusIcon, Navigator, TileManager, ActiveSchedule, _npcData.Schedules, null);
-            ChangeSkinTone(EntityFactory.GetRandomSkinTone());
+          
 
 
         }

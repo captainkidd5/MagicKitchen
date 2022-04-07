@@ -22,5 +22,10 @@ namespace Globals.Classes.Helpers
         {
             return new Color(reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte());
         }
+
+        public static Color GetRandomColor()
+        {
+            return new Color(Settings.Random.Next(0, 255), Settings.Random.Next(0, 255), Settings.Random.Next(0, 255));
+        }
     }
 }

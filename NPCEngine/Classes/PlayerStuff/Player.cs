@@ -57,12 +57,8 @@ namespace EntityEngine.Classes.PlayerStuff
             IsInStage = true;
             UI.LoadPlayerInventory(StorageContainer);
 
-            ChangeClothingColor(typeof(Hair), Color.Gold);
-            ChangeClothingColor(typeof(Shirt), Color.BlueViolet);
 
-            ChangeSkinTone(EntityFactory.GetRandomSkinTone());
 
-            ChangeClothingColor(typeof(Pants), Color.ForestGreen);
 
 
 

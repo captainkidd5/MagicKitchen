@@ -3,6 +3,7 @@ using EntityEngine.Classes.HumanoidCreation;
 using EntityEngine.Classes.NPCStuff;
 using EntityEngine.Classes.PlayerStuff;
 using Globals.Classes;
+using Globals.Classes.Helpers;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -82,7 +83,13 @@ namespace EntityEngine.Classes
             base.LoadContent(itemManager);
             LoadAnimations(EntityAnimator);
 
+            ChangeClothingColor(typeof(Hair), ColorHelper.GetRandomColor());
+            ChangeClothingColor(typeof(Shirt), ColorHelper.GetRandomColor());
 
+            ChangeSkinTone(EntityFactory.GetRandomSkinTone());
+
+            ChangeClothingColor(typeof(Pants), ColorHelper.GetRandomColor());
+            ChangeClothingColor(typeof(Shoes), ColorHelper.GetRandomColor());
 
         }
 

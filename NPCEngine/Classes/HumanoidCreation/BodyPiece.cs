@@ -96,7 +96,6 @@ namespace EntityEngine.Classes.HumanoidCreation
             CurrentDirection = GetAnimationFromDirection(direction);
             if (direction != Direction.None)
             {
-                CurrentSet[CurrentDirection].UpdateColor(_tint);
                 CurrentSet[CurrentDirection].Update(gameTime, position, isMoving);
 
                 //So that the bodypart overlaps correctly, and is drawn relative to the entity's y position on the map.
@@ -180,6 +179,11 @@ namespace EntityEngine.Classes.HumanoidCreation
         {
 
             _tint = color;
+            for (int i = 0; i < CurrentSet.Length; i++)
+            {
+                CurrentSet[i].UpdateColor(_tint);
+
+            };
         }
 
         public void Save(BinaryWriter writer)
