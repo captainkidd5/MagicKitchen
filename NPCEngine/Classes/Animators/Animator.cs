@@ -1,16 +1,18 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.Animators
 {
-    internal abstract class Animator
+    internal abstract class Animator : ISaveable
     {
        
         //Half of the width of a character
@@ -95,6 +97,21 @@ namespace EntityEngine.Classes.Animators
         internal virtual void Draw(SpriteBatch spriteBatch)
         {
 
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CleanUp()
+        {
+            throw new NotImplementedException();
         }
     }
 }

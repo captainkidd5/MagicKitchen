@@ -58,6 +58,7 @@ namespace UIEngine.Classes
         public bool FlaggedForRemoval { get; set; }
         public bool FlaggedForCriticalRemoval { get; set; }
 
+        //protected Rectangle BackgroundSourceRectangle { get; set; }
 
         public InterfaceSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(graphicsDevice, content)

@@ -1,4 +1,6 @@
 ﻿using EntityEngine.Classes.Animators;
+using Globals.Classes;
+using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -6,6 +8,7 @@ using SoundEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using static Globals.Classes.Settings;
 
@@ -15,7 +18,7 @@ namespace EntityEngine.Classes.HumanoidCreation
     /// Inheriting classes must name according to <see cref="BodyParts"/> as the layer offset uses the class name to automatically
     /// grab the layer depth offset.
     /// </summary>
-    internal abstract class BodyPiece
+    internal abstract class BodyPiece : ISaveable
     {
         protected BodyParts BodyPart { get; set; }
         protected float LayerOffSet { get; set; }
@@ -34,6 +37,8 @@ namespace EntityEngine.Classes.HumanoidCreation
         private bool WasMovingLastFrame { get; set; }
         protected int FrameWidth { get; set; }
         protected int FrameHeight { get; set; }
+
+        private Color _tint = Color.White;
 
         #region WALKING
         protected AnimatedSprite[] WalkingSet { get; set; }
@@ -94,7 +99,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             CurrentDirection = GetAnimationFromDirection(direction);
             if (direction != Direction.None)
             {
-
+                CurrentSet[CurrentDirection].UpdateColor(_tint);
                 CurrentSet[CurrentDirection].Update(gameTime, position, isMoving);
 
                 //So that the bodypart overlaps correctly, and is drawn relative to the entity's y position on the map.
@@ -174,27 +179,25 @@ namespace EntityEngine.Classes.HumanoidCreation
             return CurrentSet[CurrentDirection].IsTransparent;
         }
 
-        //internal virtual void ChangeTextureColor(Color color)
-        //{
+        internal virtual void ChangeColor(Color color)
+        {
 
-        //    Color[] textureData = new Color[Texture.Width * Texture.Height];
-        //    Texture.GetData(textureData);
+            _tint = color;
+        }
 
-        //    for (int j = 0; j < textureData.Length; j++)
-        //    {
-        //        if (textureData[j]. == replaceMentColors[i])
-        //        {
-        //            wasReplaced = true;
+        public void Save(BinaryWriter writer)
+        {
+            ColorHelper.WriteColor(writer, _tint);
+        }
 
-        //            newColor = new Color(color.R, color.G, color.B);
-        //            newColor = Wardrobe.ChangeColorLevel(newColor, i);
-        //            textureData[j] = newColor;
-        //        }
-        //    }
+        public void LoadSave(BinaryReader reader)
+        {
+            _tint = ColorHelper.ReadColor(reader);  
+        }
 
-
-
-        //    Texture.SetData(textureData);
-        //}
+        public void CleanUp()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using EntityEngine.Classes.HumanoidCreation;
+using Globals.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SoundEngine.Classes;
@@ -6,6 +7,7 @@ using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using static Globals.Classes.Settings;
 
@@ -33,7 +35,7 @@ namespace EntityEngine.Classes.Animators
     /// <summary>
     /// Primarily for use with NPCS with exchangable parts, including the player
     /// </summary>
-    internal class CustomizeableAnimator : Animator
+    internal class CustomizeableAnimator : Animator, ISaveable
     {
         protected internal BodyPiece[] Animations { get; set; }
 
@@ -42,7 +44,16 @@ namespace EntityEngine.Classes.Animators
             Animations = animations;
 
         }
-
+        internal void ChangeClothingColor(Type t, Color color)
+        {
+            for(int i = 0; i < Animations.Length; i++)
+            {
+                if(Animations[i].GetType() == t)
+                {
+                    Animations[i].ChangeColor(color);
+                }
+            }
+        }
         internal override void Load(SoundModuleManager moduleManager,Entity entity, Vector2 entityPosition)
         {
             for(int i =0; i < Animations.Length; i++)
@@ -121,6 +132,27 @@ namespace EntityEngine.Classes.Animators
         internal override bool IsTransparent(int bodyIndex = 0)
         {
             return Animations[bodyIndex].IsTransparent();
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+            for (int i = 0; i < Animations.Length; i++)
+            {
+                Animations[i].Save(writer);
+            }
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            for (int i = 0; i < Animations.Length; i++)
+            {
+                Animations[i].LoadSave(reader);
+            }
+        }
+
+        public void CleanUp()
+        {
+            throw new NotImplementedException();
         }
     }
 }

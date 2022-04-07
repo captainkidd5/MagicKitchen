@@ -56,6 +56,19 @@ namespace EntityEngine.Classes.PlayerStuff
             base.LoadContent( itemManager);
             IsInStage = true;
             UI.LoadPlayerInventory(StorageContainer);
+
+            ChangeClothingColor(typeof(Hair), Color.Gold);
+            ChangeClothingColor(typeof(Shirt), Color.BlueViolet);
+
+            Color tone1 = new Color((byte)224, (byte)172, (byte)105);
+            ChangeClothingColor(typeof(Head), tone1);
+            ChangeClothingColor(typeof(Arms), tone1);
+
+            ChangeClothingColor(typeof(Pants), Color.ForestGreen);
+
+
+
+
         }
 
         protected override void CreateBody(Vector2 position)

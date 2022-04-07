@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using TiledEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
@@ -52,6 +53,18 @@ namespace EntityEngine.Classes
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
+        internal void RandomizeColorCustomization()
+        {
+            ChangeSkinTone(EntityFactory.GetRandomSkinTone());
+        }
+        internal void ChangeSkinTone(Color newSkinTone)
+        {
+            (EntityAnimator as CustomizeableAnimator).ChangeClothingColor(typeof(Head), newSkinTone);
+            (EntityAnimator as CustomizeableAnimator).ChangeClothingColor(typeof(Arms), newSkinTone);
+
+        }
+        internal void ChangeClothingColor(Type t, Color color) => 
+            (EntityAnimator as CustomizeableAnimator).ChangeClothingColor(t, color);
         public override void LoadContent(ItemManager itemManager )
         {
             base.LoadContent(itemManager);
@@ -85,5 +98,16 @@ namespace EntityEngine.Classes
             base.Draw(spriteBatch);
         }
 
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+            EntityAnimator.Save(writer);
+        }
+
+        public override void LoadSave(BinaryReader reader)
+        {
+            base.LoadSave(reader);
+            EntityAnimator.LoadSave(reader);
+        }
     }
 }
