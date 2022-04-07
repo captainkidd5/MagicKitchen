@@ -12,7 +12,7 @@ namespace EntityEngine.Classes.Animators
     internal class NPCAnimator : Animator
     {
 
-        public NPCAnimator(AnimatedSprite[] animatedSprites)
+        public NPCAnimator(Entity entity, AnimatedSprite[] animatedSprites) : base(entity)
         {
             AnimatedSprites = animatedSprites;
         }

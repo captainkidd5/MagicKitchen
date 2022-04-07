@@ -34,12 +34,14 @@ namespace EntityEngine.Classes.Animators
 
         protected bool HasLoadUpdatedOnce { get; set; }
 
+        protected Entity Entity;
         
 
-        public Animator(int xOffset = 8, int yOffset = 32)
+        public Animator(Entity entity, int xOffset = 8, int yOffset = 32)
         {
             this.xOffset = xOffset;
             this.yOffset = yOffset;
+            Entity = entity;
         }
         internal virtual void Load(SoundModuleManager moduleManager,Entity entity, Vector2 entityPosition)
         {

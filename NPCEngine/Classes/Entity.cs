@@ -67,7 +67,6 @@ namespace EntityEngine.Classes
 
         //warp
         private WarpHelper _warpHelper;
-        public bool AbleToWarp => _warpHelper.AbleToWarp;
 
         public bool IsWarping => _warpHelper.IsWarping;
 
@@ -171,7 +170,6 @@ namespace EntityEngine.Classes
         }
         public virtual new void Update(GameTime gameTime)
         {
-            _warpHelper.CheckWarp(gameTime);
             base.Update(gameTime);
             if (!ForceStop)
                 Behaviour.Update(gameTime, ref Velocity);

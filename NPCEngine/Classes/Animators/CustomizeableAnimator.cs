@@ -39,7 +39,7 @@ namespace EntityEngine.Classes.Animators
     {
         protected internal BodyPiece[] Animations { get; set; }
 
-        public CustomizeableAnimator(BodyPiece[] animations,int xOffset = 8, int yOffset =32) : base(xOffset, yOffset)
+        public CustomizeableAnimator(Entity entity, BodyPiece[] animations,int xOffset = 8, int yOffset =32) : base(entity,xOffset, yOffset)
         {
             Animations = animations;
 
@@ -90,10 +90,15 @@ namespace EntityEngine.Classes.Animators
                 isMoving = true;
             }
              Layer = SetPositionAndGetEntityLayer(position);
-            for (int i =0; i < Animations.Length; i++)
+
+            if (Entity.IsInStage)
             {
-                Animations[i].Update(gameTime, isMoving,currentDirection, Position, Layer);
+                for (int i = 0; i < Animations.Length; i++)
+                {
+                    Animations[i].Update(gameTime, isMoving, currentDirection, Position, Layer);
+                }
             }
+           
 
             if (!HasLoadUpdatedOnce)
                 LoadUpdate(gameTime);

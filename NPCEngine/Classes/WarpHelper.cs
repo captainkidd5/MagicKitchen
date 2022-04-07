@@ -16,27 +16,21 @@ namespace EntityEngine.Classes
 {
     internal class WarpHelper
     {
-        private const float TimeBetweenWarp = 6f;
-        private readonly Entity entity;
+        private readonly Entity _entity;
 
-        private SimpleTimer WarpTimer { get; set; }
-        public bool AbleToWarp { get; set; }
+
+
         public bool IsWarping { get; set; }
         public WarpHelper(Entity entity)
         {
-            WarpTimer = new SimpleTimer(TimeBetweenWarp, false);
-            this.entity = entity;
+            this._entity = entity;
         }
 
         private Vector2 _intermediateWarpPosition;
         private string _intermediateStageTo;
         private Direction _directionToFace;
 
-        public void CheckWarp(GameTime gameTime)
-        {
-            if (!AbleToWarp && WarpTimer.Run(gameTime))
-                AbleToWarp = true;
-        }
+
         /// <summary>
         /// Fades animator in, and finally actually moves the npc to the new stage
         /// </summary>
@@ -48,13 +42,12 @@ namespace EntityEngine.Classes
 
             animator.FadeIn();
 
-            entity.Move(_intermediateWarpPosition);
-            if(entity.GetType()!=typeof(Player))
-             entity.SwitchStage(_intermediateStageTo, tileManager, itemManager);
-            entity.FaceDirection(_directionToFace);
+            _entity.Move(_intermediateWarpPosition);
+            if(_entity.GetType()!=typeof(Player))
+             _entity.SwitchStage(_intermediateStageTo, tileManager, itemManager);
+            _entity.FaceDirection(_directionToFace);
             IsWarping = false;
-
-            if (entity.IsInStage)
+            if (_entity.IsInStage)
                 return true;
             
             return false;
@@ -72,9 +65,6 @@ namespace EntityEngine.Classes
             _intermediateStageTo = stageTo;
             _intermediateWarpPosition = positionTo;
             _directionToFace = directionToFace;
-            AbleToWarp = false;
-            WarpTimer.SetNewTargetTime(TimeBetweenWarp);
-            WarpTimer.ResetToZero();
 
             IsWarping = true;
         }

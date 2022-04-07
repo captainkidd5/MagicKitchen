@@ -77,18 +77,7 @@ namespace StageEngine.Classes
             {
                 if (From == _entityManager.Player1.CurrentStageName)
                 {
-                    if (!_mustBeClicked)
-                    {
-                        if (_entityManager.Player1.AbleToWarp)
-                        {
-                            _stageManager.RequestSwitchStage(To, _portalManager.GetDestinationPosition(this));
-                            _entityManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this),
-                                _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
-
-                        }
-
-                        return;
-                    }
+                   
                     if (_mustBeClicked && PlayerInClickRange && MouseHovering)
                     {
                         UI.Cursor.CursorIconType = CursorIconType.Door;
@@ -122,16 +111,28 @@ namespace StageEngine.Classes
                 {
                     //DO NOT WANT TO HANDLE COLLISIONS ACROSS SEPARATE STAGES! Make sure entity and portal are in the same stage.
                     //Ex: player should not be warping to home from within another house, even if the portal is technically at 50,50 in both places.
-                    if (entity.AbleToWarp)
-                    {
+                   
                         entity.StartWarp(To, _portalManager.GetDestinationPosition(this), _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
 
                         entity.IsInStage = To == _stageManager.CurrentStage.Name;
                         
-                    }
+                    
                 }
                 
                     
+            }
+            else if(!_mustBeClicked &&  fixtureB.CollisionCategories.HasFlag(Category.Player))
+            {
+                Entity entity = (fixtureB.Body.UserData as Entity);
+                if (From == entity.CurrentStageName)
+                {
+
+                    _stageManager.RequestSwitchStage(To, _portalManager.GetDestinationPosition(this));
+                _entityManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this),
+                    _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
+                }
+
+
             }
         }
 

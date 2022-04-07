@@ -39,7 +39,7 @@ namespace EntityEngine.Classes
                       new Hair(0),
 
            };
-            EntityAnimator = new CustomizeableAnimator(bodyPieces);
+            EntityAnimator = new CustomizeableAnimator(this, bodyPieces);
         }
 
         
