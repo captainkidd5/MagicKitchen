@@ -21,6 +21,10 @@ namespace EntityEngine.Classes
 
         internal virtual Entity GetEntity(string name) => Entities[name];
 
+        internal protected readonly string BasePath = "/entities/";
+        internal protected string Extension;
+
+        internal protected string FileLocation => BasePath + Extension;
         public EntityContainer(EntityManager entityManager,GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             Entities = new Dictionary<string, Entity>();

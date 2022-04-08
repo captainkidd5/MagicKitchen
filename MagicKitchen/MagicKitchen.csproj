@@ -36,6 +36,12 @@
     <ProjectReference Include="..\UIEngine\UIEngine.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Content\Entities\Characters\Caspar\CasparData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Entities\Characters\Oslo\OsloData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Entities\NPC\Characters\Caspar\CasparData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -20,7 +20,6 @@ namespace EntityEngine.Classes.CharacterStuff
     internal class NPCContainer : EntityContainer
     {
         private readonly QuestManager _questManager;
-        private readonly string _pathExtension = "/entities/NPC/Characters";
 
         internal static Texture2D StatusIconTexture { get; set; }
 
@@ -28,6 +27,7 @@ namespace EntityEngine.Classes.CharacterStuff
         public NPCContainer(EntityManager entityManager, GraphicsDevice graphics, ContentManager content) : base(entityManager, graphics, content)
         {
             _questManager = new QuestManager(graphics,content);
+            Extension = "NPC";
         }
 
         internal override void PlayerSwitchedStage(string stageTo)
@@ -104,7 +104,7 @@ namespace EntityEngine.Classes.CharacterStuff
         {
             List<CharacterData> allNpcData = new List<CharacterData>();
 
-            string basePath = content.RootDirectory + _pathExtension;
+            string basePath = content.RootDirectory + FileLocation;
             string[] directories = Directory.GetDirectories(basePath);
             List<Quest> allQuests = new List<Quest>();
             foreach (string directory in directories)

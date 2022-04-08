@@ -14,7 +14,10 @@ namespace DataModels
     {
         public MovementType MovementType { get; set; }
 
-        public Direction Direction { get; set; }
+        public Direction MovementDirection { get; set; }
+
+        public int StartX { get; set; }
+        public int StartY { get; set; }
         public List<int> FrameIndicies { get; set; }
     }
 }

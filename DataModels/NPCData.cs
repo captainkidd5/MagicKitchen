@@ -8,8 +8,9 @@ namespace DataModels
     {
         public string Name { get; set; }
 
-        public int Width { get; set; }
-        public int Height { get; set; }
+
+        public int SpriteWidth { get; set; }
+        public int SpriteHeight { get; set; }
 
         public List<AnimationInfo> AnimationInfo { get; set; }
     }

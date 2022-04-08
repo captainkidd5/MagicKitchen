@@ -1,66 +1,17 @@
 {
-    "Name": "Oslo",
-    "StartingStage": "LullabyTown",
-    "StartingTileX": 40,
-    "StartingTileY": 36,
-    "Schedules": [
+    "Name": "Boar",
+    "SpriteWidth": 48,
+    "SpriteHeight": 32,
+    "StartX":10,
+    "StartY": 0,
+    "AnimationInfo": [
         {
-        "Date": "Jan1,12:00_AM-12:20AM",
-        "StageEndLocation": "LullabyTown",
-        "TileX": 48,
-        "TileY": 18,
-        "Dialogue":{
-            "SpeechTree":
-                {
-                    "default": "This is my default response",
-                    "option2": "response2",
-                    "option3": "response3"
-
-
-                }
-
-                
-            
-        }
-        },
-        {
-        "Date": "Jan1,12:40_AM-1:20AM",
-        "StageEndLocation": "LullabyTown",
-        "TileX": 48,
-        "TileY": 20,
-        "Dialogue":{
-            "SpeechTree":
-                {
-                    "default": "This is my default response",
-                    "option2": "response2",
-                    "option3": "response3"
-
-
-                }
-
-                
-            
-        }
-        },
-        {
-            "Date": "Jan1,01:00_AM-1:20AM",
-            "StageEndLocation": "LullabyTown",
-            "TileX": 26,
-            "TileY": 35,
-            "Dialogue":{
-                "SpeechTree":
-                    {
-                        "default": "This is my default response",
-                        "option2": "response2",
-                        "option3": "response3"
-    
-    
-                    }
-    
-                    
-                
-            }
-            }
-
-    ]
+        "MovementType": "Walk",
+        "MovementDirection": "Up",
+        "FrameIndicies":[
+            0,1,2
+        ]
+    }
+]
 }
+    
