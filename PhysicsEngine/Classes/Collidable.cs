@@ -43,6 +43,10 @@ namespace PhysicsEngine.Classes
         protected bool PlayerInClickRange { get; private set; }
 
         public bool IsPlayingASound => SoundModuleManager.IsPlayingASound;
+
+        protected HullBody BigSensor { get; set; }
+        protected List<Category> BigSensorCollidesWithCategories { get; set; }
+
         public Collidable()
         {
             HullBodies = new List<HullBody>();

@@ -1,4 +1,4 @@
-﻿using EntityEngine.Classes.NPCStuff;
+﻿using EntityEngine.Classes.CharacterStuff;
 using Globals;
 using Globals.Classes;
 using Microsoft.Xna.Framework;

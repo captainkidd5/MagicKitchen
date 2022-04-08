@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace EntityEngine.Classes.NPCStuff.QuestStuff
+namespace EntityEngine.Classes.CharacterStuff.QuestStuff
 {
     public class QuestManager : Component
     {

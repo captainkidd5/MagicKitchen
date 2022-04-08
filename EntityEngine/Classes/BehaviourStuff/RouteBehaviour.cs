@@ -1,5 +1,5 @@
 ﻿using DataModels;
-using EntityEngine.Classes.NPCStuff;
+using EntityEngine.Classes.CharacterStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
 using Globals.Classes.Helpers;

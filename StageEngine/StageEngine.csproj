@@ -9,9 +9,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataModels\DataModels.csproj" />
+    <ProjectReference Include="..\EntityEngine\EntityEngine.csproj" />
     <ProjectReference Include="..\Globals\Globals.csproj" />
     <ProjectReference Include="..\InputEngine\InputEngine.csproj" />
-    <ProjectReference Include="..\NPCEngine\EntityEngine.csproj" />
     <ProjectReference Include="..\TiledEngine\TiledEngine.csproj" />
   </ItemGroup>
 </Project>

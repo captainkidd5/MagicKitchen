@@ -1,7 +1,7 @@
 ﻿using EntityEngine.Classes.Animators;
 using EntityEngine.Classes.BehaviourStuff;
 using EntityEngine.Classes.HumanoidCreation;
-using EntityEngine.Classes.NPCStuff;
+using EntityEngine.Classes.CharacterStuff;
 using EntityEngine.Classes.PlayerStuff;
 using Globals.Classes;
 using Globals.Classes.Helpers;
@@ -47,7 +47,6 @@ namespace EntityEngine.Classes
         public bool IsMoving { get; protected set; }
         protected bool ForceStop { get; private set; }
         //Entity gets the data representation of inventory while ui handles actual visuals
-        protected HullBody BigSensor { get; set; }
         public string CurrentStageName { get; protected set; }
         internal Animator EntityAnimator { get; set; }
         protected Navigator Navigator { get; set; }
@@ -62,7 +61,6 @@ namespace EntityEngine.Classes
         public bool IsInStage { get; 
             set; }
         protected Behaviour Behaviour { get; set; }
-        protected List<Category> BigSensorCollidesWithCategories { get; set; }
 
         private protected InventoryHandler InventoryHandler { get; set; }
         public StorageContainer StorageContainer => InventoryHandler.StorageContainer;
@@ -133,7 +131,7 @@ namespace EntityEngine.Classes
 
         protected override void CreateBody(Vector2 position)
         {
-            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.Player },
+            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.NPC },
                 new List<Category>() { Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal }, OnCollides, OnSeparates,ignoreGravity:true, blocksLight: true, userData: this);
 
             BigSensorCollidesWithCategories = new List<Category>() { Category.Item, Category.Portal, Category.Solid };

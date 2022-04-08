@@ -1,6 +1,6 @@
 ﻿using DataModels;
 using EntityEngine.Classes.PlayerStuff;
-using EntityEngine.Classes.NPCStuff;
+using EntityEngine.Classes.CharacterStuff;
 using Globals.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;

@@ -17,11 +17,11 @@ using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Filtering;
 using EntityEngine.Classes.BehaviourStuff;
 using UIEngine.Classes;
-using EntityEngine.Classes.NPCStuff.DialogueStuff;
+using EntityEngine.Classes.CharacterStuff.DialogueStuff;
 using TiledEngine.Classes;
 using ItemEngine.Classes;
 
-namespace EntityEngine.Classes.NPCStuff
+namespace EntityEngine.Classes.CharacterStuff
 {
     public delegate void CharacterClicked(Schedule schedule);
     public class Character : HumanoidEntity

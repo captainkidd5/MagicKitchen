@@ -1,4 +1,4 @@
-﻿using EntityEngine.Classes.NPCStuff;
+﻿using EntityEngine.Classes.CharacterStuff;
 using Globals.Classes;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes.Pathfinding;

@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EntityEngine.Classes.NPCStuff
+namespace EntityEngine.Classes.CharacterStuff
 {
     public enum StatusIconType
     {

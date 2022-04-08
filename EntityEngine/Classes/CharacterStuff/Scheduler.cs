@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using TiledEngine.Classes;
 
-namespace EntityEngine.Classes.NPCStuff
+namespace EntityEngine.Classes.CharacterStuff
 {
     internal static class Scheduler
     {

@@ -14,7 +14,7 @@ using SpriteEngine.Classes;
 using PhysicsEngine.Classes;
 using EntityEngine.Classes.PlayerStuff;
 using Penumbra;
-using EntityEngine.Classes.NPCStuff;
+using EntityEngine.Classes.CharacterStuff;
 using System.Diagnostics;
 using SoundEngine.Classes;
 using TiledEngine.Classes;

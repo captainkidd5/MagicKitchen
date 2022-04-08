@@ -1,4 +1,5 @@
-﻿using EntityEngine.Classes.NPCStuff;
+﻿using EntityEngine.Classes.CharacterStuff
+    ;
 using EntityEngine.Classes.PlayerStuff;
 using Globals.Classes;
 using ItemEngine.Classes;

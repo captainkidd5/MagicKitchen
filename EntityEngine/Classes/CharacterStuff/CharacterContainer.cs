@@ -1,6 +1,6 @@
 ﻿using DataModels;
 using DataModels.QuestStuff;
-using EntityEngine.Classes.NPCStuff.QuestStuff;
+using EntityEngine.Classes.CharacterStuff.QuestStuff;
 using Globals.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
@@ -12,10 +12,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using TiledEngine.Classes;
-using static EntityEngine.Classes.NPCStuff.Scheduler;
+using static EntityEngine.Classes.CharacterStuff.Scheduler;
 using static Globals.Classes.Settings;
 
-namespace EntityEngine.Classes.NPCStuff
+namespace EntityEngine.Classes.CharacterStuff
 {
     internal class CharacterContainer : EntityContainer
     {

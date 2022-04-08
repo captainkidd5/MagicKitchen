@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EntityEngine.Classes.NPCStuff.DialogueStuff
+namespace EntityEngine.Classes.CharacterStuff.DialogueStuff
 {
     public static class DialogueInterpreter
     {
