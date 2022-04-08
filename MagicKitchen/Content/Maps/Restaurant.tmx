@@ -110,7 +110,7 @@
     <property name="from" value="Restaurant"/>
     <property name="to" value="LullabyTown"/>
     <property name="xOffSet" value="0"/>
-    <property name="yOffSet" value="-48"/>
+    <property name="yOffSet" value="-16"/>
    </properties>
   </object>
  </objectgroup>

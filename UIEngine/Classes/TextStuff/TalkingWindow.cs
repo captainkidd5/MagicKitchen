@@ -44,6 +44,8 @@ namespace UIEngine.Classes.TextStuff
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+
             if (IsActive)
             {
 
@@ -65,7 +67,6 @@ namespace UIEngine.Classes.TextStuff
                 }
             }
 
-            base.Update(gameTime);
 
 
 

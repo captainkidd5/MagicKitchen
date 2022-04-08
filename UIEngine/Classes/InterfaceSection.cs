@@ -29,7 +29,17 @@ namespace UIEngine.Classes
         internal protected readonly InterfaceSection parentSection;
         protected float[] LayeringDepths;
         internal SectionState State;
-        public bool IsActive { get; protected set; }
+
+        private bool _isActive;
+        public bool IsActive
+        {
+            get { return _isActive; }
+            protected set
+            {
+                _isActive = value;
+                Hovered = false;
+            }
+        }
 
         /// <summary>
         /// UI elements such as escape window should not be re-activated when something like the talking window ends, even though its part of the same UI group. Default is true

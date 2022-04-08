@@ -50,7 +50,7 @@
  </tile>
  <tile id="1273">
   <properties>
-   <property name="newHitBox" value="0,-28,16,52"/>
+   <property name="newHitBox" value="0,-32,16,48"/>
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
  </tile>
