@@ -70,13 +70,13 @@ namespace EntityEngine.Classes
         {
             ChangeSkinTone(EntityFactory.GetRandomSkinTone());
         }
-        internal void ChangeSkinTone(Color newSkinTone)
+        internal override void ChangeSkinTone(Color newSkinTone)
         {
             (EntityAnimator as CustomizeableAnimator).ChangeClothingColor(typeof(Head), newSkinTone);
             (EntityAnimator as CustomizeableAnimator).ChangeClothingColor(typeof(Arms), newSkinTone);
 
         }
-        internal void ChangeClothingColor(Type t, Color color) => 
+        internal override void ChangeClothingColor(Type t, Color color) => 
             (EntityAnimator as CustomizeableAnimator).ChangeClothingColor(t, color);
         public override void LoadContent(ItemManager itemManager )
         {

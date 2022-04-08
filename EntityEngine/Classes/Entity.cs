@@ -88,6 +88,15 @@ namespace EntityEngine.Classes
             InventoryHandler = new InventoryHandler(StorageCapacity);
 
         }
+
+        internal virtual void ChangeSkinTone(Color newSkinTone)
+        {
+            
+        }
+        internal virtual void ChangeClothingColor(Type t, Color color)
+        {
+
+        }
         public virtual void LoadContent(ItemManager itemManager)
         {
 

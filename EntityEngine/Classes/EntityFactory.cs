@@ -20,7 +20,7 @@ namespace EntityEngine.Classes
         internal static Texture2D PantsTexture;
         internal static Texture2D ShoesTexture;
 
-
+        internal static Texture2D NPCSheet;
 
         internal static List<Color> SkinColors;
         public static void Load(ContentManager content)
@@ -40,7 +40,9 @@ namespace EntityEngine.Classes
 
             ShoesTexture = content.Load<Texture2D>("Entities/Shoes");
 
-          SkinColors = new List<Color>()
+            NPCSheet = content.Load<Texture2D>("Entities/NPC/NPCSheet");
+
+            SkinColors = new List<Color>()
             {
                 new Color(141, 85, 36),
                 new Color(198, 134, 66),
