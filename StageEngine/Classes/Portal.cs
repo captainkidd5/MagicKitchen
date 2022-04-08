@@ -14,7 +14,7 @@ using UIEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
-using static Globals.Classes.Settings;
+using static DataModels.Enums;
 
 namespace StageEngine.Classes
 

@@ -6,6 +6,7 @@ using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.HumanoidCreation
@@ -77,7 +78,7 @@ namespace EntityEngine.Classes.HumanoidCreation
 
         }
 
-        internal override void Update(GameTime gameTime, bool isMoving, Settings.Direction direction, Vector2 position, float entityLayer)
+        internal override void Update(GameTime gameTime, bool isMoving, Direction direction, Vector2 position, float entityLayer)
         {
             base.Update(gameTime, isMoving, direction, position, entityLayer);
             

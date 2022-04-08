@@ -26,6 +26,7 @@ using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
 using VelcroPhysics.Factories;
 using static Globals.Classes.Settings;
+using static DataModels.Enums;
 
 namespace EntityEngine.Classes
 {

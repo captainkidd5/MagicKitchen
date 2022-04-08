@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.Animators

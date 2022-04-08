@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes

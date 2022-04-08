@@ -21,14 +21,7 @@ namespace Globals.Classes
             UI = 1,
             World = 2
         }
-        public enum Direction
-        {
-            None = 0,
-            Up = 1,
-            Down = 2,
-            Left = 3,
-            Right = 4
-        }
+        
         public static float GetLayerDepth(Layers layerDepths)
         {
             return (float)layerDepths * .1f;

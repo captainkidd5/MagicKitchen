@@ -10,6 +10,7 @@ using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace InputEngine.Classes.Input

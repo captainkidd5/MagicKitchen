@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UIEngine.Classes.ButtonStuff;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace UIEngine.Classes.Storage

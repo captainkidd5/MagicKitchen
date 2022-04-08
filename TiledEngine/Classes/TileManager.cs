@@ -17,6 +17,7 @@ using System.Text;
 using TiledEngine.Classes.Misc;
 using TiledSharp;
 using UIEngine.Classes;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 using static TiledEngine.Classes.TileLoader;
 

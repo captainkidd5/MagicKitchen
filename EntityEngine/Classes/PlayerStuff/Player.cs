@@ -17,7 +17,7 @@ using TiledEngine.Classes;
 using UIEngine.Classes;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
-using static Globals.Classes.Settings;
+using static DataModels.Enums;
 
 namespace EntityEngine.Classes.PlayerStuff
 {

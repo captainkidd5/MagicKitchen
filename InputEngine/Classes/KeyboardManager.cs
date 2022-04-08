@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace InputEngine.Classes

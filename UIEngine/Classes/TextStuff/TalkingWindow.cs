@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Text;
 using TextEngine;
 using TextEngine.Classes;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace UIEngine.Classes.TextStuff
