@@ -22,25 +22,23 @@ namespace EntityEngine.Classes.BehaviourStuff
         private TileManager _tileManager;
         private Schedule _activeSchedule;
         private List<Schedule> _schedules;
-        private SimpleTimer _simpleTimer;
+   
 
-        private float _scheduleCheckFrequency;
 
         public string TargetLocation => _activeSchedule.StageEndLocation;
-        public RouteBehaviour(Entity entity,StatusIcon statusIcon, Navigator navigator,TileManager tileManager, Schedule activeSchedule, List<Schedule> schedules, float? scheduleCheckFrequency) : base(entity,statusIcon, navigator)
+        public RouteBehaviour(Entity entity,StatusIcon statusIcon, Navigator navigator,TileManager tileManager,
+            Schedule activeSchedule, List<Schedule> schedules, float? scheduleCheckFrequency) : base(entity,statusIcon, navigator, scheduleCheckFrequency)
         {
             _tileManager = tileManager;
             _activeSchedule = activeSchedule;
             _schedules = schedules;
-            _scheduleCheckFrequency = scheduleCheckFrequency ?? 5f;
-            _simpleTimer = new SimpleTimer(_scheduleCheckFrequency, true);
         }
 
         public override void Update(GameTime gameTime, ref Vector2 velocity)
         {
             base.Update(gameTime, ref velocity);
 
-            if (_simpleTimer.Run(gameTime))
+            if (SimpleTimer.Run(gameTime))
             {
                 CheckForUpdatedSchedule();
             }
@@ -56,10 +54,7 @@ namespace EntityEngine.Classes.BehaviourStuff
         public override void DrawDebug(SpriteBatch spriteBatch)
         {
             base.DrawDebug(spriteBatch);
-            if(Entity.IsInStage)
-                Navigator.DrawDebug(spriteBatch, Color.Green);
-            else
-                Navigator.DrawDebug(spriteBatch, Color.Red);
+         
 
         }
 

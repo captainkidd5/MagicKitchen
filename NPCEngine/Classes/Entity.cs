@@ -70,6 +70,7 @@ namespace EntityEngine.Classes
         //warp
         private WarpHelper _warpHelper;
 
+        public Point TileOn => new Point((int)(Position.X / 16), (int)(Position.Y / 16));
         public bool IsWarping => _warpHelper.IsWarping;
 
         
@@ -84,7 +85,7 @@ namespace EntityEngine.Classes
             StorageCapacity = 4;
             Navigator = new Navigator(Name);
             Speed = StartingSpeed;
-            Behaviour = new WanderBehaviour(this, StatusIcon, Navigator, null);
+            Behaviour = new WanderBehaviour(this, StatusIcon, Navigator, null, null);
             _warpHelper = new WarpHelper(this);
             InventoryHandler = new InventoryHandler(StorageCapacity);
 
@@ -171,11 +172,15 @@ namespace EntityEngine.Classes
         {
             ForceStop = false;
         }
+        protected virtual void UpdateBehaviour(GameTime gameTime)
+        {
+            if (!ForceStop)
+                Behaviour.Update(gameTime, ref Velocity);
+        }
         public virtual new void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (!ForceStop)
-                Behaviour.Update(gameTime, ref Velocity);
+            UpdateBehaviour(gameTime);
             StatusIcon.Update(gameTime, Position);
 
             IsMoving = ((Velocity != Vector2.Zero));

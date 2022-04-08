@@ -89,6 +89,10 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             //base.RemovedFromPlayerStage();
         }
+        protected override void UpdateBehaviour(GameTime gameTime)
+        {
+           // base.UpdateBehaviour(gameTime);
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

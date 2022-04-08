@@ -1,5 +1,6 @@
 ﻿using EntityEngine.Classes.NPCStuff;
 using Globals;
+using Globals.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes.Pathfinding;
@@ -17,12 +18,18 @@ namespace EntityEngine.Classes.BehaviourStuff
         protected Entity Entity;
         protected StatusIcon StatusIcon;
         protected Navigator Navigator;
+        protected SimpleTimer SimpleTimer;
 
-        public Behaviour(Entity entity,StatusIcon statusIcon, Navigator navigator)
+        protected float TimerFrequency;
+        public Behaviour(Entity entity,StatusIcon statusIcon, Navigator navigator, float? timerFrequency)
         {
             Entity = entity;
            StatusIcon = statusIcon;
             Navigator = navigator;
+            timerFrequency = timerFrequency ?? 5f;
+            SimpleTimer = new SimpleTimer(timerFrequency.Value, true);
+
+
         }
 
         public virtual void Update(GameTime gameTime, ref Vector2 velocity)
@@ -78,7 +85,10 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         public virtual void DrawDebug(SpriteBatch spriteBatch)
         {
-
+            if (Entity.IsInStage)
+                Navigator.DrawDebug(spriteBatch, Color.Green);
+            else
+                Navigator.DrawDebug(spriteBatch, Color.Red);
         }
 
         public virtual void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
