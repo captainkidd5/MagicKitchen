@@ -51,6 +51,8 @@ namespace EntityEngine.Classes
         public string CurrentStageName { get; protected set; }
         internal Animator EntityAnimator { get; set; }
         protected Navigator Navigator { get; set; }
+
+        public string TargetStage {get; internal protected set; }
         protected TileManager TileManager { get; set; }
         public string Name { get; protected set; }
         protected StatusIcon StatusIcon { get; set; }
@@ -95,6 +97,7 @@ namespace EntityEngine.Classes
             DirectionMoving = Direction.Down;
             StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
             InventoryHandler.LoadContent(itemManager);
+            TargetStage = CurrentStageName;
 
 
         }

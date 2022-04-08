@@ -25,6 +25,8 @@ namespace EntityEngine.Classes.BehaviourStuff
         private SimpleTimer _simpleTimer;
 
         private float _scheduleCheckFrequency;
+
+        public string TargetLocation => _activeSchedule.StageEndLocation;
         public RouteBehaviour(Entity entity,StatusIcon statusIcon, Navigator navigator,TileManager tileManager, Schedule activeSchedule, List<Schedule> schedules, float? scheduleCheckFrequency) : base(entity,statusIcon, navigator)
         {
             _tileManager = tileManager;
@@ -46,6 +48,9 @@ namespace EntityEngine.Classes.BehaviourStuff
                 Navigator.FollowPath(gameTime, Entity.Position, ref velocity);
             else
                 Entity.Halt();
+
+            if(_activeSchedule != null)
+            Entity.TargetStage = _activeSchedule.StageEndLocation;
         }
 
         public override void DrawDebug(SpriteBatch spriteBatch)

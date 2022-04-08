@@ -48,7 +48,6 @@ namespace EntityEngine.Classes.NPCStuff
         {
             base.LoadContent(  itemManager);
             Behaviour = new RouteBehaviour(this, StatusIcon, Navigator, TileManager, ActiveSchedule, _npcData.Schedules, null);
-          
 
 
         }
@@ -69,7 +68,7 @@ namespace EntityEngine.Classes.NPCStuff
                 }
             }
             base.Update(gameTime);
-
+             
             if (!UI.TalkingWindow.IsActive)
             {
                 Resume();

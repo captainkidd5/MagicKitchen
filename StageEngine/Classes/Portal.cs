@@ -109,7 +109,7 @@ namespace StageEngine.Classes
             if (fixtureB.CollisionCategories.HasFlag(Category.NPCBigSensor))
             {
                 HumanoidEntity entity = (fixtureB.Body.UserData as HumanoidEntity);
-                if(From == entity.CurrentStageName && To == entity.tar)
+                if(From == entity.CurrentStageName && To == entity.TargetStage)
                 {
                     //DO NOT WANT TO HANDLE COLLISIONS ACROSS SEPARATE STAGES! Make sure entity and portal are in the same stage.
                     //Ex: player should not be warping to home from within another house, even if the portal is technically at 50,50 in both places.
