@@ -26,13 +26,13 @@ namespace EntityEngine.Classes.CharacterStuff
     public delegate void CharacterClicked(Schedule schedule);
     public class Character : HumanoidEntity
     {
-        private readonly NPCData _npcData;
+        private readonly CharacterData _npcData;
 
         private bool _isInteractingWithPlayer;
         private Schedule ActiveSchedule { get; set; }
 
 
-        public Character(GraphicsDevice graphics, ContentManager content, NPCData npcsData) : base(graphics, content)
+        public Character(GraphicsDevice graphics, ContentManager content, CharacterData npcsData) : base(graphics, content)
         {
             
             _npcData = npcsData;

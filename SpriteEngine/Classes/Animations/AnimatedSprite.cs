@@ -14,7 +14,11 @@ namespace SpriteEngine.Classes.Animations
     {
         private SimpleTimer Timer { get; set; }
 
-        internal AnimatedSprite(GraphicsDevice graphics, ContentManager content, Settings.ElementType spriteType, Vector2 position, Rectangle sourceRectangle, Texture2D texture, AnimationFrame[] animationFrames, float standardDuration, Color primaryColor, Vector2 origin, Vector2 scale, float rotation, Settings.Layers layer, bool randomizeLayers, bool flip, float? customLayer, int idleFrame = -1) : base(graphics, content, spriteType, position, sourceRectangle, texture, animationFrames, standardDuration, primaryColor, origin, scale, rotation, layer, randomizeLayers, flip, customLayer, idleFrame)
+        internal AnimatedSprite(GraphicsDevice graphics, ContentManager content, Settings.ElementType spriteType, Vector2 position,
+            Rectangle sourceRectangle, Texture2D texture, AnimationFrame[] animationFrames, float standardDuration, Color primaryColor,
+            Vector2 origin, Vector2 scale,
+            float rotation, Settings.Layers layer, bool randomizeLayers, bool flip, float? customLayer, int idleFrame = -1) 
+            : base(graphics, content, spriteType, position, sourceRectangle, texture, animationFrames, standardDuration, primaryColor, origin, scale, rotation, layer, randomizeLayers, flip, customLayer, idleFrame)
         {
             Timer = new SimpleTimer(animationFrames[0].Duration);
 

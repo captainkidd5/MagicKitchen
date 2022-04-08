@@ -1,35 +1,16 @@
-﻿using DataModels.QuestStuff;
-using Microsoft.Xna.Framework.Content;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace DataModels
 {
     public class NPCData
     {
-
         public string Name { get; set; }
 
-        public string StartingStage { get; set; }
-        public int StartingTileX { get; set; }
-        public int StartingTileY { get; set; }
-        public List<Schedule> Schedules { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
 
-        //Done in a separate file, too much clutter otherwise
-        [JsonIgnore]
-        public List<Quest> Quests { get; set; }
-
-        public static NPCData GetNPCData(string characterSubDirectory, string npcName)
-        {
-
-            string npcDataName = characterSubDirectory + npcName + "data.json";
-            string jsonString = File.ReadAllText(npcDataName);
-            return JsonSerializer.Deserialize<NPCData>(jsonString);
-
-        }
+        public List<AnimationInfo> AnimationInfo { get; set; }
     }
 }

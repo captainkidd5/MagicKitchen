@@ -102,7 +102,7 @@ namespace EntityEngine.Classes.CharacterStuff
         }
         public override void LoadSave(BinaryReader reader)
         {
-            List<NPCData> allNpcData = new List<NPCData>();
+            List<CharacterData> allNpcData = new List<CharacterData>();
 
             string basePath = content.RootDirectory + _pathExtension;
             string[] directories = Directory.GetDirectories(basePath);
@@ -112,7 +112,7 @@ namespace EntityEngine.Classes.CharacterStuff
                 string npcName = directory.Split("Characters\\")[1];
 
                 string characterSubDirectory = directory + "/";
-                NPCData data = NPCData.GetNPCData(characterSubDirectory, npcName);
+                CharacterData data = CharacterData.GetCharacterData(characterSubDirectory, npcName);
 
                 List<Quest> npcQuests = Quest.GetQuests(characterSubDirectory);
                 allQuests.AddRange(npcQuests);
