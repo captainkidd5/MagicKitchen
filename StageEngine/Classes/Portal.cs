@@ -108,8 +108,8 @@ namespace StageEngine.Classes
             //If NPC big sensor collides with portal, warp them to that stage
             if (fixtureB.CollisionCategories.HasFlag(Category.NPCBigSensor))
             {
-                Entity entity = (fixtureB.Body.UserData as Entity);
-                if(From == entity.CurrentStageName)
+                HumanoidEntity entity = (fixtureB.Body.UserData as HumanoidEntity);
+                if(From == entity.CurrentStageName && To == entity.tar)
                 {
                     //DO NOT WANT TO HANDLE COLLISIONS ACROSS SEPARATE STAGES! Make sure entity and portal are in the same stage.
                     //Ex: player should not be warping to home from within another house, even if the portal is technically at 50,50 in both places.
