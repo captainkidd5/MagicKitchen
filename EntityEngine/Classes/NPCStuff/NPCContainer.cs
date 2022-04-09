@@ -1,6 +1,7 @@
 ﻿using DataModels;
 using DataModels.QuestStuff;
 using EntityEngine.Classes.CharacterStuff.QuestStuff;
+using EntityEngine.Classes.NPCStuff;
 using Globals.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
@@ -10,7 +11,9 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Text.Json;
 using TiledEngine.Classes;
 using static EntityEngine.Classes.CharacterStuff.Scheduler;
 using static Globals.Classes.Settings;
@@ -21,12 +24,11 @@ namespace EntityEngine.Classes.CharacterStuff
     {
         private readonly QuestManager _questManager;
 
-        internal static Texture2D StatusIconTexture { get; set; }
 
-
+        internal Dictionary<string, NPCData> NPCData;
         public NPCContainer(EntityManager entityManager, GraphicsDevice graphics, ContentManager content) : base(entityManager, graphics, content)
         {
-            _questManager = new QuestManager(graphics,content);
+            _questManager = new QuestManager(graphics, content);
             Extension = "NPC";
         }
 
@@ -36,15 +38,14 @@ namespace EntityEngine.Classes.CharacterStuff
         }
         internal override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
-           
-            StatusIconTexture = content.Load<Texture2D>("entities/npc/characters/statusicons");
-            base.LoadContent(stageName,tileManager,itemManager);
+
+            base.LoadContent(stageName, tileManager, itemManager);
         }
 
 
         internal override void Update(GameTime gameTime)
         {
-            foreach(KeyValuePair<string, Entity> character in Entities)
+            foreach (KeyValuePair<string, Entity> character in Entities)
             {
                 Character charac = (Character)character.Value;
                 charac.Update(gameTime);
@@ -83,7 +84,7 @@ namespace EntityEngine.Classes.CharacterStuff
                 Character charac = (Character)character.Value;
                 charac.PlayerSwitchedStage(newStage, false);
 
-                
+
             }
         }
 
@@ -91,51 +92,40 @@ namespace EntityEngine.Classes.CharacterStuff
         {
             //Test if new game because characters are initially loaded in after save/load logic, therefore the entity list is not populated
             //before first load and therefore not saved
-            if(!Flags.IsNewGame)
-            foreach (KeyValuePair<string, Entity> character in Entities)
-            {
-                Character charac = (Character)character.Value;
-                charac.Save(writer);
+            if (!Flags.IsNewGame)
+                foreach (KeyValuePair<string, Entity> character in Entities)
+                {
+                    Character charac = (Character)character.Value;
+                    charac.Save(writer);
 
 
-            }
+                }
         }
         public override void LoadSave(BinaryReader reader)
         {
-            List<CharacterData> allNpcData = new List<CharacterData>();
 
             string basePath = content.RootDirectory + FileLocation;
-            string[] directories = Directory.GetDirectories(basePath);
-            List<Quest> allQuests = new List<Quest>();
-            foreach (string directory in directories)
-            {
-                string npcName = directory.Split("Characters\\")[1];
-
-                string characterSubDirectory = directory + "/";
-                CharacterData data = CharacterData.GetCharacterData(characterSubDirectory, npcName);
-
-                List<Quest> npcQuests = Quest.GetQuests(characterSubDirectory);
-                allQuests.AddRange(npcQuests);
-                data.Quests = npcQuests;
-
-                foreach (Schedule sch in data.Schedules)
-                    sch.ConvertTimeString();
-
-                data.Schedules.Sort(0, data.Schedules.Count, new ScheduleTimeComparer());
-                Character newCharacter = new Character(graphics, content, data);
-                Entities.Add(newCharacter.Name, newCharacter);
-
-                allNpcData.Add(data);
-            }
-            _questManager.LoadQuestData(allQuests);
-            if(!Flags.IsNewGame)
-            foreach (KeyValuePair<string, Entity> character in Entities)
-            {
-                Character charac = (Character)character.Value;
-                charac.LoadSave(reader);
 
 
-            }
+
+            string jsonString = File.ReadAllText(basePath + "NPCData.json");
+            NPCData = JsonSerializer.Deserialize<List<NPCData>>(jsonString).ToDictionary(x => x.Name);
+
+
+
+            if (!Flags.IsNewGame)
+                foreach (KeyValuePair<string, Entity> character in Entities)
+                {
+                    Character charac = (Character)character.Value;
+                    charac.LoadSave(reader);
+
+
+                }
+        }
+
+        public NPC CreateNPC(string name, Vector2 position)
+        {
+            return new NPC(graphics, content, NPCData[name]);
         }
     }
 }

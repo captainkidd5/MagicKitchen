@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DataModels;
+using EntityEngine.Classes.Animators;
+using ItemEngine.Classes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,10 +16,18 @@ namespace EntityEngine.Classes.NPCStuff
 {
     internal class NPC : Entity
     {
-        public NPC(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        private readonly NPCData _npcData;
+
+        public NPC(GraphicsDevice graphics, ContentManager content, NPCData npcData) : base(graphics, content)
         {
+            _npcData = npcData;
         }
 
+        public override void LoadContent(ItemManager itemManager)
+        {
+            base.LoadContent(itemManager);
+            EntityAnimator = new NPCAnimator()
+        }
 
         protected override void CreateBody(Vector2 position)
         {
