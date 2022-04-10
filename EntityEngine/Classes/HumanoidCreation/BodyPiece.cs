@@ -157,6 +157,9 @@ namespace EntityEngine.Classes.HumanoidCreation
                 case ActionType.Walking:
                     CurrentSet = WalkingSet;
                     return;
+                case ActionType.Interact:
+                    CurrentSet = InteractSet;
+                    return;
                 default:
                     throw new Exception("Action set did not match any known sets");
             }

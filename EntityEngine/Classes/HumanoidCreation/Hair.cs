@@ -25,6 +25,9 @@ namespace EntityEngine.Classes.HumanoidCreation
             Texture = EntityFactory.HairTexture;
 
             Rectangle destinationRectangle = new Rectangle((int)entityPosition.X, (int)entityPosition.Y, FrameWidth, FrameHeight);
+
+
+            #region WALKING
             AnimationFrame[] walkUpFrames = new AnimationFrame[]
             {
                new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
@@ -72,7 +75,57 @@ namespace EntityEngine.Classes.HumanoidCreation
                 walkRightFrames);
 
             WalkingSet = new AnimatedSprite[] { WalkUp, WalkDown, WalkLeft,WalkRight };
+            #endregion
 
+            #region INTERACT
+            AnimationFrame[] interactUpFrames = new AnimationFrame[]
+            {
+               new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
+              new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
+                new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
+                new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
+               new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
+                new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
+        };
+            InteractUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                walkUpFrames);
+
+            AnimationFrame[] interactDownFrames = new AnimationFrame[]
+            {
+               new AnimationFrame(1, 0, 0, WalkDownAnimationDuration),
+              new AnimationFrame(1, 0, -1, WalkDownAnimationDuration),
+                new AnimationFrame(1, 0, -1, WalkDownAnimationDuration),
+                new AnimationFrame(1, 0, 0, WalkDownAnimationDuration),
+               new AnimationFrame(1, 0, -1, WalkDownAnimationDuration),
+                new AnimationFrame(1, 0, -1, WalkDownAnimationDuration),
+        };
+            InteractDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                walkDownFrames);
+
+            AnimationFrame[] interactLeftFrames = new AnimationFrame[]
+            {
+
+              new AnimationFrame(2, 0, 0, WalkLeftAnimationDuration,true),
+                new AnimationFrame(2, 0, 1, WalkLeftAnimationDuration,true),
+                new AnimationFrame(2, 0, 0, WalkLeftAnimationDuration,true),
+               new AnimationFrame(2, 0, 1, WalkLeftAnimationDuration,true),
+        };
+            InteractLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                walkLeftFrames);
+
+            AnimationFrame[] interactRightFrames = new AnimationFrame[]
+           {
+              new AnimationFrame(2, 0, 0, WalkLeftAnimationDuration),
+                new AnimationFrame(2, 0, 1, WalkLeftAnimationDuration),
+                new AnimationFrame(2, 0, 0, WalkLeftAnimationDuration),
+               new AnimationFrame(2, 0, 1, WalkLeftAnimationDuration),
+
+       };
+            InteractRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                walkRightFrames);
+
+            InteractSet = new AnimatedSprite[] { InteractUp, InteractDown, InteractLeft, InteractRight};
+            #endregion
 
         }
 
