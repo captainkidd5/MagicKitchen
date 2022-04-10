@@ -268,6 +268,28 @@ namespace TiledEngine.Classes
         }
 
         /// <summary>
+        /// Locates tile at given layer within search radius. Returns null if no tile found matching specified gid
+        /// </summary>ec
+        /// <param name="gid"></param>
+        /// <param name="layerToSearch"></param>
+        /// <param name="entityIndexPosition"></param>
+        /// <param name="searchRadius">5 would mean searching five tiles in all directions</param>
+        /// <returns></returns>
+        public Point? LocateTile(int gid,Layers layerToSearch, Point entityIndexPosition, int searchRadius)
+        {
+            for(int x = entityIndexPosition.X - searchRadius; x <= entityIndexPosition.X + searchRadius; x++)
+            {
+                for (int y = entityIndexPosition.X - searchRadius; y <= entityIndexPosition.X + searchRadius;y++)
+                {
+                    Tile tile = GetTileFromPoint(new Point(x, y), layerToSearch);
+                    if(tile.GID == gid)
+                        return Vector2Helper.GetTileIndexPosition(tile.Position);
+
+                }
+            }
+            return null;
+        }
+        /// <summary>
         /// Gets the tile underfoot the Npcs position, and returns the sound at layer 0, if exists
         /// </summary>
         /// <param name="position"></param>

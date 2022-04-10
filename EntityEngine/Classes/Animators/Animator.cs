@@ -58,6 +58,11 @@ namespace EntityEngine.Classes.Animators
 
         }
 
+        internal virtual void PerformAction(Direction direction, ActionType actionType)
+        {
+
+        }
+
         internal virtual void FadeOut()
         {
             foreach (AnimatedSprite sprite in AnimatedSprites)

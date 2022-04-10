@@ -40,7 +40,7 @@ namespace EntityEngine.Classes
                       new Hair(0),
 
            };
-            EntityAnimator = new CustomizeableAnimator(this, bodyPieces);
+            Animator = new CustomizeableAnimator(this, bodyPieces);
         }
 
         
@@ -73,16 +73,16 @@ namespace EntityEngine.Classes
         }
         internal override void ChangeSkinTone(Color newSkinTone)
         {
-            (EntityAnimator as CustomizeableAnimator).ChangeClothingColor(typeof(Head), newSkinTone);
-            (EntityAnimator as CustomizeableAnimator).ChangeClothingColor(typeof(Arms), newSkinTone);
+            (Animator as CustomizeableAnimator).ChangeClothingColor(typeof(Head), newSkinTone);
+            (Animator as CustomizeableAnimator).ChangeClothingColor(typeof(Arms), newSkinTone);
 
         }
         internal override void ChangeClothingColor(Type t, Color color) => 
-            (EntityAnimator as CustomizeableAnimator).ChangeClothingColor(t, color);
+            (Animator as CustomizeableAnimator).ChangeClothingColor(t, color);
         public override void LoadContent(ItemManager itemManager )
         {
             base.LoadContent(itemManager);
-            LoadAnimations(EntityAnimator);
+            LoadAnimations(Animator);
 
             ChangeClothingColor(typeof(Hair), ColorHelper.GetRandomColor());
             Color shirtColor = ColorHelper.GetRandomColor();
@@ -115,13 +115,13 @@ namespace EntityEngine.Classes
         public override void Save(BinaryWriter writer)
         {
             base.Save(writer);
-            EntityAnimator.Save(writer);
+            Animator.Save(writer);
         }
 
         public override void LoadSave(BinaryReader reader)
         {
             base.LoadSave(reader);
-            EntityAnimator.LoadSave(reader);
+            Animator.LoadSave(reader);
         }
     }
 }

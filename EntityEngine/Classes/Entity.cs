@@ -49,11 +49,11 @@ namespace EntityEngine.Classes
         protected bool ForceStop { get; private set; }
         //Entity gets the data representation of inventory while ui handles actual visuals
         public string CurrentStageName { get; protected set; }
-        internal Animator EntityAnimator { get; set; }
+        internal Animator Animator { get; set; }
         protected Navigator Navigator { get; set; }
 
         public string TargetStage {get; internal protected set; }
-        protected TileManager TileManager { get; set; }
+        internal TileManager TileManager { get; set; }
         public string Name { get; protected set; }
         protected StatusIcon StatusIcon { get; set; }
         /// <summary>
@@ -131,12 +131,12 @@ namespace EntityEngine.Classes
         public void StartWarp(string stageTo, Vector2 positionTo, TileManager tileManager, ItemManager itemManager, Direction directionToFace)
         {
             TileManager = tileManager;
-            _warpHelper.StartWarp(EntityAnimator, stageTo, positionTo, directionToFace);
+            _warpHelper.StartWarp(Animator, stageTo, positionTo, directionToFace);
         }
         internal void LoadAnimations(Animator animator)
         {
-            EntityAnimator = animator;
-            EntityAnimator.Load(SoundModuleManager, this, Position);
+            Animator = animator;
+            Animator.Load(SoundModuleManager, this, Position);
         }
 
         protected override void CreateBody(Vector2 position)
@@ -205,7 +205,7 @@ namespace EntityEngine.Classes
             BigSensor.Position = Position;
 
 
-            EntityAnimator.Update(gameTime, IsMoving, Position, DirectionMoving);
+            Animator.Update(gameTime, IsMoving, Position, DirectionMoving);
 
             if (_warpHelper.IsWarping)
                 CheckOnWarpStatus();
@@ -222,9 +222,9 @@ namespace EntityEngine.Classes
             //if is warping and animator is now transparent, it means we're now ready to actually warp
             if (IsInStage)
             {
-                if (EntityAnimator.IsTransparent())
+                if (Animator.IsTransparent())
                 {
-                    if (_warpHelper.FinishWarpAndFinalMove(EntityAnimator, TileManager, InventoryHandler.ItemManager))
+                    if (_warpHelper.FinishWarpAndFinalMove(Animator, TileManager, InventoryHandler.ItemManager))
                         RestoreEntityPhysics();
                     else
                         RemoveEntityPhysics();
@@ -232,7 +232,7 @@ namespace EntityEngine.Classes
             }
             else
             {
-                if (_warpHelper.FinishWarpAndFinalMove(EntityAnimator, TileManager, InventoryHandler.ItemManager))
+                if (_warpHelper.FinishWarpAndFinalMove(Animator, TileManager, InventoryHandler.ItemManager))
                     RestoreEntityPhysics();
                 else
                     RemoveEntityPhysics();
@@ -247,7 +247,7 @@ namespace EntityEngine.Classes
         }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            EntityAnimator.Draw(spriteBatch);
+            Animator.Draw(spriteBatch);
 #if DEBUG
             if (Flags.ShowEntityPaths)
                 Behaviour.DrawDebug(spriteBatch);
@@ -417,7 +417,10 @@ namespace EntityEngine.Classes
                     throw new Exception(directionFacing.ToString() + " is invalid");
             }
         }
-
+        protected void PerformAction(ActionType actionType)
+        {
+            Animator.PerformAction(DirectionMoving, actionType);
+        }
         protected void FaceTowardsOtherEntity(Vector2 otherEntityPos)
         {
             Direction directionToFace = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos);
@@ -426,7 +429,7 @@ namespace EntityEngine.Classes
 
         public void FaceDirection(Direction directionToFace)
         {
-            EntityAnimator.ChangeDirection(directionToFace, Position);
+            Animator.ChangeDirection(directionToFace, Position);
             DirectionMoving = directionToFace;
         }
 

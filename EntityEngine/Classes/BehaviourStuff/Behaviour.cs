@@ -10,6 +10,7 @@ using System.Text;
 using TiledEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Dynamics;
+using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.BehaviourStuff
 {
@@ -18,14 +19,16 @@ namespace EntityEngine.Classes.BehaviourStuff
         protected Entity Entity;
         protected StatusIcon StatusIcon;
         protected Navigator Navigator;
+        protected TileManager TileManager;
         protected SimpleTimer SimpleTimer;
 
         protected float TimerFrequency;
-        public Behaviour(Entity entity,StatusIcon statusIcon, Navigator navigator, float? timerFrequency)
+        public Behaviour(Entity entity,StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency)
         {
             Entity = entity;
            StatusIcon = statusIcon;
             Navigator = navigator;
+            TileManager = tileManager;
             timerFrequency = timerFrequency ?? 5f;
             SimpleTimer = new SimpleTimer(timerFrequency.Value, true);
 
@@ -83,6 +86,10 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         }
 
+        public Point? GetTilePoint(int gid, Layers layer)
+        {
+            return TileManager.LocateTile(gid, layer, Entity.TileOn, 5);
+        }
         public virtual void DrawDebug(SpriteBatch spriteBatch)
         {
             if (Entity.IsInStage)

@@ -5,13 +5,15 @@ using PhysicsEngine.Classes.Pathfinding;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TiledEngine.Classes;
 
 namespace EntityEngine.Classes.BehaviourStuff
 {
     internal class WanderBehaviour : Behaviour
     {
         private Point _wanderRange;
-        public WanderBehaviour(Entity entity, StatusIcon statusIcon, Navigator navigator, Point? wanderRange, float? timerFrequency) : base(entity, statusIcon, navigator, timerFrequency)
+        public WanderBehaviour(Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager,
+            Point? wanderRange, float? timerFrequency) : base(entity, statusIcon, navigator,tileManager, timerFrequency)
         {
             //Default range is 5
             _wanderRange = wanderRange ?? new Point(5, 5);

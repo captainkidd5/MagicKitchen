@@ -82,6 +82,15 @@ namespace EntityEngine.Classes.Animators
             }
             HasLoadUpdatedOnce = true;
         }
+
+        internal override void PerformAction(Direction direction, ActionType actionType)
+        {
+            base.PerformAction(direction, actionType);
+            for (int i = 0; i < Animations.Length; i++)
+            {
+                Animations[i].ChangeAnimation(actionType);
+            }
+        }
         public Vector2 PositionLastFrame { get; set; }
         internal override void Update(GameTime gameTime, bool isMoving, Vector2 position, Direction currentDirection)
         {
@@ -162,5 +171,7 @@ namespace EntityEngine.Classes.Animators
         {
             throw new NotImplementedException();
         }
+
+       
     }
 }
