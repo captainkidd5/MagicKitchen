@@ -26,7 +26,10 @@ namespace EntityEngine.Classes.NPCStuff
         public override void LoadContent(ItemManager itemManager)
         {
             base.LoadContent(itemManager);
-            EntityAnimator = new NPCAnimator()
+
+
+
+           // EntityAnimator = new NPCAnimator(this, )
         }
 
         protected override void CreateBody(Vector2 position)

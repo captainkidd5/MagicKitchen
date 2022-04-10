@@ -345,7 +345,7 @@
 /processorParam:TextureFormat=Color
 /build:UI/GeneralInterface.png
 
-#begin UI/MainMenu/MainMenuBackdrop.png
+#begin UI/MainMenu/EtherCreepLogo.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -355,7 +355,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:UI/MainMenu/MainMenuBackdrop.png
+/build:UI/MainMenu/EtherCreepLogo.png
 
 #begin UI/MouseIcons.png
 /importer:TextureImporter

@@ -294,4 +294,10 @@
    <frame tileid="3661" duration="100"/>
   </animation>
  </tile>
+ <tile id="6210">
+  <properties>
+   <property name="newHitBox" value="0,8,32,8"/>
+   <property name="newSource" value="0,-32,32,48"/>
+  </properties>
+ </tile>
 </tileset>
