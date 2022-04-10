@@ -22,16 +22,18 @@ namespace EntityEngine.Classes.Animators
         Hair = 9,
         Eyes = 8,
         Head = 7,
-        Arms = 6,
-        Shirt = 5,
-        Shoes = 4,
-        Pants = 3
+        Shoulders = 6,
+        Arms = 5,
+        Shirt = 4,
+        Shoes = 3,
+        Pants = 2
     }
 
     public enum ActionType
     {
         None = 0,
-        Walking = 1
+        Walking = 1,
+        Interact = 2,
     }
     /// <summary>
     /// Primarily for use with NPCS with exchangable parts, including the player

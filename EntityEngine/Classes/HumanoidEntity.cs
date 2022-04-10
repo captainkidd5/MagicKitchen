@@ -33,6 +33,7 @@ namespace EntityEngine.Classes
                     new Pants(0),
                     new Shoes(0),
                     new Shirt(0),
+                    new Shoulders(0),
                     new Arms(0),
                     new Eyes(0),
                     new Head(0),
@@ -84,7 +85,11 @@ namespace EntityEngine.Classes
             LoadAnimations(EntityAnimator);
 
             ChangeClothingColor(typeof(Hair), ColorHelper.GetRandomColor());
-            ChangeClothingColor(typeof(Shirt), ColorHelper.GetRandomColor());
+            Color shirtColor = ColorHelper.GetRandomColor();
+            ChangeClothingColor(typeof(Shirt), shirtColor);
+            ChangeClothingColor(typeof(Shoulders), shirtColor);
+
+
 
             ChangeSkinTone(EntityFactory.GetRandomSkinTone());
 

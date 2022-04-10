@@ -15,6 +15,8 @@ namespace EntityEngine.Classes
         internal static Texture2D HairTexture;
         internal static Texture2D EyesTexture;
         internal static Texture2D HeadTexture;
+        internal static Texture2D ShouldersTexture;
+
         internal static Texture2D ArmsTexture;
         internal static Texture2D ShirtTexture;
         internal static Texture2D PantsTexture;
@@ -31,6 +33,7 @@ namespace EntityEngine.Classes
             EyesTexture = content.Load<Texture2D>("Entities/Eyes");
 
             HeadTexture = content.Load<Texture2D>("Entities/Heads");
+            ShouldersTexture = content.Load<Texture2D>("Entities/Shoulders");
 
             ArmsTexture = content.Load<Texture2D>("Entities/Arms");
 

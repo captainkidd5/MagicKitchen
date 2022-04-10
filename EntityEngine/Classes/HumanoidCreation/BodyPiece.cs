@@ -49,6 +49,14 @@ namespace EntityEngine.Classes.HumanoidCreation
         protected AnimatedSprite WalkRight { get; set; }
         #endregion
 
+        #region INTERACT
+        protected AnimatedSprite[] InteractSet { get; set; }
+        protected AnimatedSprite InteractUp { get; set; }
+        protected AnimatedSprite InteractDown { get; set; }
+
+        protected AnimatedSprite InteractLeft { get; set; }
+        protected AnimatedSprite InteractRight { get; set; }
+        #endregion
 
         protected AnimatedSprite[] CurrentSet { get; set; }
         protected Texture2D Texture { get; set; }
