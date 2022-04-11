@@ -418,6 +418,15 @@ namespace EntityEngine.Classes
                     throw new Exception(directionFacing.ToString() + " is invalid");
             }
         }
+
+        internal void InteractWithTile(Point tilePoint, Layers tileLayer)
+        {
+            Tile tile = TileManager.GetTileFromPoint(tilePoint, tileLayer);
+            if (tile == null)
+                throw new Exception($"No tile at {tilePoint} at layer {tileLayer.ToString()}!");
+            tile.Interact(false);
+            
+        }
         protected void PerformAction(ActionType actionType)
         {
             Animator.PerformAction(DirectionMoving, actionType);

@@ -15,6 +15,7 @@ namespace EntityEngine.Classes.BehaviourStuff
     internal class SearchBehaviour : Behaviour
     {
         private Point _wanderRange;
+        private Point? _tileHeadingTo;
         private int _gIDGoingTo = 5343; //pumpkin
         private Layers _layerOfTile = Layers.foreground;
         public SearchBehaviour(Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, Point? wanderRange, float? timerFrequency)
@@ -49,24 +50,24 @@ namespace EntityEngine.Classes.BehaviourStuff
                                 StatusIcon.SetStatus(StatusIconType.NoPath);
                                 return;
                             }
-        
-                                Point? nearestClearPoint = Navigator.NearestClearPoint(tilePoint.Value, 9);
-                                if (nearestClearPoint != null)
+                            _tileHeadingTo = tilePoint;
+                            Point? nearestClearPoint = Navigator.NearestClearPoint(tilePoint.Value, 9);
+                            if (nearestClearPoint != null)
+                            {
+                                Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(nearestClearPoint.Value.X, nearestClearPoint.Value.Y);
+                                if (Navigator.FindPathTo(Entity.Position, tilePos))
                                 {
-                                    Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(nearestClearPoint.Value.X, nearestClearPoint.Value.Y);
-                                    if (Navigator.FindPathTo(Entity.Position, tilePos))
-                                    {
-                                        Navigator.SetTarget(tilePos);
-                                    }
+                                    Navigator.SetTarget(tilePos);
                                 }
-                                else
-                                {
-                                    StatusIcon.SetStatus(StatusIconType.NoPath);
-                                    return;
-                                }
+                            }
+                            else
+                            {
+                                StatusIcon.SetStatus(StatusIconType.NoPath);
+                                return;
+                            }
 
-                            
-                           
+
+
 
 
 
@@ -75,9 +76,21 @@ namespace EntityEngine.Classes.BehaviourStuff
 
                 }
                 if (Navigator.HasActivePath)
-                    Navigator.FollowPath(gameTime, Entity.Position, ref velocity);
+                {
+                    if (Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
+                    {
+                        Entity.InteractWithTile(_tileHeadingTo.Value, _layerOfTile);
+                        _tileHeadingTo = null;
+                    }
+
+                }
                 else
+                {
+                    _tileHeadingTo = null;
+
                     Entity.Halt();
+
+                }
             }
 
         }

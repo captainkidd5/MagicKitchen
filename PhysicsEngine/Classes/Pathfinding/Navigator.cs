@@ -53,15 +53,15 @@ namespace PhysicsEngine.Classes.Pathfinding
             TargetPosition = Vector2.Zero;
         }
         /// <summary>
-        /// Returns velocity which moves towards the next point
+        /// Returns true if reached final destination
         /// </summary>
-        public void FollowPath(GameTime gameTime,Vector2 currentPos, ref Vector2 velocity)
+        public bool FollowPath(GameTime gameTime,Vector2 currentPos, ref Vector2 velocity)
         {
             //Reached destination!
             if (CurrentPath.Count == 0)
             {
                 HasActivePath = false;
-                return;
+                return true;
             }
 
             //Make sure next destination point is at the center of the tile, not the top left corner, so we add half the tile's width to 
@@ -72,6 +72,7 @@ namespace PhysicsEngine.Classes.Pathfinding
                 CurrentPath.RemoveAt(CurrentPath.Count - 1);
 
             }
+            return false;
         }
         public void SetTarget(Vector2 targetPosition)
         {

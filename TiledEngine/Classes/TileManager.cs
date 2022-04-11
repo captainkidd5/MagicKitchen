@@ -150,7 +150,7 @@ namespace TiledEngine.Classes
             if (tileToInteractWith != null)
             {
                 if (Controls.IsClicked)
-                    tileToInteractWith.Interact();
+                    tileToInteractWith.Interact(true);
             }
             MouseOverTile = Tiles[0][MouseX, MouseY];
             TileSelectorSprite.Update(gameTime, new Vector2(MouseOverTile.DestinationRectangle.X, MouseOverTile.DestinationRectangle.Y));

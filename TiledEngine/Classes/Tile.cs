@@ -120,10 +120,10 @@ namespace TiledEngine.Classes
             foreach (ITileAddon addon in Addons)  
                 addon.Load();               
         }
-        internal void Interact()
+        public void Interact(bool isPlayer)
         {
             foreach (ITileAddon addon in Addons)
-                addon.Interact();
+                addon.Interact(isPlayer);
         }
 
         public void Unload()

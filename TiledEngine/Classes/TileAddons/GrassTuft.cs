@@ -92,7 +92,7 @@ namespace TiledEngine.Classes.TileAddons
       
         }
 
-        public void Interact()
+        public void Interact(bool isPlayer)
         {
             throw new NotImplementedException();
         }
