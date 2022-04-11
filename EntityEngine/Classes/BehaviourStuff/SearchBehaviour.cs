@@ -50,7 +50,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                                 return;
                             }
         
-                                Point? nearestClearPoint = Navigator.NearestClearPoint(tilePoint.Value, 5);
+                                Point? nearestClearPoint = Navigator.NearestClearPoint(tilePoint.Value, 9);
                                 if (nearestClearPoint != null)
                                 {
                                     Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(nearestClearPoint.Value.X, nearestClearPoint.Value.Y);

@@ -103,24 +103,63 @@ namespace PhysicsEngine.Classes.Pathfinding
         /// <returns>Returns point if found, otherwise returns null</returns>
         public Point? NearestClearPointTo(Point point, int searchRadius)
         {
-            for (int x  = point.X - searchRadius; x <= point.X + searchRadius; x++)
+            if (searchRadius % 3 != 0)
+                throw new Exception($"Search radius {searchRadius} invalid. Must be multiple of 3.");
+
+            int row = 1;
+            int col = 1;
+            int x_startIndex = -1;
+            int y_startIndex = -1;
+            //Expanding Search from center
+            for (int x = x_startIndex; x < row + 1; x++)
             {
-                if (X_IsValidIndex(x))
+                if (X_IsValidIndex(point.X + x))
                 {
-                    for (int y = point.X - searchRadius; y <= point.X + searchRadius; y++)
+                    for (int y = y_startIndex; y <col + 1; y++)
                     {
-                        if (Y_IsValidIndex(y))
+                        if (Y_IsValidIndex(point.Y + y))
                         {
-                            if (Weight[x, y] == (int)GridStatus.Clear)
-                                return new Point(x, y);
+                            if (Weight[point.X + x, point.Y + y] == (int)GridStatus.Clear)
+                                return new Point(point.X + x, point.Y + y);
 
                         }
 
                     }
                 }
-                
+                if (row == searchRadius)
+                    break;
+                if(x == row)
+                {
+                    x_startIndex--;
+                    x = x_startIndex;
+                    row++;
+
+                    y_startIndex--;
+                    col++;
+
+                }
+
+
             }
             return null;
+            //for (int x  = point.X - searchRadius; x <= point.X + searchRadius; x++)
+            //{
+            //    if (X_IsValidIndex(x))
+            //    {
+            //        for (int y = point.X - searchRadius; y <= point.X + searchRadius; y++)
+            //        {
+            //            if (Y_IsValidIndex(y))
+            //            {
+            //                if (Weight[x, y] == (int)GridStatus.Clear)
+            //                    return new Point(x, y);
+
+            //            }
+
+            //        }
+            //    }
+
+            //}
+            //return null;
         }
 
         public void DrawDebug(SpriteBatch spriteBatch)
