@@ -145,19 +145,25 @@ namespace StageEngine.Classes
             string name = reader.ReadString();
             CurrentStage = GetStage(name);
             _entityManager.LoadSave(reader);
-            _entityManager.LoadContent(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             //_player1.LoadContent(CurrentStage.ItemManager);
             //Still need to load all stages for portals and graph
             foreach (KeyValuePair<string, Stage> pair in Stages)
             {
                 pair.Value.LoadFromStageFile();
-                _entityManager.LoadEntitiesToStage(pair.Value.Name, pair.Value.TileManager, pair.Value.ItemManager);
 
                 if (pair.Value.Name != name)
                     pair.Value.Unload();
             }
+            _entityManager.LoadContent(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
+           
             TileLoader.LoadFinished();
+            foreach (KeyValuePair<string, Stage> pair in Stages)
+            {
+                _entityManager.LoadEntitiesToStage(pair.Value.Name, pair.Value.TileManager, pair.Value.ItemManager);
+
+
+            }
             _camera.Jump(_player1.Position);
             SongManager.ChangePlaylist(CurrentStage.Name);
 

@@ -349,6 +349,7 @@ namespace EntityEngine.Classes
 
             Navigator.Load(tileManager.PathGrid);
             TileManager = tileManager;
+            Behaviour.SwitchStage(TileManager);
             InventoryHandler.SwapItemManager(itemManager);
         }
 

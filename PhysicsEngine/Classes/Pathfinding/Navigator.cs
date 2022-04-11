@@ -40,6 +40,8 @@ namespace PhysicsEngine.Classes.Pathfinding
             PathGrid = pathGrid;
             PathFinder = new PathFinderFast(PathGrid.Weight);
 
+            if(pathGrid.IsClear(39,30))
+                Console.WriteLine("test");
         }
 
 

@@ -35,6 +35,12 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         }
 
+        public void SwitchStage(TileManager tileManager)
+        {
+            TileManager = tileManager;
+
+        }
+
         public virtual void Update(GameTime gameTime, ref Vector2 velocity)
         {
 
@@ -88,7 +94,7 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         public Point? GetTilePoint(int gid, Layers layer)
         {
-            return TileManager.LocateTile(gid, layer, Entity.TileOn, 5);
+            return TileManager.LocateTile(gid, layer, Entity.TileOn, 10);
         }
         public virtual void DrawDebug(SpriteBatch spriteBatch)
         {

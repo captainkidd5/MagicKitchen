@@ -282,6 +282,8 @@ namespace TiledEngine.Classes
                 for (int y = entityIndexPosition.X - searchRadius; y <= entityIndexPosition.X + searchRadius;y++)
                 {
                     Tile tile = GetTileFromPoint(new Point(x, y), layerToSearch);
+                    if(tile.GID > 5300)
+                        Console.WriteLine("test");
                     if(tile.GID == gid)
                         return Vector2Helper.GetTileIndexPosition(tile.Position);
 
