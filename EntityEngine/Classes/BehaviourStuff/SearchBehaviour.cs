@@ -41,12 +41,12 @@ namespace EntityEngine.Classes.BehaviourStuff
                     Entity.Halt();
                     Entity.FaceTowardsOtherEntity(_tileHeadingTo.Value.ToVector2());
 
-                    if (Entity.IsFacingTowardsOtherEntity(_tileHeadingTo.Value.ToVector2()))
-                    {
-                        Entity.InteractWithTile(_tileHeadingTo.Value, _layerOfTile);
-                        _tileHeadingTo = null;
-                        _readyToInteract = false;
-                    }
+                    //  if (Entity.IsFacingTowardsOtherEntity(_tileHeadingTo.Value.ToVector2()))
+                    //  {
+                    Entity.InteractWithTile(_tileHeadingTo.Value, _layerOfTile);
+                    _tileHeadingTo = null;
+                    _readyToInteract = false;
+                    //   }
                     return;
 
                 }
@@ -73,14 +73,14 @@ namespace EntityEngine.Classes.BehaviourStuff
                                 if (nearestClearPoint != null)
                                 {
                                     int distance = Navigator.PathDistance(point, nearestClearPoint.Value);
-                                    if((shortestDistance >= 0 && distance < shortestDistance) || shortestDistance < 0)
+                                    if ((shortestDistance >= 0 && distance < shortestDistance) || shortestDistance < 0)
                                     {
                                         shortestPoint = nearestClearPoint;
-                                        
+                                        _tileHeadingTo = point;
                                     }
                                 }
                             }
-                         
+
                             if (shortestPoint == null)
                             {
                                 StatusIcon.SetStatus(StatusIconType.NoPath);
@@ -88,7 +88,6 @@ namespace EntityEngine.Classes.BehaviourStuff
                             }
                             else
                             {
-                                _tileHeadingTo = shortestPoint.Value;
                                 Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(shortestPoint.Value.X, shortestPoint.Value.Y);
                                 if (Navigator.FindPathTo(Entity.Position, tilePos))
                                 {
@@ -96,19 +95,21 @@ namespace EntityEngine.Classes.BehaviourStuff
                                 }
                             }
 
-
-
-
-
-
-
-
                         }
                     }
 
                 }
                 if (Navigator.HasActivePath)
                 {
+                    //Need to make sure tile heading to hasn't been destroyed since search started
+                    if (TileManager.GetTileFromPoint(_tileHeadingTo.Value, _layerOfTile).GID != _gIDGoingTo)
+                    {
+                        Navigator.Unload();
+                        _tileHeadingTo = null;
+                        _readyToInteract = false;
+                        Entity.Halt();
+                        return;
+                    }
                     if (Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
                     {
                         _readyToInteract = true;

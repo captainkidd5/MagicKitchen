@@ -30,7 +30,7 @@ namespace TiledEngine.Classes
         //The icon the mouse should change to when hovered over this tile
         internal CursorIconType CursorIconType;
         internal TileType TileType { get; set; }
-        internal int GID { get { return gid - 1; } set { gid = value; } }
+        public int GID { get { return gid - 1; } internal set { gid = value; } }
 
         //public TileType TileType { get; set; }
         internal float Layer { get; set; }
