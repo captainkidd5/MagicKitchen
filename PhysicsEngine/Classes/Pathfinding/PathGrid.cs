@@ -138,28 +138,8 @@ namespace PhysicsEngine.Classes.Pathfinding
                     col++;
 
                 }
-
-
             }
-            return null;
-            //for (int x  = point.X - searchRadius; x <= point.X + searchRadius; x++)
-            //{
-            //    if (X_IsValidIndex(x))
-            //    {
-            //        for (int y = point.X - searchRadius; y <= point.X + searchRadius; y++)
-            //        {
-            //            if (Y_IsValidIndex(y))
-            //            {
-            //                if (Weight[x, y] == (int)GridStatus.Clear)
-            //                    return new Point(x, y);
-
-            //            }
-
-            //        }
-            //    }
-
-            //}
-            //return null;
+            return null;         
         }
 
         public void DrawDebug(SpriteBatch spriteBatch)

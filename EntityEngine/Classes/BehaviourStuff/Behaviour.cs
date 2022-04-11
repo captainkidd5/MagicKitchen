@@ -10,6 +10,7 @@ using System.Text;
 using TiledEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Dynamics;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.BehaviourStuff
@@ -92,9 +93,16 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         }
 
-        public Point? GetTilePoint(int gid, Layers layer)
+        public Point? GetTilePoint(int gid, Layers layer, SearchType searchType = SearchType.Radial)
         {
-            return TileManager.LocateTile(gid, layer, Entity.TileOn, 10);
+            if (searchType == SearchType.Radial)
+                return TileManager.LocateTile_RadialSearch(gid, layer, Entity.TileOn, 10);
+
+            else if (searchType == SearchType.Grid)
+                return TileManager.LocateTile_GridSearch(gid, layer, Entity.TileOn, 10);
+            else
+                throw new Exception($"Invalid searchtype {searchType.ToString()}");
+
         }
         public virtual void DrawDebug(SpriteBatch spriteBatch)
         {
