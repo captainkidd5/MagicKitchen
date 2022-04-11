@@ -96,6 +96,21 @@ namespace PhysicsEngine.Classes.Pathfinding
         }
 
         /// <summary>
+        /// Tests adjaceny between two points. Must be up down left or right of one another,
+        /// diagonal returns false.
+        /// </summary>
+        private bool IsAdjacentTo(Point testPoint, Point targetPoint)
+        {
+            int xDiff = Math.Abs(targetPoint.X - testPoint.X);
+            int yDiff = Math.Abs(targetPoint.Y - testPoint.Y);
+
+            if (xDiff > 0 && yDiff > 0)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
         /// TODO: Start search at point closest to point and expand outwards, rn not doing that
         /// </summary>
         /// <param name="point"></param>
@@ -103,9 +118,7 @@ namespace PhysicsEngine.Classes.Pathfinding
         /// <returns>Returns point if found, otherwise returns null</returns>
         public Point? NearestClearPointTo(Point point, int searchRadius)
         {
-            if (searchRadius % 3 != 0)
-                throw new Exception($"Search radius {searchRadius} invalid. Must be multiple of 3.");
-
+           
             int row = 1;
             int col = 1;
             int x_startIndex = -1;
@@ -119,8 +132,12 @@ namespace PhysicsEngine.Classes.Pathfinding
                     {
                         if (Y_IsValidIndex(point.Y + y))
                         {
-                            if (Weight[point.X + x, point.Y + y] == (int)GridStatus.Clear)
-                                return new Point(point.X + x, point.Y + y);
+                            if(IsAdjacentTo(new Point(point.X + x, point.Y + y), point))
+                            {
+                                if (Weight[point.X + x, point.Y + y] == (int)GridStatus.Clear)
+                                    return new Point(point.X + x, point.Y + y);
+                            }
+                            
 
                         }
 

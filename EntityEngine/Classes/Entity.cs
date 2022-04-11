@@ -431,7 +431,14 @@ namespace EntityEngine.Classes
         {
             Animator.PerformAction(DirectionMoving, actionType);
         }
-        protected void FaceTowardsOtherEntity(Vector2 otherEntityPos)
+
+        internal bool IsFacingTowardsOtherEntity(Vector2 otherEntityPos)
+        {
+            if (DirectionMoving == Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos))
+                return true;
+            return false;
+        }
+        internal void FaceTowardsOtherEntity(Vector2 otherEntityPos)
         {
             Direction directionToFace = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos);
             FaceDirection(directionToFace);

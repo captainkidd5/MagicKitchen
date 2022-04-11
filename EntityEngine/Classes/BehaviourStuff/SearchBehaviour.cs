@@ -18,6 +18,8 @@ namespace EntityEngine.Classes.BehaviourStuff
         private Point? _tileHeadingTo;
         private int _gIDGoingTo = 5343; //pumpkin
         private Layers _layerOfTile = Layers.foreground;
+
+        private bool _readyToInteract;
         public SearchBehaviour(Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, Point? wanderRange, float? timerFrequency)
             : base(entity, statusIcon, navigator, tileManager, timerFrequency)
         {
@@ -34,7 +36,20 @@ namespace EntityEngine.Classes.BehaviourStuff
             base.Update(gameTime, ref velocity);
             if (Entity.IsInStage)
             {
+                if (_readyToInteract)
+                {
+                    Entity.Halt();
+                    Entity.FaceTowardsOtherEntity(_tileHeadingTo.Value.ToVector2());
 
+                    if (Entity.IsFacingTowardsOtherEntity(_tileHeadingTo.Value.ToVector2()))
+                    {
+                        Entity.InteractWithTile(_tileHeadingTo.Value, _layerOfTile);
+                        _tileHeadingTo = null;
+                        _readyToInteract = false;
+                    }
+                        return;
+
+                }
                 if (!Navigator.HasActivePath)
                 {
                     if (_gIDGoingTo > 0)
@@ -51,7 +66,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                                 return;
                             }
                             _tileHeadingTo = tilePoint;
-                            Point? nearestClearPoint = Navigator.NearestClearPoint(tilePoint.Value, 9);
+                            Point? nearestClearPoint = Navigator.NearestClearPoint(tilePoint.Value, 3);
                             if (nearestClearPoint != null)
                             {
                                 Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(nearestClearPoint.Value.X, nearestClearPoint.Value.Y);
@@ -79,8 +94,8 @@ namespace EntityEngine.Classes.BehaviourStuff
                 {
                     if (Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
                     {
-                        Entity.InteractWithTile(_tileHeadingTo.Value, _layerOfTile);
-                        _tileHeadingTo = null;
+                        _readyToInteract = true;
+                       
                     }
 
                 }
