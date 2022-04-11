@@ -44,8 +44,7 @@ namespace PhysicsEngine.Classes.Pathfinding
             PathGrid = pathGrid;
             PathFinder = new PathFinderFast(PathGrid.Weight);
 
-            if(pathGrid.IsClear(39,30))
-                Console.WriteLine("test");
+    
         }
 
 
@@ -107,7 +106,19 @@ namespace PhysicsEngine.Classes.Pathfinding
             return true;
         }
 
-     
+        /// <summary>
+        /// Returns number of points required between two positions
+        /// </summary>
+
+        /// <returns>Returns -1 if no available path found</returns>
+        public int PathDistance(Point currentPosition, Point targetTestPos)
+        {
+            List<PathFinderNode> pathList = PathFinder.FindPath(currentPosition, targetTestPos, DebugName);
+            if (pathList == null)
+                return -1;
+            else
+                return pathList.Count;
+        }
 
         /// <summary>
         /// Draws a line between each position on the NPCs current path, resulting in a long path line representing their path. Does not draw already-traversed path

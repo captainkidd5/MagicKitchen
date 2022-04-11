@@ -249,7 +249,7 @@ namespace TiledEngine.Classes
         public Tile GetTileFromPoint(Point point, Layers layer)
         {
             if (Tiles.Count < (int)layer)
-                    throw new Exception("Tiles cannot be null");
+                throw new Exception("Tiles cannot be null");
             if (point.X >= Tiles[(int)layer].GetLength(0) || point.X < 0)
             {
                 Debug.Assert(point.X > Tiles[(int)layer].GetLength(0) || point.X < 0, $"{point.X} is outside the bounds of the array of length {Tiles[(int)layer].GetLength(0)}");
@@ -267,37 +267,7 @@ namespace TiledEngine.Classes
             return Tiles[(int)layer][point.X, point.Y];
         }
 
-        /// <summary>
-        /// Locates tile at given layer within search radius.
-        /// Searches in a grid pattern from top left to bottom right
-        /// Returns null if no tile found matching specified gid
-        /// </summary>ec
-        /// <param name="gid"></param>
-        /// <param name="layerToSearch"></param>
-        /// <param name="entityIndexPosition"></param>
-        /// <param name="searchRadius">5 would mean searching five tiles in all directions</param>
-        /// <returns></returns>
-        public Point? LocateTile_GridSearch(int gid,Layers layerToSearch, Point entityIndexPosition, int searchRadius)
-        {
-            for(int x = entityIndexPosition.X - searchRadius; x <= entityIndexPosition.X + searchRadius; x++)
-            {
-                if (X_IsValidIndex(entityIndexPosition.X + x))
-                {
-                    for (int y = entityIndexPosition.X - searchRadius; y <= entityIndexPosition.X + searchRadius; y++)
-                    {
-                        if (Y_IsValidIndex(entityIndexPosition.Y + y))
-                        {
-                            Tile tile = GetTileFromPoint(new Point(x, y), layerToSearch);
-     
-                            if (tile.GID == gid)
-                                return Vector2Helper.GetTileIndexPosition(tile.Position);
-                        }
-
-                    }
-                }
-            }
-            return null;
-        }
+       
         /// <summary>
         /// Locates tile at given layer within search radius.
         /// Searches in an expanding grid outwards from given point
@@ -308,8 +278,9 @@ namespace TiledEngine.Classes
         /// <param name="entityIndexPosition"></param>
         /// <param name="searchRadius">5 would mean searching five tiles in all directions</param>
         /// <returns></returns>
-        public Point? LocateTile_RadialSearch(int gid, Layers layerToSearch, Point entityIndexPosition, int searchRadius)
+        public List<Point> LocateTile_RadialSearch(int gid, Layers layerToSearch, Point entityIndexPosition, int searchRadius)
         {
+            List<Point> tilesFound = new List<Point>();
             int row = 1;
             int col = 1;
             int x_startIndex = -1;
@@ -327,7 +298,7 @@ namespace TiledEngine.Classes
                                 entityIndexPosition.Y + y), layerToSearch);
 
                             if (tile.GID == gid)
-                                return Vector2Helper.GetTileIndexPosition(tile.Position);
+                                tilesFound.Add(Vector2Helper.GetTileIndexPosition(tile.Position));
 
                         }
 
@@ -346,7 +317,7 @@ namespace TiledEngine.Classes
 
                 }
             }
-            return null;         
+            return tilesFound;
         }
 
         /// <summary>
@@ -438,7 +409,7 @@ namespace TiledEngine.Classes
                 {
                     for (int y = 0; y < length1; y++)
                     {
-                        Tiles[z][x, y] = new Tile(reader.ReadInt32(),(Layers)z, z, reader.ReadInt32(), reader.ReadInt32());
+                        Tiles[z][x, y] = new Tile(reader.ReadInt32(), (Layers)z, z, reader.ReadInt32(), reader.ReadInt32());
 
                     }
                 }

@@ -93,13 +93,17 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         }
 
-        public Point? GetTilePoint(int gid, Layers layer, SearchType searchType = SearchType.Radial)
+        /// <summary>
+        /// Gets list of tile points in given radius with given gid
+        /// </summary>
+
+        public List<Point> GetTilePoints(int gid, Layers layer, SearchType searchType = SearchType.Radial)
         {
             if (searchType == SearchType.Radial)
                 return TileManager.LocateTile_RadialSearch(gid, layer, Entity.TileOn, 10);
 
-            else if (searchType == SearchType.Grid)
-                return TileManager.LocateTile_GridSearch(gid, layer, Entity.TileOn, 10);
+            //else if (searchType == SearchType.Grid)
+            //    return TileManager.LocateTile_GridSearch(gid, layer, Entity.TileOn, 10);
             else
                 throw new Exception($"Invalid searchtype {searchType.ToString()}");
 

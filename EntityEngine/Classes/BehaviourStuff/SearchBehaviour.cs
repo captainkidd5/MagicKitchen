@@ -47,7 +47,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                         _tileHeadingTo = null;
                         _readyToInteract = false;
                     }
-                        return;
+                    return;
 
                 }
                 if (!Navigator.HasActivePath)
@@ -57,29 +57,46 @@ namespace EntityEngine.Classes.BehaviourStuff
 
                         if (SimpleTimer.Run(gameTime))
                         {
-
-                            //Gets point of tile trying to find. Can't walk into tile so need to find a vacant point next to one.
-                            Point? tilePoint = GetTilePoint(_gIDGoingTo, _layerOfTile);
-                            if (tilePoint == null)
+                            List<Point> tilePoints = GetTilePoints(_gIDGoingTo, _layerOfTile);
+                            if (tilePoints == null)
                             {
                                 StatusIcon.SetStatus(StatusIconType.NoPath);
                                 return;
                             }
-                            _tileHeadingTo = tilePoint;
-                            Point? nearestClearPoint = Navigator.NearestClearPoint(tilePoint.Value, 3);
-                            if (nearestClearPoint != null)
+                            //Gets point of tile trying to find. Can't walk into tile so need to find a vacant point next to one.
+                            List<Point> emptyPoints = new List<Point>();
+                            int shortestDistance = -1;
+                            Point? shortestPoint = null;
+                            foreach (Point point in tilePoints)
                             {
-                                Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(nearestClearPoint.Value.X, nearestClearPoint.Value.Y);
+                                Point? nearestClearPoint = Navigator.NearestClearPoint(point, 3);
+                                if (nearestClearPoint != null)
+                                {
+                                    int distance = Navigator.PathDistance(point, nearestClearPoint.Value);
+                                    if((shortestDistance >= 0 && distance < shortestDistance) || shortestDistance < 0)
+                                    {
+                                        shortestPoint = nearestClearPoint;
+                                        
+                                    }
+                                }
+                            }
+                         
+                            if (shortestPoint == null)
+                            {
+                                StatusIcon.SetStatus(StatusIconType.NoPath);
+                                return;
+                            }
+                            else
+                            {
+                                _tileHeadingTo = shortestPoint.Value;
+                                Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(shortestPoint.Value.X, shortestPoint.Value.Y);
                                 if (Navigator.FindPathTo(Entity.Position, tilePos))
                                 {
                                     Navigator.SetTarget(tilePos);
                                 }
                             }
-                            else
-                            {
-                                StatusIcon.SetStatus(StatusIconType.NoPath);
-                                return;
-                            }
+
+
 
 
 
@@ -95,7 +112,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                     if (Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
                     {
                         _readyToInteract = true;
-                       
+
                     }
 
                 }
