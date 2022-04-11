@@ -67,13 +67,19 @@ namespace EntityEngine.Classes.BehaviourStuff
                             List<Point> emptyPoints = new List<Point>();
                             int shortestDistance = -1;
                             Point? shortestPoint = null;
+                            bool hasCheckedFirst = false;
                             foreach (Point point in tilePoints)
                             {
                                 Point? nearestClearPoint = Navigator.NearestClearPoint(point, 3);
                                 if (nearestClearPoint != null)
                                 {
-                                    int distance = Navigator.PathDistance(point, nearestClearPoint.Value);
-                                    if ((shortestDistance >= 0 && distance < shortestDistance) || shortestDistance < 0)
+                                    int distance = Navigator.PathDistance(Vector2Helper.WorldPositionToTilePositionAsPoint(Entity.Position), nearestClearPoint.Value);
+                                    if(distance > 0 && !hasCheckedFirst)
+                                    {
+                                        shortestDistance = distance;
+                                        hasCheckedFirst = true;
+                                    }
+                                    if (shortestDistance >= 0 && distance <= shortestDistance)
                                     {
                                         shortestPoint = nearestClearPoint;
                                         _tileHeadingTo = point;
