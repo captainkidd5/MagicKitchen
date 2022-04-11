@@ -47,38 +47,80 @@ namespace PhysicsEngine.Classes.Pathfinding
         //0 empty, 1 obstructed
         public void UpdateGrid(int indexI, int indexJ, GridStatus newValue)
         {
-            if (indexI >= 0)
-            {
-                if (indexJ >= 0)
-                {
-                    if (indexI < Weight.GetLength(0) && indexJ < Weight.GetLength(1))
-                        Weight[indexI, indexJ] = (byte)newValue;
-                    return;
-                }
 
+            if (X_IsValidIndex(indexI) && Y_IsValidIndex(indexJ))
+            {
+                Weight[indexI, indexJ] = (byte)newValue;
+                return;
             }
-            //throw new IndexOutOfRangeException("Must specify two indicies which are within the bounds of " + Weight.GetLength(0) + " and " + Weight.GetLength(1));
+               
+
+            throw new IndexOutOfRangeException("Must specify two indicies which are within the bounds of " + Weight.GetLength(0) + " and " + Weight.GetLength(1));
         }
 
+        /// <summary>
+        /// Ensures X index is greater than zero and less than bounds of grid
+        /// </summary>
+        private bool X_IsValidIndex(int x)
+        {
+            if (x >= 0)
+                if (x < Weight.GetLength(0))
+                    return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Ensures Y index is greater than zero and less than bounds of grid
+        /// </summary>
+        private bool Y_IsValidIndex(int y)
+        {
+            if (y >= 0)
+                if (y < Weight.GetLength(1))
+                    return true;
+            return false;
+        }
 
         /// <returns>Returns true if specified index is not obstructed</returns>
         public bool IsClear(int indexI, int indexJ)
         {
-            if (indexI >= 0)
+
+            if (X_IsValidIndex(indexI) && Y_IsValidIndex(indexJ))
             {
-                if (indexJ >= 0)
-                {
-                    if (indexI < Weight.GetLength(0) && indexJ < Weight.GetLength(1))
-                    {
-                        if (Weight[indexI, indexJ] == (int)GridStatus.Clear)
-                            return true;
-                        return false;
-                    }
-
-                }
-
+                if (Weight[indexI, indexJ] == (int)GridStatus.Clear)
+                    return true;
+                return false;
             }
+
             throw new IndexOutOfRangeException("Must specify two indicies which are within the bounds of " + Weight.GetLength(0) + " and " + Weight.GetLength(1));
+
+        }
+
+        /// <summary>
+        /// TODO: Start search at point closest to point and expand outwards, rn not doing that
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="searchRadius"></param>
+        /// <returns>Returns point if found, otherwise returns null</returns>
+        public Point? NearestClearPointTo(Point point, int searchRadius)
+        {
+            for (int x  = point.X - searchRadius; x <= point.X + searchRadius; x++)
+            {
+                if (X_IsValidIndex(x))
+                {
+                    for (int y = point.X - searchRadius; y <= point.X + searchRadius; y++)
+                    {
+                        if (Y_IsValidIndex(y))
+                        {
+                            if (Weight[x, y] == (int)GridStatus.Clear)
+                                return new Point(x, y);
+
+                        }
+
+                    }
+                }
+                
+            }
+            return null;
         }
 
         public void DrawDebug(SpriteBatch spriteBatch)
@@ -88,7 +130,7 @@ namespace PhysicsEngine.Classes.Pathfinding
                 for (int j = 0; j < Weight.GetLength(1); j++)
                 {
                     //if (Weight[i, j] == (int)GridStatus.Obstructed)
-                        //spriteBatch.Draw(Settings.DebugTexture, new Rectangle(i * Settings.TileSize, j * Settings.TileSize, Settings.TileSize, Settings.TileSize), null, Color.Red, 0f, Vector2.One, SpriteEffects.None, layerDepth: .99f);
+                    //spriteBatch.Draw(Settings.DebugTexture, new Rectangle(i * Settings.TileSize, j * Settings.TileSize, Settings.TileSize, Settings.TileSize), null, Color.Red, 0f, Vector2.One, SpriteEffects.None, layerDepth: .99f);
                 }
             }
         }

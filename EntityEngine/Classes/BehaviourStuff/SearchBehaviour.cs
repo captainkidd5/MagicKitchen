@@ -15,7 +15,7 @@ namespace EntityEngine.Classes.BehaviourStuff
     internal class SearchBehaviour : Behaviour
     {
         private Point _wanderRange;
-        private int _gIDGoingTo;
+        private int _gIDGoingTo = 5343; //pumpkin
         private Layers _layerOfTile;
         public SearchBehaviour(Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, Point? wanderRange, float? timerFrequency)
             : base(entity, statusIcon, navigator, tileManager, timerFrequency)
@@ -38,17 +38,35 @@ namespace EntityEngine.Classes.BehaviourStuff
 
                     if (SimpleTimer.Run(gameTime))
                     {
+
+                        //Gets point of tile trying to find. Can't walk into tile so need to find a vacant point next to one.
                         Point? tilePoint = GetTilePoint(_gIDGoingTo, _layerOfTile);
-                        if(tilePoint == null)
+                        if (tilePoint == null)
                         {
                             StatusIcon.SetStatus(StatusIconType.NoPath);
                             return;
                         }
-                        Vector2 tilePos =  Vector2Helper.GetWorldPositionFromTileIndex(tilePoint.Value.X, tilePoint.Value.Y);
-                        if (Navigator.FindPathTo(Entity.Position, tilePos))
+                        if (Navigator.IsClear(tilePoint.Value))
                         {
-                            Navigator.SetTarget(tilePos);
+                            Point? nearestClearPoint = Navigator.NearestClearPoint(tilePoint.Value, 5);
+                            if (nearestClearPoint != null)
+                            {
+                                Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(tilePoint.Value.X, tilePoint.Value.Y);
+                                if (Navigator.FindPathTo(Entity.Position, tilePos))
+                                {
+                                    Navigator.SetTarget(tilePos);
+                                }
+                            }
+
                         }
+                        else
+                        {
+                            StatusIcon.SetStatus(StatusIconType.NoPath);
+                            return;
+                        }
+
+                       
+                       
                     }
                 }
 

@@ -84,7 +84,7 @@ namespace EntityEngine.Classes
             StorageCapacity = 4;
             Navigator = new Navigator(Name);
             Speed = StartingSpeed;
-            Behaviour = new WanderBehaviour(this, StatusIcon, Navigator, null, null);
+            Behaviour = new WanderBehaviour(this, StatusIcon, Navigator,TileManager, null, null);
             _warpHelper = new WarpHelper(this);
             InventoryHandler = new InventoryHandler(StorageCapacity);
 

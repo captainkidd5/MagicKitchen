@@ -21,7 +21,12 @@ namespace PhysicsEngine.Classes.Pathfinding
 
         private int ErrorMargin { get; set; } = 2;
 
+
         public int MaxValue { get { return PathGrid.Weight.Length; } }
+
+        public bool IsClear(Point tilePoint) => PathGrid.IsClear(tilePoint.X, tilePoint.Y);
+
+        public Point? NearestClearPoint(Point startingPoint, int searchRadius) => PathGrid.NearestClearPointTo(startingPoint, searchRadius);
         public Navigator(string debugName)
         {
             DebugName = debugName;

@@ -289,6 +289,7 @@ namespace TiledEngine.Classes
             }
             return null;
         }
+
         /// <summary>
         /// Gets the tile underfoot the Npcs position, and returns the sound at layer 0, if exists
         /// </summary>
