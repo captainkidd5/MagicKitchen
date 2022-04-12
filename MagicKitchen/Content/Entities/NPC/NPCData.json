@@ -10,6 +10,7 @@
         {
         "MovementType": "Walk",
         "MovementDirection": "Up",
+        "Flip" : false,
         "FrameIndicies":[
             0,1,2
         ]

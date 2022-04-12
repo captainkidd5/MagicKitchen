@@ -13,7 +13,8 @@ namespace EntityEngine.Classes.NPCStuff.Props
 {
     internal class Train : NPC
     {
-        public Train(GraphicsDevice graphics, ContentManager content, NPCData npcData) : base(graphics, content, npcData)
+        public Train(GraphicsDevice graphics, ContentManager content, NPCData npcData) : 
+            base(graphics, content, npcData, new Vector2(0,0),EntityFactory.Props_1)
         {
         }
 

@@ -34,7 +34,7 @@ namespace EntityEngine.Classes
             _characterContainer = new CharacterContainer(this, graphics, content);
             _playerContainer = new PlayerContainer(this, graphics, content);
             _currentNPCContainer = new NPCContainer(this, graphics, content);
-            _containers = new List<EntityContainer>() { _playerContainer, _characterContainer, _currentNPCContainer };
+            _containers = new List<EntityContainer>() { _playerContainer, _characterContainer };
 
         }
 
@@ -44,6 +44,7 @@ namespace EntityEngine.Classes
             {
                 container.LoadEntitiesToStage(stageTo, tileManager, itemManager);
             }
+            _currentNPCContainer.LoadEntitiesToStage(stageTo, tileManager, itemManager);
         }
         public override void LoadContent()
         {
@@ -54,6 +55,7 @@ namespace EntityEngine.Classes
             {
                 container.LoadContent();
             }
+            _currentNPCContainer.LoadContent();
         }
         internal void PlayerSwitchedStage(string stageTo)
         {
@@ -85,6 +87,7 @@ namespace EntityEngine.Classes
             {
                 container.LoadContent(stageName, tileManager, itemManager);
             }
+            _currentNPCContainer.LoadContent(stageName, tileManager, itemManager);
         }
 
         public void SwitchStage(string newStage)
@@ -119,6 +122,7 @@ namespace EntityEngine.Classes
             {
                 container.Save(writer);
             }
+            _currentNPCContainer?.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
@@ -127,6 +131,7 @@ namespace EntityEngine.Classes
             {
                 container.LoadSave(reader);
             }
+            _currentNPCContainer.LoadSave(reader);
         }
         public void CleanUp()
         {
@@ -134,7 +139,7 @@ namespace EntityEngine.Classes
             {
                 container.CleanUp();
             }
-            //_containers.Clear();
+            _currentNPCContainer.CleanUp();
         }
     }
 

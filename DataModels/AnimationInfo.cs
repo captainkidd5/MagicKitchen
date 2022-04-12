@@ -16,6 +16,7 @@ namespace DataModels
 
         public Direction MovementDirection { get; set; }
 
+        public bool Flip { get; set; }
         public int StartX { get; set; }
         public int StartY { get; set; }
         public List<int> FrameIndicies { get; set; }
