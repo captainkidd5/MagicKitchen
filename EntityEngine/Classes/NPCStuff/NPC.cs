@@ -27,7 +27,7 @@ namespace EntityEngine.Classes.NPCStuff
             List<AnimatedSprite> sprites = new List<AnimatedSprite>();
             foreach(AnimationInfo info in _npcData.AnimationInfo)
             {
-                sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(startPos, info, texture, new Rectangle(info.StartX * 16, info.StartY * 16, _npcData.SpriteWidth, _npcData.SpriteHeight));
+                sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(startPos, info, texture, new Rectangle(info.StartX * 16, info.StartY * 16, _npcData.SpriteWidth, _npcData.SpriteHeight)));
             }
             var spriteArray = sprites.ToArray();
 

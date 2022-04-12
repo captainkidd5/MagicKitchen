@@ -23,16 +23,18 @@ namespace EntityEngine.Classes
     {
         private CharacterContainer _characterContainer;
         private PlayerContainer _playerContainer;
-        private NPCContainer _enemyContainer;
+        private NPCContainer _currentNPCContainer;
         private List<EntityContainer> _containers;
 
         public Player Player1 => _playerContainer.Player1;
+
+        private Dictionary<string, NPCContainer> _npcContainerDictionary = new Dictionary<string, NPCContainer>();
         public EntityManager(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             _characterContainer = new CharacterContainer(this, graphics, content);
             _playerContainer = new PlayerContainer(this, graphics, content);
-            _enemyContainer = new NPCContainer(this, graphics, content); 
-            _containers = new List<EntityContainer>() { _playerContainer, _characterContainer, _enemyContainer };
+            _currentNPCContainer = new NPCContainer(this, graphics, content);
+            _containers = new List<EntityContainer>() { _playerContainer, _characterContainer, _currentNPCContainer };
 
         }
 
@@ -92,6 +94,7 @@ namespace EntityEngine.Classes
             {
                 container.SwitchStage(newStage);
             }
+            _currentNPCContainer = _npcContainerDictionary[newStage];
         }
 
         public void Update(GameTime gameTime)
