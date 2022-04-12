@@ -39,14 +39,15 @@ namespace EntityEngine.Classes.BehaviourStuff
                 if (_readyToInteract)
                 {
                     Entity.Halt();
-                    Entity.FaceTowardsOtherEntity(_tileHeadingTo.Value.ToVector2());
+                    Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(_tileHeadingTo.Value.X, _tileHeadingTo.Value.Y);
+                    Entity.FaceTowardsOtherEntity(tilePos);
 
-                    //  if (Entity.IsFacingTowardsOtherEntity(_tileHeadingTo.Value.ToVector2()))
-                    //  {
-                    Entity.InteractWithTile(_tileHeadingTo.Value, _layerOfTile);
-                    _tileHeadingTo = null;
-                    _readyToInteract = false;
-                    //   }
+                    if (Entity.IsFacingTowardsOtherEntity(tilePos))
+                    {
+                        Entity.InteractWithTile(_tileHeadingTo.Value, _layerOfTile);
+                        _tileHeadingTo = null;
+                        _readyToInteract = false;
+                    }
                     return;
 
                 }

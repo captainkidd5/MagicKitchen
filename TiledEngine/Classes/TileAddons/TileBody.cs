@@ -1,6 +1,7 @@
 ﻿using DataModels;
 using Globals.Classes;
 using Globals.Classes.Chance;
+using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
@@ -68,7 +69,8 @@ namespace TiledEngine.Classes.TileAddons
             List<LootData> trimmedLoot = ChanceHelper.GetWeightedSelection(tileLootData.Loot.Cast<IWeightable>().ToList(), Settings.Random).Cast<LootData>().ToList();
             foreach(LootData loot in trimmedLoot)
             {
-                TileManager._itemManager.AddWorldItem(Position, loot.ItemName, loot.Quantity, null);
+                TileManager._itemManager.AddWorldItem(Position,
+                    loot.ItemName, loot.Quantity, Vector2Helper.GetTossDirectionFromDirectionFacing(Enums.Direction.Up));
             }
         }
     }

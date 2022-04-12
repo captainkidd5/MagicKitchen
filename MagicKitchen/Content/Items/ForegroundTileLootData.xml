@@ -6,7 +6,27 @@
             <Loot>
             <Item Type="DataModels.LootData">
             <ItemName>Stone</ItemName>
-            <Quantity>2</Quantity>
+            <Quantity>1</Quantity>
+            <Weight>100</Weight>
+            </Item>
+            </Loot>
+        </Item>
+          <Item>
+            <TileId>5343</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Pumpkin Chunk</ItemName>
+            <Quantity>1</Quantity>
+            <Weight>100</Weight>
+            </Item>
+            </Loot>
+        </Item>
+         <Item>
+            <TileId>5434</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Stone</ItemName>
+            <Quantity>1</Quantity>
             <Weight>100</Weight>
             </Item>
             </Loot>
