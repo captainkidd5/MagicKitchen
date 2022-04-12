@@ -51,6 +51,12 @@
             <MaxStackSize>99</MaxStackSize>
             <Price>1</Price>
         </Item>
-
+          <Item>
+            <Id>2717</Id>
+            <Name>Pumpkin Chunk</Name>
+            <Description>Bright orange and sticky.</Description>
+            <MaxStackSize>99</MaxStackSize>
+            <Price>1</Price>
+        </Item>
     </Asset>
 </XnaContent>

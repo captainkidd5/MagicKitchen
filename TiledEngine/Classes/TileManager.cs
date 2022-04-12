@@ -150,7 +150,7 @@ namespace TiledEngine.Classes
             if (tileToInteractWith != null)
             {
                 if (Controls.IsClicked)
-                    tileToInteractWith.Interact();
+                    tileToInteractWith.Interact(true);
             }
             MouseOverTile = Tiles[0][MouseX, MouseY];
             TileSelectorSprite.Update(gameTime, new Vector2(MouseOverTile.DestinationRectangle.X, MouseOverTile.DestinationRectangle.Y));
@@ -249,7 +249,7 @@ namespace TiledEngine.Classes
         public Tile GetTileFromPoint(Point point, Layers layer)
         {
             if (Tiles.Count < (int)layer)
-                    throw new Exception("Tiles cannot be null");
+                throw new Exception("Tiles cannot be null");
             if (point.X >= Tiles[(int)layer].GetLength(0) || point.X < 0)
             {
                 Debug.Assert(point.X > Tiles[(int)layer].GetLength(0) || point.X < 0, $"{point.X} is outside the bounds of the array of length {Tiles[(int)layer].GetLength(0)}");
@@ -267,31 +267,80 @@ namespace TiledEngine.Classes
             return Tiles[(int)layer][point.X, point.Y];
         }
 
+       
         /// <summary>
-        /// Locates tile at given layer within search radius. Returns null if no tile found matching specified gid
+        /// Locates tile at given layer within search radius.
+        /// Searches in an expanding grid outwards from given point
+        /// Returns null if no tile found matching specified gid
         /// </summary>ec
         /// <param name="gid"></param>
         /// <param name="layerToSearch"></param>
         /// <param name="entityIndexPosition"></param>
         /// <param name="searchRadius">5 would mean searching five tiles in all directions</param>
         /// <returns></returns>
-        public Point? LocateTile(int gid,Layers layerToSearch, Point entityIndexPosition, int searchRadius)
+        public List<Point> LocateTile_RadialSearch(int gid, Layers layerToSearch, Point entityIndexPosition, int searchRadius)
         {
-            for(int x = entityIndexPosition.X - searchRadius; x <= entityIndexPosition.X + searchRadius; x++)
+            List<Point> tilesFound = new List<Point>();
+            int row = 1;
+            int col = 1;
+            int x_startIndex = -1;
+            int y_startIndex = -1;
+            //Expanding Search from center
+            for (int x = x_startIndex; x < row + 1; x++)
             {
-                for (int y = entityIndexPosition.X - searchRadius; y <= entityIndexPosition.X + searchRadius;y++)
+                if (X_IsValidIndex(entityIndexPosition.X + x))
                 {
-                    Tile tile = GetTileFromPoint(new Point(x, y), layerToSearch);
-                    if(tile.GID > 5300)
-                        Console.WriteLine("test");
-                    if(tile.GID == gid)
-                        return Vector2Helper.GetTileIndexPosition(tile.Position);
+                    for (int y = y_startIndex; y < col + 1; y++)
+                    {
+                        if (Y_IsValidIndex(entityIndexPosition.Y + y))
+                        {
+                            Tile tile = GetTileFromPoint(new Point(entityIndexPosition.X + x,
+                                entityIndexPosition.Y + y), layerToSearch);
+
+                            if (tile.GID == gid)
+                                tilesFound.Add(Vector2Helper.GetTileIndexPosition(tile.Position));
+
+                        }
+
+                    }
+                }
+                if (row == searchRadius)
+                    break;
+                if (x == row)
+                {
+                    x_startIndex--;
+                    x = x_startIndex;
+                    row++;
+
+                    y_startIndex--;
+                    col++;
 
                 }
             }
-            return null;
+            return tilesFound;
         }
 
+        /// <summary>
+        /// Ensures X index is greater than zero and less than bounds of grid
+        /// </summary>
+        private bool X_IsValidIndex(int x)
+        {
+            if (x >= 0)
+                if (x < Tiles[0].GetLength(0))
+                    return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Ensures Y index is greater than zero and less than bounds of grid
+        /// </summary>
+        private bool Y_IsValidIndex(int y)
+        {
+            if (y >= 0)
+                if (y < Tiles[0].GetLength(1))
+                    return true;
+            return false;
+        }
         /// <summary>
         /// Gets the tile underfoot the Npcs position, and returns the sound at layer 0, if exists
         /// </summary>
@@ -360,7 +409,7 @@ namespace TiledEngine.Classes
                 {
                     for (int y = 0; y < length1; y++)
                     {
-                        Tiles[z][x, y] = new Tile(reader.ReadInt32(),(Layers)z, z, reader.ReadInt32(), reader.ReadInt32());
+                        Tiles[z][x, y] = new Tile(reader.ReadInt32(), (Layers)z, z, reader.ReadInt32(), reader.ReadInt32());
 
                     }
                 }

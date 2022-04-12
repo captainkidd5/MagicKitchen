@@ -27,6 +27,10 @@ namespace PhysicsEngine.Classes.Pathfinding
         public bool IsClear(Point tilePoint) => PathGrid.IsClear(tilePoint.X, tilePoint.Y);
 
         public Point? NearestClearPoint(Point startingPoint, int searchRadius) => PathGrid.NearestClearPointTo(startingPoint, searchRadius);
+        //public bool WithinXTilesOfTile_Directional(Point point, Point targetTile, int amt)
+        //{
+
+        //}
         public Navigator(string debugName)
         {
             DebugName = debugName;
@@ -40,8 +44,7 @@ namespace PhysicsEngine.Classes.Pathfinding
             PathGrid = pathGrid;
             PathFinder = new PathFinderFast(PathGrid.Weight);
 
-            if(pathGrid.IsClear(39,30))
-                Console.WriteLine("test");
+    
         }
 
 
@@ -53,15 +56,15 @@ namespace PhysicsEngine.Classes.Pathfinding
             TargetPosition = Vector2.Zero;
         }
         /// <summary>
-        /// Returns velocity which moves towards the next point
+        /// Returns true if reached final destination
         /// </summary>
-        public void FollowPath(GameTime gameTime,Vector2 currentPos, ref Vector2 velocity)
+        public bool FollowPath(GameTime gameTime,Vector2 currentPos, ref Vector2 velocity)
         {
             //Reached destination!
             if (CurrentPath.Count == 0)
             {
                 HasActivePath = false;
-                return;
+                return true;
             }
 
             //Make sure next destination point is at the center of the tile, not the top left corner, so we add half the tile's width to 
@@ -72,6 +75,7 @@ namespace PhysicsEngine.Classes.Pathfinding
                 CurrentPath.RemoveAt(CurrentPath.Count - 1);
 
             }
+            return false;
         }
         public void SetTarget(Vector2 targetPosition)
         {
@@ -102,7 +106,19 @@ namespace PhysicsEngine.Classes.Pathfinding
             return true;
         }
 
-     
+        /// <summary>
+        /// Returns number of points required between two positions
+        /// </summary>
+
+        /// <returns>Returns -1 if no available path found</returns>
+        public int PathDistance(Point currentPosition, Point targetTestPos)
+        {
+            List<PathFinderNode> pathList = PathFinder.FindPath(currentPosition, targetTestPos, DebugName);
+            if (pathList == null)
+                return -1;
+            else
+                return pathList.Count;
+        }
 
         /// <summary>
         /// Draws a line between each position on the NPCs current path, resulting in a long path line representing their path. Does not draw already-traversed path

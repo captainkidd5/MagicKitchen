@@ -50,7 +50,7 @@ namespace TiledEngine.Classes.TileAddons
             }
 
         }
-     
+
 
 
 
@@ -63,7 +63,7 @@ namespace TiledEngine.Classes.TileAddons
                 Tile.WithinRangeOfPlayer = true;
             if ((Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
             {
-                if(TileLoader.HasLootData(Tile.GID))
+                if (TileLoader.HasLootData(Tile.GID))
                     GenerateLoot();
                 TileUtility.SwitchGid(Tile, TileManager, IndexLayer);
                 TileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
@@ -86,19 +86,23 @@ namespace TiledEngine.Classes.TileAddons
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-        public override void Interact()
+        public override void Interact(bool isPlayer)
         {
-            if (PlayerInClickRange)
+            if (isPlayer)
             {
+                if (!PlayerInClickRange)
+                    return;
+            }
+
                 (Tile.Sprite as AnimatedSprite).Paused = false;
-                if (!IsPlayingASound)
-                {
-                    PlaySound(CursorIconType.ToString());
+            if (!IsPlayingASound)
+            {
+                PlaySound(CursorIconType.ToString());
 
-
-                }
 
             }
+
+
         }
     }
 }

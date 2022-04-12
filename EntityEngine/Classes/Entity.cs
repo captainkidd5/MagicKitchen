@@ -142,7 +142,7 @@ namespace EntityEngine.Classes
         protected override void CreateBody(Vector2 position)
         {
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.NPC },
-                new List<Category>() { Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal }, OnCollides, OnSeparates,ignoreGravity:true, blocksLight: true, userData: this);
+                new List<Category>() { Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal, Category.NPC }, OnCollides, OnSeparates,ignoreGravity:true, blocksLight: true, userData: this);
 
             BigSensorCollidesWithCategories = new List<Category>() { Category.Item, Category.Portal, Category.Solid };
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { Category.PlayerBigSensor }, BigSensorCollidesWithCategories,
@@ -390,39 +390,37 @@ namespace EntityEngine.Classes
 
         public void GiveItem(string name, int count) => InventoryHandler.GiveItem(name, count);
 
-        public void DropItem(string name, int count) => InventoryHandler.DropItem(Position, GetTossDirectionFromDirectionFacing(DirectionMoving), name, count);
-        public void DropItem(Item item, int count) => InventoryHandler.DropItem(Position, GetTossDirectionFromDirectionFacing(DirectionMoving), item, count);
+        public void DropItem(string name, int count) => InventoryHandler.DropItem(Position, Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving), name, count);
+        public void DropItem(Item item, int count) => InventoryHandler.DropItem(Position, Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving), item, count);
 
 
         protected virtual void DropCurrentlyHeldItemToWorld()
         {
-            InventoryHandler.ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet / 2), UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, GetTossDirectionFromDirectionFacing(DirectionMoving));
+            InventoryHandler.ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet / 2), UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving));
 
         }
-        private static readonly float directionMagnitude = 10;
+        
 
-        protected Vector2 GetTossDirectionFromDirectionFacing(Direction directionFacing)
+        internal void InteractWithTile(Point tilePoint, Layers tileLayer)
         {
-            switch (directionFacing)
-            {
-                case Direction.Down:
-                    return new Vector2(0, directionMagnitude);
-                case Direction.Up:
-                    return new Vector2(0, -directionMagnitude);
-                case Direction.Left:
-                    return new Vector2(-directionMagnitude, -10);
-                case Direction.Right:
-                    return new Vector2(directionMagnitude, -10);
-
-                default:
-                    throw new Exception(directionFacing.ToString() + " is invalid");
-            }
+            Tile tile = TileManager.GetTileFromPoint(tilePoint, tileLayer);
+            if (tile == null)
+                throw new Exception($"No tile at {tilePoint} at layer {tileLayer.ToString()}!");
+            tile.Interact(false);
+            
         }
         protected void PerformAction(ActionType actionType)
         {
             Animator.PerformAction(DirectionMoving, actionType);
         }
-        protected void FaceTowardsOtherEntity(Vector2 otherEntityPos)
+
+        internal bool IsFacingTowardsOtherEntity(Vector2 otherEntityPos)
+        {
+            if (DirectionMoving == Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos))
+                return true;
+            return false;
+        }
+        internal void FaceTowardsOtherEntity(Vector2 otherEntityPos)
         {
             Direction directionToFace = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos);
             FaceDirection(directionToFace);

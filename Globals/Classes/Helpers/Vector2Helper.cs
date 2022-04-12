@@ -60,15 +60,15 @@ namespace Globals.Classes.Helpers
         public static Direction GetDirectionOfEntityInRelationToEntity(Vector2 entity1, Vector2 entity2)
         {
             Direction directionToReturn = Direction.None;
-            double degrees = MathHelper.ToDegrees((float)Math.Atan2(entity1.Y - entity2.Y, entity2.X - entity1.X)) ;
+            float degrees = MathHelper.ToDegrees((float)Math.Atan2(entity2.Y - entity1.Y, entity2.X - entity1.X)) ;
             degrees = (degrees + 360) % 360;
-            if (degrees < 135 && degrees >= 45)
-                return Direction.Up;
-            else if (degrees < 315 && degrees >= 225)
+            if (degrees < 135 && degrees >= 60)
                 return Direction.Down;
+            else if (degrees < 305 && degrees >= 225)
+                return Direction.Up;
             else if (degrees < 225 && degrees >= 135)
                 return Direction.Left;
-            else if ((degrees < 45 && degrees >= 0) || (degrees >= 315))
+            else if ((degrees < 60 && degrees >= 0) || (degrees >= 305))
                 return Direction.Right;
 
             if (directionToReturn == Direction.None)
@@ -99,7 +99,25 @@ namespace Globals.Classes.Helpers
         {
             return new Vector2((float)desiredSize.Width/ (float)currentSpriteSize.Width, (float)desiredSize.Height/ (float)currentSpriteSize.Height);
         }
+        private static readonly float directionMagnitude = 10;
 
+        public static Vector2 GetTossDirectionFromDirectionFacing(Direction directionFacing)
+        {
+            switch (directionFacing)
+            {
+                case Direction.Down:
+                    return new Vector2(0, directionMagnitude);
+                case Direction.Up:
+                    return new Vector2(0, -directionMagnitude);
+                case Direction.Left:
+                    return new Vector2(-directionMagnitude, -10);
+                case Direction.Right:
+                    return new Vector2(directionMagnitude, -10);
+
+                default:
+                    throw new Exception(directionFacing.ToString() + " is invalid");
+            }
+        }
         public static void WriteVector2(BinaryWriter writer, Vector2 val)
         {
             writer.Write(val.X);
@@ -110,5 +128,6 @@ namespace Globals.Classes.Helpers
         {
             return new Vector2(reader.ReadSingle(), reader.ReadSingle());
         }
+        
     }
 }

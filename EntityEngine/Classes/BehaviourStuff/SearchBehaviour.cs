@@ -15,8 +15,11 @@ namespace EntityEngine.Classes.BehaviourStuff
     internal class SearchBehaviour : Behaviour
     {
         private Point _wanderRange;
+        private Point? _tileHeadingTo;
         private int _gIDGoingTo = 5343; //pumpkin
         private Layers _layerOfTile = Layers.foreground;
+
+        private bool _readyToInteract;
         public SearchBehaviour(Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, Point? wanderRange, float? timerFrequency)
             : base(entity, statusIcon, navigator, tileManager, timerFrequency)
         {
@@ -33,7 +36,21 @@ namespace EntityEngine.Classes.BehaviourStuff
             base.Update(gameTime, ref velocity);
             if (Entity.IsInStage)
             {
+                if (_readyToInteract)
+                {
+                    Entity.Halt();
+                    Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(_tileHeadingTo.Value.X, _tileHeadingTo.Value.Y);
+                    Entity.FaceTowardsOtherEntity(tilePos);
 
+                    if (Entity.IsFacingTowardsOtherEntity(tilePos))
+                    {
+                        Entity.InteractWithTile(_tileHeadingTo.Value, _layerOfTile);
+                        _tileHeadingTo = null;
+                        _readyToInteract = false;
+                    }
+                    return;
+
+                }
                 if (!Navigator.HasActivePath)
                 {
                     if (_gIDGoingTo > 0)
@@ -41,43 +58,79 @@ namespace EntityEngine.Classes.BehaviourStuff
 
                         if (SimpleTimer.Run(gameTime))
                         {
-
-                            //Gets point of tile trying to find. Can't walk into tile so need to find a vacant point next to one.
-                            Point? tilePoint = GetTilePoint(_gIDGoingTo, _layerOfTile);
-                            if (tilePoint == null)
+                            List<Point> tilePoints = GetTilePoints(_gIDGoingTo, _layerOfTile);
+                            if (tilePoints == null)
                             {
                                 StatusIcon.SetStatus(StatusIconType.NoPath);
                                 return;
                             }
-        
-                                Point? nearestClearPoint = Navigator.NearestClearPoint(tilePoint.Value, 5);
+                            //Gets point of tile trying to find. Can't walk into tile so need to find a vacant point next to one.
+                            List<Point> emptyPoints = new List<Point>();
+                            int shortestDistance = -1;
+                            Point? shortestPoint = null;
+                            bool hasCheckedFirst = false;
+                            foreach (Point point in tilePoints)
+                            {
+                                Point? nearestClearPoint = Navigator.NearestClearPoint(point, 3);
                                 if (nearestClearPoint != null)
                                 {
-                                    Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(nearestClearPoint.Value.X, nearestClearPoint.Value.Y);
-                                    if (Navigator.FindPathTo(Entity.Position, tilePos))
+                                    int distance = Navigator.PathDistance(Vector2Helper.WorldPositionToTilePositionAsPoint(Entity.Position), nearestClearPoint.Value);
+                                    if(distance > 0 && !hasCheckedFirst)
                                     {
-                                        Navigator.SetTarget(tilePos);
+                                        shortestDistance = distance;
+                                        hasCheckedFirst = true;
+                                    }
+                                    if (shortestDistance >= 0 && distance <= shortestDistance)
+                                    {
+                                        shortestPoint = nearestClearPoint;
+                                        _tileHeadingTo = point;
                                     }
                                 }
-                                else
+                            }
+
+                            if (shortestPoint == null)
+                            {
+                                StatusIcon.SetStatus(StatusIconType.NoPath);
+                                return;
+                            }
+                            else
+                            {
+                                Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(shortestPoint.Value.X, shortestPoint.Value.Y);
+                                if (Navigator.FindPathTo(Entity.Position, tilePos))
                                 {
-                                    StatusIcon.SetStatus(StatusIconType.NoPath);
-                                    return;
+                                    Navigator.SetTarget(tilePos);
                                 }
-
-                            
-                           
-
-
+                            }
 
                         }
                     }
 
                 }
                 if (Navigator.HasActivePath)
-                    Navigator.FollowPath(gameTime, Entity.Position, ref velocity);
+                {
+                    //Need to make sure tile heading to hasn't been destroyed since search started
+                    if (TileManager.GetTileFromPoint(_tileHeadingTo.Value, _layerOfTile).GID != _gIDGoingTo)
+                    {
+                        Navigator.Unload();
+                        _tileHeadingTo = null;
+                        _readyToInteract = false;
+                        Entity.Halt();
+                        return;
+                    }
+                    if (Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
+                    {
+                        _readyToInteract = true;
+
+                    }
+
+                }
                 else
+                {
+                    _tileHeadingTo = null;
+
                     Entity.Halt();
+
+                }
             }
 
         }

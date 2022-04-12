@@ -96,6 +96,21 @@ namespace PhysicsEngine.Classes.Pathfinding
         }
 
         /// <summary>
+        /// Tests adjaceny between two points. Must be up down left or right of one another,
+        /// diagonal returns false.
+        /// </summary>
+        private bool IsAdjacentTo(Point testPoint, Point targetPoint)
+        {
+            int xDiff = Math.Abs(targetPoint.X - testPoint.X);
+            int yDiff = Math.Abs(targetPoint.Y - testPoint.Y);
+
+            if (xDiff > 0 && yDiff > 0)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
         /// TODO: Start search at point closest to point and expand outwards, rn not doing that
         /// </summary>
         /// <param name="point"></param>
@@ -103,24 +118,45 @@ namespace PhysicsEngine.Classes.Pathfinding
         /// <returns>Returns point if found, otherwise returns null</returns>
         public Point? NearestClearPointTo(Point point, int searchRadius)
         {
-            for (int x  = point.X - searchRadius; x <= point.X + searchRadius; x++)
+           
+            int row = 1;
+            int col = 1;
+            int x_startIndex = -1;
+            int y_startIndex = -1;
+            //Expanding Search from center
+            for (int x = x_startIndex; x < row + 1; x++)
             {
-                if (X_IsValidIndex(x))
+                if (X_IsValidIndex(point.X + x))
                 {
-                    for (int y = point.X - searchRadius; y <= point.X + searchRadius; y++)
+                    for (int y = y_startIndex; y <col + 1; y++)
                     {
-                        if (Y_IsValidIndex(y))
+                        if (Y_IsValidIndex(point.Y + y))
                         {
-                            if (Weight[x, y] == (int)GridStatus.Clear)
-                                return new Point(x, y);
+                            if(IsAdjacentTo(new Point(point.X + x, point.Y + y), point))
+                            {
+                                if (Weight[point.X + x, point.Y + y] == (int)GridStatus.Clear)
+                                    return new Point(point.X + x, point.Y + y);
+                            }
+                            
 
                         }
 
                     }
                 }
-                
+                if (row == searchRadius)
+                    break;
+                if(x == row)
+                {
+                    x_startIndex--;
+                    x = x_startIndex;
+                    row++;
+
+                    y_startIndex--;
+                    col++;
+
+                }
             }
-            return null;
+            return null;         
         }
 
         public void DrawDebug(SpriteBatch spriteBatch)

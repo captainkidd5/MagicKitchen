@@ -79,7 +79,7 @@ namespace TiledEngine.Classes.TileAddons
              Tile.Sprite.TriggerReduceEffect();
         }
 
-        public void Interact()
+        public void Interact(bool isPlayer)
         {
          //   throw new NotImplementedException();
         }

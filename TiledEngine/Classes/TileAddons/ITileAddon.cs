@@ -20,6 +20,6 @@ namespace TiledEngine.Classes.TileAddons
 
         void CleanUp();
 
-        void Interact();
+        void Interact(bool isPlayer);
     }
 }

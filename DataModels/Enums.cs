@@ -14,5 +14,12 @@ namespace DataModels
             Left = 3,
             Right = 4
         }
+
+        public enum SearchType
+        {
+            None = 0,
+            Grid = 1,
+            Radial = 2,
+        }
     }
 }
