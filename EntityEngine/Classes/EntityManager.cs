@@ -2,6 +2,8 @@
     ;
 using EntityEngine.Classes.PlayerStuff;
 using Globals.Classes;
+using Globals.Classes.Console;
+using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -34,17 +36,28 @@ namespace EntityEngine.Classes
             _characterContainer = new CharacterContainer(this, graphics, content);
             _playerContainer = new PlayerContainer(this, graphics, content);
             _currentNPCContainer = new NPCContainer(this, graphics, content);
-            _containers = new List<EntityContainer>() { _playerContainer, _characterContainer };
+            _containers = new List<EntityContainer>() { _playerContainer, _characterContainer, _currentNPCContainer };
+
+
 
         }
 
+        private void AddNPCCommand(string[] args)
+        {
+            AddNPCToStage(args[0],Controls.CursorUIPosition);
+        }
+        public void AddNPCToStage(string npcName, Vector2 position)
+        {
+            _currentNPCContainer.CreateNPC(npcName, position);
+        }
         public void LoadEntitiesToStage(string stageTo, TileManager tileManager, ItemManager itemManager)
         {
+            _npcContainerDictionary.Add(stageTo, new NPCContainer(this, graphics, content));
+
             foreach (EntityContainer container in _containers)
             {
                 container.LoadEntitiesToStage(stageTo, tileManager, itemManager);
             }
-            _currentNPCContainer.LoadEntitiesToStage(stageTo, tileManager, itemManager);
         }
         public override void LoadContent()
         {
@@ -55,11 +68,16 @@ namespace EntityEngine.Classes
             {
                 container.LoadContent();
             }
-            _currentNPCContainer.LoadContent();
+            CommandConsole.RegisterCommand("add_npc", "adds npc to current stage", AddNPCCommand);
+
         }
         internal void PlayerSwitchedStage(string stageTo)
         {
             _characterContainer.PlayerSwitchedStage(stageTo);
+            _currentNPCContainer.CleanUp();
+            _currentNPCContainer = _npcContainerDictionary[stageTo];
+            _currentNPCContainer.LoadContent();
+
         }
 
         public void WarpPlayerToStage(string stageName, TileManager tileManager, ItemManager itemManager, string? playerName)
@@ -71,6 +89,8 @@ namespace EntityEngine.Classes
                 player = (Player)_playerContainer.GetEntity(playerName);
 
             player.SwitchStage(stageName, tileManager, itemManager);
+            _currentNPCContainer = _npcContainerDictionary[stageName];
+
         }
         public void GivePlayerItem(string playerName, WorldItem worldItem)
         {
@@ -87,17 +107,6 @@ namespace EntityEngine.Classes
             {
                 container.LoadContent(stageName, tileManager, itemManager);
             }
-            _currentNPCContainer.LoadContent(stageName, tileManager, itemManager);
-        }
-
-        public void SwitchStage(string newStage)
-        {
-
-            foreach (EntityContainer container in _containers)
-            {
-                container.SwitchStage(newStage);
-            }
-            _currentNPCContainer = _npcContainerDictionary[newStage];
         }
 
         public void Update(GameTime gameTime)
@@ -122,7 +131,6 @@ namespace EntityEngine.Classes
             {
                 container.Save(writer);
             }
-            _currentNPCContainer?.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
@@ -131,7 +139,6 @@ namespace EntityEngine.Classes
             {
                 container.LoadSave(reader);
             }
-            _currentNPCContainer.LoadSave(reader);
         }
         public void CleanUp()
         {
@@ -139,7 +146,6 @@ namespace EntityEngine.Classes
             {
                 container.CleanUp();
             }
-            _currentNPCContainer.CleanUp();
         }
     }
 

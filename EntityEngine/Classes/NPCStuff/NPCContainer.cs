@@ -46,9 +46,9 @@ namespace EntityEngine.Classes.CharacterStuff
 
         internal override void Update(GameTime gameTime)
         {
-            foreach (KeyValuePair<string, Entity> character in Entities)
+            foreach (KeyValuePair<string, Entity> n in Entities)
             {
-                Character charac = (Character)character.Value;
+                NPC charac = (NPC)n.Value;
                 charac.Update(gameTime);
 
             }
@@ -57,19 +57,15 @@ namespace EntityEngine.Classes.CharacterStuff
 
         internal override void Draw(SpriteBatch spriteBatch)
         {
-            foreach (KeyValuePair<string, Entity> character in Entities)
+            foreach (KeyValuePair<string, Entity> n in Entities)
             {
-                Character charac = (Character)character.Value;
-                if (charac.IsInStage)
-                {
-                    charac.Draw(spriteBatch);
-
-                }
-
+                NPC charac = (NPC)n.Value;
+                charac.Draw(spriteBatch);
                 if (Flags.DebugVelcro)
                     charac.DrawDebug(spriteBatch);
 
             }
+          
 
         }
 
@@ -80,13 +76,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
         internal override void SwitchStage(string newStage)
         {
-            foreach (KeyValuePair<string, Entity> character in Entities)
-            {
-                Character charac = (Character)character.Value;
-                charac.PlayerSwitchedStage(newStage, false);
-
-
-            }
+         
         }
 
         public override void Save(BinaryWriter writer)
@@ -116,9 +106,11 @@ namespace EntityEngine.Classes.CharacterStuff
 
         }
 
-        public NPC CreateNPC(string name, Vector2 position)
+        public void CreateNPC(string name, Vector2 position)
         {
-            return new NPC(graphics, content, NPCData[name], position, GetTextureFromNPCType(NPCData[name].NPCType));
+            NPC npc = new NPC(graphics, content, NPCData[name], position, GetTextureFromNPCType(NPCData[name].NPCType));
+
+            Entities.Add("test", npc);
         }
 
         private Texture2D GetTextureFromNPCType(NPCType npcType)
