@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using TiledEngine.Classes;
 using static EntityEngine.Classes.CharacterStuff.Scheduler;
 using static Globals.Classes.Settings;
@@ -105,27 +106,29 @@ namespace EntityEngine.Classes.CharacterStuff
         {
 
             string basePath = content.RootDirectory + FileLocation;
+            var options = new JsonSerializerOptions();
+            options.Converters.Add(new JsonStringEnumConverter());
 
 
 
-            string jsonString = File.ReadAllText(basePath + "NPCData.json");
-            NPCData = JsonSerializer.Deserialize<List<NPCData>>(jsonString).ToDictionary(x => x.Name);
+            string jsonString = File.ReadAllText($"{basePath}/NPCData.json");
+            NPCData = JsonSerializer.Deserialize<List<NPCData>>(jsonString,options).ToDictionary(x => x.Name);
 
-
-
-            if (!Flags.IsNewGame)
-                foreach (KeyValuePair<string, Entity> character in Entities)
-                {
-                    Character charac = (Character)character.Value;
-                    charac.LoadSave(reader);
-
-
-                }
         }
 
         public NPC CreateNPC(string name, Vector2 position)
         {
-            return new NPC(graphics, content, NPCData[name]);
+            return new NPC(graphics, content, NPCData[name], position, GetTextureFromNPCType(NPCData[name].NPCType));
+        }
+
+        private Texture2D GetTextureFromNPCType(NPCType npcType)
+        {
+            if (npcType == NPCType.Enemy)
+                return EntityFactory.NPCSheet;
+            else if (npcType == NPCType.Prop)
+                return EntityFactory.Props_1;
+            else
+                throw new Exception($"Invalid npc type {npcType.ToString()}");
         }
     }
 }

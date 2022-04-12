@@ -23,6 +23,7 @@ namespace EntityEngine.Classes
     {
         private CharacterContainer _characterContainer;
         private PlayerContainer _playerContainer;
+        private NPCContainer _enemyContainer;
         private List<EntityContainer> _containers;
 
         public Player Player1 => _playerContainer.Player1;
@@ -30,8 +31,8 @@ namespace EntityEngine.Classes
         {
             _characterContainer = new CharacterContainer(this, graphics, content);
             _playerContainer = new PlayerContainer(this, graphics, content);
-
-            _containers = new List<EntityContainer>() { _playerContainer, _characterContainer };
+            _enemyContainer = new NPCContainer(this, graphics, content); 
+            _containers = new List<EntityContainer>() { _playerContainer, _characterContainer, _enemyContainer };
 
         }
 

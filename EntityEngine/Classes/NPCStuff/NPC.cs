@@ -4,6 +4,8 @@ using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes;
+using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +20,18 @@ namespace EntityEngine.Classes.NPCStuff
     {
         private readonly NPCData _npcData;
 
-        public NPC(GraphicsDevice graphics, ContentManager content, NPCData npcData) : base(graphics, content)
+        public NPC(GraphicsDevice graphics, ContentManager content, NPCData npcData, Vector2 startPos, Texture2D texture) : base(graphics, content)
         {
             _npcData = npcData;
+
+            List<AnimatedSprite> sprites = new List<AnimatedSprite>();
+            foreach(AnimationInfo info in _npcData.AnimationInfo)
+            {
+                sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(startPos, info, texture, new Rectangle(info.StartX * 16, info.StartY * 16, _npcData.SpriteWidth, _npcData.SpriteHeight));
+            }
+            var spriteArray = sprites.ToArray();
+
+            Animator = new NPCAnimator(this, spriteArray);
         }
 
         public override void LoadContent(ItemManager itemManager)

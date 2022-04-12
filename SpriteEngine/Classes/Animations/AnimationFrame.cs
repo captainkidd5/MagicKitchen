@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DataModels;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -41,5 +42,7 @@ namespace SpriteEngine.Classes.Animations
             Duration = duration;
             SourceRectangle = sourecRectangle;
         }
+
+        
     }
 }

@@ -24,6 +24,8 @@ namespace EntityEngine.Classes
 
         internal static Texture2D NPCSheet;
 
+        internal static Texture2D Props_1;
+
         internal static List<Color> SkinColors;
         public static void Load(ContentManager content)
         {
@@ -44,6 +46,8 @@ namespace EntityEngine.Classes
             ShoesTexture = content.Load<Texture2D>("Entities/Shoes");
 
             NPCSheet = content.Load<Texture2D>("Entities/NPC/NPCSheet");
+
+            Props_1 = content.Load<Texture2D>("Entities/Props/Props_1");
 
             SkinColors = new List<Color>()
             {

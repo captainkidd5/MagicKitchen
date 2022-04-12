@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels;
+using Globals.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -85,6 +86,18 @@ namespace SpriteEngine.Classes
             return new AnimatedSprite(Graphics, Content, ElementType.World, position, startingSourceRectangle,
                 texture, animationFrames, standardDuration, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ??Vector2.One, rotation, layer,
                 randomizeLayers, flip, customLayer, idleFrame);
+        }
+
+        public static AnimatedSprite AnimationInfoToWorldSprite(Vector2 position, AnimationInfo info,Texture2D texture, Rectangle startingSourceRectangle)
+        {
+            AnimationFrame[] animationFrames = new AnimationFrame[info.FrameIndicies.Count];
+
+            for (int i = 0; i < info.FrameIndicies.Count; i++)
+            {
+                animationFrames[i] = new AnimationFrame(info.FrameIndicies[i],0,0,.15f,false);
+            }
+
+            return CreateWorldAnimatedSprite(position, startingSourceRectangle, texture, animationFrames);
         }
 
         public static IntervalAnimatedSprite CreateWorldIntervalAnimatedSprite(Vector2 position, Rectangle startingSourceRectangle, Texture2D texture,
