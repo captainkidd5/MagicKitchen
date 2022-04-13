@@ -84,9 +84,7 @@ namespace EntityEngine.Classes
             StorageCapacity = 4;
             Navigator = new Navigator(Name);
             Speed = StartingSpeed;
-            StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
 
-            Behaviour = new SearchBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), 2f);
             _warpHelper = new WarpHelper(this);
             InventoryHandler = new InventoryHandler(StorageCapacity);
 
@@ -102,6 +100,8 @@ namespace EntityEngine.Classes
         }
         public virtual void LoadContent(ItemManager itemManager)
         {
+            StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
+            Behaviour = new SearchBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), 2f);
 
             CreateBody(Position);
 

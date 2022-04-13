@@ -21,10 +21,13 @@ namespace EntityEngine.Classes.Animators
 
         internal override void Update(GameTime gameTime, bool isMoving, Vector2 position)
         {
+            Vector2 positionOffSet = new Vector2(position.X - xOffset, position.Y - yOffset);
+            float entityLayer = SpriteUtility.GetYAxisLayerDepth(position, new Rectangle(0, 0, xOffset * 2, yOffset));
+            Position = position;
             bool resetToResting = !isMoving && WasMovingLastFrame;
             if (resetToResting)
             {
-                AnimatedSprites[(int)Entity.DirectionMoving - 1].ResetSpriteToRestingFrame();
+                AnimatedSprites[(int)Entity.DirectionMoving - 1].ForceSetFrame(Position, entityLayer);
 
             }
                 if (isMoving)
@@ -34,9 +37,7 @@ namespace EntityEngine.Classes.Animators
             }
           
 
-            Vector2 positionOffSet = new Vector2(position.X - xOffset, position.Y - yOffset);
-            float entityLayer = SpriteUtility.GetYAxisLayerDepth(position, new Rectangle(0, 0, xOffset * 2, yOffset));
-            Position = position;
+           
 
             WasMovingLastFrame = isMoving;
 
