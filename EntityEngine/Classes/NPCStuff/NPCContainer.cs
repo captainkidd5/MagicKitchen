@@ -82,12 +82,9 @@ namespace EntityEngine.Classes.CharacterStuff
 
         public override void Save(BinaryWriter writer)
         {
-            //Test if new game because characters are initially loaded in after save/load logic, therefore the entity list is not populated
-            //before first load and therefore not saved
-            if (!Flags.IsNewGame)
-            {
 
-            }
+
+            writer.Write(Entities.Count);
                 foreach (Entity n in Entities)
                 {
                     NPC charac = (NPC)n;
@@ -99,19 +96,25 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void LoadSave(BinaryReader reader)
         {
 
-         
+         int count = reader.ReadInt32();
+            for(int i =0; i < count; i++)
+            {
+                NPC npc = new NPC(graphics,content);
+                npc.LoadSave(reader);
+                npc.LoadContent(ItemManager,null,null);
+            }
 
         }
 
         public void CreateNPC(string name, Vector2 position)
         {
-            NPC npc = new NPC(graphics, content, EntityFactory.NPCData[name], position, GetTextureFromNPCType(EntityFactory.NPCData[name].NPCType));
-            npc.LoadContent(ItemManager);
+            NPC npc = new NPC(graphics, content);
+            npc.LoadContent(ItemManager, position, name);
             npc.SwitchStage(StageName, TileManager, ItemManager);
             Entities.Add(npc);
         }
 
-        private Texture2D GetTextureFromNPCType(NPCType npcType)
+        internal static Texture2D GetTextureFromNPCType(NPCType npcType)
         {
             if (npcType == NPCType.Enemy)
                 return EntityFactory.NPCSheet;

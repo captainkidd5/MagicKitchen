@@ -37,7 +37,7 @@ namespace EntityEngine.Classes
             _characterContainer = new CharacterContainer(this, graphics, content);
             _playerContainer = new PlayerContainer(this, graphics, content);
             _containers = new List<EntityContainer>() { _playerContainer, _characterContainer };
-
+            _currentNPCContainer = new NPCContainer()
 
 
         }
@@ -133,17 +133,25 @@ namespace EntityEngine.Classes
            
             foreach (EntityContainer container in _containers)
             {
-                if (_currentNPCContainer == container)
-                    Console.WriteLine("test");
+
                 container.Draw(spriteBatch);
             }
         }
 
-        public void Save(BinaryWriter writer)
+        public void SaveTempNPCs(BinaryWriter writer)
+        {
+                _currentNPCContainer.Save(writer);
+        }
+
+        public void LoadTempNPCs(BinaryReader reader)
+        {
+                _currentNPCContainer.LoadSave(reader);
+        }
+            public void Save(BinaryWriter writer)
         {
             foreach (EntityContainer container in _containers)
             {
-                if (container != null)
+           
                     container.Save(writer);
             }
         }
@@ -152,7 +160,7 @@ namespace EntityEngine.Classes
         {
             foreach (EntityContainer container in _containers)
             {
-                if (container != null)
+
                     container.LoadSave(reader);
             }
         }

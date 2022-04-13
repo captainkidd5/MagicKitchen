@@ -1,5 +1,6 @@
 ﻿using DataModels;
 using EntityEngine.Classes.Animators;
+using EntityEngine.Classes.CharacterStuff;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -19,39 +20,45 @@ namespace EntityEngine.Classes.NPCStuff
 {
     internal class NPC : Entity
     {
-        private readonly NPCData _npcData;
+        private NPCData _npcData;
 
-        public NPC(GraphicsDevice graphics, ContentManager content, NPCData npcData, Vector2 startPos, Texture2D texture) :
+
+        public NPC(GraphicsDevice graphics, ContentManager content) :
             base(graphics, content)
         {
-            _npcData = npcData;
-            Move(startPos);
+            
+        }
+
+        public void LoadContent(ItemManager itemManager, Vector2? startPos, string? name)
+        {
+            base.LoadContent(itemManager);
+            if (name != null)
+                Name = name;
+            if (startPos != null)
+                Move(startPos.Value);
+            _npcData = EntityFactory.NPCData[Name];
+
+            Move(Position);
             List<AnimatedSprite> sprites = new List<AnimatedSprite>();
-            foreach(AnimationInfo info in _npcData.AnimationInfo)
+            foreach (AnimationInfo info in _npcData.AnimationInfo)
             {
                 sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(
-                    startPos, info, texture, 
+                    Position, info, NPCContainer.GetTextureFromNPCType(EntityFactory.NPCData[Name].NPCType),
                     new Rectangle(info.StartX * 16,
                     info.StartY * 16
                     , _npcData.SpriteWidth,
-                    _npcData.SpriteHeight), _npcData.SpriteWidth /2 * -1, _npcData.SpriteHeight/ 2));
+                    _npcData.SpriteHeight), _npcData.SpriteWidth / 2 * -1, _npcData.SpriteHeight / 2));
             }
             var spriteArray = sprites.ToArray();
 
-            Animator = new NPCAnimator(this, spriteArray, npcData.SpriteWidth/2, npcData.SpriteHeight);
-        }
+            Animator = new NPCAnimator(this, spriteArray, _npcData.SpriteWidth / 2, _npcData.SpriteHeight);
 
-        public override void LoadContent(ItemManager itemManager)
-        {
-            base.LoadContent(itemManager);
-
-
-
-           // EntityAnimator = new NPCAnimator(this, )
+            // EntityAnimator = new NPCAnimator(this, )
         }
 
         protected override void CreateBody(Vector2 position)
         {
+
             base.CreateBody(position);
         }
 
