@@ -37,7 +37,7 @@ namespace EntityEngine.Classes
             _characterContainer = new CharacterContainer(this, graphics, content);
             _playerContainer = new PlayerContainer(this, graphics, content);
             _containers = new List<EntityContainer>() { _playerContainer, _characterContainer };
-            _currentNPCContainer = new NPCContainer()
+            _currentNPCContainer = new NPCContainer(this, graphics, content);
 
 
         }
@@ -72,10 +72,9 @@ namespace EntityEngine.Classes
             CommandConsole.RegisterCommand("add_npc", "adds npc to current stage", AddNPCCommand);
 
         }
-        internal void PlayerSwitchedStage(string stageTo)
+        public void PlayerSwitchedStage(string stageTo)
         {
             _characterContainer.PlayerSwitchedStage(stageTo);
-            _currentNPCContainer.CleanUp();
             _currentNPCContainer = _npcContainerDictionary[stageTo];
 
         }
@@ -116,7 +115,7 @@ namespace EntityEngine.Classes
 
         public void GenerateNPCContainers(string stageTo)
         {
-            _npcContainerDictionary.Add(stageTo, new NPCContainer(stageTo, this, graphics, content));
+            _npcContainerDictionary.Add(stageTo, new NPCContainer( this, graphics, content));
 
         }
 
@@ -141,6 +140,8 @@ namespace EntityEngine.Classes
         public void SaveTempNPCs(BinaryWriter writer)
         {
                 _currentNPCContainer.Save(writer);
+            _currentNPCContainer.CleanUp();
+
         }
 
         public void LoadTempNPCs(BinaryReader reader)

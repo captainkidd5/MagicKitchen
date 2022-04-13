@@ -24,12 +24,11 @@ namespace EntityEngine.Classes.CharacterStuff
 {
     internal class NPCContainer : EntityContainer
     {
-        public string StageName { get; }
+        public string StageName { get; private set; }
 
-        public NPCContainer(string stageName, EntityManager entityManager, GraphicsDevice graphics, ContentManager content) : base(entityManager, graphics, content)
+        public NPCContainer( EntityManager entityManager, GraphicsDevice graphics, ContentManager content) : base(entityManager, graphics, content)
         {
             Extension = "NPC";
-            StageName = stageName;
         }
 
         internal override void PlayerSwitchedStage(string stageTo)
@@ -38,6 +37,7 @@ namespace EntityEngine.Classes.CharacterStuff
         }
         internal override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
+            StageName = StageName;
 
             base.LoadContent(stageName, tileManager, itemManager);
 
@@ -87,8 +87,7 @@ namespace EntityEngine.Classes.CharacterStuff
             writer.Write(Entities.Count);
                 foreach (Entity n in Entities)
                 {
-                    NPC charac = (NPC)n;
-                    charac.Save(writer);
+                n.Save(writer);
 
 
                 }
@@ -102,6 +101,7 @@ namespace EntityEngine.Classes.CharacterStuff
                 NPC npc = new NPC(graphics,content);
                 npc.LoadSave(reader);
                 npc.LoadContent(ItemManager,null,null);
+                Entities.Add(npc);
             }
 
         }

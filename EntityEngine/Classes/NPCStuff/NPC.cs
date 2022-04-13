@@ -9,6 +9,7 @@ using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,6 +99,18 @@ namespace EntityEngine.Classes.NPCStuff
             IsInStage = true;
             base.SwitchStage(newStageName, tileManager, itemManager);
            
+        }
+
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+            writer.Write(Name);
+        }
+
+        public override void LoadSave(BinaryReader reader)
+        {
+            base.LoadSave(reader);
+            Name = reader.ReadString();
         }
     }
 }
