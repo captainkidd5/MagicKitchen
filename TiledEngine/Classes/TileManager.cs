@@ -39,7 +39,7 @@ namespace TiledEngine.Classes
 
         public PathGrid PathGrid { get; private set; }
 
-        public ZoneManager ZoneManager { get; }
+        private ZoneManager ZoneManager { get; }
         internal TileSetPackage TileSetPackage { get; private set; }
         internal Dictionary<int, float> OffSetLayersDictionary { get; private set; }
         public int MapWidth { get; private set; }
@@ -86,6 +86,7 @@ namespace TiledEngine.Classes
         /// </summary>
         internal List<PortalData> LoadPortals(TmxMap tmxMap)
         {
+            LoadZones(tmxMap);
             TmxObjectGroup portals;
 
             tmxMap.ObjectGroups.TryGetValue("Portal", out portals);
@@ -98,7 +99,7 @@ namespace TiledEngine.Classes
             return Portals;
         }
 
-        internal void LoadZones(TmxMap tmxMap)
+        private void LoadZones(TmxMap tmxMap)
         {
             TmxObjectGroup zones;
 
@@ -403,6 +404,7 @@ namespace TiledEngine.Classes
                     }
                 }
             }
+            ZoneManager.Save(writer);
         }
         public void LoadSave(BinaryReader reader)
         {
@@ -426,6 +428,7 @@ namespace TiledEngine.Classes
                 }
             }
             Load(Tiles, MapWidth, TileLoader.GetPackageFromMapType(mapType));
+            ZoneManager.LoadSave(reader);
 
         }
 

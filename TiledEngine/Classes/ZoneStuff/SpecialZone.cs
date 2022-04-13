@@ -18,10 +18,15 @@ namespace TiledEngine.Classes.ZoneStuff
         public string Name { get; private set; }
         public Rectangle Rectangle { get; private set; }
 
+        public SpecialZone() : base()
+        {
+
+        }
         public SpecialZone(string name, Rectangle rectangle)
         {
             Name = name;
             Rectangle = rectangle;
+            Move(new Vector2(Rectangle.X, Rectangle.Y));
         }
 
         protected override void CreateBody(Vector2 position)
@@ -37,12 +42,15 @@ namespace TiledEngine.Classes.ZoneStuff
         {
           writer.Write(Name);
             Vector2Helper.WriteVector2(writer, Position);
+            RectangleHelper.WriteRectangle(writer, Rectangle);
         }
 
         public void LoadSave(BinaryReader reader)
         {
             Name = reader.ReadString();
            Move(Vector2Helper.ReadVector2(reader));
+            Rectangle = RectangleHelper.ReadRectangle(reader);
+            CreateBody(Position);
         }
     }
 }

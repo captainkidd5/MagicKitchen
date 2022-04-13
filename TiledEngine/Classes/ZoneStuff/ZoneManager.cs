@@ -21,6 +21,7 @@ namespace TiledEngine.Classes.ZoneStuff
 
         public void Load(TmxObjectGroup tmxObjectLayer)
         {
+            
             foreach (TmxObject specialZone in tmxObjectLayer.Objects)
             {
                 SpecialZone zone = new SpecialZone(specialZone.Name, new Rectangle(
@@ -45,12 +46,19 @@ namespace TiledEngine.Classes.ZoneStuff
 
         public void Save(BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            writer.Write(Zones.Count);
+            foreach(SpecialZone zone in Zones)
+                zone.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
         {
-            throw new NotImplementedException();
+           int count = reader.ReadInt32();
+            for(int i = 0; i < count; i++)
+            {
+                SpecialZone specialZone = new SpecialZone();
+                specialZone.LoadSave(reader);
+            }
         }
 
         public void CleanUp()
