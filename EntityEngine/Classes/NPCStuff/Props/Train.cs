@@ -8,14 +8,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiledEngine.Classes;
 
 namespace EntityEngine.Classes.NPCStuff.Props
 {
-    internal class Train : NPC
+    internal class Train : Entity
     {
-        public Train(GraphicsDevice graphics, ContentManager content, NPCData npcData) : 
-            base(graphics, content, npcData, new Vector2(0,0),EntityFactory.Props_1)
+        public Train(GraphicsDevice graphics, ContentManager content) : 
+            base(graphics, content)
         {
+
         }
 
         public override void LoadContent(ItemManager itemManager)
@@ -31,10 +33,17 @@ namespace EntityEngine.Classes.NPCStuff.Props
             base.Draw(spriteBatch);
         }
 
-      
+        public override void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
+        {
+            CurrentStageName = newStageName;
+            IsInStage = true;
+            Move(tileManager.GetZones("train").FirstOrDefault(x => x.Value == "start").Position);
+            base.SwitchStage(newStageName, tileManager, itemManager);
 
-      
+        }
 
- 
+
+
+
     }
 }

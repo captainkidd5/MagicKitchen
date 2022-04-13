@@ -21,7 +21,8 @@ namespace EntityEngine.Classes.NPCStuff
     {
         private readonly NPCData _npcData;
 
-        public NPC(GraphicsDevice graphics, ContentManager content, NPCData npcData, Vector2 startPos, Texture2D texture) : base(graphics, content)
+        public NPC(GraphicsDevice graphics, ContentManager content, NPCData npcData, Vector2 startPos, Texture2D texture) :
+            base(graphics, content)
         {
             _npcData = npcData;
             Move(startPos);

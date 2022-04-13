@@ -15,16 +15,19 @@ namespace TiledEngine.Classes.ZoneStuff
 {
     public class SpecialZone : Collidable, ISaveable
     {
-        public string Name { get; private set; }
+        public string PropertyName { get; private set; }
+
+        public string Value { get; set; }
         public Rectangle Rectangle { get; private set; }
 
         public SpecialZone() : base()
         {
 
         }
-        public SpecialZone(string name, Rectangle rectangle)
+        public SpecialZone(string name,string value, Rectangle rectangle)
         {
-            Name = name;
+            PropertyName = name;
+            Value = value;
             Rectangle = rectangle;
             Move(new Vector2(Rectangle.X, Rectangle.Y));
         }
@@ -40,17 +43,21 @@ namespace TiledEngine.Classes.ZoneStuff
 
         public void Save(BinaryWriter writer)
         {
-          writer.Write(Name);
+          writer.Write(PropertyName);
+            writer.Write(Value);
             Vector2Helper.WriteVector2(writer, Position);
             RectangleHelper.WriteRectangle(writer, Rectangle);
         }
 
         public void LoadSave(BinaryReader reader)
         {
-            Name = reader.ReadString();
+            PropertyName = reader.ReadString();
+            Value = reader.ReadString();
            Move(Vector2Helper.ReadVector2(reader));
             Rectangle = RectangleHelper.ReadRectangle(reader);
             CreateBody(Position);
         }
+
+        
     }
 }

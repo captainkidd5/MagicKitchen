@@ -98,7 +98,7 @@ namespace TiledEngine.Classes
             }
             return Portals;
         }
-
+        public List<SpecialZone> GetZones(string name) => ZoneManager.GetZones(name);
         private void LoadZones(TmxMap tmxMap)
         {
             TmxObjectGroup zones;
