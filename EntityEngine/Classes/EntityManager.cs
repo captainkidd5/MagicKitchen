@@ -25,7 +25,8 @@ namespace EntityEngine.Classes
     {
         private CharacterContainer _characterContainer;
         private PlayerContainer _playerContainer;
-        private NPCContainer _currentNPCContainer;
+        private NPCContainer _currentNPCContainer { get;
+        set;}
         private List<EntityContainer> _containers;
 
         public Player Player1 => _playerContainer.Player1;
@@ -35,8 +36,7 @@ namespace EntityEngine.Classes
         {
             _characterContainer = new CharacterContainer(this, graphics, content);
             _playerContainer = new PlayerContainer(this, graphics, content);
-            _currentNPCContainer = new NPCContainer(this, graphics, content);
-            _containers = new List<EntityContainer>() { _playerContainer, _characterContainer, _currentNPCContainer };
+            _containers = new List<EntityContainer>() { _playerContainer, _characterContainer };
 
 
 
@@ -44,7 +44,7 @@ namespace EntityEngine.Classes
 
         private void AddNPCCommand(string[] args)
         {
-            AddNPCToStage(args[0],Controls.CursorUIPosition);
+            AddNPCToStage(args[0],Controls.CursorWorldPosition);
         }
         public void AddNPCToStage(string npcName, Vector2 position)
         {
@@ -52,11 +52,11 @@ namespace EntityEngine.Classes
         }
         public void LoadEntitiesToStage(string stageTo, TileManager tileManager, ItemManager itemManager)
         {
-            _npcContainerDictionary.Add(stageTo, new NPCContainer(this, graphics, content));
 
             foreach (EntityContainer container in _containers)
             {
                 container.LoadEntitiesToStage(stageTo, tileManager, itemManager);
+
             }
         }
         public override void LoadContent()
@@ -66,7 +66,8 @@ namespace EntityEngine.Classes
 
             foreach (EntityContainer container in _containers)
             {
-                container.LoadContent();
+                if(container != null)
+                    container.LoadContent();
             }
             CommandConsole.RegisterCommand("add_npc", "adds npc to current stage", AddNPCCommand);
 
@@ -105,8 +106,19 @@ namespace EntityEngine.Classes
         {
             foreach (EntityContainer container in _containers)
             {
-                container.LoadContent(stageName, tileManager, itemManager);
+                if (container != null)
+                    container.LoadContent(stageName, tileManager, itemManager);
             }
+            _currentNPCContainer = _npcContainerDictionary[stageName];
+            _currentNPCContainer.LoadContent(stageName, tileManager, itemManager);
+            _containers.Add(_currentNPCContainer); 
+
+        }
+
+        public void GenerateNPCContainers(string stageTo)
+        {
+            _npcContainerDictionary.Add(stageTo, new NPCContainer(stageTo, this, graphics, content));
+
         }
 
         public void Update(GameTime gameTime)
@@ -119,8 +131,11 @@ namespace EntityEngine.Classes
 
         public void Draw(SpriteBatch spriteBatch)
         {
+           
             foreach (EntityContainer container in _containers)
             {
+                if (_currentNPCContainer == container)
+                    Console.WriteLine("test");
                 container.Draw(spriteBatch);
             }
         }
@@ -129,7 +144,8 @@ namespace EntityEngine.Classes
         {
             foreach (EntityContainer container in _containers)
             {
-                container.Save(writer);
+                if (container != null)
+                    container.Save(writer);
             }
         }
 
@@ -137,7 +153,8 @@ namespace EntityEngine.Classes
         {
             foreach (EntityContainer container in _containers)
             {
-                container.LoadSave(reader);
+                if (container != null)
+                    container.LoadSave(reader);
             }
         }
         public void CleanUp()

@@ -1,10 +1,15 @@
-﻿using Globals.Classes;
+﻿using DataModels;
+using Globals.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace EntityEngine.Classes
 {
@@ -27,6 +32,8 @@ namespace EntityEngine.Classes
         internal static Texture2D Props_1;
 
         internal static List<Color> SkinColors;
+
+        internal static Dictionary<string, NPCData> NPCData;
         public static void Load(ContentManager content)
         {
             HatTexture = content.Load<Texture2D>("Entities/Hats");
@@ -58,6 +65,15 @@ namespace EntityEngine.Classes
                 new Color(255, 219, 172),
 
             };
+
+            string basePath = content.RootDirectory + "/entities/NPC";
+            var options = new JsonSerializerOptions();
+            options.Converters.Add(new JsonStringEnumConverter());
+
+
+
+            string jsonString = File.ReadAllText($"{basePath}/NPCData.json");
+            NPCData = JsonSerializer.Deserialize<List<NPCData>>(jsonString, options).ToDictionary(x => x.Name);
         }
 
         public static Color GetRandomSkinTone()

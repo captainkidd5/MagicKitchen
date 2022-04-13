@@ -16,69 +16,74 @@ namespace EntityEngine.Classes
     public abstract class EntityContainer : Component, ISaveable
     {
 
-        internal Dictionary<string, Entity> Entities { get; set; }
+        internal List<Entity> Entities { get; set; }
         protected  EntityManager EntityManager { get; }
 
-        internal virtual Entity GetEntity(string name) => Entities[name];
+        internal virtual Entity GetEntity(string name) => Entities.FirstOrDefault(x => x.Name == name);
 
         internal protected readonly string BasePath = "/entities/";
         internal protected string Extension;
 
         internal protected string FileLocation => BasePath + Extension;
+
+        protected TileManager TileManager;
+        protected ItemManager ItemManager;
         public EntityContainer(EntityManager entityManager,GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            Entities = new Dictionary<string, Entity>();
+            Entities = new List<Entity>();
             EntityManager = entityManager;
         }
         internal virtual void PlayerSwitchedStage(string stageTo)
         {
-            foreach (KeyValuePair<string, Entity> entity in Entities)
+            foreach (Entity entity in Entities)
             {
-                Entity e = entity.Value;
-                e.PlayerSwitchedStage(stageTo, false);
+
+                entity.PlayerSwitchedStage(stageTo, false);
 
             }
         }
         internal virtual void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
-            foreach (KeyValuePair<string, Entity> entity in Entities)
+            TileManager = tileManager;
+            ItemManager = itemManager;
+            foreach (Entity entity in Entities)
             {
 
-                entity.Value.LoadContent(itemManager);
+                entity.LoadContent(itemManager);
             }
         }
 
         internal virtual void Update(GameTime gameTime)
         {
-            foreach (KeyValuePair<string, Entity> entity in Entities)
+            foreach (Entity entity in Entities)
             {
-                entity.Value.Update(gameTime);
+                entity.Update(gameTime);
 
             }
         }
 
         internal virtual void Draw(SpriteBatch spriteBatch)
         {
-            foreach (KeyValuePair<string, Entity> entity in Entities)
+            foreach (Entity entity in Entities)
             {
-                entity.Value.Draw(spriteBatch);
+                entity.Draw(spriteBatch);
 
             }
         }
         internal virtual void LoadEntitiesToStage(string stageTo, TileManager tileManager, ItemManager itemManager)
         {
-            foreach (KeyValuePair<string, Entity> entity in Entities)
+            foreach (Entity entity in Entities)
             {
                 //entity.Value.IsInStage = entity.Value.CurrentStageName == stageTo;
-                if(entity.Value.CurrentStageName == stageTo)
-                    entity.Value.ForceWarpTo(stageTo, entity.Value.Position, tileManager, itemManager);
+                if (entity.CurrentStageName == stageTo)
+                    entity.ForceWarpTo(stageTo, entity.Position, tileManager, itemManager);
             }
         }
         internal virtual void SwitchStage(string stageName)
         {
-            foreach (KeyValuePair<string, Entity> entity in Entities)
+            foreach (Entity entity in Entities)
             {
-                entity.Value.IsInStage = entity.Value.CurrentStageName == stageName;
+                entity.IsInStage = entity.CurrentStageName == stageName;
             }
         }
         internal void GiveEntityItem(string entityName, WorldItem worldItem)
@@ -93,26 +98,26 @@ namespace EntityEngine.Classes
 
         public virtual void LoadSave(BinaryReader reader)
         {
-            foreach (KeyValuePair<string, Entity> entity in Entities)
+            foreach (Entity entity in Entities)
             {
-                entity.Value.LoadSave(reader);
+                entity.LoadSave(reader);
             }
         }
 
         public virtual void Save(BinaryWriter writer)
         {
-            foreach (KeyValuePair<string, Entity> entity in Entities)
+            foreach (Entity entity in Entities)
             {
-                entity.Value.Save(writer);
+                entity.Save(writer);
             }
 
         }
 
         public void CleanUp()
         {
-            foreach (KeyValuePair<string, Entity> entity in Entities)
+            foreach (Entity entity in Entities)
             {
-                entity.Value.CleanUp();
+                entity.CleanUp();
             }
             Entities.Clear();
         }

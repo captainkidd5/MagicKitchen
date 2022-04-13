@@ -44,9 +44,9 @@ namespace EntityEngine.Classes.CharacterStuff
 
         internal override void Update(GameTime gameTime)
         {
-            foreach(KeyValuePair<string, Entity> character in Entities)
+            foreach (Entity entity in Entities)
             {
-                Character charac = (Character)character.Value;
+                Character charac = (Character)entity;
                 charac.Update(gameTime);
 
             }
@@ -55,9 +55,9 @@ namespace EntityEngine.Classes.CharacterStuff
 
         internal override void Draw(SpriteBatch spriteBatch)
         {
-            foreach (KeyValuePair<string, Entity> character in Entities)
+            foreach (Entity entity in Entities)
             {
-                Character charac = (Character)character.Value;
+                Character charac = (Character)entity;
                 if (charac.IsInStage)
                 {
                     charac.Draw(spriteBatch);
@@ -78,9 +78,9 @@ namespace EntityEngine.Classes.CharacterStuff
 
         internal override void SwitchStage(string newStage)
         {
-            foreach (KeyValuePair<string, Entity> character in Entities)
+            foreach (Entity entity in Entities)
             {
-                Character charac = (Character)character.Value;
+                Character charac = (Character)entity;
                 charac.PlayerSwitchedStage(newStage, false);
 
                 
@@ -92,9 +92,9 @@ namespace EntityEngine.Classes.CharacterStuff
             //Test if new game because characters are initially loaded in after save/load logic, therefore the entity list is not populated
             //before first load and therefore not saved
             if(!Flags.IsNewGame)
-            foreach (KeyValuePair<string, Entity> character in Entities)
-            {
-                Character charac = (Character)character.Value;
+                foreach (Entity entity in Entities)
+                {
+                    Character charac = (Character)entity;
                 charac.Save(writer);
 
 
@@ -123,15 +123,15 @@ namespace EntityEngine.Classes.CharacterStuff
 
                 data.Schedules.Sort(0, data.Schedules.Count, new ScheduleTimeComparer());
                 Character newCharacter = new Character(graphics, content, data);
-                Entities.Add(newCharacter.Name, newCharacter);
+                Entities.Add(newCharacter);
 
                 allNpcData.Add(data);
             }
             _questManager.LoadQuestData(allQuests);
             if(!Flags.IsNewGame)
-            foreach (KeyValuePair<string, Entity> character in Entities)
+            foreach (Entity character in Entities)
             {
-                Character charac = (Character)character.Value;
+                Character charac = (Character)character;
                 charac.LoadSave(reader);
 
 

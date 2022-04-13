@@ -23,14 +23,12 @@ namespace EntityEngine.Classes.CharacterStuff
 {
     internal class NPCContainer : EntityContainer
     {
-        private readonly QuestManager _questManager;
+        public string StageName { get; }
 
-
-        internal Dictionary<string, NPCData> NPCData;
-        public NPCContainer(EntityManager entityManager, GraphicsDevice graphics, ContentManager content) : base(entityManager, graphics, content)
+        public NPCContainer(string stageName, EntityManager entityManager, GraphicsDevice graphics, ContentManager content) : base(entityManager, graphics, content)
         {
-            _questManager = new QuestManager(graphics, content);
             Extension = "NPC";
+            StageName = stageName;
         }
 
         internal override void PlayerSwitchedStage(string stageTo)
@@ -46,9 +44,9 @@ namespace EntityEngine.Classes.CharacterStuff
 
         internal override void Update(GameTime gameTime)
         {
-            foreach (KeyValuePair<string, Entity> n in Entities)
+            foreach (Entity n in Entities)
             {
-                NPC charac = (NPC)n.Value;
+                NPC charac = (NPC)n;
                 charac.Update(gameTime);
 
             }
@@ -57,9 +55,9 @@ namespace EntityEngine.Classes.CharacterStuff
 
         internal override void Draw(SpriteBatch spriteBatch)
         {
-            foreach (KeyValuePair<string, Entity> n in Entities)
+            foreach ( Entity n in Entities)
             {
-                NPC charac = (NPC)n.Value;
+                NPC charac = (NPC)n;
                 charac.Draw(spriteBatch);
                 if (Flags.DebugVelcro)
                     charac.DrawDebug(spriteBatch);
@@ -84,9 +82,9 @@ namespace EntityEngine.Classes.CharacterStuff
             //Test if new game because characters are initially loaded in after save/load logic, therefore the entity list is not populated
             //before first load and therefore not saved
             if (!Flags.IsNewGame)
-                foreach (KeyValuePair<string, Entity> character in Entities)
+                foreach (Entity n in Entities)
                 {
-                    Character charac = (Character)character.Value;
+                    Character charac = (Character)n;
                     charac.Save(writer);
 
 
@@ -95,22 +93,16 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void LoadSave(BinaryReader reader)
         {
 
-            string basePath = content.RootDirectory + FileLocation;
-            var options = new JsonSerializerOptions();
-            options.Converters.Add(new JsonStringEnumConverter());
-
-
-
-            string jsonString = File.ReadAllText($"{basePath}/NPCData.json");
-            NPCData = JsonSerializer.Deserialize<List<NPCData>>(jsonString,options).ToDictionary(x => x.Name);
+         
 
         }
 
         public void CreateNPC(string name, Vector2 position)
         {
-            NPC npc = new NPC(graphics, content, NPCData[name], position, GetTextureFromNPCType(NPCData[name].NPCType));
-
-            Entities.Add("test", npc);
+            NPC npc = new NPC(graphics, content, EntityFactory.NPCData[name], position, GetTextureFromNPCType(EntityFactory.NPCData[name].NPCType));
+            npc.LoadContent(ItemManager);
+            npc.SwitchStage(StageName, TileManager, ItemManager);
+            Entities.Add(npc);
         }
 
         private Texture2D GetTextureFromNPCType(NPCType npcType)

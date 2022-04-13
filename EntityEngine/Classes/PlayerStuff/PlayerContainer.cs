@@ -19,7 +19,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public PlayerContainer(EntityManager entityManager, GraphicsDevice graphics, ContentManager content) : base(entityManager,graphics, content)
         {
             Player1 = new Player(graphics, content,this);
-            Entities.Add("Player1",Player1);
+            Entities.Add(Player1);
         }
 
 

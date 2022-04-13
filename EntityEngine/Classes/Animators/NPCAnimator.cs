@@ -22,17 +22,20 @@ namespace EntityEngine.Classes.Animators
         {
             Vector2 positionOffSet = new Vector2(position.X - xOffset, position.Y - yOffset);
             float entityLayer = SpriteUtility.GetYAxisLayerDepth(position, new Rectangle(0, 0, xOffset * 2, yOffset));
-
+            Position = position;
             for(int i =0; i < AnimatedSprites.Length; i++)
             {
-
+                AnimatedSprites[i].Update(gameTime, Position);
             }
 
         }
 
         internal override void Draw(SpriteBatch spriteBatch)
         {
-
+            for (int i = 0; i < AnimatedSprites.Length; i++)
+            {
+                AnimatedSprites[i].Draw(spriteBatch);
+            }
         }
     }
 }

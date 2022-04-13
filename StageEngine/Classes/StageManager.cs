@@ -98,7 +98,7 @@ namespace StageEngine.Classes
                 throw new Exception("Stage with name" + StageSwitchingTo + "does not exist");
 
             //CurrentStage.LoadFromStageFile();
-           // _entityManager.SwitchStage(StageSwitchingTo);
+            
             _camera.Jump(_player1.Position);
             StageSwitchingTo = null;
             Debug.Assert(NewPlayerPositionOnStageSwitch != Vector2.Zero, "New player position should not be zero");
@@ -150,6 +150,7 @@ namespace StageEngine.Classes
             foreach (KeyValuePair<string, Stage> pair in Stages)
             {
                 pair.Value.LoadFromStageFile();
+                _entityManager.GenerateNPCContainers(pair.Value.Name);
 
                 if (pair.Value.Name != name)
                     pair.Value.Unload();
@@ -161,7 +162,6 @@ namespace StageEngine.Classes
             foreach (KeyValuePair<string, Stage> pair in Stages)
             {
                 _entityManager.LoadEntitiesToStage(pair.Value.Name, pair.Value.TileManager, pair.Value.ItemManager);
-
 
             }
             _camera.Jump(_player1.Position);

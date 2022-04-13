@@ -47,7 +47,7 @@ namespace EntityEngine.Classes.Animators
         internal virtual void Load(SoundModuleManager moduleManager,Entity entity, Vector2 entityPosition)
         {
 
-
+            
         }
         internal virtual void LoadUpdate(GameTime gameTime)
         {
