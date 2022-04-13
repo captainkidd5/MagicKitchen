@@ -88,7 +88,6 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            StatusIcon.Draw(spriteBatch);
         }
 
         public void OnCharacterClicked(Schedule schedule)

@@ -37,12 +37,12 @@ namespace TiledEngine.Classes.TileAddons
             {
                 AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,
                IntermediateTmxShape.Width, IntermediateTmxShape.Height,
-             new List<Category>() { Category.Solid }, new List<Category>() { Category.Player, Category.PlayerBigSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+             new List<Category>() { Category.Solid }, new List<Category>() { Category.Player, Category.NPC, Category.PlayerBigSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Ellipse)
             {
                 AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition, IntermediateTmxShape.Radius,
-                  new List<Category>() { Category.Solid }, new List<Category>() { Category.Player, Category.PlayerBigSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+                  new List<Category>() { Category.Solid }, new List<Category>() { Category.Player, Category.NPC, Category.PlayerBigSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else
             {

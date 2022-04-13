@@ -13,7 +13,7 @@ namespace EntityEngine.Classes.Animators
     internal class NPCAnimator : Animator
     {
 
-        public NPCAnimator(Entity entity, AnimatedSprite[] animatedSprites, int? xOffset, int? yOffset) 
+        public NPCAnimator(Entity entity, AnimatedSprite[] animatedSprites, int? xOffset, int? yOffset)
             : base(entity, xOffset, yOffset)
         {
             AnimatedSprites = animatedSprites;
@@ -22,10 +22,17 @@ namespace EntityEngine.Classes.Animators
         internal override void Update(GameTime gameTime, bool isMoving, Vector2 position)
         {
             bool resetToResting = !isMoving && WasMovingLastFrame;
-            if(isMoving)
-                AnimatedSprites[(int)Entity.DirectionMoving - 1].Update(gameTime, Position);
             if (resetToResting)
+            {
                 AnimatedSprites[(int)Entity.DirectionMoving - 1].ResetSpriteToRestingFrame();
+
+            }
+                if (isMoving)
+            {
+                AnimatedSprites[(int)Entity.DirectionMoving - 1].Update(gameTime, Position);
+
+            }
+          
 
             Vector2 positionOffSet = new Vector2(position.X - xOffset, position.Y - yOffset);
             float entityLayer = SpriteUtility.GetYAxisLayerDepth(position, new Rectangle(0, 0, xOffset * 2, yOffset));
@@ -37,9 +44,9 @@ namespace EntityEngine.Classes.Animators
 
         internal override void Draw(SpriteBatch spriteBatch)
         {
-            
-                AnimatedSprites[(int)Entity.DirectionMoving - 1].Draw(spriteBatch);
-            
+
+            AnimatedSprites[(int)Entity.DirectionMoving - 1].Draw(spriteBatch);
+
         }
     }
 }

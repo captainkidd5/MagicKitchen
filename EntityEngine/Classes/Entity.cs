@@ -84,6 +84,8 @@ namespace EntityEngine.Classes
             StorageCapacity = 4;
             Navigator = new Navigator(Name);
             Speed = StartingSpeed;
+            StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
+
             Behaviour = new SearchBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), 2f);
             _warpHelper = new WarpHelper(this);
             InventoryHandler = new InventoryHandler(StorageCapacity);
@@ -104,7 +106,6 @@ namespace EntityEngine.Classes
             CreateBody(Position);
 
             DirectionMoving = Direction.Down;
-            StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
             InventoryHandler.LoadContent(itemManager);
             TargetStage = CurrentStageName;
 
@@ -143,9 +144,9 @@ namespace EntityEngine.Classes
         protected override void CreateBody(Vector2 position)
         {
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.NPC },
-                new List<Category>() { Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal, Category.NPC }, OnCollides, OnSeparates,ignoreGravity:true, blocksLight: true, userData: this);
+                new List<Category>() {Category.Player, Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal, Category.NPC }, OnCollides, OnSeparates,ignoreGravity:true, blocksLight: true, userData: this);
 
-            BigSensorCollidesWithCategories = new List<Category>() { Category.Item, Category.Portal, Category.Solid };
+            BigSensorCollidesWithCategories = new List<Category>() { Category.NPC, Category.Player, Category.Solid };
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { Category.PlayerBigSensor }, BigSensorCollidesWithCategories,
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
 
@@ -248,6 +249,8 @@ namespace EntityEngine.Classes
         }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            StatusIcon.Draw(spriteBatch);
+
             Animator.Draw(spriteBatch);
 #if DEBUG
             if (Flags.ShowEntityPaths)
