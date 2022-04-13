@@ -22,7 +22,7 @@ namespace VelcroPhysics.Collision.Filtering
         NPCBigSensor = 2048,
         ActionTile = 4096,
         LightSource = 8192,
-        Cat15 = 16384,
+        SpecialZone = 16384,
         Cat16 = 32768,
         Cat17 = 65536,
         Cat18 = 131072,

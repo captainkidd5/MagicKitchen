@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using TiledEngine.Classes.Misc;
+using TiledEngine.Classes.ZoneStuff;
 using TiledSharp;
 using UIEngine.Classes;
 using static DataModels.Enums;
@@ -38,7 +39,7 @@ namespace TiledEngine.Classes
 
         public PathGrid PathGrid { get; private set; }
 
-
+        public ZoneManager ZoneManager { get; }
         internal TileSetPackage TileSetPackage { get; private set; }
         internal Dictionary<int, float> OffSetLayersDictionary { get; private set; }
         public int MapWidth { get; private set; }
@@ -56,6 +57,7 @@ namespace TiledEngine.Classes
         {
             OffSetLayersDictionary = new Dictionary<int, float>();
             Portals = new List<PortalData>();
+            ZoneManager = new ZoneManager();
             MapType = mapType;
             _itemManager = itemManager;
             _camera = camera;
