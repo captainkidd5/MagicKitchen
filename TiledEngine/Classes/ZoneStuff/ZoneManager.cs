@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +10,7 @@ using TiledSharp;
 
 namespace TiledEngine.Classes.ZoneStuff
 {
-    public class ZoneManager
+    internal class ZoneManager : ISaveable
     {
         public List<SpecialZone> Zones { get; set; }
 
@@ -21,12 +23,39 @@ namespace TiledEngine.Classes.ZoneStuff
         {
             foreach (TmxObject specialZone in tmxObjectLayer.Objects)
             {
-                Zones.Add(new SpecialZone(specialZone.Name, new Rectangle(
+                SpecialZone zone = new SpecialZone(specialZone.Name, new Rectangle(
                     (int)specialZone.X,
                     (int)specialZone.Y,
                     (int)specialZone.Width,
-                    (int)specialZone.Height)));
+                    (int)specialZone.Height));
+                Zones.Add(zone);
             }
+        }
+
+        public void Cleanup()
+        {
+            for(int i = Zones.Count - 1; i >= 0; i--)
+            {
+                SpecialZone zone = Zones[i];
+                zone.CleanUp();
+                Zones.RemoveAt(i);
+            }
+      
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CleanUp()
+        {
+            throw new NotImplementedException();
         }
     }
 }

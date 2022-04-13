@@ -98,6 +98,15 @@ namespace TiledEngine.Classes
             return Portals;
         }
 
+        internal void LoadZones(TmxMap tmxMap)
+        {
+            TmxObjectGroup zones;
+
+            tmxMap.ObjectGroups.TryGetValue("SpecialZone", out zones);
+
+            ZoneManager.Load(zones);
+        }
+
         private void AssignProperties()
         {
             for (int z = 0; z < Tiles.Count; z++)
@@ -434,6 +443,7 @@ namespace TiledEngine.Classes
                 }
             }
             Tiles.Clear();
+            ZoneManager.Cleanup();
         }
     }
 }
