@@ -92,6 +92,8 @@ namespace StageEngine.Classes
             CurrentStage.Unload();
 
             CurrentStage = GetStage(StageSwitchingTo);
+            _entityManager.PlayerSwitchedStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
+
             CurrentStage.LoadFromStageFile();
 
             if (CurrentStage == null)
@@ -106,7 +108,6 @@ namespace StageEngine.Classes
             NewPlayerPositionOnStageSwitch = Vector2.Zero;
 
             _player1.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
-            _entityManager.PlayerSwitchedStage(CurrentStage.Name);
             //_player1.LoadToNewStage(CurrentStage.Name, CurrentStage.ItemManager);
             Flags.Pause = false;
             UI.RaiseCurtain(UI.CurtainDropRate);
@@ -165,7 +166,7 @@ namespace StageEngine.Classes
                 _entityManager.LoadEntitiesToStage(pair.Value.Name, pair.Value.TileManager, pair.Value.ItemManager);
 
             }
-            _entityManager.PlayerSwitchedStage(CurrentStage.Name);
+            _entityManager.PlayerSwitchedStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
             _camera.Jump(_player1.Position);
             SongManager.ChangePlaylist(CurrentStage.Name);

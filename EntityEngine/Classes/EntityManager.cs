@@ -46,6 +46,10 @@ namespace EntityEngine.Classes
         {
             AddNPCToStage(args[0],Controls.CursorWorldPosition);
         }
+        private void AddTrainCommand(string[] args)
+        {
+            _currentNPCContainer.AddTrain();
+        }
         public void AddNPCToStage(string npcName, Vector2 position)
         {
             _currentNPCContainer.CreateNPC(npcName, position);
@@ -70,12 +74,15 @@ namespace EntityEngine.Classes
                     container.LoadContent();
             }
             CommandConsole.RegisterCommand("add_npc", "adds npc to current stage", AddNPCCommand);
+            CommandConsole.RegisterCommand("train", "forces train into current stage", AddTrainCommand);
+
 
         }
-        public void PlayerSwitchedStage(string stageTo)
+        public void PlayerSwitchedStage(string stageTo, TileManager tileManager, ItemManager itemManager)
         {
             _characterContainer.PlayerSwitchedStage(stageTo);
             _currentNPCContainer = _npcContainerDictionary[stageTo];
+            _currentNPCContainer.LoadContent(stageTo, tileManager, itemManager);
 
         }
 
@@ -89,6 +96,7 @@ namespace EntityEngine.Classes
 
             player.SwitchStage(stageName, tileManager, itemManager);
             _currentNPCContainer = _npcContainerDictionary[stageName];
+            _currentNPCContainer.LoadContent(stageName, tileManager, itemManager);
 
         }
         public void GivePlayerItem(string playerName, WorldItem worldItem)

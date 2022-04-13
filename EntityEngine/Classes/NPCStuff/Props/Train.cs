@@ -25,7 +25,14 @@ namespace EntityEngine.Classes.NPCStuff.Props
             frames[1] = new AnimationFrame(1, 0, 0, .25f);
             AnimatedSprite trainSprite = SpriteFactory.CreateWorldAnimatedSprite(Position,
                 new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
-            Animator = new NPCAnimator(this, new AnimatedSprite[1] { trainSprite }, 0, 0);
+            AnimatedSprite trainSprite1 = SpriteFactory.CreateWorldAnimatedSprite(Position,
+               new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
+            AnimatedSprite trainSprite2 = SpriteFactory.CreateWorldAnimatedSprite(Position,
+               new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
+            AnimatedSprite trainSprite3 = SpriteFactory.CreateWorldAnimatedSprite(Position,
+               new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
+            Animator = new NPCAnimator(this, new AnimatedSprite[4] { trainSprite,
+                trainSprite1, trainSprite2, trainSprite3 }, 0, 0);
         }
 
         public override void LoadContent(ItemManager itemManager)
@@ -34,6 +41,7 @@ namespace EntityEngine.Classes.NPCStuff.Props
         }
         public override void Update(GameTime gameTime)
         {
+            IsInStage = true;  
             base.Update(gameTime);
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -45,7 +53,16 @@ namespace EntityEngine.Classes.NPCStuff.Props
         {
             CurrentStageName = newStageName;
             IsInStage = true;
-            Move(tileManager.GetZones("train").FirstOrDefault(x => x.Value == "start").Position);
+            var zones = tileManager.GetZones("train");
+
+            if(zones != null)
+            {
+                var zone = zones.FirstOrDefault(x => x.Value == "start");
+                if(zone != null)
+                    Move(zone.Position);
+
+            }
+
             base.SwitchStage(newStageName, tileManager, itemManager);
 
         }

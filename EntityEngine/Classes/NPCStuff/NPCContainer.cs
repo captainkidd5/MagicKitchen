@@ -37,23 +37,26 @@ namespace EntityEngine.Classes.CharacterStuff
         }
         internal override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
-            StageName = StageName;
+            StageName = stageName;
 
             base.LoadContent(stageName, tileManager, itemManager);
 
 
+        }
+
+        internal void AddTrain()
+        {
             Train train = new Train(graphics, content);
-            train.LoadContent(itemManager);
+            train.LoadContent(ItemManager);
             train.SwitchStage(StageName, TileManager, ItemManager);
             Entities.Add(train);
-
         }
 
         internal override void Update(GameTime gameTime)
         {
             foreach (Entity n in Entities)
             {
-                NPC npc = (NPC)n;
+                Entity npc = (Entity)n;
                 npc.Update(gameTime);
 
             }
@@ -64,7 +67,7 @@ namespace EntityEngine.Classes.CharacterStuff
         {
             foreach ( Entity n in Entities)
             {
-                NPC npc = (NPC)n;
+                Entity npc = (Entity)n;
                 npc.Draw(spriteBatch);
                 if (Flags.DebugVelcro)
                     npc.DrawDebug(spriteBatch);
@@ -83,7 +86,7 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void Save(BinaryWriter writer)
         {
 
-
+            writer.Write(StageName ?? String.Empty);
             writer.Write(Entities.Count);
                 foreach (Entity n in Entities)
                 {
@@ -94,13 +97,14 @@ namespace EntityEngine.Classes.CharacterStuff
         }
         public override void LoadSave(BinaryReader reader)
         {
-
+            StageName = reader.ReadString();
          int count = reader.ReadInt32();
             for(int i =0; i < count; i++)
             {
                 NPC npc = new NPC(graphics,content);
                 npc.LoadSave(reader);
                 npc.LoadContent(ItemManager,null,null);
+                npc.SwitchStage(StageName, TileManager, ItemManager);
                 Entities.Add(npc);
             }
 
