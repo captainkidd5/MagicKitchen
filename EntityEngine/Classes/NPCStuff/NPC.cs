@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiledEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Dynamics;
 
@@ -23,15 +24,20 @@ namespace EntityEngine.Classes.NPCStuff
         public NPC(GraphicsDevice graphics, ContentManager content, NPCData npcData, Vector2 startPos, Texture2D texture) : base(graphics, content)
         {
             _npcData = npcData;
-
+            Move(startPos);
             List<AnimatedSprite> sprites = new List<AnimatedSprite>();
             foreach(AnimationInfo info in _npcData.AnimationInfo)
             {
-                sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(startPos, info, texture, new Rectangle(info.StartX * 16, info.StartY * 16, _npcData.SpriteWidth, _npcData.SpriteHeight)));
+                sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(
+                    startPos, info, texture, 
+                    new Rectangle(info.StartX * 16,
+                    info.StartY * 16
+                    , _npcData.SpriteWidth,
+                    _npcData.SpriteHeight), _npcData.SpriteWidth /2 * -1, _npcData.SpriteHeight/ 2));
             }
             var spriteArray = sprites.ToArray();
 
-            Animator = new NPCAnimator(this, spriteArray);
+            Animator = new NPCAnimator(this, spriteArray, npcData.SpriteWidth/2, npcData.SpriteHeight);
         }
 
         public override void LoadContent(ItemManager itemManager)
@@ -76,6 +82,14 @@ namespace EntityEngine.Classes.NPCStuff
         protected override void UpdateBehaviour(GameTime gameTime)
         {
             base.UpdateBehaviour(gameTime);
+        }
+
+        public override void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
+        {
+            CurrentStageName = newStageName;
+            IsInStage = true;
+            base.SwitchStage(newStageName, tileManager, itemManager);
+           
         }
     }
 }

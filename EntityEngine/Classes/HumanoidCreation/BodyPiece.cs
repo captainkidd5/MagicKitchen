@@ -31,10 +31,7 @@ namespace EntityEngine.Classes.HumanoidCreation
         protected int Index { get; set; }
 
 
-        /// <summary>
-        /// Will reset to idle position, use this bool so that we don't reset every frame even if we haven't moved last frame.
-        /// </summary>
-        private bool WasMovingLastFrame { get; set; }
+       
         protected int FrameWidth { get; set; }
         protected int FrameHeight { get; set; }
 
@@ -96,11 +93,10 @@ namespace EntityEngine.Classes.HumanoidCreation
             };
 
         }
-        internal virtual void Update(GameTime gameTime, bool isMoving, Direction direction, Vector2 position, float entityLayer)
+        internal virtual void Update(GameTime gameTime,Direction direction, Vector2 position, float entityLayer, bool isMoving)
         {
 
-            if(WasMovingLastFrame && !isMoving)
-                SetRestingFrameIndex(position);
+
 
             CurrentDirection = GetAnimationFromDirection(direction);
             if (direction != Direction.None)
@@ -111,14 +107,14 @@ namespace EntityEngine.Classes.HumanoidCreation
                 CurrentSet[CurrentDirection].CustomLayer = entityLayer + LayerOffSet;
             }
 
-            WasMovingLastFrame = isMoving;
+
             
         }
 
         /// <summary>
         /// Resets sprite to resting frame for specified direction
         /// </summary>
-        private void SetRestingFrameIndex(Vector2 position)
+        public void SetRestingFrameIndex()
         {
             
             CurrentSet[CurrentDirection].ResetSpriteToRestingFrame();

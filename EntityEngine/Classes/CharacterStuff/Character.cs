@@ -49,7 +49,7 @@ namespace EntityEngine.Classes.CharacterStuff
             base.LoadContent(  itemManager);
             Behaviour = new RouteBehaviour(this, StatusIcon, Navigator, TileManager, ActiveSchedule, _npcData.Schedules, null);
             Behaviour = new WanderBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), null);
-            Behaviour = new SearchBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), 2f);
+            //Behaviour = new SearchBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), 2f);
 
 
         }

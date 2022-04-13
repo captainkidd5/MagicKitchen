@@ -24,6 +24,11 @@ namespace EntityEngine.Classes.Animators
         protected float Layer { get; set; }
 
         /// <summary>
+        /// Will reset to idle position, use this bool so that we don't reset every frame even if we haven't moved last frame.
+        /// </summary>
+        protected bool WasMovingLastFrame { get; set; }
+
+        /// <summary>
         /// Note: this is the position where the sprite is drawn, and is an offset of the entity position.
         /// </summary>
         protected Vector2 Position { get; set; }
@@ -38,10 +43,10 @@ namespace EntityEngine.Classes.Animators
         protected Entity Entity;
         
 
-        public Animator(Entity entity, int xOffset = 8, int yOffset = 32)
+        public Animator(Entity entity, int? xOffset , int? yOffset)
         {
-            this.xOffset = xOffset;
-            this.yOffset = yOffset;
+            this.xOffset = xOffset ?? 8;
+            this.yOffset = yOffset ?? 32;
             Entity = entity;
         }
         internal virtual void Load(SoundModuleManager moduleManager,Entity entity, Vector2 entityPosition)
@@ -87,7 +92,7 @@ namespace EntityEngine.Classes.Animators
         {
             return new Rectangle((int)Position.X, (int)Position.Y, xOffset * 2, yOffset);
         }
-        internal virtual void Update(GameTime gameTime, bool isMoving, Vector2 position, Direction currentDirection)
+        internal virtual void Update(GameTime gameTime, bool isMoving, Vector2 position)
         {
 
 

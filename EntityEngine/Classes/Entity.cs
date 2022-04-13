@@ -40,7 +40,7 @@ namespace EntityEngine.Classes
         private readonly GraphicsDevice _graphics;
         private readonly ContentManager _content;
         //Movement
-        protected float StartingSpeed { get; set; } = 12f;
+        protected float StartingSpeed { get; set; } = 3f;
         protected Vector2 Velocity;
         protected float Speed { get; set; }
         protected int StorageCapacity { get; set; }
@@ -84,7 +84,7 @@ namespace EntityEngine.Classes
             StorageCapacity = 4;
             Navigator = new Navigator(Name);
             Speed = StartingSpeed;
-            Behaviour = new WanderBehaviour(this, StatusIcon, Navigator,TileManager, null, null);
+            Behaviour = new SearchBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), 2f);
             _warpHelper = new WarpHelper(this);
             InventoryHandler = new InventoryHandler(StorageCapacity);
 
@@ -119,6 +119,7 @@ namespace EntityEngine.Classes
         /// <param name="isPlayerPresent"></param>
         public virtual void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
         {
+          
             if (CurrentStageName != Flags.StagePlayerIn)
             {
                 RemoveEntityPhysics();
@@ -205,7 +206,7 @@ namespace EntityEngine.Classes
             BigSensor.Position = Position;
 
 
-            Animator.Update(gameTime, IsMoving, Position, DirectionMoving);
+            Animator.Update(gameTime, IsMoving, Position);
 
             if (_warpHelper.IsWarping)
                 CheckOnWarpStatus();

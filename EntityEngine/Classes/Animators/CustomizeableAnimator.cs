@@ -76,9 +76,11 @@ namespace EntityEngine.Classes.Animators
         }
         internal override void LoadUpdate(GameTime gameTime)
         {
+;
             for (int i = 0; i < Animations.Length; i++)
             {
-                Animations[i].Update(gameTime, true, Direction.Down, Position, Layer);
+                Animations[i].Update(gameTime, Direction.Down, Position, Layer,true);
+                Animations[i].SetRestingFrameIndex();
             }
             HasLoadUpdatedOnce = true;
         }
@@ -92,7 +94,7 @@ namespace EntityEngine.Classes.Animators
             }
         }
         public Vector2 PositionLastFrame { get; set; }
-        internal override void Update(GameTime gameTime, bool isMoving, Vector2 position, Direction currentDirection)
+        internal override void Update(GameTime gameTime, bool isMoving, Vector2 position)
         {
             //float dif1 = (Math.Abs(PositionLastFrame.X - position.X));
           //  float dif2 = (Math.Abs(PositionLastFrame.Y - position.Y));
@@ -103,11 +105,15 @@ namespace EntityEngine.Classes.Animators
             }
              Layer = SetPositionAndGetEntityLayer(position);
 
+            bool resetToResting = !isMoving && WasMovingLastFrame;
             if (Entity.IsInStage)
             {
                 for (int i = 0; i < Animations.Length; i++)
                 {
-                    Animations[i].Update(gameTime, isMoving, currentDirection, Position, Layer);
+                    if (resetToResting)
+                        Animations[i].SetRestingFrameIndex();
+                    Animations[i].Update(gameTime, Entity.DirectionMoving, Position, Layer, isMoving);
+                   
                 }
             }
            
@@ -115,6 +121,7 @@ namespace EntityEngine.Classes.Animators
             if (!HasLoadUpdatedOnce)
                 LoadUpdate(gameTime);
             PositionLastFrame = position;
+            WasMovingLastFrame = isMoving;
         }
 
         internal override void Draw(SpriteBatch spriteBatch)

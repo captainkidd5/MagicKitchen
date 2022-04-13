@@ -88,13 +88,13 @@ namespace SpriteEngine.Classes
                 randomizeLayers, flip, customLayer, idleFrame);
         }
 
-        public static AnimatedSprite AnimationInfoToWorldSprite(Vector2 position, AnimationInfo info,Texture2D texture, Rectangle startingSourceRectangle)
+        public static AnimatedSprite AnimationInfoToWorldSprite(Vector2 position, AnimationInfo info,Texture2D texture, Rectangle startingSourceRectangle, int xOffSet, int yOffset)
         {
             AnimationFrame[] animationFrames = new AnimationFrame[info.FrameIndicies.Count];
 
             for (int i = 0; i < info.FrameIndicies.Count; i++)
             {
-                animationFrames[i] = new AnimationFrame(info.FrameIndicies[i],0,0,.15f,false);
+                animationFrames[i] = new AnimationFrame(info.FrameIndicies[i], xOffSet, yOffset,.15f,false);
             }
 
             return CreateWorldAnimatedSprite(position, startingSourceRectangle, texture, animationFrames);

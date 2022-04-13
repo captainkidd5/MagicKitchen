@@ -78,11 +78,11 @@ namespace EntityEngine.Classes.HumanoidCreation
 
         }
 
-        internal override void Update(GameTime gameTime, bool isMoving, Direction direction, Vector2 position, float entityLayer)
+        internal override void Update(GameTime gameTime, Direction direction, Vector2 position, float entityLayer, bool isMoving)
         {
-            base.Update(gameTime, isMoving, direction, position, entityLayer);
+            base.Update(gameTime, direction, position, entityLayer,isMoving);
             
-            if(isMoving && CurrentSet[CurrentDirection].HasFrameChanged() && CurrentSet == WalkingSet)
+            if(CurrentSet[CurrentDirection].HasFrameChanged() && CurrentSet == WalkingSet)
             {
                 int stepFrame1 = 0;
                 int stepFrame2 = 0;
