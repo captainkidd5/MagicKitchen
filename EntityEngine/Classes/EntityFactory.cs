@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using EntityEngine.Classes.ScriptStuff;
 using Globals.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -34,6 +35,8 @@ namespace EntityEngine.Classes
         internal static List<Color> SkinColors;
 
         internal static Dictionary<string, NPCData> NPCData;
+
+        private static ScriptManager _scriptManager;
         public static void Load(ContentManager content)
         {
             HatTexture = content.Load<Texture2D>("Entities/Hats");
@@ -74,6 +77,9 @@ namespace EntityEngine.Classes
 
             string jsonString = File.ReadAllText($"{basePath}/NPCData.json");
             NPCData = JsonSerializer.Deserialize<List<NPCData>>(jsonString, options).ToDictionary(x => x.Name);
+
+            _scriptManager = new ScriptManager();
+            _scriptManager.LoadScripts(content);
         }
 
         public static Color GetRandomSkinTone()

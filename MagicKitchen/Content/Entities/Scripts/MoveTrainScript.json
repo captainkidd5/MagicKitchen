@@ -1,0 +1,20 @@
+
+{
+    "Name": "MoveTrain",
+    "Subscripts": [
+        {
+        "CharacterName": "Train",
+        "ScriptActions": [
+            {
+                "ZoneStart": "train,start",
+                "ZoneEnd": "train,end",
+                "Speed": 5
+
+            }
+        ]
+        
+    }   
+]
+}
+
+    

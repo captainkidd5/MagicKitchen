@@ -6,6 +6,7 @@ namespace DataModels.ScriptedEventStuff
 {
     public class ScriptedEvent
     {
-
+        public string Name { get; set; }
+        public List<SubScript> Subscripts { get; set; }
     }
 }
