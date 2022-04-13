@@ -77,7 +77,6 @@ namespace EntityEngine.Classes
             _characterContainer.PlayerSwitchedStage(stageTo);
             _currentNPCContainer.CleanUp();
             _currentNPCContainer = _npcContainerDictionary[stageTo];
-            _currentNPCContainer.LoadContent();
 
         }
 

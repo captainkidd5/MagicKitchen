@@ -2,6 +2,7 @@
 using DataModels.QuestStuff;
 using EntityEngine.Classes.CharacterStuff.QuestStuff;
 using EntityEngine.Classes.NPCStuff;
+using EntityEngine.Classes.NPCStuff.Props;
 using Globals.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
@@ -39,15 +40,21 @@ namespace EntityEngine.Classes.CharacterStuff
         {
 
             base.LoadContent(stageName, tileManager, itemManager);
-        }
 
+
+            Train train = new Train(graphics, content);
+            train.LoadContent(itemManager);
+            train.SwitchStage(StageName, TileManager, ItemManager);
+            Entities.Add(train);
+
+        }
 
         internal override void Update(GameTime gameTime)
         {
             foreach (Entity n in Entities)
             {
-                NPC charac = (NPC)n;
-                charac.Update(gameTime);
+                NPC npc = (NPC)n;
+                npc.Update(gameTime);
 
             }
 
@@ -57,24 +64,20 @@ namespace EntityEngine.Classes.CharacterStuff
         {
             foreach ( Entity n in Entities)
             {
-                NPC charac = (NPC)n;
-                charac.Draw(spriteBatch);
+                NPC npc = (NPC)n;
+                npc.Draw(spriteBatch);
                 if (Flags.DebugVelcro)
-                    charac.DrawDebug(spriteBatch);
+                    npc.DrawDebug(spriteBatch);
 
             }
           
 
         }
 
-        internal void AssignCharactersToStages()
-        {
-
-        }
 
         internal override void SwitchStage(string newStage)
         {
-         
+            Console.WriteLine("test");
         }
 
         public override void Save(BinaryWriter writer)
@@ -82,9 +85,12 @@ namespace EntityEngine.Classes.CharacterStuff
             //Test if new game because characters are initially loaded in after save/load logic, therefore the entity list is not populated
             //before first load and therefore not saved
             if (!Flags.IsNewGame)
+            {
+
+            }
                 foreach (Entity n in Entities)
                 {
-                    Character charac = (Character)n;
+                    NPC charac = (NPC)n;
                     charac.Save(writer);
 
 

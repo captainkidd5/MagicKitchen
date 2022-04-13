@@ -1,8 +1,11 @@
 ﻿using DataModels;
+using EntityEngine.Classes.Animators;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes;
+using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +20,12 @@ namespace EntityEngine.Classes.NPCStuff.Props
         public Train(GraphicsDevice graphics, ContentManager content) : 
             base(graphics, content)
         {
-
+            AnimationFrame[] frames = new AnimationFrame[2];
+            frames[0] = new AnimationFrame(0, 0, 0, .25f);
+            frames[1] = new AnimationFrame(1, 0, 0, .25f);
+            AnimatedSprite trainSprite = SpriteFactory.CreateWorldAnimatedSprite(Position,
+                new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
+            Animator = new NPCAnimator(this, new AnimatedSprite[1] { trainSprite }, 0, 0);
         }
 
         public override void LoadContent(ItemManager itemManager)

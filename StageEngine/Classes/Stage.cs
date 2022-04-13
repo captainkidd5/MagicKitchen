@@ -146,6 +146,7 @@ namespace StageEngine.Classes
         public void Unload()
         {
             TileManager.CleanUp();
+            ItemManager.CleanUp();
         }
         public void Save(BinaryWriter writer)
         {

@@ -24,7 +24,7 @@ namespace TiledEngine.Classes.ZoneStuff
             
             foreach (TmxObject specialZone in tmxObjectLayer.Objects)
             {
-                SpecialZone zone = new SpecialZone(specialZone.Name,specialZone.Properties.ElementAt(0).Value, new Rectangle(
+                SpecialZone zone = new SpecialZone(specialZone.Properties.ElementAt(0).Key, specialZone.Properties.ElementAt(0).Value, new Rectangle(
                     (int)specialZone.X,
                     (int)specialZone.Y,
                     (int)specialZone.Width,
@@ -45,7 +45,7 @@ namespace TiledEngine.Classes.ZoneStuff
         }
         public List<SpecialZone> GetZones(string name)
         {
-            List<SpecialZone> zone = (List<SpecialZone>)Zones.Where(x => x.PropertyName == name);
+            List<SpecialZone> zone = Zones.Where(x => x.PropertyName == name).ToList();
 
             if (zone == null)
                 throw new Exception($"No zone with name {name} found");

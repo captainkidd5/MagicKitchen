@@ -355,7 +355,7 @@
   </object>
  </objectgroup>
  <objectgroup id="9" name="SpecialZone">
-  <object id="60" x="0" y="656" width="16" height="48">
+  <object id="60" x="548" y="671" width="16" height="48">
    <properties>
     <property name="train" value="start"/>
    </properties>
