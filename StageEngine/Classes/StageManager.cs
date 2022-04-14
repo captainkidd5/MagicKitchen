@@ -28,6 +28,7 @@ namespace StageEngine.Classes
     {
   
         private readonly EntityManager _entityManager;
+        private readonly NPCContainer _npcContainer;
         private readonly string _startingStageName = "LullabyTown";
 
         private Player _player1 => _entityManager.Player1;
@@ -51,6 +52,7 @@ namespace StageEngine.Classes
             Penumbra = penumbra;
             _camera = camera;
             _portalManager = new PortalManager(this, _entityManager);
+            _npcContainer = new NPCContainer(graphics, content);
         }
 
         public override void LoadContent()

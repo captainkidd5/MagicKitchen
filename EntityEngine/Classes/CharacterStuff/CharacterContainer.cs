@@ -24,21 +24,17 @@ namespace EntityEngine.Classes.CharacterStuff
         internal static Texture2D StatusIconTexture { get; set; }
 
 
-        public CharacterContainer(EntityManager entityManager, GraphicsDevice graphics, ContentManager content) : base(entityManager, graphics, content)
+        public CharacterContainer( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             _questManager = new QuestManager(graphics,content);
-            Extension = "Characters";
         }
 
-        internal override void PlayerSwitchedStage(string stageTo)
-        {
-            base.PlayerSwitchedStage(stageTo);
-        }
-        internal override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
+  
+        internal override void LoadContent()
         {
            
             StatusIconTexture = content.Load<Texture2D>("entities/npc/characters/statusicons");
-            base.LoadContent(stageName,tileManager,itemManager);
+            base.LoadContent();
         }
 
 
@@ -76,12 +72,11 @@ namespace EntityEngine.Classes.CharacterStuff
 
         }
 
-        internal override void SwitchStage(string newStage)
+        internal void SwitchStage(string newStage)
         {
-            foreach (Entity entity in Entities)
+            foreach (Character character in Entities)
             {
-                Character charac = (Character)entity;
-                charac.PlayerSwitchedStage(newStage, false);
+                character.PlayerSwitchedStage(newStage, false);
 
                 
             }
@@ -104,7 +99,7 @@ namespace EntityEngine.Classes.CharacterStuff
         {
             List<CharacterData> allNpcData = new List<CharacterData>();
 
-            string basePath = content.RootDirectory + FileLocation;
+            string basePath = content.RootDirectory + "Entities/";
             string[] directories = Directory.GetDirectories(basePath);
             List<Quest> allQuests = new List<Quest>();
             foreach (string directory in directories)

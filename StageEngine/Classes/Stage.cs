@@ -20,6 +20,7 @@ using PhysicsEngine.Classes.Pathfinding;
 using Globals.Classes.Time;
 using static Globals.Classes.Settings;
 using IOEngine.Classes;
+using EntityEngine.Classes.NPCStuff;
 
 namespace StageEngine.Classes
 {
@@ -31,6 +32,7 @@ namespace StageEngine.Classes
         private readonly EntityManager _entityManager;
         private readonly PortalManager _portalManager;
         private readonly StageData _stageData;
+        private readonly NPCContainer _npcContainer;
 
         private readonly ContentManager _content;
         private readonly GraphicsDevice _graphics;
@@ -53,7 +55,7 @@ namespace StageEngine.Classes
         private PathGrid _pathGrid => TileManager.PathGrid;
 
         internal bool CamLock => _stageData.MapType == MapType.Exterior;
-        public Stage(StageManager stageManager,EntityManager entityManager, PortalManager portalManager, StageData stageData, ContentManager content,
+        public Stage(StageManager stageManager,EntityManager entityManager, NPCManager npcManager,  PortalManager portalManager, StageData stageData, ContentManager content,
             GraphicsDevice graphics, Camera2D camera, PenumbraComponent penumbra)
         {
             Name = stageData.Name;
@@ -61,7 +63,8 @@ namespace StageEngine.Classes
             _entityManager = entityManager;
             _portalManager = portalManager;
             _stageData = stageData;
-
+            _npcContainer = new NPCContainer(graphics, content);
+            npcManager.AddNewContainer(Name, _npcContainer);
             _content = content;
             _graphics = graphics;
             _camera = camera;
@@ -84,7 +87,7 @@ namespace StageEngine.Classes
 
             ItemManager.Update(gameTime);
 
-
+            _npcContainer.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
@@ -97,7 +100,7 @@ namespace StageEngine.Classes
             TileManager.Draw(spriteBatch);
 
             ItemManager.Draw(spriteBatch);
-
+            _npcContainer.Draw(spriteBatch);
 #if DEBUG
             if (Flags.DebugGrid)
                 _pathGrid.DrawDebug(spriteBatch);

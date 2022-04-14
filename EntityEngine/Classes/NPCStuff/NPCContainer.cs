@@ -22,24 +22,21 @@ using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.CharacterStuff
 {
-    internal class NPCContainer : EntityContainer
+    public class NPCContainer : EntityContainer
     {
         public string StageName { get; private set; }
 
-        public NPCContainer( EntityManager entityManager, GraphicsDevice graphics, ContentManager content) : base(entityManager, graphics, content)
+        public NPCContainer( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            Extension = "NPC";
+
         }
 
-        internal override void PlayerSwitchedStage(string stageTo)
-        {
-            base.PlayerSwitchedStage(stageTo);
-        }
-        internal override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
+
+        internal void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
             StageName = stageName;
-
-            base.LoadContent(stageName, tileManager, itemManager);
+            TileManager = tileManager;
+            ItemManager = itemManager;
 
 
         }
@@ -52,36 +49,7 @@ namespace EntityEngine.Classes.CharacterStuff
             Entities.Add(train);
         }
 
-        internal override void Update(GameTime gameTime)
-        {
-            foreach (Entity n in Entities)
-            {
-                Entity npc = (Entity)n;
-                npc.Update(gameTime);
 
-            }
-
-        }
-
-        internal override void Draw(SpriteBatch spriteBatch)
-        {
-            foreach ( Entity n in Entities)
-            {
-                Entity npc = (Entity)n;
-                npc.Draw(spriteBatch);
-                if (Flags.DebugVelcro)
-                    npc.DrawDebug(spriteBatch);
-
-            }
-          
-
-        }
-
-
-        internal override void SwitchStage(string newStage)
-        {
-            Console.WriteLine("test");
-        }
 
         public override void Save(BinaryWriter writer)
         {
@@ -109,15 +77,14 @@ namespace EntityEngine.Classes.CharacterStuff
                     .CreateInstance(savedType, true, System.Reflection.BindingFlags.CreateInstance,
                     null, new object[] { graphics, content },null,null);
                 npc.LoadSave(reader);
-                npc.LoadContent(ItemManager,null,null);
-                npc.SwitchStage(StageName, TileManager, ItemManager);
+           
                 Entities.Add(npc);
             }
 
         }
 
-       
 
+    
         public void CreateNPC(string name, Vector2 position)
         {
             NPC npc = new NPC(graphics, content);

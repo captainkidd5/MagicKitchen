@@ -17,43 +17,29 @@ namespace EntityEngine.Classes
     {
 
         internal List<Entity> Entities { get; set; }
-        protected  EntityManager EntityManager { get; }
 
         internal virtual Entity GetEntity(string name) => Entities.FirstOrDefault(x => x.Name == name);
 
-        internal protected readonly string BasePath = "/entities/";
-        internal protected string Extension;
 
-        internal protected string FileLocation => BasePath + Extension;
 
         protected TileManager TileManager;
         protected ItemManager ItemManager;
-        public EntityContainer(EntityManager entityManager,GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public EntityContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             Entities = new List<Entity>();
-            EntityManager = entityManager;
         }
-        internal virtual void PlayerSwitchedStage(string stageTo)
+ 
+        internal virtual void LoadContent()
         {
+
             foreach (Entity entity in Entities)
             {
 
-                entity.PlayerSwitchedStage(stageTo, false);
-
-            }
-        }
-        internal virtual void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
-        {
-            TileManager = tileManager;
-            ItemManager = itemManager;
-            foreach (Entity entity in Entities)
-            {
-
-                entity.LoadContent(itemManager);
+                entity.LoadContent();
             }
         }
 
-        internal virtual void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             foreach (Entity entity in Entities)
             {
@@ -62,7 +48,7 @@ namespace EntityEngine.Classes
             }
         }
 
-        internal virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             foreach (Entity entity in Entities)
             {
@@ -70,22 +56,8 @@ namespace EntityEngine.Classes
 
             }
         }
-        internal virtual void LoadEntitiesToStage(string stageTo, TileManager tileManager, ItemManager itemManager)
-        {
-            foreach (Entity entity in Entities)
-            {
-                //entity.Value.IsInStage = entity.Value.CurrentStageName == stageTo;
-                if (entity.CurrentStageName == stageTo)
-                    entity.ForceWarpTo(stageTo, entity.Position, tileManager, itemManager);
-            }
-        }
-        internal virtual void SwitchStage(string stageName)
-        {
-            foreach (Entity entity in Entities)
-            {
-                entity.IsInStage = entity.CurrentStageName == stageName;
-            }
-        }
+
+
         internal void GiveEntityItem(string entityName, WorldItem worldItem)
         {
             Entity entity = GetEntity(entityName);

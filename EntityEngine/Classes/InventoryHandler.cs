@@ -20,7 +20,7 @@ namespace EntityEngine.Classes
             StorageContainer = new StorageContainer(capacity);
         }
 
-        public void LoadContent(ItemManager itemManager)
+        public void SwitchStage(ItemManager itemManager)
         {
             ItemManager = itemManager;
 
