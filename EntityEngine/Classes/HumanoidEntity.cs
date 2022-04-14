@@ -79,9 +79,9 @@ namespace EntityEngine.Classes
         }
         internal override void ChangeClothingColor(Type t, Color color) => 
             (Animator as CustomizeableAnimator).ChangeClothingColor(t, color);
-        public override void LoadContent(ItemManager itemManager )
+        public override void LoadContent( )
         {
-            base.LoadContent(itemManager);
+            base.LoadContent();
             LoadAnimations(Animator);
 
             ChangeClothingColor(typeof(Hair), ColorHelper.GetRandomColor());

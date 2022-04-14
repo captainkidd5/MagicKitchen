@@ -38,7 +38,7 @@ namespace EntityEngine.Classes.CharacterStuff
         }
 
 
-        internal override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             foreach (Entity entity in Entities)
             {
@@ -49,7 +49,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
         }
 
-        internal override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             foreach (Entity entity in Entities)
             {

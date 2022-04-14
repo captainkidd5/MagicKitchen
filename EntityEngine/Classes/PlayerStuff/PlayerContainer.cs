@@ -16,7 +16,7 @@ namespace EntityEngine.Classes.PlayerStuff
     {
 
         public Player Player1 { get; set; }
-        public PlayerContainer(EntityManager entityManager, GraphicsDevice graphics, ContentManager content) : base(entityManager,graphics, content)
+        public PlayerContainer( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             Player1 = new Player(graphics, content,this);
             Entities.Add(Player1);
@@ -24,24 +24,24 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
    
-        internal override void LoadEntitiesToStage(string stageTo, TileManager tileManager, ItemManager itemManager)
+        internal override void SwitchStage(string stageTo, TileManager tileManager, ItemManager itemManager)
         {
             if (Player1.CurrentStageName == stageTo)
              Player1.SwitchStage(stageTo, tileManager, itemManager);
 
         }
-        public override void LoadContent()
+        internal override void LoadContent()
         {
            
 
         }
-        internal override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             Player1.UpdateFromInput();
             base.Update(gameTime);
         }
 
-        internal override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
         }

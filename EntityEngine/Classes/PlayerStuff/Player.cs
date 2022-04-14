@@ -51,9 +51,9 @@ namespace EntityEngine.Classes.PlayerStuff
             base.SwitchStage(newStageName,tileManager, itemManager);
             _playerContainer.PlayerSwitchedStage(newStageName);
         }
-        public override void LoadContent(ItemManager itemManager)
+        public override void LoadContent()
         {
-            base.LoadContent( itemManager);
+            base.LoadContent();
             IsInStage = true;
             UI.LoadPlayerInventory(StorageContainer);
 

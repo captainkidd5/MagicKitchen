@@ -113,7 +113,6 @@ namespace EntityEngine.Classes
             CreateBody(Position);
 
             DirectionMoving = Direction.Down;
-            InventoryHandler.LoadContent(itemManager);
             TargetStage = CurrentStageName;
 
 
@@ -135,6 +134,7 @@ namespace EntityEngine.Classes
             }
 
             LoadToNewStage(newStageName, tileManager, itemManager);
+
 
         }
         public void StartWarp(string stageTo, Vector2 positionTo, TileManager tileManager, ItemManager itemManager, Direction directionToFace)
