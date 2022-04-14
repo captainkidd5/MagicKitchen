@@ -64,7 +64,7 @@ namespace EntityEngine.Classes.NPCStuff.Props
             }
 
             base.SwitchStage(newStageName, tileManager, itemManager);
-
+            InjectScript(EntityFactory.GetSubscript("MoveTrain"));
         }
 
 

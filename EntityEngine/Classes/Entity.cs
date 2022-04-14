@@ -27,6 +27,8 @@ using VelcroPhysics.Dynamics;
 using VelcroPhysics.Factories;
 using static Globals.Classes.Settings;
 using static DataModels.Enums;
+using EntityEngine.Classes.ScriptStuff;
+using DataModels.ScriptedEventStuff;
 
 namespace EntityEngine.Classes
 {
@@ -72,7 +74,6 @@ namespace EntityEngine.Classes
         public Point TileOn => new Point((int)(Position.X / 16), (int)(Position.Y / 16));
         public bool IsWarping => _warpHelper.IsWarping;
 
-        
 
 
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
@@ -90,6 +91,12 @@ namespace EntityEngine.Classes
 
         }
 
+
+        public void InjectScript(SubScript subscript)
+        {
+            Behaviour = new ScriptBehaviour(this, StatusIcon, Navigator, TileManager, 2f);
+            (Behaviour as ScriptBehaviour).InjectSubscript(subscript);
+        }
         internal virtual void ChangeSkinTone(Color newSkinTone)
         {
             

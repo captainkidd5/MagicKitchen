@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using DataModels.ScriptedEventStuff;
 using EntityEngine.Classes.ScriptStuff;
 using Globals.Classes;
 using Microsoft.Xna.Framework;
@@ -81,7 +82,7 @@ namespace EntityEngine.Classes
             _scriptManager = new ScriptManager();
             _scriptManager.LoadScripts(content);
         }
-
+        public static SubScript GetSubscript(string scriptName) => _scriptManager.GetSubscript(scriptName);
         public static Color GetRandomSkinTone()
         {
             return SkinColors[Settings.Random.Next(0, SkinColors.Count)];

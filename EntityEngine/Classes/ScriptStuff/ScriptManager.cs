@@ -13,7 +13,7 @@ namespace EntityEngine.Classes.ScriptStuff
 {
     internal class ScriptManager
     {
-        public Dictionary<string, ScriptedEvent> Scripts;
+        private Dictionary<string, ScriptedEvent> Scripts;
         public ScriptManager()
         {
             Scripts = new Dictionary<string, ScriptedEvent>();
@@ -33,6 +33,11 @@ namespace EntityEngine.Classes.ScriptStuff
 
 
                
+        }
+
+        public SubScript GetSubscript(string scriptName)
+        {
+            return Scripts[scriptName].Subscripts.First();
         }
     }
 }
