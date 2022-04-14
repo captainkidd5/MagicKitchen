@@ -27,11 +27,12 @@ namespace StageEngine.Classes
     public class StageManager : Component, ISaveable
     {
   
-        private readonly EntityManager _entityManager;
+        private readonly PlayerManager _playerManager;
         private readonly NPCContainer _npcContainer;
+        private readonly CharacterContainer _characterContainer;
         private readonly string _startingStageName = "LullabyTown";
 
-        private Player _player1 => _entityManager.Player1;
+        public Player Player1 => _playerManager.Player1;
         private Camera2D _camera;
         private readonly PortalManager _portalManager;
 
@@ -44,21 +45,24 @@ namespace StageEngine.Classes
 
         private Vector2 NewPlayerPositionOnStageSwitch { get; set; }
 
-        public StageManager(GraphicsDevice graphics, ContentManager content,EntityManager entityManager, PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
+        public StageManager(GraphicsDevice graphics, ContentManager content,PlayerManager playerManager, PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
         {
 
             Stages = new Dictionary<string, Stage>();
-            _entityManager = entityManager;
+            _playerManager = playerManager;
             Penumbra = penumbra;
             _camera = camera;
-            _portalManager = new PortalManager(this, _entityManager);
+            _portalManager = new PortalManager(this);
             _npcContainer = new NPCContainer(graphics, content);
+            _characterContainer = new CharacterContainer(graphics, content);
         }
 
         public override void LoadContent()
         {
             base.LoadContent();
             LoadStageData();
+            _npcContainer.LoadContent();
+            _characterContainer.LoadContent();
 
         }
 
@@ -94,8 +98,8 @@ namespace StageEngine.Classes
             CurrentStage.Unload();
 
             CurrentStage = GetStage(StageSwitchingTo);
-            _entityManager.PlayerSwitchedStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
-
+            _characterContainer.SwitchStage(StageSwitchingTo);
+            
             CurrentStage.LoadFromStageFile();
 
             if (CurrentStage == null)
@@ -103,13 +107,13 @@ namespace StageEngine.Classes
 
             //CurrentStage.LoadFromStageFile();
             
-            _camera.Jump(_player1.Position);
+            _camera.Jump(Player1.Position);
             StageSwitchingTo = null;
             Debug.Assert(NewPlayerPositionOnStageSwitch != Vector2.Zero, "New player position should not be zero");
-            _player1.Move(NewPlayerPositionOnStageSwitch);
+            Player1.Move(NewPlayerPositionOnStageSwitch);
             NewPlayerPositionOnStageSwitch = Vector2.Zero;
 
-            _player1.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
+            Player1.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             //_player1.LoadToNewStage(CurrentStage.Name, CurrentStage.ItemManager);
             Flags.Pause = false;
             UI.RaiseCurtain(UI.CurtainDropRate);
@@ -124,7 +128,9 @@ namespace StageEngine.Classes
             if (!Flags.Pause)
             {
                 _portalManager.Update(gameTime);
-                _entityManager.Update(gameTime);
+                _npcContainer.Update(gameTime);
+                _playerManager.Update(gameTime);
+                _characterContainer.Update(gameTime);
                 CurrentStage.Update(gameTime);
                 if (SoundFactory.AllowAmbientSounds && !SoundFactory.IsPlayingAmbient)
                     SoundFactory.PlayAmbientNoise(CurrentStage.Name);
@@ -140,37 +146,30 @@ namespace StageEngine.Classes
         {
             writer.Write(CurrentStage.Name);
             CurrentStage.SaveToStageFile();
-            _entityManager.Save(writer);
-
+            _playerManager.Save(writer);
+            _characterContainer.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
         {
             string name = reader.ReadString();
             CurrentStage = GetStage(name);
-            _entityManager.LoadSave(reader);
+            _playerManager.LoadSave(reader);
+            _characterContainer.LoadSave(reader);
             //_player1.LoadContent(CurrentStage.ItemManager);
             //Still need to load all stages for portals and graph
             foreach (KeyValuePair<string, Stage> pair in Stages)
             {
                 pair.Value.LoadFromStageFile();
-                _entityManager.GenerateNPCContainers(pair.Value.Name);
 
                 if (pair.Value.Name != name)
                     pair.Value.Unload();
             }
-            _entityManager.LoadContent(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
            
             TileLoader.LoadFinished();
-            foreach (KeyValuePair<string, Stage> pair in Stages)
-            {
-                _entityManager.LoadEntitiesToStage(pair.Value.Name, pair.Value.TileManager, pair.Value.ItemManager);
-
-            }
-            _entityManager.PlayerSwitchedStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
-
-            _camera.Jump(_player1.Position);
+     
+            _camera.Jump(Player1.Position);
             SongManager.ChangePlaylist(CurrentStage.Name);
 
             
@@ -182,7 +181,7 @@ namespace StageEngine.Classes
 
             foreach (StageData sd in stageData)
             {
-                Stages.Add(sd.Name, new Stage(this,_entityManager, _portalManager, sd, content, graphics, _camera, Penumbra));
+                Stages.Add(sd.Name, new Stage(this, _portalManager, sd, content, graphics, _camera, Penumbra));
             }
         }
         public void CreateNewSave(BinaryWriter writer)

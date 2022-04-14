@@ -23,7 +23,6 @@ namespace StageEngine.Classes
     {
         private readonly PortalManager _portalManager;
         private readonly StageManager _stageManager;
-        private readonly EntityManager _entityManager;
 
         internal string From { get; set; }
         internal string To { get; set; }
@@ -34,12 +33,11 @@ namespace StageEngine.Classes
         private Rectangle Rectangle { get; set; }
         private bool _mustBeClicked;
         private Direction _directionToFace;
-        public Portal(PortalManager portalManager,StageManager stageManager,EntityManager entityManager,
+        public Portal(PortalManager portalManager,StageManager stageManager,
             Rectangle rectangle, string from, string to, int xOffSet, int yOffSet,Direction directionToFace, bool mustBeClicked) : base()
         {
             _portalManager = portalManager;
             _stageManager = stageManager;
-            _entityManager = entityManager;
             Rectangle = rectangle;
             From = from;
             To = to;
@@ -48,11 +46,10 @@ namespace StageEngine.Classes
             _mustBeClicked = mustBeClicked;
             _directionToFace = directionToFace;
         }
-        public Portal(PortalManager portalManager, StageManager stageManager, EntityManager entityManager)
+        public Portal(PortalManager portalManager, StageManager stageManager)
         {
             _portalManager = portalManager;
             _stageManager = stageManager;
-            _entityManager = entityManager;
         }
         public void Load(Vector2 position)
         {
@@ -77,7 +74,7 @@ namespace StageEngine.Classes
             MainHullBody.Body.AngularVelocity = 0f;
             if (PlayerInClickRange)
             {
-                if (From == _entityManager.Player1.CurrentStageName)
+                if (From == _stageManager.Player1.CurrentStageName)
                 {
                    
                     if (_mustBeClicked && PlayerInClickRange && MouseHovering)
@@ -90,7 +87,7 @@ namespace StageEngine.Classes
 
                             _stageManager.RequestSwitchStage(To, _portalManager.GetDestinationPosition(this));
                             UI.Cursor.CursorIconType = CursorIconType.None;
-                            _entityManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this),
+                            _stageManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this),
                                 _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
 
                         }
@@ -125,12 +122,12 @@ namespace StageEngine.Classes
             }
             else if(!_mustBeClicked &&  fixtureB.CollisionCategories.HasFlag(Category.Player))
             {
-                Entity entity = (fixtureB.Body.UserData as Entity);
+                Player entity = (fixtureB.Body.UserData as Player);
                 if (From == entity.CurrentStageName)
                 {
 
                     _stageManager.RequestSwitchStage(To, _portalManager.GetDestinationPosition(this));
-                _entityManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this),
+                    entity.StartWarp(To, _portalManager.GetDestinationPosition(this),
                     _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
                 }
 

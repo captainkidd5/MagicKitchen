@@ -12,11 +12,11 @@ using TiledEngine.Classes;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
-    public class PlayerContainer : EntityContainer
+    public class PlayerManager : EntityContainer
     {
 
         public Player Player1 { get; set; }
-        public PlayerContainer( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public PlayerManager( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             Player1 = new Player(graphics, content,this);
             Entities.Add(Player1);
@@ -24,7 +24,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
    
-        internal override void SwitchStage(string stageTo, TileManager tileManager, ItemManager itemManager)
+        internal void SwitchStage(string stageTo, TileManager tileManager, ItemManager itemManager)
         {
             if (Player1.CurrentStageName == stageTo)
              Player1.SwitchStage(stageTo, tileManager, itemManager);

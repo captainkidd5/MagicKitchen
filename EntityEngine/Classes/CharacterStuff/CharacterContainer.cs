@@ -17,7 +17,7 @@ using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.CharacterStuff
 {
-    internal class CharacterContainer : EntityContainer
+    public class CharacterContainer : EntityContainer
     {
         private readonly QuestManager _questManager;
 
@@ -72,7 +72,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
         }
 
-        internal void SwitchStage(string newStage)
+        public void SwitchStage(string newStage)
         {
             foreach (Character character in Entities)
             {

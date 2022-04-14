@@ -17,13 +17,11 @@ namespace StageEngine.Classes
         public Dictionary<string, List<Portal>> PortalDictionary { get; set; }
 
         private readonly StageManager _stageManager;
-        private readonly EntityManager _entityManager;
 
 
-        public PortalManager(StageManager stageManager, EntityManager entityManager)
+        public PortalManager(StageManager stageManager)
         {
             _stageManager = stageManager;
-            _entityManager = entityManager;
             PortalDictionary = new Dictionary<string, List<Portal>>();
 
         }

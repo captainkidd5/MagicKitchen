@@ -29,7 +29,6 @@ namespace StageEngine.Classes
         public string Name { get; private set; }
 
         private readonly StageManager _stageManager;
-        private readonly EntityManager _entityManager;
         private readonly PortalManager _portalManager;
         private readonly StageData _stageData;
         private readonly NPCContainer _npcContainer;
