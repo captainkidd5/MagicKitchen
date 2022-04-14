@@ -30,16 +30,21 @@ namespace EntityEngine.Classes.NPCStuff
             
         }
 
-        public void LoadContent(ItemManager itemManager, Vector2? startPos, string? name)
+        public virtual void LoadContent(ItemManager itemManager, Vector2? startPos, string? name)
         {
             base.LoadContent(itemManager);
             if (name != null)
                 Name = name;
             if (startPos != null)
                 Move(startPos.Value);
-            _npcData = EntityFactory.NPCData[Name];
 
             Move(Position);
+
+            if (!string.IsNullOrEmpty(Name))
+            {
+
+            _npcData = EntityFactory.NPCData[Name];
+
             List<AnimatedSprite> sprites = new List<AnimatedSprite>();
             foreach (AnimationInfo info in _npcData.AnimationInfo)
             {
@@ -53,6 +58,7 @@ namespace EntityEngine.Classes.NPCStuff
             var spriteArray = sprites.ToArray();
 
             Animator = new NPCAnimator(this, spriteArray, _npcData.SpriteWidth / 2, _npcData.SpriteHeight);
+            }
 
             // EntityAnimator = new NPCAnimator(this, )
         }

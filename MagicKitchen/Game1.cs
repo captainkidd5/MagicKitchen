@@ -204,11 +204,13 @@ namespace MagicKitchen
         }
         public void OnSaveLoaded(object? sender, FileLoadedEventArgs e)
         {
+            Flags.IsBootUp = true;
             _entityManager.LoadContent();
             _stageManager.LoadContent();
             BinaryReader reader = e.BinaryReader;
             _stageManager.LoadSave(reader);
             SaveLoadManager.DestroyReader(reader);
+            Flags.IsBootUp = false;
         }
 
 

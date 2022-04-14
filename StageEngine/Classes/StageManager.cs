@@ -171,6 +171,7 @@ namespace StageEngine.Classes
             _camera.Jump(_player1.Position);
             SongManager.ChangePlaylist(CurrentStage.Name);
 
+            
 
         }
         private void LoadStageData()

@@ -8,6 +8,7 @@ using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,11 +16,17 @@ using TiledEngine.Classes;
 
 namespace EntityEngine.Classes.NPCStuff.Props
 {
-    internal class Train : Entity
+    internal class Train : NPC
     {
         public Train(GraphicsDevice graphics, ContentManager content) : 
             base(graphics, content)
         {
+            Name = string.Empty;
+        }
+
+        public override void LoadContent(ItemManager itemManager, Vector2? startPos, string? name)
+        {
+            base.LoadContent(itemManager, startPos, name);
             AnimationFrame[] frames = new AnimationFrame[2];
             frames[0] = new AnimationFrame(0, 0, 48, .25f);
             frames[1] = new AnimationFrame(0, 0, 48, .25f);
@@ -33,11 +40,6 @@ namespace EntityEngine.Classes.NPCStuff.Props
                new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
             Animator = new NPCAnimator(this, new AnimatedSprite[4] { trainSprite,
                 trainSprite1, trainSprite2, trainSprite3 }, 128, 40);
-        }
-
-        public override void LoadContent(ItemManager itemManager)
-        {
-            base.LoadContent(itemManager);
         }
         public override void Update(GameTime gameTime)
         {
@@ -58,8 +60,10 @@ namespace EntityEngine.Classes.NPCStuff.Props
             if(zones != null)
             {
                 var zone = zones.FirstOrDefault(x => x.Value == "start");
-                if(zone != null)
+                if (zone != null)
                     Move(zone.Position);
+                else
+                    throw new Exception($"Start zone needed for train to function");
 
             }
 
@@ -67,8 +71,14 @@ namespace EntityEngine.Classes.NPCStuff.Props
             InjectScript(EntityFactory.GetSubscript("MoveTrain"));
         }
 
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+        }
 
-
-
+        public override void LoadSave(BinaryReader reader)
+        {
+            base.LoadSave(reader);
+        }
     }
 }

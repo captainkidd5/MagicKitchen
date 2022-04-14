@@ -47,7 +47,7 @@ namespace EntityEngine.Classes.CharacterStuff
         internal void AddTrain()
         {
             Train train = new Train(graphics, content);
-            train.LoadContent(ItemManager);
+            train.LoadContent(ItemManager, null, null);
             train.SwitchStage(StageName, TileManager, ItemManager);
             Entities.Add(train);
         }
@@ -90,6 +90,8 @@ namespace EntityEngine.Classes.CharacterStuff
             writer.Write(Entities.Count);
                 foreach (Entity n in Entities)
                 {
+                writer.Write(n.GetType().ToString());
+
                 n.Save(writer);
 
 
@@ -101,7 +103,11 @@ namespace EntityEngine.Classes.CharacterStuff
          int count = reader.ReadInt32();
             for(int i =0; i < count; i++)
             {
-                NPC npc = new NPC(graphics,content);
+                string savedType = reader.ReadString();
+
+                NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
+                    .CreateInstance(savedType, true, System.Reflection.BindingFlags.CreateInstance,
+                    null, new object[] { graphics, content },null,null);
                 npc.LoadSave(reader);
                 npc.LoadContent(ItemManager,null,null);
                 npc.SwitchStage(StageName, TileManager, ItemManager);
@@ -109,6 +115,8 @@ namespace EntityEngine.Classes.CharacterStuff
             }
 
         }
+
+       
 
         public void CreateNPC(string name, Vector2 position)
         {
