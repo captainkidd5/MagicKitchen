@@ -21,8 +21,8 @@ namespace EntityEngine.Classes.NPCStuff.Props
             base(graphics, content)
         {
             AnimationFrame[] frames = new AnimationFrame[2];
-            frames[0] = new AnimationFrame(0, 0, 0, .25f);
-            frames[1] = new AnimationFrame(1, 0, 0, .25f);
+            frames[0] = new AnimationFrame(0, 0, 48, .25f);
+            frames[1] = new AnimationFrame(0, 0, 48, .25f);
             AnimatedSprite trainSprite = SpriteFactory.CreateWorldAnimatedSprite(Position,
                 new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
             AnimatedSprite trainSprite1 = SpriteFactory.CreateWorldAnimatedSprite(Position,
@@ -32,7 +32,7 @@ namespace EntityEngine.Classes.NPCStuff.Props
             AnimatedSprite trainSprite3 = SpriteFactory.CreateWorldAnimatedSprite(Position,
                new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
             Animator = new NPCAnimator(this, new AnimatedSprite[4] { trainSprite,
-                trainSprite1, trainSprite2, trainSprite3 }, 0, 0);
+                trainSprite1, trainSprite2, trainSprite3 }, 128, 40);
         }
 
         public override void LoadContent(ItemManager itemManager)

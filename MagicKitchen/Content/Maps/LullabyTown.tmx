@@ -355,12 +355,12 @@
   </object>
  </objectgroup>
  <objectgroup id="9" name="SpecialZone">
-  <object id="60" x="548" y="671" width="16" height="48">
+  <object id="60" x="21" y="664" width="16" height="48">
    <properties>
     <property name="train" value="start"/>
    </properties>
   </object>
-  <object id="61" x="1008" y="656" width="16" height="48">
+  <object id="61" x="559" y="659" width="16" height="48">
    <properties>
     <property name="train" value="end"/>
    </properties>

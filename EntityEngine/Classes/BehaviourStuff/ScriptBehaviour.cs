@@ -48,7 +48,7 @@ namespace EntityEngine.Classes.BehaviourStuff
 
             if (SimpleTimer.Run(gameTime))
             {
-                if(_currentActionStep >= _currentScript.ScriptActions.Count )
+                if(_currentActionStep > _currentScript.ScriptActions.Count )
                 {
                     //Complete
                     return;
@@ -86,10 +86,25 @@ namespace EntityEngine.Classes.BehaviourStuff
         {
             if (!Navigator.HasActivePath)
             {
+                Vector2 targetpos = Vector2.Zero;
+                if (!string.IsNullOrEmpty(_currentAction.ZoneEnd))
+                    {
+                    var zones = TileManager.GetZones(_currentAction.ZoneEnd.Split(',')[0]);
 
+                    if (zones != null)
+                    {
+                        var zone = zones.FirstOrDefault(x => x.Value == _currentAction.ZoneEnd.Split(',')[1]);
+                        if (zone != null)
+                            targetpos = zone.Position;
 
-                Vector2 targetpos =Vector2Helper.GetWorldPositionFromTileIndex(
+                    }
+
+                }
+                else
+                {
+                    targetpos = Vector2Helper.GetWorldPositionFromTileIndex(
                     _currentAction.TileX, _currentAction.TileY);
+                }
 
                 base.GetPath(targetpos, Entity.CurrentStageName);
                 CommandConsole.Append($"{Entity.Name} current location : {Entity.CurrentStageName}");
