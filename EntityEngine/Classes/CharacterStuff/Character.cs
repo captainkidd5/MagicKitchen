@@ -85,10 +85,7 @@ namespace EntityEngine.Classes.CharacterStuff
             base.Resume();
             _isInteractingWithPlayer = false;
         }
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-        }
+
 
         public void OnCharacterClicked(Schedule schedule)
         {
@@ -111,20 +108,6 @@ namespace EntityEngine.Classes.CharacterStuff
             Halt(true);
             base.ClickInteraction();
         }
-        protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
-        {
-            base.OnCollides(fixtureA, fixtureB, contact);
 
-        }
-
-        public override void Save(BinaryWriter writer)
-        {
-            base.Save(writer);
-        }
-
-        public override void LoadSave(BinaryReader reader)
-        {
-            base.LoadSave(reader);
-        }
     }
 }

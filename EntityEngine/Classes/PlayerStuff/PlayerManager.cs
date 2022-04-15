@@ -30,29 +30,13 @@ namespace EntityEngine.Classes.PlayerStuff
              Player1.SwitchStage(stageTo, tileManager, itemManager);
 
         }
-        public override void LoadContent()
-        {
-            Player1.LoadContent();
 
-        }
         public override void Update(GameTime gameTime)
         {
             Player1.UpdateFromInput();
             base.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-        }
 
-        public override void Save(BinaryWriter writer)
-        {
-            base.Save(writer);
-        }
-        public override void LoadSave(BinaryReader reader)
-        {
-            base.LoadSave(reader);
-        }
     }
 }

@@ -29,7 +29,7 @@ namespace EntityEngine.Classes
             Entities = new List<Entity>();
         }
  
-        public override void LoadContent()
+        public virtual void LoadContent()
         {
 
             foreach (Entity entity in Entities)

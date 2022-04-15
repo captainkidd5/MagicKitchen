@@ -174,7 +174,7 @@ namespace StageEngine.Classes
             TileManager.CleanUp();
             ItemManager.CleanUp();
             NPCContainer.CleanUp();
-            _portalManager.CleanUp();
+            //_portalManager.CleanUp();
 
         }
         public void CleanUp()
