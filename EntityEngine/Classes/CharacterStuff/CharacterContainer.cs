@@ -67,9 +67,16 @@ namespace EntityEngine.Classes.CharacterStuff
 
         }
 
-        internal void AssignCharactersToStages()
+        public void AssignCharactersToStages(string newStageName, TileManager tileManager, ItemManager itemManager)
         {
+            foreach (Character character in Entities)
+            {
+                if(character.CurrentStageName == newStageName)
+                {
+                     character.SwitchStage(newStageName, tileManager, itemManager);
 
+                }
+            }
         }
 
         public void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
@@ -77,7 +84,6 @@ namespace EntityEngine.Classes.CharacterStuff
             foreach (Character character in Entities)
             {
                 character.PlayerSwitchedStage(newStageName, false);
-                character.SwitchStage(newStageName, tileManager, itemManager);
                 
             }
         }

@@ -161,7 +161,7 @@ namespace StageEngine.Classes
             foreach (KeyValuePair<string, Stage> pair in Stages)
             {
                 pair.Value.LoadFromStageFile();
-
+                _characterContainer.AssignCharactersToStages(pair.Value.Name, pair.Value.TileManager, pair.Value.ItemManager);
                 if (pair.Value.Name != name)
                     pair.Value.Unload();
             }

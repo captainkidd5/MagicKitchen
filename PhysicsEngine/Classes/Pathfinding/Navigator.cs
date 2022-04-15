@@ -27,10 +27,7 @@ namespace PhysicsEngine.Classes.Pathfinding
         public bool IsClear(Point tilePoint) => PathGrid.IsClear(tilePoint.X, tilePoint.Y);
 
         public Point? NearestClearPoint(Point startingPoint, int searchRadius) => PathGrid.NearestClearPointTo(startingPoint, searchRadius);
-        //public bool WithinXTilesOfTile_Directional(Point point, Point targetTile, int amt)
-        //{
 
-        //}
         public Navigator(string debugName)
         {
             DebugName = debugName;

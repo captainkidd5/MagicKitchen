@@ -355,7 +355,7 @@ namespace EntityEngine.Classes
 
         protected virtual void LoadToNewStage(string newStage, TileManager tileManager, ItemManager itemManager)
         {
-            CurrentStageName = newStage;
+           // CurrentStageName = newStage;
             Navigator.Unload();
 
             Navigator.Load(tileManager.PathGrid);

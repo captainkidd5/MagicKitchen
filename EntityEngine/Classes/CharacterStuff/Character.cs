@@ -80,6 +80,11 @@ namespace EntityEngine.Classes.CharacterStuff
             }
         }
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+        }
+
         protected override void Resume()
         {
             base.Resume();
