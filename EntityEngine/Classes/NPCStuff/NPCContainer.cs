@@ -38,6 +38,13 @@ namespace EntityEngine.Classes.CharacterStuff
             TileManager = tileManager;
             ItemManager = itemManager;
 
+            foreach (NPC entity in Entities)
+            {
+
+                entity.LoadContent(itemManager,null,null);
+               entity.SwitchStage(stageName, tileManager, itemManager);
+            }
+
 
         }
 
@@ -101,6 +108,11 @@ namespace EntityEngine.Classes.CharacterStuff
                 return EntityFactory.Props_1;
             else
                 throw new Exception($"Invalid npc type {npcType.ToString()}");
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
         }
     }
 }
