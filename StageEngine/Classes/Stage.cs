@@ -32,7 +32,7 @@ namespace StageEngine.Classes
         private readonly PlayerManager _playerManager;
         private readonly PortalManager _portalManager;
         private readonly StageData _stageData;
-        private readonly NPCContainer _npcContainer;
+        public NPCContainer NPCContainer { get; private set; }
 
         private readonly ContentManager _content;
         private readonly GraphicsDevice _graphics;
@@ -63,8 +63,7 @@ namespace StageEngine.Classes
             _playerManager = playerManager;
             _portalManager = portalManager;
             _stageData = stageData;
-            _npcContainer = new NPCContainer(graphics, content);
-            npcManager.AddNewContainer(Name, _npcContainer);
+            NPCContainer = new NPCContainer(graphics, content);
             _content = content;
             _graphics = graphics;
             _camera = camera;
@@ -87,9 +86,9 @@ namespace StageEngine.Classes
 
             ItemManager.Update(gameTime);
 
-            _npcContainer.Update(gameTime);
+            NPCContainer.Update(gameTime);
         }
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, CharacterContainer characterContainer)
         {
 
             _penumbra.AmbientColor = Color.DarkSlateGray;
@@ -97,10 +96,10 @@ namespace StageEngine.Classes
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: _camera.GetTransform(_graphics));
             _graphics.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
             TileManager.Draw(spriteBatch);
-
+            characterContainer.Draw(spriteBatch);
             ItemManager.Draw(spriteBatch);
             _playerManager.Draw(spriteBatch);
-            _npcContainer.Draw(spriteBatch);
+            NPCContainer.Draw(spriteBatch);
 #if DEBUG
             if (Flags.DebugGrid)
                 _pathGrid.DrawDebug(spriteBatch);
@@ -146,15 +145,12 @@ namespace StageEngine.Classes
             
 
         }
-        public void Unload()
-        {
-            TileManager.CleanUp();
-            ItemManager.CleanUp();
-        }
+       
         public void Save(BinaryWriter writer)
         {
             TileManager.Save(writer);
             ItemManager.Save(writer);
+            NPCContainer.Save(writer);
 
         }
 
@@ -169,14 +165,24 @@ namespace StageEngine.Classes
                 _hasLoadedPortals = true;
             }
             ItemManager.LoadSave(reader);
+            NPCContainer.LoadSave(reader);
+            NPCContainer.LoadContent(Name, TileManager, ItemManager);
 
         }
+        public void Unload()
+        {
+            TileManager.CleanUp();
+            ItemManager.CleanUp();
+            NPCContainer.CleanUp();
+            _portalManager.CleanUp();
 
+        }
         public void CleanUp()
         {
             TileManager.CleanUp();
-            _portalManager.CleanUp();
+            ItemManager.CleanUp();
 
+            NPCContainer.CleanUp();
         }
     }
 }

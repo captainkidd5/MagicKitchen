@@ -32,7 +32,7 @@ namespace EntityEngine.Classes.CharacterStuff
         }
 
 
-        internal void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
+        public void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
             StageName = stageName;
             TileManager = tileManager;

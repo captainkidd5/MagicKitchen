@@ -96,13 +96,13 @@ namespace StageEngine.Classes
         {
             SongManager.ChangePlaylist(StageSwitchingTo);
             CurrentStage.SaveToStageFile();
-            CurrentStage.Unload();
+            CurrentStage.CleanUp();
 
             CurrentStage = GetStage(StageSwitchingTo);
             _characterContainer.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             
             CurrentStage.LoadFromStageFile();
-            _npcManager.ChangeContainer(CurrentStage.Name);
+            _npcManager.CurrentContainer = CurrentStage.NPCContainer;
             if (CurrentStage == null)
                 throw new Exception("Stage with name" + StageSwitchingTo + "does not exist");
 
@@ -140,7 +140,7 @@ namespace StageEngine.Classes
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
 
-            CurrentStage.Draw(spriteBatch, gameTime);
+            CurrentStage.Draw(spriteBatch, gameTime, _characterContainer);
         }
 
         public void Save(BinaryWriter writer)
@@ -199,7 +199,6 @@ namespace StageEngine.Classes
 
 
             }
-            _npcManager.CleanUp();
 
             Stages.Clear();
         }
@@ -210,7 +209,6 @@ namespace StageEngine.Classes
             {
                 stage.CleanUp();
             }
-            _npcManager.CleanUp();
 
             Stages.Clear();
             CurrentStage = null;
