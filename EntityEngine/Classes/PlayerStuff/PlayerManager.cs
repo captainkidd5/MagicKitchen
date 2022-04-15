@@ -24,15 +24,15 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
    
-        internal void SwitchStage(string stageTo, TileManager tileManager, ItemManager itemManager)
+        public void SwitchStage(string stageTo, TileManager tileManager, ItemManager itemManager)
         {
             if (Player1.CurrentStageName == stageTo)
              Player1.SwitchStage(stageTo, tileManager, itemManager);
 
         }
-        internal override void LoadContent()
+        public override void LoadContent()
         {
-           
+            Player1.LoadContent();
 
         }
         public override void Update(GameTime gameTime)

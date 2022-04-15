@@ -30,7 +30,7 @@ namespace EntityEngine.Classes.CharacterStuff
         }
 
   
-        internal override void LoadContent()
+        public override void LoadContent()
         {
            
             StatusIconTexture = content.Load<Texture2D>("entities/npc/characters/statusicons");
@@ -72,12 +72,12 @@ namespace EntityEngine.Classes.CharacterStuff
 
         }
 
-        public void SwitchStage(string newStage)
+        public void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
         {
             foreach (Character character in Entities)
             {
-                character.PlayerSwitchedStage(newStage, false);
-
+                character.PlayerSwitchedStage(newStageName, false);
+                character.SwitchStage(newStageName, tileManager, itemManager);
                 
             }
         }
@@ -99,7 +99,7 @@ namespace EntityEngine.Classes.CharacterStuff
         {
             List<CharacterData> allNpcData = new List<CharacterData>();
 
-            string basePath = content.RootDirectory + "Entities/";
+            string basePath = content.RootDirectory + "/Entities/Characters";
             string[] directories = Directory.GetDirectories(basePath);
             List<Quest> allQuests = new List<Quest>();
             foreach (string directory in directories)

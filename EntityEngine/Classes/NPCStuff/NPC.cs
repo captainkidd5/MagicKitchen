@@ -32,7 +32,7 @@ namespace EntityEngine.Classes.NPCStuff
 
         public virtual void LoadContent(ItemManager itemManager, Vector2? startPos, string? name)
         {
-            base.LoadContent(itemManager);
+            base.LoadContent();
             if (name != null)
                 Name = name;
             if (startPos != null)

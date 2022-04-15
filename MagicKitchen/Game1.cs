@@ -43,10 +43,11 @@ namespace MagicKitchen
 
         private StageManager _stageManager;
 
-        private EntityManager _entityManager;
 
         private CommandList _commandList;
-        public Player Player1 => _entityManager.Player1;
+
+        private PlayerManager _playerManager;
+        public Player Player1 => _playerManager.Player1;
 
         public static SpriteFont MainFont { get; set; }
 
@@ -84,9 +85,8 @@ namespace MagicKitchen
 
 
             Penumbra.Initialize();
-
-            _entityManager = new EntityManager(GraphicsDevice, Content);
-            _stageManager = new StageManager(GraphicsDevice, Content, _entityManager, Penumbra, Camera);
+            _playerManager = new PlayerManager(GraphicsDevice, Content);
+            _stageManager = new StageManager(GraphicsDevice, Content, _playerManager, Penumbra, Camera);
             //Penumbra.SpriteBatchTransformEnabled = true;
             _commandList = new CommandList();
             base.Initialize();
@@ -117,8 +117,9 @@ namespace MagicKitchen
             Settings.SetResolution(1280, 720);
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
             SongManager.Load(Content);
-
             UI.Load(this, GraphicsDevice, Content, _mainMenuContentManager);
+            _playerManager.LoadContent();
+
             RenderTargetManager.Load(GraphicsDevice);
             SoundFactory.Load(Content);
             Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs { VirtualWidth = 1280, VirtualHeight = 720 });
@@ -204,13 +205,11 @@ namespace MagicKitchen
         }
         public void OnSaveLoaded(object? sender, FileLoadedEventArgs e)
         {
-            Flags.IsBootUp = true;
-            _entityManager.LoadContent();
+            _playerManager.LoadContent();
             _stageManager.LoadContent();
             BinaryReader reader = e.BinaryReader;
             _stageManager.LoadSave(reader);
             SaveLoadManager.DestroyReader(reader);
-            Flags.IsBootUp = false;
         }
 
 

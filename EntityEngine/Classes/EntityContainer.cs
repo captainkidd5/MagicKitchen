@@ -29,7 +29,7 @@ namespace EntityEngine.Classes
             Entities = new List<Entity>();
         }
  
-        internal virtual void LoadContent()
+        public override void LoadContent()
         {
 
             foreach (Entity entity in Entities)
@@ -59,7 +59,7 @@ namespace EntityEngine.Classes
 
 
         internal void GiveEntityItem(string entityName, WorldItem worldItem)
-        {
+        { 
             Entity entity = GetEntity(entityName);
             if (entity == null)
             {

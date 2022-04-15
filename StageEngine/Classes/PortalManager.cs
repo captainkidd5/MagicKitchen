@@ -33,7 +33,7 @@ namespace StageEngine.Classes
             List<Portal> stagePortals = new List<Portal>();
             foreach(PortalData portalData in tileManager.Portals)
             {
-                Portal portal = new Portal(this,_stageManager, _entityManager, portalData.Rectangle,
+                Portal portal = new Portal(this,_stageManager, portalData.Rectangle,
                     portalData.From, portalData.To, portalData.XOffSet, portalData.YOffSet,portalData.DirectionToFace, portalData.MustBeClicked);
                 
                 stagePortals.Add(portal);
@@ -111,7 +111,7 @@ namespace StageEngine.Classes
                 List<Portal> portalList = new List<Portal>();
                 for(int j = 0; j < subCount; j++)
                 {
-                    Portal portal = new Portal(this, _stageManager, _entityManager);
+                    Portal portal = new Portal(this, _stageManager);
                     portalList.Add(portal);
 
                 }

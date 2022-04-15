@@ -23,7 +23,10 @@ namespace EntityEngine.Classes.NPCStuff
 
 
         }
-
+        public void ChangeContainer(string key)
+        {
+            _currentContainer = _npcContainerDictionary[key];
+        }
         public void AddNewContainer(string stageName, NPCContainer npcContainer)
         {
             _npcContainerDictionary.Add(stageName, npcContainer);
@@ -36,6 +39,12 @@ namespace EntityEngine.Classes.NPCStuff
         private void AddTrainCommand(string[] args)
         {
             _currentContainer.AddTrain();
+        }
+
+        public void CleanUp()
+        {
+            _npcContainerDictionary.Clear();
+            _currentContainer = null;
         }
     }
 }

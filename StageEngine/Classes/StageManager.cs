@@ -21,6 +21,7 @@ using TiledEngine.Classes;
 using UIEngine.Classes;
 using EntityEngine.Classes;
 using SoundEngine.Classes.SongStuff;
+using EntityEngine.Classes.NPCStuff;
 
 namespace StageEngine.Classes
 {
@@ -28,7 +29,7 @@ namespace StageEngine.Classes
     {
   
         private readonly PlayerManager _playerManager;
-        private readonly NPCContainer _npcContainer;
+        private readonly NPCManager _npcManager;
         private readonly CharacterContainer _characterContainer;
         private readonly string _startingStageName = "LullabyTown";
 
@@ -53,7 +54,7 @@ namespace StageEngine.Classes
             Penumbra = penumbra;
             _camera = camera;
             _portalManager = new PortalManager(this);
-            _npcContainer = new NPCContainer(graphics, content);
+            _npcManager = new NPCManager();
             _characterContainer = new CharacterContainer(graphics, content);
         }
 
@@ -61,7 +62,7 @@ namespace StageEngine.Classes
         {
             base.LoadContent();
             LoadStageData();
-            _npcContainer.LoadContent();
+            _npcManager.LoadContent();
             _characterContainer.LoadContent();
 
         }
@@ -98,10 +99,10 @@ namespace StageEngine.Classes
             CurrentStage.Unload();
 
             CurrentStage = GetStage(StageSwitchingTo);
-            _characterContainer.SwitchStage(StageSwitchingTo);
+            _characterContainer.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             
             CurrentStage.LoadFromStageFile();
-
+            _npcManager.ChangeContainer(CurrentStage.Name);
             if (CurrentStage == null)
                 throw new Exception("Stage with name" + StageSwitchingTo + "does not exist");
 
@@ -128,7 +129,6 @@ namespace StageEngine.Classes
             if (!Flags.Pause)
             {
                 _portalManager.Update(gameTime);
-                _npcContainer.Update(gameTime);
                 _playerManager.Update(gameTime);
                 _characterContainer.Update(gameTime);
                 CurrentStage.Update(gameTime);
@@ -139,6 +139,7 @@ namespace StageEngine.Classes
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+
             CurrentStage.Draw(spriteBatch, gameTime);
         }
 
@@ -156,6 +157,7 @@ namespace StageEngine.Classes
             CurrentStage = GetStage(name);
             _playerManager.LoadSave(reader);
             _characterContainer.LoadSave(reader);
+            _characterContainer.LoadContent();
             //_player1.LoadContent(CurrentStage.ItemManager);
             //Still need to load all stages for portals and graph
             foreach (KeyValuePair<string, Stage> pair in Stages)
@@ -168,9 +170,7 @@ namespace StageEngine.Classes
 
            
             TileLoader.LoadFinished();
-     
-            _camera.Jump(Player1.Position);
-            SongManager.ChangePlaylist(CurrentStage.Name);
+            RequestSwitchStage(CurrentStage.Name, Player1.Position);
 
             
 
@@ -181,7 +181,7 @@ namespace StageEngine.Classes
 
             foreach (StageData sd in stageData)
             {
-                Stages.Add(sd.Name, new Stage(this, _portalManager, sd, content, graphics, _camera, Penumbra));
+                Stages.Add(sd.Name, new Stage(this,_playerManager, _npcManager, _portalManager, sd, content, graphics, _camera, Penumbra));
             }
         }
         public void CreateNewSave(BinaryWriter writer)
@@ -189,6 +189,7 @@ namespace StageEngine.Classes
 
             LoadStageData();
             writer.Write(_startingStageName);
+            _playerManager.Save(writer);
 
             foreach (KeyValuePair<string, Stage> stage in Stages)
             {
@@ -198,8 +199,9 @@ namespace StageEngine.Classes
 
 
             }
+            _npcManager.CleanUp();
+
             Stages.Clear();
-            _entityManager.Save(writer);
         }
 
         public void CleanUp()
@@ -208,8 +210,9 @@ namespace StageEngine.Classes
             {
                 stage.CleanUp();
             }
+            _npcManager.CleanUp();
+
             Stages.Clear();
-            _entityManager.CleanUp();
             CurrentStage = null;
 
         }

@@ -29,6 +29,7 @@ namespace StageEngine.Classes
         public string Name { get; private set; }
 
         private readonly StageManager _stageManager;
+        private readonly PlayerManager _playerManager;
         private readonly PortalManager _portalManager;
         private readonly StageData _stageData;
         private readonly NPCContainer _npcContainer;
@@ -48,18 +49,18 @@ namespace StageEngine.Classes
 
         internal ItemManager ItemManager { get; private set; }
 
-        private Player Player1 => _entityManager.Player1 as Player;
+        private Player Player1 => _playerManager.Player1;
 
 
         private PathGrid _pathGrid => TileManager.PathGrid;
 
         internal bool CamLock => _stageData.MapType == MapType.Exterior;
-        public Stage(StageManager stageManager,EntityManager entityManager, NPCManager npcManager,  PortalManager portalManager, StageData stageData, ContentManager content,
+        public Stage(StageManager stageManager,PlayerManager playerManager, NPCManager npcManager,  PortalManager portalManager, StageData stageData, ContentManager content,
             GraphicsDevice graphics, Camera2D camera, PenumbraComponent penumbra)
         {
             Name = stageData.Name;
             _stageManager = stageManager;
-            _entityManager = entityManager;
+            _playerManager = playerManager;
             _portalManager = portalManager;
             _stageData = stageData;
             _npcContainer = new NPCContainer(graphics, content);
@@ -95,10 +96,10 @@ namespace StageEngine.Classes
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: _camera.GetTransform(_graphics));
             _graphics.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
-            _entityManager.Draw(spriteBatch);
             TileManager.Draw(spriteBatch);
 
             ItemManager.Draw(spriteBatch);
+            _playerManager.Draw(spriteBatch);
             _npcContainer.Draw(spriteBatch);
 #if DEBUG
             if (Flags.DebugGrid)
@@ -142,7 +143,7 @@ namespace StageEngine.Classes
             LoadSave(stageReader);
             SaveLoadManager.DestroyReader(stageReader);
             MapRectangle = TileManager.MapRectangle;
-
+            
 
         }
         public void Unload()
@@ -154,8 +155,7 @@ namespace StageEngine.Classes
         {
             TileManager.Save(writer);
             ItemManager.Save(writer);
-            if(!Flags.IsBootUp)
-                _entityManager.SaveTempNPCs(writer);
+
         }
 
         public void LoadSave(BinaryReader reader)
@@ -169,8 +169,7 @@ namespace StageEngine.Classes
                 _hasLoadedPortals = true;
             }
             ItemManager.LoadSave(reader);
-            if(!Flags.IsBootUp)
-                _entityManager.LoadTempNPCs(reader);
+
         }
 
         public void CleanUp()

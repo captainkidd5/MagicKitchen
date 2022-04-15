@@ -27,7 +27,6 @@ namespace Globals.Classes
 
         public static bool IsNewGame { get; set; }
 
-        public static bool IsBootUp = true;
         
 
     }
