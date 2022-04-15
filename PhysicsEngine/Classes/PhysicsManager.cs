@@ -180,9 +180,9 @@ namespace PhysicsEngine.Classes
             frequencyHz = frequencyHz ?? 30f;
 
             WeldJoint weldJoint = JointFactory.CreateWeldJoint(VelcroWorld, bodyA, bodyB, new Vector2(0f, 1f), new Vector2(0f, 4f));
-            weldJoint.DampingRatio = 20f;
+            weldJoint.DampingRatio = 2f;
             weldJoint.CollideConnected = false;
-            weldJoint.FrequencyHz = 30f;
+            weldJoint.FrequencyHz = 5f;
             return weldJoint;
 
         }

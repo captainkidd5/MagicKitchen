@@ -51,8 +51,7 @@ namespace UIEngine.Classes
         {
 
             base.Update(gameTime);
-            if(Hovered)
-                Console.WriteLine("test");
+
 
         }
 

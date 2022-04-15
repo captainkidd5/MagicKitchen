@@ -147,7 +147,6 @@ namespace StageEngine.Classes
         {
             writer.Write(CurrentStage.Name);
             CurrentStage.SaveToStageFile();
-            _playerManager.Save(writer);
             _characterContainer.Save(writer);
         }
 
@@ -155,7 +154,6 @@ namespace StageEngine.Classes
         {
             string name = reader.ReadString();
             CurrentStage = GetStage(name);
-            _playerManager.LoadSave(reader);
             _characterContainer.LoadSave(reader);
             _characterContainer.LoadContent();
             //_player1.LoadContent(CurrentStage.ItemManager);
@@ -189,7 +187,6 @@ namespace StageEngine.Classes
 
             LoadStageData();
             writer.Write(_startingStageName);
-            _playerManager.Save(writer);
 
             foreach (KeyValuePair<string, Stage> stage in Stages)
             {

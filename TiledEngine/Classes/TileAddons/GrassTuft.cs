@@ -53,9 +53,10 @@ namespace TiledEngine.Classes.TileAddons
                 OnCollides, OnSeparates, isSensor:true);
             Tuft =  PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, new Vector2(Position.X, Position.Y), 8f, 6f, new List<Category>() { Category.Grass }, new List<Category>() { Category.Player, Category.NPC,Category.Item },
                 OnCollides, OnSeparates, isSensor: false);
-            Tuft.Body.Restitution = .1f;
+            Tuft.Body.Restitution = .6f;
             Tuft.Body.Friction = .4f;
-            Tuft.Body.Mass = .61f;
+            Tuft.Body.Mass = .2f;
+            Tuft.Body.AngularDamping = .25f;
             WeldJoint joint = PhysicsManager.Weld(body.Body, Tuft.Body, new Vector2(0f, 1f), new Vector2(0f, 4f), null, null);
             AddPrimaryBody(body);
             AddSecondaryBody(Tuft);
