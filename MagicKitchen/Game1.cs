@@ -104,7 +104,7 @@ namespace MagicKitchen
             Clock.Load();
             List<StageData> stageData = Content.Load<List<StageData>>("Maps/StageData");
             MainFont = Content.Load<SpriteFont>("Fonts/Font");
-            TextFactory.Load(MainFont);
+            TextFactory.Load(Content);
             TileLoader.LoadContent(Content);
             ItemFactory.LoadContent(Content);
             EntityFactory.Load(Content);

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using static Globals.Classes.Settings;
+using MonoGame.Extended.BitmapFonts;
 
 namespace TextEngine.Classes
 {
@@ -23,12 +24,12 @@ namespace TextEngine.Classes
         private float _scale;
         private Color _color;
         private Vector2 _position;
-        private SpriteFont _spriteFont;
+        private BitmapFont _spriteFont;
 
         private float LayerDepth { get; set; }
 
 
-        internal Text(String value, float scale, SpriteFont spriteFont, float layerDepth)
+        internal Text(String value, float scale, BitmapFont spriteFont, float layerDepth)
         {
             CurrentString = string.Empty;
             FullString = value;
@@ -123,7 +124,7 @@ namespace TextEngine.Classes
 
             foreach (String word in wordArray)
             {
-                if (_spriteFont.MeasureString(line + word).Length() * _scale > lineLimit)
+                if (_spriteFont.MeasureString(line + word).Width * _scale > lineLimit)
                 {
                     returnString = returnString + line + '\n';
                     line = String.Empty;
@@ -140,7 +141,7 @@ namespace TextEngine.Classes
         /// </summary>
         private float GetWidth(string value)
         {
-            return _spriteFont.MeasureString(value).Length() * _scale;
+            return _spriteFont.MeasureString(value).Width * _scale;
         }
         private void WrapInputText(float lineLimit)
         {
@@ -156,7 +157,7 @@ namespace TextEngine.Classes
             float lengthToReturn = 0f;
             for (int i = 0; i < lineArray.Length; i++)
             {
-                float length = _spriteFont.MeasureString(lineArray[i]).X * _scale;
+                float length = _spriteFont.MeasureString(lineArray[i]).Width * _scale;
                 if (length > lengthToReturn)
                 {
                     lengthToReturn = length;
@@ -173,7 +174,7 @@ namespace TextEngine.Classes
 
             foreach (string line in lineArray)
             {
-                totalHeight += _spriteFont.MeasureString(line).Y * _scale;
+                totalHeight += _spriteFont.MeasureString(line).Height * _scale;
             }
 
             return totalHeight;
@@ -197,9 +198,9 @@ namespace TextEngine.Classes
             float returnedLength;
             
             if (splitString.Length > 0)
-                returnedLength = _spriteFont.MeasureString(splitString[line]).X * _scale;
+                returnedLength = _spriteFont.MeasureString(splitString[line]).Width* _scale;
             else
-                returnedLength = _spriteFont.MeasureString(CurrentString).X * _scale;
+                returnedLength = _spriteFont.MeasureString(CurrentString).Height * _scale;
             return returnedLength;
         }
 

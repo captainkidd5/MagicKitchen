@@ -11,6 +11,7 @@
 #-------------------------------- References --------------------------------#
 
 /reference:..\..\DataModels\bin\Debug\netstandard2.1\DataModels.dll
+/reference:..\..\..\..\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -356,6 +357,23 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UI/Buttons.png
+
+#begin UI/Fonts/test_font_1.fnt
+/importer:BitmapFontImporter
+/processor:BitmapFontProcessor
+/build:UI/Fonts/test_font_1.fnt
+
+#begin UI/Fonts/test_font_1_0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/Fonts/test_font_1_0.png
 
 #begin UI/GeneralInterface.png
 /importer:TextureImporter

@@ -267,8 +267,8 @@ namespace EntityEngine.Classes
 
         public virtual void DrawDebug(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(TextFactory.DefaultFont, $"{Name} \n {CurrentStageName}",
-                CenteredPosition, Color.Red, 0f, Vector2.Zero, .5f, SpriteEffects.None, .99f);
+            //spriteBatch.DrawString(TextFactory.BitmapFont, $"{Name} \n {CurrentStageName}",
+            //    CenteredPosition, Color.Red, 0f, Vector2.Zero, .5f, SpriteEffects.None, .99f);
         }
 
         protected void RemoveBigSensorCat(Category cat)

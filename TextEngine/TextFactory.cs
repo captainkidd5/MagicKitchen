@@ -1,6 +1,7 @@
 ﻿using Globals.Classes;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.BitmapFonts;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,18 +12,21 @@ namespace TextEngine
 {
     public static class TextFactory
     {
-        public static SpriteFont DefaultFont { get; set; }
+        public static BitmapFont BitmapFont { get; set; }
 
 
-        public static void Load(SpriteFont defaultFont)
+        public static void Load(ContentManager content)
         {
-            DefaultFont = defaultFont;
+            BitmapFont = content.Load<BitmapFont>("UI/Fonts/test_font_1");
+
+
+
         }
 
         //UI
-        public static Text CreateUIText(String value, float layer, float? scale = null, SpriteFont spriteFont = null)
+        public static Text CreateUIText(String value, float layer, float? scale = null, BitmapFont spriteFont = null)
         {
-            return new Text(value, scale ?? Settings.GameScale, spriteFont ?? DefaultFont, layer);
+            return new Text(value, scale ?? Settings.GameScale, spriteFont ?? BitmapFont, layer);
         }
 
         /// <summary>

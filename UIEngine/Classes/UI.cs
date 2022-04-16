@@ -20,6 +20,7 @@ using UIEngine.Classes.ButtonStuff;
 using Globals.Classes.Console;
 using SoundEngine.Classes.SongStuff;
 using UIEngine.Classes.ButtonStuff.SettingsMenuStuff;
+using MonoGame.Extended.BitmapFonts;
 
 namespace UIEngine.Classes
 {
@@ -78,7 +79,6 @@ namespace UIEngine.Classes
         public static Cursor Cursor { get; set; }
 
         private static Game s_game;
-
         public static void Load(Game game, GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager)
         {
             s_game = game;
@@ -113,6 +113,7 @@ namespace UIEngine.Classes
             s_criticalSections = new List<InterfaceSection>();
             Curtain.LoadContent();
             LoadCurrentSection();
+
 
         }
         internal static void AssignLayeringDepths(ref float[] layeringDepths, float baseDepth, bool largeIncrement = false)
