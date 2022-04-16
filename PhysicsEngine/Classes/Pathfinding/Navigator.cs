@@ -22,7 +22,7 @@ namespace PhysicsEngine.Classes.Pathfinding
         private int ErrorMargin { get; set; } = 2;
 
 
-        public int MaxValue { get { return PathGrid.Weight.Length; } }
+        public int MaxValue { get { return PathGrid.Weight.GetLength(0); } }
 
         public bool IsClear(Point tilePoint) => PathGrid.IsClear(tilePoint.X, tilePoint.Y);
 

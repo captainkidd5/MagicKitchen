@@ -48,6 +48,12 @@
    <property name="portal" value="true,Restaurant,NormalPan,-16,-16,48,32,0,48,Up"/>
   </properties>
  </tile>
+ <tile id="1232">
+  <properties>
+   <property name="newHitBox" value="4, -8, 26"/>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
+ </tile>
  <tile id="1273">
   <properties>
    <property name="newHitBox" value="0,-32,16,48"/>

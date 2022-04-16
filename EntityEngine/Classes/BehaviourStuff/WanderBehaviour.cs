@@ -62,10 +62,12 @@ namespace EntityEngine.Classes.BehaviourStuff
             if (highY + _wanderRange.Y > Navigator.MaxValue - 1)
                 highY = Navigator.MaxValue - 1;
             else
-                highX += _wanderRange.Y;
+                highY += _wanderRange.Y;
 
-            return new Vector2(Settings.Random.Next(lowX, highX) * Settings.TileSize,
-                Settings.Random.Next(lowY, highY) * Settings.TileSize);
+            int finalX = Settings.Random.Next(lowX, highX);
+            int finalY = Settings.Random.Next(lowY, highY);
+            return new Vector2(finalX * Settings.TileSize,
+               finalY * Settings.TileSize);
         }
     }
 }
