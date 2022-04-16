@@ -1,4 +1,5 @@
 ﻿using EntityEngine.Classes.CharacterStuff;
+using Globals.Classes;
 using Globals.Classes.Console;
 using InputEngine.Classes.Input;
 using System;
@@ -12,11 +13,17 @@ namespace EntityEngine.Classes.NPCStuff
     public class NPCManager
     {
         public NPCContainer CurrentContainer { get; set; }
-        public void LoadContent()
+        public NPCManager()
         {
 
-            CommandConsole.RegisterCommand("add_npc", "adds npc to current stage", AddNPCCommand);
-            CommandConsole.RegisterCommand("train", "forces train into current stage", AddTrainCommand);
+        }
+        public void LoadContent()
+        {
+            
+                CommandConsole.RegisterCommand("add_npc", "adds npc to current stage", AddNPCCommand);
+                CommandConsole.RegisterCommand("train", "forces train into current stage", AddTrainCommand);
+
+            
 
 
         }

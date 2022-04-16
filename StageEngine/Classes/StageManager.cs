@@ -206,8 +206,11 @@ namespace StageEngine.Classes
             {
                 stage.CleanUp();
             }
-
             Stages.Clear();
+
+            _characterContainer.CleanUp();
+            _portalManager.CleanUp();
+            TileLoader.Unload();
             CurrentStage = null;
 
         }

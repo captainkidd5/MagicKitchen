@@ -30,7 +30,7 @@ namespace TiledEngine.Classes
 
         private static string MapPath;
 
-        internal static TileSetPackage ExteriorTileSetPackage { get;private set; }
+        internal static TileSetPackage ExteriorTileSetPackage { get; private set; }
 
         internal static TileSetPackage InteriorTileSetPackage { get; private set; }
 
@@ -123,7 +123,11 @@ namespace TiledEngine.Classes
             tileManager.MapType = stageData.MapType;
             tileManager.Load(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width, GetPackageFromMapType(stageData.MapType));
         }
-
+        public static void Unload()
+        {
+            _portalLoader.Unload();
+            s_hasDoneInitialLoad = false;
+        }
         internal static TileSetPackage GetPackageFromMapType(MapType mapType)
         {
             if (mapType == MapType.Exterior)
@@ -165,5 +169,7 @@ namespace TiledEngine.Classes
             }
             return tilesToReturn;
         }
+
+        
     }
 }

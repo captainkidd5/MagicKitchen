@@ -63,6 +63,8 @@ namespace UIEngine.Classes.EscMenuStuff
         private void ReturnToMainMenu()
         {
             UI.ReturnToMainMenu();
+            _returnToMainMenuButton.Deactivate();
+            IsActive = false;
         }
         public override void Update(GameTime gameTime)
         {

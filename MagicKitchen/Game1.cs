@@ -195,6 +195,11 @@ namespace MagicKitchen
 
         }
 
+        /// <summary>
+        /// Note: if User either creates a new save, or loads an existing save, we know that it's no longer a first time boot up
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnSaveCreated(object? sender, FileCreatedEventArgs e)
         {
             Flags.IsNewGame = true;
@@ -203,6 +208,8 @@ namespace MagicKitchen
             _playerManager.Save(writer);
             _stageManager.CreateNewSave(writer);
             SaveLoadManager.DestroyWriter(writer);
+            Flags.FirstBootUp = false;
+
         }
         public void OnSaveLoaded(object? sender, FileLoadedEventArgs e)
         {
@@ -212,6 +219,7 @@ namespace MagicKitchen
             _playerManager.LoadSave(reader);
             _stageManager.LoadSave(reader);
             SaveLoadManager.DestroyReader(reader);
+            Flags.FirstBootUp = false;
         }
 
 

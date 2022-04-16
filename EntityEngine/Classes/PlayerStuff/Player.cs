@@ -18,6 +18,7 @@ using UIEngine.Classes;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
 using static DataModels.Enums;
+using System.IO;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -177,6 +178,21 @@ namespace EntityEngine.Classes.PlayerStuff
                     break;
 
             }
+        }
+
+        public override void CleanUp()
+        {
+            base.CleanUp();
+        }
+
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+        }
+
+        public override void LoadSave(BinaryReader reader)
+        {
+            base.LoadSave(reader);
         }
     }
 }

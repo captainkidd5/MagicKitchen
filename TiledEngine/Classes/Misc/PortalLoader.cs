@@ -110,6 +110,13 @@ namespace TiledEngine.Classes.Misc
 
             return data.Rectangle;
         }
+
+        public void Unload()
+        {
+            s_allPortalData.Clear();
+            s_portalDictionary.Clear();
+            s_portalgraph.Unload();
+        }
         
 
         

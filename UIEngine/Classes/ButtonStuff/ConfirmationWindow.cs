@@ -71,8 +71,10 @@ namespace UIEngine.Classes.ButtonStuff
 
         public override void Deactivate()
         {
-            base.Deactivate();
+            if(IsActive)
             UI.RemoveCriticalSection(this);
+            
+            base.Deactivate();
         }
         public override void Activate()
         {

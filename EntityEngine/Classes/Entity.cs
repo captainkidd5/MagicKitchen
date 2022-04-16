@@ -108,7 +108,7 @@ namespace EntityEngine.Classes
         public virtual void LoadContent()
         {
             StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
-            Behaviour = new SearchBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), 2f);
+            Behaviour = new WanderBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), 2f);
 
             CreateBody(Position);
 

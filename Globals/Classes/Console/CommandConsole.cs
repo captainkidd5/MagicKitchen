@@ -23,7 +23,7 @@ namespace Globals.Classes.Console
             s_manualInterpreter = new ManualInterpreter();
             s_consoleComponent.Interpreter = s_manualInterpreter;
             Commands = new Dictionary<string, string>();
-            RegisterCommand("toggle","toggles a number of different flags", ToggleAction);
+            RegisterCommand("toggle", "toggles a number of different flags", ToggleAction);
             RegisterCommand("list", "lists all commands", ListCommandsAction);
 
             s_consoleComponent.Output.Append("test output");
@@ -54,7 +54,7 @@ namespace Globals.Classes.Console
 
         private static void ListCommandsAction(string[] commands)
         {
-            foreach(KeyValuePair<string, string> command in Commands)
+            foreach (KeyValuePair<string, string> command in Commands)
             {
                 s_consoleComponent.Output.Append($"{command.Key}, {command.Value}");
             }
@@ -64,11 +64,16 @@ namespace Globals.Classes.Console
         {
             s_consoleComponent.Output.Append(output);
         }
-        public static void RegisterCommand(string commandName,string description, Action<string[]> command)
+        public static void RegisterCommand(string commandName, string description, Action<string[]> command)
         {
-            s_manualInterpreter.RegisterCommand(commandName, command);
+            if (Flags.FirstBootUp)
+            {
 
-            Commands.Add(commandName,":---------------" + description);
+                s_manualInterpreter.RegisterCommand(commandName, command);
+
+                Commands.Add(commandName, ":---------------" + description);
+            }
+
         }
     }
 }

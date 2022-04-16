@@ -14,7 +14,7 @@ namespace IOEngine.Classes
     public static class SaveLoadManager
     {
         public static Dictionary<string, SaveFile> SaveFiles { get; private set; }
-        public static SaveFile CurrentSave { get; set; }
+        public static SaveFile CurrentSave { get; private set; }
         public static string BasePath;
 
         public static EventHandler<FileCreatedEventArgs> SaveCreated;

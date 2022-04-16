@@ -27,7 +27,14 @@ namespace Globals.Classes
 
         public static bool IsNewGame { get; set; }
 
-        
+        private static bool _firstBootUp = true;
+
+        //Useful for things like registering commands, where commands should only be registered once ber game boot up, and then never again
+        public static bool FirstBootUp { get { return _firstBootUp; } set 
+            {
+                if (value)
+                { throw new Exception($"May not set first boot up to true"); }
+                _firstBootUp = value; } }
 
     }
 }

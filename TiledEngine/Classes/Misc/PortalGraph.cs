@@ -45,7 +45,11 @@ namespace TiledEngine.Classes.Misc
             {
                 return childNodes[v];
             }
-
+        public void Unload()
+        {
+            foreach (var node in childNodes)
+                node.Clear();
+        }
 
         
     }

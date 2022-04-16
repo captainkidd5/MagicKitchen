@@ -347,7 +347,7 @@ namespace UIEngine.Classes
         
             DropCurtain(CurtainDropRate, new Action(() =>
             {
-                SaveLoadManager.CurrentSave = saveFile;
+                SaveLoadManager.SetCurrentSave(saveFile.Name);
                 SaveLoadManager.Load(saveFile);
                 s_requestedGameState = GameDisplayState.InGame;
                 SaveLoadManager.SaveGame(null);

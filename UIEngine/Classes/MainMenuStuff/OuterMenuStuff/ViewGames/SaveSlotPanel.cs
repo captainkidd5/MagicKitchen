@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using Globals.Classes.Helpers;
 using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -30,6 +31,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
         private Text _dateText;
         private Text _timeText;
+        private NineSliceButton _returnToMainMenuButton;
 
 
         public SaveSlotPanel(SaveFile saveFile, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
@@ -47,9 +49,12 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
             _slotButton = new NineSliceTextButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), _slotButtonDimensions, null, null, new List<Text>() { _nameText, _dateText, _timeText }, null, saveAction, true);
 
-            CloseButton = UI.ButtonFactory.CreateCloseButton(this,new Rectangle((int)Position.X, (int)Position.Y, _slotButtonDimensions.Width, _slotButtonDimensions.Height), GetLayeringDepth(UILayeringDepths.Medium));
-            CloseButton.AddConfirmationWindow("Are you sure you want to delete this savefile?");
-            CloseButton.LoadContent();
+            _returnToMainMenuButton = new NineSliceTextButton(this, graphics, content, RectangleHelper.CenterRectangleInRectangle(_slotButtonDimensions, _slotButton.TotalBounds),
+                GetLayeringDepth(UILayeringDepths.Low), _slotButtonDimensions, null, UI.ButtonTexture,
+                new List<Text>() { TextFactory.CreateUIText("Delete Save?", GetLayeringDepth(UILayeringDepths.Medium)) }, null, new Action(()=> DeleteSave()));
+            _returnToMainMenuButton.AddConfirmationWindow($"Really delete save?");
+
+            _returnToMainMenuButton.LoadContent();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _slotButtonDimensions.Width, _slotButtonDimensions.Height);
             base.LoadContent();
 
@@ -68,11 +73,15 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
         }
 
+        private void DeleteSave()
+        {
+            _saveFile.Delete();
+            Deactivate();
+
+        }
         public override void Deactivate()
         {
             base.Deactivate();
-            _saveFile.Delete();
-            FlaggedForRemoval = true;
             parentSection.Reset();
         }
         public override void Draw(SpriteBatch spriteBatch)
