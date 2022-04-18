@@ -26,7 +26,7 @@ namespace TextEngine
         //UI
         public static Text CreateUIText(String value, float layer, float? scale = null, BitmapFont spriteFont = null)
         {
-            return new Text(value, scale ?? Settings.GameScale, spriteFont ?? BitmapFont, layer);
+            return new Text(value, Settings.GameScale, spriteFont ?? BitmapFont, layer);
         }
 
         /// <summary>
