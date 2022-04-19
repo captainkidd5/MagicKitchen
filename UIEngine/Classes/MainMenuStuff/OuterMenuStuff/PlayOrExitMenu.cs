@@ -31,6 +31,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
         private Rectangle _settingsCogSourceRectangle = new Rectangle(64, 80, 32, 32);
 
+        private int _totalWidth = 256;
         private StackPanel _stackPanel;
 
         public PlayOrExitMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
@@ -41,25 +42,23 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
       
         public override void LoadContent()
         {
-            _stackPanel = new StackPanel(this, graphics, content, Position, LayerDepth);
+            Vector2 _anchorPos = new Vector2(parentSection.TotalBounds.X
+                + parentSection.TotalBounds.Width / 2,
+                parentSection.TotalBounds.Y + parentSection.TotalBounds.Height / 4);
+            _stackPanel = new StackPanel(this, graphics, content, _anchorPos, LayerDepth);
 
-            StackRow stackRow1 = new StackRow(this, graphics, content, Position, LayerDepth);
-            stackRow1.AddItem(_playButton);
-            stackRow1.AddItem(_exitButton);
 
 
             _playGameAction = ChangeToViewGamesMenu;
             _exitGameAction = UI.Exit;
-            Vector2 _anchorPos = new Vector2(parentSection.TotalBounds.X
-                + parentSection.TotalBounds.Width /2,
-                parentSection.TotalBounds.Y + parentSection.TotalBounds.Height / 4);
+            
 
 
-            _playButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, _anchorPos, _buttonWidth, _buttonHeight,
+            _playButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, _anchorPos, _buttonWidth, _buttonHeight,
                 GetLayeringDepth(UILayeringDepths.Low),
                new List<string>() { "Play", "Play", "Play" }, _playGameAction);
 
-            _exitButton = UI.ButtonFactory.CreateNSliceTxtBtn(this,
+            _exitButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel,
                 new Vector2(_anchorPos.X, _anchorPos.Y + _buttonWidth), _buttonWidth, _buttonHeight, GetLayeringDepth(UILayeringDepths.Low),
                 new List<string>() { "Exit"},_exitGameAction);
 
@@ -67,13 +66,21 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
             Vector2 settingsButtonPos = new Vector2(_anchorPos.X, _anchorPos.Y + _buttonHeight);
 
-            _toggleSettings = UI.ButtonFactory.CreateNSliceTxtBtn(this, 
+            _toggleSettings = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, 
                 new Vector2(_anchorPos.X, _anchorPos.Y + 64), _buttonWidth, _buttonHeight, GetLayeringDepth(UILayeringDepths.Low),
                  new List<string>() { "Settings"}, new Action(() =>
                 {
                     (parentSection as OuterMenu).ChangeState(OuterMenuState.Settings);
 
                 }));
+
+
+
+            StackRow stackRow1 = new StackRow(_totalWidth);
+            stackRow1.AddItem(_playButton);
+            stackRow1.AddItem(_exitButton);
+
+            _stackPanel.Add(stackRow1);
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonWidth, _buttonHeight);
 

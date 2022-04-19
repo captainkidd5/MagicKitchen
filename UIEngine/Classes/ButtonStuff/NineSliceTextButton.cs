@@ -28,21 +28,26 @@ namespace UIEngine.Classes.ButtonStuff
             Sprite? foregroundSprite, Point? samplePoint,  bool hoverTransparency = false) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, buttonAction, foregroundSprite, samplePoint, hoverTransparency)
         {
-            Text combinedtext = TextFactory.CombineText(textList, LayerDepth);
+            _textList = textList;
+            MovePosition(position);
+
+        }
+        public override void MovePosition(Vector2 newPos)
+        {
+            base.MovePosition(newPos);
+            Text combinedtext = TextFactory.CombineText(_textList, LayerDepth);
             int characterWidth = (int)TextFactory.SingleCharacterWidth();
             int width = (int)combinedtext.TotalStringWidth + characterWidth;
             int height = (int)combinedtext.TotalStringHeight + characterWidth;
-            Position = new Vector2(Position.X - width/2, Position.Y - height/2);
+            Position = new Vector2(Position.X - width / 2, Position.Y - height / 2);
 
             _textPositions = new List<Vector2>();
-           _textList = textList;
             GeneratePositionsForLines(new Vector2(Position.X + characterWidth, Position.Y));
-            
-            BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth,true);
-            Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);
+
+            BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth, true);
+            Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,  _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
         }
-
         /// <summary>
         /// Fills <see cref="_textPositions"/> for each line of text provided. Increases by height x => x.Height == text.TotalStringHeight
         /// </summary>
@@ -105,6 +110,6 @@ namespace UIEngine.Classes.ButtonStuff
             base.ButtonAction();
         }
 
-
+       
     }
 }

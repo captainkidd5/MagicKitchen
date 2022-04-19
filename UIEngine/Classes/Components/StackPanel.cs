@@ -16,13 +16,14 @@ namespace UIEngine.Classes.Components
         public StackPanel(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
+            Rows = new List<StackRow>();
         }
 
         public void Add(StackRow row)
         {
             Rows.Add(row);
             _totalheight += row.Height;
-            row.AdjustY(_totalheight);
+            row.AdjustPosition(new Vector2(Position.X, Position.Y + _totalheight));
         }
     }
 }
