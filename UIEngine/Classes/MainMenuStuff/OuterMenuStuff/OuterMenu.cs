@@ -37,12 +37,11 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
 
         private CreateNewSaveMenu _createNewSaveMenu;
-        private readonly Rectangle _createNewSaveMenuBackGroundRectangleDimensions = new Rectangle(0, 0, 360, 480);
 
 
         private PlayOrExitMenu _playOrExitMenu;
 
-        private readonly Rectangle _backGroundSourceRectangle = new Rectangle(0, 0, 180, 240);
+        private readonly Rectangle _backGroundSourceRectangle = new Rectangle(0, 0, 240, 360);
         private NineSliceSprite _backGroundSprite;
         private Vector2 _backGroundSpritePosition;
         private Button _backButton;
@@ -69,7 +68,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                     SongManager.ChangePlaylist("MainMenu-SaveMenu");
 
                     _activeSection = _viewGamesMenu;
-                    AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
                     _activeSection.Activate();
 
                     break;
@@ -79,7 +77,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
 
                     _activeSection = _createNewSaveMenu;
-                    AdjustBackgroundRectangleAndBackButton(_createNewSaveMenuBackGroundRectangleDimensions);
                     _activeSection.Activate();
 
 
@@ -89,7 +86,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                     _activeSection.Deactivate();
 
                     _activeSection = _playOrExitMenu;
-                    AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
                     _activeSection.Activate();
                     SongManager.ChangePlaylist("MainMenu-Outer");
 
@@ -112,7 +108,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         }
         public override void LoadContent()
         {
-            _createNewSaveMenu = new CreateNewSaveMenu(this, AdjustBackgroundRectangleAndBackButton(_createNewSaveMenuBackGroundRectangleDimensions), graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
+            _createNewSaveMenu = new CreateNewSaveMenu(this, AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle), graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
             _createNewSaveMenu.LoadContent();
             AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
 
@@ -149,7 +145,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
                 new Rectangle((int)_backGroundSpritePosition.X,
                 (int)_backGroundSpritePosition.Y, newRectangle.Width, newRectangle.Height), UISourceRectangles._backButtonRectangle);
-            _backButton = new Button(this, graphics, content, backButtonPosition, GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle, null, null, backAction, true);
+            _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition, GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle, backAction);
 
             return new Rectangle((int)_backGroundSpritePosition.X, (int)_backGroundSpritePosition.Y, newRectangle.Width,newRectangle.Height);
         }

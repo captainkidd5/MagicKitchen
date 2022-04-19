@@ -42,10 +42,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
             Action _createNewButtonAction = ChangeToCreateNewSaveMenu;
             _createNewButton = new NineSliceTextButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                _saveSlotRectangle, null, new List<Text>() { 
-                    _createNewGameText, 
-                    TextFactory.CreateUIText("Second Line", GetLayeringDepth(UILayeringDepths.Medium)),
-                TextFactory.CreateUIText("Long Third Lineeeeee", GetLayeringDepth(UILayeringDepths.Medium))},null, _createNewButtonAction, true);
+                _saveSlotRectangle, null, new List<Text>() {
+                    _createNewGameText,
+                    TextFactory.CreateUIText("Second Line", GetLayeringDepth(UILayeringDepths.Medium))},null, _createNewButtonAction, true);
            Dictionary<string,SaveFile> saveFiles = SaveLoadManager.SaveFiles;
 
             int i = 0;
@@ -72,12 +71,10 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-          //  _createNewGameText.Update(gameTime, _createNewButton.Position);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            //_createNewGameText.Draw(spriteBatch, true);
         }
 
        private void ChangeToCreateNewSaveMenu()

@@ -39,7 +39,7 @@ namespace UIEngine.Classes.ButtonStuff
         /// </summary>
 
         public ButtonBase(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
-             Vector2 position,float layerDepth, Rectangle? sourceRectangle, Sprite? foregroundSprite, Point? samplePoint, Action buttonAction, bool hoverTransparency = true)
+             Vector2 position,float layerDepth, Rectangle? sourceRectangle, Action buttonAction, Sprite? foregroundSprite,  Point? samplePoint,  bool hoverTransparency = true)
         : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             if (sourceRectangle != null)

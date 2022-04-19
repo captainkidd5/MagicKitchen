@@ -46,28 +46,25 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             List<Text> playText = new List<Text>() { TextFactory.CreateUIText("Play", GetLayeringDepth(UILayeringDepths.Medium)) };
             int playTextTotalWidth = (int)TextFactory.CombineText(playText, LayerDepth).TotalStringWidth;
 
-            _playButton = new NineSliceTextButton(this, graphics, content, _anchorPos,
-                GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null, 
-               playText,
-                null, _playGameAction, true);
+            _playButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, _anchorPos, 128, 64,
+                GetLayeringDepth(UILayeringDepths.Low),
+               new List<string>() { "Play"}, _playGameAction);
 
-            _exitButton = new NineSliceTextButton(this, graphics, content,
-                new Vector2(_anchorPos.X, _anchorPos.Y + 128), GetLayeringDepth(UILayeringDepths.Low),
-                _buttonRectangle, null, new List<Text>() {
-                    TextFactory.CreateUIText("EXIT", GetLayeringDepth(UILayeringDepths.Medium)) },
-                null, _exitGameAction, true);
+            _exitButton = UI.ButtonFactory.CreateNSliceTxtBtn(this,
+                new Vector2(_anchorPos.X, _anchorPos.Y + 128), 128, 64, GetLayeringDepth(UILayeringDepths.Low),
+                new List<string>() { "Exit"},_exitGameAction);
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonRectangle.Width, _buttonRectangle.Height);
 
             Vector2 settingsButtonPos = new Vector2(_anchorPos.X, _anchorPos.Y + 64);
 
-            _toggleSettings = new NineSliceTextButton(this, graphics, content, 
-                new Vector2(_anchorPos.X, _anchorPos.Y + 64), GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null,
-                 new List<Text>() { TextFactory.CreateUIText("Settings", GetLayeringDepth(UILayeringDepths.Medium)) }, null, new Action(() =>
+            _toggleSettings = UI.ButtonFactory.CreateNSliceTxtBtn(this, 
+                new Vector2(_anchorPos.X, _anchorPos.Y + 64), 128, 64, GetLayeringDepth(UILayeringDepths.Low),
+                 new List<string>() { "Settings"}, new Action(() =>
                 {
                     (parentSection as OuterMenu).ChangeState(OuterMenuState.Settings);
 
-                }), true);
+                }));
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonRectangle.Width, _buttonRectangle.Height);
 
@@ -76,21 +73,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
         }
 
-        public override void Unload()
-        {
-            base.Unload();
-        }
-        public override void Update(GameTime gameTime)
-        {
-                base.Update(gameTime);
 
-
-        }
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-                base.Draw(spriteBatch);
-
-        }
 
         private void ChangeToViewGamesMenu()
         {

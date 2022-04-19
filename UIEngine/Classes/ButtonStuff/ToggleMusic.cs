@@ -25,11 +25,12 @@ namespace UIEngine.Classes.ButtonStuff
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             ToggleMusicButton = new NineSliceButton(this, graphicsDevice, content, Position, GetLayeringDepth(UILayeringDepths.Back), MusicNoteSourceRectangle,
-              SpriteFactory.CreateUISprite(Position, MusicNoteSourceRectangle,UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium)),
-              null,new Action(() =>
-               {
-                   ToggleMusicAction();
-               }),true);
+              new Action(() =>
+              {
+                  ToggleMusicAction();
+              }),
+              SpriteFactory.CreateUISprite(Position, MusicNoteSourceRectangle,UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium))
+              );
         }
 
         public override void LoadContent()
