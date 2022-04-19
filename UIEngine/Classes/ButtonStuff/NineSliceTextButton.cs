@@ -29,15 +29,16 @@ namespace UIEngine.Classes.ButtonStuff
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, buttonAction, foregroundSprite, samplePoint, hoverTransparency)
         {
             Text combinedtext = TextFactory.CombineText(textList, LayerDepth);
-            int width = (int)combinedtext.TotalStringWidth + 16;
-            int height = (int)combinedtext.TotalStringHeight + 32;
+            int characterWidth = (int)TextFactory.SingleCharacterWidth();
+            int width = (int)combinedtext.TotalStringWidth + characterWidth;
+            int height = (int)combinedtext.TotalStringHeight + characterWidth;
             Position = new Vector2(Position.X - width/2, Position.Y - height/2);
 
             _textPositions = new List<Vector2>();
            _textList = textList;
-            GeneratePositionsForLines(new Vector2(Position.X + width /4, Position.Y));
+            GeneratePositionsForLines(new Vector2(Position.X + characterWidth, Position.Y));
             
-            BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth,true, null, null);
+            BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth,true);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
         }
@@ -53,9 +54,7 @@ namespace UIEngine.Classes.ButtonStuff
             Rectangle backgroundRec = TotalBounds;
             for (int i = 0; i < _textList.Count; i++)
             {
-                if(_textList[i] != null && _textList[i].FullString.Contains("Pl"))
-                    Console.WriteLine("test");
-                //textIndexPos = Text.CenterInRectangle(backgroundRec, _textList[i]);
+             
                 y += _textList[i].TotalStringHeight;
                 textIndexPos = new Vector2(textIndexPos.X, y);
 

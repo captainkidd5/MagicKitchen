@@ -143,6 +143,8 @@ namespace TextEngine.Classes
         {
             return _spriteFont.MeasureString(value).Width * _scale;
         }
+
+      
         private void WrapInputText(float lineLimit)
         {
             CurrentString += "\n";

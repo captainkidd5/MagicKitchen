@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using TextEngine;
 using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
+using UIEngine.Classes.Components;
 
 namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 {
@@ -22,12 +23,15 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
         private Action _playGameAction;
         private Action _exitGameAction;
-        private Rectangle _buttonRectangle = new Rectangle(0, 0, 128, 64);
+        private int _buttonWidth = 128;
+        private int _buttonHeight = 64;
         private NineSliceTextButton _playButton;
         private NineSliceTextButton _exitButton;
         private NineSliceButton _toggleSettings;
 
         private Rectangle _settingsCogSourceRectangle = new Rectangle(64, 80, 32, 32);
+
+        private StackPanel _stackPanel;
 
         public PlayOrExitMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -37,36 +41,41 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
       
         public override void LoadContent()
         {
+            _stackPanel = new StackPanel(this, graphics, content, Position, LayerDepth);
+
+            StackRow stackRow1 = new StackRow(this, graphics, content, Position, LayerDepth);
+            stackRow1.AddItem(_playButton);
+            stackRow1.AddItem(_exitButton);
+
+
             _playGameAction = ChangeToViewGamesMenu;
             _exitGameAction = UI.Exit;
             Vector2 _anchorPos = new Vector2(parentSection.TotalBounds.X
                 + parentSection.TotalBounds.Width /2,
                 parentSection.TotalBounds.Y + parentSection.TotalBounds.Height / 4);
 
-            List<Text> playText = new List<Text>() { TextFactory.CreateUIText("Play", GetLayeringDepth(UILayeringDepths.Medium)) };
-            int playTextTotalWidth = (int)TextFactory.CombineText(playText, LayerDepth).TotalStringWidth;
 
-            _playButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, _anchorPos, 128, 64,
+            _playButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, _anchorPos, _buttonWidth, _buttonHeight,
                 GetLayeringDepth(UILayeringDepths.Low),
-               new List<string>() { "Play"}, _playGameAction);
+               new List<string>() { "Play", "Play", "Play" }, _playGameAction);
 
             _exitButton = UI.ButtonFactory.CreateNSliceTxtBtn(this,
-                new Vector2(_anchorPos.X, _anchorPos.Y + 128), 128, 64, GetLayeringDepth(UILayeringDepths.Low),
+                new Vector2(_anchorPos.X, _anchorPos.Y + _buttonWidth), _buttonWidth, _buttonHeight, GetLayeringDepth(UILayeringDepths.Low),
                 new List<string>() { "Exit"},_exitGameAction);
 
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonRectangle.Width, _buttonRectangle.Height);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonWidth, _buttonHeight);
 
-            Vector2 settingsButtonPos = new Vector2(_anchorPos.X, _anchorPos.Y + 64);
+            Vector2 settingsButtonPos = new Vector2(_anchorPos.X, _anchorPos.Y + _buttonHeight);
 
             _toggleSettings = UI.ButtonFactory.CreateNSliceTxtBtn(this, 
-                new Vector2(_anchorPos.X, _anchorPos.Y + 64), 128, 64, GetLayeringDepth(UILayeringDepths.Low),
+                new Vector2(_anchorPos.X, _anchorPos.Y + 64), _buttonWidth, _buttonHeight, GetLayeringDepth(UILayeringDepths.Low),
                  new List<string>() { "Settings"}, new Action(() =>
                 {
                     (parentSection as OuterMenu).ChangeState(OuterMenuState.Settings);
 
                 }));
 
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonRectangle.Width, _buttonRectangle.Height);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonWidth, _buttonHeight);
 
             base.LoadContent();
             SongManager.ChangePlaylist("MainMenu-Outer");

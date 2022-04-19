@@ -22,7 +22,11 @@ namespace TextEngine
 
 
         }
+        public static float SingleCharacterWidth(float scale = .5f)
+        {
+            return BitmapFont.MeasureString("o").Width * scale;
 
+        }
         //UI
         public static Text CreateUIText(String value, float layer, float? scale = null)
         {

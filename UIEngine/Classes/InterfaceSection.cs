@@ -55,6 +55,9 @@ namespace UIEngine.Classes
         private Vector2 _positionLastFrame;
         protected bool DidPositionChange => (Position != _positionLastFrame);
         internal virtual Rectangle TotalBounds { get; set; }
+
+        internal int Width => TotalBounds.Width;
+        internal int Height => TotalBounds.Height;
         public virtual bool Hovered { get; protected set; }
         private bool _hoveredLastFrame;
 
