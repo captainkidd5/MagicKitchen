@@ -53,7 +53,7 @@ namespace UIEngine.Classes.Storage
             _selectorSprite = SpriteFactory.CreateUISprite(SelectedSlot.Position, new Rectangle(272, 0, 64, 64),
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium),null);
             DrawEndIndex = _extendedInventoryCutoff;
-            _openBigInventoryButton = new Button(this, graphics, content, new Vector2(Position.X + Width, Position.Y),LayerDepth, _openBigInventoryUpArrowSourceRectangle, null, null,null, new Action(ToggleOpen));
+            _openBigInventoryButton = UI.ButtonFactory.CreateButton(this, new Vector2(Position.X + Width, Position.Y),LayerDepth, _openBigInventoryUpArrowSourceRectangle, new Action(ToggleOpen));
             _openBigInventoryButton.LoadContent();
         }
         public override void Update(GameTime gameTime)

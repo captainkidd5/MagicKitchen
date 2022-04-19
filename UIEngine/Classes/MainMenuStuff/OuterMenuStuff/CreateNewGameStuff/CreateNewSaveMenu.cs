@@ -52,7 +52,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             _createNewGameAction = CreateNewSaveAction;
             _createNewGameButton = new NineSliceTextButton(this, graphics, content,
                 RectangleHelper.PlaceBottomRightQuadrant(_backGroundRectangle, _createNewGameButtonRectangle),
-                GetLayeringDepth(UILayeringDepths.Low), null, null, UI.ButtonTexture,new List<Text>()
+                GetLayeringDepth(UILayeringDepths.Low), null, null,new List<Text>()
                 { TextFactory.CreateUIText("Go!", GetLayeringDepth(UILayeringDepths.Medium))  }, null, _createNewGameAction, true);
             _createNewGameButton.SetLock(true);
 

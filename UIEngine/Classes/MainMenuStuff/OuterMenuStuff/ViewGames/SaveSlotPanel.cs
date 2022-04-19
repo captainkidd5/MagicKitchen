@@ -47,10 +47,10 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             _dateText = TextFactory.CreateUIText(_saveFile.DateCreated.Date.ToString("d"), GetLayeringDepth(UILayeringDepths.High));
             _timeText = TextFactory.CreateUIText(_saveFile.DateCreated.ToString("HH:mm"), GetLayeringDepth(UILayeringDepths.High));
 
-            _slotButton = new NineSliceTextButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), _slotButtonDimensions, null, null, new List<Text>() { _nameText, _dateText, _timeText }, null, saveAction, true);
+            _slotButton = new NineSliceTextButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), _slotButtonDimensions, null, new List<Text>() { _nameText, _dateText, _timeText }, null, saveAction, true);
 
             _returnToMainMenuButton = new NineSliceTextButton(this, graphics, content, RectangleHelper.CenterRectangleInRectangle(_slotButtonDimensions, _slotButton.TotalBounds),
-                GetLayeringDepth(UILayeringDepths.Low), _slotButtonDimensions, null, UI.ButtonTexture,
+                GetLayeringDepth(UILayeringDepths.Low), _slotButtonDimensions, null,
                 new List<Text>() { TextFactory.CreateUIText("Delete Save?", GetLayeringDepth(UILayeringDepths.Medium)) }, null, new Action(()=> DeleteSave()));
             _returnToMainMenuButton.AddConfirmationWindow($"Really delete save?");
 

@@ -47,18 +47,16 @@ namespace UIEngine.Classes.ButtonStuff
 
             Vector2 confirmButtonPos = RectangleHelper.CenterRectangleInRectangle(ButtonFactory.s_greenCheckRectangle, _backGroundSprite.HitBox);
             confirmButtonPos = new Vector2(confirmButtonPos.X + 64, confirmButtonPos.Y);
-            _confirmButton = new Button(this, graphics, content, confirmButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_greenCheckRectangle, null, UI.ButtonTexture, null,
+            _confirmButton = UI.ButtonFactory.CreateButton(this,confirmButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_greenCheckRectangle,
                 new Action(() =>
                 {
                     _confirmAction();
                     UI.RemoveCriticalSection(this);
-                }),
-                
-                scale: 1f); ;
+                })); 
 
             Vector2 cancelButtonPos = RectangleHelper.CenterRectangleInRectangle(ButtonFactory.s_redExRectangle, _backGroundSprite.HitBox);
             cancelButtonPos = new Vector2(cancelButtonPos.X - 64, cancelButtonPos.Y);
-            _cancelButton = new Button(this, graphics, content, cancelButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_redExRectangle, null, UI.ButtonTexture, null, _cancelAction, scale: 1f);
+            _cancelButton = UI.ButtonFactory.CreateButton(this, cancelButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_redExRectangle, _cancelAction);
 
             _text = TextFactory.CreateUIText(_confirmationText, GetLayeringDepth(UILayeringDepths.High));
             _textPosition = Text.CenterInRectangle(TotalBounds, _text);

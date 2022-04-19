@@ -16,9 +16,9 @@ namespace UIEngine.Classes.ButtonStuff
     internal class Button : ButtonBase
     {
         public Button(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
-            Vector2 position,float layerDepth,  Rectangle? sourceRectangle, Sprite foregroundSprite, Texture2D texture,
+            Vector2 position,float layerDepth,  Rectangle? sourceRectangle, Sprite foregroundSprite, 
             Point? samplePoint, Action buttonAction = null, bool hoverTransparency = true, float scale = 2f) :
-            base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, foregroundSprite, texture, samplePoint, buttonAction, hoverTransparency)
+            base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, foregroundSprite, samplePoint, buttonAction, hoverTransparency)
         {
             BackGroundSprite = SpriteFactory.CreateUISprite(position, sourceRectangle.Value,ButtonTexture, LayerDepth, null, null, new Vector2(scale, scale));
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);

@@ -149,7 +149,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
                 new Rectangle((int)_backGroundSpritePosition.X,
                 (int)_backGroundSpritePosition.Y, newRectangle.Width, newRectangle.Height), UISourceRectangles._backButtonRectangle);
-            _backButton = new Button(this, graphics, content, backButtonPosition, GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle, null, UI.ButtonTexture, null, backAction, true);
+            _backButton = new Button(this, graphics, content, backButtonPosition, GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle, null, null, backAction, true);
 
             return new Rectangle((int)_backGroundSpritePosition.X, (int)_backGroundSpritePosition.Y, newRectangle.Width,newRectangle.Height);
         }

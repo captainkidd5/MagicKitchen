@@ -39,7 +39,7 @@ namespace UIEngine.Classes.ButtonStuff
         /// </summary>
 
         public ButtonBase(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
-             Vector2 position,float layerDepth, Rectangle? sourceRectangle, Sprite? foregroundSprite, Texture2D? texture, Point? samplePoint, Action buttonAction, bool hoverTransparency = true)
+             Vector2 position,float layerDepth, Rectangle? sourceRectangle, Sprite? foregroundSprite, Point? samplePoint, Action buttonAction, bool hoverTransparency = true)
         : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             if (sourceRectangle != null)
@@ -49,7 +49,7 @@ namespace UIEngine.Classes.ButtonStuff
 
 
             //Allows you to provide your own texture.
-            Texture2D spriteTexture = texture ?? UI.ButtonTexture;
+            Texture2D spriteTexture = UI.ButtonTexture;
 
             OnClick = buttonAction ?? new Action(ButtonAction);
 

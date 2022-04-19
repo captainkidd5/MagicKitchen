@@ -47,13 +47,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             int playTextTotalWidth = (int)TextFactory.CombineText(playText, LayerDepth).TotalStringWidth;
 
             _playButton = new NineSliceTextButton(this, graphics, content, _anchorPos,
-                GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null, UI.ButtonTexture,
+                GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null, 
                playText,
                 null, _playGameAction, true);
 
             _exitButton = new NineSliceTextButton(this, graphics, content,
                 new Vector2(_anchorPos.X, _anchorPos.Y + 128), GetLayeringDepth(UILayeringDepths.Low),
-                _buttonRectangle, null,UI.ButtonTexture, new List<Text>() {
+                _buttonRectangle, null, new List<Text>() {
                     TextFactory.CreateUIText("EXIT", GetLayeringDepth(UILayeringDepths.Medium)) },
                 null, _exitGameAction, true);
 
@@ -63,7 +63,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
             _toggleSettings = new NineSliceTextButton(this, graphics, content, 
                 new Vector2(_anchorPos.X, _anchorPos.Y + 64), GetLayeringDepth(UILayeringDepths.Low), _buttonRectangle, null,
-                UI.ButtonTexture, new List<Text>() { TextFactory.CreateUIText("Settings", GetLayeringDepth(UILayeringDepths.Medium)) }, null, new Action(() =>
+                 new List<Text>() { TextFactory.CreateUIText("Settings", GetLayeringDepth(UILayeringDepths.Medium)) }, null, new Action(() =>
                 {
                     (parentSection as OuterMenu).ChangeState(OuterMenuState.Settings);
 

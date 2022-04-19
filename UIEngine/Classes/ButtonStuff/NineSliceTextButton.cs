@@ -24,8 +24,8 @@ namespace UIEngine.Classes.ButtonStuff
         
 
         public NineSliceTextButton(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth, Rectangle? sourceRectangle,
-            Sprite foregroundSprite, Texture2D texture,List<Text> textList, Point? samplePoint, Action buttonAction = null, bool hoverTransparency = false) :
-            base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, foregroundSprite, texture, samplePoint, buttonAction, hoverTransparency)
+            Sprite foregroundSprite,List<Text> textList, Point? samplePoint, Action buttonAction = null, bool hoverTransparency = false) :
+            base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, foregroundSprite, samplePoint, buttonAction, hoverTransparency)
         {
             Text combinedtext = TextFactory.CombineText(textList, LayerDepth);
             int width = (int)combinedtext.TotalStringWidth + 16;
