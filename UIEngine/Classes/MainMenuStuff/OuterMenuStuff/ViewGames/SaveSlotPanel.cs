@@ -25,7 +25,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         private readonly SaveFile _saveFile;
 
         private NineSliceTextButton _slotButton;
-        private static Rectangle _slotButtonDimensions = new Rectangle(0, 0, 96, 80);
+        private static int _width = 96;
+        private static int _height = 80;
 
         private Text _nameText;
 
@@ -43,19 +44,18 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         public override void LoadContent()
         {
             Action saveAction = LoadSave;
-            _nameText = TextFactory.CreateUIText(_saveFile.Name, GetLayeringDepth(UILayeringDepths.High));
-            _dateText = TextFactory.CreateUIText(_saveFile.DateCreated.Date.ToString("d"), GetLayeringDepth(UILayeringDepths.High));
-            _timeText = TextFactory.CreateUIText(_saveFile.DateCreated.ToString("HH:mm"), GetLayeringDepth(UILayeringDepths.High));
 
-            _slotButton = new NineSliceTextButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), _slotButtonDimensions, null, new List<Text>() { _nameText, _dateText, _timeText }, null, saveAction, true);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _width, _height);
 
-            _returnToMainMenuButton = new NineSliceTextButton(this, graphics, content, RectangleHelper.CenterRectangleInRectangle(_slotButtonDimensions, _slotButton.TotalBounds),
-                GetLayeringDepth(UILayeringDepths.Low), _slotButtonDimensions, null,
-                new List<Text>() { TextFactory.CreateUIText("Delete Save?", GetLayeringDepth(UILayeringDepths.Medium)) }, null, new Action(()=> DeleteSave()));
+            _slotButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, Position, _width, _height, GetLayeringDepth(UILayeringDepths.Low),
+                new List<string>() { _saveFile.Name, _saveFile.DateCreated.Date.ToString("d"), _saveFile.DateCreated.ToString("HH:mm") },  saveAction);
+
+            _returnToMainMenuButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, RectangleHelper.CenterRectangleInRectangle(TotalBounds, _slotButton.TotalBounds),
+               _width,_height, GetLayeringDepth(UILayeringDepths.Low),
+                new List<string>() { "Delete Save?"}, new Action(()=> DeleteSave()));
             _returnToMainMenuButton.AddConfirmationWindow($"Really delete save?");
 
             _returnToMainMenuButton.LoadContent();
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _slotButtonDimensions.Width, _slotButtonDimensions.Height);
             base.LoadContent();
 
             //_loadFileAction = _saveFile.LoadSave

@@ -24,8 +24,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         private NineSliceTextButton _createNewButton;
         private Text _createNewGameText;
             
-        private static Rectangle _saveSlotRectangle = new Rectangle(0, 0, 128, 64);
-
+        private int _saveSlotWidth = 128;
+        private int _saveSlotHeight = 64;
         
         public ViewGamesMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -41,20 +41,19 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             _createNewGameText = TextFactory.CreateUIText("Create New", GetLayeringDepth(UILayeringDepths.Medium));
 
             Action _createNewButtonAction = ChangeToCreateNewSaveMenu;
-            _createNewButton = new NineSliceTextButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                _saveSlotRectangle, null, new List<Text>() {
-                    _createNewGameText,
-                    TextFactory.CreateUIText("Second Line", GetLayeringDepth(UILayeringDepths.Medium))},null, _createNewButtonAction, true);
+            _createNewButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, Position,_saveSlotWidth,_saveSlotHeight, GetLayeringDepth(UILayeringDepths.Low),
+                new List<string>() {
+                    "Create New","Second Line"}, _createNewButtonAction);
            Dictionary<string,SaveFile> saveFiles = SaveLoadManager.SaveFiles;
 
             int i = 0;
             foreach(KeyValuePair<string,SaveFile> file in saveFiles) { 
-                _saveSlotPosition = new Vector2(_saveSlotPosition.X, _saveSlotPosition.Y + (i + 1) * _saveSlotRectangle.Height);
+                _saveSlotPosition = new Vector2(_saveSlotPosition.X, _saveSlotPosition.Y + (i + 1) * _saveSlotHeight);
 
                 SaveSlotPanel panel = new SaveSlotPanel(file.Value, this, graphics, content, _saveSlotPosition, GetLayeringDepth(UILayeringDepths.Low));
                 panel.LoadContent();
             }
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _saveSlotRectangle.Width, _saveSlotRectangle.Height);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _saveSlotWidth, _saveSlotHeight);
             base.LoadContent();
 
         }

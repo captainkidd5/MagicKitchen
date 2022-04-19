@@ -25,10 +25,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         private Text _createNewText;
         private Vector2 _createNewTextPosition;
 
-        private Rectangle _nameWindowRectangle = new Rectangle(0, 0, 128, 32);
         private TypingBox _nameTypingBox;
+        private int _nameWindowWidth = 128;
+        private int _nameWindowHeight = 32;
 
         private Rectangle _createNewGameButtonRectangle = new Rectangle(0, 0, 32, 32);
+        private int _newGameWidth = 32;
+        private int _newGameHeight = 32;
         private NineSliceTextButton _createNewGameButton;
         private Action _createNewGameAction;
         public CreateNewSaveMenu(InterfaceSection interfaceSection,Rectangle backGroundRectangle, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -45,15 +48,15 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             _createNewTextPosition = new Vector2(_createNewTextPosition.X, _backGroundRectangle.Y + 4);
 
 
-            Vector2 typingBoxPos = RectangleHelper.CenterRectangleInRectangle(_nameWindowRectangle,_backGroundRectangle);
+            Vector2 typingBoxPos = RectangleHelper.CenterRectangleInRectangle(_nameWindowWidth,_nameWindowHeight, _backGroundRectangle);
             typingBoxPos = new Vector2(typingBoxPos.X, _createNewTextPosition.Y + _createNewText.TotalStringHeight * 2);
-            _nameTypingBox = new TypingBox(this,graphics, content, typingBoxPos, GetLayeringDepth(UILayeringDepths.Low), _nameWindowRectangle.Width, _nameWindowRectangle.Height, null);
+            _nameTypingBox = new TypingBox(this,graphics, content, typingBoxPos, GetLayeringDepth(UILayeringDepths.Low), _nameWindowWidth, _nameWindowHeight);
 
             _createNewGameAction = CreateNewSaveAction;
-            _createNewGameButton = new NineSliceTextButton(this, graphics, content,
+            _createNewGameButton = UI.ButtonFactory.CreateNSliceTxtBtn(this,
                 RectangleHelper.PlaceBottomRightQuadrant(_backGroundRectangle, _createNewGameButtonRectangle),
-                GetLayeringDepth(UILayeringDepths.Low), null, null,new List<Text>()
-                { TextFactory.CreateUIText("Go!", GetLayeringDepth(UILayeringDepths.Medium))  }, null, _createNewGameAction, true);
+                _newGameWidth, _newGameHeight, GetLayeringDepth(UILayeringDepths.Low), new List<string>()
+                { "Go!" },  _createNewGameAction);
             _createNewGameButton.SetLock(true);
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundRectangle.Width, _backGroundRectangle.Height);

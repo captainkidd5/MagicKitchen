@@ -77,6 +77,11 @@ namespace Globals.Classes.Helpers
             scale = scale ?? Settings.GameScale;
             return new Vector2(parentRectangle.X + parentRectangle.Width / 2 - childRectangle.Width/2, parentRectangle.Y + parentRectangle.Height/2 - childRectangle.Height/2);
         }
+        public static Vector2 CenterRectangleInRectangle(int childWidth, int childHeight, Rectangle parentRectangle, float? scale = null)
+        {
+            scale = scale ?? Settings.GameScale;
+            return new Vector2(parentRectangle.X + parentRectangle.Width / 2 - childWidth / 2, parentRectangle.Y + parentRectangle.Height / 2 - childHeight / 2);
+        }
         public static Vector2 PlaceUpperLeftQuadrant(Rectangle backGroundRectangle, float? scale = null)
         {
             scale = scale ?? Settings.GameScale;

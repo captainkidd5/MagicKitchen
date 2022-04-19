@@ -43,7 +43,7 @@ namespace UIEngine.Classes.TextStuff
         private static int _textCutOffSet = 2;
         private bool ExceedsWidth => TextBuilder.ExceedsWidth(NineSliceSprite.Width - _textCutOffSet, DissallowTypingAfterLine);
 
-        public TypingBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth, int? width, int? height, Color? color)
+        public TypingBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth, int? width, int? height, Color? color = null)
             : base(interfaceSection,graphicsDevice, content, position, layerDepth)
         {
             NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, width ?? DefaultWidth, height ?? DefaultHeight, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), color, null, null);

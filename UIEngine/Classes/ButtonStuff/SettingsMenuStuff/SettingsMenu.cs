@@ -45,10 +45,10 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             //    }));
             //CloseButton.LoadContent();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height);
-            _saveSettingsButton = new NineSliceTextButton(this, graphics, content,Position,
-                GetLayeringDepth(UILayeringDepths.Low), null, null, new List<Text>()
-                { TextFactory.CreateUIText("Save Settings!", GetLayeringDepth(UILayeringDepths.Medium))  },
-                null, new Action(() => { SettingsManager.SaveSettings(); }), true);
+            _saveSettingsButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, Position, 64,64,
+                GetLayeringDepth(UILayeringDepths.Low),  new List<string>()
+                { "Save Settings!" },
+                 new Action(() => { SettingsManager.SaveSettings(); }));
             IsActive = false;
             NormallyActivated = false;
         }
