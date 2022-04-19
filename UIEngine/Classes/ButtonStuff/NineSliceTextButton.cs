@@ -17,7 +17,7 @@ namespace UIEngine.Classes.ButtonStuff
     internal class NineSliceTextButton : NineSliceButton
     {
         public override bool Hovered { get => base.Hovered; protected set => base.Hovered = value; }
-
+        
         private List<Vector2> _textPositions;
 
         private List<Text> _textList;
@@ -34,12 +34,12 @@ namespace UIEngine.Classes.ButtonStuff
         }
         public override void MovePosition(Vector2 newPos)
         {
-            base.MovePosition(newPos);
+           // base.MovePosition(newPos);
             Text combinedtext = TextFactory.CombineText(_textList, LayerDepth);
             int characterWidth = (int)TextFactory.SingleCharacterWidth();
             int width = (int)combinedtext.TotalStringWidth + characterWidth;
             int height = (int)combinedtext.TotalStringHeight + characterWidth;
-            Position = new Vector2(Position.X - width / 2, Position.Y - height / 2);
+            Position = new Vector2(newPos.X - width / 2, newPos.Y - height / 2);
 
             _textPositions = new List<Vector2>();
             GeneratePositionsForLines(new Vector2(Position.X + characterWidth, Position.Y));
@@ -47,6 +47,7 @@ namespace UIEngine.Classes.ButtonStuff
             BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth, true);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,  _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
+           
         }
         /// <summary>
         /// Fills <see cref="_textPositions"/> for each line of text provided. Increases by height x => x.Height == text.TotalStringHeight

@@ -28,10 +28,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         private static int _width = 96;
         private static int _height = 80;
 
-        private Text _nameText;
-
-        private Text _dateText;
-        private Text _timeText;
         private NineSliceButton _returnToMainMenuButton;
 
 
