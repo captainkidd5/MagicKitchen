@@ -15,17 +15,22 @@ namespace ItemEngine.Classes
 
         public int Capacity { get; private set; }
         public List<StorageSlot> Slots { get; set; }
+
+        private Wallet _wallet;
         public StorageContainer(int capacity)
         {
             Capacity = capacity;
             Slots = new List<StorageSlot>();
+            _wallet = new Wallet();
             for (int i = 0; i < Capacity; i++)
             {
                 Slots.Add(new StorageSlot());
             }
         }
 
-
+        public bool CanAfford(int amt) => _wallet.CanAfford(amt);
+        public int Withdraw(int amt) => _wallet.Withdraw(amt);
+        public void Deposit(int amt) => _wallet.Deposit(amt);
         public void AddItem(Item item, ref int count)
         {
             //Try to find partially filled stackable item slot matching stackable item
@@ -84,6 +89,7 @@ namespace ItemEngine.Classes
 
         public void Save(BinaryWriter writer)
         {
+            _wallet.Save(writer);
            foreach(StorageSlot slot in Slots)
             {
                 slot.Save(writer);
@@ -92,6 +98,7 @@ namespace ItemEngine.Classes
 
         public void LoadSave(BinaryReader reader)
         {
+            _wallet.LoadSave(reader);
             foreach (StorageSlot slot in Slots)
             {
                 slot.LoadSave(reader);
@@ -100,6 +107,7 @@ namespace ItemEngine.Classes
 
         public void CleanUp()
         {
+            _wallet.CleanUp();
             Slots.Clear();
         }
     }
