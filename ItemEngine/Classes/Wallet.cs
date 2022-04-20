@@ -10,7 +10,7 @@ namespace ItemEngine.Classes
 {
     internal class Wallet : ISaveable
     {
-        public int Balance { get; set; }
+        public int Balance { get; private set; }
 
         public void Deposit(int amt)
         {

@@ -64,6 +64,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
                 Button button = new Button(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
                     ButtonFactory.s_redExRectangle, new Action(() => { panel.DeleteSave(); Reset(); }));
+                button.AddConfirmationWindow("Really Delete Save?");
+                button.LoadContent();
                 stackRow.AddItem(button, StackOrientation.Left);
 
 

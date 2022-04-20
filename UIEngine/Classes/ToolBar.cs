@@ -13,15 +13,18 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using static Globals.Classes.Settings;
+using UIEngine.Classes.Components;
 
 namespace UIEngine.Classes
 {
     internal class ToolBar : InterfaceSection
     {
-
+        private StackPanel _stackPanel;
         private PlayerInventoryDisplay _playerInventoryDisplay;
         private int _totalToolbarSlots = 10;
         private int _toolBarSlotWidth = 64;
+
+        private int _totalWidth => _toolBarSlotWidth * _totalToolbarSlots;
 
         public ToolBar(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -31,7 +34,7 @@ namespace UIEngine.Classes
 
         public void Load(StorageContainer playerStorageContainer)
         {
-
+            
 
 
             //X and y actually don't matter, multiply by 10 because toolbar is 10 slots wide, at 64 pixels per slot
@@ -43,6 +46,8 @@ namespace UIEngine.Classes
             _playerInventoryDisplay.LoadContent();
             TotalBounds = new Rectangle((int)_playerInventoryDisplay.Position.X, (int)_playerInventoryDisplay.Position.Y, totalToolBarRectangle.Width, totalToolBarRectangle.Height);
 
+            _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            StackRow stackRow = new StackRow(_totalWidth);
         }
 
         public override void Update(GameTime gameTime)
