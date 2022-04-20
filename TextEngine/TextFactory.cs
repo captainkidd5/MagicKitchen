@@ -42,10 +42,16 @@ namespace TextEngine
         public static Text CombineText(List<Text> texts, float layer)
         {
             string newString = string.Empty;
+
+            for(int i = 0; i < texts.Count; i++)
+            {
+                newString += texts[i].FullString;
+                if (i < texts.Count - 1)
+                    newString += "\n";
+            }
             foreach(Text text in texts)
             {
-                newString += text.FullString;
-                newString += "\n";
+                
             }
             return CreateUIText(newString, layer);
 

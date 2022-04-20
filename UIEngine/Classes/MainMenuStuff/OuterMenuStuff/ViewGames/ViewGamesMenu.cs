@@ -38,7 +38,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
         public override void LoadContent()
         {
-            Position = Settings.CenterScreen;
+            Position = new Vector2(parentSection.TotalBounds.X,
+                parentSection.TotalBounds.Y);
 
             _stackPanel = new StackPanel(this, graphics, content, Position, LayerDepth);
 
@@ -56,12 +57,10 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             stackRow1.AddItem(_createNewButton, StackOrientation.Center);
             _stackPanel.Add(stackRow1);
 
-            int i = 0;
             foreach(KeyValuePair<string,SaveFile> file in saveFiles) { 
-                _saveSlotPosition = new Vector2(_saveSlotPosition.X, _saveSlotPosition.Y + (i + 1) * _saveSlotHeight);
 
                 StackRow stackRow = new StackRow(_totalWidth);
-                SaveSlotPanel panel = new SaveSlotPanel(file.Value, _stackPanel, graphics, content, _saveSlotPosition, GetLayeringDepth(UILayeringDepths.Low));
+                SaveSlotPanel panel = new SaveSlotPanel(file.Value, _stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
                 panel.LoadContent();
                 stackRow.AddItem(panel, StackOrientation.Center);
                 _stackPanel.Add(stackRow);

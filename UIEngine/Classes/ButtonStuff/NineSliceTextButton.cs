@@ -34,15 +34,19 @@ namespace UIEngine.Classes.ButtonStuff
         }
         public override void MovePosition(Vector2 newPos)
         {
-           // base.MovePosition(newPos);
+            // base.MovePosition(newPos);
+
+            
             Text combinedtext = TextFactory.CombineText(_textList, LayerDepth);
+            if (combinedtext.FullString.Contains("la"))
+                Console.WriteLine("test");
             int characterWidth = (int)TextFactory.SingleCharacterWidth();
             int width = (int)combinedtext.TotalStringWidth + characterWidth;
             int height = (int)combinedtext.TotalStringHeight + characterWidth;
             Position = newPos;
 
             _textPositions = new List<Vector2>();
-            GeneratePositionsForLines(new Vector2(Position.X + characterWidth, Position.Y));
+            GeneratePositionsForLines(new Vector2(Position.X, Position.Y));
 
             BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,  _samplePoint, ButtonTexture.Width);
@@ -61,6 +65,7 @@ namespace UIEngine.Classes.ButtonStuff
             for (int i = 0; i < _textList.Count; i++)
             {
              
+                if(i > 0)
                 y += _textList[i].TotalStringHeight;
                 textIndexPos = new Vector2(textIndexPos.X, y);
 
