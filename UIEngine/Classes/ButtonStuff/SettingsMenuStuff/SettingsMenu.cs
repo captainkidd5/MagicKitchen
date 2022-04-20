@@ -45,7 +45,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             //    }));
             //CloseButton.LoadContent();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height);
-            _saveSettingsButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, Position, 64,64,
+            _saveSettingsButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, Position,
                 GetLayeringDepth(UILayeringDepths.Low),  new List<string>()
                 { "Save Settings!" },
                  new Action(() => { SettingsManager.SaveSettings(); }));

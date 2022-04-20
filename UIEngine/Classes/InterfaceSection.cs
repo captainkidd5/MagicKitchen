@@ -225,8 +225,8 @@ namespace UIEngine.Classes
         {
             for (int i = ChildSections.Count - 1; i >= 0; i--)
             {
-                if(!ChildSections[i].NormallyActivated)
-                     ChildSections[i].Deactivate();
+                //if(!ChildSections[i].NormallyActivated)
+                     ChildSections[i].CleanUp();
                 
             }
         }

@@ -38,21 +38,33 @@ namespace UIEngine.Classes.ButtonStuff
                  scale: _scale);
         }
 
-        public NineSliceTextButton CreateNSliceTxtBtn(InterfaceSection section, Vector2 pos,
+        public NineSliceTextButton CreateNSliceTxtBtnManualDimensions(InterfaceSection section, Vector2 pos,
             int? width, int? height, float layerDepth, List<string> strings, Action? customAction = null)
         {
-
-            List<Text> text = new List<Text>();
-            float textLD = UI.IncrementLD(layerDepth, false);
-            for (int i =0; i < strings.Count; i++)
-            {
-                text.Add(TextFactory.CreateUIText(strings[i], textLD));
-            }
+            List<Text> text = GetIncrementedText(layerDepth, strings);
             return new NineSliceTextButton(section, graphics, content, pos, layerDepth,
-               text, customAction, null, null, forcedWidth:width, forcedHeight:height);
+               text, customAction, null, null, forcedWidth: width, forcedHeight: height);
+
+        }
+        public NineSliceTextButton CreateNSliceTxtBtn(InterfaceSection section, Vector2 pos,
+            float layerDepth, List<string> strings, Action? customAction = null)
+        {
+            List<Text> text = GetIncrementedText(layerDepth, strings);
+            return new NineSliceTextButton(section, graphics, content, pos, layerDepth,
+               text, customAction, null, null);
 
         }
 
+        private static List<Text> GetIncrementedText(float layerDepth, List<string> strings)
+        {
+            List<Text> text = new List<Text>();
+            float textLD = UI.IncrementLD(layerDepth, false);
+            for (int i = 0; i < strings.Count; i++)
+            {
+                text.Add(TextFactory.CreateUIText(strings[i], textLD));
+            }
 
+            return text;
+        }
     }
 }

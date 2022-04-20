@@ -43,8 +43,7 @@ namespace UIEngine.Classes.EscMenuStuff
 
             _backGroundSprite.LoadContent();
             _returnToMainMenuButton = UI.ButtonFactory.CreateNSliceTxtBtn(this,
-                RectangleHelper.CenterRectangleInRectangle(_returnToMainMenuButtonBackgroundDimensions, _backGroundSprite.HitBox),
-                80, 96,GetLayeringDepth(UILayeringDepths.Low),
+                RectangleHelper.CenterRectangleInRectangle(_returnToMainMenuButtonBackgroundDimensions, _backGroundSprite.HitBox),GetLayeringDepth(UILayeringDepths.Low),
                 new List<string>() {"Return to main menu"}, _returnToMainMenuAction);
 
             _returnToMainMenuButton.AddConfirmationWindow($"Return to main menu?");

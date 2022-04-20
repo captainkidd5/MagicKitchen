@@ -142,8 +142,7 @@ namespace UIEngine.Classes.TextStuff
 
             if (wasAnyKeyPressed)
                 Controls.ClearUseableKeys();
-            if(ExceedsWidth)
-                Console.WriteLine("test");
+           
             if(!ExceedsWidth)
                 TextBuilder.Update(gameTime, _textBuilderPosition, NineSliceSprite.Width, keyValue);
 

@@ -105,6 +105,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                 default:
                     throw new Exception("Must have a state");
             }
+            _backButton.CleanUp();
         }
         public override void LoadContent()
         {
@@ -145,7 +146,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
                 new Rectangle((int)_backGroundSpritePosition.X,
                 (int)_backGroundSpritePosition.Y, newRectangle.Width, newRectangle.Height), UISourceRectangles._backButtonRectangle);
-            _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition, GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle, backAction);
+            _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition, GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle, backAction, scale:2f);
 
             return new Rectangle((int)_backGroundSpritePosition.X, (int)_backGroundSpritePosition.Y, newRectangle.Width,newRectangle.Height);
         }

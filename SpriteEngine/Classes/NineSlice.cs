@@ -66,12 +66,11 @@ namespace SpriteEngine.Classes
             Vector2 position, Texture2D? texture,
             float layer, Text text, Color color, Vector2 scale)
         {
-           if(text.FullString.Contains("la"))
-                Console.WriteLine("test");
+        
             SharedConstructor(position, texture, layer, color, scale);
 
             Width = (int)text.TotalStringWidth + (int)TextFactory.SingleCharacterWidth();
-            Height = (int)text.TotalStringHeight + (int)TextFactory.SingleCharacterWidth();
+            Height = (int)text.TotalStringHeight + (int)TextFactory.SingleCharacterWidth() * 4;
 
             BuildRectangle(_position);
 

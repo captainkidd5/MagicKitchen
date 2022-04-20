@@ -54,7 +54,7 @@ namespace SpriteEngine.Classes
 
         ColorShifter ColorShifter { get; set; }
 
-        public void ResetColors() => ColorShifter.Reset(this);
+        public virtual void ResetColors() => ColorShifter.Reset(this);
 
         public Vector2 OffSet { get; set; } = Vector2.Zero;
 
@@ -193,7 +193,8 @@ namespace SpriteEngine.Classes
 
         public void UpdateColor(Color colorToUse)
         {
-            PrimaryColor = colorToUse;
+            if(PrimaryColor != colorToUse)
+             PrimaryColor = colorToUse;
         }
 
         public void UpdateColor(byte? r, byte? g, byte? b, byte? a)

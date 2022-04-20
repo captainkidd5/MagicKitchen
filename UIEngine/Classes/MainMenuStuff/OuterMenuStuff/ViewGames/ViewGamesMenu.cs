@@ -47,9 +47,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             Vector2 _saveSlotPosition = Position;
 
             Action _createNewButtonAction = ChangeToCreateNewSaveMenu;
-            _createNewButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, Position, _totalWidth, _saveSlotHeight, GetLayeringDepth(UILayeringDepths.Low),
+            _createNewButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, Position,GetLayeringDepth(UILayeringDepths.Low),
                 new List<string>() {
-                    "nao","Second Line"}, _createNewButtonAction);
+                    "Create New"}, _createNewButtonAction);
            Dictionary<string,SaveFile> saveFiles = SaveLoadManager.SaveFiles;
             StackRow stackRow1 = new StackRow(_totalWidth);
             stackRow1.AddItem(_createNewButton, StackOrientation.Center);

@@ -28,7 +28,7 @@ namespace UIEngine.Classes.ButtonStuff
 
         public NineSliceTextButton(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth,
              List<Text> textList, Action buttonAction, 
-            Sprite? foregroundSprite, Point? samplePoint, Rectangle? sourceRectangle = null, bool hoverTransparency = false,
+            Sprite? foregroundSprite, Point? samplePoint, Rectangle? sourceRectangle = null, bool hoverTransparency = true,
             int? forcedWidth = null, int? forcedHeight = null) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, buttonAction, foregroundSprite, samplePoint, hoverTransparency)
         {
@@ -46,8 +46,7 @@ namespace UIEngine.Classes.ButtonStuff
 
             
             Text combinedtext = TextFactory.CombineText(_textList, LayerDepth);
-            if (combinedtext.FullString.Contains("nao"))
-                Console.WriteLine("test");
+
             int characterWidth = (int)TextFactory.SingleCharacterWidth();
             int width = _forcedWidth ?? (int)combinedtext.TotalStringWidth + characterWidth;
             int height = _forcedHeight ?? (int)combinedtext.TotalStringHeight + characterWidth;
@@ -96,10 +95,13 @@ namespace UIEngine.Classes.ButtonStuff
         }
         public override void Update(GameTime gameTime)
         {
+           
             base.Update(gameTime);
             for(int i = _textList.Count - 1; i >= 0; i--)
             {
                 Text text = _textList[i];
+                if(text.FullString.Contains("lay"))
+                    Console.WriteLine("test");
                 text.Update(gameTime, _textPositions[i]);
                     text.ChangeColor(Color);
             }
@@ -110,7 +112,8 @@ namespace UIEngine.Classes.ButtonStuff
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-     
+            if (_textList.Exists(x => x.FullString.Contains("lay")))
+                Console.WriteLine("test");
             base.Draw(spriteBatch);
             for (int i = _textList.Count - 1; i >= 0; i--)
             {

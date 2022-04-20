@@ -27,6 +27,11 @@ namespace SpriteEngine.Classes.InterfaceStuff
             NineSlice = nineSlice;
 
         }
+        public override void ResetColors()
+        {
+            base.ResetColors();
+            NineSlice.Color = PrimaryColor;
+        }
         public override void Update(GameTime gameTime,Vector2 position, bool updatePeripheralActoins = true)
         {
             base.Update(gameTime, position, updatePeripheralActoins);

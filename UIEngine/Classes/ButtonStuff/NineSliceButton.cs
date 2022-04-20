@@ -17,6 +17,7 @@ namespace UIEngine.Classes.ButtonStuff
     internal class NineSliceButton : ButtonBase
     {
 
+
         public NineSliceButton(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position,float layerDepth, Rectangle? sourceRectangle,
            Action buttonAction = null, Sprite foregroundSprite = null, Point? samplePoint = null,  bool hoverTransparency = false)
             : base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, buttonAction, foregroundSprite, samplePoint, hoverTransparency)

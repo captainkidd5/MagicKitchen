@@ -54,8 +54,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
             _createNewGameAction = CreateNewSaveAction;
             _createNewGameButton = UI.ButtonFactory.CreateNSliceTxtBtn(this,
-                RectangleHelper.PlaceBottomRightQuadrant(_backGroundRectangle, _createNewGameButtonRectangle),
-                _newGameWidth, _newGameHeight, GetLayeringDepth(UILayeringDepths.Low), new List<string>()
+                RectangleHelper.PlaceBottomRightQuadrant(_backGroundRectangle, _createNewGameButtonRectangle), GetLayeringDepth(UILayeringDepths.Low), new List<string>()
                 { "Go!" },  _createNewGameAction);
             _createNewGameButton.SetLock(true);
 
