@@ -37,6 +37,12 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             _saveFile = saveFile;
         }
 
+        public override void MovePosition(Vector2 newPos)
+        {
+            base.MovePosition(newPos);
+            ChildSections.Clear();
+            LoadContent();
+        }
         public override void LoadContent()
         {
             Action saveAction = LoadSave;

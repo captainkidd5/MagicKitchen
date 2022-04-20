@@ -63,9 +63,9 @@ namespace SpriteEngine.Classes
         /// </summary>
         /// <returns></returns>
         public static NineSliceSprite CreateNineSliceTextSprite(Vector2 position, Text text,
-            Texture2D texture,float layer, bool centerOnParent, Color? primaryColor = null, Vector2? origin = null, Vector2? scale = null)
+            Texture2D texture,float layer, Color? primaryColor = null, Vector2? origin = null, Vector2? scale = null)
         {
-            NineSlice newNineSlice = new NineSlice(position, centerOnParent, texture,
+            NineSlice newNineSlice = new NineSlice(position, texture,
                 layer, text, primaryColor ?? Color.White, scale ?? Vector2.One);
 
 

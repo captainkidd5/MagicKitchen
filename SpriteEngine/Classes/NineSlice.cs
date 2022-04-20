@@ -62,19 +62,15 @@ namespace SpriteEngine.Classes
         /// Create a dynamic UI rectangle to support given text.
         /// </summary>
         internal NineSlice(
-            Vector2 position, bool centerOnParent, Texture2D? texture,
+            Vector2 position, Texture2D? texture,
             float layer, Text text, Color color, Vector2 scale)
         {
            
             SharedConstructor(position, texture, layer, color, scale);
 
             Width = (int)text.TotalStringWidth + 32;
-            Height = (int)text.TotalStringHeight + 32;
-            if (centerOnParent)
-            {
-                //TODO
-                _position = new Vector2(_position.X, _position.Y );
-            }
+            Height = (int)text.TotalStringHeight;
+
             BuildRectangle(_position);
 
         }
@@ -114,7 +110,7 @@ namespace SpriteEngine.Classes
                     yPos += _unit * _scale.Y;
                 }
                 yPos = _position.Y;
-                xPos += _unit * _scale.Y;
+                xPos += _unit * _scale.X;
             }
 
 

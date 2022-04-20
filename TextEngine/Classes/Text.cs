@@ -172,7 +172,7 @@ namespace TextEngine.Classes
         internal float GetTextHeight(string value)
         {
             String[] lineArray = value.Split('\n');
-            float totalHeight = 0;
+            float totalHeight = _spriteFont.MeasureString(value).Height;
 
             foreach (string line in lineArray)
             {

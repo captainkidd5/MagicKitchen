@@ -39,12 +39,12 @@ namespace UIEngine.Classes.ButtonStuff
             int characterWidth = (int)TextFactory.SingleCharacterWidth();
             int width = (int)combinedtext.TotalStringWidth + characterWidth;
             int height = (int)combinedtext.TotalStringHeight + characterWidth;
-            Position = new Vector2(newPos.X - width / 2, newPos.Y - height / 2);
+            Position = newPos;
 
             _textPositions = new List<Vector2>();
             GeneratePositionsForLines(new Vector2(Position.X + characterWidth, Position.Y));
 
-            BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth, true);
+            BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,  _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
            

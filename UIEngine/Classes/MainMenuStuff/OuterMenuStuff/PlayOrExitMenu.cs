@@ -42,9 +42,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
       
         public override void LoadContent()
         {
-            Vector2 _anchorPos = new Vector2(parentSection.TotalBounds.X
-                + parentSection.TotalBounds.Width / 2,
-                parentSection.TotalBounds.Y + parentSection.TotalBounds.Height / 4);
+            Vector2 _anchorPos = new Vector2(parentSection.TotalBounds.X,
+                parentSection.TotalBounds.Y);
             _stackPanel = new StackPanel(this, graphics, content, _anchorPos, LayerDepth);
 
 
@@ -77,17 +76,17 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
 
             StackRow stackRow1 = new StackRow(_totalWidth);
-            stackRow1.AddItem(_playButton);
+            stackRow1.AddItem(_playButton, StackOrientation.Right);
 
             _stackPanel.Add(stackRow1);
 
             StackRow stackRow2 = new StackRow(_totalWidth);
-            stackRow2.AddItem(_toggleSettings);
+            stackRow2.AddItem(_toggleSettings, StackOrientation.Right);
 
             _stackPanel.Add(stackRow2);
 
             StackRow stackRow3 = new StackRow(_totalWidth);
-            stackRow3.AddItem(_exitButton);
+            stackRow3.AddItem(_exitButton, StackOrientation.Right);
 
             _stackPanel.Add(stackRow3);
 

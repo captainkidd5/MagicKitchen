@@ -53,7 +53,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
                     "Create New","Second Line"}, _createNewButtonAction);
            Dictionary<string,SaveFile> saveFiles = SaveLoadManager.SaveFiles;
             StackRow stackRow1 = new StackRow(_totalWidth);
-            stackRow1.AddItem(_createNewButton);
+            stackRow1.AddItem(_createNewButton, StackOrientation.Center);
             _stackPanel.Add(stackRow1);
 
             int i = 0;
@@ -63,7 +63,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
                 StackRow stackRow = new StackRow(_totalWidth);
                 SaveSlotPanel panel = new SaveSlotPanel(file.Value, _stackPanel, graphics, content, _saveSlotPosition, GetLayeringDepth(UILayeringDepths.Low));
                 panel.LoadContent();
-                stackRow.AddItem(panel);
+                stackRow.AddItem(panel, StackOrientation.Center);
                 _stackPanel.Add(stackRow);
             }
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _saveSlotWidth, _saveSlotHeight);
