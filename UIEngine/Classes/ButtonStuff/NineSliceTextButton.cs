@@ -23,16 +23,16 @@ namespace UIEngine.Classes.ButtonStuff
         private List<Text> _textList;
 
         private int? _forcedWidth;
-        private int? _forcedHeight; 
-        
+        private int? _forcedHeight;
+        private bool _centerText;
 
         public NineSliceTextButton(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth,
-             List<Text> textList, Action buttonAction, 
-            Sprite? foregroundSprite, Point? samplePoint, Rectangle? sourceRectangle = null, bool hoverTransparency = true,
-            int? forcedWidth = null, int? forcedHeight = null) :
+             List<Text> textList, Action buttonAction, int? forcedWidth = null, int? forcedHeight = null, bool centerText = false,
+            Sprite? foregroundSprite = null, Point? samplePoint = null, Rectangle? sourceRectangle = null, bool hoverTransparency = true) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, buttonAction, foregroundSprite, samplePoint, hoverTransparency)
         {
             _textList = textList;
+            _centerText = centerText;
             _forcedWidth = forcedWidth;
             _forcedHeight = forcedHeight;
             MovePosition(position);
@@ -52,8 +52,13 @@ namespace UIEngine.Classes.ButtonStuff
             int height = _forcedHeight ?? (int)combinedtext.TotalStringHeight + characterWidth;
             Position = newPos;
 
+            float newTextPosX = Position.X;
+            if (_centerText)
+            {
+                newTextPosX = Position.X + width / 2 - (int)(combinedtext.TotalStringWidth + characterWidth) / 2;
+            }
             _textPositions = new List<Vector2>();
-            GeneratePositionsForLines(new Vector2(Position.X, Position.Y + characterWidth));
+            GeneratePositionsForLines(new Vector2(newTextPosX, Position.Y + characterWidth));
             if (_forcedWidth == null)
                 BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth);
             else
@@ -70,8 +75,9 @@ namespace UIEngine.Classes.ButtonStuff
         private void GeneratePositionsForLines(Vector2 startPosition)
         {
             Vector2 textIndexPos = startPosition;
+           
             float y = startPosition.Y;
-            Rectangle backgroundRec = TotalBounds;
+           
             for (int i = 0; i < _textList.Count; i++)
             {
              
@@ -100,8 +106,7 @@ namespace UIEngine.Classes.ButtonStuff
             for(int i = _textList.Count - 1; i >= 0; i--)
             {
                 Text text = _textList[i];
-                if(text.FullString.Contains("lay"))
-                    Console.WriteLine("test");
+   
                 text.Update(gameTime, _textPositions[i]);
                     text.ChangeColor(Color);
             }
@@ -112,8 +117,7 @@ namespace UIEngine.Classes.ButtonStuff
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (_textList.Exists(x => x.FullString.Contains("lay")))
-                Console.WriteLine("test");
+          
             base.Draw(spriteBatch);
             for (int i = _textList.Count - 1; i >= 0; i--)
             {
