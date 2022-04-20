@@ -49,15 +49,15 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _width, _height);
 
-            _slotButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, Position, _width, _height, GetLayeringDepth(UILayeringDepths.Low),
+            _slotButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, Position, _width, _height, GetLayeringDepth(UILayeringDepths.Medium),
                 new List<string>() { _saveFile.Name, _saveFile.DateCreated.Date.ToString("d"), _saveFile.DateCreated.ToString("HH:mm") },  saveAction);
 
-            _returnToMainMenuButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, RectangleHelper.CenterRectangleInRectangle(TotalBounds, _slotButton.TotalBounds),
-               _width,_height, GetLayeringDepth(UILayeringDepths.Low),
-                new List<string>() { "Delete Save?"}, new Action(()=> DeleteSave()));
-            _returnToMainMenuButton.AddConfirmationWindow($"Really delete save?");
+            //_returnToMainMenuButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, RectangleHelper.CenterRectangleInRectangle(TotalBounds, _slotButton.TotalBounds),
+            //   _width,_height, GetLayeringDepth(UILayeringDepths.Low),
+            //    new List<string>() { "Delete Save?"}, new Action(()=> DeleteSave()));
+            //_returnToMainMenuButton.AddConfirmationWindow($"Really delete save?");
 
-            _returnToMainMenuButton.LoadContent();
+            //_returnToMainMenuButton.LoadContent();
             base.LoadContent();
 
             //_loadFileAction = _saveFile.LoadSave

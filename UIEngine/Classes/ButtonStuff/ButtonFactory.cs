@@ -43,9 +43,10 @@ namespace UIEngine.Classes.ButtonStuff
         {
 
             List<Text> text = new List<Text>();
-            for(int i =0; i < strings.Count; i++)
+            float textLD = UI.IncrementLD(layerDepth, false);
+            for (int i =0; i < strings.Count; i++)
             {
-                text.Add(TextFactory.CreateUIText(strings[i], UI.IncrementLD(layerDepth,false)));
+                text.Add(TextFactory.CreateUIText(strings[i], textLD));
             }
             return new NineSliceTextButton(section, graphics, content, pos, layerDepth, new Rectangle((int)pos.X, (int)pos.Y, width, height),
                text, customAction, null, null);

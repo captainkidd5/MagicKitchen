@@ -49,10 +49,7 @@ namespace TextEngine
                 if (i < texts.Count - 1)
                     newString += "\n";
             }
-            foreach(Text text in texts)
-            {
-                
-            }
+           
             return CreateUIText(newString, layer);
 
         }
