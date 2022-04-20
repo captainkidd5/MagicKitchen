@@ -24,12 +24,12 @@ namespace UIEngine.Classes.Components
         private int _maxWidth;
         private int _currentContentWidth = 0;
         private int _currentX;
-        public List<InterfaceSection> RowSections { get; set; }
+        private List<InterfaceSection> _rowSections;
 
 
         public StackRow(int stackPanelTotalWidth )
         {
-            RowSections = new List<InterfaceSection>();
+            _rowSections = new List<InterfaceSection>();
             _maxWidth = stackPanelTotalWidth;
         }
 
@@ -62,12 +62,12 @@ namespace UIEngine.Classes.Components
             }
 
             section.MovePosition(newPos);
-            RowSections.Add(section);
+            _rowSections.Add(section);
         }
 
         public void AdjustPosition(Vector2 pos)
         {
-            foreach(InterfaceSection section in RowSections)
+            foreach(InterfaceSection section in _rowSections)
                 section.MovePosition(new Vector2(section.Position.X + pos.X, pos.Y));
         }
     }

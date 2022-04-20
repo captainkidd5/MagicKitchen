@@ -34,7 +34,7 @@ namespace TextEngine.Classes
             CurrentString = string.Empty;
             FullString = value;
             _scale = scale;
-            _color = Color.White;
+            _color = Color.Black;
             _spriteFont = spriteFont;
 
             LayerDepth = layerDepth;

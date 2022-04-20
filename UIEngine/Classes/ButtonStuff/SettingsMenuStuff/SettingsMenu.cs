@@ -12,14 +12,16 @@ using System.Text;
 using System.Threading.Tasks;
 using TextEngine;
 using TextEngine.Classes;
+using UIEngine.Classes.Components;
 
 namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
 {
     internal class SettingsMenu : InterfaceSection
     {
         private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 224, 320);
-
+        private int _backGroundSpriteWidth = 224;
         private NineSliceTextButton _saveSettingsButton;
+        private StackPanel _stackPanel;
         public SettingsMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
         
@@ -37,18 +39,14 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
         {
             Position = RectangleHelper.CenterRectangleInRectangle(_backGroundSpriteDimensions,
                 new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height));
-
-            //CloseButton = UI.ButtonFactory.CreateCloseButton(this, new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height), GetLayeringDepth(UILayeringDepths.Medium),
-            //    new Action(() =>
-            //    {
-            //        Deactivate();
-            //    }));
-            //CloseButton.LoadContent();
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height);
-            _saveSettingsButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, Position,
+            _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            StackRow stackRow1 = new StackRow(_backGroundSpriteWidth);
+            _saveSettingsButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, Position,
                 GetLayeringDepth(UILayeringDepths.Low),  new List<string>()
                 { "Save Settings!" },
                  new Action(() => { SettingsManager.SaveSettings(); }));
+            stackRow1.AddItem(_saveSettingsButton, StackOrientation.Center);
+            _stackPanel.Add(stackRow1);
             IsActive = false;
             NormallyActivated = false;
         }

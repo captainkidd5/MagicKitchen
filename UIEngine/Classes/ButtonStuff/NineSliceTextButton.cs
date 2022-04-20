@@ -55,7 +55,8 @@ namespace UIEngine.Classes.ButtonStuff
             float newTextPosX = Position.X;
             if (_centerText)
             {
-                newTextPosX = Position.X + width / 2 - (int)(combinedtext.TotalStringWidth + characterWidth) / 2;
+                int halfStringWidth = (int)(combinedtext.TotalStringWidth + characterWidth);
+                newTextPosX = Position.X + width / 2 - halfStringWidth;
             }
             _textPositions = new List<Vector2>();
             GeneratePositionsForLines(new Vector2(newTextPosX, Position.Y + characterWidth));
@@ -108,7 +109,7 @@ namespace UIEngine.Classes.ButtonStuff
                 Text text = _textList[i];
    
                 text.Update(gameTime, _textPositions[i]);
-                    text.ChangeColor(Color);
+                    //text.ChangeColor(Color);
             }
             if (DidPositionChange)
                 GeneratePositionsForLines(Position);
