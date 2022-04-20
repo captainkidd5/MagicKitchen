@@ -45,12 +45,12 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         }
         public override void LoadContent()
         {
-            Action saveAction = LoadSave;
+            Action action = LoadSave;
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _width, _height);
 
             _slotButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, Position, _width, _height, GetLayeringDepth(UILayeringDepths.Medium),
-                new List<string>() { _saveFile.Name, _saveFile.DateCreated.Date.ToString("d"), _saveFile.DateCreated.ToString("HH:mm") },  saveAction);
+                new List<string>() { _saveFile.Name, _saveFile.DateCreated.Date.ToString("d"), _saveFile.DateCreated.ToString("HH:mm") },  action);
 
             //_returnToMainMenuButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, RectangleHelper.CenterRectangleInRectangle(TotalBounds, _slotButton.TotalBounds),
             //   _width,_height, GetLayeringDepth(UILayeringDepths.Low),
@@ -75,7 +75,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
         }
 
-        private void DeleteSave()
+        public void DeleteSave()
         {
             _saveFile.Delete();
             Deactivate();

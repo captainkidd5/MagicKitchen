@@ -21,12 +21,18 @@ namespace UIEngine.Classes.ButtonStuff
            Action buttonAction = null, Sprite foregroundSprite = null, Point? samplePoint = null,  bool hoverTransparency = false)
             : base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, buttonAction, foregroundSprite, samplePoint, hoverTransparency)
         {
-                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(position, sourceRectangle == null ? DefaultButtonWidth : sourceRectangle.Value.Width,
-                    sourceRectangle == null ? DefaultButtonHeight : sourceRectangle.Value.Height, UI.ButtonTexture, LayerDepth, null, null);
-                Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);
-            BackGroundSprite.AddSaturateEffect(sampleCol, false);     
+            BackGroundSprite = SpriteFactory.CreateNineSliceSprite(position, sourceRectangle == null ? DefaultButtonWidth : sourceRectangle.Value.Width,
+            sourceRectangle == null ? DefaultButtonHeight : sourceRectangle.Value.Height, UI.ButtonTexture, LayerDepth, null, null);
+            Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);
+            BackGroundSprite.AddSaturateEffect(sampleCol, false);
         }
-
+        public override void MovePosition(Vector2 newPos)
+        {
+            BackGroundSprite = SpriteFactory.CreateNineSliceSprite(Position,  SourceRectangle.Width,
+            SourceRectangle.Height, UI.ButtonTexture, LayerDepth, null, null);
+            Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,_samplePoint, ButtonTexture.Width);
+            BackGroundSprite.AddSaturateEffect(sampleCol, false);
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

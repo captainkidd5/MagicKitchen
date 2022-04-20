@@ -22,8 +22,9 @@ namespace UIEngine.Classes.Components
         public void Add(StackRow row)
         {
             Rows.Add(row);
-            _totalheight += row.Height;
             row.AdjustPosition(new Vector2(Position.X, Position.Y + _totalheight));
+            _totalheight += row.Height;
+
         }
     }
 }

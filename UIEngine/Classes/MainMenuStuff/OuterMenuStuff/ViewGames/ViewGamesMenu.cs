@@ -23,7 +23,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
     internal class ViewGamesMenu : InterfaceSection
     {
         private NineSliceTextButton _createNewButton;
-        private Text _createNewGameText;
             
         private int _saveSlotWidth = 128;
         private int _saveSlotHeight = 64;
@@ -46,12 +45,11 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
             SaveLoadManager.FetchAllMetadata();
             Vector2 _saveSlotPosition = Position;
-            _createNewGameText = TextFactory.CreateUIText("Create New", GetLayeringDepth(UILayeringDepths.Medium));
 
             Action _createNewButtonAction = ChangeToCreateNewSaveMenu;
             _createNewButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, Position,_saveSlotWidth,_saveSlotHeight, GetLayeringDepth(UILayeringDepths.Low),
                 new List<string>() {
-                    "Create New","Second Line"}, _createNewButtonAction);
+                    "nao","Second Line", "Third line","fourth line","fourth line","fourth line","fourth line","fourth line"}, _createNewButtonAction);
            Dictionary<string,SaveFile> saveFiles = SaveLoadManager.SaveFiles;
             StackRow stackRow1 = new StackRow(_totalWidth);
             stackRow1.AddItem(_createNewButton, StackOrientation.Center);
@@ -62,7 +60,14 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
                 StackRow stackRow = new StackRow(_totalWidth);
                 SaveSlotPanel panel = new SaveSlotPanel(file.Value, _stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
                 panel.LoadContent();
-                stackRow.AddItem(panel, StackOrientation.Center);
+                stackRow.AddItem(panel, StackOrientation.Left);
+
+                Button button = new Button(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
+                    ButtonFactory.s_redExRectangle, new Action(() => { panel.DeleteSave(); Reset(); }));
+                stackRow.AddItem(button, StackOrientation.Left);
+
+
+
                 _stackPanel.Add(stackRow);
             }
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _saveSlotWidth, _saveSlotHeight);

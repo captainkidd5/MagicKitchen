@@ -141,8 +141,13 @@ namespace TextEngine.Classes
         /// </summary>
         private float GetWidth(string value)
         {
-            string separated = value.Split("\n")[0];
-            return _spriteFont.MeasureString(separated).Width * _scale;
+            string[] separated = value.Split("\n");
+            string longest = separated[0];
+
+            foreach(string word in separated)
+                if(word.Length > longest.Length)
+                    longest = word;
+            return _spriteFont.MeasureString(longest).Width * _scale;
         }
 
       
@@ -175,9 +180,13 @@ namespace TextEngine.Classes
             String[] lineArray = value.Split('\n');
             float totalHeight =  16;
 
+            if(lineArray.Length > 1)
+            {
+
             foreach (string line in lineArray)
             {
                 totalHeight += _spriteFont.MeasureString(line).Height * _scale;
+            }
             }
 
             return totalHeight;

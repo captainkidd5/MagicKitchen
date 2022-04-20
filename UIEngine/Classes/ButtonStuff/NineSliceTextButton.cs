@@ -38,7 +38,7 @@ namespace UIEngine.Classes.ButtonStuff
 
             
             Text combinedtext = TextFactory.CombineText(_textList, LayerDepth);
-            if (combinedtext.FullString.Contains("la"))
+            if (combinedtext.FullString.Contains("nao"))
                 Console.WriteLine("test");
             int characterWidth = (int)TextFactory.SingleCharacterWidth();
             int width = (int)combinedtext.TotalStringWidth + characterWidth;
@@ -46,7 +46,7 @@ namespace UIEngine.Classes.ButtonStuff
             Position = newPos;
 
             _textPositions = new List<Vector2>();
-            GeneratePositionsForLines(new Vector2(Position.X, Position.Y));
+            GeneratePositionsForLines(new Vector2(Position.X, Position.Y + characterWidth));
 
             BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,  _samplePoint, ButtonTexture.Width);
