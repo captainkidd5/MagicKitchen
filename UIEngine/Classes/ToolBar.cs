@@ -19,9 +19,7 @@ namespace UIEngine.Classes
     internal class ToolBar : InterfaceSection
     {
 
-       // private NineSliceSprite _backDropSprite;
         private PlayerInventoryDisplay _playerInventoryDisplay;
-        //private static readonly Rectangle _totalBackDropRectangleDimensions = new Rectangle(0, 0, 800, 64);
         private int _totalToolbarSlots = 10;
         private int _toolBarSlotWidth = 64;
 
