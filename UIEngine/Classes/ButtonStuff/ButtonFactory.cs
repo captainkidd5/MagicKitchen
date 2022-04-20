@@ -39,7 +39,7 @@ namespace UIEngine.Classes.ButtonStuff
         }
 
         public NineSliceTextButton CreateNSliceTxtBtn(InterfaceSection section, Vector2 pos,
-            int width, int height, float layerDepth, List<string> strings, Action? customAction = null)
+            int? width, int? height, float layerDepth, List<string> strings, Action? customAction = null)
         {
 
             List<Text> text = new List<Text>();
@@ -48,8 +48,8 @@ namespace UIEngine.Classes.ButtonStuff
             {
                 text.Add(TextFactory.CreateUIText(strings[i], textLD));
             }
-            return new NineSliceTextButton(section, graphics, content, pos, layerDepth, new Rectangle((int)pos.X, (int)pos.Y, width, height),
-               text, customAction, null, null);
+            return new NineSliceTextButton(section, graphics, content, pos, layerDepth,
+               text, customAction, null, null, forcedWidth:width, forcedHeight:height);
 
         }
 

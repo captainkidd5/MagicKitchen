@@ -25,7 +25,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         private readonly SaveFile _saveFile;
 
         private NineSliceTextButton _slotButton;
-        private static int _width = 96;
+        private static int _width = 256;
         private static int _height = 80;
 
         private NineSliceButton _returnToMainMenuButton;
@@ -47,17 +47,11 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         {
             Action action = LoadSave;
 
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _width, _height);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _width - ButtonFactory.s_redExRectangle.Width * 2, _height);
 
-            _slotButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, Position, _width, _height, GetLayeringDepth(UILayeringDepths.Medium),
+            _slotButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, Position, _width - ButtonFactory.s_redExRectangle.Width * 2, _height, GetLayeringDepth(UILayeringDepths.Medium),
                 new List<string>() { _saveFile.Name, _saveFile.DateCreated.Date.ToString("d"), _saveFile.DateCreated.ToString("HH:mm") },  action);
 
-            //_returnToMainMenuButton = UI.ButtonFactory.CreateNSliceTxtBtn(this, RectangleHelper.CenterRectangleInRectangle(TotalBounds, _slotButton.TotalBounds),
-            //   _width,_height, GetLayeringDepth(UILayeringDepths.Low),
-            //    new List<string>() { "Delete Save?"}, new Action(()=> DeleteSave()));
-            //_returnToMainMenuButton.AddConfirmationWindow($"Really delete save?");
-
-            //_returnToMainMenuButton.LoadContent();
             base.LoadContent();
 
             //_loadFileAction = _saveFile.LoadSave

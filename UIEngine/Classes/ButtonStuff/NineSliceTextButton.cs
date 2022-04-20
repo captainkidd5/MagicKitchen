@@ -21,15 +21,23 @@ namespace UIEngine.Classes.ButtonStuff
         private List<Vector2> _textPositions;
 
         private List<Text> _textList;
+
+        private int? _forcedWidth;
+        private int? _forcedHeight; 
         
 
         public NineSliceTextButton(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth,
-            Rectangle? sourceRectangle, List<Text> textList, Action buttonAction,
-            Sprite? foregroundSprite, Point? samplePoint,  bool hoverTransparency = false) :
+             List<Text> textList, Action buttonAction, 
+            Sprite? foregroundSprite, Point? samplePoint, Rectangle? sourceRectangle = null, bool hoverTransparency = false,
+            int? forcedWidth = null, int? forcedHeight = null) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, buttonAction, foregroundSprite, samplePoint, hoverTransparency)
         {
             _textList = textList;
+            _forcedWidth = forcedWidth;
+            _forcedHeight = forcedHeight;
             MovePosition(position);
+
+            
 
         }
         public override void MovePosition(Vector2 newPos)
@@ -41,14 +49,17 @@ namespace UIEngine.Classes.ButtonStuff
             if (combinedtext.FullString.Contains("nao"))
                 Console.WriteLine("test");
             int characterWidth = (int)TextFactory.SingleCharacterWidth();
-            int width = (int)combinedtext.TotalStringWidth + characterWidth;
-            int height = (int)combinedtext.TotalStringHeight + characterWidth;
+            int width = _forcedWidth ?? (int)combinedtext.TotalStringWidth + characterWidth;
+            int height = _forcedHeight ?? (int)combinedtext.TotalStringHeight + characterWidth;
             Position = newPos;
 
             _textPositions = new List<Vector2>();
             GeneratePositionsForLines(new Vector2(Position.X, Position.Y + characterWidth));
-
-            BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth);
+            if (_forcedWidth == null)
+                BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth);
+            else
+                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _forcedWidth.Value,
+                    _forcedHeight.Value, UI.ButtonTexture, LayerDepth);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,  _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
            
