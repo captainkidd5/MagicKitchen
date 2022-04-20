@@ -25,13 +25,15 @@ namespace UIEngine.Classes.Storage
         protected static readonly int _buttonWidth = 64;
         protected int Rows;
         protected int Columns;
+
+        protected WalletDisplay WalletDisplay {get;set;}
         protected StorageContainer StorageContainer { get; set; }
 
         protected List<InventorySlotDisplay> InventorySlots { get; set; }
 
         internal InventorySlotDisplay SelectedSlot { get; set; }
 
-        internal int Width { get { return DrawEndIndex * _buttonWidth; }}
+        internal new int Width { get { return DrawEndIndex * _buttonWidth; }}
 
 
         public int Capacity { get { return StorageContainer.Capacity; }  }
@@ -76,6 +78,10 @@ namespace UIEngine.Classes.Storage
                     new Vector2(Position.X + i * _buttonWidth,
                     Position.Y + i % Rows * _buttonWidth), LayerDepth));
             }
+            Vector2 walletDisplayPosition = new Vector2(0, 0);
+            if(InventorySlots.Count > 0)
+                walletDisplayPosition = InventorySlots[InventorySlots.Count - 1].Position;
+            WalletDisplay = new WalletDisplay(this, graphics, content, walletDisplayPosition, GetLayeringDepth(UILayeringDepths.Low));
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
         }
         public override void Update(GameTime gameTime)
@@ -90,7 +96,7 @@ namespace UIEngine.Classes.Storage
                 if (slot.Hovered)
                     Hovered = true;
             }
-
+            WalletDisplay.Update(gameTime);
 
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -99,6 +105,7 @@ namespace UIEngine.Classes.Storage
             {
                 InventorySlots[i].Draw(spriteBatch);
             }
+            WalletDisplay.Draw(spriteBatch);
         }
 
     }
