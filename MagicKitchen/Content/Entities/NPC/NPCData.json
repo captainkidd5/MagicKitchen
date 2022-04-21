@@ -41,6 +41,49 @@
         ]
     }
 ]
+},
+{
+    "Name": "train",
+    "ScheduleName": "train",
+    "NPCType" : "Prop",
+    "SpriteWidth": 248,
+    "SpriteHeight": 80,
+    "StartX":10,
+    "StartY": 0,
+    "AnimationInfo": [
+        {
+        "MovementType": "Walk",
+        "MovementDirection": "Up",
+        "Flip" : false,
+        "FrameIndicies":[
+            0,1,2
+        ]
+    },
+    {
+        "MovementType": "Walk",
+        "MovementDirection": "Down",
+        "Flip" : false,
+        "FrameIndicies":[
+            3,4,5
+        ]
+    },
+    {
+        "MovementType": "Walk",
+        "MovementDirection": "Left",
+        "Flip" : false,
+        "FrameIndicies":[
+            6,7,8
+        ]
+    },
+    {
+        "MovementType": "Walk",
+        "MovementDirection": "Right",
+        "Flip" : false,
+        "FrameIndicies":[
+            9,10,11
+        ]
+    }
+]
 }
 ]
     

@@ -18,7 +18,6 @@ namespace DataModels
 
         public int SpriteWidth { get; set; }
         public int SpriteHeight { get; set; }
-
         public List<AnimationInfo> AnimationInfo { get; set; }
     }
 }
