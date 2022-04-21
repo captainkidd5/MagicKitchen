@@ -57,7 +57,8 @@ namespace UIEngine.Classes.Storage
                 new Vector2(Position.X + Width, Position.Y),LayerDepth,
                 _openBigInventoryUpArrowSourceRectangle, new Action(ToggleOpen), scale:2f);
             _openBigInventoryButton.LoadContent();
-            WalletDisplay = new WalletDisplay(this, graphics, content, new Vector2(_openBigInventoryButton.Position.X + _openBigInventoryButton.Width,
+            WalletDisplay = new WalletDisplay(this, graphics, content,
+                new Vector2(_openBigInventoryButton.Position.X + _openBigInventoryButton.Width * 4,
                 _openBigInventoryButton.Position.Y), GetLayeringDepth(UILayeringDepths.Medium));
 
         }
