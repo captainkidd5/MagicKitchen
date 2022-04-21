@@ -23,6 +23,13 @@ namespace DataModels
         Nov = 11,
         Dec = 12
     }
+
+    public enum EndBehaviour
+    {
+        None = 0,
+        Stationary = 1,
+        Wander = 2,
+    }
     public class Schedule
     {
         //Jan4,2:20_AM-3:40_AM
