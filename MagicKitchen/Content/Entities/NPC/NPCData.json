@@ -1,6 +1,6 @@
 [
 {
-    "Name": "Boar",
+    "Name": "boar",
     "NPCType" : "Enemy",
     "SpriteWidth": 48,
     "SpriteHeight": 32,

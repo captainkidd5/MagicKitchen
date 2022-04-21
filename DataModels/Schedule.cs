@@ -29,6 +29,8 @@ namespace DataModels
         None = 0,
         Stationary = 1,
         Wander = 2,
+        Search = 3,
+        CustomScript = 4,
     }
     public class Schedule
     {
@@ -40,6 +42,7 @@ namespace DataModels
         public int TileX { get; set; }
         public int TileY { get; set; }
 
+        public EndBehaviour EndBehaviour { get; set; }
         public Dialogue Dialogue { get; set; }
 
 

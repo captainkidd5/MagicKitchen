@@ -9,6 +9,7 @@
         "StageEndLocation": "Restaurant",
         "TileX": 4,
         "TileY": 4,
+        "EndBehaviour" : "Wander",
         "Dialogue":{
             "SpeechTree":
                 {
@@ -28,6 +29,7 @@
         "StageEndLocation": "LullabyTown",
         "TileX": 40,
         "TileY": 36,
+        "EndBehaviour" : "Wander",
         "Dialogue":{
             "SpeechTree":
                 {
@@ -48,6 +50,7 @@
         "StageEndLocation": "LullabyTown",
         "TileX": 22,
         "TileY": 18,
+        "EndBehaviour" : "Wander",
         "Dialogue":{
             "SpeechTree":
                 {
@@ -56,11 +59,8 @@
 
                     "option3": "response3"
 
-
                 }
-
-                
-            
+      
         }
     }
         
