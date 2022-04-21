@@ -13,7 +13,7 @@ namespace DataModels
     public class NPCData
     {
         public string Name { get; set; }
-
+        public string ScheduleName { get; set; }
         public NPCType NPCType { get; set; }
 
         public int SpriteWidth { get; set; }

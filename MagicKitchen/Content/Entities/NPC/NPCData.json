@@ -1,6 +1,7 @@
 [
 {
     "Name": "boar",
+    "ScheduleName": "wander_1",
     "NPCType" : "Enemy",
     "SpriteWidth": 48,
     "SpriteHeight": 32,

@@ -57,6 +57,7 @@ namespace EntityEngine.Classes
         public string TargetStage {get; internal protected set; }
         internal TileManager TileManager { get; set; }
         public string Name { get; protected set; }
+        internal string ScheduleName { get; set; }
         protected StatusIcon StatusIcon { get; set; }
         /// <summary>
         /// If entity is present at the current stage
@@ -111,6 +112,7 @@ namespace EntityEngine.Classes
             DirectionMoving = Direction.Down;
             TargetStage = CurrentStageName;
             BehaviourManager = new BehaviourManager(this, StatusIcon, Navigator, TileManager);
+            BehaviourManager.Load();
 
 
         }

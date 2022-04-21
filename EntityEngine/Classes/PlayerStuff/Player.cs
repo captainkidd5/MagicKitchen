@@ -37,6 +37,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public Player(GraphicsDevice graphics, ContentManager content,PlayerManager playerContainer, string name = "playerName") : base(graphics,content)
         {
             Name = name;
+            ScheduleName = "player1";
             Move(StartingPosition);
             StorageCapacity = 24;
             XOffSet = 8;

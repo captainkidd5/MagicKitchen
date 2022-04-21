@@ -39,7 +39,9 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         public void Load()
         {
-            CurrentBehaviour = BehaviourFromSchedule();
+            _simpleTimer = new SimpleTimer(2f);
+            CheckForUpdatedSchedule();
+
 
         }
 
@@ -70,6 +72,7 @@ namespace EntityEngine.Classes.BehaviourStuff
             {
                 CheckForUpdatedSchedule();
             }
+            CurrentBehaviour.Update(gameTime, ref velocity);
         }
 
         public void InjectScript(SubScript subscript)
@@ -79,14 +82,15 @@ namespace EntityEngine.Classes.BehaviourStuff
         }
         private void CheckForUpdatedSchedule()
         {
-            Schedule newSchedule = Scheduler.GetScheduleFromCurrentTime(_entity.Name);
+            Schedule newSchedule = Scheduler.GetScheduleFromCurrentTime(_entity.ScheduleName);
             if(_activeSchedule != newSchedule)
             {
+                _activeSchedule = newSchedule;
                 CurrentBehaviour = BehaviourFromSchedule();
             }
             if (!_navigator.HasActivePath)
             {
-                _activeSchedule = Scheduler.GetScheduleFromCurrentTime(_entity.Name);
+                _activeSchedule = Scheduler.GetScheduleFromCurrentTime(_entity.ScheduleName);
 
 
                 Vector2 targetpos = Scheduler.GetTargetFromSchedule(_entity.CurrentStageName, _activeSchedule, _tileManager);

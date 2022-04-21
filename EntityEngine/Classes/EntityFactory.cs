@@ -97,7 +97,7 @@ namespace EntityEngine.Classes
                     sch.ConvertTimeString();
 
                 schedules.Sort(0, schedules.Count, new ScheduleTimeComparer());
-                Schedules.Add(Path.GetFileName(file), schedules);
+                Schedules.Add(Path.GetFileName(file).Split(".json")[0], schedules);
 
             }
 
@@ -106,7 +106,7 @@ namespace EntityEngine.Classes
             _scriptManager.LoadScripts(content);
         }
 
-        public static List<Schedule> GetSchedules(string entityName) => Schedules[entityName];
+        public static List<Schedule> GetSchedules(string entityName) => Schedules[entityName.ToLower()];
         public static SubScript GetSubscript(string scriptName) => _scriptManager.GetSubscript(scriptName);
         public static Color GetRandomSkinTone()
         {
