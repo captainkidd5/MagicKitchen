@@ -110,6 +110,7 @@ namespace EntityEngine.Classes
 
             DirectionMoving = Direction.Down;
             TargetStage = CurrentStageName;
+            BehaviourManager = new BehaviourManager(this, StatusIcon, Navigator, TileManager);
 
 
         }
@@ -356,6 +357,7 @@ namespace EntityEngine.Classes
 
             Navigator.Load(tileManager.PathGrid);
             TileManager = tileManager;
+
             BehaviourManager.SwitchStage(TileManager);
             InventoryHandler.SwapItemManager(itemManager);
         }

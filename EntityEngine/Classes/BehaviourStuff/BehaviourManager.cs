@@ -39,8 +39,30 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         public void Load()
         {
-            CurrentBehaviour = new WanderBehaviour(_entity, _statusIcon, _navigator, _tileManager, new Point(5, 5), 2f);
+            CurrentBehaviour = BehaviourFromSchedule();
 
+        }
+
+
+        private Behaviour BehaviourFromSchedule()
+        {
+            switch (_activeSchedule.EndBehaviour)
+            {
+                case EndBehaviour.None:
+                    return null;
+                case EndBehaviour.Stationary:
+                    return null;
+                case EndBehaviour.Wander:
+                    return new WanderBehaviour(_entity, _statusIcon, _navigator, _tileManager, new Point(5, 5), 2f);
+
+                case EndBehaviour.Search:
+                    return new SearchBehaviour(_entity, _statusIcon, _navigator, _tileManager, new Point(5, 5), 2f);
+
+                case EndBehaviour.CustomScript:
+                    return null;
+                default:
+                    return null;
+            }
         }
         public void Update(GameTime gameTime, ref Vector2 velocity)
         {
@@ -57,14 +79,19 @@ namespace EntityEngine.Classes.BehaviourStuff
         }
         private void CheckForUpdatedSchedule()
         {
+            Schedule newSchedule = Scheduler.GetScheduleFromCurrentTime(_entity.Name);
+            if(_activeSchedule != newSchedule)
+            {
+                CurrentBehaviour = BehaviourFromSchedule();
+            }
             if (!_navigator.HasActivePath)
             {
-                _activeSchedule = Scheduler.GetScheduleFromCurrentTime(_schedules);
+                _activeSchedule = Scheduler.GetScheduleFromCurrentTime(_entity.Name);
 
 
                 Vector2 targetpos = Scheduler.GetTargetFromSchedule(_entity.CurrentStageName, _activeSchedule, _tileManager);
 
-                base.GetPath(targetpos, _activeSchedule.StageEndLocation);
+                // base.GetPath(targetpos, _activeSchedule.StageEndLocation);
                 CommandConsole.Append($"{_entity.Name} heading to : {_activeSchedule.StageEndLocation}");
                 CommandConsole.Append($"{_entity.Name} current location : {_entity.CurrentStageName}");
 
@@ -87,9 +114,12 @@ namespace EntityEngine.Classes.BehaviourStuff
         {
             throw new NotImplementedException();
         }
+
+
         public virtual void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             CurrentBehaviour.OnCollides(fixtureA, fixtureB, contact);
         }
     }
 }
+

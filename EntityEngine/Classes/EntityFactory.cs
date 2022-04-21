@@ -83,7 +83,7 @@ namespace EntityEngine.Classes
             NPCData = JsonSerializer.Deserialize<List<NPCData>>(jsonString, options).ToDictionary(x => x.Name);
 
 
-             basePath = content.RootDirectory + "/entities/Schedules";
+             basePath = content.RootDirectory + "/Entities/Schedules";
 
 
 
