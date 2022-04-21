@@ -47,8 +47,7 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void LoadContent( )
         {
             base.LoadContent();
-            Behaviour = new RouteBehaviour(this, StatusIcon, Navigator, TileManager, ActiveSchedule, _npcData.Schedules, null);
-            Behaviour = new WanderBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), null);
+
             //Behaviour = new SearchBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), 2f);
 
 
@@ -106,7 +105,7 @@ namespace EntityEngine.Classes.CharacterStuff
             StatusIcon.SetStatus(StatusIconType.Speak);
 
             if (ActiveSchedule == null)
-                ActiveSchedule = Scheduler.GetScheduleFromCurrentTime(_npcData.Schedules);
+                ActiveSchedule = Scheduler.GetScheduleFromCurrentTime(_npcData.Name);
 
             if(!_isInteractingWithPlayer)
                 OnCharacterClicked(ActiveSchedule);

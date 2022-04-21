@@ -3,6 +3,7 @@ using Globals.Classes;
 using Globals.Classes.Helpers;
 using Globals.Classes.Time;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,15 @@ namespace EntityEngine.Classes.CharacterStuff
 {
     internal static class Scheduler
     {
+       
         /// <summary>
         /// Retrieves the schedule which is closest to, but not less than the current time.
         /// </summary>
         /// <param name="schedules"></param>
         /// <returns></returns>
-        public static Schedule GetScheduleFromCurrentTime(List<Schedule> schedules)
+        public static Schedule GetScheduleFromCurrentTime(string entityName)
         {
+            List<Schedule> schedules = EntityFactory.GetSchedules(entityName);
             TimeSpan clockHours = TimeSpan.FromHours(Clock.TimeKeeper.Hours);
             TimeSpan clockMinutes = TimeSpan.FromMinutes(Clock.TimeKeeper.Minutes);
             clockHours = clockHours.Add(clockMinutes);

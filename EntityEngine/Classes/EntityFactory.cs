@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using static EntityEngine.Classes.CharacterStuff.Scheduler;
 
 namespace EntityEngine.Classes
 {
@@ -36,6 +37,8 @@ namespace EntityEngine.Classes
         internal static List<Color> SkinColors;
 
         internal static Dictionary<string, NPCData> NPCData;
+
+        internal static Dictionary<string, List<Schedule>> Schedules;
 
         private static ScriptManager _scriptManager;
         public static void Load(ContentManager content)
@@ -79,9 +82,31 @@ namespace EntityEngine.Classes
             string jsonString = File.ReadAllText($"{basePath}/NPCData.json");
             NPCData = JsonSerializer.Deserialize<List<NPCData>>(jsonString, options).ToDictionary(x => x.Name);
 
+
+             basePath = content.RootDirectory + "/entities/Schedules";
+
+
+
+            Schedules = new Dictionary<string, List<Schedule>>();
+            foreach(var file in Directory.GetFiles(basePath))
+            {
+                jsonString = File.ReadAllText(file);
+                List<Schedule> schedules = JsonSerializer.Deserialize<List<Schedule>>(jsonString, options);
+
+                foreach (Schedule sch in schedules)
+                    sch.ConvertTimeString();
+
+                schedules.Sort(0, schedules.Count, new ScheduleTimeComparer());
+                Schedules.Add(Path.GetFileName(file), schedules);
+
+            }
+
+
             _scriptManager = new ScriptManager();
             _scriptManager.LoadScripts(content);
         }
+
+        public static List<Schedule> GetSchedules(string entityName) => Schedules[entityName];
         public static SubScript GetSubscript(string scriptName) => _scriptManager.GetSubscript(scriptName);
         public static Color GetRandomSkinTone()
         {

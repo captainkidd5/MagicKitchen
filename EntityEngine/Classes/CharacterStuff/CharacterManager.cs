@@ -17,14 +17,14 @@ using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.CharacterStuff
 {
-    public class CharacterContainer : EntityContainer
+    public class CharacterManager : EntityContainer
     {
         private readonly QuestManager _questManager;
 
         internal static Texture2D StatusIconTexture { get; set; }
 
 
-        public CharacterContainer( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public CharacterManager( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             _questManager = new QuestManager(graphics,content);
         }
@@ -119,10 +119,7 @@ namespace EntityEngine.Classes.CharacterStuff
                 allQuests.AddRange(npcQuests);
                 data.Quests = npcQuests;
 
-                foreach (Schedule sch in data.Schedules)
-                    sch.ConvertTimeString();
 
-                data.Schedules.Sort(0, data.Schedules.Count, new ScheduleTimeComparer());
                 Character newCharacter = new Character(graphics, content, data);
                 Entities.Add(newCharacter);
 

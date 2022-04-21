@@ -17,7 +17,7 @@ namespace DataModels
         public string StartingStage { get; set; }
         public int StartingTileX { get; set; }
         public int StartingTileY { get; set; }
-        public List<Schedule> Schedules { get; set; }
+
 
         //Done in a separate file, too much clutter otherwise
         [JsonIgnore]

@@ -30,7 +30,7 @@ namespace StageEngine.Classes
   
         private readonly PlayerManager _playerManager;
         private readonly NPCManager _npcManager;
-        private readonly CharacterContainer _characterContainer;
+        private readonly CharacterManager _characterContainer;
         private readonly string _startingStageName = "LullabyTown";
 
         public Player Player1 => _playerManager.Player1;
@@ -55,7 +55,7 @@ namespace StageEngine.Classes
             _camera = camera;
             _portalManager = new PortalManager(this);
             _npcManager = new NPCManager();
-            _characterContainer = new CharacterContainer(graphics, content);
+            _characterContainer = new CharacterManager(graphics, content);
         }
 
         public override void LoadContent()

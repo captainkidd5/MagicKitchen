@@ -63,7 +63,7 @@ namespace EntityEngine.Classes
         /// </summary>
         public bool IsInStage { get; 
             set; }
-        protected Behaviour Behaviour { get; set; }
+        BehaviourManager BehaviourManager { get; set; }
 
         private protected InventoryHandler InventoryHandler { get; set; }
         public StorageContainer StorageContainer => InventoryHandler.StorageContainer;
@@ -92,11 +92,8 @@ namespace EntityEngine.Classes
         }
 
 
-        public void InjectScript(SubScript subscript)
-        {
-            Behaviour = new ScriptBehaviour(this, StatusIcon, Navigator, TileManager, 2f);
-            (Behaviour as ScriptBehaviour).InjectSubscript(subscript);
-        }
+        public void InjectScript(SubScript subscript) => BehaviourManager.InjectScript(subscript);
+      
         internal virtual void ChangeSkinTone(Color newSkinTone)
         {
             
@@ -108,7 +105,6 @@ namespace EntityEngine.Classes
         public virtual void LoadContent()
         {
             StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
-            Behaviour = new WanderBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), 2f);
 
             CreateBody(Position);
 
@@ -162,7 +158,7 @@ namespace EntityEngine.Classes
         {
             base.OnCollides(fixtureA, fixtureB, contact);
             //Collision logic changes based on current behaviour!
-            Behaviour.OnCollides(fixtureA, fixtureB, contact);
+            BehaviourManager.OnCollides(fixtureA, fixtureB, contact);
             if (fixtureB.CollisionCategories.HasFlag(Category.Item) && fixtureA.CollisionCategories.HasFlag(Category.Player))
             {
                 WorldItem worldItem = (fixtureB.Body.UserData as WorldItem);
@@ -192,7 +188,7 @@ namespace EntityEngine.Classes
         protected virtual void UpdateBehaviour(GameTime gameTime)
         {
             if (!ForceStop)
-                Behaviour.Update(gameTime, ref Velocity);
+                BehaviourManager.Update(gameTime, ref Velocity);
         }
         public virtual new void Update(GameTime gameTime)
         {
@@ -261,7 +257,7 @@ namespace EntityEngine.Classes
             Animator.Draw(spriteBatch);
 #if DEBUG
             if (Flags.ShowEntityPaths)
-                Behaviour.DrawDebug(spriteBatch);
+                BehaviourManager.DrawDebug(spriteBatch);
 #endif
         }
 
@@ -360,7 +356,7 @@ namespace EntityEngine.Classes
 
             Navigator.Load(tileManager.PathGrid);
             TileManager = tileManager;
-            Behaviour.SwitchStage(TileManager);
+            BehaviourManager.SwitchStage(TileManager);
             InventoryHandler.SwapItemManager(itemManager);
         }
 

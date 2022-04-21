@@ -63,7 +63,7 @@ namespace EntityEngine.Classes.BehaviourStuff
         {
             if (!Navigator.HasActivePath)
             {
-                _activeSchedule = Scheduler.GetScheduleFromCurrentTime(_schedules);
+                _activeSchedule = Scheduler.GetScheduleFromCurrentTime(Entity.Name);
 
 
                 Vector2 targetpos = Scheduler.GetTargetFromSchedule(Entity.CurrentStageName, _activeSchedule, _tileManager);

@@ -1,7 +1,12 @@
 ﻿using DataModels;
+using DataModels.ScriptedEventStuff;
 using EntityEngine.Classes.CharacterStuff;
+using Globals;
 using Globals.Classes;
+using Globals.Classes.Console;
+using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes.Pathfinding;
 using System;
 using System.Collections.Generic;
@@ -9,17 +14,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes;
+using VelcroPhysics.Collision.ContactSystem;
+using VelcroPhysics.Dynamics;
 
 namespace EntityEngine.Classes.BehaviourStuff
 {
-    internal class BehaviourManager
+    internal class BehaviourManager : IDebuggable
     {
         private Entity _entity;
         private StatusIcon _statusIcon;
         private Navigator _navigator;
         private TileManager _tileManager;
         private SimpleTimer _simpleTimer;
-        protected Schedule Schedule { get; set; }
+        private Schedule _activeSchedule;
+
         protected Behaviour CurrentBehaviour { get; set; }
         public BehaviourManager(Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager)
         {
@@ -28,9 +36,60 @@ namespace EntityEngine.Classes.BehaviourStuff
             _navigator = navigator;
             _tileManager = tileManager;
         }
+
+        public void Load()
+        {
+            CurrentBehaviour = new WanderBehaviour(_entity, _statusIcon, _navigator, _tileManager, new Point(5, 5), 2f);
+
+        }
         public void Update(GameTime gameTime, ref Vector2 velocity)
         {
+            if (_simpleTimer.Run(gameTime))
+            {
+                CheckForUpdatedSchedule();
+            }
+        }
 
+        public void InjectScript(SubScript subscript)
+        {
+            CurrentBehaviour = new ScriptBehaviour(_entity, _statusIcon, _navigator, _tileManager, 2f);
+            (CurrentBehaviour as ScriptBehaviour).InjectSubscript(subscript);
+        }
+        private void CheckForUpdatedSchedule()
+        {
+            if (!_navigator.HasActivePath)
+            {
+                _activeSchedule = Scheduler.GetScheduleFromCurrentTime(_schedules);
+
+
+                Vector2 targetpos = Scheduler.GetTargetFromSchedule(_entity.CurrentStageName, _activeSchedule, _tileManager);
+
+                base.GetPath(targetpos, _activeSchedule.StageEndLocation);
+                CommandConsole.Append($"{_entity.Name} heading to : {_activeSchedule.StageEndLocation}");
+                CommandConsole.Append($"{_entity.Name} current location : {_entity.CurrentStageName}");
+
+
+
+                if (Vector2Helper.WithinRangeOf(_entity.Position, targetpos))
+                {
+                    return;
+                }
+
+            }
+
+        }
+        public void SwitchStage(TileManager tileManager)
+        {
+            _tileManager = tileManager;
+
+        }
+        public void DrawDebug(SpriteBatch spriteBatch)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            CurrentBehaviour.OnCollides(fixtureA, fixtureB, contact);
         }
     }
 }
