@@ -61,7 +61,9 @@ namespace EntityEngine.Classes.BehaviourStuff
                     return new SearchBehaviour(_entity, _statusIcon, _navigator, _tileManager, new Point(5, 5), 2f);
 
                 case EndBehaviour.CustomScript:
-                    return null;
+                    ScriptBehaviour behaviour = new ScriptBehaviour(_entity, _statusIcon, _navigator, _tileManager, 2f);
+                    behaviour.InjectSubscript(EntityFactory.GetSubscript(_activeSchedule.CustomScriptName));
+                    return behaviour;
                 default:
                     return null;
             }

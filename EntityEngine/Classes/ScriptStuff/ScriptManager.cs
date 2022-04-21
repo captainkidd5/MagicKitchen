@@ -34,7 +34,7 @@ namespace EntityEngine.Classes.ScriptStuff
 
                
         }
-
+        public ScriptedEvent GetScript(string scriptName) => Scripts[scriptName];
         public SubScript GetSubscript(string scriptName)
         {
             return Scripts[scriptName].Subscripts.First();

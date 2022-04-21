@@ -42,7 +42,12 @@ namespace DataModels
         public int TileX { get; set; }
         public int TileY { get; set; }
 
+        ////Optional, mutually exclusive with tilex/tiley
+        //public string ZoneName { get; set; }
+
         public EndBehaviour EndBehaviour { get; set; }
+
+        public string CustomScriptName { get; set; }
         public Dialogue Dialogue { get; set; }
 
 
