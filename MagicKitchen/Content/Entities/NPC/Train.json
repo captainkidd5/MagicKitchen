@@ -4,7 +4,7 @@
     "Name": "train",
     "ScheduleName": "train",
     "NPCType" : "Prop",
-    "SpriteWidth": 248,
+    "SpriteWidth": 360,
     "SpriteHeight": 80,
     "ImmediatelySpawn" : true,
     "StartingStage" : "LullabyTown",
@@ -13,32 +13,40 @@
         "MovementType": "Walk",
         "MovementDirection": "Up",
         "Flip" : false,
+        "SpriteX":10,
+        "SpriteY":9,
         "FrameIndicies":[
-            0,1,2
+            0,0
         ]
     },
     {
         "MovementType": "Walk",
         "MovementDirection": "Down",
         "Flip" : false,
+        "SpriteX":10,
+        "SpriteY":9,
         "FrameIndicies":[
-            3,4,5
+            0,0
         ]
     },
     {
         "MovementType": "Walk",
         "MovementDirection": "Left",
         "Flip" : false,
+        "SpriteX":10,
+        "SpriteY":9,
         "FrameIndicies":[
-            2,2,2
+            0,0
         ]
     },
     {
         "MovementType": "Walk",
         "MovementDirection": "Right",
         "Flip" : false,
+        "SpriteX":10,
+        "SpriteY":9,
         "FrameIndicies":[
-            2,2,2
+            0,0
         ]
     }
 ]

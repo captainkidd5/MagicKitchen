@@ -53,9 +53,12 @@ namespace EntityEngine.Classes.BehaviourStuff
                     //Complete
                     return;
                 }
-                if (CheckIfActionSatisfied())
+       
+            }
+            if (Navigator.HasActivePath)
+            {
+                if(Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
                 {
-                    _currentActionStep++;
                     if (_currentActionStep >= _currentScript.ScriptActions.Count - 1)
                     {
                         //Complete
@@ -63,14 +66,18 @@ namespace EntityEngine.Classes.BehaviourStuff
                     }
                     else
                     {
+                        _currentActionStep++;
+
                         _currentAction = _currentScript.ScriptActions[_currentActionStep];
                     }
                 }
+
             }
-            if (Navigator.HasActivePath)
-                Navigator.FollowPath(gameTime, Entity.Position, ref velocity);
             else
+            {
                 Entity.Halt();
+                GetNextStep();
+            }
 
 
         }
@@ -82,10 +89,9 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         }
 
-        private bool CheckIfActionSatisfied()
+        private void GetNextStep()
         {
-            if (!Navigator.HasActivePath)
-            {
+ 
                 Vector2 targetpos = Vector2.Zero;
                 if (!string.IsNullOrEmpty(_currentAction.ZoneEnd))
                     {
@@ -93,9 +99,11 @@ namespace EntityEngine.Classes.BehaviourStuff
 
                     if (zones != null)
                     {
-                        var zone = zones.FirstOrDefault(x => x.Value == _currentAction.ZoneEnd.Split(',')[1]);
-                        if (zone != null)
-                            targetpos = zone.Position;
+                        var startZone = zones.FirstOrDefault(x => x.Value == _currentAction.ZoneStart.Split(',')[1]);
+                        Entity.Move(startZone.Position);
+                        var endZone = zones.FirstOrDefault(x => x.Value == _currentAction.ZoneEnd.Split(',')[1]);
+                        if (endZone != null)
+                            targetpos = endZone.Position;
 
                     }
 
@@ -107,19 +115,9 @@ namespace EntityEngine.Classes.BehaviourStuff
                 }
 
                 base.GetPath(targetpos, Entity.CurrentStageName);
-                CommandConsole.Append($"{Entity.Name} current location : {Entity.CurrentStageName}");
+               // CommandConsole.Append($"{Entity.Name} current location : {Entity.CurrentStageName}");
 
-
-
-                if (Vector2Helper.WithinRangeOf(Entity.Position, targetpos))
-                {
-
-
-                    return true;
-                }
-
-            }
-            return false;
+     
         }
 
         public override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)

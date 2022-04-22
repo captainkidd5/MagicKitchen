@@ -7,6 +7,11 @@
         "ScriptActions": [
             {
                 "ZoneStart": "train,start",
+                "ZoneEnd": "train,dock",
+                "Speed": 5
+
+            },{
+                "ZoneStart": "train,dock",
                 "ZoneEnd": "train,end",
                 "Speed": 5
 

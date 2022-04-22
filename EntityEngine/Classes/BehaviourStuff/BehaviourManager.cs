@@ -114,6 +114,7 @@ namespace EntityEngine.Classes.BehaviourStuff
         public void SwitchStage(TileManager tileManager)
         {
             _tileManager = tileManager;
+            CurrentBehaviour.SwitchStage(tileManager);
 
         }
         public void DrawDebug(SpriteBatch spriteBatch)
