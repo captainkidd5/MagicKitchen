@@ -35,7 +35,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
         public Light TestLight { get; set; }
-        public Player(GraphicsDevice graphics, ContentManager content,PlayerManager playerContainer, string name = "playerName") : base(graphics,content)
+        public Player(StageNPCContainer container, GraphicsDevice graphics, ContentManager content,PlayerManager playerContainer, string name = "playerName") : base(container, graphics,content)
         {
             Name = name;
             ScheduleName = "player1";

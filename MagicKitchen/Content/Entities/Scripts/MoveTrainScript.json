@@ -9,7 +9,12 @@
                 "Type":"Move",
                 "ZoneStart": "train,start",
                 "ZoneEnd": "train,dock",
-                "Speed": 5
+                "Speed": 10
+
+            },
+            {
+                "Type":"Unload",
+                "PauseForSeconds":3
 
             },
             {
@@ -22,7 +27,7 @@
 
                 "ZoneStart": "train,dock",
                 "ZoneEnd": "train,end",
-                "Speed": 5
+                "Speed": 10
 
             }
         ]

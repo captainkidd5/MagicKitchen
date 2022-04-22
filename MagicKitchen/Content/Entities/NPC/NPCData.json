@@ -1,6 +1,7 @@
 [
 {
     "Name": "boar",
+    "ObjectType" : "EntityEngine.Classes.NPCStuff.NPC",
     "ScheduleName": "wander_1",
     "NPCType" : "Enemy",
     "SpriteWidth": 48,

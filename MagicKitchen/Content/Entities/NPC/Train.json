@@ -2,6 +2,7 @@
 [
 {
     "Name": "train",
+    "ObjectType" : "EntityEngine.Classes.NPCStuff.Props.Train",
     "ScheduleName": "train",
     "NPCType" : "Prop",
     "SpriteWidth": 360,

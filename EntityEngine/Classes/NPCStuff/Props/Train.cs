@@ -1,5 +1,7 @@
 ﻿using DataModels;
 using EntityEngine.Classes.Animators;
+using EntityEngine.Classes.CharacterStuff;
+using Globals.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -18,32 +20,31 @@ namespace EntityEngine.Classes.NPCStuff.Props
 {
     internal class Train : NPC
     {
-        public Train(GraphicsDevice graphics, ContentManager content) : 
-            base(graphics, content)
+        /// <summary>
+        /// Min number of passengers train will unload at each stop
+        /// </summary>
+        public int UnloadMin { get; set; } = 1;
+
+        /// <summary>
+        /// Max number of passengers train will unload at each stop
+        /// </summary>
+        public int UnloadMax { get; set; } = 4;
+
+        private SimpleTimer _unloadTimer;
+        //rate at which passengers unload in seconds
+        private readonly float _unloadSpeed = .5f;
+
+        private int _currentPassengerCount;
+
+        public Train(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : 
+            base(container,graphics, content)
         {
-            Name = string.Empty;
+            _unloadTimer = new SimpleTimer(_unloadSpeed);
         }
 
-        //public override void LoadContent(ItemManager itemManager, Vector2? startPos, string? name)
-        //{
-        //    base.LoadContent(itemManager, startPos, name);
-        //    AnimationFrame[] frames = new AnimationFrame[2];
-        //    frames[0] = new AnimationFrame(0, 0, 48, .25f);
-        //    frames[1] = new AnimationFrame(0, 0, 48, .25f);
-        //    AnimatedSprite trainSprite = SpriteFactory.CreateWorldAnimatedSprite(Position,
-        //        new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
-        //    AnimatedSprite trainSprite1 = SpriteFactory.CreateWorldAnimatedSprite(Position,
-        //       new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
-        //    AnimatedSprite trainSprite2 = SpriteFactory.CreateWorldAnimatedSprite(Position,
-        //       new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
-        //    AnimatedSprite trainSprite3 = SpriteFactory.CreateWorldAnimatedSprite(Position,
-        //       new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
-        //    Animator = new NPCAnimator(this, new AnimatedSprite[4] { trainSprite,
-        //        trainSprite1, trainSprite2, trainSprite3 }, 128, 40);
-        //}
+      
         public override void Update(GameTime gameTime)
         {
-            IsInStage = true;  
             base.Update(gameTime);
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -51,34 +52,43 @@ namespace EntityEngine.Classes.NPCStuff.Props
             base.Draw(spriteBatch);
         }
 
-        public override void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
+        /// <summary>
+        /// Unloads passengers at rate, returns true if all passengers are unloaded
+        /// </summary>
+        /// <returns></returns>
+       public bool UnloadPassengers(GameTime gameTime)
         {
-            CurrentStageName = newStageName;
-            IsInStage = true;
-            var zones = tileManager.GetZones("train");
+            if (_currentPassengerCount == 0)
+                _currentPassengerCount = GetPassengersRandom();
 
-            if(zones != null)
+            if(_unloadTimer.Run(gameTime))
             {
-                var zone = zones.FirstOrDefault(x => x.Value == "start");
-                if (zone != null)
-                    Move(zone.Position);
-                else
-                    throw new Exception($"Start zone needed for train to function");
-
+                _currentPassengerCount--;
+                Container.CreateNPC("caspar", new Vector2(Position.X, Position.Y - 40), false);
             }
+            if (_currentPassengerCount == 0)
+                return true;
 
-            base.SwitchStage(newStageName, tileManager, itemManager);
-            InjectScript(EntityFactory.GetSubscript("MoveTrain"));
+            return false;
+
         }
 
+        private int GetPassengersRandom()
+        {
+            return Settings.Random.Next(UnloadMin, UnloadMax);
+        }
         public override void Save(BinaryWriter writer)
         {
             base.Save(writer);
+            writer.Write(UnloadMin);
+            writer.Write(UnloadMax);
         }
 
         public override void LoadSave(BinaryReader reader)
         {
             base.LoadSave(reader);
+            UnloadMin = reader.ReadInt32();
+            UnloadMax = reader.ReadInt32();
         }
     }
 }

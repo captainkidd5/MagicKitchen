@@ -1,5 +1,6 @@
 ﻿using DataModels.ScriptedEventStuff;
 using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.NPCStuff.Props;
 using Globals.Classes.Console;
 using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
@@ -86,6 +87,19 @@ namespace EntityEngine.Classes.BehaviourStuff
                         GetNextStep();
 
                     }
+                    break;
+                case ScriptActionType.Unload:
+                    if (Entity.GetType() != typeof(Train))
+                        throw new Exception($"Script action Unload may only be used on Train!");
+                    Train train = (Train)Entity;
+                    if (train.UnloadPassengers(gameTime))
+                    {
+                        CompleteStep();
+
+                        GetNextStep();
+                    }
+                    break;
+                default:
                     break;
             }
         }

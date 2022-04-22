@@ -18,7 +18,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public Player Player1 { get; set; }
         public PlayerManager( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            Player1 = new Player(graphics, content,this);
+            Player1 = new Player(null, graphics, content,this);
             Entities.Add(Player1);
         }
 

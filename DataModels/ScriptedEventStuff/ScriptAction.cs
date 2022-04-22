@@ -9,6 +9,7 @@ namespace DataModels.ScriptedEventStuff
         None = 0,
         Move = 1,
         Pause = 2,
+        Unload = 3,
     }
     public class ScriptAction
     {

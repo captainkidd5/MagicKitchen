@@ -50,7 +50,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
         internal void AddTrain()
         {
-            Train train = new Train(graphics, content);
+            Train train = new Train(this, graphics, content);
             train.LoadContent(null, null);
             train.SwitchStage(StageName, TileManager, ItemManager);
             Entities.Add(train);
@@ -79,18 +79,12 @@ namespace EntityEngine.Classes.CharacterStuff
                 {
                     if (npcData.ImmediatelySpawn && this.GetType() == typeof(PersistentManager))
                     {
-                        NPC npc;
 
-                        if (npcData.NPCType == NPCType.Customizable)
-                        {
-                            npc = new HumanoidEntity(graphics, content);
-                            
-                        }
-                        else
-                        {
-                            npc = new Character(graphics, content);
+                        NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
+                            .CreateInstance(npcData.ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
+                            null, new object[] {this, graphics, content }, null, null);
 
-                        }
+                     
                         npc.LoadContent(null, npcData.Name, npc.GetType() != typeof(HumanoidEntity));
                         Entities.Add(npc);
                     }
@@ -107,7 +101,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
                 NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                     .CreateInstance(savedType, true, System.Reflection.BindingFlags.CreateInstance,
-                    null, new object[] { graphics, content },null,null);
+                    null, new object[] { this, graphics, content },null,null);
                 npc.LoadSave(reader);
                         npc.LoadContent(null, npc.Name, npc.GetType() != typeof(HumanoidEntity));
                 Entities.Add(npc);
@@ -118,10 +112,10 @@ namespace EntityEngine.Classes.CharacterStuff
 
 
 
-        public void CreateNPC(string name, Vector2 position)
+        public void CreateNPC(string name, Vector2 position, bool standardAnimator)
         {
-            NPC npc = new NPC(graphics, content);
-            npc.LoadContent(position, name);
+            NPC npc = new NPC(this, graphics, content);
+            npc.LoadContent(position, name, standardAnimator);
             npc.SwitchStage(StageName, TileManager, ItemManager);
             Entities.Add(npc);
         }

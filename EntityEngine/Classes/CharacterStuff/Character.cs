@@ -32,7 +32,7 @@ namespace EntityEngine.Classes.CharacterStuff
         private Schedule ActiveSchedule { get; set; }
 
 
-        public Character(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public Character(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : base(container, graphics, content)
         {
             
             //_npcData = npcsData;

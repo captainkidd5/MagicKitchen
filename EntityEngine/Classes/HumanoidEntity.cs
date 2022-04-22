@@ -26,7 +26,7 @@ namespace EntityEngine.Classes
     public class HumanoidEntity : Character
     {
        
-        public HumanoidEntity(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public HumanoidEntity(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : base(container, graphics, content)
         {
             BodyPiece[] bodyPieces = new BodyPiece[]
            {

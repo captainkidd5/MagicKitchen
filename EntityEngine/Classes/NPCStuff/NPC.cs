@@ -24,11 +24,12 @@ namespace EntityEngine.Classes.NPCStuff
     {
         protected NPCData NPCData;
 
+        protected StageNPCContainer Container { get; }
 
-        public NPC(GraphicsDevice graphics, ContentManager content) :
+        public NPC(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) :
             base(graphics, content)
         {
-            
+            Container = container;
         }
 
         public virtual void LoadContent(Vector2? startPos, string? name, bool standardAnimator = true)

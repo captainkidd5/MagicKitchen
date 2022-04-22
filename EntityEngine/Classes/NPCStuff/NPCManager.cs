@@ -53,7 +53,7 @@ namespace EntityEngine.Classes.NPCStuff
         }
         private void AddNPCCommand(string[] args)
         {
-            CurrentContainer.CreateNPC(args[0], Controls.CursorWorldPosition);
+            CurrentContainer.CreateNPC(args[0], Controls.CursorWorldPosition, true);
         }
         private void AddTrainCommand(string[] args)
         {

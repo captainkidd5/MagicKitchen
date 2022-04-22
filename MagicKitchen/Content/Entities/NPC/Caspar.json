@@ -2,6 +2,7 @@
 [
 {
     "Name": "caspar",
+    "ObjectType" : "EntityEngine.Classes.HumanoidEntity",
     "ScheduleName": "wander_1",
     "NPCType" : "Customizable",
     "SpriteWidth": 48,
