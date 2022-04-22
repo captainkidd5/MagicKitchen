@@ -46,14 +46,14 @@ namespace EntityEngine.Classes.CharacterStuff
             YOffSet = 16;
         }
 
-        public override void LoadContent( )
-        {
-            base.LoadContent();
+        //public override void LoadContent(Vector2? startPos, string? name)
+        //{
+        //    base.LoadContent(startPos,name);
 
-            //Behaviour = new SearchBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), 2f);
+        //    //Behaviour = new SearchBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), 2f);
 
 
-        }
+        //}
 
         public override void Update(GameTime gameTime)
         {

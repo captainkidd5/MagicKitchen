@@ -1,6 +1,7 @@
 ﻿using DataModels;
 using EntityEngine.Classes.Animators;
 using EntityEngine.Classes.CharacterStuff;
+using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -30,7 +31,7 @@ namespace EntityEngine.Classes.NPCStuff
             
         }
 
-        public virtual void LoadContent(ItemManager itemManager, Vector2? startPos, string? name)
+        public virtual void LoadContent(Vector2? startPos, string? name, bool standardAnimator = true)
         {
             if (!string.IsNullOrEmpty(name))
             {
@@ -38,26 +39,37 @@ namespace EntityEngine.Classes.NPCStuff
                 _npcData = EntityFactory.NPCData[name];
                 Name = _npcData.Name;
                 ScheduleName = _npcData.ScheduleName;
-
-                List<AnimatedSprite> sprites = new List<AnimatedSprite>();
-                foreach (AnimationInfo info in _npcData.AnimationInfo)
+                if (!string.IsNullOrEmpty(_npcData.StartingStage))
                 {
-                    sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(
-                        Position, info, NPCContainer.GetTextureFromNPCType(EntityFactory.NPCData[Name].NPCType),
-                        new Rectangle(info.StartX * 16,
-                        info.StartY * 16
-                        , _npcData.SpriteWidth,
-                        _npcData.SpriteHeight), _npcData.SpriteWidth / 2 * -1, _npcData.SpriteHeight / 2));
+                    CurrentStageName = _npcData.StartingStage;  
                 }
-                var spriteArray = sprites.ToArray();
+                if (standardAnimator)
+                {
+                    List<AnimatedSprite> sprites = new List<AnimatedSprite>();
+                    foreach (AnimationInfo info in _npcData.AnimationInfo)
+                    {
+                        sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(
+                            Position, info, NPCContainer.GetTextureFromNPCType(EntityFactory.NPCData[Name].NPCType),
+                            new Rectangle(info.StartX * 16,
+                            info.StartY * 16
+                            , _npcData.SpriteWidth,
+                            _npcData.SpriteHeight), _npcData.SpriteWidth / 2 * -1, _npcData.SpriteHeight / 2));
+                    }
+                    var spriteArray = sprites.ToArray();
 
-                Animator = new NPCAnimator(this, spriteArray, _npcData.SpriteWidth / 2, _npcData.SpriteHeight);
+                    Animator = new NPCAnimator(this, spriteArray, _npcData.SpriteWidth / 2, _npcData.SpriteHeight);
+                }
+              
             }
             base.LoadContent();
             if (name != null)
                 Name = name;
             if (startPos != null)
                 Move(startPos.Value);
+
+            if(_npcData != null)
+            if (_npcData.StartingX > 0 || _npcData.StartingY > 0)
+                Move(Vector2Helper.GetWorldPositionFromTileIndex(_npcData.StartingX, _npcData.StartingY));
 
             Move(Position);
 

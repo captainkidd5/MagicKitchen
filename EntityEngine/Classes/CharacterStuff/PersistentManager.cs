@@ -70,11 +70,11 @@ namespace EntityEngine.Classes.CharacterStuff
 
         public void AssignCharactersToStages(string newStageName, TileManager tileManager, ItemManager itemManager)
         {
-            foreach (Character character in Entities)
+            foreach (NPC character in Entities)
             {
-                if(character.CurrentStageName == newStageName)
+                if (character.CurrentStageName == newStageName)
                 {
-                     character.SwitchStage(newStageName, tileManager, itemManager);
+                    character.SwitchStage(newStageName, tileManager, itemManager);
 
                 }
             }
@@ -104,6 +104,21 @@ namespace EntityEngine.Classes.CharacterStuff
         }
         public override void LoadSave(BinaryReader reader)
         {
+            if (Flags.IsNewGame)
+            {
+                foreach(NPCData npcData in EntityFactory.NPCData.Values)
+                {
+                    if (npcData.ImmediatelySpawn)
+                    {
+                        if(npcData.NPCType == NPCType.Customizable)
+                        {
+                            HumanoidEntity humanoidEntity = new HumanoidEntity(graphics, content);
+                            humanoidEntity.LoadContent(null, npcData.Name);
+                            Entities.Add(humanoidEntity);
+                        }
+                    }
+                }
+            }
            
             if (!Flags.IsNewGame)
                 foreach (Entity character in Entities)

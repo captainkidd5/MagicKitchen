@@ -24,23 +24,23 @@ namespace EntityEngine.Classes.NPCStuff.Props
             Name = string.Empty;
         }
 
-        public override void LoadContent(ItemManager itemManager, Vector2? startPos, string? name)
-        {
-            base.LoadContent(itemManager, startPos, name);
-            AnimationFrame[] frames = new AnimationFrame[2];
-            frames[0] = new AnimationFrame(0, 0, 48, .25f);
-            frames[1] = new AnimationFrame(0, 0, 48, .25f);
-            AnimatedSprite trainSprite = SpriteFactory.CreateWorldAnimatedSprite(Position,
-                new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
-            AnimatedSprite trainSprite1 = SpriteFactory.CreateWorldAnimatedSprite(Position,
-               new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
-            AnimatedSprite trainSprite2 = SpriteFactory.CreateWorldAnimatedSprite(Position,
-               new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
-            AnimatedSprite trainSprite3 = SpriteFactory.CreateWorldAnimatedSprite(Position,
-               new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
-            Animator = new NPCAnimator(this, new AnimatedSprite[4] { trainSprite,
-                trainSprite1, trainSprite2, trainSprite3 }, 128, 40);
-        }
+        //public override void LoadContent(ItemManager itemManager, Vector2? startPos, string? name)
+        //{
+        //    base.LoadContent(itemManager, startPos, name);
+        //    AnimationFrame[] frames = new AnimationFrame[2];
+        //    frames[0] = new AnimationFrame(0, 0, 48, .25f);
+        //    frames[1] = new AnimationFrame(0, 0, 48, .25f);
+        //    AnimatedSprite trainSprite = SpriteFactory.CreateWorldAnimatedSprite(Position,
+        //        new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
+        //    AnimatedSprite trainSprite1 = SpriteFactory.CreateWorldAnimatedSprite(Position,
+        //       new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
+        //    AnimatedSprite trainSprite2 = SpriteFactory.CreateWorldAnimatedSprite(Position,
+        //       new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
+        //    AnimatedSprite trainSprite3 = SpriteFactory.CreateWorldAnimatedSprite(Position,
+        //       new Rectangle(272, 144, 248, 80), EntityFactory.Props_1, frames);
+        //    Animator = new NPCAnimator(this, new AnimatedSprite[4] { trainSprite,
+        //        trainSprite1, trainSprite2, trainSprite3 }, 128, 40);
+        //}
         public override void Update(GameTime gameTime)
         {
             IsInStage = true;  

@@ -53,9 +53,9 @@ namespace EntityEngine.Classes.PlayerStuff
             base.SwitchStage(newStageName,tileManager, itemManager);
            // _playerContainer.PlayerSwitchedStage(newStageName);
         }
-        public override void LoadContent()
+        public override void LoadContent(Vector2? startPos, string? name, bool standardAnimator = false)
         {
-            base.LoadContent();
+            base.LoadContent(startPos, name, standardAnimator);
             IsInStage = true;
             UI.LoadPlayerInventory(StorageContainer);
 

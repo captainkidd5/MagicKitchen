@@ -7,6 +7,9 @@
     "SpriteWidth": 48,
     "SpriteHeight": 32,
     "ImmediatelySpawn" : true,
+    "StartingStage" : "LullabyTown",
+    "StartingX": 20,
+    "StartingY" : 20,
     "AnimationInfo": [
         {
         "MovementType": "Walk",

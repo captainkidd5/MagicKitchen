@@ -20,7 +20,10 @@ namespace DataModels
         public int SpriteWidth { get; set; }
         public int SpriteHeight { get; set; }
         public bool ImmediatelySpawn { get; set; }
+        public string StartingStage { get; set; }
 
+        public int StartingX { get; set; }
+        public int StartingY { get; set; }
         public List<AnimationInfo> AnimationInfo { get; set; }
 
 

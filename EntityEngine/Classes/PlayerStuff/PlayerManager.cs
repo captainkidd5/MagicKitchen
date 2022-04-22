@@ -37,6 +37,10 @@ namespace EntityEngine.Classes.PlayerStuff
             base.Update(gameTime);
         }
 
-
+        public override void LoadContent()
+        {
+            //base.LoadContent();
+            Player1.LoadContent(null, null);
+        }
     }
 }

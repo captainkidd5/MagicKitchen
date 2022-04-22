@@ -41,7 +41,7 @@ namespace EntityEngine.Classes.CharacterStuff
             foreach (NPC entity in Entities)
             {
 
-                entity.LoadContent(itemManager,null,entity.Name);
+                entity.LoadContent(null,entity.Name);
                entity.SwitchStage(stageName, tileManager, itemManager);
             }
 
@@ -51,7 +51,7 @@ namespace EntityEngine.Classes.CharacterStuff
         internal void AddTrain()
         {
             Train train = new Train(graphics, content);
-            train.LoadContent(ItemManager, null, null);
+            train.LoadContent(null, null);
             train.SwitchStage(StageName, TileManager, ItemManager);
             Entities.Add(train);
         }
@@ -94,7 +94,7 @@ namespace EntityEngine.Classes.CharacterStuff
         public void CreateNPC(string name, Vector2 position)
         {
             NPC npc = new NPC(graphics, content);
-            npc.LoadContent(ItemManager, position, name);
+            npc.LoadContent(position, name);
             npc.SwitchStage(StageName, TileManager, ItemManager);
             Entities.Add(npc);
         }
