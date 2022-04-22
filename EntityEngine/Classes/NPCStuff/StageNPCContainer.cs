@@ -22,11 +22,11 @@ using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.CharacterStuff
 {
-    public class NPCContainer : EntityContainer
+    public class StageNPCContainer : EntityContainer
     {
         public string StageName { get; private set; }
 
-        public NPCContainer( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public StageNPCContainer( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
 
         }

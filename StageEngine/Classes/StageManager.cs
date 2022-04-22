@@ -30,7 +30,6 @@ namespace StageEngine.Classes
   
         private readonly PlayerManager _playerManager;
         private readonly NPCManager _npcManager;
-        private readonly PersistentManager _characterContainer;
         private readonly string _startingStageName = "LullabyTown";
 
         public Player Player1 => _playerManager.Player1;
@@ -54,8 +53,7 @@ namespace StageEngine.Classes
             Penumbra = penumbra;
             _camera = camera;
             _portalManager = new PortalManager(this);
-            _npcManager = new NPCManager();
-            _characterContainer = new PersistentManager(graphics, content);
+            _npcManager = new NPCManager(graphics,content);
         }
 
         public override void LoadContent()
@@ -63,7 +61,6 @@ namespace StageEngine.Classes
             base.LoadContent();
             LoadStageData();
             _npcManager.LoadContent();
-            _characterContainer.LoadContent();
 
         }
 
@@ -99,7 +96,7 @@ namespace StageEngine.Classes
             CurrentStage.CleanUp();
 
             CurrentStage = GetStage(StageSwitchingTo);
-            _characterContainer.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
+            _npcManager.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             
             CurrentStage.LoadFromStageFile();
             _npcManager.CurrentContainer = CurrentStage.NPCContainer;
@@ -130,7 +127,7 @@ namespace StageEngine.Classes
             {
                 _portalManager.Update(gameTime);
                 _playerManager.Update(gameTime);
-                _characterContainer.Update(gameTime);
+                _npcManager.Update(gameTime);
                 CurrentStage.Update(gameTime);
                 if (SoundFactory.AllowAmbientSounds && !SoundFactory.IsPlayingAmbient)
                     SoundFactory.PlayAmbientNoise(CurrentStage.Name);
@@ -140,28 +137,28 @@ namespace StageEngine.Classes
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
 
-            CurrentStage.Draw(spriteBatch, gameTime, _characterContainer);
+            CurrentStage.Draw(spriteBatch, gameTime, _npcManager.PersistentManager);
         }
 
         public void Save(BinaryWriter writer)
         {
             writer.Write(CurrentStage.Name);
             CurrentStage.SaveToStageFile();
-            _characterContainer.Save(writer);
+            _npcManager.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
         {
             string name = reader.ReadString();
             CurrentStage = GetStage(name);
-            _characterContainer.LoadSave(reader);
-            _characterContainer.LoadContent();
+            _npcManager.LoadSave(reader);
+            _npcManager.LoadContent();
             //_player1.LoadContent(CurrentStage.ItemManager);
             //Still need to load all stages for portals and graph
             foreach (KeyValuePair<string, Stage> pair in Stages)
             {
                 pair.Value.LoadFromStageFile();
-                _characterContainer.AssignCharactersToStages(pair.Value.Name, pair.Value.TileManager, pair.Value.ItemManager);
+                _npcManager.AssignCharactersToStages(pair.Value.Name, pair.Value.TileManager, pair.Value.ItemManager);
                 if (pair.Value.Name != name)
                     pair.Value.Unload();
             }
@@ -208,7 +205,7 @@ namespace StageEngine.Classes
             }
             Stages.Clear();
 
-            _characterContainer.CleanUp();
+            _npcManager.CleanUp();
             _portalManager.CleanUp();
             TileLoader.Unload();
             CurrentStage = null;

@@ -32,7 +32,7 @@ namespace StageEngine.Classes
         private readonly PlayerManager _playerManager;
         private readonly PortalManager _portalManager;
         private readonly StageData _stageData;
-        public NPCContainer NPCContainer { get; private set; }
+        public StageNPCContainer NPCContainer { get; private set; }
 
         private readonly ContentManager _content;
         private readonly GraphicsDevice _graphics;
@@ -63,7 +63,7 @@ namespace StageEngine.Classes
             _playerManager = playerManager;
             _portalManager = portalManager;
             _stageData = stageData;
-            NPCContainer = new NPCContainer(graphics, content);
+            NPCContainer = new StageNPCContainer(graphics, content);
             _content = content;
             _graphics = graphics;
             _camera = camera;

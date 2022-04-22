@@ -115,11 +115,13 @@ namespace EntityEngine.Classes.CharacterStuff
                 {
                     if (npcData.ImmediatelySpawn)
                     {
+                        NPC npc;
+
                         if(npcData.NPCType == NPCType.Customizable)
                         {
-                            HumanoidEntity humanoidEntity = new HumanoidEntity(graphics, content);
-                            humanoidEntity.LoadContent(null, npcData.Name);
-                            Entities.Add(humanoidEntity);
+                            npc = new HumanoidEntity(graphics, content);
+                            npc.LoadContent(null, npcData.Name);
+                            Entities.Add(npc);
                         }
                     }
                 }

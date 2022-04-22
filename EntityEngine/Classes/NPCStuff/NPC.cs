@@ -49,7 +49,7 @@ namespace EntityEngine.Classes.NPCStuff
                     foreach (AnimationInfo info in NPCData.AnimationInfo)
                     {
                         sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(
-                            Position, info, NPCContainer.GetTextureFromNPCType(EntityFactory.NPCData[Name].NPCType),
+                            Position, info, StageNPCContainer.GetTextureFromNPCType(EntityFactory.NPCData[Name].NPCType),
                             new Rectangle(info.StartX * 16,
                             info.StartY * 16
                             , NPCData.SpriteWidth,
