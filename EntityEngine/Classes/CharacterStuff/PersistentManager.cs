@@ -73,7 +73,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
         public void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
         {
-            foreach (Character character in Entities)
+            foreach (NPC character in Entities)
             {
                 character.PlayerSwitchedStage(newStageName, false);
                 

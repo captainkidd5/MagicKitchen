@@ -30,7 +30,7 @@
         "MovementDirection": "Left",
         "Flip" : false,
         "FrameIndicies":[
-            6,7,8
+            2,2,2
         ]
     },
     {
@@ -38,7 +38,7 @@
         "MovementDirection": "Right",
         "Flip" : false,
         "FrameIndicies":[
-            9,10,11
+            2,2,2
         ]
     }
 ]
