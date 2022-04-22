@@ -95,14 +95,15 @@ namespace EntityEngine.Classes.BehaviourStuff
         private void CompleteStep()
         {
             _currentActionStep++;
-
-            if(_currentActionStep < _currentScript.ScriptActions.Count)
-                _currentAction = _currentScript.ScriptActions[_currentActionStep];
             Entity.Halt();
         }
 
         private void GetNextStep()
         {
+            if (_currentActionStep < _currentScript.ScriptActions.Count)
+                _currentAction = _currentScript.ScriptActions[_currentActionStep];
+            else
+                return;
             switch (_currentAction.Type)
             {
                 case ScriptActionType.None:
