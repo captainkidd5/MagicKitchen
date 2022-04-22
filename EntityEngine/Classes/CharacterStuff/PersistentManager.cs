@@ -94,13 +94,18 @@ namespace EntityEngine.Classes.CharacterStuff
             //Test if new game because characters are initially loaded in after save/load logic, therefore the entity list is not populated
             //before first load and therefore not saved
             if(!Flags.IsNewGame)
-                foreach (Entity entity in Entities)
+            {
+                writer.Write(Entities.Count);
+                foreach (Entity n in Entities)
                 {
-                    NPC charac = (NPC)entity;
-                charac.Save(writer);
+                    writer.Write(n.GetType().ToString());
+
+                    n.Save(writer);
 
 
+                }
             }
+        
         }
         public override void LoadSave(BinaryReader reader)
         {
@@ -121,13 +126,20 @@ namespace EntityEngine.Classes.CharacterStuff
             }
            
             if (!Flags.IsNewGame)
-                foreach (Entity character in Entities)
+            {
+                int count = reader.ReadInt32();
+                for (int i = 0; i < count; i++)
                 {
-                    Character charac = (Character)character;
-                    charac.LoadSave(reader);
+                    string savedType = reader.ReadString();
 
-
+                    NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
+                        .CreateInstance(savedType, true, System.Reflection.BindingFlags.CreateInstance,
+                        null, new object[] { graphics, content }, null, null);
+                    npc.LoadSave(reader);
+                    Entities.Add(npc);
                 }
+            }
+               
         }
     }
 }

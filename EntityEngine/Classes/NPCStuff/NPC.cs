@@ -22,7 +22,7 @@ namespace EntityEngine.Classes.NPCStuff
 {
     public class NPC : Entity
     {
-        private NPCData _npcData;
+        protected NPCData NPCData;
 
 
         public NPC(GraphicsDevice graphics, ContentManager content) :
@@ -36,28 +36,28 @@ namespace EntityEngine.Classes.NPCStuff
             if (!string.IsNullOrEmpty(name))
             {
 
-                _npcData = EntityFactory.NPCData[name];
-                Name = _npcData.Name;
-                ScheduleName = _npcData.ScheduleName;
-                if (!string.IsNullOrEmpty(_npcData.StartingStage))
+                NPCData = EntityFactory.NPCData[name];
+                Name = NPCData.Name;
+                ScheduleName = NPCData.ScheduleName;
+                if (!string.IsNullOrEmpty(NPCData.StartingStage))
                 {
-                    CurrentStageName = _npcData.StartingStage;  
+                    CurrentStageName = NPCData.StartingStage;  
                 }
                 if (standardAnimator)
                 {
                     List<AnimatedSprite> sprites = new List<AnimatedSprite>();
-                    foreach (AnimationInfo info in _npcData.AnimationInfo)
+                    foreach (AnimationInfo info in NPCData.AnimationInfo)
                     {
                         sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(
                             Position, info, NPCContainer.GetTextureFromNPCType(EntityFactory.NPCData[Name].NPCType),
                             new Rectangle(info.StartX * 16,
                             info.StartY * 16
-                            , _npcData.SpriteWidth,
-                            _npcData.SpriteHeight), _npcData.SpriteWidth / 2 * -1, _npcData.SpriteHeight / 2));
+                            , NPCData.SpriteWidth,
+                            NPCData.SpriteHeight), NPCData.SpriteWidth / 2 * -1, NPCData.SpriteHeight / 2));
                     }
                     var spriteArray = sprites.ToArray();
 
-                    Animator = new NPCAnimator(this, spriteArray, _npcData.SpriteWidth / 2, _npcData.SpriteHeight);
+                    Animator = new NPCAnimator(this, spriteArray, NPCData.SpriteWidth / 2, NPCData.SpriteHeight);
                 }
               
             }
@@ -67,9 +67,9 @@ namespace EntityEngine.Classes.NPCStuff
             if (startPos != null)
                 Move(startPos.Value);
 
-            if(_npcData != null)
-            if (_npcData.StartingX > 0 || _npcData.StartingY > 0)
-                Move(Vector2Helper.GetWorldPositionFromTileIndex(_npcData.StartingX, _npcData.StartingY));
+            if(NPCData != null)
+            if (NPCData.StartingX > 0 || NPCData.StartingY > 0)
+                Move(Vector2Helper.GetWorldPositionFromTileIndex(NPCData.StartingX, NPCData.StartingY));
 
             Move(Position);
 

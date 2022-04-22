@@ -118,7 +118,7 @@ namespace EntityEngine.Classes.BehaviourStuff
         }
         public void DrawDebug(SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            CurrentBehaviour.DrawDebug(spriteBatch);
         }
 
 

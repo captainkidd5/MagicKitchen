@@ -27,7 +27,6 @@ namespace EntityEngine.Classes.CharacterStuff
     public delegate void CharacterClicked(Schedule schedule);
     public class Character : NPC
     {
-        private readonly NPCData _npcData;
 
         private bool _isInteractingWithPlayer;
         private Schedule ActiveSchedule { get; set; }
@@ -107,7 +106,7 @@ namespace EntityEngine.Classes.CharacterStuff
             StatusIcon.SetStatus(StatusIconType.Speak);
 
             if (ActiveSchedule == null)
-                ActiveSchedule = Scheduler.GetScheduleFromCurrentTime(_npcData.Name);
+                ActiveSchedule = Scheduler.GetScheduleFromCurrentTime(NPCData.Name);
 
             if(!_isInteractingWithPlayer)
                 OnCharacterClicked(ActiveSchedule);
