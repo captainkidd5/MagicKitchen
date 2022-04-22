@@ -48,6 +48,9 @@
     <None Update="Content\Entities\Characters\Patron\Patrondata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Content\Entities\NPC\Caspar.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Entities\NPC\Characters\Caspar\CasparData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

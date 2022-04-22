@@ -20,26 +20,27 @@ using UIEngine.Classes;
 using EntityEngine.Classes.CharacterStuff.DialogueStuff;
 using TiledEngine.Classes;
 using ItemEngine.Classes;
+using EntityEngine.Classes.NPCStuff;
 
 namespace EntityEngine.Classes.CharacterStuff
 {
     public delegate void CharacterClicked(Schedule schedule);
-    public class Character : HumanoidEntity
+    public class Character : NPC
     {
-        private readonly CharacterData _npcData;
+        private readonly NPCData _npcData;
 
         private bool _isInteractingWithPlayer;
         private Schedule ActiveSchedule { get; set; }
 
 
-        public Character(GraphicsDevice graphics, ContentManager content, CharacterData npcsData) : base(graphics, content)
+        public Character(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             
-            _npcData = npcsData;
-            Name = npcsData.Name;
-            ScheduleName = Name;
-            CurrentStageName = npcsData.StartingStage;
-            Move(Vector2Helper.GetWorldPositionFromTileIndex(npcsData.StartingTileX, npcsData.StartingTileY));
+            //_npcData = npcsData;
+            //Name = npcsData.Name;
+            //ScheduleName = Name;
+            //CurrentStageName = npcsData.StartingStage;
+            //Move(Vector2Helper.GetWorldPositionFromTileIndex(npcsData.StartingTileX, npcsData.StartingTileY));
             Speed = 3f;
             XOffSet = 8;
             YOffSet = 16;

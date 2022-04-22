@@ -29,7 +29,7 @@ namespace EntityEngine.Classes.CharacterStuff
         public StatusIcon(Vector2 offSet)
         {
             SimpleTimer = new SimpleTimer(duration);
-            Sprite = SpriteFactory.CreateWorldSprite(Vector2.Zero, Rectangle.Empty, CharacterManager.StatusIconTexture, customLayer: .99f);
+            Sprite = SpriteFactory.CreateWorldSprite(Vector2.Zero, Rectangle.Empty, PersistentManager.StatusIconTexture, customLayer: .99f);
             OffSet = new Vector2(offSet.X + IconWidth / 2 - 8, offSet.Y + IconWidth + 8);
         }
 

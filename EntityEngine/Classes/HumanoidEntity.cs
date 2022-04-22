@@ -23,7 +23,7 @@ using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes
 {
-    public class HumanoidEntity : Entity
+    public class HumanoidEntity : Character
     {
        
         public HumanoidEntity(GraphicsDevice graphics, ContentManager content) : base(graphics, content)

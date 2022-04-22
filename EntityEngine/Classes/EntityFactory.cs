@@ -77,13 +77,23 @@ namespace EntityEngine.Classes
             var options = new JsonSerializerOptions();
             options.Converters.Add(new JsonStringEnumConverter());
 
+            NPCData = new Dictionary<string, NPCData>();
+            var files = Directory.GetFiles(basePath);
+            string jsonString = string.Empty;
+            foreach(var file in files)
+                if (file.EndsWith(".json"))
+                {
+                     jsonString = File.ReadAllText(file);
+                    var diction = JsonSerializer.Deserialize<List<NPCData>>(jsonString, options).ToDictionary(x => x.Name);
+                    foreach(KeyValuePair<string, NPCData> pair in diction)
+                    {
+                        NPCData.Add(pair.Key,pair.Value);
+                    }
+
+                }
 
 
-            string jsonString = File.ReadAllText($"{basePath}/NPCData.json");
-            NPCData = JsonSerializer.Deserialize<List<NPCData>>(jsonString, options).ToDictionary(x => x.Name);
-
-
-             basePath = content.RootDirectory + "/Entities/Schedules";
+            basePath = content.RootDirectory + "/Entities/Schedules";
 
 
 

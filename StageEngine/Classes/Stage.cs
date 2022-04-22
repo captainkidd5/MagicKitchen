@@ -88,7 +88,7 @@ namespace StageEngine.Classes
 
             NPCContainer.Update(gameTime);
         }
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, CharacterManager characterContainer)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, PersistentManager characterContainer)
         {
 
             _penumbra.AmbientColor = Color.DarkSlateGray;

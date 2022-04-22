@@ -9,6 +9,7 @@ namespace DataModels
         None =0,
         Enemy = 1,
         Prop = 2,
+        Customizable = 3
     }
     public class NPCData
     {
@@ -18,6 +19,10 @@ namespace DataModels
 
         public int SpriteWidth { get; set; }
         public int SpriteHeight { get; set; }
+        public bool ImmediatelySpawn { get; set; }
+
         public List<AnimationInfo> AnimationInfo { get; set; }
+
+
     }
 }

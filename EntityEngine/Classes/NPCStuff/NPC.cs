@@ -19,7 +19,7 @@ using VelcroPhysics.Dynamics;
 
 namespace EntityEngine.Classes.NPCStuff
 {
-    internal class NPC : Entity
+    public class NPC : Entity
     {
         private NPCData _npcData;
 
