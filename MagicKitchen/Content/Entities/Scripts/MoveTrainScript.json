@@ -6,11 +6,20 @@
         "CharacterName": "Train",
         "ScriptActions": [
             {
+                "Type":"Move",
                 "ZoneStart": "train,start",
                 "ZoneEnd": "train,dock",
                 "Speed": 5
 
-            },{
+            },
+            {
+                "Type":"Pause",
+                "PauseForSeconds":3
+
+            },
+            {
+                "Type":"Move",
+
                 "ZoneStart": "train,dock",
                 "ZoneEnd": "train,end",
                 "Speed": 5
