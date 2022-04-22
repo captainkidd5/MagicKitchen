@@ -41,7 +41,7 @@ namespace EntityEngine.Classes.CharacterStuff
             foreach (NPC entity in Entities)
             {
 
-                entity.LoadContent(itemManager,null,null);
+                entity.LoadContent(itemManager,null,entity.Name);
                entity.SwitchStage(stageName, tileManager, itemManager);
             }
 
@@ -84,7 +84,6 @@ namespace EntityEngine.Classes.CharacterStuff
                     .CreateInstance(savedType, true, System.Reflection.BindingFlags.CreateInstance,
                     null, new object[] { graphics, content },null,null);
                 npc.LoadSave(reader);
-           
                 Entities.Add(npc);
             }
 

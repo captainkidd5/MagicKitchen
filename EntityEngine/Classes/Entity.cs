@@ -453,6 +453,7 @@ namespace EntityEngine.Classes
             Vector2Helper.WriteVector2(writer, Position);
 
             InventoryHandler.Save(writer);
+            writer.Write(ScheduleName);
         }
         public virtual void LoadSave(BinaryReader reader)
         {
@@ -461,6 +462,7 @@ namespace EntityEngine.Classes
             Move(Vector2Helper.ReadVector2(reader));
 
             InventoryHandler.LoadSave(reader);
+            ScheduleName = reader.ReadString();
         }
 
         
