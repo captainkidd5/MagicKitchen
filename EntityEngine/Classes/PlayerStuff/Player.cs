@@ -19,13 +19,14 @@ using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
 using static DataModels.Enums;
 using System.IO;
+using Globals.Classes.Helpers;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
     public class Player : HumanoidEntity
     {
         public byte Id { get; private set; }
-        public readonly Vector2 StartingPosition = new Vector2(630, 500);
+        public readonly Vector2 StartingPosition = Vector2Helper.GetWorldPositionFromTileIndex(64,72);
         private readonly PlayerManager _playerContainer;
 
         private Direction DirectionFacing { get; set; }

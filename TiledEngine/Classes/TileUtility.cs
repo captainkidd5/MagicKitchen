@@ -165,7 +165,7 @@ namespace TiledEngine.Classes
         /// </summary>
         private static void AssignTileLayer(Tile tile, Layers layer, Dictionary<int, float> tileLayerOffsetDictionary)
         {
-            if (layer == Layers.foreground || layer == Layers.front)
+            if (layer == Layers.foreground)
             {
                 if (tile.GID != -1)
                     tile.Layer = GetTileVariedLayerDepth(tile.Position, tile.SourceRectangle, tileLayerOffsetDictionary);

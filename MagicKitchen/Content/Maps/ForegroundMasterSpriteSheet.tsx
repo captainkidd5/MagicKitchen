@@ -233,15 +233,12 @@
   </properties>
   <objectgroup draworder="index" id="3">
    <object id="2" x="5" y="9" width="6" height="6">
-    <properties>
-     <property name="destructable" value="Rock"/>
-    </properties>
     <ellipse/>
    </object>
   </objectgroup>
   <animation>
-   <frame tileid="3375" duration="300"/>
-   <frame tileid="3376" duration="300"/>
+   <frame tileid="3375" duration="100"/>
+   <frame tileid="3376" duration="100"/>
   </animation>
  </tile>
  <tile id="3376">
