@@ -41,7 +41,7 @@ namespace EntityEngine.Classes.CharacterStuff
             foreach (NPC entity in Entities)
             {
 
-                entity.LoadContent(null,entity.Name);
+                entity.LoadContent(null,entity.Name,false);
                entity.SwitchStage(stageName, tileManager, itemManager);
             }
 
@@ -61,7 +61,6 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void Save(BinaryWriter writer)
         {
 
-            writer.Write(StageName ?? String.Empty);
             writer.Write(Entities.Count);
                 foreach (Entity n in Entities)
                 {
@@ -74,7 +73,27 @@ namespace EntityEngine.Classes.CharacterStuff
         }
         public override void LoadSave(BinaryReader reader)
         {
-            StageName = reader.ReadString();
+            if (Flags.IsNewGame)
+            {
+                foreach (NPCData npcData in EntityFactory.NPCData.Values)
+                {
+                    if (npcData.ImmediatelySpawn && this.GetType() == typeof(PersistentManager))
+                    {
+                        NPC npc;
+
+                        if (npcData.NPCType == NPCType.Customizable)
+                        {
+                            npc = new HumanoidEntity(graphics, content);
+                            npc.LoadContent(null, npcData.Name,false);
+                            Entities.Add(npc);
+                        }
+                    }
+                }
+            }
+
+            else
+            {
+
          int count = reader.ReadInt32();
             for(int i =0; i < count; i++)
             {
@@ -84,13 +103,15 @@ namespace EntityEngine.Classes.CharacterStuff
                     .CreateInstance(savedType, true, System.Reflection.BindingFlags.CreateInstance,
                     null, new object[] { graphics, content },null,null);
                 npc.LoadSave(reader);
+                        npc.LoadContent(null, npc.Name, npc.GetType() != typeof(HumanoidEntity));
                 Entities.Add(npc);
+            }
             }
 
         }
 
 
-    
+
         public void CreateNPC(string name, Vector2 position)
         {
             NPC npc = new NPC(graphics, content);

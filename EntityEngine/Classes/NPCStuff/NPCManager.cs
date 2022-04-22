@@ -16,7 +16,7 @@ using TiledEngine.Classes;
 
 namespace EntityEngine.Classes.NPCStuff
 {
-    public class NPCManager : ISaveable
+    public class NPCManager : ISaveable, ICommandRegisterable
     {
         public StageNPCContainer CurrentContainer { get; set; }
         public PersistentManager PersistentManager { get; set; }
@@ -24,11 +24,16 @@ namespace EntityEngine.Classes.NPCStuff
         {
             PersistentManager = new PersistentManager(graphics, content);
         }
+
+        public void RegisterCommands()
+        {
+            CommandConsole.RegisterCommand("add_npc", "adds npc to current stage", AddNPCCommand);
+            CommandConsole.RegisterCommand("train", "forces train into current stage", AddTrainCommand);
+        }
         public void LoadContent()
         {
 
-            CommandConsole.RegisterCommand("add_npc", "adds npc to current stage", AddNPCCommand);
-            CommandConsole.RegisterCommand("train", "forces train into current stage", AddTrainCommand);
+         
 
             PersistentManager.LoadContent();
 

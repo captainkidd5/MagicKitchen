@@ -22,10 +22,11 @@ using UIEngine.Classes;
 using EntityEngine.Classes;
 using SoundEngine.Classes.SongStuff;
 using EntityEngine.Classes.NPCStuff;
+using Globals.Classes.Console;
 
 namespace StageEngine.Classes
 {
-    public class StageManager : Component, ISaveable
+    public class StageManager : Component, ISaveable, ICommandRegisterable
     {
   
         private readonly PlayerManager _playerManager;
@@ -61,7 +62,6 @@ namespace StageEngine.Classes
             base.LoadContent();
             LoadStageData();
             _npcManager.LoadContent();
-
         }
 
 
@@ -99,6 +99,8 @@ namespace StageEngine.Classes
             _npcManager.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             
             CurrentStage.LoadFromStageFile();
+            if(_npcManager.CurrentContainer != null)
+                _npcManager.CurrentContainer.CleanUp();
             _npcManager.CurrentContainer = CurrentStage.NPCContainer;
             if (CurrentStage == null)
                 throw new Exception("Stage with name" + StageSwitchingTo + "does not exist");
@@ -112,7 +114,6 @@ namespace StageEngine.Classes
             NewPlayerPositionOnStageSwitch = Vector2.Zero;
 
             Player1.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
-            //_player1.LoadToNewStage(CurrentStage.Name, CurrentStage.ItemManager);
             Flags.Pause = false;
             UI.RaiseCurtain(UI.CurtainDropRate);
 
@@ -210,6 +211,11 @@ namespace StageEngine.Classes
             TileLoader.Unload();
             CurrentStage = null;
 
+        }
+
+        public void RegisterCommands()
+        {
+            _npcManager.RegisterCommands();
         }
     }
 }

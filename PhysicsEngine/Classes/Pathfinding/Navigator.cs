@@ -66,7 +66,8 @@ namespace PhysicsEngine.Classes.Pathfinding
 
             //Make sure next destination point is at the center of the tile, not the top left corner, so we add half the tile's width to 
             //both x and y
-            if (MoveTowardsVector(GetCentralizedWorldPositionFromPathPoint(CurrentPath.Count - 1), currentPos, ref velocity, gameTime))
+            if (MoveTowardsVector(GetCentralizedWorldPositionFromPathPoint(CurrentPath.Count - 1),
+                currentPos, ref velocity, gameTime))
             {
                 //reached the next tile
                 CurrentPath.RemoveAt(CurrentPath.Count - 1);

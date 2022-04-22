@@ -271,22 +271,22 @@
  </tile>
  <tile id="1509">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="5" height="16"/>
+   <object id="1" x="0" y="0" width="2" height="16"/>
   </objectgroup>
  </tile>
  <tile id="1511">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="11" y="0" width="5" height="16"/>
+   <object id="1" x="13" y="0" width="3" height="16"/>
   </objectgroup>
  </tile>
  <tile id="1569">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="5" height="16"/>
+   <object id="1" x="0" y="0" width="2" height="16"/>
   </objectgroup>
  </tile>
  <tile id="1571">
   <objectgroup draworder="index" id="3">
-   <object id="2" x="11" y="0" width="5" height="16"/>
+   <object id="2" x="13" y="0" width="3" height="16"/>
   </objectgroup>
  </tile>
  <tile id="1629">

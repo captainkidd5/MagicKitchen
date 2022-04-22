@@ -50,8 +50,8 @@ namespace EntityEngine.Classes.NPCStuff
                     {
                         sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(
                             Position, info, StageNPCContainer.GetTextureFromNPCType(EntityFactory.NPCData[Name].NPCType),
-                            new Rectangle(info.StartX * 16,
-                            info.StartY * 16
+                            new Rectangle(info.SpriteX * 16,
+                            info.SpriteY * 16
                             , NPCData.SpriteWidth,
                             NPCData.SpriteHeight), NPCData.SpriteWidth / 2 * -1, NPCData.SpriteHeight / 2));
                     }
@@ -67,9 +67,13 @@ namespace EntityEngine.Classes.NPCStuff
             if (startPos != null)
                 Move(startPos.Value);
 
-            if(NPCData != null)
-            if (NPCData.StartingX > 0 || NPCData.StartingY > 0)
-                Move(Vector2Helper.GetWorldPositionFromTileIndex(NPCData.StartingX, NPCData.StartingY));
+            if(Position == Vector2.Zero)
+            {
+                if (NPCData != null)
+                    if (NPCData.StartingX > 0 || NPCData.StartingY > 0)
+                        Move(Vector2Helper.GetWorldPositionFromTileIndex(NPCData.StartingX, NPCData.StartingY));
+            }
+           
 
             Move(Position);
 

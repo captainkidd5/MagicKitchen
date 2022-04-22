@@ -1,10 +1,13 @@
+
 [
 {
-    "Name": "boar",
-    "ScheduleName": "wander_1",
-    "NPCType" : "Enemy",
-    "SpriteWidth": 48,
-    "SpriteHeight": 32,
+    "Name": "train",
+    "ScheduleName": "train",
+    "NPCType" : "Prop",
+    "SpriteWidth": 248,
+    "SpriteHeight": 80,
+    "ImmediatelySpawn" : true,
+    "StartingStage" : "LullabyTown",
     "AnimationInfo": [
         {
         "MovementType": "Walk",
@@ -40,7 +43,4 @@
     }
 ]
 }
-]
-
-
-    
+]    

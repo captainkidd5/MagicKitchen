@@ -66,13 +66,12 @@ namespace Globals.Classes.Console
         }
         public static void RegisterCommand(string commandName, string description, Action<string[]> command)
         {
-            if (Flags.FirstBootUp)
-            {
+          
 
                 s_manualInterpreter.RegisterCommand(commandName, command);
 
                 Commands.Add(commandName, ":---------------" + description);
-            }
+            
 
         }
     }

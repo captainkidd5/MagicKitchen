@@ -101,6 +101,7 @@ namespace MagicKitchen
             SettingsManager.LoadSettings();
             CommandConsole.Load(consoleComponent);
             _commandList.Load();
+            _stageManager.RegisterCommands();
             Clock.Load();
             List<StageData> stageData = Content.Load<List<StageData>>("Maps/StageData");
             MainFont = Content.Load<SpriteFont>("Fonts/Font");

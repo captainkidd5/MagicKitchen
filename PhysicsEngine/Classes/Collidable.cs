@@ -190,6 +190,7 @@ namespace PhysicsEngine.Classes
             }
             if(MainHullBody != null)
                 MainHullBody.Destroy();
+            MainHullBody = null;
             HullBodies.Clear();
 
         }
