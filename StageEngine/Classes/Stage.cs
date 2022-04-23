@@ -157,9 +157,10 @@ namespace StageEngine.Classes
         public void LoadSave(BinaryReader reader)
         {
             TileManager.LoadSave(reader);
-            TileLoader.LoadStagePortals(_stageData, TileManager);
             if (!_hasLoadedPortals)
             {
+                TileLoader.LoadStagePortals(_stageData, TileManager);
+
                 _portalManager.LoadNewStage(Name, TileManager);
 
                 _hasLoadedPortals = true;
@@ -171,9 +172,9 @@ namespace StageEngine.Classes
         }
         public void Unload()
         {
-            TileManager.CleanUp();
             ItemManager.CleanUp();
             NPCContainer.CleanUp();
+
             //_portalManager.CleanUp();
 
         }
@@ -183,6 +184,7 @@ namespace StageEngine.Classes
             ItemManager.CleanUp();
 
             NPCContainer.CleanUp();
+            _hasLoadedPortals = false;
         }
     }
 }

@@ -151,12 +151,12 @@ namespace StageEngine.Classes
 
         public void LoadSave(BinaryReader reader)
         {
-            string name = reader.ReadString();
-            CurrentStage = GetStage(name);
+            string currentStageName = reader.ReadString();
+            CurrentStage = GetStage(currentStageName);
             _npcManager.LoadSave(reader);
             TileLoader.LoadSave(reader);    
             _npcManager.LoadContent();
-            //_player1.LoadContent(CurrentStage.ItemManager);
+
             //Still need to load all stages for portals and graph
             foreach (KeyValuePair<string, Stage> pair in Stages)
             {
@@ -164,12 +164,12 @@ namespace StageEngine.Classes
                 _npcManager.StageGrids.Add(pair.Value.Name, pair.Value.TileManager.PathGrid);
 
                 _npcManager.AssignCharactersToStages(pair.Value.Name, pair.Value.TileManager, pair.Value.ItemManager);
-                if (pair.Value.Name != name)
+                if (pair.Value.Name != currentStageName)
                     pair.Value.Unload();
             }
 
            
-            TileLoader.LoadFinished();
+            TileLoader.FillFinalPortalGraph();
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
 
             
@@ -200,6 +200,9 @@ namespace StageEngine.Classes
             }
 
             Stages.Clear();
+            TileLoader.Save(writer);
+            TileLoader.Unload();
+
         }
 
         public void CleanUp()

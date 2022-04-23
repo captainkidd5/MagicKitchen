@@ -51,12 +51,9 @@ namespace TiledEngine.Classes
 
         public static Rectangle GetNextNodePortalRectangle(string stageFromName, string stageToName) => _portalLoader.GetNextPortalRectangle(stageFromName, stageToName);
 
-        private static Dictionary<string, List<SpecialZone>> SpecialZonesDictionary;
-
-        public static List<SpecialZone> GetZones(string stageName)
-        {
-            return SpecialZonesDictionary[stageName];
-        }
+        public static ZoneManager ZoneManager;
+        public static List<SpecialZone> GetZones(string stageName) => ZoneManager.GetZones(stageName);
+        
         // <summary>
         /// This should only be called ONCE per save file.
         /// </summary>
@@ -79,8 +76,7 @@ namespace TiledEngine.Classes
             tileLootData = content.Load<List<TileLootData>>("Items/BackgroundTileLootData");
             //Offset background GID here to make it easy to fetch correct loot for GID at runtime
             s_backGroundTileLootData = tileLootData.ToDictionary(x => ExteriorTileSetPackage.OffSetBackgroundGID(x.TileId), x => x);
-
-            SpecialZonesDictionary = new Dictionary<string, List<SpecialZone>>();
+            ZoneManager zoneManager = new ZoneManager();
         }
         internal static bool HasLootData(int tileId)
         {
@@ -95,7 +91,7 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Call after all stages have been loaded in at least once so that portal data is complete.
         /// </summary>
-        public static void LoadFinished()
+        public static void FillFinalPortalGraph()
         {
             if (s_hasDoneInitialLoad)
                 throw new Exception("May not load twice");
@@ -128,45 +124,25 @@ namespace TiledEngine.Classes
         {
             TmxMap mapToLoad = new TmxMap(MapPath + stageData.Path);
             tileManager.MapType = stageData.MapType;
-            SpecialZonesDictionary.Add(stageData.Name, tileManager.LoadZones(mapToLoad));
+            ZoneManager.Load(stageData.Name, mapToLoad, tileManager);
 
-            tileManager.Load(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width, GetPackageFromMapType(stageData.MapType));
+            tileManager.Load(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width,
+                GetPackageFromMapType(stageData.MapType));
         }
 
         public static void Save(BinaryWriter writer)
         {
-            writer.Write(SpecialZonesDictionary.Count);
-            foreach(KeyValuePair<string, List<SpecialZone>> kvp in SpecialZonesDictionary)
-            {
-                writer.Write(kvp.Key);
-                writer.Write(kvp.Value.Count);
-               foreach(var zone in kvp.Value)
-                {
-                    zone.Save(writer);
-                }
-            }
+            ZoneManager.Save(writer);
+           
         }
         public static void LoadSave(BinaryReader reader)
         {
-            int dictCount = reader.ReadInt32();
-            for(int i =0; i < dictCount; i++)
-            {
-                string key = reader.ReadString();
-                List<SpecialZone> zones = new List<SpecialZone>();
-                int zoneCount = reader.ReadInt32();
-                for(int j =0; j < zoneCount; j++)
-                {
-                    SpecialZone zone = new SpecialZone();
-                    zone.LoadSave(reader);
-                    zones.Add(zone);
-                }
-                SpecialZonesDictionary.Add(key, zones);
-            }
+            ZoneManager.LoadSave(reader);
         }
         public static void Unload()
         {
             _portalLoader.Unload();
-            SpecialZonesDictionary.Clear();
+            ZoneManager.CleanUp();
             s_hasDoneInitialLoad = false;
         }
         internal static TileSetPackage GetPackageFromMapType(MapType mapType)
