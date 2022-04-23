@@ -88,7 +88,9 @@ namespace EntityEngine.Classes.CharacterStuff
 
         public override void CreateNPC( string name, Vector2 position, bool standardAnimator, string stageName)
         {
-            NPC npc = new NPC(this, graphics, content);
+            NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
+                    .CreateInstance(EntityFactory.NPCData[name].ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
+                    null, new object[] { this, graphics, content }, null, null);
             npc.LoadContent(position, name, standardAnimator);
             npc.SwitchStage(stageName, TileManager, ItemManager);
             EntitiesToAdd.Add(npc);

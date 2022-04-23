@@ -122,7 +122,9 @@ namespace EntityEngine.Classes.CharacterStuff
         {
             if (stageName != StageName)
                 throw new Exception($"Persistent entities cannot be added non persistent managers");
-            NPC npc = new NPC(this, graphics, content);
+            NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
+                    .CreateInstance(EntityFactory.NPCData[name].ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
+                    null, new object[] { this, graphics, content }, null, null);
             npc.LoadContent(position, name, standardAnimator);
             npc.SwitchStage(StageName, TileManager, ItemManager);
             EntitiesToAdd.Add(npc);

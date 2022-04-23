@@ -133,6 +133,10 @@ namespace EntityEngine.Classes
                 RemoveEntityPhysics();
 
             }
+            else
+            {
+                IsInStage = true;
+            }
 
             LoadToNewStage(newStageName, tileManager, itemManager);
 
