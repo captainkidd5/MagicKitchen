@@ -662,18 +662,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="5" name="Portal">
-  <object id="49" x="1301" y="979" width="4" height="26.75">
-   <properties>
-    <property name="Click" value="false"/>
-    <property name="directionToFace" value="Right"/>
-    <property name="from" value="LullabyTown"/>
-    <property name="to" value="Town"/>
-    <property name="xOffSet" value="-64"/>
-    <property name="yOffSet" value="0"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup id="5" name="Portal"/>
  <objectgroup id="9" name="SpecialZone">
   <object id="60" x="32" y="1248" width="16" height="48">
    <properties>

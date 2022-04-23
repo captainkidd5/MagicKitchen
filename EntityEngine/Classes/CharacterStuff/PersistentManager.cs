@@ -45,15 +45,15 @@ namespace EntityEngine.Classes.CharacterStuff
         {
             foreach (Entity entity in Entities)
             {
-                NPC charac = (NPC)entity;
-                if (charac.IsInStage)
+                NPC npc = (NPC)entity;
+                if (npc.IsInStage)
                 {
-                    charac.Draw(spriteBatch);
+                    npc.Draw(spriteBatch);
 
                 }
 
                 if (Flags.DebugVelcro)
-                    charac.DrawDebug(spriteBatch);
+                    npc.DrawDebug(spriteBatch);
 
             }
 

@@ -21,18 +21,16 @@ namespace EntityEngine.Classes.BehaviourStuff
     {
         private TileManager _tileManager;
         private Schedule _activeSchedule;
-        private List<Schedule> _schedules;
    
 
 
         public string TargetLocation => _activeSchedule.StageEndLocation;
         public RouteBehaviour(Entity entity,StatusIcon statusIcon, Navigator navigator,TileManager tileManager,
-            Schedule activeSchedule, List<Schedule> schedules, float? scheduleCheckFrequency) :
+            Schedule activeSchedule, float? scheduleCheckFrequency) :
             base(entity,statusIcon, navigator,tileManager, scheduleCheckFrequency)
         {
             _tileManager = tileManager;
             _activeSchedule = activeSchedule;
-            _schedules = schedules;
         }
 
         public override void Update(GameTime gameTime, ref Vector2 velocity)

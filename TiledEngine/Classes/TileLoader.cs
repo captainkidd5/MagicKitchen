@@ -84,10 +84,12 @@ namespace TiledEngine.Classes
             TmxMap mapToLoad = new TmxMap(s_mapPath + stageData.Path);
             tileManager.MapType = stageData.MapType;
             ZoneManager.CreateNewSave(stageData.Name, mapToLoad, tileManager);
-            _portalLoader.CreateNewSave(tileManager.LoadPortals(mapToLoad));
 
             tileManager.CreateNewSave(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width,
                 GetPackageFromMapType(stageData.MapType));
+
+            _portalLoader.CreateNewSave(tileManager.LoadPortals(mapToLoad));
+
         }
 
         public static void Save(BinaryWriter writer)
@@ -101,7 +103,7 @@ namespace TiledEngine.Classes
         }
         public static void Unload()
         {
-            _portalLoader.Unload();
+            //_portalLoader.Unload();
             ZoneManager.CleanUp();
         }
     

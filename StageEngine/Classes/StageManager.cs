@@ -167,11 +167,15 @@ namespace StageEngine.Classes
                 _npcManager.StageGrids.Add(pair.Value.Name, pair.Value.TileManager.PathGrid);
 
                 _npcManager.AssignCharactersToStages(pair.Value.Name, pair.Value.TileManager, pair.Value.ItemManager);
+              
+            }
+            TileLoader.FillFinalPortalGraph();
+
+            foreach (KeyValuePair<string, Stage> pair in Stages)
+            {
                 if (pair.Value.Name != currentStageName)
                     pair.Value.Unload();
             }
-
-            TileLoader.FillFinalPortalGraph();
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
 
             
@@ -197,17 +201,21 @@ namespace StageEngine.Classes
                 stage.Value.CreateNewSave();
                 _portalManager.LoadNewStage(stage.Value.Name, stage.Value.TileManager);
 
-                if (stage.Key != _startingStageName)
-                stage.Value.Unload();
+              
 
 
             }
+            TileLoader.FillFinalPortalGraph();
 
-            Stages.Clear();
+            foreach (KeyValuePair<string, Stage> stage in Stages)
+            {
+                if (stage.Key != _startingStageName)
+                    stage.Value.Unload();
+            }
+                Stages.Clear();
             TileLoader.Save(writer);
             _portalManager.Save(writer);
             _portalManager.CleanUp();
-            TileLoader.FillFinalPortalGraph();
 
             TileLoader.Unload();
 

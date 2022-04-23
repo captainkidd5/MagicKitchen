@@ -44,7 +44,7 @@ namespace TiledEngine.Classes.Misc
         int nodeToReturn;
         public int GetNextNodeInPath(int nodeStart, int nodeEnd)
         {
-            nodeToReturn = 100;
+            nodeToReturn = -1;
             bool[] isVisited = new bool[this.Graph.Size];
             List<int> pathList = new List<int>();
 
@@ -52,7 +52,7 @@ namespace TiledEngine.Classes.Misc
             pathList.Add(nodeStart);
 
             // Call recursive utility  
-            printAllPathsUtil(nodeStart, nodeEnd, isVisited, pathList);
+            GetNextNode(nodeStart, nodeEnd, isVisited, pathList);
 
            // Debug.Assert(nodeToReturn == 100, "Node equals 100");
             return nodeToReturn;
@@ -64,7 +64,7 @@ namespace TiledEngine.Classes.Misc
         // vertices in current path.  
         // localPathList<> stores actual  
         // vertices in the current path  
-        internal void printAllPathsUtil(int nodeStart, int nodeEnd,
+        internal void GetNextNode(int nodeStart, int nodeEnd,
                                         bool[] isVisited,
                                 List<int> localPathList)
         {
@@ -93,7 +93,7 @@ namespace TiledEngine.Classes.Misc
                     // store current node  
                     // in path[]  
                     localPathList.Add(i);
-                    printAllPathsUtil(i, nodeEnd, isVisited,
+                    GetNextNode(i, nodeEnd, isVisited,
                                         localPathList);
 
                     // remove current node  

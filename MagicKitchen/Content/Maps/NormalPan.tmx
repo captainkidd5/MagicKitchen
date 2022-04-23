@@ -102,17 +102,6 @@
 2523,2382,2382,2382,2382,2382,2521,0,0,2523,2382,2382,2382,2382,2382,2521
 </data>
  </layer>
- <objectgroup id="6" name="Portal">
-  <object id="4" x="119" y="241" width="23" height="14.75">
-   <properties>
-    <property name="Click" value="false"/>
-    <property name="directionToFace" value="Down"/>
-    <property name="from" value="NormalPan"/>
-    <property name="to" value="Restaurant"/>
-    <property name="xOffSet" value="0"/>
-    <property name="yOffSet" value="0"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup id="6" name="Portal"/>
  <objectgroup id="7" name="SpecialZone"/>
 </map>
