@@ -144,7 +144,7 @@ namespace StageEngine.Classes
             
 
         }
-       
+      
         public void Save(BinaryWriter writer)
         {
             TileManager.Save(writer);
@@ -175,7 +175,6 @@ namespace StageEngine.Classes
             ItemManager.CleanUp();
 
             NPCContainer.CleanUp();
-            _hasLoadedPortals = false;
         }
     }
 }

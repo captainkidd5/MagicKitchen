@@ -29,22 +29,21 @@ namespace TiledEngine.Classes
                 .5f,
             };
 
-        private static string MapPath;
+        private static string s_mapPath;
 
         internal static TileSetPackage ExteriorTileSetPackage { get; private set; }
 
         internal static TileSetPackage InteriorTileSetPackage { get; private set; }
 
-        private static Dictionary<int, TileLootData> s_foreGroundTileLootData;
-        private static Dictionary<int, TileLootData> s_backGroundTileLootData;
+  
 
 
 
         private static PortalLoader _portalLoader;
 
+        internal static TileLootManager TileLootManager;
 
 
-        private static bool s_hasDoneInitialLoad;
 
         public static bool HasEdge(string stageFromName, string stageToName) => _portalLoader.HasEdge(stageFromName, stageToName);
         public static string GetNextNodeStageName(string stageFromName, string stageToName) => _portalLoader.GetNextNodeStageName(stageFromName, stageToName);
@@ -59,45 +58,28 @@ namespace TiledEngine.Classes
         /// </summary>
         public static void LoadContent(ContentManager content)
         {
-            MapPath = content.RootDirectory + "/Maps/";
-            TmxMap worldMap = new TmxMap(MapPath + "LullabyTown.tmx");
+            s_mapPath = content.RootDirectory + "/Maps/";
+            TmxMap worldMap = new TmxMap(s_mapPath + "LullabyTown.tmx");
             ExteriorTileSetPackage = new TileSetPackage(worldMap);
             ExteriorTileSetPackage.LoadContent(content, "maps/BackgroundMasterSpriteSheet_Spaced", "maps/ForegroundMasterSpriteSheet");
 
 
-            TmxMap interiorMap = new TmxMap(MapPath + "Restaurant.tmx");
+            TmxMap interiorMap = new TmxMap(s_mapPath + "Restaurant.tmx");
             InteriorTileSetPackage = new TileSetPackage(interiorMap);
             InteriorTileSetPackage.LoadContent(content, "maps/InteriorBackground_Spaced", "maps/InteriorForeground");
 
             _portalLoader = new PortalLoader();
-            List<TileLootData> tileLootData = content.Load<List<TileLootData>>("Items/ForegroundTileLootData");
-            s_foreGroundTileLootData = tileLootData.ToDictionary(x => x.TileId, x => x);
 
-            tileLootData = content.Load<List<TileLootData>>("Items/BackgroundTileLootData");
-            //Offset background GID here to make it easy to fetch correct loot for GID at runtime
-            s_backGroundTileLootData = tileLootData.ToDictionary(x => ExteriorTileSetPackage.OffSetBackgroundGID(x.TileId), x => x);
+            TileLootManager = new TileLootManager();
+            TileLootManager.LoadContent(content, ExteriorTileSetPackage);
             ZoneManager zoneManager = new ZoneManager();
         }
-        internal static bool HasLootData(int tileId)
-        {
-            return s_foreGroundTileLootData.ContainsKey(tileId);
-        }
-        internal static TileLootData GetLootData(int tileId)
-        {
-            if (!HasLootData(tileId))
-                throw new Exception($"No loot exists for tile with id {tileId}");
-            return s_foreGroundTileLootData[tileId];
-        }
+       
         /// <summary>
         /// Call after all stages have been loaded in at least once so that portal data is complete.
         /// </summary>
-        public static void FillFinalPortalGraph()
-        {
-            if (s_hasDoneInitialLoad)
-                throw new Exception("May not load twice");
-            _portalLoader.FillPortalGraph();
-            s_hasDoneInitialLoad = true;
-        }
+        public static void FillFinalPortalGraph() => _portalLoader.FillPortalGraph();
+
 
         /// <summary>
         /// This should only be called ONCE per stage, per save file.
@@ -108,7 +90,7 @@ namespace TiledEngine.Classes
         /// <param name="tileManager"></param>
         public static void CreateNewSave(StageData stageData, TileManager tileManager, ContentManager content)
         {
-            TmxMap mapToLoad = new TmxMap(MapPath + stageData.Path);
+            TmxMap mapToLoad = new TmxMap(s_mapPath + stageData.Path);
             tileManager.MapType = stageData.MapType;
             ZoneManager.CreateNewSave(stageData.Name, mapToLoad, tileManager);
             _portalLoader.CreateNewSave(tileManager.LoadPortals(mapToLoad));
@@ -130,7 +112,6 @@ namespace TiledEngine.Classes
         {
             _portalLoader.Unload();
             ZoneManager.CleanUp();
-            s_hasDoneInitialLoad = false;
         }
         internal static TileSetPackage GetPackageFromMapType(MapType mapType)
         {
