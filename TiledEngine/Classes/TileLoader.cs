@@ -112,7 +112,6 @@ namespace TiledEngine.Classes
         {
             TmxMap mapToLoad = new TmxMap(MapPath + stageData.Path);
             _portalLoader.AddPortals(tileManager.LoadPortals(mapToLoad));
-            SpecialZonesDictionary.Add(stageData.Name, tileManager.LoadZones(mapToLoad));
 
 
         }
@@ -129,11 +128,45 @@ namespace TiledEngine.Classes
         {
             TmxMap mapToLoad = new TmxMap(MapPath + stageData.Path);
             tileManager.MapType = stageData.MapType;
+            SpecialZonesDictionary.Add(stageData.Name, tileManager.LoadZones(mapToLoad));
+
             tileManager.Load(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width, GetPackageFromMapType(stageData.MapType));
+        }
+
+        public static void Save(BinaryWriter writer)
+        {
+            writer.Write(SpecialZonesDictionary.Count);
+            foreach(KeyValuePair<string, List<SpecialZone>> kvp in SpecialZonesDictionary)
+            {
+                writer.Write(kvp.Key);
+                writer.Write(kvp.Value.Count);
+               foreach(var zone in kvp.Value)
+                {
+                    zone.Save(writer);
+                }
+            }
+        }
+        public static void LoadSave(BinaryReader reader)
+        {
+            int dictCount = reader.ReadInt32();
+            for(int i =0; i < dictCount; i++)
+            {
+                string key = reader.ReadString();
+                List<SpecialZone> zones = new List<SpecialZone>();
+                int zoneCount = reader.ReadInt32();
+                for(int j =0; j < zoneCount; j++)
+                {
+                    SpecialZone zone = new SpecialZone();
+                    zone.LoadSave(reader);
+                    zones.Add(zone);
+                }
+                SpecialZonesDictionary.Add(key, zones);
+            }
         }
         public static void Unload()
         {
             _portalLoader.Unload();
+            SpecialZonesDictionary.Clear();
             s_hasDoneInitialLoad = false;
         }
         internal static TileSetPackage GetPackageFromMapType(MapType mapType)

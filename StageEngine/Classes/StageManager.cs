@@ -146,6 +146,7 @@ namespace StageEngine.Classes
             writer.Write(CurrentStage.Name);
             CurrentStage.SaveToStageFile();
             _npcManager.Save(writer);
+            TileLoader.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
@@ -153,6 +154,7 @@ namespace StageEngine.Classes
             string name = reader.ReadString();
             CurrentStage = GetStage(name);
             _npcManager.LoadSave(reader);
+            TileLoader.LoadSave(reader);    
             _npcManager.LoadContent();
             //_player1.LoadContent(CurrentStage.ItemManager);
             //Still need to load all stages for portals and graph
