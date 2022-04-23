@@ -14,6 +14,7 @@ using System.Reflection;
 using System.IO;
 using static Globals.Classes.Settings;
 using System.Linq;
+using TiledEngine.Classes.ZoneStuff;
 
 namespace TiledEngine.Classes
 {
@@ -43,7 +44,6 @@ namespace TiledEngine.Classes
 
 
 
-
         private static bool s_hasDoneInitialLoad;
 
         public static bool HasEdge(string stageFromName, string stageToName) => _portalLoader.HasEdge(stageFromName, stageToName);
@@ -51,7 +51,12 @@ namespace TiledEngine.Classes
 
         public static Rectangle GetNextNodePortalRectangle(string stageFromName, string stageToName) => _portalLoader.GetNextPortalRectangle(stageFromName, stageToName);
 
+        private static Dictionary<string, List<SpecialZone>> SpecialZonesDictionary;
 
+        public static List<SpecialZone> GetZones(string stageName)
+        {
+            return SpecialZonesDictionary[stageName];
+        }
         // <summary>
         /// This should only be called ONCE per save file.
         /// </summary>
@@ -74,6 +79,8 @@ namespace TiledEngine.Classes
             tileLootData = content.Load<List<TileLootData>>("Items/BackgroundTileLootData");
             //Offset background GID here to make it easy to fetch correct loot for GID at runtime
             s_backGroundTileLootData = tileLootData.ToDictionary(x => ExteriorTileSetPackage.OffSetBackgroundGID(x.TileId), x => x);
+
+            SpecialZonesDictionary = new Dictionary<string, List<SpecialZone>>();
         }
         internal static bool HasLootData(int tileId)
         {
@@ -105,6 +112,7 @@ namespace TiledEngine.Classes
         {
             TmxMap mapToLoad = new TmxMap(MapPath + stageData.Path);
             _portalLoader.AddPortals(tileManager.LoadPortals(mapToLoad));
+            SpecialZonesDictionary.Add(stageData.Name, tileManager.LoadZones(mapToLoad));
 
 
         }

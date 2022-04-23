@@ -145,7 +145,9 @@ namespace EntityEngine.Classes.BehaviourStuff
             Vector2 targetpos = Vector2.Zero;
             if (!string.IsNullOrEmpty(_currentAction.ZoneEnd))
             {
-                var zones = TileManager.GetZones(_currentAction.ZoneEnd.Split(',')[0]);
+                var stageZones = TileLoader.GetZones(Entity.CurrentStageName);
+
+                var zones = stageZones.Where(x => x.PropertyName == _currentAction.ZoneEnd.Split(',')[0]);
 
                 if (zones != null)
                 {

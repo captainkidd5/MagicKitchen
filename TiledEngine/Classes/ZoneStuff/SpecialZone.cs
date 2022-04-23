@@ -13,13 +13,14 @@ using VelcroPhysics.Dynamics;
 
 namespace TiledEngine.Classes.ZoneStuff
 {
-    public class SpecialZone : Collidable, ISaveable
+    public class SpecialZone : ISaveable
     {
         public string PropertyName { get; private set; }
 
         public string Value { get; set; }
         public Rectangle Rectangle { get; private set; }
 
+        public Vector2 Position => new Vector2(Rectangle.X, Rectangle.Y);
         public SpecialZone() : base()
         {
 
@@ -29,23 +30,15 @@ namespace TiledEngine.Classes.ZoneStuff
             PropertyName = name;
             Value = value;
             Rectangle = rectangle;
-            Move(new Vector2(Rectangle.X, Rectangle.Y));
+  
         }
 
-        protected override void CreateBody(Vector2 position)
-        {
-            base.CreateBody(position);
-            AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Static, position,
-             Rectangle.Width, Rectangle.Height, new List<Category>() { Category.SpecialZone },
-             new List<Category>() { Category.Player, Category.Item, Category.NPC, Category.PlayerBigSensor },
-             OnCollides,OnSeparates));
-        }
+    
 
         public void Save(BinaryWriter writer)
         {
           writer.Write(PropertyName);
             writer.Write(Value);
-            Vector2Helper.WriteVector2(writer, Position);
             RectangleHelper.WriteRectangle(writer, Rectangle);
         }
 
@@ -53,11 +46,12 @@ namespace TiledEngine.Classes.ZoneStuff
         {
             PropertyName = reader.ReadString();
             Value = reader.ReadString();
-           Move(Vector2Helper.ReadVector2(reader));
             Rectangle = RectangleHelper.ReadRectangle(reader);
-            CreateBody(Position);
         }
 
-        
+        public void CleanUp()
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

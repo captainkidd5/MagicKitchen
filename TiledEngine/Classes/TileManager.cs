@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using TiledEngine.Classes.Misc;
 using TiledEngine.Classes.ZoneStuff;
@@ -39,7 +40,6 @@ namespace TiledEngine.Classes
 
         public PathGrid PathGrid { get; private set; }
 
-        private ZoneManager ZoneManager { get; }
         internal TileSetPackage TileSetPackage { get; private set; }
         internal Dictionary<int, float> OffSetLayersDictionary { get; private set; }
         public int MapWidth { get; private set; }
@@ -57,7 +57,6 @@ namespace TiledEngine.Classes
         {
             OffSetLayersDictionary = new Dictionary<int, float>();
             Portals = new List<PortalData>();
-            ZoneManager = new ZoneManager();
             MapType = mapType;
             _itemManager = itemManager;
             _camera = camera;
@@ -98,14 +97,22 @@ namespace TiledEngine.Classes
             }
             return Portals;
         }
-        public List<SpecialZone> GetZones(string name) => ZoneManager.GetZones(name);
-        private void LoadZones(TmxMap tmxMap)
+        public List<SpecialZone> LoadZones(TmxMap tmxMap)
         {
             TmxObjectGroup zones;
 
             tmxMap.ObjectGroups.TryGetValue("SpecialZone", out zones);
-
-            ZoneManager.Load(zones);
+            List<SpecialZone> zonesList = new List<SpecialZone>();
+            foreach (TmxObject specialZone in zones.Objects)
+            {
+                SpecialZone zone = new SpecialZone(specialZone.Properties.ElementAt(0).Key, specialZone.Properties.ElementAt(0).Value, new Rectangle(
+                    (int)specialZone.X,
+                    (int)specialZone.Y,
+                    (int)specialZone.Width,
+                    (int)specialZone.Height));
+                zonesList.Add(zone);
+            }
+            return zonesList;
         }
 
         private void AssignProperties()
@@ -404,7 +411,6 @@ namespace TiledEngine.Classes
                     }
                 }
             }
-            ZoneManager.Save(writer);
         }
         public void LoadSave(BinaryReader reader)
         {
@@ -428,7 +434,6 @@ namespace TiledEngine.Classes
                 }
             }
             Load(Tiles, MapWidth, TileLoader.GetPackageFromMapType(mapType));
-            ZoneManager.LoadSave(reader);
 
         }
 
@@ -446,7 +451,6 @@ namespace TiledEngine.Classes
                 }
             }
             Tiles.Clear();
-            ZoneManager.Cleanup();
         }
     }
 }
