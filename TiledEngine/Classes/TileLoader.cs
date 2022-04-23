@@ -31,16 +31,9 @@ namespace TiledEngine.Classes
 
         private static string s_mapPath;
 
-        internal static TileSetPackage ExteriorTileSetPackage { get; private set; }
-
-        internal static TileSetPackage InteriorTileSetPackage { get; private set; }
-
-  
-
-
-
         private static PortalLoader _portalLoader;
 
+        internal static TilesetPackageManager TilesetPackageManager;
         internal static TileLootManager TileLootManager;
 
 
@@ -49,6 +42,7 @@ namespace TiledEngine.Classes
         public static string GetNextNodeStageName(string stageFromName, string stageToName) => _portalLoader.GetNextNodeStageName(stageFromName, stageToName);
 
         public static Rectangle GetNextNodePortalRectangle(string stageFromName, string stageToName) => _portalLoader.GetNextPortalRectangle(stageFromName, stageToName);
+        internal static TileSetPackage GetPackageFromMapType(MapType mapType) => TilesetPackageManager.GetPackageFromMapType(mapType);
 
         public static ZoneManager ZoneManager;
         public static List<SpecialZone> GetZones(string stageName) => ZoneManager.GetZones(stageName);
@@ -60,19 +54,18 @@ namespace TiledEngine.Classes
         {
             s_mapPath = content.RootDirectory + "/Maps/";
             TmxMap worldMap = new TmxMap(s_mapPath + "LullabyTown.tmx");
-            ExteriorTileSetPackage = new TileSetPackage(worldMap);
-            ExteriorTileSetPackage.LoadContent(content, "maps/BackgroundMasterSpriteSheet_Spaced", "maps/ForegroundMasterSpriteSheet");
+            TilesetPackageManager = new TilesetPackageManager();
 
 
             TmxMap interiorMap = new TmxMap(s_mapPath + "Restaurant.tmx");
-            InteriorTileSetPackage = new TileSetPackage(interiorMap);
-            InteriorTileSetPackage.LoadContent(content, "maps/InteriorBackground_Spaced", "maps/InteriorForeground");
+
+            TilesetPackageManager.LoadContent(content, worldMap, interiorMap);
 
             _portalLoader = new PortalLoader();
 
             TileLootManager = new TileLootManager();
-            TileLootManager.LoadContent(content, ExteriorTileSetPackage);
-            ZoneManager zoneManager = new ZoneManager();
+            TileLootManager.LoadContent(content, TilesetPackageManager.ExteriorTileSetPackage);
+            ZoneManager = new ZoneManager();
         }
        
         /// <summary>
@@ -113,17 +106,7 @@ namespace TiledEngine.Classes
             _portalLoader.Unload();
             ZoneManager.CleanUp();
         }
-        internal static TileSetPackage GetPackageFromMapType(MapType mapType)
-        {
-            if (mapType == MapType.Exterior)
-                return ExteriorTileSetPackage;
-
-
-            if (mapType == MapType.Interior)
-                return InteriorTileSetPackage;
-
-            throw new Exception($"No sprite sheet associated with map type {mapType.ToString()}");
-        }
+    
         /// <summary>
         /// Create new tiles based on tiles found in TMX map file. This should
         /// only be done once per map per save.

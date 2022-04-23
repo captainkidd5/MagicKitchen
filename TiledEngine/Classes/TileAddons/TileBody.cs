@@ -65,7 +65,7 @@ namespace TiledEngine.Classes.TileAddons
         }
         protected void GenerateLoot()
         {
-            TileLootData tileLootData = TileLoader.GetLootData(Tile.GID);
+            TileLootData tileLootData = TileLoader.TileLootManager.GetLootData(Tile.GID);
             List<LootData> trimmedLoot = ChanceHelper.GetWeightedSelection(tileLootData.Loot.Cast<IWeightable>().ToList(), Settings.Random).Cast<LootData>().ToList();
             foreach(LootData loot in trimmedLoot)
             {
