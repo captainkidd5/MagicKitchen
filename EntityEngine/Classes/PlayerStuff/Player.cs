@@ -57,14 +57,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void LoadContent(Vector2? startPos, string? name, bool standardAnimator = false)
         {
             base.LoadContent(startPos, name, standardAnimator);
-            IsInStage = true;
             UI.LoadPlayerInventory(StorageContainer);
-
-
-
-
-
-
 
         }
 

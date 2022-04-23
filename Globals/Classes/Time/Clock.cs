@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -41,6 +42,14 @@ namespace Globals.Classes.Time
             }
         }
 
+        public static void Save(BinaryWriter writer)
+        {
+            TimeKeeper.Save(writer);
+        }
+        public static void Load(BinaryReader reader)
+        {
+            TimeKeeper.LoadSave(reader);
+        }
         public static void Update(GameTime gameTime)
         {
             if (!Paused)

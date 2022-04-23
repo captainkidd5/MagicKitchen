@@ -108,7 +108,7 @@ namespace EntityEngine.Classes.HumanoidCreation
                     default:
                         break;
                 }
-                if(!Entity.IsWarping &&  CurrentSet[CurrentDirection].FrameLastFrame == stepFrame1 || CurrentSet[CurrentDirection].FrameLastFrame == stepFrame2)
+                if(!Entity.IsWarping &&  (CurrentSet[CurrentDirection].FrameLastFrame == stepFrame1 || CurrentSet[CurrentDirection].FrameLastFrame == stepFrame2))
                 {
                     Entity.PlayStepSoundFromTile();
 

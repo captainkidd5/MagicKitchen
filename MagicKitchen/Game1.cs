@@ -205,6 +205,7 @@ namespace MagicKitchen
             Flags.IsNewGame = true;
 
             BinaryWriter writer = e.BinaryWriter;
+            Clock.Save(writer);
             _playerManager.Save(writer);
             _stageManager.CreateNewSave(writer);
             SaveLoadManager.DestroyWriter(writer);
@@ -216,6 +217,7 @@ namespace MagicKitchen
             //_playerManager.LoadContent();
             _stageManager.LoadContent();
             BinaryReader reader = e.BinaryReader;
+            Clock.Load(reader);
             _playerManager.LoadSave(reader);
             _stageManager.LoadSave(reader);
             SaveLoadManager.DestroyReader(reader);
@@ -229,6 +231,7 @@ namespace MagicKitchen
             CommandConsole.Append("Saving current game..");
 
             BinaryWriter writer = e.BinaryWriter;
+            Clock.Save(writer);
             _playerManager.Save(writer);
             _stageManager.Save(writer);
             CommandConsole.Append("...Saved!");

@@ -98,25 +98,6 @@ namespace EntityEngine.Classes.BehaviourStuff
 
                 }
             }
-            if (!_navigator.HasActivePath)
-            {
-                _activeSchedule = Scheduler.GetScheduleFromCurrentTime(_entity.ScheduleName);
-
-
-                Vector2 targetpos = Scheduler.GetTargetFromSchedule(_entity.CurrentStageName, _activeSchedule, _tileManager);
-
-                // base.GetPath(targetpos, _activeSchedule.StageEndLocation);
-                CommandConsole.Append($"{_entity.Name} heading to : {_activeSchedule.StageEndLocation}");
-                CommandConsole.Append($"{_entity.Name} current location : {_entity.CurrentStageName}");
-
-
-
-                if (Vector2Helper.WithinRangeOf(_entity.Position, targetpos))
-                {
-                    return;
-                }
-
-            }
 
         }
         public void SwitchStage(TileManager tileManager)

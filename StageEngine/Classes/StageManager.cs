@@ -177,9 +177,6 @@ namespace StageEngine.Classes
                     pair.Value.Unload();
             }
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
-
-            
-
         }
         private void LoadStageData()
         {
@@ -200,10 +197,7 @@ namespace StageEngine.Classes
             {
                 stage.Value.CreateNewSave();
                 _portalManager.LoadNewStage(stage.Value.Name, stage.Value.TileManager);
-
-              
-
-
+            
             }
             TileLoader.FillFinalPortalGraph();
 
