@@ -101,20 +101,6 @@ namespace TiledEngine.Classes
 
         /// <summary>
         /// This should only be called ONCE per stage, per save file.
-        /// </summary>
-        /// <param name="stageData"></param>
-        /// <param name="tileManager"></param>
-        public static void LoadStagePortals(StageData stageData, TileManager tileManager)
-        {
-            TmxMap mapToLoad = new TmxMap(MapPath + stageData.Path);
-            _portalLoader.AddPortals(tileManager.LoadPortals(mapToLoad));
-
-
-        }
-
-
-        /// <summary>
-        /// This should only be called ONCE per stage, per save file.
         /// First load loads all the tiles in from the TMX maps, from then on
         /// all the tiles will be loaded with the binary reader
         /// </summary>
@@ -124,9 +110,10 @@ namespace TiledEngine.Classes
         {
             TmxMap mapToLoad = new TmxMap(MapPath + stageData.Path);
             tileManager.MapType = stageData.MapType;
-            ZoneManager.Load(stageData.Name, mapToLoad, tileManager);
+            ZoneManager.CreateNewSave(stageData.Name, mapToLoad, tileManager);
+            _portalLoader.CreateNewSave(tileManager.LoadPortals(mapToLoad));
 
-            tileManager.Load(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width,
+            tileManager.CreateNewSave(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width,
                 GetPackageFromMapType(stageData.MapType));
         }
 

@@ -22,7 +22,7 @@ namespace TiledEngine.Classes.ZoneStuff
 
         }
 
-        public void Load(string stageName, TmxMap tmxMap, TileManager tileManager)
+        public void CreateNewSave(string stageName, TmxMap tmxMap, TileManager tileManager)
         {
             SpecialZonesDictionary.Add(stageName, tileManager.LoadZones(tmxMap));
 

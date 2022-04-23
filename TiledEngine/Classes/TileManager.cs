@@ -66,7 +66,7 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Generic load, should only be called by <see cref="TileLoader.LoadTileManager(string, TileManager)"/>
         /// </summary>
-        internal void Load(List<Tile[,]> tiles, int mapWidth, TileSetPackage tileSetPackage)
+        internal void CreateNewSave(List<Tile[,]> tiles, int mapWidth, TileSetPackage tileSetPackage)
         {
 
             TileSetPackage = tileSetPackage;
@@ -433,7 +433,7 @@ namespace TiledEngine.Classes
                     }
                 }
             }
-            Load(Tiles, MapWidth, TileLoader.GetPackageFromMapType(mapType));
+            CreateNewSave(Tiles, MapWidth, TileLoader.GetPackageFromMapType(mapType));
 
         }
 

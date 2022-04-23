@@ -52,14 +52,6 @@ namespace StageEngine.Classes
         
 
 
-        //public static void UnloadStagePortals(string stagename)
-        //{
-        //    foreach (Portal portal in PortalDictionary[stagename])
-        //    {
-        //        portal.Unload();
-        //    }
-        //}
-
         public void Update(GameTime gameTime)
         {
             foreach (List<Portal> portalList in PortalDictionary.Values)

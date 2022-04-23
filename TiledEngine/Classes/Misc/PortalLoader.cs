@@ -68,7 +68,7 @@ namespace TiledEngine.Classes.Misc
         //    s_graphTraverser.printAllPathsUtil(commands[0], )
         //}
 
-        public void AddPortals(List<PortalData> portalDataFromMap)
+        public void CreateNewSave(List<PortalData> portalDataFromMap)
         {
             s_allPortalData.AddRange(portalDataFromMap);
         }

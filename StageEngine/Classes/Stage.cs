@@ -39,7 +39,6 @@ namespace StageEngine.Classes
         private readonly Camera2D _camera;
         private readonly PenumbraComponent _penumbra;
 
-        private bool _hasLoadedPortals = false;
 
         private string _ambientSoundPackageName => _stageData.AmbientSoundPackageName;
         internal TileManager TileManager { get; private set; }
@@ -157,14 +156,6 @@ namespace StageEngine.Classes
         public void LoadSave(BinaryReader reader)
         {
             TileManager.LoadSave(reader);
-            if (!_hasLoadedPortals)
-            {
-                TileLoader.LoadStagePortals(_stageData, TileManager);
-
-                _portalManager.LoadNewStage(Name, TileManager);
-
-                _hasLoadedPortals = true;
-            }
             ItemManager.LoadSave(reader);
             NPCContainer.LoadSave(reader);
             NPCContainer.LoadContent(Name, TileManager, ItemManager);
