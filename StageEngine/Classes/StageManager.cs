@@ -147,6 +147,7 @@ namespace StageEngine.Classes
             CurrentStage.SaveToStageFile();
             _npcManager.Save(writer);
             TileLoader.Save(writer);
+            _portalManager.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
@@ -154,7 +155,9 @@ namespace StageEngine.Classes
             string currentStageName = reader.ReadString();
             CurrentStage = GetStage(currentStageName);
             _npcManager.LoadSave(reader);
-            TileLoader.LoadSave(reader);    
+            TileLoader.LoadSave(reader); 
+            _portalManager.LoadSave(reader);
+
             _npcManager.LoadContent();
 
             //Still need to load all stages for portals and graph
@@ -168,7 +171,6 @@ namespace StageEngine.Classes
                     pair.Value.Unload();
             }
 
-           
             TileLoader.FillFinalPortalGraph();
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
 
@@ -181,7 +183,7 @@ namespace StageEngine.Classes
 
             foreach (StageData sd in stageData)
             {
-                Stages.Add(sd.Name, new Stage(this,_playerManager, _npcManager, _portalManager, sd, content, graphics, _camera, Penumbra));
+                Stages.Add(sd.Name, new Stage(this,_playerManager, _npcManager, sd, content, graphics, _camera, Penumbra));
             }
         }
         public void CreateNewSave(BinaryWriter writer)
@@ -193,7 +195,9 @@ namespace StageEngine.Classes
             foreach (KeyValuePair<string, Stage> stage in Stages)
             {
                 stage.Value.CreateNewSave();
-                if(stage.Key != _startingStageName)
+                _portalManager.LoadNewStage(stage.Value.Name, stage.Value.TileManager);
+
+                if (stage.Key != _startingStageName)
                 stage.Value.Unload();
 
 
@@ -201,6 +205,10 @@ namespace StageEngine.Classes
 
             Stages.Clear();
             TileLoader.Save(writer);
+            _portalManager.Save(writer);
+            _portalManager.CleanUp();
+            TileLoader.FillFinalPortalGraph();
+
             TileLoader.Unload();
 
         }

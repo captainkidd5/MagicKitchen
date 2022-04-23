@@ -30,7 +30,6 @@ namespace StageEngine.Classes
 
         private readonly StageManager _stageManager;
         private readonly PlayerManager _playerManager;
-        private readonly PortalManager _portalManager;
         private readonly StageData _stageData;
         public StageNPCContainer NPCContainer { get; private set; }
 
@@ -54,13 +53,12 @@ namespace StageEngine.Classes
         private PathGrid _pathGrid => TileManager.PathGrid;
 
         internal bool CamLock => _stageData.MapType == MapType.Exterior;
-        public Stage(StageManager stageManager,PlayerManager playerManager, NPCManager npcManager,  PortalManager portalManager, StageData stageData, ContentManager content,
+        public Stage(StageManager stageManager,PlayerManager playerManager, NPCManager npcManager, StageData stageData, ContentManager content,
             GraphicsDevice graphics, Camera2D camera, PenumbraComponent penumbra)
         {
             Name = stageData.Name;
             _stageManager = stageManager;
             _playerManager = playerManager;
-            _portalManager = portalManager;
             _stageData = stageData;
             NPCContainer = new StageNPCContainer(npcManager,graphics, content);
             _content = content;
@@ -166,7 +164,6 @@ namespace StageEngine.Classes
             ItemManager.CleanUp();
             NPCContainer.CleanUp();
 
-            //_portalManager.CleanUp();
 
         }
         public void CleanUp()

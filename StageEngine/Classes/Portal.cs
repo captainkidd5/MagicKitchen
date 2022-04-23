@@ -51,7 +51,7 @@ namespace StageEngine.Classes
             _portalManager = portalManager;
             _stageManager = stageManager;
         }
-        public void Load(Vector2 position)
+        public void Load()
         {
             Move(new Vector2(Rectangle.X, Rectangle.Y));
 

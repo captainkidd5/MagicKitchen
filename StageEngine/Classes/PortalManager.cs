@@ -37,7 +37,7 @@ namespace StageEngine.Classes
                     portalData.From, portalData.To, portalData.XOffSet, portalData.YOffSet,portalData.DirectionToFace, portalData.MustBeClicked);
                 
                 stagePortals.Add(portal);
-                    portal.Load(portal.Position);
+                    portal.Load();
                 
             }
 
@@ -104,6 +104,8 @@ namespace StageEngine.Classes
                 for(int j = 0; j < subCount; j++)
                 {
                     Portal portal = new Portal(this, _stageManager);
+                    portal.LoadSave(reader);
+                    portal.Load();
                     portalList.Add(portal);
 
                 }
