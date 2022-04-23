@@ -129,6 +129,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                     SimpleTimer.SetNewTargetTime(_currentAction.PauseForSeconds);
                     break;
             }
+            Entity.Speed = _currentAction.Speed;
         }
 
         public override void DrawDebug(SpriteBatch spriteBatch)

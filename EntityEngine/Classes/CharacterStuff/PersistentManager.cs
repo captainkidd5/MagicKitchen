@@ -91,7 +91,7 @@ namespace EntityEngine.Classes.CharacterStuff
             NPC npc = new NPC(this, graphics, content);
             npc.LoadContent(position, name, standardAnimator);
             npc.SwitchStage(stageName, TileManager, ItemManager);
-            Entities.Add(npc);
+            EntitiesToAdd.Add(npc);
         }
     }
 }

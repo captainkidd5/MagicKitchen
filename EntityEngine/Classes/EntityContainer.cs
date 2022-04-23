@@ -18,6 +18,8 @@ namespace EntityEngine.Classes
 
         internal List<Entity> Entities { get; set; }
 
+        protected List<Entity> EntitiesToAdd { get; set; }
+
         internal virtual Entity GetEntity(string name) => Entities.FirstOrDefault(x => x.Name == name);
 
 
@@ -27,6 +29,7 @@ namespace EntityEngine.Classes
         public EntityContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             Entities = new List<Entity>();
+            EntitiesToAdd = new List<Entity>();
         }
  
         public virtual void LoadContent()
@@ -46,6 +49,11 @@ namespace EntityEngine.Classes
                 entity.Update(gameTime);
 
             }
+
+            foreach(Entity entity in EntitiesToAdd)
+                Entities.Add(entity);
+
+            EntitiesToAdd.Clear();
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

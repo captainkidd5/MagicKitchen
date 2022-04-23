@@ -64,7 +64,7 @@ namespace EntityEngine.Classes.NPCStuff.Props
             if(_unloadTimer.Run(gameTime))
             {
                 _currentPassengerCount--;
-                Container.CreateNPC("caspar", new Vector2(Position.X, Position.Y - 40), false);
+                Container.CreateNPC("caspar", new Vector2(Position.X, Position.Y - 40), false, CurrentStageName);
             }
             if (_currentPassengerCount == 0)
                 return true;

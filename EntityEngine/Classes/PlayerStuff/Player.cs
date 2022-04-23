@@ -196,5 +196,17 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.LoadSave(reader);
         }
+
+        protected override void LoadToNewStage(string newStage, TileManager tileManager, ItemManager itemManager)
+        {
+            Navigator.Unload();
+
+           
+            TileManager = tileManager;
+        
+                Navigator.Load(TileManager.PathGrid);
+            //BehaviourManager.SwitchStage(TileManager);
+            InventoryHandler.SwapItemManager(itemManager);
+        }
     }
 }

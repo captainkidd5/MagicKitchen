@@ -44,7 +44,7 @@ namespace EntityEngine.Classes
         //Movement
         protected float StartingSpeed { get; set; } = 3f;
         protected Vector2 Velocity;
-        protected float Speed { get; set; }
+        internal float Speed { get; set; }
         protected int StorageCapacity { get; set; }
         public Direction DirectionMoving { get; set; }
         public bool IsMoving { get; protected set; }

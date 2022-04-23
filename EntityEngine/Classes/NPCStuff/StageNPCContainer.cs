@@ -125,7 +125,7 @@ namespace EntityEngine.Classes.CharacterStuff
             NPC npc = new NPC(this, graphics, content);
             npc.LoadContent(position, name, standardAnimator);
             npc.SwitchStage(StageName, TileManager, ItemManager);
-            Entities.Add(npc);
+            EntitiesToAdd.Add(npc);
         }
 
         internal static Texture2D GetTextureFromNPCType(NPCType npcType)
