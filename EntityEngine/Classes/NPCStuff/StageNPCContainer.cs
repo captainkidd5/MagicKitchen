@@ -9,6 +9,7 @@ using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using PhysicsEngine.Classes.Pathfinding;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,11 +25,13 @@ namespace EntityEngine.Classes.CharacterStuff
 {
     public class StageNPCContainer : EntityContainer
     {
+        private readonly NPCManager _npcManager;
+
         public string StageName { get; private set; }
 
-        public StageNPCContainer( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public StageNPCContainer(NPCManager npcManager, GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-
+            _npcManager = npcManager;
         }
 
 
@@ -110,10 +113,15 @@ namespace EntityEngine.Classes.CharacterStuff
 
         }
 
-
-
-        public void CreateNPC(string name, Vector2 position, bool standardAnimator)
+        public PathGrid GetPathGrid(string stageName)
         {
+            return _npcManager.StageGrids[stageName];
+        }
+
+        public virtual void CreateNPC( string name, Vector2 position, bool standardAnimator, string stageName = null)
+        {
+            if (stageName != StageName)
+                throw new Exception($"Persistent entities cannot be added non persistent managers");
             NPC npc = new NPC(this, graphics, content);
             npc.LoadContent(position, name, standardAnimator);
             npc.SwitchStage(StageName, TileManager, ItemManager);

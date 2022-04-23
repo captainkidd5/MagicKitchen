@@ -6,6 +6,7 @@ using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using PhysicsEngine.Classes.Pathfinding;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,9 +21,12 @@ namespace EntityEngine.Classes.NPCStuff
     {
         public StageNPCContainer CurrentContainer { get; set; }
         public PersistentManager PersistentManager { get; set; }
+
+        public Dictionary<string, PathGrid> StageGrids { get; set; }
         public NPCManager(GraphicsDevice graphics, ContentManager content)
         {
-            PersistentManager = new PersistentManager(graphics, content);
+            PersistentManager = new PersistentManager(this, graphics, content);
+            StageGrids = new Dictionary<string, PathGrid>();
         }
 
         public void RegisterCommands()

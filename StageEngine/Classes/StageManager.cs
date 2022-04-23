@@ -159,6 +159,8 @@ namespace StageEngine.Classes
             foreach (KeyValuePair<string, Stage> pair in Stages)
             {
                 pair.Value.LoadFromStageFile();
+                _npcManager.StageGrids.Add(pair.Value.Name, pair.Value.TileManager.PathGrid);
+
                 _npcManager.AssignCharactersToStages(pair.Value.Name, pair.Value.TileManager, pair.Value.ItemManager);
                 if (pair.Value.Name != name)
                     pair.Value.Unload();

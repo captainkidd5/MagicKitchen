@@ -63,7 +63,7 @@ namespace StageEngine.Classes
             _playerManager = playerManager;
             _portalManager = portalManager;
             _stageData = stageData;
-            NPCContainer = new StageNPCContainer(graphics, content);
+            NPCContainer = new StageNPCContainer(npcManager,graphics, content);
             _content = content;
             _graphics = graphics;
             _camera = camera;

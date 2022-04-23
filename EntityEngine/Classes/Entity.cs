@@ -75,9 +75,10 @@ namespace EntityEngine.Classes
         public Point TileOn => new Point((int)(Position.X / 16), (int)(Position.Y / 16));
         public bool IsWarping => _warpHelper.IsWarping;
 
+        protected StageNPCContainer Container { get; }
 
 
-        public Entity(GraphicsDevice graphics, ContentManager content) : base()
+        public Entity(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : base()
         {
             _graphics = graphics;
             _content = content;
@@ -89,7 +90,7 @@ namespace EntityEngine.Classes
 
             _warpHelper = new WarpHelper(this);
             InventoryHandler = new InventoryHandler(StorageCapacity);
-
+            Container = container;
         }
 
 
@@ -128,6 +129,7 @@ namespace EntityEngine.Classes
           
             if (CurrentStageName != Flags.StagePlayerIn)
             {
+                IsInStage = false;
                 RemoveEntityPhysics();
 
             }
@@ -359,7 +361,7 @@ namespace EntityEngine.Classes
            // CurrentStageName = newStage;
             Navigator.Unload();
 
-            Navigator.Load(tileManager.PathGrid);
+            Navigator.Load(Container.GetPathGrid(newStage));
             TileManager = tileManager;
 
             BehaviourManager.SwitchStage(TileManager);

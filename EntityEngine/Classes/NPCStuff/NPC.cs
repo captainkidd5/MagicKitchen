@@ -6,6 +6,7 @@ using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using PhysicsEngine.Classes.Pathfinding;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using System;
@@ -24,12 +25,10 @@ namespace EntityEngine.Classes.NPCStuff
     {
         protected NPCData NPCData;
 
-        protected StageNPCContainer Container { get; }
 
         public NPC(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) :
-            base(graphics, content)
+            base(container, graphics, content)
         {
-            Container = container;
         }
 
         public virtual void LoadContent(Vector2? startPos, string? name, bool standardAnimator = true)
@@ -86,11 +85,15 @@ namespace EntityEngine.Classes.NPCStuff
         public override void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
         {
             CurrentStageName = newStageName;
-            IsInStage = true;
             base.SwitchStage(newStageName, tileManager, itemManager);
            
         }
+        public void SwitchStage(string newStageName, PathGrid pathGrid)
+        {
+            CurrentStageName = newStageName;
+            base.SwitchStage(newStageName, null, null);
 
+        }
         public override void Save(BinaryWriter writer)
         {
             base.Save(writer);

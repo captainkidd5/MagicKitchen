@@ -25,7 +25,7 @@ namespace EntityEngine.Classes.CharacterStuff
         internal static Texture2D StatusIconTexture { get; set; }
 
 
-        public PersistentManager( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public PersistentManager(NPCManager manager, GraphicsDevice graphics, ContentManager content) : base(manager,graphics, content)
         {
             _questManager = new QuestManager(graphics,content);
         }
@@ -84,6 +84,14 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void LoadSave(BinaryReader reader)
         {
             base.LoadSave(reader);
+        }
+
+        public override void CreateNPC( string name, Vector2 position, bool standardAnimator, string stageName)
+        {
+            NPC npc = new NPC(this, graphics, content);
+            npc.LoadContent(position, name, standardAnimator);
+            npc.SwitchStage(stageName, TileManager, ItemManager);
+            Entities.Add(npc);
         }
     }
 }
