@@ -79,8 +79,6 @@ namespace TiledEngine.Classes
         /// First load loads all the tiles in from the TMX maps, from then on
         /// all the tiles will be loaded with the binary reader
         /// </summary>
-        /// <param name="stageData">Stage data is loaded in as a datamodel</param>
-        /// <param name="tileManager"></param>
         public static void CreateNewSave(StageData stageData, TileManager tileManager, ContentManager content)
         {
             TmxMap mapToLoad = new TmxMap(s_mapPath + stageData.Path);
@@ -113,7 +111,6 @@ namespace TiledEngine.Classes
         /// </summary>
         private static List<Tile[,]> ExtractTilesFromPreloadedMap(TmxMap map)
         {
-
             List<TmxLayer> allLayers = new List<TmxLayer>()
             {
                 map.TileLayers["background"],
@@ -123,21 +120,15 @@ namespace TiledEngine.Classes
            map.TileLayers["front"]
         };
             List<Tile[,]> tilesToReturn = new List<Tile[,]>();
+
             for (int i = 0; i < MapDepths.Length; i++)
             {
                 tilesToReturn.Add(new Tile[map.Width, map.Width]);
                 foreach (TmxLayerTile layerNameTile in allLayers[i].Tiles)
-                {
-
                     tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new Tile(layerNameTile.Gid, (Layers)i, MapDepths[i], layerNameTile.X, layerNameTile.Y);
-
-
-                }
-
             }
             return tilesToReturn;
         }
-
         
     }
 }

@@ -25,8 +25,6 @@ namespace TiledEngine.Classes.Misc
             s_allPortalData = new List<PortalData>();
         }
 
- 
-
         /// <summary>
         /// Note: the portal dictionary sort of manually generates an enum for the stages. The actual keys generated are not specifically important, as long as they
         /// differentiate between stages with an int key. Each From Portal should only ever generate a key once per loadup.
@@ -59,14 +57,10 @@ namespace TiledEngine.Classes.Misc
                 }
             }
             s_graphTraverser = new GraphTraverser(s_portalgraph);
-            //CommandConsole.RegisterCommand("play", "plays effect", ListGraphNodesAction);
 
         }
 
-        //private void ListGraphNodesAction(string[] commands)
-        //{
-        //    s_graphTraverser.printAllPathsUtil(commands[0], )
-        //}
+
 
         public void CreateNewSave(List<PortalData> portalDataFromMap)
         {
@@ -76,8 +70,6 @@ namespace TiledEngine.Classes.Misc
         /// <summary>
         /// Checks to see if two stages are somehow connected, directly or indirectly
         /// </summary>
-        /// <param name="stageFromName"></param>
-        /// <param name="stageToName"></param>
         /// <returns>Returns true if there is any connection</returns>
         public bool HasEdge(string stageFromName, string stageToName)
         {
@@ -87,8 +79,6 @@ namespace TiledEngine.Classes.Misc
         /// <summary>
         /// Gets the next stage in the connection between two nodes
         /// </summary>
-        /// <param name="stageFromName"></param>
-        /// <param name="stageToName"></param>
         /// <returns>Returns the next stage name if found, otherwise returns null</returns>
         public string GetNextNodeStageName(string stageFromName, string stageToName)
         {

@@ -103,7 +103,6 @@ namespace MagicKitchen
             _commandList.Load();
             _stageManager.RegisterCommands();
             Clock.Load();
-            List<StageData> stageData = Content.Load<List<StageData>>("Maps/StageData");
             MainFont = Content.Load<SpriteFont>("Fonts/Font");
             TextFactory.Load(Content);
             TileLoader.LoadContent(Content);
@@ -115,7 +114,6 @@ namespace MagicKitchen
             SpriteFactory.LoadContent(GraphicsDevice, Content);
 
 
-            Settings.SetResolution(1280, 720);
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
             SongManager.Load(Content);
             UI.Load(this, GraphicsDevice, Content, _mainMenuContentManager);
@@ -123,15 +121,16 @@ namespace MagicKitchen
 
             RenderTargetManager.Load(GraphicsDevice);
             SoundFactory.Load(Content);
-            Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs { VirtualWidth = 1280, VirtualHeight = 720 });
+            Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs {
+                VirtualWidth = (int)Settings.NativeWidth,
+                VirtualHeight = (int)Settings.NativeHeight
+            });
 
             SaveLoadManager.SaveCreated += OnSaveCreated;
             SaveLoadManager.SaveLoaded += OnSaveLoaded;
             SaveLoadManager.SaveSaved += OnSaveSaved;
             UI.ReturnedToMainMenu += OnReturnToMainMenu;
             CommandConsole.RegisterCommand("save", "saves current game", SaveLoadManager.SaveGame);
-            Settings.DebugTexture = new Texture2D(GraphicsDevice, 1, 1);
-            Settings.DebugTexture.SetData<Color>(new Color[] { Color.White });
         }
 
 

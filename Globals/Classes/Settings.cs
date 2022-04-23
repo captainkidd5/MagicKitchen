@@ -61,7 +61,7 @@ namespace Globals.Classes
 
             DebugTexture = new Texture2D(graphics.GraphicsDevice, 1, 1);
             DebugTexture.SetData<Color>(new Color[] { Color.White });
-
+            SetResolution((int)NativeWidth, (int)NativeHeight);
 
         }
         public static void Window_ClientSizeChanged(object sender, System.EventArgs e)
