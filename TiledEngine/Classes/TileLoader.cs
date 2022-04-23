@@ -88,25 +88,28 @@ namespace TiledEngine.Classes
             tileManager.CreateNewSave(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width,
                 GetPackageFromMapType(stageData.MapType));
 
-            _portalLoader.CreateNewSave(tileManager.LoadPortals(mapToLoad));
+            _portalLoader.AddPortals(tileManager.LoadPortals(mapToLoad));
 
         }
 
         public static void Save(BinaryWriter writer)
         {
             ZoneManager.Save(writer);
+            _portalLoader.Save(writer);
            
         }
         public static void LoadSave(BinaryReader reader)
         {
             ZoneManager.LoadSave(reader);
+            _portalLoader.LoadSave(reader); 
         }
         public static void Unload()
         {
-            //_portalLoader.Unload();
             ZoneManager.CleanUp();
+            _portalLoader.CleanUp();
+
         }
-    
+
         /// <summary>
         /// Create new tiles based on tiles found in TMX map file. This should
         /// only be done once per map per save.

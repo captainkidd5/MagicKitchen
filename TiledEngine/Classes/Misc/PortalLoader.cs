@@ -1,7 +1,9 @@
-﻿using Globals.Classes.Console;
+﻿using Globals.Classes;
+using Globals.Classes.Console;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -11,7 +13,7 @@ namespace TiledEngine.Classes.Misc
     /// A container class for <see cref="PortalGraph"/> which adds nodes based on portals "From" and "To" values, dynamically loaded in from TMX maps
     /// (Either from tiles or from tmx objects manually placed)
     /// </summary>
-    internal class PortalLoader
+    internal class PortalLoader : ISaveable
     {
         private List<PortalData> s_allPortalData;
 
@@ -62,7 +64,7 @@ namespace TiledEngine.Classes.Misc
 
 
 
-        public void CreateNewSave(List<PortalData> portalDataFromMap)
+        public void AddPortals(List<PortalData> portalDataFromMap)
         {
             s_allPortalData.AddRange(portalDataFromMap);
         }
@@ -107,8 +109,29 @@ namespace TiledEngine.Classes.Misc
             s_portalDictionary.Clear();
             s_portalgraph.Unload();
         }
-        
 
-        
+        public void Save(BinaryWriter writer)
+        {
+            writer.Write(s_allPortalData.Count);
+            foreach (PortalData data in s_allPortalData)
+                data.Save(writer);
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            s_allPortalData = new List<PortalData>(); ;
+            int count = reader.ReadInt32();
+            for(int i = 0; i < count; i++)
+            {
+                PortalData data = new PortalData();
+                data.LoadSave(reader);
+                s_allPortalData.Add(data);
+            }
+        }
+
+        public void CleanUp()
+        {
+            s_allPortalData.Clear();
+        }
     }
 }

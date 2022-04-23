@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes;
+using Globals.Classes.Helpers;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
@@ -10,7 +13,7 @@ namespace TiledEngine.Classes.Misc
     /// <summary>
     /// Data holding class
     /// </summary>
-    public class PortalData
+    public class PortalData :ISaveable
     {
         /// <summary>
         /// Used for portal graph
@@ -24,6 +27,8 @@ namespace TiledEngine.Classes.Misc
 
         public bool MustBeClicked { get; set; }
         public Direction DirectionToFace { get; set; }
+
+        
         public PortalData(Rectangle rectangle, string from, string to, int xOffSet, int yOffSet, Direction directionToFace, bool mustBeClicked = false)
         {
             Rectangle = rectangle;
@@ -33,6 +38,12 @@ namespace TiledEngine.Classes.Misc
             YOffSet = yOffSet;
             DirectionToFace = directionToFace;
             MustBeClicked = mustBeClicked;
+
+        }
+
+        // for loading
+        public PortalData()
+        {
 
         }
 
@@ -57,5 +68,33 @@ namespace TiledEngine.Classes.Misc
 
         }
 
+
+        public void Save(BinaryWriter writer)
+        {
+            writer.Write(Key);
+            writer.Write(From);
+            writer.Write(To);
+            writer.Write(XOffSet);
+            writer.Write(YOffSet);
+            RectangleHelper.WriteRectangle(writer, Rectangle);
+            writer.Write(MustBeClicked);
+            writer.Write((int)DirectionToFace);
+        }
+        public void LoadSave(BinaryReader reader)
+        {
+            Key = reader.ReadInt32();
+            From = reader.ReadString();
+            To = reader.ReadString();
+            XOffSet = reader.ReadInt32();
+            YOffSet = reader.ReadInt32();
+            Rectangle = RectangleHelper.ReadRectangle(reader);
+            MustBeClicked = reader.ReadBoolean();
+            DirectionToFace = (Direction)reader.ReadInt32();
+        }
+
+        public void CleanUp()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
