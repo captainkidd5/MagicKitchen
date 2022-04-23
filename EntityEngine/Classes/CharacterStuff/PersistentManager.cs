@@ -73,6 +73,8 @@ namespace EntityEngine.Classes.CharacterStuff
 
         public void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
         {
+            TileManager = tileManager;
+            ItemManager = itemManager;
             foreach (NPC character in Entities)
             {
                 character.PlayerSwitchedStage(newStageName, false);
@@ -92,7 +94,7 @@ namespace EntityEngine.Classes.CharacterStuff
                     .CreateInstance(EntityFactory.NPCData[name].ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
                     null, new object[] { this, graphics, content }, null, null);
             npc.LoadContent(position, name, standardAnimator);
-            npc.SwitchStage(stageName, TileManager, ItemManager);
+              npc.SwitchStage(stageName, TileManager, ItemManager);
             EntitiesToAdd.Add(npc);
         }
     }

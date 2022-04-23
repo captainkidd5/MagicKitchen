@@ -77,6 +77,7 @@ namespace EntityEngine.Classes.NPCStuff
         public void CleanUp()
         {
             PersistentManager?.CleanUp();
+            StageGrids.Clear();
         }
     }
 }

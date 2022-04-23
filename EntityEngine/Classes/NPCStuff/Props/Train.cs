@@ -23,12 +23,12 @@ namespace EntityEngine.Classes.NPCStuff.Props
         /// <summary>
         /// Min number of passengers train will unload at each stop
         /// </summary>
-        public int UnloadMin { get; set; } = 1;
+        public int UnloadMin { get; set; } = 3;
 
         /// <summary>
         /// Max number of passengers train will unload at each stop
         /// </summary>
-        public int UnloadMax { get; set; } = 4;
+        public int UnloadMax { get; set; } = 7;
 
         private SimpleTimer _unloadTimer;
         //rate at which passengers unload in seconds
@@ -64,7 +64,9 @@ namespace EntityEngine.Classes.NPCStuff.Props
             if(_unloadTimer.Run(gameTime))
             {
                 _currentPassengerCount--;
-                Container.CreateNPC("caspar", new Vector2(Position.X, Position.Y - 40), false, CurrentStageName);
+                Container.CreateNPC("caspar", new Vector2(
+                    Position.X + Settings.Random.Next(0,20),
+                    Position.Y + Settings.Random.Next(40, 60) * -1), false, CurrentStageName);
             }
             if (_currentPassengerCount == 0)
                 return true;
