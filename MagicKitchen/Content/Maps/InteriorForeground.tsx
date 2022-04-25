@@ -45,7 +45,6 @@
   <properties>
    <property name="newHitBox" value="-16,-32,48,48"/>
    <property name="newSource" value="-16,-32,48,48"/>
-   <property name="portal" value="true,Restaurant,NormalPan,-16,-16,48,32,0,48,Up"/>
   </properties>
  </tile>
  <tile id="1232">
@@ -78,20 +77,68 @@
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
- <tile id="2812">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-  </properties>
-  <objectgroup draworder="index" id="4">
-   <object id="3" x="0" y="0" width="16" height="16"/>
+ <tile id="1981">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="6" width="16" height="10"/>
   </objectgroup>
  </tile>
- <tile id="2813">
-  <properties>
-   <property name="newSource" value="0,-48,32,64"/>
-  </properties>
+ <tile id="2050">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
+ </tile>
+ <tile id="2052">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="2117">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="2119">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="2120">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="2122">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="2123">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="2322">
+  <properties>
+   <property name="newHitBox" value="0,-16,16,32"/>
+   <property name="newSource" value="0,-48,16,64"/>
+  </properties>
+ </tile>
+ <tile id="2323">
+  <properties>
+   <property name="newHitBox" value="0,-16,16,32"/>
+   <property name="newSource" value="0,-48,16,64"/>
+  </properties>
+ </tile>
+ <tile id="2812">
+  <properties>
+   <property name="newHitBox" value="0,-16,16,32"/>
+   <property name="newSource" value="0,-48,16,64"/>
+  </properties>
+ </tile>
+ <tile id="2813">
+  <properties>
+   <property name="newHitBox" value="0,-16,16,32"/>
+   <property name="newSource" value="0,-48,16,64"/>
+  </properties>
  </tile>
 </tileset>

@@ -30,7 +30,7 @@ namespace StageEngine.Classes
         internal int PortalyOffSet;
 
      
-        private Rectangle Rectangle { get; set; }
+        public Rectangle Rectangle { get; private set; }
         private bool _mustBeClicked;
         private Direction _directionToFace;
         public Portal(PortalManager portalManager,StageManager stageManager,

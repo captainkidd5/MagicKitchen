@@ -73,7 +73,8 @@ namespace StageEngine.Classes
         public Vector2 GetDestinationPosition(Portal portal)
         {
             Portal toPortal = PortalDictionary[portal.To].FirstOrDefault(x => x.From == portal.To && x.To == portal.From);
-            return new Vector2(toPortal.Position.X + toPortal.PortalxOffSet, toPortal.Position.Y + toPortal.PortalyOffSet);
+            return new Vector2(toPortal.Position.X + toPortal.Rectangle.Width / 2 
+                + toPortal.PortalxOffSet, toPortal.Position.Y  + toPortal.PortalyOffSet);
         }
 
         public void Save(BinaryWriter writer)

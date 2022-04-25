@@ -74,7 +74,18 @@ namespace EntityEngine.Classes.BehaviourStuff
             {
                 CheckForUpdatedSchedule();
             }
+
             CurrentBehaviour.Update(gameTime, ref velocity);
+            CheckIfHasReachedEndOfRouteBehaviourAndAssignNewBehaviour();
+        }
+
+        private void CheckIfHasReachedEndOfRouteBehaviourAndAssignNewBehaviour()
+        {
+            if (CurrentBehaviour.GetType() == typeof(RouteBehaviour) &&
+                           (CurrentBehaviour as RouteBehaviour).HasReachedEndOfScheduledRoute())
+            {
+                CurrentBehaviour = BehaviourFromSchedule();
+            }
         }
 
         public void InjectScript(SubScript subscript)

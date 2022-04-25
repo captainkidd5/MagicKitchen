@@ -81,6 +81,13 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         }
 
+        public bool HasReachedEndOfScheduledRoute()
+        {
+            return Vector2Helper.WithinRangeOf(Entity.Position, Scheduler.GetTargetFromSchedule(Entity.CurrentStageName, _activeSchedule, _tileManager), 16);
+        }
+
+
+
         public override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnCollides(fixtureA, fixtureB, contact);
