@@ -13,13 +13,14 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
     public enum PatronState
     {
-        None =0,
+        None = 0,
         FindingSeating = 1,
         Ordering = 2
     }
     internal class PatronBehaviour : Behaviour
     {
         private PatronState _patronState;
+        private Behaviour _currentPatronBehaviour;
         public PatronBehaviour(Entity entity, StatusIcon statusIcon, Navigator navigator,
             TileManager tileManager, float? timerFrequency) :
             base(entity, statusIcon, navigator, tileManager, timerFrequency)
@@ -30,26 +31,26 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
         public override void Update(GameTime gameTime, ref Vector2 velocity)
         {
             base.Update(gameTime, ref velocity);
+            if (_currentPatronBehaviour != null)
+                _currentPatronBehaviour.Update(gameTime, ref velocity);
+            else if(SimpleTimer.Run(gameTime))
+            {
+                GetNewPatronBehaviour();
+            }
+        }
+
+        private void GetNewPatronBehaviour()
+        {
             switch (_patronState)
             {
                 case PatronState.None:
                     break;
                 case PatronState.FindingSeating:
+                    _currentPatronBehaviour = new FindingSeatingBehaviour(Entity, StatusIcon, Navigator, TileManager, null);
                     break;
                 case PatronState.Ordering:
                     break;
             }
-            if (SimpleTimer.Run(gameTime))
-            {
-                CheckForUpdatedSchedule();
-            }
-            //if (Navigator.HasActivePath)
-            //    Navigator.FollowPath(gameTime, Entity.Position, ref velocity);
-            //else
-            //    Entity.Halt();
-
-            //if (_activeSchedule != null)
-            //    Entity.TargetStage = _activeSchedule.StageEndLocation;
         }
     }
 }

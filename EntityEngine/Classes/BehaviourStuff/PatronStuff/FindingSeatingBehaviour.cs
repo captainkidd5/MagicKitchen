@@ -17,6 +17,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
     internal class FindingSeatingBehaviour : Behaviour
     {
         public bool HasLocatedTable { get; private set; }
+        public bool HasReachedTable { get; set; }
 
         private DiningTable _table;
         public FindingSeatingBehaviour(Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) : base(entity, statusIcon, navigator, tileManager, timerFrequency)
@@ -24,7 +25,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
         }
         public override void Update(GameTime gameTime, ref Vector2 velocity)
         {
-            if (!HasLocatedTable)
+            if (!HasLocatedTable && SimpleTimer.Run(gameTime))
             {
                 _table = GetTileWithAvailableTable();
                 //Todo: Create no seating icon
@@ -32,6 +33,12 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                     StatusIcon.SetStatus(StatusIconType.NoPath);
                 else
                     Navigator.SetTarget(_table.Tile.Position);
+
+            }
+            else if(HasLocatedTable && Navigator.HasActivePath)
+            {
+                if(Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
+                    HasReachedTable = true;
 
             }
         }
