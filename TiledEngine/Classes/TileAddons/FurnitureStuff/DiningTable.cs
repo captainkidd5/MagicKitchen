@@ -11,7 +11,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
     public class DiningTable : Furniture
     {
 
-        public int TotalSeatingCapacity { get; private set; } = 4;
+        public int TotalSeatingCapacity { get; private set; } = 1;
         public int OccupiedSeatCount { get; internal set; }
 
         public bool SeatingAvailable => OccupiedSeatCount < TotalSeatingCapacity;

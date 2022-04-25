@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes;
+using TiledEngine.Classes.Helpers;
 using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
 
@@ -36,9 +37,18 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 }
                 else
                 {
+                    List<Point> clearPoints = TileLocationHelper.GetAdjacentClearTilesAsPoints(
+                        TileManager.PathGrid,
+                        _table.Tile);
+                    Point chosenPoint = clearPoints[Settings.Random.Next(0, clearPoints.Count)];
+
                     if (Navigator.FindPathTo(
-                        Entity.Position, new Vector2(_table.Tile.Position.X - 16,
-                        _table.Tile.Position.Y - 16)))
+                        Entity.Position, Vector2Helper.GetWorldPositionFromTileIndex(
+                            chosenPoint.X,
+                            chosenPoint.Y)))
+
+
+
                     {
                         Navigator.SetTarget(_table.Tile.Position);
                         HasLocatedTable = true;
@@ -52,9 +62,9 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 }
 
             }
-            else if(HasLocatedTable && Navigator.HasActivePath)
+            else if (HasLocatedTable && Navigator.HasActivePath)
             {
-                if(Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
+                if (Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
                 {
                     HasReachedTable = true;
                     StatusIcon.SetStatus(StatusIconType.WantFood);

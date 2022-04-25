@@ -61,7 +61,7 @@ namespace PhysicsEngine.Classes.Pathfinding
         /// <summary>
         /// Ensures X index is greater than zero and less than bounds of grid
         /// </summary>
-        private bool X_IsValidIndex(int x)
+        public bool X_IsValidIndex(int x)
         {
             if (x >= 0)
                 if (x < Weight.GetLength(0))
@@ -72,7 +72,7 @@ namespace PhysicsEngine.Classes.Pathfinding
         /// <summary>
         /// Ensures Y index is greater than zero and less than bounds of grid
         /// </summary>
-        private bool Y_IsValidIndex(int y)
+        public bool Y_IsValidIndex(int y)
         {
             if (y >= 0)
                 if (y < Weight.GetLength(1))
