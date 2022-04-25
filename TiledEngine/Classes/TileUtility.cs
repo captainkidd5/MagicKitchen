@@ -12,7 +12,6 @@ using System.Text;
 using TiledEngine.Classes.Helpers;
 using TiledEngine.Classes.Misc;
 using TiledEngine.Classes.TileAddons;
-using TiledEngine.Classes.TileAddons.Furniture;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
 using TiledSharp;
 using static Globals.Classes.Settings;
@@ -136,7 +135,7 @@ namespace TiledEngine.Classes
                 propertyString = "furniture";
                 if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
-                    tile.Addons.Add(Furniture.GetFurnitureFromProperty(propertyString,tileManager.TileLocator));
+                    tile.Addons.Add(Furniture.GetFurnitureFromProperty(propertyString,tileManager.TileLocator, tile));
                 }
 
             }

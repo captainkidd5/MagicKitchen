@@ -30,7 +30,8 @@ namespace DataModels
         Stationary = 1,
         Wander = 2,
         Search = 3,
-        CustomScript = 4,
+        Patron = 4,
+        CustomScript = 5,
     }
     public class Schedule
     {

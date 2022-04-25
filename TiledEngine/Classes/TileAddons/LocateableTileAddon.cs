@@ -16,9 +16,10 @@ namespace TiledEngine.Classes.TileAddons
 
         public Tile Tile { get; set; }
 
-        public LocateableTileAddon(TileLocator tileLocator)
+        public LocateableTileAddon(TileLocator tileLocator, Tile tile)
         {
             _tileLocator = tileLocator;
+            Tile = tile;
         }
 
         public void Load()
@@ -32,7 +33,7 @@ namespace TiledEngine.Classes.TileAddons
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void Interact(bool isPlayer)
@@ -44,7 +45,7 @@ namespace TiledEngine.Classes.TileAddons
 
         public void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

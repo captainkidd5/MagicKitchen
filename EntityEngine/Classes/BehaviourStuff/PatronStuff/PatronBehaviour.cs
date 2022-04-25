@@ -25,7 +25,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             TileManager tileManager, float? timerFrequency) :
             base(entity, statusIcon, navigator, tileManager, timerFrequency)
         {
-
+            _patronState = PatronState.FindingSeating;
         }
 
         public override void Update(GameTime gameTime, ref Vector2 velocity)

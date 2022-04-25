@@ -60,6 +60,9 @@
     <None Update="Content\Entities\NPC\NPCData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Content\Entities\NPC\Patron.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Entities\NPC\Train.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

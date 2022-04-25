@@ -1,5 +1,6 @@
 ﻿using DataModels;
 using DataModels.ScriptedEventStuff;
+using EntityEngine.Classes.BehaviourStuff.PatronStuff;
 using EntityEngine.Classes.CharacterStuff;
 using Globals;
 using Globals.Classes;
@@ -60,10 +61,14 @@ namespace EntityEngine.Classes.BehaviourStuff
                 case EndBehaviour.Search:
                     return new SearchBehaviour(_entity, _statusIcon, _navigator, _tileManager, new Point(5, 5), 2f);
 
+                case EndBehaviour.Patron:
+                    return new PatronBehaviour(_entity, _statusIcon, _navigator, _tileManager, 2f);
+
                 case EndBehaviour.CustomScript:
                     ScriptBehaviour behaviour = new ScriptBehaviour(_entity, _statusIcon, _navigator, _tileManager, 2f);
                     behaviour.InjectSubscript(EntityFactory.GetSubscript(_activeSchedule.CustomScriptName));
                     return behaviour;
+             
                 default:
                     return null;
             }

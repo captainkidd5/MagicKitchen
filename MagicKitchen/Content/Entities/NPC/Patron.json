@@ -3,7 +3,7 @@
 {
     "Name": "patron",
     "ObjectType" : "EntityEngine.Classes.HumanoidEntity",
-    "ScheduleName": "wander_1",
+    "ScheduleName": "patron",
     "NPCType" : "Customizable",
     "SpriteWidth": 48,
     "SpriteHeight": 32,

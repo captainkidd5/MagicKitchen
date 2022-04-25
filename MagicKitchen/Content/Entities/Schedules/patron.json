@@ -4,7 +4,7 @@
         "StageEndLocation": "Restaurant",
         "TileX": 32,
         "TileY": 56,
-        "EndBehaviour" : "Wander",
+        "EndBehaviour" : "Patron",
         "Dialogue":{
             "SpeechTree":
                 {

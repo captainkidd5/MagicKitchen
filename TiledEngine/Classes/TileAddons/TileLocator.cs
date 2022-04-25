@@ -45,7 +45,7 @@ namespace TiledEngine.Classes.TileAddons
             {
                 Dictionary<string, List<Tile>> dict = new Dictionary<string, List<Tile>>();
                 dict.Add(key, new List<Tile>());
-                dict[key] = new List<Tile>() { tile };
+                dict[subKey] = new List<Tile>() { tile };
                 FurnitureDictionary.Add(key, dict);
             }
         }

@@ -30,15 +30,35 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 _table = GetTileWithAvailableTable();
                 //Todo: Create no seating icon
                 if (_table == null)
+                {
                     StatusIcon.SetStatus(StatusIconType.NoPath);
+
+                }
                 else
-                    Navigator.SetTarget(_table.Tile.Position);
+                {
+                    if (Navigator.FindPathTo(
+                        Entity.Position, new Vector2(_table.Tile.Position.X - 16,
+                        _table.Tile.Position.Y - 16)))
+                    {
+                        Navigator.SetTarget(_table.Tile.Position);
+                        HasLocatedTable = true;
+                    }
+                    else
+                    {
+                        StatusIcon.SetStatus(StatusIconType.NoPath);
+
+                    }
+
+                }
 
             }
             else if(HasLocatedTable && Navigator.HasActivePath)
             {
                 if(Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
+                {
                     HasReachedTable = true;
+                    Entity.Halt();
+                }
 
             }
         }
