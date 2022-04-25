@@ -12,6 +12,8 @@ using System.Text;
 using TiledEngine.Classes.Helpers;
 using TiledEngine.Classes.Misc;
 using TiledEngine.Classes.TileAddons;
+using TiledEngine.Classes.TileAddons.Furniture;
+using TiledEngine.Classes.TileAddons.FurnitureStuff;
 using TiledSharp;
 using static Globals.Classes.Settings;
 using static TiledEngine.Classes.TileLoader;
@@ -134,7 +136,7 @@ namespace TiledEngine.Classes
                 propertyString = "furniture";
                 if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
-                    tileManager.TileLocator.AddItem("furniture",propertyString, tile);
+                    tile.Addons.Add(new DiningTable(tileManager.TileLocator));
                 }
 
             }

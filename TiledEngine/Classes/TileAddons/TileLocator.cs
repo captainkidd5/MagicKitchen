@@ -50,6 +50,26 @@ namespace TiledEngine.Classes.TileAddons
             }
         }
 
+        public void RemoveItem(string key, string subKey, Tile tile)
+        {
+            if (FurnitureDictionary.ContainsKey(key))
+            {
+                if (FurnitureDictionary[key].ContainsKey(subKey))
+                {
+                    FurnitureDictionary[key][subKey].Remove(tile);
+                    if(FurnitureDictionary[key][subKey].Count < 1)
+                        FurnitureDictionary[key].Remove(subKey);
+                    if (FurnitureDictionary[key].Count < 1)
+                        FurnitureDictionary.Remove(key);
+
+                    return;
+                }
+            throw new Exception($"Subkey {subKey} not found");
+
+            }
+            throw new Exception($"Key {key} not found");
+        }
+
         public void CleanUp()
         {
             FurnitureDictionary.Clear();

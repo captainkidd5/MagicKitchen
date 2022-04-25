@@ -6,28 +6,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TiledEngine.Classes.TileAddons.Furniture
+namespace TiledEngine.Classes.TileAddons
 {
-    public class DiningTable : ITileAddon
+    public class LocateableTileAddon : ITileAddon
     {
-        public Tile Tile => throw new NotImplementedException();
+        private readonly TileLocator _tileLocator;
+        protected string Key;
+        protected string SubKey;
 
-        public int TotalSeatingCapacity { get; private set; } = 4;
-        public int CurrentSeatingCapacity { get; internal set; }
-        public DiningTable()
+        public Tile Tile { get; set; }
+
+        public LocateableTileAddon(TileLocator tileLocator)
         {
-
+            _tileLocator = tileLocator;
         }
-      
+
         public void Load()
         {
-            throw new NotImplementedException();
+            _tileLocator.AddItem(Key, SubKey, Tile);
+        }
+        public void CleanUp()
+        {
+            _tileLocator.RemoveItem(Key, SubKey, Tile);
         }
 
-        public void Update(GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
         public void Draw(SpriteBatch spriteBatch)
         {
             throw new NotImplementedException();
@@ -38,11 +40,11 @@ namespace TiledEngine.Classes.TileAddons.Furniture
             throw new NotImplementedException();
         }
 
+       
 
-        public void CleanUp()
+        public void Update(GameTime gameTime)
         {
             throw new NotImplementedException();
         }
-
     }
 }
