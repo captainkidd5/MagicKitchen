@@ -88,12 +88,7 @@ namespace EntityEngine.Classes.NPCStuff
             base.SwitchStage(newStageName, tileManager, itemManager);
            
         }
-        public void SwitchStage(string newStageName, PathGrid pathGrid)
-        {
-            CurrentStageName = newStageName;
-            base.SwitchStage(newStageName, null, null);
 
-        }
         public override void Save(BinaryWriter writer)
         {
             base.Save(writer);

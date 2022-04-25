@@ -78,7 +78,11 @@ namespace EntityEngine.Classes.CharacterStuff
             foreach (NPC character in Entities)
             {
                 character.PlayerSwitchedStage(newStageName, false);
-                
+                //if (character.CurrentStageName == newStageName)
+                //{
+                //    character.SwitchStage(newStageName, tileManager, itemManager);
+
+                //}
             }
         }
 

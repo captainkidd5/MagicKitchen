@@ -35,24 +35,12 @@ namespace EntityEngine.Classes.CharacterStuff
         public Character(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : base(container, graphics, content)
         {
             
-            //_npcData = npcsData;
-            //Name = npcsData.Name;
-            //ScheduleName = Name;
-            //CurrentStageName = npcsData.StartingStage;
-            //Move(Vector2Helper.GetWorldPositionFromTileIndex(npcsData.StartingTileX, npcsData.StartingTileY));
+
             Speed = 3f;
             XOffSet = 8;
             YOffSet = 16;
         }
 
-        //public override void LoadContent(Vector2? startPos, string? name)
-        //{
-        //    base.LoadContent(startPos,name);
-
-        //    //Behaviour = new SearchBehaviour(this, StatusIcon, Navigator, TileManager, new Point(5, 5), 2f);
-
-
-        //}
 
         public override void Update(GameTime gameTime)
         {

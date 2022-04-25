@@ -33,7 +33,6 @@ namespace EntityEngine.Classes.PlayerStuff
         private Direction SecondaryDirectionFacing { get; set; }
         private bool WasMovingLastFrame { get; set; }
 
-
         public Light TestLight { get; set; }
         public Player(StageNPCContainer container, GraphicsDevice graphics, ContentManager content,PlayerManager playerContainer, string name = "playerName") : base(container, graphics,content)
         {
