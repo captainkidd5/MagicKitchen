@@ -136,7 +136,7 @@ namespace TiledEngine.Classes
                 propertyString = "furniture";
                 if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
-                    tile.Addons.Add(new DiningTable(tileManager.TileLocator));
+                    tile.Addons.Add(Furniture.GetFurnitureFromProperty(propertyString,tileManager.TileLocator));
                 }
 
             }

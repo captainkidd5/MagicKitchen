@@ -7,6 +7,7 @@ using PhysicsEngine.Classes.Pathfinding;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TiledEngine.Classes.TileAddons;
 using static Globals.Classes.Settings;
@@ -136,6 +137,11 @@ namespace TiledEngine.Classes
             Sprite = null;
             CursorIconType = CursorIconType.None;
             
+        }
+
+        public List<ITileAddon> GetAddonsByType(Type t)
+        {
+            return Addons.Where(x => x.GetType() == t).ToList();
         }
 
         
