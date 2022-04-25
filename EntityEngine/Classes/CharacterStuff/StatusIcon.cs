@@ -12,7 +12,9 @@ namespace EntityEngine.Classes.CharacterStuff
     {
         None = 0,
         Speak = 1,
-        NoPath = 2
+        NoPath = 2,
+        NoTable = 3,
+        WantFood = 4,
     }
     public class StatusIcon
     {
@@ -66,6 +68,15 @@ namespace EntityEngine.Classes.CharacterStuff
                     break;
                 case StatusIconType.NoPath:
                     SourceRectangle = new Rectangle(64, 0, 32, 32);
+                    Sprite.SwapSourceRectangle(SourceRectangle);
+                    break;
+                case StatusIconType.NoTable:
+                    SourceRectangle = new Rectangle(32, 32, 32, 32);
+                    Sprite.SwapSourceRectangle(SourceRectangle);
+                    break;
+
+                case StatusIconType.WantFood:
+                    SourceRectangle = new Rectangle(64, 32, 32, 32);
                     Sprite.SwapSourceRectangle(SourceRectangle);
                     break;
 

@@ -34,7 +34,7 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void LoadContent()
         {
            
-            StatusIconTexture = content.Load<Texture2D>("entities/npc/characters/statusicons");
+            StatusIconTexture = content.Load<Texture2D>("entities/characters/statusicons");
             base.LoadContent();
         }
 

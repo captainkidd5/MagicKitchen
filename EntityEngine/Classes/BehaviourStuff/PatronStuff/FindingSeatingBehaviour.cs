@@ -45,7 +45,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                     }
                     else
                     {
-                        StatusIcon.SetStatus(StatusIconType.NoPath);
+                        StatusIcon.SetStatus(StatusIconType.NoTable);
 
                     }
 
@@ -57,6 +57,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 if(Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
                 {
                     HasReachedTable = true;
+                    StatusIcon.SetStatus(StatusIconType.WantFood);
                     Entity.Halt();
                 }
 
