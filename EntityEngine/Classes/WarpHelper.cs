@@ -41,7 +41,7 @@ namespace EntityEngine.Classes
         public bool FinishWarpAndFinalMove(Animator animator, TileManager tileManager, ItemManager itemManager)
         {
 
-            animator.FadeIn();
+            //animator.FadeIn();
 
             _entity.Move(_intermediateWarpPosition);
             if(_entity.GetType()!=typeof(Player))
@@ -61,7 +61,7 @@ namespace EntityEngine.Classes
         /// <param name="positionTo"></param>
         public void StartWarp(Animator animator, string stageTo, Vector2 positionTo, Direction directionToFace)
         {
-            animator.FadeOut();
+           // animator.FadeOut();
 
             IntermediateStageTo = stageTo;
             _intermediateWarpPosition = positionTo;

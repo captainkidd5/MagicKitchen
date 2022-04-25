@@ -42,5 +42,17 @@ namespace EntityEngine.Classes.PlayerStuff
             //base.LoadContent();
             Player1.LoadContent(null, null);
         }
+        public override void Save(BinaryWriter writer)
+        {
+
+            base.Save(writer);
+        }
+        public override void LoadSave(BinaryReader reader)
+        {
+              base.LoadSave(reader);
+            Flags.StagePlayerIn = Player1.CurrentStageName;
+        }
+
+       
     }
 }

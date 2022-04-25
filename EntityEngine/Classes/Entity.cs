@@ -235,24 +235,12 @@ namespace EntityEngine.Classes
         }
         private void CheckOnWarpStatus()
         {
-            //if is warping and animator is now transparent, it means we're now ready to actually warp
-            if (IsInStage)
-            {
-                if (Animator.IsTransparent())
-                {
+ 
                     if (_warpHelper.FinishWarpAndFinalMove(Animator, TileManager, InventoryHandler.ItemManager))
                         RestoreEntityPhysics();
                     else
                         RemoveEntityPhysics();
-                }
-            }
-            else
-            {
-                if (_warpHelper.FinishWarpAndFinalMove(Animator, TileManager, InventoryHandler.ItemManager))
-                    RestoreEntityPhysics();
-                else
-                    RemoveEntityPhysics();
-            }
+
             
 
         }
@@ -460,7 +448,7 @@ namespace EntityEngine.Classes
 
             Vector2Helper.WriteVector2(writer, Position);
 
-            InventoryHandler.Save(writer);
+            //InventoryHandler.Save(writer);
             writer.Write(ScheduleName);
         }
         public virtual void LoadSave(BinaryReader reader)
@@ -469,7 +457,7 @@ namespace EntityEngine.Classes
             CurrentStageName = reader.ReadString();
             Move(Vector2Helper.ReadVector2(reader));
 
-            InventoryHandler.LoadSave(reader);
+            //InventoryHandler.LoadSave(reader);
             ScheduleName = reader.ReadString();
         }
 

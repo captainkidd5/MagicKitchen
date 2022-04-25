@@ -96,6 +96,8 @@ namespace StageEngine.Classes
             CurrentStage.CleanUp();
 
             CurrentStage = GetStage(StageSwitchingTo);
+            Player1.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
+
             _npcManager.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             
             CurrentStage.LoadFromStageFile();
@@ -113,7 +115,6 @@ namespace StageEngine.Classes
             Player1.Move(NewPlayerPositionOnStageSwitch);
             NewPlayerPositionOnStageSwitch = Vector2.Zero;
 
-            Player1.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
             Flags.Pause = false;
             UI.RaiseCurtain(UI.CurtainDropRate);
 
@@ -127,8 +128,9 @@ namespace StageEngine.Classes
             if (!Flags.Pause)
             {
                 _portalManager.Update(gameTime);
-                _npcManager.Update(gameTime);
                 _playerManager.Update(gameTime);
+
+                _npcManager.Update(gameTime);
 
                 CurrentStage.Update(gameTime);
                 if (SoundFactory.AllowAmbientSounds && !SoundFactory.IsPlayingAmbient)

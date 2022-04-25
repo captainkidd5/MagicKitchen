@@ -23,7 +23,7 @@ namespace Globals.Classes
 
 
 
-        public static string StagePlayerIn { get; set; }
+        public static string StagePlayerIn { get; set; } 
 
         public static bool IsNewGame { get; set; }
 

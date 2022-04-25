@@ -113,7 +113,7 @@ namespace StageEngine.Classes
                    
                         entity.StartWarp(To, _portalManager.GetDestinationPosition(this), _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
 
-                        entity.IsInStage = To == _stageManager.CurrentStage.Name;
+                        entity.IsInStage = To == Flags.StagePlayerIn;
                         
                     
                 }
