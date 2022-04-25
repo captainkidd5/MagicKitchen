@@ -14,8 +14,10 @@ namespace TiledEngine.Classes.Helpers
         /// <summary>
         /// Gets a "ring" of clear points around a tile. Tile may span more than a tile. 
         /// </summary>
+        /// <param name="requireAdjacency">Set to true to only return adjacent clear tiles</param>
         /// <returns></returns>
-        public static List<Point> GetAdjacentClearTilesAsPoints(PathGrid pathGrid, Tile tileToGetAdjacentPointsOf)
+        public static List<Point> GetSorroundingClearTilesAsPoints(PathGrid pathGrid, Tile tileToGetAdjacentPointsOf,
+            bool requireAdjacency = true)
         {
             List<Point> clearPoints = new List<Point>();
             Rectangle body = tileToGetAdjacentPointsOf.DestinationRectangle;
@@ -28,16 +30,29 @@ namespace TiledEngine.Classes.Helpers
             if (bodyTilesHigh < 1)
                 bodyTilesHigh = 1;
             Point rectangleIndex = Vector2Helper.WorldPositionToTilePositionAsPoint(new Vector2(body.X, body.Y));
-            for (int i = -1; i < bodyTilesWide; i++)
+            for (int i = -1; i < bodyTilesWide + 1; i++)
             {
-                for (int j = -1; j < bodyTilesHigh; j++)
+                for (int j = -1; j < bodyTilesHigh + 1; j++)
                 {
+
+                    if (requireAdjacency)
+                    {
+                        //Top left, top right, bottom left, bottom right, ignore!
+                        if((i == -1 && j == -1) || (i == bodyTilesWide  && j == -1)
+                            || (i == -1  && j == bodyTilesHigh )
+                            || (i == bodyTilesWide && j == bodyTilesHigh))
+                        {
+                            continue;
+                        }
+                    }
                     int newX = rectangleIndex.X + i;
                     int newY = rectangleIndex.Y + j;
+                    
                     if (pathGrid.X_IsValidIndex(newX) && pathGrid.Y_IsValidIndex(newY))
                     {
                         if(pathGrid.IsClear(newX, newY))
                         {
+                           
                             clearPoints.Add(new Point(newX, newY)); 
                         }
                     }

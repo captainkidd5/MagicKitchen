@@ -99,7 +99,7 @@ namespace PhysicsEngine.Classes.Pathfinding
         /// Tests adjaceny between two points. Must be up down left or right of one another,
         /// diagonal returns false.
         /// </summary>
-        private bool IsAdjacentTo(Point testPoint, Point targetPoint)
+        public bool IsAdjacentTo(Point testPoint, Point targetPoint)
         {
             int xDiff = Math.Abs(targetPoint.X - testPoint.X);
             int yDiff = Math.Abs(targetPoint.Y - testPoint.Y);

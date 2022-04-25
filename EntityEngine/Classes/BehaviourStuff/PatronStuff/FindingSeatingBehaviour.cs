@@ -37,7 +37,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 }
                 else
                 {
-                    List<Point> clearPoints = TileLocationHelper.GetAdjacentClearTilesAsPoints(
+                    List<Point> clearPoints = TileLocationHelper.GetSorroundingClearTilesAsPoints(
                         TileManager.PathGrid,
                         _table.Tile);
                     Point chosenPoint = clearPoints[Settings.Random.Next(0, clearPoints.Count)];
