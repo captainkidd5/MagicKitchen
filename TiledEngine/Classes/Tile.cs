@@ -48,6 +48,9 @@ namespace TiledEngine.Classes
         internal List<ITileAddon> Addons { get; set; }
         public Vector2 Position { get; set; }
 
+        public Vector2 CentralPosition => new Vector2(Position.X + DestinationRectangle.Width / 2,
+            Position.Y + DestinationRectangle.Height / 2);
+
         public bool WithinRangeOfPlayer { get; internal set; }
 
         internal Tile(int gid, Layers indexLayer, float layer, int x, int y)

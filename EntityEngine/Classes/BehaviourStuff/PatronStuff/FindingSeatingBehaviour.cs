@@ -40,24 +40,35 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                     List<Point> clearPoints = TileLocationHelper.GetSorroundingClearTilesAsPoints(
                         TileManager.PathGrid,
                         _table.Tile);
-                    Point chosenPoint = clearPoints[Settings.Random.Next(0, clearPoints.Count)];
 
-                    if (Navigator.FindPathTo(
-                        Entity.Position, Vector2Helper.GetWorldPositionFromTileIndex(
-                            chosenPoint.X,
-                            chosenPoint.Y)))
-
-
-
+                    //table has no adjacent clear spots
+                    if (clearPoints.Count < 1)
                     {
-                        Navigator.SetTarget(_table.Tile.Position);
-                        HasLocatedTable = true;
+                        StatusIcon.SetStatus(StatusIconType.NoTable);
                     }
                     else
                     {
-                        StatusIcon.SetStatus(StatusIconType.NoTable);
 
+                        Point chosenPoint = clearPoints[Settings.Random.Next(0, clearPoints.Count)];
+
+                        if (Navigator.FindPathTo(
+                            Entity.Position, Vector2Helper.GetWorldPositionFromTileIndex(
+                                chosenPoint.X,
+                                chosenPoint.Y)))
+
+
+
+                        {
+                            Navigator.SetTarget(_table.Tile.Position);
+                            HasLocatedTable = true;
+                        }
+                        else
+                        {
+                            StatusIcon.SetStatus(StatusIconType.NoTable);
+
+                        }
                     }
+
 
                 }
 
@@ -67,6 +78,9 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 if (Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
                 {
                     HasReachedTable = true;
+                    Entity.FaceDirection(Vector2Helper.GetDirectionOfEntityInRelationToEntity(
+                        Entity.Position,_table.Tile.CentralPosition));
+                       
                     StatusIcon.SetStatus(StatusIconType.WantFood);
                     Entity.Halt();
                 }
