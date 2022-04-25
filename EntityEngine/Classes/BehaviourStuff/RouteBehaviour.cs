@@ -19,7 +19,6 @@ namespace EntityEngine.Classes.BehaviourStuff
 {
     internal class RouteBehaviour : Behaviour
     {
-        private TileManager _tileManager;
         private Schedule _activeSchedule;
    
 
@@ -29,7 +28,6 @@ namespace EntityEngine.Classes.BehaviourStuff
             Schedule activeSchedule, float? scheduleCheckFrequency) :
             base(entity,statusIcon, navigator,tileManager, scheduleCheckFrequency)
         {
-            _tileManager = tileManager;
             _activeSchedule = activeSchedule;
         }
 
@@ -64,7 +62,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                 _activeSchedule = Scheduler.GetScheduleFromCurrentTime(Entity.Name);
 
 
-                Vector2 targetpos = Scheduler.GetTargetFromSchedule(Entity.CurrentStageName, _activeSchedule, _tileManager);
+                Vector2 targetpos = Scheduler.GetTargetFromSchedule(Entity.CurrentStageName, _activeSchedule, TileManager);
 
                 base.GetPath(targetpos, _activeSchedule.StageEndLocation);
                 CommandConsole.Append($"{Entity.Name} heading to : {_activeSchedule.StageEndLocation}");
@@ -83,7 +81,7 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         public bool HasReachedEndOfScheduledRoute()
         {
-            return Vector2Helper.WithinRangeOf(Entity.Position, Scheduler.GetTargetFromSchedule(Entity.CurrentStageName, _activeSchedule, _tileManager), 16);
+            return Vector2Helper.WithinRangeOf(Entity.Position, Scheduler.GetTargetFromSchedule(Entity.CurrentStageName, _activeSchedule, TileManager), 16);
         }
 
 

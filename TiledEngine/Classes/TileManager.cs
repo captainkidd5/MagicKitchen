@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using TiledEngine.Classes.Misc;
+using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.ZoneStuff;
 using TiledSharp;
 using UIEngine.Classes;
@@ -49,9 +50,11 @@ namespace TiledEngine.Classes
 
         public List<PortalData> Portals { get; private set; }
 
+        public TileLocator TileLocator { get; private set; }
+
         private Sprite TileSelectorSprite { get; set; }
 
-        public MapType MapType { get; set; }
+        public MapType MapType { get; internal set; }
         public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera, PenumbraComponent penumbra, MapType mapType, ItemManager itemManager) :
             base(graphics, content)
         {
@@ -61,6 +64,7 @@ namespace TiledEngine.Classes
             _itemManager = itemManager;
             _camera = camera;
             _penumbra = penumbra;
+            TileLocator = new TileLocator();
         }
 
         /// <summary>
@@ -451,6 +455,7 @@ namespace TiledEngine.Classes
                 }
             }
             Tiles.Clear();
+            TileLocator.CleanUp();
         }
     }
 }
