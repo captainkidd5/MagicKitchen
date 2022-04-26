@@ -61,7 +61,7 @@ namespace TiledEngine.Classes.TileAddons
 
         public virtual void Interact(bool isPlayer)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
         protected void GenerateLoot()
         {

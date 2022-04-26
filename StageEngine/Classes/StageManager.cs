@@ -136,11 +136,12 @@ namespace StageEngine.Classes
             if (!Flags.Pause)
             {
                 _portalManager.Update(gameTime);
+                CurrentStage.Update(gameTime);
+
                 _playerManager.Update(gameTime);
 
                 _npcManager.Update(gameTime);
 
-                CurrentStage.Update(gameTime);
                 if (SoundFactory.AllowAmbientSounds && !SoundFactory.IsPlayingAmbient)
                     SoundFactory.PlayAmbientNoise(CurrentStage.Name);
             }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes.Helpers;
+using UIEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Dynamics;
 
@@ -31,8 +32,14 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base.Update(gameTime);
             if (PlayerInClickRange && MouseHovering && Controls.IsClicked)
             {
-                Console.WriteLine("Test");
-                AddItem(2717);
+                if (MayPlaceItem)
+                {
+                    AddItem(UI.Cursor.HeldItem.Id);
+                    UI.Cursor.HeldItemCount--;
+                    if (UI.Cursor.HeldItemCount == 0)
+                        UI.Cursor.HeldItem = null;
+                }
+              
             }
         }
         public bool SitDown()
