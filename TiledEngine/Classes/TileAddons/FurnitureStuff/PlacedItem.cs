@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,7 +17,6 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
     {
         private int _itemId;
         private Tile _tileTiedTo;
-
         private Sprite _worldItemSprite;
         private Vector2 _position;
         public int Key => _tileTiedTo.GetKey();
@@ -52,12 +52,14 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public void LoadSave(BinaryReader reader)
         {
-            throw new NotImplementedException();
+            _itemId = reader.ReadInt32();
+            _position = Vector2Helper.ReadVector2(reader);
         }
 
         public void Save(BinaryWriter writer)
         {
-            throw new NotImplementedException();
+           writer.Write(_itemId);
+            Vector2Helper.WriteVector2(writer, _position);
         }
     }
 }

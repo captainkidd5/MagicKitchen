@@ -107,7 +107,7 @@ namespace TiledEngine.Classes
         /// <returns>Tile Key</returns>
         internal int GetKey()
         {
-            return ((X << 32) | (Y << 18) | (int)IndexLayer); //14 bits for x and y, 4 bits for layer.
+            return ((X << 18) | (Y << 4) | ((int)IndexLayer << 0)); //14 bits for x and y, 4 bits for layer.
         }
 
         internal string GetTileKeyString(int layer, int x, int y)

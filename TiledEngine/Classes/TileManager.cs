@@ -67,7 +67,7 @@ namespace TiledEngine.Classes
             _camera = camera;
             _penumbra = penumbra;
             TileLocator = new TileLocator();
-            PlacedItemManager = new PlacedItemManager();
+            PlacedItemManager = new PlacedItemManager(this);
         }
 
         /// <summary>
@@ -266,6 +266,13 @@ namespace TiledEngine.Classes
                 MouseY = MapWidth - 1;
         }
 
+        public Tile GetTileFromTileKey(int key) 
+        {
+            int x = (key >> 18) & 0x3fff;
+            int y = (key >> 4) & 0x3fff;
+            int layer = (key >> 0) & 0xf;
+            return Tiles[layer][x, y];
+        }
 
         public Tile GetTileFromWorldPosition(Vector2 position, Layers layer)
         {

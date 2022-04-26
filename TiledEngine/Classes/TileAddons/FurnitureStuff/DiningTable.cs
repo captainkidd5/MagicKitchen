@@ -38,8 +38,10 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                     UI.Cursor.HeldItemCount--;
                     if (UI.Cursor.HeldItemCount == 0)
                         UI.Cursor.HeldItem = null;
+                    Controls.ClickActionTriggeredThisFrame = true;
+
                 }
-              
+
             }
         }
         public bool SitDown()

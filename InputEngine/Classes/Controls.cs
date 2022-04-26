@@ -73,7 +73,9 @@ namespace InputEngine.Classes.Input
 
         public static List<Keys> AcceptableKeysForTyping => CurrentControls.AcceptableKeysForTyping;
         public static Point CursorTileIndex { get; private set; }
-        public static bool IsClicked => CurrentControls.DidClick;
+
+        public static bool ClickActionTriggeredThisFrame;
+        public static bool IsClicked => CurrentControls.DidClick && !ClickActionTriggeredThisFrame;
         public static bool IsRightClicked => CurrentControls.DidRightClick;
 
         public static bool WasKeyTapped(Keys key) => TappedKeys.Contains(key);
@@ -96,7 +98,7 @@ namespace InputEngine.Classes.Input
         public static void Update(GameTime gameTime)
         {
             CurrentControls.Update(gameTime);
-
+            ClickActionTriggeredThisFrame = false;
             if (IsPlayerControllable)
             {
                 IsPlayerMoving = !(DirectionFacing == Direction.None);

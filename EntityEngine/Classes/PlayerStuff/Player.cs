@@ -98,6 +98,7 @@ namespace EntityEngine.Classes.PlayerStuff
                 if (UI.Cursor.HeldItem != null && !UI.IsHovered)
                 {
                     DropCurrentlyHeldItemToWorld();
+                    Controls.ClickActionTriggeredThisFrame = true;
                 }
             }
 
