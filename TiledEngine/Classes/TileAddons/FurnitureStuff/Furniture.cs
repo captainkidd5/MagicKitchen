@@ -25,7 +25,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public void AddItem(int itemId)
         {
             PlacedItem placedItem = new PlacedItem(itemId, Tile);
-            placedItem.Load(new Vector2(Position.X, Position.Y -12));
+            placedItem.Load(new Vector2(Position.X - 8, Position.Y -16));
             PlacedItems.Add(placedItem);
             TileManager.PlacedItemManager.AddNewItem(placedItem);
         }

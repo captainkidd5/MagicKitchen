@@ -34,7 +34,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             _position = position;
             _worldItemSprite  = SpriteFactory.CreateWorldSprite(position, Item.GetItemSourceRectangle(_itemId),
-                ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f), customLayer:_tileTiedTo.Layer);
+                ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f), customLayer:_tileTiedTo.Layer + Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f);
         }
         public void Update(GameTime gameTime)
         {
