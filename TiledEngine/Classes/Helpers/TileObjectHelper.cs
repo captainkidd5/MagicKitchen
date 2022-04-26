@@ -65,6 +65,7 @@ namespace TiledEngine.Classes.Helpers
                 //Using layer here is fine because we haven't yet randomized it in tile utility
          
                 tile.Addons.Add(new DestructableTile(tile, tileManager, tmxShape, properties["destructable"]));
+                return;
             }
             if (properties.ContainsKey("furniture"))
             {
@@ -72,12 +73,12 @@ namespace TiledEngine.Classes.Helpers
                     tile.Addons.Add(Furniture.GetFurnitureFromProperty(properties["furniture"], tile, tileManager, tmxShape));
 
             }
-            else
-            {
-                TileBody tileBody = new TileBody(tile, tileManager, tmxShape);
-                tile.Addons.Add(tileBody);
-            }
-           
+     
+        
+            TileBody tileBody = new TileBody(tile, tileManager, tmxShape);
+            tile.Addons.Add(tileBody);
+
+
         }
 
 

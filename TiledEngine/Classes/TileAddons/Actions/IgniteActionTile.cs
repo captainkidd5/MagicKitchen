@@ -17,16 +17,21 @@ namespace TiledEngine.Classes.TileAddons.Actions
         public IgniteActionTile(Tile tile, TileManager tileManager , IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, tileManager, intermediateTmxShape, actionType)
         {
             
-            if (tile.Sprite.GetType() == typeof(IntervalAnimatedSprite))
-            {
-                (tile.Sprite as IntervalAnimatedSprite).Paused = true;
-            }
+            //if (tile.Sprite.GetType() == typeof(IntervalAnimatedSprite))
+            //{
+            //    (tile.Sprite as IntervalAnimatedSprite).Paused = true;
+            //}
+        }
+
+        public override void Load()
+        {
+            base.Load();
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            IntervalAnimatedSprite spr = Tile.Sprite as IntervalAnimatedSprite;
+           // IntervalAnimatedSprite spr = Tile.Sprite as IntervalAnimatedSprite;
 
             if (PlayerInClickRange && MouseHovering && Controls.IsClicked)
             {
@@ -36,14 +41,14 @@ namespace TiledEngine.Classes.TileAddons.Actions
 
 
                 }
-                (spr).Paused = false;
+              //  (spr).Paused = false;
                
             }
-            if ((spr).HasLoopedAtLeastOnce)
-            {
-                TileAnimationHelper.SwitchGidToAnimationFrame(Tile, TileManager, TileSetPackage);
+            //if ((spr).HasLoopedAtLeastOnce)
+            //{
+            //    TileAnimationHelper.SwitchGidToAnimationFrame(Tile, TileManager, TileSetPackage);
 
-            }
+            //}
         }
 
         protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)

@@ -60,7 +60,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             switch (value)
             {
                 case "diningTable":
-                    return new DiningTable(tile, tileManager, tmxShape, "Ignite");
+                    return new DiningTable(tile, tileManager, tmxShape, "None");
                 default:
                     throw new Exception($"Furniture type {value} does not exist");
             }

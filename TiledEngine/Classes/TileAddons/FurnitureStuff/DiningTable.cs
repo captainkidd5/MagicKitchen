@@ -30,17 +30,22 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (PlayerInClickRange && MouseHovering && Controls.IsClicked)
+            if(PlayerInClickRange && MouseHovering && UI.Cursor.HeldItemCount > 0)
             {
-                if(StoreItem(UI.Cursor.HeldItem.Id))
+                UI.Cursor.CursorIconType = CursorIconType.Rock;
+                if (Controls.IsClicked)
                 {
-                    AddItem(UI.Cursor.HeldItem.Id);
-                    UI.Cursor.RemoveSingleHeldItem();
-                    Controls.ClickActionTriggeredThisFrame = true;
-                }
-    
+                    if (StoreItem(UI.Cursor.HeldItem.Id))
+                    {
+                        AddItem(UI.Cursor.HeldItem.Id);
+                        UI.Cursor.RemoveSingleHeldItem();
+                        Controls.ClickActionTriggeredThisFrame = true;
+                    }
 
+
+                }
             }
+           
         }
         public bool SitDown()
         {
@@ -73,6 +78,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 return true;
             }
             return false;
+        }
+
+        public override void Load()
+        {
+            base.Load();
         }
     }
 }
