@@ -19,6 +19,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         private Tile _tileTiedTo;
         private Sprite _worldItemSprite;
         private Vector2 _position;
+
+        private static readonly int s_Width = 14;
         public int Key => _tileTiedTo.GetKey();
 
         public PlacedItem(int itemId, Tile tileTiedTo)
@@ -32,8 +34,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         }
         public void Load(Vector2 position)
         {
-            _position = position;
-            _worldItemSprite  = SpriteFactory.CreateWorldSprite(position, Item.GetItemSourceRectangle(_itemId),
+            _position = new Vector2(position.X - s_Width / 2, position.Y - s_Width / 2);
+            _worldItemSprite  = SpriteFactory.CreateWorldSprite(_position, Item.GetItemSourceRectangle(_itemId),
                 ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f), customLayer:_tileTiedTo.Layer + Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f);
         }
         public void Update(GameTime gameTime)

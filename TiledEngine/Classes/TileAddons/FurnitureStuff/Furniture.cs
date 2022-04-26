@@ -20,6 +20,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public int ItemCount => PlacedItems?.Count ?? 0;
 
         public bool MayPlaceItem => ItemCount <= MaxPlacedItems;
+
+        protected Vector2 TopOfFurniture => new Vector2(CenteredPosition.X, CenteredPosition.Y - IntermediateTmxShape.Radius);
+
         public Furniture(Tile tile,TileManager tileManager,
             IntermediateTmxShape intermediateTmxShape,string actionType) :
             base( tile, tileManager, intermediateTmxShape, actionType)
@@ -31,7 +34,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public void AddItem(int itemId)
         {
             PlacedItem placedItem = new PlacedItem(itemId, Tile);
-            placedItem.Load(new Vector2(Tile.Position.X, Tile.Position.Y));
+            placedItem.Load(TopOfFurniture);
             PlacedItems.Add(placedItem);
             TileManager.PlacedItemManager.AddNewItem(placedItem);
         }
@@ -40,7 +43,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base.Load();
             PlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
                 foreach(PlacedItem placedItem in PlacedItems)
-                placedItem.Load(new Vector2(Tile.Position.X, Tile.Position.Y ));
+                placedItem.Load(TopOfFurniture);
 
         }
 

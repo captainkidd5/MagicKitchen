@@ -44,6 +44,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
             {
                 throw new Exception($"{IntermediateTmxShape.TmxObjectType} is not supported.");
             }
+            Move(IntermediateTmxShape.HullPosition);
 
         }
 
