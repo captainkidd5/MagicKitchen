@@ -9,7 +9,7 @@ using TiledSharp;
 
 namespace TiledEngine.Classes
 {
-    internal class TileSetPackage
+    public class TileSetPackage
     {
         private Dictionary<int, TmxTilesetTile> _backgroundDictionary;
         public Texture2D BackgroundSpriteSheet { get; private set; }

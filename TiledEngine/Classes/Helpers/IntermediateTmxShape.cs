@@ -10,7 +10,7 @@ namespace TiledEngine.Classes.Helpers
     /// Data class for <see cref="TileObjectHelper.AddObjectsFromObjectGroups(Tile, Globals.Classes.Settings.Layers, TileManager, Dictionary{int, TmxTilesetTile})"/>
     /// Primarily used because gathering these properties are all done in a batch and its easier to store it as a DTO. May want to refactor in the future
     /// </summary>
-    internal class IntermediateTmxShape
+    public class IntermediateTmxShape
     {
         public TmxObjectType TmxObjectType { get; private set; }
         public Rectangle ColliderRectangle { get; private set; }

@@ -20,6 +20,12 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         private Sprite _worldItemSprite;
         private Vector2 _position;
         public int Key => _tileTiedTo.GetKey();
+
+        public PlacedItem(int itemId, Tile tileTiedTo)
+        {
+            _itemId = itemId;
+            _tileTiedTo = tileTiedTo;
+        }
         public PlacedItem()
         {
 

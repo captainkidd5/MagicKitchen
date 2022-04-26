@@ -21,14 +21,28 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             _placedItemDictionary = new Dictionary<int, List<PlacedItem>>();
         }
+        public void AddNewItem(PlacedItem placedItem)
+        {
+            if (_placedItemDictionary.ContainsKey(placedItem.Key))
+                _placedItemDictionary[placedItem.Key].Add(placedItem);
+            else
+                _placedItemDictionary.Add(placedItem.Key, new List<PlacedItem>() { placedItem });
+            
+        }
 
+        public void Remove(PlacedItem placedItem)
+        {
+            _placedItemDictionary[placedItem.Key].Remove(placedItem);
+            if(_placedItemDictionary[placedItem.Key].Count < 1)
+                _placedItemDictionary.Remove(placedItem.Key);
+        }
         public List<PlacedItem> GetPlacedItemsFromTile(Tile tile)
         {
             if (_placedItemDictionary.ContainsKey(tile.GetKey()))
             {
                 return _placedItemDictionary[tile.GetKey()];
             }
-            return null;
+            return new List<PlacedItem>();
         }
 
         public void Save(BinaryWriter writer)

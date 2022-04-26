@@ -16,7 +16,7 @@ using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TileAddons
 {
-    internal class TileBody : Collidable, ITileAddon
+    public class TileBody : Collidable, ITileAddon
     {
         public Tile Tile { get; private set; }
         protected readonly TileManager TileManager;
@@ -29,7 +29,7 @@ namespace TiledEngine.Classes.TileAddons
             TileManager = tileManager;
             IntermediateTmxShape = intermediateTmxShape;
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
            // throw new NotImplementedException();
         }

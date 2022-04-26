@@ -1,41 +1,59 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiledEngine.Classes.Helpers;
 
 namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
     public class Furniture : LocateableTileAddon
     {
-        private readonly PlacedItemManager _placedItemManager;
+    
 
         public List<PlacedItem> PlacedItems { get; set; }
-        public Furniture(TileLocator tileLocator,Tile tile, PlacedItemManager placedItemManager) : base(tileLocator, tile)
+        public Furniture(Tile tile,TileManager tileManager,
+            IntermediateTmxShape intermediateTmxShape) :
+            base( tile, tileManager, intermediateTmxShape)
         {
             Key = "furniture";
-            _placedItemManager = placedItemManager;
         }
 
+
+        public void AddItem(int itemId)
+        {
+            PlacedItem placedItem = new PlacedItem(itemId, Tile);
+            PlacedItems.Add(placedItem);
+            TileManager.PlacedItemManager.AddNewItem(placedItem);
+        }
         public override void Load()
         {
             base.Load();
-            PlacedItems = _placedItemManager.GetPlacedItemsFromTile(Tile);
+            PlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
+                foreach(PlacedItem placedItem in PlacedItems)
+                placedItem.Load(Tile.CentralPosition);
+
+        }
+
+        public override void Update(GameTime gameTime)
+        {
 
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
             foreach(PlacedItem placedItem in PlacedItems)
-                placedItem.
+                placedItem.Draw(spriteBatch);
         }
-        public static Furniture GetFurnitureFromProperty(string value, TileLocator tileLocator, Tile tile)
+        public static Furniture GetFurnitureFromProperty(string value,
+            Tile tile,TileManager tileManager, IntermediateTmxShape tmxShape)
         {
             switch (value)
             {
                 case "diningTable":
-                    return new DiningTable(tileLocator,tile);
+                    return new DiningTable(tile, tileManager, tmxShape);
                 default:
                     throw new Exception($"Furniture type {value} does not exist");
             }

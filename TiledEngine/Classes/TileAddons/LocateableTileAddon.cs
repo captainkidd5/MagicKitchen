@@ -5,47 +5,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiledEngine.Classes.Helpers;
 
 namespace TiledEngine.Classes.TileAddons
 {
-    public abstract class LocateableTileAddon : ITileAddon
+    public abstract class LocateableTileAddon : TileBody
     {
-        private readonly TileLocator _tileLocator;
+     
         protected string Key;
         protected string SubKey;
 
-        public Tile Tile { get; set; }
 
-        public LocateableTileAddon(TileLocator tileLocator, Tile tile)
+        public LocateableTileAddon(Tile tile, TileManager tileManager,
+            IntermediateTmxShape intermediateTmxShape) : base(tile, tileManager, intermediateTmxShape)
         {
-            _tileLocator = tileLocator;
-            Tile = tile;
+    
         }
 
-        public virtual void Load()
+        public override void Load()
         {
-            _tileLocator.AddItem(Key, SubKey, Tile);
+            base.Load();
+            TileManager.TileLocator.AddItem(Key, SubKey, Tile);
         }
-        public void CleanUp()
+        public override void CleanUp()
         {
-            _tileLocator.RemoveItem(Key, SubKey, Tile);
+            base.CleanUp();
+            TileManager.TileLocator.RemoveItem(Key, SubKey, Tile);
         }
-
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-            //throw new NotImplementedException();
-        }
-
-        public void Interact(bool isPlayer)
-        {
-            throw new NotImplementedException();
-        }
-
        
-
-        public void Update(GameTime gameTime)
-        {
-            //throw new NotImplementedException();
-        }
     }
 }
