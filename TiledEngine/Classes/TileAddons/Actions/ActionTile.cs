@@ -15,7 +15,7 @@ using VelcroPhysics.Dynamics;
 namespace TiledEngine.Classes.TileAddons.Actions
 {
 
-    internal class ActionTile : TileBody
+    public class ActionTile : TileBody
     {
         public CursorIconType CursorIconType { get; private set; }
 

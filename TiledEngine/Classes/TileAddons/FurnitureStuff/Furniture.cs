@@ -15,8 +15,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public List<PlacedItem> PlacedItems { get; set; }
         public Furniture(Tile tile,TileManager tileManager,
-            IntermediateTmxShape intermediateTmxShape) :
-            base( tile, tileManager, intermediateTmxShape)
+            IntermediateTmxShape intermediateTmxShape,string actionType) :
+            base( tile, tileManager, intermediateTmxShape, actionType)
         {
             Key = "furniture";
         }
@@ -25,6 +25,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public void AddItem(int itemId)
         {
             PlacedItem placedItem = new PlacedItem(itemId, Tile);
+            placedItem.Load(new Vector2(Position.X, Position.Y -12));
             PlacedItems.Add(placedItem);
             TileManager.PlacedItemManager.AddNewItem(placedItem);
         }
@@ -39,7 +40,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public override void Update(GameTime gameTime)
         {
-
+            base.Update(gameTime);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -53,7 +54,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             switch (value)
             {
                 case "diningTable":
-                    return new DiningTable(tile, tileManager, tmxShape);
+                    return new DiningTable(tile, tileManager, tmxShape, "Ignite");
                 default:
                     throw new Exception($"Furniture type {value} does not exist");
             }
