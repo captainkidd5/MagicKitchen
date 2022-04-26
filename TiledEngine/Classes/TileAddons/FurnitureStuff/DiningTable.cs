@@ -13,11 +13,22 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public int TotalSeatingCapacity { get; private set; } = 1;
         public int OccupiedSeatCount { get; internal set; }
-
         public bool SeatingAvailable => OccupiedSeatCount < TotalSeatingCapacity;
+
+
         public DiningTable(TileLocator tileLocator, Tile tile) : base(tileLocator, tile)
         {
             SubKey = "diningTable";
+        }
+
+        public bool SitDown()
+        {
+            if(SeatingAvailable)
+            {
+                OccupiedSeatCount++;
+                return true;
+            }
+            return false;
         }
 
     }

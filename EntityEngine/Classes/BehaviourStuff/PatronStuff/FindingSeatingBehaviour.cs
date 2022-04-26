@@ -77,12 +77,20 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             {
                 if (Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
                 {
-                    HasReachedTable = true;
                     Entity.FaceDirection(Vector2Helper.GetDirectionOfEntityInRelationToEntity(
                         Entity.Position,_table.Tile.CentralPosition));
-                       
-                    StatusIcon.SetStatus(StatusIconType.WantFood);
-                    Entity.Halt();
+                    if (_table.SitDown())
+                    {
+                        HasReachedTable = true;
+                        StatusIcon.SetStatus(StatusIconType.WantFood);
+                        Entity.Halt();
+                    }
+                    else
+                    {
+                        //Else someone else got to the table before you, too bad!
+                        HasLocatedTable = false;
+                    }
+                    
                 }
 
             }

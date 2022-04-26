@@ -163,6 +163,7 @@ namespace StageEngine.Classes
         {
             ItemManager.CleanUp();
             NPCContainer.CleanUp();
+            TileManager.CleanUp();
 
 
         }
