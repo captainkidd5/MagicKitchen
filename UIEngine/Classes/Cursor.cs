@@ -96,6 +96,12 @@ namespace UIEngine.Classes
                 
         }
 
+        public void RemoveSingleHeldItem()
+        {
+            HeldItemCount--;
+            if (HeldItemCount == 0)
+                HeldItem = null;
+        }
         internal void Draw(SpriteBatch spriteBatch)
         {
             CursorSprite.Draw(spriteBatch);

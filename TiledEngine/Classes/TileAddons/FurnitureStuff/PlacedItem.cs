@@ -53,13 +53,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public void LoadSave(BinaryReader reader)
         {
             _itemId = reader.ReadInt32();
-            _position = Vector2Helper.ReadVector2(reader);
         }
 
         public void Save(BinaryWriter writer)
         {
            writer.Write(_itemId);
-            Vector2Helper.WriteVector2(writer, _position);
         }
     }
 }

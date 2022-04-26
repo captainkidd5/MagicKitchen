@@ -32,15 +32,13 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base.Update(gameTime);
             if (PlayerInClickRange && MouseHovering && Controls.IsClicked)
             {
-                if (MayPlaceItem)
+                if(StoreItem(UI.Cursor.HeldItem.Id))
                 {
                     AddItem(UI.Cursor.HeldItem.Id);
-                    UI.Cursor.HeldItemCount--;
-                    if (UI.Cursor.HeldItemCount == 0)
-                        UI.Cursor.HeldItem = null;
+                    UI.Cursor.RemoveSingleHeldItem();
                     Controls.ClickActionTriggeredThisFrame = true;
-
                 }
+    
 
             }
         }
@@ -62,6 +60,19 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnSeparates(fixtureA, fixtureB, contact);
+        }
+
+        /// <summary>
+        /// Returns true if was able to store a single item
+        /// </summary>
+        public bool StoreItem(int itemId)
+        {
+            if (MayPlaceItem)
+            {
+                AddItem(itemId);
+                return true;
+            }
+            return false;
         }
     }
 }

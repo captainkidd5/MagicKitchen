@@ -31,7 +31,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public void AddItem(int itemId)
         {
             PlacedItem placedItem = new PlacedItem(itemId, Tile);
-            placedItem.Load(new Vector2(Position.X - 8, Position.Y -16));
+            placedItem.Load(new Vector2(Tile.Position.X, Tile.Position.Y));
             PlacedItems.Add(placedItem);
             TileManager.PlacedItemManager.AddNewItem(placedItem);
         }
@@ -40,7 +40,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base.Load();
             PlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
                 foreach(PlacedItem placedItem in PlacedItems)
-                placedItem.Load(Tile.CentralPosition);
+                placedItem.Load(new Vector2(Tile.Position.X, Tile.Position.Y ));
 
         }
 
@@ -65,6 +65,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                     throw new Exception($"Furniture type {value} does not exist");
             }
         }
+
+   
 
     }
 }

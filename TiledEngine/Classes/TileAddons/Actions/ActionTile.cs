@@ -69,5 +69,15 @@ namespace TiledEngine.Classes.TileAddons.Actions
         {
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
+
+        public override void Interact(bool isPlayer)
+        {
+            base.Interact(isPlayer);
+            if (isPlayer)
+            {
+                if (!PlayerInClickRange)
+                    return;
+            }
+        }
     }
 }
