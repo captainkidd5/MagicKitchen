@@ -51,6 +51,20 @@
             <MaxStackSize>99</MaxStackSize>
             <Price>1</Price>
         </Item>
+         <Item>
+            <Id>2715</Id>
+            <Name>Schmegg</Name>
+            <Description>Produced from small dinosaurs</Description>
+            <MaxStackSize>99</MaxStackSize>
+            <Price>1</Price>
+        </Item>
+        <Item>
+            <Id>2716</Id>
+            <Name>Schmegg Salad</Name>
+            <Description>Shmeggs over greens</Description>
+            <MaxStackSize>99</MaxStackSize>
+            <Price>1</Price>
+        </Item>
           <Item>
             <Id>2717</Id>
             <Name>Pumpkin Chunk</Name>
