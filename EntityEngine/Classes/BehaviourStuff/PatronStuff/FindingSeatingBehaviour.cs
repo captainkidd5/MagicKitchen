@@ -89,6 +89,9 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                     {
                         //Else someone else got to the table before you, too bad!
                         HasLocatedTable = false;
+                        StatusIcon.SetStatus(StatusIconType.NoTable);
+
+                        Entity.Halt();
                     }
                     
                 }
@@ -102,6 +105,12 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
         /// </summary>
         private DiningTable GetTileWithAvailableTable()
         {
+            
+            
+            
+            
+            
+            
             List<Tile> tilesWithTables = TileManager.TileLocator.LocateTile("furniture", "diningTable");
             List<DiningTable> availableDiningTables = new List<DiningTable>();
             foreach (Tile tile in tilesWithTables)

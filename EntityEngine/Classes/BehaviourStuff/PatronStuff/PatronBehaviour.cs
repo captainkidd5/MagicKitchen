@@ -31,9 +31,19 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
         public override void Update(GameTime gameTime, ref Vector2 velocity)
         {
             base.Update(gameTime, ref velocity);
-            if (_currentPatronBehaviour != null)
+
+            if (_currentPatronBehaviour == null)
+            {
+                Entity.Halt();
+
+            }
+            else
+            {
                 _currentPatronBehaviour.Update(gameTime, ref velocity);
-            else if(SimpleTimer.Run(gameTime))
+
+            }
+
+            if(SimpleTimer.Run(gameTime) && _currentPatronBehaviour == null)
             {
                 GetNewPatronBehaviour();
             }

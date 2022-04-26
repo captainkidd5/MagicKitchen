@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TiledEngine.Classes.TileAddons
 {
-    public class LocateableTileAddon : ITileAddon
+    public abstract class LocateableTileAddon : ITileAddon
     {
         private readonly TileLocator _tileLocator;
         protected string Key;
@@ -22,7 +22,7 @@ namespace TiledEngine.Classes.TileAddons
             Tile = tile;
         }
 
-        public void Load()
+        public virtual void Load()
         {
             _tileLocator.AddItem(Key, SubKey, Tile);
         }
@@ -31,7 +31,7 @@ namespace TiledEngine.Classes.TileAddons
             _tileLocator.RemoveItem(Key, SubKey, Tile);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             //throw new NotImplementedException();
         }

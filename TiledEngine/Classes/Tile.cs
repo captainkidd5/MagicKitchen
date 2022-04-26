@@ -105,9 +105,9 @@ namespace TiledEngine.Classes
         /// returns unique tile key thru bitwise shifting.
         /// </summary>
         /// <returns>Tile Key</returns>
-        internal int GetKey(int layer, int x, int y)
+        internal int GetKey()
         {
-            return ((x << 32) | (y << 18) | layer); //14 bits for x and y, 4 bits for layer.
+            return ((X << 32) | (Y << 18) | (int)IndexLayer); //14 bits for x and y, 4 bits for layer.
         }
 
         internal string GetTileKeyString(int layer, int x, int y)

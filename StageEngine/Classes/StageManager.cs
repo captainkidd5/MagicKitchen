@@ -33,6 +33,9 @@ namespace StageEngine.Classes
         private readonly NPCManager _npcManager;
         private readonly string _startingStageName = "LullabyTown";
 
+
+        private readonly List<string> _doNotUnloadStages = new List<string>() { "Restaurant" };
+
         public Player Player1 => _playerManager.Player1;
         private Camera2D _camera;
         private readonly PortalManager _portalManager;
@@ -93,15 +96,20 @@ namespace StageEngine.Classes
         {
             SongManager.ChangePlaylist(StageSwitchingTo);
             CurrentStage.SaveToStageFile();
-            CurrentStage.CleanUp();
+
+            if(ShouldUnloadStage(CurrentStage.Name))
+                CurrentStage.CleanUp();
+
 
             CurrentStage = GetStage(StageSwitchingTo);
             Player1.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
             _npcManager.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
-            
-            CurrentStage.LoadFromStageFile();
-            if(_npcManager.CurrentContainer != null)
+
+            if (ShouldUnloadStage(CurrentStage.Name))
+                CurrentStage.LoadFromStageFile();
+
+            if (_npcManager.CurrentContainer != null)
                 _npcManager.CurrentContainer.CleanUp();
             _npcManager.CurrentContainer = CurrentStage.NPCContainer;
             if (CurrentStage == null)
@@ -144,6 +152,11 @@ namespace StageEngine.Classes
             CurrentStage.Draw(spriteBatch, gameTime, _npcManager.PersistentManager);
         }
 
+        private bool ShouldUnloadStage(string stageName)
+        {
+            return !_doNotUnloadStages.Contains(stageName);
+        }
+
         public void Save(BinaryWriter writer)
         {
             writer.Write(CurrentStage.Name);
@@ -176,7 +189,7 @@ namespace StageEngine.Classes
 
             foreach (KeyValuePair<string, Stage> pair in Stages)
             {
-                if (pair.Value.Name != currentStageName)
+                if (pair.Value.Name != currentStageName && ShouldUnloadStage(pair.Value.Name))
                     pair.Value.Unload();
             }
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
@@ -206,7 +219,7 @@ namespace StageEngine.Classes
 
             foreach (KeyValuePair<string, Stage> stage in Stages)
             {
-                if (stage.Key != _startingStageName)
+                if (stage.Key != _startingStageName &&  ShouldUnloadStage(stage.Value.Name))
                     stage.Value.Unload();
             }
                 Stages.Clear();

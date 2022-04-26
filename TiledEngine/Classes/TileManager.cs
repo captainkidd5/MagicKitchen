@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using TiledEngine.Classes.Misc;
 using TiledEngine.Classes.TileAddons;
+using TiledEngine.Classes.TileAddons.FurnitureStuff;
 using TiledEngine.Classes.ZoneStuff;
 using TiledSharp;
 using UIEngine.Classes;
@@ -51,6 +52,7 @@ namespace TiledEngine.Classes
         public List<PortalData> Portals { get; private set; }
 
         public TileLocator TileLocator { get; private set; }
+        internal PlacedItemManager PlacedItemManager { get; set; }
 
         private Sprite TileSelectorSprite { get; set; }
 
@@ -65,6 +67,7 @@ namespace TiledEngine.Classes
             _camera = camera;
             _penumbra = penumbra;
             TileLocator = new TileLocator();
+            PlacedItemManager = new PlacedItemManager();
         }
 
         /// <summary>
@@ -415,6 +418,7 @@ namespace TiledEngine.Classes
                     }
                 }
             }
+            PlacedItemManager.Save(writer);
         }
         public void LoadSave(BinaryReader reader)
         {
@@ -437,6 +441,8 @@ namespace TiledEngine.Classes
                     }
                 }
             }
+            PlacedItemManager.LoadSave(reader);
+            //Todo: this is sus
             CreateNewSave(Tiles, MapWidth, TileLoader.GetPackageFromMapType(mapType));
 
         }
@@ -456,6 +462,7 @@ namespace TiledEngine.Classes
             }
             Tiles.Clear();
             TileLocator.CleanUp();
+            PlacedItemManager.CleanUp();
         }
     }
 }
