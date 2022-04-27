@@ -65,10 +65,6 @@ namespace EntityEngine.Classes.BehaviourStuff
                 Vector2 targetpos = Scheduler.GetTargetFromSchedule(Entity.CurrentStageName, _activeSchedule, TileManager);
 
                 base.GetPath(targetpos, _activeSchedule.StageEndLocation);
-                CommandConsole.Append($"{Entity.Name} heading to : {_activeSchedule.StageEndLocation}");
-                CommandConsole.Append($"{Entity.Name} current location : {Entity.CurrentStageName}");
-
-
 
                 if (Vector2Helper.WithinRangeOf(Entity.Position, targetpos))
                 {

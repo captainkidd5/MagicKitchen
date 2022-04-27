@@ -16,7 +16,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public List<PlacedItem> PlacedItems { get; set; }
 
         protected int MaxPlacedItems { get; set; } = 1;
-
+ 
         public int ItemCount => PlacedItems?.Count ?? 0;
 
         public bool MayPlaceItem => ItemCount <= MaxPlacedItems;

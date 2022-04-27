@@ -8,8 +8,9 @@
 		"YZabcdef",
 		"ghijklmn",
 		"opqrstuv",
-		"wxyz1234",
-		"56789"
+		"wxyz0123",
+		"456789/\\",
+		".,"
 	],
 	"glyph-color": "black",
 	"in-kerning": [
@@ -39,7 +40,7 @@
 	"font-license-url": "",
 	"font-sample-text": "Hello!",
 	"font-preview-text": [
-		"dfdfd",
+		"\\.,//9dfdfd",
 		"here is some more text to test with"
 	]
 }
