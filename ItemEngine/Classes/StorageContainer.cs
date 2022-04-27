@@ -347,6 +347,10 @@ namespace ItemEngine.Classes
             StoredCount = reader.ReadInt32();
             if(StoredCount > 0)
                 Item = ItemFactory.GetItem(reader.ReadInt32());
+
+            //Call on item changed here to update UI with loaded changes, otherwise ui doesn't show anything until 
+            //slot is interacted with again
+            OnItemChanged();
         }
 
         public void CleanUp()
