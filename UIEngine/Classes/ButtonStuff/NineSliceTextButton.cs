@@ -56,7 +56,7 @@ namespace UIEngine.Classes.ButtonStuff
             if (_centerText)
             {
                 int halfStringWidth = (int)(combinedtext.TotalStringWidth + characterWidth);
-                newTextPosX = Position.X + width / 2 - halfStringWidth;
+                newTextPosX = Position.X + width / 2 - halfStringWidth /2;
             }
             _textPositions = new List<Vector2>();
             GeneratePositionsForLines(new Vector2(newTextPosX, Position.Y + characterWidth));

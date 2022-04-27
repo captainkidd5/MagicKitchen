@@ -62,7 +62,7 @@ namespace UIEngine.Classes.ButtonStuff
         public void AddConfirmationWindow(string confirmationText = null)
         {
             _requireConfirmation = true;
-            _confirmationWindow = new ConfirmationWindow(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Back), OnClick, confirmationText: confirmationText);
+            _confirmationWindow = new ConfirmationWindow(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), OnClick, confirmationText: confirmationText);
 
         }
         public override void LoadContent()
