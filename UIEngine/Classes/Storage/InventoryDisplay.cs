@@ -48,7 +48,7 @@ namespace UIEngine.Classes.Storage
 
         public override void LoadContent()
         {
-            TotalBounds = new Rectangle(0, 0, 1, 1);
+            
             base.LoadContent();
 
         }

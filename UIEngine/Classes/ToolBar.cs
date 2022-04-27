@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Text;
 using static Globals.Classes.Settings;
 using UIEngine.Classes.Components;
+using UIEngine.Classes.ButtonStuff;
 
 namespace UIEngine.Classes
 {
@@ -23,6 +24,9 @@ namespace UIEngine.Classes
         private PlayerInventoryDisplay _playerInventoryDisplay;
         private int _totalToolbarSlots = 10;
         private int _toolBarSlotWidth = 64;
+
+        private Button _openRecipeBookButton;
+        private Rectangle _openRecipeIcon = new Rectangle(160, 80, 32, 32);
 
         private int _totalWidth => _toolBarSlotWidth * _totalToolbarSlots;
 
@@ -34,22 +38,30 @@ namespace UIEngine.Classes
 
         public void Load(StorageContainer playerStorageContainer)
         {
-            
-
-
             //X and y actually don't matter, multiply by 10 because toolbar is 10 slots wide, at 64 pixels per slot
             Rectangle totalToolBarRectangle = new Rectangle(0, 0, _toolBarSlotWidth * _totalToolbarSlots, _toolBarSlotWidth);
+
+            Position = RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle) + new Vector2(0, -32);
+           
             _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
 
-            _playerInventoryDisplay = new PlayerInventoryDisplay(_stackPanel, graphics, content,
-                RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle) + new Vector2(0, -32), GetLayeringDepth(UILayeringDepths.Low));
+            _playerInventoryDisplay = new PlayerInventoryDisplay(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer);
             _playerInventoryDisplay.LoadContent();
-            TotalBounds = new Rectangle((int)_playerInventoryDisplay.Position.X, (int)_playerInventoryDisplay.Position.Y, totalToolBarRectangle.Width, totalToolBarRectangle.Height);
 
             StackRow stackRow = new StackRow(_totalWidth);
             stackRow.AddItem(_playerInventoryDisplay, StackOrientation.Left);
+
+            _openRecipeBookButton = new Button(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
+               _openRecipeIcon);
+            stackRow.AddItem(_openRecipeBookButton, StackOrientation.Left);
             _stackPanel.Add(stackRow);
+
+
+            TotalBounds = new Rectangle((int)_playerInventoryDisplay.Position.X, (int)_playerInventoryDisplay.Position.Y, totalToolBarRectangle.Width, totalToolBarRectangle.Height);
+
+
+
         }
 
         public override void Update(GameTime gameTime)

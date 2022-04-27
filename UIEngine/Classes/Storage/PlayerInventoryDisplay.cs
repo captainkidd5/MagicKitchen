@@ -61,6 +61,7 @@ namespace UIEngine.Classes.Storage
                 new Vector2(_openBigInventoryButton.Position.X + _openBigInventoryButton.Width * 4,
                 _openBigInventoryButton.Position.Y), GetLayeringDepth(UILayeringDepths.Medium));
 
+
         }
         public override void Update(GameTime gameTime)
         {
@@ -130,6 +131,7 @@ namespace UIEngine.Classes.Storage
                 if(i < _extendedInventoryCutoff)
                 {
                     slotPos = new Vector2(Position.X + i * _buttonWidth, Position.Y);
+                    TotalBounds = new Rectangle(TotalBounds.X, TotalBounds.Y, TotalBounds.Width + _buttonWidth, _buttonWidth);
                 }
                 else
                 {
