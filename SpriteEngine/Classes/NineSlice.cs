@@ -52,7 +52,7 @@ namespace SpriteEngine.Classes
         {
 
             SharedConstructor(position, texture, layer, color, scale);
-            Width = width;
+            Width = width; 
             Height = height;
 
             BuildRectangle(position);

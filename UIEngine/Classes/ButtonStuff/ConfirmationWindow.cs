@@ -59,10 +59,11 @@ namespace UIEngine.Classes.ButtonStuff
             _cancelButton = UI.ButtonFactory.CreateButton(this, cancelButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_redExRectangle, _cancelAction);
 
             _text = TextFactory.CreateUIText(_confirmationText, GetLayeringDepth(UILayeringDepths.High));
+            TotalBounds = _backGroundSprite.HitBox;
+
             _textPosition = Text.CenterInRectangle(TotalBounds, _text);
 
             IsActive = false;
-            TotalBounds = _backGroundSprite.HitBox;
             base.LoadContent();
 
         }

@@ -41,7 +41,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
         private PlayOrExitMenu _playOrExitMenu;
 
-        private readonly Rectangle _backGroundSourceRectangle = new Rectangle(0, 0, 240, 360);
+        private readonly Rectangle _backGroundSourceRectangle = new Rectangle(0, 0, 256, 360);
         private NineSliceSprite _backGroundSprite;
         private Vector2 _backGroundSpritePosition;
         private Button _backButton;

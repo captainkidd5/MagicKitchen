@@ -51,7 +51,7 @@ namespace UIEngine.Classes.ButtonStuff
         {
             List<Text> text = GetIncrementedText(layerDepth, strings);
             return new NineSliceTextButton(section, graphics, content, pos, layerDepth,
-               text, customAction, null, null);
+               text, customAction, null, null, true);
 
         }
 

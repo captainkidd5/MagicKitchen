@@ -18,8 +18,8 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
 {
     internal class SettingsMenu : InterfaceSection
     {
-        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 224, 320);
-        private int _backGroundSpriteWidth = 224;
+        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 256, 320);
+        private int _backGroundSpriteWidth = 256;
         private NineSliceTextButton _saveSettingsButton;
         private StackPanel _stackPanel;
         public SettingsMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
