@@ -41,7 +41,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
         private PlayOrExitMenu _playOrExitMenu;
 
-        private readonly Rectangle _backGroundSourceRectangle = new Rectangle(0, 0, 256, 360);
+        public static Rectangle BackGroundSourceRectangle = new Rectangle(0, 0, 360, 360);
         private NineSliceSprite _backGroundSprite;
         private Vector2 _backGroundSpritePosition;
         private Button _backButton;
@@ -94,7 +94,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                     _activeSection.Deactivate();
 
                     //_activeSection = UI.SettingsMenu;
-                    UI.SettingsMenu.ReadjustBasedOnParent(_backGroundSourceRectangle, _backGroundSpritePosition);
+                    UI.SettingsMenu.ReadjustBasedOnParent(BackGroundSourceRectangle, _backGroundSpritePosition);
                     UI.SettingsMenu.Activate();
                    // UI.SettingsMenu.LoadContent();
 
@@ -109,11 +109,11 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         }
         public override void LoadContent()
         {
-            _createNewSaveMenu = new CreateNewSaveMenu(this, AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle), graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
+            _createNewSaveMenu = new CreateNewSaveMenu(this, AdjustBackgroundRectangleAndBackButton(BackGroundSourceRectangle), graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
             _createNewSaveMenu.LoadContent();
-            AdjustBackgroundRectangleAndBackButton(_backGroundSourceRectangle);
+            AdjustBackgroundRectangleAndBackButton(BackGroundSourceRectangle);
 
-            TotalBounds = new Rectangle((int)_backGroundSpritePosition.X, (int)_backGroundSpritePosition.Y, _backGroundSourceRectangle.Width, _backGroundSourceRectangle.Height);
+            TotalBounds = new Rectangle((int)_backGroundSpritePosition.X, (int)_backGroundSpritePosition.Y, BackGroundSourceRectangle.Width, BackGroundSourceRectangle.Height);
 
             _viewGamesMenu = new ViewGamesMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
             _viewGamesMenu.LoadContent();

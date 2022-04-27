@@ -18,8 +18,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
 {
     internal class SettingsMenu : InterfaceSection
     {
-        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 256, 320);
-        private int _backGroundSpriteWidth = 256;
+        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 360, 320);
         private NineSliceTextButton _saveSettingsButton;
         private StackPanel _stackPanel;
         public SettingsMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -40,7 +39,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             Position = RectangleHelper.CenterRectangleInRectangle(_backGroundSpriteDimensions,
                 new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height));
             _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-            StackRow stackRow1 = new StackRow(_backGroundSpriteWidth);
+            StackRow stackRow1 = new StackRow(_backGroundSpriteDimensions.Width);
             _saveSettingsButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, Position,
                 GetLayeringDepth(UILayeringDepths.Low),  new List<string>()
                 { "Save Settings!" },

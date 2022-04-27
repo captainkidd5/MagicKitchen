@@ -31,7 +31,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
         private Rectangle _settingsCogSourceRectangle = new Rectangle(64, 80, 32, 32);
 
-        private int _totalWidth = 256;
+        private int _totalWidth = OuterMenu.BackGroundSourceRectangle.Width;
         private StackPanel _stackPanel;
 
         public PlayOrExitMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :

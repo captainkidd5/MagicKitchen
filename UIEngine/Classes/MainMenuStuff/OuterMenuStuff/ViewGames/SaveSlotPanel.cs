@@ -25,7 +25,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         private readonly SaveFile _saveFile;
 
         private NineSliceTextButton _slotButton;
-        private static int _width = 256;
+        private static int _width = OuterMenu.BackGroundSourceRectangle.Width;
         private static int _height = 80;
 
         private NineSliceButton _returnToMainMenuButton;
@@ -46,7 +46,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         public override void LoadContent()
         {
             Action action = LoadSave;
-
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _width - ButtonFactory.s_redExRectangle.Width * 2, _height);
 
             _slotButton = UI.ButtonFactory.CreateNSliceTxtBtnManualDimensions(this, Position, _width - ButtonFactory.s_redExRectangle.Width * 2, _height, GetLayeringDepth(UILayeringDepths.Medium),

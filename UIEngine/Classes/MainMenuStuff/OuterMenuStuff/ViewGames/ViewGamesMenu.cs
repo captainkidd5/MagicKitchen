@@ -27,7 +27,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         private int _saveSlotWidth = 128;
         private int _saveSlotHeight = 64;
 
-        private int _totalWidth = 256;
+        private int _totalWidth;
         private StackPanel _stackPanel;
         public ViewGamesMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -39,7 +39,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         {
             Position = new Vector2(parentSection.TotalBounds.X,
                 parentSection.TotalBounds.Y);
-
+            _totalWidth = parentSection.TotalBounds.Width;
             _stackPanel = new StackPanel(this, graphics, content, Position, LayerDepth);
 
 

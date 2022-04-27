@@ -22,7 +22,7 @@ namespace TextEngine
 
 
         }
-        public static float SingleCharacterWidth(float scale = .5f)
+        public static float SingleCharacterWidth(float scale = 1f)
         {
             return BitmapFont.MeasureString("o").Width * scale;
 
@@ -30,7 +30,7 @@ namespace TextEngine
         //UI
         public static Text CreateUIText(String value, float layer, float? scale = null)
         {
-            return new Text(value, .5f,BitmapFont, layer);
+            return new Text(value, 1f,BitmapFont, layer);
         }
 
         /// <summary>
