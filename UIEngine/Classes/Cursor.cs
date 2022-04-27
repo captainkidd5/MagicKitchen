@@ -58,7 +58,7 @@ namespace UIEngine.Classes
             CursorSprite = SpriteFactory.CreateUISprite(Vector2.Zero, CursorSourceRectangle,
                 CursorTexture,_cursorLayerDepth, Color.White, null);
 
-            MouseDebugText = TextFactory.CreateUIText("test", _cursorLayerDepth);
+            MouseDebugText = TextFactory.CreateUIText("test", .99f);
             CreateBody(Controls.CursorWorldPosition);
             _toolTip = new CursorItemToolTip();
         }
@@ -69,7 +69,11 @@ namespace UIEngine.Classes
             Move(Controls.CursorWorldPosition);
             CursorSprite.Update(gameTime, Controls.CursorUIPosition);
             if (Flags.DisplayMousePosition)
-                MouseDebugText.ReplaceCurrentText($"{Controls.CursorUIPosition.X.ToString()} , {Controls.CursorUIPosition.Y.ToString()}");
+            {
+                MouseDebugText.Update(gameTime, new Vector2(Controls.CursorUIPosition.X - 32, Controls.CursorUIPosition.Y - 32));
+                MouseDebugText.SetFullString($"{Controls.CursorUIPosition.X.ToString()} , {Controls.CursorUIPosition.Y.ToString()}");
+
+            }
             UpdateCursor();
 
             _toolTip.Update(gameTime, Controls.CursorUIPosition);
@@ -108,6 +112,8 @@ namespace UIEngine.Classes
 
             if(HeldItem != null)
              _toolTip.Draw(spriteBatch);
+            if (Flags.DisplayMousePosition)
+                MouseDebugText.Draw(spriteBatch, true);
         }
         private Rectangle GetCursorIconSourcRectangleFromType(CursorIconType ctype)
         {

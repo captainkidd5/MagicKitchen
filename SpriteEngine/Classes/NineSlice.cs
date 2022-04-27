@@ -69,7 +69,7 @@ namespace SpriteEngine.Classes
         
             SharedConstructor(position, texture, layer, color, scale);
 
-            Width = (int)text.TotalStringWidth + (int)TextFactory.SingleCharacterWidth();
+            Width = (int)text.TotalStringWidth;
             Height = (int)text.TotalStringHeight + (int)TextFactory.SingleCharacterWidth() * 4;
 
             BuildRectangle(_position);
@@ -93,7 +93,20 @@ namespace SpriteEngine.Classes
         }
         private void BuildRectangle(Vector2 position)
         {
+            if (Width % 16 != 0)
+            {
+                Width = Width + (16 - Width % 16);
 
+                //throw new Exception($"Width must be multiple of 16");
+
+            }
+            if (Height % 16 != 0)
+            {
+                Height = Height + (16 - Height % 16);
+
+                // throw new Exception($"Height must be multiple of 16");
+
+            }
             int totalWidthSlices = Width / (int)(_unit * _scale.X);
 
             int totalHeightSlices = Height / (int)(_unit * _scale.Y);

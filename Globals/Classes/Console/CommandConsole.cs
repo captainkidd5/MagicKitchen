@@ -40,6 +40,9 @@ namespace Globals.Classes.Console
                 case "debug":
                     Flags.DebugVelcro = !Flags.DebugVelcro;
                     break;
+                case "debug_ui":
+                Flags.DisplayMousePosition = !Flags.DisplayMousePosition;
+                    break;
                 case "t_selector":
                     Flags.ShowTileSelector = !Flags.ShowTileSelector;
                     break;
@@ -66,12 +69,12 @@ namespace Globals.Classes.Console
         }
         public static void RegisterCommand(string commandName, string description, Action<string[]> command)
         {
-          
 
-                s_manualInterpreter.RegisterCommand(commandName, command);
 
-                Commands.Add(commandName, ":---------------" + description);
-            
+            s_manualInterpreter.RegisterCommand(commandName, command);
+
+            Commands.Add(commandName, ":---------------" + description);
+
 
         }
     }

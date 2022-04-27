@@ -22,7 +22,7 @@ namespace UIEngine.Classes.ButtonStuff
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, buttonAction, foregroundSprite, samplePoint, hoverTransparency)
         {
             _scale = new Vector2(scale, scale);
-            BackGroundSprite = SpriteFactory.CreateUISprite(position, sourceRectangle.Value,ButtonTexture, LayerDepth, null, null, new Vector2(scale, scale));
+            BackGroundSprite = SpriteFactory.CreateUISprite(position, sourceRectangle.Value,ButtonTexture, LayerDepth, null, null, _scale);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
 

@@ -23,9 +23,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
     internal class ViewGamesMenu : InterfaceSection
     {
         private NineSliceTextButton _createNewButton;
-            
-        private int _saveSlotWidth = 128;
-        private int _saveSlotHeight = 64;
+          
 
         private int _totalWidth;
         private StackPanel _stackPanel;
@@ -58,21 +56,24 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             foreach(KeyValuePair<string,SaveFile> file in saveFiles) { 
 
                 StackRow stackRow = new StackRow(_totalWidth);
-                SaveSlotPanel panel = new SaveSlotPanel(file.Value, _stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+                SaveSlotPanel panel = new SaveSlotPanel(file.Value, _stackPanel, graphics,
+                    content, Position, GetLayeringDepth(UILayeringDepths.Low));
                 panel.LoadContent();
                 stackRow.AddItem(panel, StackOrientation.Left);
 
                 Button button = new Button(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
                     ButtonFactory.s_redExRectangle, new Action(() => { panel.DeleteSave(); Reset(); }));
+
                 button.AddConfirmationWindow("Really Delete Save?");
                 button.LoadContent();
+
                 stackRow.AddItem(button, StackOrientation.Left);
 
 
 
                 _stackPanel.Add(stackRow);
             }
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _saveSlotWidth, _saveSlotHeight);
+            TotalBounds = parentSection.TotalBounds;
             base.LoadContent();
 
         }
