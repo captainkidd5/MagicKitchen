@@ -35,7 +35,6 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         }
         public override void LoadContent()
         {
-            base.LoadContent();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, 16, 48);
 
             _baseIngredientSprite = SpriteFactory.CreateUISprite(_baseIngredientSpritePosition,
@@ -44,12 +43,16 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             _baseIngredientButton = new Button(this, graphics, content,
                 _baseIngredientSpritePosition, GetLayeringDepth(UILayeringDepths.Medium),
                 _smallBoxSourceRectangle, null, _baseIngredientSprite);
+
+            base.LoadContent();
+
         }
 
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
             _baseIngredientSpritePosition = Position + _baaseIngredientSpritePositionOffSet * _scale;
+            _baseIngredientButton.Position = _baseIngredientSpritePosition;
 
         }
 

@@ -14,18 +14,19 @@
     "Price": 1
     
     },
+   
     {
-        "Id": 2616,
-        "Name": "Slomato",
-        "Description" : "A bright red fruit",
+        "Id": 2711,
+        "Name": "Water",
+        "Description" : "A glass of water",
         "MaxStackSize": 99,
         "Price": 1
         
         },
     {
-        "Id": 2617,
-        "Name": "Cheese",
-        "Description" : "A chunky of sweaty cheese",
+        "Id": 2713,
+        "Name": "Flour",
+        "Description" : "Grinded wheat",
         "MaxStackSize": 99,
         "Price": 1
         
@@ -43,9 +44,34 @@
             "Name": "Shmizza Dough",
             "Description" : "Raw Shmizza dough, a foundation",
             "MaxStackSize": 99,
-            "Price": 1
+            "Price": 1,
+            "RecipeInfo": 
+                {
+                "CookAction": "None",
+                "CookTime": 2,
+                "BaseIngredient": "Flour",
+                "SupplementaryIngredient" : "Water"
+                
+            }
         
         },
+        
+        {
+            "Id": 2917,
+            "Name": "Cheese",
+            "Description" : "A chunky of sweaty cheese",
+            "MaxStackSize": 99,
+            "Price": 1
+            
+            },
+            {
+                "Id": 2918,
+                "Name": "Slomato",
+                "Description" : "A bright red fruit",
+                "MaxStackSize": 99,
+                "Price": 1
+                
+                },
         {
             "Id": 3015,
             "Name": "Slomato Shmizza",

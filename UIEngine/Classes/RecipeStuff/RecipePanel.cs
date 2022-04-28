@@ -59,6 +59,7 @@ namespace UIEngine.Classes.RecipeStuff
             Vector2 recipeGuideBoxPosition = Position + _recipeGuideBoxPositionOffSet * s_scale;
             _recipeGuideBox = new RecipeGuideBox(this, graphics, content, recipeGuideBoxPosition, GetLayeringDepth(UILayeringDepths.Medium));
             _recipeGuideBox.LoadRecipe(RecipeInfo);
+            _recipeGuideBox.LoadContent();
            // _selectedStepText = RecipeInfo.
             base.LoadContent();
         }

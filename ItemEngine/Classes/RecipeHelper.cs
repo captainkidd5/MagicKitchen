@@ -22,11 +22,21 @@ namespace ItemEngine.Classes
 
         public RecipeInfo GetParentRecipe(RecipeInfo childRecipe)
         {
-            return childRecipe.
+            return _allRecipeInfo.FirstOrDefault(x => x.Name == childRecipe.BaseIngredient);
         }
         public List<RecipeInfo> GetAllSubRecipes(RecipeInfo infoToTest)
         {
             List<RecipeInfo> returnInfo = new List<RecipeInfo>();
+
+            while(true)
+            {
+                infoToTest = GetParentRecipe(infoToTest);
+                if (infoToTest == null)
+                    break;
+                returnInfo.Add(infoToTest);
+            }
+
+            return returnInfo;
             
         }
     }
