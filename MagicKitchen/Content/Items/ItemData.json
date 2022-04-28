@@ -1,0 +1,101 @@
+[
+{
+    "Id": 1,
+    "Name": "Stone Axe",
+    "Description" : "A basic tool for chopping trees",
+    "MaxStackSize": 1,
+    "Price": 25
+},
+{
+    "Id": 2501,
+    "Name": "Stone",
+    "Description" : "Hard, round",
+    "MaxStackSize": 99,
+    "Price": 1
+    
+    },
+    {
+        "Id": 2616,
+        "Name": "Slomato",
+        "Description" : "A bright red fruit",
+        "MaxStackSize": 99,
+        "Price": 1
+        
+        },
+    {
+        "Id": 2617,
+        "Name": "Cheese",
+        "Description" : "A chunky of sweaty cheese",
+        "MaxStackSize": 99,
+        "Price": 1
+        
+        },
+    {
+        "Id": 2717,
+        "Name": "Pumpkin Chunk",
+        "Description" : "Bright orange and sticky",
+        "MaxStackSize": 99,
+        "Price": 1
+        
+        },
+        {
+            "Id": 2914,
+            "Name": "Shmizza Dough",
+            "Description" : "Raw Shmizza dough, a foundation",
+            "MaxStackSize": 99,
+            "Price": 1,
+            
+            "RecipeInfo": [
+                {
+                "CookAction": "Bake",
+                "CookTime": 2,
+                "Ingredients": [
+                    "Shmizza Dough","Slomato"
+                ]
+            }
+           
+        ]
+        },
+        {
+            "Id": 2915,
+            "Name": "Slomato Shmizza",
+            "Description" : "An unfinished Shmizza Pie",
+            "MaxStackSize": 99,
+            "Price": 2,
+            
+            "RecipeInfo": [
+                {
+                "CookAction": "None",
+                "CookTime": 2,
+                "Ingredients": [
+                    "Shmizza Dough","Slomato"
+                ]
+            }
+           
+        ]
+        },
+        {
+            "Id": 2916,
+            "Name": "Cheese Shmizza",
+            "Description" : "A basic Shmizza",
+            "MaxStackSize": 99,
+            "Price": 2,
+            
+            "RecipeInfo": [
+                {
+                "CookAction": "Bake",
+                "CookTime": 2,
+                "Ingredients": [
+                    "Slomato Shmizza","Cheese"
+                ]
+            }
+           
+        ]
+        }
+
+]
+
+
+
+
+    

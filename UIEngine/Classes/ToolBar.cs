@@ -53,7 +53,7 @@ namespace UIEngine.Classes
             stackRow.AddItem(_playerInventoryDisplay, StackOrientation.Left);
 
             _openRecipeBookButton = new Button(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-               _openRecipeIcon);
+               _openRecipeIcon, new Action(()=> { UI.RecipeBook.Toggle(); }));
             stackRow.AddItem(_openRecipeBookButton, StackOrientation.Left);
             _stackPanel.Add(stackRow);
 

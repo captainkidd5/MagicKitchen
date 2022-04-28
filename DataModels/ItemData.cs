@@ -28,9 +28,12 @@ namespace DataModels
       
 
         public int MaxStackSize { get; set; }
-        [ContentSerializer(Optional = true)]
 
         public int Price { get; set; }
+
+        //Cooked vs uncooked pie
+        public bool IsUnfinishedVersion { get; set; }
+        public List<RecipeInfo> RecipeInfo { get; set; }
 
 
     }

@@ -269,11 +269,6 @@
 /processor:PassThroughProcessor
 /build:Items/ForegroundTileLootData.xml
 
-#begin Items/ItemData.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:Items/ItemData.xml
-
 #begin Items/ItemSpriteSheet.png
 /importer:TextureImporter
 /processor:TextureProcessor

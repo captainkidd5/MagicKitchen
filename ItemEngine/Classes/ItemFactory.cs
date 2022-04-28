@@ -6,7 +6,11 @@ using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using static Globals.Classes.Settings;
 
 namespace ItemEngine.Classes
@@ -27,15 +31,26 @@ namespace ItemEngine.Classes
 
         public static void LoadContent(ContentManager content)
         {
-            ItemData = content.Load<List<ItemData>>("items/itemData");
-            ItemDictionary = new Dictionary<string, ItemData>();
-            IntItemDictionary = new Dictionary<int, ItemData>();
+
             ItemSpriteSheet = content.Load<Texture2D>("items/ItemSpriteSheet");
-            foreach(ItemData data in ItemData)
-            {
-                ItemDictionary.Add(data.Name, data);
-                IntItemDictionary.Add(data.Id, data);
-            }
+
+
+            //new
+            string basePath = content.RootDirectory + "/items";
+            var options = new JsonSerializerOptions();
+            options.Converters.Add(new JsonStringEnumConverter());
+
+            var files = Directory.GetFiles(basePath);
+            string jsonString = string.Empty;
+            foreach (var file in files)
+                if (file.EndsWith(".json"))
+                {
+                    jsonString = File.ReadAllText(file);
+                    ItemData = JsonSerializer.Deserialize<List<ItemData>>(jsonString, options);
+                    ItemDictionary = ItemData.ToDictionary(x => x.Name);
+                    IntItemDictionary = ItemData.ToDictionary(x => x.Id);
+
+                }
         }
 
         public static ItemData GetItemData(string name)

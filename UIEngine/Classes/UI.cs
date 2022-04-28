@@ -21,6 +21,7 @@ using Globals.Classes.Console;
 using SoundEngine.Classes.SongStuff;
 using UIEngine.Classes.ButtonStuff.SettingsMenuStuff;
 using MonoGame.Extended.BitmapFonts;
+using UIEngine.Classes.RecipeStuff;
 
 namespace UIEngine.Classes
 {
@@ -72,6 +73,8 @@ namespace UIEngine.Classes
 
         internal static Curtain Curtain { get; set; }
         internal static EscMenu EscMenu { get; set; }
+
+        internal static RecipeBook RecipeBook { get; set; } 
         internal static InventoryDisplay SecondaryInventoryDisplay { get; set; }
 
         internal static MainMenu MainMenu { get; set; }
@@ -97,11 +100,11 @@ namespace UIEngine.Classes
             ToolBar = new ToolBar(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
             ClockBar = new ClockBar(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
             EscMenu = new EscMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
-
+            RecipeBook = new RecipeBook(null, graphics, content,null, GetLayeringDepth(UILayeringDepths.Low));
             TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             SettingsMenu = new SettingsMenu(null,graphics,content, null, GetLayeringDepth(UILayeringDepths.Front));
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
-            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow, EscMenu };
+            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow, EscMenu, RecipeBook };
 
             SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
             Cursor = new Cursor();
