@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataModels
+namespace DataModels.ItemStuff
 {
     public enum CookAction
     {
@@ -17,6 +17,7 @@ namespace DataModels
         public bool StartsLocked { get; set; }
         public CookAction CookAction { get; set; }
         public float CookTime { get; set; }
-        public List<string> Ingredients { get; set; }
+        public string BaseIngredient { get; set; }
+        public string SupplementaryIngredient { get; set; }
     }
 }

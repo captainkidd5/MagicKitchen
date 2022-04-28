@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using DataModels.ItemStuff;
 using Globals.Classes;
 using Globals.Classes.Helpers;
 using ItemEngine.Classes;

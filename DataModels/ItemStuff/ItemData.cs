@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataModels
+namespace DataModels.ItemStuff
 {
 
     public enum ItemType

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,43 @@ using System.Threading.Tasks;
 
 namespace UIEngine.Classes.RecipeStuff.PanelStuff
 {
-    internal class MicroStep : InterfaceSection
+    internal class MicroStep : RecipeSection
     {
+        private Rectangle _smallBoxSourceRectangle = new Rectangle(336, 256, 16, 16);
 
+        private Vector2 _baseIngredientSpritePosition;
+        private Sprite _baseIngredientSprite;
+
+        private Rectangle _addToArrowSourceRectangle = new Rectangle(336,240,16,16);
+
+
+        private Vector2 _addToArrowPosition = new Vector2(0, 0);
         public MicroStep(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
 
         }
+        public override void LoadContent()
+        {
+            base.LoadContent();
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, 16, 48);
+        }
+
+        public override void MovePosition(Vector2 newPos)
+        {
+            base.MovePosition(newPos);
+
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using DataModels.ItemStuff;
 using Globals.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
