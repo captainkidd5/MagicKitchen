@@ -30,6 +30,7 @@ namespace ItemEngine.Classes
 
         public static Texture2D ItemSpriteSheet { get; private set; }
 
+        public static RecipeHelper RecipeHelper { get; private set; }
         public static void LoadContent(ContentManager content)
         {
 
@@ -54,6 +55,9 @@ namespace ItemEngine.Classes
                     IntItemDictionary = ItemData.ToDictionary(x => x.Id);
 
                 }
+
+            RecipeHelper = new RecipeHelper();
+            RecipeHelper.LoadContent(ItemData);
         }
 
         public static ItemData GetItemData(string name)

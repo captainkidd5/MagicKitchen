@@ -49,7 +49,7 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
-            _baseIngredientSpritePosition = Position + _baaseIngredientSpritePositionOffSet *  
+            _baseIngredientSpritePosition = Position + _baaseIngredientSpritePositionOffSet * _scale;
 
         }
 
