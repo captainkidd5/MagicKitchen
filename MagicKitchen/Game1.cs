@@ -218,6 +218,7 @@ namespace MagicKitchen
             _stageManager.LoadContent();
             BinaryReader reader = e.BinaryReader;
             Clock.Load(reader);
+
             _playerManager.LoadSave(reader);
             _stageManager.LoadSave(reader);
             SaveLoadManager.DestroyReader(reader);

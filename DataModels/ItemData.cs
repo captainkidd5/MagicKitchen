@@ -33,7 +33,7 @@ namespace DataModels
 
         //Cooked vs uncooked pie
         public bool IsUnfinishedVersion { get; set; }
-        public List<RecipeInfo> RecipeInfo { get; set; }
+        public RecipeInfo RecipeInfo { get; set; }
 
 
     }

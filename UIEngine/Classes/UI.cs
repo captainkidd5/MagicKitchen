@@ -133,11 +133,9 @@ namespace UIEngine.Classes
         {
             return LayeringDepths[(int)depth];
         }
-        public static void LoadPlayerInventory(StorageContainer playerStorageContainer)
-        {
-            ToolBar.Load(playerStorageContainer);
-
-        }
+        public static void LoadPlayerInventory(StorageContainer playerStorageContainer) => ToolBar.Load(playerStorageContainer);
+    
+        public static void LoadPlayerUnlockedRecipes(Dictionary<int, bool> playerUnlockedrecipes) => RecipeBook.LoadAvailableRecipes(playerUnlockedrecipes);
         private static void LoadCurrentSection()
         {
             foreach (InterfaceSection section in s_activeSections)

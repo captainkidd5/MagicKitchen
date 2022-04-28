@@ -21,7 +21,7 @@ namespace ItemEngine.Classes
     }
     public static class ItemFactory
     {
-        private static List<ItemData> ItemData { get; set; }
+        public static List<ItemData> ItemData { get; private set; }
 
         public static Dictionary<string, ItemData> ItemDictionary { get; private set; }
         public static Dictionary<int, ItemData> IntItemDictionary { get; private set; }

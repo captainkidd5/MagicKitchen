@@ -34,6 +34,8 @@ namespace EntityEngine.Classes.PlayerStuff
         private bool WasMovingLastFrame { get; set; }
 
         public Light TestLight { get; set; }
+
+        internal ProgressManager ProgressManager { get;set; }
         public Player(StageNPCContainer container, GraphicsDevice graphics, ContentManager content,PlayerManager playerContainer, string name = "playerName") : base(container, graphics,content)
         {
             Name = name;
@@ -44,6 +46,7 @@ namespace EntityEngine.Classes.PlayerStuff
             YOffSet = 16;
             _playerContainer = playerContainer;
             InventoryHandler = new InventoryHandler(StorageCapacity);
+            ProgressManager = new ProgressManager();
 
         }
         public override void SwitchStage(string newStageName,  TileManager tileManager, ItemManager itemManager)
@@ -56,7 +59,10 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void LoadContent(Vector2? startPos, string? name, bool standardAnimator = false)
         {
             base.LoadContent(startPos, name, standardAnimator);
+            ProgressManager.LoadContent();
             UI.LoadPlayerInventory(StorageContainer);
+            UI.LoadPlayerUnlockedRecipes(ProgressManager.UnlockedRecipes);
+
 
         }
 
@@ -178,16 +184,19 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void CleanUp()
         {
             base.CleanUp();
+            ProgressManager.CleanUp();
         }
 
         public override void Save(BinaryWriter writer)
         {
             base.Save(writer);
+            ProgressManager.Save(writer);
         }
 
         public override void LoadSave(BinaryReader reader)
         {
             base.LoadSave(reader);
+            ProgressManager.LoadSave(reader);
         }
 
         protected override void LoadToNewStage(string newStage, TileManager tileManager, ItemManager itemManager)

@@ -12,6 +12,8 @@ namespace DataModels
     }
     public class RecipeInfo
     {
+        //if true, player will not start out with this recipe unlocked
+        public bool StartsLocked { get; set; }
         public CookAction CookAction { get; set; }
         public float CookTime { get; set; }
         public List<string> Ingredients { get; set; }
