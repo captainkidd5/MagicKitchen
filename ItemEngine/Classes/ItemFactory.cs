@@ -59,6 +59,12 @@ namespace ItemEngine.Classes
                 return ItemDictionary[name];
             return null;
         }
+        public static ItemData GetItemData(int id)
+        {
+            if (DoesItemExist(id))
+                return IntItemDictionary[id];
+            return null;
+        }
         public static Item GetItem(int id)
         {
             if (DoesItemExist(id))

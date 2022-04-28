@@ -104,6 +104,11 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
         private void CreateNewSaveAction()
         {
+            Dictionary<string, SaveFile> saveFiles = SaveLoadManager.SaveFiles;
+
+            if (saveFiles.Keys.Contains(_nameTypingBox.CurrentString)){
+                return;
+            }
             SaveLoadManager.CreateNewSave(_nameTypingBox.CurrentString);
             SaveLoadManager.SetCurrentSave(_nameTypingBox.CurrentString);
             Flags.IsNewGame = true;

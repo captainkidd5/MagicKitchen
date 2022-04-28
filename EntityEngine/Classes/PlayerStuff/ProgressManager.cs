@@ -16,11 +16,11 @@ namespace EntityEngine.Classes.PlayerStuff
     /// </summary>
     internal class ProgressManager : ISaveable
     {
-        public Dictionary<int,bool> UnlockedRecipes { get; private set; }
+        public List<int> UnlockedRecipes { get; private set; }
 
         public ProgressManager()
         {
-            UnlockedRecipes = new Dictionary<int, bool>();
+            UnlockedRecipes = new List<int>();
 
         }
         public void LoadContent()
@@ -31,10 +31,10 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         public void UnlockRecipe(int id)
         {
-            if (UnlockedRecipes.ContainsKey(id))
+            if (UnlockedRecipes.Contains(id))
                 throw new Exception($"Recipe already unlocked");
 
-            UnlockedRecipes.Add(id, true);
+            UnlockedRecipes.Add(id);
         }
 
         public void Save(BinaryWriter writer)
@@ -42,8 +42,7 @@ namespace EntityEngine.Classes.PlayerStuff
             writer.Write(UnlockedRecipes.Count);
             foreach(var item in UnlockedRecipes)
             {
-                writer.Write(item.Key);
-                writer.Write(item.Value); 
+                writer.Write(item);
             }
         }
 
@@ -52,7 +51,7 @@ namespace EntityEngine.Classes.PlayerStuff
             CleanUp();
             int unlockedRecipeCount = reader.ReadInt32();
             for(int i = 0; i < unlockedRecipeCount; i++)
-                UnlockedRecipes.Add(reader.ReadInt32(), reader.ReadBoolean());
+                UnlockedRecipes.Add(reader.ReadInt32());
         }
 
         public void CleanUp()

@@ -24,32 +24,47 @@ namespace UIEngine.Classes.RecipeStuff
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             _panels = new List<RecipePanel>();
+            Position = new Vector2(position.Value.X + 64, position.Value.Y + 32);
+
+        }
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+
         }
 
         public override void LoadContent()
         {
             _width = parentSection.Width;
-            _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
 
-            foreach(RecipePanel info in _panels)
+            foreach(RecipePanel recipePanel in _panels)
             {
+                recipePanel.LoadContent();
                 StackRow stackRow = new StackRow(_width);
-                stackRow.AddItem(info, StackOrientation.Left);
+                stackRow.AddItem(recipePanel, StackOrientation.Left);
                 _stackPanel.Add(stackRow);
 
             }
 
-
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, parentSection.Width / 2, parentSection.Height);
             base.LoadContent();
 
         }
 
         public void LoadRecipes(List<RecipeInfo> recipeInfo)
         {
-            foreach(RecipeInfo recipe in recipeInfo)
+            _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+
+            foreach (RecipeInfo recipe in recipeInfo)
             {
                 _panels.Add(new RecipePanel(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low)));
             }
         }
+
+        
     }
 }

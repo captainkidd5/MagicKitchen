@@ -14,7 +14,7 @@ namespace Globals.Classes.Helpers
         {
             scale = scale ?? Settings.GameScale;
             Vector2 centerScreen = Settings.CenterScreen;
-            Vector2 returnVal = new Vector2(centerScreen.X - rectangle.Width * (float)scale / 2, centerScreen.Y - rectangle.Height / 2 * (float)scale);
+            Vector2 returnVal = new Vector2(centerScreen.X + Settings.BarWidth - rectangle.Width * (float)scale / 2, centerScreen.Y + Settings.BarHeight - rectangle.Height / 2 * (float)scale);
             return returnVal;
         }
         public static Vector2 CenterRectangleOnScreen(int width, int height, float? scale = null)

@@ -13,7 +13,9 @@ namespace UIEngine.Classes.RecipeStuff
 {
     internal class RecipePanel : InterfaceSection
     {
-        private static readonly Rectangle _backGroundSourceRectangle = new Rectangle(420, 0, 224, 160);
+        private static readonly Rectangle s_backGroundSourceRectangle = new Rectangle(368, 144, 208, 128);
+        private static readonly Vector2 s_scale = new Vector2(2f, 2f);
+
         private Sprite _backGroundSprite; 
         private RecipeInfo _recipeInfo;
         public RecipePanel(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
@@ -29,7 +31,8 @@ namespace UIEngine.Classes.RecipeStuff
         public override void LoadContent()
         {
             _backGroundSprite = SpriteFactory.CreateUISprite(Position,
-                _backGroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low));
+                s_backGroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), scale: s_scale);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSprite.Width * (int)s_scale.X, _backGroundSprite.Height * (int)s_scale.Y);
             base.LoadContent();
         }
 
