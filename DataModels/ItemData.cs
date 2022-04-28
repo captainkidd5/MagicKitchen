@@ -35,6 +35,12 @@ namespace DataModels
         public bool IsUnfinishedVersion { get; set; }
         public RecipeInfo RecipeInfo { get; set; }
 
+        public void Load()
+        {
+            if(RecipeInfo != null)
+            RecipeInfo.Name = Name; 
+        }
+
 
     }
 }

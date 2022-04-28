@@ -47,6 +47,8 @@ namespace ItemEngine.Classes
                 {
                     jsonString = File.ReadAllText(file);
                     ItemData = JsonSerializer.Deserialize<List<ItemData>>(jsonString, options);
+                    foreach (ItemData item in ItemData)
+                        item.Load();
                     ItemDictionary = ItemData.ToDictionary(x => x.Name);
                     IntItemDictionary = ItemData.ToDictionary(x => x.Id);
 

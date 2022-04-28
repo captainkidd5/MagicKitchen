@@ -61,7 +61,10 @@ namespace UIEngine.Classes.RecipeStuff
 
             foreach (RecipeInfo recipe in recipeInfo)
             {
-                _panels.Add(new RecipePanel(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low)));
+                RecipePanel panel = new RecipePanel(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+                panel.LoadRecipe(recipe);
+                _panels.Add(panel);
+
             }
         }
 

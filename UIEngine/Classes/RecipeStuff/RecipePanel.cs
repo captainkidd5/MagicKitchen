@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextEngine;
+using TextEngine.Classes;
 
 namespace UIEngine.Classes.RecipeStuff
 {
@@ -18,6 +20,10 @@ namespace UIEngine.Classes.RecipeStuff
 
         private Sprite _backGroundSprite; 
         private RecipeInfo _recipeInfo;
+
+        //In that top bar where the name goes. This is the unscaled offset from top left
+        private Vector2 _nameTextPosition = new Vector2(40, 6);
+        private Text _recipeNameText;
         public RecipePanel(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -33,6 +39,9 @@ namespace UIEngine.Classes.RecipeStuff
             _backGroundSprite = SpriteFactory.CreateUISprite(Position,
                 s_backGroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), scale: s_scale);
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSprite.Width * (int)s_scale.X, _backGroundSprite.Height * (int)s_scale.Y);
+
+            _recipeNameText = TextFactory.CreateUIText(_recipeInfo.Name, GetLayeringDepth(UILayeringDepths.Medium));
+            _nameTextPosition = new Vector2(Position.X + _nameTextPosition.X * s_scale.X, Position.Y + _nameTextPosition.Y * s_scale.Y);
             base.LoadContent();
         }
 
@@ -42,6 +51,7 @@ namespace UIEngine.Classes.RecipeStuff
             if (IsActive)
             {
                 _backGroundSprite.Update(gameTime, Position);
+                _recipeNameText.Update(gameTime, _nameTextPosition);
             }
         }
 
@@ -51,6 +61,7 @@ namespace UIEngine.Classes.RecipeStuff
             if (IsActive)
             {
                 _backGroundSprite.Draw(spriteBatch);
+                _recipeNameText.Draw(spriteBatch, true);
             }
         }
 
