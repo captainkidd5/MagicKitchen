@@ -47,11 +47,11 @@ namespace EntityEngine.Classes.CharacterStuff
 
 
 
-            if(PlayerInClickRange && MouseHovering)
+            if(IsInStage && PlayerInClickRange && MouseHovering)
             {
                 UI.Cursor.CursorIconType = CursorIconType.Speech;
 
-                if (Controls.IsClicked && !_isInteractingWithPlayer)
+                if (Controls.IsClickedWorld && !_isInteractingWithPlayer)
                 {
                     ClickInteraction();
 

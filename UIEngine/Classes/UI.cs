@@ -59,8 +59,10 @@ namespace UIEngine.Classes
 
         internal static Color[] ButtonTextureDat;
         internal static Color[] GeneralInterfaceTexDat;
-        public static bool IsHovered { get; 
-            private set; }
+
+        private static bool s_isHovered;
+        public static bool IsHovered { get { return s_isHovered; } 
+            private set { s_isHovered = value; Controls.IsUiHovered = value; } }
 
         private static List<InterfaceSection> s_standardSections { get; set; }
         private static List<InterfaceSection> s_mainMenuSections { get; set; }

@@ -82,7 +82,7 @@ namespace StageEngine.Classes
                         UI.Cursor.CursorIconType = CursorIconType.Door;
                         //Controls.UpdateCursor();
 
-                        if (Controls.IsClicked)
+                        if (Controls.IsClickedWorld)
                         {
 
                             _stageManager.RequestSwitchStage(To, _portalManager.GetDestinationPosition(this));

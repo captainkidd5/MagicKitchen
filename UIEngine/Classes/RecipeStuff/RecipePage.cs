@@ -58,8 +58,10 @@ namespace UIEngine.Classes.RecipeStuff
 
         public void LoadRecipes(List<RecipeInfo> recipeInfo)
         {
+            if(ChildSections.Contains(_stackPanel))
+                ChildSections.Remove(_stackPanel);
             _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-
+            _panels.Clear();
             foreach (RecipeInfo recipe in recipeInfo)
             {
                 RecipePanel panel = new RecipePanel(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));

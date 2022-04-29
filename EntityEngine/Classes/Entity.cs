@@ -249,6 +249,11 @@ namespace EntityEngine.Classes
         {
             return CurrentStageName == otherEntity.CurrentStageName;
         }
+
+        public bool IsInPlayerStage()
+        {
+            return CurrentStageName == Flags.StagePlayerIn;
+        }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             StatusIcon.Draw(spriteBatch);

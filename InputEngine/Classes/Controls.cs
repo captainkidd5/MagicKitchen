@@ -76,6 +76,11 @@ namespace InputEngine.Classes.Input
 
         public static bool ClickActionTriggeredThisFrame;
         public static bool IsClicked => CurrentControls.DidClick && !ClickActionTriggeredThisFrame;
+
+        //Will return true if UI is not currently hovered and controls are clicked
+        public static bool IsClickedWorld => IsClicked && !IsUiHovered;
+
+            public static bool IsUiHovered;
         public static bool IsRightClicked => CurrentControls.DidRightClick;
 
         public static bool WasKeyTapped(Keys key) => TappedKeys.Contains(key);

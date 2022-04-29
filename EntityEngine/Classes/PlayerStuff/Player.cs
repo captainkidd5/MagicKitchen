@@ -98,10 +98,10 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.Update(gameTime);
             UI.Cursor.PlayerPosition = Position;
-            if (Controls.IsClicked)
+            if (Controls.IsClickedWorld)
             {
                 //Item should not eject if any part of the ui is hovered
-                if (UI.Cursor.HeldItem != null && !UI.IsHovered)
+                if (UI.Cursor.HeldItem != null)
                 {
                     DropCurrentlyHeldItemToWorld();
                     Controls.ClickActionTriggeredThisFrame = true;

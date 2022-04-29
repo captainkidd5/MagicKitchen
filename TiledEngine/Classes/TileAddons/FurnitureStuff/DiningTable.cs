@@ -33,7 +33,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             if(PlayerInClickRange && MouseHovering && UI.Cursor.HeldItemCount > 0)
             {
                 UI.Cursor.CursorIconType = CursorIconType.Rock;
-                if (Controls.IsClicked)
+                if (Controls.IsClickedWorld)
                 {
                     if (StoreItem(UI.Cursor.HeldItem.Id))
                     {

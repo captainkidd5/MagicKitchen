@@ -175,7 +175,7 @@ namespace TiledEngine.Classes
             }
             if (tileToInteractWith != null)
             {
-                if (Controls.IsClicked)
+                if (Controls.IsClickedWorld)
                     tileToInteractWith.Interact(true);
             }
             MouseOverTile = Tiles[0][MouseX, MouseY];
