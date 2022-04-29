@@ -19,27 +19,30 @@ namespace UIEngine.Classes.RecipeStuff
     internal class RecipePanel : RecipeSection
     {
         private static readonly Rectangle s_backGroundSourceRectangle = new Rectangle(368, 144, 208, 128);
-        private static readonly Vector2 s_scale = new Vector2(2f, 2f);
 
         private Sprite _backGroundSprite; 
         
 
         //In that top bar where the name goes. This is the unscaled offset from top left
-        private Vector2 _nameTextOffset = new Vector2(40, 2);
+        private static Vector2 _nameTextOffset = new Vector2(40, 2);
 
         private Vector2 _nameTextPosition;
         private Text _recipeNameText;
 
         //In the top right large box. This is the unscaled offset from top left
-        private Vector2 _finishedIconOffset = new Vector2(160, 32);
+        private static Vector2 _finishedIconOffset = new Vector2(160, 32);
 
         private Vector2 _finishedIconPosition;
         private Sprite _finishedRecipeIcon;
 
-
+        //Bottom right stats section
         private RecipeGuideBox _recipeGuideBox;
         private Vector2 _recipeGuideBoxPositionOffSet = new Vector2(0, 16);
 private Vector2 _recipeGuideBoxPosition = new Vector2(0, 16);
+
+        private RecipeStatsBox _recipeStatsBox;
+        private Vector2 _recipeStatsBoxPositionOffSet = new Vector2(148, 79);
+        private Vector2 _recipeStatsBoxPosition;
         public RecipePanel(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -50,15 +53,19 @@ private Vector2 _recipeGuideBoxPosition = new Vector2(0, 16);
         public override void LoadContent()
         {
             _backGroundSprite = SpriteFactory.CreateUISprite(Position,
-                s_backGroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), scale: s_scale);
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSprite.Width * (int)s_scale.X, _backGroundSprite.Height * (int)s_scale.Y);
+                s_backGroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), scale: Scale);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSprite.Width * (int)Scale.X, _backGroundSprite.Height * (int)Scale.Y);
 
             _recipeNameText = TextFactory.CreateUIText(RecipeInfo.Name, GetLayeringDepth(UILayeringDepths.Medium));
             _finishedRecipeIcon = SpriteFactory.CreateUISprite(_finishedIconPosition, Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.Name).Id),
-                ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.Medium), scale: s_scale * 2);
+                ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.Medium), scale: Scale * 2);
             _recipeGuideBox = new RecipeGuideBox(this, graphics, content, _recipeGuideBoxPosition, GetLayeringDepth(UILayeringDepths.Medium));
             _recipeGuideBox.LoadRecipe(RecipeInfo);
             _recipeGuideBox.LoadContent();
+
+            _recipeStatsBox = new RecipeStatsBox(this, graphics, content, _recipeStatsBoxPosition,
+                GetLayeringDepth(UILayeringDepths.Medium));
+
             MovePosition(Position);
            // _selectedStepText = RecipeInfo.
             base.LoadContent();
@@ -73,12 +80,15 @@ private Vector2 _recipeGuideBoxPosition = new Vector2(0, 16);
         {
 
             base.MovePosition(newPos);
-            _recipeGuideBoxPosition = Position + _recipeGuideBoxPositionOffSet * s_scale;
+            _recipeGuideBoxPosition = Position + _recipeGuideBoxPositionOffSet * Scale;
          
             
             _recipeGuideBox.MovePosition(_recipeGuideBoxPosition);
-            _nameTextPosition = new Vector2(Position.X + _nameTextOffset.X * s_scale.X, Position.Y + _nameTextOffset.Y * s_scale.Y);
-            _finishedIconPosition = new Vector2(Position.X + _finishedIconOffset.X * s_scale.X, Position.Y + _finishedIconOffset.Y * s_scale.Y);
+            _recipeStatsBoxPosition = Position + _recipeStatsBoxPositionOffSet * Scale;
+            _recipeStatsBox.MovePosition(_recipeStatsBoxPosition);
+
+            _nameTextPosition = new Vector2(Position.X + _nameTextOffset.X * Scale.X, Position.Y + _nameTextOffset.Y * Scale.Y);
+            _finishedIconPosition = new Vector2(Position.X + _finishedIconOffset.X * Scale.X, Position.Y + _finishedIconOffset.Y * Scale.Y);
 
 
 

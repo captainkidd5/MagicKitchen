@@ -13,7 +13,7 @@ namespace UIEngine.Classes.Storage
 {
     internal class WalletDisplay : InterfaceSection
     {
-        private static Rectangle _coinSourceRectangle = new Rectangle(128, 80, 32, 32);
+        public static Rectangle CoinSourceRectangle = new Rectangle(128, 80, 32, 32);
         private static Sprite _coinSprite;
         private Vector2 _coinPosition;
 
@@ -30,9 +30,9 @@ namespace UIEngine.Classes.Storage
             _nineSliceSprite = SpriteFactory.CreateNineSliceSprite(
                 newPos, 128, 64, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low));
 
-            _coinPosition = new Vector2(newPos.X + _nineSliceSprite.Width - _coinSourceRectangle.Width, newPos.Y);
+            _coinPosition = new Vector2(newPos.X + _nineSliceSprite.Width - CoinSourceRectangle.Width, newPos.Y);
             _coinSprite = SpriteFactory.CreateUISprite(
-               _coinPosition, _coinSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium),
+               _coinPosition, CoinSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium),
                 scale: new Vector2(2f,2f));
             
         }

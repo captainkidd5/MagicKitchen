@@ -101,7 +101,8 @@
             "RecipeInfo": 
                 {
                     "ShownInParentRecipes": true,
-                "CookAction": "Bake",
+                "CookAction": "Add",
+                "SecondAction" : "Bake",
                 "CookTime": 2,
                 "BaseIngredient": "Slomato Shmizza",
                 "SupplementaryIngredient" : "Cheese"

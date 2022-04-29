@@ -84,8 +84,14 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         /// </summary>
         private void MicroStepButtonClickAction()
         {
-            _recipeGuideBox.SetStepInstructionsText($"{RecipeInfo.CookAction.ToString()} " +
-                $"{RecipeInfo.SupplementaryIngredient} to {RecipeInfo.BaseIngredient}");
+            string instructions = $"{RecipeInfo.CookAction.ToString()} " +
+                $"{RecipeInfo.SupplementaryIngredient} to {RecipeInfo.BaseIngredient}";
+
+            if (RecipeInfo.SecondAction != CookAction.None)
+            {
+                instructions += $", \nthen {RecipeInfo.SecondAction.ToString()}";
+            }
+            _recipeGuideBox.SetStepInstructionsText(instructions);
         }
         public override void MovePosition(Vector2 newPos)
         {

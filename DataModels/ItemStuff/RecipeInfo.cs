@@ -21,6 +21,9 @@ namespace DataModels.ItemStuff
         //if true, player will not start out with this recipe unlocked
         public bool StartsLocked { get; set; }
         public CookAction CookAction { get; set; }
+
+        //For example, "Add, then bake"
+        public CookAction SecondAction { get; set; }
         public float CookTime { get; set; }
         public string BaseIngredient { get; set; }
         public string SupplementaryIngredient { get; set; }
