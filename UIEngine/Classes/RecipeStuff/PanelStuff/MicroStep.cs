@@ -23,9 +23,12 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         private Button _baseIngredientButton;
 
         private Rectangle _addToArrowSourceRectangle = new Rectangle(336,240,16,16);
-
-
         private Vector2 _addToArrowPosition = new Vector2(0, 0);
+
+
+        private Vector2 _supplementaryIngredientPosition;
+        private Vector2 _supplementaryIngredientSpritePositionOffSet = new Vector2(0, 0);
+        private Sprite _supplementaryIngredientSprite;
 
         private Vector2 _scale = new Vector2(2f, 2f);
         private readonly RecipeGuideBox _recipeGuideBox;
@@ -42,6 +45,11 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             _baseIngredientSprite = SpriteFactory.CreateUISprite(_baseIngredientSpritePosition,
                 Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.BaseIngredient).Id),
                 ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
+
+            _supplementaryIngredientSprite = SpriteFactory.CreateUISprite(_supplementaryIngredientPosition,
+               Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.SupplementaryIngredient).Id),
+               ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
+
             _baseIngredientButton = new Button(this, graphics, content,
                 _baseIngredientSpritePosition, GetLayeringDepth(UILayeringDepths.Medium),
                 _smallBoxSourceRectangle, new Action(() => { MicroStepButtonClickAction(); }), _baseIngredientSprite, scale: _scale.X);
@@ -64,16 +72,28 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             _baseIngredientSpritePosition = Position + _baaseIngredientSpritePositionOffSet * _scale;
             _baseIngredientButton.Position = _baseIngredientSpritePosition;
 
+            _supplementaryIngredientPosition = Position + _supplementaryIngredientSpritePositionOffSet * _scale;
+
+
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (IsActive)
+            {
+                _supplementaryIngredientSprite.Update(gameTime, _supplementaryIngredientPosition);
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+            if (IsActive)
+            {
+                _supplementaryIngredientSprite.Draw(spriteBatch);
+            }
         }
 
     }
