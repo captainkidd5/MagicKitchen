@@ -16,6 +16,7 @@ namespace UIEngine.Classes.ButtonStuff
     internal class Button : ButtonBase
     {
         private Vector2 _scale;
+
         public Button(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2 position,float layerDepth,  Rectangle? sourceRectangle,  Action buttonAction = null, Sprite foregroundSprite = null,
             Point? samplePoint = null,  bool hoverTransparency = true, float scale = 2f) :
@@ -39,6 +40,8 @@ namespace UIEngine.Classes.ButtonStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            if (ForegroundSprite != null)
+                ForegroundSprite.Update(gameTime, Position + ForeGroundSpriteOffSet.Value);
 
         }
 

@@ -107,6 +107,7 @@ namespace UIEngine.Classes.RecipeStuff
             for (int i = 0; i < playerUnlockedRecipes.Count; i++)
             {
                 RecipeInfo info = ItemFactory.GetItemData(playerUnlockedRecipes[i]).RecipeInfo;
+                if(!info.Name.Contains("raw"))
                 _availableRecipes.Add(info);
 
 

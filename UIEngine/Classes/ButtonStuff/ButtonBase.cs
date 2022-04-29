@@ -34,6 +34,9 @@ namespace UIEngine.Classes.ButtonStuff
         protected BaseSprite BackGroundSprite { get; set; }
 
         private ConfirmationWindow _confirmationWindow;
+
+        //Offsets foreground sprite from background sprite
+        public Vector2? ForeGroundSpriteOffSet { get; set; }
         /// <summary>
         /// Nineslice constructor
         /// </summary>
@@ -46,6 +49,8 @@ namespace UIEngine.Classes.ButtonStuff
                 SourceRectangle = (Rectangle)sourceRectangle;
 
             ForegroundSprite = foregroundSprite;
+            if (ForegroundSprite != null)
+                ForeGroundSpriteOffSet = Vector2.Zero;
 
 
             //Allows you to provide your own texture.
@@ -79,6 +84,8 @@ namespace UIEngine.Classes.ButtonStuff
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
+
+       
 
         }
         public void SwapForeGroundSprite(Sprite sprite)

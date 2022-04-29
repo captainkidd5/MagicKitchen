@@ -108,7 +108,7 @@
             
             "RecipeInfo": 
                 {
-                    "ShownInParentRecipes": false,
+                    "ShownInParentRecipes": true,
                 "CookAction": "Add",
                 "CookTime": 2,
                 "BaseIngredient": "Slomato Shmizza",

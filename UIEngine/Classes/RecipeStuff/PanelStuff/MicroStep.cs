@@ -70,7 +70,8 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             }
             else
             {
-                suplementSourceRectangle = Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.SupplementaryIngredient).Id);
+                suplementSourceRectangle = Item.GetItemSourceRectangle(
+                    ItemFactory.GetItemData(RecipeInfo.SupplementaryIngredient).Id);
                 supplementTexture = ItemFactory.ItemSpriteSheet;
 
             }
@@ -78,7 +79,7 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
 
             _supplementaryIngredientSprite = SpriteFactory.CreateUISprite(_supplementaryIngredientPosition,
                suplementSourceRectangle,
-               supplementTexture, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
+               supplementTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: _scale);
 
             _downToArrowSprite = SpriteFactory.CreateUISprite(_downToArrowPosition, s_downToArrowSourceRectangle,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.High));
@@ -87,6 +88,7 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
                 _baseIngredientSpritePosition, GetLayeringDepth(UILayeringDepths.Medium),
                 _smallBoxSourceRectangle, new Action(() => { MicroStepButtonClickAction(); }),
                 _baseIngredientSprite, scale: _scale.X);
+            //_baseIngredientButton.ForeGroundSpriteOffSet = new Vector2(-1,-1);
 
             _priorActionSprite = SpriteFactory.CreateUISprite(_priorActionPosition,
                 GetPriorActionSourceRectangleFromCookAction(RecipeInfo.CookAction), UI.ButtonTexture,
@@ -120,7 +122,7 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             _downToArrowPosition = Position + _downToArrowPositionOffSet * _scale;
 
             _baseIngredientSpritePosition = Position + _baaseIngredientSpritePositionOffSet * _scale;
-            _baseIngredientButton.Position = _baseIngredientSpritePosition;
+            _baseIngredientButton.MovePosition(_baseIngredientSpritePosition);
 
             _priorActionPosition = _baseIngredientSpritePosition + s_priorActionSpritePositionOffSet * _scale;
 
