@@ -56,11 +56,10 @@ private Vector2 _recipeGuideBoxPosition = new Vector2(0, 16);
             _recipeNameText = TextFactory.CreateUIText(RecipeInfo.Name, GetLayeringDepth(UILayeringDepths.Medium));
             _finishedRecipeIcon = SpriteFactory.CreateUISprite(_finishedIconPosition, Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.Name).Id),
                 ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.Medium), scale: s_scale * 2);
-
-            _recipeGuideBoxPosition = Position + _recipeGuideBoxPositionOffSet * s_scale;
             _recipeGuideBox = new RecipeGuideBox(this, graphics, content, _recipeGuideBoxPosition, GetLayeringDepth(UILayeringDepths.Medium));
             _recipeGuideBox.LoadRecipe(RecipeInfo);
             _recipeGuideBox.LoadContent();
+            MovePosition(Position);
            // _selectedStepText = RecipeInfo.
             base.LoadContent();
         }
@@ -75,6 +74,8 @@ private Vector2 _recipeGuideBoxPosition = new Vector2(0, 16);
 
             base.MovePosition(newPos);
             _recipeGuideBoxPosition = Position + _recipeGuideBoxPositionOffSet * s_scale;
+         
+            
             _recipeGuideBox.MovePosition(_recipeGuideBoxPosition);
             _nameTextPosition = new Vector2(Position.X + _nameTextOffset.X * s_scale.X, Position.Y + _nameTextOffset.Y * s_scale.Y);
             _finishedIconPosition = new Vector2(Position.X + _finishedIconOffset.X * s_scale.X, Position.Y + _finishedIconOffset.Y * s_scale.Y);
