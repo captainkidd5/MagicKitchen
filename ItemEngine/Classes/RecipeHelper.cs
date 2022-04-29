@@ -1,4 +1,5 @@
 ﻿using DataModels.ItemStuff;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,23 @@ namespace ItemEngine.Classes
             returnInfo.Reverse();
             return returnInfo;
             
+        }
+
+        public Rectangle GetCookActionRectangleFromAction(CookAction cookAction)
+        {
+            switch (cookAction)
+            {
+                case CookAction.None:
+                    break;
+                case CookAction.Add:
+                    break;
+                case CookAction.Chop:
+                    break;
+                    //little oven icon
+                case CookAction.Bake:
+                    return new Rectangle(352, 208, 16, 16);
+            }
+            throw new Exception($"Cook action {cookAction.ToString()} not supported");
         }
     }
 }

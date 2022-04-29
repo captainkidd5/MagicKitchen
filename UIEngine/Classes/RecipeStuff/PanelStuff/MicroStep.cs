@@ -18,7 +18,6 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         //If is first step we don't want to render the prior action sprite
         private readonly bool _isFirstStep;
 
-
         private Rectangle _smallBoxSourceRectangle = new Rectangle(336, 256, 16, 16);
 
         private Vector2 _baseIngredientSpritePosition;
@@ -30,13 +29,13 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         //small down arrow
         private static Rectangle s_downToArrowSourceRectangle = new Rectangle(336,240,16,16);
         private Vector2 _downToArrowPosition;
-        private Vector2 _downToArrowPositionOffSet = new Vector2(0, -8);
+        private Vector2 _downToArrowPositionOffSet = new Vector2(0, -14);
 
         private Sprite _downToArrowSprite;
 
 
         private Vector2 _supplementaryIngredientPosition;
-        private Vector2 _supplementaryIngredientSpritePositionOffSet = new Vector2(0, -16);
+        private Vector2 _supplementaryIngredientSpritePositionOffSet = new Vector2(0, -24);
         private Sprite  _supplementaryIngredientSprite;
 
         private Vector2 _scale = new Vector2(2f, 2f);
@@ -52,6 +51,7 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         {
             _recipeGuideBox = recipeGuideBox;
             _isFirstStep = isFirstStep;
+
         }
         public override void LoadContent()
         {
@@ -61,12 +61,27 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
                 Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.BaseIngredient).Id),
                 ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
 
+            Rectangle suplementSourceRectangle;
+            Texture2D supplementTexture;
+            if (string.IsNullOrEmpty(RecipeInfo.SupplementaryIngredient))
+            {
+                suplementSourceRectangle = ItemFactory.RecipeHelper.GetCookActionRectangleFromAction(RecipeInfo.CookAction);
+                supplementTexture = UI.ButtonTexture;
+            }
+            else
+            {
+                suplementSourceRectangle = Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.SupplementaryIngredient).Id);
+                supplementTexture = ItemFactory.ItemSpriteSheet;
+
+            }
+
+
             _supplementaryIngredientSprite = SpriteFactory.CreateUISprite(_supplementaryIngredientPosition,
-               Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.SupplementaryIngredient).Id),
-               ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
+               suplementSourceRectangle,
+               supplementTexture, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
 
             _downToArrowSprite = SpriteFactory.CreateUISprite(_downToArrowPosition, s_downToArrowSourceRectangle,
-                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium));
+                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.High));
 
             _baseIngredientButton = new Button(this, graphics, content,
                 _baseIngredientSpritePosition, GetLayeringDepth(UILayeringDepths.Medium),
@@ -86,14 +101,17 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         /// </summary>
         private void MicroStepButtonClickAction()
         {
+            string verbage = string.Empty;
+            if (RecipeInfo.CookAction == CookAction.Add)
+                verbage = " to ";
             string instructions = $"{RecipeInfo.CookAction.ToString()} " +
-                $"{RecipeInfo.SupplementaryIngredient} to {RecipeInfo.BaseIngredient}";
+                $"{RecipeInfo.SupplementaryIngredient}{verbage}{RecipeInfo.BaseIngredient}";
 
             if (RecipeInfo.SecondAction != CookAction.None)
             {
                 instructions += $", \nthen {RecipeInfo.SecondAction.ToString()}";
             }
-            _recipeGuideBox.SetStepInstructionsText(instructions);
+            _recipeGuideBox.SetStepInstructionsText(this, instructions);
         }
         public override void MovePosition(Vector2 newPos)
         {

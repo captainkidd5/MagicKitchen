@@ -26,15 +26,20 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         private Vector2 _microStepsOffset = new Vector2(16, 128);
 
         private Vector2 _microStepsPosition;
-        private List<MicroStep> _microSteps;
         private Vector2 _scale = new Vector2(2f, 2f);
 
         private List<RecipeInfo> _parentRecipes;
+
+        private static Rectangle _stepSelectorOutlineSourceRectangle = new Rectangle(368, 96, 25, 48);
+        private Vector2 _stepSelectorPosition;
+        private static Vector2 _stepSelectorPositionOffSet = new Vector2(-4, -28);
+
+        private Sprite _stepSelectorSprite;
+        private bool _stepSelectorActive;
         public RecipeGuideBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            _microSteps = new List<MicroStep>();
         }
         public override void LoadContent()
         {
@@ -42,6 +47,8 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, 144 * (int)_scale.X, 112 * (int)_scale.Y);
             _selectedStepText = TextFactory.CreateUIText("test", GetLayeringDepth(UILayeringDepths.Medium), .5f);
 
+            _stepSelectorSprite = SpriteFactory.CreateUISprite(_stepSelectorPosition, _stepSelectorOutlineSourceRectangle, UI.ButtonTexture,
+                GetLayeringDepth(UILayeringDepths.Low), scale: Scale);
             MovePosition(Position);
             base.LoadContent();
 
@@ -49,11 +56,12 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
 
         }
 
+        
+
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
             ChildSections.Clear();
-            _microSteps.Clear();
 
 
             _selectedStepTextPosition = Position + _selectedTextOffset;
@@ -77,11 +85,14 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             _microStepsPosition = Position + _microStepsOffset;
 
 
+
         }
 
-        public void SetStepInstructionsText(string instructions)
+        public void SetStepInstructionsText(MicroStep microStep, string instructions)
         {
             _selectedStepText.SetFullString(instructions);
+            _stepSelectorPosition = microStep.Position + _stepSelectorPositionOffSet * Scale;
+            _stepSelectorActive = true;
         }
 
 
@@ -94,6 +105,8 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             if (IsActive)
             {
                 _selectedStepText.Update(gameTime, _selectedStepTextPosition);
+                if (_stepSelectorActive)
+                    _stepSelectorSprite.Update(gameTime, _stepSelectorPosition);
             }
         }
 
@@ -103,6 +116,8 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             if (IsActive)
             {
                 _selectedStepText.Draw(spriteBatch, true);
+                if(_stepSelectorActive)
+                _stepSelectorSprite.Draw(spriteBatch);
             }
         }
     }

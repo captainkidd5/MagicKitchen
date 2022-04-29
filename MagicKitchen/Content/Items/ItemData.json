@@ -16,6 +16,14 @@
     },
    
     {
+        "Id": 2617,
+        "Name": "Anchovy",
+        "Description" : "A small slippery fellow",
+        "MaxStackSize": 99,
+        "Price": 1
+        
+        },
+    {
         "Id": 2711,
         "Name": "Water",
         "Description" : "A glass of water",
@@ -93,6 +101,22 @@
         },
         {
             "Id": 3016,
+            "Name": "Cheese Shmizza (raw)",
+            "Description" : "An uninished cheese Shmizza",
+            "MaxStackSize": 99,
+            "Price": 1,
+            
+            "RecipeInfo": 
+                {
+                    "ShownInParentRecipes": false,
+                "CookAction": "Add",
+                "CookTime": 2,
+                "BaseIngredient": "Slomato Shmizza",
+                "SupplementaryIngredient" : "Cheese"
+            }
+        },
+        {
+            "Id": 3017,
             "Name": "Cheese Shmizza",
             "Description" : "A basic Shmizza",
             "MaxStackSize": 99,
@@ -101,11 +125,42 @@
             "RecipeInfo": 
                 {
                     "ShownInParentRecipes": true,
-                "CookAction": "Add",
-                "SecondAction" : "Bake",
+                "CookAction": "Bake",
                 "CookTime": 2,
-                "BaseIngredient": "Slomato Shmizza",
-                "SupplementaryIngredient" : "Cheese"
+                "BaseIngredient": "Cheese Shmizza (raw)"
+            }
+        },
+        {
+            "Id": 3018,
+            "Name": "Anchovy Shmizza (raw)",
+            "Description" : "An unfinished anchovy shmizza",
+            "MaxStackSize": 99,
+            "Price": 5,
+            
+            "RecipeInfo": 
+                {
+                    "ShownInParentRecipes": true,
+                "CookAction": "Add",
+                "CookTime": 2,
+                "BaseIngredient": "Cheese Shmizza (raw)",
+                "SupplementaryIngredient" : "Anchovy"
+            }
+           
+        
+        },
+        {
+            "Id": 3019,
+            "Name": "Anchovy Shmizza",
+            "Description" : "An anchovy shmizza",
+            "MaxStackSize": 99,
+            "Price": 5,
+            
+            "RecipeInfo": 
+                {
+                    "ShownInParentRecipes": true,
+                "CookAction": "Bake",
+                "CookTime": 2,
+                "BaseIngredient": "Anchovy Shmizza (raw)"
             }
            
         
