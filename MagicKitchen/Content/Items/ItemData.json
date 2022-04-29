@@ -47,7 +47,7 @@
             "Price": 1,
             "RecipeInfo": 
                 {
-                "CookAction": "None",
+                "CookAction": "Add",
                 "CookTime": 2,
                 "BaseIngredient": "Flour",
                 "SupplementaryIngredient" : "Water"
@@ -81,7 +81,8 @@
             
             "RecipeInfo": 
                 {
-                "CookAction": "None",
+                    "ShownInParentRecipes": true,
+                "CookAction": "Add",
                 "CookTime": 2,
                 "BaseIngredient": "Shmizza Dough",
                 "SupplementaryIngredient" : "Slomato"
@@ -99,6 +100,7 @@
             
             "RecipeInfo": 
                 {
+                    "ShownInParentRecipes": true,
                 "CookAction": "Bake",
                 "CookTime": 2,
                 "BaseIngredient": "Slomato Shmizza",

@@ -28,26 +28,36 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         private Vector2 _addToArrowPosition = new Vector2(0, 0);
 
         private Vector2 _scale = new Vector2(2f, 2f);
-        public MicroStep(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
+        private readonly RecipeGuideBox _recipeGuideBox;
+
+        public MicroStep(RecipeGuideBox recipeGuideBox, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-
+            _recipeGuideBox = recipeGuideBox;
         }
         public override void LoadContent()
         {
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, 16, 48);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, 16 * (int)_scale.X, 48 * (int)_scale.Y);
 
             _baseIngredientSprite = SpriteFactory.CreateUISprite(_baseIngredientSpritePosition,
                 Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.BaseIngredient).Id),
                 ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
             _baseIngredientButton = new Button(this, graphics, content,
                 _baseIngredientSpritePosition, GetLayeringDepth(UILayeringDepths.Medium),
-                _smallBoxSourceRectangle, null, _baseIngredientSprite);
+                _smallBoxSourceRectangle, new Action(() => { MicroStepButtonClickAction(); }), _baseIngredientSprite, scale: _scale.X);
 
             base.LoadContent();
 
         }
 
+        /// <summary>
+        /// Sets the text underneath the name of the recipe to show what the current selected step requires
+        /// </summary>
+        private void MicroStepButtonClickAction()
+        {
+            _recipeGuideBox.SetStepInstructionsText($"{RecipeInfo.CookAction.ToString()} " +
+                $"{RecipeInfo.SupplementaryIngredient} to {RecipeInfo.BaseIngredient}");
+        }
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);

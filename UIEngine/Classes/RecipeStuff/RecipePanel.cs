@@ -25,7 +25,7 @@ namespace UIEngine.Classes.RecipeStuff
         
 
         //In that top bar where the name goes. This is the unscaled offset from top left
-        private Vector2 _nameTextOffset = new Vector2(40, 6);
+        private Vector2 _nameTextOffset = new Vector2(40, 2);
 
         private Vector2 _nameTextPosition;
         private Text _recipeNameText;

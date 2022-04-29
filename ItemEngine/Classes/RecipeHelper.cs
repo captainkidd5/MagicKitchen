@@ -27,15 +27,15 @@ namespace ItemEngine.Classes
         public List<RecipeInfo> GetAllSubRecipes(RecipeInfo infoToTest)
         {
             List<RecipeInfo> returnInfo = new List<RecipeInfo>();
-
+            returnInfo.Add(infoToTest);
             while(true)
             {
                 infoToTest = GetParentRecipe(infoToTest);
-                if (infoToTest == null)
+                if (infoToTest == null || !infoToTest.ShownInParentRecipes)
                     break;
                 returnInfo.Add(infoToTest);
             }
-
+            returnInfo.Reverse();
             return returnInfo;
             
         }

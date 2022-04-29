@@ -26,23 +26,27 @@ namespace UIEngine.Classes.Components
         private int _currentX;
         private List<InterfaceSection> _rowSections;
 
+        //gap between elements, default is no gap
+        private int Gap;
 
-        public StackRow(int stackPanelTotalWidth )
+
+        public StackRow(int stackPanelTotalWidth, int gap = 0)
         {
             _rowSections = new List<InterfaceSection>();
             _maxWidth = stackPanelTotalWidth;
+            Gap = gap;
         }
 
         public void AddItem(InterfaceSection section, StackOrientation orientation)
         {
-            if (section.Width + _currentContentWidth > _maxWidth)
+            if (section.Width + _currentContentWidth + Gap > _maxWidth)
                 throw new Exception($"Stack row max width exceeded");
 
             if(section.Height > Height)
                 Height = section.Height;
 
             Vector2 newPos = Vector2.Zero;
-            _currentContentWidth += section.Width;
+            _currentContentWidth += section.Width + Gap;
 
             switch (orientation)
             {

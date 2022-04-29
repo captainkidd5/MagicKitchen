@@ -28,9 +28,9 @@ namespace TextEngine
 
         }
         //UI
-        public static Text CreateUIText(String value, float layer, float? scale = null)
+        public static Text CreateUIText(String value, float layer, float scale = 1f)
         {
-            return new Text(value, 1f,BitmapFont, layer);
+            return new Text(value, scale, BitmapFont, layer);
         }
 
         /// <summary>
