@@ -134,6 +134,8 @@ namespace Globals.Classes.Helpers
                 parentRectangle.Y + parentRectangle.Height - rectangleToPlace.Height * 2);
         }
 
+
+
         public static Rectangle GetEntireSourceRectangle(Texture2D texture)
         {
             return new Rectangle(0, 0, texture.Width, texture.Height);

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UIEngine.Classes.ButtonStuff;
 
 namespace UIEngine.Classes.RecipeStuff
 {
@@ -22,11 +23,22 @@ namespace UIEngine.Classes.RecipeStuff
         private Sprite _backGroundSprite;
 
         private int _recipesPerPage = 2;
+        private int _currentPage = 0;
+        private int _totalPages;
         private RecipePage _recipePageLeft;
         private RecipePage _recipePageRight;
 
         private List<RecipeInfo> _availableRecipes;
         private Vector2 _scale = new Vector2(2f, 2f);
+
+
+        private Vector2 _leftArrowPosition;
+        private Rectangle _leftArrowSourceRectangle = new Rectangle(112, 0, 32, 16);
+        private Button _leftArrowButton;
+
+        private Vector2 _rightArrowPosition;
+        private Rectangle _rightArrowSourceRectangle = new Rectangle(144, 0, 32, 16);
+        private Button _rightArrowButton; 
         public RecipeBook(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -54,11 +66,30 @@ namespace UIEngine.Classes.RecipeStuff
             FillRecipePages();
             _recipePageLeft.LoadContent();
             _recipePageRight.LoadContent();
-            
+
+            _totalPages = (int)Math.Ceiling((float)_availableRecipes.Count / (float)2);
+            _leftArrowPosition = Position;
+            _leftArrowButton = new Button(this, graphics, content, _leftArrowPosition, GetLayeringDepth(UILayeringDepths.Medium), _leftArrowSourceRectangle,
+                new Action(() => { FlipPageLeft(); }));
+            ChildSections.Remove(_leftArrowButton);
+
+            _rightArrowPosition = RectangleHelper.PlaceRectangleAtTopRightOfParentRectangle(TotalBounds, _leftArrowSourceRectangle);
+            _rightArrowButton = new Button(this, graphics, content, _rightArrowPosition, GetLayeringDepth(UILayeringDepths.Medium), _rightArrowSourceRectangle,
+                new Action(() => { FlipPageRight(); }));
+            ChildSections.Remove(_rightArrowButton);
+
             base.LoadContent();
 
         }
 
+        private void FlipPageLeft()
+        {
+            _currentPage = ScrollHelper.GetIndexFromScroll(Enums.Direction.Down, _currentPage, _totalPages);
+        }
+        private void FlipPageRight()
+        {
+            _currentPage = ScrollHelper.GetIndexFromScroll(Enums.Direction.Up, _currentPage, _totalPages);
+        }
         public void LoadAvailableRecipes(List<int> playerUnlockedRecipes)
         {
             _availableRecipes = new List<RecipeInfo>();
@@ -104,6 +135,10 @@ namespace UIEngine.Classes.RecipeStuff
             if (IsActive)
             {
                 _backGroundSprite.Update(gameTime, Position);
+                if (_currentPage > 0)
+                    _leftArrowButton.Update(gameTime);
+                if(_currentPage < _totalPages-1)
+                    _rightArrowButton.Update(gameTime);
 
             }
         }
@@ -114,6 +149,11 @@ namespace UIEngine.Classes.RecipeStuff
             {
 
             _backGroundSprite?.Draw(spriteBatch);
+
+                if (_currentPage > 0)
+                    _leftArrowButton.Draw(spriteBatch);
+                if (_currentPage < _totalPages - 1)
+                    _rightArrowButton.Draw(spriteBatch);
             }
 
         }
