@@ -65,6 +65,8 @@ private Vector2 _recipeGuideBoxPosition = new Vector2(0, 16);
 
             _recipeStatsBox = new RecipeStatsBox(this, graphics, content, _recipeStatsBoxPosition,
                 GetLayeringDepth(UILayeringDepths.Medium));
+            _recipeStatsBox.LoadRecipe(RecipeInfo);
+            _recipeStatsBox.LoadContent();
 
             MovePosition(Position);
            // _selectedStepText = RecipeInfo.
@@ -85,6 +87,7 @@ private Vector2 _recipeGuideBoxPosition = new Vector2(0, 16);
             
             _recipeGuideBox.MovePosition(_recipeGuideBoxPosition);
             _recipeStatsBoxPosition = Position + _recipeStatsBoxPositionOffSet * Scale;
+
             _recipeStatsBox.MovePosition(_recipeStatsBoxPosition);
 
             _nameTextPosition = new Vector2(Position.X + _nameTextOffset.X * Scale.X, Position.Y + _nameTextOffset.Y * Scale.Y);

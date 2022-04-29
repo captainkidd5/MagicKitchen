@@ -70,9 +70,11 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
 
             _baseIngredientButton = new Button(this, graphics, content,
                 _baseIngredientSpritePosition, GetLayeringDepth(UILayeringDepths.Medium),
-                _smallBoxSourceRectangle, new Action(() => { MicroStepButtonClickAction(); }), _baseIngredientSprite, scale: _scale.X);
+                _smallBoxSourceRectangle, new Action(() => { MicroStepButtonClickAction(); }),
+                _baseIngredientSprite, scale: _scale.X);
 
-            _priorActionSprite = SpriteFactory.CreateUISprite(_priorActionPosition, GetPriorActionSourceRectangleFromCookAction(RecipeInfo.CookAction), UI.ButtonTexture,
+            _priorActionSprite = SpriteFactory.CreateUISprite(_priorActionPosition,
+                GetPriorActionSourceRectangleFromCookAction(RecipeInfo.CookAction), UI.ButtonTexture,
                 GetLayeringDepth(UILayeringDepths.Medium), scale: _scale);
 
             base.LoadContent();
