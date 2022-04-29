@@ -49,7 +49,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
             if(IsInStage && PlayerInClickRange && MouseHovering)
             {
-                UI.Cursor.CursorIconType = CursorIconType.Speech;
+                UI.Cursor.ChangeCursorIcon(CursorIconType.Speech);
 
                 if (Controls.IsClickedWorld && !_isInteractingWithPlayer)
                 {

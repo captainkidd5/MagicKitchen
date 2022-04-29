@@ -54,7 +54,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
             Move(IntermediateTmxShape.HullPosition);
             if (PlayerInClickRange && MouseHovering)
             {
-                UI.Cursor.CursorIconType = CursorIconType;
+                UI.Cursor.ChangeCursorIcon(CursorIconType);
 
             }
         }

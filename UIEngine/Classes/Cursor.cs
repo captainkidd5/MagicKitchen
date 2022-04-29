@@ -33,13 +33,21 @@ namespace UIEngine.Classes
         private CursorItemToolTip _toolTip;
         public Sprite CursorSprite { get; private set; }
         private Text MouseDebugText { get; set; }
-        public CursorIconType CursorIconType { get; set; }
+        public CursorIconType CursorIconType { get; private set; }
         public CursorIconType OldCursorIconType { get; set; }
+
+        private bool _wasWorldIconChanged { get; set; }
 
         public Vector2 PlayerPosition { get; set; }
         public static CursorIconType GetCursorIconTypeFromString(string str)
         {
             return (CursorIconType)Enum.Parse(typeof(CursorIconType), str);
+        }
+        public void ChangeCursorIcon(CursorIconType cursorIconType, bool isWorldChange = true)
+        {
+            if (isWorldChange)
+                _wasWorldIconChanged = true;
+            CursorIconType = cursorIconType;
         }
         protected override void CreateBody(Vector2 position)
         {
@@ -65,7 +73,6 @@ namespace UIEngine.Classes
 
         public override void Update(GameTime gameTime)
         {
-            
             Move(Controls.CursorWorldPosition);
             CursorSprite.Update(gameTime, Controls.CursorUIPosition);
             if (Flags.DisplayMousePosition)
@@ -77,10 +84,11 @@ namespace UIEngine.Classes
             UpdateCursor();
 
             _toolTip.Update(gameTime, Controls.CursorUIPosition);
-            
+            _wasWorldIconChanged = false;
+
         }
 
-        
+
         /// <summary>
         /// Swaps cursor texture
         /// </summary>
@@ -142,7 +150,7 @@ namespace UIEngine.Classes
 
         public void UpdateCursor()
         {
-
+           
             if (HeldItem == null)
                 _heldItemId = 0;
             else
@@ -150,7 +158,16 @@ namespace UIEngine.Classes
 
             if (OldCursorIconType != CursorIconType && HeldItem == null)
             {
-                SwapMouseSpriteRectangle(GetCursorIconSourcRectangleFromType(CursorIconType), null);
+                if (Controls.IsUiHovered && _wasWorldIconChanged)
+                {
+                    SwapMouseSpriteRectangle(GetCursorIconSourcRectangleFromType(CursorIconType.None), null);
+
+                }
+                else
+                {
+                    SwapMouseSpriteRectangle(GetCursorIconSourcRectangleFromType(CursorIconType), null);
+
+                }
             }
             OldCursorIconType = CursorIconType;
 

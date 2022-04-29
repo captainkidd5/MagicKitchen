@@ -32,7 +32,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base.Update(gameTime);
             if(PlayerInClickRange && MouseHovering && UI.Cursor.HeldItemCount > 0)
             {
-                UI.Cursor.CursorIconType = CursorIconType.Rock;
+                UI.Cursor.ChangeCursorIcon(CursorIconType.Rock);
                 if (Controls.IsClickedWorld)
                 {
                     if (StoreItem(UI.Cursor.HeldItem.Id))

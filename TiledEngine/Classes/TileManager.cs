@@ -193,7 +193,7 @@ namespace TiledEngine.Classes
             {
                 if (UI.Cursor.CursorIconType != hoveredLayerTile.CursorIconType)
                 {
-                    UI.Cursor.CursorIconType = hoveredLayerTile.CursorIconType;
+                    UI.Cursor.ChangeCursorIcon(hoveredLayerTile.CursorIconType);
                     return true;
                 }
             }

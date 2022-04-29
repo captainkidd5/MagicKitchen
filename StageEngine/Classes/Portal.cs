@@ -79,14 +79,14 @@ namespace StageEngine.Classes
                    
                     if (_mustBeClicked && PlayerInClickRange && MouseHovering)
                     {
-                        UI.Cursor.CursorIconType = CursorIconType.Door;
+                        UI.Cursor.ChangeCursorIcon(CursorIconType.Door);
                         //Controls.UpdateCursor();
 
                         if (Controls.IsClickedWorld)
                         {
 
                             _stageManager.RequestSwitchStage(To, _portalManager.GetDestinationPosition(this));
-                            UI.Cursor.CursorIconType = CursorIconType.None;
+                            UI.Cursor.ChangeCursorIcon(CursorIconType.None);
                             _stageManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this),
                                 _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
 
