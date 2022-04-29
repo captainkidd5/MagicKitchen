@@ -23,6 +23,37 @@
         "Price": 1
         
         },
+        {
+            "Id": 2618,
+            "Name": "Shmegg Mixture",
+            "Description" : "A raw shmegg mixture",
+            "MaxStackSize": 99,
+            "Price": 1,
+            "RecipeInfo": 
+                {
+                "CookAction": "Add",
+                "CookTime": 1,
+                "BaseIngredient": "Shmegg",
+                "SupplementaryIngredient" : "Salt"
+                
+            }
+        
+        },
+        {
+            "Id": 2619,
+            "Name": "Scrambled Shmeggs",
+            "Description" : "A basic egg dish",
+            "MaxStackSize": 99,
+            "Price": 1,
+            "RecipeInfo": 
+                {
+                "CookAction": "Bake",
+                "CookTime": 1,
+                "BaseIngredient": "Shmegg Mixture"
+                
+            }
+        
+        },
     {
         "Id": 2711,
         "Name": "Water",
@@ -39,6 +70,14 @@
         "Price": 1
         
         },
+        {
+            "Id": 2715,
+            "Name": "Shmegg",
+            "Description" : "Fresh clucken produceim",
+            "MaxStackSize": 99,
+            "Price": 1
+            
+            },
     {
         "Id": 2717,
         "Name": "Pumpkin Chunk",
@@ -47,6 +86,30 @@
         "Price": 1
         
         },
+        {
+            "Id": 2814,
+            "Name": "Plate",
+            "Description" : "Porecelein serving dish",
+            "MaxStackSize": 99,
+            "Price": 1
+            
+            },
+        {
+            "Id": 2819,
+            "Name": "Plepper",
+            "Description" : "Sneeze inducing spice",
+            "MaxStackSize": 99,
+            "Price": 1
+            
+            },
+            {
+                "Id": 2820,
+                "Name": "Salt",
+                "Description" : "A seaside spice",
+                "MaxStackSize": 99,
+                "Price": 1
+                
+                },
         {
             "Id": 2915,
             "Name": "Shmizza Dough",

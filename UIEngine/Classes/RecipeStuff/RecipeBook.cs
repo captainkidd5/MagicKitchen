@@ -121,14 +121,18 @@ namespace UIEngine.Classes.RecipeStuff
             List<RecipeInfo> recipesLeftPage = new List<RecipeInfo>();
             List<RecipeInfo> recpesRightPage = new List<RecipeInfo>();
 
-            for (int i = _currentPage; i < _currentPage + _recipesPerPage; i++)
+            int leftPageIndex = _currentPage * _recipesPerPage;
+            for (int i = leftPageIndex; i < leftPageIndex + 2; i++)
             {
+                if(i < _availableRecipes.Count)
                 recipesLeftPage.Add(_availableRecipes[i]);
 
             }
-            for (int i = _currentPage + _recipesPerPage; i < _currentPage + _recipesPerPage * 2; i++)
+            int rightPageIndex = leftPageIndex + 2;
+            for (int i = rightPageIndex; i < rightPageIndex + 2; i++)
             {
-                recpesRightPage.Add(_availableRecipes[i]);
+                if (i < _availableRecipes.Count)
+                    recpesRightPage.Add(_availableRecipes[i]);
 
 
             }
