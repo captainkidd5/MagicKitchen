@@ -23,6 +23,7 @@ using UIEngine.Classes.ButtonStuff.SettingsMenuStuff;
 using MonoGame.Extended.BitmapFonts;
 using UIEngine.Classes.RecipeStuff;
 using Globals.Classes.Helpers;
+using System.Linq;
 
 namespace UIEngine.Classes
 {
@@ -129,10 +130,12 @@ namespace UIEngine.Classes
             SecondaryInventoryDisplay.Activate();
             SecondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(SecondaryInventoryDisplay.TotalBounds));
             SecondaryInventoryDisplay.LoadNewEntityInventory(storageContainer);
+            s_standardSections.Add(SecondaryInventoryDisplay);
         }
 
         public static void DeactivateSecondaryInventoryDisplay()
         {
+            s_standardSections.Remove(s_standardSections.FirstOrDefault(x => x.GetType() == typeof(InventoryDisplay)));
             SecondaryInventoryDisplay = new InventoryDisplay(null, s_graphics, s_content, null, GetLayeringDepth(UILayeringDepths.Medium));
             SecondaryInventoryDisplay.Deactivate();
 
