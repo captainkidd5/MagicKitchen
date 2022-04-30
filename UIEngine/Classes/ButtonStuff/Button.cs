@@ -32,10 +32,12 @@ namespace UIEngine.Classes.ButtonStuff
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
-            
-            BackGroundSprite = SpriteFactory.CreateUISprite(Position, SourceRectangle, ButtonTexture, LayerDepth, null, null, _scale);
-            Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, _samplePoint, ButtonTexture.Width);
-            BackGroundSprite.AddSaturateEffect(sampleCol, false);
+
+            BackGroundSprite.ForceSetPosition(newPos);
+
+            if (ForegroundSprite != null)
+                ForegroundSprite.ForceSetPosition(newPos);
+     
         }
         public override void Update(GameTime gameTime)
         {

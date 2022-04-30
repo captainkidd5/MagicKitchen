@@ -42,7 +42,10 @@ namespace TextEngine.Classes
         }
 
 
-        
+        public void ForceSetPosition(Vector2 position)
+        {
+            _position = position;
+        }
         public void Update(GameTime gameTime, Vector2 position)
         {
             _position = position;

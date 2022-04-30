@@ -88,7 +88,6 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
                 _baseIngredientSpritePosition, GetLayeringDepth(UILayeringDepths.Medium),
                 _smallBoxSourceRectangle, new Action(() => { MicroStepButtonClickAction(); }),
                 _baseIngredientSprite, scale: _scale.X);
-            //_baseIngredientButton.ForeGroundSpriteOffSet = new Vector2(-1,-1);
 
             _priorActionSprite = SpriteFactory.CreateUISprite(_priorActionPosition,
                 GetPriorActionSourceRectangleFromCookAction(RecipeInfo.CookAction), UI.ButtonTexture,
@@ -120,14 +119,16 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             base.MovePosition(newPos);
 
             _downToArrowPosition = Position + _downToArrowPositionOffSet * _scale;
+            _downToArrowSprite.ForceSetPosition(_downToArrowPosition);
 
             _baseIngredientSpritePosition = Position + _baaseIngredientSpritePositionOffSet * _scale;
             _baseIngredientButton.MovePosition(_baseIngredientSpritePosition);
 
             _priorActionPosition = _baseIngredientSpritePosition + s_priorActionSpritePositionOffSet * _scale;
+            _priorActionSprite.ForceSetPosition(_priorActionPosition);
 
             _supplementaryIngredientPosition = Position + _supplementaryIngredientSpritePositionOffSet * _scale;
-
+            _supplementaryIngredientSprite.ForceSetPosition(_supplementaryIngredientPosition);
 
         }
 

@@ -65,6 +65,7 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
 
 
             _selectedStepTextPosition = Position + _selectedTextOffset;
+            _selectedStepText.ForceSetPosition(_selectedStepTextPosition);
 
             _microStepsPosition = Position + _microStepsOffset;
             _stackPanelMicroSteps = new StackPanel(this, graphics, content, _microStepsPosition,
@@ -81,7 +82,10 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             }
     
             _stackPanelMicroSteps.Add(stackRow);
+
             _selectedStepTextPosition = Position + _selectedTextOffset;
+            _selectedStepText.ForceSetPosition(_selectedStepTextPosition);
+
             _microStepsPosition = Position + _microStepsOffset;
 
 

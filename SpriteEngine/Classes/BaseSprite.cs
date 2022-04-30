@@ -134,7 +134,10 @@ namespace SpriteEngine.Classes
             Position = position;
 
         }
-
+        public void ForceSetPosition(Vector2 position)
+        {
+            Position = position;
+        }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
 

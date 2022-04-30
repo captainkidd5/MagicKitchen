@@ -39,6 +39,8 @@ namespace UIEngine.Classes.RecipeStuff
         private Vector2 _rightArrowPosition;
         private Rectangle _rightArrowSourceRectangle = new Rectangle(144, 0, 32, 16);
         private Button _rightArrowButton;
+
+        private Button _exitMenuButton;
         public RecipeBook(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -80,6 +82,9 @@ namespace UIEngine.Classes.RecipeStuff
             _rightArrowButton = new Button(this, graphics, content, _rightArrowPosition, GetLayeringDepth(UILayeringDepths.Medium), _rightArrowSourceRectangle,
                 new Action(() => { FlipPageRight(); }));
             ChildSections.Remove(_rightArrowButton);
+
+            _exitMenuButton = new Button(this, graphics, content, RectangleHelper.PlaceRectangleAtTopRightOfParentRectangle(TotalBounds, ButtonFactory.s_redExRectangle),
+                GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_redExRectangle, new Action(() => { Deactivate(); }));
 
             base.LoadContent();
 

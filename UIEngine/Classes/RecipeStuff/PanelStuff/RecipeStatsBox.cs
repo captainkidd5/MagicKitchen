@@ -42,7 +42,9 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         {
             base.MovePosition(newPos);
             _coinPosition = Position + s_coinPositionOffSet * Scale;
+            _coinSprite.ForceSetPosition(_coinPosition);
             _coinTextPosition = Position + s_coinTextPositionOffSet * Scale;
+            _coinText.ForceSetPosition(_coinTextPosition);  
             
         }
         public override void Update(GameTime gameTime)

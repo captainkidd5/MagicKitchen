@@ -82,17 +82,18 @@ private Vector2 _recipeGuideBoxPosition = new Vector2(0, 16);
         {
 
             base.MovePosition(newPos);
-            _recipeGuideBoxPosition = Position + _recipeGuideBoxPositionOffSet * Scale;
-         
-            
-            _recipeGuideBox.MovePosition(_recipeGuideBoxPosition);
-            _recipeStatsBoxPosition = Position + _recipeStatsBoxPositionOffSet * Scale;
 
+            _recipeGuideBoxPosition = Position + _recipeGuideBoxPositionOffSet * Scale;
+            _recipeGuideBox.MovePosition(_recipeGuideBoxPosition);
+
+            _recipeStatsBoxPosition = Position + _recipeStatsBoxPositionOffSet * Scale;
             _recipeStatsBox.MovePosition(_recipeStatsBoxPosition);
 
             _nameTextPosition = new Vector2(Position.X + _nameTextOffset.X * Scale.X, Position.Y + _nameTextOffset.Y * Scale.Y);
-            _finishedIconPosition = new Vector2(Position.X + _finishedIconOffset.X * Scale.X, Position.Y + _finishedIconOffset.Y * Scale.Y);
+            _recipeNameText.ForceSetPosition(_nameTextPosition);
 
+            _finishedIconPosition = new Vector2(Position.X + _finishedIconOffset.X * Scale.X, Position.Y + _finishedIconOffset.Y * Scale.Y);
+            _finishedRecipeIcon.ForceSetPosition(_finishedIconPosition);
 
 
         }
