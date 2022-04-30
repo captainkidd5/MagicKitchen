@@ -72,8 +72,8 @@ namespace EntityEngine.Classes
             ItemManager.AddWorldItem(entityPosition,item, originalCount - count, jettisonVector);
         }
         public bool CanAfford(int amt) => StorageContainer.CanAfford(amt);
-        public int Withdraw(int amt) => StorageContainer.Withdraw(amt);
-        public void Deposit(int amt) => StorageContainer.Deposit(amt);
+        public int Withdraw(int amt) => StorageContainer.WithdrawCoins(amt);
+        public void Deposit(int amt) => StorageContainer.DepositCoins(amt);
         public void Save(BinaryWriter writer)
         {
             StorageContainer.Save(writer);

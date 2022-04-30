@@ -29,8 +29,8 @@ namespace ItemEngine.Classes
         }
 
         public bool CanAfford(int amt) => _wallet.CanAfford(amt);
-        public int Withdraw(int amt) => _wallet.Withdraw(amt);
-        public void Deposit(int amt) => _wallet.Deposit(amt);
+        public int WithdrawCoins(int amt) => _wallet.Withdraw(amt);
+        public void DepositCoins(int amt) => _wallet.Deposit(amt);
         public void AddItem(Item item, ref int count)
         {
             //Try to find partially filled stackable item slot matching stackable item

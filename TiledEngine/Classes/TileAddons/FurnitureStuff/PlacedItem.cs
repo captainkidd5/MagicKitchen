@@ -15,7 +15,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
     public class PlacedItem : ISaveable
     {
-        private int _itemId;
+        public int ItemId { get; private set; }
+
+        public int ItemCount;
         private Tile _tileTiedTo;
         private Sprite _worldItemSprite;
         private Vector2 _position;
@@ -25,7 +27,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public PlacedItem(int itemId, Tile tileTiedTo)
         {
-            _itemId = itemId;
+            ItemId = itemId;
+            ItemCount = 1;
             _tileTiedTo = tileTiedTo;
         }
         public PlacedItem()
@@ -35,7 +38,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public void Load(Vector2 position)
         {
             _position = new Vector2(position.X - s_Width / 2, position.Y - s_Width / 2);
-            _worldItemSprite  = SpriteFactory.CreateWorldSprite(_position, Item.GetItemSourceRectangle(_itemId),
+            _worldItemSprite  = SpriteFactory.CreateWorldSprite(_position, Item.GetItemSourceRectangle(ItemId),
                 ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f), customLayer:_tileTiedTo.Layer + Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f);
         }
         public void Update(GameTime gameTime)
@@ -54,12 +57,14 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public void LoadSave(BinaryReader reader)
         {
-            _itemId = reader.ReadInt32();
+            ItemId = reader.ReadInt32();
+            ItemCount = reader.ReadInt32();
         }
 
         public void Save(BinaryWriter writer)
         {
-           writer.Write(_itemId);
+           writer.Write(ItemId);
+            writer.Write(ItemCount);
         }
     }
 }

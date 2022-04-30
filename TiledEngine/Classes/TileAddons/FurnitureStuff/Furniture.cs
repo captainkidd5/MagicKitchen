@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ItemEngine.Classes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
     public class Furniture : LocateableTileAddon
     {
-    
+        private StorageContainer _storageContainer;
 
         public List<PlacedItem> PlacedItems { get; set; }
 
@@ -41,9 +42,14 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Load()
         {
             base.Load();
+            _storageContainer = new StorageContainer(MaxPlacedItems);
             PlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
                 foreach(PlacedItem placedItem in PlacedItems)
+            {
+                _storageContainer.AddItem(ItemFactory.GetItem(placedItem.ItemId), ref placedItem.ItemCount);
                 placedItem.Load(TopOfFurniture);
+
+            }
 
         }
 
