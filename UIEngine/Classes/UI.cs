@@ -22,6 +22,7 @@ using SoundEngine.Classes.SongStuff;
 using UIEngine.Classes.ButtonStuff.SettingsMenuStuff;
 using MonoGame.Extended.BitmapFonts;
 using UIEngine.Classes.RecipeStuff;
+using Globals.Classes.Helpers;
 
 namespace UIEngine.Classes
 {
@@ -106,9 +107,10 @@ namespace UIEngine.Classes
             TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             SettingsMenu = new SettingsMenu(null,graphics,content, null, GetLayeringDepth(UILayeringDepths.Front));
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
-            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow, EscMenu, RecipeBook };
-
             SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
+            SecondaryInventoryDisplay.Deactivate();
+            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow, EscMenu, RecipeBook, SecondaryInventoryDisplay };
+
             Cursor = new Cursor();
             Cursor.LoadContent(content);
 
@@ -119,6 +121,20 @@ namespace UIEngine.Classes
             Curtain.LoadContent();
             LoadCurrentSection();
 
+
+        }
+
+        public static void ActivateSecondaryInventoryDisplay(StorageContainer storageContainer)
+        {
+            SecondaryInventoryDisplay.Activate();
+            SecondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(SecondaryInventoryDisplay.TotalBounds));
+            SecondaryInventoryDisplay.LoadNewEntityInventory(storageContainer);
+        }
+
+        public static void DeactivateSecondaryInventoryDisplay()
+        {
+            SecondaryInventoryDisplay = new InventoryDisplay(null, s_graphics, s_content, null, GetLayeringDepth(UILayeringDepths.Medium));
+            SecondaryInventoryDisplay.Deactivate();
 
         }
         internal static void AssignLayeringDepths(ref float[] layeringDepths, float baseDepth, bool largeIncrement = false)

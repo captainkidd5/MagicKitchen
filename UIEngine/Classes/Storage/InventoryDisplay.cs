@@ -49,7 +49,7 @@ namespace UIEngine.Classes.Storage
         public override void LoadContent()
         {
             
-            base.LoadContent();
+            //base.LoadContent();
 
         }
 
@@ -84,28 +84,38 @@ namespace UIEngine.Classes.Storage
             WalletDisplay = new WalletDisplay(this, graphics, content, walletDisplayPosition, GetLayeringDepth(UILayeringDepths.Low));
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
         }
+
+      
         public override void Update(GameTime gameTime)
         {
             Hovered = false;
 
             // base.Update(gameTime);
-            for (int i = 0; i < DrawEndIndex; i++)
+            if (IsActive)
             {
-                InventorySlotDisplay slot = InventorySlots[i];
-                slot.Update(gameTime);
-                if (slot.Hovered)
-                    Hovered = true;
+                for (int i = 0; i < DrawEndIndex; i++)
+                {
+                    InventorySlotDisplay slot = InventorySlots[i];
+                    slot.Update(gameTime);
+                    if (slot.Hovered)
+                        Hovered = true;
+                }
+                WalletDisplay.Update(gameTime);
             }
-            WalletDisplay.Update(gameTime);
+        
 
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            for(int i =0; i < DrawEndIndex; i++)
+            if (IsActive)
             {
-                InventorySlots[i].Draw(spriteBatch);
+                for (int i = 0; i < DrawEndIndex; i++)
+                {
+                    InventorySlots[i].Draw(spriteBatch);
+                }
+                WalletDisplay.Draw(spriteBatch);
             }
-            WalletDisplay.Draw(spriteBatch);
+          
         }
 
     }

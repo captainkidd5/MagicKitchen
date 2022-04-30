@@ -30,21 +30,22 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if(PlayerInClickRange && MouseHovering && UI.Cursor.HeldItemCount > 0)
-            {
-                UI.Cursor.ChangeCursorIcon(CursorIconType.Rock);
-                if (Controls.IsClickedWorld)
-                {
-                    if (StoreItem(UI.Cursor.HeldItem.Id))
-                    {
-                        AddItem(UI.Cursor.HeldItem.Id);
-                        UI.Cursor.RemoveSingleHeldItem();
-                        Controls.ClickActionTriggeredThisFrame = true;
-                    }
+            //if(PlayerInClickRange && MouseHovering && UI.Cursor.HeldItemCount > 0)
+            //{
+            //    UI.Cursor.ChangeCursorIcon(CursorIconType.Rock);
+            //    if (Controls.IsClickedWorld)
+            //    {
+            //        UI.ActivateSecondaryInventoryDisplay()
+            //        if (StoreItem(UI.Cursor.HeldItem.Id))
+            //        {
+            //            AddItem(UI.Cursor.HeldItem.Id);
+            //            UI.Cursor.RemoveSingleHeldItem();
+            //            Controls.ClickActionTriggeredThisFrame = true;
+            //        }
 
 
-                }
-            }
+            //    }
+            //}
            
         }
         public bool SitDown()
@@ -67,18 +68,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-        /// <summary>
-        /// Returns true if was able to store a single item
-        /// </summary>
-        public bool StoreItem(int itemId)
-        {
-            if (MayPlaceItem)
-            {
-                AddItem(itemId);
-                return true;
-            }
-            return false;
-        }
+
 
         public override void Load()
         {

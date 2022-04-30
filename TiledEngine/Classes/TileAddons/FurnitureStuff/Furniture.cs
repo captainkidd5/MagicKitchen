@@ -1,4 +1,5 @@
-﻿using ItemEngine.Classes;
+﻿using InputEngine.Classes.Input;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -7,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes.Helpers;
+using UIEngine.Classes;
+using VelcroPhysics.Collision.ContactSystem;
+using VelcroPhysics.Dynamics;
 
 namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
@@ -56,6 +60,22 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            if (PlayerInClickRange && MouseHovering)
+            {
+                UI.Cursor.ChangeCursorIcon(CursorIconType.Rock);
+                if (Controls.IsClickedWorld)
+                {
+                    UI.ActivateSecondaryInventoryDisplay(_storageContainer);
+                    //if (StoreItem(UI.Cursor.HeldItem.Id))
+                    //{
+                    //    AddItem(UI.Cursor.HeldItem.Id);
+                    //    UI.Cursor.RemoveSingleHeldItem();
+                    //    Controls.ClickActionTriggeredThisFrame = true;
+                    //}
+
+
+                }
+            }
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -75,7 +95,31 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             }
         }
 
-   
+        /// <summary>
+        /// Returns true if was able to store a single item
+        /// </summary>
+        public bool StoreItem(int itemId)
+        {
+            if (MayPlaceItem)
+            {
+                AddItem(itemId);
+                return true;
+            }
+            return false;
+        }
+        protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            base.OnCollides(fixtureA, fixtureB, contact);
+        }
 
+        protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            base.OnSeparates(fixtureA, fixtureB, contact);
+            if (fixtureB.CollisionCategories.HasFlag(VelcroPhysics.Collision.Filtering.Category.PlayerBigSensor))
+            {
+                Console.WriteLine("test");
+                UI.DeactivateSecondaryInventoryDisplay();
+            }
+        }
     }
 }
