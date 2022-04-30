@@ -126,12 +126,14 @@ namespace UIEngine.Classes
 
         public virtual void Update(GameTime gameTime)
         {
+            _hoveredLastFrame = Hovered;
+
+            Hovered = false;
+
             if (IsActive)
             {
 
-                _hoveredLastFrame = Hovered;
                 _positionLastFrame = Position;
-                Hovered = false;
                 Clicked = false;
                 RightClicked = false;
                 BlockInteractions = false;
