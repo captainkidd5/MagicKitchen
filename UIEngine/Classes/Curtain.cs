@@ -72,7 +72,8 @@ namespace UIEngine.Classes
             if (Opacity >= 1f)
             {
                 IsFadingIn = false;
-                //IsActive = false;
+                Deactivate();
+
                 _actionOnDrop();
             }
 
@@ -91,7 +92,7 @@ namespace UIEngine.Classes
         {
             FadeRate = rate;
             IsFadingIn = true;
-            Deactivate();
+            Activate();
 
             _actionOnDrop = actionOnDrop;
         }
@@ -100,8 +101,14 @@ namespace UIEngine.Classes
         {
             FadeRate = rate;
             IsFadingIn = false;
-            Deactivate();
+            Activate();
 
+
+        }
+
+        public override void Deactivate()
+        {
+            base.Deactivate();
         }
     }
 }

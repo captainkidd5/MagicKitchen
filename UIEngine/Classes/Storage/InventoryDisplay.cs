@@ -42,8 +42,8 @@ namespace UIEngine.Classes.Storage
         public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-           
 
+            NormallyActivated = false;
         }
 
         public override void LoadContent()
@@ -53,13 +53,13 @@ namespace UIEngine.Classes.Storage
 
         }
 
-        public virtual void LoadNewEntityInventory(StorageContainer storageContainer)
+        public virtual void LoadNewEntityInventory(StorageContainer storageContainer, bool displayWallet)
         {
             StorageContainer = storageContainer;
             DrawEndIndex = StorageContainer.Capacity;
             Rows = (int)Math.Floor((float)Capacity / (float)DrawEndIndex);
             Columns = DrawEndIndex;
-            GenerateUI();
+            GenerateUI(displayWallet);
             SelectedSlot = InventorySlots[0];
         }
 
@@ -68,7 +68,7 @@ namespace UIEngine.Classes.Storage
         {
             SelectedSlot = slotToSelect;
         }
-        protected virtual void GenerateUI()
+        protected virtual void GenerateUI(bool displayWallet)
         {
             InventorySlots = new List<InventorySlotDisplay>();
 
@@ -79,10 +79,14 @@ namespace UIEngine.Classes.Storage
                     Position.Y + i % Rows * _buttonWidth), LayerDepth));
                 InventorySlots[i].LoadContent();
             }
-            Vector2 walletDisplayPosition = new Vector2(0, 0);
-            if(InventorySlots.Count > 0)
-                walletDisplayPosition = InventorySlots[InventorySlots.Count - 1].Position;
-            WalletDisplay = new WalletDisplay(this, graphics, content, walletDisplayPosition, GetLayeringDepth(UILayeringDepths.Low));
+            if (displayWallet)
+            {
+                Vector2 walletDisplayPosition = new Vector2(0, 0);
+                if (InventorySlots.Count > 0)
+                    walletDisplayPosition = InventorySlots[InventorySlots.Count - 1].Position;
+                WalletDisplay = new WalletDisplay(this, graphics, content, walletDisplayPosition, GetLayeringDepth(UILayeringDepths.Low));
+            }
+           
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
         }
 
@@ -101,7 +105,7 @@ namespace UIEngine.Classes.Storage
                     if (slot.Hovered)
                         Hovered = true;
                 }
-                WalletDisplay.Update(gameTime);
+                WalletDisplay?.Update(gameTime);
             }
                 CheckFramesActive();
 
@@ -114,7 +118,7 @@ namespace UIEngine.Classes.Storage
                 {
                     InventorySlots[i].Draw(spriteBatch);
                 }
-                WalletDisplay.Draw(spriteBatch);
+                WalletDisplay?.Draw(spriteBatch);
             }
           
         }

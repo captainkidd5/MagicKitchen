@@ -93,7 +93,7 @@ namespace UIEngine.Classes.TextStuff
         {
             TextBuilder.ClearText();
             TextBuilder.SetText(TextFactory.CreateUIText(speech, GetLayeringDepth(UILayeringDepths.Front), scale: 2f), false);
-            Deactivate();
+            Activate();
 
             UI.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UI.ClockBar });
         }

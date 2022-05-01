@@ -127,9 +127,9 @@ namespace UIEngine.Classes
 
         }
 
-        public static void ActivateSecondaryInventoryDisplay(StorageContainer storageContainer)
+        public static void ActivateSecondaryInventoryDisplay(StorageContainer storageContainer, bool displayWallet = false)
         {
-            SecondaryInventoryDisplay.LoadNewEntityInventory(storageContainer);
+            SecondaryInventoryDisplay.LoadNewEntityInventory(storageContainer, displayWallet);
 
             SecondaryInventoryDisplay.Activate();
             SecondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(SecondaryInventoryDisplay.TotalBounds));
@@ -266,9 +266,9 @@ namespace UIEngine.Classes
 
         public static void RemoveCriticalSection(InterfaceSection section)
         {
-            if (!s_criticalSections.Contains(section))
-                throw new Exception("Section not found");
-            section.FlaggedForCriticalRemoval = true;
+            if (s_criticalSections.Contains(section))
+                section.FlaggedForCriticalRemoval = true;
+
         }
         /// <summary>
         /// 

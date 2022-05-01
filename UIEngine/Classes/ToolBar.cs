@@ -46,7 +46,7 @@ namespace UIEngine.Classes
             _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
 
             _playerInventoryDisplay = new PlayerInventoryDisplay(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-            _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer);
+            _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer, true);
             _playerInventoryDisplay.LoadContent();
 
             StackRow stackRow = new StackRow(_totalWidth);

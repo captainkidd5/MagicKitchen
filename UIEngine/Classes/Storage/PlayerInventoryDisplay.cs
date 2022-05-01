@@ -31,10 +31,10 @@ namespace UIEngine.Classes.Storage
         public PlayerInventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            
+            NormallyActivated = true;
         }
 
-        public override void LoadNewEntityInventory(StorageContainer storageContainer)
+        public override void LoadNewEntityInventory(StorageContainer storageContainer, bool displayWallet)
         {
 
             StorageContainer = storageContainer;
@@ -44,7 +44,7 @@ namespace UIEngine.Classes.Storage
             DrawEndIndex = _extendedInventoryCutoff;
             Rows = (int)Math.Floor((float)Capacity / (float)DrawEndIndex);
             Columns = DrawEndIndex;
-            GenerateUI();
+            GenerateUI(displayWallet);
             SelectedSlot = InventorySlots[0];
         }
         public override void LoadContent()
@@ -125,7 +125,7 @@ namespace UIEngine.Classes.Storage
 
             SelectedSlot = InventorySlots[newSelectedSlot];
         }
-        protected override void GenerateUI()
+        protected override void GenerateUI(bool displayWallet)
         {
             InventorySlots = new List<InventorySlotDisplay>();
             Vector2 slotPos = Vector2.Zero;

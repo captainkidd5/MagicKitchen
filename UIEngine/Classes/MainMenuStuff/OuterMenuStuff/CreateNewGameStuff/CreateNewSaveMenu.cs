@@ -107,6 +107,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             Dictionary<string, SaveFile> saveFiles = SaveLoadManager.SaveFiles;
 
             if (saveFiles.Keys.Contains(_nameTypingBox.CurrentString)){
+                
                 return;
             }
             SaveLoadManager.CreateNewSave(_nameTypingBox.CurrentString);

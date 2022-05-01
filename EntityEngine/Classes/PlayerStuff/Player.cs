@@ -111,13 +111,15 @@ namespace EntityEngine.Classes.PlayerStuff
             if (UI.TalkingWindow.IsActive)
             {
                 //EntityAnimator.
+              
                 Halt(true);
                 DirectionFacing = UI.TalkingWindow.DirectionPlayerShouldFace;
+                if (UI.TalkingWindow.WasJustActivated)
+                    Animator.ChangeDirection(DirectionFacing, Position);
             }
             else
                 Resume();
-            if (UI.TalkingWindow.WasJustActivated)
-                Animator.ChangeDirection(DirectionFacing, Position);
+            
         }
 
         protected override void DropCurrentlyHeldItemToWorld()
