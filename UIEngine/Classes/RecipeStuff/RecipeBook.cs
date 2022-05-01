@@ -85,7 +85,7 @@ namespace UIEngine.Classes.RecipeStuff
 
             _exitMenuButton = new Button(this, graphics, content, RectangleHelper.PlaceRectangleAtTopRightOfParentRectangle(TotalBounds, ButtonFactory.s_redExRectangle),
                 GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_redExRectangle, new Action(() => { Deactivate(); }));
-
+            Deactivate();
             base.LoadContent();
 
         }

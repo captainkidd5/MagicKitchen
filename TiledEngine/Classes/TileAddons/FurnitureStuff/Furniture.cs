@@ -127,13 +127,12 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public static Furniture GetFurnitureFromProperty(string value,
             Tile tile, TileManager tileManager, IntermediateTmxShape tmxShape)
         {
-            switch (value)
-            {
-                case "diningTable":
-                    return new DiningTable(tile, tileManager, tmxShape, "None");
-                default:
-                    throw new Exception($"Furniture type {value} does not exist");
-            }
+            Furniture furniture = (Furniture)System.Reflection.Assembly.GetExecutingAssembly()
+                           .CreateInstance($"TiledEngine.Classes.TileAddons.FurnitureStuff.{value}", true, System.Reflection.BindingFlags.CreateInstance,
+                           null, new object[] { tile, tileManager, tmxShape, "None" }, null, null);
+
+            return furniture;
+
         }
 
 

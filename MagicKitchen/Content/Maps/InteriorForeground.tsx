@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.3.0" name="InteriorForeground" tilewidth="16" tileheight="16" tilecount="4900" columns="70">
  <image source="InteriorForeground.png" width="1120" height="1120"/>
+ <tile id="189">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="329">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="469">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="609">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="611">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
  <tile id="641">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
@@ -41,6 +66,42 @@
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
+ <tile id="749">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="751">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="889">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="891">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="1029">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+  <animation>
+   <frame tileid="889" duration="200"/>
+   <frame tileid="749" duration="200"/>
+   <frame tileid="609" duration="200"/>
+   <frame tileid="469" duration="200"/>
+   <frame tileid="329" duration="200"/>
+   <frame tileid="189" duration="200"/>
+  </animation>
+ </tile>
  <tile id="1031">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
@@ -48,6 +109,12 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
+  <animation>
+   <frame tileid="1031" duration="200"/>
+   <frame tileid="891" duration="200"/>
+   <frame tileid="751" duration="200"/>
+   <frame tileid="611" duration="200"/>
+  </animation>
  </tile>
  <tile id="1173">
   <properties>
@@ -57,7 +124,7 @@
  </tile>
  <tile id="1232">
   <properties>
-   <property name="furniture" value="diningTable"/>
+   <property name="furniture" value="DiningTable"/>
    <property name="newHitBox" value="4, -8, 26"/>
    <property name="newSource" value="0,-16,32,32"/>
   </properties>
