@@ -108,9 +108,11 @@ namespace UIEngine.Classes
             TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             SettingsMenu = new SettingsMenu(null,graphics,content, null, GetLayeringDepth(UILayeringDepths.Front));
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
-            SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
+            SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null,
+                GetLayeringDepth(UILayeringDepths.Medium));
             SecondaryInventoryDisplay.Deactivate();
-            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow, EscMenu, RecipeBook, SecondaryInventoryDisplay };
+            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow,
+                EscMenu, RecipeBook, SecondaryInventoryDisplay };
 
             Cursor = new Cursor();
             Cursor.LoadContent(content);
@@ -127,16 +129,16 @@ namespace UIEngine.Classes
 
         public static void ActivateSecondaryInventoryDisplay(StorageContainer storageContainer)
         {
+            SecondaryInventoryDisplay.LoadNewEntityInventory(storageContainer);
+
             SecondaryInventoryDisplay.Activate();
             SecondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(SecondaryInventoryDisplay.TotalBounds));
-            SecondaryInventoryDisplay.LoadNewEntityInventory(storageContainer);
-            s_standardSections.Add(SecondaryInventoryDisplay);
+           // s_standardSections.Add(SecondaryInventoryDisplay);
         }
 
         public static void DeactivateSecondaryInventoryDisplay()
         {
-            s_standardSections.Remove(s_standardSections.FirstOrDefault(x => x.GetType() == typeof(InventoryDisplay)));
-            SecondaryInventoryDisplay = new InventoryDisplay(null, s_graphics, s_content, null, GetLayeringDepth(UILayeringDepths.Medium));
+          //  s_standardSections.Remove(s_standardSections.FirstOrDefault(x => x.GetType() == typeof(InventoryDisplay)));
             SecondaryInventoryDisplay.Deactivate();
 
         }

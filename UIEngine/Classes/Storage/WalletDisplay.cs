@@ -14,7 +14,7 @@ namespace UIEngine.Classes.Storage
     internal class WalletDisplay : InterfaceSection
     {
         public static Rectangle CoinSourceRectangle = new Rectangle(128, 80, 32, 32);
-        private static Sprite _coinSprite;
+        private Sprite _coinSprite;
         private Vector2 _coinPosition;
 
         private NineSliceSprite _nineSliceSprite;

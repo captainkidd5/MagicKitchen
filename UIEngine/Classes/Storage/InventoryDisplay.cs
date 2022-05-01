@@ -77,6 +77,7 @@ namespace UIEngine.Classes.Storage
                 InventorySlots.Add(new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[i],
                     new Vector2(Position.X + i * _buttonWidth,
                     Position.Y + i % Rows * _buttonWidth), LayerDepth));
+                InventorySlots[i].LoadContent();
             }
             Vector2 walletDisplayPosition = new Vector2(0, 0);
             if(InventorySlots.Count > 0)

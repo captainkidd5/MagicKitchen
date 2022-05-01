@@ -41,7 +41,15 @@ namespace UIEngine.Classes.Storage
             Text = TextFactory.CreateUIText("0", UI.IncrementLD(Button.LayerDepth, true));
         }
 
-
+        public override void LoadContent()
+        {
+            if (_storageSlot.Item != null)
+            {
+                ItemChanged(_storageSlot.Item, _storageSlot.StoredCount);
+            }
+            TotalBounds = Button.TotalBounds;
+            base.LoadContent();
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
