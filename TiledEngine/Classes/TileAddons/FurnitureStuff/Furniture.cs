@@ -1,4 +1,5 @@
-﻿using InputEngine.Classes.Input;
+﻿using DataModels.ItemStuff;
+using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,25 +22,44 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public List<PlacedItem> PlacedItems { get; set; }
 
         protected int MaxPlacedItems { get; set; } = 1;
- 
+
         public int ItemCount => PlacedItems?.Count ?? 0;
 
         public bool MayPlaceItem => ItemCount <= MaxPlacedItems;
 
         protected Vector2 TopOfFurniture => new Vector2(CenteredPosition.X, CenteredPosition.Y - IntermediateTmxShape.Radius);
 
-        public Furniture(Tile tile,TileManager tileManager,
-            IntermediateTmxShape intermediateTmxShape,string actionType) :
-            base( tile, tileManager, intermediateTmxShape, actionType)
+        public Furniture(Tile tile, TileManager tileManager,
+            IntermediateTmxShape intermediateTmxShape, string actionType) :
+            base(tile, tileManager, intermediateTmxShape, actionType)
         {
             Key = "furniture";
+         
         }
 
+        //private void ItemAdded(Item item)
+        //{
+        //    if (!PlacedItems.Any(x => x.ItemId == item.Id))
+        //    {
+        //        AddItem(item.Id);
+        //    }
+        //}
+
+        //private void ItemRemoved(Item item)
+        //{
+        //    if (PlacedItems.Any(x => x.ItemId == item.Id))
+        //    {
+        //        PlacedItem placedItem = PlacedItems.FirstOrDefault(x => x.ItemId == item.Id);
+        //        PlacedItems.Remove(placedItem);
+        //        TileManager.PlacedItemManager.Remove(placedItem);
+
+        //    }
+        //}
 
         public void AddItem(int itemId)
         {
-            PlacedItem placedItem = new PlacedItem(itemId, Tile);
-            placedItem.Load(TopOfFurniture);
+            PlacedItem placedItem = new PlacedItem(PlacedItems.Count - 1,itemId, Tile);
+            placedItem.Load(TopOfFurniture, _storageContainer.Slots[placedItem.ListIndex]);
             PlacedItems.Add(placedItem);
             TileManager.PlacedItemManager.AddNewItem(placedItem);
         }
@@ -48,12 +68,25 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base.Load();
             _storageContainer = new StorageContainer(MaxPlacedItems);
             PlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
-                foreach(PlacedItem placedItem in PlacedItems)
+            PlacedItems.OrderBy(x => x.ListIndex);
+
+
+
+            for(int i =0; i < PlacedItems.Count; i++)
             {
-                _storageContainer.AddItem(ItemFactory.GetItem(placedItem.ItemId), ref placedItem.ItemCount);
-                placedItem.Load(TopOfFurniture);
+                PlacedItem placedItem = PlacedItems[i];
+                ItemData itemData = ItemFactory.GetItemData(placedItem.ItemId);
+                for (int j= 0; j < placedItem.ItemCount; j++)
+                {
+                    _storageContainer.Slots[i].Add(itemData.Name);
+
+                }
+                placedItem.Load(TopOfFurniture, _storageContainer.Slots[i]);
 
             }
+
+
+          
 
         }
 
@@ -80,11 +113,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            foreach(PlacedItem placedItem in PlacedItems)
+            foreach (PlacedItem placedItem in PlacedItems)
                 placedItem.Draw(spriteBatch);
         }
         public static Furniture GetFurnitureFromProperty(string value,
-            Tile tile,TileManager tileManager, IntermediateTmxShape tmxShape)
+            Tile tile, TileManager tileManager, IntermediateTmxShape tmxShape)
         {
             switch (value)
             {

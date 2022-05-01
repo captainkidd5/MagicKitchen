@@ -15,18 +15,22 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
     public class PlacedItem : ISaveable
     {
+
+        public int ListIndex { get; set; }
         public int ItemId { get; private set; }
 
         public int ItemCount;
         private Tile _tileTiedTo;
         private Sprite _worldItemSprite;
         private Vector2 _position;
+        private StorageSlot _slot;
 
         private static readonly int s_Width = 14;
         public int Key => _tileTiedTo.GetKey();
 
-        public PlacedItem(int itemId, Tile tileTiedTo)
+        public PlacedItem(int listIndex, int itemId, Tile tileTiedTo)
         {
+            ListIndex = listIndex;
             ItemId = itemId;
             ItemCount = 1;
             _tileTiedTo = tileTiedTo;
@@ -35,11 +39,14 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
 
         }
-        public void Load(Vector2 position)
+        public void Load(Vector2 position, StorageSlot storageSlot)
         {
             _position = new Vector2(position.X - s_Width / 2, position.Y - s_Width / 2);
-            _worldItemSprite  = SpriteFactory.CreateWorldSprite(_position, Item.GetItemSourceRectangle(ItemId),
-                ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f), customLayer:_tileTiedTo.Layer + Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f);
+            _worldItemSprite = SpriteFactory.CreateWorldSprite(_position, Item.GetItemSourceRectangle(ItemId),
+                ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f), customLayer: _tileTiedTo.Layer + Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f);
+
+            _slot = storageSlot;
+            _slot.ItemChanged += ItemChanged;
         }
         public void Update(GameTime gameTime)
         {
@@ -50,6 +57,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             _worldItemSprite.Draw(spriteBatch);
         }
+
+        private void ItemChanged(Item item, int count)
+        {
+        }
+
         public void CleanUp()
         {
             throw new NotImplementedException();
@@ -57,13 +69,15 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public void LoadSave(BinaryReader reader)
         {
+            ListIndex = reader.ReadInt32();
             ItemId = reader.ReadInt32();
             ItemCount = reader.ReadInt32();
         }
 
         public void Save(BinaryWriter writer)
         {
-           writer.Write(ItemId);
+            writer.Write(ListIndex);
+            writer.Write(ItemId);
             writer.Write(ItemCount);
         }
     }
