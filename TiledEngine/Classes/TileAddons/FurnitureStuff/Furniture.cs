@@ -111,18 +111,10 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base.Update(gameTime);
             if (PlayerInClickRange && MouseHovering)
             {
-                UI.Cursor.ChangeCursorIcon(CursorIconType.Rock);
+                UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
                 if (Controls.IsClickedWorld)
                 {
                     UI.ActivateSecondaryInventoryDisplay(_storageContainer);
-                    //if (StoreItem(UI.Cursor.HeldItem.Id))
-                    //{
-                    //    AddItem(UI.Cursor.HeldItem.Id);
-                    //    UI.Cursor.RemoveSingleHeldItem();
-                    //    Controls.ClickActionTriggeredThisFrame = true;
-                    //}
-
-
                 }
             }
         }

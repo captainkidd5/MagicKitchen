@@ -31,7 +31,8 @@ namespace UIEngine.Classes.EscMenuStuff
         private Action _returnToMainMenuAction;
         public EscMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            IsActive = false;
+            Deactivate();
+
             NormallyActivated = false;
         }
         public override void LoadContent()
@@ -65,7 +66,8 @@ namespace UIEngine.Classes.EscMenuStuff
         {
             UI.ReturnToMainMenu();
             _returnToMainMenuButton.Deactivate();
-            IsActive = false;
+            Deactivate();
+
         }
         public override void Update(GameTime gameTime)
         {

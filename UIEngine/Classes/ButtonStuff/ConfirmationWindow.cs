@@ -63,7 +63,7 @@ namespace UIEngine.Classes.ButtonStuff
 
             _textPosition = Text.CenterInRectangle(TotalBounds, _text);
 
-            IsActive = false;
+            Deactivate();
             base.LoadContent();
 
         }

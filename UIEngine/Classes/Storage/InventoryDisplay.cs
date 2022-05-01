@@ -103,7 +103,7 @@ namespace UIEngine.Classes.Storage
                 }
                 WalletDisplay.Update(gameTime);
             }
-        
+                CheckFramesActive();
 
         }
         public override void Draw(SpriteBatch spriteBatch)

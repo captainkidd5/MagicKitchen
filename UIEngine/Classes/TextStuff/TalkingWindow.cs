@@ -35,7 +35,8 @@ namespace UIEngine.Classes.TextStuff
                 totalBackDropRectangleDimensions.Width,
                 totalBackDropRectangleDimensions.Height, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back));
             TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front)), .05f);
-            IsActive = false;
+            Deactivate();
+
 
             TotalBounds = BackdropSprite.HitBox;
 
@@ -59,7 +60,8 @@ namespace UIEngine.Classes.TextStuff
                     if (Controls.IsClicked)
                     {
                         UI.ReactiveSections();
-                        IsActive = false;
+                        Deactivate();
+
                     }
                 }
                 if (Hovered && Controls.IsClicked)
@@ -91,7 +93,8 @@ namespace UIEngine.Classes.TextStuff
         {
             TextBuilder.ClearText();
             TextBuilder.SetText(TextFactory.CreateUIText(speech, GetLayeringDepth(UILayeringDepths.Front), scale: 2f), false);
-            IsActive = true;
+            Deactivate();
+
             UI.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UI.ClockBar });
         }
 

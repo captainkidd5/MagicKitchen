@@ -96,8 +96,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             writer.Write(ListIndex);
             writer.Write(ItemId);
             writer.Write(ItemCount);
-            if(ItemCount > 0 )
-                Console.WriteLine("test");
+       
         }
     }
 }

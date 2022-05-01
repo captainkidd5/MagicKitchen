@@ -60,7 +60,8 @@ namespace UIEngine.Classes
             Opacity -= (float)gameTime.ElapsedGameTime.TotalMilliseconds * FadeRate;
             if (Opacity <= 0f)
             {
-                IsActive = false;
+                Deactivate();
+
                 IsFadingIn = false;
 
             }
@@ -90,7 +91,8 @@ namespace UIEngine.Classes
         {
             FadeRate = rate;
             IsFadingIn = true;
-            IsActive = true;
+            Deactivate();
+
             _actionOnDrop = actionOnDrop;
         }
 
@@ -98,7 +100,8 @@ namespace UIEngine.Classes
         {
             FadeRate = rate;
             IsFadingIn = false;
-            IsActive = true;
+            Deactivate();
+
         }
     }
 }

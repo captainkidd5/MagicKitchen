@@ -136,12 +136,8 @@ namespace UIEngine.Classes
            // s_standardSections.Add(SecondaryInventoryDisplay);
         }
 
-        public static void DeactivateSecondaryInventoryDisplay()
-        {
-          //  s_standardSections.Remove(s_standardSections.FirstOrDefault(x => x.GetType() == typeof(InventoryDisplay)));
-            SecondaryInventoryDisplay.Deactivate();
-
-        }
+        public static void DeactivateSecondaryInventoryDisplay() => SecondaryInventoryDisplay.Deactivate();
+     
         internal static void AssignLayeringDepths(ref float[] layeringDepths, float baseDepth, bool largeIncrement = false)
         {
             layeringDepths = new float[5];
@@ -211,7 +207,8 @@ namespace UIEngine.Classes
                 CommandConsole.Toggle();
 
             }
-
+           
+                
             if (s_criticalSections.Count > 0)
             {
                 for(int i = s_criticalSections.Count - 1; i >= 0; i--)
@@ -247,6 +244,15 @@ namespace UIEngine.Classes
             Curtain.Update(gameTime);
 
             Cursor.Update(gameTime);
+
+            if (SecondaryInventoryDisplay.IsActive && !SecondaryInventoryDisplay.WasJustActivated)
+            {
+                if (Controls.IsClickedWorld)
+                {
+                    DeactivateSecondaryInventoryDisplay();
+
+                }
+            }
 
         }
 

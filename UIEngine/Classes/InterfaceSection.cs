@@ -34,20 +34,19 @@ namespace UIEngine.Classes
         public bool IsActive
         {
             get { return _isActive; }
-            protected set
+            private set
             {
                 _isActive = value;
                 Hovered = false;
             }
         }
-
+        public bool WasJustActivated => _framesActive < 2;
+        private byte _framesActive = 0;
         /// <summary>
         /// UI elements such as escape window should not be re-activated when something like the talking window ends, even though its part of the same UI group. Default is true
         /// </summary>
         public bool NormallyActivated { get; protected set; } = true;
-        private bool _activeLastFrame;
 
-        public bool WasJustActived => IsActive != _activeLastFrame;
         //Some Interface sections can contain other interface sections
         internal protected List<InterfaceSection> ChildSections { get; protected set; }
         internal float LayerDepth { get; private set; }
@@ -100,6 +99,7 @@ namespace UIEngine.Classes
         public virtual void Activate()
         {
             IsActive = true;
+            _framesActive = 0;
         }
         public virtual void Deactivate()
         {
@@ -123,7 +123,14 @@ namespace UIEngine.Classes
             foreach (InterfaceSection interfaceSection in ChildSections)
                 interfaceSection.Unload();
         }
-
+        /// <summary>
+        /// We know this interface section was just activated if frames active is less than 2, increases by 1 every update cycle
+        /// </summary>
+        protected void CheckFramesActive()
+        {
+            if (_framesActive < 2)
+                _framesActive++;
+        }
         public virtual void Update(GameTime gameTime)
         {
             _hoveredLastFrame = Hovered;
@@ -141,11 +148,11 @@ namespace UIEngine.Classes
 
                 if (Controls.IsHovering(ElementType.UI, TotalBounds))
                 {
-                  
-                 
-                        CheckChildHovers();
 
-                    
+
+                    CheckChildHovers();
+
+
                     if (CloseButton != null && CloseButton.Hovered)
                     {
                         BlockInteractions = true;
@@ -160,22 +167,23 @@ namespace UIEngine.Classes
                     {
                         if (ChildSections[i] == CloseButton)
                             ChildSections[i].Update(gameTime);
-                        
+
                     }
                     else
                     {
                         ChildSections[i].Update(gameTime);
-                        if(ChildSections[i].Hovered)
+                        if (ChildSections[i].Hovered)
                             Hovered = true;
 
                     }
                     if (ChildSections[i].FlaggedForRemoval)
                         ChildSections.RemoveAt(i);
                 }
-
+                CheckFramesActive();
             }
-            _activeLastFrame = IsActive;
+
         }
+
 
         private void CheckChildHovers()
         {

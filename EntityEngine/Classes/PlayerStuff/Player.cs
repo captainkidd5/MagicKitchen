@@ -116,7 +116,7 @@ namespace EntityEngine.Classes.PlayerStuff
             }
             else
                 Resume();
-            if (UI.TalkingWindow.WasJustActived)
+            if (UI.TalkingWindow.WasJustActivated)
                 Animator.ChangeDirection(DirectionFacing, Position);
         }
 

@@ -30,22 +30,6 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            //if(PlayerInClickRange && MouseHovering && UI.Cursor.HeldItemCount > 0)
-            //{
-            //    UI.Cursor.ChangeCursorIcon(CursorIconType.Rock);
-            //    if (Controls.IsClickedWorld)
-            //    {
-            //        UI.ActivateSecondaryInventoryDisplay()
-            //        if (StoreItem(UI.Cursor.HeldItem.Id))
-            //        {
-            //            AddItem(UI.Cursor.HeldItem.Id);
-            //            UI.Cursor.RemoveSingleHeldItem();
-            //            Controls.ClickActionTriggeredThisFrame = true;
-            //        }
-
-
-            //    }
-            //}
            
         }
         public bool SitDown()

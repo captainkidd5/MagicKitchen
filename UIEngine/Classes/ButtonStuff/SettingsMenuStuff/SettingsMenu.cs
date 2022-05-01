@@ -46,7 +46,8 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
                  new Action(() => { SettingsManager.SaveSettings(); }));
             stackRow1.AddItem(_saveSettingsButton, StackOrientation.Center);
             _stackPanel.Add(stackRow1);
-            IsActive = false;
+            Deactivate();
+
             NormallyActivated = false;
         }
         public override void Update(GameTime gameTime)
