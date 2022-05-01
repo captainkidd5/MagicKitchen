@@ -65,6 +65,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             {
                 _worldItemSprite = null;
                 ItemId = -1;
+                ItemCount = 0;
+
                 return;
             }
             if (ItemId != item.Id)
@@ -74,6 +76,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 CreateSprite();
 
             }
+            ItemCount = count;
         }
 
         public void CleanUp()
@@ -93,6 +96,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             writer.Write(ListIndex);
             writer.Write(ItemId);
             writer.Write(ItemCount);
+            if(ItemCount > 0 )
+                Console.WriteLine("test");
         }
     }
 }
