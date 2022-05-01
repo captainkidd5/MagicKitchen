@@ -21,7 +21,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public List<PlacedItem> PlacedItems { get; set; }
 
-        protected int MaxPlacedItems { get; set; } = 1;
+        protected int MaxPlacedItems { get; set; } = 3;
 
         public int ItemCount => PlacedItems?.Count ?? 0;
 
@@ -34,7 +34,12 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base(tile, tileManager, intermediateTmxShape, actionType)
         {
             Key = "furniture";
-         
+            PlacedItems = new List<PlacedItem>();
+            for (int i = 0; i < MaxPlacedItems; i++)
+            {
+                PlacedItems.Add(new PlacedItem(i, tile));
+            }
+
         }
 
         //private void ItemAdded(Item item)
@@ -56,37 +61,46 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         //    }
         //}
 
-        public void AddItem(int itemId)
+        public void AddItem(int index, int itemId)
         {
-            PlacedItem placedItem = new PlacedItem(PlacedItems.Count - 1,itemId, Tile);
-            placedItem.Load(TopOfFurniture, _storageContainer.Slots[placedItem.ListIndex]);
-            PlacedItems.Add(placedItem);
-            TileManager.PlacedItemManager.AddNewItem(placedItem);
+            PlacedItems[index] = new PlacedItem(itemId, Tile);
+            PlacedItems[index].Load(TopOfFurniture, _storageContainer.Slots[PlacedItems[index].ListIndex]);
+            TileManager.PlacedItemManager.AddNewItem(PlacedItems[index]);
         }
         public override void Load()
         {
             base.Load();
             _storageContainer = new StorageContainer(MaxPlacedItems);
-            PlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
+            List<PlacedItem> loadedPlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
+
+            //Means there were some saved items here previously. Load those in instead of default load
+            if (loadedPlacedItems.Count > 0)
+                PlacedItems = loadedPlacedItems;
+
             PlacedItems.OrderBy(x => x.ListIndex);
 
 
 
-            for(int i =0; i < PlacedItems.Count; i++)
+            for (int i = 0; i < PlacedItems.Count; i++)
             {
                 PlacedItem placedItem = PlacedItems[i];
-                ItemData itemData = ItemFactory.GetItemData(placedItem.ItemId);
-                for (int j= 0; j < placedItem.ItemCount; j++)
+                if (placedItem.ItemId > 0)
                 {
-                    _storageContainer.Slots[i].Add(itemData.Name);
 
+                    ItemData itemData = ItemFactory.GetItemData(placedItem.ItemId);
+                    for (int j = 0; j < placedItem.ItemCount; j++)
+                    {
+                        _storageContainer.Slots[i].Add(itemData.Name);
+
+                    }
                 }
+
                 placedItem.Load(TopOfFurniture, _storageContainer.Slots[i]);
 
             }
 
 
-          
+
 
         }
 
@@ -128,18 +142,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             }
         }
 
-        /// <summary>
-        /// Returns true if was able to store a single item
-        /// </summary>
-        public bool StoreItem(int itemId)
-        {
-            if (MayPlaceItem)
-            {
-                AddItem(itemId);
-                return true;
-            }
-            return false;
-        }
+
         protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnCollides(fixtureA, fixtureB, contact);

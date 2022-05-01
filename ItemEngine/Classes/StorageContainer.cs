@@ -274,7 +274,7 @@ namespace ItemEngine.Classes
             if (heldItem == null)
             {
                 heldItem = Item;
-                if (shiftHeld)
+                if (shiftHeld && StoredCount > 1)
                 {
                     int countToRemove = StoredCount / 2;
                     count = countToRemove;
