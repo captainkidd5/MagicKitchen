@@ -57,7 +57,9 @@ namespace UIEngine.Classes
 
         internal int Width => TotalBounds.Width;
         internal int Height => TotalBounds.Height;
-        public virtual bool Hovered { get; protected set; }
+
+        private bool _hovered;
+        public virtual bool Hovered { get { return _hovered; } protected set { _hovered = value; if (_hovered) { UI.IsHovered = true; } } }
         private bool _hoveredLastFrame;
 
         protected bool WasHovered => (_hoveredLastFrame && !Hovered);

@@ -68,7 +68,7 @@ namespace UIEngine.Classes
         public static bool IsHovered
         {
             get { return s_isHovered; }
-            private set { s_isHovered = value; Controls.IsUiHovered = value; }
+            internal set { s_isHovered = value; Controls.IsUiHovered = value; }
         }
 
         private static List<InterfaceSection> s_standardSections { get; set; }
@@ -218,8 +218,7 @@ namespace UIEngine.Classes
                     else
                     {
                         section.Update(gameTime);
-                        if (section.Hovered)
-                            IsHovered = true;
+
                     }
 
                 }
@@ -231,8 +230,7 @@ namespace UIEngine.Classes
                 {
 
                     section.Update(gameTime);
-                    if (section.Hovered)
-                        IsHovered = true;
+
 
 
                 }

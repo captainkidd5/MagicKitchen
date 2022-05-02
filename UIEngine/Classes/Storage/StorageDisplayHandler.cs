@@ -17,19 +17,19 @@ namespace UIEngine.Classes.Storage
 {
     internal class StorageDisplayHandler : InterfaceSection
     {
-        internal InventoryDisplay SecondaryInventoryDisplay { get; set; }
+        private InventoryDisplay _secondaryInventoryDisplay;
 
         public StorageDisplayHandler(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-
+            NormallyActivated = false;
         }
         public override void LoadContent()
         {
-            SecondaryInventoryDisplay = new InventoryDisplay(this, graphics, content, null,
+            _secondaryInventoryDisplay = new InventoryDisplay(this, graphics, content, null,
                GetLayeringDepth(UILayeringDepths.Medium));
-            SecondaryInventoryDisplay.Deactivate();
+            _secondaryInventoryDisplay.Deactivate();
             
         }
         public override void Update(GameTime gameTime)
@@ -37,7 +37,7 @@ namespace UIEngine.Classes.Storage
             base.Update(gameTime);
             if (IsActive && !WasJustActivated)
             {
-                if (!Hovered && Controls.IsClickedWorld)
+                if (Controls.IsClickedWorld)
                 {
                     Deactivate();
 
@@ -46,7 +46,7 @@ namespace UIEngine.Classes.Storage
         }
         public void ActivateSecondaryInventoryDisplay(StorageType t, StorageContainer storageContainer, bool displayWallet = false)
         {
-            ChildSections.Remove(SecondaryInventoryDisplay);
+            ChildSections.Remove(_secondaryInventoryDisplay);
             switch (t)
 
             {
@@ -54,13 +54,13 @@ namespace UIEngine.Classes.Storage
                     throw new Exception($"must have storage type");
                 case StorageType.Standard:
                     
-                    SecondaryInventoryDisplay = new InventoryDisplay(this, graphics, content, SecondaryInventoryDisplay.Position,
-                        SecondaryInventoryDisplay.LayerDepth);
+                    _secondaryInventoryDisplay = new InventoryDisplay(this, graphics, content, _secondaryInventoryDisplay.Position,
+                        _secondaryInventoryDisplay.LayerDepth);
 
                     break;
                 case StorageType.Craftable:
-                    SecondaryInventoryDisplay = new CraftingMenu(this, graphics, content, SecondaryInventoryDisplay.Position,
-                        SecondaryInventoryDisplay.LayerDepth);
+                    _secondaryInventoryDisplay = new CraftingMenu(this, graphics, content, _secondaryInventoryDisplay.Position,
+                        _secondaryInventoryDisplay.LayerDepth);
 
                     break;
                 default:
@@ -68,10 +68,10 @@ namespace UIEngine.Classes.Storage
 
             }
 
-            SecondaryInventoryDisplay.LoadNewEntityInventory(storageContainer, displayWallet);
+            _secondaryInventoryDisplay.LoadNewEntityInventory(storageContainer, displayWallet);
 
-            SecondaryInventoryDisplay.Activate();
-            SecondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(SecondaryInventoryDisplay.TotalBounds));
+            _secondaryInventoryDisplay.Activate();
+            _secondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(_secondaryInventoryDisplay.TotalBounds));
             Activate();
         }
 
