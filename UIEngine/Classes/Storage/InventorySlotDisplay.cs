@@ -40,7 +40,12 @@ namespace UIEngine.Classes.Storage
             Button = new NineSliceButton(interfaceSection, graphicsDevice, content, position,GetLayeringDepth(UILayeringDepths.Low), null, null, null, null, hoverTransparency: true);
             Text = TextFactory.CreateUIText("0", UI.IncrementLD(Button.LayerDepth, true));
         }
+        public override void MovePosition(Vector2 newPos)
+        {
+            base.MovePosition(newPos);
+            Button.MovePosition(newPos);
 
+        }
         public override void LoadContent()
         {
             if (_storageSlot.Item != null)
