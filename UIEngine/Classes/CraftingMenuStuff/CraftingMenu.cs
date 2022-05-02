@@ -48,7 +48,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
             foreach(StorageSlot slot in StorageContainer.Slots)
                 itemDataDTO.Add(slot.ExportItemDataDTO());
 
-            ItemData itemData = ItemFactory.RecipeHelper.Cook(itemDataDTO,)
+            ItemData itemData = ItemFactory.RecipeHelper.Cook(itemDataDTO);
         }
         public override void Update(GameTime gameTime)
         {

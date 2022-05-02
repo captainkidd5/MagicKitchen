@@ -17,31 +17,31 @@ namespace EntityEngine.Classes.PlayerStuff
     /// </summary>
     internal class ProgressManager : ISaveable
     {
-        public List<int> UnlockedRecipes { get; private set; }
+        public List<string> UnlockedRecipes { get; private set; }
 
         public ProgressManager()
         {
-            UnlockedRecipes = new List<int>();
+            UnlockedRecipes = new List<string>();
 
         }
         public void LoadContent()
         {
             List<ItemData> itemsWithDefaultUnlockedRecipes = ItemFactory.ItemData.Where(x => x.RecipeInfo != null && !x.RecipeInfo.StartsLocked).ToList();
-            foreach(ItemData item in itemsWithDefaultUnlockedRecipes)
-                UnlockRecipe(item.Id);
+            foreach (ItemData item in itemsWithDefaultUnlockedRecipes)
+                UnlockRecipe(item.Name);
         }
-        public void UnlockRecipe(int id)
+        public void UnlockRecipe(string name)
         {
-            if (UnlockedRecipes.Contains(id))
+            if (UnlockedRecipes.Contains(name))
                 throw new Exception($"Recipe already unlocked");
 
-            UnlockedRecipes.Add(id);
+            UnlockedRecipes.Add(name);
         }
 
         public void Save(BinaryWriter writer)
         {
             writer.Write(UnlockedRecipes.Count);
-            foreach(var item in UnlockedRecipes)
+            foreach (var item in UnlockedRecipes)
             {
                 writer.Write(item);
             }
@@ -51,8 +51,13 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             CleanUp();
             int unlockedRecipeCount = reader.ReadInt32();
-            for(int i = 0; i < unlockedRecipeCount; i++)
-                UnlockedRecipes.Add(reader.ReadInt32());
+            for (int i = 0; i < unlockedRecipeCount; i++)
+            {
+                string name = reader.ReadString();
+                UnlockedRecipes.Add(name);
+                ItemFactory.RecipeHelper.UnlockNewRecipe(name);
+            }
+                
         }
 
         public void CleanUp()

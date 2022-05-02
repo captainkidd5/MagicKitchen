@@ -105,7 +105,7 @@ namespace UIEngine.Classes.RecipeStuff
             FillRecipePages();
 
         }
-        public void LoadAvailableRecipes(List<int> playerUnlockedRecipes)
+        public void LoadAvailableRecipes(List<string> playerUnlockedRecipes)
         {
             _availableRecipes = new List<RecipeInfo>();
 

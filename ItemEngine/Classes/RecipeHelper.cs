@@ -11,11 +11,17 @@ namespace ItemEngine.Classes
     public class RecipeHelper
     {
         List<RecipeInfo> _allRecipeInfo;
+
+        private List<RecipeInfo> _unlockedRecipes;
         public RecipeHelper()
         {
             _allRecipeInfo = new List<RecipeInfo>();
+            _unlockedRecipes = new List<RecipeInfo>();
         }
-
+        public void UnlockNewRecipe(string recipeName)
+        {
+            _unlockedRecipes.Add(_allRecipeInfo.FirstOrDefault(x => x.Name == recipeName));
+        }
         public void LoadContent(List<ItemData> itemData)
         {
             _allRecipeInfo.AddRange(itemData.Where(x => x.RecipeInfo != null).Select(x => x.RecipeInfo).ToList());
@@ -64,9 +70,9 @@ namespace ItemEngine.Classes
         /// <param name="ingredientsSelected">The ingredients placed in the crafting menu</param>
         /// <param name="availableRecipes">Recipes unlocked by the player</param>
         /// <returns></returns>
-        public ItemData Cook(List<ItemDataDTO> ingredientsSelected, List<RecipeInfo> availableRecipes)
+        public ItemData Cook(List<ItemDataDTO> ingredientsSelected)
         {
-            RecipeInfo recipeToUse = availableRecipes.Where(x => (
+            RecipeInfo recipeToUse = _unlockedRecipes.Where(x => (
             ingredientsSelected.Any(y => y.ItemData.Name == x.BaseIngredient) &&
             ingredientsSelected.Any(y => y.ItemData.Name == x.SupplementaryIngredient)
             )).FirstOrDefault();

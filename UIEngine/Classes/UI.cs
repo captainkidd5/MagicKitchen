@@ -180,7 +180,7 @@ namespace UIEngine.Classes
         }
         public static void LoadPlayerInventory(StorageContainer playerStorageContainer) => ToolBar.Load(playerStorageContainer);
 
-        public static void LoadPlayerUnlockedRecipes(List<int> playerUnlockedrecipes) => RecipeBook.LoadAvailableRecipes(playerUnlockedrecipes);
+        public static void LoadPlayerUnlockedRecipes(List<string> playerUnlockedrecipes) => RecipeBook.LoadAvailableRecipes(playerUnlockedrecipes);
         private static void LoadCurrentSection()
         {
             foreach (InterfaceSection section in s_activeSections)
