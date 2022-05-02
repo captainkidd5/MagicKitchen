@@ -24,6 +24,8 @@ using MonoGame.Extended.BitmapFonts;
 using UIEngine.Classes.RecipeStuff;
 using Globals.Classes.Helpers;
 using System.Linq;
+using UIEngine.Classes.CraftingMenuStuff;
+using static DataModels.Enums;
 
 namespace UIEngine.Classes
 {
@@ -63,8 +65,11 @@ namespace UIEngine.Classes
         internal static Color[] GeneralInterfaceTexDat;
 
         private static bool s_isHovered;
-        public static bool IsHovered { get { return s_isHovered; } 
-            private set { s_isHovered = value; Controls.IsUiHovered = value; } }
+        public static bool IsHovered
+        {
+            get { return s_isHovered; }
+            private set { s_isHovered = value; Controls.IsUiHovered = value; }
+        }
 
         private static List<InterfaceSection> s_standardSections { get; set; }
         private static List<InterfaceSection> s_mainMenuSections { get; set; }
@@ -78,7 +83,7 @@ namespace UIEngine.Classes
         internal static Curtain Curtain { get; set; }
         internal static EscMenu EscMenu { get; set; }
 
-        internal static RecipeBook RecipeBook { get; set; } 
+        internal static RecipeBook RecipeBook { get; set; }
         internal static InventoryDisplay SecondaryInventoryDisplay { get; set; }
 
         internal static MainMenu MainMenu { get; set; }
@@ -104,9 +109,9 @@ namespace UIEngine.Classes
             ToolBar = new ToolBar(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
             ClockBar = new ClockBar(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
             EscMenu = new EscMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
-            RecipeBook = new RecipeBook(null, graphics, content,null, GetLayeringDepth(UILayeringDepths.Low));
+            RecipeBook = new RecipeBook(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
             TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
-            SettingsMenu = new SettingsMenu(null,graphics,content, null, GetLayeringDepth(UILayeringDepths.Front));
+            SettingsMenu = new SettingsMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null,
                 GetLayeringDepth(UILayeringDepths.Medium));
@@ -127,16 +132,38 @@ namespace UIEngine.Classes
 
         }
 
-        public static void ActivateSecondaryInventoryDisplay(StorageContainer storageContainer, bool displayWallet = false)
+        public static void ActivateSecondaryInventoryDisplay(StorageType t, StorageContainer storageContainer, bool displayWallet = false)
         {
+            int index = s_standardSections.IndexOf(SecondaryInventoryDisplay);
+
+            switch (t)
+
+            {
+                case StorageType.None:
+                    throw new Exception($"must have storage type");
+                case StorageType.Standard:
+                    SecondaryInventoryDisplay = new InventoryDisplay(null, s_graphics, s_content, SecondaryInventoryDisplay.Position, SecondaryInventoryDisplay.LayerDepth);
+
+                    break;
+                case StorageType.Craftable:
+                    SecondaryInventoryDisplay = new CraftingMenu(null, s_graphics, s_content, SecondaryInventoryDisplay.Position, SecondaryInventoryDisplay.LayerDepth);
+
+                    break;
+                default:
+                    throw new Exception($"must have storage type");
+
+            }
+
             SecondaryInventoryDisplay.LoadNewEntityInventory(storageContainer, displayWallet);
 
             SecondaryInventoryDisplay.Activate();
             SecondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(SecondaryInventoryDisplay.TotalBounds));
+            s_standardSections[index] = SecondaryInventoryDisplay;
+
         }
 
         public static void DeactivateSecondaryInventoryDisplay() => SecondaryInventoryDisplay.Deactivate();
-     
+
         internal static void AssignLayeringDepths(ref float[] layeringDepths, float baseDepth, bool largeIncrement = false)
         {
             layeringDepths = new float[5];
@@ -152,7 +179,7 @@ namespace UIEngine.Classes
             return LayeringDepths[(int)depth];
         }
         public static void LoadPlayerInventory(StorageContainer playerStorageContainer) => ToolBar.Load(playerStorageContainer);
-    
+
         public static void LoadPlayerUnlockedRecipes(List<int> playerUnlockedrecipes) => RecipeBook.LoadAvailableRecipes(playerUnlockedrecipes);
         private static void LoadCurrentSection()
         {
@@ -206,11 +233,11 @@ namespace UIEngine.Classes
                 CommandConsole.Toggle();
 
             }
-           
-                
+
+
             if (s_criticalSections.Count > 0)
             {
-                for(int i = s_criticalSections.Count - 1; i >= 0; i--)
+                for (int i = s_criticalSections.Count - 1; i >= 0; i--)
                 {
                     InterfaceSection section = s_criticalSections[i];
                     if (section.FlaggedForCriticalRemoval)
@@ -224,7 +251,7 @@ namespace UIEngine.Classes
                         if (section.Hovered)
                             IsHovered = true;
                     }
-                    
+
                 }
 
             }
@@ -344,7 +371,7 @@ namespace UIEngine.Classes
                     FinishChangeGameState();
 
                 }));
-                
+
         }
         private static void StartChangeGameState(GameDisplayState newState)
         {
@@ -374,7 +401,7 @@ namespace UIEngine.Classes
 
         public static void LoadGame(SaveFile saveFile)
         {
-        
+
             DropCurtain(CurtainDropRate, new Action(() =>
             {
                 SaveLoadManager.SetCurrentSave(saveFile.Name);

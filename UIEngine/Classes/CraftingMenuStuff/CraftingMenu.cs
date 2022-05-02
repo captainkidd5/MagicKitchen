@@ -17,6 +17,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         private static Rectangle s_craftButtonSourceRectangle = new Rectangle(32, 80, 32, 32);
         private Button _craftButton;
         private StorageContainer _outPutStorageContainer;
+        private InventorySlotDisplay _outPutSlot;
         
         public CraftingMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) :
@@ -29,22 +30,37 @@ namespace UIEngine.Classes.CraftingMenuStuff
         {
             base.GenerateUI(displayWallet);
             _craftButton = new Button(this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium),
-                s_craftButtonSourceRectangle,)
+                s_craftButtonSourceRectangle, CraftAction);
+
+            _outPutStorageContainer = new StorageContainer(1);
+            _outPutSlot = new InventorySlotDisplay(this, graphics, content, _outPutStorageContainer.Slots[0],Position,
+                GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium));    
         }
 
-        private void CraftAction()
+        protected virtual void CraftAction()
         {
 
         }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if(IsActive)
+            {
+                _craftButton.Update(gameTime);
+                _outPutSlot.Update(gameTime);
+            }
         }
 
        
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+            if (IsActive)
+            {
+                _craftButton.Draw(spriteBatch);
+                _outPutSlot.Draw(spriteBatch);
+            }
         }
 
         

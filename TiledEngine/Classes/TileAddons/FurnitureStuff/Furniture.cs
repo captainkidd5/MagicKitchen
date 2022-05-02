@@ -12,6 +12,7 @@ using TiledEngine.Classes.Helpers;
 using UIEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Dynamics;
+using static DataModels.Enums;
 
 namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
@@ -114,7 +115,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
                 if (Controls.IsClickedWorld)
                 {
-                    UI.ActivateSecondaryInventoryDisplay(_storageContainer);
+                    UI.ActivateSecondaryInventoryDisplay(StorageType.Standard, _storageContainer);
                 }
             }
         }
