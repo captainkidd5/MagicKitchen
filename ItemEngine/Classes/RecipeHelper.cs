@@ -64,11 +64,11 @@ namespace ItemEngine.Classes
         /// <param name="ingredientsSelected">The ingredients placed in the crafting menu</param>
         /// <param name="availableRecipes">Recipes unlocked by the player</param>
         /// <returns></returns>
-        public ItemData Cook(List<ItemData> ingredientsSelected, List<RecipeInfo> availableRecipes)
+        public ItemData Cook(List<ItemDataDTO> ingredientsSelected, List<RecipeInfo> availableRecipes)
         {
             RecipeInfo recipeToUse = availableRecipes.Where(x => (
-            ingredientsSelected.Any(y => y.Name == x.BaseIngredient) &&
-            ingredientsSelected.Any(y => y.Name == x.SupplementaryIngredient)
+            ingredientsSelected.Any(y => y.ItemData.Name == x.BaseIngredient) &&
+            ingredientsSelected.Any(y => y.ItemData.Name == x.SupplementaryIngredient)
             )).FirstOrDefault();
             if (recipeToUse == null)
                 return null;

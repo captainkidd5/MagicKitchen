@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels.ItemStuff;
+using Globals.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -327,6 +328,11 @@ namespace ItemEngine.Classes
 
             }
 
+        }
+
+        public ItemDataDTO ExportItemDataDTO()
+        {
+            return new ItemDataDTO() { ItemData = ItemFactory.GetItemData(Item.Id), Count = StoredCount };
         }
         protected virtual void OnItemChanged()
         {

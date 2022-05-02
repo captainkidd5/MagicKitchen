@@ -1,4 +1,5 @@
-﻿using ItemEngine.Classes;
+﻿using DataModels.ItemStuff;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -43,7 +44,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         protected virtual void CraftAction()
         {
+            List<ItemDataDTO> itemDataDTO = new List<ItemDataDTO>();
+            foreach(StorageSlot slot in StorageContainer.Slots)
+                itemDataDTO.Add(slot.ExportItemDataDTO());
 
+            ItemData itemData = ItemFactory.RecipeHelper.Cook(itemDataDTO,)
         }
         public override void Update(GameTime gameTime)
         {
