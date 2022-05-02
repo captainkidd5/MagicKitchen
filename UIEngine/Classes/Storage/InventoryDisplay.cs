@@ -14,6 +14,7 @@ using System.Text;
 using TextEngine.Classes;
 using TextEngine;
 using static Globals.Classes.Settings;
+using UIEngine.Classes.Components;
 
 namespace UIEngine.Classes.Storage
 {
@@ -39,6 +40,7 @@ namespace UIEngine.Classes.Storage
         public int Capacity { get { return StorageContainer.Capacity; }  }
         protected int DrawEndIndex { get; set; }
 
+        private StackPanel _stackPanel;
         public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -55,6 +57,7 @@ namespace UIEngine.Classes.Storage
 
         public virtual void LoadNewEntityInventory(StorageContainer storageContainer, bool displayWallet)
         {
+
             StorageContainer = storageContainer;
             DrawEndIndex = StorageContainer.Capacity;
             Rows = (int)Math.Floor((float)Capacity / (float)DrawEndIndex);
@@ -70,15 +73,26 @@ namespace UIEngine.Classes.Storage
         }
         protected virtual void GenerateUI(bool displayWallet)
         {
-            InventorySlots = new List<InventorySlotDisplay>();
+            _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
 
-            for (int i = 0; i < StorageContainer.Capacity; i++)
+            InventorySlots = new List<InventorySlotDisplay>();
+            int slotIndex = 0;
+            for(int i = 0; i < Rows; i++)
             {
-                InventorySlots.Add(new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[i],
-                    new Vector2(Position.X + i * _buttonWidth,
-                    Position.Y + i % Rows * _buttonWidth), LayerDepth));
-                InventorySlots[i].LoadContent();
+                StackRow stackRow = new StackRow(Columns * _buttonWidth);
+                for(int j =0; j < Columns; j++)
+                {
+                    InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
+                    Position, LayerDepth);
+                    InventorySlots.Add(display);
+                    display.LoadContent();
+
+                    stackRow.AddItem(display, StackOrientation.Left);
+                    slotIndex++;
+                }
+                _stackPanel.Add(stackRow);
             }
+
             if (displayWallet)
             {
                 Vector2 walletDisplayPosition = new Vector2(0, 0);

@@ -66,7 +66,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             for (int i = 0; i < PlacedItems.Count; i++)
             {
                 PlacedItem placedItem = PlacedItems[i];
-                if (i == 0)
+              // if (i == 0)
                     _storageContainer.Slots[i].HoldsVisibleFurnitureItem = true;
                 if (placedItem.ItemId > 0)
                 {

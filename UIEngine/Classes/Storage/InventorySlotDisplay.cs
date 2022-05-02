@@ -23,6 +23,8 @@ namespace UIEngine.Classes.Storage
 
         private NineSliceButton _button;
 
+        //watermark sprite indicates special properties of the storage slot, such as an
+        //eye to indicate that an item placed here will show up on the tile
         private Sprite _waterMarkSprite;
         private static Vector2 _waterMarkSpriteScale = new Vector2(2f, 2f);
         
