@@ -30,8 +30,8 @@ namespace UIEngine.Classes.ButtonStuff
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
-            BackGroundSprite = SpriteFactory.CreateNineSliceSprite(Position,  SourceRectangle.Width,
-            SourceRectangle.Height, UI.ButtonTexture, LayerDepth, null, null,scale: BackGroundSprite.Scale);
+            BackGroundSprite = SpriteFactory.CreateNineSliceSprite(Position, BackGroundSprite.Width,
+            BackGroundSprite.Height, UI.ButtonTexture, LayerDepth, null, null,scale: BackGroundSprite.Scale);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,_samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
         }
