@@ -332,6 +332,9 @@ namespace ItemEngine.Classes
 
         public ItemDataDTO ExportItemDataDTO()
         {
+            if (Item == null)
+                return null;
+            
             return new ItemDataDTO() { ItemData = ItemFactory.GetItemData(Item.Id), Count = StoredCount };
         }
         protected virtual void OnItemChanged()

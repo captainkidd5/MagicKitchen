@@ -248,6 +248,6 @@ namespace TextEngine.Classes
             return new Vector2(rectangleToCenterOn.X + (rectangleToCenterOn.Width / 2) - text.TotalStringWidth / 2,
                 rectangleToCenterOn.Y + (rectangleToCenterOn.Height / 2) - text.TotalStringHeight );
         }
-
+        
     }
 }

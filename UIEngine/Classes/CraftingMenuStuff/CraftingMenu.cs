@@ -46,9 +46,22 @@ namespace UIEngine.Classes.CraftingMenuStuff
         {
             List<ItemDataDTO> itemDataDTO = new List<ItemDataDTO>();
             foreach(StorageSlot slot in StorageContainer.Slots)
-                itemDataDTO.Add(slot.ExportItemDataDTO());
+            {
+                ItemDataDTO exportedData = slot.ExportItemDataDTO();
+                //would be null in the case that the slot isn't filled, which is fine
+                if(exportedData != null)
+                    itemDataDTO.Add(exportedData);
+
+            }
 
             ItemData itemData = ItemFactory.RecipeHelper.Cook(itemDataDTO);
+            if(itemData != null)
+            {
+                int amount = 1;
+                _outPutStorageContainer.AddItem(ItemFactory.GetItem(itemData.Id), ref amount);
+            }
+          
+
         }
         public override void Update(GameTime gameTime)
         {
