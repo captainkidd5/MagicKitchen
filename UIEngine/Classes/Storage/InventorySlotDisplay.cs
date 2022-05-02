@@ -21,15 +21,19 @@ namespace UIEngine.Classes.Storage
         private readonly StorageSlot _storageSlot;
         private readonly Vector2 _itemIconSpriteScale = new Vector2(3f, 3f);
 
-        private NineSliceButton Button { get; set; }
+        private NineSliceButton _button;
 
-        private Text Text { get; set; }
+        private Sprite _waterMarkSprite;
+        
+
+        private Text _text;
 
         private int _oldItemId;
-        internal protected override bool Clicked => Button.Clicked;
-        internal protected override bool RightClicked => Button.RightClicked;
+        internal protected override bool Clicked => _button.Clicked;
+        internal protected override bool RightClicked => _button.RightClicked;
 
-        internal protected new bool Hovered => Button.Hovered; 
+        internal protected new bool Hovered => _button.Hovered;
+
 
         public InventorySlotDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content
              , StorageSlot storageSlot, Vector2 position, float layerDepth)
@@ -37,13 +41,20 @@ namespace UIEngine.Classes.Storage
         {
             _storageSlot = storageSlot;
             storageSlot.ItemChanged += ItemChanged;
-            Button = new NineSliceButton(interfaceSection, graphicsDevice, content, position,GetLayeringDepth(UILayeringDepths.Low), null, null, null, null, hoverTransparency: true);
-            Text = TextFactory.CreateUIText("0", UI.IncrementLD(Button.LayerDepth, true));
+            _button = new NineSliceButton(interfaceSection, graphicsDevice, content, position,GetLayeringDepth(UILayeringDepths.Low), null, null, null, null, hoverTransparency: true);
+            _text = TextFactory.CreateUIText("0", UI.IncrementLD(_button.LayerDepth, true));
+
+            if (storageSlot.HoldsVisibleFurnitureItem)
+            {
+                _waterMarkSprite = SpriteFactory.CreateUISprite(Position, new Rectangle(192, 80, 32, 32),
+                    UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium)); 
+            }
         }
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
-            Button.MovePosition(newPos);
+            _button.MovePosition(newPos);
+            
 
         }
         public override void LoadContent()
@@ -52,14 +63,14 @@ namespace UIEngine.Classes.Storage
             {
                 ItemChanged(_storageSlot.Item, _storageSlot.StoredCount);
             }
-            TotalBounds = Button.TotalBounds;
+            TotalBounds = _button.TotalBounds;
             base.LoadContent();
         }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            Button.Update(gameTime);
-
+            _button.Update(gameTime);
+            _waterMarkSprite?.Update(gameTime, Position);
             if (Clicked)
             {
                 (parentSection as InventoryDisplay).SelectSlot(this);
@@ -73,38 +84,36 @@ namespace UIEngine.Classes.Storage
 
                 _storageSlot.RightClickInteraction(ref UI.Cursor.HeldItem, ref UI.Cursor.HeldItemCount);
             }
-            Text.Update(gameTime,Position);
+            _text.Update(gameTime,Position);
         }
-
-        public Item Item => _storageSlot.Item;
-        public bool Remove(int count) => _storageSlot.Remove(count);
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
 
             if (_storageSlot.StoredCount > 0)
-                Text.Draw(spriteBatch, true);
+                _text.Draw(spriteBatch, true);
 
-            Button.Draw(spriteBatch);
+            _button.Draw(spriteBatch);
+            _waterMarkSprite?.Draw(spriteBatch);
         }
 
         private void ItemChanged(Item item, int count)
         {
             if (item == null)
             {
-                Button.SwapForeGroundSprite(null);
-                Text.SetFullString(string.Empty);
+                _button.SwapForeGroundSprite(null);
+                _text.SetFullString(string.Empty);
                 _oldItemId = 0;
                 return;
             }
             if (_oldItemId != item.Id)
 
             {
-                Button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
+                _button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
                 Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, UI.IncrementLD(LayerDepth, true), Color.White, Vector2.Zero, _itemIconSpriteScale));
 
             }
-                Text.SetFullString(count.ToString());
+                _text.SetFullString(count.ToString());
             _oldItemId = item.Id;
         }
     }

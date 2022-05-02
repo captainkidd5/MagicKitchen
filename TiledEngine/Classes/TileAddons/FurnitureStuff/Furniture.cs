@@ -66,6 +66,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             for (int i = 0; i < PlacedItems.Count; i++)
             {
                 PlacedItem placedItem = PlacedItems[i];
+                if (i == 0)
+                    _storageContainer.Slots[i].HoldsVisibleFurnitureItem = true;
                 if (placedItem.ItemId > 0)
                 {
 
@@ -103,8 +105,13 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            foreach (PlacedItem placedItem in PlacedItems)
-                placedItem.Draw(spriteBatch);
+            for(int i =0; i < _storageContainer.Slots.Count; i++)
+            {
+                if(_storageContainer.Slots[i].HoldsVisibleFurnitureItem)
+                    PlacedItems[i].Draw(spriteBatch);
+
+            }
+           
         }
         public static Furniture GetFurnitureFromProperty(string value,
             Tile tile, TileManager tileManager, IntermediateTmxShape tmxShape)

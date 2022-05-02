@@ -15,7 +15,7 @@ namespace ItemEngine.Classes
     {
 
         public int Capacity { get; private set; }
-        public List<StorageSlot> Slots { get; set; }
+        public List<StorageSlot> Slots { get; private set; }
 
         private Wallet _wallet;
         public StorageContainer(int capacity)
@@ -123,7 +123,7 @@ namespace ItemEngine.Classes
         public int StoredCount { get; private set; }
         public bool Empty => Item == null;
 
-
+        public bool HoldsVisibleFurnitureItem { get; set; } = false;
 
         public StorageSlot()
         {
