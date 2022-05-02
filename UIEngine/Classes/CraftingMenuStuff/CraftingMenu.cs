@@ -16,8 +16,12 @@ namespace UIEngine.Classes.CraftingMenuStuff
     {
         private static Rectangle s_craftButtonSourceRectangle = new Rectangle(32, 80, 32, 32);
         private Button _craftButton;
+        private Vector2 _craftPositionOffSet = new Vector2(32, 64);
+
+
         private StorageContainer _outPutStorageContainer;
         private InventorySlotDisplay _outPutSlot;
+        private Vector2 _outPutSlotPositionOffSet = new Vector2(64, 64);
         
         public CraftingMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) :
@@ -29,11 +33,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
         protected override void GenerateUI(bool displayWallet)
         {
             base.GenerateUI(displayWallet);
-            _craftButton = new Button(this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium),
+            _craftButton = new Button(this, graphics, content, Position + _craftPositionOffSet, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium),
                 s_craftButtonSourceRectangle, CraftAction);
 
             _outPutStorageContainer = new StorageContainer(1);
-            _outPutSlot = new InventorySlotDisplay(this, graphics, content, _outPutStorageContainer.Slots[0],Position,
+            _outPutSlot = new InventorySlotDisplay(this, graphics, content, _outPutStorageContainer.Slots[0],Position + _outPutSlotPositionOffSet,
                 GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium));    
         }
 

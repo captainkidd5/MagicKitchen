@@ -115,7 +115,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
                 if (Controls.IsClickedWorld)
                 {
-                    UI.ActivateSecondaryInventoryDisplay(StorageType.Standard, _storageContainer);
+                    UI.ActivateSecondaryInventoryDisplay(StorageType.Craftable, _storageContainer);
                 }
             }
         }
