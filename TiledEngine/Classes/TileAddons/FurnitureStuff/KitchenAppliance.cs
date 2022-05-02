@@ -22,7 +22,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         }
         public override void Load()
         {
-            _progressIndicator.Load(2f, Tile.Position, Tile.Layer);
+            _progressIndicator.Load(.25f, Tile.Position, Tile.Layer);
             base.Load();
 
         }

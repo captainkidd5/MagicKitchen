@@ -54,14 +54,14 @@ namespace SpriteEngine.Classes
                 DrawUI(spriteBatch);       
         }
 
-        private void DrawUI(SpriteBatch spriteBatch)
+        protected virtual void DrawUI(SpriteBatch spriteBatch)
         {
                 spriteBatch.Draw(Texture,  Position + OffSet, SourceRectangle, PrimaryColor, Rotation, Origin, Scale, SpriteEffects, CustomLayer ?? LayerDepth);
 
 
         }
 
-        private void DrawWorld(SpriteBatch spriteBatch)
+        protected virtual void DrawWorld(SpriteBatch spriteBatch)
         {
                 spriteBatch.Draw(Texture, Position + OffSet, SourceRectangle, PrimaryColor, Rotation, Origin, Scale, SpriteEffects, CustomLayer ?? GetYAxisLayerDepth());
 

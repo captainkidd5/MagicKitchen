@@ -16,7 +16,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         private Vector2 _position;
         private Vector2 _positionOffSet = new Vector2(_sourceRectangle.Width / 2, -16);
         private static Rectangle _sourceRectangle = new Rectangle(16,0,32,32);
-        private Sprite _outLineSprite;
+        private DestinationRectangleSprite _outLineSprite;
+
+        private Sprite _foreGroundSprite;
 
         private int _goal = 20;
         private int _currentAmount;
@@ -34,7 +36,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             _simpleTimer = new SimpleTimer(rate);
             _position = position + _positionOffSet;
-            _outLineSprite = SpriteFactory.CreateWorldSprite(_position, _sourceRectangle, TileLoader.TileIconTexture, customLayer:layerDepth);
+            _outLineSprite = SpriteFactory.CreateWorldDestinationSprite(1,16,_position, new Rectangle( 0,0,1,1), TileLoader.TileIconTexture, customLayer:layerDepth, primaryColor:Color.Green);
+            _foreGroundSprite = SpriteFactory.CreateWorldSprite( _position, _sourceRectangle, TileLoader.TileIconTexture, customLayer: layerDepth);
         }
 
         public void Update(GameTime gameTime)
@@ -42,15 +45,17 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             if (_simpleTimer.Run(gameTime))
             {
                 _currentAmount++;
+                _outLineSprite.RectangleWidth = (int)((float)((float)_currentAmount / (float)_goal) * (float)_sourceRectangle.Width);
             }
 
             _outLineSprite.Update(gameTime, _position);
-
+            _foreGroundSprite.Update(gameTime, _position);
         }
-
+        
         public void Draw(SpriteBatch spriteBatch)
         {
             _outLineSprite.Draw(spriteBatch);
+            _foreGroundSprite.Draw(spriteBatch);
         }
     }
 }

@@ -34,6 +34,13 @@ namespace SpriteEngine.Classes
             return new Sprite(Graphics, Content,ElementType.World, position, sourceRectangle, texture, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, rotation, layer, 
                 randomizeLayers, flip, customLayer) ;
         }
+        public static DestinationRectangleSprite CreateWorldDestinationSprite(int width, int height, Vector2 position, Rectangle sourceRectangle, Texture2D texture, Color? primaryColor = null,
+             Vector2? origin = null, Vector2? scale = null, float rotation = 0f, Layers layer = Layers.buildings,
+            bool randomizeLayers = true, bool flip = false, float? customLayer = null)
+        {
+            return new DestinationRectangleSprite(width, height,Graphics, Content, ElementType.World, position, sourceRectangle, texture, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, rotation, layer,
+                randomizeLayers, flip, customLayer);
+        }
 
         /// <summary>
         /// For UI vector2 position.  Note ui sprites are required to pass in a custom layer
