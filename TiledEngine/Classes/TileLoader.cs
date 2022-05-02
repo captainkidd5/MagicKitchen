@@ -36,6 +36,7 @@ namespace TiledEngine.Classes
         internal static TilesetPackageManager TilesetPackageManager;
         internal static TileLootManager TileLootManager;
 
+        internal static Texture2D TileIconTexture;
 
 
         public static bool HasEdge(string stageFromName, string stageToName) => _portalLoader.HasEdge(stageFromName, stageToName);
@@ -66,6 +67,8 @@ namespace TiledEngine.Classes
             TileLootManager = new TileLootManager();
             TileLootManager.LoadContent(content, TilesetPackageManager.ExteriorTileSetPackage);
             ZoneManager = new ZoneManager();
+
+            TileIconTexture = content.Load<Texture2D>("Maps/TileIcons");
         }
        
         /// <summary>
