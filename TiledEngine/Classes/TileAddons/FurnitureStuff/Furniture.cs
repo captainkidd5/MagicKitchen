@@ -43,25 +43,6 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         }
 
-        //private void ItemAdded(Item item)
-        //{
-        //    if (!PlacedItems.Any(x => x.ItemId == item.Id))
-        //    {
-        //        AddItem(item.Id);
-        //    }
-        //}
-
-        //private void ItemRemoved(Item item)
-        //{
-        //    if (PlacedItems.Any(x => x.ItemId == item.Id))
-        //    {
-        //        PlacedItem placedItem = PlacedItems.FirstOrDefault(x => x.ItemId == item.Id);
-        //        PlacedItems.Remove(placedItem);
-        //        TileManager.PlacedItemManager.Remove(placedItem);
-
-        //    }
-        //}
-
         public void AddItem(int index, int itemId)
         {
             PlacedItems[index] = new PlacedItem(itemId, Tile);
@@ -147,7 +128,6 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base.OnSeparates(fixtureA, fixtureB, contact);
             if (fixtureB.CollisionCategories.HasFlag(VelcroPhysics.Collision.Filtering.Category.PlayerBigSensor))
             {
-                Console.WriteLine("test");
                 UI.DeactivateSecondaryInventoryDisplay();
             }
         }
