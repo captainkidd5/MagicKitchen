@@ -133,7 +133,6 @@ namespace UIEngine.Classes
 
             SecondaryInventoryDisplay.Activate();
             SecondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(SecondaryInventoryDisplay.TotalBounds));
-           // s_standardSections.Add(SecondaryInventoryDisplay);
         }
 
         public static void DeactivateSecondaryInventoryDisplay() => SecondaryInventoryDisplay.Deactivate();

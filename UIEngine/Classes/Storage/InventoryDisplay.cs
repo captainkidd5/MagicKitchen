@@ -46,13 +46,6 @@ namespace UIEngine.Classes.Storage
             NormallyActivated = false;
         }
 
-        public override void LoadContent()
-        {
-            
-            //base.LoadContent();
-
-        }
-
         public virtual void LoadNewEntityInventory(StorageContainer storageContainer, bool displayWallet)
         {
             StorageContainer = storageContainer;

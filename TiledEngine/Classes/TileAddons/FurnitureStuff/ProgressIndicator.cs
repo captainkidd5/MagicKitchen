@@ -37,7 +37,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             _simpleTimer = new SimpleTimer(rate);
             _position = position + _positionOffSet;
             _outLineSprite = SpriteFactory.CreateWorldDestinationSprite(1,16,_position, new Rectangle( 0,0,1,1), TileLoader.TileIconTexture, customLayer:layerDepth, primaryColor:Color.Green);
-            _foreGroundSprite = SpriteFactory.CreateWorldSprite( _position, _sourceRectangle, TileLoader.TileIconTexture, customLayer: layerDepth);
+            _foreGroundSprite = SpriteFactory.CreateWorldSprite( _position, _sourceRectangle, TileLoader.TileIconTexture, customLayer: layerDepth + SpriteUtility.GetMinimumOffSet());
         }
 
         public void Update(GameTime gameTime)
@@ -45,6 +45,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             if (_simpleTimer.Run(gameTime))
             {
                 _currentAmount++;
+                if(!Done)
                 _outLineSprite.RectangleWidth = (int)((float)((float)_currentAmount / (float)_goal) * (float)_sourceRectangle.Width);
             }
 

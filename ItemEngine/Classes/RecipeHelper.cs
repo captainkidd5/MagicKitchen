@@ -57,5 +57,22 @@ namespace ItemEngine.Classes
             }
             throw new Exception($"Cook action {cookAction.ToString()} not supported");
         }
+
+        /// <summary>
+        /// Returns the item which would be created by combining the given ingredients
+        /// </summary>
+        /// <param name="ingredientsSelected">The ingredients placed in the crafting menu</param>
+        /// <param name="availableRecipes">Recipes unlocked by the player</param>
+        /// <returns></returns>
+        public ItemData Cook(List<ItemData> ingredientsSelected, List<RecipeInfo> availableRecipes)
+        {
+            RecipeInfo recipeToUse = availableRecipes.Where(x => (
+            ingredientsSelected.Any(y => y.Name == x.BaseIngredient) &&
+            ingredientsSelected.Any(y => y.Name == x.SupplementaryIngredient)
+            )).FirstOrDefault();
+            if (recipeToUse == null)
+                return null;
+            return ItemFactory.GetItemData(recipeToUse.Name);
+        }
     }
 }

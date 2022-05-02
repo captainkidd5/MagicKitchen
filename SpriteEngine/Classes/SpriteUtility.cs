@@ -28,7 +28,7 @@ namespace SpriteEngine.Classes
         /// <param name="dictionary">optional dictionary to search through.</param>
         internal static float GetSpriteVariedLayerDepth(Layers layerDepths, Dictionary<string, float> dictionary = null)
         {
-            float variedLayerDepth = GetLayerDepth(layerDepths) + Settings.Random.Next(1, 999) * LayerMultiplier;
+            float variedLayerDepth = GetLayerDepth(layerDepths) + GetMinimumOffSet();
             if (dictionary != null)
             {
                 if (dictionary.ContainsValue(variedLayerDepth))
@@ -40,6 +40,10 @@ namespace SpriteEngine.Classes
             return variedLayerDepth;
         }
 
+        public static float GetMinimumOffSet()
+        {
+            return Settings.Random.Next(1, 999) * LayerMultiplier;
+        }
         public static float GetUILayer(Layers layer)
         {
             return (int)layer * .01f;
