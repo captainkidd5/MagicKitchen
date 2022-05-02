@@ -84,10 +84,9 @@ namespace UIEngine.Classes
         internal static EscMenu EscMenu { get; set; }
 
         internal static RecipeBook RecipeBook { get; set; }
-        internal static InventoryDisplay SecondaryInventoryDisplay { get; set; }
 
         internal static MainMenu MainMenu { get; set; }
-
+        internal static StorageDisplayHandler StorageDisplayHandler { get; set; }
         public static Cursor Cursor { get; set; }
 
         private static Game s_game;
@@ -113,11 +112,9 @@ namespace UIEngine.Classes
             TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             SettingsMenu = new SettingsMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
-            SecondaryInventoryDisplay = new InventoryDisplay(null, graphics, content, null,
-                GetLayeringDepth(UILayeringDepths.Medium));
-            SecondaryInventoryDisplay.Deactivate();
+            StorageDisplayHandler = new StorageDisplayHandler(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow,
-                EscMenu, RecipeBook, SecondaryInventoryDisplay };
+                EscMenu, RecipeBook, StorageDisplayHandler };
 
             Cursor = new Cursor();
             Cursor.LoadContent(content);
@@ -133,36 +130,9 @@ namespace UIEngine.Classes
         }
 
         public static void ActivateSecondaryInventoryDisplay(StorageType t, StorageContainer storageContainer, bool displayWallet = false)
-        {
-            int index = s_standardSections.IndexOf(SecondaryInventoryDisplay);
+            => StorageDisplayHandler.ActivateSecondaryInventoryDisplay(t, storageContainer, displayWallet);
 
-            switch (t)
-
-            {
-                case StorageType.None:
-                    throw new Exception($"must have storage type");
-                case StorageType.Standard:
-                    SecondaryInventoryDisplay = new InventoryDisplay(null, s_graphics, s_content, SecondaryInventoryDisplay.Position, SecondaryInventoryDisplay.LayerDepth);
-
-                    break;
-                case StorageType.Craftable:
-                    SecondaryInventoryDisplay = new CraftingMenu(null, s_graphics, s_content, SecondaryInventoryDisplay.Position, SecondaryInventoryDisplay.LayerDepth);
-
-                    break;
-                default:
-                    throw new Exception($"must have storage type");
-
-            }
-
-            SecondaryInventoryDisplay.LoadNewEntityInventory(storageContainer, displayWallet);
-
-            SecondaryInventoryDisplay.Activate();
-            SecondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(SecondaryInventoryDisplay.TotalBounds));
-            s_standardSections[index] = SecondaryInventoryDisplay;
-
-        }
-
-        public static void DeactivateSecondaryInventoryDisplay() => SecondaryInventoryDisplay.Deactivate();
+        public static void DeactivateSecondaryInventoryDisplay() => StorageDisplayHandler.Deactivate();
 
         internal static void AssignLayeringDepths(ref float[] layeringDepths, float baseDepth, bool largeIncrement = false)
         {
@@ -271,14 +241,7 @@ namespace UIEngine.Classes
 
             Cursor.Update(gameTime);
 
-            if (SecondaryInventoryDisplay.IsActive && !SecondaryInventoryDisplay.WasJustActivated)
-            {
-                if (Controls.IsClickedWorld)
-                {
-                    DeactivateSecondaryInventoryDisplay();
-
-                }
-            }
+            
 
         }
 

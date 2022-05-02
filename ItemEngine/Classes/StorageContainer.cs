@@ -123,6 +123,7 @@ namespace ItemEngine.Classes
         public int StoredCount { get; private set; }
         public bool Empty => Item == null;
 
+        //If set to true, items placed in this slot may appear on top of tiles (Furniture, for example)
         public bool HoldsVisibleFurnitureItem { get; set; } = false;
 
         public StorageSlot()

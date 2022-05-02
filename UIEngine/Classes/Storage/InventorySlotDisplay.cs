@@ -24,6 +24,7 @@ namespace UIEngine.Classes.Storage
         private NineSliceButton _button;
 
         private Sprite _waterMarkSprite;
+        private static Vector2 _waterMarkSpriteScale = new Vector2(2f, 2f);
         
 
         private Text _text;
@@ -47,7 +48,7 @@ namespace UIEngine.Classes.Storage
             if (storageSlot.HoldsVisibleFurnitureItem)
             {
                 _waterMarkSprite = SpriteFactory.CreateUISprite(Position, new Rectangle(192, 80, 32, 32),
-                    UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium)); 
+                    UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: _waterMarkSpriteScale); 
             }
         }
         public override void MovePosition(Vector2 newPos)

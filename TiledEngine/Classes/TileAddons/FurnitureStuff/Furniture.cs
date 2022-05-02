@@ -22,7 +22,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public List<PlacedItem> PlacedItems { get; set; }
 
-        protected int MaxPlacedItems { get; set; } = 3;
+        protected int MaxPlacedItems { get; set; } = 4;
 
         public int ItemCount => PlacedItems?.Count ?? 0;
 
