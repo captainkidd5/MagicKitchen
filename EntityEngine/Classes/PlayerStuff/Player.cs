@@ -30,10 +30,8 @@ namespace EntityEngine.Classes.PlayerStuff
         public readonly Vector2 StartingPosition = Vector2Helper.GetWorldPositionFromTileIndex(64,72);
         private readonly PlayerManager _playerContainer;
 
-        private Direction DirectionFacing { get; set; }
         private bool WasMovingLastFrame { get; set; }
 
-        public Light TestLight { get; set; }
 
         internal ProgressManager ProgressManager { get;set; }
 
@@ -175,10 +173,9 @@ namespace EntityEngine.Classes.PlayerStuff
             {
 
             Velocity = Vector2.Zero;
-            DirectionFacing = Controls.DirectionFacing;
             Direction secondaryDirection = Controls.SecondaryDirectionFacing;
             IsMoving = Controls.IsPlayerMoving;
-            GetPlayerMovementDirectionAndVelocity(DirectionFacing);
+            GetPlayerMovementDirectionAndVelocity(Controls.DirectionFacing);
             GetPlayerMovementDirectionAndVelocity(secondaryDirection);
             }
 
@@ -242,7 +239,6 @@ namespace EntityEngine.Classes.PlayerStuff
             TileManager = tileManager;
         
                 Navigator.Load(TileManager.PathGrid);
-            //BehaviourManager.SwitchStage(TileManager);
             InventoryHandler.SwapItemManager(itemManager);
         }
     }
