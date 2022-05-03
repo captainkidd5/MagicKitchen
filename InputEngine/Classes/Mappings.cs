@@ -9,28 +9,20 @@ namespace InputEngine.Classes
 {
     internal class Mappings
     {
-        public string Name { get; }
-        private List<Buttons> _buttons;
-        private List<Keys> _keys;
+        public GamePadActionType GamePadActionType { get; }
+        public Buttons Button { get; private set; }
 
-        public Mappings(string name)
+
+        public Mappings(GamePadActionType gamePadActionType)
         {
-            Name = name;
+            GamePadActionType = gamePadActionType;
         }
 
-        public void AddMapping(Buttons button)
+        public void Remap(Buttons button)
         {
-            if (_buttons.Contains(button))
-                throw new Exception($"Mapping already present");
+            Button = button;
 
-            _buttons.Add(button);
         }
-        public void AddMapping(Keys key)
-        {
-            if(_keys.Contains(key))
-                throw new Exception($"Mapping already present");
-
-            _keys.Add(key);
-        }
+    
     }
 }

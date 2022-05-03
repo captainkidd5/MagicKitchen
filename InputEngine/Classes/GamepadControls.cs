@@ -11,13 +11,20 @@ using static DataModels.Enums;
 
 namespace InputEngine.Classes
 {
+
+    public enum GamePadActionType
+    {
+        None = 0,
+        Select = 1,
+        Escape = 2
+    }
     internal class GamepadControls 
     {
 
 
-     
 
 
+        public Dictionary<GamePadActionType, Mappings> _gamePadMappings;
 
         public Direction GetDirectionFacing()
         {
@@ -47,14 +54,23 @@ namespace InputEngine.Classes
 
         private GamePadState _newGamePadState;
         private GamePadState _oldGamePadState;
-        private GamePadCapabilities _gamePadCapabilities;
 
         public GamepadControls()
         {
+            _gamePadMappings = new Dictionary<GamePadActionType, Mappings>();
+
+            Mappings interactMapping = new Mappings(GamePadActionType.Select);
+            interactMapping.Remap(Buttons.A);
+            _gamePadMappings.Add(GamePadActionType.Select, interactMapping);
+
+            Mappings escapeMapping = new Mappings(GamePadActionType.Escape);
+            escapeMapping.Remap(Buttons.Start);
+            _gamePadMappings.Add(GamePadActionType.Escape, escapeMapping);
         }
-        public bool WasButtonTapped(Buttons button)
+        public bool WasActionTapped(GamePadActionType gamePadActionType)
         {
-            if (_oldGamePadState.IsButtonDown(button) && _newGamePadState.IsButtonUp(button))
+            if (_oldGamePadState.IsButtonDown(_gamePadMappings[gamePadActionType].Button) &&
+                _newGamePadState.IsButtonUp(_gamePadMappings[gamePadActionType].Button))
                 return true;
             return false;
         }
@@ -68,7 +84,7 @@ namespace InputEngine.Classes
             _newGamePadState = GamePad.GetState(PlayerIndex.One);
 
 
-            if (WasButtonTapped(Buttons.A))
+            if (WasActionTapped(GamePadActionType.Select))
             {
                 Console.WriteLine("test");
             }
