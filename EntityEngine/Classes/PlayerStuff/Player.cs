@@ -79,7 +79,7 @@ namespace EntityEngine.Classes.PlayerStuff
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
 
-            FrontalSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() { Category.FrontalSensor }, BigSensorCollidesWithCategories,
+            FrontalSensor = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, position, 16f, 16f, new List<Category>() { Category.FrontalSensor }, BigSensorCollidesWithCategories,
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(FrontalSensor);
             // MainHullBody = HullBodies[0];

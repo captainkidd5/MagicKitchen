@@ -125,27 +125,22 @@ namespace PhysicsEngine.Classes
             height = height ?? 4f;
             position = position ?? Vector2.Zero;
             Body body = BodyFactory.CreateRectangle(PhysicsManager.VelcroWorld, (float)width,(float) height, density,(Vector2)position, rotation, bodyType, userData);
-            body.Friction = friction;
-            body.Mass = mass;
+
 
             if (categoriesCollidesWith != null)
                 foreach (Category category in categoriesCollidesWith)
                     body.SetCollidesWith(category);
-            else
-                body.SetCollidesWith(Category.None);
 
             if (collisionCategories != null)
             {
-
                 body.SetCollisionCategory(Category.None);
-                     foreach (Category category in collisionCategories)
+                foreach (Category category in collisionCategories)
                     body.SetCollisionCategory(category);
-
             }
+
 
             body.IgnoreGravity = ignoreGravity;
             body.SleepingAllowed = sleepingAllowed;
-
             body.OnCollision += cDelegate;
             body.OnSeparation += sDelegate;
             body.IsSensor = isSensor;
