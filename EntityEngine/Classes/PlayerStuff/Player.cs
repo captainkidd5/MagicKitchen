@@ -36,6 +36,9 @@ namespace EntityEngine.Classes.PlayerStuff
         public Light TestLight { get; set; }
 
         internal ProgressManager ProgressManager { get;set; }
+
+        protected HullBody FrontalSensor { get; set; }
+
         public Player(StageNPCContainer container, GraphicsDevice graphics, ContentManager content,PlayerManager playerContainer, string name = "playerName") : base(container, graphics,content)
         {
             Name = name;
@@ -75,11 +78,39 @@ namespace EntityEngine.Classes.PlayerStuff
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() { Category.PlayerBigSensor }, new List<Category>() { Category.Item, Category.Portal,Category.Solid, Category.NPC },
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
+
+            FrontalSensor = PhysicsManager.CreateRectangularHullBody(BodyType.Static, position, 16f, 16f, new List<Category>() { Category.FrontalSensor }, BigSensorCollidesWithCategories,
+               OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
+            AddSecondaryBody(FrontalSensor);
             // MainHullBody = HullBodies[0];
 
         }
 
+        /// <summary>
+        /// Frontal sensor needs to be a tile's distance in front of the entity, which depends on which
+        /// direction the entity is facing
+        /// </summary>
+        /// <returns></returns>
+        protected Vector2 GetFrontalSensorPositionFromEntityDirection()
+        {
+            switch (DirectionFacing)
+            {
+                case Direction.None:
+                    return new Vector2(0, 16);
 
+                case Direction.Up:
+                    return new Vector2(0, -16);
+                case Direction.Down:
+                    return new Vector2(0, 16);
+                    
+                case Direction.Left:
+                    return new Vector2(-16, 0);
+
+                case Direction.Right:
+                    return new Vector2(16, 0);
+                default: throw new Exception($"Invalid direction");
+            }
+        }
 
         protected override void RestoreEntityPhysics()
         {
@@ -119,7 +150,9 @@ namespace EntityEngine.Classes.PlayerStuff
             }
             else
                 Resume();
-            
+
+
+            FrontalSensor.Position = Position + GetFrontalSensorPositionFromEntityDirection();
         }
 
         protected override void DropCurrentlyHeldItemToWorld()

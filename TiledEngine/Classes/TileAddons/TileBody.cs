@@ -37,16 +37,18 @@ namespace TiledEngine.Classes.TileAddons
 
         public virtual void Load()
         {
-            if(IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Basic)
+
+            List<Category> categoriesCollidersWith = new List<Category>() { Category.Player, Category.Item, Category.NPC, Category.PlayerBigSensor, Category.FrontalSensor };
+            if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Basic)
             {
                 AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,
                IntermediateTmxShape.Width, IntermediateTmxShape.Height, new List<Category>() { Category.Solid },
-               new List<Category>() { Category.Player,Category.Item, Category.NPC, Category.PlayerBigSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+               categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else if(IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Ellipse)
             {
                 AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,IntermediateTmxShape.Radius,
-                    new List<Category>() { Category.Solid }, new List<Category>() { Category.Player,Category.Item, Category.NPC, Category.PlayerBigSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+                    new List<Category>() { Category.Solid }, categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else
             {

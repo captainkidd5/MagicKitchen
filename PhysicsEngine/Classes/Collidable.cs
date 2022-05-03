@@ -42,6 +42,8 @@ namespace PhysicsEngine.Classes
 
         protected bool PlayerInClickRange { get; private set; }
 
+        //for when controller is plugged in
+        protected bool PlayerInControllerActionRange { get; private set; }
         public bool IsPlayingASound => SoundModuleManager.IsPlayingASound;
 
         protected HullBody BigSensor { get; set; }
@@ -112,6 +114,10 @@ namespace PhysicsEngine.Classes
             {
                 PlayerInClickRange = true;
             }
+            if (fixtureB.CollisionCategories.HasFlag(Category.FrontalSensor))
+            {
+                PlayerInControllerActionRange = true;
+            }
         }
 
         protected virtual void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
@@ -123,6 +129,10 @@ namespace PhysicsEngine.Classes
             if (fixtureB.CollisionCategories.HasFlag(Category.PlayerBigSensor))
             {
                 PlayerInClickRange = false;
+            }
+            if (fixtureB.CollisionCategories.HasFlag(Category.FrontalSensor))
+            {
+                PlayerInControllerActionRange = false;
             }
         }
 

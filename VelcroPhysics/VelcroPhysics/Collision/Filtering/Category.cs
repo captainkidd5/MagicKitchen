@@ -10,7 +10,7 @@ namespace VelcroPhysics.Collision.Filtering
         Player = 1,
         Solid = 2,
         TransparencySensor = 4,
-        Grass = 8,
+        FrontalSensor = 8,
         Item = 16,
         NPC = 32,
         //Larger sensor around entity, for example player uses it to magnetize items
@@ -23,7 +23,7 @@ namespace VelcroPhysics.Collision.Filtering
         ActionTile = 4096,
         LightSource = 8192,
         SpecialZone = 16384,
-        Cat16 = 32768,
+        Grass = 32768,
         Cat17 = 65536,
         Cat18 = 131072,
         Cat19 = 262144,

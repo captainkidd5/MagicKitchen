@@ -30,7 +30,17 @@ namespace InputEngine.Classes
         /// <summary>
         /// Gets the direction the player is currently facing.
         /// </summary>
-        public Direction GetDirectionFacing => KeyboardManager.PrimaryDirection;
+        public Direction GetDirectionFacing() 
+        {
+            if(_controllerConnected)
+            {
+                Direction direction = _gamePadControls.GetDirectionFacing();
+                if (direction != Direction.None)
+                    return direction;
+            }
+            
+            return KeyboardManager.PrimaryDirection;
+        }
 
         /// <summary>
         /// Gets the secondary direction the player is currently facing.
@@ -41,6 +51,8 @@ namespace InputEngine.Classes
         public bool ScrollWheelDecreased => MouseManager.ScrollWheelDecreased;
 
         private GamepadControls _gamePadControls;
+        private bool _controllerConnected;
+
         public PcControls(Camera2D camera, GraphicsDevice graphics)
         {
             KeyboardManager = new KeyboardManager();
@@ -50,15 +62,14 @@ namespace InputEngine.Classes
 
 
 
-
         public void Update(GameTime gameTime)
         {
-
             GamePadCapabilities capabilities = GamePad.GetCapabilities(
                                               PlayerIndex.One);
+            _controllerConnected = capabilities.IsConnected;
 
             // If there a controller attached, handle it
-            if (capabilities.IsConnected)
+            if (_controllerConnected)
             {
                 _gamePadControls.Update(gameTime);
             }

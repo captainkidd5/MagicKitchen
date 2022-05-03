@@ -28,27 +28,28 @@ namespace InputEngine.Classes
 
         public Direction GetDirectionFacing()
         {
+            float thumbstickTolerance = 0.35f;
             var gamePadThumbStick = _newGamePadState.ThumbSticks.Left;
             var absX = Math.Abs(gamePadThumbStick.X);
             var absY = Math.Abs(gamePadThumbStick.Y);
 
-            if (absX > absY)
+            if (absX > absY && absX > thumbstickTolerance) 
             {
                 if (gamePadThumbStick.X > 0)
                     return Direction.Right;
-                else
+                else if (gamePadThumbStick.X < 0)
                     return Direction.Left;
             }
-            else
+            else if(absX < absY && absY > thumbstickTolerance)
             {
                 if (gamePadThumbStick.Y > 0)
-                    return Direction.Down;
-                else
                     return Direction.Up;
+                else if (gamePadThumbStick.Y < 0)
+                    return Direction.Down;
             }
+            return Direction.None;
         }
 
-        public Direction SecondaryDirectionFacing => throw new NotImplementedException();
 
 
 
@@ -84,13 +85,15 @@ namespace InputEngine.Classes
             _newGamePadState = GamePad.GetState(PlayerIndex.One);
 
 
-            if (WasActionTapped(GamePadActionType.Select))
+            if (WasActionTapped(GamePadActionType.Escape))
             {
                 Console.WriteLine("test");
             }
 
 
         }
+
+      
 
     }
 }

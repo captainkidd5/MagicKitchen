@@ -47,7 +47,7 @@ namespace InputEngine.Classes.Input
         #region PLAYERMOVEMENT
         public static bool IsPlayerControllable { get; set; }
         public static bool IsPlayerMoving { get; set; }
-        public static Direction DirectionFacing => PcControls.GetDirectionFacing;
+        public static Direction DirectionFacing => PcControls.GetDirectionFacing();
         public static Direction SecondaryDirectionFacing => PcControls.SecondaryDirectionFacing;
         #endregion
 
@@ -102,14 +102,14 @@ namespace InputEngine.Classes.Input
         }
         public static void Update(GameTime gameTime)
         {
-            // Check the device for Player One
-            GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
+
 
 
             PcControls.Update(gameTime);
             ClickActionTriggeredThisFrame = false;
             if (IsPlayerControllable)
             {
+                
                 IsPlayerMoving = !(DirectionFacing == Direction.None);
                 CursorTileIndex = GetTileIndexPosition();
             }
