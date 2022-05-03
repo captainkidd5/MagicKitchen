@@ -22,8 +22,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
     {
 
 
-        private Action _playGameAction;
-        private Action _exitGameAction;
         private int _buttonWidth = 128;
         private int _buttonHeight = 64;
         private NineSliceTextButton _playButton;
@@ -49,20 +47,14 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             _stackPanel = new StackPanel(this, graphics, content, _anchorPos, LayerDepth);
 
 
-
-            _playGameAction = ChangeToViewGamesMenu;
-            _exitGameAction = UI.Exit;
-            
-
-
             _playButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, _anchorPos, 
                 GetLayeringDepth(UILayeringDepths.Low),
-               new List<string>() { "Play" }, _playGameAction);
+               new List<string>() { "Play" }, ChangeToViewGamesMenu);
             Selectables.Add(_playButton);
 
             _exitButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel,
                 _anchorPos, GetLayeringDepth(UILayeringDepths.Low),
-                new List<string>() { "Exit"},_exitGameAction);
+                new List<string>() { "Exit"}, UI.Exit);
             Selectables.Add(_exitButton);
 
 
@@ -99,7 +91,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
             base.LoadContent();
             SongManager.ChangePlaylist("MainMenu-Outer");
-
+            CurrentSelected = _playButton;
             //SelectNext(Direction.Down);
         }
 

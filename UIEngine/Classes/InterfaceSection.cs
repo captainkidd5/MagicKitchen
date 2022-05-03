@@ -140,10 +140,8 @@ namespace UIEngine.Classes
         {
             _hoveredLastFrame = Hovered;
 
-            if(!IsSelected)
-                Hovered = false;
-            else
-                Hovered = true;
+            Hovered = IsSelected;
+
 
             if (IsActive)
             {
@@ -154,7 +152,7 @@ namespace UIEngine.Classes
                 BlockInteractions = false;
 
 
-                if (Controls.IsHovering(ElementType.UI, TotalBounds))
+                if (Controls.IsHovering(ElementType.UI, TotalBounds) || Hovered)
                 {
 
 

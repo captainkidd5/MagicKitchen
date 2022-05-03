@@ -1,4 +1,5 @@
 ﻿using Globals.Classes.Helpers;
+using InputEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -142,11 +143,10 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             _backGroundSpritePosition = RectangleHelper.CenterRectangleOnScreen(newRectangle);
             _backGroundSpritePosition = new Vector2(_backGroundSpritePosition.X, _backGroundSpritePosition.Y + 64);
             _backGroundSprite = SpriteFactory.CreateNineSliceSprite(_backGroundSpritePosition, newRectangle.Width, newRectangle.Height, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low));
-            Action backAction = ChangeToPlayOrExitState;
             Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
                 new Rectangle((int)_backGroundSpritePosition.X,
                 (int)_backGroundSpritePosition.Y, newRectangle.Width, newRectangle.Height), UISourceRectangles._backButtonRectangle);
-            _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition, GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle, backAction, scale:2f);
+            _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition, GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle, ChangeToPlayOrExitState, scale:2f);
 
             return new Rectangle((int)_backGroundSpritePosition.X, (int)_backGroundSpritePosition.Y, newRectangle.Width,newRectangle.Height);
         }
@@ -163,6 +163,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             if(_outerMenuState != OuterMenuState.PlaySettingsAndExit)
             _backButton.Update(gameTime);
 
+            if (Controls.GamePadButtonTapped(GamePadActionType.Cancel))
+                ChangeToPlayOrExitState();
 
         }
         public override void Draw(SpriteBatch spriteBatch)

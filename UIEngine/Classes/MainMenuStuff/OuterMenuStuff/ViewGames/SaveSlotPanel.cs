@@ -1,5 +1,6 @@
 ﻿using Globals.Classes;
 using Globals.Classes.Helpers;
+using InputEngine.Classes;
 using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -28,7 +29,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         private static int _width = OuterMenu.BackGroundSourceRectangle.Width;
         private static int _height = 80;
 
-        private NineSliceButton _returnToMainMenuButton;
 
 
         public SaveSlotPanel(SaveFile saveFile, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
@@ -62,7 +62,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         }
         public override void Update(GameTime gameTime)
         {
+            //if (IsSelected && Controls.GamePadButtonTapped(GamePadActionType.Select))
+            //{
+            //    LoadSave();
+            //}
+            _slotButton.IsSelected = IsSelected;
             base.Update(gameTime);
+            
             //_slotButton.Update(gameTime);
 
         }

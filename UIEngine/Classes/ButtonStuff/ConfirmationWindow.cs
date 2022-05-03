@@ -14,7 +14,7 @@ using TextEngine.Classes;
 
 namespace UIEngine.Classes.ButtonStuff
 {
-    internal class ConfirmationWindow : InterfaceSection
+    internal class ConfirmationWindow : MenuSection
     {
 
         private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 240, 128);
@@ -52,11 +52,12 @@ namespace UIEngine.Classes.ButtonStuff
                 {
                     _confirmAction();
                     UI.RemoveCriticalSection(this);
-                })); 
-
+                }));
+            Selectables.Add(_confirmButton);
             Vector2 cancelButtonPos = RectangleHelper.CenterRectangleInRectangle(ButtonFactory.s_redExRectangle, _backGroundSprite.HitBox);
             cancelButtonPos = new Vector2(cancelButtonPos.X - 64, cancelButtonPos.Y);
             _cancelButton = UI.ButtonFactory.CreateButton(this, cancelButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_redExRectangle, _cancelAction);
+            Selectables.Add(_cancelButton);
 
             _text = TextFactory.CreateUIText(_confirmationText, GetLayeringDepth(UILayeringDepths.High));
             TotalBounds = _backGroundSprite.HitBox;
