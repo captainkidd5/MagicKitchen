@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace InputEngine.Classes
 {
-    internal class Mappings
+    internal class ControllerMappings
     {
         public GamePadActionType GamePadActionType { get; }
         public Buttons Button { get; private set; }
 
 
-        public Mappings(GamePadActionType gamePadActionType)
+        public ControllerMappings(GamePadActionType gamePadActionType)
         {
             GamePadActionType = gamePadActionType;
         }

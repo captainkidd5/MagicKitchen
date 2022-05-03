@@ -56,8 +56,8 @@ namespace UIEngine.Classes.TextStuff
 
                 if (TextBuilder.Update(gameTime, Position + _textOffSet, BackdropSprite.HitBox.Width))
                 {
-
-                    if (Controls.IsClicked)
+                    //end of text reached
+                    if (Controls.IsClickedWorld || )
                     {
                         UI.ReactiveSections();
                         Deactivate();

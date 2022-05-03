@@ -16,7 +16,8 @@ namespace InputEngine.Classes
     {
         None = 0,
         Select = 1,
-        Escape = 2
+        Cancel = 2,
+        Escape = 3
     }
     internal class GamepadControls 
     {
@@ -24,7 +25,7 @@ namespace InputEngine.Classes
 
 
 
-        public Dictionary<GamePadActionType, Mappings> _gamePadMappings;
+        public Dictionary<GamePadActionType, ControllerMappings> _gamePadMappings;
 
         public Direction GetDirectionFacing()
         {
@@ -58,13 +59,17 @@ namespace InputEngine.Classes
 
         public GamepadControls()
         {
-            _gamePadMappings = new Dictionary<GamePadActionType, Mappings>();
+            _gamePadMappings = new Dictionary<GamePadActionType, ControllerMappings>();
 
-            Mappings interactMapping = new Mappings(GamePadActionType.Select);
+            ControllerMappings interactMapping = new ControllerMappings(GamePadActionType.Select);
             interactMapping.Remap(Buttons.A);
             _gamePadMappings.Add(GamePadActionType.Select, interactMapping);
 
-            Mappings escapeMapping = new Mappings(GamePadActionType.Escape);
+            ControllerMappings cancelMapping = new ControllerMappings(GamePadActionType.Cancel);
+            cancelMapping.Remap(Buttons.B);
+            _gamePadMappings.Add(GamePadActionType.Select, cancelMapping);
+
+            ControllerMappings escapeMapping = new ControllerMappings(GamePadActionType.Escape);
             escapeMapping.Remap(Buttons.Start);
             _gamePadMappings.Add(GamePadActionType.Escape, escapeMapping);
         }
