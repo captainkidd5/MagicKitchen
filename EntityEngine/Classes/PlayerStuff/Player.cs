@@ -31,7 +31,6 @@ namespace EntityEngine.Classes.PlayerStuff
         private readonly PlayerManager _playerContainer;
 
         private Direction DirectionFacing { get; set; }
-        private Direction SecondaryDirectionFacing { get; set; }
         private bool WasMovingLastFrame { get; set; }
 
         public Light TestLight { get; set; }
@@ -94,7 +93,7 @@ namespace EntityEngine.Classes.PlayerStuff
         /// <returns></returns>
         protected Vector2 GetFrontalSensorPositionFromEntityDirection()
         {
-            switch (DirectionFacing)
+            switch (DirectionMoving)
             {
                 case Direction.None:
                     return new Vector2(0, 16);
@@ -145,9 +144,9 @@ namespace EntityEngine.Classes.PlayerStuff
                 //EntityAnimator.
               
                 Halt(true);
-                DirectionFacing = UI.TalkingWindow.DirectionPlayerShouldFace;
+                DirectionMoving = UI.TalkingWindow.DirectionPlayerShouldFace;
                 if (UI.TalkingWindow.WasJustActivated)
-                    Animator.ChangeDirection(DirectionFacing, Position);
+                    Animator.ChangeDirection(DirectionMoving, Position);
             }
             else
                 Resume();
@@ -177,10 +176,10 @@ namespace EntityEngine.Classes.PlayerStuff
 
             Velocity = Vector2.Zero;
             DirectionFacing = Controls.DirectionFacing;
-            SecondaryDirectionFacing = Controls.SecondaryDirectionFacing;
+            Direction secondaryDirection = Controls.SecondaryDirectionFacing;
             IsMoving = Controls.IsPlayerMoving;
             GetPlayerMovementDirectionAndVelocity(DirectionFacing);
-            GetPlayerMovementDirectionAndVelocity(SecondaryDirectionFacing);
+            GetPlayerMovementDirectionAndVelocity(secondaryDirection);
             }
 
             return (WasMovingLastFrame != IsMoving); //This frame's movement is different from last frames.
