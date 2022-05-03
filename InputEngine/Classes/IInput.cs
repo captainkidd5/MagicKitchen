@@ -21,8 +21,8 @@ namespace InputEngine.Classes
 
 
 
-        List<Keys> PressedKeys { get; }
-        List<Keys> TappedKeys { get; }
+        //List<Keys> PressedKeys { get; }
+        //List<Keys> TappedKeys { get; }
 
         Direction GetDirectionFacing { get; }
         Direction SecondaryDirectionFacing { get;}
@@ -31,7 +31,7 @@ namespace InputEngine.Classes
         bool ScrollWheelDecreased { get; }
 
 
-        List<Keys> AcceptableKeysForTyping { get; }
+        //List<Keys> AcceptableKeysForTyping { get; }
 
         internal void Update(GameTime gameTime);
 

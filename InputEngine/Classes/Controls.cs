@@ -15,7 +15,7 @@ using static Globals.Classes.Settings;
 
 namespace InputEngine.Classes.Input
 {
-    
+
     public enum InputType
     {
         Pc = 0,
@@ -29,7 +29,7 @@ namespace InputEngine.Classes.Input
         Rock = 2,
         Speech = 3,
         Door = 4,
-        Ignite =5,
+        Ignite = 5,
     }
     public static class Controls
     {
@@ -37,9 +37,11 @@ namespace InputEngine.Classes.Input
         private static ContentManager Content;
 
         private static IInput PcControls { get; set; }
+
+        private static IInput GamePadControls { get; set; }
         private static IInput CurrentControls { get; set; }
 
-      
+
         public static InputType InputType { get; set; }
 
         private static Camera2D Camera { get; set; }
@@ -80,7 +82,7 @@ namespace InputEngine.Classes.Input
         //Will return true if UI is not currently hovered and controls are clicked
         public static bool IsClickedWorld => IsClicked && !IsUiHovered;
 
-            public static bool IsUiHovered;
+        public static bool IsUiHovered;
         public static bool IsRightClicked => CurrentControls.DidRightClick;
 
         public static bool WasKeyTapped(Keys key) => TappedKeys.Contains(key);
@@ -97,11 +99,23 @@ namespace InputEngine.Classes.Input
             Camera = camera;
             IsPlayerControllable = true;
             PcControls = new PcControls(camera, graphics);
+            GamePadControls = new GamepadControls();
             //Default is Pc controls
             CurrentControls = PcControls;
         }
         public static void Update(GameTime gameTime)
         {
+            // Check the device for Player One
+            GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
+
+            if (capabilities.IsConnected)
+            {
+                CurrentControls = GamePadControls;
+            }
+            else
+            {
+                CurrentControls = PcControls;
+            }
             CurrentControls.Update(gameTime);
             ClickActionTriggeredThisFrame = false;
             if (IsPlayerControllable)
@@ -116,7 +130,7 @@ namespace InputEngine.Classes.Input
         /// </summary>
         public static bool IsHovering(ElementType elementType, Rectangle rectangle)
         {
-            return CurrentControls.IsHoveringRectangle(elementType,rectangle);
+            return CurrentControls.IsHoveringRectangle(elementType, rectangle);
         }
 
         #region CURSOR_POSITITIONING
@@ -140,7 +154,7 @@ namespace InputEngine.Classes.Input
         {
             CurrentControls.ClearRecentlyPressedKeys();
         }
-        
+
 
     }
 }
