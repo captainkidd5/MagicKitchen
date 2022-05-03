@@ -21,6 +21,7 @@ using EntityEngine.Classes.CharacterStuff.DialogueStuff;
 using TiledEngine.Classes;
 using ItemEngine.Classes;
 using EntityEngine.Classes.NPCStuff;
+using InputEngine.Classes;
 
 namespace EntityEngine.Classes.CharacterStuff
 {
@@ -45,8 +46,7 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void Update(GameTime gameTime)
         {
 
-            if(PlayerInControllerActionRange)
-                Console.WriteLine("test");
+   
 
             if(IsInStage && PlayerInClickRange && (MouseHovering|| PlayerInControllerActionRange))
             {

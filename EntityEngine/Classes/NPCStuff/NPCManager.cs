@@ -1,6 +1,7 @@
 ﻿using EntityEngine.Classes.CharacterStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
+using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -57,7 +58,7 @@ namespace EntityEngine.Classes.NPCStuff
         }
         private void AddNPCCommand(string[] args)
         {
-            CurrentContainer.CreateNPC(args[0], Controls.CursorWorldPosition, true);
+            CurrentContainer.CreateNPC(args[0], Controls.MouseWorldPosition, true);
         }
         private void AddTrainCommand(string[] args)
         {

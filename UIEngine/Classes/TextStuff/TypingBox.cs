@@ -13,6 +13,7 @@ using TextEngine.Classes;
 using static UIEngine.Classes.UI;
 using static Globals.Classes.Settings;
 using TextEngine;
+using InputEngine.Classes;
 
 namespace UIEngine.Classes.TextStuff
 {

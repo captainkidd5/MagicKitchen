@@ -1,5 +1,6 @@
 ﻿using Globals.Classes;
 using Globals.Classes.Helpers;
+using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;

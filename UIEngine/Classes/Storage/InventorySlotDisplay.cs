@@ -1,4 +1,5 @@
-﻿using InputEngine.Classes.Input;
+﻿using InputEngine.Classes;
+using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;

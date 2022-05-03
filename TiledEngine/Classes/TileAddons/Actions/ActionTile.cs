@@ -1,4 +1,5 @@
-﻿using InputEngine.Classes.Input;
+﻿using InputEngine.Classes;
+using InputEngine.Classes.Input;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
 using System;

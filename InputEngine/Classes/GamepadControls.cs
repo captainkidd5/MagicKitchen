@@ -67,7 +67,7 @@ namespace InputEngine.Classes
 
             ControllerMappings cancelMapping = new ControllerMappings(GamePadActionType.Cancel);
             cancelMapping.Remap(Buttons.B);
-            _gamePadMappings.Add(GamePadActionType.Select, cancelMapping);
+            _gamePadMappings.Add(GamePadActionType.Cancel, cancelMapping);
 
             ControllerMappings escapeMapping = new ControllerMappings(GamePadActionType.Escape);
             escapeMapping.Remap(Buttons.Start);

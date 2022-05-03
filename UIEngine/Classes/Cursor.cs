@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -18,6 +19,7 @@ using VelcroPhysics.Dynamics;
 
 namespace UIEngine.Classes
 {
+   
     public class Cursor : Collidable
     {
         public Item HeldItem;
@@ -67,23 +69,23 @@ namespace UIEngine.Classes
                 CursorTexture,_cursorLayerDepth, Color.White, null);
 
             MouseDebugText = TextFactory.CreateUIText("test", .99f);
-            CreateBody(Controls.CursorWorldPosition);
+            CreateBody(Controls.MouseWorldPosition);
             _toolTip = new CursorItemToolTip();
         }
 
         public override void Update(GameTime gameTime)
         {
-            Move(Controls.CursorWorldPosition);
-            CursorSprite.Update(gameTime, Controls.CursorUIPosition);
+            Move(Controls.MouseWorldPosition);
+            CursorSprite.Update(gameTime, Controls.MouseUIPosition);
             if (Flags.DisplayMousePosition)
             {
-                MouseDebugText.Update(gameTime, new Vector2(Controls.CursorUIPosition.X - 32, Controls.CursorUIPosition.Y - 32));
-                MouseDebugText.SetFullString($"{Controls.CursorUIPosition.X.ToString()} , {Controls.CursorUIPosition.Y.ToString()}");
+                MouseDebugText.Update(gameTime, new Vector2(Controls.MouseUIPosition.X - 32, Controls.MouseUIPosition.Y - 32));
+                MouseDebugText.SetFullString($"{Controls.MouseUIPosition.X.ToString()} , {Controls.MouseUIPosition.Y.ToString()}");
 
             }
             UpdateCursor();
 
-            _toolTip.Update(gameTime, Controls.CursorUIPosition);
+            _toolTip.Update(gameTime, Controls.MouseUIPosition);
             _wasWorldIconChanged = false;
 
         }

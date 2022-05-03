@@ -29,6 +29,7 @@ using Globals.Classes.Console;
 using MagicKitchen.Classes.ConsoleStuff;
 using System;
 using SoundEngine.Classes.SongStuff;
+using InputEngine.Classes;
 
 namespace MagicKitchen
 {

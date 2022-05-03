@@ -1,6 +1,7 @@
 ﻿using DataModels;
 using Globals.Classes;
 using Globals.Classes.Helpers;
+using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -57,7 +58,7 @@ namespace UIEngine.Classes.TextStuff
                 if (TextBuilder.Update(gameTime, Position + _textOffSet, BackdropSprite.HitBox.Width))
                 {
                     //end of text reached
-                    if (Controls.IsClickedWorld || )
+                    if (Controls.IsClickedWorld || Controls.GamePadButtonTapped(GamePadActionType.Cancel))
                     {
                         UI.ReactiveSections();
                         Deactivate();
