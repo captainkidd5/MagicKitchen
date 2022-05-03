@@ -36,10 +36,8 @@ namespace InputEngine.Classes.Input
         private static GraphicsDevice Graphics;
         private static ContentManager Content;
 
-        private static IInput PcControls { get; set; }
+        private static PcControls PcControls { get; set; }
 
-        private static IInput GamePadControls { get; set; }
-        private static IInput CurrentControls { get; set; }
 
 
         public static InputType InputType { get; set; }
@@ -49,41 +47,41 @@ namespace InputEngine.Classes.Input
         #region PLAYERMOVEMENT
         public static bool IsPlayerControllable { get; set; }
         public static bool IsPlayerMoving { get; set; }
-        public static Direction DirectionFacing => CurrentControls.GetDirectionFacing;
-        public static Direction SecondaryDirectionFacing => CurrentControls.SecondaryDirectionFacing;
+        public static Direction DirectionFacing => PcControls.GetDirectionFacing;
+        public static Direction SecondaryDirectionFacing => PcControls.SecondaryDirectionFacing;
         #endregion
 
         #region Buttons
-        public static bool StartMenuPressed => CurrentControls.EscapePressed;
-        public static List<Keys> TappedKeys => CurrentControls.TappedKeys;
-        public static List<Keys> PressedKeys => CurrentControls.PressedKeys;
+        public static bool StartMenuPressed => PcControls.EscapePressed;
+        public static List<Keys> TappedKeys => PcControls.TappedKeys;
+        public static List<Keys> PressedKeys => PcControls.PressedKeys;
         #endregion
 
         #region CURSOR
         /// <summary>
         /// Gets cursor position RELATIVE TO WORLD. DO NOT USE FOR UI POSITIONING.
         /// </summary>
-        public static Vector2 CursorWorldPosition => CurrentControls.MouseWorldPosition;
+        public static Vector2 CursorWorldPosition => PcControls.MouseWorldPosition;
 
         /// <summary>
         /// Gets cursor position RELATIVE TO UI. DO NOT USE FOR WORLD POSITIONING.
         /// </summary>
-        public static Vector2 CursorUIPosition => CurrentControls.MouseUIPosition;
+        public static Vector2 CursorUIPosition => PcControls.MouseUIPosition;
 
-        public static bool ScrollWheelIncreased => CurrentControls.ScrollWheelIncreased;
-        public static bool ScrollWheelDecreased => CurrentControls.ScrollWheelDecreased;
+        public static bool ScrollWheelIncreased => PcControls.ScrollWheelIncreased;
+        public static bool ScrollWheelDecreased => PcControls.ScrollWheelDecreased;
 
-        public static List<Keys> AcceptableKeysForTyping => CurrentControls.AcceptableKeysForTyping;
+        public static List<Keys> AcceptableKeysForTyping => PcControls.AcceptableKeysForTyping;
         public static Point CursorTileIndex { get; private set; }
 
         public static bool ClickActionTriggeredThisFrame;
-        public static bool IsClicked => CurrentControls.DidClick && !ClickActionTriggeredThisFrame;
+        public static bool IsClicked => PcControls.DidClick && !ClickActionTriggeredThisFrame;
 
         //Will return true if UI is not currently hovered and controls are clicked
         public static bool IsClickedWorld => IsClicked && !IsUiHovered;
 
         public static bool IsUiHovered;
-        public static bool IsRightClicked => CurrentControls.DidRightClick;
+        public static bool IsRightClicked => PcControls.DidRightClick;
 
         public static bool WasKeyTapped(Keys key) => TappedKeys.Contains(key);
 
@@ -99,24 +97,16 @@ namespace InputEngine.Classes.Input
             Camera = camera;
             IsPlayerControllable = true;
             PcControls = new PcControls(camera, graphics);
-            GamePadControls = new GamepadControls();
             //Default is Pc controls
-            CurrentControls = PcControls;
+            PcControls = PcControls;
         }
         public static void Update(GameTime gameTime)
         {
             // Check the device for Player One
             GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
 
-            if (capabilities.IsConnected)
-            {
-                CurrentControls = GamePadControls;
-            }
-            else
-            {
-                CurrentControls = PcControls;
-            }
-            CurrentControls.Update(gameTime);
+
+            PcControls.Update(gameTime);
             ClickActionTriggeredThisFrame = false;
             if (IsPlayerControllable)
             {
@@ -130,7 +120,7 @@ namespace InputEngine.Classes.Input
         /// </summary>
         public static bool IsHovering(ElementType elementType, Rectangle rectangle)
         {
-            return CurrentControls.IsHoveringRectangle(elementType, rectangle);
+            return PcControls.IsHoveringRectangle(elementType, rectangle);
         }
 
         #region CURSOR_POSITITIONING
@@ -152,7 +142,7 @@ namespace InputEngine.Classes.Input
         /// </summary>
         public static void ClearUseableKeys()
         {
-            CurrentControls.ClearRecentlyPressedKeys();
+            PcControls.ClearRecentlyPressedKeys();
         }
 
 

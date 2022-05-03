@@ -17,7 +17,7 @@ namespace InputEngine.Classes
     internal class PcControls : IInput
     {
         private KeyboardManager KeyboardManager { get; set; }
-        public MouseManager MouseManager {  get; private set; }
+        public MouseManager MouseManager { get; private set; }
         public bool EscapePressed => KeyboardManager.WasKeyPressed(Keys.Escape);
 
         public bool DidClick => MouseManager.LeftClicked;
@@ -37,30 +37,40 @@ namespace InputEngine.Classes
         /// </summary>
         public Direction SecondaryDirectionFacing => KeyboardManager.SecondaryDirection;
 
-
         public bool ScrollWheelIncreased => MouseManager.ScrollWheelIncreased;
         public bool ScrollWheelDecreased => MouseManager.ScrollWheelDecreased;
 
-        public PcControls(Camera2D camera, GraphicsDevice graphics )
+        private GamepadControls _gamePadControls;
+        public PcControls(Camera2D camera, GraphicsDevice graphics)
         {
             KeyboardManager = new KeyboardManager();
             MouseManager = new MouseManager(camera, graphics);
+            _gamePadControls = new GamepadControls();
         }
 
 
 
 
-        void IInput.Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
+
+            GamePadCapabilities capabilities = GamePad.GetCapabilities(
+                                              PlayerIndex.One);
+
+            // If there a controller attached, handle it
+            if (capabilities.IsConnected)
+            {
+                _gamePadControls.Update(gameTime);
+            }
             KeyboardManager.Update(gameTime);
             MouseManager.Update(gameTime);
 
         }
 
-        
 
 
-        bool IInput.IsHoveringRectangle(ElementType elementType, Rectangle rectangle)
+
+        public bool IsHoveringRectangle(ElementType elementType, Rectangle rectangle)
         {
             if (elementType == ElementType.UI)
             {
@@ -74,8 +84,8 @@ namespace InputEngine.Classes
             }
 
             return false;
-        }  
-         void IInput.ClearRecentlyPressedKeys()
+        }
+        public void ClearRecentlyPressedKeys()
         {
             KeyboardManager.ClearUseableKeys();
         }

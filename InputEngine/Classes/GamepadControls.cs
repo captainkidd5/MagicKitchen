@@ -11,71 +11,64 @@ using static DataModels.Enums;
 
 namespace InputEngine.Classes
 {
-    internal class GamepadControls : IInput
+    internal class GamepadControls 
     {
-        public bool DidClick => throw new NotImplementedException();
 
-        public bool DidRightClick => throw new NotImplementedException();
 
-        public bool EscapePressed => throw new NotImplementedException();
+     
 
-        public Vector2 MouseUIPosition => throw new NotImplementedException();
-
-        public Vector2 MouseWorldPosition => throw new NotImplementedException();
-
-        public List<Keys> PressedKeys => throw new NotImplementedException();
-
-        public List<Buttons> TappedButtons => throw new NotImplementedException();
 
 
         public Direction GetDirectionFacing()
         {
+            var gamePadThumbStick = _newGamePadState.ThumbSticks.Left;
+            var absX = Math.Abs(gamePadThumbStick.X);
+            var absY = Math.Abs(gamePadThumbStick.Y);
 
+            if (absX > absY)
+            {
+                if (gamePadThumbStick.X > 0)
+                    return Direction.Right;
+                else
+                    return Direction.Left;
+            }
+            else
+            {
+                if (gamePadThumbStick.Y > 0)
+                    return Direction.Down;
+                else
+                    return Direction.Up;
+            }
         }
 
         public Direction SecondaryDirectionFacing => throw new NotImplementedException();
 
-        public bool ScrollWheelIncreased => throw new NotImplementedException();
-
-        public bool ScrollWheelDecreased => throw new NotImplementedException();
-
-        public List<Keys> AcceptableKeysForTyping => throw new NotImplementedException();
 
 
         private GamePadState _newGamePadState;
         private GamePadState _oldGamePadState;
+        private GamePadCapabilities _gamePadCapabilities;
 
         public GamepadControls()
         {
-            TappedButtons = new List<Buttons>();
         }
-        public bool WasButtonPressed(Buttons button)
+        public bool WasButtonTapped(Buttons button)
         {
             if (_oldGamePadState.IsButtonDown(button) && _newGamePadState.IsButtonUp(button))
                 return true;
             return false;
         }
-        void IInput.ClearRecentlyPressedKeys()
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        bool IInput.IsHoveringRectangle(Settings.ElementType elementType, Rectangle rectangle)
+        public void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
-        }
 
-        void IInput.Update(GameTime gameTime)
-        {
-            //  GamePadCapabilities capabilities = GamePad.GetCapabilities(PlayerIndex.One);
-
-            TappedButtons.Clear();
 
             _oldGamePadState = _newGamePadState;
             _newGamePadState = GamePad.GetState(PlayerIndex.One);
 
 
-            if (_newGamePadState.IsButtonUp(Buttons.A))
+            if (WasButtonTapped(Buttons.A))
             {
                 Console.WriteLine("test");
             }

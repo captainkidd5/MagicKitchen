@@ -24,7 +24,6 @@ namespace InputEngine.Classes
         //List<Keys> PressedKeys { get; }
         //List<Keys> TappedKeys { get; }
 
-        Direction GetDirectionFacing { get; }
         Direction SecondaryDirectionFacing { get;}
 
         bool ScrollWheelIncreased { get; }
