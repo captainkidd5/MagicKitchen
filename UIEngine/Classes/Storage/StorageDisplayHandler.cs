@@ -38,7 +38,7 @@ namespace UIEngine.Classes.Storage
             base.Update(gameTime);
             if (IsActive && !WasJustActivated)
             {
-                if (Controls.IsClickedWorld)
+                if (Controls.IsClickedWorld || Controls.GamePadButtonTapped(GamePadActionType.Cancel))
                 {
                     Deactivate();
 

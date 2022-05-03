@@ -28,7 +28,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
 
         public override void Load()
         {
-            List<Category> categoriesCollidesWith = new List<Category>() { Category.Player, Category.PlayerBigSensor, Category.Cursor };
+            List<Category> categoriesCollidesWith = new List<Category>() { Category.Player, Category.Cursor, Category.FrontalSensor };
             List<Category> collisionCategories = new List<Category>() { Category.Solid, Category.ActionTile };
             if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Basic)
             {

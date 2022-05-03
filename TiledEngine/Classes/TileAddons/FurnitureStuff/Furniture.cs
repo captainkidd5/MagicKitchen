@@ -94,10 +94,10 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (PlayerInClickRange && MouseHovering)
+            if (PlayerInControllerActionRange || MouseHovering)
             {
                 UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
-                if (Controls.IsClickedWorld)
+                if (Controls.IsClickedWorld || Controls.GamePadButtonTapped(GamePadActionType.Select))
                 {
                     UI.ActivateSecondaryInventoryDisplay(StorageType.Craftable, _storageContainer);
                 }
@@ -134,7 +134,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnSeparates(fixtureA, fixtureB, contact);
-            if (fixtureB.CollisionCategories.HasFlag(VelcroPhysics.Collision.Filtering.Category.PlayerBigSensor))
+            if (fixtureB.CollisionCategories.HasFlag(
+                VelcroPhysics.Collision.Filtering.Category.FrontalSensor))
             {
                 UI.DeactivateSecondaryInventoryDisplay();
             }

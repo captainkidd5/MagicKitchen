@@ -49,7 +49,7 @@ namespace EntityEngine.Classes
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.NPC },
                 new List<Category>() { Category.Solid,Category.Player,Category.PlayerBigSensor,Category.Cursor, Category.Grass, Category.Item, Category.Portal, Category.FrontalSensor}, OnCollides, OnSeparates, ignoreGravity: true, blocksLight:true, userData: this));
 
-            BigSensorCollidesWithCategories = new List<Category>() { Category.Item, Category.Portal, Category.Solid, Category.PlayerBigSensor, Category.FrontalSensor };
+            BigSensorCollidesWithCategories = new List<Category>() { Category.Item, Category.Portal, Category.Solid, Category.PlayerBigSensor};
 
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() { Category.NPCBigSensor }, BigSensorCollidesWithCategories,
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
