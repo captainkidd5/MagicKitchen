@@ -20,7 +20,15 @@ namespace InputEngine.Classes
         public MouseManager MouseManager { get; private set; }
         public bool EscapePressed => KeyboardManager.WasKeyPressed(Keys.Escape);
 
-        public bool DidClick => MouseManager.LeftClicked;
+        public bool DidClick()
+        {
+            if (_controllerConnected)
+            {
+                if (_gamePadControls.WasActionTapped(GamePadActionType.Select))
+                    return true;
+            }
+            return MouseManager.LeftClicked;
+        } 
         public bool DidRightClick => MouseManager.RightClicked;
         public Vector2 MouseUIPosition => MouseManager.UIPosition;
         public Vector2 MouseWorldPosition => MouseManager.WorldPosition;

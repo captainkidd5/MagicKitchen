@@ -61,7 +61,7 @@ namespace StageEngine.Classes
         {
             base.CreateBody(position);
             AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, Position, Rectangle.Width, Rectangle.Height,
-                new List<Category>() { Category.Portal }, new List<Category>() { Category.Player,Category.NPC, Category.Cursor, Category.PlayerBigSensor, Category.NPCBigSensor }, OnCollides, OnSeparates, ignoreGravity:true));
+                new List<Category>() { Category.Portal }, new List<Category>() { Category.Player,Category.NPC, Category.Cursor, Category.PlayerBigSensor, Category.NPCBigSensor, Category.FrontalSensor }, OnCollides, OnSeparates, ignoreGravity:true));
 ;
         }
 
@@ -76,8 +76,8 @@ namespace StageEngine.Classes
             {
                 if (From == _stageManager.Player1.CurrentStageName)
                 {
-                   
-                    if (_mustBeClicked && PlayerInClickRange && MouseHovering)
+
+                    if (_mustBeClicked && PlayerInClickRange && (MouseHovering || PlayerInControllerActionRange))
                     {
                         UI.Cursor.ChangeCursorIcon(CursorIconType.Door);
                         //Controls.UpdateCursor();

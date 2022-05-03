@@ -13,7 +13,6 @@ namespace InputEngine.Classes
 {
     internal interface IInput
     {
-        bool DidClick { get; }
         bool DidRightClick { get; }
         bool EscapePressed { get; }
         Vector2 MouseUIPosition { get; }

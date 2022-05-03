@@ -45,7 +45,8 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void Update(GameTime gameTime)
         {
 
-
+            if(PlayerInControllerActionRange)
+                Console.WriteLine("test");
 
             if(IsInStage && PlayerInClickRange && (MouseHovering|| PlayerInControllerActionRange))
             {
