@@ -37,6 +37,7 @@ namespace UIEngine.Classes.ButtonStuff
 
         //Offsets foreground sprite from background sprite
         public Vector2? ForeGroundSpriteOffSet { get; set; }
+
         /// <summary>
         /// Nineslice constructor
         /// </summary>

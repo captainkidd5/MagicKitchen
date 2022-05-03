@@ -50,6 +50,7 @@ namespace UIEngine.Classes
 
         //Some Interface sections can contain other interface sections
         internal protected List<InterfaceSection> ChildSections { get; protected set; }
+
         internal float LayerDepth { get; private set; }
         internal protected Vector2 Position { get; set; }
         private Vector2 _positionLastFrame;
@@ -73,6 +74,8 @@ namespace UIEngine.Classes
         public bool FlaggedForRemoval { get; set; }
         public bool FlaggedForCriticalRemoval { get; set; }
 
+        public bool IsSelected { get; set; }
+
         //protected Rectangle BackgroundSourceRectangle { get; set; }
 
         public InterfaceSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
@@ -91,7 +94,6 @@ namespace UIEngine.Classes
             {
                 interfaceSection.ChildSections.Add(this);
             }
-
          
         }
         public virtual void MovePosition(Vector2 newPos)
@@ -138,7 +140,10 @@ namespace UIEngine.Classes
         {
             _hoveredLastFrame = Hovered;
 
-            Hovered = false;
+            if(!IsSelected)
+                Hovered = false;
+            else
+                Hovered = true;
 
             if (IsActive)
             {
@@ -184,7 +189,9 @@ namespace UIEngine.Classes
                 }
                 CheckFramesActive();
             }
-
+            //Set to false here. If this is part of another MenuSection,
+            //and is selected from there, this will be set to true again
+            IsSelected = false;
         }
 
 
@@ -192,7 +199,7 @@ namespace UIEngine.Classes
         {
 
                 Hovered = true;
-                if (Controls.IsClicked)
+                if (Controls.IsClicked || Controls.GamePadButtonTapped(GamePadActionType.Select))
                 {
                     Clicked = true;
                 }

@@ -14,10 +14,11 @@ using TextEngine;
 using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
 using UIEngine.Classes.Components;
+using static DataModels.Enums;
 
 namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 {
-    internal class PlayOrExitMenu : InterfaceSection
+    internal class PlayOrExitMenu : MenuSection
     {
 
 
@@ -39,6 +40,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         {
 
         }
+
       
         public override void LoadContent()
         {
@@ -56,10 +58,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             _playButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, _anchorPos, 
                 GetLayeringDepth(UILayeringDepths.Low),
                new List<string>() { "Play" }, _playGameAction);
+            Selectables.Add(_playButton);
 
             _exitButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel,
                 _anchorPos, GetLayeringDepth(UILayeringDepths.Low),
                 new List<string>() { "Exit"},_exitGameAction);
+            Selectables.Add(_exitButton);
+
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonWidth, _buttonHeight);
 
@@ -73,7 +78,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
                 }));
 
-
+            Selectables.Add(_toggleSettings);
 
             StackRow stackRow1 = new StackRow(_totalWidth);
             stackRow1.AddItem(_playButton, StackOrientation.Center);
@@ -95,8 +100,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             base.LoadContent();
             SongManager.ChangePlaylist("MainMenu-Outer");
 
+            //SelectNext(Direction.Down);
         }
-
 
 
         private void ChangeToViewGamesMenu()

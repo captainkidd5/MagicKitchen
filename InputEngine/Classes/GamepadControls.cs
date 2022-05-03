@@ -17,7 +17,11 @@ namespace InputEngine.Classes
         None = 0,
         Select = 1,
         Cancel = 2,
-        Escape = 3
+        Escape = 3,
+        DPadUp =4,
+        DPadDown =5,
+        DPadLeft =6,
+        DPadRight =7,
     }
     internal class GamepadControls 
     {
@@ -61,18 +65,42 @@ namespace InputEngine.Classes
         {
             _gamePadMappings = new Dictionary<GamePadActionType, ControllerMappings>();
 
-            ControllerMappings interactMapping = new ControllerMappings(GamePadActionType.Select);
-            interactMapping.Remap(Buttons.A);
-            _gamePadMappings.Add(GamePadActionType.Select, interactMapping);
+            ControllerMappings mapping = new ControllerMappings(GamePadActionType.Select);
+            mapping.Remap(Buttons.A);
+            _gamePadMappings.Add(GamePadActionType.Select, mapping);
 
-            ControllerMappings cancelMapping = new ControllerMappings(GamePadActionType.Cancel);
-            cancelMapping.Remap(Buttons.B);
-            _gamePadMappings.Add(GamePadActionType.Cancel, cancelMapping);
+            mapping = new ControllerMappings(GamePadActionType.Cancel);
+            mapping.Remap(Buttons.B);
+            _gamePadMappings.Add(GamePadActionType.Cancel, mapping);
 
-            ControllerMappings escapeMapping = new ControllerMappings(GamePadActionType.Escape);
-            escapeMapping.Remap(Buttons.Start);
-            _gamePadMappings.Add(GamePadActionType.Escape, escapeMapping);
+            mapping = new ControllerMappings(GamePadActionType.Escape);
+            mapping.Remap(Buttons.Start);
+            _gamePadMappings.Add(GamePadActionType.Escape, mapping);
+
+            mapping = MapDPad();
+
         }
+
+        private ControllerMappings MapDPad()
+        {
+            ControllerMappings mapping = new ControllerMappings(GamePadActionType.DPadUp);
+            mapping.Remap(Buttons.DPadUp);
+            _gamePadMappings.Add(GamePadActionType.DPadUp, mapping);
+
+            mapping = new ControllerMappings(GamePadActionType.DPadDown);
+            mapping.Remap(Buttons.DPadDown);
+            _gamePadMappings.Add(GamePadActionType.DPadDown, mapping);
+
+            mapping = new ControllerMappings(GamePadActionType.DPadLeft);
+            mapping.Remap(Buttons.DPadLeft);
+            _gamePadMappings.Add(GamePadActionType.DPadLeft, mapping);
+
+            mapping = new ControllerMappings(GamePadActionType.DPadRight);
+            mapping.Remap(Buttons.DPadRight);
+            _gamePadMappings.Add(GamePadActionType.DPadRight, mapping);
+            return mapping;
+        }
+
         public bool WasActionTapped(GamePadActionType gamePadActionType)
         {
             if (_oldGamePadState.IsButtonDown(_gamePadMappings[gamePadActionType].Button) &&
@@ -81,7 +109,7 @@ namespace InputEngine.Classes
             return false;
         }
        
-
+        
         public void Update(GameTime gameTime)
         {
 
