@@ -104,6 +104,12 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Tiles/Rocks/rockSmash1.wav
 
+#begin Audio/SoundEffects/UI/Button1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/UI/Button1.wav
+
 #begin Audio/SoundEffects/UI/Click1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

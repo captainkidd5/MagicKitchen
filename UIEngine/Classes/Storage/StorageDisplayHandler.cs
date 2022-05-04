@@ -68,11 +68,11 @@ namespace UIEngine.Classes.Storage
                     throw new Exception($"must have storage type");
 
             }
+            _secondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(_secondaryInventoryDisplay.TotalBounds));
 
             _secondaryInventoryDisplay.LoadNewEntityInventory(storageContainer, displayWallet);
 
             _secondaryInventoryDisplay.Activate();
-            _secondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(_secondaryInventoryDisplay.TotalBounds));
             Activate();
         }
 
