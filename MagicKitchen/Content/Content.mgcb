@@ -110,6 +110,12 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/UI/Click1.wav
 
+#begin Audio/SoundEffects/UI/StartGame.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/UI/StartGame.wav
+
 #begin Audio/SoundPackages.xml
 /importer:XmlImporter
 /processor:PassThroughProcessor

@@ -38,6 +38,8 @@ namespace UIEngine.Classes.ButtonStuff
         //Offsets foreground sprite from background sprite
         public Vector2? ForeGroundSpriteOffSet { get; set; }
 
+        public bool IgnoreDefaultSoundEffect { get; set; }
+
         /// <summary>
         /// Nineslice constructor
         /// </summary>
@@ -129,7 +131,8 @@ namespace UIEngine.Classes.ButtonStuff
 
                     if (Clicked)
                     {
-                        SoundFactory.PlaySoundEffect("Click1");
+                        if(!IgnoreDefaultSoundEffect)
+                            SoundFactory.PlaySoundEffect("Click1");
                         if (_requireConfirmation)
                         {
                             _confirmationWindow.Activate();

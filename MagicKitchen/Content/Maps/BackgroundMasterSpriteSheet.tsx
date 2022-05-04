@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.3.0" name="BackgroundMasterSpriteSheet" tilewidth="16" tileheight="16" tilecount="3600" columns="60">
  <image source="BackgroundMasterSpriteSheet.png" width="960" height="960"/>
+ <tile id="72">
+  <properties>
+   <property name="step" value="StepGrass1"/>
+  </properties>
+ </tile>
+ <tile id="121">
+  <properties>
+   <property name="step" value="StepDirt"/>
+  </properties>
+ </tile>
  <tile id="268">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>

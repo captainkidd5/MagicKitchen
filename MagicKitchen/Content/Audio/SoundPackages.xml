@@ -72,6 +72,17 @@
                 </Item>
             </SoundChancers>
         </Item>
+
+          <Item>
+        <Name>StartGameClick</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>StartGame</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/UI</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
         
 
        

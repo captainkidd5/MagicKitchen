@@ -5,6 +5,7 @@ using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
             _slotButton = UI.ButtonFactory.CreateNSliceTxtBtnManualDimensions(this, Position, _width - ButtonFactory.s_redExRectangle.Width * 2, _height, GetLayeringDepth(UILayeringDepths.Medium),
                 new List<string>() { _saveFile.Name, _saveFile.DateCreated.Date.ToString("d"), _saveFile.DateCreated.ToString("HH:mm") },  action);
-
+            _slotButton.IgnoreDefaultSoundEffect = true;
             base.LoadContent();
 
         }
@@ -94,7 +95,10 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         private void LoadSave()
         {
             Flags.IsNewGame = false;
+            SoundFactory.PlaySoundEffect("StartGame");
+
             UI.LoadGame(_saveFile);
+            
         }
 
 
