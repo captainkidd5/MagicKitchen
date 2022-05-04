@@ -38,7 +38,7 @@ namespace TiledEngine.Classes.TileAddons
         public virtual void Load()
         {
 
-            List<Category> categoriesCollidersWith = new List<Category>() { Category.Player, Category.Item, Category.NPC, Category.PlayerBigSensor, Category.FrontalSensor };
+            List<Category> categoriesCollidersWith = new List<Category>() { Category.Player, Category.Item, Category.NPC, Category.PlayerBigSensor,Category.Cursor, Category.FrontalSensor };
             if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Basic)
             {
                 AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,

@@ -145,13 +145,19 @@ namespace InputEngine.Classes
             return false;
         }
         public static void ClearUseableKeys() => KeyboardManager.ClearUseableKeys();
-  
+
+
+        public static Vector2 PlayerFrontalSensorPosition { get; set; }
         /// <summary>
         /// Gets the x and y index of the tile underneath the cursor
         /// </summary>
         /// <returns></returns>
         public static Point GetTileIndexPosition()
         {
+            if (_controllerConnected)
+                return Vector2Helper.GetTileIndexPosition(PlayerFrontalSensorPosition);
+
+            
             return Vector2Helper.GetTileIndexPosition(MouseWorldPosition);
         }
     }

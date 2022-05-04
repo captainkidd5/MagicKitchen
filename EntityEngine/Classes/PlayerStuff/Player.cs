@@ -151,6 +151,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
             FrontalSensor.Position = Position + GetFrontalSensorPositionFromEntityDirection();
+            Controls.PlayerFrontalSensorPosition = FrontalSensor.Position;
         }
 
         protected override void DropCurrentlyHeldItemToWorld()
