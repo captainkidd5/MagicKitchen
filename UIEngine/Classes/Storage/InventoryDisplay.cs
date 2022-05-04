@@ -87,7 +87,7 @@ namespace UIEngine.Classes.Storage
                 for(int j =0; j < Columns; j++)
                 {
                     InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
-                    Position, LayerDepth);
+                    Position, GetLayeringDepth(UILayeringDepths.Low));
                     InventorySlots.Add(display);
                     Selectables.Add(display);
                     display.LoadContent();

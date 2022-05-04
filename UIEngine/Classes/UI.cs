@@ -109,10 +109,10 @@ namespace UIEngine.Classes
             ToolBar = new ToolBar(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
             ClockBar = new ClockBar(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
             EscMenu = new EscMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
-            RecipeBook = new RecipeBook(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
+            RecipeBook = new RecipeBook(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             SettingsMenu = new SettingsMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
-            Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
+            Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
             StorageDisplayHandler = new StorageDisplayHandler(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow,
                 EscMenu, RecipeBook, StorageDisplayHandler };
