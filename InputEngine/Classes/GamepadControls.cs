@@ -17,14 +17,15 @@ namespace InputEngine.Classes
         None = 0,
         Select = 1,
         Cancel = 2,
-        AlternativeAction = 3,//Y, drop item
-        DPadUp =4,
-        DPadDown =5,
-        DPadLeft =6,
-        DPadRight =7,
-        BigBumperLeft = 8,
-        BigBumperRight = 9,
-        Escape = 10,
+        Y = 3,//Y, drop item
+        X = 4,
+        DPadUp = 5,
+        DPadDown =6,
+        DPadLeft =7,
+        DPadRight =8,
+        BigBumperLeft = 9,
+        BigBumperRight = 10,
+        Escape = 11,
     }
     internal class GamepadControls 
     {
@@ -69,16 +70,7 @@ namespace InputEngine.Classes
             _gamePadMappings = new Dictionary<GamePadActionType, ControllerMappings>();
 
             ControllerMappings mapping = new ControllerMappings(GamePadActionType.Select);
-            mapping.Remap(Buttons.A);
-            _gamePadMappings.Add(GamePadActionType.Select, mapping);
-
-            mapping = new ControllerMappings(GamePadActionType.Cancel);
-            mapping.Remap(Buttons.B);
-            _gamePadMappings.Add(GamePadActionType.Cancel, mapping);
-
-            mapping = new ControllerMappings(GamePadActionType.AlternativeAction);
-            mapping.Remap(Buttons.Y);
-            _gamePadMappings.Add(GamePadActionType.AlternativeAction, mapping);
+            mapping = MapPrimaryButtons(mapping);
 
             mapping = new ControllerMappings(GamePadActionType.Escape);
             mapping.Remap(Buttons.Start);
@@ -94,6 +86,25 @@ namespace InputEngine.Classes
 
             mapping = MapDPad();
 
+        }
+
+        private ControllerMappings MapPrimaryButtons(ControllerMappings mapping)
+        {
+            mapping.Remap(Buttons.A);
+            _gamePadMappings.Add(GamePadActionType.Select, mapping);
+
+            mapping = new ControllerMappings(GamePadActionType.Cancel);
+            mapping.Remap(Buttons.B);
+            _gamePadMappings.Add(GamePadActionType.Cancel, mapping);
+
+            mapping = new ControllerMappings(GamePadActionType.Y);
+            mapping.Remap(Buttons.Y);
+            _gamePadMappings.Add(GamePadActionType.Y, mapping);
+
+            mapping = new ControllerMappings(GamePadActionType.X);
+            mapping.Remap(Buttons.X);
+            _gamePadMappings.Add(GamePadActionType.X, mapping);
+            return mapping;
         }
 
         private ControllerMappings MapDPad()

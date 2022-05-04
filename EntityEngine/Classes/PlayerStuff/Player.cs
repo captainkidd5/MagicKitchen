@@ -127,7 +127,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.Update(gameTime);
             UI.Cursor.PlayerPosition = Position;
-            if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.AlternativeAction))
+            if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Y))
             {
                 //Item should not eject if any part of the ui is hovered
                 if (UI.Cursor.HeldItem != null)

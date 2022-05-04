@@ -73,6 +73,8 @@ namespace UIEngine.Classes.Storage
         {
             _oldOpen = _isOpen;
             base.Update(gameTime);
+
+
             if (_isOpen)
                 Flags.Pause = true;
             UpdateSelectorIndex();
@@ -83,7 +85,15 @@ namespace UIEngine.Classes.Storage
                 Flags.Pause = false;
         }
 
+        protected override void CheckLogic(GameTime gameTime)
+        {
+            base.CheckLogic(gameTime);
 
+            if (Controls.WasGamePadButtonTapped(GamePadActionType.X))
+            {
+                ToggleOpen();
+            }
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {

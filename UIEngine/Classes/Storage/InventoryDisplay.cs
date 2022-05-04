@@ -113,10 +113,11 @@ namespace UIEngine.Classes.Storage
         public override void Update(GameTime gameTime)
         {
             Hovered = false;
-
             // base.Update(gameTime);
             if (IsActive)
             {
+                CheckLogic(gameTime);
+
                 SelectedSlot.IsSelected = true;                                            
 
                 if (Controls.WasGamePadButtonTapped(GamePadActionType.BigBumperLeft))

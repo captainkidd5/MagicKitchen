@@ -83,7 +83,7 @@ namespace UIEngine.Classes.Storage
             _waterMarkSprite?.Update(gameTime, Position);
             if(Clicked)
                 Console.WriteLine("test");
-            if (Clicked || (IsSelected && Controls.WasGamePadButtonTapped(GamePadActionType.AlternativeAction)))
+            if (Clicked || (IsSelected && Controls.WasGamePadButtonTapped(GamePadActionType.Y)))
             {
                 (parentSection as InventoryDisplay).SelectSlot(this);
 
