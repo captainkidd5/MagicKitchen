@@ -41,11 +41,11 @@ namespace UIEngine.Classes
             base.Update(gameTime);
            
 
-            if (Controls.GamePadButtonTapped(GamePadActionType.DPadUp))
+            if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
             {
                 SelectNext(Direction.Down);
             }
-            else if(Controls.GamePadButtonTapped(GamePadActionType.DPadDown))
+            else if(Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
             {
                 SelectNext(Direction.Up);
 

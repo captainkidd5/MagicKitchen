@@ -58,7 +58,7 @@ namespace UIEngine.Classes.TextStuff
                 if (TextBuilder.Update(gameTime, Position + _textOffSet, BackdropSprite.HitBox.Width))
                 {
                     //end of text reached
-                    if (Controls.IsClickedWorld || Controls.GamePadButtonTapped(GamePadActionType.Cancel))
+                    if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
                     {
                         UI.ReactiveSections();
                         Deactivate();

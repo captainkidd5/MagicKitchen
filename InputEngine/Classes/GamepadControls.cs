@@ -17,11 +17,14 @@ namespace InputEngine.Classes
         None = 0,
         Select = 1,
         Cancel = 2,
-        Escape = 3,
+        AlternativeAction = 3,//Y, drop item
         DPadUp =4,
         DPadDown =5,
         DPadLeft =6,
         DPadRight =7,
+        BigBumperLeft = 8,
+        BigBumperRight = 9,
+        Escape = 10,
     }
     internal class GamepadControls 
     {
@@ -73,9 +76,21 @@ namespace InputEngine.Classes
             mapping.Remap(Buttons.B);
             _gamePadMappings.Add(GamePadActionType.Cancel, mapping);
 
+            mapping = new ControllerMappings(GamePadActionType.AlternativeAction);
+            mapping.Remap(Buttons.Y);
+            _gamePadMappings.Add(GamePadActionType.AlternativeAction, mapping);
+
             mapping = new ControllerMappings(GamePadActionType.Escape);
             mapping.Remap(Buttons.Start);
             _gamePadMappings.Add(GamePadActionType.Escape, mapping);
+
+            mapping = new ControllerMappings(GamePadActionType.BigBumperLeft);
+            mapping.Remap(Buttons.LeftTrigger);
+            _gamePadMappings.Add(GamePadActionType.BigBumperLeft, mapping);
+
+            mapping = new ControllerMappings(GamePadActionType.BigBumperRight);
+            mapping.Remap(Buttons.RightTrigger);
+            _gamePadMappings.Add(GamePadActionType.BigBumperRight, mapping);
 
             mapping = MapDPad();
 

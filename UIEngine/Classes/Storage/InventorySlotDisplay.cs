@@ -73,13 +73,21 @@ namespace UIEngine.Classes.Storage
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            
+        }
+
+        protected override void CheckLogic(GameTime gameTime)
+        {
+            base.CheckLogic(gameTime);
             _button.Update(gameTime);
             _waterMarkSprite?.Update(gameTime, Position);
-            if (Clicked)
+            if(Clicked)
+                Console.WriteLine("test");
+            if (Clicked || (IsSelected && Controls.WasGamePadButtonTapped(GamePadActionType.AlternativeAction)))
             {
                 (parentSection as InventoryDisplay).SelectSlot(this);
 
-                _storageSlot.LeftClickInteraction(ref UI.Cursor.HeldItem,ref UI.Cursor.HeldItemCount, Controls.IsKeyPressed(Keys.LeftShift));
+                _storageSlot.LeftClickInteraction(ref UI.Cursor.HeldItem, ref UI.Cursor.HeldItemCount, Controls.IsKeyPressed(Keys.LeftShift));
 
             }
             if (RightClicked)
@@ -88,7 +96,12 @@ namespace UIEngine.Classes.Storage
 
                 _storageSlot.RightClickInteraction(ref UI.Cursor.HeldItem, ref UI.Cursor.HeldItemCount);
             }
-            _text.Update(gameTime,Position);
+
+            //if(IsSelected && Controls.WasGamePadButtonTapped(GamePadActionType.AlternativeAction))
+            //{
+
+            //}
+            _text.Update(gameTime, Position);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

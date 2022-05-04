@@ -140,8 +140,10 @@ namespace UIEngine.Classes
         {
             _hoveredLastFrame = Hovered;
 
-            Hovered = IsSelected;
-
+            if (Controls.ControllerConnected)
+                Hovered = IsSelected;
+            else
+                Hovered = false;
 
             if (IsActive)
             {
@@ -186,18 +188,25 @@ namespace UIEngine.Classes
                         ChildSections.RemoveAt(i);
                 }
                 CheckFramesActive();
+                CheckLogic(gameTime);
             }
             //Set to false here. If this is part of another MenuSection,
             //and is selected from there, this will be set to true again
             IsSelected = false;
         }
 
+        /// <summary>
+        /// Override this to perform custom logic that depends on things such as IsSelected
+        /// </summary>
+        protected virtual void CheckLogic(GameTime gameTime)
+        {
 
+        }
         private void CheckChildHovers()
         {
 
                 Hovered = true;
-                if (Controls.IsClicked || Controls.GamePadButtonTapped(GamePadActionType.Select))
+                if (Controls.IsClicked || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
                 {
                     Clicked = true;
                 }

@@ -15,13 +15,15 @@ using TextEngine.Classes;
 using TextEngine;
 using static Globals.Classes.Settings;
 using UIEngine.Classes.Components;
+using InputEngine.Classes;
+using static DataModels.Enums;
 
 namespace UIEngine.Classes.Storage
 {
     /// <summary>
     /// Graphical and interactable wrapper of storage container
     /// </summary>
-    internal class InventoryDisplay : InterfaceSection
+    internal class InventoryDisplay : MenuSection
     {
         protected static readonly int _buttonWidth = 64;
         protected int Rows;
@@ -32,6 +34,7 @@ namespace UIEngine.Classes.Storage
 
         protected List<InventorySlotDisplay> InventorySlots { get; set; }
 
+        protected int CurrentSelectedIndex { get; set; }
         internal InventorySlotDisplay SelectedSlot { get; set; }
 
         internal new int Width { get { return DrawEndIndex * _buttonWidth; }}
@@ -41,6 +44,7 @@ namespace UIEngine.Classes.Storage
         protected int DrawEndIndex { get; set; }
 
         private StackPanel _stackPanel;
+
         public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -74,7 +78,7 @@ namespace UIEngine.Classes.Storage
         protected virtual void GenerateUI(bool displayWallet)
         {
             _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-
+            Selectables.Clear();
             InventorySlots = new List<InventorySlotDisplay>();
             int slotIndex = 0;
             for(int i = 0; i < Rows; i++)
@@ -85,6 +89,7 @@ namespace UIEngine.Classes.Storage
                     InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
                     Position, LayerDepth);
                     InventorySlots.Add(display);
+                    Selectables.Add(display);
                     display.LoadContent();
 
                     stackRow.AddItem(display, StackOrientation.Left);
@@ -112,6 +117,19 @@ namespace UIEngine.Classes.Storage
             // base.Update(gameTime);
             if (IsActive)
             {
+                SelectedSlot.IsSelected = true;                                            
+
+                if (Controls.WasGamePadButtonTapped(GamePadActionType.BigBumperLeft))
+                {
+                    CurrentSelectedIndex = ScrollHelper.GetIndexFromScroll(Direction.Up, CurrentSelectedIndex, DrawEndIndex);
+                    SelectSlot(InventorySlots[CurrentSelectedIndex]);
+                }
+                else if(Controls.WasGamePadButtonTapped(GamePadActionType.BigBumperRight))
+                {
+                    CurrentSelectedIndex = ScrollHelper.GetIndexFromScroll(Direction.Down, CurrentSelectedIndex, DrawEndIndex);
+                    SelectSlot(InventorySlots[CurrentSelectedIndex]);
+
+                }
                 for (int i = 0; i < DrawEndIndex; i++)
                 {
                     InventorySlotDisplay slot = InventorySlots[i];

@@ -29,6 +29,7 @@ namespace UIEngine.Classes.Storage
 
 
         private bool _isOpen;
+        private bool _oldOpen;
         public PlayerInventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -70,12 +71,16 @@ namespace UIEngine.Classes.Storage
         }
         public override void Update(GameTime gameTime)
         {
+            _oldOpen = _isOpen;
             base.Update(gameTime);
-            
+            if (_isOpen)
+                Flags.Pause = true;
             UpdateSelectorIndex();
             _selectorSprite.Update(gameTime, SelectedSlot.Position);
             _openBigInventoryButton.Update(gameTime);
 
+            if (_oldOpen && !_isOpen)
+                Flags.Pause = false;
         }
 
 

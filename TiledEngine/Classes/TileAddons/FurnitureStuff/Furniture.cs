@@ -97,7 +97,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             if (PlayerInControllerActionRange || MouseHovering)
             {
                 UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
-                if (Controls.IsClickedWorld || Controls.GamePadButtonTapped(GamePadActionType.Select))
+                if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
                 {
                     UI.ActivateSecondaryInventoryDisplay(StorageType.Craftable, _storageContainer);
                 }

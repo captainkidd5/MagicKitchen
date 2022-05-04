@@ -45,7 +45,7 @@ namespace InputEngine.Classes
 
         public static bool DidClick()
         {
-            if (_controllerConnected)
+            if (ControllerConnected)
             {
                 if (_gamePadControls.WasActionTapped(GamePadActionType.Select))
                     return true;
@@ -53,7 +53,7 @@ namespace InputEngine.Classes
             return MouseManager.LeftClicked;
         }
 
-        public static bool GamePadButtonTapped(GamePadActionType actionType) => _gamePadControls.WasActionTapped(actionType);
+        public static bool WasGamePadButtonTapped(GamePadActionType actionType) => _gamePadControls.WasActionTapped(actionType);
         public static bool IsRightClicked => MouseManager.RightClicked;
         public static Vector2 MouseUIPosition => MouseManager.UIPosition;
         public static Vector2 MouseWorldPosition => MouseManager.WorldPosition;
@@ -70,7 +70,7 @@ namespace InputEngine.Classes
         public static Direction DirectionFacing => GetDirectionFacing();
         private static Direction GetDirectionFacing() 
         {
-            if(_controllerConnected)
+            if(ControllerConnected)
             {
                 Direction direction = _gamePadControls.GetDirectionFacing();
                 if (direction != Direction.None)
@@ -89,7 +89,7 @@ namespace InputEngine.Classes
         public static bool ScrollWheelDecreased => MouseManager.ScrollWheelDecreased;
 
         private static GamepadControls _gamePadControls;
-        private static bool _controllerConnected;
+        public static bool ControllerConnected { get; private set; }
 
         public static void Load(Camera2D camera, GraphicsDevice graphics, ContentManager content)
         {
@@ -109,15 +109,20 @@ namespace InputEngine.Classes
         {
             GamePadCapabilities capabilities = GamePad.GetCapabilities(
                                               PlayerIndex.One);
-            _controllerConnected = capabilities.IsConnected;
+            ControllerConnected = capabilities.IsConnected;
 
             // If there a controller attached, handle it
-            if (_controllerConnected)
+            if (ControllerConnected)
             {
                 _gamePadControls.Update(gameTime);
             }
+            else
+            {
+
             KeyboardManager.Update(gameTime);
             MouseManager.Update(gameTime);
+            }
+
             if (IsPlayerControllable)
             {
 
@@ -154,7 +159,7 @@ namespace InputEngine.Classes
         /// <returns></returns>
         public static Point GetTileIndexPosition()
         {
-            if (_controllerConnected)
+            if (ControllerConnected)
                 return Vector2Helper.GetTileIndexPosition(PlayerFrontalSensorPosition);
 
             

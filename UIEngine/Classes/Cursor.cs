@@ -19,7 +19,7 @@ using VelcroPhysics.Dynamics;
 
 namespace UIEngine.Classes
 {
-   
+
     public class Cursor : Collidable
     {
         public Item HeldItem;
@@ -56,7 +56,7 @@ namespace UIEngine.Classes
             base.CreateBody(position);
 
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 4f, new List<Category>() { Category.Cursor },
-                new List<Category>() { Category.Portal, Category.PlayerBigSensor,Category.NPC, Category.NPCBigSensor, Category.ActionTile }, OnCollides, OnSeparates, isSensor: true,sleepingAllowed:false,ignoreGravity:false, friction: 0f, mass: 0f, restitution: 0f, userData: this);
+                new List<Category>() { Category.Portal, Category.PlayerBigSensor, Category.NPC, Category.NPCBigSensor, Category.ActionTile }, OnCollides, OnSeparates, isSensor: true, sleepingAllowed: false, ignoreGravity: false, friction: 0f, mass: 0f, restitution: 0f, userData: this);
 
             AddPrimaryBody(MainHullBody);
 
@@ -64,9 +64,9 @@ namespace UIEngine.Classes
         public void LoadContent(ContentManager content)
         {
             CursorTexture = content.Load<Texture2D>("ui/MouseIcons");
-            
+
             CursorSprite = SpriteFactory.CreateUISprite(Vector2.Zero, CursorSourceRectangle,
-                CursorTexture,_cursorLayerDepth, Color.White, null);
+                CursorTexture, _cursorLayerDepth, Color.White, null);
 
             MouseDebugText = TextFactory.CreateUIText("test", .99f);
             CreateBody(Controls.MouseWorldPosition);
@@ -75,18 +75,22 @@ namespace UIEngine.Classes
 
         public override void Update(GameTime gameTime)
         {
-            Move(Controls.MouseWorldPosition);
-            CursorSprite.Update(gameTime, Controls.MouseUIPosition);
-            if (Flags.DisplayMousePosition)
+            if (!Controls.ControllerConnected)
             {
-                MouseDebugText.Update(gameTime, new Vector2(Controls.MouseUIPosition.X - 32, Controls.MouseUIPosition.Y - 32));
-                MouseDebugText.SetFullString($"{Controls.MouseUIPosition.X.ToString()} , {Controls.MouseUIPosition.Y.ToString()}");
 
+                Move(Controls.MouseWorldPosition);
+                CursorSprite.Update(gameTime, Controls.MouseUIPosition);
+                if (Flags.DisplayMousePosition)
+                {
+                    MouseDebugText.Update(gameTime, new Vector2(Controls.MouseUIPosition.X - 32, Controls.MouseUIPosition.Y - 32));
+                    MouseDebugText.SetFullString($"{Controls.MouseUIPosition.X.ToString()} , {Controls.MouseUIPosition.Y.ToString()}");
+
+                }
+                UpdateCursor();
+
+                _toolTip.Update(gameTime, Controls.MouseUIPosition);
+                _wasWorldIconChanged = false;
             }
-            UpdateCursor();
-
-            _toolTip.Update(gameTime, Controls.MouseUIPosition);
-            _wasWorldIconChanged = false;
 
         }
 
@@ -99,7 +103,7 @@ namespace UIEngine.Classes
         {
             Rectangle newRectangle = newSourceRectangle ?? CursorSourceRectangle;
             Texture2D textureToUse = texture ?? CursorTexture;
-            if(HeldItem != null)
+            if (HeldItem != null)
                 _toolTip.SwapSprite(newRectangle, textureToUse, new Vector2(1.5f, 1.5f));
             else
             {
@@ -107,7 +111,7 @@ namespace UIEngine.Classes
                 CursorSprite.SwapScale(scale ?? Vector2.One);
                 CursorSprite.SwapTexture(textureToUse);
             }
-                
+
         }
 
         public void RemoveSingleHeldItem()
@@ -118,12 +122,17 @@ namespace UIEngine.Classes
         }
         internal void Draw(SpriteBatch spriteBatch)
         {
+            if (!Controls.ControllerConnected)
+            {
+
             CursorSprite.Draw(spriteBatch);
 
-            if(HeldItem != null)
-             _toolTip.Draw(spriteBatch);
+            if (HeldItem != null)
+                _toolTip.Draw(spriteBatch);
             if (Flags.DisplayMousePosition)
                 MouseDebugText.Draw(spriteBatch, true);
+            }
+
         }
         private Rectangle GetCursorIconSourcRectangleFromType(CursorIconType ctype)
         {
@@ -148,11 +157,11 @@ namespace UIEngine.Classes
             }
         }
 
-        
+
 
         public void UpdateCursor()
         {
-           
+
             if (HeldItem == null)
                 _heldItemId = 0;
             else
@@ -173,11 +182,11 @@ namespace UIEngine.Classes
             }
             OldCursorIconType = CursorIconType;
 
-            if(_heldItemId != _oldHeldItemId)
+            if (_heldItemId != _oldHeldItemId)
             {
-                if(HeldItem != null)
-                    SwapMouseSpriteRectangle(Item.GetItemSourceRectangle(HeldItem.Id), ItemFactory.ItemSpriteSheet, new Vector2(2f,2f));
- 
+                if (HeldItem != null)
+                    SwapMouseSpriteRectangle(Item.GetItemSourceRectangle(HeldItem.Id), ItemFactory.ItemSpriteSheet, new Vector2(2f, 2f));
+
                 else
                     SwapMouseSpriteRectangle(null, null);
             }
