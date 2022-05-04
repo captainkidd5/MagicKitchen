@@ -6,6 +6,7 @@ using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,8 @@ namespace UIEngine.Classes.Storage
         {
             base.Update(gameTime);
 
+            if(Controls.IsClicked)
+                Console.WriteLine("test");
 
             if (IsOpen)
                 Flags.Pause = true;
@@ -87,7 +90,7 @@ namespace UIEngine.Classes.Storage
         {
             base.CheckLogic(gameTime);
 
-            if (Controls.WasGamePadButtonTapped(GamePadActionType.X))
+            if (Controls.WasGamePadButtonTapped(GamePadActionType.X) || Controls.WasKeyTapped(Keys.Tab))
             {
                 ToggleOpen();
             }
@@ -174,7 +177,9 @@ namespace UIEngine.Classes.Storage
             IsOpen = !IsOpen;
             //reset selector to 0 if just closed
             if(!IsOpen)
+            {
                 SelectedSlot = InventorySlots[0];
+            }
 
             SwitchSpriteFromToggleStatus();
         }

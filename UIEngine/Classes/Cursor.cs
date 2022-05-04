@@ -124,8 +124,8 @@ namespace UIEngine.Classes
         {
             if (!Controls.ControllerConnected || HeldItem != null)
             {
-
-            CursorSprite.Draw(spriteBatch);
+                if(!Controls.ControllerConnected)
+                     CursorSprite.Draw(spriteBatch);
 
             if (HeldItem != null)
                 _toolTip.Draw(spriteBatch);

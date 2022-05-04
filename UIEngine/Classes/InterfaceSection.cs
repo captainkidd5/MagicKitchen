@@ -209,7 +209,7 @@ namespace UIEngine.Classes
         }
         private void CheckChildHovers()
         {
-
+            
                 Hovered = true;
                 if (Controls.IsClicked || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
                 {

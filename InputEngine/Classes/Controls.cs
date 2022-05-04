@@ -31,7 +31,7 @@ namespace InputEngine.Classes
         private static Camera2D Camera { get; set; }
         public static Point CursorTileIndex { get; private set; }
 
-        public static bool ClickActionTriggeredThisFrame;
+        public static bool ClickActionTriggeredThisFrame { get; set; }
         public static bool IsUiHovered;
         public static bool IsClicked => DidClick() && !ClickActionTriggeredThisFrame;
 
@@ -50,6 +50,8 @@ namespace InputEngine.Classes
                 if (_gamePadControls.WasActionTapped(GamePadActionType.Select))
                     return true;
             }
+            if(MouseManager.LeftClicked)
+                Console.WriteLine("test");
             return MouseManager.LeftClicked;
         }
 

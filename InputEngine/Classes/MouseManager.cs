@@ -28,7 +28,8 @@ namespace InputEngine.Classes.Input
         private Rectangle UIRectangle { get; set; }
         private Rectangle WorldRectangle { get; set; }
 
-        internal bool LeftClicked { get; private set; }
+        internal bool LeftClicked { get; 
+            private set; }
         internal bool LeftHeld { get; private set; }
 
         internal bool RightClicked { get; private set; }
@@ -73,13 +74,13 @@ namespace InputEngine.Classes.Input
             NewMouseState = Mouse.GetState();
 
 
-
+            Controls.ClickActionTriggeredThisFrame = false;
 
 
             //Do not use mouse state to update cursor position if controller is connected
             //It is used elsewhere such as in inventory selection to draw the tooltip 
             //and updating here would mess up this positioning
-            if (Controls.ControllerConnected)
+            if (!Controls.ControllerConnected)
             {
 
                 UIPosition = GetUIOffSet(new Vector2(NewMouseState.Position.X, NewMouseState.Position.Y));
