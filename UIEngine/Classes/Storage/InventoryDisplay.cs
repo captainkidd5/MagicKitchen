@@ -45,6 +45,8 @@ namespace UIEngine.Classes.Storage
 
         private StackPanel _stackPanel;
 
+        protected bool IsOpen { get; set; }
+        protected bool WasOpenLastFrame { get; set; }
         public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -114,18 +116,20 @@ namespace UIEngine.Classes.Storage
         {
             Hovered = false;
             // base.Update(gameTime);
+            WasOpenLastFrame = IsOpen;
             if (IsActive)
             {
                 CheckLogic(gameTime);
+                
+                if(IsOpen)
+                    SelectedSlot.IsSelected = true;                                            
 
-                SelectedSlot.IsSelected = true;                                            
-
-                if (Controls.WasGamePadButtonTapped(GamePadActionType.BigBumperLeft))
+                if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft))
                 {
                     CurrentSelectedIndex = ScrollHelper.GetIndexFromScroll(Direction.Up, CurrentSelectedIndex, DrawEndIndex);
                     SelectSlot(InventorySlots[CurrentSelectedIndex]);
                 }
-                else if(Controls.WasGamePadButtonTapped(GamePadActionType.BigBumperRight))
+                else if(Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight))
                 {
                     CurrentSelectedIndex = ScrollHelper.GetIndexFromScroll(Direction.Down, CurrentSelectedIndex, DrawEndIndex);
                     SelectSlot(InventorySlots[CurrentSelectedIndex]);

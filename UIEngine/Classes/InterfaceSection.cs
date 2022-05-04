@@ -136,14 +136,19 @@ namespace UIEngine.Classes
             if (_framesActive < 2)
                 _framesActive++;
         }
-        public virtual void Update(GameTime gameTime)
-        {
-            _hoveredLastFrame = Hovered;
 
+        protected virtual void DetectControllerSelection()
+        {
             if (Controls.ControllerConnected)
                 Hovered = IsSelected;
             else
                 Hovered = false;
+        }
+        public virtual void Update(GameTime gameTime)
+        {
+            _hoveredLastFrame = Hovered;
+
+            DetectControllerSelection();
 
             if (IsActive)
             {

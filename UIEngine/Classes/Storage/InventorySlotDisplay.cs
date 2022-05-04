@@ -75,15 +75,14 @@ namespace UIEngine.Classes.Storage
             base.Update(gameTime);
             
         }
-
+        
         protected override void CheckLogic(GameTime gameTime)
         {
             base.CheckLogic(gameTime);
             _button.Update(gameTime);
             _waterMarkSprite?.Update(gameTime, Position);
-            if(Clicked)
-                Console.WriteLine("test");
-            if (Clicked || (IsSelected && Controls.WasGamePadButtonTapped(GamePadActionType.Y)))
+
+            if (Clicked || (IsSelected && Controls.WasGamePadButtonTapped(GamePadActionType.Select)))
             {
                 (parentSection as InventoryDisplay).SelectSlot(this);
 

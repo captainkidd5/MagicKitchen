@@ -28,8 +28,7 @@ namespace UIEngine.Classes.Storage
         private int _extendedInventoryCutoff = 8;
 
 
-        private bool _isOpen;
-        private bool _oldOpen;
+
         public PlayerInventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -71,17 +70,16 @@ namespace UIEngine.Classes.Storage
         }
         public override void Update(GameTime gameTime)
         {
-            _oldOpen = _isOpen;
             base.Update(gameTime);
 
 
-            if (_isOpen)
+            if (IsOpen)
                 Flags.Pause = true;
             UpdateSelectorIndex();
             _selectorSprite.Update(gameTime, SelectedSlot.Position);
             _openBigInventoryButton.Update(gameTime);
 
-            if (_oldOpen && !_isOpen)
+            if (WasOpenLastFrame && !IsOpen)
                 Flags.Pause = false;
         }
 
@@ -98,7 +96,7 @@ namespace UIEngine.Classes.Storage
         public override void Draw(SpriteBatch spriteBatch)
         {
              DrawEndIndex = InventorySlots.Count;
-            if (!_isOpen)
+            if (!IsOpen)
                 DrawEndIndex = _extendedInventoryCutoff;
             base.Draw(spriteBatch);
 
@@ -127,7 +125,7 @@ namespace UIEngine.Classes.Storage
                     InventorySlots.Count);
 
             //Selector shouldn't extend past main toolbar row if extended inventory is closed
-            if (!_isOpen)
+            if (!IsOpen)
             {
                 if (newSelectedSlot == Capacity - 1)
                     newSelectedSlot = _extendedInventoryCutoff - 1;
@@ -173,9 +171,9 @@ namespace UIEngine.Classes.Storage
         /// </summary>
         private void ToggleOpen()
         {
-            _isOpen = !_isOpen;
+            IsOpen = !IsOpen;
             //reset selector to 0 if just closed
-            if(!_isOpen)
+            if(!IsOpen)
                 SelectedSlot = InventorySlots[0];
 
             SwitchSpriteFromToggleStatus();
@@ -183,7 +181,7 @@ namespace UIEngine.Classes.Storage
 
         private void SwitchSpriteFromToggleStatus()
         {
-            if (_isOpen)
+            if (IsOpen)
                 _openBigInventoryButton.SwapBackgroundSprite(_closeBigInventoryUpArrowSourceRectangle);
             else
                 _openBigInventoryButton.SwapBackgroundSprite(_openBigInventoryUpArrowSourceRectangle);
