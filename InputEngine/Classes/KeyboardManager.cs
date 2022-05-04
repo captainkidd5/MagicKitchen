@@ -36,12 +36,13 @@ namespace InputEngine.Classes
 
         internal KeyboardManager()
         {
-            this.NewKeyBoardState = Keyboard.GetState();
-            this.OldKeyBoardState = NewKeyBoardState;
-            this.TappedKeys = new List<Keys>();
-            this.KeysRecentlyPressed = new List<KeyTimer>();
-            this.UseableRecentKeys = new List<Keys>();
-            this.MovementKeys = new List<Keys>() { Keys.None };
+            NewKeyBoardState = Keyboard.GetState();
+            OldKeyBoardState = NewKeyBoardState;
+            TappedKeys = new List<Keys>();
+            KeysRecentlyPressed = new List<KeyTimer>();
+            UseableRecentKeys = new List<Keys>();
+            MovementKeys = new List<Keys>() { Keys.None };
+            PressedKeys = new List<Keys>();
 
         }
 

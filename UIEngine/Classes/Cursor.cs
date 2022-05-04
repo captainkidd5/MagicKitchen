@@ -122,7 +122,7 @@ namespace UIEngine.Classes
         }
         internal void Draw(SpriteBatch spriteBatch)
         {
-            if (!Controls.ControllerConnected)
+            if (!Controls.ControllerConnected || HeldItem != null)
             {
 
             CursorSprite.Draw(spriteBatch);

@@ -85,8 +85,8 @@ namespace UIEngine.Classes.Storage
             if (Clicked || (IsSelected && Controls.WasGamePadButtonTapped(GamePadActionType.Select)))
             {
                 (parentSection as InventoryDisplay).SelectSlot(this);
-
-                _storageSlot.LeftClickInteraction(ref UI.Cursor.HeldItem, ref UI.Cursor.HeldItemCount, Controls.IsKeyPressed(Keys.LeftShift));
+                //Controller connected auto
+                _storageSlot.LeftClickInteraction(ref UI.Cursor.HeldItem, ref UI.Cursor.HeldItemCount,Controls.IsKeyPressed(Keys.LeftShift));
 
             }
             if (RightClicked)

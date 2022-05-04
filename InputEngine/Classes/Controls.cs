@@ -55,6 +55,13 @@ namespace InputEngine.Classes
 
         public static bool WasGamePadButtonTapped(GamePadActionType actionType) => _gamePadControls.WasActionTapped(actionType);
         public static bool IsRightClicked => MouseManager.RightClicked;
+
+        public static void ControllerSetUIMousePosition(Vector2 newPos)
+        {
+            if (!ControllerConnected)
+                throw new Exception($"Should not be setting mouse ui position if controller not connected");
+            MouseManager.ControllerSetMouseUIPosition(newPos);
+        } 
         public static Vector2 MouseUIPosition => MouseManager.UIPosition;
         public static Vector2 MouseWorldPosition => MouseManager.WorldPosition;
         public static bool WasKeyTapped(Keys key) => TappedKeys.Contains(key);

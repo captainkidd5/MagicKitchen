@@ -55,7 +55,18 @@ namespace InputEngine.Classes.Input
             _rightClickHeldTimer = new SimpleTimer(_clickTimerThreshold);
 
         }
+        internal void ControllerSetMouseUIPosition(Vector2 newPos)
+        {
+            
+            UIPosition = GetUIOffSet(newPos);
+        }
 
+        private Vector2 GetUIOffSet(Vector2 unadjustedPos)
+        {
+            Vector2 renderTargetResolution = new Vector2(RenderTargetManager.CurrentOverlayTarget.Width / (float)Settings.ScreenRectangle.Width, RenderTargetManager.CurrentOverlayTarget.Height / (float)Settings.ScreenRectangle.Height);
+
+            return unadjustedPos * renderTargetResolution;
+        }
         internal void Update(GameTime gameTime)
         {
             OldMouseState = NewMouseState;
@@ -63,9 +74,15 @@ namespace InputEngine.Classes.Input
 
 
 
-            Vector2 renderTargetResolution = new Vector2(RenderTargetManager.CurrentOverlayTarget.Width / (float)Settings.ScreenRectangle.Width, RenderTargetManager.CurrentOverlayTarget.Height / (float)Settings.ScreenRectangle.Height);
 
-            UIPosition = new Vector2(NewMouseState.Position.X, NewMouseState.Position.Y) * renderTargetResolution;
+
+            //Do not use mouse state to update cursor position if controller is connected
+            //It is used elsewhere such as in inventory selection to draw the tooltip 
+            //and updating here would mess up this positioning
+            if (Controls.ControllerConnected)
+            {
+
+                UIPosition = GetUIOffSet(new Vector2(NewMouseState.Position.X, NewMouseState.Position.Y));
 
             WorldPosition = camera.ScreenToWorld(UIPosition);
 
@@ -79,8 +96,9 @@ namespace InputEngine.Classes.Input
 
             UIRectangle = new Rectangle((int)UIPosition.X, (int)UIPosition.Y, 2, 2);
             WorldRectangle = new Rectangle((int)WorldPosition.X, (int)WorldPosition.Y, 2, 2);
+            }
 
-            
+
             HandleLeftClicks(gameTime);
 
             HandleRightClicks(gameTime);

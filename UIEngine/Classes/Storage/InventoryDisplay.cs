@@ -128,11 +128,14 @@ namespace UIEngine.Classes.Storage
                 {
                     CurrentSelectedIndex = ScrollHelper.GetIndexFromScroll(Direction.Up, CurrentSelectedIndex, DrawEndIndex);
                     SelectSlot(InventorySlots[CurrentSelectedIndex]);
+                    Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
                 }
                 else if(Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight))
                 {
                     CurrentSelectedIndex = ScrollHelper.GetIndexFromScroll(Direction.Down, CurrentSelectedIndex, DrawEndIndex);
                     SelectSlot(InventorySlots[CurrentSelectedIndex]);
+                    Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
+
 
                 }
                 for (int i = 0; i < DrawEndIndex; i++)
