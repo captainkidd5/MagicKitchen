@@ -129,8 +129,8 @@ namespace InputEngine.Classes
             {
 
             KeyboardManager.Update(gameTime);
-            MouseManager.Update(gameTime);
             }
+            MouseManager.Update(gameTime);
 
             if (IsPlayerControllable)
             {

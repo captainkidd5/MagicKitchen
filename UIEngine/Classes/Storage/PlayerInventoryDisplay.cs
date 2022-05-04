@@ -19,6 +19,7 @@ using static Globals.Classes.Settings;
 
 namespace UIEngine.Classes.Storage
 {
+
     internal class PlayerInventoryDisplay : InventoryDisplay
     {
         private Sprite _selectorSprite;
@@ -27,8 +28,6 @@ namespace UIEngine.Classes.Storage
         private Rectangle _closeBigInventoryUpArrowSourceRectangle = new Rectangle(128, 16, 16, 32);
 
         private int _extendedInventoryCutoff = 8;
-
-
 
         public PlayerInventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -179,6 +178,14 @@ namespace UIEngine.Classes.Storage
             if(!IsOpen)
             {
                 SelectedSlot = InventorySlots[0];
+                if(Controls.ControllerConnected && UI.Cursor.IsHoldingItem)
+                {
+                    //Should drop the item if item is grabbed and player closes the inventory
+                    //Todo have player drop item
+
+                    UI.Cursor.OnItemDropped();
+
+                }
             }
 
             SwitchSpriteFromToggleStatus();

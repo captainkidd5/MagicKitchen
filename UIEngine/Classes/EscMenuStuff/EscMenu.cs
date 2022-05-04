@@ -19,7 +19,7 @@ using UIEngine.Classes.ButtonStuff;
 
 namespace UIEngine.Classes.EscMenuStuff
 {
-    internal class EscMenu : InterfaceSection
+    internal class EscMenu : MenuSection
     {
         private Rectangle _returnToMainMenuButtonBackgroundDimensions = new Rectangle(0, 0, 80, 96);
         private NineSliceButton _returnToMainMenuButton;
@@ -51,6 +51,9 @@ namespace UIEngine.Classes.EscMenuStuff
             _returnToMainMenuButton.AddConfirmationWindow($"Return to main menu?");
 
             _returnToMainMenuButton.LoadContent();
+
+            Selectables.Add(_returnToMainMenuButton);
+
             CloseButton = UI.ButtonFactory.CreateCloseButton(this, new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, _backGroundSprite.Width, _backGroundSprite.Height), GetLayeringDepth(UILayeringDepths.Medium),
                 new Action(() =>
                 {
@@ -58,6 +61,9 @@ namespace UIEngine.Classes.EscMenuStuff
                     Flags.Pause = false;
                 }));
             CloseButton.LoadContent();
+
+            Selectables.Add(CloseButton);
+
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height);
             base.LoadContent();
 
@@ -72,7 +78,7 @@ namespace UIEngine.Classes.EscMenuStuff
         }
         public override void Update(GameTime gameTime)
         {
-            if (Controls.WasKeyTapped(Keys.Escape))
+            if (Controls.WasKeyTapped(Keys.Escape) || Controls.WasGamePadButtonTapped(GamePadActionType.Escape))
             {
                 Toggle();
 

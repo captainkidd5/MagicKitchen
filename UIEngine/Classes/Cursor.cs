@@ -19,16 +19,19 @@ using VelcroPhysics.Dynamics;
 
 namespace UIEngine.Classes
 {
+    public delegate void CursorDroppedItem();
 
     public class Cursor : Collidable
     {
+        public event CursorDroppedItem ItemDropped;
+
         public Item HeldItem;
         public int HeldItemCount;
         private int _heldItemId;
         private int _oldHeldItemId;
         private readonly float _cursorLayerDepth = .5f;
 
-
+        public bool IsHoldingItem => HeldItem != null;
         public Texture2D CursorTexture { get; set; }
 
         private Rectangle CursorSourceRectangle = new Rectangle(0, 0, 32, 32);
@@ -44,6 +47,11 @@ namespace UIEngine.Classes
         public static CursorIconType GetCursorIconTypeFromString(string str)
         {
             return (CursorIconType)Enum.Parse(typeof(CursorIconType), str);
+        }
+
+        public  void OnItemDropped()
+        {
+            ItemDropped?.Invoke();
         }
         public void ChangeCursorIcon(CursorIconType cursorIconType, bool isWorldChange = true)
         {

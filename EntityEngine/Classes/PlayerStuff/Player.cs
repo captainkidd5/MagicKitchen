@@ -48,7 +48,6 @@ namespace EntityEngine.Classes.PlayerStuff
             _playerContainer = playerContainer;
             InventoryHandler = new InventoryHandler(StorageCapacity);
             ProgressManager = new ProgressManager();
-
         }
         public override void SwitchStage(string newStageName,  TileManager tileManager, ItemManager itemManager)
         {
@@ -64,6 +63,9 @@ namespace EntityEngine.Classes.PlayerStuff
             UI.LoadPlayerInventory(StorageContainer);
             UI.LoadPlayerUnlockedRecipes(ProgressManager.UnlockedRecipes);
 
+            UI.Cursor.ItemDropped -= DropHeldItem;
+
+            UI.Cursor.ItemDropped += DropHeldItem;
 
         }
 
@@ -130,10 +132,9 @@ namespace EntityEngine.Classes.PlayerStuff
             if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Y))
             {
                 //Item should not eject if any part of the ui is hovered
-                if (UI.Cursor.HeldItem != null)
+                if (UI.Cursor.IsHoldingItem)
                 {
-                    DropCurrentlyHeldItemToWorld();
-                    Controls.ClickActionTriggeredThisFrame = true;
+                    DropHeldItem();
                 }
             }
 
@@ -152,6 +153,12 @@ namespace EntityEngine.Classes.PlayerStuff
 
             FrontalSensor.Position = Position + GetFrontalSensorPositionFromEntityDirection();
             Controls.PlayerFrontalSensorPosition = FrontalSensor.Position;
+        }
+
+        private void DropHeldItem()
+        {
+            DropCurrentlyHeldItemToWorld();
+            Controls.ClickActionTriggeredThisFrame = true;
         }
 
         protected override void DropCurrentlyHeldItemToWorld()

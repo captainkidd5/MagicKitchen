@@ -163,7 +163,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             if(_outerMenuState != OuterMenuState.PlaySettingsAndExit)
             _backButton.Update(gameTime);
 
-            if (Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
+            if (_activeSection != _playOrExitMenu &&  Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
                 ChangeToPlayOrExitState();
 
         }
