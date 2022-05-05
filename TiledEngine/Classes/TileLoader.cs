@@ -15,6 +15,7 @@ using System.IO;
 using static Globals.Classes.Settings;
 using System.Linq;
 using TiledEngine.Classes.ZoneStuff;
+using TiledEngine.Classes.TileAddons.FurnitureStuff;
 
 namespace TiledEngine.Classes
 {
@@ -47,6 +48,8 @@ namespace TiledEngine.Classes
 
         public static ZoneManager ZoneManager;
         public static List<SpecialZone> GetZones(string stageName) => ZoneManager.GetZones(stageName);
+
+        public static FurnitureLoader FurnitureLoader;
         
         // <summary>
         /// This should only be called ONCE per save file.
@@ -69,6 +72,8 @@ namespace TiledEngine.Classes
             ZoneManager = new ZoneManager();
 
             TileIconTexture = content.Load<Texture2D>("Maps/TileIcons");
+            FurnitureLoader = new FurnitureLoader();
+            FurnitureLoader.LoadContent(content);
         }
        
         /// <summary>

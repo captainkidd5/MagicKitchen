@@ -63,14 +63,6 @@ namespace UIEngine.Classes.Storage
             NormallyActivated = false;
         }
 
-        public override void LoadContent()
-        {
-
-            //base.LoadContent();
-
-
-
-        }
         public void UpdateSelectorSprite(GameTime gameTime)
         {
             _selectorSprite.Update(gameTime, SelectedSlot.Position);
@@ -82,21 +74,22 @@ namespace UIEngine.Classes.Storage
             _selectorSprite.Draw(spriteBatch);
 
         }
-        public override void Activate()
-        {
-            base.Activate();
-        }
+
         public override void Deactivate()
         {
             base.Deactivate();
             ExtendedInventoryOpen = false;
-            if (Controls.ControllerConnected && UI.Cursor.IsHoldingItem)
-            {
-                //Should drop the item if item is grabbed and player closes the inventory
 
+            //Should drop the item if item is grabbed and player closes the inventory
+            if (Controls.ControllerConnected && UI.Cursor.IsHoldingItem)
                 UI.Cursor.OnItemDropped();
 
-            }
+        }
+
+        public override void LoadContent()
+        {
+            //Overridden because total bounds not set, TODO ?
+            //base.LoadContent();
         }
         public virtual void LoadNewEntityInventory(StorageContainer storageContainer, bool displayWallet)
         {
@@ -158,8 +151,6 @@ namespace UIEngine.Classes.Storage
         public virtual void GiveControl()
         {
             HasControl = true;
-           // CurrentSelectedIndex = 0;
-            //SelectSlot(InventorySlots[CurrentSelectedIndex]);
             if(Controls.ControllerConnected)
             Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
         }
@@ -180,58 +171,16 @@ namespace UIEngine.Classes.Storage
         public override void Update(GameTime gameTime)
         {
             Hovered = false;
-            // base.Update(gameTime);
             if (IsActive)
             {
-                CheckLogic(gameTime);
+                CheckOveriddenLogic(gameTime);
 
                 if (ExtendedInventoryOpen && HasControl)
                     SelectedSlot.IsSelected = true;
-                if (HasControl)
 
-                {
-
-
-                    if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft) ||
-                        Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
-                    {
-                        int newIndex = CurrentSelectedIndex;
-
-                        newIndex = ScrollHelper.GetIndexFromScroll(Direction.Up, CurrentSelectedIndex, DrawEndIndex);
-                        if ((newIndex +1) % (Columns ) != 0 && newIndex + 1 < InventorySlots.Count )
-                            CurrentSelectedIndex = newIndex;
-                        SelectSlotAndMoveCursorIcon();
-                    }
-                    else if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight) ||
-                        Controls.WasGamePadButtonTapped(GamePadActionType.DPadRight))
-                    {
-                        int newIndex = CurrentSelectedIndex;
-                        newIndex = ScrollHelper.GetIndexFromScroll(Direction.Down, CurrentSelectedIndex, DrawEndIndex);
-                        //prevent wrapping
-                        if(newIndex % Columns != 0 )
-                            CurrentSelectedIndex = newIndex;
-
-                        SelectSlotAndMoveCursorIcon();
-
-                    }
-                    else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
-                    {
-                        CurrentSelectedIndex +=  Columns;
-                        if(CurrentSelectedIndex >= InventorySlots.Count )
-                            CurrentSelectedIndex = CurrentSelectedIndex - InventorySlots.Count;
-                        SelectSlotAndMoveCursorIcon();
-
-                    }
-                    else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
-                    {
-                        CurrentSelectedIndex -= Columns;
-                        if (CurrentSelectedIndex < 0)
-                            CurrentSelectedIndex = InventorySlots.Count + CurrentSelectedIndex;
-
-                        SelectSlotAndMoveCursorIcon();
-
-                    }
-                }
+                if (HasControl && Controls.ControllerConnected)
+                    CheckGamePadInput();
+                
                 for (int i = 0; i < DrawEndIndex; i++)
                 {
                     InventorySlotDisplay slot = InventorySlots[i];
@@ -246,6 +195,52 @@ namespace UIEngine.Classes.Storage
             CheckFramesActive();
             UpdateSelectorIndex();
 
+        }
+
+        /// <summary>
+        /// Changes selected slot based on gamepad input
+        /// </summary>
+        private void CheckGamePadInput()
+        {
+            if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft) ||
+                                    Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
+            {
+                int newIndex = CurrentSelectedIndex;
+
+                newIndex = ScrollHelper.GetIndexFromScroll(Direction.Up, CurrentSelectedIndex, DrawEndIndex);
+                if ((newIndex + 1) % (Columns) != 0 && newIndex + 1 < InventorySlots.Count)
+                    CurrentSelectedIndex = newIndex;
+                SelectSlotAndMoveCursorIcon();
+            }
+            else if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight) ||
+                Controls.WasGamePadButtonTapped(GamePadActionType.DPadRight))
+            {
+                int newIndex = CurrentSelectedIndex;
+                newIndex = ScrollHelper.GetIndexFromScroll(Direction.Down, CurrentSelectedIndex, DrawEndIndex);
+                //prevent wrapping
+                if (newIndex % Columns != 0)
+                    CurrentSelectedIndex = newIndex;
+
+                SelectSlotAndMoveCursorIcon();
+
+            }
+            else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
+            {
+                CurrentSelectedIndex += Columns;
+                if (CurrentSelectedIndex >= InventorySlots.Count)
+                    CurrentSelectedIndex = CurrentSelectedIndex - InventorySlots.Count;
+                SelectSlotAndMoveCursorIcon();
+
+            }
+            else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
+            {
+                CurrentSelectedIndex -= Columns;
+                if (CurrentSelectedIndex < 0)
+                    CurrentSelectedIndex = InventorySlots.Count + CurrentSelectedIndex;
+
+                SelectSlotAndMoveCursorIcon();
+
+            }
         }
 
         private void SelectSlotAndMoveCursorIcon()

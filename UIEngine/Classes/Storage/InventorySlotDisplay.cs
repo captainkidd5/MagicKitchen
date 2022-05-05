@@ -76,9 +76,9 @@ namespace UIEngine.Classes.Storage
             
         }
         
-        protected override void CheckLogic(GameTime gameTime)
+        protected override void CheckOveriddenLogic(GameTime gameTime)
         {
-            base.CheckLogic(gameTime);
+            base.CheckOveriddenLogic(gameTime);
             _button.Update(gameTime);
             _waterMarkSprite?.Update(gameTime, Position);
 

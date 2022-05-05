@@ -78,9 +78,9 @@ namespace UIEngine.Classes.Storage
                 Flags.Pause = false;
         }
 
-        protected override void CheckLogic(GameTime gameTime)
+        protected override void CheckOveriddenLogic(GameTime gameTime)
         {
-            base.CheckLogic(gameTime);
+            base.CheckOveriddenLogic(gameTime);
 
             if (Controls.WasGamePadButtonTapped(GamePadActionType.Y) || Controls.WasKeyTapped(Keys.Tab))
             {

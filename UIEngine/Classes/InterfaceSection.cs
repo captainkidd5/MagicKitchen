@@ -193,7 +193,7 @@ namespace UIEngine.Classes
                         ChildSections.RemoveAt(i);
                 }
                 CheckFramesActive();
-                CheckLogic(gameTime);
+                CheckOveriddenLogic(gameTime);
             }
             //Set to false here. If this is part of another MenuSection,
             //and is selected from there, this will be set to true again
@@ -203,7 +203,7 @@ namespace UIEngine.Classes
         /// <summary>
         /// Override this to perform custom logic that depends on things such as IsSelected
         /// </summary>
-        protected virtual void CheckLogic(GameTime gameTime)
+        protected virtual void CheckOveriddenLogic(GameTime gameTime)
         {
 
         }
