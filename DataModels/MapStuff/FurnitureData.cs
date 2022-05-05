@@ -7,7 +7,7 @@ namespace DataModels.MapStuff
     public enum FurnitureType
     {
         None = 0,
-        Storage = 1,
+        DiningTable = 1,
 
     }
 
@@ -18,6 +18,7 @@ namespace DataModels.MapStuff
     }
     public class FurnitureData
     {
+
         public FurnitureType FurnitureType { get; set; }
         public FurnitureConfiguration Configuration { get; set; }
 

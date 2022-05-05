@@ -1,9 +1,9 @@
 [
 {
-    "FurnitureType": "Storage",
+    "FurnitureType": "DiningTable",
     "FurnitureConfiguration": "None",
-    "Rows" : 2,
-    "Columns": 4
+    "StorageRows" : 2,
+    "StorageColumns": 4
 }
 
 ]

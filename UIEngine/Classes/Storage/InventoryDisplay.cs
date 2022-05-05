@@ -17,6 +17,7 @@ using static Globals.Classes.Settings;
 using UIEngine.Classes.Components;
 using InputEngine.Classes;
 using static DataModels.Enums;
+using DataModels.MapStuff;
 
 namespace UIEngine.Classes.Storage
 {
@@ -96,8 +97,26 @@ namespace UIEngine.Classes.Storage
 
             StorageContainer = storageContainer;
             DrawEndIndex = StorageContainer.Capacity;
-            Rows = (int)Math.Floor((float)Capacity / (float)DrawEndIndex);
-            Columns = DrawEndIndex;
+            //Furniture data was passed in, use the required configuration from that
+            if(StorageContainer.FurnitureData != null)
+            {
+                FurnitureData furnitureData = StorageContainer.FurnitureData;
+                if(furnitureData.FurnitureType != FurnitureType.None)
+                {
+                    Rows = furnitureData.StorageRows;
+                    Columns = furnitureData.StorageColumns;
+                }
+                else
+                {
+                    //TODO: Define custom types
+                }
+            }
+            else //Else use standard rows and columns from this class
+            {
+                Rows = (int)Math.Floor((float)Capacity / (float)DrawEndIndex);
+                Columns = DrawEndIndex;
+            }
+            
             GenerateUI(displayWallet);
             SelectedSlot = InventorySlots[0];
             ExtendedInventoryCutOff = InventorySlots.Count;

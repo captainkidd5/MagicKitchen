@@ -119,7 +119,7 @@
  </tile>
  <tile id="1173">
   <properties>
-   <property name="furniture" value="KitchenAppliance"/>
+   <property name="furniture" value="DiningTable"/>
    <property name="newHitBox" value="-16,-32,48,48"/>
    <property name="newSource" value="-16,-32,48,48"/>
   </properties>

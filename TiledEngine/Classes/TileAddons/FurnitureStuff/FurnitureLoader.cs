@@ -13,7 +13,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
     public class FurnitureLoader
     {
-        private Dictionary<FurnitureType, FurnitureData> _furnitureData;
+        public Dictionary<FurnitureType, FurnitureData> FurnitureData { get; private set; }
 
         public FurnitureLoader()
         {
@@ -29,13 +29,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
             jsonString = File.ReadAllText(basePath + "/FurnitureData.json");
 
-
-            _furnitureData = JsonSerializer.Deserialize<List<FurnitureData>>(jsonString, options).
+            FurnitureData = JsonSerializer.Deserialize<List<FurnitureData>>(jsonString, options).
                 ToDictionary(x => x.FurnitureType);
-
-
-
-                
 
         }
     }

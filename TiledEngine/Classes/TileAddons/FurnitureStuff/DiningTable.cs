@@ -1,4 +1,5 @@
-﻿using InputEngine.Classes.Input;
+﻿using DataModels.MapStuff;
+using InputEngine.Classes.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -21,9 +22,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public bool SeatingAvailable => OccupiedSeatCount < TotalSeatingCapacity;
 
 
-        public DiningTable(Tile tile, TileManager tileManager,
+        public DiningTable(FurnitureData furnitureData, Tile tile, TileManager tileManager,
             IntermediateTmxShape intermediateTmxShape,string actionType) :
-            base(tile, tileManager, intermediateTmxShape, actionType)
+            base(furnitureData,tile, tileManager, intermediateTmxShape, actionType)
         {
             SubKey = "diningTable";
         }

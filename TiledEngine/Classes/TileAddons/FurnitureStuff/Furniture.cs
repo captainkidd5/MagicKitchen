@@ -1,4 +1,5 @@
 ﻿using DataModels.ItemStuff;
+using DataModels.MapStuff;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
@@ -31,7 +32,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         protected Vector2 TopOfFurniture => new Vector2(CenteredPosition.X, CenteredPosition.Y - IntermediateTmxShape.Radius);
 
-        public Furniture(Tile tile, TileManager tileManager,
+        protected FurnitureData FurnitureData { get; private set; }
+
+        public Furniture(FurnitureData furnitureData, Tile tile, TileManager tileManager,
             IntermediateTmxShape intermediateTmxShape, string actionType) :
             base(tile, tileManager, intermediateTmxShape, actionType)
         {
@@ -41,7 +44,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             {
                 PlacedItems.Add(new PlacedItem(i, tile));
             }
-
+            FurnitureData = furnitureData;
         }
 
         public void AddItem(int index, int itemId)
@@ -53,7 +56,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Load()
         {
             base.Load();
-            _storageContainer = new StorageContainer(MaxPlacedItems);
+            _storageContainer = new StorageContainer(FurnitureData.StorageRows * FurnitureData.StorageColumns, FurnitureData);
             List<PlacedItem> loadedPlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
             bool loadedItemsWereSavedAtLeastOnce = loadedPlacedItems.Count > 0;
             //Means there were some saved items here previously. Load those in instead of default load
@@ -117,9 +120,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public static Furniture GetFurnitureFromProperty(string value,
             Tile tile, TileManager tileManager, IntermediateTmxShape tmxShape)
         {
+            FurnitureType furnitureType = (FurnitureType)Enum.Parse(typeof(FurnitureType), value);
+            FurnitureData data = TileLoader.FurnitureLoader.FurnitureData[furnitureType];
             Furniture furniture = (Furniture)System.Reflection.Assembly.GetExecutingAssembly()
                            .CreateInstance($"TiledEngine.Classes.TileAddons.FurnitureStuff.{value}", true, System.Reflection.BindingFlags.CreateInstance,
-                           null, new object[] { tile, tileManager, tmxShape, "None" }, null, null);
+                           null, new object[] { data, tile, tileManager, tmxShape, "None" }, null, null);
 
             return furniture;
 

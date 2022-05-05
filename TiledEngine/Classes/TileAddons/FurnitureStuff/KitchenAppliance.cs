@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DataModels.MapStuff;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         private ProgressIndicator _progressIndicator;
 
         protected bool IsBeingOperated { get; set; } = true;
-        public KitchenAppliance(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType)
-            : base(tile, tileManager, intermediateTmxShape, actionType)
+        public KitchenAppliance(FurnitureData furnitureData, Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType)
+            : base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
         {
             _progressIndicator = new ProgressIndicator();
             SubKey = "KitchenAppliance";

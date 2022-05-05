@@ -1,4 +1,5 @@
 ﻿using DataModels.ItemStuff;
+using DataModels.MapStuff;
 using Globals.Classes;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,9 @@ namespace ItemEngine.Classes
         public List<StorageSlot> Slots { get; private set; }
 
         private Wallet _wallet;
-        public StorageContainer(int capacity)
+
+        public FurnitureData? FurnitureData { get; private set; }
+        public StorageContainer(int capacity, FurnitureData? furnitureData = null)
         {
             Capacity = capacity;
             Slots = new List<StorageSlot>();
@@ -27,6 +30,8 @@ namespace ItemEngine.Classes
             {
                 Slots.Add(new StorageSlot());
             }
+
+            FurnitureData = furnitureData;
         }
 
         public bool CanAfford(int amt) => _wallet.CanAfford(amt);
