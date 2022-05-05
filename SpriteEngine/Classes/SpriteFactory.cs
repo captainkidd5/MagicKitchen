@@ -47,7 +47,7 @@ namespace SpriteEngine.Classes
         /// </summary>
         public static Sprite CreateUISprite(Vector2 position, Rectangle sourceRectangle, Texture2D texture,float customLayer, Color? primaryColor = null,
              Vector2? origin = null, Vector2? scale = null, float rotation = 0f, 
-            bool randomizeLayers = true, bool flip = false)
+            bool randomizeLayers = false, bool flip = false)
         {
             return new Sprite(Graphics, Content, ElementType.UI, position, sourceRectangle, texture, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, rotation, Layers.buildings, 
                 randomizeLayers, flip, customLayer);

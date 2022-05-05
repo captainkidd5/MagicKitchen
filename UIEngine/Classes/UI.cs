@@ -306,10 +306,10 @@ namespace UIEngine.Classes
         /// </summary>
         internal static float IncrementLD(float parentLayerDepth, bool largeIncrement)
         {
-            float incrementAmount = .001f;
+            float incrementAmount = 1f;
 
             if (largeIncrement)
-                incrementAmount = .1f;
+                incrementAmount = 1f;
             float randomOffset = Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * incrementAmount;
             float variedLayerDepth = parentLayerDepth + randomOffset;
             return variedLayerDepth;

@@ -45,7 +45,7 @@ namespace UIEngine.Classes.Storage
         {
             _storageSlot = storageSlot;
             storageSlot.ItemChanged += ItemChanged;
-            _button = new NineSliceButton(interfaceSection, graphicsDevice, content, position,GetLayeringDepth(UILayeringDepths.Low), null, null, null, null, hoverTransparency: true);
+            _button = new NineSliceButton(interfaceSection, graphicsDevice, content, position,LayerDepth, null, null, null, null, hoverTransparency: true);
             _text = TextFactory.CreateUIText("0", UI.IncrementLD(_button.LayerDepth, true));
 
             if (storageSlot.HoldsVisibleFurnitureItem)
