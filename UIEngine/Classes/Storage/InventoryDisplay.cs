@@ -49,6 +49,9 @@ namespace UIEngine.Classes.Storage
         protected bool WasOpenLastFrame { get; set; }
 
         protected int ExtendedInventoryCutOff { get; set; }
+
+        private Sprite _selectorSprite;
+
         public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -58,11 +61,23 @@ namespace UIEngine.Classes.Storage
 
         public override void LoadContent()
         {
-            
+
             //base.LoadContent();
+            
+
+
+        }
+        public void UpdateSelectorSprite(GameTime gameTime)
+        {
+            _selectorSprite.Update(gameTime, SelectedSlot.Position);
 
         }
 
+        public void DrawSelectorSprite(SpriteBatch spriteBatch)
+        {
+            _selectorSprite.Draw(spriteBatch);
+
+        }
         public virtual void LoadNewEntityInventory(StorageContainer storageContainer, bool displayWallet)
         {
 
@@ -73,8 +88,14 @@ namespace UIEngine.Classes.Storage
             GenerateUI(displayWallet);
             SelectedSlot = InventorySlots[0];
             ExtendedInventoryCutOff = InventorySlots.Count;
+            LoadSelectorSprite();
         }
 
+        protected void LoadSelectorSprite()
+        {
+            _selectorSprite = SpriteFactory.CreateUISprite(SelectedSlot.Position, new Rectangle(272, 0, 64, 64),
+               UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.High), null, randomizeLayers: false);
+        }
 
         public void SelectSlot(InventorySlotDisplay slotToSelect)
         {

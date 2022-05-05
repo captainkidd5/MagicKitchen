@@ -26,7 +26,7 @@ namespace UIEngine.Classes.Storage
         private int _playerSlotWidth = 64;
 
 
-        private InventoryDisplay _selectedInventoryDisplay;
+        private InventoryDisplay _currentlySelectedInventoryDisplay;
         public StorageDisplayHandler(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -42,6 +42,7 @@ namespace UIEngine.Classes.Storage
         {
             _secondaryInventoryDisplay = new InventoryDisplay(this, graphics, content, null,
                GetLayeringDepth(UILayeringDepths.Medium));
+            _secondaryInventoryDisplay.LoadContent();
             _secondaryInventoryDisplay.Deactivate();
             //X and y actually don't matter, multiply by 10 because toolbar is 10 slots wide, at 64 pixels per slot
 
@@ -50,11 +51,16 @@ namespace UIEngine.Classes.Storage
             _playerInventoryDisplay = new PlayerInventoryDisplay(this, graphics, content, playerInventoryPosition, GetLayeringDepth(UILayeringDepths.Low));
             _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer, true);
             _playerInventoryDisplay.LoadContent();
-
+            _currentlySelectedInventoryDisplay = _playerInventoryDisplay;
         }
         public override void Update(GameTime gameTime)
         {
+            if(Controls.ControllerConnected && Controls.WasGamePadButtonTapped(GamePadActionType.TriggerRight))
+            {
+                SwapControl();
+            }
             base.Update(gameTime);
+            _currentlySelectedInventoryDisplay.UpdateSelectorSprite(gameTime);
             if (IsActive && !WasJustActivated)
             {
                 if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
@@ -64,7 +70,22 @@ namespace UIEngine.Classes.Storage
                 }
             }
         }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            _currentlySelectedInventoryDisplay.DrawSelectorSprite(spriteBatch);
+        }
 
+        /// <summary>
+        /// Swaps active inventory, useful for controller support where cursor cannot move between inventories
+        /// </summary>
+        private void SwapControl()
+        {
+            if (_currentlySelectedInventoryDisplay == _playerInventoryDisplay)
+                _currentlySelectedInventoryDisplay = _secondaryInventoryDisplay;
+            else
+                _currentlySelectedInventoryDisplay = _playerInventoryDisplay;
+        }
         public void DeactivateSecondaryDisplay() => _secondaryInventoryDisplay.Deactivate();
        
         public void ActivateSecondaryInventoryDisplay(StorageType t, StorageContainer storageContainer, bool displayWallet = false)

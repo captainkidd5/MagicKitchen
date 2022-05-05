@@ -22,7 +22,6 @@ namespace UIEngine.Classes.Storage
 
     internal class PlayerInventoryDisplay : InventoryDisplay
     {
-        private Sprite _selectorSprite;
         private Button _openBigInventoryButton;
         private Rectangle _openBigInventoryUpArrowSourceRectangle = new Rectangle(112, 16, 16, 32);
         private Rectangle _closeBigInventoryUpArrowSourceRectangle = new Rectangle(128, 16, 16, 32);
@@ -46,12 +45,11 @@ namespace UIEngine.Classes.Storage
             Columns = DrawEndIndex;
             GenerateUI(displayWallet);
             SelectedSlot = InventorySlots[0];
+            LoadSelectorSprite();
         }
         public override void LoadContent()
         {
             base.LoadContent();
-            _selectorSprite = SpriteFactory.CreateUISprite(SelectedSlot.Position, new Rectangle(272, 0, 64, 64),
-                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.High),null, randomizeLayers: false);
             DrawEndIndex = ExtendedInventoryCutOff;
             _openBigInventoryButton = UI.ButtonFactory.CreateButton(this,
                 new Vector2(Position.X + Width, Position.Y),LayerDepth,
@@ -74,7 +72,6 @@ namespace UIEngine.Classes.Storage
 
             if (IsOpen)
                 Flags.Pause = true;
-            _selectorSprite.Update(gameTime, SelectedSlot.Position);
             _openBigInventoryButton.Update(gameTime);
 
             if (WasOpenLastFrame && !IsOpen)
@@ -99,7 +96,6 @@ namespace UIEngine.Classes.Storage
             base.Draw(spriteBatch);
 
 
-            _selectorSprite.Draw(spriteBatch);
             _openBigInventoryButton.Draw(spriteBatch);
         }
 
