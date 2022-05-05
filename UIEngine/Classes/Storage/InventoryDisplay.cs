@@ -49,6 +49,8 @@ namespace UIEngine.Classes.Storage
         public bool IsOpen { get; protected set; }
         protected bool WasOpenLastFrame { get; set; }
 
+        public bool WasJustOpened => IsOpen && !WasOpenLastFrame;
+
         protected int ExtendedInventoryCutOff { get; set; }
 
         private Sprite _selectorSprite;
@@ -156,7 +158,7 @@ namespace UIEngine.Classes.Storage
         {
             HasControl = true;
            // CurrentSelectedIndex = 0;
-            SelectSlot(InventorySlots[CurrentSelectedIndex]);
+            //SelectSlot(InventorySlots[CurrentSelectedIndex]);
             if(Controls.ControllerConnected)
             Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
         }
@@ -178,7 +180,6 @@ namespace UIEngine.Classes.Storage
         {
             Hovered = false;
             // base.Update(gameTime);
-            WasOpenLastFrame = IsOpen;
             if (IsActive)
             {
                 CheckLogic(gameTime);
@@ -213,6 +214,8 @@ namespace UIEngine.Classes.Storage
                         Hovered = true;
                 }
                 WalletDisplay?.Update(gameTime);
+                WasOpenLastFrame = IsOpen;
+
             }
             CheckFramesActive();
             UpdateSelectorIndex();

@@ -82,7 +82,9 @@ namespace UIEngine.Classes.Storage
             _button.Update(gameTime);
             _waterMarkSprite?.Update(gameTime, Position);
 
-            if (Clicked || (IsSelected && Controls.WasGamePadButtonTapped(GamePadActionType.Select)))
+            if ((Clicked || (IsSelected && Controls.WasGamePadButtonTapped(GamePadActionType.Select)) && 
+                //don't want to immediately select the hovered item if inventory was literally just opened
+                !(parentSection as InventoryDisplay).WasJustOpened))
             {
                 (parentSection as InventoryDisplay).SelectSlot(this);
                 //Controller connected auto

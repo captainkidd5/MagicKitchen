@@ -71,12 +71,16 @@ namespace UIEngine.Classes.Storage
             if (IsActive && !WasJustActivated)
             {
 
-                if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
+                if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel) ||
+                    Controls.WasGamePadButtonTapped(GamePadActionType.Y))
                 {
                     if (_currentlySelectedInventoryDisplay == _secondaryInventoryDisplay)
                         SwapControl();
+                    if (_secondaryInventoryDisplay.IsActive || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
+                        _playerInventoryDisplay.CloseExtendedInventory();
                     DeactivateSecondaryDisplay();
-                    _playerInventoryDisplay.CloseExtendedInventory();
+
+                    
                     Flags.Pause = false;
 
 
