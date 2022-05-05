@@ -76,7 +76,7 @@ namespace UIEngine.Classes
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            _playerInventoryDisplay.Draw(spriteBatch);
+          //  _playerInventoryDisplay.Draw(spriteBatch);
         }
     }
 }

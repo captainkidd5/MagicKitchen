@@ -72,8 +72,6 @@ namespace UIEngine.Classes.Storage
         {
             base.Update(gameTime);
 
-            if(Controls.IsClicked)
-                Console.WriteLine("test");
 
             if (IsOpen)
                 Flags.Pause = true;
