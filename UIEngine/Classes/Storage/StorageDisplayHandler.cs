@@ -51,6 +51,7 @@ namespace UIEngine.Classes.Storage
             _playerInventoryDisplay = new PlayerInventoryDisplay(this, graphics, content, playerInventoryPosition, GetLayeringDepth(UILayeringDepths.Low));
             _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer, true);
             _playerInventoryDisplay.LoadContent();
+            _playerInventoryDisplay.HasControl = true;
             _currentlySelectedInventoryDisplay = _playerInventoryDisplay;
         }
         public override void Update(GameTime gameTime)
@@ -84,6 +85,7 @@ namespace UIEngine.Classes.Storage
         /// </summary>
         private void SwapControl()
         {
+            _currentlySelectedInventoryDisplay.HasControl = false;
             if (_currentlySelectedInventoryDisplay == _playerInventoryDisplay)
             {
                 _currentlySelectedInventoryDisplay = _secondaryInventoryDisplay;
@@ -96,6 +98,8 @@ namespace UIEngine.Classes.Storage
                 _currentlySelectedInventoryDisplay = _playerInventoryDisplay;
 
             }
+            _currentlySelectedInventoryDisplay.HasControl = true;
+
         }
         public void DeactivateSecondaryDisplay() => _secondaryInventoryDisplay.Deactivate();
        

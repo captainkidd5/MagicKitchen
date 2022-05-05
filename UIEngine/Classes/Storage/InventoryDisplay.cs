@@ -29,7 +29,7 @@ namespace UIEngine.Classes.Storage
         protected int Rows;
         protected int Columns;
 
-        protected WalletDisplay WalletDisplay {get;set;}
+        protected WalletDisplay WalletDisplay { get; set; }
         protected StorageContainer StorageContainer { get; set; }
 
         protected List<InventorySlotDisplay> InventorySlots { get; set; }
@@ -37,15 +37,15 @@ namespace UIEngine.Classes.Storage
         protected int CurrentSelectedIndex { get; set; }
         internal InventorySlotDisplay SelectedSlot { get; set; }
 
-        internal new int Width { get { return DrawEndIndex * _buttonWidth; }}
+        internal new int Width { get { return DrawEndIndex * _buttonWidth; } }
 
 
-        public int Capacity { get { return StorageContainer.Capacity; }  }
+        public int Capacity { get { return StorageContainer.Capacity; } }
         protected int DrawEndIndex { get; set; }
 
         private StackPanel _stackPanel;
 
-        
+        public bool HasControl { get; set; }
         public bool IsOpen { get; set; }
         protected bool WasOpenLastFrame { get; set; }
 
@@ -64,7 +64,7 @@ namespace UIEngine.Classes.Storage
         {
 
             //base.LoadContent();
-            
+
 
 
         }
@@ -117,10 +117,10 @@ namespace UIEngine.Classes.Storage
             Selectables.Clear();
             InventorySlots = new List<InventorySlotDisplay>();
             int slotIndex = 0;
-            for(int i = 0; i < Rows; i++)
+            for (int i = 0; i < Rows; i++)
             {
                 StackRow stackRow = new StackRow(Columns * _buttonWidth);
-                for(int j =0; j < Columns; j++)
+                for (int j = 0; j < Columns; j++)
                 {
                     InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
                     Position, GetLayeringDepth(UILayeringDepths.Low));
@@ -141,11 +141,11 @@ namespace UIEngine.Classes.Storage
                     walletDisplayPosition = InventorySlots[InventorySlots.Count - 1].Position;
                 WalletDisplay = new WalletDisplay(this, graphics, content, walletDisplayPosition, GetLayeringDepth(UILayeringDepths.Low));
             }
-           
+
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
         }
 
-      
+
         public override void Update(GameTime gameTime)
         {
             Hovered = false;
@@ -154,23 +154,28 @@ namespace UIEngine.Classes.Storage
             if (IsActive)
             {
                 CheckLogic(gameTime);
-                
-                if(IsOpen)
-                    SelectedSlot.IsSelected = true;                                            
 
-                if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft))
+                if (IsOpen && HasControl)
+                    SelectedSlot.IsSelected = true;
+                if (HasControl)
+
                 {
-                    CurrentSelectedIndex = ScrollHelper.GetIndexFromScroll(Direction.Up, CurrentSelectedIndex, DrawEndIndex);
-                    SelectSlot(InventorySlots[CurrentSelectedIndex]);
-                    Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
-                }
-                else if(Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight))
-                {
-                    CurrentSelectedIndex = ScrollHelper.GetIndexFromScroll(Direction.Down, CurrentSelectedIndex, DrawEndIndex);
-                    SelectSlot(InventorySlots[CurrentSelectedIndex]);
-                    Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
 
 
+                    if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft))
+                    {
+                        CurrentSelectedIndex = ScrollHelper.GetIndexFromScroll(Direction.Up, CurrentSelectedIndex, DrawEndIndex);
+                        SelectSlot(InventorySlots[CurrentSelectedIndex]);
+                        Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
+                    }
+                    else if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight))
+                    {
+                        CurrentSelectedIndex = ScrollHelper.GetIndexFromScroll(Direction.Down, CurrentSelectedIndex, DrawEndIndex);
+                        SelectSlot(InventorySlots[CurrentSelectedIndex]);
+                        Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
+
+
+                    }
                 }
                 for (int i = 0; i < DrawEndIndex; i++)
                 {
@@ -181,7 +186,7 @@ namespace UIEngine.Classes.Storage
                 }
                 WalletDisplay?.Update(gameTime);
             }
-                CheckFramesActive();
+            CheckFramesActive();
             UpdateSelectorIndex();
 
         }
@@ -230,7 +235,7 @@ namespace UIEngine.Classes.Storage
                 }
                 WalletDisplay?.Draw(spriteBatch);
             }
-          
+
         }
 
     }
