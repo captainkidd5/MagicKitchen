@@ -121,6 +121,10 @@ namespace UIEngine.Classes.Storage
                 {
                     int newIndex = i - ExtendedInventoryCutOff;
                     int row = (int)Math.Floor((float)newIndex / (float)ExtendedInventoryCutOff);
+                    if (row == 1)
+                        row = 0;
+                    else if (row == 0)
+                        row = 1;
                     int column = newIndex % ExtendedInventoryCutOff;
                     slotPos = new Vector2(Position.X + ((column * _buttonWidth)), ((Position.Y - ((Rows - 1) * _buttonWidth) + _buttonWidth * row)));
 

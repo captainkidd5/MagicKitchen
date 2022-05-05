@@ -192,18 +192,43 @@ namespace UIEngine.Classes.Storage
                 {
 
 
-                    if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft))
+                    if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft) ||
+                        Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
                     {
-                        CurrentSelectedIndex = ScrollHelper.GetIndexFromScroll(Direction.Up, CurrentSelectedIndex, DrawEndIndex);
-                        SelectSlot(InventorySlots[CurrentSelectedIndex]);
-                        Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
-                    }
-                    else if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight))
-                    {
-                        CurrentSelectedIndex = ScrollHelper.GetIndexFromScroll(Direction.Down, CurrentSelectedIndex, DrawEndIndex);
-                        SelectSlot(InventorySlots[CurrentSelectedIndex]);
-                        Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
+                        int newIndex = CurrentSelectedIndex;
 
+                        newIndex = ScrollHelper.GetIndexFromScroll(Direction.Up, CurrentSelectedIndex, DrawEndIndex);
+                        if ((newIndex +1) % (Columns ) != 0 && newIndex + 1 < InventorySlots.Count )
+                            CurrentSelectedIndex = newIndex;
+                        SelectSlotAndMoveCursorIcon();
+                    }
+                    else if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight) ||
+                        Controls.WasGamePadButtonTapped(GamePadActionType.DPadRight))
+                    {
+                        int newIndex = CurrentSelectedIndex;
+                        newIndex = ScrollHelper.GetIndexFromScroll(Direction.Down, CurrentSelectedIndex, DrawEndIndex);
+                        //prevent wrapping
+                        if(newIndex % Columns != 0 )
+                            CurrentSelectedIndex = newIndex;
+
+                        SelectSlotAndMoveCursorIcon();
+
+                    }
+                    else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
+                    {
+                        CurrentSelectedIndex +=  Columns;
+                        if(CurrentSelectedIndex >= InventorySlots.Count )
+                            CurrentSelectedIndex = CurrentSelectedIndex - InventorySlots.Count;
+                        SelectSlotAndMoveCursorIcon();
+
+                    }
+                    else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
+                    {
+                        CurrentSelectedIndex -= Columns;
+                        if (CurrentSelectedIndex < 0)
+                            CurrentSelectedIndex = InventorySlots.Count + CurrentSelectedIndex;
+
+                        SelectSlotAndMoveCursorIcon();
 
                     }
                 }
@@ -221,6 +246,12 @@ namespace UIEngine.Classes.Storage
             CheckFramesActive();
             UpdateSelectorIndex();
 
+        }
+
+        private void SelectSlotAndMoveCursorIcon()
+        {
+            SelectSlot(InventorySlots[CurrentSelectedIndex]);
+            Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
         }
 
         /// <summary>
