@@ -40,11 +40,13 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             Key = "furniture";
             PlacedItems = new List<PlacedItem>();
-            for (int i = 0; i < MaxPlacedItems; i++)
+            for (int i = 0; i < (furnitureData.StorageRows * furnitureData.StorageColumns); i++)
             {
                 PlacedItems.Add(new PlacedItem(i, tile));
             }
             FurnitureData = furnitureData;
+            SubKey = "storage";
+
         }
 
         public void AddItem(int index, int itemId)
@@ -117,11 +119,22 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             }
            
         }
+
+        
         public static Furniture GetFurnitureFromProperty(string value,
             Tile tile, TileManager tileManager, IntermediateTmxShape tmxShape)
         {
-            FurnitureType furnitureType = (FurnitureType)Enum.Parse(typeof(FurnitureType), value);
+            string[] parsedValue = value.Split(',');
+            FurnitureType furnitureType = (FurnitureType)Enum.Parse(typeof(FurnitureType), parsedValue[0]);
             FurnitureData data = TileLoader.FurnitureLoader.FurnitureData[furnitureType];
+
+            if (parsedValue.Length > 1)
+            {
+                data.StorageRows = int.Parse(parsedValue[1]);
+                data.StorageColumns = int.Parse(parsedValue[2]);
+            }
+            if (furnitureType == FurnitureType.Storage)
+                value = "Furniture";
             Furniture furniture = (Furniture)System.Reflection.Assembly.GetExecutingAssembly()
                            .CreateInstance($"TiledEngine.Classes.TileAddons.FurnitureStuff.{value}", true, System.Reflection.BindingFlags.CreateInstance,
                            null, new object[] { data, tile, tileManager, tmxShape, "None" }, null, null);
