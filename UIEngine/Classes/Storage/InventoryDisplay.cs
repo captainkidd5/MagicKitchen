@@ -87,6 +87,13 @@ namespace UIEngine.Classes.Storage
         {
             base.Deactivate();
             IsOpen = false;
+            if (Controls.ControllerConnected && UI.Cursor.IsHoldingItem)
+            {
+                //Should drop the item if item is grabbed and player closes the inventory
+
+                UI.Cursor.OnItemDropped();
+
+            }
         }
         public virtual void LoadNewEntityInventory(StorageContainer storageContainer, bool displayWallet)
         {
@@ -148,6 +155,7 @@ namespace UIEngine.Classes.Storage
         public virtual void GiveControl()
         {
             HasControl = true;
+            CurrentSelectedIndex = 0;
             SelectSlot(InventorySlots[CurrentSelectedIndex]);
             Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
         }
@@ -159,7 +167,9 @@ namespace UIEngine.Classes.Storage
         public virtual void CloseExtendedInventory()
         {
             IsOpen = false;
-            SelectedSlot = InventorySlots[0];
+            CurrentSelectedIndex = 0;
+
+            SelectedSlot = InventorySlots[CurrentSelectedIndex];
         }
         public virtual void OpenExtendedInventory()
         {

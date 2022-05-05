@@ -32,7 +32,7 @@ namespace UIEngine.Classes.Storage
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            NormallyActivated = false;
+            NormallyActivated = true;
         }
 
         public override void LoadContent()
@@ -54,6 +54,11 @@ namespace UIEngine.Classes.Storage
             _playerInventoryDisplay.LoadContent();
             _playerInventoryDisplay.GiveControl();
             _currentlySelectedInventoryDisplay = _playerInventoryDisplay;
+        }
+
+        public override void Activate()
+        {
+            base.Activate();
         }
         public override void Update(GameTime gameTime)
         {
@@ -140,6 +145,7 @@ namespace UIEngine.Classes.Storage
             _secondaryInventoryDisplay.Activate();
             Activate();
             _playerInventoryDisplay.OpenExtendedInventory();
+            _playerInventoryDisplay.GiveControl();
         }
 
         

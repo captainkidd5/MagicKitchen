@@ -87,7 +87,12 @@ namespace UIEngine.Classes.Storage
                 ToggleOpen();
             }
         }
-
+        public override void Activate()
+        {
+            base.Activate();
+            GiveControl();
+            CloseExtendedInventory();
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
              DrawEndIndex = InventorySlots.Count;
@@ -140,7 +145,7 @@ namespace UIEngine.Classes.Storage
                 if(Controls.ControllerConnected && UI.Cursor.IsHoldingItem)
                 {
                     //Should drop the item if item is grabbed and player closes the inventory
-                    //Todo have player drop item
+            
 
                     UI.Cursor.OnItemDropped();
 
