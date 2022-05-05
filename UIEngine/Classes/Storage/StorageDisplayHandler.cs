@@ -20,18 +20,37 @@ namespace UIEngine.Classes.Storage
     {
         private InventoryDisplay _secondaryInventoryDisplay;
 
+
+        private PlayerInventoryDisplay _playerInventoryDisplay;
+        private int _playerInventoryTotalSlots = 10;
+        private int _playerSlotWidth = 64;
+
+
+        private InventoryDisplay _selectedInventoryDisplay;
         public StorageDisplayHandler(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             NormallyActivated = false;
         }
+
         public override void LoadContent()
+        {
+            //base.LoadContent();
+        }
+        public void Load(StorageContainer playerStorageContainer)
         {
             _secondaryInventoryDisplay = new InventoryDisplay(this, graphics, content, null,
                GetLayeringDepth(UILayeringDepths.Medium));
             _secondaryInventoryDisplay.Deactivate();
-            
+            //X and y actually don't matter, multiply by 10 because toolbar is 10 slots wide, at 64 pixels per slot
+
+            Rectangle totalToolBarRectangle = new Rectangle(0, 0, _playerSlotWidth * _playerInventoryTotalSlots, _playerSlotWidth);
+            Vector2 playerInventoryPosition = RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle);
+            _playerInventoryDisplay = new PlayerInventoryDisplay(this, graphics, content, playerInventoryPosition, GetLayeringDepth(UILayeringDepths.Low));
+            _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer, true);
+            _playerInventoryDisplay.LoadContent();
+
         }
         public override void Update(GameTime gameTime)
         {

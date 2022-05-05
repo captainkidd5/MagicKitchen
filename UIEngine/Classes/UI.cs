@@ -114,6 +114,7 @@ namespace UIEngine.Classes
             SettingsMenu = new SettingsMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
             StorageDisplayHandler = new StorageDisplayHandler(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
+            
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow,
                 EscMenu, RecipeBook, StorageDisplayHandler };
 
@@ -149,7 +150,7 @@ namespace UIEngine.Classes
         {
             return LayeringDepths[(int)depth];
         }
-        public static void LoadPlayerInventory(StorageContainer playerStorageContainer) => ToolBar.Load(playerStorageContainer);
+        public static void LoadPlayerInventory(StorageContainer playerStorageContainer) => StorageDisplayHandler.Load(playerStorageContainer);
 
         public static void LoadPlayerUnlockedRecipes(List<string> playerUnlockedrecipes) => RecipeBook.LoadAvailableRecipes(playerUnlockedrecipes);
         private static void LoadCurrentSection()

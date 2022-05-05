@@ -47,6 +47,8 @@ namespace UIEngine.Classes.Storage
 
         protected bool IsOpen { get; set; }
         protected bool WasOpenLastFrame { get; set; }
+
+        protected int ExtendedInventoryCutOff { get; set; }
         public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -70,6 +72,7 @@ namespace UIEngine.Classes.Storage
             Columns = DrawEndIndex;
             GenerateUI(displayWallet);
             SelectedSlot = InventorySlots[0];
+            ExtendedInventoryCutOff = InventorySlots.Count;
         }
 
 
@@ -148,7 +151,43 @@ namespace UIEngine.Classes.Storage
                 WalletDisplay?.Update(gameTime);
             }
                 CheckFramesActive();
+            UpdateSelectorIndex();
 
+        }
+
+        /// <summary>
+        /// Changes selected slot based on the controls scroll wheel behavior
+        /// </summary>
+        private void UpdateSelectorIndex()
+        {
+            int newSelectedSlot = 0;
+            Direction newDir = Direction.None;
+
+            if (Controls.ScrollWheelIncreased)
+                newDir = Direction.Down;
+            else if (Controls.ScrollWheelDecreased)
+                newDir = Direction.Up;
+            else
+                return;
+
+            newSelectedSlot = ScrollHelper.GetIndexFromScroll(
+                    newDir, InventorySlots.IndexOf(SelectedSlot),
+                    InventorySlots.Count);
+
+            //Selector shouldn't extend past main toolbar row if extended inventory is closed
+            if (!IsOpen)
+            {
+                if (newSelectedSlot == Capacity - 1)
+                    newSelectedSlot = ExtendedInventoryCutOff - 1;
+                else if (newSelectedSlot >= ExtendedInventoryCutOff)
+                    newSelectedSlot = 0;
+
+
+            }
+
+
+
+            SelectedSlot = InventorySlots[newSelectedSlot];
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

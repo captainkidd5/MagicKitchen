@@ -21,14 +21,10 @@ namespace UIEngine.Classes
     internal class ToolBar : InterfaceSection
     {
         private StackPanel _stackPanel;
-        private PlayerInventoryDisplay _playerInventoryDisplay;
-        private int _totalToolbarSlots = 10;
-        private int _toolBarSlotWidth = 64;
-
         private Button _openRecipeBookButton;
         private Rectangle _openRecipeIcon = new Rectangle(160, 80, 32, 32);
 
-        private int _totalWidth => _toolBarSlotWidth * _totalToolbarSlots;
+        
 
         public ToolBar(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -36,21 +32,17 @@ namespace UIEngine.Classes
 
         }
 
-        public void Load(StorageContainer playerStorageContainer)
+        public override void LoadContent()
         {
-            //X and y actually don't matter, multiply by 10 because toolbar is 10 slots wide, at 64 pixels per slot
-            Rectangle totalToolBarRectangle = new Rectangle(0, 0, _toolBarSlotWidth * _totalToolbarSlots, _toolBarSlotWidth);
-
-            Position = RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle) + new Vector2(0, -32);
+            Rectangle totalRectangle = new Rectangle(0, 0, Settings.ScreenWidth / 4, 32);
+            Position = RectangleHelper.PlaceBottomLeftScreen(totalRectangle) + new Vector2(0, -32);
            
             _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
 
-            _playerInventoryDisplay = new PlayerInventoryDisplay(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-            _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer, true);
-            _playerInventoryDisplay.LoadContent();
 
-            StackRow stackRow = new StackRow(_totalWidth);
-            stackRow.AddItem(_playerInventoryDisplay, StackOrientation.Left);
+
+            StackRow stackRow = new StackRow(totalRectangle.Width);
+  
 
             _openRecipeBookButton = new Button(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
                _openRecipeIcon, new Action(()=> { UI.RecipeBook.Toggle(); }));
@@ -58,9 +50,9 @@ namespace UIEngine.Classes
             _stackPanel.Add(stackRow);
 
 
-            TotalBounds = new Rectangle((int)_playerInventoryDisplay.Position.X, (int)_playerInventoryDisplay.Position.Y, totalToolBarRectangle.Width, totalToolBarRectangle.Height);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, totalRectangle.Width, totalRectangle.Height);
 
-
+            base.LoadContent();
 
         }
 
