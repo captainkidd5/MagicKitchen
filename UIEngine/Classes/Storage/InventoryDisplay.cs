@@ -45,8 +45,8 @@ namespace UIEngine.Classes.Storage
 
         private StackPanel _stackPanel;
 
-        public bool HasControl { get; set; }
-        public bool IsOpen { get; set; }
+        public bool HasControl { get; protected set; }
+        public bool IsOpen { get; protected set; }
         protected bool WasOpenLastFrame { get; set; }
 
         protected int ExtendedInventoryCutOff { get; set; }
@@ -145,7 +145,26 @@ namespace UIEngine.Classes.Storage
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
         }
 
+        public virtual void GiveControl()
+        {
+            HasControl = true;
+            SelectSlot(InventorySlots[CurrentSelectedIndex]);
+            Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
+        }
+        public virtual void RemoveControl()
+        {
+            HasControl = false;
+        }
 
+        public virtual void CloseExtendedInventory()
+        {
+            IsOpen = false;
+            SelectedSlot = InventorySlots[0];
+        }
+        public virtual void OpenExtendedInventory()
+        {
+            IsOpen = true;
+        }
         public override void Update(GameTime gameTime)
         {
             Hovered = false;

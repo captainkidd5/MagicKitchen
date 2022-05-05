@@ -83,8 +83,7 @@ namespace UIEngine.Classes
 
         public override void Update(GameTime gameTime)
         {
-           // if (!Controls.ControllerConnected)
-           // {
+
 
                 Move(Controls.MouseWorldPosition);
                 CursorSprite.Update(gameTime, Controls.MouseUIPosition);
@@ -98,7 +97,7 @@ namespace UIEngine.Classes
 
                 _toolTip.Update(gameTime, Controls.MouseUIPosition);
                 _wasWorldIconChanged = false;
-            //}
+          
 
         }
 

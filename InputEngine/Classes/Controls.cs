@@ -109,6 +109,10 @@ namespace InputEngine.Classes
             KeyboardManager = new KeyboardManager();
             MouseManager = new MouseManager(camera, graphics);
             _gamePadControls = new GamepadControls();
+
+            GamePadCapabilities capabilities = GamePad.GetCapabilities(
+                                              PlayerIndex.One);
+            ControllerConnected = capabilities.IsConnected;
         }
     
 

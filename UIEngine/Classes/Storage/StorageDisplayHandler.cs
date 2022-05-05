@@ -52,7 +52,7 @@ namespace UIEngine.Classes.Storage
             _playerInventoryDisplay = new PlayerInventoryDisplay(this, graphics, content, playerInventoryPosition, GetLayeringDepth(UILayeringDepths.Low));
             _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer, true);
             _playerInventoryDisplay.LoadContent();
-            _playerInventoryDisplay.HasControl = true;
+            _playerInventoryDisplay.GiveControl();
             _currentlySelectedInventoryDisplay = _playerInventoryDisplay;
         }
         public override void Update(GameTime gameTime)
@@ -71,7 +71,7 @@ namespace UIEngine.Classes.Storage
                     if (_currentlySelectedInventoryDisplay == _secondaryInventoryDisplay)
                         SwapControl();
                     DeactivateSecondaryDisplay();
-                    _playerInventoryDisplay.IsOpen = false;
+                    _playerInventoryDisplay.CloseExtendedInventory();
                     Flags.Pause = false;
 
 
@@ -89,20 +89,20 @@ namespace UIEngine.Classes.Storage
         /// </summary>
         private void SwapControl()
         {
-            _currentlySelectedInventoryDisplay.HasControl = false;
+            _currentlySelectedInventoryDisplay.RemoveControl();
             if (_currentlySelectedInventoryDisplay == _playerInventoryDisplay)
             {
                 _currentlySelectedInventoryDisplay = _secondaryInventoryDisplay;
-                _currentlySelectedInventoryDisplay.IsOpen = true;
+                _currentlySelectedInventoryDisplay.OpenExtendedInventory();
 
             }
             else
             {
-                _currentlySelectedInventoryDisplay.IsOpen = false;
+                _currentlySelectedInventoryDisplay.CloseExtendedInventory();
                 _currentlySelectedInventoryDisplay = _playerInventoryDisplay;
 
             }
-            _currentlySelectedInventoryDisplay.HasControl = true;
+            _currentlySelectedInventoryDisplay.GiveControl();
 
         }
         public void DeactivateSecondaryDisplay()
@@ -139,7 +139,7 @@ namespace UIEngine.Classes.Storage
 
             _secondaryInventoryDisplay.Activate();
             Activate();
-            _playerInventoryDisplay.IsOpen = true;
+            _playerInventoryDisplay.OpenExtendedInventory();
         }
 
         

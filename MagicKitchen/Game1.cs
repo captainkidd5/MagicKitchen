@@ -112,6 +112,8 @@ namespace MagicKitchen
 
 
             Controls.Load(Camera, GraphicsDevice, Content);
+            RenderTargetManager.Load(GraphicsDevice);
+
             SpriteFactory.LoadContent(GraphicsDevice, Content);
 
 
@@ -120,7 +122,6 @@ namespace MagicKitchen
             UI.Load(this, GraphicsDevice, Content, _mainMenuContentManager);
             _playerManager.LoadContent();
 
-            RenderTargetManager.Load(GraphicsDevice);
             SoundFactory.Load(Content);
             Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs {
                 VirtualWidth = (int)Settings.NativeWidth,
