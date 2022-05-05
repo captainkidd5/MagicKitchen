@@ -63,8 +63,11 @@ namespace UIEngine.Classes.Storage
             _currentlySelectedInventoryDisplay.UpdateSelectorSprite(gameTime);
             if (IsActive && !WasJustActivated)
             {
+
                 if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
                 {
+                    if (_currentlySelectedInventoryDisplay == _secondaryInventoryDisplay)
+                        SwapControl();
                     _secondaryInventoryDisplay.Deactivate();
 
                 }
@@ -82,9 +85,17 @@ namespace UIEngine.Classes.Storage
         private void SwapControl()
         {
             if (_currentlySelectedInventoryDisplay == _playerInventoryDisplay)
+            {
                 _currentlySelectedInventoryDisplay = _secondaryInventoryDisplay;
+                _currentlySelectedInventoryDisplay.IsOpen = true;
+
+            }
             else
+            {
+                _currentlySelectedInventoryDisplay.IsOpen = false;
                 _currentlySelectedInventoryDisplay = _playerInventoryDisplay;
+
+            }
         }
         public void DeactivateSecondaryDisplay() => _secondaryInventoryDisplay.Deactivate();
        

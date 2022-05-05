@@ -45,7 +45,8 @@ namespace UIEngine.Classes.Storage
 
         private StackPanel _stackPanel;
 
-        protected bool IsOpen { get; set; }
+        
+        public bool IsOpen { get; set; }
         protected bool WasOpenLastFrame { get; set; }
 
         protected int ExtendedInventoryCutOff { get; set; }
@@ -77,6 +78,15 @@ namespace UIEngine.Classes.Storage
         {
             _selectorSprite.Draw(spriteBatch);
 
+        }
+        public override void Activate()
+        {
+            base.Activate();
+        }
+        public override void Deactivate()
+        {
+            base.Deactivate();
+            IsOpen = false;
         }
         public virtual void LoadNewEntityInventory(StorageContainer storageContainer, bool displayWallet)
         {
