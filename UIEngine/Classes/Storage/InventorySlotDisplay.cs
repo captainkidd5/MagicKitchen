@@ -84,7 +84,7 @@ namespace UIEngine.Classes.Storage
 
             if ((Clicked || (IsSelected && Controls.WasGamePadButtonTapped(GamePadActionType.Select)) && 
                 //don't want to immediately select the hovered item if inventory was literally just opened
-                !(parentSection as InventoryDisplay).WasJustOpened))
+                !(parentSection as InventoryDisplay).WasExtendedJustOpened))
             {
                 (parentSection as InventoryDisplay).SelectSlot(this);
                 //Controller connected auto
@@ -97,11 +97,6 @@ namespace UIEngine.Classes.Storage
 
                 _storageSlot.RightClickInteraction(ref UI.Cursor.HeldItem, ref UI.Cursor.HeldItemCount);
             }
-
-            //if(IsSelected && Controls.WasGamePadButtonTapped(GamePadActionType.AlternativeAction))
-            //{
-
-            //}
             _text.Update(gameTime, Position);
         }
         public override void Draw(SpriteBatch spriteBatch)

@@ -62,9 +62,15 @@ namespace UIEngine.Classes.Storage
         }
         public override void Update(GameTime gameTime)
         {
-            if(_secondaryInventoryDisplay.IsActive && Controls.ControllerConnected && Controls.WasGamePadButtonTapped(GamePadActionType.TriggerRight))
+            if(_secondaryInventoryDisplay.IsActive && Controls.ControllerConnected)
             {
-                SwapControl();
+                if(Controls.WasGamePadButtonTapped(GamePadActionType.TriggerRight))
+                    SwapControl(_secondaryInventoryDisplay);
+                else if (Controls.WasGamePadButtonTapped(GamePadActionType.TriggerLeft))
+                {
+                    SwapControl(_playerInventoryDisplay);
+
+                }
             }
             base.Update(gameTime);
             _currentlySelectedInventoryDisplay.UpdateSelectorSprite(gameTime);
@@ -75,7 +81,7 @@ namespace UIEngine.Classes.Storage
                     Controls.WasGamePadButtonTapped(GamePadActionType.Y))
                 {
                     if (_currentlySelectedInventoryDisplay == _secondaryInventoryDisplay)
-                        SwapControl();
+                        SwapControl(_playerInventoryDisplay);
                     if (_secondaryInventoryDisplay.IsActive || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
                         _playerInventoryDisplay.CloseExtendedInventory();
                     DeactivateSecondaryDisplay();
@@ -96,19 +102,26 @@ namespace UIEngine.Classes.Storage
         /// <summary>
         /// Swaps active inventory, useful for controller support where cursor cannot move between inventories
         /// </summary>
-        private void SwapControl()
+        private void SwapControl(InventoryDisplay inventoryDisplay)
         {
+            //Do nothing if tried to swap to currently controlled inventory
+            if (_currentlySelectedInventoryDisplay == inventoryDisplay)
+                return;
+
             _currentlySelectedInventoryDisplay.RemoveControl();
-            if (_currentlySelectedInventoryDisplay == _playerInventoryDisplay)
+
+            if (inventoryDisplay == _playerInventoryDisplay)
             {
-                _currentlySelectedInventoryDisplay = _secondaryInventoryDisplay;
-                _currentlySelectedInventoryDisplay.OpenExtendedInventory();
+
+                _currentlySelectedInventoryDisplay = _playerInventoryDisplay;
 
             }
-            else
+            else if( inventoryDisplay == _secondaryInventoryDisplay)
             {
-                _currentlySelectedInventoryDisplay.CloseExtendedInventory();
-                _currentlySelectedInventoryDisplay = _playerInventoryDisplay;
+                _currentlySelectedInventoryDisplay = _secondaryInventoryDisplay;
+
+                _currentlySelectedInventoryDisplay.OpenExtendedInventory();
+                //_currentlySelectedInventoryDisplay.CloseExtendedInventory();
 
             }
             _currentlySelectedInventoryDisplay.GiveControl();
@@ -147,7 +160,7 @@ namespace UIEngine.Classes.Storage
             _secondaryInventoryDisplay.LoadNewEntityInventory(storageContainer, displayWallet);
 
             _secondaryInventoryDisplay.Activate();
-            Activate();
+            //Activate();
             _playerInventoryDisplay.OpenExtendedInventory();
             _playerInventoryDisplay.GiveControl();
         }

@@ -46,10 +46,11 @@ namespace UIEngine.Classes.Storage
         private StackPanel _stackPanel;
 
         public bool HasControl { get; protected set; }
-        public bool IsOpen { get; protected set; }
-        protected bool WasOpenLastFrame { get; set; }
+        public bool ExtendedInventoryOpen { get; 
+            protected set; }
+        protected bool WasExtendedOpenLastFrame { get; set; }
 
-        public bool WasJustOpened => IsOpen && !WasOpenLastFrame;
+        public bool WasExtendedJustOpened => ExtendedInventoryOpen && !WasExtendedOpenLastFrame;
 
         protected int ExtendedInventoryCutOff { get; set; }
 
@@ -88,7 +89,7 @@ namespace UIEngine.Classes.Storage
         public override void Deactivate()
         {
             base.Deactivate();
-            IsOpen = false;
+            ExtendedInventoryOpen = false;
             if (Controls.ControllerConnected && UI.Cursor.IsHoldingItem)
             {
                 //Should drop the item if item is grabbed and player closes the inventory
@@ -169,12 +170,12 @@ namespace UIEngine.Classes.Storage
 
         public virtual void CloseExtendedInventory()
         {
-            IsOpen = false;
+            ExtendedInventoryOpen = false;
 
         }
         public virtual void OpenExtendedInventory()
         {
-            IsOpen = true;
+            ExtendedInventoryOpen = true;
         }
         public override void Update(GameTime gameTime)
         {
@@ -184,7 +185,7 @@ namespace UIEngine.Classes.Storage
             {
                 CheckLogic(gameTime);
 
-                if (IsOpen && HasControl)
+                if (ExtendedInventoryOpen && HasControl)
                     SelectedSlot.IsSelected = true;
                 if (HasControl)
 
@@ -214,7 +215,7 @@ namespace UIEngine.Classes.Storage
                         Hovered = true;
                 }
                 WalletDisplay?.Update(gameTime);
-                WasOpenLastFrame = IsOpen;
+                WasExtendedOpenLastFrame = ExtendedInventoryOpen;
 
             }
             CheckFramesActive();
@@ -242,7 +243,7 @@ namespace UIEngine.Classes.Storage
                     InventorySlots.Count);
 
             //Selector shouldn't extend past main toolbar row if extended inventory is closed
-            if (!IsOpen)
+            if (!ExtendedInventoryOpen)
             {
                 if (newSelectedSlot == Capacity - 1)
                     newSelectedSlot = ExtendedInventoryCutOff - 1;

@@ -70,11 +70,11 @@ namespace UIEngine.Classes.Storage
             base.Update(gameTime);
 
 
-            if (IsOpen)
+            if (ExtendedInventoryOpen)
                 Flags.Pause = true;
             _openBigInventoryButton.Update(gameTime);
 
-            if (WasOpenLastFrame && !IsOpen)
+            if (WasExtendedOpenLastFrame && !ExtendedInventoryOpen)
                 Flags.Pause = false;
         }
 
@@ -96,7 +96,7 @@ namespace UIEngine.Classes.Storage
         public override void Draw(SpriteBatch spriteBatch)
         {
              DrawEndIndex = InventorySlots.Count;
-            if (!IsOpen)
+            if (!ExtendedInventoryOpen)
                 DrawEndIndex = ExtendedInventoryCutOff;
             base.Draw(spriteBatch);
 
@@ -150,9 +150,9 @@ namespace UIEngine.Classes.Storage
         /// </summary>
         private void ToggleOpen()
         {
-            IsOpen = !IsOpen;
+            ExtendedInventoryOpen = !ExtendedInventoryOpen;
             //reset selector to 0 if just closed
-            if(!IsOpen)
+            if(!ExtendedInventoryOpen)
             {
                 SelectedSlot = InventorySlots[0];
                 if(Controls.ControllerConnected && UI.Cursor.IsHoldingItem)
@@ -170,7 +170,7 @@ namespace UIEngine.Classes.Storage
 
         private void SwitchSpriteFromToggleStatus()
         {
-            if (IsOpen)
+            if (ExtendedInventoryOpen)
                 _openBigInventoryButton.SwapBackgroundSprite(_closeBigInventoryUpArrowSourceRectangle);
             else
                 _openBigInventoryButton.SwapBackgroundSprite(_openBigInventoryUpArrowSourceRectangle);
