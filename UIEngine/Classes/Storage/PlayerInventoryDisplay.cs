@@ -82,7 +82,7 @@ namespace UIEngine.Classes.Storage
         {
             base.CheckLogic(gameTime);
 
-            if (Controls.WasGamePadButtonTapped(GamePadActionType.X) || Controls.WasKeyTapped(Keys.Tab))
+            if (Controls.WasGamePadButtonTapped(GamePadActionType.Y) || Controls.WasKeyTapped(Keys.Tab))
             {
                 ToggleOpen();
             }
@@ -131,6 +131,19 @@ namespace UIEngine.Classes.Storage
 
             //ChildSections.AddRange(InventorySlots);
 
+        }
+        public override void CloseExtendedInventory()
+        {
+            base.CloseExtendedInventory();
+            //Don't want to reset the index back to zero if current selection isn't in the extended inventory, that 
+            //would just be annoying
+            if(CurrentSelectedIndex > ExtendedInventoryCutOff)
+            {
+                CurrentSelectedIndex = 0;
+
+                SelectedSlot = InventorySlots[CurrentSelectedIndex];
+            }
+                
         }
         /// <summary>
         /// Button action for arrow sprite, swaps between two sprites and opens/closes extended inventory

@@ -155,7 +155,7 @@ namespace UIEngine.Classes.Storage
         public virtual void GiveControl()
         {
             HasControl = true;
-            CurrentSelectedIndex = 0;
+           // CurrentSelectedIndex = 0;
             SelectSlot(InventorySlots[CurrentSelectedIndex]);
             Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
         }
@@ -167,9 +167,7 @@ namespace UIEngine.Classes.Storage
         public virtual void CloseExtendedInventory()
         {
             IsOpen = false;
-            CurrentSelectedIndex = 0;
 
-            SelectedSlot = InventorySlots[CurrentSelectedIndex];
         }
         public virtual void OpenExtendedInventory()
         {
