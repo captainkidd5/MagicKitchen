@@ -134,7 +134,7 @@ namespace UIEngine.Classes
         public static void ActivateSecondaryInventoryDisplay(StorageType t, StorageContainer storageContainer, bool displayWallet = false)
             => StorageDisplayHandler.ActivateSecondaryInventoryDisplay(t, storageContainer, displayWallet);
 
-        public static void DeactivateSecondaryInventoryDisplay() => StorageDisplayHandler.Deactivate();
+        public static void DeactivateSecondaryInventoryDisplay() => StorageDisplayHandler.DeactivateSecondaryDisplay();
 
         internal static void AssignLayeringDepths(ref float[] layeringDepths, float baseDepth, bool largeIncrement = false)
         {

@@ -59,11 +59,14 @@ namespace UIEngine.Classes.Storage
             {
                 if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
                 {
-                    Deactivate();
+                    _secondaryInventoryDisplay.Deactivate();
 
                 }
             }
         }
+
+        public void DeactivateSecondaryDisplay() => _secondaryInventoryDisplay.Deactivate();
+       
         public void ActivateSecondaryInventoryDisplay(StorageType t, StorageContainer storageContainer, bool displayWallet = false)
         {
             ChildSections.Remove(_secondaryInventoryDisplay);
