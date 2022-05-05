@@ -157,6 +157,7 @@ namespace UIEngine.Classes.Storage
             HasControl = true;
            // CurrentSelectedIndex = 0;
             SelectSlot(InventorySlots[CurrentSelectedIndex]);
+            if(Controls.ControllerConnected)
             Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
         }
         public virtual void RemoveControl()

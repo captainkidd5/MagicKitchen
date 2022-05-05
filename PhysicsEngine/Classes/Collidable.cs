@@ -49,6 +49,14 @@ namespace PhysicsEngine.Classes
         protected HullBody BigSensor { get; set; }
         protected List<Category> BigSensorCollidesWithCategories { get; set; }
 
+        /// <summary>
+        /// Will return if is hovered, regardless of input type
+        /// </summary>
+        /// <param name="controllerConnected">Physics engine may not reference controls project, must pass in as param</param>
+        protected bool IsHovered(bool controllerConnected)
+        {
+            return (controllerConnected && PlayerInControllerActionRange) || (MouseHovering && PlayerInControllerActionRange);
+        }
         public Collidable()
         {
             HullBodies = new List<HullBody>();

@@ -62,7 +62,7 @@ namespace UIEngine.Classes.Storage
         }
         public override void Update(GameTime gameTime)
         {
-            if(Controls.ControllerConnected && Controls.WasGamePadButtonTapped(GamePadActionType.TriggerRight))
+            if(_secondaryInventoryDisplay.IsActive && Controls.ControllerConnected && Controls.WasGamePadButtonTapped(GamePadActionType.TriggerRight))
             {
                 SwapControl();
             }

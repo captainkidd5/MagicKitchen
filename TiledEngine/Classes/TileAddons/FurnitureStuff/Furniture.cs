@@ -94,7 +94,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (PlayerInControllerActionRange || MouseHovering)
+            if (IsHovered(Controls.ControllerConnected))
             {
                 UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
                 if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
