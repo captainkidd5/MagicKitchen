@@ -1,4 +1,5 @@
-﻿using Globals.Classes.Helpers;
+﻿using Globals.Classes;
+using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
@@ -69,7 +70,10 @@ namespace UIEngine.Classes.Storage
                 {
                     if (_currentlySelectedInventoryDisplay == _secondaryInventoryDisplay)
                         SwapControl();
-                    _secondaryInventoryDisplay.Deactivate();
+                    DeactivateSecondaryDisplay();
+                    _playerInventoryDisplay.IsOpen = false;
+                    Flags.Pause = false;
+
 
                 }
             }
@@ -101,7 +105,10 @@ namespace UIEngine.Classes.Storage
             _currentlySelectedInventoryDisplay.HasControl = true;
 
         }
-        public void DeactivateSecondaryDisplay() => _secondaryInventoryDisplay.Deactivate();
+        public void DeactivateSecondaryDisplay()
+        {
+            _secondaryInventoryDisplay.Deactivate();
+        }
        
         public void ActivateSecondaryInventoryDisplay(StorageType t, StorageContainer storageContainer, bool displayWallet = false)
         {
@@ -132,6 +139,7 @@ namespace UIEngine.Classes.Storage
 
             _secondaryInventoryDisplay.Activate();
             Activate();
+            _playerInventoryDisplay.IsOpen = true;
         }
 
         
