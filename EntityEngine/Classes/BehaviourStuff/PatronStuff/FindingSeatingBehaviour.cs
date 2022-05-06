@@ -12,6 +12,8 @@ using TiledEngine.Classes;
 using TiledEngine.Classes.Helpers;
 using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
+using TiledEngine.Classes.TileAddons.FurnitureStuff.SeatingFurniture;
+using static DataModels.Enums;
 
 namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 {
@@ -77,9 +79,10 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             {
                 if (Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
                 {
-                    Entity.FaceDirection(Vector2Helper.GetDirectionOfEntityInRelationToEntity(
-                        Entity.Position,_table.Tile.CentralPosition));
-                    if (_table.SitDown())
+                    Direction direction = Vector2Helper.GetDirectionOfEntityInRelationToEntity(
+                        Entity.Position, _table.Tile.CentralPosition);
+                    Entity.FaceDirection(direction);
+                    if (_table.SitDown(Vector2Helper.GetOppositeDirection(direction)))
                     {
                         HasReachedTable = true;
                         StatusIcon.SetStatus(StatusIconType.WantFood);

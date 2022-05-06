@@ -63,6 +63,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                            .CreateInstance($"TiledEngine.Classes.TileAddons.FurnitureStuff.{parsedValue[0]}", true, System.Reflection.BindingFlags.CreateInstance,
                            null, new object[] { data, tile, tileManager, tmxShape, "None" }, null, null);
 
+            if (furniture == null)
+                throw new Exception($"Furniture type {parsedValue[0]} wasn't found. Did you make sure the class is in the correct namespaced hardcoded" +
+                    $"above?");
             return furniture;
 
         }

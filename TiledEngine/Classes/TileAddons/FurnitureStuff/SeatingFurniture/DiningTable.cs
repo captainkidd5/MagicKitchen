@@ -11,13 +11,14 @@ using TiledEngine.Classes.Helpers;
 using UIEngine.Classes;
 using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Dynamics;
+using static DataModels.Enums;
 
 namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
     public class DiningTable : StorableFurniture
     {
-
-        public int TotalSeatingCapacity { get; private set; } = 1;
+        public Dictionary<Direction, bool> Seats { get; set; }
+        public int TotalSeatingCapacity { get; private set; } = 4;
         public int OccupiedSeatCount { get; internal set; }
         public bool SeatingAvailable => OccupiedSeatCount < TotalSeatingCapacity;
 
@@ -29,6 +30,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         }
         protected override void AddPlacedItems(FurnitureData furnitureData, Tile tile)
         {
+            Seats = new Dictionary<Direction, bool>();
+            for(int i =0; i < TotalSeatingCapacity; i++)
+            {
+                Seats.Add((Direction)(i + 1), false);
+            }
             TotalStorageCapacity = 5;
             for (int i = 0; i < (TotalStorageCapacity); i++)
             {
@@ -40,12 +46,17 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base.Update(gameTime);
            
         }
-        public bool SitDown()
+        public bool SitDown(Direction direction)
         {
             if(SeatingAvailable)
             {
-                OccupiedSeatCount++;
-                return true;
+                if(!Seats[direction])
+                {
+                    OccupiedSeatCount++;
+                    Seats[direction] = true;
+                    return true;
+                }
+                
             }
             return false;
         }
