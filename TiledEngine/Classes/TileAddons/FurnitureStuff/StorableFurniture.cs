@@ -68,7 +68,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 if(FurnitureData.VisibleStorageIndicies != null)
                 {
                     //Assign visible storage slots based on passed in indicies from json
-                    if (FurnitureData.VisibleStorageIndicies.Contains(i))
+                    if (FurnitureData.VisibleStorageIndicies.Any(x => x.Index == i))
                         _storageContainer.Slots[i].HoldsVisibleFurnitureItem = true;
                 }
                
@@ -84,11 +84,24 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                     }
                 }
 
-                placedItem.Load(TopOfFurniture, _storageContainer.Slots[i]);
+                placedItem.Load(TopOfFurniture + GetVisibleStorageIndexPositionOffSet(i), _storageContainer.Slots[i]);
                 if (!loadedItemsWereSavedAtLeastOnce)
                     TileManager.PlacedItemManager.AddNewItem(placedItem);
 
             }
+        }
+
+        /// <summary>
+        /// Returns position offset given by json data at specified index
+        /// </summary>
+        private Vector2 GetVisibleStorageIndexPositionOffSet(int index)
+        {
+            if (FurnitureData.VisibleStorageIndicies == null)
+                return Vector2.Zero;
+            VisibleStorageIndex v = FurnitureData.VisibleStorageIndicies.FirstOrDefault(x => x.Index == index);
+            if(v == null)
+                return Vector2.Zero;
+            return new Vector2(v.XOffSet, v.YOffSet);
         }
         public void AddItem(int index, int itemId)
         {

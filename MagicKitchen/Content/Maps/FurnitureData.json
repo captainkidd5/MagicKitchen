@@ -2,13 +2,32 @@
 {
     "FurnitureType": "StorableFurniture",
     "StorageRows" : 2,
-    "StorageColumns": 4,
-    "VisibleStorageIndicies":[0,1,3,4]
-
+    "StorageColumns": 4
 },
 {
     "FurnitureType": "DiningTable",
-    "VisibleStorageIndicies":[0,1,3,4]
+    "VisibleStorageIndicies":[
+        {
+            "Index": 0,
+            "XOffSet":0,
+            "YOffSet": -8
+        },
+        {
+            "Index": 1,
+            "XOffSet":-8,
+            "YOffSet": 0
+        },
+        {
+            "Index": 3,
+            "XOffSet":8,
+            "YOffSet": 0
+        },
+        {
+            "Index": 4,
+            "XOffSet":0,
+            "YOffSet": 8
+        }
+    ]
 }
 
 ]
