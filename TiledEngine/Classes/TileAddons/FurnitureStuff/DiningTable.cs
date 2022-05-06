@@ -14,7 +14,7 @@ using VelcroPhysics.Dynamics;
 
 namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
-    public class DiningTable : Furniture
+    public class DiningTable : StorableFurniture
     {
 
         public int TotalSeatingCapacity { get; private set; } = 1;
@@ -26,7 +26,6 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             IntermediateTmxShape intermediateTmxShape,string actionType) :
             base(furnitureData,tile, tileManager, intermediateTmxShape, actionType)
         {
-            SubKey = "diningTable";
         }
         public override void Update(GameTime gameTime)
         {

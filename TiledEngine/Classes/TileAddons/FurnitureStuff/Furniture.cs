@@ -20,17 +20,6 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
     public class Furniture : LocateableTileAddon
     {
-        private StorageContainer _storageContainer;
-
-        public List<PlacedItem> PlacedItems { get; set; }
-
-        protected int MaxPlacedItems { get; set; } = 4;
-
-        public int ItemCount => PlacedItems?.Count ?? 0;
-
-        public bool MayPlaceItem => ItemCount <= MaxPlacedItems;
-
-        protected Vector2 TopOfFurniture => new Vector2(CenteredPosition.X, CenteredPosition.Y - IntermediateTmxShape.Radius);
 
         protected FurnitureData FurnitureData { get; private set; }
 
@@ -39,86 +28,21 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base(tile, tileManager, intermediateTmxShape, actionType)
         {
             Key = "furniture";
-            PlacedItems = new List<PlacedItem>();
-            for (int i = 0; i < (furnitureData.StorageRows * furnitureData.StorageColumns); i++)
-            {
-                PlacedItems.Add(new PlacedItem(i, tile));
-            }
+            SubKey = this.GetType().Name;   
             FurnitureData = furnitureData;
-            SubKey = "storage";
 
         }
 
-        public void AddItem(int index, int itemId)
-        {
-            PlacedItems[index] = new PlacedItem(itemId, Tile);
-            PlacedItems[index].Load(TopOfFurniture, _storageContainer.Slots[PlacedItems[index].ListIndex]);
-            TileManager.PlacedItemManager.AddNewItem(PlacedItems[index]);
-        }
+
         public override void Load()
         {
             base.Load();
-            _storageContainer = new StorageContainer(FurnitureData.StorageRows * FurnitureData.StorageColumns, FurnitureData);
-            List<PlacedItem> loadedPlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
-            bool loadedItemsWereSavedAtLeastOnce = loadedPlacedItems.Count > 0;
-            //Means there were some saved items here previously. Load those in instead of default load
-            if (loadedPlacedItems.Count > 0)
-                PlacedItems = loadedPlacedItems;
-
-            PlacedItems.OrderBy(x => x.ListIndex);
-
-
-
-            for (int i = 0; i < PlacedItems.Count; i++)
-            {
-                PlacedItem placedItem = PlacedItems[i];
-              // if (i == 0)
-                    _storageContainer.Slots[i].HoldsVisibleFurnitureItem = true;
-                if (placedItem.ItemId > 0)
-                {
-
-                    ItemData itemData = ItemFactory.GetItemData(placedItem.ItemId);
-                    for (int j = 0; j < placedItem.ItemCount; j++)
-                    {
-                        _storageContainer.Slots[i].Add(itemData.Name);
-
-                    }
-                }
-
-                placedItem.Load(TopOfFurniture, _storageContainer.Slots[i]);
-                if(!loadedItemsWereSavedAtLeastOnce)
-                    TileManager.PlacedItemManager.AddNewItem(placedItem);
-
-            }
-
-
+  
 
 
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-            if (IsHovered(Controls.ControllerConnected))
-            {
-                UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
-                if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
-                {
-                    UI.ActivateSecondaryInventoryDisplay(StorageType.Craftable, _storageContainer);
-                }
-            }
-        }
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-            for(int i =0; i < _storageContainer.Slots.Count; i++)
-            {
-                if(_storageContainer.Slots[i].HoldsVisibleFurnitureItem)
-                    PlacedItems[i].Draw(spriteBatch);
-
-            }
-           
-        }
+ 
 
         
         public static Furniture GetFurnitureFromProperty(string value,
@@ -133,10 +57,10 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 data.StorageRows = int.Parse(parsedValue[1]);
                 data.StorageColumns = int.Parse(parsedValue[2]);
             }
-            if (furnitureType == FurnitureType.Storage)
-                value = "Furniture";
+
+
             Furniture furniture = (Furniture)System.Reflection.Assembly.GetExecutingAssembly()
-                           .CreateInstance($"TiledEngine.Classes.TileAddons.FurnitureStuff.{value}", true, System.Reflection.BindingFlags.CreateInstance,
+                           .CreateInstance($"TiledEngine.Classes.TileAddons.FurnitureStuff.{parsedValue[0]}", true, System.Reflection.BindingFlags.CreateInstance,
                            null, new object[] { data, tile, tileManager, tmxShape, "None" }, null, null);
 
             return furniture;

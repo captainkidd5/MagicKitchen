@@ -10,7 +10,7 @@ using TiledEngine.Classes.Helpers;
 
 namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
-    internal class KitchenAppliance : Furniture
+    internal class KitchenAppliance : StorableFurniture
     {
         private ProgressIndicator _progressIndicator;
 

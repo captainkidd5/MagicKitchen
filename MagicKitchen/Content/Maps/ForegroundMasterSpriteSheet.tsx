@@ -68,6 +68,13 @@
    <frame tileid="619" duration="800"/>
   </animation>
  </tile>
+ <tile id="859">
+  <properties>
+   <property name="furniture" value="StorableFurniture,2,4"/>
+   <property name="newHitBox" value="0,0,16,16"/>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
  <tile id="890">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>

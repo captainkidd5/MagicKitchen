@@ -7,8 +7,9 @@ namespace DataModels.MapStuff
     public enum FurnitureType
     {
         None = 0,
-        Storage = 1,
-        DiningTable = 2,
+        Furniture = 1,
+        StorableFurniture = 2,
+        DiningTable = 3,
 
     }
 

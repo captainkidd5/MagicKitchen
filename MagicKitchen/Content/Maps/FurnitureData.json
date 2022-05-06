@@ -1,6 +1,6 @@
 [
 {
-    "FurnitureType": "Storage",
+    "FurnitureType": "StorableFurniture",
     "StorageRows" : 2,
     "StorageColumns": 4
 }
