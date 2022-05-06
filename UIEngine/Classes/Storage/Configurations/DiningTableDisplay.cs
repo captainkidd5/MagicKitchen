@@ -51,7 +51,7 @@ namespace UIEngine.Classes.Storage.Configurations
                          //bottom right
                          (i == 2 && j == 2))
                     {
-
+                        stackRow.AddSpacer(new Rectangle(0, 0, 64, 64), StackOrientation.Left);
                     }
                     else
                     {

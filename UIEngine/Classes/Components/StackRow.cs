@@ -38,20 +38,30 @@ namespace UIEngine.Classes.Components
         }
         public void AddSpacer(Rectangle rectangle, StackOrientation orientation)
         {
-
+            Place(rectangle, orientation);
         }
+
         public void AddItem(InterfaceSection section, StackOrientation orientation)
         {
-            if (section.Width + _currentContentWidth + Gap > _maxWidth)
+            Vector2 newPosition = Place(section.TotalBounds, orientation);
+
+
+            section.MovePosition(newPosition);
+            _rowSections.Add(section);
+        }
+
+        private Vector2 Place(Rectangle rectangle, StackOrientation stackOrientation)
+        {
+            if (rectangle.Width + _currentContentWidth + Gap > _maxWidth)
                 throw new Exception($"Stack row max width exceeded");
 
-            if(section.Height > Height)
-                Height = section.Height;
+            if (rectangle.Height > Height)
+                Height = rectangle.Height;
 
             Vector2 newPos = Vector2.Zero;
-            _currentContentWidth += section.Width + Gap;
+            _currentContentWidth += rectangle.Width + Gap;
 
-            switch (orientation)
+            switch (stackOrientation)
             {
                 case StackOrientation.None:
                     throw new Exception($"Invalid orientation");
@@ -60,17 +70,16 @@ namespace UIEngine.Classes.Components
                     _currentX = _currentContentWidth;
                     break;
                 case StackOrientation.Center:
-                    newPos = new Vector2((_maxWidth / 2) - section.Width /2, 0);
+                    newPos = new Vector2((_maxWidth / 2) - rectangle.Width / 2, 0);
                     break;
                 case StackOrientation.Right:
-                    newPos = new Vector2(_maxWidth - section.Width , 0);
+                    newPos = new Vector2(_maxWidth - rectangle.Width, 0);
 
                     break;
             }
-
-            section.MovePosition(newPos);
-            _rowSections.Add(section);
+            return newPos;
         }
+       
 
         public void AdjustPosition(Vector2 pos)
         {
