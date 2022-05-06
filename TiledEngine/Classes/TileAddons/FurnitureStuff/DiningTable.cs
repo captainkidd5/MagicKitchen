@@ -27,6 +27,14 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base(furnitureData,tile, tileManager, intermediateTmxShape, actionType)
         {
         }
+        protected override void AddPlacedItems(FurnitureData furnitureData, Tile tile)
+        {
+            TotalStorageCapacity = 5;
+            for (int i = 0; i < (TotalStorageCapacity); i++)
+            {
+                PlacedItems.Add(new PlacedItem(i, tile));
+            }
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

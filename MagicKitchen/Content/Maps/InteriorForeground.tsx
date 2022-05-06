@@ -126,7 +126,7 @@
  </tile>
  <tile id="1232">
   <properties>
-   <property name="furniture" value="StorableFurniture,2,4"/>
+   <property name="furniture" value="DiningTable"/>
    <property name="newHitBox" value="4, -8, 26"/>
    <property name="newSource" value="0,-16,32,32"/>
   </properties>

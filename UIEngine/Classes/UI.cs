@@ -27,6 +27,7 @@ using System.Linq;
 using UIEngine.Classes.CraftingMenuStuff;
 using static DataModels.Enums;
 using InputEngine.Classes;
+using DataModels.MapStuff;
 
 namespace UIEngine.Classes
 {
@@ -131,7 +132,7 @@ namespace UIEngine.Classes
 
         }
 
-        public static void ActivateSecondaryInventoryDisplay(StorageType t, StorageContainer storageContainer, bool displayWallet = false)
+        public static void ActivateSecondaryInventoryDisplay(FurnitureType t, StorageContainer storageContainer, bool displayWallet = false)
             => StorageDisplayHandler.ActivateSecondaryInventoryDisplay(t, storageContainer, displayWallet);
 
         public static void DeactivateSecondaryInventoryDisplay() => StorageDisplayHandler.DeactivateSecondaryDisplay();

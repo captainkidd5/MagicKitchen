@@ -29,22 +29,29 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public bool MayPlaceItem => ItemCount <= MaxPlacedItems;
 
+        protected int TotalStorageCapacity { get; set; }
         protected Vector2 TopOfFurniture => new Vector2(CenteredPosition.X, CenteredPosition.Y - IntermediateTmxShape.Radius);
         public StorableFurniture(FurnitureData furnitureData, Tile tile, TileManager tileManager,
             IntermediateTmxShape intermediateTmxShape, string actionType) :
             base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
         {
             PlacedItems = new List<PlacedItem>();
-            for (int i = 0; i < (furnitureData.StorageRows * furnitureData.StorageColumns); i++)
+
+            AddPlacedItems(furnitureData, tile);
+        }
+
+        protected virtual void AddPlacedItems(FurnitureData furnitureData, Tile tile)
+        {
+            TotalStorageCapacity = furnitureData.StorageRows * furnitureData.StorageColumns;
+            for (int i = 0; i < TotalStorageCapacity; i++)
             {
                 PlacedItems.Add(new PlacedItem(i, tile));
             }
-
         }
         public override void Load()
         {
             base.Load();
-            _storageContainer = new StorageContainer(FurnitureData.StorageRows * FurnitureData.StorageColumns, FurnitureData);
+            _storageContainer = new StorageContainer(TotalStorageCapacity, FurnitureData);
             List<PlacedItem> loadedPlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
             bool loadedItemsWereSavedAtLeastOnce = loadedPlacedItems.Count > 0;
             //Means there were some saved items here previously. Load those in instead of default load
@@ -91,7 +98,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
             if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
             {
-                UI.ActivateSecondaryInventoryDisplay(StorageType.Craftable, _storageContainer);
+                UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, _storageContainer);
             }
         }
     }

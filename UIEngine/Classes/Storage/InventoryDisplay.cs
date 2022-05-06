@@ -44,7 +44,7 @@ namespace UIEngine.Classes.Storage
         public int Capacity { get { return StorageContainer.Capacity; } }
         protected int DrawEndIndex { get; set; }
 
-        private StackPanel _stackPanel;
+        protected StackPanel StackPanel { get; set; }
 
         public bool HasControl { get; protected set; }
         public bool ExtendedInventoryOpen { get; 
@@ -135,7 +135,7 @@ namespace UIEngine.Classes.Storage
         }
         protected virtual void GenerateUI(bool displayWallet)
         {
-            _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            StackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             Selectables.Clear();
             InventorySlots = new List<InventorySlotDisplay>();
             int slotIndex = 0;
@@ -153,7 +153,7 @@ namespace UIEngine.Classes.Storage
                     stackRow.AddItem(display, StackOrientation.Left);
                     slotIndex++;
                 }
-                _stackPanel.Add(stackRow);
+                StackPanel.Add(stackRow);
             }
 
             if (displayWallet)

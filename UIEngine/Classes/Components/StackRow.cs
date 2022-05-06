@@ -36,7 +36,10 @@ namespace UIEngine.Classes.Components
             _maxWidth = stackPanelTotalWidth;
             Gap = gap;
         }
+        public void AddSpacer(Rectangle rectangle, StackOrientation orientation)
+        {
 
+        }
         public void AddItem(InterfaceSection section, StackOrientation orientation)
         {
             if (section.Width + _currentContentWidth + Gap > _maxWidth)

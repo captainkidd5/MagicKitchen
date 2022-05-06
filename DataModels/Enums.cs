@@ -21,11 +21,6 @@ namespace DataModels
             Grid = 1,
             Radial = 2,
         }
-        public enum StorageType
-        {
-            None =0,
-            Standard = 1,
-            Craftable = 2
-        }
+
     }
 }

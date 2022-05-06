@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels.MapStuff;
+using Globals.Classes;
 using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
@@ -13,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UIEngine.Classes.CraftingMenuStuff;
+using UIEngine.Classes.Storage.Configurations;
 using static DataModels.Enums;
 
 namespace UIEngine.Classes.Storage
@@ -132,26 +134,27 @@ namespace UIEngine.Classes.Storage
             _secondaryInventoryDisplay.Deactivate();
         }
        
-        public void ActivateSecondaryInventoryDisplay(StorageType t, StorageContainer storageContainer, bool displayWallet = false)
+        public void ActivateSecondaryInventoryDisplay(FurnitureType t, StorageContainer storageContainer, bool displayWallet = false)
         {
             ChildSections.Remove(_secondaryInventoryDisplay);
             switch (t)
 
             {
-                case StorageType.None:
+                case FurnitureType.None:
                     throw new Exception($"must have storage type");
-                case StorageType.Standard:
+                case FurnitureType.StorableFurniture:
                     
                     _secondaryInventoryDisplay = new InventoryDisplay(this, graphics, content, _secondaryInventoryDisplay.Position,
                         _secondaryInventoryDisplay.LayerDepth);
 
                     break;
-                case StorageType.Craftable:
-                    _secondaryInventoryDisplay = new CraftingMenu(this, graphics, content, _secondaryInventoryDisplay.Position,
+                case FurnitureType.DiningTable:
+                    _secondaryInventoryDisplay = new DiningTableDisplay(this, graphics, content, _secondaryInventoryDisplay.Position,
                         _secondaryInventoryDisplay.LayerDepth);
 
                     break;
                 default:
+
                     throw new Exception($"must have storage type");
 
             }
