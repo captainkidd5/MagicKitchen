@@ -65,8 +65,14 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             for (int i = 0; i < PlacedItems.Count; i++)
             {
                 PlacedItem placedItem = PlacedItems[i];
-                // if (i == 0)
-                _storageContainer.Slots[i].HoldsVisibleFurnitureItem = true;
+                if(FurnitureData.VisibleStorageIndicies != null)
+                {
+                    //Assign visible storage slots based on passed in indicies from json
+                    if (FurnitureData.VisibleStorageIndicies.Contains(i))
+                        _storageContainer.Slots[i].HoldsVisibleFurnitureItem = true;
+                }
+               
+
                 if (placedItem.ItemId > 0)
                 {
 

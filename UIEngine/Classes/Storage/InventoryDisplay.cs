@@ -219,7 +219,7 @@ namespace UIEngine.Classes.Storage
         /// <summary>
         /// Changes selected slot based on gamepad input
         /// </summary>
-        private void CheckGamePadInput()
+        protected virtual void CheckGamePadInput()
         {
             if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft) ||
                                     Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
@@ -262,7 +262,7 @@ namespace UIEngine.Classes.Storage
             }
         }
 
-        private void SelectSlotAndMoveCursorIcon()
+        protected void SelectSlotAndMoveCursorIcon()
         {
             SelectSlot(InventorySlots[CurrentSelectedIndex]);
             Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);

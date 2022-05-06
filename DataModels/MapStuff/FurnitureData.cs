@@ -22,6 +22,16 @@ namespace DataModels.MapStuff
         public int StorageRows { get; set; }
         public int StorageColumns { get; set; }
 
+        //For example a dining room table with configuration
+        //
+        //-v-
+        //vxv
+        //-v-
+        //
+        //Would have storage indices of 0,1,3,4 where the middle isn't visible. This is of course up to
+        //player discretion and only affects graphics
+        public List<int> VisibleStorageIndicies { get; set; }
+
 
     }
 }

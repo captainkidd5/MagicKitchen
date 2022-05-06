@@ -1,4 +1,6 @@
-﻿using ItemEngine.Classes;
+﻿using Globals.Classes.Helpers;
+using InputEngine.Classes;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UIEngine.Classes.ButtonStuff;
 using UIEngine.Classes.Components;
+using static DataModels.Enums;
 
 namespace UIEngine.Classes.Storage.Configurations
 {
@@ -76,7 +79,42 @@ namespace UIEngine.Classes.Storage.Configurations
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
         }
 
-       
+        protected override void CheckGamePadInput()
+        {
+            if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft) ||
+                                     Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
+            {
+                if (CurrentSelectedIndex > 1 && CurrentSelectedIndex < 4)
+                    CurrentSelectedIndex--;
+                SelectSlotAndMoveCursorIcon();
+            }
+            else if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight) ||
+                Controls.WasGamePadButtonTapped(GamePadActionType.DPadRight))
+            {
+                if (CurrentSelectedIndex >= 1 && CurrentSelectedIndex < 3)
+                    CurrentSelectedIndex++;
+
+                SelectSlotAndMoveCursorIcon();
+
+            }
+            else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
+            {
+                if (CurrentSelectedIndex == 4 || CurrentSelectedIndex == 2)
+                    CurrentSelectedIndex -= 2;
+
+                SelectSlotAndMoveCursorIcon();
+
+            }
+            else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
+            {
+                if (CurrentSelectedIndex == 0 || CurrentSelectedIndex == 2)
+                    CurrentSelectedIndex +=2;
+
+
+                SelectSlotAndMoveCursorIcon();
+
+            }
+        }
 
 
     }

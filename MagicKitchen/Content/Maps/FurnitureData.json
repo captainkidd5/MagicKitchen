@@ -2,10 +2,13 @@
 {
     "FurnitureType": "StorableFurniture",
     "StorageRows" : 2,
-    "StorageColumns": 4
+    "StorageColumns": 4,
+    "VisibleStorageIndicies":[0,1,3,4]
+
 },
 {
-    "FurnitureType": "DiningTable"
+    "FurnitureType": "DiningTable",
+    "VisibleStorageIndicies":[0,1,3,4]
 }
 
 ]
