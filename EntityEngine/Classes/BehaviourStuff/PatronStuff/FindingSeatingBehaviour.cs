@@ -20,14 +20,18 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
     internal class FindingSeatingBehaviour : Behaviour
     {
         public bool HasLocatedTable { get; private set; }
-        public bool HasReachedTable { get; set; }
 
         private DiningTable _table;
-        public FindingSeatingBehaviour(Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) : base(entity, statusIcon, navigator, tileManager, timerFrequency)
+        private readonly PatronBehaviour _patronBehaviour;
+
+        public FindingSeatingBehaviour(PatronBehaviour patronBehaviour, Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) : base(entity, statusIcon, navigator, tileManager, timerFrequency)
         {
+            _patronBehaviour = patronBehaviour;
         }
         public override void Update(GameTime gameTime, ref Vector2 velocity)
         {
+
+
             if (!HasLocatedTable && SimpleTimer.Run(gameTime))
             {
                 _table = GetTileWithAvailableTable();
@@ -82,11 +86,12 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                     Direction direction = Vector2Helper.GetDirectionOfEntityInRelationToEntity(
                         Entity.Position, _table.Tile.CentralPosition);
                     Entity.FaceDirection(direction);
-                    if (_table.SitDown(Vector2Helper.GetOppositeDirection(direction)))
+                    Direction tableDirection = Vector2Helper.GetOppositeDirection(direction);
+                    if (_table.SitDown(tableDirection))
                     {
-                        HasReachedTable = true;
-                        StatusIcon.SetStatus(StatusIconType.WantFood);
                         Entity.Halt();
+
+                        _patronBehaviour.ChangePatronStateToOrdering(_table, tableDirection);
                     }
                     else
                     {

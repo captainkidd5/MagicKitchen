@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes;
+using TiledEngine.Classes.TileAddons.FurnitureStuff;
+using static DataModels.Enums;
 
 namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 {
@@ -49,6 +51,14 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             }
         }
 
+        public void ChangePatronStateToOrdering(DiningTable tableAt, Direction directedSeated)
+        {
+            if (_patronState != PatronState.FindingSeating)
+                throw new Exception($"Patron must find seating before being able to order");
+
+            _currentPatronBehaviour = new OrderingFoodBehaviour(tableAt, directedSeated, Entity,
+                StatusIcon, Navigator, TileManager, null);
+        }
         private void GetNewPatronBehaviour()
         {
             switch (_patronState)
@@ -56,7 +66,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 case PatronState.None:
                     break;
                 case PatronState.FindingSeating:
-                    _currentPatronBehaviour = new FindingSeatingBehaviour(Entity, StatusIcon, Navigator, TileManager, null);
+                    _currentPatronBehaviour = new FindingSeatingBehaviour(this, Entity, StatusIcon, Navigator, TileManager, null);
                     break;
                 case PatronState.Ordering:
                     break;

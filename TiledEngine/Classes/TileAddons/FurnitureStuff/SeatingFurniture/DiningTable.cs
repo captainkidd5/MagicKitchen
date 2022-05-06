@@ -41,6 +41,32 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 PlacedItems.Add(new PlacedItem(i, tile));
             }
         }
+
+        /// <summary>
+        /// Gets the placed item corresponding to where the patron is seated. For example a patron seated at the left side of the table
+        /// will get the item placed on the left side of the table
+        /// </summary>
+        /// <param name="directionSeatedAt">The side of the table the patron is at</param>
+        public PlacedItem GetPlacedItemFromSeatedDirection(Direction directionSeatedAt)
+        {
+            switch (directionSeatedAt)
+            {
+                case Direction.None:
+                    throw new Exception($"Invalid seating location");
+                case Direction.Up:
+                    return PlacedItems[0];
+                case Direction.Down:
+                    return PlacedItems[4];
+
+                case Direction.Left:
+                    return PlacedItems[1];
+
+                case Direction.Right:
+                    return PlacedItems[2];
+
+            }
+            return PlacedItems[(int)directionSeatedAt];
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
