@@ -62,7 +62,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                     return PlacedItems[1];
 
                 case Direction.Right:
-                    return PlacedItems[2];
+                    return PlacedItems[3];
 
             }
             return PlacedItems[(int)directionSeatedAt];

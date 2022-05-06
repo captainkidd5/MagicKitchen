@@ -15,6 +15,9 @@ namespace EntityEngine.Classes.CharacterStuff
         NoPath = 2,
         NoTable = 3,
         WantFood = 4,
+        Unhappy = 5,
+        Happy =6,
+
     }
     public class StatusIcon
     {
@@ -64,26 +67,34 @@ namespace EntityEngine.Classes.CharacterStuff
             {
                 case StatusIconType.Speak:
                     SourceRectangle = new Rectangle(96, 0, 32, 32);
-                    Sprite.SwapSourceRectangle(SourceRectangle);
                     break;
                 case StatusIconType.NoPath:
-                    SourceRectangle = new Rectangle(64, 0, 32, 32);
-                    Sprite.SwapSourceRectangle(SourceRectangle);
+                    SourceRectangle = new Rectangle(96, 32, 32, 32);
                     break;
                 case StatusIconType.NoTable:
                     SourceRectangle = new Rectangle(32, 32, 32, 32);
-                    Sprite.SwapSourceRectangle(SourceRectangle);
                     break;
 
                 case StatusIconType.WantFood:
-                    SourceRectangle = new Rectangle(64, 32, 32, 32);
-                    Sprite.SwapSourceRectangle(SourceRectangle);
+                    SourceRectangle = new Rectangle(64, 0, 32, 32);
                     break;
+                case StatusIconType.None:
+                    return;
+                case StatusIconType.Unhappy:
+                    SourceRectangle = new Rectangle(32, 64, 32, 32);
 
+                    break;
+                case StatusIconType.Happy:
+                    SourceRectangle = new Rectangle(64, 64, 32, 32);
+
+                    break;
                 default:
                     break;
 
             }
+
+            Sprite.SwapSourceRectangle(SourceRectangle);
+
         }
     }
 }

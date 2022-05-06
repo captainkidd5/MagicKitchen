@@ -43,21 +43,25 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             {
                 _placedItemGiven = _tableSeatedAt.GetPlacedItemFromSeatedDirection(_directionSeated);
             }
+            if (_desiredItem == null)
+                _desiredItem = DecideWhatToEat();
+            if(_placedItemGiven.ItemId < 1)
+            {
+            StatusIcon.SetStatus(StatusIconType.WantFood);
 
+            }
             //Item is placed at seat
-            if(_placedItemGiven != null)
+
+            else
             {
                 //Patron has the item they want in front of them
                 if (_placedItemGiven.ItemId == _desiredItem.Id)
-                    StatusIcon.SetStatus(StatusIconType.Speak);
+                    StatusIcon.SetStatus(StatusIconType.Happy);
+                //else they have the wrong item in front of them
                 else
-                    StatusIcon.SetStatus(StatusIconType.Speak);
+                    StatusIcon.SetStatus(StatusIconType.Unhappy);
             }
-            
-
-            if(_placedItemGiven.ItemId > 0)
-                Console.WriteLine("test");
-            StatusIcon.SetStatus(StatusIconType.WantFood);
+           
 
         }
 
