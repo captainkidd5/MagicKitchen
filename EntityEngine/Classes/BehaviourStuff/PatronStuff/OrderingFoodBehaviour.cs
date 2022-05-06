@@ -44,10 +44,16 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 _placedItemGiven = _tableSeatedAt.GetPlacedItemFromSeatedDirection(_directionSeated);
             }
             if (_desiredItem == null)
+            {
                 _desiredItem = DecideWhatToEat();
+
+                StatusIcon.SetStatusRequestFood(_desiredItem.Id);
+
+            }
+
+
             if(_placedItemGiven.ItemId < 1)
             {
-            StatusIcon.SetStatus(StatusIconType.WantFood);
 
             }
             //Item is placed at seat
