@@ -262,10 +262,15 @@ namespace UIEngine.Classes.Storage
             }
         }
 
-        protected void SelectSlotAndMoveCursorIcon()
+        /// <summary>
+        /// Move cursor should be used with game pad input only
+        /// </summary>
+        /// <param name="moveCursor"></param>
+        protected void SelectSlotAndMoveCursorIcon(bool moveCursor = true)
         {
             SelectSlot(InventorySlots[CurrentSelectedIndex]);
-            Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
+            if(moveCursor)
+             Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
         }
 
         /// <summary>
@@ -286,7 +291,6 @@ namespace UIEngine.Classes.Storage
             newSelectedSlot = ScrollHelper.GetIndexFromScroll(
                     newDir, InventorySlots.IndexOf(SelectedSlot),
                     InventorySlots.Count);
-
             //Selector shouldn't extend past main toolbar row if extended inventory is closed
             if (!ExtendedInventoryOpen)
             {
@@ -297,7 +301,8 @@ namespace UIEngine.Classes.Storage
 
 
             }
-
+            CurrentSelectedIndex = newSelectedSlot;
+            SelectSlotAndMoveCursorIcon(false);
 
 
             SelectedSlot = InventorySlots[newSelectedSlot];
