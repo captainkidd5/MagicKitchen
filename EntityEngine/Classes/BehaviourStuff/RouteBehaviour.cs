@@ -62,7 +62,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                 _activeSchedule = Scheduler.GetScheduleFromCurrentTime(Entity.Name);
 
 
-                Vector2 targetpos = Scheduler.GetTargetFromSchedule(Entity.CurrentStageName, _activeSchedule, TileManager);
+                Vector2 targetpos = Scheduler.GetTargetFromSchedule( _activeSchedule);
 
                 base.GetPath(targetpos, _activeSchedule.StageEndLocation);
 
@@ -77,7 +77,7 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         public bool HasReachedEndOfScheduledRoute()
         {
-            return Vector2Helper.WithinRangeOf(Entity.Position, Scheduler.GetTargetFromSchedule(Entity.CurrentStageName, _activeSchedule, TileManager), 16);
+            return Vector2Helper.WithinRangeOf(Entity.Position, Scheduler.GetTargetFromSchedule(_activeSchedule), 16);
         }
 
 

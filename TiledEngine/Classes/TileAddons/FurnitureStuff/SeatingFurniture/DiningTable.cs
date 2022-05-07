@@ -71,7 +71,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             }
             throw new Exception($"Invalid seating location");
         }
-        public void DeleteFromTable(Direction direction)
+        public void DeleteItemFromTable(Direction direction)
         {
             RemoveItemAtIndex(GetIndexFromSeating(direction), 1);
         }

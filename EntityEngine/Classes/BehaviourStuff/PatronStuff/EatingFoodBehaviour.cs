@@ -42,7 +42,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             if (Entity.IsUsingProgressBar && Entity.IsProgressComplete())
             {
                 Entity.RemoveProgressBar();
-                TableSeatedAt.DeleteFromTable(_directionSeatedAt);
+                TableSeatedAt.DeleteItemFromTable(_directionSeatedAt);
                 //TODO: Change to leaving restaurant behaviour and to leave money
             }
 

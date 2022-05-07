@@ -36,6 +36,9 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
         private ItemData DecideWhatToEat()
         {
+
+            //TODO: Have npc pick from an available recipe
+
             return ItemFactory.GetItemData("Stone");
         }
         public override void Update(GameTime gameTime, ref Vector2 velocity)
@@ -53,14 +56,8 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
             }
 
-
-            if(_placedItemGiven.ItemId < 1)
-            {
-
-            }
             //Item is placed at seat
-
-            else
+            if(_placedItemGiven.ItemId > 0)
             {
                 //Patron has the item they want in front of them
                 if (_placedItemGiven.ItemId == _desiredItem.Id)
@@ -74,14 +71,8 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                     StatusIcon.SetStatus(StatusIconType.Unhappy);
 
                 }
-            }
-           
+            }          
 
-        }
-
-        public override void DrawDebug(SpriteBatch spriteBatch)
-        {
-            base.DrawDebug(spriteBatch);
         }
     }
 }

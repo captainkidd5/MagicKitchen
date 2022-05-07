@@ -40,7 +40,7 @@ namespace EntityEngine.Classes.CharacterStuff
         /// <param name="schedule"></param>
         /// <param name="tileManager"></param>
         /// <returns></returns>
-        public static Vector2 GetTargetFromSchedule(string currentEntityStage, Schedule schedule, TileManager tileManager)
+        public static Vector2 GetTargetFromSchedule(Schedule schedule)
         {
             return Vector2Helper.GetWorldPositionFromTileIndex(schedule.TileX, schedule.TileY);
 
