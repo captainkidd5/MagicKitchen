@@ -145,31 +145,49 @@ namespace EntityEngine.Classes.BehaviourStuff
             Vector2 targetpos = Vector2.Zero;
             if (!string.IsNullOrEmpty(_currentAction.ZoneEnd))
             {
-                var stageZones = TileLoader.GetZones(Entity.CurrentStageName);
+                string zoneName = _currentAction.StageEnd ?? Entity.CurrentStageName;
 
+                var stageZones = TileLoader.GetZones(zoneName);
                 var zones = stageZones.Where(x => x.PropertyName == _currentAction.ZoneEnd.Split(',')[0]);
 
                 if (zones != null)
                 {
-                    var startZone = zones.FirstOrDefault(x => x.Value == _currentAction.ZoneStart.Split(',')[1]);
-                    Entity.Move(startZone.Position);
+                    //NPC should teleport to zone start if is specified, else if any, just start where npc currently is
+                    if (!string.IsNullOrEmpty(_currentAction.ZoneStart))
+                    {
+                        string zoneStartString = _currentAction.ZoneStart.Split(',')[1];
+
+                        var startZone = zones.FirstOrDefault(x => x.Value == zoneStartString);
+                        Entity.Move(startZone.Position);
+                    }
+
+
                     var endZone = zones.FirstOrDefault(x => x.Value == _currentAction.ZoneEnd.Split(',')[1]);
                     if (endZone != null)
+                    {
+
                         targetpos = endZone.Position;
 
+                    }
+                    //if (_currentAction.StageEnd != Entity.CurrentStageName)
+                    //{
+                    //    zoneName = _currentAction.StageEnd;
+                    //}
+
+
                 }
+                //else no zone specified, just go to the x and y specified
+                else
+                {
+                    targetpos = Vector2Helper.GetWorldPositionFromTileIndex(
+                    _currentAction.TileX, _currentAction.TileY);
+                }
+                Entity.TargetStage = zoneName;
+
+                base.GetPath(targetpos, zoneName);
+                // CommandConsole.Append($"{Entity.Name} current location : {Entity.CurrentStageName}");
 
             }
-            else
-            {
-                targetpos = Vector2Helper.GetWorldPositionFromTileIndex(
-                _currentAction.TileX, _currentAction.TileY);
-            }
-
-            base.GetPath(targetpos, Entity.CurrentStageName);
-            // CommandConsole.Append($"{Entity.Name} current location : {Entity.CurrentStageName}");
-
-
         }
 
         public override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)

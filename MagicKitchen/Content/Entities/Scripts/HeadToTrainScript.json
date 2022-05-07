@@ -1,0 +1,21 @@
+
+{
+    "Name": "HeadToTrain",
+    "Subscripts": [
+        {
+        "CharacterName": "Patron",
+        "ScriptActions": [
+            {
+                "Type":"Move",
+                "StageEnd":"LullabyTown",
+                "ZoneEnd": "passenger,loading",
+                "Speed": 10
+
+            }
+        ]
+        
+    }   
+]
+}
+
+    

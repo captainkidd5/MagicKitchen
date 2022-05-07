@@ -44,7 +44,8 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 Entity.RemoveProgressBar();
                 TableSeatedAt.DeleteItemFromTable(_directionSeatedAt);
                 TableSeatedAt.AddMoneyToCentralSlot(1);
-                //TODO: Change to leaving restaurant behaviour and to leave money
+                Entity.InjectScript(EntityFactory.GetSubscript("HeadToTrain"));
+                //TODO: Change to leaving restaurant behaviour
             }
 
         }
