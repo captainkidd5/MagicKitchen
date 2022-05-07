@@ -39,10 +39,21 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
             AddPlacedItems(furnitureData, tile);
         }
-        protected void LockSlot(int index)
+        /// <summary>
+        /// Will set the storage slot at index to dissalow player from placing items into this slow (may still retrieve)
+        /// </summary>
+        /// <param name="index"></param>
+        protected void SetPlaceLock(int index)
         {
             _storageContainer.Slots[index].SetPlaceLock();
         }
+
+        protected void UnlockPlaceLock(int index)
+        {
+            _storageContainer.Slots[index].RemovePlaceLock();
+
+        }
+
         protected virtual void AddPlacedItems(FurnitureData furnitureData, Tile tile)
         {
             TotalStorageCapacity = furnitureData.StorageRows * furnitureData.StorageColumns;
@@ -106,18 +117,27 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 return Vector2.Zero;
             return new Vector2(v.XOffSet, v.YOffSet);
         }
-        public void AddItem(int index, int itemId)
-        {
-            PlacedItems[index] = new PlacedItem(itemId, Tile);
-            PlacedItems[index].Load(TopOfFurniture, _storageContainer.Slots[PlacedItems[index].ListIndex]);
-            TileManager.PlacedItemManager.AddNewItem(PlacedItems[index]);
-        }
+        //public void AddItem(int index, int itemId)
+        //{
+        //    PlacedItems[index] = new PlacedItem(index, Tile);
+        //    PlacedItems[index].Load(TopOfFurniture, _storageContainer.Slots[PlacedItems[index].ListIndex]);
+        //    TileManager.PlacedItemManager.AddNewItem(PlacedItems[index]);
+        //}
 
         public void RemoveItemAtIndex(int slotIndex, int count)
         {
             _storageContainer.Slots[slotIndex].Remove(count);
         }
-    public override void Update(GameTime gameTime)
+
+        public void AddItemAtIndex(int slotIndex, string itemName, int count)
+        {
+            while(count > 0 && _storageContainer.Slots[slotIndex].Add(itemName))
+            {
+                count--;
+            } 
+
+        }
+        public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
         if (IsHovered(Controls.ControllerConnected))

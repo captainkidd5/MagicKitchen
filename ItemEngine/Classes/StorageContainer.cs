@@ -143,6 +143,14 @@ namespace ItemEngine.Classes
                 throw new Exception($"Slot already place locked");
             PlaceLocked = true;
         }
+
+        public void RemovePlaceLock()
+        {
+            if(!PlaceLocked)
+                throw new Exception($"Slot was not locked");
+
+            PlaceLocked = false;
+        }
         
         /// <summary>
         /// The ol' switcheroo

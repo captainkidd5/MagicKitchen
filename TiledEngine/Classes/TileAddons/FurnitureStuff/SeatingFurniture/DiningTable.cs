@@ -17,6 +17,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
     public class DiningTable : StorableFurniture
     {
+        private static readonly int s_centerOfTableIndex = 2;
         public Dictionary<Direction, bool> Seats { get; set; }
         public int TotalSeatingCapacity { get; private set; } = 4;
         public int OccupiedSeatCount { get; internal set; }
@@ -42,8 +43,16 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             }
         }
 
-
-
+        /// <summary>
+        /// Usually called when a patron is done eating and pays for the food
+        /// </summary>
+        /// <param name="amount"></param>
+        public void AddMoneyToCentralSlot(int amount)
+        {
+            UnlockPlaceLock(s_centerOfTableIndex);
+            AddItemAtIndex(s_centerOfTableIndex, "Coin", amount);
+            SetPlaceLock(s_centerOfTableIndex);
+        }
         /// <summary>
         /// Gets the placed item corresponding to where the patron is seated. For example a patron seated at the left side of the table
         /// will get the item placed on the left side of the table
@@ -96,7 +105,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             base.Load();
             //Lock table center slot so player cannot place items there
-            LockSlot(2);
+            SetPlaceLock(s_centerOfTableIndex);
         }
     }
 }
