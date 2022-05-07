@@ -59,7 +59,7 @@ namespace InputEngine.Classes.Input
         internal void ControllerSetMouseUIPosition(Vector2 newPos)
         {
             
-            UIPosition = GetUIOffSet(newPos);
+            UIPosition = newPos;
         }
 
         private Vector2 GetUIOffSet(Vector2 unadjustedPos)

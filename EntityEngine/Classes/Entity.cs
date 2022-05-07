@@ -102,7 +102,7 @@ namespace EntityEngine.Classes
         internal void AddProgressBar()
         {
             ProgressBarSprite = new ProgressBarSprite();
-            ProgressBarSprite.Load(.25f, Position, .9f, new Vector2(-16,-32));
+            ProgressBarSprite.Load(.25f, Position, .9f, new Vector2(-32,-32));
         }
 
         internal void RemoveProgressBar()

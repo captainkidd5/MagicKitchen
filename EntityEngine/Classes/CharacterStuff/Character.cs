@@ -48,7 +48,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
    
 
-            if(IsInStage && ((PlayerInClickRange && MouseHovering)|| PlayerInControllerActionRange))
+            if(IsInStage && ((PlayerInClickRange && MouseHovering)|| (Controls.ControllerConnected && PlayerInControllerActionRange)))
             {
                 UI.Cursor.ChangeCursorIcon(CursorIconType.Speech);
 
