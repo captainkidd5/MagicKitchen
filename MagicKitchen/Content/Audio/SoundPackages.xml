@@ -22,6 +22,16 @@
             </SoundChancers>
         </Item>
         <Item>
+            <Name>CoinJingle</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>CoinJingle</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Kitchen</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
+        <Item>
             <Name>Step</Name>
             <SoundChancers>
                 <Item Type="DataModels.SoundStuff.SoundChancer">

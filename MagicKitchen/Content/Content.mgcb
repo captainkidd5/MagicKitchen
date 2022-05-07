@@ -62,6 +62,12 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Ambient/AmbientDay1.wav
 
+#begin Audio/SoundEffects/Kitchen/CoinJingle.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Kitchen/CoinJingle.wav
+
 #begin Audio/SoundEffects/Steps/StepDirt.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

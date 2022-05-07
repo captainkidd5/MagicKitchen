@@ -2,6 +2,7 @@
 using InputEngine.Classes.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SoundEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             UnlockPlaceLock(s_centerOfTableIndex);
             AddItemAtIndex(s_centerOfTableIndex, "Coin", amount);
             SetPlaceLock(s_centerOfTableIndex);
+            SoundFactory.PlaySoundEffect("CoinJingle");
         }
         /// <summary>
         /// Gets the placed item corresponding to where the patron is seated. For example a patron seated at the left side of the table
