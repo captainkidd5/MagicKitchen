@@ -19,6 +19,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
         FindingSeating = 1,
         Ordering = 2,
         Eating =3,
+        Leaving = 4,
     }
     internal class PatronBehaviourManager : Behaviour
     {
@@ -48,7 +49,8 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
             if(SimpleTimer.Run(gameTime) && _currentPatronBehaviour == null)
             {
-                GetNewPatronBehaviour();
+                _currentPatronBehaviour = new FindingSeatingBehaviour(this, null, Entity, StatusIcon, Navigator, TileManager, null);
+
             }
         }
 
@@ -70,18 +72,6 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             _currentPatronBehaviour = new EatingFoodBehaviour(this, tableAt, directedSeated, Entity,
                 StatusIcon, Navigator, TileManager, null);
         }
-        private void GetNewPatronBehaviour()
-        {
-            switch (_patronState)
-            {
-                case PatronState.None:
-                    break;
-                case PatronState.FindingSeating:
-                    _currentPatronBehaviour = new FindingSeatingBehaviour(this,null, Entity, StatusIcon, Navigator, TileManager, null);
-                    break;
-                case PatronState.Ordering:
-                    break;
-            }
-        }
+
     }
 }

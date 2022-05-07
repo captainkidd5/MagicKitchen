@@ -192,13 +192,14 @@ namespace ItemEngine.Classes
         /// <returns></returns>
         public bool Remove(int count)
         {
-            if (StoredCount - count > 0)
+            if (StoredCount - count >= 0)
             {
                 StoredCount -= count;
                 if (StoredCount < 1)
                 {
-                    OnItemChanged();
                     Item = null;
+
+                    OnItemChanged();
                 }
                 return true;
             }

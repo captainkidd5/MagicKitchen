@@ -49,25 +49,32 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         /// <param name="directionSeatedAt">The side of the table the patron is at</param>
         public PlacedItem GetPlacedItemFromSeatedDirection(Direction directionSeatedAt)
         {
-            switch (directionSeatedAt)
+            return PlacedItems[GetIndexFromSeating(directionSeatedAt)];
+        }
+        private int GetIndexFromSeating(Direction directionSeated)
+        {
+            switch (directionSeated)
             {
                 case Direction.None:
                     throw new Exception($"Invalid seating location");
                 case Direction.Up:
-                    return PlacedItems[0];
+                    return 0;
                 case Direction.Down:
-                    return PlacedItems[4];
+                    return 4;
 
                 case Direction.Left:
-                    return PlacedItems[1];
+                    return 1;
 
                 case Direction.Right:
-                    return PlacedItems[3];
+                    return 3;
 
             }
-            return PlacedItems[(int)directionSeatedAt];
+            throw new Exception($"Invalid seating location");
         }
-
+        public void DeleteFromTable(Direction direction)
+        {
+            RemoveItemAtIndex(GetIndexFromSeating(direction), 1);
+        }
         public bool SitDown(Direction direction)
         {
             if(SeatingAvailable)

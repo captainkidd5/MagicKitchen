@@ -16,18 +16,19 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 {
     internal class EatingFoodBehaviour : PBehaviourBase
     {
-        private Direction _directionSeated;
         //The item placed in front of the npc, not neccssarily what they want
         private PlacedItem _placedItemGiven;
 
         //The item the npc actually wants
-        private ItemData _desiredItem;
 
         private bool _isEating;
+        private readonly Direction _directionSeatedAt;
+
         public EatingFoodBehaviour(PatronBehaviourManager patronBehaviour, DiningTable diningTable, Direction directionSeatedAt,
             Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) :
             base(patronBehaviour, diningTable, entity, statusIcon, navigator, tileManager, timerFrequency)
         {
+            _directionSeatedAt = directionSeatedAt;
         }
         public override void Update(GameTime gameTime, ref Vector2 velocity)
         {
@@ -38,6 +39,13 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 Entity.AddProgressBar();
                 _isEating = true;
             }
+            if (Entity.IsUsingProgressBar && Entity.IsProgressComplete())
+            {
+                Entity.RemoveProgressBar();
+                TableSeatedAt.DeleteFromTable(_directionSeatedAt);
+
+            }
+
         }
         public override void DrawDebug(SpriteBatch spriteBatch)
         {

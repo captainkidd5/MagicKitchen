@@ -61,6 +61,7 @@ namespace EntityEngine.Classes
         internal string ScheduleName { get; set; }
         protected StatusIcon StatusIcon { get; set; }
 
+        public bool IsUsingProgressBar => ProgressBarSprite != null;
         protected ProgressBarSprite ProgressBarSprite { get; private set; }
 
         /// <summary>
@@ -97,10 +98,16 @@ namespace EntityEngine.Classes
             Container = container;
         }
 
+        public bool IsProgressComplete() => ProgressBarSprite.Done;
         internal void AddProgressBar()
         {
             ProgressBarSprite = new ProgressBarSprite();
-            ProgressBarSprite.Load(.25f, Position, .9f);
+            ProgressBarSprite.Load(.25f, Position, .9f, new Vector2(-16,-32));
+        }
+
+        internal void RemoveProgressBar()
+        {
+            ProgressBarSprite = null;
         }
         public void InjectScript(SubScript subscript) => BehaviourManager.InjectScript(subscript);
       

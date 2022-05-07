@@ -109,6 +109,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             PlacedItems[index].Load(TopOfFurniture, _storageContainer.Slots[PlacedItems[index].ListIndex]);
             TileManager.PlacedItemManager.AddNewItem(PlacedItems[index]);
         }
+
+        public void RemoveItemAtIndex(int slotIndex, int count)
+        {
+            _storageContainer.Slots[slotIndex].Remove(count);
+        }
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);

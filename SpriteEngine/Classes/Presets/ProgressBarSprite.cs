@@ -30,21 +30,29 @@ namespace SpriteEngine.Classes.Presets
 
         }
 
-        public void Load( float rate, Vector2 position,Vector2 positionOffSet, float layerDepth)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rate"></param>
+        /// <param name="position"></param>
+        /// <param name="layerDepth"></param>
+        /// <param name="positionOffSet">Leave null for tiles, defaults to correct position for them</param>
+        public void Load( float rate, Vector2 position, float layerDepth, Vector2? positionOffSet = null)
         {
             _simpleTimer = new SimpleTimer(rate);
-            _positionOffSet = positionOffSet;
+            if(positionOffSet != null)
+                _positionOffSet += positionOffSet.Value;
+
             _position = position + _positionOffSet;
-            _outLineSprite = SpriteFactory.CreateWorldDestinationSprite(1, 16, _position, new Rectangle(0, 0, 1, 1), SpriteFactory.StatusIconTexture, customLayer: layerDepth, primaryColor: Color.Green);
-            _foreGroundSprite = SpriteFactory.CreateWorldSprite(_position, _sourceRectangle, SpriteFactory.StatusIconTexture, customLayer: layerDepth + SpriteUtility.GetMinimumOffSet());
+
+            _outLineSprite = SpriteFactory.CreateWorldDestinationSprite(1, 16, _position, new Rectangle(0, 0, 1, 1),
+                SpriteFactory.StatusIconTexture, customLayer: layerDepth, primaryColor: Color.Green);
+            _foreGroundSprite = SpriteFactory.CreateWorldSprite(_position, _sourceRectangle, SpriteFactory.StatusIconTexture,
+                customLayer: layerDepth + SpriteUtility.GetMinimumOffSet());
         }
 
-        /// <summary>
-        /// Returns true is progressbar is done
-        /// </summary>
-        /// <param name="gameTime"></param>
-        /// <returns></returns>
-        public bool Update(GameTime gameTime)
+
+        public void Update(GameTime gameTime)
         {
             if (_simpleTimer.Run(gameTime))
             {
@@ -55,7 +63,6 @@ namespace SpriteEngine.Classes.Presets
 
             _outLineSprite.Update(gameTime, _position);
             _foreGroundSprite.Update(gameTime, _position);
-            return Done;
         }
 
         public void Draw(SpriteBatch spriteBatch)
