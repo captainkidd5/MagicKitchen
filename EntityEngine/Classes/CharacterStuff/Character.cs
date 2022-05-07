@@ -103,5 +103,9 @@ namespace EntityEngine.Classes.CharacterStuff
             base.ClickInteraction();
         }
 
+        public override void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
+        {
+            base.SwitchStage(newStageName, tileManager, itemManager);
+        }
     }
 }

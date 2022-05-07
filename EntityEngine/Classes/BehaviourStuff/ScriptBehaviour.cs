@@ -78,6 +78,12 @@ namespace EntityEngine.Classes.BehaviourStuff
                         }
 
                     }
+                    else
+                    {
+                        //This case will occur if npc is scripted to move between stages, as navigator clears
+                        //current path when unloads on switch stage
+                        GetNextStep();
+                    }
                     break;
                 case ScriptActionType.Pause:
                     if (SimpleTimer.Run(gameTime))
