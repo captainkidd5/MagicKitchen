@@ -29,6 +29,7 @@ using static Globals.Classes.Settings;
 using static DataModels.Enums;
 using EntityEngine.Classes.ScriptStuff;
 using DataModels.ScriptedEventStuff;
+using SpriteEngine.Classes.Presets;
 
 namespace EntityEngine.Classes
 {
@@ -59,6 +60,9 @@ namespace EntityEngine.Classes
         public string Name { get; protected set; }
         internal string ScheduleName { get; set; }
         protected StatusIcon StatusIcon { get; set; }
+
+        protected ProgressBarSprite ProgressBarSprite { get; private set; }
+
         /// <summary>
         /// If entity is present at the current stage
         /// </summary>
@@ -93,7 +97,11 @@ namespace EntityEngine.Classes
             Container = container;
         }
 
-
+        internal void AddProgressBar()
+        {
+            ProgressBarSprite = new ProgressBarSprite();
+            ProgressBarSprite.Load(.25f, Position, .9f);
+        }
         public void InjectScript(SubScript subscript) => BehaviourManager.InjectScript(subscript);
       
         internal virtual void ChangeSkinTone(Color newSkinTone)
@@ -211,6 +219,9 @@ namespace EntityEngine.Classes
             UpdateBehaviour(gameTime);
             StatusIcon.Update(gameTime, Position);
 
+            if(ProgressBarSprite != null)
+                ProgressBarSprite.Update(gameTime);
+
             IsMoving = ((Velocity != Vector2.Zero));
 
             if (IsMoving && !ForceStop)
@@ -261,6 +272,9 @@ namespace EntityEngine.Classes
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             StatusIcon.Draw(spriteBatch);
+
+            if(ProgressBarSprite != null)
+                ProgressBarSprite.Draw(spriteBatch);
 
             Animator.Draw(spriteBatch);
 #if DEBUG

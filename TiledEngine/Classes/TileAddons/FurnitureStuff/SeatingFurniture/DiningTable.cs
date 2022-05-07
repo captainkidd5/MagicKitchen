@@ -67,11 +67,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             }
             return PlacedItems[(int)directionSeatedAt];
         }
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-           
-        }
+
         public bool SitDown(Direction direction)
         {
             if(SeatingAvailable)
@@ -87,21 +83,5 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             return false;
         }
 
-        protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
-        {
-            base.OnCollides(fixtureA, fixtureB, contact);
-        }
-
-        protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
-        {
-            base.OnSeparates(fixtureA, fixtureB, contact);
-        }
-
-
-
-        public override void Load()
-        {
-            base.Load();
-        }
     }
 }

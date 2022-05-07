@@ -19,10 +19,14 @@ namespace SpriteEngine.Classes
 
         private static ContentManager Content { get; set; }
 
+        public static Texture2D StatusIconTexture { get; set; }
+
         public static void LoadContent(GraphicsDevice graphics, ContentManager content)
         {
             Graphics = graphics;
             Content = content;
+            StatusIconTexture = content.Load<Texture2D>("entities/characters/statusicons");
+
         }
         /// <summary>
         /// For World vector2 position

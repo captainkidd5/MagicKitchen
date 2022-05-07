@@ -1,6 +1,8 @@
 ﻿using DataModels.MapStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes;
+using SpriteEngine.Classes.Presets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +14,18 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
     internal class KitchenAppliance : StorableFurniture
     {
-        private ProgressIndicator _progressIndicator;
+        private ProgressBarSprite _progressIndicator;
 
         protected bool IsBeingOperated { get; set; } = true;
         public KitchenAppliance(FurnitureData furnitureData, Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType)
             : base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
         {
-            _progressIndicator = new ProgressIndicator();
+            _progressIndicator = new ProgressBarSprite();
             SubKey = "KitchenAppliance";
         }
         public override void Load()
         {
-            _progressIndicator.Load(.25f, Tile.Position, Tile.Layer);
+            _progressIndicator.Load( .25f, Tile.Position, Tile.Layer);
             base.Load();
 
         }

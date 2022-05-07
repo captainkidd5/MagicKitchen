@@ -22,7 +22,6 @@ namespace EntityEngine.Classes.CharacterStuff
     {
         private readonly QuestManager _questManager;
 
-        internal static Texture2D StatusIconTexture { get; set; }
 
 
         public PersistentManager(NPCManager manager, GraphicsDevice graphics, ContentManager content) : base(manager,graphics, content)
@@ -34,7 +33,6 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void LoadContent()
         {
            
-            StatusIconTexture = content.Load<Texture2D>("entities/characters/statusicons");
             base.LoadContent();
         }
 

@@ -25,6 +25,7 @@ namespace EntityEngine.Classes.CharacterStuff
     {
         private static readonly int _duration = 4;
         private static int _iconWidth = 32;
+        private static readonly Vector2 _itemIconPositionOffSet = new Vector2(8, 8);
         private Vector2 _offSet;
         private Sprite _iconSprite;
 
@@ -37,7 +38,7 @@ namespace EntityEngine.Classes.CharacterStuff
         public StatusIcon(Vector2 offSet)
         {
             _simpleTimer = new SimpleTimer(_duration);
-            _iconSprite = SpriteFactory.CreateWorldSprite(Vector2.Zero, Rectangle.Empty, PersistentManager.StatusIconTexture, customLayer: .9f);
+            _iconSprite = SpriteFactory.CreateWorldSprite(Vector2.Zero, Rectangle.Empty, SpriteFactory.StatusIconTexture, customLayer: .9f);
             _offSet = new Vector2(offSet.X + _iconWidth / 2 - 8, offSet.Y + _iconWidth + 8);
         }
 
@@ -48,7 +49,7 @@ namespace EntityEngine.Classes.CharacterStuff
                 if (_simpleTimer.Run(gameTime))
                     StatusIconType = StatusIconType.None;
                 _iconSprite.Update(gameTime,entityPosition - _offSet);
-                _itemSprite?.Update(gameTime, entityPosition - _offSet);
+                _itemSprite?.Update(gameTime, entityPosition - _offSet + _itemIconPositionOffSet);
             }
         }
 
