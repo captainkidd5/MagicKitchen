@@ -19,11 +19,11 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
         FindingSeating = 1,
         Ordering = 2
     }
-    internal class PatronBehaviour : Behaviour
+    internal class PatronBehaviourManager : Behaviour
     {
         private PatronState _patronState;
         private Behaviour _currentPatronBehaviour;
-        public PatronBehaviour(Entity entity, StatusIcon statusIcon, Navigator navigator,
+        public PatronBehaviourManager(Entity entity, StatusIcon statusIcon, Navigator navigator,
             TileManager tileManager, float? timerFrequency) :
             base(entity, statusIcon, navigator, tileManager, timerFrequency)
         {
@@ -56,7 +56,16 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             if (_patronState != PatronState.FindingSeating)
                 throw new Exception($"Patron must find seating before being able to order");
 
-            _currentPatronBehaviour = new OrderingFoodBehaviour(tableAt, directedSeated, Entity,
+            _currentPatronBehaviour = new OrderingFoodBehaviour(this, tableAt, directedSeated, Entity,
+                StatusIcon, Navigator, TileManager, null);
+        }
+
+        public void ChangePatronStateToEating(DiningTable tableAt, Direction directedSeated)
+        {
+            if (_patronState != PatronState.Ordering)
+                throw new Exception($"Patron must have ordered food before can start eating");
+
+            _currentPatronBehaviour = new EatingFoodBehaviour(this, tableAt, directedSeated, Entity,
                 StatusIcon, Navigator, TileManager, null);
         }
         private void GetNewPatronBehaviour()
@@ -66,7 +75,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 case PatronState.None:
                     break;
                 case PatronState.FindingSeating:
-                    _currentPatronBehaviour = new FindingSeatingBehaviour(this, Entity, StatusIcon, Navigator, TileManager, null);
+                    _currentPatronBehaviour = new FindingSeatingBehaviour(this,null, Entity, StatusIcon, Navigator, TileManager, null);
                     break;
                 case PatronState.Ordering:
                     break;

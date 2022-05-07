@@ -17,16 +17,15 @@ using static DataModels.Enums;
 
 namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 {
-    internal class FindingSeatingBehaviour : Behaviour
+    internal class FindingSeatingBehaviour : PBehaviourBase
     {
         public bool HasLocatedTable { get; private set; }
 
-        private DiningTable _table;
-        private readonly PatronBehaviour _patronBehaviour;
 
-        public FindingSeatingBehaviour(PatronBehaviour patronBehaviour, Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) : base(entity, statusIcon, navigator, tileManager, timerFrequency)
+        public FindingSeatingBehaviour(PatronBehaviourManager patronBehaviour,DiningTable diningTable,
+            Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) :
+            base(patronBehaviour, diningTable, entity, statusIcon, navigator, tileManager, timerFrequency)
         {
-            _patronBehaviour = patronBehaviour;
         }
         public override void Update(GameTime gameTime, ref Vector2 velocity)
         {
@@ -34,9 +33,9 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
             if (!HasLocatedTable && SimpleTimer.Run(gameTime))
             {
-                _table = GetTileWithAvailableTable();
+                TableSeatedAt = GetTileWithAvailableTable();
                 //Todo: Create no seating icon
-                if (_table == null)
+                if (TableSeatedAt == null)
                 {
                     StatusIcon.SetStatus(StatusIconType.NoPath);
 
@@ -45,7 +44,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 {
                     List<Point> clearPoints = TileLocationHelper.GetSorroundingClearTilesAsPoints(
                         TileManager.PathGrid,
-                        _table.Tile);
+                        TableSeatedAt.Tile);
 
                     //table has no adjacent clear spots
                     if (clearPoints.Count < 1)
@@ -65,7 +64,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
 
                         {
-                            Navigator.SetTarget(_table.Tile.Position);
+                            Navigator.SetTarget(TableSeatedAt.Tile.Position);
                             HasLocatedTable = true;
                         }
                         else
@@ -84,14 +83,14 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 if (Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
                 {
                     Direction direction = Vector2Helper.GetDirectionOfEntityInRelationToEntity(
-                        Entity.Position, _table.Tile.CentralPosition);
+                        Entity.Position, TableSeatedAt.Tile.CentralPosition);
                     Entity.FaceDirection(direction);
                     Direction tableDirection = Vector2Helper.GetOppositeDirection(direction);
-                    if (_table.SitDown(tableDirection))
+                    if (TableSeatedAt.SitDown(tableDirection))
                     {
                         Entity.Halt();
 
-                        _patronBehaviour.ChangePatronStateToOrdering(_table, tableDirection);
+                        PatronBehaviourManager.ChangePatronStateToOrdering(TableSeatedAt, tableDirection);
                     }
                     else
                     {

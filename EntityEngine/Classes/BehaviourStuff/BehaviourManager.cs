@@ -62,7 +62,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                     return new SearchBehaviour(_entity, _statusIcon, _navigator, _tileManager, new Point(5, 5), 2f);
 
                 case EndBehaviour.Patron:
-                    return new PatronBehaviour(_entity, _statusIcon, _navigator, _tileManager, 2f);
+                    return new PatronBehaviourManager(_entity, _statusIcon, _navigator, _tileManager, 2f);
 
                 case EndBehaviour.CustomScript:
                     ScriptBehaviour behaviour = new ScriptBehaviour(_entity, _statusIcon, _navigator, _tileManager, 2f);

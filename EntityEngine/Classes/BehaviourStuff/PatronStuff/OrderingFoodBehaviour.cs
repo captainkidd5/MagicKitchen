@@ -15,22 +15,24 @@ using static DataModels.Enums;
 
 namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 {
-    internal class OrderingFoodBehaviour : Behaviour
+    internal class OrderingFoodBehaviour : PBehaviourBase
     {
 
-        private DiningTable _tableSeatedAt;
         private Direction _directionSeated; 
         //The item placed in front of the npc, not neccssarily what they want
         private PlacedItem _placedItemGiven;
 
         //The item the npc actually wants
         private ItemData _desiredItem;
-        public OrderingFoodBehaviour(DiningTable diningTableSeatedAt,Direction directionSeatedAt, Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency)
-            : base(entity, statusIcon, navigator, tileManager, timerFrequency)
+        public OrderingFoodBehaviour(PatronBehaviourManager patronBehaviour, DiningTable diningTable, Direction directionSeatedAt,
+            Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) :
+            base(patronBehaviour, diningTable, entity, statusIcon, navigator, tileManager, timerFrequency)
         {
-            _tableSeatedAt = diningTableSeatedAt;
             _directionSeated = directionSeatedAt;
+
         }
+
+
 
         private ItemData DecideWhatToEat()
         {
@@ -41,7 +43,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             base.Update(gameTime, ref velocity);
             if(_placedItemGiven == null)
             {
-                _placedItemGiven = _tableSeatedAt.GetPlacedItemFromSeatedDirection(_directionSeated);
+                _placedItemGiven = TableSeatedAt.GetPlacedItemFromSeatedDirection(_directionSeated);
             }
             if (_desiredItem == null)
             {

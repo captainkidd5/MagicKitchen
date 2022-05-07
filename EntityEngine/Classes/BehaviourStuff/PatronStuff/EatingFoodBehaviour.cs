@@ -14,9 +14,8 @@ using static DataModels.Enums;
 
 namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 {
-    internal class EatingFoodBehaviour : Behaviour
+    internal class EatingFoodBehaviour : PBehaviourBase
     {
-        private DiningTable _tableSeatedAt;
         private Direction _directionSeated;
         //The item placed in front of the npc, not neccssarily what they want
         private PlacedItem _placedItemGiven;
@@ -25,9 +24,9 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
         private ItemData _desiredItem;
 
         private bool _isEating;
-        public EatingFoodBehaviour(Entity entity, StatusIcon statusIcon, Navigator navigator,
-            TileManager tileManager, float? timerFrequency) :
-            base(entity, statusIcon, navigator, tileManager, timerFrequency)
+        public EatingFoodBehaviour(PatronBehaviourManager patronBehaviour, DiningTable diningTable, Direction directionSeatedAt,
+            Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) :
+            base(patronBehaviour, diningTable, entity, statusIcon, navigator, tileManager, timerFrequency)
         {
         }
         public override void Update(GameTime gameTime, ref Vector2 velocity)

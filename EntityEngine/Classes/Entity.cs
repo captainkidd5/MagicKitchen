@@ -76,7 +76,7 @@ namespace EntityEngine.Classes
         //warp
         private WarpHelper _warpHelper;
 
-        public Point TileOn => new Point((int)(Position.X / 16), (int)(Position.Y / 16));
+        public Point TileOn => Vector2Helper.GetTileIndexPosition(Position);
         public bool IsWarping => _warpHelper.IsWarping;
 
         protected StageNPCContainer Container { get; }
