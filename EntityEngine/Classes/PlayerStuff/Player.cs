@@ -154,7 +154,11 @@ namespace EntityEngine.Classes.PlayerStuff
             FrontalSensor.Position = Position + GetFrontalSensorPositionFromEntityDirection();
             Controls.PlayerFrontalSensorPosition = FrontalSensor.Position;
         }
-
+        protected override void CheckOnWarpStatus()
+        {
+            if(CurrentStageName != Flags.StagePlayerIn)
+               base.CheckOnWarpStatus();
+        }
         private void DropHeldItem()
         {
             DropCurrentlyHeldItemToWorld();

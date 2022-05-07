@@ -43,7 +43,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             {
                 Entity.RemoveProgressBar();
                 TableSeatedAt.DeleteFromTable(_directionSeatedAt);
-
+                //TODO: Change to leaving restaurant behaviour and to leave money
             }
 
         }

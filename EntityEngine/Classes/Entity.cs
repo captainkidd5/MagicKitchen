@@ -255,7 +255,7 @@ namespace EntityEngine.Classes
             SwitchStage(stageTo, tileManager, itemManager);
             FaceDirection(Direction.Down);
         }
-        private void CheckOnWarpStatus()
+        protected virtual void CheckOnWarpStatus()
         {
  
                     if (_warpHelper.FinishWarpAndFinalMove(Animator, TileManager, InventoryHandler.ItemManager))
