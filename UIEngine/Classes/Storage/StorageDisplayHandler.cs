@@ -76,7 +76,7 @@ namespace UIEngine.Classes.Storage
             }
             base.Update(gameTime);
             _currentlySelectedInventoryDisplay.UpdateSelectorSprite(gameTime);
-            if (IsActive && !WasJustActivated)
+            if (IsActive && !_secondaryInventoryDisplay.WasJustActivated)
             {
 
                 if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel) ||

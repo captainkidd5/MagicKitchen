@@ -131,10 +131,19 @@ namespace ItemEngine.Classes
         //If set to true, items placed in this slot may appear on top of tiles (Furniture, for example)
         public bool HoldsVisibleFurnitureItem { get; set; } = false;
 
+        //if true, player may not place new items into this slot
+        public bool PlaceLocked { get; private set; }
+
         public StorageSlot()
         {
         }
-
+        public void SetPlaceLock()
+        {
+            if (PlaceLocked)
+                throw new Exception($"Slot already place locked");
+            PlaceLocked = true;
+        }
+        
         /// <summary>
         /// The ol' switcheroo
         /// </summary>
@@ -168,6 +177,8 @@ namespace ItemEngine.Classes
 
         public bool Add(string itemName)
         {
+            if (PlaceLocked)
+                return false;
 
             if (Item == null)
             {
@@ -192,6 +203,7 @@ namespace ItemEngine.Classes
         /// <returns></returns>
         public bool Remove(int count)
         {
+         
             if (StoredCount - count >= 0)
             {
                 StoredCount -= count;
@@ -224,6 +236,8 @@ namespace ItemEngine.Classes
             //    //no interaction
             //    return;
             //}
+            if (PlaceLocked)
+                return;
 
             if (heldItem != null)
             {
@@ -278,6 +292,7 @@ namespace ItemEngine.Classes
         /// </summary>
         public void LeftClickInteraction(ref Item heldItem, ref int count, bool shiftHeld)
         {
+            
             //Grabbing item from slot, no held item
             if (heldItem == null)
             {
@@ -304,6 +319,8 @@ namespace ItemEngine.Classes
                 throw new Exception($"Should not be possible to be holding more than max stack size of item {heldItem}");
             if (Empty)
             {
+                if (PlaceLocked)
+                    return;
                 Item = heldItem;
                 StoredCount = count;
                 heldItem = null;
@@ -314,6 +331,8 @@ namespace ItemEngine.Classes
             }
             else if (Item.Id == heldItem.Id && Item.Stackable)
             {
+                if (PlaceLocked)
+                    return;
                 //deposit rest of held item stack into slot stack, until slot stack is full
                 while ((StoredCount < Item.MaxStackSize) && count > 0)
                 {
@@ -329,6 +348,8 @@ namespace ItemEngine.Classes
             }
             else if (!Item.Stackable || Item.Id != heldItem.Id)
             {
+                if (PlaceLocked)
+                    return;
                 //swap the two items. Same id, but unique (might have different durability or something) or just different id
                 Swap(ref heldItem, ref count);
                 OnItemChanged();
@@ -356,6 +377,7 @@ namespace ItemEngine.Classes
             {
                 writer.Write(Item.Id);
             }
+            writer.Write(PlaceLocked);
         }
 
         public void LoadSave(BinaryReader reader)
@@ -363,7 +385,7 @@ namespace ItemEngine.Classes
             StoredCount = reader.ReadInt32();
             if(StoredCount > 0)
                 Item = ItemFactory.GetItem(reader.ReadInt32());
-
+            PlaceLocked = reader.ReadBoolean();
             //Call on item changed here to update UI with loaded changes, otherwise ui doesn't show anything until 
             //slot is interacted with again
             OnItemChanged();

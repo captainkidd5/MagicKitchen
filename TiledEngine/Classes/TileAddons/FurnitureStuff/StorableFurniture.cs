@@ -39,7 +39,10 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
             AddPlacedItems(furnitureData, tile);
         }
-
+        protected void LockSlot(int index)
+        {
+            _storageContainer.Slots[index].SetPlaceLock();
+        }
         protected virtual void AddPlacedItems(FurnitureData furnitureData, Tile tile)
         {
             TotalStorageCapacity = furnitureData.StorageRows * furnitureData.StorageColumns;

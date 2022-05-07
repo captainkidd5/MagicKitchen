@@ -42,6 +42,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             }
         }
 
+
+
         /// <summary>
         /// Gets the placed item corresponding to where the patron is seated. For example a patron seated at the left side of the table
         /// will get the item placed on the left side of the table
@@ -90,5 +92,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             return false;
         }
 
+        public override void Load()
+        {
+            base.Load();
+            //Lock table center slot so player cannot place items there
+            LockSlot(2);
+        }
     }
 }
