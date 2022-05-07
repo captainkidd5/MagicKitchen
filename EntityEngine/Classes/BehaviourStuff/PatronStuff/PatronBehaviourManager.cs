@@ -17,7 +17,8 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
     {
         None = 0,
         FindingSeating = 1,
-        Ordering = 2
+        Ordering = 2,
+        Eating =3,
     }
     internal class PatronBehaviourManager : Behaviour
     {
@@ -55,7 +56,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
         {
             if (_patronState != PatronState.FindingSeating)
                 throw new Exception($"Patron must find seating before being able to order");
-
+            _patronState = PatronState.Ordering;
             _currentPatronBehaviour = new OrderingFoodBehaviour(this, tableAt, directedSeated, Entity,
                 StatusIcon, Navigator, TileManager, null);
         }
@@ -64,6 +65,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
         {
             if (_patronState != PatronState.Ordering)
                 throw new Exception($"Patron must have ordered food before can start eating");
+            _patronState = PatronState.Eating;
 
             _currentPatronBehaviour = new EatingFoodBehaviour(this, tableAt, directedSeated, Entity,
                 StatusIcon, Navigator, TileManager, null);

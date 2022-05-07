@@ -64,10 +64,16 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             {
                 //Patron has the item they want in front of them
                 if (_placedItemGiven.ItemId == _desiredItem.Id)
+                {
                     StatusIcon.SetStatus(StatusIconType.Happy);
+                    PatronBehaviourManager.ChangePatronStateToEating(TableSeatedAt, _directionSeated);
+                }
                 //else they have the wrong item in front of them
                 else
+                {
                     StatusIcon.SetStatus(StatusIconType.Unhappy);
+
+                }
             }
            
 
