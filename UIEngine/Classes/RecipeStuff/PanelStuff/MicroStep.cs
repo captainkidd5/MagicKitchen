@@ -58,7 +58,7 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, 16 * (int)_scale.X, 48 * (int)_scale.Y);
 
             _baseIngredientSprite = SpriteFactory.CreateUISprite(_baseIngredientSpritePosition,
-                Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.BaseIngredient).Id),
+                Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.Ingredients[0]).Id),
                 ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
 
             Rectangle suplementSourceRectangle;

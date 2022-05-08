@@ -9,7 +9,8 @@ namespace DataModels.ItemStuff
         None = 0,
         Add = 1,
         Chop  = 2,
-        Bake = 3
+        Bake = 3,
+        Mix = 4,
     }
     public class RecipeInfo
     {
@@ -25,7 +26,8 @@ namespace DataModels.ItemStuff
         //For example, "Add, then bake"
         public CookAction SecondAction { get; set; }
         public float CookTime { get; set; }
-        public string BaseIngredient { get; set; }
-        public string SupplementaryIngredient { get; set; }
+
+        //First ingredient is always base ingredient, if only two ingredients are added
+        public List<string> Ingredients { get; set; }
     }
 }

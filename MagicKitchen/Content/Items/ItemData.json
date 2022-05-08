@@ -38,10 +38,12 @@
             "Price": 1,
             "RecipeInfo": 
                 {
-                "CookAction": "Add",
+                "CookAction": "Mix",
                 "CookTime": 1,
-                "BaseIngredient": "Shmegg",
-                "SupplementaryIngredient" : "Salt"
+                "Ingredients":[
+                    "Shmegg",
+                    "Salt"
+                ]
                 
             }
         
@@ -56,7 +58,9 @@
                 {
                 "CookAction": "Bake",
                 "CookTime": 1,
-                "BaseIngredient": "Shmegg Mixture"
+                "Ingredients":[
+                    "Shmegg Mixture"
+                ]
                 
             }
         
@@ -125,10 +129,13 @@
             "Price": 1,
             "RecipeInfo": 
                 {
-                "CookAction": "Add",
+                "CookAction": "Mix",
                 "CookTime": 2,
-                "BaseIngredient": "Flour",
-                "SupplementaryIngredient" : "Water"
+                "Ingredients":[
+                    "Flour",
+                    "Water"
+                ]
+ 
                 
             }
         
@@ -162,9 +169,10 @@
                     "ShownInParentRecipes": true,
                 "CookAction": "Add",
                 "CookTime": 2,
-                "BaseIngredient": "Shmizza Dough",
-                "SupplementaryIngredient" : "Slomato"
-                
+                "Ingredients":[
+                    "Shmizza Dough",
+                    "Slomato"
+                ]         
             }
            
         
@@ -181,8 +189,10 @@
                     "ShownInParentRecipes": true,
                 "CookAction": "Add",
                 "CookTime": 2,
-                "BaseIngredient": "Slomato Shmizza",
-                "SupplementaryIngredient" : "Cheese"
+                "Ingredients":[
+                    "Slomato Shmizza",
+                    "Cheese"
+                ] 
             }
         },
         {
@@ -197,7 +207,10 @@
                     "ShownInParentRecipes": true,
                 "CookAction": "Bake",
                 "CookTime": 2,
-                "BaseIngredient": "Cheese Shmizza (raw)"
+                "Ingredients":[
+                    "Cheese Shmizza (raw)"
+                
+                ] 
             }
         },
         {
@@ -212,8 +225,11 @@
                     "ShownInParentRecipes": true,
                 "CookAction": "Add",
                 "CookTime": 2,
-                "BaseIngredient": "Cheese Shmizza (raw)",
-                "SupplementaryIngredient" : "Anchovy"
+                "Ingredients":[
+                    "Cheese Shmizza (raw)",
+                    "Anchovy"
+                
+                ] 
             }
            
         
@@ -230,7 +246,9 @@
                     "ShownInParentRecipes": true,
                 "CookAction": "Bake",
                 "CookTime": 2,
-                "BaseIngredient": "Anchovy Shmizza (raw)"
+                "Ingredients":[
+                    "Anchovy Shmizza (raw)"
+                ] 
             }
            
         

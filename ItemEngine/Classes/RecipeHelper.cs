@@ -29,7 +29,7 @@ namespace ItemEngine.Classes
 
         public RecipeInfo GetParentRecipe(RecipeInfo childRecipe)
         {
-            return _allRecipeInfo.FirstOrDefault(x => x.Name == childRecipe.BaseIngredient);
+            return _allRecipeInfo.FirstOrDefault(x => x.Name == childRecipe.Ingredients[0]);
         }
         public List<RecipeInfo> GetAllSubRecipes(RecipeInfo infoToTest)
         {
@@ -72,15 +72,20 @@ namespace ItemEngine.Classes
         /// <returns></returns>
         public ItemData Cook(List<ItemDataDTO> ingredientsSelected)
         {
-            RecipeInfo recipeToUse = _unlockedRecipes.Where(x => (
-            ingredientsSelected.Any(y => y.ItemData.Name == x.BaseIngredient) &&
-            ingredientsSelected.Any(y => y.ItemData.Name == x.SupplementaryIngredient)
-            )).FirstOrDefault();
-            if (recipeToUse == null)
-                return null;
+            List<string> ingredientNames = new List<string>();
 
+            List<RecipeInfo> recipes = _unlockedRecipes;
+            foreach(ItemDataDTO itemData in ingredientsSelected)
+            {
+                ingredientNames.Add(itemData.ItemData.Name);
+                recipes = recipes.Where(x => x.Ingredients.Contains(itemData.ItemData.Name)).ToList();
+            }
+            if (recipes.Count == 1)
+                return ItemFactory.GetItemData(recipes[0].Name);
+            else
+                throw new Exception($"Recipe not found, or too many recipes found");
 
-            return ItemFactory.GetItemData(recipeToUse.Name);
+          
         }
     }
 }
