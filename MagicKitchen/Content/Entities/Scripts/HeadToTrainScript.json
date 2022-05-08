@@ -9,7 +9,7 @@
                 "Type":"Move",
                 "StageEnd":"LullabyTown",
                 "ZoneEnd": "passenger,loading",
-                "Speed": 5
+                "Speed": 3
 
             }
         ]
