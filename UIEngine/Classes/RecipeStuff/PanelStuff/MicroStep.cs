@@ -34,9 +34,9 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         private Sprite _downToArrowSprite;
 
 
-        private Vector2 _supplementaryIngredientPosition;
-        private Vector2 _supplementaryIngredientSpritePositionOffSet = new Vector2(0, -24);
-        private Sprite  _supplementaryIngredientSprite;
+        private List<Sprite> _supplementaryIngredientSprites;
+
+      
 
         private Vector2 _scale = new Vector2(2f, 2f);
         private readonly RecipeGuideBox _recipeGuideBox;
@@ -51,6 +51,7 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         {
             _recipeGuideBox = recipeGuideBox;
             _isFirstStep = isFirstStep;
+            _supplementaryIngredientSprites = new List<Sprite>();
 
         }
         public override void LoadContent()
@@ -61,25 +62,30 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
                 Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.Ingredients[0]).Id),
                 ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
 
-            Rectangle suplementSourceRectangle;
-            Texture2D supplementTexture;
-            if (string.IsNullOrEmpty(RecipeInfo.SupplementaryIngredient))
+
+            Vector2 nextIngredientPos = Vector2.Zero;
+            foreach(string ingredientName in RecipeInfo.Ingredients)
+            {
+                Rectangle suplementSourceRectangle;
+                Texture2D supplementTexture;
+                suplementSourceRectangle = Item.GetItemSourceRectangle(
+                    ItemFactory.GetItemData(ingredientName).Id);
+                supplementTexture = ItemFactory.ItemSpriteSheet;
+
+                //todo increase next ingredient position per each ingredient
+                _supplementaryIngredientSprites.Add(SpriteFactory.CreateUISprite(_supplementaryIngredientPosition,
+                   suplementSourceRectangle,
+                   supplementTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: _scale);
+            }
+            //Means we are doing something like baking
+            if (RecipeInfo.Ingredients.Count < 2)
             {
                 suplementSourceRectangle = ItemFactory.RecipeHelper.GetCookActionRectangleFromAction(RecipeInfo.CookAction);
                 supplementTexture = UI.ButtonTexture;
             }
-            else
-            {
-                suplementSourceRectangle = Item.GetItemSourceRectangle(
-                    ItemFactory.GetItemData(RecipeInfo.SupplementaryIngredient).Id);
-                supplementTexture = ItemFactory.ItemSpriteSheet;
-
-            }
 
 
-            _supplementaryIngredientSprite = SpriteFactory.CreateUISprite(_supplementaryIngredientPosition,
-               suplementSourceRectangle,
-               supplementTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: _scale);
+
 
             _downToArrowSprite = SpriteFactory.CreateUISprite(_downToArrowPosition, s_downToArrowSourceRectangle,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.High));
