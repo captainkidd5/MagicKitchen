@@ -13,6 +13,7 @@ using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Collision.Handlers;
 using VelcroPhysics.Dynamics;
+using VelcroPhysics.Shared;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.Helpers
@@ -28,8 +29,19 @@ namespace TiledEngine.Classes.Helpers
             {
                 TmxObject tempObj = tileSetTile.ObjectGroups[0].Objects[k];
                 Rectangle tempObjBody = new Rectangle((int)tempObj.X, (int)tempObj.Y, (int)tempObj.Width, (int)tempObj.Height);
+                List<Vector2> vertices = new List<Vector2>();
+                if (tempObj.Points != null)
+                {
+                    Console.WriteLine("test");
+                    //Polygon shapes do not have a width and height, 4 is arbitrary for now TODO
+                    tempObjBody = new Rectangle(tempObjBody.X, tempObjBody.Y, 4, 4);
+                    foreach(TmxObjectPoint point in tempObj.Points)
+                    {
+                        vertices.Add(new Vector2((float)point.X, (float)point.Y));
+                    }
+                }
     
-                IntermediateTmxShape intermediateTmxShape = GetIntermediateShape(tile, tempObjBody, tempObj.ObjectType);
+                IntermediateTmxShape intermediateTmxShape = GetIntermediateShape(tile, tempObjBody, tempObj.ObjectType, vertices);
 
                 bool blocksLight = true;
                 //This OBJECT within the tile OBJECT LIST may contain this property, which will allow light to pass through
@@ -91,8 +103,15 @@ namespace TiledEngine.Classes.Helpers
 
         }
 
-        private static IntermediateTmxShape GetIntermediateShape(Tile tile, Rectangle tempObj, TmxObjectType objectType)
+        /// <summary>
+        /// </summary>
+        /// <param name="vertices">Must provide if polygon</param>
+        private static IntermediateTmxShape GetIntermediateShape(Tile tile, Rectangle tempObj,
+            TmxObjectType objectType, List<Vector2> vertices = null)
         {
+            if (objectType == TmxObjectType.Polygon && vertices == null)
+                throw new Exception($"Must provide vertices on polygon shapes");
+
             Rectangle destinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
             Rectangle colliderRectangle = new Rectangle(destinationRectangle.X + tempObj.X,
                                 destinationRectangle.Y + tempObj.Y, tempObj.Width,
@@ -112,7 +131,8 @@ namespace TiledEngine.Classes.Helpers
 
             else if (objectType == TmxObjectType.Basic)
                 return new IntermediateTmxShape(TmxObjectType.Basic, colliderRectangle, hullPosition, tempObj.Width, tempObj.Height);
-
+            else if (objectType == TmxObjectType.Polygon)
+                return new IntermediateTmxShape(TmxObjectType.Polygon, colliderRectangle, new Vertices(vertices), hullPosition, tempObj.Width, tempObj.Height);
 
             else
                 throw new Exception($"TmxObject type: {objectType.ToString()} does not exist!");

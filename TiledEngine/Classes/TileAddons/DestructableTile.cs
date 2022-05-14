@@ -14,6 +14,7 @@ using VelcroPhysics.Collision.ContactSystem;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Collision.Handlers;
 using VelcroPhysics.Dynamics;
+using VelcroPhysics.Shared;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TileAddons
@@ -44,6 +45,12 @@ namespace TiledEngine.Classes.TileAddons
             {
                 AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition, IntermediateTmxShape.Radius,
                   new List<Category>() { Category.Solid }, new List<Category>() { Category.Player, Category.NPC,Category.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+            }
+            else if(IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Polygon)
+            {
+
+                AddPrimaryBody(PhysicsManager.CreatePolygonHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,new Vertices(IntermediateTmxShape.Vertices),
+                  new List<Category>() { Category.Solid }, new List<Category>() { Category.Player, Category.NPC, Category.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else
             {

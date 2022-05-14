@@ -73,15 +73,15 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
                 supplementTexture = ItemFactory.ItemSpriteSheet;
 
                 //todo increase next ingredient position per each ingredient
-                _supplementaryIngredientSprites.Add(SpriteFactory.CreateUISprite(_supplementaryIngredientPosition,
+                _supplementaryIngredientSprites.Add(SpriteFactory.CreateUISprite(Vector2.Zero,
                    suplementSourceRectangle,
-                   supplementTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: _scale);
+                   supplementTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: _scale));
             }
             //Means we are doing something like baking
             if (RecipeInfo.Ingredients.Count < 2)
             {
-                suplementSourceRectangle = ItemFactory.RecipeHelper.GetCookActionRectangleFromAction(RecipeInfo.CookAction);
-                supplementTexture = UI.ButtonTexture;
+                //suplementSourceRectangle = ItemFactory.RecipeHelper.GetCookActionRectangleFromAction(RecipeInfo.CookAction);
+                //supplementTexture = UI.ButtonTexture;
             }
 
 
@@ -108,17 +108,17 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         /// </summary>
         private void MicroStepButtonClickAction()
         {
-            string verbage = string.Empty;
-            if (RecipeInfo.CookAction == CookAction.Add)
-                verbage = " to ";
-            string instructions = $"{RecipeInfo.CookAction.ToString()} " +
-                $"{RecipeInfo.SupplementaryIngredient}{verbage}{RecipeInfo.BaseIngredient}";
+            //string verbage = string.Empty;
+            //if (RecipeInfo.CookAction == CookAction.Add)
+            //    verbage = " to ";
+            //string instructions = $"{RecipeInfo.CookAction.ToString()} " +
+            //    $"{RecipeInfo.SupplementaryIngredient}{verbage}{RecipeInfo.BaseIngredient}";
 
-            if (RecipeInfo.SecondAction != CookAction.None)
-            {
-                instructions += $", \nthen {RecipeInfo.SecondAction.ToString()}";
-            }
-            _recipeGuideBox.SetStepInstructionsText(this, instructions);
+            //if (RecipeInfo.SecondAction != CookAction.None)
+            //{
+            //    instructions += $", \nthen {RecipeInfo.SecondAction.ToString()}";
+            //}
+            //_recipeGuideBox.SetStepInstructionsText(this, instructions);
         }
         public override void MovePosition(Vector2 newPos)
         {
@@ -133,8 +133,8 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             _priorActionPosition = _baseIngredientSpritePosition + s_priorActionSpritePositionOffSet * _scale;
             _priorActionSprite.ForceSetPosition(_priorActionPosition);
 
-            _supplementaryIngredientPosition = Position + _supplementaryIngredientSpritePositionOffSet * _scale;
-            _supplementaryIngredientSprite.ForceSetPosition(_supplementaryIngredientPosition);
+            //_supplementaryIngredientPosition = Position + _supplementaryIngredientSpritePositionOffSet * _scale;
+            //_supplementaryIngredientSprite.ForceSetPosition(_supplementaryIngredientPosition);
 
         }
 
@@ -158,7 +158,7 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
                     return new Rectangle(352, 224, 16, 16);
 
                 default:
-                    throw new Exception($"Invalid cook action");
+                    return new Rectangle(352, 224, 16, 16);
             }
             throw new Exception($"Invalid cook action");
 
@@ -170,11 +170,11 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
 
             if (IsActive)
             {
-                _supplementaryIngredientSprite.Update(gameTime, _supplementaryIngredientPosition);
-                _downToArrowSprite.Update(gameTime, _downToArrowPosition);
+                //_supplementaryIngredientSprite.Update(gameTime, _supplementaryIngredientPosition);
+                //_downToArrowSprite.Update(gameTime, _downToArrowPosition);
 
-                if(!_isFirstStep)
-                _priorActionSprite.Update(gameTime, _priorActionPosition);
+               // if(!_isFirstStep)
+                //_priorActionSprite.Update(gameTime, _priorActionPosition);
             }
         }
 
@@ -183,11 +183,11 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
             base.Draw(spriteBatch);
             if (IsActive)
             {
-                _supplementaryIngredientSprite.Draw(spriteBatch);
+                //_supplementaryIngredientSprite.Draw(spriteBatch);
                 _downToArrowSprite.Draw(spriteBatch);
-                if (!_isFirstStep)
+               // if (!_isFirstStep)
 
-                    _priorActionSprite.Draw(spriteBatch);
+                 //   _priorActionSprite.Draw(spriteBatch);
             }
         }
 

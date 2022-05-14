@@ -185,11 +185,11 @@
  </tile>
  <tile id="1925">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16">
+   <object id="2" x="5" y="3">
     <properties>
      <property name="destructable" value="Rock"/>
     </properties>
-    <ellipse/>
+    <polygon points="0,0 9,2 9,8 1,9"/>
    </object>
   </objectgroup>
   <animation>

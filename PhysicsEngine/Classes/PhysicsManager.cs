@@ -12,6 +12,7 @@ using VelcroPhysics.Factories;
 using Globals.Classes.Console;
 using VelcroPhysics.Dynamics.Joints;
 using System;
+using VelcroPhysics.Shared;
 
 namespace PhysicsEngine.Classes
 {
@@ -86,6 +87,7 @@ namespace PhysicsEngine.Classes
             position = position ?? Vector2.Zero;
             Body body = BodyFactory.CreateCircle(PhysicsManager.VelcroWorld, (float)radius, density, (Vector2)position, bodyType, userData);
 
+           
             if(categoriesCollidesWith != null)
                 foreach (Category category in categoriesCollidesWith)
                 body.SetCollidesWith(category);
@@ -150,6 +152,45 @@ namespace PhysicsEngine.Classes
             Hull hull = null;
             if (blocksLight)
                 hull = Hull.CreateRectangle(position, new Vector2((float)width, (float)height), 0f);
+            if (hull != null)
+                Penumbra.Hulls.Add(hull);
+            return new HullBody(body, hull);
+
+        }
+
+        public static HullBody CreatePolygonHullBody(BodyType bodyType, Vector2? position, Vertices vertices, List<Category>? collisionCategories, List<Category>? categoriesCollidesWith,
+            OnCollisionHandler? cDelegate, OnSeparationHandler? sDelegate, float density = 1f, float rotation = 0f,
+            float restitution = 1f, float friction = 1f, float mass = 1f, float inertia = 0, bool sleepingAllowed = true, bool isSensor = false, bool ignoreGravity = false,
+            object userData = null, int xOffset = 0, int yOffset = 0, bool blocksLight = false, Light light = null)
+        {
+
+ 
+            position = position ?? Vector2.Zero;
+
+            Body body = BodyFactory.CreatePolygon(VelcroWorld, vertices, density, (Vector2)position, rotation, bodyType, userData);
+            if (categoriesCollidesWith != null)
+                foreach (Category category in categoriesCollidesWith)
+                    body.SetCollidesWith(category);
+
+            if (collisionCategories != null)
+            {
+                body.SetCollisionCategory(Category.None);
+                foreach (Category category in collisionCategories)
+                    body.SetCollisionCategory(category);
+            }
+
+
+            body.IgnoreGravity = ignoreGravity;
+            body.SleepingAllowed = sleepingAllowed;
+            body.OnCollision += cDelegate;
+            body.OnSeparation += sDelegate;
+            body.IsSensor = isSensor;
+
+            if (light != null)
+                Penumbra.Lights.Add(light);
+            Hull hull = null;
+            //if (blocksLight)
+            //    hull = Hull.CreateRectangle(position, new Vector2((float)width, (float)height), 0f);
             if (hull != null)
                 Penumbra.Hulls.Add(hull);
             return new HullBody(body, hull);

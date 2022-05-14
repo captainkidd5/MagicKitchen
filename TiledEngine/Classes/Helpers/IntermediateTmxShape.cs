@@ -17,11 +17,16 @@ namespace TiledEngine.Classes.Helpers
         public Vector2 HullPosition { get; private set; }
         public float Radius { get; private set; }
 
+        public List<Vector2> Vertices { get; set; }
+
         public float Width { get; set; }
         public float Height { get; set; }
 
         public bool BlocksLight { get; set; } = true;
 
+        /// <summary>
+        /// Rectangle
+        /// </summary>
         internal IntermediateTmxShape(TmxObjectType tmxObjectType, Rectangle colliderRectangle, Vector2 hullPosition, float widthCenter)
         {
             if (widthCenter <= 0)
@@ -32,10 +37,27 @@ namespace TiledEngine.Classes.Helpers
             Radius = widthCenter;
         }
 
+        /// <summary>
+        /// Circle
+        /// </summary>
         internal IntermediateTmxShape(TmxObjectType tmxObjectType, Rectangle colliderRectangle, Vector2 hullPosition, float width, float height)
         {
             TmxObjectType = tmxObjectType;
             ColliderRectangle = colliderRectangle;
+            HullPosition = hullPosition;
+            Width = width;
+            Height = height;
+        }
+
+        /// <summary>
+        /// Polygon
+        /// </summary>
+        internal IntermediateTmxShape(TmxObjectType tmxObjectType, Rectangle colliderRectangle, List<Vector2> vertices, Vector2 hullPosition, float width, float height)
+        {
+            TmxObjectType = tmxObjectType;
+            ColliderRectangle = colliderRectangle;
+
+            Vertices = vertices;
             HullPosition = hullPosition;
             Width = width;
             Height = height;
