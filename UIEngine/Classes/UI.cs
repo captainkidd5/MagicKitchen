@@ -92,6 +92,8 @@ namespace UIEngine.Classes
         public static Cursor Cursor { get; set; }
 
         private static Game s_game;
+
+        public static Item PlayerCurrentSelectedItem => StorageDisplayHandler.PlayerSelectedItem;
         public static void Load(Game game, GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager)
         {
             s_game = game;

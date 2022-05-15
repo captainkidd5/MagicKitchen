@@ -39,6 +39,8 @@ namespace ItemEngine.Classes
 
         public bool FlaggedForRemoval { get; private set; }
 
+
+
         public void Save(BinaryWriter writer)
         {
            

@@ -55,7 +55,7 @@ namespace EntityEngine.Classes
         internal Animator Animator { get; set; }
         protected Navigator Navigator { get; set; }
 
-        public string TargetStage {get; internal protected set; }
+        public string TargetStage { get; internal protected set; }
         internal TileManager TileManager { get; set; }
         public string Name { get; protected set; }
         internal string ScheduleName { get; set; }
@@ -67,8 +67,11 @@ namespace EntityEngine.Classes
         /// <summary>
         /// If entity is present at the current stage
         /// </summary>
-        public bool IsInStage { get; 
-            set; }
+        public bool IsInStage
+        {
+            get;
+            set;
+        }
         BehaviourManager BehaviourManager { get; set; }
 
         private protected InventoryHandler InventoryHandler { get; set; }
@@ -82,7 +85,7 @@ namespace EntityEngine.Classes
 
         protected StageNPCContainer Container { get; }
 
-
+        private OverheadItemDisplay _overHeadItemDisplay { get; set; }
         public Entity(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : base()
         {
             _graphics = graphics;
@@ -96,13 +99,15 @@ namespace EntityEngine.Classes
             _warpHelper = new WarpHelper(this);
             InventoryHandler = new InventoryHandler(StorageCapacity);
             Container = container;
-        }
 
+            _overHeadItemDisplay = new OverheadItemDisplay();
+        }
+        public void SelectItem(Item item) => _overHeadItemDisplay.SelectItem(item, Position);
         public bool IsProgressComplete() => ProgressBarSprite.Done;
         internal void AddProgressBar()
         {
             ProgressBarSprite = new ProgressBarSprite();
-            ProgressBarSprite.Load(.25f, Position, .9f, new Vector2(-32,-32));
+            ProgressBarSprite.Load(.25f, Position, .9f, new Vector2(-32, -32));
         }
 
         internal void RemoveProgressBar()
@@ -110,10 +115,10 @@ namespace EntityEngine.Classes
             ProgressBarSprite = null;
         }
         public void InjectScript(SubScript subscript) => BehaviourManager.InjectScript(subscript);
-      
+
         internal virtual void ChangeSkinTone(Color newSkinTone)
         {
-            
+
         }
         internal virtual void ChangeClothingColor(Type t, Color color)
         {
@@ -141,7 +146,7 @@ namespace EntityEngine.Classes
         /// <param name="isPlayerPresent"></param>
         public virtual void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
         {
-          
+
             if (CurrentStageName != Flags.StagePlayerIn)
             {
                 IsInStage = false;
@@ -170,9 +175,9 @@ namespace EntityEngine.Classes
 
         protected override void CreateBody(Vector2 position)
         {
-            if(MainHullBody == null)
-            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.NPC },
-                new List<Category>() {Category.Player, Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal}, OnCollides, OnSeparates,ignoreGravity:true, blocksLight: true, userData: this);
+            if (MainHullBody == null)
+                MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.NPC },
+                    new List<Category>() { Category.Player, Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this);
 
             BigSensorCollidesWithCategories = new List<Category>() { Category.NPC, Category.Player, Category.Solid };
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { Category.PlayerBigSensor }, BigSensorCollidesWithCategories,
@@ -183,7 +188,7 @@ namespace EntityEngine.Classes
 
         }
 
-      
+
         protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnCollides(fixtureA, fixtureB, contact);
@@ -226,7 +231,7 @@ namespace EntityEngine.Classes
             UpdateBehaviour(gameTime);
             StatusIcon.Update(gameTime, Position);
 
-            if(ProgressBarSprite != null)
+            if (ProgressBarSprite != null)
                 ProgressBarSprite.Update(gameTime);
 
             IsMoving = ((Velocity != Vector2.Zero));
@@ -245,25 +250,28 @@ namespace EntityEngine.Classes
 
             Animator.Update(gameTime, IsMoving, Position);
 
+            _overHeadItemDisplay.Update(gameTime, Position);
+
+
             if (_warpHelper.IsWarping)
                 CheckOnWarpStatus();
         }
 
         public void ForceWarpTo(string stageTo, Vector2 position, TileManager tileManager, ItemManager itemManager)
         {
-           Move(position);
+            Move(position);
             SwitchStage(stageTo, tileManager, itemManager);
             FaceDirection(Direction.Down);
         }
         protected virtual void CheckOnWarpStatus()
         {
- 
-                    if (_warpHelper.FinishWarpAndFinalMove(Animator, TileManager, InventoryHandler.ItemManager))
-                        RestoreEntityPhysics();
-                    else
-                        RemoveEntityPhysics();
 
-            
+            if (_warpHelper.FinishWarpAndFinalMove(Animator, TileManager, InventoryHandler.ItemManager))
+                RestoreEntityPhysics();
+            else
+                RemoveEntityPhysics();
+
+
 
         }
 
@@ -280,10 +288,13 @@ namespace EntityEngine.Classes
         {
             StatusIcon.Draw(spriteBatch);
 
-            if(ProgressBarSprite != null)
+            if (ProgressBarSprite != null)
                 ProgressBarSprite.Draw(spriteBatch);
 
             Animator.Draw(spriteBatch);
+
+            _overHeadItemDisplay.Draw(spriteBatch);
+
 #if DEBUG
             if (Flags.ShowEntityPaths)
                 BehaviourManager.DrawDebug(spriteBatch);
@@ -380,7 +391,7 @@ namespace EntityEngine.Classes
 
         protected virtual void LoadToNewStage(string newStage, TileManager tileManager, ItemManager itemManager)
         {
-           // CurrentStageName = newStage;
+            // CurrentStageName = newStage;
             Navigator.Unload();
 
             Navigator.Load(Container.GetPathGrid(newStage));
@@ -436,7 +447,7 @@ namespace EntityEngine.Classes
             InventoryHandler.ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet / 2), UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving));
 
         }
-        
+
 
         internal void InteractWithTile(Point tilePoint, Layers tileLayer)
         {
@@ -444,7 +455,7 @@ namespace EntityEngine.Classes
             if (tile == null)
                 throw new Exception($"No tile at {tilePoint} at layer {tileLayer.ToString()}!");
             tile.Interact(false);
-            
+
         }
         protected void PerformAction(ActionType actionType)
         {
@@ -491,6 +502,6 @@ namespace EntityEngine.Classes
             ScheduleName = reader.ReadString();
         }
 
-        
+
     }
 }

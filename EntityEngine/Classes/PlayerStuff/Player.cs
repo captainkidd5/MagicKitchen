@@ -153,6 +153,8 @@ namespace EntityEngine.Classes.PlayerStuff
 
             FrontalSensor.Position = Position + GetFrontalSensorPositionFromEntityDirection();
             Controls.PlayerFrontalSensorPosition = FrontalSensor.Position;
+
+            SelectItem(UI.PlayerCurrentSelectedItem);
         }
         protected override void CheckOnWarpStatus()
         {

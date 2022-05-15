@@ -16,7 +16,6 @@ namespace Globals.Classes
         /// </summary>
         private bool RunContinuously { get; set; }
         public float TargetTime { get; private set; }
-
         public SimpleTimer(float targetTime, bool runContinuously = true)
         {
             TargetTime = targetTime;

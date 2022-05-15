@@ -22,7 +22,7 @@ namespace UIEngine.Classes.Storage
     internal class StorageDisplayHandler : InterfaceSection
     {
         private InventoryDisplay _secondaryInventoryDisplay;
-
+        public Item PlayerSelectedItem => _playerInventoryDisplay.CurrentlySelectedItem;
 
         private PlayerInventoryDisplay _playerInventoryDisplay;
         private int _playerInventoryTotalSlots = 10;

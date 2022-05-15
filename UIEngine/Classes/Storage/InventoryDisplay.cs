@@ -26,6 +26,8 @@ namespace UIEngine.Classes.Storage
     /// </summary>
     internal class InventoryDisplay : MenuSection
     {
+        public Item CurrentlySelectedItem => StorageContainer.Slots[CurrentSelectedIndex].Item;
+
         protected static readonly int _buttonWidth = 64;
         protected int Rows;
         protected int Columns;
