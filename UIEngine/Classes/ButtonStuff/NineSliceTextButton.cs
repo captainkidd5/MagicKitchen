@@ -88,6 +88,7 @@ namespace UIEngine.Classes.ButtonStuff
 
 
                 _textPositions.Add(textIndexPos);
+                _textList[i].ForceSetPosition(textIndexPos);
             }
         }
 

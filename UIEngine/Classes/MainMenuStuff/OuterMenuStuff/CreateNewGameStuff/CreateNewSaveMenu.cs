@@ -46,7 +46,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             _createNewText = TextFactory.CreateUIText("Create New Game", GetLayeringDepth(UILayeringDepths.High));
             _createNewTextPosition = Text.CenterInRectangle(_backGroundRectangle, _createNewText);
             _createNewTextPosition = new Vector2(_createNewTextPosition.X, _backGroundRectangle.Y + 4);
-
+            _createNewText.ForceSetPosition(_createNewTextPosition);
 
             Vector2 typingBoxPos = RectangleHelper.CenterRectangleInRectangle(_nameWindowWidth,_nameWindowHeight, _backGroundRectangle);
             typingBoxPos = new Vector2(typingBoxPos.X, _createNewTextPosition.Y + _createNewText.TotalStringHeight * 2);

@@ -17,7 +17,7 @@ namespace UIEngine.Classes.ButtonStuff
     internal class ConfirmationWindow : MenuSection
     {
 
-        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 240, 128);
+        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 512, 256);
         private NineSliceSprite _backGroundSprite;
 
         private Action _confirmAction;

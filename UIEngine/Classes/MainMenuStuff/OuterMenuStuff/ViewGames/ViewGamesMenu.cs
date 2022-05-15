@@ -63,6 +63,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
                 SaveSlotPanel panel = new SaveSlotPanel(file.Value, _stackPanel, graphics,
                     content, Position, GetLayeringDepth(UILayeringDepths.Low));
                 panel.LoadContent();
+                //panel.MovePosition(Position);
                 AddSectionToGrid(panel, 1, currentGridY);
 
 
