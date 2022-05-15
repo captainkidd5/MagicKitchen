@@ -211,10 +211,10 @@ namespace UIEngine.Classes.Storage
                 }
                 WalletDisplay?.Update(gameTime);
                 WasExtendedOpenLastFrame = ExtendedInventoryOpen;
+                UpdateSelectorIndex();
 
             }
             CheckFramesActive();
-            UpdateSelectorIndex();
 
         }
 
