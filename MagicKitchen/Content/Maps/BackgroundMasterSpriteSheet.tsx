@@ -89,8 +89,8 @@
  </tile>
  <tile id="439">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="6" y="6" width="10" height="10">
-    <ellipse/>
+   <object id="1" x="16" y="0">
+    <polygon points="0,0 -16,16 0,16"/>
    </object>
   </objectgroup>
   <animation>
@@ -101,9 +101,9 @@
   </animation>
  </tile>
  <tile id="440">
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="5" width="11" height="11">
-    <ellipse/>
+  <objectgroup draworder="index" id="3">
+   <object id="3" x="16" y="16">
+    <polygon points="0,0 -16,-16 -16,0"/>
    </object>
   </objectgroup>
   <animation>

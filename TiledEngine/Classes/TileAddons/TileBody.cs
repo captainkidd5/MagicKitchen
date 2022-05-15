@@ -12,6 +12,7 @@ using System.Text;
 using TiledEngine.Classes.Helpers;
 using VelcroPhysics.Collision.Filtering;
 using VelcroPhysics.Dynamics;
+using VelcroPhysics.Shared;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TileAddons
@@ -50,7 +51,12 @@ namespace TiledEngine.Classes.TileAddons
                 AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,IntermediateTmxShape.Radius,
                     new List<Category>() { Category.Solid }, categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
-            else
+            else if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Polygon)
+            {
+                AddPrimaryBody(PhysicsManager.CreatePolygonHullBody(BodyType.Static, IntermediateTmxShape.HullPosition, new Vertices(IntermediateTmxShape.Vertices),
+                    new List<Category>() { Category.Solid }, categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+            }
+            else 
             {
                 throw new Exception($"{IntermediateTmxShape.TmxObjectType} is not supported.");
             }
