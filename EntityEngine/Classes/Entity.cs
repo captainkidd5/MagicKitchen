@@ -103,6 +103,8 @@ namespace EntityEngine.Classes
         }
         public void SelectItem(Item item) => _overHeadItemDisplay.SelectItem(item, Position);
         public bool IsProgressComplete() => ProgressBarSprite.Done;
+
+        public float LayerDepth => Animator.Layer;
         internal void AddProgressBar()
         {
             ProgressBarSprite = new ProgressBarSprite();
@@ -251,7 +253,7 @@ namespace EntityEngine.Classes
 
             Animator.Update(gameTime, IsMoving, Position);
 
-            _overHeadItemDisplay.Update(gameTime, Position);
+            _overHeadItemDisplay.Update(gameTime, Position, LayerDepth);
 
 
             if (_warpHelper.IsWarping)

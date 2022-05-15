@@ -21,7 +21,7 @@ namespace EntityEngine.Classes.Animators
         //Entire height of a character
         protected readonly int yOffset = 32;
         protected AnimatedSprite[] AnimatedSprites { get; set; }
-        protected float Layer { get; set; }
+        public float Layer { get; protected set; }
 
         /// <summary>
         /// Will reset to idle position, use this bool so that we don't reset every frame even if we haven't moved last frame.

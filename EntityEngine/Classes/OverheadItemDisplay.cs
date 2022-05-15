@@ -53,7 +53,7 @@ namespace EntityEngine.Classes
 
         }
 
-        public void Update(GameTime gameTime, Vector2 entityPosition)
+        public void Update(GameTime gameTime, Vector2 entityPosition, float entityLayerDepth)
         {
             if (_isDrawn)
             {
@@ -66,7 +66,10 @@ namespace EntityEngine.Classes
                    
                 }
                 if (ActivelySelectedItemSprite != null)
+                {
                     ActivelySelectedItemSprite.Update(gameTime, entityPosition + _itemIconPositionOffSet);
+                    ActivelySelectedItemSprite.CustomLayer = entityLayerDepth;
+                }
 
             }
 
