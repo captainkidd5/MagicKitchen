@@ -35,6 +35,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
         public override void LoadContent()
         {
+            ClearGrid();
             Position = new Vector2(parentSection.TotalBounds.X,
                 parentSection.TotalBounds.Y);
             _totalWidth = parentSection.TotalBounds.Width;

@@ -52,7 +52,7 @@ namespace UIEngine.Classes.EscMenuStuff
 
             _returnToMainMenuButton.LoadContent();
 
-            AddSectionToGrid(_returnToMainMenuButton,1,0);
+            AddSectionToGrid(_returnToMainMenuButton,1,1);
 
             CloseButton = UI.ButtonFactory.CreateCloseButton(this, new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, _backGroundSprite.Width, _backGroundSprite.Height), GetLayeringDepth(UILayeringDepths.Medium),
                 new Action(() =>
@@ -62,7 +62,7 @@ namespace UIEngine.Classes.EscMenuStuff
                 }));
             CloseButton.LoadContent();
 
-            AddSectionToGrid(CloseButton, 2, 0);
+            AddSectionToGrid(CloseButton, 1, 0);
 
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height);
