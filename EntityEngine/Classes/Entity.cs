@@ -100,7 +100,6 @@ namespace EntityEngine.Classes
             InventoryHandler = new InventoryHandler(StorageCapacity);
             Container = container;
 
-            _overHeadItemDisplay = new OverheadItemDisplay();
         }
         public void SelectItem(Item item) => _overHeadItemDisplay.SelectItem(item, Position);
         public bool IsProgressComplete() => ProgressBarSprite.Done;
@@ -134,6 +133,8 @@ namespace EntityEngine.Classes
             TargetStage = CurrentStageName;
             BehaviourManager = new BehaviourManager(this, StatusIcon, Navigator, TileManager);
             BehaviourManager.Load();
+            _overHeadItemDisplay = new OverheadItemDisplay();
+
 
 
         }

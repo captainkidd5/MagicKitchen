@@ -13,8 +13,11 @@ namespace EntityEngine.Classes
 {
     internal class OverheadItemDisplay
     {
+        //Should be adjusted so that the item appears directly over the entity's head
 
-        private readonly float _displayTime = 2f;
+        private static readonly Vector2 _itemIconPositionOffSet = new Vector2(-8, -48);
+
+        private static readonly float _displayTime = 2f;
         /// <summary>
         /// This should be the item currently selected by the entity in their inventory, and appears above their head
         /// </summary>
@@ -25,6 +28,9 @@ namespace EntityEngine.Classes
         private SimpleTimer? _simpleTimer;
 
         private bool _isDrawn;
+
+
+
         public void SelectItem(Item item, Vector2 position)
         {
             if (item == null)
@@ -38,7 +44,7 @@ namespace EntityEngine.Classes
             {
                 ActivelySelectedItemId = item.Id;
                 ActivelySelectedItemSprite = SpriteFactory.CreateWorldSprite(
-                    position, Item.GetItemSourceRectangle(item.Id),
+                    position + _itemIconPositionOffSet, Item.GetItemSourceRectangle(item.Id),
                     ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f)); ;
 
                 _simpleTimer = new SimpleTimer(_displayTime, false);
@@ -55,11 +61,12 @@ namespace EntityEngine.Classes
                 if (_simpleTimer.Run(gameTime))
                 {
                     _isDrawn=false;
+                    _simpleTimer = null;
                     return;
                    
                 }
                 if (ActivelySelectedItemSprite != null)
-                    ActivelySelectedItemSprite.Update(gameTime, entityPosition);
+                    ActivelySelectedItemSprite.Update(gameTime, entityPosition + _itemIconPositionOffSet);
 
             }
 
