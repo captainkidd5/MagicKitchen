@@ -75,9 +75,9 @@ namespace UIEngine.Classes.Storage
                 }
             }
             base.Update(gameTime);
-            _currentlySelectedInventoryDisplay.UpdateSelectorSprite(gameTime);
             if (IsActive && !_secondaryInventoryDisplay.WasJustActivated)
             {
+                _currentlySelectedInventoryDisplay.UpdateSelectorSprite(gameTime);
 
                 if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel) ||
                     Controls.WasGamePadButtonTapped(GamePadActionType.Y))
@@ -98,6 +98,7 @@ namespace UIEngine.Classes.Storage
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+            if(IsActive)
             _currentlySelectedInventoryDisplay.DrawSelectorSprite(spriteBatch);
         }
 
