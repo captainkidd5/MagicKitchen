@@ -147,7 +147,7 @@ namespace TiledEngine.Classes.Helpers
         {
             TmxObjectType tmxObjectType = TmxObjectType.Basic;
 
-            Rectangle bounds;
+            Rectangle bounds = new Rectangle(0, 0, 1, 1);
             //rectangle
             string[] splitInfo = info.Split(',');
             if (splitInfo.Length == 4)
@@ -160,13 +160,45 @@ namespace TiledEngine.Classes.Helpers
                 bounds = GetSourceCircleFromTileProperty(info);
                 tmxObjectType = TmxObjectType.Ellipse;
             }
-            else
+            else if(splitInfo.Length > 4)
             {
-                throw new Exception($"{info} invalid for property newhitbox");
+                tmxObjectType = TmxObjectType.Polygon;
+                return GetIntermediateShape(tile, bounds, tmxObjectType, VerticesFromNewHitBox(info));
+
             }
 
             return GetIntermediateShape(tile,bounds, tmxObjectType);
 
+        }
+
+        private static List<Vector2> VerticesFromNewHitBox(string infoToParse)
+        {
+            List<Vector2> points = new List<Vector2>();
+            string[] splitInfo = infoToParse.Split(", ");
+
+
+            Vector2 subtractionAmt = Vector2.Zero;
+            //NOTE: First pair should NOT be added to this list of points. First pair is the amount to subtract from
+            //all subsquent points
+            for(int i =0; i < splitInfo.Length; i++)
+            {
+
+                splitInfo[i] = splitInfo[i].Remove(0, 1);
+                splitInfo[i] = splitInfo[i].Remove(splitInfo[i].Length - 1, 1);
+                string[] pair = splitInfo[i].Split(',');
+                int x = int.Parse(pair[0]);
+                int y = int.Parse(pair[1]);
+                Vector2 point = new Vector2(x, y);
+                if (i == 0)
+                    subtractionAmt = point;
+                else
+                    points.Add(point + subtractionAmt);
+
+
+            }
+
+
+            return points;
         }
 
         /// <summary>

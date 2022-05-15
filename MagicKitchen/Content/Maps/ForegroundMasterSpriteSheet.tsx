@@ -304,4 +304,11 @@
    <property name="newSource" value="0,-32,32,48"/>
   </properties>
  </tile>
+ <tile id="7521">
+  <properties>
+   <property name="newHitBox" value="(-176,-280), (64,224), (130,204), (294,210), (312,254), (314,280), (308,288), (276,306), (294,210), (250,296), (106,308), (74,284), (62,258)"/>
+   <property name="newSource" value="-160,-296,368,320"/>
+   <property name="portal" value="true,LullabyTown,Restaurant,0,32,32,32,0,48,Up"/>
+  </properties>
+ </tile>
 </tileset>
