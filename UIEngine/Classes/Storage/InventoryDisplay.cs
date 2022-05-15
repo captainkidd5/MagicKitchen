@@ -136,7 +136,7 @@ namespace UIEngine.Classes.Storage
         protected virtual void GenerateUI(bool displayWallet)
         {
             StackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-            Selectables.Clear();
+            ClearGrid();
             InventorySlots = new List<InventorySlotDisplay>();
             int slotIndex = 0;
             for (int i = 0; i < Rows; i++)
@@ -147,7 +147,7 @@ namespace UIEngine.Classes.Storage
                     InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
                     Position, GetLayeringDepth(UILayeringDepths.Low));
                     InventorySlots.Add(display);
-                    Selectables.Add(display);
+                    AddSectionToGrid(display, i, j);
                     display.LoadContent();
 
                     stackRow.AddItem(display, StackOrientation.Left);

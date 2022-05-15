@@ -50,12 +50,14 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             _playButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, _anchorPos, 
                 GetLayeringDepth(UILayeringDepths.Low),
                new List<string>() { "Play" }, ChangeToViewGamesMenu);
-            Selectables.Add(_playButton);
+            AddSectionToGrid(_playButton, 1, 0);
+
 
             _exitButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel,
                 _anchorPos, GetLayeringDepth(UILayeringDepths.Low),
                 new List<string>() { "Exit"}, UI.Exit);
-            Selectables.Add(_exitButton);
+            AddSectionToGrid(_exitButton, 1, 2);
+
 
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonWidth, _buttonHeight);
@@ -70,7 +72,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
                 }));
 
-            Selectables.Add(_toggleSettings);
+            AddSectionToGrid(_toggleSettings, 1, 1);
 
             StackRow stackRow1 = new StackRow(_totalWidth);
             stackRow1.AddItem(_playButton, StackOrientation.Center);

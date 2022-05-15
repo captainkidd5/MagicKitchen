@@ -34,7 +34,7 @@ namespace UIEngine.Classes.Storage.Configurations
                 throw new Exception($"Storage container passed into dining table display must have exactly 5 slots");
 
             StackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-            Selectables.Clear();
+            ClearGrid();
             InventorySlots = new List<InventorySlotDisplay>();
             int slotIndex = 0;
             Rows = 3;
@@ -63,8 +63,8 @@ namespace UIEngine.Classes.Storage.Configurations
 
                     InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
                     Position, GetLayeringDepth(UILayeringDepths.Low));
-                    InventorySlots.Add(display);
-                    Selectables.Add(display);
+                        InventorySlots.Add(display);
+                        AddSectionToGrid(display, i, j);
                     display.LoadContent();
 
                     stackRow.AddItem(display, StackOrientation.Left);

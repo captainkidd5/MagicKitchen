@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using static DataModels.Enums;
@@ -39,6 +40,19 @@ namespace Globals.Classes.Helpers
                 throw new Exception($"Direction {direction.ToString()} invalid scroll value.");
             }
             return currentIndex;
+        }
+
+
+        /// <summary>
+        /// Makes sure point is between zero and max values provided
+        /// </summary>
+        /// <returns></returns>
+        public static bool InBounds(Point point, int maxX, int maxY)
+        {
+            if (point.X < maxX && point.Y < maxY && point.X >= 0 && point.Y >= 0)
+                return true;
+
+            return false;
         }
 
     }

@@ -37,6 +37,7 @@ namespace UIEngine.Classes.ButtonStuff
             _confirmAction = confirmAction;
             _cancelAction = cancelAction ?? new Action(() => Deactivate());
             _confirmationText = confirmationText ?? "Are you sure?";
+            Selectables = new InterfaceSection[2,2];
             
         }
         public override void LoadContent()
@@ -53,11 +54,12 @@ namespace UIEngine.Classes.ButtonStuff
                     _confirmAction();
                     UI.RemoveCriticalSection(this);
                 }));
-            Selectables.Add(_confirmButton);
+            AddSectionToGrid(_confirmButton, 0, 1);
             Vector2 cancelButtonPos = RectangleHelper.CenterRectangleInRectangle(ButtonFactory.s_redExRectangle, _backGroundSprite.HitBox);
             cancelButtonPos = new Vector2(cancelButtonPos.X - 64, cancelButtonPos.Y);
             _cancelButton = UI.ButtonFactory.CreateButton(this, cancelButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_redExRectangle, _cancelAction);
-            Selectables.Add(_cancelButton);
+            AddSectionToGrid(_cancelButton, 0, 0);
+
 
             _text = TextFactory.CreateUIText(_confirmationText, GetLayeringDepth(UILayeringDepths.High));
             TotalBounds = _backGroundSprite.HitBox;
