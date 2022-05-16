@@ -59,6 +59,8 @@ namespace UIEngine.Classes.Storage
 
         private Sprite _selectorSprite;
 
+        protected Rectangle BackgroundSourceRectangle { get; set; }
+
         protected Sprite BackdropSprite { get; set; }
         protected Vector2 BackgroundSpritePositionOffset { get; set; }
 

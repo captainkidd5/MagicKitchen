@@ -18,8 +18,6 @@ namespace UIEngine.Classes.Storage.Configurations
 {
     internal class DiningTableDisplay : InventoryDisplay
     {
-        private static readonly Rectangle s_backgroundSourceRectangle = new Rectangle(464, 0, 80, 64);
-        private static readonly Vector2 s_backgroundOffset= new Vector2(-32, 0);
 
         //-x-
         //xxx
@@ -67,7 +65,7 @@ namespace UIEngine.Classes.Storage.Configurations
                     InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
                     Position, GetLayeringDepth(UILayeringDepths.Medium));
                         InventorySlots.Add(display);
-                        AddSectionToGrid(display, i, j);
+                        AddSectionToGrid(display,i, j);
                     display.LoadContent();
 
                     stackRow.AddItem(display, StackOrientation.Left);
@@ -80,13 +78,17 @@ namespace UIEngine.Classes.Storage.Configurations
             }
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
+            BackgroundSourceRectangle = new Rectangle(464, 0, 80, 64);
+
             BackgroundSpritePositionOffset = new Vector2(-64, 0);
-            BackdropSprite = SpriteFactory.CreateUISprite(new Vector2(Position.X - 64, Position.Y), s_backgroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low),
+            BackdropSprite = SpriteFactory.CreateUISprite(new Vector2(Position.X - 64, Position.Y), BackgroundSourceRectangle,
+                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low),
                 Color.White , scale: new Vector2(4f,4f));
         }
 
         protected override void CheckGamePadInput()
         {
+         //   base.CheckGamePadInput();
             if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft) ||
                                      Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
             {
@@ -114,7 +116,7 @@ namespace UIEngine.Classes.Storage.Configurations
             else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
             {
                 if (CurrentSelectedIndex == 0 || CurrentSelectedIndex == 2)
-                    CurrentSelectedIndex +=2;
+                    CurrentSelectedIndex += 2;
 
 
                 SelectSlotAndMoveCursorIcon();

@@ -13,7 +13,6 @@ namespace UIEngine.Classes.Storage.Configurations
 {
     internal class MixerDisplay : InventoryDisplay
     {
-        private static readonly Rectangle s_backgroundSourceRectangle = new Rectangle(560, 0, 80, 96);
 
         //-----
         //xxxxx
@@ -29,7 +28,7 @@ namespace UIEngine.Classes.Storage.Configurations
             Selectables = new InterfaceSection[2, 5];
 
             if (StorageContainer.Slots.Count != 6)
-                throw new Exception($"Storage container passed into dining table display must have exactly 5 slots");
+                throw new Exception($"Storage container passed into dining table display must have exactly 6 slots");
 
             StackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             ClearGrid();
@@ -89,8 +88,11 @@ namespace UIEngine.Classes.Storage.Configurations
             }
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
+
+            BackgroundSourceRectangle = new Rectangle(560, 0, 80, 96);
+
             BackgroundSpritePositionOffset = new Vector2(-64, 0);
-            BackdropSprite = SpriteFactory.CreateUISprite(new Vector2(Position.X - 64, Position.Y), s_backgroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low),
+            BackdropSprite = SpriteFactory.CreateUISprite(new Vector2(Position.X - 64, Position.Y), BackgroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low),
                 Color.White, scale: new Vector2(4f, 4f));
         }
     }
