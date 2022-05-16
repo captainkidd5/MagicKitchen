@@ -14,6 +14,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             IntermediateTmxShape intermediateTmxShape, string actionType) :
             base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
         {
+            TotalStorageCapacity = 6;
         }
     }
 }
