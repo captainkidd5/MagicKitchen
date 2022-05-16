@@ -36,10 +36,11 @@ namespace UIEngine.Classes.Storage.Configurations
 
             StackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             ClearGrid();
-            InventorySlots = new List<InventorySlotDisplay>();
             int slotIndex = 0;
             Rows = 3;
             Columns = 3;
+            InventorySlots = new InventorySlotDisplay[Rows, Columns];
+
             for (int i = 0; i < Rows; i++)
             {
                 StackRow stackRow = new StackRow(Columns * _buttonWidth);
@@ -64,7 +65,7 @@ namespace UIEngine.Classes.Storage.Configurations
 
                     InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
                     Position, GetLayeringDepth(UILayeringDepths.Medium));
-                        InventorySlots.Add(display);
+                        InventorySlots[i,j] = (display);
                         AddSectionToGrid(display,i, j);
                     display.LoadContent();
 
@@ -88,40 +89,40 @@ namespace UIEngine.Classes.Storage.Configurations
 
         protected override void CheckGamePadInput()
         {
-         //   base.CheckGamePadInput();
-            if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft) ||
-                                     Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
-            {
-                if (CurrentSelectedIndex > 1 && CurrentSelectedIndex < 4)
-                    CurrentSelectedIndex--;
-                SelectSlotAndMoveCursorIcon();
-            }
-            else if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight) ||
-                Controls.WasGamePadButtonTapped(GamePadActionType.DPadRight))
-            {
-                if (CurrentSelectedIndex >= 1 && CurrentSelectedIndex < 3)
-                    CurrentSelectedIndex++;
+            base.CheckGamePadInput();
+            //if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft) ||
+            //                         Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
+            //{
+            //    if (CurrentSelectedIndex > 1 && CurrentSelectedIndex < 4)
+            //        CurrentSelectedIndex--;
+            //    SelectSlotAndMoveCursorIcon();
+            //}
+            //else if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight) ||
+            //    Controls.WasGamePadButtonTapped(GamePadActionType.DPadRight))
+            //{
+            //    if (CurrentSelectedIndex >= 1 && CurrentSelectedIndex < 3)
+            //        CurrentSelectedIndex++;
 
-                SelectSlotAndMoveCursorIcon();
+            //    SelectSlotAndMoveCursorIcon();
 
-            }
-            else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
-            {
-                if (CurrentSelectedIndex == 4 || CurrentSelectedIndex == 2)
-                    CurrentSelectedIndex -= 2;
+            //}
+            //else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
+            //{
+            //    if (CurrentSelectedIndex == 4 || CurrentSelectedIndex == 2)
+            //        CurrentSelectedIndex -= 2;
 
-                SelectSlotAndMoveCursorIcon();
+            //    SelectSlotAndMoveCursorIcon();
 
-            }
-            else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
-            {
-                if (CurrentSelectedIndex == 0 || CurrentSelectedIndex == 2)
-                    CurrentSelectedIndex += 2;
+            //}
+            //else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
+            //{
+            //    if (CurrentSelectedIndex == 0 || CurrentSelectedIndex == 2)
+            //        CurrentSelectedIndex += 2;
 
 
-                SelectSlotAndMoveCursorIcon();
+            //    SelectSlotAndMoveCursorIcon();
 
-            }
+            //}
         }
 
 

@@ -32,7 +32,7 @@ namespace UIEngine.Classes
         /// Selects next selectable based on 2d array
         /// </summary>
         /// <param name="direction"></param>
-        protected void SelectNext(Direction direction)
+        protected virtual void SelectNext(Direction direction)
         {
             Point newIndex = CurrentSelectedPoint;
             switch (direction)
@@ -81,18 +81,13 @@ namespace UIEngine.Classes
         {
             Selectables = new InterfaceSection[Selectables.GetLength(0), Selectables.GetLength(1)];
         }
-        public override void Update(GameTime gameTime)
+        protected virtual void CheckButtonTaps()
         {
-            if (CurrentSelected != null)
-                CurrentSelected.IsSelected = true;
-            base.Update(gameTime);
-           
-
             if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
             {
                 SelectNext(Direction.Up);
             }
-            else if(Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
+            else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
             {
                 SelectNext(Direction.Down);
 
@@ -107,6 +102,15 @@ namespace UIEngine.Classes
                 SelectNext(Direction.Right);
 
             }
+        }
+        public override void Update(GameTime gameTime)
+        {
+            if (CurrentSelected != null)
+                CurrentSelected.IsSelected = true;
+            base.Update(gameTime);
+            CheckButtonTaps();
+
+         
         }
     }
 }

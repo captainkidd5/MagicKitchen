@@ -32,10 +32,11 @@ namespace UIEngine.Classes.Storage.Configurations
 
             StackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             ClearGrid();
-            InventorySlots = new List<InventorySlotDisplay>();
             int slotIndex = 0;
             Rows = 2;
             Columns = 5;
+            InventorySlots = new InventorySlotDisplay[Rows,Columns];
+
             for (int i = 0; i < Rows; i++)
             {
                 StackRow stackRow = new StackRow(Columns * _buttonWidth);
@@ -45,7 +46,7 @@ namespace UIEngine.Classes.Storage.Configurations
                     {
                         InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
                       Position, GetLayeringDepth(UILayeringDepths.Medium));
-                        InventorySlots.Add(display);
+                        InventorySlots[i,j] = display;
                         AddSectionToGrid(display, i, j);
                         display.LoadContent();
 
@@ -69,7 +70,7 @@ namespace UIEngine.Classes.Storage.Configurations
 
                             InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
                  Position, GetLayeringDepth(UILayeringDepths.Medium));
-                            InventorySlots.Add(display);
+                            InventorySlots[i, j] = display;
                             AddSectionToGrid(display, i, j);
                             display.LoadContent();
 

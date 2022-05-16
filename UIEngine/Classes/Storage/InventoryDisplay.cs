@@ -26,7 +26,7 @@ namespace UIEngine.Classes.Storage
     /// </summary>
     internal class InventoryDisplay : MenuSection
     {
-        public Item CurrentlySelectedItem => StorageContainer.Slots[CurrentSelectedIndex].Item;
+        public Item CurrentlySelectedItem => SelectedSlot.Item;
 
         protected static readonly int _buttonWidth = 64;
         protected int Rows;
@@ -35,22 +35,27 @@ namespace UIEngine.Classes.Storage
         protected WalletDisplay WalletDisplay { get; set; }
         protected StorageContainer StorageContainer { get; set; }
 
-        protected List<InventorySlotDisplay> InventorySlots { get; set; }
-
-        protected int CurrentSelectedIndex { get; set; }
+        protected InventorySlotDisplay[,] InventorySlots { get; set; }
+        protected int SelectedIndexX { get; set; }
+        public int SelectedIndexY { get; set; }
         internal InventorySlotDisplay SelectedSlot { get; set; }
 
-        internal new int Width { get { return DrawEndIndex * _buttonWidth; } }
+        internal new int Width { get { return XDrawEndIndex * _buttonWidth; } }
 
 
         public int Capacity { get { return StorageContainer.Capacity; } }
-        protected int DrawEndIndex { get; set; }
+        protected int XDrawEndIndex { get; set; }
+
+        protected int YDrawEndIndex { get; set; }
 
         protected StackPanel StackPanel { get; set; }
 
         public bool HasControl { get; protected set; }
-        public bool ExtendedInventoryOpen { get; 
-            protected set; }
+        public bool ExtendedInventoryOpen
+        {
+            get;
+            protected set;
+        }
         protected bool WasExtendedOpenLastFrame { get; set; }
 
         public bool WasExtendedJustOpened => ExtendedInventoryOpen && !WasExtendedOpenLastFrame;
@@ -103,12 +108,11 @@ namespace UIEngine.Classes.Storage
         {
 
             StorageContainer = storageContainer;
-            DrawEndIndex = StorageContainer.Capacity;
             //Furniture data was passed in, use the required configuration from that
-            if(StorageContainer.FurnitureData != null)
+            if (StorageContainer.FurnitureData != null)
             {
                 FurnitureData furnitureData = StorageContainer.FurnitureData;
-                if(furnitureData.FurnitureType != FurnitureType.None)
+                if (furnitureData.FurnitureType != FurnitureType.None)
                 {
                     Rows = furnitureData.StorageRows;
                     Columns = furnitureData.StorageColumns;
@@ -120,13 +124,14 @@ namespace UIEngine.Classes.Storage
             }
             else //Else use standard rows and columns from this class
             {
-                Rows = (int)Math.Floor((float)Capacity / (float)DrawEndIndex);
-                Columns = DrawEndIndex;
+               
+                Rows = 3;
+                Columns = 8;
             }
-            
+
             GenerateUI(displayWallet);
-            SelectedSlot = InventorySlots[0];
-            ExtendedInventoryCutOff = InventorySlots.Count;
+            SelectedSlot = InventorySlots[0, 0];
+          // ExtendedInventoryCutOff = InventorySlots.Count;
             LoadSelectorSprite();
         }
 
@@ -144,7 +149,7 @@ namespace UIEngine.Classes.Storage
         {
             StackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             ClearGrid();
-            InventorySlots = new List<InventorySlotDisplay>();
+            InventorySlots = new InventorySlotDisplay[Rows, Columns];
             int slotIndex = 0;
             for (int i = 0; i < Rows; i++)
             {
@@ -153,7 +158,7 @@ namespace UIEngine.Classes.Storage
                 {
                     InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
                     Position, GetLayeringDepth(UILayeringDepths.Low));
-                    InventorySlots.Add(display);
+                    InventorySlots[i, j] = display;
                     AddSectionToGrid(display, i, j);
                     display.LoadContent();
 
@@ -166,8 +171,8 @@ namespace UIEngine.Classes.Storage
             if (displayWallet)
             {
                 Vector2 walletDisplayPosition = new Vector2(0, 0);
-                if (InventorySlots.Count > 0)
-                    walletDisplayPosition = InventorySlots[InventorySlots.Count - 1].Position;
+                if (InventorySlots.GetLength(0) > 0)
+                    walletDisplayPosition = InventorySlots[0, InventorySlots.GetLength(1)].Position;
                 WalletDisplay = new WalletDisplay(this, graphics, content, walletDisplayPosition, GetLayeringDepth(UILayeringDepths.Low));
             }
 
@@ -177,8 +182,8 @@ namespace UIEngine.Classes.Storage
         public virtual void GiveControl()
         {
             HasControl = true;
-            if(Controls.ControllerConnected)
-            Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
+            if (Controls.ControllerConnected)
+                Controls.ControllerSetUIMousePosition(InventorySlots[SelectedIndexX, SelectedIndexY].Position);
         }
         public virtual void RemoveControl()
         {
@@ -199,6 +204,7 @@ namespace UIEngine.Classes.Storage
             Hovered = false;
             if (IsActive)
             {
+                CheckButtonTaps();
                 CheckOveriddenLogic(gameTime);
 
                 if (ExtendedInventoryOpen && HasControl)
@@ -206,13 +212,17 @@ namespace UIEngine.Classes.Storage
 
                 if (HasControl && Controls.ControllerConnected)
                     CheckGamePadInput();
-                
-                for (int i = 0; i < DrawEndIndex; i++)
+
+                for (int i = 0; i < Rows; i++)
                 {
-                    InventorySlotDisplay slot = InventorySlots[i];
-                    slot.Update(gameTime);
-                    if (slot.Hovered)
-                        Hovered = true;
+                    for(int j =0; j < Columns; j++)
+                    {
+                        InventorySlotDisplay slot = InventorySlots[i,j];
+                        slot.Update(gameTime);
+                        if (slot.Hovered)
+                            Hovered = true;
+                    }
+               
                 }
                 WalletDisplay?.Update(gameTime);
                 WasExtendedOpenLastFrame = ExtendedInventoryOpen;
@@ -223,51 +233,57 @@ namespace UIEngine.Classes.Storage
             CheckFramesActive();
 
         }
+        protected override void SelectNext(Direction direction)
+        {
+            base.SelectNext(direction);
+            SelectSlotAndMoveCursorIcon();
+        }
 
         /// <summary>
         /// Changes selected slot based on gamepad input
         /// </summary>
         protected virtual void CheckGamePadInput()
         {
-            if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft) ||
-                                    Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
-            {
-                int newIndex = CurrentSelectedIndex;
+            //if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft) ||
+            //                        Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
+            //{
+            //    int newIndexY = SelectedIndexY;
 
-                newIndex = ScrollHelper.GetIndexFromScroll(Direction.Up, CurrentSelectedIndex, DrawEndIndex);
-                if ((newIndex + 1) % (Columns) != 0 && newIndex + 1 < InventorySlots.Count)
-                    CurrentSelectedIndex = newIndex;
-                SelectSlotAndMoveCursorIcon();
-            }
-            else if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight) ||
-                Controls.WasGamePadButtonTapped(GamePadActionType.DPadRight))
-            {
-                int newIndex = CurrentSelectedIndex;
-                newIndex = ScrollHelper.GetIndexFromScroll(Direction.Down, CurrentSelectedIndex, DrawEndIndex);
-                //prevent wrapping
-                if (newIndex % Columns != 0)
-                    CurrentSelectedIndex = newIndex;
+            //    newIndexY = ScrollHelper.GetIndexFromScroll(Direction.Up, newIndexY, YDrawEndIndex);
+            //    //if ((newIndexY + 1) % (Columns) != 0 && newIndexY + 1 < InventorySlots.Count)
+            //        SelectedIndexY = newIndexY;
+            //    SelectSlotAndMoveCursorIcon();
+            //}
+            //else if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight) ||
+            //    Controls.WasGamePadButtonTapped(GamePadActionType.DPadRight))
+            //{
+            //    int newIndex = SelectedIndexX;
+            //    newIndex = ScrollHelper.GetIndexFromScroll(Direction.Down, SelectedIndexX, XDrawEndIndex);
+            //    //prevent wrapping
+            //    if (newIndex % Columns != 0)
+            //        SelectedIndexX = newIndex;
 
-                SelectSlotAndMoveCursorIcon();
+            //    SelectSlotAndMoveCursorIcon();
 
-            }
-            else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
-            {
-                CurrentSelectedIndex += Columns;
-                if (CurrentSelectedIndex >= InventorySlots.Count)
-                    CurrentSelectedIndex = CurrentSelectedIndex - InventorySlots.Count;
-                SelectSlotAndMoveCursorIcon();
+            //}
+            //else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
+            //{
+            //    SelectedIndexY++;// += Columns;
+            //    if (SelectedIndexY < Rows)
+            //        SelectedIndexY++;
+            //       // SelectedIndexY = CurrentSelectedIndex - InventorySlots.Count;
+            //    SelectSlotAndMoveCursorIcon();
 
-            }
-            else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
-            {
-                CurrentSelectedIndex -= Columns;
-                if (CurrentSelectedIndex < 0)
-                    CurrentSelectedIndex = InventorySlots.Count + CurrentSelectedIndex;
+            //}
+            //else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
+            //{
+            //    if (SelectedIndexY > 0)
+            //        SelectedIndexY --;
 
-                SelectSlotAndMoveCursorIcon();
 
-            }
+            //    SelectSlotAndMoveCursorIcon();
+
+            //}
         }
 
         /// <summary>
@@ -276,9 +292,9 @@ namespace UIEngine.Classes.Storage
         /// <param name="moveCursor"></param>
         protected void SelectSlotAndMoveCursorIcon(bool moveCursor = true)
         {
-            SelectSlot(InventorySlots[CurrentSelectedIndex]);
-            if(moveCursor)
-             Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedIndex].Position);
+            SelectSlot(InventorySlots[CurrentSelectedPoint.X, CurrentSelectedPoint.Y]);
+            if (moveCursor)
+                Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedPoint.X, CurrentSelectedPoint.Y].Position);
         }
 
         /// <summary>
@@ -296,33 +312,41 @@ namespace UIEngine.Classes.Storage
             else
                 return;
 
-            newSelectedSlot = ScrollHelper.GetIndexFromScroll(
-                    newDir, InventorySlots.IndexOf(SelectedSlot),
-                    InventorySlots.Count);
-            //Selector shouldn't extend past main toolbar row if extended inventory is closed
-            if (!ExtendedInventoryOpen)
-            {
-                if (newSelectedSlot == Capacity - 1)
-                    newSelectedSlot = ExtendedInventoryCutOff - 1;
-                else if (newSelectedSlot >= ExtendedInventoryCutOff)
-                    newSelectedSlot = 0;
+            //newSelectedSlot = ScrollHelper.GetIndexFromScroll(
+            //        newDir, InventorySlots.IndexOf(SelectedSlot),
+            //        InventorySlots.Count);
+            ////Selector shouldn't extend past main toolbar row if extended inventory is closed
+            //if (!ExtendedInventoryOpen)
+            //{
+            //    if (newSelectedSlot == Capacity - 1)
+            //        newSelectedSlot = ExtendedInventoryCutOff - 1;
+            //    else if (newSelectedSlot >= ExtendedInventoryCutOff)
+            //        newSelectedSlot = 0;
 
 
-            }
-            CurrentSelectedIndex = newSelectedSlot;
+            //}
+            //CurrentSelectedIndex = newSelectedSlot;
             SelectSlotAndMoveCursorIcon(false);
 
 
-            SelectedSlot = InventorySlots[newSelectedSlot];
+            SelectedSlot = InventorySlots[SelectedIndexX, SelectedIndexY];
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (IsActive)
             {
-                for (int i = 0; i < DrawEndIndex; i++)
+                for(int i=0; i < Rows; i++)
                 {
-                    InventorySlots[i].Draw(spriteBatch);
+                    for(int j =0; j < Columns; j++)
+                    {
+                        InventorySlots[i,j].Draw(spriteBatch);
+
+                    }
                 }
+                //for (int i = 0; i < DrawEndIndex; i++)
+                //{
+                //    InventorySlots[i].Draw(spriteBatch);
+                //}
                 WalletDisplay?.Draw(spriteBatch);
                 if (BackdropSprite != null)
                     BackdropSprite.Draw(spriteBatch);

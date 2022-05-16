@@ -19,6 +19,8 @@ namespace UIEngine.Classes.Storage
 {
     internal class InventorySlotDisplay : InterfaceSection
     {
+
+        public Item Item => _storageSlot.Item;
         private readonly StorageSlot _storageSlot;
         private readonly Vector2 _itemIconSpriteScale = new Vector2(3f, 3f);
 

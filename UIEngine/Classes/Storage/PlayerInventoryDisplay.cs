@@ -40,17 +40,19 @@ namespace UIEngine.Classes.Storage
             ExtendedInventoryCutOff = 8;
             if (StorageContainer.Capacity % ExtendedInventoryCutOff != 0)
                 throw new Exception($"Inventory must form a full number of rows {StorageContainer.Capacity} / {ExtendedInventoryCutOff} does not have remainder of zero");
-            DrawEndIndex = ExtendedInventoryCutOff;
-            Rows = (int)Math.Floor((float)Capacity / (float)DrawEndIndex);
-            Columns = DrawEndIndex;
+            Rows = 3;
+            Columns = 8;
+            Selectables = new InterfaceSection[Rows, Columns];
+
             GenerateUI(displayWallet);
-            SelectedSlot = InventorySlots[0];
+            
+            SelectedSlot = InventorySlots[0,0];
             LoadSelectorSprite();
         }
         public override void LoadContent()
         {
             base.LoadContent();
-            DrawEndIndex = ExtendedInventoryCutOff;
+            //DrawEndIndex = ExtendedInventoryCutOff;
             _openBigInventoryButton = UI.ButtonFactory.CreateButton(this,
                 new Vector2(Position.X + Width, Position.Y),LayerDepth,
                 _openBigInventoryUpArrowSourceRectangle, new Action(ToggleOpen), scale:2f);
@@ -60,7 +62,7 @@ namespace UIEngine.Classes.Storage
 
 
             WalletDisplay = new WalletDisplay(this, graphics, content,
-                new Vector2(_openBigInventoryButton.Position.X + _openBigInventoryButton.Width * 4,
+                new Vector2(TotalBounds.Width + _openBigInventoryButton.Width * 4,
                 _openBigInventoryButton.Position.Y), GetLayeringDepth(UILayeringDepths.Medium));
 
 
@@ -95,9 +97,9 @@ namespace UIEngine.Classes.Storage
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-             DrawEndIndex = InventorySlots.Count;
-            if (!ExtendedInventoryOpen)
-                DrawEndIndex = ExtendedInventoryCutOff;
+            // DrawEndIndex = InventorySlots.Count;
+            //if (!ExtendedInventoryOpen)
+            //    DrawEndIndex = ExtendedInventoryCutOff;
             base.Draw(spriteBatch);
 
 
@@ -107,33 +109,42 @@ namespace UIEngine.Classes.Storage
        
         protected override void GenerateUI(bool displayWallet)
         {
-            InventorySlots = new List<InventorySlotDisplay>();
+            InventorySlots = new InventorySlotDisplay[Rows, Columns];
             Vector2 slotPos = Vector2.Zero;
-            for(int i = 0; i < StorageContainer.Capacity; i++)
+            Vector2 slotoffSet = new Vector2(0, -1 * (_buttonWidth * (Rows -1)));
+            int containerSlotIndex = 0;
+            for(int i = 0; i < Rows; i++)
             {
-                //Always visible row
-                if(i < ExtendedInventoryCutOff)
+                for(int j = 0; j < Columns; j++)
                 {
-                    slotPos = new Vector2(Position.X + i * _buttonWidth, Position.Y);
-                    TotalBounds = new Rectangle(TotalBounds.X, TotalBounds.Y, TotalBounds.Width + _buttonWidth, _buttonWidth);
-                }
-                else
-                {
-                    int newIndex = i - ExtendedInventoryCutOff;
-                    int row = (int)Math.Floor((float)newIndex / (float)ExtendedInventoryCutOff);
-                    if (row == 1)
-                        row = 0;
-                    else if (row == 0)
-                        row = 1;
-                    int column = newIndex % ExtendedInventoryCutOff;
-                    slotPos = new Vector2(Position.X + ((column * _buttonWidth)), ((Position.Y - ((Rows - 1) * _buttonWidth) + _buttonWidth * row)));
+                    int yRowOffset = (i - 1) * _buttonWidth;
+                    //Always visible row
+                    if (i ==0)
+                    {
+                        yRowOffset = (Rows - 1) * _buttonWidth;
+
+                    }
+
+
+                    slotPos = new Vector2(Position.X + ((j * _buttonWidth)), Position.Y + slotoffSet.Y + yRowOffset);
+
+
+
+                        InventorySlotDisplay slotDisplay = new InventorySlotDisplay(this, graphics, content,
+                        StorageContainer.Slots[containerSlotIndex], slotPos,
+                        GetLayeringDepth(UILayeringDepths.Low));
+                    containerSlotIndex++;
+
+                    ChildSections.Add(slotDisplay);
+                    AddSectionToGrid(slotDisplay, i, j);
+                    InventorySlots[i, j] = slotDisplay;
+
 
                 }
 
-                InventorySlots.Add(new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[i], slotPos,GetLayeringDepth(UILayeringDepths.Low)));
             }
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Columns * _buttonWidth, Rows * _buttonWidth);
 
-            //ChildSections.AddRange(InventorySlots);
 
         }
         public override void CloseExtendedInventory()
@@ -141,12 +152,12 @@ namespace UIEngine.Classes.Storage
             base.CloseExtendedInventory();
             //Don't want to reset the index back to zero if current selection isn't in the extended inventory, that 
             //would just be annoying
-            if(CurrentSelectedIndex > ExtendedInventoryCutOff)
-            {
-                CurrentSelectedIndex = 0;
+            //if(CurrentSelectedIndex > ExtendedInventoryCutOff)
+            //{
+            //    CurrentSelectedIndex = 0;
 
-                SelectedSlot = InventorySlots[CurrentSelectedIndex];
-            }
+            //    SelectedSlot = InventorySlots[CurrentSelectedIndex];
+            //}
                 
         }
         /// <summary>
@@ -158,7 +169,7 @@ namespace UIEngine.Classes.Storage
             //reset selector to 0 if just closed
             if(!ExtendedInventoryOpen)
             {
-                SelectedSlot = InventorySlots[0];
+                SelectedSlot = InventorySlots[0,0];
                 if(Controls.ControllerConnected && UI.Cursor.IsHoldingItem)
                 {
                     //Should drop the item if item is grabbed and player closes the inventory
