@@ -16,7 +16,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
     {
         private ProgressBarSprite _progressIndicator;
 
-        protected bool IsBeingOperated { get; set; } = true;
+        protected bool IsBeingOperated { get; set; } = false;
         public KitchenAppliance(FurnitureData furnitureData, Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType)
             : base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
         {

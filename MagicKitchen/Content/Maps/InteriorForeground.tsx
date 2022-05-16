@@ -105,6 +105,8 @@
  </tile>
  <tile id="1031">
   <properties>
+   <property name="furniture" value="Mixer"/>
+   <property name="newHitBox" value="0,-16,16,32"/>
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -119,7 +121,6 @@
  </tile>
  <tile id="1173">
   <properties>
-   <property name="furniture" value="StorableFurniture,1,2"/>
    <property name="newHitBox" value="-16,-32,48,48"/>
    <property name="newSource" value="-16,-32,48,48"/>
   </properties>

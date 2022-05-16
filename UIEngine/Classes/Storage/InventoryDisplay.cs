@@ -59,6 +59,9 @@ namespace UIEngine.Classes.Storage
 
         private Sprite _selectorSprite;
 
+        protected Sprite BackdropSprite { get; set; }
+        protected Vector2 BackgroundSpritePositionOffset { get; set; }
+
         public InventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -212,7 +215,8 @@ namespace UIEngine.Classes.Storage
                 WalletDisplay?.Update(gameTime);
                 WasExtendedOpenLastFrame = ExtendedInventoryOpen;
                 UpdateSelectorIndex();
-
+                if (BackdropSprite != null)
+                    BackdropSprite.Update(gameTime, Position + BackgroundSpritePositionOffset);
             }
             CheckFramesActive();
 
@@ -318,6 +322,8 @@ namespace UIEngine.Classes.Storage
                     InventorySlots[i].Draw(spriteBatch);
                 }
                 WalletDisplay?.Draw(spriteBatch);
+                if (BackdropSprite != null)
+                    BackdropSprite.Draw(spriteBatch);
             }
 
         }

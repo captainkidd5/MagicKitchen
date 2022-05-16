@@ -18,6 +18,9 @@ namespace UIEngine.Classes.Storage.Configurations
 {
     internal class DiningTableDisplay : InventoryDisplay
     {
+        private static readonly Rectangle s_backgroundSourceRectangle = new Rectangle(464, 0, 80, 64);
+        private static readonly Vector2 s_backgroundOffset= new Vector2(-32, 0);
+
         //-x-
         //xxx
         //-x-
@@ -62,7 +65,7 @@ namespace UIEngine.Classes.Storage.Configurations
 
 
                     InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
-                    Position, GetLayeringDepth(UILayeringDepths.Low));
+                    Position, GetLayeringDepth(UILayeringDepths.Medium));
                         InventorySlots.Add(display);
                         AddSectionToGrid(display, i, j);
                     display.LoadContent();
@@ -77,6 +80,9 @@ namespace UIEngine.Classes.Storage.Configurations
             }
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
+            BackgroundSpritePositionOffset = new Vector2(-64, 0);
+            BackdropSprite = SpriteFactory.CreateUISprite(new Vector2(Position.X - 64, Position.Y), s_backgroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low),
+                Color.White , scale: new Vector2(4f,4f));
         }
 
         protected override void CheckGamePadInput()

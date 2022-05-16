@@ -160,7 +160,7 @@ namespace UIEngine.Classes.Storage
 
             }
             _secondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(_secondaryInventoryDisplay.TotalBounds));
-            _secondaryInventoryDisplay.MovePosition(_secondaryInventoryDisplay.Position + new Vector2(128, - 64));
+            _secondaryInventoryDisplay.MovePosition(_secondaryInventoryDisplay.Position + new Vector2(128, - 128));
             _secondaryInventoryDisplay.LoadNewEntityInventory(storageContainer, displayWallet);
 
             _secondaryInventoryDisplay.Activate();
