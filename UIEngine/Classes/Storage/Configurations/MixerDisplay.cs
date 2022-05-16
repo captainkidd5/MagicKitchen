@@ -13,7 +13,7 @@ namespace UIEngine.Classes.Storage.Configurations
 {
     internal class MixerDisplay : InventoryDisplay
     {
-        private static readonly Rectangle s_backgroundSourceRectangle = new Rectangle(464, 0, 80, 64);
+        private static readonly Rectangle s_backgroundSourceRectangle = new Rectangle(560, 0, 80, 96);
 
         //-----
         //xxxxx
@@ -57,6 +57,17 @@ namespace UIEngine.Classes.Storage.Configurations
                     {
                         if( j == 2)
                         {
+                            StackRow newStackRow1 = new StackRow(Columns * _buttonWidth);
+                            newStackRow1.AddSpacer(new Rectangle(0, 0, 64, 64), StackOrientation.Left);
+
+                            StackPanel.Add(newStackRow1);
+
+                            StackRow newStackRow2 = new StackRow(Columns * _buttonWidth);
+                            newStackRow2.AddSpacer(new Rectangle(0, 0, 64, 64), StackOrientation.Left);
+
+                            StackPanel.Add(newStackRow2);
+
+
                             InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
                  Position, GetLayeringDepth(UILayeringDepths.Medium));
                             InventorySlots.Add(display);
