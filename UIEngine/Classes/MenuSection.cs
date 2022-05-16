@@ -38,17 +38,17 @@ namespace UIEngine.Classes
             switch (direction)
             {
                 case Direction.Up:
-                    newIndex = new Point(newIndex.X, newIndex.Y - 1); 
+                    newIndex = new Point(newIndex.X-1, newIndex.Y ); 
                     break;
                 case Direction.Down:
-                    newIndex = new Point(newIndex.X, newIndex.Y + 1);
+                    newIndex = new Point(newIndex.X + 1, newIndex.Y);
                     break;
                 case Direction.Left:
-                    newIndex = new Point(newIndex.X -1, newIndex.Y );
+                    newIndex = new Point(newIndex.X, newIndex.Y - 1);
 
                     break;
                 case Direction.Right:
-                    newIndex = new Point(newIndex.X + 1, newIndex.Y);
+                    newIndex = new Point(newIndex.X, newIndex.Y + 1);
 
                     break;
                 default:
@@ -67,15 +67,15 @@ namespace UIEngine.Classes
         /// <summary>
         /// Adds new interface section to given index, only if it is in bounds and no section exists there yet
         /// </summary>
-        protected void AddSectionToGrid(InterfaceSection section, int x, int y)
+        protected void AddSectionToGrid(InterfaceSection section, int row, int column)
         {
-            if (!ScrollHelper.InBounds(new Point(x, y), Selectables.GetLength(0), Selectables.GetLength(1)))
-                throw new Exception($"Tried to add interface section to invalid 2d array index {x},{y}");
+            if (!ScrollHelper.InBounds(new Point(row, column), Selectables.GetLength(0), Selectables.GetLength(1)))
+                throw new Exception($"Tried to add interface section to invalid 2d array index {row},{column}");
 
-            if (Selectables[x, y] != null)
-                throw new Exception($"Overwriting interface section at {x},{y}");
+            if (Selectables[row, column] != null)
+                throw new Exception($"Overwriting interface section at {row},{column}");
 
-            Selectables[x, y] = section;
+            Selectables[row, column] = section;
         }
         protected void ClearGrid()
         {

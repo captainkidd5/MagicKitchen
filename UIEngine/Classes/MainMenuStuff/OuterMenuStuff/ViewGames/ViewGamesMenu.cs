@@ -48,7 +48,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             _createNewButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, Position,GetLayeringDepth(UILayeringDepths.Low),
                 new List<string>() {
                     "Create New"}, ChangeToCreateNewSaveMenu);
-            AddSectionToGrid(_createNewButton, 1, 0);
+            AddSectionToGrid(_createNewButton, 0, 1);
 
             Dictionary<string,SaveFile> saveFiles = SaveLoadManager.SaveFiles;
             StackRow stackRow1 = new StackRow(_totalWidth);
@@ -64,7 +64,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
                     content, Position, GetLayeringDepth(UILayeringDepths.Low));
                 panel.LoadContent();
                 //panel.MovePosition(Position);
-                AddSectionToGrid(panel, 1, currentGridY);
+                AddSectionToGrid(panel, currentGridY, 1);
 
 
                 stackRow.AddItem(panel, StackOrientation.Left);
@@ -73,7 +73,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
                     ButtonFactory.s_redExRectangle, new Action(() => { panel.DeleteSave(); Reset(); }));
 
                 //Adds button directly to the right of save panel in the grid
-                AddSectionToGrid(button, 2, currentGridY);
+                AddSectionToGrid(button, currentGridY, 2);
 
                 button.AddConfirmationWindow("Really Delete Save?");
                 button.LoadContent();

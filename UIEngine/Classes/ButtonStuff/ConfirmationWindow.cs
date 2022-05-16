@@ -54,7 +54,7 @@ namespace UIEngine.Classes.ButtonStuff
                     _confirmAction();
                     UI.RemoveCriticalSection(this);
                 }));
-            AddSectionToGrid(_confirmButton,1, 0);
+            AddSectionToGrid(_confirmButton,0, 1);
             Vector2 cancelButtonPos = RectangleHelper.CenterRectangleInRectangle(ButtonFactory.s_redExRectangle, _backGroundSprite.HitBox);
             cancelButtonPos = new Vector2(cancelButtonPos.X - 64, cancelButtonPos.Y);
             _cancelButton = UI.ButtonFactory.CreateButton(this, cancelButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_redExRectangle, _cancelAction);

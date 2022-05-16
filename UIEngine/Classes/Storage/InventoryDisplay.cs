@@ -38,6 +38,9 @@ namespace UIEngine.Classes.Storage
         protected InventorySlotDisplay[,] InventorySlots { get; set; }
         protected int SelectedIndexX { get; set; }
         public int SelectedIndexY { get; set; }
+
+        //Default selected slot index in 2d array. Some slots may be null, such as the 0,0 in the dining table (which starts at 1,1)
+        protected Point RestingIndex { get; set; } = new Point(0, 0);
         internal InventorySlotDisplay SelectedSlot { get; set; }
 
         internal new int Width { get { return XDrawEndIndex * _buttonWidth; } }
@@ -124,13 +127,13 @@ namespace UIEngine.Classes.Storage
             }
             else //Else use standard rows and columns from this class
             {
-               
+
                 Rows = 3;
                 Columns = 8;
             }
 
             GenerateUI(displayWallet);
-            SelectedSlot = InventorySlots[0, 0];
+            SelectedSlot = InventorySlots[RestingIndex.X, RestingIndex.Y];
             ExtendedInventoryCutOff = Rows;
             LoadSelectorSprite();
         }
@@ -183,7 +186,7 @@ namespace UIEngine.Classes.Storage
         {
             HasControl = true;
             if (Controls.ControllerConnected)
-                Controls.ControllerSetUIMousePosition(InventorySlots[SelectedIndexX, SelectedIndexY].Position);
+                Controls.ControllerSetUIMousePosition(InventorySlots[RestingIndex.X, RestingIndex.Y].Position);
         }
         public virtual void RemoveControl()
         {
@@ -205,7 +208,7 @@ namespace UIEngine.Classes.Storage
             Hovered = false;
             if (IsActive)
             {
-               
+
                 CheckOveriddenLogic(gameTime);
 
                 if (ExtendedInventoryOpen && HasControl)
@@ -216,14 +219,18 @@ namespace UIEngine.Classes.Storage
 
                 for (int i = 0; i < ExtendedInventoryCutOff; i++)
                 {
-                    for(int j =0; j < Columns; j++)
+                    for (int j = 0; j < Columns; j++)
                     {
-                        InventorySlotDisplay slot = InventorySlots[i,j];
-                        slot.Update(gameTime);
-                        if (slot.Hovered)
-                            Hovered = true;
+                        InventorySlotDisplay slot = InventorySlots[i, j];
+                        if (slot != null)
+                        {
+                            slot.Update(gameTime);
+                            if (slot.Hovered)
+                                Hovered = true;
+                        }
+
                     }
-               
+
                 }
                 WalletDisplay?.Update(gameTime);
                 WasExtendedOpenLastFrame = ExtendedInventoryOpen;
@@ -239,7 +246,28 @@ namespace UIEngine.Classes.Storage
             base.SelectNext(direction);
             SelectSlotAndMoveCursorIcon();
         }
+        //protected override void CheckButtonTaps()
+        //{
+        //    if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
+        //    {
+        //        SelectNext(Direction.Left);
+        //    }
+        //    else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
+        //    {
+        //        SelectNext(Direction.Right);
 
+        //    }
+        //    else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
+        //    {
+        //        SelectNext(Direction.Up);
+
+        //    }
+        //    else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadRight))
+        //    {
+        //        SelectNext(Direction.Down);
+
+        //    }
+        //}
         /// <summary>
         /// Move cursor should be used with game pad input only
         /// </summary>
@@ -289,12 +317,14 @@ namespace UIEngine.Classes.Storage
         {
             if (IsActive)
             {
-                for(int i=0; i < ExtendedInventoryCutOff; i++)
+                for (int i = 0; i < ExtendedInventoryCutOff; i++)
                 {
-                    for(int j =0; j < Columns; j++)
+                    for (int j = 0; j < Columns; j++)
                     {
-                        InventorySlots[i,j].Draw(spriteBatch);
-
+                        if (InventorySlots[i, j] != null)
+                        {
+                            InventorySlots[i, j].Draw(spriteBatch);
+                        }
                     }
                 }
                 //for (int i = 0; i < DrawEndIndex; i++)

@@ -50,13 +50,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             _playButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, _anchorPos, 
                 GetLayeringDepth(UILayeringDepths.Low),
                new List<string>() { "Play" }, ChangeToViewGamesMenu);
-            AddSectionToGrid(_playButton, 1, 0);
+            AddSectionToGrid(_playButton, 0, 1);
 
 
             _exitButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel,
                 _anchorPos, GetLayeringDepth(UILayeringDepths.Low),
                 new List<string>() { "Exit"}, UI.Exit);
-            AddSectionToGrid(_exitButton, 1, 2);
+            AddSectionToGrid(_exitButton, 2, 1);
 
 
 

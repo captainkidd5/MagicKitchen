@@ -31,6 +31,7 @@ namespace UIEngine.Classes.Storage.Configurations
 
         protected override void GenerateUI(bool displayWallet)
         {
+            RestingIndex = new Point(1, 1);
             if (StorageContainer.Slots.Count != 5)
                 throw new Exception($"Storage container passed into dining table display must have exactly 5 slots");
 

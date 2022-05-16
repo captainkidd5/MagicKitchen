@@ -137,7 +137,10 @@ namespace UIEngine.Classes.Storage
                     containerSlotIndex++;
 
                     ChildSections.Add(slotDisplay);
-                    AddSectionToGrid(slotDisplay, i, j);
+                
+                        AddSectionToGrid(slotDisplay,i , j);
+
+                    
                     InventorySlots[i, j] = slotDisplay;
 
 
