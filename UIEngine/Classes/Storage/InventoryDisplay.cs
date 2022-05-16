@@ -131,7 +131,7 @@ namespace UIEngine.Classes.Storage
 
             GenerateUI(displayWallet);
             SelectedSlot = InventorySlots[0, 0];
-          // ExtendedInventoryCutOff = InventorySlots.Count;
+            ExtendedInventoryCutOff = Rows;
             LoadSelectorSprite();
         }
 
@@ -198,6 +198,7 @@ namespace UIEngine.Classes.Storage
         public virtual void OpenExtendedInventory()
         {
             ExtendedInventoryOpen = true;
+            ExtendedInventoryCutOff = Rows;
         }
         public override void Update(GameTime gameTime)
         {
@@ -213,7 +214,7 @@ namespace UIEngine.Classes.Storage
                 if (HasControl && Controls.ControllerConnected)
                     CheckButtonTaps();
 
-                for (int i = 0; i < Rows; i++)
+                for (int i = 0; i < ExtendedInventoryCutOff; i++)
                 {
                     for(int j =0; j < Columns; j++)
                     {
@@ -288,7 +289,7 @@ namespace UIEngine.Classes.Storage
         {
             if (IsActive)
             {
-                for(int i=0; i < Rows; i++)
+                for(int i=0; i < ExtendedInventoryCutOff; i++)
                 {
                     for(int j =0; j < Columns; j++)
                     {

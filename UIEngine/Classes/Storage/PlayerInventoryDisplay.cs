@@ -37,7 +37,7 @@ namespace UIEngine.Classes.Storage
         {
 
             StorageContainer = storageContainer;
-            ExtendedInventoryCutOff = 8;
+            ExtendedInventoryCutOff = 1;
             if (StorageContainer.Capacity % ExtendedInventoryCutOff != 0)
                 throw new Exception($"Inventory must form a full number of rows {StorageContainer.Capacity} / {ExtendedInventoryCutOff} does not have remainder of zero");
             Rows = 3;
@@ -182,6 +182,10 @@ namespace UIEngine.Classes.Storage
             }
 
             SwitchSpriteFromToggleStatus();
+            if (ExtendedInventoryOpen)
+                ExtendedInventoryCutOff = Rows;
+            else
+                ExtendedInventoryCutOff = 1;
         }
 
         private void SwitchSpriteFromToggleStatus()
