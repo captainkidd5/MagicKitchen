@@ -87,43 +87,7 @@ namespace UIEngine.Classes.Storage.Configurations
                 Color.White , scale: new Vector2(4f,4f));
         }
 
-        protected override void CheckGamePadInput()
-        {
-            base.CheckGamePadInput();
-            //if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft) ||
-            //                         Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
-            //{
-            //    if (CurrentSelectedIndex > 1 && CurrentSelectedIndex < 4)
-            //        CurrentSelectedIndex--;
-            //    SelectSlotAndMoveCursorIcon();
-            //}
-            //else if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight) ||
-            //    Controls.WasGamePadButtonTapped(GamePadActionType.DPadRight))
-            //{
-            //    if (CurrentSelectedIndex >= 1 && CurrentSelectedIndex < 3)
-            //        CurrentSelectedIndex++;
-
-            //    SelectSlotAndMoveCursorIcon();
-
-            //}
-            //else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
-            //{
-            //    if (CurrentSelectedIndex == 4 || CurrentSelectedIndex == 2)
-            //        CurrentSelectedIndex -= 2;
-
-            //    SelectSlotAndMoveCursorIcon();
-
-            //}
-            //else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
-            //{
-            //    if (CurrentSelectedIndex == 0 || CurrentSelectedIndex == 2)
-            //        CurrentSelectedIndex += 2;
-
-
-            //    SelectSlotAndMoveCursorIcon();
-
-            //}
-        }
+      
 
 
     }

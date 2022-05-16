@@ -54,15 +54,16 @@ namespace UIEngine.Classes.Storage
             base.LoadContent();
             //DrawEndIndex = ExtendedInventoryCutOff;
             _openBigInventoryButton = UI.ButtonFactory.CreateButton(this,
-                new Vector2(Position.X + Width, Position.Y),LayerDepth,
+                new Vector2(Position.X + TotalBounds.Width, Position.Y),LayerDepth,
                 _openBigInventoryUpArrowSourceRectangle, new Action(ToggleOpen), scale:2f);
             _openBigInventoryButton.LoadContent();
 
-            TotalBounds = new Rectangle(TotalBounds.X, TotalBounds.Y, TotalBounds.Width + _openBigInventoryButton.TotalBounds.Width, TotalBounds.Height);
+            TotalBounds = new Rectangle(TotalBounds.X, TotalBounds.Y, TotalBounds.Width +
+                _openBigInventoryButton.TotalBounds.Width, TotalBounds.Height);
 
 
             WalletDisplay = new WalletDisplay(this, graphics, content,
-                new Vector2(TotalBounds.Width + _openBigInventoryButton.Width * 4,
+                new Vector2(Position.X + TotalBounds.Width ,
                 _openBigInventoryButton.Position.Y), GetLayeringDepth(UILayeringDepths.Medium));
 
 

@@ -204,14 +204,14 @@ namespace UIEngine.Classes.Storage
             Hovered = false;
             if (IsActive)
             {
-                CheckButtonTaps();
+               
                 CheckOveriddenLogic(gameTime);
 
                 if (ExtendedInventoryOpen && HasControl)
                     SelectedSlot.IsSelected = true;
 
                 if (HasControl && Controls.ControllerConnected)
-                    CheckGamePadInput();
+                    CheckButtonTaps();
 
                 for (int i = 0; i < Rows; i++)
                 {
@@ -237,53 +237,6 @@ namespace UIEngine.Classes.Storage
         {
             base.SelectNext(direction);
             SelectSlotAndMoveCursorIcon();
-        }
-
-        /// <summary>
-        /// Changes selected slot based on gamepad input
-        /// </summary>
-        protected virtual void CheckGamePadInput()
-        {
-            //if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperLeft) ||
-            //                        Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
-            //{
-            //    int newIndexY = SelectedIndexY;
-
-            //    newIndexY = ScrollHelper.GetIndexFromScroll(Direction.Up, newIndexY, YDrawEndIndex);
-            //    //if ((newIndexY + 1) % (Columns) != 0 && newIndexY + 1 < InventorySlots.Count)
-            //        SelectedIndexY = newIndexY;
-            //    SelectSlotAndMoveCursorIcon();
-            //}
-            //else if (Controls.WasGamePadButtonTapped(GamePadActionType.BumperRight) ||
-            //    Controls.WasGamePadButtonTapped(GamePadActionType.DPadRight))
-            //{
-            //    int newIndex = SelectedIndexX;
-            //    newIndex = ScrollHelper.GetIndexFromScroll(Direction.Down, SelectedIndexX, XDrawEndIndex);
-            //    //prevent wrapping
-            //    if (newIndex % Columns != 0)
-            //        SelectedIndexX = newIndex;
-
-            //    SelectSlotAndMoveCursorIcon();
-
-            //}
-            //else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
-            //{
-            //    SelectedIndexY++;// += Columns;
-            //    if (SelectedIndexY < Rows)
-            //        SelectedIndexY++;
-            //       // SelectedIndexY = CurrentSelectedIndex - InventorySlots.Count;
-            //    SelectSlotAndMoveCursorIcon();
-
-            //}
-            //else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
-            //{
-            //    if (SelectedIndexY > 0)
-            //        SelectedIndexY --;
-
-
-            //    SelectSlotAndMoveCursorIcon();
-
-            //}
         }
 
         /// <summary>
