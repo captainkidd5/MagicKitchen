@@ -47,6 +47,7 @@ namespace UIEngine.Classes.Storage
             GenerateUI(displayWallet);
             
             SelectedSlot = InventorySlots[0,0];
+            CurrentSelectedPoint = new Point(2, 0);
             LoadSelectorSprite();
         }
         public override void LoadContent()
@@ -116,11 +117,11 @@ namespace UIEngine.Classes.Storage
             int containerSlotIndex = 0;
             for(int i = 0; i < Rows; i++)
             {
-                for(int j = 0; j < Columns; j++)
+                for (int j = 0; j < Columns; j++)
                 {
                     int yRowOffset = (i - 1) * _buttonWidth;
                     //Always visible row
-                    if (i ==0)
+                    if (i == 0)
                     {
                         yRowOffset = (Rows - 1) * _buttonWidth;
 
@@ -131,23 +132,45 @@ namespace UIEngine.Classes.Storage
 
 
 
-                        InventorySlotDisplay slotDisplay = new InventorySlotDisplay(this, graphics, content,
-                        StorageContainer.Slots[containerSlotIndex], slotPos,
-                        GetLayeringDepth(UILayeringDepths.Low));
+                    InventorySlotDisplay slotDisplay = new InventorySlotDisplay(this, graphics, content,
+                    StorageContainer.Slots[containerSlotIndex], slotPos,
+                    GetLayeringDepth(UILayeringDepths.Low));
                     containerSlotIndex++;
 
                     ChildSections.Add(slotDisplay);
-                
-                        AddSectionToGrid(slotDisplay,i , j);
-
-                    
                     InventorySlots[i, j] = slotDisplay;
+
+               
+
+
+
 
 
                 }
 
             }
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Columns * _buttonWidth, Rows * _buttonWidth);
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Columns; j++)
+                {
+                    if (i == 0)
+                    {
+                        AddSectionToGrid(InventorySlots[2, j], i, j);
+
+                    }
+                    else if (i == 1)
+                    {
+                        AddSectionToGrid(InventorySlots[1, j], i, j);
+
+                    }
+                    else if (i == 2)
+                    {
+                        AddSectionToGrid(InventorySlots[0, j],i, j);
+
+                    }
+                }
+            }
+                    TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Columns * _buttonWidth, Rows * _buttonWidth);
 
 
         }

@@ -14,17 +14,19 @@ namespace UIEngine.Classes
 {
     internal class MenuSection :InterfaceSection
     {
-        private int _currentSelectedIndex;
         protected InterfaceSection CurrentSelected { get; set; }
 
         protected Point CurrentSelectedPoint { get; set; }
         protected InterfaceSection[,] Selectables { get; set; }
+
+        //Default selected slot index in 2d array. Some slots may be null, such as the 0,0 in the dining table (which starts at 1,1)
+        protected Point RestingIndex { get; set; } = new Point(0, 0);
         public MenuSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content,Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             Selectables = new InterfaceSection[3,3];
-            CurrentSelectedPoint = new Point(1, 0);
+            CurrentSelectedPoint = new Point(0, 1);
         }
 
        

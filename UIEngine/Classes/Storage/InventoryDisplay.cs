@@ -39,8 +39,7 @@ namespace UIEngine.Classes.Storage
         protected int SelectedIndexX { get; set; }
         public int SelectedIndexY { get; set; }
 
-        //Default selected slot index in 2d array. Some slots may be null, such as the 0,0 in the dining table (which starts at 1,1)
-        protected Point RestingIndex { get; set; } = new Point(0, 0);
+       
         internal InventorySlotDisplay SelectedSlot { get; set; }
 
         internal new int Width { get { return XDrawEndIndex * _buttonWidth; } }

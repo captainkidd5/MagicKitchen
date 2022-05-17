@@ -42,6 +42,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
       
         public override void LoadContent()
         {
+            RestingIndex = new Point(0, 1);
+
             Vector2 _anchorPos = new Vector2(parentSection.TotalBounds.X,
                 parentSection.TotalBounds.Y);
             _stackPanel = new StackPanel(this, graphics, content, _anchorPos, LayerDepth);
