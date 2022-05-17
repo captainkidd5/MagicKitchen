@@ -37,9 +37,6 @@ namespace UIEngine.Classes.Storage
         {
 
             StorageContainer = storageContainer;
-            ExtendedInventoryCutOff = 1;
-            if (StorageContainer.Capacity % ExtendedInventoryCutOff != 0)
-                throw new Exception($"Inventory must form a full number of rows {StorageContainer.Capacity} / {ExtendedInventoryCutOff} does not have remainder of zero");
             Rows = 3;
             Columns = 8;
             Selectables = new InterfaceSection[Rows, Columns];
@@ -155,17 +152,17 @@ namespace UIEngine.Classes.Storage
                 {
                     if (i == 0)
                     {
-                        AddSectionToGrid(InventorySlots[2, j], i, j);
+                        AddSectionToGrid(InventorySlots[2, j], 2, j);
 
                     }
                     else if (i == 1)
                     {
-                        AddSectionToGrid(InventorySlots[1, j], i, j);
+                        AddSectionToGrid(InventorySlots[1, j], 1, j);
 
                     }
                     else if (i == 2)
                     {
-                        AddSectionToGrid(InventorySlots[0, j],i, j);
+                        AddSectionToGrid(InventorySlots[0, j],0, j);
 
                     }
                 }
@@ -179,13 +176,14 @@ namespace UIEngine.Classes.Storage
             base.CloseExtendedInventory();
             //Don't want to reset the index back to zero if current selection isn't in the extended inventory, that 
             //would just be annoying
-            //if(CurrentSelectedIndex > ExtendedInventoryCutOff)
-            //{
-            //    CurrentSelectedIndex = 0;
+            if (CurrentSelectedPoint.X > 0)
+            {
+                CurrentSelectedPoint = new Point(0, CurrentSelectedPoint.Y);
 
-            //    SelectedSlot = InventorySlots[CurrentSelectedIndex];
-            //}
-                
+                SelectedSlot = InventorySlots[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
+            }
+            DrawCutOff = 1;
+
         }
         /// <summary>
         /// Button action for arrow sprite, swaps between two sprites and opens/closes extended inventory
@@ -194,24 +192,25 @@ namespace UIEngine.Classes.Storage
         {
             ExtendedInventoryOpen = !ExtendedInventoryOpen;
             //reset selector to 0 if just closed
-            if(!ExtendedInventoryOpen)
+            if (!ExtendedInventoryOpen)
             {
-                SelectedSlot = InventorySlots[0,0];
-                if(Controls.ControllerConnected && UI.Cursor.IsHoldingItem)
+                if (Controls.ControllerConnected && UI.Cursor.IsHoldingItem)
                 {
                     //Should drop the item if item is grabbed and player closes the inventory
-            
+
 
                     UI.Cursor.OnItemDropped();
 
                 }
             }
+            else
+            {
+                DrawCutOff = Rows;
+            }
 
             SwitchSpriteFromToggleStatus();
-            if (ExtendedInventoryOpen)
-                ExtendedInventoryCutOff = Rows;
-            else
-                ExtendedInventoryCutOff = 1;
+            if (!ExtendedInventoryOpen)
+                CloseExtendedInventory();
         }
 
         private void SwitchSpriteFromToggleStatus()

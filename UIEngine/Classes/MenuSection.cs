@@ -41,9 +41,18 @@ namespace UIEngine.Classes
             {
                 case Direction.Up:
                     newIndex = new Point(newIndex.X-1, newIndex.Y ); 
+                    if(newIndex.X >= Selectables.GetLength(0))
+                        newIndex = new Point(0, newIndex.Y);
+                    if (newIndex.X < 0)
+                        newIndex = new Point(Selectables.GetLength(0) - 1, newIndex.Y);
                     break;
                 case Direction.Down:
                     newIndex = new Point(newIndex.X + 1, newIndex.Y);
+
+                    if (newIndex.X >= Selectables.GetLength(0))
+                        newIndex = new Point(0, newIndex.Y);
+                    if (newIndex.X < 0)
+                        newIndex = new Point(Selectables.GetLength(0) - 1, newIndex.Y);
                     break;
                 case Direction.Left:
                     newIndex = new Point(newIndex.X, newIndex.Y - 1);

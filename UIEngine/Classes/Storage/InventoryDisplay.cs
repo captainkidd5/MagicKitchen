@@ -36,8 +36,7 @@ namespace UIEngine.Classes.Storage
         protected StorageContainer StorageContainer { get; set; }
 
         protected InventorySlotDisplay[,] InventorySlots { get; set; }
-        protected int SelectedIndexX { get; set; }
-        public int SelectedIndexY { get; set; }
+
 
        
         internal InventorySlotDisplay SelectedSlot { get; set; }
@@ -62,7 +61,7 @@ namespace UIEngine.Classes.Storage
 
         public bool WasExtendedJustOpened => ExtendedInventoryOpen && !WasExtendedOpenLastFrame;
 
-        protected int ExtendedInventoryCutOff { get; set; }
+        protected int DrawCutOff { get; set; }
 
         private Sprite _selectorSprite;
 
@@ -130,10 +129,9 @@ namespace UIEngine.Classes.Storage
                 Rows = 3;
                 Columns = 8;
             }
-
+            DrawCutOff = Rows;
             GenerateUI(displayWallet);
             SelectedSlot = InventorySlots[RestingIndex.X, RestingIndex.Y];
-            ExtendedInventoryCutOff = Rows;
             LoadSelectorSprite();
         }
 
@@ -184,6 +182,7 @@ namespace UIEngine.Classes.Storage
         public virtual void GiveControl()
         {
             HasControl = true;
+            SelectSlotAndMoveCursorIcon(false);
             if (Controls.ControllerConnected)
                 Controls.ControllerSetUIMousePosition(InventorySlots[RestingIndex.X, RestingIndex.Y].Position);
         }
@@ -200,7 +199,6 @@ namespace UIEngine.Classes.Storage
         public virtual void OpenExtendedInventory()
         {
             ExtendedInventoryOpen = true;
-            ExtendedInventoryCutOff = Rows;
         }
         public override void Update(GameTime gameTime)
         {
@@ -216,7 +214,7 @@ namespace UIEngine.Classes.Storage
                 if (HasControl && Controls.ControllerConnected)
                     CheckButtonTaps();
 
-                for (int i = 0; i < ExtendedInventoryCutOff; i++)
+                for (int i = 0; i < DrawCutOff; i++)
                 {
                     for (int j = 0; j < Columns; j++)
                     {
@@ -245,28 +243,7 @@ namespace UIEngine.Classes.Storage
             base.SelectNext(direction);
             SelectSlotAndMoveCursorIcon();
         }
-        //protected override void CheckButtonTaps()
-        //{
-        //    if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadUp))
-        //    {
-        //        SelectNext(Direction.Left);
-        //    }
-        //    else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadDown))
-        //    {
-        //        SelectNext(Direction.Right);
 
-        //    }
-        //    else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadLeft))
-        //    {
-        //        SelectNext(Direction.Up);
-
-        //    }
-        //    else if (Controls.WasGamePadButtonTapped(GamePadActionType.DPadRight))
-        //    {
-        //        SelectNext(Direction.Down);
-
-        //    }
-        //}
         /// <summary>
         /// Move cursor should be used with game pad input only
         /// </summary>
@@ -310,13 +287,13 @@ namespace UIEngine.Classes.Storage
             SelectSlotAndMoveCursorIcon(false);
 
 
-            SelectedSlot = InventorySlots[SelectedIndexX, SelectedIndexY];
+            SelectedSlot = InventorySlots[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (IsActive)
             {
-                for (int i = 0; i < ExtendedInventoryCutOff; i++)
+                for (int i = 0; i < DrawCutOff; i++)
                 {
                     for (int j = 0; j < Columns; j++)
                     {
@@ -326,10 +303,7 @@ namespace UIEngine.Classes.Storage
                         }
                     }
                 }
-                //for (int i = 0; i < DrawEndIndex; i++)
-                //{
-                //    InventorySlots[i].Draw(spriteBatch);
-                //}
+
                 WalletDisplay?.Draw(spriteBatch);
                 if (BackdropSprite != null)
                     BackdropSprite.Draw(spriteBatch);
