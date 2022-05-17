@@ -68,13 +68,16 @@ namespace UIEngine.Classes
             if (!ScrollHelper.InBounds(newIndex, Selectables.GetLength(0), Selectables.GetLength(1)))
                 return;
 
-            if(Selectables[newIndex.X, newIndex.Y] != null)
+            DoSelection(newIndex);
+        }
+        protected virtual void DoSelection(Point newIndex)
+        {
+            if (Selectables[newIndex.X, newIndex.Y] != null)
             {
                 CurrentSelectedPoint = newIndex;
                 CurrentSelected = Selectables[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
             }
         }
-
         /// <summary>
         /// Adds new interface section to given index, only if it is in bounds and no section exists there yet
         /// </summary>

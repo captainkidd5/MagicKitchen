@@ -38,13 +38,16 @@ namespace UIEngine.Classes.Storage
 
             StorageContainer = storageContainer;
             Rows = 3;
+            DrawCutOff = 1;
             Columns = 8;
             Selectables = new InterfaceSection[Rows, Columns];
 
             GenerateUI(displayWallet);
             
             SelectedSlot = InventorySlots[0,0];
-            CurrentSelectedPoint = new Point(2, 0);
+            CurrentSelectedPoint = new Point(0, 0);
+            CurrentSelected = Selectables[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
+
             LoadSelectorSprite();
         }
         public override void LoadContent()

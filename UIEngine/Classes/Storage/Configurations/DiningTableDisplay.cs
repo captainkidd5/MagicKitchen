@@ -41,7 +41,7 @@ namespace UIEngine.Classes.Storage.Configurations
             Rows = 3;
             Columns = 3;
             InventorySlots = new InventorySlotDisplay[Rows, Columns];
-
+            DrawCutOff = Rows;
             for (int i = 0; i < Rows; i++)
             {
                 StackRow stackRow = new StackRow(Columns * _buttonWidth);

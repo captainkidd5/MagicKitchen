@@ -182,9 +182,9 @@ namespace UIEngine.Classes.Storage
         public virtual void GiveControl()
         {
             HasControl = true;
-            SelectSlotAndMoveCursorIcon(false);
+            SelectSlotAndMoveCursorIcon(Controls.ControllerConnected);
             if (Controls.ControllerConnected)
-                Controls.ControllerSetUIMousePosition(InventorySlots[RestingIndex.X, RestingIndex.Y].Position);
+                Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedPoint.X, CurrentSelectedPoint.Y].Position);
         }
         public virtual void RemoveControl()
         {
@@ -241,7 +241,7 @@ namespace UIEngine.Classes.Storage
         protected override void SelectNext(Direction direction)
         {
             base.SelectNext(direction);
-            SelectSlotAndMoveCursorIcon();
+            SelectSlotAndMoveCursorIcon(Controls.ControllerConnected);
         }
 
         /// <summary>
@@ -288,6 +288,13 @@ namespace UIEngine.Classes.Storage
 
 
             SelectedSlot = InventorySlots[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
+        }
+
+        protected override void DoSelection(Point newIndex)
+        {
+            if (!ExtendedInventoryOpen && newIndex.X >= DrawCutOff)
+                return;
+            base.DoSelection(newIndex);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
