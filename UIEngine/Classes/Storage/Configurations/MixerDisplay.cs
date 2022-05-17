@@ -36,6 +36,7 @@ namespace UIEngine.Classes.Storage.Configurations
             Rows = 2;
             Columns = 5;
             InventorySlots = new InventorySlotDisplay[Rows,Columns];
+            DrawCutOff = Rows;
 
             for (int i = 0; i < Rows; i++)
             {

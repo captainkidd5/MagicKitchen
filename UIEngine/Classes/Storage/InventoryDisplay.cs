@@ -189,7 +189,10 @@ namespace UIEngine.Classes.Storage
         public virtual void RemoveControl() => HasControl = false;
 
         public virtual void CloseExtendedInventory() => ExtendedInventoryOpen = false;
-        public virtual void OpenExtendedInventory() => ExtendedInventoryOpen = true;
+        public virtual void OpenExtendedInventory() {
+            DrawCutOff = Rows;
+                ExtendedInventoryOpen = true;
+        } 
 
         public override void Update(GameTime gameTime)
         {
