@@ -186,20 +186,11 @@ namespace UIEngine.Classes.Storage
             if (Controls.ControllerConnected)
                 Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedPoint.X, CurrentSelectedPoint.Y].Position);
         }
-        public virtual void RemoveControl()
-        {
-            HasControl = false;
-        }
+        public virtual void RemoveControl() => HasControl = false;
 
-        public virtual void CloseExtendedInventory()
-        {
-            ExtendedInventoryOpen = false;
+        public virtual void CloseExtendedInventory() => ExtendedInventoryOpen = false;
+        public virtual void OpenExtendedInventory() => ExtendedInventoryOpen = true;
 
-        }
-        public virtual void OpenExtendedInventory()
-        {
-            ExtendedInventoryOpen = true;
-        }
         public override void Update(GameTime gameTime)
         {
             Hovered = false;
@@ -260,34 +251,16 @@ namespace UIEngine.Classes.Storage
         /// </summary>
         private void UpdateSelectorIndex()
         {
-            int newSelectedSlot = 0;
             Direction newDir = Direction.None;
 
             if (Controls.ScrollWheelIncreased)
-                newDir = Direction.Down;
+                newDir = Direction.Left;
             else if (Controls.ScrollWheelDecreased)
-                newDir = Direction.Up;
+                newDir = Direction.Right;
             else
                 return;
+            SelectNext(newDir);
 
-            //newSelectedSlot = ScrollHelper.GetIndexFromScroll(
-            //        newDir, InventorySlots.IndexOf(SelectedSlot),
-            //        InventorySlots.Count);
-            ////Selector shouldn't extend past main toolbar row if extended inventory is closed
-            //if (!ExtendedInventoryOpen)
-            //{
-            //    if (newSelectedSlot == Capacity - 1)
-            //        newSelectedSlot = ExtendedInventoryCutOff - 1;
-            //    else if (newSelectedSlot >= ExtendedInventoryCutOff)
-            //        newSelectedSlot = 0;
-
-
-            //}
-            //CurrentSelectedIndex = newSelectedSlot;
-            SelectSlotAndMoveCursorIcon(false);
-
-
-            SelectedSlot = InventorySlots[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
         }
 
         protected override void DoSelection(Point newIndex)
