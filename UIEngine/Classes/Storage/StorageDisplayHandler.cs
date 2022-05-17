@@ -51,6 +51,7 @@ namespace UIEngine.Classes.Storage
 
             Rectangle totalToolBarRectangle = new Rectangle(0, 0, _playerSlotWidth * _playerInventoryTotalSlots, _playerSlotWidth);
             Vector2 playerInventoryPosition = RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle);
+            playerInventoryPosition = new Vector2(playerInventoryPosition.X, playerInventoryPosition.Y - Settings.Gutter);
             _playerInventoryDisplay = new PlayerInventoryDisplay(this, graphics, content, playerInventoryPosition, GetLayeringDepth(UILayeringDepths.Low));
             _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer, true);
             _playerInventoryDisplay.LoadContent();

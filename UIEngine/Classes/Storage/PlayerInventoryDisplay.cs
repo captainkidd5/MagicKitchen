@@ -127,10 +127,7 @@ namespace UIEngine.Classes.Storage
 
                     }
 
-
                     slotPos = new Vector2(Position.X + ((j * _buttonWidth)), Position.Y + slotoffSet.Y + yRowOffset);
-
-
 
                     InventorySlotDisplay slotDisplay = new InventorySlotDisplay(this, graphics, content,
                     StorageContainer.Slots[containerSlotIndex], slotPos,
@@ -139,12 +136,6 @@ namespace UIEngine.Classes.Storage
 
                     ChildSections.Add(slotDisplay);
                     InventorySlots[i, j] = slotDisplay;
-
-               
-
-
-
-
 
                 }
 
@@ -195,25 +186,25 @@ namespace UIEngine.Classes.Storage
         {
             ExtendedInventoryOpen = !ExtendedInventoryOpen;
             //reset selector to 0 if just closed
-            if (!ExtendedInventoryOpen)
+            if (ExtendedInventoryOpen)
+            {
+                DrawCutOff = Rows;
+
+            }
+            else
             {
                 if (Controls.ControllerConnected && UI.Cursor.IsHoldingItem)
                 {
                     //Should drop the item if item is grabbed and player closes the inventory
 
-
                     UI.Cursor.OnItemDropped();
 
                 }
-            }
-            else
-            {
-                DrawCutOff = Rows;
+                CloseExtendedInventory();
             }
 
             SwitchSpriteFromToggleStatus();
-            if (!ExtendedInventoryOpen)
-                CloseExtendedInventory();
+               
         }
 
         private void SwitchSpriteFromToggleStatus()
