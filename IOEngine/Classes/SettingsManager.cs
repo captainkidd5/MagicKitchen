@@ -17,6 +17,8 @@ namespace IOEngine.Classes
         private static string _fullPath => _settingsPath + _fileName;
 
             public static SettingsFile SettingsFile { get; private set; }
+
+        public static bool Mute { get { return SettingsFile.MuteMusic; } set { SettingsFile.MuteMusic = value; } }
         public static void LoadSettings()
         {
             SettingsFile = new SettingsFile();

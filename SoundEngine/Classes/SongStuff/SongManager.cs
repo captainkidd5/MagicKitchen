@@ -72,7 +72,7 @@ namespace SoundEngine.Classes.SongStuff
             s_recentlyPlayedQueue = new Queue<SongPackage>(s_minSongsBeforeRepeat);
             _currentSong = s_currentPlayList[0];
             CommandConsole.RegisterCommand("skip_song", "skips current song in playlist", SkipSong);
-            MusicVolume = 0f ;
+            MusicVolume = 1f ;
             Muted = SettingsManager.SettingsFile.MuteMusic;
         }
 
@@ -165,26 +165,26 @@ namespace SoundEngine.Classes.SongStuff
         public static void Update(GameTime gameTime)
         {
 
-            //if (!Muted)
-            //    MediaPlayer.Volume = MusicVolume;
+            if (!Muted)
+                MediaPlayer.Volume = MusicVolume;
 
 
-            //if (s_fadingIn)
-            //{
-            //    IncreaseVolume(gameTime);
-            //}
-            //else if (s_fadingOut)
-            //{
-            //    DecreaseVolume(gameTime);
-            //}
+            if (s_fadingIn)
+            {
+                IncreaseVolume(gameTime);
+            }
+            else if (s_fadingOut)
+            {
+                DecreaseVolume(gameTime);
+            }
 
-            //if (DidSongFinish())
-            //{
-            //    PlayNextSongInPlaylist();
-            //}
+            if (DidSongFinish())
+            {
+                PlayNextSongInPlaylist();
+            }
 
-            //if (MediaPlayer.State == MediaState.Stopped && _currentSong != null)
-            //    MediaPlayer.Play(_currentSong.Song);
+            if (MediaPlayer.State == MediaState.Stopped && _currentSong != null)
+                MediaPlayer.Play(_currentSong.Song);
 
         }
 

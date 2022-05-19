@@ -21,6 +21,8 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
         private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 352, 352);
         private NineSliceTextButton _saveSettingsButton;
         private StackPanel _stackPanel;
+
+        private CheckBox _muteMusicCheckBox;
         public SettingsMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
         
@@ -46,6 +48,17 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
                  new Action(() => { SettingsManager.SaveSettings(); }));
             stackRow1.AddItem(_saveSettingsButton, StackOrientation.Center);
             _stackPanel.Add(stackRow1);
+
+            StackRow stackRow2 = new StackRow(_backGroundSpriteDimensions.Width);
+
+            NineSliceTextButton _muteMusicText = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
+                new List<Text>() { TextFactory.CreateUIText("Mute Music", GetLayeringDepth(UILayeringDepths.Medium))}, null);
+            _muteMusicText.Displaybackground = false;
+            stackRow2.AddItem(_muteMusicText, StackOrientation.Left);
+            _muteMusicCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
+                _muteMusicCheckBox.ToggleValue(SettingsManager.Mute);
+            stackRow2.AddItem(_muteMusicCheckBox, StackOrientation.Left);
+            _stackPanel.Add(stackRow2);
             Deactivate();
 
             NormallyActivated = false;
@@ -53,6 +66,8 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            if (IsActive)
+                SettingsManager.Mute = _muteMusicCheckBox.Value;
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

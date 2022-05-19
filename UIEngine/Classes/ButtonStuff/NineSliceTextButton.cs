@@ -26,6 +26,7 @@ namespace UIEngine.Classes.ButtonStuff
         private int? _forcedHeight;
         private bool _centerText;
 
+        public bool Displaybackground { get; set; } = true;
         public NineSliceTextButton(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth,
              List<Text> textList, Action buttonAction, int? forcedWidth = null, int? forcedHeight = null, bool centerText = false,
             Sprite? foregroundSprite = null, Point? samplePoint = null, Rectangle? sourceRectangle = null, bool hoverTransparency = true) :
@@ -119,7 +120,7 @@ namespace UIEngine.Classes.ButtonStuff
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-          
+          if(Displaybackground)
             base.Draw(spriteBatch);
             for (int i = _textList.Count - 1; i >= 0; i--)
             {

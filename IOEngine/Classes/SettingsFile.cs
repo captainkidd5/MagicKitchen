@@ -8,7 +8,7 @@ namespace IOEngine.Classes
 {
     public class SettingsFile
     {
-        public bool MuteMusic { get; set; } = true;
-        public float MusicVolume { get; set; } = 0f;
+        public bool MuteMusic { get; set; } = false;
+        public float MusicVolume { get; set; } = 1f;
     }
 }
