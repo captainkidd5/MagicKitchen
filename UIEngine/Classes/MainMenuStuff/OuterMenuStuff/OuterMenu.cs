@@ -94,10 +94,10 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                 case OuterMenuState.Settings:
                     _activeSection.Deactivate();
 
-                    //_activeSection = UI.SettingsMenu;
+                    _activeSection = UI.SettingsMenu;
                     UI.SettingsMenu.ReadjustBasedOnParent(BackGroundSourceRectangle, _backGroundSpritePosition);
                     UI.SettingsMenu.Activate();
-                   // UI.SettingsMenu.LoadContent();
+                    UI.SettingsMenu.LoadContent();
 
                     break;
                 case OuterMenuState.None:

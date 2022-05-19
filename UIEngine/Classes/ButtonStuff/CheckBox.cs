@@ -26,9 +26,9 @@ namespace UIEngine.Classes.ButtonStuff
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle,
                 buttonAction, foregroundSprite, samplePoint, hoverTransparency, scale)
         {
-            BackGroundSprite = SpriteFactory.CreateUISprite(position, s_emptyBoxSourceRectangle, UI.ButtonTexture, LayerDepth, null, null, new Vector2(scale,scale));
+            BackGroundSprite = SpriteFactory.CreateUISprite(position, s_emptyBoxSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), null, null, new Vector2(scale,scale));
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);
-            ForegroundSprite = SpriteFactory.CreateUISprite(Position, s_checkMarkSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), null, null, new Vector2(scale, scale));
+            ForegroundSprite = SpriteFactory.CreateUISprite(Position, s_checkMarkSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium), null, null, new Vector2(scale, scale));
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
             ForeGroundSpriteOffSet = Vector2.Zero;
 
@@ -37,7 +37,7 @@ namespace UIEngine.Classes.ButtonStuff
         {
             Value = value;
             if (!Value)
-                ForegroundSprite.SwapSourceRectangle(s_emptyBoxSourceRectangle);
+                ForegroundSprite.SwapSourceRectangle(new Rectangle(0,0,1,1));
             else
                 ForegroundSprite.SwapSourceRectangle(s_checkMarkSourceRectangle);
         }

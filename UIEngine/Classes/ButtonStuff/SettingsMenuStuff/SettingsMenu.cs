@@ -17,7 +17,7 @@ using UIEngine.Classes.Components;
 
 namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
 {
-    internal class SettingsMenu : InterfaceSection
+    internal class SettingsMenu : MenuSection
     {
         private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 352, 352);
         private NineSliceTextButton _saveSettingsButton;
@@ -30,7 +30,8 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
         private bool _enableFullScren;
         public SettingsMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-        
+            Selectables = new InterfaceSection[3, 3];
+            CurrentSelectedPoint = new Point(0, 0);
         }
 
         public void ReadjustBasedOnParent(Rectangle newRectangle, Vector2 parentPos)
@@ -40,9 +41,12 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             _backGroundSpriteDimensions = newRectangle;
             Position = parentPos;
             LoadContent();
+            
         }
         public override void LoadContent()
         {
+
+            ClearGrid();
             GetSettingsValues();
             Position = RectangleHelper.CenterRectangleInRectangle(_backGroundSpriteDimensions,
                 new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height));
@@ -55,6 +59,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             stackRow1.AddItem(_saveSettingsButton, StackOrientation.Center);
             _stackPanel.Add(stackRow1);
 
+            AddSectionToGrid(_saveSettingsButton, 0, 0);
 
 
             StackRow stackRow2 = new StackRow(_backGroundSpriteDimensions.Width);
@@ -66,8 +71,10 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             stackRow2.AddItem(_muteMusicText, StackOrientation.Left);
             _muteMusicCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
                 _muteMusicCheckBox.ToggleValue(SettingsManager.Mute);
-            stackRow2.AddItem(_muteMusicCheckBox, StackOrientation.Left);
+            stackRow2.AddItem(_muteMusicCheckBox, StackOrientation.Right);
             _stackPanel.Add(stackRow2);
+
+            AddSectionToGrid(_muteMusicCheckBox, 1, 0);
 
             StackRow stackRow3 = new StackRow(_backGroundSpriteDimensions.Width);
             NineSliceTextButton _enableFullScreenText = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
@@ -77,7 +84,8 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             stackRow3.AddItem(_enableFullScreenText, StackOrientation.Left);
             _enableFullScrenCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
             _enableFullScrenCheckBox.ToggleValue(SettingsManager.FullScreen);
-            stackRow3.AddItem(_enableFullScrenCheckBox, StackOrientation.Left);
+            stackRow3.AddItem(_enableFullScrenCheckBox, StackOrientation.Right);
+            AddSectionToGrid(_enableFullScrenCheckBox,2, 0);
 
             _stackPanel.Add(stackRow3);
 

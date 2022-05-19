@@ -42,6 +42,8 @@ namespace UIEngine.Classes.ButtonStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+           
+
             if (ForegroundSprite != null)
                 ForegroundSprite.Update(gameTime, Position + ForeGroundSpriteOffSet.Value);
 
