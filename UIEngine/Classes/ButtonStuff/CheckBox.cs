@@ -28,7 +28,7 @@ namespace UIEngine.Classes.ButtonStuff
         {
             BackGroundSprite = SpriteFactory.CreateUISprite(position, s_emptyBoxSourceRectangle, UI.ButtonTexture, LayerDepth, null, null, new Vector2(scale,scale));
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, samplePoint ?? _samplePoint, ButtonTexture.Width);
-            ForegroundSprite = SpriteFactory.CreateUISprite(Position, s_checkMarkSourceRectangle, UI.ButtonTexture, LayerDepth, null, null, new Vector2(scale, scale));
+            ForegroundSprite = SpriteFactory.CreateUISprite(Position, s_checkMarkSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), null, null, new Vector2(scale, scale));
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
             ForeGroundSpriteOffSet = Vector2.Zero;
 
@@ -46,7 +46,7 @@ namespace UIEngine.Classes.ButtonStuff
             base.Update(gameTime);
             if (Clicked)
             {
-                ValueLastFrame = !Value;
+                Value = !Value;
             }
             if(ValueLastFrame != Value)
             {

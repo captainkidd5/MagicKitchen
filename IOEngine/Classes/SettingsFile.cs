@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Globals.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,10 @@ namespace IOEngine.Classes
     {
         public bool MuteMusic { get; set; } = false;
         public float MusicVolume { get; set; } = 1f;
+
+        public bool FullScreen { get; set; } = false;
+
+        public int CurrentScreenWidth { get; set; } = (int)Settings.NativeWidth;
+        public int CurrentScreenHeight { get; set; } = (int)Settings.NativeHeight;
     }
 }

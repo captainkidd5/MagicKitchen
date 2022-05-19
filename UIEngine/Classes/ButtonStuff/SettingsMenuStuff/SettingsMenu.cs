@@ -3,6 +3,7 @@ using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SoundEngine.Classes.SongStuff;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.InterfaceStuff;
 using System;
@@ -23,6 +24,10 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
         private StackPanel _stackPanel;
 
         private CheckBox _muteMusicCheckBox;
+        private CheckBox _enableFullScrenCheckBox;
+
+        private bool _muteMusic;
+        private bool _enableFullScren;
         public SettingsMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
         
@@ -38,6 +43,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
         }
         public override void LoadContent()
         {
+            GetSettingsValues();
             Position = RectangleHelper.CenterRectangleInRectangle(_backGroundSpriteDimensions,
                 new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height));
             _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
@@ -45,20 +51,36 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             _saveSettingsButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, Position,
                 GetLayeringDepth(UILayeringDepths.Low),  new List<string>()
                 { "Save Settings!" },
-                 new Action(() => { SettingsManager.SaveSettings(); }));
+                SetSettingsValues);
             stackRow1.AddItem(_saveSettingsButton, StackOrientation.Center);
             _stackPanel.Add(stackRow1);
+
+
 
             StackRow stackRow2 = new StackRow(_backGroundSpriteDimensions.Width);
 
             NineSliceTextButton _muteMusicText = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
                 new List<Text>() { TextFactory.CreateUIText("Mute Music", GetLayeringDepth(UILayeringDepths.Medium))}, null);
             _muteMusicText.Displaybackground = false;
+
             stackRow2.AddItem(_muteMusicText, StackOrientation.Left);
             _muteMusicCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
                 _muteMusicCheckBox.ToggleValue(SettingsManager.Mute);
             stackRow2.AddItem(_muteMusicCheckBox, StackOrientation.Left);
             _stackPanel.Add(stackRow2);
+
+            StackRow stackRow3 = new StackRow(_backGroundSpriteDimensions.Width);
+            NineSliceTextButton _enableFullScreenText = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
+               new List<Text>() { TextFactory.CreateUIText("Enable FullScreen", GetLayeringDepth(UILayeringDepths.Medium)) }, null);
+            _enableFullScreenText.Displaybackground = false;
+
+            stackRow3.AddItem(_enableFullScreenText, StackOrientation.Left);
+            _enableFullScrenCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
+            _enableFullScrenCheckBox.ToggleValue(SettingsManager.FullScreen);
+            stackRow3.AddItem(_enableFullScrenCheckBox, StackOrientation.Left);
+
+            _stackPanel.Add(stackRow3);
+
             Deactivate();
 
             NormallyActivated = false;
@@ -67,7 +89,10 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
         {
             base.Update(gameTime);
             if (IsActive)
-                SettingsManager.Mute = _muteMusicCheckBox.Value;
+            {
+                _enableFullScren = _enableFullScrenCheckBox.Value;
+                _muteMusic = _muteMusicCheckBox.Value;
+            }
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -75,6 +100,19 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             base.Draw(spriteBatch);
         }
 
-        
+        private void GetSettingsValues()
+        {
+            _muteMusic = SettingsManager.Mute;
+            _enableFullScren = SettingsManager.FullScreen;
+        }
+
+        private void SetSettingsValues()
+        {
+            SettingsManager.Mute = _muteMusic;
+            SongManager.Muted = SettingsManager.Mute;
+
+            SettingsManager.FullScreen = _enableFullScren;
+            SettingsManager.SaveSettings();
+        }
     }
 }

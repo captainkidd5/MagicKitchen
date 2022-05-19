@@ -348,7 +348,7 @@ namespace MagicKitchen.Classes.ConsoleStuff
             switch (res)
             {
                 case "full":
-                    Settings.ToggleFullscreen();
+                    Settings.ToggleFullscreen(null);
                     CommandConsole.Append($"Toggled fullscreen");
                     return;
 

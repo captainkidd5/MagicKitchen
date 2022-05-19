@@ -122,11 +122,16 @@ namespace Globals.Classes
             Graphics.ApplyChanges();
         }
 
-        public static void ToggleFullscreen()
+        public static void ToggleFullscreen(bool? value)
         {
-            Graphics.IsFullScreen = !Graphics.IsFullScreen;
-            Graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            Graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            if (value == null)
+                Graphics.IsFullScreen = !Graphics.IsFullScreen;
+            else
+                Graphics.IsFullScreen = value.Value;
+            //Graphics.ToggleFullScreen();
+            Graphics.HardwareModeSwitch = false;
+            //  Graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            //Graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             ScreenRectangle = GetScreenRectangle();
 
             Graphics.ApplyChanges();

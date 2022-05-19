@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Globals.Classes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,7 +19,14 @@ namespace IOEngine.Classes
 
             public static SettingsFile SettingsFile { get; private set; }
 
-        public static bool Mute { get { return SettingsFile.MuteMusic; } set { SettingsFile.MuteMusic = value; } }
+        public static bool Mute { get { return SettingsFile.MuteMusic; } set { 
+                SettingsFile.MuteMusic = value;
+            } }
+        public static bool FullScreen { get { return SettingsFile.FullScreen; } set {
+                SettingsFile.FullScreen = value; 
+                Settings.ToggleFullscreen(value);
+            } }
+
         public static void LoadSettings()
         {
             SettingsFile = new SettingsFile();
@@ -33,10 +41,15 @@ namespace IOEngine.Classes
             using FileStream openStrean = File.OpenRead($"{_fullPath}");
                 SettingsFile = JsonSerializer.Deserialize<SettingsFile>(openStrean);
             openStrean.Dispose();
+
+            FullScreen = SettingsFile.FullScreen;
         }
 
         public static void SaveSettings()
         {
+            //Save current screen width and height so when fullscreen is exited it is remembered
+            SettingsFile.CurrentScreenWidth = Settings.ScreenWidth;
+            SettingsFile.CurrentScreenHeight = Settings.ScreenHeight;
             var options = new JsonSerializerOptions()
             {
                 WriteIndented = true
