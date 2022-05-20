@@ -29,7 +29,8 @@ namespace TiledEngine.Classes
         {
             var _backGroundSet = tmxMap.Tilesets.FirstOrDefault(x => x.Name.Contains("Back"));
             _backgroundDictionary = _backGroundSet.Tiles;
-            _backgroundDimension = (int)_backGroundSet.Columns;
+            _backgroundDimension = (int)_backGroundSet.Columns; 
+
             _backgroundTileCount = (int)_backGroundSet.TileCount;
 
             if (tmxMap.Tilesets.Count > 1)

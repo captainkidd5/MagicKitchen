@@ -12,16 +12,16 @@ using TiledEngine.Classes.Helpers;
 
 namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
-    internal class KitchenAppliance : StorableFurniture
+    internal class CraftingFurniture : StorableFurniture
     {
         private ProgressBarSprite _progressIndicator;
 
         protected bool IsBeingOperated { get; set; } = false;
-        public KitchenAppliance(FurnitureData furnitureData, Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType)
+        public CraftingFurniture(FurnitureData furnitureData, Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType)
             : base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
         {
             _progressIndicator = new ProgressBarSprite();
-            SubKey = "KitchenAppliance";
+            SubKey = "CraftingFurniture";
         }
         public override void Load()
         {

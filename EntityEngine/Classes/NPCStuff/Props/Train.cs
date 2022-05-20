@@ -23,12 +23,12 @@ namespace EntityEngine.Classes.NPCStuff.Props
         /// <summary>
         /// Min number of passengers train will unload at each stop
         /// </summary>
-        public int UnloadMin { get; set; } = 3;
+        public int UnloadMin { get; set; } = 2;
 
         /// <summary>
         /// Max number of passengers train will unload at each stop
         /// </summary>
-        public int UnloadMax { get; set; } = 7;
+        public int UnloadMax { get; set; } = 5;
 
         private SimpleTimer _unloadTimer;
         //rate at which passengers unload in seconds

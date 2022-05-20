@@ -124,6 +124,13 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="1215">
+  <properties>
+   <property name="furniture" value="CraftingTable"/>
+   <property name="newHitBox" value="0,-8,32,24"/>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
+ </tile>
  <tile id="1412">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>

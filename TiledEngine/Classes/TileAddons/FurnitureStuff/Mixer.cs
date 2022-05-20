@@ -8,7 +8,7 @@ using TiledEngine.Classes.Helpers;
 
 namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
-    internal class Mixer : KitchenAppliance
+    internal class Mixer : CraftingFurniture
     {
         public Mixer(FurnitureData furnitureData, Tile tile, TileManager tileManager,
             IntermediateTmxShape intermediateTmxShape, string actionType) :
