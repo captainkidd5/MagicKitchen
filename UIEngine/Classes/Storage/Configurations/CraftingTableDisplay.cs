@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextEngine;
+using UIEngine.Classes.ButtonStuff;
 using UIEngine.Classes.Components;
 
 namespace UIEngine.Classes.Storage.Configurations
@@ -24,14 +26,36 @@ namespace UIEngine.Classes.Storage.Configurations
         {
 
         }
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (IsActive)
+            {
+                CraftingActionButton.Update(gameTime);
+            }
+        }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            if (IsActive)
+            {
+                CraftingActionButton.Draw(spriteBatch);
+            }
+        }
+
+      
+
         protected override void GenerateUI(bool displayWallet)
         {
+
             Selectables = new InterfaceSection[3, 4];
 
             if (StorageContainer.Slots.Count != 10)
                 throw new Exception($"Storage container passed into dining table display must have exactly 10 slots");
 
             StackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+
+
             ClearGrid();
             int slotIndex = 0;
             Rows = 3;
@@ -45,8 +69,8 @@ namespace UIEngine.Classes.Storage.Configurations
                 StackRow stackRow = new StackRow(Columns * _buttonWidth);
                 for (int j = 0; j < Columns; j++)
                 {
-                  
-                    if(j < 3)
+
+                    if (j < 3)
                     {
                         InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
                    Position, GetLayeringDepth(UILayeringDepths.Medium));
@@ -57,8 +81,7 @@ namespace UIEngine.Classes.Storage.Configurations
                         stackRow.AddItem(display, StackOrientation.Left);
                         slotIndex++;
                     }
-                    else if (IsCraft
-                        ingSlot(i, j))
+                    else if (IsCraftingSlot(i, j))
                     {
 
 
@@ -79,16 +102,26 @@ namespace UIEngine.Classes.Storage.Configurations
 
 
                 }
+
                 StackPanel.Add(stackRow);
+
+
+
             }
+            CraftingActionButton = new NineSliceTextButton(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
+                    new List<TextEngine.Classes.Text>() { TextFactory.CreateUIText("Craft", GetLayeringDepth(UILayeringDepths.Medium)) }, CraftItem);
+            StackRow stackRow3 = new StackRow(128);
+            stackRow3.AddItem(CraftingActionButton, StackOrientation.Left);
+            StackPanel.Add(stackRow3);
             AssignCraftingSlot();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
 
-            BackgroundSourceRectangle = new Rectangle(560, 0, 80, 96);
+            //    BackgroundSourceRectangle = new Rectangle(560, 0, 80, 96);
 
-            BackgroundSpritePositionOffset = new Vector2(-64, 0);
-            BackdropSprite = SpriteFactory.CreateUISprite(new Vector2(Position.X - 64, Position.Y), BackgroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low),
-                Color.White, scale: new Vector2(4f, 4f));
+            //    BackgroundSpritePositionOffset = new Vector2(-64, 0);
+            //    BackdropSprite = SpriteFactory.CreateUISprite(new Vector2(Position.X - 64, Position.Y), BackgroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low),
+            //        Color.White, scale: new Vector2(4f, 4f));
+            
         }
     }
 }

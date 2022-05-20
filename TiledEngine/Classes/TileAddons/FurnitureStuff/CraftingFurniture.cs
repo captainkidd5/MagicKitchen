@@ -23,6 +23,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             _progressIndicator = new ProgressBarSprite();
             SubKey = "CraftingFurniture";
         }
+
+        public void Craft()
+        {
+
+        }
         public override void Load()
         {
             _progressIndicator.Load( .25f, Tile.Position, Tile.Layer);
