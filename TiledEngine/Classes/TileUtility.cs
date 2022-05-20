@@ -47,7 +47,6 @@ namespace TiledEngine.Classes
         public static void AssignProperties(Tile tile, Layers layer, TileManager tileManager)
         {
 
-            tile.TileType = TileType.Basic;
             TileSetPackage tileSetPackage = tileManager.TileSetPackage;
             int tileSetDimension = tileSetPackage.GetDimension(tile.GID);
             Texture2D texture = tileSetPackage.GetTexture(tile.GID);

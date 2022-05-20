@@ -26,21 +26,13 @@
 
         <Item>
 
-            <Name>FallWaves</Name>
+            <Name>WarmDay</Name>
             <ViableStages>
                 <Item>LullabyTown</Item>
                 <Item>Town</Item>
             </ViableStages>
-            <LocalPath>OverWorld/FallWaves</LocalPath>
+            <LocalPath>OverWorld/WarmDay</LocalPath>
         </Item>
-        <Item>
-
-            <Name>WaterClub</Name>
-            <ViableStages>
-                <Item>LullabyTown</Item>
-                <Item>Town</Item>
-            </ViableStages>
-            <LocalPath>OverWorld/WaterClub</LocalPath>
-        </Item>
+     
     </Asset>
 </XnaContent>

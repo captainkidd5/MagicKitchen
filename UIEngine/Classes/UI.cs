@@ -28,6 +28,8 @@ using UIEngine.Classes.CraftingMenuStuff;
 using static DataModels.Enums;
 using InputEngine.Classes;
 using DataModels.MapStuff;
+using Globals.Classes.Time;
+using TextEngine;
 
 namespace UIEngine.Classes
 {
@@ -94,6 +96,10 @@ namespace UIEngine.Classes
         private static Game s_game;
 
         public static Item PlayerCurrentSelectedItem => StorageDisplayHandler.PlayerSelectedItem;
+
+        public static FrameCounter FrameCounter;
+
+        private static float _frontLayeringDepth;
         public static void Load(Game game, GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager)
         {
             s_game = game;
@@ -129,9 +135,11 @@ namespace UIEngine.Classes
             s_activeSections = GetActiveSections();
             s_criticalSections = new List<InterfaceSection>();
             Curtain.LoadContent();
+
+            FrameCounter = new FrameCounter(5);
             LoadCurrentSection();
 
-
+            _frontLayeringDepth = GetLayeringDepth(UILayeringDepths.Front);
         }
 
         public static void ActivateSecondaryInventoryDisplay(FurnitureType t, StorageContainer storageContainer, bool displayWallet = false)
@@ -200,6 +208,7 @@ namespace UIEngine.Classes
         }
         public static void Update(GameTime gameTime)
         {
+            FrameCounter.Update(gameTime.ElapsedGameTime.TotalSeconds);
             IsHovered = false;
             //if (s_requestedGameState != GameDisplayState.None && Curtain.FullyDropped )
             //    FinishChangeGameState();
@@ -289,6 +298,10 @@ namespace UIEngine.Classes
         public static void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
+
+            var fps = string.Format("FPS: {0}", FrameCounter.framerate);
+
+            spriteBatch.DrawString(TextFactory.BitmapFont, fps, new Vector2(1, 1), Color.Black, layerDepth: _frontLayeringDepth);
             Cursor.Draw(spriteBatch);
             foreach (InterfaceSection section in s_activeSections)
             {

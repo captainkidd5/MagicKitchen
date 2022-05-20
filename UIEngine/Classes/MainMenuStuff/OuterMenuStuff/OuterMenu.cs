@@ -84,6 +84,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                     break;
 
                 case OuterMenuState.PlaySettingsAndExit:
+                    if(_activeSection != null)
                     _activeSection.Deactivate();
 
                     _activeSection = _playOrExitMenu;
@@ -94,10 +95,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                 case OuterMenuState.Settings:
                     _activeSection.Deactivate();
 
-                    _activeSection = UI.SettingsMenu;
+                    //Do not update settings menu here, it's already being updated in UI because it get used in game
+                    //_activeSection = UI.SettingsMenu;
+
+                    _activeSection = null;
                     UI.SettingsMenu.ReadjustBasedOnParent(BackGroundSourceRectangle, _backGroundSpritePosition);
                     UI.SettingsMenu.Activate();
-                    UI.SettingsMenu.LoadContent();
+                   // UI.SettingsMenu.LoadContent();
 
                     break;
                 case OuterMenuState.None:
@@ -158,6 +162,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         public override void Update(GameTime gameTime)
         {
             _backGroundSprite.Update(gameTime, _backGroundSpritePosition);
+            if(_activeSection != null)
                _activeSection.Update(gameTime);
 
             if(_outerMenuState != OuterMenuState.PlaySettingsAndExit)
@@ -170,7 +175,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             _backGroundSprite.Draw(spriteBatch);
-               _activeSection.Draw(spriteBatch);
+            if (_activeSection != null)
+                _activeSection.Draw(spriteBatch);
 
             if (_outerMenuState != OuterMenuState.PlaySettingsAndExit)
                 _backButton.Draw(spriteBatch);
