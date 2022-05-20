@@ -13,14 +13,13 @@ using UIEngine.Classes.Components;
 
 namespace UIEngine.Classes.Storage.Configurations
 {
-    internal class CraftingTableDisplay : CraftableDisplay
+    internal class FurnaceTableDisplay : CraftableDisplay
     {
 
 
-        //xxx-
-        //xxxx
-        //xxx-
-        public CraftingTableDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
+        //XXX
+        //X--
+        public FurnaceTableDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -48,53 +47,82 @@ namespace UIEngine.Classes.Storage.Configurations
         protected override void GenerateUI(bool displayWallet)
         {
 
-            Selectables = new InterfaceSection[3, 4];
 
-            if (StorageContainer.Slots.Count != 10)
-                throw new Exception($"Storage container passed into dining table display must have exactly 10 slots");
+            int requiredSlots = 4;
+            if (StorageContainer.Slots.Count != requiredSlots)
+                throw new Exception($"Storage container passed into display must have exactly {requiredSlots} slots");
 
             StackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
 
 
             ClearGrid();
             int slotIndex = 0;
-            Rows = 3;
-            Columns = 4;
+            Rows = 2;
+            Columns = 3;
+
+            Selectables = new InterfaceSection[Rows, Columns];
+
             InventorySlots = new InventorySlotDisplay[Rows, Columns];
             DrawCutOff = Rows;
-            CraftingRow = 1;
-            CraftingColumn = 3;
-            for (int i = 0; i < Rows; i++)
+            OutputSlotRow = 0;
+            OutputSlotColumn = 2;
+            FuelSlotRow = 1;
+            FuelSlotColumn = 0;
+
+            StackRow stackRow = new StackRow((Columns + 1) * _buttonWidth);
+
+            for (int row = 0; row < Rows; row++)
             {
-                StackRow stackRow = new StackRow(Columns * _buttonWidth);
-                for (int j = 0; j < Columns; j++)
+                //add extra for spacing
+                for (int column = 0; column < Columns; column++)
                 {
 
-                    if (j < 3)
+                    if (column < 2 && row == 0)
                     {
                         InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
                    Position, GetLayeringDepth(UILayeringDepths.Medium));
-                        InventorySlots[i, j] = display;
-                        AddSectionToGrid(display, i, j);
+                        InventorySlots[row, column] = display;
+                        AddSectionToGrid(display, row, column);
                         display.LoadContent();
 
                         stackRow.AddItem(display, StackOrientation.Left);
                         slotIndex++;
                     }
-                    else if (IsCraftingSlot(i, j))
+                    else if (IsOutputSlot(row, column))
                     {
 
+                        stackRow.AddSpacer(new Rectangle(0,0,_buttonWidth,_buttonWidth), StackOrientation.Left);
 
 
                         InventorySlotDisplay display = new InventorySlotDisplay(
                             this, graphics, content, StorageContainer.Slots[slotIndex],
              Position, GetLayeringDepth(UILayeringDepths.Medium));
-                        InventorySlots[i, j] = display;
-                        AddSectionToGrid(display, i, j);
+                        InventorySlots[row, column] = display;
+                        AddSectionToGrid(display, row, column);
                         display.LoadContent();
 
                         stackRow.AddItem(display, StackOrientation.Left);
                         slotIndex++;
+                    }
+                    else if (IsFuelSlot(row, column))
+                    {
+                        StackPanel.Add(stackRow);
+                        StackRow stackRow2 = new StackRow((Columns + 1) * _buttonWidth);
+                        stackRow2.AddSpacer(new Rectangle(0, 0, _buttonWidth, _buttonWidth), StackOrientation.Left);
+
+                        StackPanel.Add(stackRow2);
+
+                        StackRow stackRow4 = new StackRow((Columns + 1) * _buttonWidth);
+                        InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
+                 Position, GetLayeringDepth(UILayeringDepths.Medium));
+                        InventorySlots[row, column] = display;
+                        AddSectionToGrid(display, row, column);
+                        display.LoadContent();
+
+                        stackRow4.AddItem(display, StackOrientation.Left);
+                        slotIndex++;
+                        StackPanel.Add(stackRow4);
+
                     }
 
 
@@ -103,7 +131,6 @@ namespace UIEngine.Classes.Storage.Configurations
 
                 }
 
-                StackPanel.Add(stackRow);
 
 
 
@@ -113,7 +140,7 @@ namespace UIEngine.Classes.Storage.Configurations
             StackRow stackRow3 = new StackRow(128);
             stackRow3.AddItem(CraftingActionButton, StackOrientation.Left);
             StackPanel.Add(stackRow3);
-            AssignCraftingSlot();
+            AssignOutputSlot();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
 
             //    BackgroundSourceRectangle = new Rectangle(560, 0, 80, 96);

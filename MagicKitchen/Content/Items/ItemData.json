@@ -14,6 +14,13 @@
     "Price": 1
 },
 {
+    "Id": 901,
+    "Name": "Mana",
+    "Description" : "Fuel",
+    "MaxStackSize": 999,
+    "Price": 1
+},
+{
     "Id": 2501,
     "Name": "Stone",
     "Description" : "Hard, round",

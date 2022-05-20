@@ -12,7 +12,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
     {
         public CraftingTable(FurnitureData furnitureData, Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType) : base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
         {
-            TotalStorageCapacity = 10;
+            TotalStorageCapacity = 4;
 
         }
     }

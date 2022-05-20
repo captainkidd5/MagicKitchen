@@ -12,9 +12,14 @@ namespace UIEngine.Classes.Storage.Configurations
 {
     internal class CraftableDisplay : InventoryDisplay
     {
-        protected InventorySlotDisplay CraftingSlot;
-        protected int? CraftingRow;
-        protected int? CraftingColumn;
+        protected InventorySlotDisplay OutputSlot;
+        protected int? OutputSlotRow;
+        protected int? OutputSlotColumn;
+
+        protected InventorySlotDisplay FuelSlot;
+        protected int? FuelSlotRow;
+        protected int? FuelSlotColumn;
+
 
         protected NineSliceTextButton CraftingActionButton;
         public CraftableDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
@@ -25,15 +30,27 @@ namespace UIEngine.Classes.Storage.Configurations
 
         
 
-        protected bool IsCraftingSlot(int row, int column)
+        protected bool IsOutputSlot(int row, int column)
         {
-            return CraftingRow == row && CraftingColumn == column;
+            return OutputSlotRow == row && OutputSlotColumn == column;
         }
-        protected void AssignCraftingSlot()
+
+        protected bool IsFuelSlot(int row, int column)
         {
-            if (CraftingRow == null || CraftingColumn == null)
+            return FuelSlotRow == row && FuelSlotColumn == column;
+        }
+        protected void AssignOutputSlot()
+        {
+            if (OutputSlotRow == null || OutputSlotColumn == null)
                 throw new Exception($"Forgot to assign crafting row or column");
-            CraftingSlot = InventorySlots[CraftingRow.Value, CraftingColumn.Value];    
+            OutputSlot = InventorySlots[OutputSlotRow.Value, OutputSlotColumn.Value];    
+        }
+
+        protected void AssignFuelSlot()
+        {
+            if (FuelSlotRow == null || FuelSlotColumn == null)
+                throw new Exception($"Forgot to assign fuel row or column");
+            FuelSlot = InventorySlots[FuelSlotRow.Value, FuelSlotColumn.Value];
         }
 
         protected void CraftItem()

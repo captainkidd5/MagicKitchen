@@ -160,7 +160,7 @@ namespace UIEngine.Classes.Storage
                         _secondaryInventoryDisplay.LayerDepth);
                     break;
                 case FurnitureType.CraftingTable:
-                    _secondaryInventoryDisplay = new CraftingTableDisplay(this, graphics, content, _secondaryInventoryDisplay.Position,
+                    _secondaryInventoryDisplay = new FurnaceTableDisplay(this, graphics, content, _secondaryInventoryDisplay.Position,
                         _secondaryInventoryDisplay.LayerDepth);
                     break;
                 default:
