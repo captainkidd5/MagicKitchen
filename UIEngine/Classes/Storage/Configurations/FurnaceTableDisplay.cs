@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ItemEngine.Classes.StorageStuff;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
@@ -48,7 +49,7 @@ namespace UIEngine.Classes.Storage.Configurations
         {
 
 
-            int requiredSlots = 4;
+            int requiredSlots = 3;
             if (StorageContainer.Slots.Count != requiredSlots)
                 throw new Exception($"Storage container passed into display must have exactly {requiredSlots} slots");
 
@@ -95,14 +96,13 @@ namespace UIEngine.Classes.Storage.Configurations
 
 
                         InventorySlotDisplay display = new InventorySlotDisplay(
-                            this, graphics, content, StorageContainer.Slots[slotIndex],
+                            this, graphics, content, (StorageContainer as CraftingStorageContainer).OutputSlot,
              Position, GetLayeringDepth(UILayeringDepths.Medium));
                         InventorySlots[row, column] = display;
                         AddSectionToGrid(display, row, column);
                         display.LoadContent();
 
                         stackRow.AddItem(display, StackOrientation.Left);
-                        slotIndex++;
                     }
                     else if (IsFuelSlot(row, column))
                     {

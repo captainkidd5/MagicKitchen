@@ -27,7 +27,7 @@ namespace ItemEngine.Classes.CraftingStuff
                 {
                     if (itemDataToReturn == null)
                         itemDataToReturn = item;
-                    else if (IsMoreComplex(item.RecipeInfo, itemDataToReturn.RecipeInfo))
+                    if (IsMoreComplex(item.RecipeInfo, itemDataToReturn.RecipeInfo))
                         itemDataToReturn = item;
                 }
             }
@@ -42,7 +42,7 @@ namespace ItemEngine.Classes.CraftingStuff
         {
             foreach(CraftingIngredient ingredient in recipeInfo.Ingredients)
             {
-                if(!storageSlots.Any(x => x.Item.Name == ingredient.Name && x.StoredCount >= ingredient.Count))
+                if(!storageSlots.Any(x => x.Item != null && x.Item.Name == ingredient.Name && x.StoredCount >= ingredient.Count))
                 {
                     return false;
                 }

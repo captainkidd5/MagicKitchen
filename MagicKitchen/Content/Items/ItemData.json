@@ -46,7 +46,7 @@
             "Price": 1,
             "RecipeInfo": 
                 {
-                "CraftAction": "Mix",
+                "CraftAction": "Smelt",
                 "CookTime": 1,
                 "Ingredients":[
                     {
@@ -67,15 +67,21 @@
             "Price": 1,
             "RecipeInfo": 
                 {
-                "CookAction": "Bake",
+                "CraftAction": "Smelt",
                 "CookTime": 1,
                 "Ingredients":[
                     {
                         "Name":"Shmegg",
                         "Row":0,
                         "Column": 0
+                    },
+                    {
+                        "Name":"Plepper",
+                        "Row":0,
+                        "Column": 0
                     }
                 ]
+                
                 
             }
         
@@ -144,7 +150,7 @@
             "Price": 1,
             "RecipeInfo": 
                 {
-                "CookAction": "Mix",
+                "CraftAction": "Mix",
                 "CookTime": 2,
                 "Ingredients":[
                     {
@@ -185,7 +191,7 @@
             "RecipeInfo": 
                 {
                     "ShownInParentRecipes": true,
-                "CookAction": "Add",
+                "CraftAction": "Add",
                 "CookTime": 2,
                 "Ingredients":[
                     {
@@ -208,7 +214,7 @@
             "RecipeInfo": 
                 {
                     "ShownInParentRecipes": true,
-                "CookAction": "Add",
+                "CraftAction": "Add",
                 "CookTime": 2,
                 "Ingredients":[
                     {
@@ -229,7 +235,7 @@
             "RecipeInfo": 
                 {
                     "ShownInParentRecipes": true,
-                "CookAction": "Bake",
+                "CraftAction": "Bake",
                 "CookTime": 2,
                 "Ingredients":[
                     {
@@ -250,7 +256,7 @@
             "RecipeInfo": 
                 {
                     "ShownInParentRecipes": true,
-                "CookAction": "Add",
+                "CraftAction": "Add",
                 "CookTime": 2,
                 "Ingredients":[
                     {
@@ -273,7 +279,7 @@
             "RecipeInfo": 
                 {
                     "ShownInParentRecipes": true,
-                "CookAction": "Bake",
+                "CraftAction": "Bake",
                 "CookTime": 2,
                 "Ingredients":[
                     {

@@ -1,4 +1,6 @@
-﻿using DataModels.MapStuff;
+﻿using DataModels.ItemStuff;
+using DataModels.MapStuff;
+using ItemEngine.Classes.StorageStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
@@ -17,6 +19,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         private ProgressBarSprite _progressIndicator;
 
         protected bool IsBeingOperated { get; set; } = false;
+
+        public CraftAction CraftAction{ get; set; }
         public CraftingFurniture(FurnitureData furnitureData, Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType)
             : base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
         {
@@ -28,8 +32,15 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
 
         }
+
+        protected override void CreateStorageContainer()
+        {
+            StorageContainer = new CraftingStorageContainer(CraftAction, TotalStorageCapacity, FurnitureData);
+
+        }
         public override void Load()
         {
+
             _progressIndicator.Load( .25f, Tile.Position, Tile.Layer);
             base.Load();
 

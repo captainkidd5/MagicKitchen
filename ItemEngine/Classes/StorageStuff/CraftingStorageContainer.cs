@@ -31,7 +31,8 @@ namespace ItemEngine.Classes.StorageStuff
             ItemData itemData = ItemFactory.CraftingGuide.GetCraftedItem(CraftAction, Slots);
             _currentlyCraftableItem = itemData;
             OutputSlot.RemoveAll();
-            OutputSlot.Add(_currentlyCraftableItem.Name);
+            if(_currentlyCraftableItem != null)
+                OutputSlot.Add(_currentlyCraftableItem.Name);
         }
     }
 }

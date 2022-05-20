@@ -63,10 +63,15 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 PlacedItems.Add(new PlacedItem(i, tile));
             }
         }
+        protected virtual void CreateStorageContainer()
+        {
+            StorageContainer = new StorageContainer(TotalStorageCapacity, FurnitureData);
+
+        }
         public override void Load()
         {
             base.Load();
-            StorageContainer = new StorageContainer(TotalStorageCapacity, FurnitureData);
+            CreateStorageContainer();
             List<PlacedItem> loadedPlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
             bool loadedItemsWereSavedAtLeastOnce = loadedPlacedItems.Count > 0;
             //Means there were some saved items here previously. Load those in instead of default load

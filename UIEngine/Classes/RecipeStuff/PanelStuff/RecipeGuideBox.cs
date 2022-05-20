@@ -72,21 +72,21 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
                 GetLayeringDepth(UILayeringDepths.Medium));
             StackRow stackRow = new StackRow(Width, 16 * (int)_scale.X);
 
-            for(int i =0;  i< _parentRecipes.Count; i++)
-            {
-                MicroStep step = new MicroStep(this,i ==0, _stackPanelMicroSteps, graphics, content, null,
-                   GetLayeringDepth(UILayeringDepths.Medium));
-                step.LoadRecipe(_parentRecipes[i]);
-                step.LoadContent();
-                stackRow.AddItem(step, StackOrientation.Left);
-            }
+            //for(int i =0;  i< _parentRecipes.Count; i++)
+            //{
+            //    MicroStep step = new MicroStep(this,i ==0, _stackPanelMicroSteps, graphics, content, null,
+            //       GetLayeringDepth(UILayeringDepths.Medium));
+            //    step.LoadRecipe(_parentRecipes[i]);
+            //    step.LoadContent();
+            //    stackRow.AddItem(step, StackOrientation.Left);
+            //}
     
-            _stackPanelMicroSteps.Add(stackRow);
+            //_stackPanelMicroSteps.Add(stackRow);
 
-            _selectedStepTextPosition = Position + _selectedTextOffset;
-            _selectedStepText.ForceSetPosition(_selectedStepTextPosition);
+            //_selectedStepTextPosition = Position + _selectedTextOffset;
+            //_selectedStepText.ForceSetPosition(_selectedStepTextPosition);
 
-            _microStepsPosition = Position + _microStepsOffset;
+            //_microStepsPosition = Position + _microStepsOffset;
 
 
 
