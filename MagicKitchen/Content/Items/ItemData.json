@@ -41,9 +41,11 @@
                 "CookAction": "Mix",
                 "CookTime": 1,
                 "Ingredients":[
-                    "Shmegg",
-                    "Salt",
-                    "Plepper"
+                    {
+                        "Name":"Shmegg",
+                        "Row":0,
+                        "Column": 0
+                    }
                 ]
                 
             }
@@ -60,7 +62,11 @@
                 "CookAction": "Bake",
                 "CookTime": 1,
                 "Ingredients":[
-                    "Shmegg Mixture"
+                    {
+                        "Name":"Shmegg",
+                        "Row":0,
+                        "Column": 0
+                    }
                 ]
                 
             }
@@ -133,8 +139,11 @@
                 "CookAction": "Mix",
                 "CookTime": 2,
                 "Ingredients":[
-                    "Flour",
-                    "Water"
+                    {
+                        "Name":"Shmegg",
+                        "Row":0,
+                        "Column": 0
+                    }
                 ]
  
                 
@@ -171,9 +180,12 @@
                 "CookAction": "Add",
                 "CookTime": 2,
                 "Ingredients":[
-                    "Shmizza Dough",
-                    "Slomato"
-                ]         
+                    {
+                        "Name":"Shmegg",
+                        "Row":0,
+                        "Column": 0
+                    }
+                ]   
             }
            
         
@@ -191,9 +203,12 @@
                 "CookAction": "Add",
                 "CookTime": 2,
                 "Ingredients":[
-                    "Slomato Shmizza",
-                    "Cheese"
-                ] 
+                    {
+                        "Name":"Shmegg",
+                        "Row":0,
+                        "Column": 0
+                    }
+                ]
             }
         },
         {
@@ -209,9 +224,12 @@
                 "CookAction": "Bake",
                 "CookTime": 2,
                 "Ingredients":[
-                    "Cheese Shmizza (raw)"
-                
-                ] 
+                    {
+                        "Name":"Shmegg",
+                        "Row":0,
+                        "Column": 0
+                    }
+                ]
             }
         },
         {
@@ -227,10 +245,12 @@
                 "CookAction": "Add",
                 "CookTime": 2,
                 "Ingredients":[
-                    "Cheese Shmizza (raw)",
-                    "Anchovy"
-                
-                ] 
+                    {
+                        "Name":"Shmegg",
+                        "Row":0,
+                        "Column": 0
+                    }
+                ]
             }
            
         
@@ -248,8 +268,12 @@
                 "CookAction": "Bake",
                 "CookTime": 2,
                 "Ingredients":[
-                    "Anchovy Shmizza (raw)"
-                ] 
+                    {
+                        "Name":"Shmegg",
+                        "Row":0,
+                        "Column": 0
+                    }
+                ]
             }
            
         

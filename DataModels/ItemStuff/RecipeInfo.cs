@@ -28,6 +28,6 @@ namespace DataModels.ItemStuff
         public float CookTime { get; set; }
 
         //First ingredient is always base ingredient, if only two ingredients are added
-        public List<string> Ingredients { get; set; }
+        public List<CraftingIngredient> Ingredients { get; set; }
     }
 }

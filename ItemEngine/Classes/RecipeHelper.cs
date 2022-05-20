@@ -29,7 +29,7 @@ namespace ItemEngine.Classes
 
         public RecipeInfo GetParentRecipe(RecipeInfo childRecipe)
         {
-            return _allRecipeInfo.FirstOrDefault(x => x.Name == childRecipe.Ingredients[0]);
+            return null;
         }
         public List<RecipeInfo> GetAllSubRecipes(RecipeInfo infoToTest)
         {
@@ -78,7 +78,7 @@ namespace ItemEngine.Classes
             foreach(ItemDataDTO itemData in ingredientsSelected)
             {
                 ingredientNames.Add(itemData.ItemData.Name);
-                recipes = recipes.Where(x => x.Ingredients.Contains(itemData.ItemData.Name)).ToList();
+               // recipes = recipes.Where(x => x.Ingredients.Contains(itemData.ItemData.Name)).ToList();
             }
             if (recipes.Count == 1)
                 return ItemFactory.GetItemData(recipes[0].Name);

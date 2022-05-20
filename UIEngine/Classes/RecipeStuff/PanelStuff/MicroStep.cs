@@ -58,25 +58,25 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         {
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, 16 * (int)_scale.X, 48 * (int)_scale.Y);
 
-            _baseIngredientSprite = SpriteFactory.CreateUISprite(_baseIngredientSpritePosition,
-                Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.Ingredients[0]).Id),
-                ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
+            //_baseIngredientSprite = SpriteFactory.CreateUISprite(_baseIngredientSpritePosition,
+            //    Item.GetItemSourceRectangle(ItemFactory.GetItemData(RecipeInfo.Ingredients[0]).Id),
+            //    ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
 
 
-            Vector2 nextIngredientPos = Vector2.Zero;
-            foreach(string ingredientName in RecipeInfo.Ingredients)
-            {
-                Rectangle suplementSourceRectangle;
-                Texture2D supplementTexture;
-                suplementSourceRectangle = Item.GetItemSourceRectangle(
-                    ItemFactory.GetItemData(ingredientName).Id);
-                supplementTexture = ItemFactory.ItemSpriteSheet;
+            //Vector2 nextIngredientPos = Vector2.Zero;
+            //foreach(string ingredientName in RecipeInfo.Ingredients)
+            //{
+            //    Rectangle suplementSourceRectangle;
+            //    Texture2D supplementTexture;
+            //    suplementSourceRectangle = Item.GetItemSourceRectangle(
+            //        ItemFactory.GetItemData(ingredientName).Id);
+            //    supplementTexture = ItemFactory.ItemSpriteSheet;
 
-                //todo increase next ingredient position per each ingredient
-                _supplementaryIngredientSprites.Add(SpriteFactory.CreateUISprite(Vector2.Zero,
-                   suplementSourceRectangle,
-                   supplementTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: _scale));
-            }
+            //    //todo increase next ingredient position per each ingredient
+            //    _supplementaryIngredientSprites.Add(SpriteFactory.CreateUISprite(Vector2.Zero,
+            //       suplementSourceRectangle,
+            //       supplementTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: _scale));
+            //}
             //Means we are doing something like baking
             if (RecipeInfo.Ingredients.Count < 2)
             {
