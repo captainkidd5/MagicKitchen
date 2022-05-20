@@ -2,6 +2,7 @@
 using DataModels.MapStuff;
 using InputEngine.Classes;
 using ItemEngine.Classes;
+using ItemEngine.Classes.StorageStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -19,7 +20,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
     public class StorableFurniture : Furniture
     {
-        private StorageContainer _storageContainer;
+        protected StorageContainer StorageContainer;
 
         public List<PlacedItem> PlacedItems { get; set; }
 
@@ -45,12 +46,12 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         /// <param name="index"></param>
         protected void SetPlaceLock(int index)
         {
-            _storageContainer.Slots[index].SetPlaceLock();
+            StorageContainer.Slots[index].SetPlaceLock();
         }
 
         protected void UnlockPlaceLock(int index)
         {
-            _storageContainer.Slots[index].RemovePlaceLock();
+            StorageContainer.Slots[index].RemovePlaceLock();
 
         }
 
@@ -65,7 +66,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Load()
         {
             base.Load();
-            _storageContainer = new StorageContainer(TotalStorageCapacity, FurnitureData);
+            StorageContainer = new StorageContainer(TotalStorageCapacity, FurnitureData);
             List<PlacedItem> loadedPlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
             bool loadedItemsWereSavedAtLeastOnce = loadedPlacedItems.Count > 0;
             //Means there were some saved items here previously. Load those in instead of default load
@@ -83,7 +84,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 {
                     //Assign visible storage slots based on passed in indicies from json
                     if (FurnitureData.VisibleStorageIndicies.Any(x => x.Index == i))
-                        _storageContainer.Slots[i].HoldsVisibleFurnitureItem = true;
+                        StorageContainer.Slots[i].HoldsVisibleFurnitureItem = true;
                 }
                
 
@@ -93,12 +94,12 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                     ItemData itemData = ItemFactory.GetItemData(placedItem.ItemId);
                     for (int j = 0; j < placedItem.ItemCount; j++)
                     {
-                        _storageContainer.Slots[i].Add(itemData.Name);
+                        StorageContainer.Slots[i].Add(itemData.Name);
 
                     }
                 }
 
-                placedItem.Load(TopOfFurniture + GetVisibleStorageIndexPositionOffSet(i), _storageContainer.Slots[i]);
+                placedItem.Load(TopOfFurniture + GetVisibleStorageIndexPositionOffSet(i), StorageContainer.Slots[i]);
                 if (!loadedItemsWereSavedAtLeastOnce)
                     TileManager.PlacedItemManager.AddNewItem(placedItem);
 
@@ -126,12 +127,12 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public void RemoveItemAtIndex(int slotIndex, int count)
         {
-            _storageContainer.Slots[slotIndex].Remove(count);
+            StorageContainer.Slots[slotIndex].Remove(count);
         }
 
         public void AddItemAtIndex(int slotIndex, string itemName, int count)
         {
-            while(count > 0 && _storageContainer.Slots[slotIndex].Add(itemName))
+            while(count > 0 && StorageContainer.Slots[slotIndex].Add(itemName))
             {
                 count--;
             } 
@@ -145,16 +146,16 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
             if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
             {
-                UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, _storageContainer);
+                UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
             }
         }
     }
     public override void Draw(SpriteBatch spriteBatch)
     {
         base.Draw(spriteBatch);
-        for (int i = 0; i < _storageContainer.Slots.Count; i++)
+        for (int i = 0; i < StorageContainer.Slots.Count; i++)
         {
-            if (_storageContainer.Slots[i].HoldsVisibleFurnitureItem)
+            if (StorageContainer.Slots[i].HoldsVisibleFurnitureItem)
                 PlacedItems[i].Draw(spriteBatch);
 
         }

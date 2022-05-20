@@ -40,23 +40,23 @@ namespace EntityEngine.Classes.PlayerStuff
 
         public void Save(BinaryWriter writer)
         {
-            writer.Write(UnlockedRecipes.Count);
-            foreach (var item in UnlockedRecipes)
-            {
-                writer.Write(item);
-            }
+            //writer.Write(UnlockedRecipes.Count);
+            //foreach (var item in UnlockedRecipes)
+            //{
+            //    writer.Write(item);
+            //}
         }
 
         public void LoadSave(BinaryReader reader)
         {
             CleanUp();
-            int unlockedRecipeCount = reader.ReadInt32();
-            for (int i = 0; i < unlockedRecipeCount; i++)
-            {
-                string name = reader.ReadString();
-                UnlockedRecipes.Add(name);
-                ItemFactory.RecipeHelper.UnlockNewRecipe(name);
-            }
+            //int unlockedRecipeCount = reader.ReadInt32();
+            //for (int i = 0; i < unlockedRecipeCount; i++)
+            //{
+            //    string name = reader.ReadString();
+            //    UnlockedRecipes.Add(name);
+            //    ItemFactory.RecipeHelper.UnlockNewRecipe(name);
+            //}
                 
         }
 

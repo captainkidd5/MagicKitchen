@@ -17,6 +17,7 @@
     "Id": 901,
     "Name": "Mana",
     "Description" : "Fuel",
+    "FuelValue" : 1,
     "MaxStackSize": 999,
     "Price": 1
 },
@@ -45,7 +46,7 @@
             "Price": 1,
             "RecipeInfo": 
                 {
-                "CookAction": "Mix",
+                "CraftAction": "Mix",
                 "CookTime": 1,
                 "Ingredients":[
                     {

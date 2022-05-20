@@ -1,6 +1,7 @@
 ﻿using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
+using ItemEngine.Classes.StorageStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;

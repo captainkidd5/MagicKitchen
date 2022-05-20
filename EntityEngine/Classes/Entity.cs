@@ -30,6 +30,7 @@ using static DataModels.Enums;
 using EntityEngine.Classes.ScriptStuff;
 using DataModels.ScriptedEventStuff;
 using SpriteEngine.Classes.Presets;
+using ItemEngine.Classes.StorageStuff;
 
 namespace EntityEngine.Classes
 {

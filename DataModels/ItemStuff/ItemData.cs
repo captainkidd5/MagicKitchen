@@ -25,7 +25,7 @@ namespace DataModels.ItemStuff
          
         public string Description { get; set; }
 
-      
+        public int FuelValue { get; set; }
 
         public int MaxStackSize { get; set; }
 

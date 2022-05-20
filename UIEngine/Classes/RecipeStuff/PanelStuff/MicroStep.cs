@@ -96,7 +96,7 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
                 _baseIngredientSprite, scale: _scale.X);
 
             _priorActionSprite = SpriteFactory.CreateUISprite(_priorActionPosition,
-                GetPriorActionSourceRectangleFromCookAction(RecipeInfo.CookAction), UI.ButtonTexture,
+                GetPriorActionSourceRectangleFromCookAction(RecipeInfo.CraftAction), UI.ButtonTexture,
                 GetLayeringDepth(UILayeringDepths.Medium), scale: _scale);
 
             base.LoadContent();
@@ -142,19 +142,19 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         /// Gets source rectangle for prior cook action (Adding food, cooking food, chopping food, etc.
         /// This is located to the LEFT of the little base ingredient sprite
         /// </summary>
-        private Rectangle GetPriorActionSourceRectangleFromCookAction(CookAction cookAction)
+        private Rectangle GetPriorActionSourceRectangleFromCookAction(CraftAction cookAction)
         {
             switch (cookAction)
             {
-                case CookAction.None:
+                case CraftAction.None:
                     return Rectangle.Empty;
 
                     //Right facing arrow
-                case CookAction.Add:
+                case CraftAction.Add:
                     return new Rectangle(336, 224, 16, 16);
-                case CookAction.Chop:
+                case CraftAction.Chop:
                     break;
-                case CookAction.Bake:
+                case CraftAction.Bake:
                     return new Rectangle(352, 224, 16, 16);
 
                 default:

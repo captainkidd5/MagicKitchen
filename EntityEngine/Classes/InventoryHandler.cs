@@ -1,5 +1,6 @@
 ﻿using Globals.Classes;
 using ItemEngine.Classes;
+using ItemEngine.Classes.StorageStuff;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;

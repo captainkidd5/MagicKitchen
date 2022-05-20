@@ -18,6 +18,7 @@ using UIEngine.Classes.Components;
 using InputEngine.Classes;
 using static DataModels.Enums;
 using DataModels.MapStuff;
+using ItemEngine.Classes.StorageStuff;
 
 namespace UIEngine.Classes.Storage
 {

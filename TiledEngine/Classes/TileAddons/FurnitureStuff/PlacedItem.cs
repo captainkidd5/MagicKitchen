@@ -1,6 +1,7 @@
 ﻿using Globals.Classes;
 using Globals.Classes.Helpers;
 using ItemEngine.Classes;
+using ItemEngine.Classes.StorageStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;

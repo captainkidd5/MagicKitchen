@@ -43,7 +43,7 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
         }
         public override void LoadContent()
         {
-            _parentRecipes = ItemFactory.RecipeHelper.GetAllSubRecipes(RecipeInfo);
+            //_parentRecipes = ItemFactory.RecipeHelper.GetAllSubRecipes(RecipeInfo);
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, 144 * (int)_scale.X, 112 * (int)_scale.Y);
             _selectedStepText = TextFactory.CreateUIText("", GetLayeringDepth(UILayeringDepths.Medium), .5f);
 

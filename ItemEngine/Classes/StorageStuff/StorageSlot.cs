@@ -1,123 +1,14 @@
 ﻿using DataModels.ItemStuff;
-using DataModels.MapStuff;
 using Globals.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace ItemEngine.Classes
+namespace ItemEngine.Classes.StorageStuff
 {
-    /// <summary>
-    /// Does not include visuals
-    /// </summary>
-    public class StorageContainer : ISaveable
-    {
-
-        public int Capacity { get; private set; }
-        public List<StorageSlot> Slots { get; private set; }
-
-        private Wallet _wallet;
-
-        public FurnitureData? FurnitureData { get; private set; }
-        public StorageContainer(int capacity, FurnitureData? furnitureData = null)
-        {
-            Capacity = capacity;
-            Slots = new List<StorageSlot>();
-            _wallet = new Wallet();
-            for (int i = 0; i < Capacity; i++)
-            {
-                Slots.Add(new StorageSlot());
-            }
-
-            FurnitureData = furnitureData;
-        }
-
-        public bool CanAfford(int amt) => _wallet.CanAfford(amt);
-        public int WithdrawCoins(int amt) => _wallet.Withdraw(amt);
-        public void DepositCoins(int amt) => _wallet.Deposit(amt);
-        public void AddItem(Item item, ref int count)
-        {
-            //Try to find partially filled stackable item slot matching stackable item
-            while (count > 0)
-            {
-                StorageSlot partiallyFilledSlot = Slots.FirstOrDefault(x => !x.Empty && x.Item.Id == item.Id && x.StoredCount < x.Item.MaxStackSize);
-                if (partiallyFilledSlot != null)
-                {
-                    while (count > 0 && (partiallyFilledSlot.Add(item.Name)))
-                    {
-                        count--;
-                    }
-                }
-                else
-                    break;
-
-            }
-            //Try to find empty slot
-            while (count > 0)
-            {
-                StorageSlot emptySlot = Slots.FirstOrDefault(x => x.Empty);
-                //Inventory is completely full
-                if (emptySlot == null)
-                    return;
-                if (!item.Stackable)
-                {
-                    emptySlot.AddUniqueItem(item);
-                    count--;
-                }
-                else if (item.Stackable)
-                {
-                    while (count > 0 && (emptySlot.Add(item.Name)))
-                    {
-                        count--;
-                    }
-                }
-
-            }
-
-        }
-
-        public void RemoveItem(Item item, ref int countToRemove)
-        {
-            while (countToRemove > 0)
-            {
-                StorageSlot slot = Slots.FirstOrDefault(x => x.Item.Id == item.Id);
-                if (slot == null)
-                    return;
-                else
-                {
-                    slot.Remove(1);
-                    countToRemove--;
-                }
-            }
-        }
-
-        public void Save(BinaryWriter writer)
-        {
-            _wallet.Save(writer);
-           foreach(StorageSlot slot in Slots)
-            {
-                slot.Save(writer);
-            }
-        }
-
-        public void LoadSave(BinaryReader reader)
-        {
-            _wallet.LoadSave(reader);
-            foreach (StorageSlot slot in Slots)
-            {
-                slot.LoadSave(reader);
-            }
-        }
-
-        public void CleanUp()
-        {
-            _wallet.CleanUp();
-            Slots.Clear();
-        }
-    }
-
     public delegate void ItemChanged(Item item, int storedCount);
     public class StorageSlot : ISaveable
     {
@@ -132,7 +23,7 @@ namespace ItemEngine.Classes
         public bool HoldsVisibleFurnitureItem { get; set; } = false;
 
         //if true, player may not place new items into this slot
-        public bool PlaceLocked { get; private set; }
+        public bool PlaceLocked { get; protected set; }
 
         public StorageSlot()
         {
@@ -146,12 +37,12 @@ namespace ItemEngine.Classes
 
         public void RemovePlaceLock()
         {
-            if(!PlaceLocked)
+            if (!PlaceLocked)
                 throw new Exception($"Slot was not locked");
 
             PlaceLocked = false;
         }
-        
+
         /// <summary>
         /// The ol' switcheroo
         /// </summary>
@@ -211,7 +102,7 @@ namespace ItemEngine.Classes
         /// <returns></returns>
         public bool Remove(int count)
         {
-         
+
             if (StoredCount - count >= 0)
             {
                 StoredCount -= count;
@@ -227,23 +118,14 @@ namespace ItemEngine.Classes
 
         }
 
-        public void Drop(int count)
+        public void RemoveAll()
         {
-            if (Remove(count))
-            {
-
-            }
+            StoredCount = 0;
+            Item = null;
             OnItemChanged();
         }
-
         public void RightClickInteraction(ref Item heldItem, ref int heldCount)
         {
-            ////Grabbing item from slot, no held item
-            //if (Item == null)
-            //{
-            //    //no interaction
-            //    return;
-            //}
             if (PlaceLocked)
                 return;
 
@@ -277,21 +159,6 @@ namespace ItemEngine.Classes
 
                 }
             }
-            //else
-            //{
-            //    //No held item, but items in slot, grab 1
-            //    if ((StoredCount < Item.MaxStackSize) && heldCount > 0)
-            //    {
-            //        StoredCount++;
-            //        heldCount--;
-            //        heldItem = Item;
-            //    }
-            //    if (StoredCount == 0)
-            //        Item = null;
-            //    OnItemChanged();
-
-            //    return;
-            //}
 
         }
         /// <summary>
@@ -300,7 +167,7 @@ namespace ItemEngine.Classes
         /// </summary>
         public void LeftClickInteraction(ref Item heldItem, ref int count, bool shiftHeld)
         {
-            
+
             //Grabbing item from slot, no held item
             if (heldItem == null)
             {
@@ -370,7 +237,7 @@ namespace ItemEngine.Classes
         {
             if (Item == null)
                 return null;
-            
+
             return new ItemDataDTO() { ItemData = ItemFactory.GetItemData(Item.Id), Count = StoredCount };
         }
         protected virtual void OnItemChanged()
@@ -381,7 +248,7 @@ namespace ItemEngine.Classes
         public void Save(BinaryWriter writer)
         {
             writer.Write(StoredCount);
-            if(StoredCount > 0)
+            if (StoredCount > 0)
             {
                 writer.Write(Item.Id);
             }
@@ -391,7 +258,7 @@ namespace ItemEngine.Classes
         public void LoadSave(BinaryReader reader)
         {
             StoredCount = reader.ReadInt32();
-            if(StoredCount > 0)
+            if (StoredCount > 0)
                 Item = ItemFactory.GetItem(reader.ReadInt32());
             PlaceLocked = reader.ReadBoolean();
             //Call on item changed here to update UI with loaded changes, otherwise ui doesn't show anything until 

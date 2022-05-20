@@ -24,12 +24,12 @@ using MonoGame.Extended.BitmapFonts;
 using UIEngine.Classes.RecipeStuff;
 using Globals.Classes.Helpers;
 using System.Linq;
-using UIEngine.Classes.CraftingMenuStuff;
 using static DataModels.Enums;
 using InputEngine.Classes;
 using DataModels.MapStuff;
 using Globals.Classes.Time;
 using TextEngine;
+using ItemEngine.Classes.StorageStuff;
 
 namespace UIEngine.Classes
 {

@@ -1,6 +1,7 @@
 ﻿using DataModels;
 using DataModels.ItemStuff;
 using Globals.Classes;
+using ItemEngine.Classes.CraftingStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -30,7 +31,7 @@ namespace ItemEngine.Classes
 
         public static Texture2D ItemSpriteSheet { get; private set; }
 
-        public static RecipeHelper RecipeHelper { get; private set; }
+        public static CraftingGuide CraftingGuide { get; private set; }
         public static void LoadContent(ContentManager content)
         {
 
@@ -56,8 +57,8 @@ namespace ItemEngine.Classes
 
                 }
 
-            RecipeHelper = new RecipeHelper();
-            RecipeHelper.LoadContent(ItemData);
+            CraftingGuide = new CraftingGuide();
+            CraftingGuide.LoadContent(ItemData);
         }
 
         public static ItemData GetItemData(string name)

@@ -4,6 +4,7 @@ using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
+using ItemEngine.Classes.StorageStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,7 +14,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UIEngine.Classes.CraftingMenuStuff;
 using UIEngine.Classes.Storage.Configurations;
 using static DataModels.Enums;
 
