@@ -58,6 +58,8 @@ namespace ItemEngine.Classes.StorageStuff
                 }
 
             }
+            else if (_currentlyCraftableItem == null)
+                OutputSlot.RemoveAll();
 
         }
 

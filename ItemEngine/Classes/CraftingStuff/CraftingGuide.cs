@@ -50,6 +50,13 @@ namespace ItemEngine.Classes.CraftingStuff
                     return false;
                 }
             }
+            foreach(StorageSlot slot in storageSlots)
+            {
+                //Dissalow extra ingredients
+                if(slot.Item != null)
+                if(!recipeInfo.Ingredients.Any(x => x.Name == slot.Item.Name))
+                    { return false; }
+            }
             return true;
         }
 
