@@ -51,8 +51,7 @@
                 "Ingredients":[
                     {
                         "Name":"Shmegg",
-                        "Row":0,
-                        "Column": 0
+                        "Count":1
                     }
                 ]
                 
@@ -72,13 +71,12 @@
                 "Ingredients":[
                     {
                         "Name":"Shmegg",
-                        "Row":0,
-                        "Column": 0
+                        "Count":1
                     },
                     {
                         "Name":"Plepper",
-                        "Row":0,
-                        "Column": 0
+                        "Count":1
+
                     }
                 ]
                 

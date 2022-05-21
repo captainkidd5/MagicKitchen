@@ -10,9 +10,12 @@ using System.Threading.Tasks;
 namespace ItemEngine.Classes.StorageStuff
 {
     public delegate void ItemChanged(Item item, int storedCount);
+    public delegate void ItemGrabbedByEntity(Item item, int storedCount);
+
     public class StorageSlot : ISaveable
     {
         public event ItemChanged ItemChanged;
+        public event ItemGrabbedByEntity ItemGrabbedByEntity;
         public Item Item { get; private set; }
 
         //just a shortcut to get the Item's stacksize
@@ -110,10 +113,13 @@ namespace ItemEngine.Classes.StorageStuff
                 {
                     Item = null;
 
-                    OnItemChanged();
                 }
+                OnItemChanged();
+
                 return true;
             }
+            OnItemChanged();
+
             return false;
 
         }
@@ -172,6 +178,8 @@ namespace ItemEngine.Classes.StorageStuff
             if (heldItem == null)
             {
                 heldItem = Item;
+
+                OnItemGrabbed();
                 if (shiftHeld && StoredCount > 1)
                 {
                     int countToRemove = StoredCount / 2;
@@ -185,6 +193,7 @@ namespace ItemEngine.Classes.StorageStuff
                     StoredCount = 0;
 
                 }
+                OnItemGrabbed();
 
                 OnItemChanged();
 
@@ -243,6 +252,11 @@ namespace ItemEngine.Classes.StorageStuff
         protected virtual void OnItemChanged()
         {
             ItemChanged?.Invoke(Item, StoredCount);
+        }
+
+        protected virtual void OnItemGrabbed()
+        {
+            ItemGrabbedByEntity?.Invoke(Item, StoredCount);
         }
 
         public void Save(BinaryWriter writer)

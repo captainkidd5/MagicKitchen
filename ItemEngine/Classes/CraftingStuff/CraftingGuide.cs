@@ -34,6 +34,9 @@ namespace ItemEngine.Classes.CraftingStuff
             return itemDataToReturn;
         }
 
+        /// <summary>
+        /// If a crafting recipe with more copmlexity is also satisfied, use that one instead
+        /// </summary>
         private bool IsMoreComplex(RecipeInfo newInfo, RecipeInfo oldInfo)
         {
             return newInfo.Ingredients.Count > oldInfo.Ingredients.Count;

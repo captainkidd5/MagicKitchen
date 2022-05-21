@@ -22,17 +22,77 @@ namespace ItemEngine.Classes.StorageStuff
         {
             CraftAction = craftAction;
             OutputSlot = new StorageSlot();
+            OutputSlot.ItemGrabbedByEntity += OutputSlotClicked;
             foreach (StorageSlot slot in Slots)
                 slot.ItemChanged += AnyItemChanged;
-        }
 
-        public void AnyItemChanged(Item item, int storedCount)
+            OutputSlot.SetPlaceLock();
+        }
+        private void GetCraftingRecipe()
         {
             ItemData itemData = ItemFactory.CraftingGuide.GetCraftedItem(CraftAction, Slots);
             _currentlyCraftableItem = itemData;
-            OutputSlot.RemoveAll();
-            if(_currentlyCraftableItem != null)
-                OutputSlot.Add(_currentlyCraftableItem.Name);
+        }
+        public void AnyItemChanged(Item item, int storedCount)
+        {
+            GetCraftingRecipe();
+            if (OutputSlot.Item != null && _currentlyCraftableItem != null && OutputSlot.Item.Id != _currentlyCraftableItem.Id)
+            {
+                OutputSlot.RemoveAll();
+                if (_currentlyCraftableItem != null)
+                {
+                    OutputSlot.RemovePlaceLock();
+                    OutputSlot.Add(_currentlyCraftableItem.Name);
+                    OutputSlot.SetPlaceLock();
+
+
+                }
+            }
+            else if (_currentlyCraftableItem != null)
+            {
+                if (OutputSlot.Item == null)
+                {
+                    OutputSlot.RemovePlaceLock();
+                    OutputSlot.Add(_currentlyCraftableItem.Name);
+                    OutputSlot.SetPlaceLock();
+                }
+
+            }
+
+        }
+
+        public void OutputSlotClicked(Item item, int storedCount)
+        {
+            if (item != null)
+            {
+
+                ItemData itemData = ItemFactory.GetItemData(item.Id);
+                RecipeInfo recipeInfo = itemData.RecipeInfo;
+                foreach (CraftingIngredient ingredient in recipeInfo.Ingredients)
+                {
+                    int count = ingredient.Count;
+                    RemoveItem(ingredient.Name, ref count);
+                }
+               
+
+            }
+            if(item == null)
+            {
+
+            GetCraftingRecipe();
+            if (_currentlyCraftableItem != null)
+            {
+                if (OutputSlot.Item == null)
+                {
+                    OutputSlot.RemovePlaceLock();
+                    OutputSlot.Add(_currentlyCraftableItem.Name);
+                    OutputSlot.SetPlaceLock();
+                }
+
+            }
+            }
+
+
         }
     }
 }

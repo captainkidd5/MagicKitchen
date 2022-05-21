@@ -60,7 +60,7 @@ namespace EntityEngine.Classes
         public void DropItem(Vector2 entityPosition,Vector2 jettisonVector, string name, int count)
         {
             int originalCount = count;
-            StorageContainer.RemoveItem(ItemFactory.GetItem(name), ref count);
+            StorageContainer.RemoveItem(ItemFactory.GetItem(name).Id, ref count);
 
             ItemManager.AddWorldItem(entityPosition,ItemFactory.GetItem(name), originalCount - count, jettisonVector);
         }
@@ -68,7 +68,7 @@ namespace EntityEngine.Classes
         public void DropItem(Vector2 entityPosition, Vector2 jettisonVector, Item item, int count)
         {
             int originalCount = count;
-            StorageContainer.RemoveItem(item, ref count);
+            StorageContainer.RemoveItem(item.Id, ref count);
 
             ItemManager.AddWorldItem(entityPosition,item, originalCount - count, jettisonVector);
         }

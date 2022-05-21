@@ -79,11 +79,25 @@ namespace ItemEngine.Classes.StorageStuff
 
         }
 
-        public void RemoveItem(Item item, ref int countToRemove)
+        public void RemoveItem(int itemId, ref int countToRemove)
         {
             while (countToRemove > 0)
             {
-                StorageSlot slot = Slots.FirstOrDefault(x => x.Item.Id == item.Id);
+                StorageSlot slot = Slots.FirstOrDefault(x => x.Item.Id == itemId);
+                if (slot == null)
+                    return;
+                else
+                {
+                    slot.Remove(1);
+                    countToRemove--;
+                }
+            }
+        }
+        public void RemoveItem(string name, ref int countToRemove)
+        {
+            while (countToRemove > 0)
+            {
+                StorageSlot slot = Slots.FirstOrDefault(x => x.Item != null && x.Item.Name == name);
                 if (slot == null)
                     return;
                 else
