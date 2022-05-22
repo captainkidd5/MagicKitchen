@@ -58,7 +58,7 @@ namespace ItemEngine.Classes.StorageStuff
                 }
 
             }
-            else if (_currentlyCraftableItem == null)
+            else if (OutputSlot.Item != null && ItemFactory.CraftingGuide.TooManyIngredients(Slots, OutputSlot.Item.RecipeInfo))
                 OutputSlot.RemoveAll();
 
         }
@@ -67,18 +67,10 @@ namespace ItemEngine.Classes.StorageStuff
         {
             if (item != null)
             {
-
-                ItemData itemData = ItemFactory.GetItemData(item.Id);
-                RecipeInfo recipeInfo = itemData.RecipeInfo;
-                foreach (CraftingIngredient ingredient in recipeInfo.Ingredients)
-                {
-                    int count = ingredient.Count;
-                    RemoveItem(ingredient.Name, ref count);
-                }
-               
+                RemoveIngredientsFromInventoryToMakeItem(item);
 
             }
-            if(item == null)
+            if (item == null)
             {
 
             GetCraftingRecipe();
@@ -95,6 +87,22 @@ namespace ItemEngine.Classes.StorageStuff
             }
 
 
+        }
+
+        /// <summary>
+        /// Removes the materials from the inventory of entity crafting the item. Assumes that all materials exist,
+        /// will not throw error if they do not
+        /// </summary>
+        /// <param name="item">The item to craft</param>
+        private void RemoveIngredientsFromInventoryToMakeItem(Item item)
+        {
+            ItemData itemData = ItemFactory.GetItemData(item.Id);
+            RecipeInfo recipeInfo = itemData.RecipeInfo;
+            foreach (CraftingIngredient ingredient in recipeInfo.Ingredients)
+            {
+                int count = ingredient.Count;
+                RemoveItem(ingredient.Name, ref count);
+            }
         }
     }
 }

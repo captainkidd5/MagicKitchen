@@ -50,14 +50,25 @@ namespace ItemEngine.Classes.CraftingStuff
                     return false;
                 }
             }
-            foreach(StorageSlot slot in storageSlots)
+            if (TooManyIngredients(storageSlots, recipeInfo))
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Eggs + Pepper should make scrambled eggs. Eggs + Pepper + Stone should not
+        /// </summary>
+        public bool TooManyIngredients(List<StorageSlot> storageSlots, RecipeInfo recipeInfo)
+        {
+            foreach (StorageSlot slot in storageSlots)
             {
                 //Dissalow extra ingredients
-                if(slot.Item != null)
-                if(!recipeInfo.Ingredients.Any(x => x.Name == slot.Item.Name))
-                    { return false; }
+                if (slot.Item != null)
+                    if (!recipeInfo.Ingredients.Any(x => x.Name == slot.Item.Name))
+                    { return true; }
             }
-            return true;
+            return false;
         }
 
         public void LoadContent(List<ItemData> itemData)
