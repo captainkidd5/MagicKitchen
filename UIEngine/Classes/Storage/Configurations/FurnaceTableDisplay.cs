@@ -125,15 +125,7 @@ namespace UIEngine.Classes.Storage.Configurations
                         StackPanel.Add(stackRow4);
 
                     }
-
-
-
-
-
                 }
-
-
-
 
             }
             CraftingActionButton = new NineSliceTextButton(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),

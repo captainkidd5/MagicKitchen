@@ -63,7 +63,7 @@ namespace EntityEngine.Classes
         protected StatusIcon StatusIcon { get; set; }
 
         public bool IsUsingProgressBar => ProgressBarSprite != null;
-        protected ProgressBarSprite ProgressBarSprite { get; private set; }
+        protected WorldProgressBarSprite ProgressBarSprite { get; private set; }
 
         /// <summary>
         /// If entity is present at the current stage
@@ -108,7 +108,7 @@ namespace EntityEngine.Classes
         public float LayerDepth => Animator.Layer;
         internal void AddProgressBar()
         {
-            ProgressBarSprite = new ProgressBarSprite();
+            ProgressBarSprite = new WorldProgressBarSprite();
             ProgressBarSprite.Load(.25f, Position, .9f, new Vector2(-32, -32));
         }
 

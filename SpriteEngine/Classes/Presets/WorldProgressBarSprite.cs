@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using Globals.Classes.Time;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SpriteEngine.Classes.Presets
 {
-    public class ProgressBarSprite
+    public class WorldProgressBarSprite
     {
         private Vector2 _position;
         private Vector2 _positionOffSet = new Vector2(_sourceRectangle.Width / 2, -16);
@@ -18,14 +19,14 @@ namespace SpriteEngine.Classes.Presets
 
         private Sprite _foreGroundSprite;
 
-        private int _goal = 20;
+        private int _goal;
         private int _currentAmount;
-
+        private int _globalStartTime;
+        public bool Started { get; set; }
         public bool Done => _currentAmount >= _goal;
 
-        private SimpleTimer _simpleTimer;
 
-        public ProgressBarSprite()
+        public WorldProgressBarSprite()
         {
 
         }
@@ -39,7 +40,6 @@ namespace SpriteEngine.Classes.Presets
         /// <param name="positionOffSet">Leave null for tiles, defaults to correct position for them</param>
         public void Load( float rate, Vector2 position, float layerDepth, Vector2? positionOffSet = null)
         {
-            _simpleTimer = new SimpleTimer(rate);
             if(positionOffSet != null)
                 _positionOffSet += positionOffSet.Value;
 
@@ -51,12 +51,19 @@ namespace SpriteEngine.Classes.Presets
                 customLayer: layerDepth + SpriteUtility.GetMinimumOffSet());
         }
 
-
+        public void Start(int secondsToRunFor)
+        {
+            Started = true;
+            _globalStartTime = Clock.TotalTime;
+            _goal = _globalStartTime + _globalStartTime;
+            
+        }
         public void Update(GameTime gameTime)
         {
-            if (_simpleTimer.Run(gameTime))
+            if (Started)
             {
-                _currentAmount++;
+
+                _currentAmount = Clock.TotalTime - _globalStartTime;
                 if (!Done)
                     _outLineSprite.RectangleWidth = (int)((float)((float)_currentAmount / (float)_goal) * (float)_sourceRectangle.Width);
             }

@@ -27,6 +27,9 @@ namespace Globals.Classes.Time
 
         public static TimeKeeper TimeKeeper;
 
+        //Increases by 1 every time minutes increase, never decreases
+        public static int TotalTime;
+
         public static bool Paused;
 
         public static Dictionary<float, Interval> Intervals { get; private set; }
@@ -45,10 +48,12 @@ namespace Globals.Classes.Time
         public static void Save(BinaryWriter writer)
         {
             TimeKeeper.Save(writer);
+            writer.Write(TotalTime);
         }
         public static void Load(BinaryReader reader)
         {
             TimeKeeper.LoadSave(reader);
+            TotalTime = reader.ReadInt32();
         }
         public static void Update(GameTime gameTime)
         {
@@ -57,6 +62,7 @@ namespace Globals.Classes.Time
                 if (SimpleTimer.Run(gameTime))
                 {
                     IncrementTime();
+                    TotalTime++;
                 }
 
                 foreach(Interval interval in Intervals.Values)
