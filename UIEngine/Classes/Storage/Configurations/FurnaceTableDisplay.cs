@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
+using SpriteEngine.Classes.Presets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,12 +49,20 @@ namespace UIEngine.Classes.Storage.Configurations
         protected override void GenerateUI(bool displayWallet)
         {
 
+            BackgroundSourceRectangle = new Rectangle(48, 640, 240, 64);
+
+            BackgroundSpritePositionOffset = new Vector2(0, 0);
+            BackdropSprite = SpriteFactory.CreateUISprite(new Vector2(Position.X, Position.Y), BackgroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low),
+                Color.White, scale: new Vector2(2f, 2f));
+
+            Vector2 offSet = new Vector2(0, BackgroundSourceRectangle.Height / 2);
+
 
             int requiredSlots = 3;
             if (StorageContainer.Slots.Count != requiredSlots)
                 throw new Exception($"Storage container passed into display must have exactly {requiredSlots} slots");
 
-            StackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            StackPanel = new StackPanel(this, graphics, content, Position + offSet, GetLayeringDepth(UILayeringDepths.Low));
 
 
             ClearGrid();
@@ -91,8 +100,12 @@ namespace UIEngine.Classes.Storage.Configurations
                     }
                     else if (IsOutputSlot(row, column))
                     {
+                        UIProgressBar = new UIProgressBar(StackPanel, graphics, content,Position, GetLayeringDepth(UILayeringDepths.Medium));
+                        UIProgressBar.LoadContent();
+                        stackRow.AddItem(UIProgressBar, StackOrientation.Left);
+                        UIProgressBar.LoadContent();
 
-                        stackRow.AddSpacer(new Rectangle(0,0,_buttonWidth,_buttonWidth), StackOrientation.Left);
+                        //stackRow.AddSpacer(new Rectangle(0,0,_buttonWidth,_buttonWidth), StackOrientation.Left);
 
 
                         InventorySlotDisplay display = new InventorySlotDisplay(
@@ -137,12 +150,8 @@ namespace UIEngine.Classes.Storage.Configurations
             AssignFuelSlot();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
 
-            //    BackgroundSourceRectangle = new Rectangle(560, 0, 80, 96);
+          
 
-            //    BackgroundSpritePositionOffset = new Vector2(-64, 0);
-            //    BackdropSprite = SpriteFactory.CreateUISprite(new Vector2(Position.X - 64, Position.Y), BackgroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low),
-            //        Color.White, scale: new Vector2(4f, 4f));
-            
         }
     }
 }

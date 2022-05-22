@@ -16,7 +16,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
     internal class CraftingFurniture : StorableFurniture
     {
-        private WorldProgressBarSprite _progressIndicator;
+        private ProgressBarSprite _progressIndicator;
 
         protected bool IsBeingOperated { get; set; } = false;
 
@@ -24,7 +24,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public CraftingFurniture(FurnitureData furnitureData, Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType)
             : base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
         {
-            _progressIndicator = new WorldProgressBarSprite();
+            _progressIndicator = new ProgressBarSprite();
             SubKey = "CraftingFurniture";
         }
 
@@ -41,7 +41,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Load()
         {
 
-            _progressIndicator.Load( .25f, Tile.Position, Tile.Layer);
+            _progressIndicator.Load(Tile.Position, Tile.Layer, new Vector2(8, -16));
             base.Load();
 
         }

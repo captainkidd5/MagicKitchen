@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes.Presets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UIEngine.Classes.ButtonStuff;
+using UIEngine.Classes.Components;
 
 namespace UIEngine.Classes.Storage.Configurations
 {
@@ -22,6 +24,8 @@ namespace UIEngine.Classes.Storage.Configurations
 
 
         protected NineSliceTextButton CraftingActionButton;
+
+        protected UIProgressBar UIProgressBar;
         public CraftableDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -56,6 +60,28 @@ namespace UIEngine.Classes.Storage.Configurations
         protected void CraftItem()
         {
 
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (IsActive)
+            {
+                if (UIProgressBar != null)
+                    UIProgressBar.Update(gameTime);
+            }
+            
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            if (IsActive)
+            {
+                if (UIProgressBar != null)
+                    UIProgressBar.Draw(spriteBatch);
+            }
+            
         }
     }
 }
