@@ -28,6 +28,7 @@ namespace ItemEngine.Classes.StorageStuff
         //if true, player may not place new items into this slot
         public bool PlaceLocked { get; protected set; }
 
+        public List<int> BlacklistedItems { get; set; }
         public StorageSlot()
         {
         }
@@ -37,7 +38,19 @@ namespace ItemEngine.Classes.StorageStuff
                 throw new Exception($"Slot already place locked");
             PlaceLocked = true;
         }
-
+        /// <summary>
+        /// Blacklisted items may not be placed in this slot
+        /// </summary>
+        private bool IsItemBlackListed(int itemId)
+        {
+            return BlacklistedItems != null && BlacklistedItems.Contains(itemId);
+        }
+        public void AddBlackListedItem(string itemName)
+        {
+            if(BlacklistedItems == null)
+                BlacklistedItems = new List<int>();
+            BlacklistedItems.Add(ItemFactory.GetItemData(itemName).Id);
+        }
         public void RemovePlaceLock()
         {
             if (!PlaceLocked)
@@ -64,6 +77,9 @@ namespace ItemEngine.Classes.StorageStuff
         }
         public bool AddUniqueItem(Item uniqueItem)
         {
+            if (IsItemBlackListed(uniqueItem.Id))
+                return false;
+
             if (uniqueItem.Stackable)
                 throw new Exception($"This method is not intended for stackable items");
 
@@ -79,7 +95,7 @@ namespace ItemEngine.Classes.StorageStuff
 
         public bool Add(string itemName)
         {
-            if (PlaceLocked)
+            if (PlaceLocked ||  IsItemBlackListed(ItemFactory.GetItemData(itemName).Id))
                 return false;
 
             if (Item == null)
@@ -130,9 +146,16 @@ namespace ItemEngine.Classes.StorageStuff
             Item = null;
             OnItemChanged();
         }
+
+        protected virtual bool MayPlaceItem(int itemIdToTryToPlace)
+        {
+            if (PlaceLocked || IsItemBlackListed(itemIdToTryToPlace))
+                return false;
+            return true;
+        }
         public void RightClickInteraction(ref Item heldItem, ref int heldCount)
         {
-            if (PlaceLocked)
+            if (!MayPlaceItem(heldItem.Id))
                 return;
 
             if (heldItem != null)
@@ -203,7 +226,7 @@ namespace ItemEngine.Classes.StorageStuff
                 throw new Exception($"Should not be possible to be holding more than max stack size of item {heldItem}");
             if (Empty)
             {
-                if (PlaceLocked)
+                if (!MayPlaceItem(heldItem.Id))
                     return;
                 Item = heldItem;
                 StoredCount = count;
@@ -215,7 +238,7 @@ namespace ItemEngine.Classes.StorageStuff
             }
             else if (Item.Id == heldItem.Id && Item.Stackable)
             {
-                if (PlaceLocked)
+                if (!MayPlaceItem(heldItem.Id))
                     return;
                 //deposit rest of held item stack into slot stack, until slot stack is full
                 while ((StoredCount < Item.MaxStackSize) && count > 0)
@@ -232,7 +255,7 @@ namespace ItemEngine.Classes.StorageStuff
             }
             else if (!Item.Stackable || Item.Id != heldItem.Id)
             {
-                if (PlaceLocked)
+                if (!MayPlaceItem(heldItem.Id))
                     return;
                 //swap the two items. Same id, but unique (might have different durability or something) or just different id
                 Swap(ref heldItem, ref count);

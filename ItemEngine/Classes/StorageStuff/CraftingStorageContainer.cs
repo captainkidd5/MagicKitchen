@@ -13,6 +13,8 @@ namespace ItemEngine.Classes.StorageStuff
     {
         public CraftAction CraftAction { get; private set; }
         public StorageSlot OutputSlot { get; set; }
+        public FuelStorageSlot FuelSlot { get; set; }
+
 
         private SimpleTimer _simpleTimer;
 
@@ -22,6 +24,7 @@ namespace ItemEngine.Classes.StorageStuff
         {
             CraftAction = craftAction;
             OutputSlot = new StorageSlot();
+            FuelSlot = new FuelStorageSlot();
             OutputSlot.ItemGrabbedByEntity += OutputSlotClicked;
             foreach (StorageSlot slot in Slots)
                 slot.ItemChanged += AnyItemChanged;
@@ -33,6 +36,11 @@ namespace ItemEngine.Classes.StorageStuff
             ItemData itemData = ItemFactory.CraftingGuide.GetCraftedItem(CraftAction, Slots);
             _currentlyCraftableItem = itemData;
         }
+        /// <summary>
+        /// Used so that changing an item in the ingredient slots will instantly change the output recipe
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="storedCount"></param>
         public void AnyItemChanged(Item item, int storedCount)
         {
             GetCraftingRecipe();

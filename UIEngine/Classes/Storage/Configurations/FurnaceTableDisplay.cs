@@ -113,7 +113,8 @@ namespace UIEngine.Classes.Storage.Configurations
                         StackPanel.Add(stackRow2);
 
                         StackRow stackRow4 = new StackRow((Columns + 1) * _buttonWidth);
-                        InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
+                        InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content,
+                           (StorageContainer as CraftingStorageContainer).FuelSlot,
                  Position, GetLayeringDepth(UILayeringDepths.Medium));
                         InventorySlots[row, column] = display;
                         AddSectionToGrid(display, row, column);
@@ -141,6 +142,7 @@ namespace UIEngine.Classes.Storage.Configurations
             stackRow3.AddItem(CraftingActionButton, StackOrientation.Left);
             StackPanel.Add(stackRow3);
             AssignOutputSlot();
+            AssignFuelSlot();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
 
             //    BackgroundSourceRectangle = new Rectangle(560, 0, 80, 96);
