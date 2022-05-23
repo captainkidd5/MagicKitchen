@@ -155,11 +155,12 @@ namespace ItemEngine.Classes.StorageStuff
         }
         public void RightClickInteraction(ref Item heldItem, ref int heldCount)
         {
-            if (!MayPlaceItem(heldItem.Id))
-                return;
+         
 
             if (heldItem != null)
             {
+                if (!MayPlaceItem(heldItem.Id))
+                    return;
                 if (StoredCount > heldItem.MaxStackSize)
                     throw new Exception($"Should not be possible to be add more than max stack size of item {heldItem}");
                 if (Item == null)

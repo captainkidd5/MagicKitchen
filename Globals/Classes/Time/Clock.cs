@@ -39,7 +39,7 @@ namespace Globals.Classes.Time
         {
             DayStatus = DayStatus.DayTime;
             CalendarTimer = new SimpleTimer(clockSpeed);
-            GlobalCounterTimer = new SimpleTimer(1f);
+            GlobalCounterTimer = new SimpleTimer(.25f);
             TimeKeeper = new TimeKeeper();
             Intervals = new Dictionary<float, Interval>();
             for(int i = 0; i < 10; i++)
@@ -56,7 +56,7 @@ namespace Globals.Classes.Time
         public static void Load(BinaryReader reader)
         {
             TimeKeeper.LoadSave(reader);
-            TotalTime = reader.ReadInt32();
+            TotalTime = reader.ReadSingle();
         }
         public static void Update(GameTime gameTime)
         {

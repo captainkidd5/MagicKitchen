@@ -27,7 +27,7 @@ namespace ItemEngine.Classes.StorageStuff
             CraftAction = craftAction;
             OutputSlot = new StorageSlot();
             FuelSlot = new FuelStorageSlot();
-            OutputSlot.ItemGrabbedByEntity += OutputSlotClicked;
+            OutputSlot.ItemChanged += OutputSlotClicked;
             foreach (StorageSlot slot in Slots)
                 slot.ItemChanged += AnyItemChanged;
 
@@ -41,6 +41,13 @@ namespace ItemEngine.Classes.StorageStuff
         }
         private void OnMetreCompleted()
         {
+            OutputSlot.RemovePlaceLock();
+            OutputSlot.Add(_currentlyCraftableItem.Name);
+            OutputSlot.SetPlaceLock();
+            RemoveIngredientsFromInventoryToMakeItem(OutputSlot.Item);
+      
+            EvaluateOutputSlot();
+
 
         }
         public void TransferItemIntoFuel()
@@ -62,61 +69,76 @@ namespace ItemEngine.Classes.StorageStuff
         /// <param name="storedCount"></param>
         public void AnyItemChanged(Item item, int storedCount)
         {
+            EvaluateOutputSlot();
+            //else if (OutputSlot.Item != null && ItemFactory.CraftingGuide.TooManyIngredients(Slots, OutputSlot.Item.RecipeInfo))
+            //    OutputSlot.RemoveAll();
+
+        }
+
+        private void EvaluateOutputSlot()
+        {
             GetCraftingRecipe();
-            if (OutputSlot.Item != null && _currentlyCraftableItem != null && OutputSlot.Item.Id != _currentlyCraftableItem.Id)
+            if (_currentlyCraftableItem == null)
             {
-                OutputSlot.RemoveAll();
-                if (_currentlyCraftableItem != null)
+                CraftedItemMetre.Reset();
+                return;
+            }
+            if (_currentlyCraftableItem != null)
+            {
+                if(CraftedItemMetre.IdCurrentlyMaking == _currentlyCraftableItem.Id)
                 {
-                    OutputSlot.RemovePlaceLock();
-                    OutputSlot.Add(_currentlyCraftableItem.Name);
-                    OutputSlot.SetPlaceLock();
-
+                }
+                else
+                {
+                    CraftedItemMetre.Reset();
 
                 }
-            }
-            else if (_currentlyCraftableItem != null)
-            {
-                if (OutputSlot.Item == null)
+
+
+
+                //may begin crafting again if output item is the same type, or it is empty
+                if (OutputSlot.Item != null && OutputSlot.Item.Id == _currentlyCraftableItem.Id || OutputSlot.Empty)
                 {
-                    OutputSlot.RemovePlaceLock();
-                    OutputSlot.Add(_currentlyCraftableItem.Name);
-                    OutputSlot.SetPlaceLock();
+                    if (FuelTracker.CurrentFuel > 0)
+                    {
+                        CraftedItemMetre.Start(20, _currentlyCraftableItem.Id);
+                    }
                 }
-
-            }
-            else if (OutputSlot.Item != null && ItemFactory.CraftingGuide.TooManyIngredients(Slots, OutputSlot.Item.RecipeInfo))
-                OutputSlot.RemoveAll();
-
-            if(FuelSlot.StoredCount > 0)
-            {
-                CraftedItemMetre.Start(20);
             }
         }
 
         public void OutputSlotClicked(Item item, int storedCount)
         {
-            if (item != null)
-            {
-                RemoveIngredientsFromInventoryToMakeItem(item);
-
-            }
-            if (item == null)
-            {
-
             GetCraftingRecipe();
-            if (_currentlyCraftableItem != null)
+            if (_currentlyCraftableItem == null)
             {
-                if (OutputSlot.Item == null)
+                CraftedItemMetre.Reset();
+                return;
+            }
+
+            if (OutputSlot.Empty && !CraftedItemMetre.Active)
+            {
+                if (FuelTracker.CurrentFuel > 0)
                 {
-                    OutputSlot.RemovePlaceLock();
-                    OutputSlot.Add(_currentlyCraftableItem.Name);
-                    OutputSlot.SetPlaceLock();
+                    CraftedItemMetre.Start(20, _currentlyCraftableItem.Id);
                 }
-
+                return;
             }
-            }
 
+            if (!OutputSlot.Empty)
+            {
+                if (OutputSlot.Item.Id == _currentlyCraftableItem.Id)
+                    return;
+                else
+                {
+                   
+                    if (FuelTracker.CurrentFuel > 0)
+                    {
+                        CraftedItemMetre.Start(20, _currentlyCraftableItem.Id);
+                    }
+                }
+               
+            }
 
         }
 

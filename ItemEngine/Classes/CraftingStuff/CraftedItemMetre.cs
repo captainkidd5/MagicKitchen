@@ -13,7 +13,6 @@ namespace ItemEngine.Classes.CraftingStuff
     {
         public event ProgressDone ProgressDone;
 
-        public void OnProgressDone() => ProgressDone?.Invoke();
 
         public float StartTime;
         public float CurrentProgress;
@@ -22,16 +21,19 @@ namespace ItemEngine.Classes.CraftingStuff
 
         public float Ratio => CurrentProgress / ProgressRequired;
 
-        private bool _active;
-        public void Start(int progressRequired)
+        public bool Active {get; private set;}
+
+        public int? IdCurrentlyMaking { get; private set; }
+        public void Start(int progressRequired, int idCurrentlyMaking)
         {
             ProgressRequired = progressRequired;
+            IdCurrentlyMaking = idCurrentlyMaking;
             StartTime = Clock.TotalTime;
-            _active = true;
+            Active = true;
         }
         public void Update()
         {
-            if (!_active)
+            if (!Active)
                 return;
             CurrentProgress = Clock.TotalTime - StartTime;
 
@@ -42,12 +44,18 @@ namespace ItemEngine.Classes.CraftingStuff
             }
 
         }
-
-        private void Reset()
+        public void OnProgressDone()
         {
+            ProgressDone?.Invoke();
+            //Reset();
+        }
+
+        public void Reset()
+        {
+            IdCurrentlyMaking = null;
             StartTime = 0;
             ProgressRequired = 0;
-            _active = false;
+            Active = false;
 
         }
     }
