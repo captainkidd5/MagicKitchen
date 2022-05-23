@@ -146,6 +146,8 @@ namespace UIEngine.Classes.Storage.Configurations
 
             }
             StackPanel.Add(stackRow);
+            UIProgressBar.ProgressBarColor = Color.White;
+            FuelBar.ProgressBarColor = Color.Orange;
             UIProgressBar.MovePosition(new Vector2(UIProgressBar.Position.X, UIProgressBar.Position.Y + UIProgressBar.Height / 2));
             FuelBar.MovePosition(new Vector2(FuelBar.Position.X, FuelBar.Position.Y + FuelBar.Height / 2));
 

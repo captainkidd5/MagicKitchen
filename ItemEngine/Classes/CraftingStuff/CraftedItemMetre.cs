@@ -20,7 +20,7 @@ namespace ItemEngine.Classes.CraftingStuff
         public int ProgressRequired;
         private readonly FuelMetre _fuelMetre;
 
-        public bool Done => CurrentProgress > ProgressRequired;
+        public bool Done => CurrentProgress >= ProgressRequired;
 
         public float Ratio => ProgressRequired > 0 ? ((float)CurrentProgress / (float)ProgressRequired) : 0;
 
@@ -44,7 +44,8 @@ namespace ItemEngine.Classes.CraftingStuff
         {
             if (!Active)
                 return;
-            CurrentProgress = (int)Clock.TotalTime - (int)StartTime;
+            if(_fuelMetre.CurrentFuel > 0)
+                CurrentProgress = (int)Clock.TotalTime - (int)StartTime;
             if(CurrentProgress - _oldProgress > 0)
             {
                 _oldProgress = CurrentProgress;

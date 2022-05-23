@@ -21,6 +21,8 @@ namespace UIEngine.Classes.Components
         private Sprite _foreGroundSprite;
 
         private Vector2 _scale;
+
+        public Color ProgressBarColor { get; set; } = Color.White;
         public UIProgressBar(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -30,8 +32,9 @@ namespace UIEngine.Classes.Components
         public override void LoadContent()
         {
              _scale = new Vector2(2f, 2f);
+           
             _outLineSprite = SpriteFactory.CreateDestinationSprite(1, (int)((float)16 * (float)_scale.Y), Position, new Rectangle(0, 0, 1, 1),
-                  SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: Color.Green);
+                  SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressBarColor);
             _foreGroundSprite = SpriteFactory.CreateUISprite(Position, _sourceRectangle, SpriteFactory.StatusIconTexture,
              customLayer: GetLayeringDepth(UILayeringDepths.Medium), scale: _scale);
 

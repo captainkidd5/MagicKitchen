@@ -82,12 +82,21 @@ namespace ItemEngine.Classes.StorageStuff
                     CraftedItemMetre.Reset();
 
                 //may begin crafting again if output item is the same type, or it is empty
-                if (OutputSlot.Item != null && OutputSlot.Item.Id == _currentlyCraftableItem.Id || OutputSlot.Empty)
+                if ((OutputSlot.Item != null && OutputSlot.Item.Id == _currentlyCraftableItem.Id) || OutputSlot.Empty)
                 {
-                    if (FuelMetre.CurrentFuel > 0)
-                    {
-                        CraftedItemMetre.Start(20, _currentlyCraftableItem.Id);
-                    }
+                   
+                        if (FuelMetre.CurrentFuel > 0)
+                        {
+                            if (CraftedItemMetre.Done)
+                            {
+                                CraftedItemMetre.Start(20, _currentlyCraftableItem.Id);
+                            }
+                        }
+                        else
+                        {
+                            CraftedItemMetre.Reset();
+                        }
+                    
                 }
             }
         }
