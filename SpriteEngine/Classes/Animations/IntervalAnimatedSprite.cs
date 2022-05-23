@@ -19,7 +19,7 @@ namespace SpriteEngine.Classes.Animations
             Settings.ElementType spriteType, Vector2 position, Rectangle sourceRectangle,
             Texture2D texture, AnimationFrame[] animationFrames, float standardDuration,
             Color primaryColor, Vector2 origin, Vector2 scale, float rotation, Settings.Layers layer,
-            bool randomizeLayers, bool flip, float? customLayer, int idleFrame = -1) : base(graphics, content, spriteType,
+            bool randomizeLayers, bool flip, float? customLayer, int idleFrame = 0) : base(graphics, content, spriteType,
                 position, sourceRectangle, texture, animationFrames, standardDuration, primaryColor,
                 origin, scale, rotation, layer, randomizeLayers, flip, customLayer, idleFrame)
         {
@@ -42,7 +42,7 @@ namespace SpriteEngine.Classes.Animations
         {
             if (!Paused)
             {
-                int frame = (int)(Clock.GetInterval(AnimationFrames[CurrentFrame].Duration).CurrentFrame % AnimationFrames.Length);
+                byte frame = (byte)(Clock.GetInterval(AnimationFrames[CurrentFrame].Duration).CurrentFrame % AnimationFrames.Length);
                 if (frame != CurrentFrame)
                 {
                     CurrentFrame = frame;

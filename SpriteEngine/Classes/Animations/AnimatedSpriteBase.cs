@@ -12,14 +12,14 @@ namespace SpriteEngine.Classes.Animations
 {
     public abstract class AnimatedSpriteBase : Sprite
     {
-        protected int TotalFrames { get; set; }
-        protected int CurrentFrame { get; set; }
+        protected byte TotalFrames { get; set; }
+        protected byte CurrentFrame { get; set; }
         public Direction Direction { get; set; } = Direction.Right;
-        public int FrameLastFrame { get; protected set; }
+        public byte FrameLastFrame { get; protected set; }
         public AnimationFrame[] AnimationFrames { get; protected set; }
         private bool Flip { get; set; }
 
-
+        protected int? TargetFrame { get; set; }
         /// <summary>
         /// If true, animation will play backwards upon reaching end frame, then forwards upon reaching start frame
         /// </summary>
@@ -30,7 +30,7 @@ namespace SpriteEngine.Classes.Animations
         /// A scenario where it would be higher would be something like a player animation
         /// where the zero-th frame is actually the idle position
         /// </summary>
-        private int ResetIndex { get; set; }
+        private byte ResetIndex { get; set; }
         private int SpriteSourceRectangleStartX { get; set; } //we need these two properties because otherwise altering
         //the source rectangle of the sprite will be additive, and its value will always grow or decrease forever.
         private int SpriteSourceRectangleStartY { get; set; }
@@ -53,7 +53,7 @@ namespace SpriteEngine.Classes.Animations
         internal AnimatedSpriteBase(GraphicsDevice graphics, ContentManager content, ElementType spriteType,
             Vector2 position, Rectangle sourceRectangle, Texture2D texture, AnimationFrame[] animationFrames, float standardDuration, Color primaryColor,
              Vector2 origin, Vector2 scale, float rotation, Layers layer,
-            bool randomizeLayers, bool flip, float? customLayer, int idleFrame =-1) :
+            bool randomizeLayers, bool flip, float? customLayer, int idleFrame =0) :
             base(graphics, content, spriteType,position, sourceRectangle, texture, primaryColor, origin, scale, rotation,
                 layer, randomizeLayers, flip, customLayer)
         {
@@ -62,8 +62,8 @@ namespace SpriteEngine.Classes.Animations
             Flip = flip;
             SpriteSourceRectangleStartX = SourceRectangle.X;
             SpriteSourceRectangleStartY = SourceRectangle.Y;
-            TotalFrames = AnimationFrames.Length - 1;
-            ResetIndex = idleFrame;
+            TotalFrames = (byte)(AnimationFrames.Length - 1);
+            ResetIndex = (byte)idleFrame;
             if (TotalFrames < 1)
                 throw new Exception("total frames must exceed 0");
 
@@ -112,7 +112,7 @@ namespace SpriteEngine.Classes.Animations
                 if(PingPong)
                     Direction = Direction.Left;
                 else
-                    CurrentFrame = ResetIndex + 1;
+                    CurrentFrame = (byte)(ResetIndex + 1);
             }
             else
                 CurrentFrame++;
@@ -126,10 +126,14 @@ namespace SpriteEngine.Classes.Animations
                 if (PingPong)
                     Direction =Direction.Right;
                 else
-                CurrentFrame = TotalFrames -1;
+                CurrentFrame = (byte)(TotalFrames -1);
             }
             else
                 CurrentFrame--;
+        }
+        public void SetTargetFrame(int frame)
+        {
+            TargetFrame = frame;
         }
         public void ForceSetFrame(Vector2 position, float layer)
         {

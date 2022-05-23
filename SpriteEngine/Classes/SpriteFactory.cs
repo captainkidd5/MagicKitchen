@@ -91,7 +91,7 @@ namespace SpriteEngine.Classes
         public static AnimatedSprite CreateWorldAnimatedSprite(Vector2 position, Rectangle startingSourceRectangle, Texture2D texture,
            AnimationFrame[] animationFrames, float standardDuration = .15f, Color? primaryColor = null,
             Vector2? origin = null, Vector2? scale = null, float rotation = 0f, Layers layer = Layers.buildings,
-           bool randomizeLayers = true, bool flip = false, float? customLayer = null, int idleFrame = -1)
+           bool randomizeLayers = true, bool flip = false, float? customLayer = null, int idleFrame = 0)
         {
             return new AnimatedSprite(Graphics, Content, ElementType.World, position, startingSourceRectangle,
                 texture, animationFrames, standardDuration, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ??Vector2.One, rotation, layer,

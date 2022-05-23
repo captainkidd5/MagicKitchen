@@ -133,6 +133,7 @@ namespace TiledEngine.Classes
          texture, frames, customLayer: tile.Layer, randomizeLayers: false);
                             (tile.Sprite as AnimatedSprite).PingPong = true;
 
+
                             return;
                     }
 

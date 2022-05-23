@@ -19,7 +19,8 @@ using static DataModels.Enums;
 
 namespace UIEngine.Classes.Storage
 {
-    internal class StorageDisplayHandler : InterfaceSection
+    public delegate void SecondaryStorageClosed();
+    public class StorageDisplayHandler : InterfaceSection
     {
         private InventoryDisplay _secondaryInventoryDisplay;
         public Item PlayerSelectedItem => _playerInventoryDisplay.CurrentlySelectedItem;
@@ -28,6 +29,7 @@ namespace UIEngine.Classes.Storage
         private int _playerInventoryTotalSlots = 10;
         private int _playerSlotWidth = 64;
 
+        public event SecondaryStorageClosed SecondaryStorageClosed;
 
         private InventoryDisplay _currentlySelectedInventoryDisplay;
         public StorageDisplayHandler(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
@@ -134,6 +136,7 @@ namespace UIEngine.Classes.Storage
         public void DeactivateSecondaryDisplay()
         {
             _secondaryInventoryDisplay.Deactivate();
+            SecondaryStorageClosed?.Invoke();
         }
        
         public void ActivateSecondaryInventoryDisplay(FurnitureType t, StorageContainer storageContainer, bool displayWallet = false)

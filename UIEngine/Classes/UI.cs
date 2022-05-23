@@ -90,7 +90,7 @@ namespace UIEngine.Classes
         internal static RecipeBook RecipeBook { get; set; }
 
         internal static MainMenu MainMenu { get; set; }
-        internal static StorageDisplayHandler StorageDisplayHandler { get; set; }
+        public static StorageDisplayHandler StorageDisplayHandler { get; set; }
         public static Cursor Cursor { get; set; }
 
         private static Game s_game;

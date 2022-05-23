@@ -77,6 +77,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             if (Tile.Sprite.GetType() == typeof(AnimatedSprite))
             {
                 (Tile.Sprite as AnimatedSprite).Paused = true;
+
             }
             CreateStorageContainer();
             List<PlacedItem> loadedPlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
@@ -136,7 +137,14 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         //    PlacedItems[index].Load(TopOfFurniture, _storageContainer.Slots[PlacedItems[index].ListIndex]);
         //    TileManager.PlacedItemManager.AddNewItem(PlacedItems[index]);
         //}
+        public void OnUIClosed()
+        {
+            UI.StorageDisplayHandler.SecondaryStorageClosed -= OnUIClosed;
+            (Tile.Sprite as AnimatedSprite).Paused = false;
 
+            (Tile.Sprite as AnimatedSprite).SetTargetFrame(0);
+
+        }
         public void RemoveItemAtIndex(int slotIndex, int count)
         {
             StorageContainer.Slots[slotIndex].Remove(count);
@@ -159,7 +167,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
             {
                 UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
+                    //Subscribe to ui 
+                    UI.StorageDisplayHandler.SecondaryStorageClosed += OnUIClosed;
                     (Tile.Sprite as AnimatedSprite).Paused = false;
+                    (Tile.Sprite as AnimatedSprite).SetTargetFrame((Tile.Sprite as AnimatedSprite).AnimationFrames.Length - 1);
+
 
                 }
             }

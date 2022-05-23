@@ -17,7 +17,7 @@ namespace SpriteEngine.Classes.Animations
         internal AnimatedSprite(GraphicsDevice graphics, ContentManager content, Settings.ElementType spriteType, Vector2 position,
             Rectangle sourceRectangle, Texture2D texture, AnimationFrame[] animationFrames, float standardDuration, Color primaryColor,
             Vector2 origin, Vector2 scale,
-            float rotation, Settings.Layers layer, bool randomizeLayers, bool flip, float? customLayer, int idleFrame = -1) 
+            float rotation, Settings.Layers layer, bool randomizeLayers, bool flip, float? customLayer, int idleFrame = 0) 
             : base(graphics, content, spriteType, position, sourceRectangle, texture, animationFrames, standardDuration, primaryColor, origin, scale, rotation, layer, randomizeLayers, flip, customLayer, idleFrame)
         {
             Timer = new SimpleTimer(animationFrames[0].Duration);
@@ -34,10 +34,19 @@ namespace SpriteEngine.Classes.Animations
 
                 if (!Paused && Timer.Run(gameTime))
                 {
-                    if (Direction == DataModels.Enums.Direction.Right)
-                        IncreaseFrames();
+                    if (TargetFrame == null)
+                    {
+                        if (Direction == DataModels.Enums.Direction.Right)
+                            IncreaseFrames();
+                        else
+                            DecreaseFrames();
+                    }
                     else
-                        DecreaseFrames();
+                    {
+                        GoToTargetFrame();
+
+                    }
+
 
 
                     UpdateSourceRectangle(frame);
@@ -52,6 +61,22 @@ namespace SpriteEngine.Classes.Animations
                 }
 
                 Position = new Vector2(position.X + frame.XOffSet, position.Y + frame.YOffSet * -1);
+            }
+        }
+
+        /// <summary>
+        /// Will animate towards the target frame, then return to normal behaviour
+        /// </summary>
+        private void GoToTargetFrame()
+        {
+            if (CurrentFrame < TargetFrame)
+                IncreaseFrames();
+            else if (CurrentFrame > TargetFrame)
+                DecreaseFrames();
+            else if (CurrentFrame == TargetFrame)
+            {
+                TargetFrame = null;
+                Paused = true;
             }
         }
     }
