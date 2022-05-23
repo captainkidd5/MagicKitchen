@@ -22,6 +22,33 @@
     "Price": 1
 },
 {
+    "Id": 1601,
+    "Name": "Iron_Ore",
+    "Description" : "A basic mineral",
+    "MaxStackSize": 999,
+    "Price": 1
+},
+
+{
+    "Id": 1701,
+    "Name": "Iron_Ingot",
+    "Description" : "A basic mineral",
+    "MaxStackSize": 999,
+    "Price": 1, 
+    "RecipeInfo": 
+    {
+    "CraftAction": "Smelt",
+    "CookTime": 20,
+    "Ingredients":[
+        {
+            "Name":"Iron_Ore",
+            "Count":1
+        }
+    ]
+    
+}
+},
+{
     "Id": 2501,
     "Name": "Stone",
     "Description" : "Hard, round",

@@ -89,7 +89,7 @@ namespace ItemEngine.Classes.StorageStuff
                         {
                             if (CraftedItemMetre.Done)
                             {
-                                CraftedItemMetre.Start(20, _currentlyCraftableItem.Id);
+                                CraftedItemMetre.Start((int)_currentlyCraftableItem.RecipeInfo.CookTime, _currentlyCraftableItem.Id);
                             }
                         }
                         else
@@ -114,7 +114,7 @@ namespace ItemEngine.Classes.StorageStuff
             {
                 if (FuelMetre.CurrentFuel > 0)
                 {
-                    CraftedItemMetre.Start(20, _currentlyCraftableItem.Id);
+                    CraftedItemMetre.Start((int)_currentlyCraftableItem.RecipeInfo.CookTime, _currentlyCraftableItem.Id);
                 }
                 return;
             }
@@ -126,7 +126,7 @@ namespace ItemEngine.Classes.StorageStuff
                 else
                 {
                     if (FuelMetre.CurrentFuel > 0)
-                        CraftedItemMetre.Start(20, _currentlyCraftableItem.Id);
+                        CraftedItemMetre.Start((int)_currentlyCraftableItem.RecipeInfo.CookTime, _currentlyCraftableItem.Id);
                 }
             }
         }

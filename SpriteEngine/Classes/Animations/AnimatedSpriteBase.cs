@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace SpriteEngine.Classes.Animations
@@ -13,9 +14,16 @@ namespace SpriteEngine.Classes.Animations
     {
         protected int TotalFrames { get; set; }
         protected int CurrentFrame { get; set; }
+        public Direction Direction { get; set; } = Direction.Right;
         public int FrameLastFrame { get; protected set; }
         public AnimationFrame[] AnimationFrames { get; protected set; }
         private bool Flip { get; set; }
+
+
+        /// <summary>
+        /// If true, animation will play backwards upon reaching end frame, then forwards upon reaching start frame
+        /// </summary>
+        public bool PingPong { get; set; }
 
         /// <summary>
         /// When animation has reached final frame, will circle around to this one. Default is -1 if you don' have one, but
@@ -101,12 +109,28 @@ namespace SpriteEngine.Classes.Animations
             if (CurrentFrame >= TotalFrames)
             {
                 HasLoopedAtLeastOnce = true;
-                CurrentFrame = ResetIndex + 1;
+                if(PingPong)
+                    Direction = Direction.Left;
+                else
+                    CurrentFrame = ResetIndex + 1;
             }
             else
                 CurrentFrame++;
         }
+        protected void DecreaseFrames()
+        {
+            if (CurrentFrame <= 0 )
+            {
+                HasLoopedAtLeastOnce = true;
 
+                if (PingPong)
+                    Direction =Direction.Right;
+                else
+                CurrentFrame = TotalFrames -1;
+            }
+            else
+                CurrentFrame--;
+        }
         public void ForceSetFrame(Vector2 position, float layer)
         {
             ResetSpriteToRestingFrame();

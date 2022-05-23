@@ -34,7 +34,11 @@ namespace SpriteEngine.Classes.Animations
 
                 if (!Paused && Timer.Run(gameTime))
                 {
-                    IncreaseFrames();
+                    if (Direction == DataModels.Enums.Direction.Right)
+                        IncreaseFrames();
+                    else
+                        DecreaseFrames();
+
 
                     UpdateSourceRectangle(frame);
 

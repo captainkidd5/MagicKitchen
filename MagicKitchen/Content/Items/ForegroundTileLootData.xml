@@ -9,6 +9,11 @@
             <Quantity>1</Quantity>
             <Weight>100</Weight>
             </Item>
+               <Item Type="DataModels.LootData">
+            <ItemName>Iron_Ore</ItemName>
+            <Quantity>1</Quantity>
+            <Weight>50</Weight>
+            </Item>
             </Loot>
         </Item>
           <Item>
@@ -23,11 +28,16 @@
         </Item>
          <Item>
             <TileId>5434</TileId>
-            <Loot>
+              <Loot>
             <Item Type="DataModels.LootData">
             <ItemName>Stone</ItemName>
             <Quantity>1</Quantity>
             <Weight>100</Weight>
+            </Item>
+               <Item Type="DataModels.LootData">
+            <ItemName>Iron_Ore</ItemName>
+            <Quantity>1</Quantity>
+            <Weight>50</Weight>
             </Item>
             </Loot>
         </Item>

@@ -131,7 +131,8 @@ namespace TiledEngine.Classes
                         case "pause":
                             tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
          texture, frames, customLayer: tile.Layer, randomizeLayers: false);
-                            (tile.Sprite as AnimatedSprite).Repeat = false;
+                            (tile.Sprite as AnimatedSprite).PingPong = true;
+
                             return;
                     }
 
