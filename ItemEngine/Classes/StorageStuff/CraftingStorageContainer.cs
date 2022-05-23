@@ -62,16 +62,9 @@ namespace ItemEngine.Classes.StorageStuff
             _currentlyCraftableItem = itemData;
         }
 
-        /// <summary>
-        /// Used so that changing an item in the ingredient slots will instantly change the output recipe
-        /// </summary>
-        /// <param name="item"></param>
-        /// <param name="storedCount"></param>
         public void AnyItemChanged(Item item, int storedCount)
         {
             EvaluateOutputSlot();
-            //else if (OutputSlot.Item != null && ItemFactory.CraftingGuide.TooManyIngredients(Slots, OutputSlot.Item.RecipeInfo))
-            //    OutputSlot.RemoveAll();
 
         }
 
@@ -85,16 +78,8 @@ namespace ItemEngine.Classes.StorageStuff
             }
             if (_currentlyCraftableItem != null)
             {
-                if(CraftedItemMetre.IdCurrentlyMaking == _currentlyCraftableItem.Id)
-                {
-                }
-                else
-                {
+                if(CraftedItemMetre.IdCurrentlyMaking != _currentlyCraftableItem.Id)
                     CraftedItemMetre.Reset();
-
-                }
-
-
 
                 //may begin crafting again if output item is the same type, or it is empty
                 if (OutputSlot.Item != null && OutputSlot.Item.Id == _currentlyCraftableItem.Id || OutputSlot.Empty)
@@ -131,15 +116,10 @@ namespace ItemEngine.Classes.StorageStuff
                     return;
                 else
                 {
-                   
                     if (FuelTracker.CurrentFuel > 0)
-                    {
                         CraftedItemMetre.Start(20, _currentlyCraftableItem.Id);
-                    }
                 }
-               
             }
-
         }
 
         /// <summary>

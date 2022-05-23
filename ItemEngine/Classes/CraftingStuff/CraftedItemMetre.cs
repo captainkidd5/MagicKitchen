@@ -15,11 +15,11 @@ namespace ItemEngine.Classes.CraftingStuff
 
 
         public float StartTime;
-        public float CurrentProgress;
-        public float ProgressRequired;
+        public int CurrentProgress;
+        public int ProgressRequired;
         public bool Done => CurrentProgress > ProgressRequired;
 
-        public float Ratio => CurrentProgress / ProgressRequired;
+        public float Ratio => ProgressRequired > 0 ? ((float)CurrentProgress / (float)ProgressRequired) : 0;
 
         public bool Active {get; private set;}
 
@@ -35,7 +35,7 @@ namespace ItemEngine.Classes.CraftingStuff
         {
             if (!Active)
                 return;
-            CurrentProgress = Clock.TotalTime - StartTime;
+            CurrentProgress = (int)Clock.TotalTime - (int)StartTime;
 
             if (Done)
             {
