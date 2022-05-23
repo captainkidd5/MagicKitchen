@@ -32,7 +32,8 @@ namespace UIEngine.Classes.Storage.Configurations
             base.Update(gameTime);
             if (IsActive)
             {
-                CraftingActionButton.Update(gameTime);
+                UIProgressBar.GetProgressRatio((StorageContainer as CraftingStorageContainer).CraftedItemMetre.Ratio);
+                //CraftingActionButton.Update(gameTime);
             }
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -40,7 +41,7 @@ namespace UIEngine.Classes.Storage.Configurations
             base.Draw(spriteBatch);
             if (IsActive)
             {
-                CraftingActionButton.Draw(spriteBatch);
+             //   CraftingActionButton.Draw(spriteBatch);
             }
         }
 
@@ -67,16 +68,16 @@ namespace UIEngine.Classes.Storage.Configurations
 
             ClearGrid();
             int slotIndex = 0;
-            Rows = 2;
-            Columns = 3;
+            Rows = 1;
+            Columns = 5;
 
             Selectables = new InterfaceSection[Rows, Columns];
 
             InventorySlots = new InventorySlotDisplay[Rows, Columns];
             DrawCutOff = Rows;
             OutputSlotRow = 0;
-            OutputSlotColumn = 2;
-            FuelSlotRow = 1;
+            OutputSlotColumn = 4;
+            FuelSlotRow = 0;
             FuelSlotColumn = 0;
 
             StackRow stackRow = new StackRow((Columns + 1) * _buttonWidth);
@@ -86,8 +87,14 @@ namespace UIEngine.Classes.Storage.Configurations
                 //add extra for spacing
                 for (int column = 0; column < Columns; column++)
                 {
-
-                    if (column < 2 && row == 0)
+                    if(column == 1)
+                    {
+                        FuelBar = new UIProgressBar(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
+                        FuelBar.LoadContent();
+                        stackRow.AddItem(FuelBar, StackOrientation.Left);
+                        FuelBar.LoadContent();
+                    }
+                    if (column ==2 || column == 3)
                     {
                         InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
                    Position, GetLayeringDepth(UILayeringDepths.Medium));
@@ -119,33 +126,28 @@ namespace UIEngine.Classes.Storage.Configurations
                     }
                     else if (IsFuelSlot(row, column))
                     {
-                        StackPanel.Add(stackRow);
-                        StackRow stackRow2 = new StackRow((Columns + 1) * _buttonWidth);
-                        stackRow2.AddSpacer(new Rectangle(0, 0, _buttonWidth, _buttonWidth), StackOrientation.Left);
 
-                        StackPanel.Add(stackRow2);
 
-                        StackRow stackRow4 = new StackRow((Columns + 1) * _buttonWidth);
+                
+
                         InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content,
                            (StorageContainer as CraftingStorageContainer).FuelSlot,
                  Position, GetLayeringDepth(UILayeringDepths.Medium));
                         InventorySlots[row, column] = display;
                         AddSectionToGrid(display, row, column);
                         display.LoadContent();
-
-                        stackRow4.AddItem(display, StackOrientation.Left);
+                        stackRow.AddItem(display, StackOrientation.Left);
                         slotIndex++;
-                        StackPanel.Add(stackRow4);
+                
 
                     }
                 }
 
             }
-            CraftingActionButton = new NineSliceTextButton(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                    new List<TextEngine.Classes.Text>() { TextFactory.CreateUIText("Craft", GetLayeringDepth(UILayeringDepths.Medium)) }, CraftItem);
-            StackRow stackRow3 = new StackRow(128);
-            stackRow3.AddItem(CraftingActionButton, StackOrientation.Left);
-            StackPanel.Add(stackRow3);
+            StackPanel.Add(stackRow);
+            UIProgressBar.MovePosition(new Vector2(UIProgressBar.Position.X, UIProgressBar.Position.Y + UIProgressBar.Height / 2));
+            FuelBar.MovePosition(new Vector2(FuelBar.Position.X, FuelBar.Position.Y + FuelBar.Height / 2));
+
             AssignOutputSlot();
             AssignFuelSlot();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);

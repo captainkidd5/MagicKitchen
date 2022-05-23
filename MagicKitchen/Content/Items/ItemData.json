@@ -17,7 +17,7 @@
     "Id": 901,
     "Name": "Mana",
     "Description" : "Fuel",
-    "FuelValue" : 1,
+    "FuelValue" : 100,
     "MaxStackSize": 999,
     "Price": 1
 },

@@ -23,7 +23,9 @@ namespace Globals.Classes.Time
 
         public static DayStatus DayStatus;
 
-        public static SimpleTimer SimpleTimer;
+        public static SimpleTimer CalendarTimer;
+        public static SimpleTimer GlobalCounterTimer;
+
 
         public static TimeKeeper TimeKeeper;
 
@@ -36,7 +38,8 @@ namespace Globals.Classes.Time
         public static void Load()
         {
             DayStatus = DayStatus.DayTime;
-            SimpleTimer = new SimpleTimer(clockSpeed);
+            CalendarTimer = new SimpleTimer(clockSpeed);
+            GlobalCounterTimer = new SimpleTimer(1f);
             TimeKeeper = new TimeKeeper();
             Intervals = new Dictionary<float, Interval>();
             for(int i = 0; i < 10; i++)
@@ -59,13 +62,17 @@ namespace Globals.Classes.Time
         {
             if (!Paused)
             {
-                if (SimpleTimer.Run(gameTime))
+                if (CalendarTimer.Run(gameTime))
                 {
                     IncrementTime();
+                }
+                if (GlobalCounterTimer.Run(gameTime))
+                {
                     TotalTime++;
+
                 }
 
-                foreach(Interval interval in Intervals.Values)
+                foreach (Interval interval in Intervals.Values)
                 {
                     interval.Update(gameTime);
 

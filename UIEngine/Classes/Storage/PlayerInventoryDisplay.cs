@@ -75,12 +75,9 @@ namespace UIEngine.Classes.Storage
             base.Update(gameTime);
 
 
-            if (ExtendedInventoryOpen)
-                Flags.Pause = true;
             _openBigInventoryButton.Update(gameTime);
 
-            if (WasExtendedOpenLastFrame && !ExtendedInventoryOpen)
-                Flags.Pause = false;
+        
         }
 
         protected override void CheckOveriddenLogic(GameTime gameTime)

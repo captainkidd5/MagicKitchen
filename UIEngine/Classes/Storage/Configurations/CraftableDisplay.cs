@@ -23,9 +23,11 @@ namespace UIEngine.Classes.Storage.Configurations
         protected int? FuelSlotColumn;
 
 
-        protected NineSliceTextButton CraftingActionButton;
 
         protected UIProgressBar UIProgressBar;
+        protected UIProgressBar FuelBar
+            ;
+
         public CraftableDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -69,6 +71,9 @@ namespace UIEngine.Classes.Storage.Configurations
             {
                 if (UIProgressBar != null)
                     UIProgressBar.Update(gameTime);
+
+                if(FuelBar != null)
+                    FuelBar.Update(gameTime);
             }
             
         }
@@ -80,6 +85,9 @@ namespace UIEngine.Classes.Storage.Configurations
             {
                 if (UIProgressBar != null)
                     UIProgressBar.Draw(spriteBatch);
+
+                if(FuelBar!= null)
+                    FuelBar.Draw(spriteBatch);
             }
             
         }

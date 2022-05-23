@@ -29,7 +29,9 @@ namespace ItemEngine.Classes
         public int Id => _itemData.Id;
         public string Name => _itemData.Name;
         public string Description => _itemData.Description;
-        public RecipeInfo RecipeInfo => _itemData.RecipeInfo;   
+        public RecipeInfo RecipeInfo => _itemData.RecipeInfo;
+
+        public int FuelValue => _itemData.FuelValue;    
         internal Item(ItemData data)
         {
             _itemData = data;

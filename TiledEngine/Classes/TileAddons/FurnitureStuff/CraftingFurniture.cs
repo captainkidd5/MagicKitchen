@@ -1,5 +1,6 @@
 ﻿using DataModels.ItemStuff;
 using DataModels.MapStuff;
+using ItemEngine.Classes.CraftingStuff;
 using ItemEngine.Classes.StorageStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,6 +22,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         protected bool IsBeingOperated { get; set; } = false;
 
         public CraftAction CraftAction{ get; set; }
+
         public CraftingFurniture(FurnitureData furnitureData, Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType)
             : base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
         {
@@ -48,10 +50,21 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (IsBeingOperated)
-            {
+
+           // if (IsBeingOperated)
+          //  {
+                CraftingStorageContainer container = StorageContainer as CraftingStorageContainer;
+                if (!container.FuelTracker.Empty)
+                {
+
+                }
+                else if(container.FuelTracker.Empty && container.ContainsFuelItem)
+                {
+                    container.TransferItemIntoFuel();
+                }
+                container.CraftedItemMetre.Update();
                 _progressIndicator.Update(gameTime);
-            }
+           // }
 
         }
         public override void Draw(SpriteBatch spriteBatch)

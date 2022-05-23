@@ -1,6 +1,7 @@
 ﻿using DataModels.ItemStuff;
 using DataModels.MapStuff;
 using Globals.Classes;
+using ItemEngine.Classes.CraftingStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,11 @@ namespace ItemEngine.Classes.StorageStuff
         public StorageSlot OutputSlot { get; set; }
         public FuelStorageSlot FuelSlot { get; set; }
 
-
-        private SimpleTimer _simpleTimer;
+        public bool ContainsFuelItem => FuelSlot.StoredCount > 0;
 
         private ItemData _currentlyCraftableItem;
+        public FuelMetre FuelTracker { get; set; }
+        public CraftedItemMetre CraftedItemMetre { get; set; }
         public CraftingStorageContainer(CraftAction craftAction, int capacity,
             FurnitureData furnitureData = null) : base(capacity, furnitureData)
         {
@@ -29,13 +31,30 @@ namespace ItemEngine.Classes.StorageStuff
             foreach (StorageSlot slot in Slots)
                 slot.ItemChanged += AnyItemChanged;
 
+            FuelSlot.ItemChanged += AnyItemChanged;
+
             OutputSlot.SetPlaceLock();
+            FuelTracker = new FuelMetre();
+            CraftedItemMetre = new CraftedItemMetre();
+            CraftedItemMetre.ProgressDone += OnMetreCompleted;
+
+        }
+        private void OnMetreCompleted()
+        {
+
+        }
+        public void TransferItemIntoFuel()
+        {
+            FuelTracker.AddFuel(FuelSlot.Item.FuelValue);
+
+            FuelSlot.Remove(1);
         }
         private void GetCraftingRecipe()
         {
             ItemData itemData = ItemFactory.CraftingGuide.GetCraftedItem(CraftAction, Slots);
             _currentlyCraftableItem = itemData;
         }
+
         /// <summary>
         /// Used so that changing an item in the ingredient slots will instantly change the output recipe
         /// </summary>
@@ -69,6 +88,10 @@ namespace ItemEngine.Classes.StorageStuff
             else if (OutputSlot.Item != null && ItemFactory.CraftingGuide.TooManyIngredients(Slots, OutputSlot.Item.RecipeInfo))
                 OutputSlot.RemoveAll();
 
+            if(FuelSlot.StoredCount > 0)
+            {
+                CraftedItemMetre.Start(20);
+            }
         }
 
         public void OutputSlotClicked(Item item, int storedCount)

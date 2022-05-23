@@ -72,7 +72,6 @@ namespace SpriteEngine.Classes.Presets
             {
 
                 _currentAmount = Clock.TotalTime - _globalStartTime;
-                if (!Done)
                     _outLineSprite.RectangleWidth = (int)((float)((float)_currentAmount / (float)_goal) * (float)_sourceRectangle.Width * _scale.X);
             }
 
