@@ -31,6 +31,19 @@
    <property name="replace" value="4"/>
   </properties>
  </tile>
+ <tile id="215">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="furniture" value="CraftingTable"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="526">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>

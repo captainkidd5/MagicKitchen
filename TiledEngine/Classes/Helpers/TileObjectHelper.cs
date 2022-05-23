@@ -32,7 +32,6 @@ namespace TiledEngine.Classes.Helpers
                 List<Vector2> vertices = new List<Vector2>();
                 if (tempObj.Points != null)
                 {
-                    Console.WriteLine("test");
                     //Polygon shapes do not have a width and height, 4 is arbitrary for now TODO
                     tempObjBody = new Rectangle(tempObjBody.X, tempObjBody.Y, 4, 4);
                     foreach(TmxObjectPoint point in tempObj.Points)
@@ -43,19 +42,8 @@ namespace TiledEngine.Classes.Helpers
     
                 IntermediateTmxShape intermediateTmxShape = GetIntermediateShape(tile, tempObjBody, tempObj.ObjectType, vertices);
 
-                bool blocksLight = true;
-                //This OBJECT within the tile OBJECT LIST may contain this property, which will allow light to pass through
-                //the otherwise light-impassible body. This is NOT a tile property, it is a property of an object within a tile.
-                if (tempObj.Properties.ContainsKey("lightOk"))
-                {
-                    blocksLight = false;
-                }
-
-
 
                 CreateTileBodies(tile, tileLayer, tileManager, intermediateTmxShape, tempObj.Properties);
-
-                
 
             }
         }

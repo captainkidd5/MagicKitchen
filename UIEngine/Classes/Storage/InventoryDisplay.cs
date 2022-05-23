@@ -151,6 +151,8 @@ namespace UIEngine.Classes.Storage
             StackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             ClearGrid();
             InventorySlots = new InventorySlotDisplay[Rows, Columns];
+            Selectables = new InterfaceSection[Rows, Columns];
+
             int slotIndex = 0;
             for (int i = 0; i < Rows; i++)
             {
