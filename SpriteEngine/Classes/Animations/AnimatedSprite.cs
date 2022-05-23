@@ -13,7 +13,7 @@ namespace SpriteEngine.Classes.Animations
     public class AnimatedSprite : AnimatedSpriteBase
     {
         private SimpleTimer Timer { get; set; }
-
+        public bool Repeat { get; set; } = true;
         internal AnimatedSprite(GraphicsDevice graphics, ContentManager content, Settings.ElementType spriteType, Vector2 position,
             Rectangle sourceRectangle, Texture2D texture, AnimationFrame[] animationFrames, float standardDuration, Color primaryColor,
             Vector2 origin, Vector2 scale,
@@ -43,6 +43,8 @@ namespace SpriteEngine.Classes.Animations
                         SpriteEffects = SpriteEffects.FlipHorizontally;
                     else
                         SetEffectToDefault();
+                    if (!Repeat && HasLoopedAtLeastOnce)
+                        Paused = true;
                 }
 
                 Position = new Vector2(position.X + frame.XOffSet, position.Y + frame.YOffSet * -1);

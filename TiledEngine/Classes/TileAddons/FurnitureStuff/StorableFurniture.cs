@@ -5,6 +5,7 @@ using ItemEngine.Classes;
 using ItemEngine.Classes.StorageStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             PlacedItems = new List<PlacedItem>();
 
             AddPlacedItems(furnitureData, tile);
+
+           
         }
         /// <summary>
         /// Will set the storage slot at index to dissalow player from placing items into this slow (may still retrieve)
@@ -71,6 +74,10 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Load()
         {
             base.Load();
+            if (Tile.Sprite.GetType() == typeof(AnimatedSprite))
+            {
+                (Tile.Sprite as AnimatedSprite).Paused = true;
+            }
             CreateStorageContainer();
             List<PlacedItem> loadedPlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
             bool loadedItemsWereSavedAtLeastOnce = loadedPlacedItems.Count > 0;
@@ -152,8 +159,10 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
             {
                 UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
+                    (Tile.Sprite as AnimatedSprite).Paused = false;
+
+                }
             }
-        }
     }
     public override void Draw(SpriteBatch spriteBatch)
     {

@@ -33,6 +33,7 @@
  </tile>
  <tile id="215">
   <properties>
+   <property name="animate" value="pause"/>
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -43,6 +44,17 @@
     <ellipse/>
    </object>
   </objectgroup>
+  <animation>
+   <frame tileid="215" duration="100"/>
+   <frame tileid="488" duration="100"/>
+   <frame tileid="761" duration="100"/>
+   <frame tileid="1034" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="488">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
  </tile>
  <tile id="526">
   <properties>
@@ -65,6 +77,11 @@
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
+ <tile id="761">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
  <tile id="800">
   <animation>
    <frame tileid="800" duration="800"/>
@@ -83,8 +100,36 @@
  </tile>
  <tile id="859">
   <properties>
+   <property name="animate" value="pause"/>
    <property name="furniture" value="StorableFurniture,2,4"/>
    <property name="newHitBox" value="0,0,16,16"/>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+  <animation>
+   <frame tileid="859" duration="100"/>
+   <frame tileid="860" duration="100"/>
+   <frame tileid="861" duration="100"/>
+   <frame tileid="862" duration="100"/>
+   <frame tileid="863" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="860">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="861">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="862">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="863">
+  <properties>
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
@@ -136,6 +181,11 @@
     <ellipse/>
    </object>
   </objectgroup>
+ </tile>
+ <tile id="1034">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
  </tile>
  <tile id="1215">
   <properties>

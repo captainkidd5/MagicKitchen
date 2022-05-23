@@ -86,8 +86,7 @@ namespace TiledEngine.Classes
 
                         if (tileSetPackage.IsForeground(tile.GID))
                             frameToCheckGID = tileSetPackage.OffSetBackgroundGID(frameToCheckGID);
-                        if(tile.GID == 6975)
-                            Console.WriteLine("test");
+
                         TmxTilesetTile tileSetTile = tileSetPackage.GetTmxTileSetTile(frameToCheckGID);
                         if (tileSetTile != null)
                         {
@@ -118,12 +117,32 @@ namespace TiledEngine.Classes
                         }
 
 
+
                     }
                 }
- 
-                    tile.Sprite = SpriteFactory.CreateWorldIntervalAnimatedSprite(tile.Position, tile.SourceRectangle,
-                    texture, frames, customLayer: tile.Layer, randomizeLayers: false);
-                
+
+
+                propertyString = "animate";
+                if (TileUtility.GetTileProperty(tileSetPackage, tmxTileSetTile, ref propertyString))
+                {
+
+                    switch (propertyString)
+                    {
+                        case "pause":
+                            tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
+         texture, frames, customLayer: tile.Layer, randomizeLayers: false);
+                            (tile.Sprite as AnimatedSprite).Repeat = false;
+                            return;
+                    }
+
+
+                }
+
+
+
+                tile.Sprite = SpriteFactory.CreateWorldIntervalAnimatedSprite(tile.Position, tile.SourceRectangle,
+                texture, frames, customLayer: tile.Layer, randomizeLayers: false);
+
 
             }
 
