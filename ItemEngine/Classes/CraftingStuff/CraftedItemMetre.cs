@@ -15,8 +15,11 @@ namespace ItemEngine.Classes.CraftingStuff
 
 
         public float StartTime;
+        private int _oldProgress;
         public int CurrentProgress;
         public int ProgressRequired;
+        private readonly FuelMetre _fuelMetre;
+
         public bool Done => CurrentProgress > ProgressRequired;
 
         public float Ratio => ProgressRequired > 0 ? ((float)CurrentProgress / (float)ProgressRequired) : 0;
@@ -24,11 +27,17 @@ namespace ItemEngine.Classes.CraftingStuff
         public bool Active {get; private set;}
 
         public int? IdCurrentlyMaking { get; private set; }
+        public CraftedItemMetre(FuelMetre fuelMetre)
+        {
+            _fuelMetre = fuelMetre;
+        }
         public void Start(int progressRequired, int idCurrentlyMaking)
         {
             ProgressRequired = progressRequired;
             IdCurrentlyMaking = idCurrentlyMaking;
             StartTime = Clock.TotalTime;
+            _oldProgress = 0;
+
             Active = true;
         }
         public void Update()
@@ -36,6 +45,11 @@ namespace ItemEngine.Classes.CraftingStuff
             if (!Active)
                 return;
             CurrentProgress = (int)Clock.TotalTime - (int)StartTime;
+            if(CurrentProgress - _oldProgress > 0)
+            {
+                _oldProgress = CurrentProgress;
+                _fuelMetre.ConsumeFuel(1);
+            }
 
             if (Done)
             {
@@ -56,6 +70,7 @@ namespace ItemEngine.Classes.CraftingStuff
             StartTime = 0;
             ProgressRequired = 0;
             Active = false;
+            _oldProgress = 0;
 
         }
     }

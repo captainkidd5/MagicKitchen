@@ -19,7 +19,7 @@ namespace ItemEngine.Classes.StorageStuff
         public bool ContainsFuelItem => FuelSlot.StoredCount > 0;
 
         private ItemData _currentlyCraftableItem;
-        public FuelMetre FuelTracker { get; set; }
+        public FuelMetre FuelMetre { get; set; }
         public CraftedItemMetre CraftedItemMetre { get; set; }
         public CraftingStorageContainer(CraftAction craftAction, int capacity,
             FurnitureData furnitureData = null) : base(capacity, furnitureData)
@@ -34,8 +34,8 @@ namespace ItemEngine.Classes.StorageStuff
             FuelSlot.ItemChanged += AnyItemChanged;
 
             OutputSlot.SetPlaceLock();
-            FuelTracker = new FuelMetre();
-            CraftedItemMetre = new CraftedItemMetre();
+            FuelMetre = new FuelMetre();
+            CraftedItemMetre = new CraftedItemMetre(FuelMetre);
             CraftedItemMetre.ProgressDone += OnMetreCompleted;
 
         }
@@ -52,7 +52,7 @@ namespace ItemEngine.Classes.StorageStuff
         }
         public void TransferItemIntoFuel()
         {
-            FuelTracker.AddFuel(FuelSlot.Item.FuelValue);
+            FuelMetre.AddFuel(FuelSlot.Item.FuelValue);
 
             FuelSlot.Remove(1);
         }
@@ -84,7 +84,7 @@ namespace ItemEngine.Classes.StorageStuff
                 //may begin crafting again if output item is the same type, or it is empty
                 if (OutputSlot.Item != null && OutputSlot.Item.Id == _currentlyCraftableItem.Id || OutputSlot.Empty)
                 {
-                    if (FuelTracker.CurrentFuel > 0)
+                    if (FuelMetre.CurrentFuel > 0)
                     {
                         CraftedItemMetre.Start(20, _currentlyCraftableItem.Id);
                     }
@@ -103,7 +103,7 @@ namespace ItemEngine.Classes.StorageStuff
 
             if (OutputSlot.Empty && !CraftedItemMetre.Active)
             {
-                if (FuelTracker.CurrentFuel > 0)
+                if (FuelMetre.CurrentFuel > 0)
                 {
                     CraftedItemMetre.Start(20, _currentlyCraftableItem.Id);
                 }
@@ -116,7 +116,7 @@ namespace ItemEngine.Classes.StorageStuff
                     return;
                 else
                 {
-                    if (FuelTracker.CurrentFuel > 0)
+                    if (FuelMetre.CurrentFuel > 0)
                         CraftedItemMetre.Start(20, _currentlyCraftableItem.Id);
                 }
             }

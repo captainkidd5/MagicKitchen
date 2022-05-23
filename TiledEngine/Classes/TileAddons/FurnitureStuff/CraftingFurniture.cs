@@ -54,11 +54,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
            // if (IsBeingOperated)
           //  {
                 CraftingStorageContainer container = StorageContainer as CraftingStorageContainer;
-                if (!container.FuelTracker.Empty)
+                if (!container.FuelMetre.Empty)
                 {
 
                 }
-                else if(container.FuelTracker.Empty && container.ContainsFuelItem)
+                else if(container.FuelMetre.Empty && container.ContainsFuelItem)
                 {
                     container.TransferItemIntoFuel();
                 }
