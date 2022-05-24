@@ -97,7 +97,6 @@ namespace UIEngine.Classes
 
         public static Item PlayerCurrentSelectedItem => StorageDisplayHandler.PlayerSelectedItem;
 
-        public static FrameCounter FrameCounter;
 
         private static float _frontLayeringDepth;
         public static void Load(Game game, GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager)
@@ -136,7 +135,6 @@ namespace UIEngine.Classes
             s_criticalSections = new List<InterfaceSection>();
             Curtain.LoadContent();
 
-            FrameCounter = new FrameCounter(5);
             LoadCurrentSection();
 
             _frontLayeringDepth = GetLayeringDepth(UILayeringDepths.Front);
@@ -208,7 +206,6 @@ namespace UIEngine.Classes
         }
         public static void Update(GameTime gameTime)
         {
-            FrameCounter.Update(gameTime.ElapsedGameTime.TotalSeconds);
             IsHovered = false;
             //if (s_requestedGameState != GameDisplayState.None && Curtain.FullyDropped )
             //    FinishChangeGameState();
@@ -253,8 +250,7 @@ namespace UIEngine.Classes
 
             Cursor.Update(gameTime);
 
-            
-
+           
         }
 
 
@@ -295,13 +291,12 @@ namespace UIEngine.Classes
                 }
             }
         }
-        public static void Draw(SpriteBatch spriteBatch)
+        public static void Draw(SpriteBatch spriteBatch, double frameRate)
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
 
-            var fps = string.Format("FPS: {0}", FrameCounter.framerate);
 
-            spriteBatch.DrawString(TextFactory.BitmapFont, fps, new Vector2(1, 1), Color.Black, layerDepth: _frontLayeringDepth);
+            spriteBatch.DrawString(TextFactory.BitmapFont, frameRate.ToString(),Settings.CenterScreen, Color.Black, layerDepth: .99f);
             Cursor.Draw(spriteBatch);
             foreach (InterfaceSection section in s_activeSections)
             {

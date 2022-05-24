@@ -55,6 +55,8 @@ namespace MagicKitchen
         public static PenumbraComponent Penumbra;
 
         private ConsoleComponent consoleComponent;
+
+        private FrameCounter _frameCounter;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -72,6 +74,7 @@ namespace MagicKitchen
 
         protected override void Initialize()
         {
+            IsFixedTimeStep = false;
             _mainMenuContentManager = new ContentManager(Content.ServiceProvider);
             _mainMenuContentManager.RootDirectory = "Content";
             Camera = new Camera2D(GraphicsDevice.Viewport);
@@ -133,6 +136,7 @@ namespace MagicKitchen
             SaveLoadManager.SaveSaved += OnSaveSaved;
             UI.ReturnedToMainMenu += OnReturnToMainMenu;
             CommandConsole.RegisterCommand("save", "saves current game", SaveLoadManager.SaveGame);
+            _frameCounter = new FrameCounter(4);
         }
 
 
@@ -160,7 +164,7 @@ namespace MagicKitchen
 
         protected override void Draw(GameTime gameTime)
         {
-
+          
             RenderTargetManager.SetTarget(RenderTargetManager.MainTarget);
 
             if (UI.GameDisplayState == GameDisplayState.InGame)
@@ -182,7 +186,9 @@ namespace MagicKitchen
 
             if (Flags.DebugVelcro)
                 PhysicsManager.Draw(GraphicsDevice, Camera);
-            UI.Draw(_spriteBatch);
+            _frameCounter.Update( gameTime.ElapsedGameTime.TotalSeconds);
+
+            UI.Draw(_spriteBatch, _frameCounter.framerate);
 
             RenderTargetManager.RemoveRenderTarget();
             // Everything between penumbra.BeginDraw and penumbra.Draw will be
