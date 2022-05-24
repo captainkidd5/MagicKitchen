@@ -348,7 +348,7 @@ namespace EntityEngine.Classes
         /// </summary>
         protected virtual void RestoreEntityPhysics()
         {
-            MainHullBody.Body.IsSensor = false;
+            MainHullBody.Body.SetIsSensor(false);
             AddBigSensorCat(Category.Cursor);
             AddBigSensorCat(Category.TransparencySensor);
 
@@ -358,7 +358,8 @@ namespace EntityEngine.Classes
         /// </summary>
         protected virtual void RemoveEntityPhysics()
         {
-            MainHullBody.Body.IsSensor = true;
+            MainHullBody.Body.SetIsSensor(true);
+
             //Shouldn't be able to click on entity when not in same stage.
             RemoveBigSensorCat(Category.Cursor);
             RemoveBigSensorCat(Category.TransparencySensor);

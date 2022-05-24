@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using tainicom.Aether.Physics2D.Dynamics;
 using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
-using VelcroPhysics.Factories;
 
 namespace PhysicsEngine.Classes.Gadgets
 {
     public class ArtificialFloor : PhysicsGadget
+
     {
 
         private static int _width = 150;
@@ -18,8 +17,8 @@ namespace PhysicsEngine.Classes.Gadgets
         public HullBody FloorBody { get; set; }
         public ArtificialFloor(Collidable collidable) : base(collidable)
         {
-            FloorBody = PhysicsManager.CreateRectangularHullBody(BodyType.Static, GetRandomPosition(), _width,_height, new List<Category>() { Category.ArtificialFloor },
-                new List<Category>() { Category.Item}, OnCollides, OnSeparates, restitution: 5f, friction:.15f, userData: this);
+            FloorBody = PhysicsManager.CreateRectangularHullBody(BodyType.Static, GetRandomPosition(), _width,_height, new List<Category>() { (Category)PhysCat.ArtificialFloor } ,
+                new List<Category>() { (Category)PhysCat.Item}, OnCollides, OnSeparates, restitution: 5f, friction:.15f, userData: this);
 
         }
 

@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 
 namespace PhysicsEngine.Classes.Gadgets
 {
@@ -32,14 +32,15 @@ namespace PhysicsEngine.Classes.Gadgets
         {
         }
 
-        protected virtual void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        protected virtual bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-           
+            return true;
         }
 
         protected virtual void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-          
+        //    return true;
+
         }
     }
 }

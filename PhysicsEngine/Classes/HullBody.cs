@@ -4,11 +4,7 @@ using Penumbra;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Collision.Handlers;
-using VelcroPhysics.Dynamics;
-using VelcroPhysics.Factories;
+using tainicom.Aether.Physics2D.Dynamics;
 
 namespace PhysicsEngine.Classes
 {
@@ -56,7 +52,7 @@ namespace PhysicsEngine.Classes
 
         public virtual void Destroy( )
         {
-            PhysicsManager.VelcroWorld.RemoveBody(Body);
+            PhysicsManager.VelcroWorld.Remove(Body);
 
             if(Hull != null)
                 PhysicsManager.Penumbra.Hulls.Remove(Hull);

@@ -71,10 +71,10 @@ namespace MagicKitchen
             Window.ClientSizeChanged += Settings.Window_ClientSizeChanged;
 
         }
-
+            
         protected override void Initialize()
         {
-            IsFixedTimeStep = false;
+            IsFixedTimeStep = true;
             _mainMenuContentManager = new ContentManager(Content.ServiceProvider);
             _mainMenuContentManager.RootDirectory = "Content";
             Camera = new Camera2D(GraphicsDevice.Viewport);

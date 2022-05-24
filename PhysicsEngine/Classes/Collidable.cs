@@ -111,7 +111,7 @@ namespace PhysicsEngine.Classes
             Position = position;
         }
 
-        protected virtual void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        protected virtual bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if (fixtureB.CollisionCategories.HasFlag(Category.Cursor) && fixtureA.CollidesWith.HasFlag(Category.Cursor))
             {
@@ -126,6 +126,7 @@ namespace PhysicsEngine.Classes
             {
                 PlayerInControllerActionRange = true;
             }
+            return true;
         }
 
         protected virtual void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
@@ -191,13 +192,13 @@ namespace PhysicsEngine.Classes
         {
             MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000, pointAppliedTo ?? new Vector2(0,0));
             MainHullBody.Body.IgnoreGravity = ignoreGrav;
-            if (directionVector.X == 0)
-                MainHullBody.Body.GravityScale = gScaleUp;
-            else
-                MainHullBody.Body.GravityScale = gScaleDown;
-            MainHullBody.Body.Restitution = restitution;
+            //if (directionVector.X == 0)
+            //    MainHullBody.Body.GravityScale = gScaleUp;
+            //else
+            //    MainHullBody.Body.GravityScale = gScaleDown;
+            MainHullBody.Body.SetRestitution(restitution);
             MainHullBody.Body.LinearDamping = linearDamp;
-            MainHullBody.Body.Friction = friction;
+            MainHullBody.Body.SetFriction(friction);
             MainHullBody.Body.Mass = bodyMass;
         }
         public virtual void CleanUp()
