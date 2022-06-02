@@ -12,10 +12,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tainicom.Aether.Physics2D.Dynamics;
 using TextEngine;
 using TextEngine.Classes;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
+
 
 namespace UIEngine.Classes
 {
@@ -63,8 +63,9 @@ namespace UIEngine.Classes
         {
             base.CreateBody(position);
 
-            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 4f, new List<Category>() { Category.Cursor },
-                new List<Category>() { Category.Portal, Category.PlayerBigSensor, Category.NPC, Category.NPCBigSensor, Category.ActionTile }, OnCollides, OnSeparates, isSensor: true, sleepingAllowed: false, ignoreGravity: false, friction: 0f, mass: 0f, restitution: 0f, userData: this);
+            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 4f, new List<Category>() { (Category)PhysCat.Cursor },
+                new List<Category>() { (Category)PhysCat.Portal, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.NPC, (Category)PhysCat.NPCBigSensor, (Category)PhysCat.ActionTile },
+                OnCollides, OnSeparates, isSensor: true, sleepingAllowed: false, ignoreGravity: false, friction: 0f, mass: 0f, restitution: 0f, userData: this);
 
             AddPrimaryBody(MainHullBody);
 

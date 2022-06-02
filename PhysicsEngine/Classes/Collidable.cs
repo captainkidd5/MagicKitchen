@@ -5,10 +5,8 @@ using SoundEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Collision.Handlers;
-using VelcroPhysics.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 
 namespace PhysicsEngine.Classes
 {
@@ -113,16 +111,16 @@ namespace PhysicsEngine.Classes
 
         protected virtual bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag(Category.Cursor) && fixtureA.CollidesWith.HasFlag(Category.Cursor))
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Cursor) && fixtureA.CollidesWith.HasFlag((Category)PhysCat.Cursor))
             {
                 MouseHovering = true;
                 
             }
-           if(fixtureB.CollisionCategories.HasFlag(Category.PlayerBigSensor))
+           if(fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
             {
                 PlayerInClickRange = true;
             }
-            if (fixtureB.CollisionCategories.HasFlag(Category.FrontalSensor))
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.FrontalSensor))
             {
                 PlayerInControllerActionRange = true;
             }
@@ -131,15 +129,15 @@ namespace PhysicsEngine.Classes
 
         protected virtual void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag(Category.Cursor))
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Cursor))
             {
                 MouseHovering = false;
             }
-            if (fixtureB.CollisionCategories.HasFlag(Category.PlayerBigSensor))
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
             {
                 PlayerInClickRange = false;
             }
-            if (fixtureB.CollisionCategories.HasFlag(Category.FrontalSensor))
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.FrontalSensor))
             {
                 PlayerInControllerActionRange = false;
             }

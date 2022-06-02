@@ -8,13 +8,12 @@ using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using tainicom.Aether.Physics2D.Common;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes.Helpers;
 using UIEngine.Classes;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Collision.Handlers;
-using VelcroPhysics.Dynamics;
-using VelcroPhysics.Shared;
+
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TileAddons
@@ -39,18 +38,18 @@ namespace TiledEngine.Classes.TileAddons
             {
                 AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,
                IntermediateTmxShape.Width, IntermediateTmxShape.Height,
-             new List<Category>() { Category.Solid }, new List<Category>() { Category.Player, Category.NPC, Category.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+             new List<Category>() { (Category)PhysCat.Solid }, new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC, (Category)PhysCat.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Ellipse)
             {
                 AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition, IntermediateTmxShape.Radius,
-                  new List<Category>() { Category.Solid }, new List<Category>() { Category.Player, Category.NPC,Category.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+                  new List<Category>() { (Category)PhysCat.Solid }, new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC, (Category)PhysCat.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else if(IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Polygon)
             {
 
                 AddPrimaryBody(PhysicsManager.CreatePolygonHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,new Vertices(IntermediateTmxShape.Vertices),
-                  new List<Category>() { Category.Solid }, new List<Category>() { Category.Player, Category.NPC, Category.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+                  new List<Category>() { (Category)PhysCat.Solid }, new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC, (Category)PhysCat.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else
             {
@@ -83,9 +82,9 @@ namespace TiledEngine.Classes.TileAddons
 
 
 
-        protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            base.OnCollides(fixtureA, fixtureB, contact);
+            return base.OnCollides(fixtureA, fixtureB, contact);
 
         }
 

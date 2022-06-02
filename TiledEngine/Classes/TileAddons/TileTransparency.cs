@@ -6,10 +6,7 @@ using PhysicsEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Collision.Handlers;
-using VelcroPhysics.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics;
 
 namespace TiledEngine.Classes.TileAddons
 {

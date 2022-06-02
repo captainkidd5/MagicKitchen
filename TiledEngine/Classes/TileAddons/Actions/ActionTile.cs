@@ -7,11 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes.Helpers;
 using UIEngine.Classes;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
 
 namespace TiledEngine.Classes.TileAddons.Actions
 {
@@ -28,8 +27,8 @@ namespace TiledEngine.Classes.TileAddons.Actions
 
         public override void Load()
         {
-            List<Category> categoriesCollidesWith = new List<Category>() { Category.Player, Category.Cursor, Category.FrontalSensor };
-            List<Category> collisionCategories = new List<Category>() { Category.Solid, Category.ActionTile };
+            List<Category> categoriesCollidesWith = new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Cursor, (Category)PhysCat.FrontalSensor };
+            List<Category> collisionCategories = new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.ActionTile };
             if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Basic)
             {
                 AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, IntermediateTmxShape.HullPosition,
@@ -60,9 +59,9 @@ namespace TiledEngine.Classes.TileAddons.Actions
             }
         }
 
-        protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            base.OnCollides(fixtureA, fixtureB, contact);
+            return base.OnCollides(fixtureA, fixtureB, contact);
 
 
         }

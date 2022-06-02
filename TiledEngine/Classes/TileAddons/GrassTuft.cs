@@ -9,12 +9,10 @@ using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
+using tainicom.Aether.Physics2D.Dynamics.Joints;
 using TiledEngine.Classes.Helpers;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Collision.Handlers;
-using VelcroPhysics.Dynamics;
-using VelcroPhysics.Dynamics.Joints;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TileAddons
@@ -49,12 +47,13 @@ namespace TiledEngine.Classes.TileAddons
         {
 
             
-            HullBody body = PhysicsManager.CreateCircularHullBody(BodyType.Static, Position, 4f, new List<Category>() { Category.Grass }, new List<Category>() { Category.Player, Category.NPC },
+            HullBody body = PhysicsManager.CreateCircularHullBody(BodyType.Static, Position, 4f, new List<Category>() { (Category)PhysCat.Grass }, new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC },
                 OnCollides, OnSeparates, isSensor:true);
-            Tuft =  PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, new Vector2(Position.X, Position.Y), 8f, 6f, new List<Category>() { Category.Grass }, new List<Category>() { Category.Player, Category.NPC,Category.Item },
+            Tuft =  PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, new Vector2(Position.X, Position.Y), 8f, 6f, new List<Category>() { (Category)PhysCat.Grass },
+                new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC, (Category)PhysCat.Item },
                 OnCollides, OnSeparates, isSensor: false);
-            Tuft.Body.Restitution = .6f;
-            Tuft.Body.Friction = .4f;
+            Tuft.Body.SetRestitution(6f);
+            Tuft.Body.SetFriction(.4f);
             Tuft.Body.Mass = .2f;
             Tuft.Body.AngularDamping = .25f;
             WeldJoint joint = PhysicsManager.Weld(body.Body, Tuft.Body, new Vector2(0f, 1f), new Vector2(0f, 4f), null, null);
@@ -84,7 +83,7 @@ namespace TiledEngine.Classes.TileAddons
         /// </summary>
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            return true;
+            return base.OnCollides(fixtureA, fixtureB, contact);
 
         }
 

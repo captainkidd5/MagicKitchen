@@ -10,9 +10,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using static Globals.Classes.Settings;
 
 namespace ItemEngine.Classes
@@ -70,8 +69,8 @@ namespace ItemEngine.Classes
         }
         protected override void CreateBody(Vector2 position)
         {
-            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.Item },
-               new List<Category>() { Category.Solid, Category.ArtificialFloor}, OnCollides, OnSeparates,blocksLight: true, userData: this);
+            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Item },
+               new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.ArtificialFloor}, OnCollides, OnSeparates,blocksLight: true, userData: this);
         }
 
         public void Remove(int count)
@@ -105,7 +104,8 @@ namespace ItemEngine.Classes
             if (_immunityTimer != null && _immunityTimer.Run(gameTime))
             {
 
-                SetCollidesWith(MainHullBody.Body, new List<Category>() { Category.Solid, Category.Player, Category.PlayerBigSensor, Category.TransparencySensor, Category.Item, Category.Grass, Category.ArtificialFloor });
+                SetCollidesWith(MainHullBody.Body, new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Player,
+                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass, (Category)PhysCat.ArtificialFloor });
                 _immunityTimer = null;
             }
         }
@@ -118,7 +118,8 @@ namespace ItemEngine.Classes
             if (_bounceTimer != null && _bounceTimer.Run(gameTime))
             {
 
-                SetCollidesWith(MainHullBody.Body, new List<Category>() { Category.Solid, Category.Player, Category.PlayerBigSensor, Category.TransparencySensor, Category.Item, Category.Grass });
+                SetCollidesWith(MainHullBody.Body, new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Player,
+                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass });
                 MainHullBody.Body.IgnoreGravity = true;
                 _bounceTimer = null;
                 ClearGadgets();
@@ -130,13 +131,13 @@ namespace ItemEngine.Classes
             Sprite.Draw(spriteBatch);
         }
 
-        protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            base.OnCollides(fixtureA, fixtureB, contact);
-            if (fixtureB.CollisionCategories.HasFlag(Category.PlayerBigSensor))
+            return base.OnCollides(fixtureA, fixtureB, contact);
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
             {
                 if(Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null){
-                    AddGadget(new Magnetizer(this, (fixtureB.Body.UserData as Collidable)));
+                    AddGadget(new Magnetizer(this, (fixtureB.Tag as Collidable)));
                     ArtificialFloor floor = Gadgets.FirstOrDefault(x => x.GetType() == typeof(ArtificialFloor)) as ArtificialFloor;
                     if (floor != null)
                     {

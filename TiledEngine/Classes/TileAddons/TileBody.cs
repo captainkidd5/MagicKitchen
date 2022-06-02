@@ -9,10 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using tainicom.Aether.Physics2D.Common;
+using tainicom.Aether.Physics2D.Dynamics;
 using TiledEngine.Classes.Helpers;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
-using VelcroPhysics.Shared;
+
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TileAddons
@@ -39,22 +39,22 @@ namespace TiledEngine.Classes.TileAddons
         public virtual void Load()
         {
 
-            List<Category> categoriesCollidersWith = new List<Category>() { Category.Player, Category.Item, Category.NPC, Category.PlayerBigSensor, Category.FrontalSensor };
+            List<Category> categoriesCollidersWith = new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Item, (Category)PhysCat.NPC, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
             if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Basic)
             {
                 AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,
-               IntermediateTmxShape.Width, IntermediateTmxShape.Height, new List<Category>() { Category.Solid },
+               IntermediateTmxShape.Width, IntermediateTmxShape.Height, new List<Category>() { (Category)PhysCat.Solid },
                categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else if(IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Ellipse)
             {
                 AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,IntermediateTmxShape.Radius,
-                    new List<Category>() { Category.Solid }, categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+                    new List<Category>() { (Category)PhysCat.Solid }, categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Polygon)
             {
                 AddPrimaryBody(PhysicsManager.CreatePolygonHullBody(BodyType.Static, IntermediateTmxShape.HullPosition, new Vertices(IntermediateTmxShape.Vertices),
-                    new List<Category>() { Category.Solid }, categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+                    new List<Category>() { (Category)PhysCat.Solid }, categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else 
             {

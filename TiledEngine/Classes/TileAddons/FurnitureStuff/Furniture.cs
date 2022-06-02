@@ -10,10 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes.Helpers;
 using UIEngine.Classes;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Dynamics;
 using static DataModels.Enums;
 
 namespace TiledEngine.Classes.TileAddons.FurnitureStuff
@@ -71,9 +71,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         }
 
 
-        protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            base.OnCollides(fixtureA, fixtureB, contact);
+            return base.OnCollides(fixtureA, fixtureB, contact);
         }
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
