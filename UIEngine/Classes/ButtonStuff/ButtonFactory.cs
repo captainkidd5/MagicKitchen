@@ -47,11 +47,11 @@ namespace UIEngine.Classes.ButtonStuff
 
         }
         public NineSliceTextButton CreateNSliceTxtBtn(InterfaceSection section, Vector2 pos,
-            float layerDepth, List<string> strings, Action? customAction = null)
+            float layerDepth, List<string> strings, Action? customAction = null, bool centerText = false)
         {
             List<Text> text = GetIncrementedText(layerDepth, strings);
             return new NineSliceTextButton(section, graphics, content, pos, layerDepth,
-               text, customAction, null, null, true);
+               text, customAction, null, null, centerText);
 
         }
 

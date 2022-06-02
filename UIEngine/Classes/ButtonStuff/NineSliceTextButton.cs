@@ -68,7 +68,13 @@ namespace UIEngine.Classes.ButtonStuff
                     _forcedHeight.Value, UI.ButtonTexture, LayerDepth);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,  _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
-           
+
+            if (_centerText)
+            {
+                GeneratePositionsForLines(new Vector2(newTextPosX, Position.Y + BackGroundSprite.Height / 2 - combinedtext.TotalStringHeight));
+
+            }
+
         }
         /// <summary>
         /// Fills <see cref="_textPositions"/> for each line of text provided. Increases by height x => x.Height == text.TotalStringHeight
@@ -79,7 +85,8 @@ namespace UIEngine.Classes.ButtonStuff
             Vector2 textIndexPos = startPosition;
            
             float y = startPosition.Y;
-           
+            //_textList.Clear();
+            _textPositions.Clear();
             for (int i = 0; i < _textList.Count; i++)
             {
              

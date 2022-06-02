@@ -51,13 +51,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
             _playButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, _anchorPos, 
                 GetLayeringDepth(UILayeringDepths.Low),
-               new List<string>() { "Play" }, ChangeToViewGamesMenu);
+               new List<string>() { "Play" }, ChangeToViewGamesMenu, true);
             AddSectionToGrid(_playButton, 0, 1);
 
 
             _exitButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel,
                 _anchorPos, GetLayeringDepth(UILayeringDepths.Low),
-                new List<string>() { "Exit"}, UI.Exit);
+                new List<string>() { "Exit"}, UI.Exit, true);
             AddSectionToGrid(_exitButton, 2, 1);
 
 
@@ -72,7 +72,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                 {
                     (parentSection as OuterMenu).ChangeState(OuterMenuState.Settings);
 
-                }));
+                }),true);
 
             AddSectionToGrid(_toggleSettings, 1, 1);
 
