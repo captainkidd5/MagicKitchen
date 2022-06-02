@@ -52,7 +52,7 @@ namespace PhysicsEngine.Classes
 
         public virtual void Destroy( )
         {
-            PhysicsManager.VelcroWorld.Remove(Body);
+            PhysicsManager.VelcroWorld.RemoveAsync(Body);
 
             if(Hull != null)
                 PhysicsManager.Penumbra.Hulls.Remove(Hull);

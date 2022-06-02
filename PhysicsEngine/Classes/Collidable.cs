@@ -74,10 +74,9 @@ namespace PhysicsEngine.Classes
 
         protected void SetCollidesWith(Body body, List<Category> collisionCategories)
         {
-            foreach (var category in collisionCategories)
-            {
-                body.SetCollidesWith(category);
-            }
+     
+                body.SetCollidesWith(PhysicsManager.GetCat(collisionCategories));
+            
         }
 
         public void PlaySound(string soundName)

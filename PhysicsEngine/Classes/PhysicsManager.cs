@@ -227,7 +227,7 @@ namespace PhysicsEngine.Classes
 
         }
 
-        private static Category GetCat(List<Category> cats)
+        public static Category GetCat(List<Category> cats)
         {
             Category category = Category.None;
             foreach (Category cat in cats)
