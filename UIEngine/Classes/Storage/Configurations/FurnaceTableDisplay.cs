@@ -72,12 +72,12 @@ namespace UIEngine.Classes.Storage.Configurations
             Rows = 1;
             Columns = 5;
 
-            Selectables = new InterfaceSection[Rows, Columns];
+            Selectables = new InterfaceSection[Rows, Columns - 1];
 
-            InventorySlots = new InventorySlotDisplay[Rows, Columns];
+            InventorySlots = new InventorySlotDisplay[Rows, Columns - 1];
             DrawCutOff = Rows;
             OutputSlotRow = 0;
-            OutputSlotColumn = 4;
+            OutputSlotColumn = 3;
             FuelSlotRow = 0;
             FuelSlotColumn = 0;
 
@@ -97,16 +97,16 @@ namespace UIEngine.Classes.Storage.Configurations
                     }
                     if (column ==2 || column == 3)
                     {
-                        InventorySlotDisplay display = new InventorySlotDisplay(row,column,this, graphics, content, StorageContainer.Slots[slotIndex],
+                        InventorySlotDisplay display = new InventorySlotDisplay(row,column - 1,this, graphics, content, StorageContainer.Slots[slotIndex],
                    Position, GetLayeringDepth(UILayeringDepths.Medium));
-                        InventorySlots[row, column] = display;
-                        AddSectionToGrid(display, row, column);
+                        InventorySlots[row, column - 1] = display;
+                        AddSectionToGrid(display, row, column - 1);
                         display.LoadContent();
 
                         stackRow.AddItem(display, StackOrientation.Left);
                         slotIndex++;
                     }
-                    else if (IsOutputSlot(row, column))
+                    if (IsOutputSlot(row, column))
                     {
                         UIProgressBar = new UIProgressBar(StackPanel, graphics, content,Position, GetLayeringDepth(UILayeringDepths.Medium));
                         UIProgressBar.LoadContent();

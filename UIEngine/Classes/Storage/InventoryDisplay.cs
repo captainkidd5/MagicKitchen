@@ -213,7 +213,7 @@ namespace UIEngine.Classes.Storage
 
                 for (int i = 0; i < DrawCutOff; i++)
                 {
-                    for (int j = 0; j < Columns; j++)
+                    for (int j = 0; j < InventorySlots.GetLength(1); j++)
                     {
                         InventorySlotDisplay slot = InventorySlots[i, j];
                         if (slot != null)
@@ -281,7 +281,7 @@ namespace UIEngine.Classes.Storage
             {
                 for (int i = 0; i < DrawCutOff; i++)
                 {
-                    for (int j = 0; j < Columns; j++)
+                    for (int j = 0; j < InventorySlots.GetLength(1); j++)
                     {
                         if (InventorySlots[i, j] != null)
                         {

@@ -72,6 +72,7 @@ namespace UIEngine.Classes
         }
         protected virtual void DoSelection(Point newIndex)
         {
+         
             if (Selectables[newIndex.X, newIndex.Y] != null)
             {
                 CurrentSelectedPoint = newIndex;
