@@ -22,6 +22,9 @@ namespace UIEngine.Classes.Storage
     {
 
         public Item Item => _storageSlot.Item;
+
+        private readonly int _xslotIndex;
+        private readonly int _ySlotIndex;
         private readonly StorageSlot _storageSlot;
         private readonly Vector2 _itemIconSpriteScale = new Vector2(3f, 3f);
 
@@ -42,10 +45,12 @@ namespace UIEngine.Classes.Storage
         internal protected new bool Hovered => _button.Hovered;
 
 
-        public InventorySlotDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content
+        public InventorySlotDisplay(int XslotIndex, int ySlotIndex,InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content
              , StorageSlot storageSlot, Vector2 position, float layerDepth)
             : base(interfaceSection, graphicsDevice, content, position,  layerDepth)
         {
+            _xslotIndex = XslotIndex;
+            _ySlotIndex = ySlotIndex;
             _storageSlot = storageSlot;
             storageSlot.ItemChanged += ItemChanged;
             _button = new NineSliceButton(interfaceSection, graphicsDevice, content, position,LayerDepth, null, null, null, null, hoverTransparency: true);
@@ -89,14 +94,14 @@ namespace UIEngine.Classes.Storage
                 //don't want to immediately select the hovered item if inventory was literally just opened
                 !(parentSection as InventoryDisplay).WasExtendedJustOpened))
             {
-                (parentSection as InventoryDisplay).SelectSlot(this);
+                (parentSection as InventoryDisplay).SelectSlot(_xslotIndex, _ySlotIndex);
                 //Controller connected auto
                 _storageSlot.LeftClickInteraction(ref UI.Cursor.HeldItem, ref UI.Cursor.HeldItemCount,Controls.IsKeyPressed(Keys.LeftShift));
 
             }
             if (RightClicked)
             {
-                (parentSection as InventoryDisplay).SelectSlot(this);
+                (parentSection as InventoryDisplay).SelectSlot(_xslotIndex, _ySlotIndex);
 
                 _storageSlot.RightClickInteraction(ref UI.Cursor.HeldItem, ref UI.Cursor.HeldItemCount);
             }

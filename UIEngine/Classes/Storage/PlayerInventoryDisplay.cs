@@ -127,7 +127,7 @@ namespace UIEngine.Classes.Storage
 
                     slotPos = new Vector2(Position.X + ((j * _buttonWidth)), Position.Y + slotoffSet.Y + yRowOffset);
 
-                    InventorySlotDisplay slotDisplay = new InventorySlotDisplay(this, graphics, content,
+                    InventorySlotDisplay slotDisplay = new InventorySlotDisplay(i,j,this, graphics, content,
                     StorageContainer.Slots[containerSlotIndex], slotPos,
                     GetLayeringDepth(UILayeringDepths.Low));
                     containerSlotIndex++;
@@ -174,6 +174,8 @@ namespace UIEngine.Classes.Storage
 
                 SelectedSlot = InventorySlots[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
             }
+            SelectedSlot = InventorySlots[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
+
             DrawCutOff = 1;
 
         }

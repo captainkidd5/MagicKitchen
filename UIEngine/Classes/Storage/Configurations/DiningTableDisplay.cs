@@ -64,7 +64,7 @@ namespace UIEngine.Classes.Storage.Configurations
 
 
 
-                    InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
+                    InventorySlotDisplay display = new InventorySlotDisplay(i,j,this, graphics, content, StorageContainer.Slots[slotIndex],
                     Position, GetLayeringDepth(UILayeringDepths.Medium));
                         InventorySlots[i,j] = (display);
                         AddSectionToGrid(display,i, j);

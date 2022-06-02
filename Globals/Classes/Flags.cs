@@ -18,6 +18,8 @@ namespace Globals.Classes
         public static bool EnableShadows { get; set; } = false;
 
         public static bool DisplayMousePosition { get; set; } = false;
+        public static bool DisplayFPS { get; set; } = false;
+
 
         public static bool IsNightTime {get;set;} = false;
 

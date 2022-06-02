@@ -52,6 +52,9 @@ namespace Globals.Classes.Console
                 case "grid":
                     Flags.DebugGrid = !Flags.DebugGrid;
                     break;
+                case "fps":
+                    Flags.DisplayFPS = !Flags.DisplayFPS;
+                    break;
             }
         }
 

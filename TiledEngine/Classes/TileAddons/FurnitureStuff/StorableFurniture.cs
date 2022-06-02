@@ -162,10 +162,10 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        if (IsHovered(Controls.ControllerConnected))
+        if (!UI.IsHovered && IsHovered(Controls.ControllerConnected))
         {
             UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
-            if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
+            if ( Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
             {
                 UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
                     //Subscribe to ui 

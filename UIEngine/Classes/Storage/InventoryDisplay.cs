@@ -142,9 +142,9 @@ namespace UIEngine.Classes.Storage
                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.High), null, randomizeLayers: false);
         }
 
-        public void SelectSlot(InventorySlotDisplay slotToSelect)
+        public void SelectSlot(int x, int y)
         {
-            SelectedSlot = slotToSelect;
+            SelectedSlot = InventorySlots[x, y];
         }
         protected virtual void GenerateUI(bool displayWallet)
         {
@@ -159,7 +159,7 @@ namespace UIEngine.Classes.Storage
                 StackRow stackRow = new StackRow(Columns * _buttonWidth);
                 for (int j = 0; j < Columns; j++)
                 {
-                    InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
+                    InventorySlotDisplay display = new InventorySlotDisplay(i, j,this, graphics, content, StorageContainer.Slots[slotIndex],
                     Position, GetLayeringDepth(UILayeringDepths.Low));
                     InventorySlots[i, j] = display;
                     AddSectionToGrid(display, i, j);
@@ -247,7 +247,7 @@ namespace UIEngine.Classes.Storage
         /// <param name="moveCursor"></param>
         protected void SelectSlotAndMoveCursorIcon(bool moveCursor = true)
         {
-            SelectSlot(InventorySlots[CurrentSelectedPoint.X, CurrentSelectedPoint.Y]);
+            SelectSlot(CurrentSelectedPoint.X, CurrentSelectedPoint.Y);
             if (moveCursor)
                 Controls.ControllerSetUIMousePosition(InventorySlots[CurrentSelectedPoint.X, CurrentSelectedPoint.Y].Position);
         }

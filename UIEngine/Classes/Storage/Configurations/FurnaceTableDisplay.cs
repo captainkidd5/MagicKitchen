@@ -97,7 +97,7 @@ namespace UIEngine.Classes.Storage.Configurations
                     }
                     if (column ==2 || column == 3)
                     {
-                        InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content, StorageContainer.Slots[slotIndex],
+                        InventorySlotDisplay display = new InventorySlotDisplay(row,column,this, graphics, content, StorageContainer.Slots[slotIndex],
                    Position, GetLayeringDepth(UILayeringDepths.Medium));
                         InventorySlots[row, column] = display;
                         AddSectionToGrid(display, row, column);
@@ -116,7 +116,7 @@ namespace UIEngine.Classes.Storage.Configurations
                         //stackRow.AddSpacer(new Rectangle(0,0,_buttonWidth,_buttonWidth), StackOrientation.Left);
 
 
-                        InventorySlotDisplay display = new InventorySlotDisplay(
+                        InventorySlotDisplay display = new InventorySlotDisplay(row,column,
                             this, graphics, content, (StorageContainer as CraftingStorageContainer).OutputSlot,
              Position, GetLayeringDepth(UILayeringDepths.Medium));
                         InventorySlots[row, column] = display;
@@ -131,7 +131,7 @@ namespace UIEngine.Classes.Storage.Configurations
 
                 
 
-                        InventorySlotDisplay display = new InventorySlotDisplay(this, graphics, content,
+                        InventorySlotDisplay display = new InventorySlotDisplay(row,column,this, graphics, content,
                            (StorageContainer as CraftingStorageContainer).FuelSlot,
                  Position, GetLayeringDepth(UILayeringDepths.Medium));
                         InventorySlots[row, column] = display;
