@@ -53,16 +53,16 @@ namespace PhysicsEngine.Classes
     {
         public static PenumbraComponent Penumbra;
         public static World VelcroWorld { get; set; }
-        public static DebugView VelcroDebugger { get; set; }
+        public static DebugView PhysicsDebugger { get; set; }
 
         internal static Random Random;
 
         public static void Initialize(PenumbraComponent penumbra)
         {
             VelcroWorld = new World(new Vector2(0, 9.8f));
-            if (VelcroDebugger == null)
+            if (PhysicsDebugger == null)
             {
-                VelcroDebugger = new DebugView(VelcroWorld);
+                PhysicsDebugger = new DebugView(VelcroWorld);
 
 
                 
@@ -79,8 +79,8 @@ namespace PhysicsEngine.Classes
 
         public static void LoadContent(ContentManager content, GraphicsDevice graphics, SpriteFont spriteFont)
         {
-            VelcroDebugger.LoadContent(graphics, content);
-            VelcroDebugger.AppendFlags(DebugViewFlags.DebugPanel);
+            PhysicsDebugger.LoadContent(graphics, content);
+            PhysicsDebugger.AppendFlags(DebugViewFlags.DebugPanel);
 
             
 
@@ -96,7 +96,7 @@ namespace PhysicsEngine.Classes
                (int)(-graphics.Viewport.Height / 2) * (int)camera.Zoom + (int)camera.GetZoomOffSetPatch().Y * 2, graphics.Viewport.Width, graphics.Viewport.Height), 1f, -1f);
             Matrix view = camera.GetViewMatrix(Vector2.One);
 
-            VelcroDebugger.RenderDebugData(proj, view);
+            PhysicsDebugger.RenderDebugData(proj, view);
         }
         public static Light GetPointLight(Vector2 position, bool startOn = true, float scale = 400f)
         {
@@ -120,23 +120,13 @@ namespace PhysicsEngine.Classes
             position = position ?? Vector2.Zero;
             Body body = VelcroWorld.CreateCircle((float)radius, density, (Vector2)position, bodyType);
 
-           
-            if(categoriesCollidesWith != null)
-                foreach (Category category in categoriesCollidesWith)
-                {
-                    foreach (Fixture fixture in body.FixtureList)
-                        fixture.CollidesWith = category;
-                }
 
-            if(collisionCategories != null)
-            {
-                //body.SetCollisionCategory(Category.None);
-                foreach (Category category in collisionCategories)
-                {
-                    foreach (Fixture fixture in body.FixtureList)
-                        fixture.CollidesWith = category;
-                }
-            }
+            if (categoriesCollidesWith != null)
+                body.SetCollidesWith(GetCat(categoriesCollidesWith));
+
+
+            if (collisionCategories != null)
+                body.SetCollisionCategories(GetCat(collisionCategories));
 
 
             body.IgnoreGravity = ignoreGravity;
@@ -152,6 +142,7 @@ namespace PhysicsEngine.Classes
                 hull = Hull.CreateCircle(position, radius);
             if (hull != null)
                 Penumbra.Hulls.Add(hull);
+            body.Tag = userData;
             return new HullBody(body, hull);
 
         }
@@ -170,21 +161,13 @@ namespace PhysicsEngine.Classes
 
 
             if (categoriesCollidesWith != null)
-                foreach (Category category in categoriesCollidesWith)
-                {
-                    foreach (Fixture fixture in body.FixtureList)
-                        fixture.CollidesWith = category;
-                }
+                body.SetCollidesWith(GetCat(categoriesCollidesWith));
+
 
             if (collisionCategories != null)
-            {
-                //body.SetCollisionCategory(Category.None);
-                foreach (Category category in collisionCategories)
-                {
-                    foreach (Fixture fixture in body.FixtureList)
-                        fixture.CollidesWith = category;
-                }
-            }
+                body.SetCollisionCategories(GetCat(collisionCategories));
+
+            
 
             body.IgnoreGravity = ignoreGravity;
             body.SleepingAllowed = sleepingAllowed;
@@ -199,6 +182,8 @@ namespace PhysicsEngine.Classes
                 hull = Hull.CreateRectangle(position, new Vector2((float)width, (float)height), 0f);
             if (hull != null)
                 Penumbra.Hulls.Add(hull);
+            body.Tag = userData;
+
             return new HullBody(body, hull);
 
         }
@@ -214,21 +199,12 @@ namespace PhysicsEngine.Classes
 
             Body body = VelcroWorld.CreatePolygon(vertices, density, (Vector2)position, rotation, bodyType);
             if (categoriesCollidesWith != null)
-                foreach (Category category in categoriesCollidesWith)
-                {
-                    foreach (Fixture fixture in body.FixtureList)
-                        fixture.CollidesWith = category;
-                }
+                body.SetCollidesWith(GetCat(categoriesCollidesWith));
+
 
             if (collisionCategories != null)
-            {
-                //body.SetCollisionCategory(Category.None);
-                foreach (Category category in collisionCategories)
-                {
-                    foreach (Fixture fixture in body.FixtureList)
-                        fixture.CollidesWith = category;
-                }
-            }
+                body.SetCollisionCategories(GetCat(collisionCategories));
+
 
 
             body.IgnoreGravity = ignoreGravity;
@@ -244,10 +220,22 @@ namespace PhysicsEngine.Classes
             //    hull = Hull.CreateRectangle(position, new Vector2((float)width, (float)height), 0f);
             if (hull != null)
                 Penumbra.Hulls.Add(hull);
+
+            body.Tag = userData;
+
             return new HullBody(body, hull);
 
         }
 
+        private static Category GetCat(List<Category> cats)
+        {
+            Category category = Category.None;
+            foreach (Category cat in cats)
+            {
+                category |= cat; 
+            }
+            return category;
+        }
         /// <summary>
         /// Welds two bodies together and returns the created joint.
         /// </summary>
