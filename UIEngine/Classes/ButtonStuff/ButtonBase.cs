@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes.Helpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SoundEngine.Classes;
@@ -117,9 +118,12 @@ namespace UIEngine.Classes.ButtonStuff
                 throw new Exception($"Forgot to add backgroundsprite to button");
 
             if (ForegroundSprite != null)
-                ForegroundSprite.Update(gameTime, new Vector2(
-                    Position.X +  Math.Abs(ForegroundSprite.Width * (1 - ForegroundSprite.Scale.X) / 4),
-                    Position.Y + Math.Abs(ForegroundSprite.Height* (1-ForegroundSprite.Scale.Y  )/4)));
+            {
+                ForegroundSprite.Update(gameTime,
+                    RectangleHelper.CenterRectangleInRectangle(ForegroundSprite.SourceRectangle,
+                    new Rectangle((int)Position.X - ForegroundSprite.SourceRectangle.Width, (int)Position.Y - ForegroundSprite.SourceRectangle.Height, BackGroundSprite.Width, BackGroundSprite.Height),1f));
+            }
+                
             if (!Locked)
             {
                 BackGroundSprite.Update(gameTime, Position);

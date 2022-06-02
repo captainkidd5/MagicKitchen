@@ -39,7 +39,7 @@ namespace UIEngine.Classes.Storage
         protected InventorySlotDisplay[,] InventorySlots { get; set; }
 
 
-       
+
         internal InventorySlotDisplay SelectedSlot { get; set; }
 
         internal new int Width { get { return XDrawEndIndex * _buttonWidth; } }
@@ -159,7 +159,7 @@ namespace UIEngine.Classes.Storage
                 StackRow stackRow = new StackRow(Columns * _buttonWidth);
                 for (int j = 0; j < Columns; j++)
                 {
-                    InventorySlotDisplay display = new InventorySlotDisplay(i, j,this, graphics, content, StorageContainer.Slots[slotIndex],
+                    InventorySlotDisplay display = new InventorySlotDisplay(i, j, this, graphics, content, StorageContainer.Slots[slotIndex],
                     Position, GetLayeringDepth(UILayeringDepths.Low));
                     InventorySlots[i, j] = display;
                     AddSectionToGrid(display, i, j);
@@ -192,10 +192,11 @@ namespace UIEngine.Classes.Storage
         public virtual void RemoveControl() => HasControl = false;
 
         public virtual void CloseExtendedInventory() => ExtendedInventoryOpen = false;
-        public virtual void OpenExtendedInventory() {
+        public virtual void OpenExtendedInventory()
+        {
             DrawCutOff = Rows;
-                ExtendedInventoryOpen = true;
-        } 
+            ExtendedInventoryOpen = true;
+        }
 
         public override void Update(GameTime gameTime)
         {
@@ -216,12 +217,11 @@ namespace UIEngine.Classes.Storage
                     for (int j = 0; j < InventorySlots.GetLength(1); j++)
                     {
                         InventorySlotDisplay slot = InventorySlots[i, j];
-                        if (slot != null)
-                        {
-                            slot.Update(gameTime);
-                            if (slot.Hovered)
-                                Hovered = true;
-                        }
+
+                        slot.Update(gameTime);
+                        if (slot.Hovered)
+                            Hovered = true;
+
 
                     }
 
@@ -283,10 +283,9 @@ namespace UIEngine.Classes.Storage
                 {
                     for (int j = 0; j < InventorySlots.GetLength(1); j++)
                     {
-                        if (InventorySlots[i, j] != null)
-                        {
-                            InventorySlots[i, j].Draw(spriteBatch);
-                        }
+
+                        InventorySlots[i, j].Draw(spriteBatch);
+
                     }
                 }
 

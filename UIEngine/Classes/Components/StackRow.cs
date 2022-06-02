@@ -38,19 +38,19 @@ namespace UIEngine.Classes.Components
         }
         public void AddSpacer(Rectangle rectangle, StackOrientation orientation)
         {
-            Place(rectangle, orientation);
+            Place(rectangle, orientation ,false);
         }
 
-        public void AddItem(InterfaceSection section, StackOrientation orientation)
+        public void AddItem(InterfaceSection section, StackOrientation orientation, bool centerVertically = false)
         {
-            Vector2 newPosition = Place(section.TotalBounds, orientation);
+            Vector2 newPosition = Place(section.TotalBounds, orientation, centerVertically);
 
 
             section.MovePosition(newPosition);
             _rowSections.Add(section);
         }
 
-        private Vector2 Place(Rectangle rectangle, StackOrientation stackOrientation)
+        private Vector2 Place(Rectangle rectangle, StackOrientation stackOrientation, bool centerVertically)
         {
             if (rectangle.Width + _currentContentWidth + Gap > _maxWidth)
                 throw new Exception($"Stack row max width exceeded");
@@ -66,7 +66,11 @@ namespace UIEngine.Classes.Components
                 case StackOrientation.None:
                     throw new Exception($"Invalid orientation");
                 case StackOrientation.Left:
-                    newPos = new Vector2(_currentX, 0);
+                    if(centerVertically)
+                      newPos = new Vector2(_currentX, rectangle.Height / 2 * -1);
+                    else
+                        newPos = new Vector2(_currentX, 0);
+
                     _currentX = _currentContentWidth;
                     break;
                 case StackOrientation.Center:
@@ -84,7 +88,7 @@ namespace UIEngine.Classes.Components
         public void AdjustPosition(Vector2 pos)
         {
             foreach(InterfaceSection section in _rowSections)
-                section.MovePosition(new Vector2(section.Position.X + pos.X, pos.Y));
+                section.MovePosition(new Vector2(section.Position.X + pos.X,section.Position.Y +  pos.Y));
         }
     }
 }

@@ -18,9 +18,15 @@ using UIEngine.Classes.ButtonStuff;
 
 namespace UIEngine.Classes.Storage
 {
+
+    public enum SlotVisualVariant
+    {
+        None =0,
+        Output = 1,
+    }
     internal class InventorySlotDisplay : InterfaceSection
     {
-
+        protected SlotVisualVariant VisualVariant { get; set; }
         public Item Item => _storageSlot.Item;
 
         private readonly int _xslotIndex;
@@ -46,14 +52,15 @@ namespace UIEngine.Classes.Storage
 
 
         public InventorySlotDisplay(int XslotIndex, int ySlotIndex,InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content
-             , StorageSlot storageSlot, Vector2 position, float layerDepth)
+             , StorageSlot storageSlot, Vector2 position, float layerDepth, SlotVisualVariant slotVisualVariant = SlotVisualVariant.None)
             : base(interfaceSection, graphicsDevice, content, position,  layerDepth)
         {
             _xslotIndex = XslotIndex;
             _ySlotIndex = ySlotIndex;
             _storageSlot = storageSlot;
             storageSlot.ItemChanged += ItemChanged;
-            _button = new NineSliceButton(interfaceSection, graphicsDevice, content, position,LayerDepth, null, null, null, null, hoverTransparency: true);
+            
+            _button = NineSliceButtonFromVariant(slotVisualVariant);
             _text = TextFactory.CreateUIText("0", UI.IncrementLD(_button.LayerDepth, true));
 
             if (storageSlot.HoldsVisibleFurnitureItem)
@@ -62,6 +69,23 @@ namespace UIEngine.Classes.Storage
                     UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: _waterMarkSpriteScale); 
             }
         }
+
+        private NineSliceButton NineSliceButtonFromVariant(SlotVisualVariant variant)
+        {
+            switch (variant)
+            {
+                case SlotVisualVariant.None:
+                    return new NineSliceButton(parentSection, graphics, content, Position, LayerDepth, null, null, null, null, hoverTransparency: true);
+                case SlotVisualVariant.Output:
+                    return new NineSliceButton(parentSection, graphics, content, Position, LayerDepth, new Rectangle(0,0,128,128), null, null, null, hoverTransparency: true);
+
+                default:
+                    return new NineSliceButton(parentSection, graphics, content, Position, LayerDepth, null, null, null, null, hoverTransparency: true);
+
+
+            }
+        }
+
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
