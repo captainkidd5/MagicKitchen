@@ -4,26 +4,25 @@ using PhysicsEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes.TileAddons;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Collision.Handlers;
-using VelcroPhysics.Dynamics;
+
 
 namespace TiledEngine.Classes.Helpers
 {
     public static class TileLightSourceHelper
     {
 
-        /// <summary>
-        /// For use with the "lightSource" tile property
-        /// </summary>
-        public static void AddJustLightSource(Tile tile,TileManager tileManager, string lightPropertyString, float lightRadius, OnCollisionHandler? cHandler = null, OnSeparationHandler? sHandler = null)
-        {
+        ///// <summary>
+        ///// For use with the "lightSource" tile property
+        ///// </summary>
+        //public static void AddJustLightSource(Tile tile,TileManager tileManager, string lightPropertyString, float lightRadius, OnCollisionHandler? cHandler = null, OnSeparationHandler? sHandler = null)
+        //{
 
-            tile.Addons.Add(new LightBody(tile,tileManager, null, lightPropertyString, lightRadius));
+        //    tile.Addons.Add(new LightBody(tile,tileManager, null, lightPropertyString, lightRadius));
 
-        }
+        //}
 
         /// <summary>
         /// For use with the "lightSource" tile property

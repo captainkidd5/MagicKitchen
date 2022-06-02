@@ -10,8 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes.Helpers;
 using UIEngine.Classes;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Dynamics;
+
 using static DataModels.Enums;
 
 namespace TiledEngine.Classes.TileAddons.FurnitureStuff

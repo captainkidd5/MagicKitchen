@@ -21,16 +21,14 @@ using System.Text;
 using TextEngine;
 using TiledEngine.Classes;
 using UIEngine.Classes;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
-using VelcroPhysics.Factories;
 using static Globals.Classes.Settings;
 using static DataModels.Enums;
 using EntityEngine.Classes.ScriptStuff;
 using DataModels.ScriptedEventStuff;
 using SpriteEngine.Classes.Presets;
 using ItemEngine.Classes.StorageStuff;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 
 namespace EntityEngine.Classes
 {
@@ -180,11 +178,11 @@ namespace EntityEngine.Classes
         protected override void CreateBody(Vector2 position)
         {
             if (MainHullBody == null)
-                MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.NPC },
-                    new List<Category>() { Category.Player, Category.Solid, Category.Grass, Category.TransparencySensor, Category.Item, Category.Portal }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this);
+                MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },
+                    new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Solid, (Category)PhysCat.Grass, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Portal }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this);
 
-            BigSensorCollidesWithCategories = new List<Category>() { Category.NPC, Category.Player, Category.Solid };
-            BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { Category.PlayerBigSensor }, BigSensorCollidesWithCategories,
+            BigSensorCollidesWithCategories = new List<Category>() { (Category)PhysCat.NPC, (Category)PhysCat.Player, (Category)PhysCat.Solid };
+            BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { (Category)PhysCat.PlayerBigSensor }, BigSensorCollidesWithCategories,
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
 
@@ -193,16 +191,17 @@ namespace EntityEngine.Classes
         }
 
 
-        protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            base.OnCollides(fixtureA, fixtureB, contact);
             //Collision logic changes based on current behaviour!
             BehaviourManager.OnCollides(fixtureA, fixtureB, contact);
-            if (fixtureB.CollisionCategories.HasFlag(Category.Item) && fixtureA.CollisionCategories.HasFlag(Category.Player))
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Item) && fixtureA.CollisionCategories.HasFlag((Category)PhysCat.Player))
             {
-                WorldItem worldItem = (fixtureB.Body.UserData as WorldItem);
+                WorldItem worldItem = (fixtureB.Body.Tag as WorldItem);
                 InventoryHandler.GiveItem(worldItem);
             }
+            return base.OnCollides(fixtureA, fixtureB, contact);
+
         }
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
@@ -340,7 +339,7 @@ namespace EntityEngine.Classes
         protected void SetCollidesWith(List<Category> categories)
         {
             foreach (Category category in categories)
-                BigSensor.Body.SetCollisionCategory(category);
+                BigSensor.Body.SetCollisionCategories(category);
         }
 
         /// <summary>
@@ -349,8 +348,8 @@ namespace EntityEngine.Classes
         protected virtual void RestoreEntityPhysics()
         {
             MainHullBody.Body.SetIsSensor(false);
-            AddBigSensorCat(Category.Cursor);
-            AddBigSensorCat(Category.TransparencySensor);
+            AddBigSensorCat((Category)PhysCat.Cursor);
+            AddBigSensorCat((Category)PhysCat.TransparencySensor);
 
         }
         /// <summary>
@@ -361,8 +360,8 @@ namespace EntityEngine.Classes
             MainHullBody.Body.SetIsSensor(true);
 
             //Shouldn't be able to click on entity when not in same stage.
-            RemoveBigSensorCat(Category.Cursor);
-            RemoveBigSensorCat(Category.TransparencySensor);
+            RemoveBigSensorCat((Category)PhysCat.Cursor);
+            RemoveBigSensorCat((Category)PhysCat.TransparencySensor);
 
         }
         /// <summary>

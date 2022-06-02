@@ -14,9 +14,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Dynamics;
+
 
 namespace EntityEngine.Classes.BehaviourStuff
 {
@@ -128,9 +129,9 @@ namespace EntityEngine.Classes.BehaviourStuff
         }
 
 
-        public virtual void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        public virtual bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            CurrentBehaviour.OnCollides(fixtureA, fixtureB, contact);
+            return CurrentBehaviour.OnCollides(fixtureA, fixtureB, contact);
         }
     }
 }

@@ -11,9 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
 using static Globals.Classes.Settings;
 
 namespace ItemEngine.Classes

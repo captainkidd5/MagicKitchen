@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 
 namespace TiledEngine.Classes.TileAddons
 {
@@ -57,17 +58,19 @@ namespace TiledEngine.Classes.TileAddons
         protected override void CreateBody(Vector2 position )
         {
             base.CreateBody(position);
-            AddSecondaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Static, Position, destinationRectangle.Width, destinationRectangle.Height, new List<Category>() { Category.TransparencySensor },
-                new List<Category>() { Category.PlayerBigSensor,Category.Player},
+            AddSecondaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Static, Position, destinationRectangle.Width, destinationRectangle.Height,
+                new List<Category>() { (Category)PhysCat.TransparencySensor },
+                new List<Category>() { (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.Player},
                 OnCollides, OnSeparates, isSensor: true, blocksLight: false));
         }
 
-        public void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if (Tile.Sprite != null)
 
                 Tile.Sprite.TriggerIntensityEffect();
             
+            return base.OnCollides(fixtureA, fixtureB, contact);
         }
 
         public void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)

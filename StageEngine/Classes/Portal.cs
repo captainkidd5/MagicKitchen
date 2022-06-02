@@ -11,10 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using UIEngine.Classes;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
 using static DataModels.Enums;
 
 namespace StageEngine.Classes
@@ -62,7 +61,9 @@ namespace StageEngine.Classes
         {
             base.CreateBody(position);
             AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, Position, Rectangle.Width, Rectangle.Height,
-                new List<Category>() { Category.Portal }, new List<Category>() { Category.Player,Category.NPC, Category.Cursor, Category.PlayerBigSensor, Category.NPCBigSensor, Category.FrontalSensor }, OnCollides, OnSeparates, ignoreGravity:true));
+                new List<Category>() { (Category)PhysCat.Portal }, new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC,
+                    (Category)PhysCat.Cursor, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.NPCBigSensor, (Category)PhysCat.FrontalSensor },
+                OnCollides, OnSeparates, ignoreGravity:true));
 ;
         }
 
@@ -99,14 +100,13 @@ namespace StageEngine.Classes
         }
 
         
-        protected override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            base.OnCollides(fixtureA, fixtureB, contact);
 
             //If NPC big sensor collides with portal, warp them to that stage
-            if (fixtureB.CollisionCategories.HasFlag(Category.NPCBigSensor))
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.NPCBigSensor))
             {
-                HumanoidEntity entity = (fixtureB.Body.UserData as HumanoidEntity);
+                HumanoidEntity entity = (fixtureB.Body.Tag as HumanoidEntity);
                 if(From == entity.CurrentStageName && To == entity.TargetStage)
                 {
                     //DO NOT WANT TO HANDLE COLLISIONS ACROSS SEPARATE STAGES! Make sure entity and portal are in the same stage.
@@ -121,9 +121,9 @@ namespace StageEngine.Classes
                 
                     
             }
-            else if(!_mustBeClicked &&  fixtureB.CollisionCategories.HasFlag(Category.Player))
+            else if(!_mustBeClicked &&  fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Player))
             {
-                Player entity = (fixtureB.Body.UserData as Player);
+                Player entity = (fixtureB.Body.Tag as Player);
                 if (From == entity.CurrentStageName)
                 {
 
@@ -134,6 +134,8 @@ namespace StageEngine.Classes
 
 
             }
+            return base.OnCollides(fixtureA, fixtureB, contact);
+
         }
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)

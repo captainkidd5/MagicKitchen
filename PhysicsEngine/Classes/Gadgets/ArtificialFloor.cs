@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using tainicom.Aether.Physics2D.Dynamics;
-using VelcroPhysics.Collision.ContactSystem;
 
 namespace PhysicsEngine.Classes.Gadgets
 {

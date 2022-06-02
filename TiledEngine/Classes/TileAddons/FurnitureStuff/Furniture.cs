@@ -5,6 +5,7 @@ using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PhysicsEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,7 +81,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             base.OnSeparates(fixtureA, fixtureB, contact);
             if (fixtureB.CollisionCategories.HasFlag(
-                VelcroPhysics.Collision.Filtering.Category.FrontalSensor))
+              (Category)PhysCat.FrontalSensor))
             {
                 UI.DeactivateSecondaryInventoryDisplay();
             }

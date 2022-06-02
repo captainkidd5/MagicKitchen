@@ -11,6 +11,5 @@
     <ProjectReference Include="..\DataModels\DataModels.csproj" />
     <ProjectReference Include="..\PhysicsEngine\PhysicsEngine.csproj" />
     <ProjectReference Include="..\SpriteEngine\SpriteEngine.csproj" />
-    <ProjectReference Include="..\VelcroPhysics\VelcroPhysics\VelcroPhysics.MonoGame.csproj" />
   </ItemGroup>
 </Project>

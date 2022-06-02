@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes.Helpers;
 using TiledEngine.Classes.TileAddons.Actions;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
 
 namespace TiledEngine.Classes.TileAddons
 {

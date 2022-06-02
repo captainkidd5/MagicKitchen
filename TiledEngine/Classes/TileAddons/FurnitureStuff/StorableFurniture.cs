@@ -5,6 +5,7 @@ using ItemEngine.Classes;
 using ItemEngine.Classes.StorageStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PhysicsEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
@@ -196,7 +197,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
     {
         base.OnSeparates(fixtureA, fixtureB, contact);
         if (fixtureB.CollisionCategories.HasFlag(
-            VelcroPhysics.Collision.Filtering.Category.FrontalSensor))
+           (Category)PhysCat.FrontalSensor))
         {
             UI.DeactivateSecondaryInventoryDisplay();
         }

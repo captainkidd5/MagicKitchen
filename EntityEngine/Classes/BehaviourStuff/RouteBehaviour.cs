@@ -10,10 +10,9 @@ using PhysicsEngine.Classes.Pathfinding;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
 
 namespace EntityEngine.Classes.BehaviourStuff
 {
@@ -82,9 +81,9 @@ namespace EntityEngine.Classes.BehaviourStuff
 
 
 
-        public override void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        public override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            base.OnCollides(fixtureA, fixtureB, contact);
+            return base.OnCollides(fixtureA, fixtureB, contact);
         }
 
     }

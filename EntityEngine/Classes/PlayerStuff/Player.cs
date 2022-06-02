@@ -15,12 +15,12 @@ using System.Collections.Generic;
 using System.Text;
 using TiledEngine.Classes;
 using UIEngine.Classes;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
+
 using static DataModels.Enums;
 using System.IO;
 using Globals.Classes.Helpers;
 using InputEngine.Classes;
+using tainicom.Aether.Physics2D.Dynamics;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -71,15 +71,19 @@ namespace EntityEngine.Classes.PlayerStuff
 
         protected override void CreateBody(Vector2 position)
         {
-            AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { Category.Player },
-            new List<Category>() { Category.Solid, Category.Grass,Category.NPC, Category.TransparencySensor, Category.Item, Category.NPCBigSensor, Category.Portal }, OnCollides, OnSeparates, ignoreGravity:true,blocksLight:true, userData: this));
+            AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Player },
+            new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Grass, (Category)PhysCat.NPC, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item,
+                (Category)PhysCat.NPCBigSensor, (Category)PhysCat.Portal }, OnCollides, OnSeparates, ignoreGravity:true,blocksLight:true, userData: this));
 
 
-            BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() { Category.PlayerBigSensor }, new List<Category>() { Category.Item, Category.Portal,Category.Solid, Category.NPC },
+            BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() {
+                (Category)PhysCat.PlayerBigSensor }, new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Portal,
+                    (Category)PhysCat.Solid, (Category)PhysCat.NPC },
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
 
-            FrontalSensor = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, position, 16f, 16f, new List<Category>() { Category.FrontalSensor }, BigSensorCollidesWithCategories,
+            FrontalSensor = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, position, 16f, 16f, new List<Category>() {
+                (Category)PhysCat.FrontalSensor }, BigSensorCollidesWithCategories,
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(FrontalSensor);
             // MainHullBody = HullBodies[0];

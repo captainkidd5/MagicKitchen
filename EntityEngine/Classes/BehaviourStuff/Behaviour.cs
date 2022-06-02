@@ -7,9 +7,9 @@ using PhysicsEngine.Classes.Pathfinding;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Dynamics;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
@@ -116,9 +116,9 @@ namespace EntityEngine.Classes.BehaviourStuff
                 Navigator.DrawDebug(spriteBatch, Color.Red);
         }
 
-        public virtual void OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        public virtual bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            
+            return true;
         }
     }
 }

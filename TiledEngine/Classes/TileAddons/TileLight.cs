@@ -5,9 +5,9 @@ using PhysicsEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using tainicom.Aether.Physics2D.Dynamics;
 using TiledEngine.Classes.Helpers;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
+
 
 namespace TiledEngine.Classes.TileAddons
 {
@@ -31,7 +31,8 @@ namespace TiledEngine.Classes.TileAddons
 
         protected override void CreateBody(Vector2 position)
         {
-            AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, Tile.Position, 4f, new List<Category>() { Category.LightSource }, null, null, null,
+            AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, Tile.Position, 4f,
+                new List<Category>() { (Category)PhysCat.LightSource }, null, null, null,
                light: PhysicsManager.GetPointLight(new Vector2(Tile.Position.X + _pointOffset.X, Tile.Position.Y + _pointOffset.Y), true, 400),isSensor:true));
         }
 

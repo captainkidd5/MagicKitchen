@@ -11,10 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using TextEngine;
 using TextEngine.Classes;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
-using VelcroPhysics.Factories;
+
 
 namespace InputEngine.Classes.Input
 {

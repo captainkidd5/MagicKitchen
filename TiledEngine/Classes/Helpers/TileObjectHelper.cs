@@ -5,15 +5,11 @@ using PhysicsEngine.Classes.Pathfinding;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using tainicom.Aether.Physics2D.Common;
 using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.TileAddons.Actions;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
 using TiledSharp;
-using VelcroPhysics.Collision.ContactSystem;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Collision.Handlers;
-using VelcroPhysics.Dynamics;
-using VelcroPhysics.Shared;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.Helpers

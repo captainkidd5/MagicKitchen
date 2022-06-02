@@ -8,8 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VelcroPhysics.Collision.Filtering;
-using VelcroPhysics.Dynamics;
+
 
 namespace TiledEngine.Classes.ZoneStuff
 {
