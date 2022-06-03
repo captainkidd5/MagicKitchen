@@ -1,6 +1,7 @@
 ﻿
 using Globals.Classes;
 using InputEngine.Classes.Input;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Penumbra;
@@ -92,7 +93,7 @@ namespace TiledEngine.Classes.TileAddons
       
         }
 
-        public void Interact(bool isPlayer)
+        public void Interact(bool isPlayer, Item heldItem)
         {
             throw new NotImplementedException();
         }

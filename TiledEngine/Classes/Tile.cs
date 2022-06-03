@@ -1,6 +1,7 @@
 ﻿using Globals.Classes;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
@@ -125,10 +126,10 @@ namespace TiledEngine.Classes
             foreach (ITileAddon addon in Addons)  
                 addon.Load();               
         }
-        public void Interact(bool isPlayer)
+        public void Interact(bool isPlayer, Item heldItem)
         {
             foreach (ITileAddon addon in Addons)
-                addon.Interact(isPlayer);
+                addon.Interact(isPlayer, heldItem);
         }
 
         public void Unload()

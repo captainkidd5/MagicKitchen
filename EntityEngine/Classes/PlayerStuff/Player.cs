@@ -173,7 +173,8 @@ namespace EntityEngine.Classes.PlayerStuff
 
         protected override void DropCurrentlyHeldItemToWorld()
         {
-            base.DropCurrentlyHeldItemToWorld();
+            InventoryHandler.ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet / 2), UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving));
+
             UI.Cursor.HeldItemCount = 0;
             UI.Cursor.HeldItem = null;
 

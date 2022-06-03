@@ -448,7 +448,7 @@ namespace EntityEngine.Classes
 
         protected virtual void DropCurrentlyHeldItemToWorld()
         {
-            InventoryHandler.ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet / 2), UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving));
+            InventoryHandler.ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet / 2), InventoryHandler.HeldItem, InventoryHandler.HeldItemCount, Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving));
 
         }
 
@@ -458,7 +458,7 @@ namespace EntityEngine.Classes
             Tile tile = TileManager.GetTileFromPoint(tilePoint, tileLayer);
             if (tile == null)
                 throw new Exception($"No tile at {tilePoint} at layer {tileLayer.ToString()}!");
-            tile.Interact(false);
+            tile.Interact(false, InventoryHandler.HeldItem);
 
         }
         protected void PerformAction(ActionType actionType)
