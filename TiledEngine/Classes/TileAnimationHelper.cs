@@ -109,23 +109,6 @@ namespace TiledEngine.Classes
                   texture, frames, customLayer: tile.Layer, randomizeLayers: false);
                     return;
                 }
-                //if (tmxTileSetTile.ObjectGroups.Count > 0)
-                //{
-                //    for (int k = 0; k < tmxTileSetTile.ObjectGroups[0].Objects.Count; k++)
-                //    {
-                //        TmxObject tempObj = tmxTileSetTile.ObjectGroups[0].Objects[k];
-                //        if (tempObj.Properties.ContainsKey("destructable"))
-                //        {
-                //            tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
-                //   texture, frames, customLayer: tile.Layer, randomizeLayers: false);
-                //            return;
-                //        }
-
-
-
-                //    }
-                //}
-
 
                 propertyString = "animate";
                 if (TileUtility.GetTileProperty(tileSetPackage, tmxTileSetTile, ref propertyString))

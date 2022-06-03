@@ -211,7 +211,7 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
-     <property name="destructable" value="Rock"/>
+     <property name="action" value="Break"/>
     </properties>
     <ellipse/>
    </object>
@@ -251,7 +251,7 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
-     <property name="destructable" value="Rock"/>
+     <property name="action" value="Break"/>
     </properties>
     <ellipse/>
    </object>
@@ -270,7 +270,7 @@
   <objectgroup draworder="index" id="2">
    <object id="2" x="5" y="3">
     <properties>
-     <property name="destructable" value="Rock"/>
+     <property name="action" value="Break"/>
     </properties>
     <polygon points="0,0 9,2 9,8 1,9"/>
    </object>
@@ -299,7 +299,7 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
-     <property name="destructable" value="Rock"/>
+     <property name="action" value="Break"/>
     </properties>
     <ellipse/>
    </object>
@@ -372,6 +372,7 @@
  </tile>
  <tile id="5208">
   <properties>
+   <property name="IconType" value="Ignite"/>
    <property name="action" value="Ignite"/>
    <property name="newHitBox" value="4, -8, 26"/>
    <property name="newSource" value="0, -32, 32, 48"/>
