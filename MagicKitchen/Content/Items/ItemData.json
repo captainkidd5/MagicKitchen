@@ -1,7 +1,7 @@
 [
 {
     "Id": 1,
-    "Name": "Stone Axe",
+    "Name": "Stone_Axe",
     "Description" : "A basic tool for chopping trees",
     "MaxStackSize": 1,
     "Price": 25

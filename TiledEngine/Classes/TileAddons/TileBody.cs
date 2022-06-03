@@ -5,6 +5,7 @@ using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
+using PhysicsEngine.Classes.Pathfinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +71,14 @@ namespace TiledEngine.Classes.TileAddons
         public virtual void Interact(bool isPlayer)
         {
             //throw new NotImplementedException();
+        }
+
+        protected void DestroyTileAndGetLoot()
+        {
+            if (TileLoader.TileLootManager.HasLootData(Tile.GID))
+                GenerateLoot();
+            TileUtility.SwitchGid(Tile, TileManager, IndexLayer);
+            TileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
         }
         protected void GenerateLoot()
         {

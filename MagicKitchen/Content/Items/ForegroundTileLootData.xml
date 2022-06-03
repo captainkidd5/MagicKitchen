@@ -2,7 +2,7 @@
 <XnaContent xmlns:ns="Microsoft.Xna.Framework">
     <Asset Type="System.Collections.Generic.List[DataModels.TileLootData]">
         <Item>
-            <TileId>5525</TileId>
+            <TileId>1834</TileId>
             <Loot>
             <Item Type="DataModels.LootData">
             <ItemName>Stone</ItemName>
@@ -17,7 +17,7 @@
             </Loot>
         </Item>
           <Item>
-            <TileId>5343</TileId>
+            <TileId>1743</TileId>
             <Loot>
             <Item Type="DataModels.LootData">
             <ItemName>Pumpkin Chunk</ItemName>
@@ -27,7 +27,7 @@
             </Loot>
         </Item>
          <Item>
-            <TileId>5434</TileId>
+            <TileId>1925</TileId>
               <Loot>
             <Item Type="DataModels.LootData">
             <ItemName>Stone</ItemName>

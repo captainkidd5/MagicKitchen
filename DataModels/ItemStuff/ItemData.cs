@@ -31,8 +31,7 @@ namespace DataModels.ItemStuff
 
         public int Price { get; set; }
 
-        //Cooked vs uncooked pie
-        public bool IsUnfinishedVersion { get; set; }
+
         public RecipeInfo RecipeInfo { get; set; }
 
         public void Load()

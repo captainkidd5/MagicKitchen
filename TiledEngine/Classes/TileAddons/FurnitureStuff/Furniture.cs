@@ -71,7 +71,24 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (!UI.IsHovered && IsHovered(Controls.ControllerConnected))
+            {
+                //UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
+                //if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
+                //{
+                //    UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
+                //    //Subscribe to ui 
+                //    UI.StorageDisplayHandler.SecondaryStorageClosed += OnUIClosed;
+                //    (Tile.Sprite as AnimatedSprite).Paused = false;
+                //    (Tile.Sprite as AnimatedSprite).SetTargetFrame((Tile.Sprite as AnimatedSprite).AnimationFrames.Length - 1);
 
+
+                //}
+            }
+        }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             return base.OnCollides(fixtureA, fixtureB, contact);
