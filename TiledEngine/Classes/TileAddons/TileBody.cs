@@ -13,7 +13,7 @@ using System.Text;
 using tainicom.Aether.Physics2D.Common;
 using tainicom.Aether.Physics2D.Dynamics;
 using TiledEngine.Classes.Helpers;
-
+using TiledSharp;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TileAddons
@@ -35,7 +35,15 @@ namespace TiledEngine.Classes.TileAddons
         {
            // throw new NotImplementedException();
         }
-
+        protected string GetProperty(string key)
+        {
+            TmxTilesetTile tmxTileSetTile = TileManager.TileSetPackage.GetTmxTileSetTile(Tile.GID);
+            if (tmxTileSetTile == null)
+                return null;
+            if(tmxTileSetTile.Properties.ContainsKey(key))
+                return tmxTileSetTile.Properties[key];
+            return null;
+        }
 
         public virtual void Load()
         {

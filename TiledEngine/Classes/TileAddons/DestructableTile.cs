@@ -1,4 +1,5 @@
-﻿using InputEngine.Classes;
+﻿using DataModels.ItemStuff;
+using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -60,8 +61,23 @@ namespace TiledEngine.Classes.TileAddons
         }
 
 
-
-
+        /// <summary>
+        /// "Destructable - Rock,Good
+        /// returns ToolTier.Good
+        /// else returns ToolTier.None
+        /// </summary>
+        protected ToolTier GetToolTier()
+        {
+            string property = GetProperty("destructable");
+            string[] split = property.Split(',');
+            if(split.Length > 0)
+            {
+                string type = string.Empty;
+                ToolTier toolTier = (ToolTier)Enum.Parse(typeof(ToolTier), split[1]);
+                return toolTier;
+            }
+            return ToolTier.None;
+        }
 
 
         public override void Update(GameTime gameTime)

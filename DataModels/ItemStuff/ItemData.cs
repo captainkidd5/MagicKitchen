@@ -17,6 +17,14 @@ namespace DataModels.ItemStuff
         Tree = 40
 
     }
+
+    public enum ToolTier
+    {
+        None = 0,
+        Poor = 1,
+        Good = 2,
+        Excellent = 3
+    }
     public class ItemData
     {
         public int Id { get; set; }
@@ -34,6 +42,7 @@ namespace DataModels.ItemStuff
 
         public RecipeInfo RecipeInfo { get; set; }
 
+        public ToolTier ToolTier { get; set; }
         public void Load()
         {
             if(RecipeInfo != null)

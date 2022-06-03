@@ -11,7 +11,8 @@
     "Name": "Stone_Hammer",
     "Description" : "Capable of smashing rocks and removing furniture",
     "MaxStackSize": 1,
-    "Price": 25
+    "Price": 25,
+    "ToolTier":"Good"
 },
 {
     "Id": 900,
