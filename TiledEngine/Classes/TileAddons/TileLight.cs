@@ -16,8 +16,8 @@ namespace TiledEngine.Classes.TileAddons
         private Point _pointOffset;
         private float _lightRadius;
 
-        public LightBody(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape,
-            string lightPropertyString, float lightRadius) : base(tile, tileManager, intermediateTmxShape)
+        public LightBody(Tile tile, IntermediateTmxShape intermediateTmxShape,
+            string lightPropertyString, float lightRadius) : base(tile, intermediateTmxShape)
         {
 
             _pointOffset = ParseLightString(lightPropertyString);

@@ -19,7 +19,7 @@ namespace InputEngine.Classes
     {
         None = 0,
         Selectable = 1,
-        Rock = 2,
+        Break = 2,
         Speech = 3,
         Door = 4,
         Ignite = 5,

@@ -16,9 +16,9 @@ namespace TiledEngine.Classes
     internal static class TileAnimationHelper
     {
 
-        public static void SwitchGidToAnimationFrame(Tile tile, TileManager tileManager, TileSetPackage tileSetPackage)
+        public static void SwitchGidToAnimationFrame(Tile tile)
         {
-            Collection<TmxAnimationFrame> baseAnimationFrames = tileSetPackage.GetTmxTileSetTile(tile.GID).AnimationFrames;
+            Collection<TmxAnimationFrame> baseAnimationFrames = tile.TileSetPackage.GetTmxTileSetTile(tile.GID).AnimationFrames;
 
             if (baseAnimationFrames == null || baseAnimationFrames.Count < 1)
                 throw new Exception($"Should not try to switch to a GID on a tile with no animation frames");
@@ -31,10 +31,10 @@ namespace TiledEngine.Classes
                 {
 
                     int newGID = animationFrame.Id;
-                    if (tileSetPackage.IsForeground(tile.GID))
-                        newGID = tileSetPackage.OffSetBackgroundGID(newGID);
+                    if (tile.TileSetPackage.IsForeground(tile.GID))
+                        newGID = tile.TileSetPackage.OffSetBackgroundGID(newGID);
 
-                    TmxTilesetTile tileSetTile = tileSetPackage.GetTmxTileSetTile(newGID);
+                    TmxTilesetTile tileSetTile = tile.TileSetPackage.GetTmxTileSetTile(newGID);
 
                     if (tileSetTile.AnimationFrames != null && tileSetTile.AnimationFrames.Count > 0)
                     {
@@ -48,7 +48,7 @@ namespace TiledEngine.Classes
             }
             if (gidToSwapTo < 0)
                 return;
-            TileUtility.SwitchGid(tile, tileManager, tile.IndexLayer, gidToSwapTo + 1);
+            TileUtility.SwitchGid(tile, tile.IndexLayer, gidToSwapTo + 1);
             return;
 
         }
@@ -103,23 +103,28 @@ namespace TiledEngine.Classes
                 }
                 if (tile.Layer > 1)
                     tile.Layer = tile.Layer * .1f;
-
-                if (tmxTileSetTile.ObjectGroups.Count > 0)
+                if(tile.GetCursorIconType() == InputEngine.Classes.CursorIconType.Break)
                 {
-                    for (int k = 0; k < tmxTileSetTile.ObjectGroups[0].Objects.Count; k++)
-                    {
-                        TmxObject tempObj = tmxTileSetTile.ObjectGroups[0].Objects[k];
-                        if (tempObj.Properties.ContainsKey("destructable"))
-                        {
-                            tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
-                   texture, frames, customLayer: tile.Layer, randomizeLayers: false);
-                            return;
-                        }
-
-
-
-                    }
+                    tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
+                  texture, frames, customLayer: tile.Layer, randomizeLayers: false);
+                    return;
                 }
+                //if (tmxTileSetTile.ObjectGroups.Count > 0)
+                //{
+                //    for (int k = 0; k < tmxTileSetTile.ObjectGroups[0].Objects.Count; k++)
+                //    {
+                //        TmxObject tempObj = tmxTileSetTile.ObjectGroups[0].Objects[k];
+                //        if (tempObj.Properties.ContainsKey("destructable"))
+                //        {
+                //            tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
+                //   texture, frames, customLayer: tile.Layer, randomizeLayers: false);
+                //            return;
+                //        }
+
+
+
+                //    }
+                //}
 
 
                 propertyString = "animate";

@@ -1,4 +1,5 @@
-﻿using InputEngine.Classes;
+﻿using DataModels.ItemStuff;
+using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -18,11 +19,9 @@ namespace TiledEngine.Classes.TileAddons.Actions
 
     public class ActionTile : TileBody
     {
-        public CursorIconType CursorIconType { get; private set; }
 
-        public ActionTile(Tile tile, TileManager tileManager , IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, tileManager, intermediateTmxShape)
+        public ActionTile(Tile tile,  IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, intermediateTmxShape)
         {
-            CursorIconType = Cursor.GetCursorIconTypeFromString(actionType);
 
         }
 
@@ -55,11 +54,32 @@ namespace TiledEngine.Classes.TileAddons.Actions
             Move(IntermediateTmxShape.HullPosition);
             if (PlayerInClickRange && MouseHovering)
             {
-                UI.Cursor.ChangeCursorIcon(CursorIconType);
+                UI.Cursor.ChangeCursorIcon(Tile.GetCursorIconType());
 
             }
         }
+        /// <summary>
+        /// "Destructable - Rock,Good
+        /// returns ToolTier.Good
+        /// else returns ToolTier.None
+        /// </summary>
+        protected ToolTier GetToolTier()
+        {
+            string property = Tile.GetProperty("destructable");
+            string[] split = property.Split(',');
+            if (split.Length > 0)
+            {
+                string type = string.Empty;
+                ToolTier toolTier = (ToolTier)Enum.Parse(typeof(ToolTier), split[1]);
+                return toolTier;
+            }
+            return ToolTier.None;
+        }
 
+        //protected bool IsDestructable()
+        //{
+
+        //}
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             return base.OnCollides(fixtureA, fixtureB, contact);

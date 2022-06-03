@@ -81,7 +81,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
             }
             CreateStorageContainer();
-            List<PlacedItem> loadedPlacedItems = TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
+            List<PlacedItem> loadedPlacedItems = Tile.TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
             bool loadedItemsWereSavedAtLeastOnce = loadedPlacedItems.Count > 0;
             //Means there were some saved items here previously. Load those in instead of default load
             if (loadedPlacedItems.Count > 0)
@@ -115,7 +115,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
                 placedItem.Load(TopOfFurniture + GetVisibleStorageIndexPositionOffSet(i), StorageContainer.Slots[i]);
                 if (!loadedItemsWereSavedAtLeastOnce)
-                    TileManager.PlacedItemManager.AddNewItem(placedItem);
+                    Tile.TileManager.PlacedItemManager.AddNewItem(placedItem);
 
             }
         }

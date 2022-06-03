@@ -39,7 +39,7 @@ namespace TiledEngine.Classes
         private readonly int _cullingLeeWay = 8;
         private readonly Camera2D _camera;
         internal readonly PenumbraComponent _penumbra;
-        internal readonly ItemManager _itemManager;
+        internal readonly ItemManager ItemManager;
 
         public PathGrid PathGrid { get; private set; }
 
@@ -64,7 +64,7 @@ namespace TiledEngine.Classes
             OffSetLayersDictionary = new Dictionary<int, float>();
             Portals = new List<PortalData>();
             MapType = mapType;
-            _itemManager = itemManager;
+            ItemManager = itemManager;
             _camera = camera;
             _penumbra = penumbra;
             TileLocator = new TileLocator();
@@ -74,7 +74,7 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Generic load, should only be called by <see cref="TileLoader.LoadTileManager(string, TileManager)"/>
         /// </summary>
-        internal void CreateNewSave(List<Tile[,]> tiles, int mapWidth, TileSetPackage tileSetPackage)
+        internal void CreateNewSave(TileManager tileManager,List<Tile[,]> tiles, int mapWidth, TileSetPackage tileSetPackage)
         {
 
             TileSetPackage = tileSetPackage;
@@ -131,7 +131,7 @@ namespace TiledEngine.Classes
                 {
                     for (int y = 0; y < MapWidth; y++)
                     {
-                        TileUtility.AssignProperties(Tiles[z][x, y], (Layers)z, this);
+                        TileUtility.AssignProperties(Tiles[z][x, y], (Layers)z);
                     }
                 }
             }
@@ -190,11 +190,12 @@ namespace TiledEngine.Classes
         /// <param name="hoveredLayerTile"></param>
         private bool CheckIfCursorIconChangedFromTile(Tile hoveredLayerTile)
         {
-            if (hoveredLayerTile.WithinRangeOfPlayer && hoveredLayerTile.CursorIconType != CursorIconType.None)
+            CursorIconType iconType = hoveredLayerTile.GetCursorIconType();
+            if (hoveredLayerTile.WithinRangeOfPlayer && iconType != CursorIconType.None)
             {
-                if (UI.Cursor.CursorIconType != hoveredLayerTile.CursorIconType)
+                if (UI.Cursor.CursorIconType != iconType)
                 {
-                    UI.Cursor.ChangeCursorIcon(hoveredLayerTile.CursorIconType);
+                    UI.Cursor.ChangeCursorIcon(iconType);
                     return true;
                 }
             }
@@ -444,14 +445,14 @@ namespace TiledEngine.Classes
                 {
                     for (int y = 0; y < length1; y++)
                     {
-                        Tiles[z][x, y] = new Tile(reader.ReadInt32(), (Layers)z, z, reader.ReadInt32(), reader.ReadInt32());
+                        Tiles[z][x, y] = new Tile(this, reader.ReadInt32(), (Layers)z, z, reader.ReadInt32(), reader.ReadInt32());
 
                     }
                 }
             }
             PlacedItemManager.LoadSave(reader);
             //Todo: this is sus
-            CreateNewSave(Tiles, MapWidth, TileLoader.GetPackageFromMapType(mapType));
+            CreateNewSave(this, Tiles, MapWidth, TileLoader.GetPackageFromMapType(mapType));
 
         }
 

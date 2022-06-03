@@ -205,6 +205,9 @@
   </properties>
  </tile>
  <tile id="1743">
+  <properties>
+   <property name="IconType" value="Break"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
@@ -222,10 +225,14 @@
   </animation>
  </tile>
  <tile id="1834">
+  <properties>
+   <property name="IconType" value="Break"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
-     <property name="destructable" value="Rock"/>
+     <property name="action" value="Break"/>
+     <property name="icon" value="Break"/>
     </properties>
     <ellipse/>
    </object>
@@ -238,6 +245,9 @@
   </animation>
  </tile>
  <tile id="1835">
+  <properties>
+   <property name="IconType" value="Break"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
@@ -254,6 +264,9 @@
   </animation>
  </tile>
  <tile id="1925">
+  <properties>
+   <property name="IconType" value="Break"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="2" x="5" y="3">
     <properties>
@@ -280,6 +293,9 @@
   </animation>
  </tile>
  <tile id="2016">
+  <properties>
+   <property name="IconType" value="Break"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>

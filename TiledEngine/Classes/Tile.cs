@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TiledEngine.Classes.TileAddons;
+using TiledSharp;
 using UIEngine.Classes;
 using static Globals.Classes.Settings;
 
@@ -32,7 +33,18 @@ namespace TiledEngine.Classes
         private int gid;
 
         //The icon the mouse should change to when hovered over this tile
-        internal CursorIconType CursorIconType;
+        internal CursorIconType GetCursorIconType()
+        {
+            string property = GetProperty("IconType");
+            if(property == null)
+                return CursorIconType.None;
+            return Cursor.GetCursorIconTypeFromString(property);
+        }
+        internal TmxTilesetTile TmxTileSetTile => TileSetPackage.GetTmxTileSetTile(GID);
+
+        internal readonly TileManager TileManager;
+        internal TileSetPackage TileSetPackage => TileManager.TileSetPackage;
+
         public int GID { get { return gid - 1; } internal set { gid = value; } }
 
         //public TileType TileType { get; set; }
@@ -55,7 +67,7 @@ namespace TiledEngine.Classes
 
         public bool WithinRangeOfPlayer { get; internal set; }
 
-        internal Tile(int gid, Layers indexLayer, float layer, int x, int y)
+        internal Tile(TileManager tileManager, int gid, Layers indexLayer, float layer, int x, int y)
         {
             
             GID = gid;
@@ -64,10 +76,17 @@ namespace TiledEngine.Classes
             X = x;
             Y = y;
             Addons = new List<ITileAddon>();
-            CursorIconType = CursorIconType.None;
+            TileManager = tileManager;
 
         }
-
+        internal string GetProperty(string key)
+        {
+            if (TmxTileSetTile == null)
+                return null;
+            if (TmxTileSetTile.Properties.ContainsKey(key))
+                return TmxTileSetTile.Properties[key];
+            return null;
+        }
         public void Update(GameTime gameTime, PathGrid pathGrid)
         {
             WithinRangeOfPlayer = false;
@@ -140,7 +159,6 @@ namespace TiledEngine.Classes
             }
             Addons.Clear();
             Sprite = null;
-            CursorIconType = CursorIconType.None;
             
         }
 

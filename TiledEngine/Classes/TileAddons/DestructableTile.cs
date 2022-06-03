@@ -14,6 +14,7 @@ using tainicom.Aether.Physics2D.Common;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes.Helpers;
+using TiledEngine.Classes.TileAddons.Actions;
 using UIEngine.Classes;
 
 using static Globals.Classes.Settings;
@@ -21,14 +22,12 @@ using static Globals.Classes.Settings;
 namespace TiledEngine.Classes.TileAddons
 {
 
-    internal class DestructableTile : TileBody
+    internal class DestructableTile : ActionTile
     {
 
-        public CursorIconType CursorIconType { get; private set; }
-        public DestructableTile(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string destructionType) : base(tile, tileManager, intermediateTmxShape)
+        public DestructableTile(Tile tile, IntermediateTmxShape intermediateTmxShape, string action) : base(tile,intermediateTmxShape, action)
         {
-            CursorIconType = Cursor.GetCursorIconTypeFromString(destructionType.Split(',')[0]);
-            tile.CursorIconType = CursorIconType;
+     
             if (tile.Sprite.GetType() == typeof(AnimatedSprite))
             {
                 (tile.Sprite as AnimatedSprite).Paused = true;
@@ -61,23 +60,7 @@ namespace TiledEngine.Classes.TileAddons
         }
 
 
-        /// <summary>
-        /// "Destructable - Rock,Good
-        /// returns ToolTier.Good
-        /// else returns ToolTier.None
-        /// </summary>
-        protected ToolTier GetToolTier()
-        {
-            string property = GetProperty("destructable");
-            string[] split = property.Split(',');
-            if(split.Length > 0)
-            {
-                string type = string.Empty;
-                ToolTier toolTier = (ToolTier)Enum.Parse(typeof(ToolTier), split[1]);
-                return toolTier;
-            }
-            return ToolTier.None;
-        }
+
 
 
         public override void Update(GameTime gameTime)
@@ -117,7 +100,7 @@ namespace TiledEngine.Classes.TileAddons
                 (Tile.Sprite as AnimatedSprite).Paused = false;
             if (!IsPlayingASound)
             {
-                PlaySound(CursorIconType.ToString());
+                PlaySound(Tile.GetCursorIconType().ToString());
 
 
             }

@@ -1,5 +1,6 @@
 ﻿using InputEngine.Classes;
 using InputEngine.Classes.Input;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using SpriteEngine.Classes.Animations;
 using System;
@@ -14,7 +15,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
 {
     internal class IgniteActionTile : ActionTile
     {
-        public IgniteActionTile(Tile tile, TileManager tileManager , IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, tileManager, intermediateTmxShape, actionType)
+        public IgniteActionTile(Tile tile, IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, intermediateTmxShape, actionType)
         {
             
             if (tile.Sprite.GetType() == typeof(IntervalAnimatedSprite))
@@ -37,7 +38,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
             {
                 if (!IsPlayingASound)
                 {
-                    PlaySound(CursorIconType.ToString());
+                    PlaySound(Tile.GetCursorIconType().ToString());
 
 
                 }
@@ -46,9 +47,14 @@ namespace TiledEngine.Classes.TileAddons.Actions
             }
             if ((spr).HasLoopedAtLeastOnce)
             {
-                TileAnimationHelper.SwitchGidToAnimationFrame(Tile, TileManager, TileSetPackage);
+                TileAnimationHelper.SwitchGidToAnimationFrame(Tile);
 
             }
+        }
+
+        public override void Interact(bool isPlayer, Item heldItem)
+        {
+            base.Interact(isPlayer, heldItem);
         }
 
     }

@@ -35,19 +35,20 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Default gid is blank tile
         /// </summary>
-        public static void SwitchGid(Tile tile, TileManager tileManager, Layers layer, int newGid = 0)
+        public static void SwitchGid(Tile tile,Layers layer, int newGid = 0)
         {
             tile.Unload();
             tile.Sprite = null;
             // tile = new Tile(newGid, MapDepths[(int)layer], tile.X, tile.Y);
             tile.GID = newGid;
-            AssignProperties(tile, layer, tileManager);
+            AssignProperties(tile, layer);
         }
 
-        public static void AssignProperties(Tile tile, Layers layer, TileManager tileManager)
+        public static void AssignProperties(Tile tile, Layers layer)
         {
 
-            TileSetPackage tileSetPackage = tileManager.TileSetPackage;
+            TileSetPackage tileSetPackage = tile.TileSetPackage;
+            TileManager tileManager = tile.TileManager;
             int tileSetDimension = tileSetPackage.GetDimension(tile.GID);
             Texture2D texture = tileSetPackage.GetTexture(tile.GID);
             if (!tileSetPackage.IsForeground(tile.GID))

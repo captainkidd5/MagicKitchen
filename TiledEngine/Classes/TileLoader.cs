@@ -91,7 +91,7 @@ namespace TiledEngine.Classes
             tileManager.MapType = stageData.MapType;
             ZoneManager.CreateNewSave(stageData.Name, mapToLoad, tileManager);
 
-            tileManager.CreateNewSave(ExtractTilesFromPreloadedMap(mapToLoad), mapToLoad.Width,
+            tileManager.CreateNewSave(tileManager,ExtractTilesFromPreloadedMap(tileManager,mapToLoad), mapToLoad.Width,
                 GetPackageFromMapType(stageData.MapType));
 
             _portalLoader.AddPortals(tileManager.LoadPortals(mapToLoad));
@@ -120,7 +120,7 @@ namespace TiledEngine.Classes
         /// Create new tiles based on tiles found in TMX map file. This should
         /// only be done once per map per save.
         /// </summary>
-        private static List<Tile[,]> ExtractTilesFromPreloadedMap(TmxMap map)
+        private static List<Tile[,]> ExtractTilesFromPreloadedMap(TileManager tileManager, TmxMap map)
         {
             List<TmxLayer> allLayers = new List<TmxLayer>()
             {
@@ -136,7 +136,7 @@ namespace TiledEngine.Classes
             {
                 tilesToReturn.Add(new Tile[map.Width, map.Width]);
                 foreach (TmxLayerTile layerNameTile in allLayers[i].Tiles)
-                    tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new Tile(layerNameTile.Gid, (Layers)i, MapDepths[i], layerNameTile.X, layerNameTile.Y);
+                    tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new Tile(tileManager,layerNameTile.Gid, (Layers)i, MapDepths[i], layerNameTile.X, layerNameTile.Y);
             }
             return tilesToReturn;
         }

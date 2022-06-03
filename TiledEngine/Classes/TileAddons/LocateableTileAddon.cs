@@ -18,8 +18,8 @@ namespace TiledEngine.Classes.TileAddons
         protected string SubKey;
 
 
-        public LocateableTileAddon(Tile tile, TileManager tileManager,
-            IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, tileManager, intermediateTmxShape, actionType)
+        public LocateableTileAddon(Tile tile,
+            IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, intermediateTmxShape, actionType)
         {
     
         }
@@ -27,12 +27,12 @@ namespace TiledEngine.Classes.TileAddons
         public override void Load()
         {
            base.Load();
-            TileManager.TileLocator.AddItem(Key, SubKey, Tile);
+            Tile.TileManager.TileLocator.AddItem(Key, SubKey, Tile);
         }
         public override void CleanUp()
         {
             base.CleanUp();
-            TileManager.TileLocator.RemoveItem(Key, SubKey, Tile);
+            Tile.TileManager.TileLocator.RemoveItem(Key, SubKey, Tile);
         }
        
     }

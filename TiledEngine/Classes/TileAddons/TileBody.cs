@@ -21,28 +21,16 @@ namespace TiledEngine.Classes.TileAddons
     public class TileBody : Collidable, ITileAddon
     {
         public Tile Tile { get; private set; }
-        protected readonly TileManager TileManager;
-        protected TileSetPackage TileSetPackage => TileManager.TileSetPackage;
         protected Layers IndexLayer => Tile.IndexLayer;
         protected IntermediateTmxShape IntermediateTmxShape { get; set; }
-        public TileBody(Tile tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape)
+        public TileBody(Tile tile,  IntermediateTmxShape intermediateTmxShape)
         {
             Tile = tile;
-            TileManager = tileManager;
             IntermediateTmxShape = intermediateTmxShape;
         }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
            // throw new NotImplementedException();
-        }
-        protected string GetProperty(string key)
-        {
-            TmxTilesetTile tmxTileSetTile = TileManager.TileSetPackage.GetTmxTileSetTile(Tile.GID);
-            if (tmxTileSetTile == null)
-                return null;
-            if(tmxTileSetTile.Properties.ContainsKey(key))
-                return tmxTileSetTile.Properties[key];
-            return null;
         }
 
         public virtual void Load()
@@ -85,8 +73,8 @@ namespace TiledEngine.Classes.TileAddons
         {
             if (TileLoader.TileLootManager.HasLootData(Tile.GID))
                 GenerateLoot();
-            TileUtility.SwitchGid(Tile, TileManager, IndexLayer);
-            TileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
+            TileUtility.SwitchGid(Tile,IndexLayer);
+            Tile.TileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
         }
         protected void GenerateLoot()
         {
@@ -94,7 +82,7 @@ namespace TiledEngine.Classes.TileAddons
             List<LootData> trimmedLoot = ChanceHelper.GetWeightedSelection(tileLootData.Loot.Cast<IWeightable>().ToList(), Settings.Random).Cast<LootData>().ToList();
             foreach(LootData loot in trimmedLoot)
             {
-                TileManager._itemManager.AddWorldItem(Position,
+                Tile.TileManager.ItemManager.AddWorldItem(Position,
                     loot.ItemName, loot.Quantity, Vector2Helper.GetTossDirectionFromDirectionFacing(Enums.Direction.Up));
             }
         }

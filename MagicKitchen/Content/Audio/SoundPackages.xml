@@ -2,7 +2,7 @@
 <XnaContent xmlns:ns="Microsoft.Xna.Framework">
     <Asset Type="System.Collections.Generic.List[DataModels.SoundStuff.SoundPackage]">
         <Item>
-            <Name>Rock</Name>
+            <Name>Break</Name>
             <SoundChancers>
                 <Item Type="DataModels.SoundStuff.SoundChancer">
                     <Name>RockSmash1</Name>

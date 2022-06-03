@@ -26,7 +26,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public Furniture(FurnitureData furnitureData, Tile tile, TileManager tileManager,
             IntermediateTmxShape intermediateTmxShape, string actionType) :
-            base(tile, tileManager, intermediateTmxShape, actionType)
+            base(tile, intermediateTmxShape, actionType)
         {
             Key = "furniture";
             SubKey = this.GetType().Name;   

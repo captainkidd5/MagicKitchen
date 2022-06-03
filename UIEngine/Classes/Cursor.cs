@@ -150,7 +150,7 @@ namespace UIEngine.Classes
                     return new Rectangle(0, 0, 32, 32);
                 case CursorIconType.Selectable:
                     return new Rectangle(32, 0, 32, 32);
-                case CursorIconType.Rock:
+                case CursorIconType.Break:
                     return new Rectangle(96, 0, 32, 32);
                 case CursorIconType.Speech:
                     return new Rectangle(160, 0, 32, 32);
