@@ -1,5 +1,6 @@
 ﻿using InputEngine.Classes;
 using InputEngine.Classes.Input;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
@@ -89,7 +90,7 @@ namespace TiledEngine.Classes.TileAddons
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-        public override void Interact(bool isPlayer)
+        public override void Interact(bool isPlayer, Item heldItem)
         {
             if (isPlayer)
             {

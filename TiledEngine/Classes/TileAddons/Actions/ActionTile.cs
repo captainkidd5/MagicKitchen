@@ -1,5 +1,6 @@
 ﻿using InputEngine.Classes;
 using InputEngine.Classes.Input;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
 using System;
@@ -71,9 +72,9 @@ namespace TiledEngine.Classes.TileAddons.Actions
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-        public override void Interact(bool isPlayer)
+        public override void Interact(bool isPlayer, Item heldItem)
         {
-            base.Interact(isPlayer);
+            base.Interact(isPlayer, heldItem);
             if (isPlayer)
             {
                 if (!PlayerInClickRange)

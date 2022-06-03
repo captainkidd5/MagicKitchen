@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:ns="Microsoft.Xna.Framework">
     <Asset Type="System.Collections.Generic.List[DataModels.TileLootData]">
+     <Item>
+            <TileId>215</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Furnace</ItemName>
+            <Quantity>1</Quantity>
+            <Weight>100</Weight>
+            </Loot>
+        </Item>
         <Item>
             <TileId>1834</TileId>
             <Loot>

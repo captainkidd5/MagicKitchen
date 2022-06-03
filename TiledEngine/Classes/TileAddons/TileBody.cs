@@ -68,7 +68,7 @@ namespace TiledEngine.Classes.TileAddons
             base.CleanUp();
         }
 
-        public virtual void Interact(bool isPlayer)
+        public virtual void Interact(bool isPlayer, Item heldItem)
         {
             //throw new NotImplementedException();
         }

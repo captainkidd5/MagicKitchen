@@ -89,6 +89,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 //}
             }
         }
+        public override void Interact(bool isPlayer, Item heldItem)
+        {
+            base.Interact(isPlayer, heldItem);
+
+        }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             return base.OnCollides(fixtureA, fixtureB, contact);

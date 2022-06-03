@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ItemEngine.Classes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Penumbra;
 using PhysicsEngine.Classes;
@@ -20,6 +21,6 @@ namespace TiledEngine.Classes.TileAddons
 
         void CleanUp();
 
-        void Interact(bool isPlayer);
+        void Interact(bool isPlayer, Item heldItem);
     }
 }

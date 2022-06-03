@@ -213,6 +213,14 @@
                 "Price": 1
                 
                 },
+                {
+                    "Id": 3002,
+                    "Name": "Furnace",
+                    "Description" : "Smelts ores into Ingots",
+                    "MaxStackSize": 1,
+                    "Price": 1
+                    
+                    },
         {
             "Id": 3015,
             "Name": "Slomato Shmizza",
