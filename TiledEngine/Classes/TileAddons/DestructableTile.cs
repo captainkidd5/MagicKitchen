@@ -33,33 +33,6 @@ namespace TiledEngine.Classes.TileAddons
                 (tile.Sprite as AnimatedSprite).Paused = true;
             }
         }
-        public override void Load()
-        {
-            if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Basic)
-            {
-                AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,
-               IntermediateTmxShape.Width, IntermediateTmxShape.Height,
-             new List<Category>() { (Category)PhysCat.Solid }, new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC, (Category)PhysCat.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
-            }
-            else if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Ellipse)
-            {
-                AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition, IntermediateTmxShape.Radius,
-                  new List<Category>() { (Category)PhysCat.Solid }, new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC, (Category)PhysCat.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
-            }
-            else if(IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Polygon)
-            {
-
-                AddPrimaryBody(PhysicsManager.CreatePolygonHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,new Vertices(IntermediateTmxShape.Vertices),
-                  new List<Category>() { (Category)PhysCat.Solid }, new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC, (Category)PhysCat.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
-            }
-            else
-            {
-                throw new Exception($"{IntermediateTmxShape.TmxObjectType} is not supported.");
-            }
-
-        }
-
-
 
 
 
@@ -77,17 +50,6 @@ namespace TiledEngine.Classes.TileAddons
         }
 
 
-
-        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
-        {
-            return base.OnCollides(fixtureA, fixtureB, contact);
-
-        }
-
-        protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
-        {
-            base.OnSeparates(fixtureA, fixtureB, contact);
-        }
 
         public override void Interact(bool isPlayer, Item heldItem)
         {
