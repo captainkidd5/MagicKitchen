@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -63,8 +64,10 @@ namespace ItemEngine.Classes
 
         public static ItemData GetItemData(string name)
         {
-            if (DoesItemExist(name))
-                return ItemDictionary[name];
+            string newName = GetTitleCaseName(name);
+
+            if (DoesItemExist(newName))
+                return ItemDictionary[newName];
             return null;
         }
         public static ItemData GetItemData(int id)
@@ -82,10 +85,11 @@ namespace ItemEngine.Classes
         }
         public static Item GetItem(string name)
         {
-            if(DoesItemExist(name))
-                return new Item(ItemDictionary[name]);
+            string newName = GetTitleCaseName(name);
+            if (DoesItemExist(newName))
+                return new Item(ItemDictionary[newName]);
 
-            throw new Exception($"Item with name {name} does not exist");
+            throw new Exception($"Item with name {newName} does not exist");
         }
 
         public static bool DoesItemExist(int id)
@@ -95,12 +99,36 @@ namespace ItemEngine.Classes
 
             return false;
         }
+        /// <summary>
+        /// Name should be in title case before going here
+        /// </summary>
         public static bool DoesItemExist(string name)
         {
+
             if (ItemDictionary.ContainsKey(name))
                 return true;
 
+
             return false;
+        }
+
+        /// <summary>
+        /// Will turn iron_ingot into Iron_Ingot
+        /// </summary>
+        private static string GetTitleCaseName(string name)
+        {
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+            string[] split = name.Split('_');
+            string newName = string.Empty;
+            for (int i = 0; i < split.Length; i++)
+            {
+                split[i] = textInfo.ToTitleCase(split[i]);
+                newName += split[i];
+                if (i < split.Length - 1)
+                    newName += '_';
+            }
+
+            return newName;
         }
 
         public static WorldItem GenerateWorldItem(string itemName, int count, Vector2 worldPosition, Vector2? jettisonDirection)

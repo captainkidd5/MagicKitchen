@@ -7,6 +7,13 @@
     "Price": 25
 },
 {
+    "Id": 100,
+    "Name": "Stone_Hammer",
+    "Description" : "Capable of smashing rocks and removing furniture",
+    "MaxStackSize": 1,
+    "Price": 25
+},
+{
     "Id": 900,
     "Name": "Coin",
     "Description" : "Currency",
@@ -68,7 +75,7 @@
         {
             "Id": 2618,
             "Name": "Shmegg Mixture",
-            "Description" : "A raw shmegg mixture",
+            "Description" : "A Raw shmegg mixture",
             "MaxStackSize": 99,
             "Price": 1,
             "RecipeInfo": 
@@ -231,7 +238,7 @@
         },
         {
             "Id": 3016,
-            "Name": "Cheese Shmizza (raw)",
+            "Name": "Cheese Shmizza (Raw)",
             "Description" : "An uninished cheese Shmizza",
             "MaxStackSize": 99,
             "Price": 1,
@@ -273,7 +280,7 @@
         },
         {
             "Id": 3018,
-            "Name": "Anchovy Shmizza (raw)",
+            "Name": "Anchovy Shmizza (Raw)",
             "Description" : "An unfinished anchovy shmizza",
             "MaxStackSize": 99,
             "Price": 5,

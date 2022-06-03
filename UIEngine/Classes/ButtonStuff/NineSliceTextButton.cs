@@ -71,7 +71,7 @@ namespace UIEngine.Classes.ButtonStuff
 
             if (_centerText)
             {
-                GeneratePositionsForLines(new Vector2(newTextPosX, Position.Y + BackGroundSprite.Height / 2 - combinedtext.TotalStringHeight));
+                GeneratePositionsForLines(new Vector2(newTextPosX, Position.Y + BackGroundSprite.Height / 2 - combinedtext.TotalStringHeight /4));
 
             }
 
