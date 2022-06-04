@@ -18,10 +18,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
         public IgniteActionTile(Tile tile, IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, intermediateTmxShape, actionType)
         {
             
-            if (tile.Sprite.GetType() == typeof(IntervalAnimatedSprite))
-            {
-                (tile.Sprite as IntervalAnimatedSprite).Paused = true;
-            }
+     
         }
 
         public override void Load()

@@ -28,18 +28,11 @@ namespace TiledEngine.Classes.TileAddons
         public bool FlaggedForDestruction { get; set; }
         public DestructableTile(Tile tile, IntermediateTmxShape intermediateTmxShape, string action) : base(tile,intermediateTmxShape, action)
         {
-     
-            if (IsAnimatedSprite())
-            {
-                (tile.Sprite as AnimatedSprite).Paused = true;
-            }
+    
             RequireLoopBeforeDestruction = true;
         }
 
-        private bool IsAnimatedSprite()
-        {
-            return Tile.Sprite != null && Tile.Sprite.GetType() == typeof(AnimatedSprite);
-        }
+
 
         public override void Update(GameTime gameTime)
         {
@@ -47,7 +40,7 @@ namespace TiledEngine.Classes.TileAddons
 
             if (PlayerInClickRange || PlayerInControllerActionRange)
                 Tile.WithinRangeOfPlayer = true;
-            if (IsAnimatedSprite() && (Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
+            if (Tile.HasAnimationFrames && (Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
             {
                 FlaggedForDestruction = true;
 
@@ -92,7 +85,7 @@ namespace TiledEngine.Classes.TileAddons
 
             if (RequireLoopBeforeDestruction)
             {
-                if (IsAnimatedSprite())
+          
                     (Tile.Sprite as AnimatedSprite).Paused = false;
             }
 

@@ -89,8 +89,7 @@ namespace TiledEngine.Classes
 
 
 
-                ////CREATE ANIMATION FRAMES
-                TileAnimationHelper.CheckForAnimationFrames(tile, tileManager, tileSetPackage, propertyString);
+              
 
                 if (tileSetTile.ObjectGroups.Count > 0)
                 {
@@ -132,7 +131,8 @@ namespace TiledEngine.Classes
 
                 }
 
-      
+                ////CREATE ANIMATION FRAMES
+                TileAnimationHelper.CheckForAnimationFrames(tile, tileManager, tileSetPackage, propertyString);
 
             }
 

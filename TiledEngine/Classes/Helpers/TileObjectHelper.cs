@@ -56,13 +56,7 @@ namespace TiledEngine.Classes.Helpers
                 tile.Addons.Add(TileActionFactory.GetActionTile(properties["action"], tile, tileManager, tmxShape, tileLayer));
 
             }
-            if (properties.ContainsKey("destructable"))
-            {
-                //Using layer here is fine because we haven't yet randomized it in tile utility
-         
-                tile.Addons.Add(new DestructableTile(tile, tmxShape, properties["destructable"]));
-                return;
-            }
+           
             if (properties.ContainsKey("furniture"))
             {
 

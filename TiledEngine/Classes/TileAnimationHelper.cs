@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes.Helpers;
+using TiledEngine.Classes.TileAddons;
 using TiledSharp;
 
 namespace TiledEngine.Classes
@@ -103,10 +104,14 @@ namespace TiledEngine.Classes
                 }
                 if (tile.Layer > 1)
                     tile.Layer = tile.Layer * .1f;
-                if(tile.GetCursorIconType() == InputEngine.Classes.CursorIconType.Break)
+
+        
+
+                if(tile.Addons.Any(x => x.GetType() == typeof(DestructableTile)))
                 {
                     tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
                   texture, frames, customLayer: tile.Layer, randomizeLayers: false);
+                    (tile.Sprite as AnimatedSprite).Paused = true;
                     return;
                 }
 

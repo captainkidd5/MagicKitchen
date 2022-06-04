@@ -110,6 +110,9 @@ namespace TiledEngine.Classes
             return null;
 
         }
+
+        internal bool HasAnimationFrames => TmxTileSetTile != null && TmxTileSetTile.AnimationFrames.Count > 0;
+    
         public void Update(GameTime gameTime, PathGrid pathGrid)
             {
                 WithinRangeOfPlayer = false;
