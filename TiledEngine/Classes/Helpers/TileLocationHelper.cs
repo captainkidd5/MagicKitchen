@@ -63,6 +63,35 @@ namespace TiledEngine.Classes.Helpers
             return clearPoints;
 
         }
+
+        internal static bool MayPlaceTile(PathGrid pathGrid,Rectangle destinationRectangleToPlace)
+        {
+            Rectangle body = destinationRectangleToPlace;
+            int bodyTilesWide = GetTilesWide(body);
+            int bodyTilesHigh = GetTilesHigh(body);
+
+            if (bodyTilesWide < 1)
+                bodyTilesWide = 1;
+
+            if (bodyTilesHigh < 1)
+                bodyTilesHigh = 1;
+            Point rectangleIndex = Vector2Helper.WorldPositionToTilePositionAsPoint(new Vector2(body.X, body.Y));
+            for (int i = 0; i < bodyTilesWide; i++)
+            {
+                for (int j = 0; j < bodyTilesHigh ; j++)
+                {
+
+
+                    if (pathGrid.X_IsValidIndex(rectangleIndex.X + i) && pathGrid.Y_IsValidIndex(rectangleIndex.Y +j))
+                    {
+                        if (!pathGrid.IsClear(rectangleIndex.X + i, rectangleIndex.Y + j))
+                            return false;
+                    }
+
+                }
+            }
+            return true;
+        }
         /// <summary>
         /// Updates the pathgrid for when an object will span more than a single tile
         /// </summary>

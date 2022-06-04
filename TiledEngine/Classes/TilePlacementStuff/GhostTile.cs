@@ -15,6 +15,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
 {
     internal class GhostTile
     {
+        public Tile CurrentTile { get; private set; }
         public int GID { get; set; } = -1;
 
         public int X { get; set; }
@@ -23,7 +24,10 @@ namespace TiledEngine.Classes.TilePlacementStuff
         private Sprite _sprite;
         private readonly TileManager _tileManager;
 
+        private bool _mayPlace;
+        private Vector2 _position;
 
+        private Rectangle _obstructedArea;
         public GhostTile(TileManager tileManager)
         {
             _tileManager = tileManager;
@@ -34,40 +38,51 @@ namespace TiledEngine.Classes.TilePlacementStuff
             GID = gid;
             int gidForSprite = GID;
             if (isForeGround)
-                gidForSprite = _tileManager.TileSetPackage.OffSetBackgroundGID(gidForSprite);
-            int tileSetDimension = _tileManager.TileSetPackage.GetDimension(gidForSprite);
+                gidForSprite = _tileManager.TileSetPackage.OffSetBackgroundGID(gidForSprite) + 1;
 
-            Rectangle sourceRectangle = TileUtility.GetTileSourceRectangle(
-                gidForSprite, _tileManager.TileSetPackage, tileSetDimension);
 
-            TmxTilesetTile tmxTileSetTile = _tileManager.TileSetPackage.GetTmxTileSetTile(gidForSprite);
-            if (tmxTileSetTile.Properties.ContainsKey("newSource"))
-            {
-                Rectangle propertySourceRectangle = TileObjectHelper.GetSourceRectangleFromTileProperty(
-                    tmxTileSetTile.Properties["newSource"]);
+            CurrentTile = new Tile(_tileManager, gidForSprite, Layers.foreground, .99f, 0, 0);
+            TileUtility.AssignProperties(CurrentTile, Layers.foreground);
 
-                sourceRectangle = TileRectangleHelper.AdjustSourceRectangle(sourceRectangle, propertySourceRectangle);
-            }
+
             _sprite = SpriteFactory.CreateWorldSprite(
-                Vector2.Zero, sourceRectangle, _tileManager.TileSetPackage.ForegroundSpriteSheet,
+                Vector2.Zero, CurrentTile.SourceRectangle, _tileManager.TileSetPackage.ForegroundSpriteSheet,
                 Color.White, customLayer: .99f);
+
+            _obstructedArea = 
         }
 
         public void ResetTileIfNotEmpty()
         {
             _sprite = null;
             GID = -1;
+            CurrentTile.Unload();
+            CurrentTile = null;
         }
         public void Update(GameTime gameTime, Vector2 position)
         {
             if (_sprite != null)
-                _sprite.Update(gameTime, new Vector2(_tileManager.MouseOverTile.Position.X,
-                    _tileManager.MouseOverTile.Position.Y - _sprite.Height / 2));
+            {
+                _position = new Vector2(_tileManager.MouseOverTile.Position.X,
+                    _tileManager.MouseOverTile.Position.Y - _sprite.Height / 2);
+                _sprite.Update(gameTime, _position);
+            }
+                
 
 
             //todo: check if area is clear
             if (GID >= 0)
             {
+                if (Controls.HasCursorTileIndexChanged)
+                {
+                    _mayPlace = TileLocationHelper.MayPlaceTile(_tileManager.PathGrid,
+                       new Rectangle((int)_position.X, (int)_position.Y, _sprite.Width, _sprite.Height));
+                    if (_mayPlace)
+                        _sprite.UpdateColor(Color.Green);
+                    else
+                        _sprite.UpdateColor(Color.Red);
+                }
+                   
                 if (Controls.IsClickedWorld)
                 {
 

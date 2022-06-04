@@ -29,6 +29,11 @@ namespace InputEngine.Classes
         private static GraphicsDevice Graphics;
         private static ContentManager Content;
         private static Camera2D Camera { get; set; }
+
+
+        public static bool HasCursorTileIndexChanged => OldCursorTileIndex != CursorTileIndex;
+        public static Point OldCursorTileIndex { get; private set; }
+
         public static Point CursorTileIndex { get; private set; }
 
         public static bool ClickActionTriggeredThisFrame { get; set; }
@@ -120,6 +125,8 @@ namespace InputEngine.Classes
 
         public static void Update(GameTime gameTime)
         {
+            OldCursorTileIndex = CursorTileIndex;
+
             GamePadCapabilities capabilities = GamePad.GetCapabilities(
                                               PlayerIndex.One);
             ControllerConnected = capabilities.IsConnected;
