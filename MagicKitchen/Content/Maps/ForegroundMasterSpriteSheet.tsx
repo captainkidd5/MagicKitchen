@@ -101,6 +101,7 @@
  </tile>
  <tile id="859">
   <properties>
+   <property name="IconType" value="Break"/>
    <property name="animate" value="pause"/>
    <property name="furniture" value="StorableFurniture,2,4"/>
    <property name="newHitBox" value="0,0,16,16"/>

@@ -333,7 +333,15 @@
             }
            
         
-        }
+        },
+        {
+            "Id": 3100,
+            "Name": "Chest",
+            "Description" : "Stores Items",
+            "MaxStackSize": 1,
+            "Price": 1
+            
+            }
 
 ]
 

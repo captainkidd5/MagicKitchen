@@ -42,7 +42,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
             AddPlacedItems(furnitureData, tile);
 
-           
+
         }
         /// <summary>
         /// Will set the storage slot at index to dissalow player from placing items into this slow (may still retrieve)
@@ -94,13 +94,13 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             for (int i = 0; i < PlacedItems.Count; i++)
             {
                 PlacedItem placedItem = PlacedItems[i];
-                if(FurnitureData.VisibleStorageIndicies != null)
+                if (FurnitureData.VisibleStorageIndicies != null)
                 {
                     //Assign visible storage slots based on passed in indicies from json
                     if (FurnitureData.VisibleStorageIndicies.Any(x => x.Index == i))
                         StorageContainer.Slots[i].HoldsVisibleFurnitureItem = true;
                 }
-               
+
 
                 if (placedItem.ItemId > 0)
                 {
@@ -128,7 +128,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             if (FurnitureData.VisibleStorageIndicies == null)
                 return Vector2.Zero;
             VisibleStorageIndex v = FurnitureData.VisibleStorageIndicies.FirstOrDefault(x => x.Index == index);
-            if(v == null)
+            if (v == null)
                 return Vector2.Zero;
             return new Vector2(v.XOffSet, v.YOffSet);
         }
@@ -153,55 +153,68 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public void AddItemAtIndex(int slotIndex, string itemName, int count)
         {
-            while(count > 0 && StorageContainer.Slots[slotIndex].Add(itemName))
+            while (count > 0 && StorageContainer.Slots[slotIndex].Add(itemName))
             {
                 count--;
-            } 
+            }
+
+        }
+        public override void Interact(bool isPlayer, Item heldItem)
+        {
+            base.Interact(isPlayer, heldItem);
+            if (!FlaggedForDestruction)
+            {
+                UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
+                //Subscribe to ui 
+                UI.StorageDisplayHandler.SecondaryStorageClosed += OnUIClosed;
+                (Tile.Sprite as AnimatedSprite).Paused = false;
+                (Tile.Sprite as AnimatedSprite).SetTargetFrame((Tile.Sprite as AnimatedSprite).AnimationFrames.Length - 1);
+            }
 
         }
         public override void Update(GameTime gameTime)
-    {
-        base.Update(gameTime);
-        if (!UI.IsHovered && IsHovered(Controls.ControllerConnected))
         {
-            UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
-            if ( Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
+            base.Update(gameTime);
+            //if (!UI.IsHovered && IsHovered(Controls.ControllerConnected))
+            //{
+            //    UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
+            //    if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
+            //    {
+            //        UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
+            //        //Subscribe to ui 
+            //        UI.StorageDisplayHandler.SecondaryStorageClosed += OnUIClosed;
+            //        (Tile.Sprite as AnimatedSprite).Paused = false;
+            //        (Tile.Sprite as AnimatedSprite).SetTargetFrame((Tile.Sprite as AnimatedSprite).AnimationFrames.Length - 1);
+
+
+            //    }
+            //}
+        }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            for (int i = 0; i < StorageContainer.Slots.Count; i++)
             {
-                UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
-                    //Subscribe to ui 
-                    UI.StorageDisplayHandler.SecondaryStorageClosed += OnUIClosed;
-                    (Tile.Sprite as AnimatedSprite).Paused = false;
-                    (Tile.Sprite as AnimatedSprite).SetTargetFrame((Tile.Sprite as AnimatedSprite).AnimationFrames.Length - 1);
+                if (StorageContainer.Slots[i].HoldsVisibleFurnitureItem)
+                    PlacedItems[i].Draw(spriteBatch);
 
-
-                }
             }
-    }
-    public override void Draw(SpriteBatch spriteBatch)
-    {
-        base.Draw(spriteBatch);
-        for (int i = 0; i < StorageContainer.Slots.Count; i++)
-        {
-            if (StorageContainer.Slots[i].HoldsVisibleFurnitureItem)
-                PlacedItems[i].Draw(spriteBatch);
 
         }
-
-    }
-    protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
-    {
-        return base.OnCollides(fixtureA, fixtureB, contact);
-    }
-
-    protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
-    {
-        base.OnSeparates(fixtureA, fixtureB, contact);
-        if (fixtureB.CollisionCategories.HasFlag(
-           (Category)PhysCat.FrontalSensor))
+        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            UI.DeactivateSecondaryInventoryDisplay();
+            return base.OnCollides(fixtureA, fixtureB, contact);
         }
-    }
+
+        protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            base.OnSeparates(fixtureA, fixtureB, contact);
+            if (fixtureB.CollisionCategories.HasFlag(
+               (Category)PhysCat.FrontalSensor))
+            {
+                UI.DeactivateSecondaryInventoryDisplay();
+            }
+        }
     }
 
 }

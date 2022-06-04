@@ -13,6 +13,17 @@
             </Loot>
         </Item>
         <Item>
+            <TileId>859</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Chest</ItemName>
+            <Quantity>1</Quantity>
+            <Weight>100</Weight>
+            </Item>
+
+            </Loot>
+        </Item>
+        <Item>
             <TileId>1834</TileId>
             <Loot>
             <Item Type="DataModels.LootData">
