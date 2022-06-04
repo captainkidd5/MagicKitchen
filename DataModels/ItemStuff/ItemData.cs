@@ -8,6 +8,7 @@ namespace DataModels.ItemStuff
 
     public enum ItemType
     {
+        None = 0,
         Axe = 21,
         Hammer = 22,
         Shovel = 23,
@@ -43,6 +44,8 @@ namespace DataModels.ItemStuff
         public RecipeInfo RecipeInfo { get; set; }
 
         public ToolTier ToolTier { get; set; }
+
+        public ItemType ItemType { get; set; }
         public void Load()
         {
             if(RecipeInfo != null)

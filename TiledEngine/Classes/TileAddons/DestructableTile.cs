@@ -39,8 +39,7 @@ namespace TiledEngine.Classes.TileAddons
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if(PlayerInClickRange)
-                Console.WriteLine("test");
+
             if (PlayerInClickRange || PlayerInControllerActionRange)
                 Tile.WithinRangeOfPlayer = true;
             if ((Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
@@ -58,6 +57,8 @@ namespace TiledEngine.Classes.TileAddons
             if (isPlayer)
             {
                 if (!PlayerInClickRange && !PlayerInControllerActionRange)
+                    return;
+                if (!MeetsItemRequirements(heldItem))
                     return;
             }
 

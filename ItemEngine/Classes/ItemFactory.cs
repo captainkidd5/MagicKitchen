@@ -18,10 +18,6 @@ using static Globals.Classes.Settings;
 
 namespace ItemEngine.Classes
 {
-    public enum ItemType
-    {
-        None = -1
-    }
     public static class ItemFactory
     {
         public static List<ItemData> ItemData { get; private set; }

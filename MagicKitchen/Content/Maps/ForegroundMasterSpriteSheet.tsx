@@ -207,6 +207,7 @@
  <tile id="1743">
   <properties>
    <property name="IconType" value="Break"/>
+   <property name="action" value="Break,Hammer,Good"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
@@ -227,13 +228,10 @@
  <tile id="1834">
   <properties>
    <property name="IconType" value="Break"/>
+   <property name="action" value="Break,Hammer,Good"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
-    <properties>
-     <property name="action" value="Break"/>
-     <property name="icon" value="Break"/>
-    </properties>
     <ellipse/>
    </object>
   </objectgroup>
@@ -266,11 +264,12 @@
  <tile id="1925">
   <properties>
    <property name="IconType" value="Break"/>
+   <property name="action" value="Break,Hammer,Good"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="2" x="5" y="3">
     <properties>
-     <property name="action" value="Break"/>
+     <property name="action" value="Break,Hammer,Good"/>
     </properties>
     <polygon points="0,0 9,2 9,8 1,9"/>
    </object>
@@ -295,11 +294,12 @@
  <tile id="2016">
   <properties>
    <property name="IconType" value="Break"/>
+   <property name="action" value="Break,Hammer,Good"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
-     <property name="action" value="Break"/>
+     <property name="action" value="Break,Good"/>
     </properties>
     <ellipse/>
    </object>

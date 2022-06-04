@@ -12,7 +12,8 @@
     "Description" : "Capable of smashing rocks and removing furniture",
     "MaxStackSize": 1,
     "Price": 25,
-    "ToolTier":"Good"
+    "ToolTier":"Good",
+    "ItemType": "Hammer"
 },
 {
     "Id": 900,

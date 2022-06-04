@@ -70,23 +70,36 @@ namespace TiledEngine.Classes.TileAddons.Actions
         /// returns ToolTier.Good
         /// else returns ToolTier.None
         /// </summary>
-        protected ToolTier GetToolTier()
+        private ToolTier GetRequiredToolTier()
         {
-            string property = Tile.GetProperty("destructable");
+            string property = Tile.GetProperty("action");
             string[] split = property.Split(',');
             if (split.Length > 0)
             {
                 string type = string.Empty;
-                ToolTier toolTier = (ToolTier)Enum.Parse(typeof(ToolTier), split[1]);
+                ToolTier toolTier = (ToolTier)Enum.Parse(typeof(ToolTier), split[2]);
                 return toolTier;
             }
             return ToolTier.None;
         }
 
-        //protected bool IsDestructable()
-        //{
+        private ItemType GetRequiredItemType()
+        {
+            string property = Tile.GetProperty("action");
+            string[] split = property.Split(',');
+            if (split.Length > 0)
+            {
+                string type = string.Empty;
+                ItemType toolTier = (ItemType)Enum.Parse(typeof(ItemType), split[1]);
+                return toolTier;
+            }
+            return ItemType.None;
+        }
 
-        //}
+        protected bool MeetsItemRequirements(Item item)
+        {
+            return item != null && item.ItemType == GetRequiredItemType() && item.ToolTier == GetRequiredToolTier();
+        }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             return base.OnCollides(fixtureA, fixtureB, contact);

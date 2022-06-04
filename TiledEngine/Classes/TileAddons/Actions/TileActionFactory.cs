@@ -14,7 +14,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
         public static ActionTile GetActionTile(string action, Tile tile, TileManager tileManager,
             IntermediateTmxShape intermediateTmxShape, Layers layer)
         {
-            switch (action)
+            switch (action.Split(',')[0])
             {
                 case "Ignite":
                     return new IgniteActionTile(tile, intermediateTmxShape, action);
