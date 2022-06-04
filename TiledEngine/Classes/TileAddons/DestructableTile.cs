@@ -57,8 +57,24 @@ namespace TiledEngine.Classes.TileAddons
                 DestroyTileAndGetLoot();
 
         }
+        protected override void AlterCursorAndAlertTile()
+        {
 
-  
+            //UI.Cursor.ChangeCursorIcon(Tile.GetCursorIconType());
+            Tile.AlertTileManagerCursorIconChanged();
+
+            if (MeetsItemRequirements(UI.PlayerCurrentSelectedItem))
+            {
+                UI.Cursor.ChangeCursorIcon(CursorIconType.Break);
+
+            }
+            //else
+            //{
+            //    UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
+
+            //}
+        }
+
 
 
         public override void Interact(bool isPlayer, Item heldItem)
@@ -72,7 +88,7 @@ namespace TiledEngine.Classes.TileAddons
             }
 
             if (!IsPlayingASound)
-                PlaySound(Tile.GetCursorIconType().ToString());
+                PlaySound(GetDestructionSoundName());
 
             if (RequireLoopBeforeDestruction)
             {

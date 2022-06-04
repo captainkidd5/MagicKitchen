@@ -61,10 +61,16 @@ namespace TiledEngine.Classes.TileAddons.Actions
             Move(IntermediateTmxShape.HullPosition);
             if (PlayerInClickRange && MouseHovering)
             {
-                UI.Cursor.ChangeCursorIcon(Tile.GetCursorIconType());
-
+                AlterCursorAndAlertTile();
             }
         }
+
+        protected virtual void AlterCursorAndAlertTile()
+        {
+            UI.Cursor.ChangeCursorIcon(Tile.GetCursorIconType());
+            Tile.AlertTileManagerCursorIconChanged();
+        }
+
         /// <summary>
         /// "Destructable - Rock,Good
         /// returns ToolTier.Good

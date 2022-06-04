@@ -53,7 +53,7 @@ namespace TiledEngine.Classes
         public List<PortalData> Portals { get; private set; }
 
         public TileLocator TileLocator { get; private set; }
-        internal PlacedItemManager PlacedItemManager { get; set; }
+        internal PlacedOnItemManager PlacedItemManager { get; set; }
 
         private Sprite TileSelectorSprite { get; set; }
 
@@ -68,7 +68,7 @@ namespace TiledEngine.Classes
             _camera = camera;
             _penumbra = penumbra;
             TileLocator = new TileLocator();
-            PlacedItemManager = new PlacedItemManager(this);
+            PlacedItemManager = new PlacedOnItemManager(this);
         }
 
         /// <summary>
@@ -154,12 +154,12 @@ namespace TiledEngine.Classes
         #endregion
         public Tile MouseOverTile { get; private set; }
 
-        private Tile _tileToInteractWith;
+        internal Tile TileToInteractWith { get; set; }
         public void Update(GameTime gameTime)
         {
             CalculateStartAndEndIndexes();
             CalculateMouseIndex();
-            _tileToInteractWith = null;
+            TileToInteractWith = null;
             for (int z = 0; z < Tiles.Count; z++)
             {
                 for (int x = StartX; x < EndX; x++)
@@ -180,22 +180,22 @@ namespace TiledEngine.Classes
 
         private void CheckMouseTileInteractions()
         {
-            Tile hoveredLayerTile = Tiles[Tiles.Count - 1][MouseX, MouseY];
+            //Tile hoveredLayerTile = Tiles[Tiles.Count - 1][MouseX, MouseY];
 
-            for (int z = Tiles.Count - 1; z > 0; z--)
-            {
-                hoveredLayerTile = Tiles[z][MouseX, MouseY];
-                if (CheckIfCursorIconChangedFromTile(hoveredLayerTile))
-                {
-                    _tileToInteractWith = hoveredLayerTile;
-                    break;
-                }
-            }
+            //for (int z = Tiles.Count - 1; z > 0; z--)
+            //{
+            //    hoveredLayerTile = Tiles[z][MouseX, MouseY];
+            //    if (CheckIfCursorIconChangedFromTile(hoveredLayerTile))
+            //    {
+            //        TileToInteractWith = hoveredLayerTile;
+            //        break;
+            //    }
+            //}
 
-            if (_tileToInteractWith != null)
+            if (TileToInteractWith != null)
             {
                 if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
-                    _tileToInteractWith.Interact(true, UI.PlayerCurrentSelectedItem);
+                    TileToInteractWith.Interact(true, UI.PlayerCurrentSelectedItem);
             }
         }
 

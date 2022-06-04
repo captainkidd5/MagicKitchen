@@ -39,7 +39,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             TotalStorageCapacity = 5;
             for (int i = 0; i < (TotalStorageCapacity); i++)
             {
-                PlacedItems.Add(new PlacedItem(i, tile));
+                PlacedItems.Add(new PlacedOnItem(i, tile));
             }
         }
 
@@ -59,7 +59,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         /// will get the item placed on the left side of the table
         /// </summary>
         /// <param name="directionSeatedAt">The side of the table the patron is at</param>
-        public PlacedItem GetPlacedItemFromSeatedDirection(Direction directionSeatedAt)
+        public PlacedOnItem GetPlacedItemFromSeatedDirection(Direction directionSeatedAt)
         {
             return PlacedItems[GetIndexFromSeating(directionSeatedAt)];
         }

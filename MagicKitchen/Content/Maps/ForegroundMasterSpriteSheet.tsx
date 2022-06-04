@@ -33,7 +33,6 @@
  </tile>
  <tile id="215">
   <properties>
-   <property name="IconType" value="Break"/>
    <property name="animate" value="pause"/>
    <property name="newSource" value="0,-32,16,48"/>
   </properties>

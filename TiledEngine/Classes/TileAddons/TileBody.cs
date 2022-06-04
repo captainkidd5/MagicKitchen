@@ -86,5 +86,10 @@ namespace TiledEngine.Classes.TileAddons
                     loot.ItemName, loot.Quantity, Vector2Helper.GetTossDirectionFromDirectionFacing(Enums.Direction.Up));
             }
         }
+
+        protected string GetDestructionSoundName()
+        {
+            return TileLoader.TileLootManager.GetLootData(Tile.GID).DestructionSoundPackageName;
+        }
     }
 }

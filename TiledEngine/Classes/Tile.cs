@@ -38,6 +38,7 @@ namespace TiledEngine.Classes
             string property = GetProperty("IconType");
             if (property == null)
                 return CursorIconType.None;
+            //now need to check that no peripherary cursor icon types exist (ex. destructable)
             return Cursor.GetCursorIconTypeFromString(property);
         }
         internal TmxTilesetTile TmxTileSetTile => TileSetPackage.GetTmxTileSetTile(GID);
@@ -80,6 +81,10 @@ namespace TiledEngine.Classes
 
         }
 
+        internal void AlertTileManagerCursorIconChanged()
+        {
+            TileManager.TileToInteractWith = this;
+        }
         /// <summary>
         /// 
         /// </summary>

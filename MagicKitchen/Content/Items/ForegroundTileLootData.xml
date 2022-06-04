@@ -8,9 +8,12 @@
             <ItemName>Furnace</ItemName>
             <Quantity>1</Quantity>
             <Weight>100</Weight>
+            
             </Item>
 
             </Loot>
+            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+
         </Item>
         <Item>
             <TileId>859</TileId>
@@ -22,6 +25,8 @@
             </Item>
 
             </Loot>
+            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+
         </Item>
         <Item>
             <TileId>1834</TileId>
@@ -37,6 +42,8 @@
             <Weight>50</Weight>
             </Item>
             </Loot>
+            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+
         </Item>
           <Item>
             <TileId>1743</TileId>
@@ -47,6 +54,8 @@
             <Weight>100</Weight>
             </Item>
             </Loot>
+            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+
         </Item>
          <Item>
             <TileId>1925</TileId>
@@ -62,6 +71,8 @@
             <Weight>50</Weight>
             </Item>
             </Loot>
+            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+
         </Item>
     </Asset>
 </XnaContent>

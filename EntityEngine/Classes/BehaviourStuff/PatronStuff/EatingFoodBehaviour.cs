@@ -17,7 +17,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
     internal class EatingFoodBehaviour : PBehaviourBase
     {
         //The item placed in front of the npc, not neccssarily what they want
-        private PlacedItem _placedItemGiven;
+        private PlacedOnItem _placedItemGiven;
 
         //The item the npc actually wants
 

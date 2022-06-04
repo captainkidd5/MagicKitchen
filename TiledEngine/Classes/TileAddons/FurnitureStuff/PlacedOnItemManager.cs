@@ -13,50 +13,50 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
     /// Each tilemanager maintains a dictionray of placed items (coffee mugs, posters, etc) which 
     /// get plopped onto things like tables. This is to avoid having to save tile addons directly
     /// </summary>
-    public class PlacedItemManager : ISaveable
+    public class PlacedOnItemManager : ISaveable
     {
-        private Dictionary<int, List<PlacedItem>> _placedItemDictionary;
+        private Dictionary<int, List<PlacedOnItem>> _placedItemDictionary;
         private readonly TileManager _tileManager;
 
-        public PlacedItemManager(TileManager tileManager)
+        public PlacedOnItemManager(TileManager tileManager)
         {
-            _placedItemDictionary = new Dictionary<int, List<PlacedItem>>();
+            _placedItemDictionary = new Dictionary<int, List<PlacedOnItem>>();
             _tileManager = tileManager;
         }
-        public void AddNewItem(PlacedItem placedItem)
+        public void AddNewItem(PlacedOnItem placedItem)
         {
             if (_placedItemDictionary.ContainsKey(placedItem.Key))
                 _placedItemDictionary[placedItem.Key].Add(placedItem);
             else
-                _placedItemDictionary.Add(placedItem.Key, new List<PlacedItem>() { placedItem });
+                _placedItemDictionary.Add(placedItem.Key, new List<PlacedOnItem>() { placedItem });
 
         }
 
-        public void Remove(PlacedItem placedItem)
+        public void Remove(PlacedOnItem placedItem)
         {
             _placedItemDictionary[placedItem.Key].Remove(placedItem);
             if (_placedItemDictionary[placedItem.Key].Count < 1)
                 _placedItemDictionary.Remove(placedItem.Key);
         }
-        public List<PlacedItem> GetPlacedItemsFromTile(Tile tile)
+        public List<PlacedOnItem> GetPlacedItemsFromTile(Tile tile)
         {
             if (_placedItemDictionary.ContainsKey(tile.GetKey()))
             {
                 return _placedItemDictionary[tile.GetKey()];
             }
-            return new List<PlacedItem>();
+            return new List<PlacedOnItem>();
         }
 
         public void Save(BinaryWriter writer)
         {
             writer.Write(_placedItemDictionary.Count);
 
-            foreach (KeyValuePair<int, List<PlacedItem>> kvp in _placedItemDictionary)
+            foreach (KeyValuePair<int, List<PlacedOnItem>> kvp in _placedItemDictionary)
             {
                 writer.Write(kvp.Value.Count);
                 writer.Write(kvp.Key);
 
-                foreach (PlacedItem items in kvp.Value)
+                foreach (PlacedOnItem items in kvp.Value)
                 {
 
                     items.Save(writer);
@@ -74,14 +74,14 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 int listCount = reader.ReadInt32();
                 if (listCount < 1)
                     throw new Exception($"List should either be null or greater than 0");
-                List<PlacedItem> placedItems = new List<PlacedItem>();
+                List<PlacedOnItem> placedItems = new List<PlacedOnItem>();
 
                 int key = reader.ReadInt32();
                 for (int j = 0; j < listCount; j++)
                 {
                     Tile tileTiedTo = _tileManager.GetTileFromTileKey(key);
 
-                    PlacedItem item = new PlacedItem(-1, tileTiedTo);
+                    PlacedOnItem item = new PlacedOnItem(-1, tileTiedTo);
                     item.LoadSave(reader);
                     placedItems.Add(item);
                 }

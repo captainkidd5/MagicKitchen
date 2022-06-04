@@ -20,7 +20,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
         private Direction _directionSeated; 
         //The item placed in front of the npc, not neccssarily what they want
-        private PlacedItem _placedItemGiven;
+        private PlacedOnItem _placedItemGiven;
 
         //The item the npc actually wants
         private ItemData _desiredItem;

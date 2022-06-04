@@ -10,6 +10,8 @@
             <Weight>100</Weight>
             </Item>
             </Loot>
+            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+
         </Item>
     </Asset>
 </XnaContent>

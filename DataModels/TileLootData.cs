@@ -8,5 +8,7 @@ namespace DataModels
     {
         public int TileId { get; set; }
         public List<LootData> Loot { get; set; }
+
+        public string DestructionSoundPackageName { get; set; }
     }
 }

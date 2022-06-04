@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
-    public class PlacedItem : ISaveable
+    public class PlacedOnItem : ISaveable
     {
 
         public int ListIndex { get; set; }
@@ -29,7 +29,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         private static readonly int s_Width = 14;
         public int Key => _tileTiedTo.GetKey();
 
-        public PlacedItem(int listIndex, Tile tileTiedTo)
+        public PlacedOnItem(int listIndex, Tile tileTiedTo)
         {
             ListIndex = listIndex;
             _tileTiedTo=tileTiedTo;

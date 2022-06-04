@@ -25,7 +25,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
     {
         protected StorageContainer StorageContainer;
 
-        public List<PlacedItem> PlacedItems { get; set; }
+        public List<PlacedOnItem> PlacedItems { get; set; }
 
         protected int MaxPlacedItems { get; set; } = 4;
 
@@ -39,7 +39,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             IntermediateTmxShape intermediateTmxShape, string actionType) :
             base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
         {
-            PlacedItems = new List<PlacedItem>();
+            PlacedItems = new List<PlacedOnItem>();
 
             AddPlacedItems(furnitureData, tile);
 
@@ -65,7 +65,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             TotalStorageCapacity = furnitureData.StorageRows * furnitureData.StorageColumns;
             for (int i = 0; i < TotalStorageCapacity; i++)
             {
-                PlacedItems.Add(new PlacedItem(i, tile));
+                PlacedItems.Add(new PlacedOnItem(i, tile));
             }
         }
         protected virtual void CreateStorageContainer()
@@ -82,7 +82,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
             }
             CreateStorageContainer();
-            List<PlacedItem> loadedPlacedItems = Tile.TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
+            List<PlacedOnItem> loadedPlacedItems = Tile.TileManager.PlacedItemManager.GetPlacedItemsFromTile(Tile);
             bool loadedItemsWereSavedAtLeastOnce = loadedPlacedItems.Count > 0;
             //Means there were some saved items here previously. Load those in instead of default load
             if (loadedPlacedItems.Count > 0)
@@ -94,7 +94,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
             for (int i = 0; i < PlacedItems.Count; i++)
             {
-                PlacedItem placedItem = PlacedItems[i];
+                PlacedOnItem placedItem = PlacedItems[i];
                 if (FurnitureData.VisibleStorageIndicies != null)
                 {
                     //Assign visible storage slots based on passed in indicies from json
@@ -161,6 +161,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         }
 
+        /// <summary>
+        /// Stored furniture also ejects all stored items when broken
+        /// </summary>
         protected override void DestroyTileAndGetLoot()
         {
 
