@@ -83,9 +83,9 @@ namespace TiledEngine.Classes
                 {
                     Rectangle propertySourceRectangle = TileObjectHelper.GetSourceRectangleFromTileProperty(propertyString);
 
-                    tile.SourceRectangle = TileRectangleHelper.AdjustSourceRectangle(TileRectangleHelper.GetNormalSourceRectangle(tileSetPackage.OffSetForegroundGID(tile.GID), tileSetDimension), propertySourceRectangle);
-                    tile.DestinationRectangle = TileRectangleHelper.AdjustDestinationRectangle(tile, propertySourceRectangle);
-                    tile.Position = (Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle));
+                    tile.SourceRectangle = TileRectangleHelper.AdjustSourceRectangle(tile.SourceRectangle, propertySourceRectangle);
+                    tile.DestinationRectangle = TileRectangleHelper.AdjustDestinationRectangle(tile.DestinationRectangle, propertySourceRectangle);
+                    tile.Position = Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle);
 
 
                 }
@@ -180,11 +180,6 @@ namespace TiledEngine.Classes
             else
                 tile.Layer = TileLoader.MapDepths[(int)layer];
 
-            //if(tile.Sprite.GetType() == typeof(AnimatedSpriteBase))
-            //{
-            //    AnimatedSpriteBase sprite = (AnimatedSpriteBase)tile.Sprite;
-            //    foreach(Animation)
-            //}
         }
 
         /// <summary>

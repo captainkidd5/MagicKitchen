@@ -46,10 +46,15 @@ namespace DataModels.ItemStuff
         public ToolTier ToolTier { get; set; }
 
         public ItemType ItemType { get; set; }
+
+        public int PlacedItemGID { get; set; } = -1;
+        public bool PlacedItemIsForeground { get; set; }
+        public bool PlaceableItem => PlacedItemGID > -1;
         public void Load()
         {
             if(RecipeInfo != null)
             RecipeInfo.Name = Name; 
+
         }
 
 

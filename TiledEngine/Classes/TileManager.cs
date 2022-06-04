@@ -71,7 +71,7 @@ namespace TiledEngine.Classes
             _penumbra = penumbra;
             TileLocator = new TileLocator();
             PlacedItemManager = new PlacedOnItemManager(this);
-            _tilePlacementManager = new TilePlacementManager();
+            _tilePlacementManager = new TilePlacementManager(this);
         }
 
         /// <summary>
@@ -179,6 +179,7 @@ namespace TiledEngine.Classes
             
             MouseOverTile = Tiles[0][MouseX, MouseY];
             TileSelectorSprite.Update(gameTime, new Vector2(MouseOverTile.DestinationRectangle.X, MouseOverTile.DestinationRectangle.Y));
+            _tilePlacementManager.Update(gameTime);
         }
 
         private void CheckMouseTileInteractions()
@@ -226,7 +227,7 @@ namespace TiledEngine.Classes
             }
             if (Flags.ShowTileSelector)
                 TileSelectorSprite.Draw(spriteBatch);
-
+            _tilePlacementManager.Draw(spriteBatch);
         }
 
 

@@ -29,7 +29,11 @@ namespace ItemEngine.Classes
         public string Description => _itemData.Description;
         public RecipeInfo RecipeInfo => _itemData.RecipeInfo;
 
-        public int FuelValue => _itemData.FuelValue;    
+        public int FuelValue => _itemData.FuelValue;
+
+        public int PlacedItemGID => _itemData.PlacedItemGID;
+        public bool PlacedItemIsForeground => _itemData.PlacedItemIsForeground;
+        public bool PlaceableItem => _itemData.PlaceableItem;
         internal Item(ItemData data)
         {
             _itemData = data;

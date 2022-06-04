@@ -58,9 +58,9 @@ namespace TiledEngine.Classes.Helpers
 
         }
 
-        public static Rectangle AdjustDestinationRectangle(Tile tile, Rectangle sourceRectangle)
+        public static Rectangle AdjustDestinationRectangle(Rectangle originalDestinationRectangle, Rectangle sourceRectangle)
         {
-            return new Rectangle(tile.DestinationRectangle.X + sourceRectangle.X, tile.DestinationRectangle.Y + sourceRectangle.Y,
+            return new Rectangle(originalDestinationRectangle.X + sourceRectangle.X, originalDestinationRectangle.Y + sourceRectangle.Y,
            sourceRectangle.Width, sourceRectangle.Height);
         }
 
