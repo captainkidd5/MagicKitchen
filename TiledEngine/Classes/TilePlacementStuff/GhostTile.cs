@@ -28,22 +28,20 @@ namespace TiledEngine.Classes.TilePlacementStuff
         {
            GID = gid;
             int tileSetDimension = _tileManager.TileSetPackage.GetDimension(GID);
-                Rectangle sourceRectangle;
-                 if (!_tileManager.TileSetPackage.IsForeground(GID))
-                sourceRectangle = TileRectangleHelper.GetBackgroundSourceRectangle(GID, tileSetDimension);
-            else
-                sourceRectangle = TileRectangleHelper.GetNormalSourceRectangle(
-                    _tileManager.TileSetPackage.OffSetForegroundGID(GID), tileSetDimension);
 
+            Rectangle sourceRectangle = TileUtility.GetTileSourceRectangle(
+                GID, _tileManager.TileSetPackage, tileSetDimension);
+
+            _sprite = SpriteFactory.CreateWorldSprite(Vector2.Zero, sourceRectangle, _tileManager.TileSetPackage.GetTexture(GID), Color.White);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Vector2 position)
         {
-
+            _sprite.Update(gameTime, position);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            _sprite.Draw(spriteBatch);
         }
     }
 }

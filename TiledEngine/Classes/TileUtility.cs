@@ -43,7 +43,14 @@ namespace TiledEngine.Classes
             tile.GID = newGid;
             AssignProperties(tile, layer);
         }
+        internal static Rectangle GetTileSourceRectangle(int gid, TileSetPackage tileSetPackage, int tileSetDimension)
+        {
+            if (!tileSetPackage.IsForeground(gid))
+                return TileRectangleHelper.GetBackgroundSourceRectangle(gid, tileSetDimension);
+            else
+                return TileRectangleHelper.GetNormalSourceRectangle(tileSetPackage.OffSetForegroundGID(gid), tileSetDimension);
 
+        }
         public static void AssignProperties(Tile tile, Layers layer)
         {
 
@@ -51,11 +58,7 @@ namespace TiledEngine.Classes
             TileManager tileManager = tile.TileManager;
             int tileSetDimension = tileSetPackage.GetDimension(tile.GID);
             Texture2D texture = tileSetPackage.GetTexture(tile.GID);
-            if (!tileSetPackage.IsForeground(tile.GID))
-                tile.SourceRectangle = TileRectangleHelper.GetBackgroundSourceRectangle(tile.GID, tileSetDimension);
-            else
-                tile.SourceRectangle = TileRectangleHelper.GetNormalSourceRectangle(tileSetPackage.OffSetForegroundGID(tile.GID), tileSetDimension);
-
+            tile.SourceRectangle = GetTileSourceRectangle(tile.GID, tileSetPackage, tileSetDimension);
             tile.DestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
             tile.Position = (Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle));
 
