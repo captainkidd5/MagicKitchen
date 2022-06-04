@@ -89,7 +89,10 @@ namespace TiledEngine.Classes.TileAddons
 
         protected string GetDestructionSoundName()
         {
-            return TileLoader.TileLootManager.GetLootData(Tile.GID).DestructionSoundPackageName;
+            string destructionSoundName = TileLoader.TileLootManager.GetLootData(Tile.GID).DestructionSoundPackageName;
+            if (string.IsNullOrEmpty(destructionSoundName))
+                throw new Exception($"Must provide a destruction sound name in tilelootdata.xml");
+            return destructionSoundName;
         }
     }
 }

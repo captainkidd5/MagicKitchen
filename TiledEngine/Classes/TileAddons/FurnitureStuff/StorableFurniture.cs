@@ -142,10 +142,13 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public void OnUIClosed()
         {
             UI.StorageDisplayHandler.SecondaryStorageClosed -= OnUIClosed;
-            (Tile.Sprite as AnimatedSprite).Paused = false;
 
-            (Tile.Sprite as AnimatedSprite).SetTargetFrame(0);
+            if (Tile.HasAnimationFrames)
+            {
+                (Tile.Sprite as AnimatedSprite).Paused = false;
 
+                (Tile.Sprite as AnimatedSprite).SetTargetFrame(0);
+            }
         }
         public void RemoveItemAtIndex(int slotIndex, int count)
         {
@@ -187,8 +190,13 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
                 //Subscribe to ui 
                 UI.StorageDisplayHandler.SecondaryStorageClosed += OnUIClosed;
+                if (Tile.HasAnimationFrames)
+                {
+
                 (Tile.Sprite as AnimatedSprite).Paused = false;
                 (Tile.Sprite as AnimatedSprite).SetTargetFrame((Tile.Sprite as AnimatedSprite).AnimationFrames.Length - 1);
+                }
+
             }
 
         }
