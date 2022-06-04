@@ -1,5 +1,6 @@
 ﻿using DataModels.ItemStuff;
 using DataModels.MapStuff;
+using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using ItemEngine.Classes;
 using ItemEngine.Classes.StorageStuff;
@@ -157,6 +158,22 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             {
                 count--;
             }
+
+        }
+
+        protected override void DestroyTileAndGetLoot()
+        {
+
+            foreach(var slot in StorageContainer.Slots)
+            {
+                if (!slot.Empty)
+                {
+                    Tile.TileManager.ItemManager.AddWorldItem(Position,
+                                  slot.Item.Name, slot.StoredCount, Vector2Helper.GetRandomDirection());
+                }
+               
+            }
+            base.DestroyTileAndGetLoot();
 
         }
         public override void Interact(bool isPlayer, Item heldItem)

@@ -118,6 +118,25 @@ namespace Globals.Classes.Helpers
                     throw new Exception(directionFacing.ToString() + " is invalid");
             }
         }
+
+        public static Vector2 GetRandomDirection()
+        {
+            Direction directionFacing = (Direction)Settings.Random.Next(1, 5);
+            switch (directionFacing)
+            {
+                case Direction.Down:
+                    return new Vector2(0, directionMagnitude);
+                case Direction.Up:
+                    return new Vector2(0, -directionMagnitude);
+                case Direction.Left:
+                    return new Vector2(-directionMagnitude, -10);
+                case Direction.Right:
+                    return new Vector2(directionMagnitude, -10);
+
+                default:
+                    throw new Exception(directionFacing.ToString() + " is invalid");
+            }
+        }
         public static void WriteVector2(BinaryWriter writer, Vector2 val)
         {
             writer.Write(val.X);

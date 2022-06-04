@@ -58,6 +58,7 @@ namespace TiledEngine.Classes.TileAddons
 
         }
 
+  
 
 
         public override void Interact(bool isPlayer, Item heldItem)

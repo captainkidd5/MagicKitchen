@@ -69,7 +69,7 @@ namespace TiledEngine.Classes.TileAddons
             //throw new NotImplementedException();
         }
 
-        protected void DestroyTileAndGetLoot()
+        protected virtual void DestroyTileAndGetLoot()
         {
             if (TileLoader.TileLootManager.HasLootData(Tile.GID))
                 GenerateLoot();
