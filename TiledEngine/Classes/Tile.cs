@@ -19,12 +19,6 @@ using static Globals.Classes.Settings;
 namespace TiledEngine.Classes
 {
 
-    public enum TileType
-    {
-        None = 0,
-        Basic = 1
-
-    }
     public class Tile
     {
 

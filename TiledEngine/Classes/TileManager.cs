@@ -19,6 +19,7 @@ using System.Text;
 using TiledEngine.Classes.Misc;
 using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
+using TiledEngine.Classes.TilePlacementStuff;
 using TiledEngine.Classes.ZoneStuff;
 using TiledSharp;
 using UIEngine.Classes;
@@ -41,6 +42,7 @@ namespace TiledEngine.Classes
         internal readonly PenumbraComponent _penumbra;
         internal readonly ItemManager ItemManager;
 
+        private TilePlacementManager _tilePlacementManager;
         public PathGrid PathGrid { get; private set; }
 
         internal TileSetPackage TileSetPackage { get; private set; }
@@ -69,6 +71,7 @@ namespace TiledEngine.Classes
             _penumbra = penumbra;
             TileLocator = new TileLocator();
             PlacedItemManager = new PlacedOnItemManager(this);
+            _tilePlacementManager = new TilePlacementManager();
         }
 
         /// <summary>
@@ -180,18 +183,6 @@ namespace TiledEngine.Classes
 
         private void CheckMouseTileInteractions()
         {
-            //Tile hoveredLayerTile = Tiles[Tiles.Count - 1][MouseX, MouseY];
-
-            //for (int z = Tiles.Count - 1; z > 0; z--)
-            //{
-            //    hoveredLayerTile = Tiles[z][MouseX, MouseY];
-            //    if (CheckIfCursorIconChangedFromTile(hoveredLayerTile))
-            //    {
-            //        TileToInteractWith = hoveredLayerTile;
-            //        break;
-            //    }
-            //}
-
             if (TileToInteractWith != null)
             {
                 if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
