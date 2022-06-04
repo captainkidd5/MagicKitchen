@@ -22,19 +22,24 @@ using static Globals.Classes.Settings;
 namespace TiledEngine.Classes.TileAddons
 {
 
-    internal class DestructableTile : ActionTile
+    public class DestructableTile : ActionTile
     {
-
+        protected bool RequireLoopBeforeDestruction { get; set; }
+        public bool FlaggedForDestruction { get; set; }
         public DestructableTile(Tile tile, IntermediateTmxShape intermediateTmxShape, string action) : base(tile,intermediateTmxShape, action)
         {
      
-            if (tile.Sprite.GetType() == typeof(AnimatedSprite))
+            if (IsAnimatedSprite())
             {
                 (tile.Sprite as AnimatedSprite).Paused = true;
             }
+            RequireLoopBeforeDestruction = true;
         }
 
-
+        private bool IsAnimatedSprite()
+        {
+            return Tile.Sprite != null && Tile.Sprite.GetType() == typeof(AnimatedSprite);
+        }
 
         public override void Update(GameTime gameTime)
         {
@@ -42,11 +47,14 @@ namespace TiledEngine.Classes.TileAddons
 
             if (PlayerInClickRange || PlayerInControllerActionRange)
                 Tile.WithinRangeOfPlayer = true;
-            if ((Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
+            if (IsAnimatedSprite() && (Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
             {
-                DestroyTileAndGetLoot();
+                FlaggedForDestruction = true;
 
             }
+
+            if(FlaggedForDestruction)
+                DestroyTileAndGetLoot();
 
         }
 
@@ -62,10 +70,18 @@ namespace TiledEngine.Classes.TileAddons
                     return;
             }
 
-                (Tile.Sprite as AnimatedSprite).Paused = false;
             if (!IsPlayingASound)
-            {
                 PlaySound(Tile.GetCursorIconType().ToString());
+
+            if (RequireLoopBeforeDestruction)
+            {
+                if (IsAnimatedSprite())
+                    (Tile.Sprite as AnimatedSprite).Paused = false;
+            }
+
+            else
+            {
+                FlaggedForDestruction = true;
 
 
             }

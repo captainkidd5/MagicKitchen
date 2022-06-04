@@ -89,6 +89,19 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 //}
             }
         }
+        /// <summary>
+        /// All Furniture can be broken down with a hammer
+        /// </summary>
+        /// <returns></returns>
+        protected override ItemType GetRequiredItemType()
+        {
+            return ItemType.Hammer;
+        }
+
+        protected override ToolTier GetRequiredToolTier()
+        {
+            return ToolTier.Poor;
+        }
         public override void Interact(bool isPlayer, Item heldItem)
         {
             base.Interact(isPlayer, heldItem);

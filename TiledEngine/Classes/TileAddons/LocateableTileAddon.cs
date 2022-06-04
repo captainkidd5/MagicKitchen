@@ -11,7 +11,7 @@ using TiledEngine.Classes.TileAddons.Actions;
 
 namespace TiledEngine.Classes.TileAddons
 {
-    public abstract class LocateableTileAddon : ActionTile
+    public abstract class LocateableTileAddon : DestructableTile
     {
      
         protected string Key;
@@ -21,7 +21,7 @@ namespace TiledEngine.Classes.TileAddons
         public LocateableTileAddon(Tile tile,
             IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, intermediateTmxShape, actionType)
         {
-    
+            RequireLoopBeforeDestruction = false;
         }
 
         public override void Load()

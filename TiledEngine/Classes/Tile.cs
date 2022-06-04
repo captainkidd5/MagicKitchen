@@ -36,7 +36,7 @@ namespace TiledEngine.Classes
         internal CursorIconType GetCursorIconType()
         {
             string property = GetProperty("IconType");
-            if(property == null)
+            if (property == null)
                 return CursorIconType.None;
             return Cursor.GetCursorIconTypeFromString(property);
         }
@@ -69,7 +69,7 @@ namespace TiledEngine.Classes
 
         internal Tile(TileManager tileManager, int gid, Layers indexLayer, float layer, int x, int y)
         {
-            
+
             GID = gid;
             Layer = layer;
             IndexLayer = indexLayer;
@@ -79,96 +79,114 @@ namespace TiledEngine.Classes
             TileManager = tileManager;
 
         }
-        internal string GetProperty(string key)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="useObjectSearch">If true, will search tile objects properties</param>
+        /// <returns></returns>
+        internal string GetProperty(string key, bool useObjectSearch = false)
         {
             if (TmxTileSetTile == null)
                 return null;
             if (TmxTileSetTile.Properties.ContainsKey(key))
                 return TmxTileSetTile.Properties[key];
-            return null;
-        }
-        public void Update(GameTime gameTime, PathGrid pathGrid)
-        {
-            WithinRangeOfPlayer = false;
-            Sprite.Update(gameTime, Position);
 
-            for (int i = 0; i < Addons.Count; i++)
+            if (useObjectSearch)
             {
-                Addons[i].Update(gameTime);
-            }
-
-#if DEBUG
-            if (Flags.DebugGrid)
-            {
-                if (pathGrid.Weight[X, Y] == (byte)GridStatus.Obstructed)
+                var objects = TmxTileSetTile.ObjectGroups[0].Objects;
+                for (int k = 0; k < objects.Count; k++)
                 {
-                    Sprite.UpdateColor(Color.Red);
+                    if (objects[k].Properties.ContainsKey(key))
+                        return objects[k].Properties[key];
                 }
             }
+            return null;
+
+        }
+        public void Update(GameTime gameTime, PathGrid pathGrid)
+            {
+                WithinRangeOfPlayer = false;
+                Sprite.Update(gameTime, Position);
+
+                for (int i = 0; i < Addons.Count; i++)
+                {
+                    Addons[i].Update(gameTime);
+                }
+
+#if DEBUG
+                if (Flags.DebugGrid)
+                {
+                    if (pathGrid.Weight[X, Y] == (byte)GridStatus.Obstructed)
+                    {
+                        Sprite.UpdateColor(Color.Red);
+                    }
+                }
 #endif
 
-        }
-        internal void Draw(SpriteBatch spriteBatch, Texture2D texture)
-        {
-            Sprite.Draw(spriteBatch);
-            for (int i = 0; i < Addons.Count; i++)
-            {
-                Addons[i].Draw(spriteBatch);
             }
+            internal void Draw(SpriteBatch spriteBatch, Texture2D texture)
+            {
+                Sprite.Draw(spriteBatch);
+                for (int i = 0; i < Addons.Count; i++)
+                {
+                    Addons[i].Draw(spriteBatch);
+                }
 
-           
 
-            //if (TileIndexDebug)
+
+                //if (TileIndexDebug)
                 //spriteBatch.DrawString(Game1.MainFont, X + "," + Y, Position, Color.Orange, 0f, Vector2.Zero, .35f, SpriteEffects.None, .99f);
-        }
-
-        /// <summary>
-        /// returns unique tile key thru bitwise shifting.
-        /// </summary>
-        /// <returns>Tile Key</returns>
-        internal int GetKey()
-        {
-            return ((X << 18) | (Y << 4) | ((int)IndexLayer << 0)); //14 bits for x and y, 4 bits for layer.
-        }
-
-        internal string GetTileKeyString(int layer, int x, int y)
-        {
-            return "" + X + "," + Y + "," + layer;
-        }
-
-
-        /// <summary>
-        /// Call at the end of assign properties.
-        /// </summary>
-        internal void Load()
-        {
-            foreach (ITileAddon addon in Addons)  
-                addon.Load();               
-        }
-        public void Interact(bool isPlayer, Item heldItem)
-        {
-            foreach (ITileAddon addon in Addons)
-                addon.Interact(isPlayer, heldItem);
-        }
-
-        public void Unload()
-        {
-            foreach(ITileAddon addon in Addons)
-            {
-                addon.CleanUp();
             }
-            Addons.Clear();
-            Sprite = null;
-            
+
+            /// <summary>
+            /// returns unique tile key thru bitwise shifting.
+            /// </summary>
+            /// <returns>Tile Key</returns>
+            internal int GetKey()
+            {
+                return ((X << 18) | (Y << 4) | ((int)IndexLayer << 0)); //14 bits for x and y, 4 bits for layer.
+            }
+
+            internal string GetTileKeyString(int layer, int x, int y)
+            {
+                return "" + X + "," + Y + "," + layer;
+            }
+
+
+            /// <summary>
+            /// Call at the end of assign properties.
+            /// </summary>
+            internal void Load()
+            {
+                foreach (ITileAddon addon in Addons)
+                    addon.Load();
+            }
+            public void Interact(bool isPlayer, Item heldItem)
+            {
+                foreach (ITileAddon addon in Addons)
+                    addon.Interact(isPlayer, heldItem);
+            }
+
+            public void Unload()
+            {
+                foreach (ITileAddon addon in Addons)
+                {
+                    addon.CleanUp();
+                }
+                Addons.Clear();
+                Sprite = null;
+
+            }
+
+            public List<ITileAddon> GetAddonsByType(Type t)
+            {
+                return Addons.Where(x => x.GetType() == t).ToList();
+            }
+
+
+
+
         }
-
-        public List<ITileAddon> GetAddonsByType(Type t)
-        {
-            return Addons.Where(x => x.GetType() == t).ToList();
-        }
-
-        
-
-
     }
-}

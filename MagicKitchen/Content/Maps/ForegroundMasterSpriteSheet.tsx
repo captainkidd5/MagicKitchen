@@ -33,6 +33,7 @@
  </tile>
  <tile id="215">
   <properties>
+   <property name="IconType" value="Break"/>
    <property name="animate" value="pause"/>
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
@@ -207,12 +208,11 @@
  <tile id="1743">
   <properties>
    <property name="IconType" value="Break"/>
-   <property name="action" value="Break,Hammer,Good"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
-     <property name="action" value="Break"/>
+     <property name="action" value="Break,Hammer,Good"/>
     </properties>
     <ellipse/>
    </object>
@@ -228,10 +228,12 @@
  <tile id="1834">
   <properties>
    <property name="IconType" value="Break"/>
-   <property name="action" value="Break,Hammer,Good"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
     <ellipse/>
    </object>
   </objectgroup>
@@ -249,7 +251,7 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
-     <property name="action" value="Break"/>
+     <property name="action" value="Break,Hammer,Good"/>
     </properties>
     <ellipse/>
    </object>
@@ -264,7 +266,6 @@
  <tile id="1925">
   <properties>
    <property name="IconType" value="Break"/>
-   <property name="action" value="Break,Hammer,Good"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="2" x="5" y="3">
@@ -294,12 +295,11 @@
  <tile id="2016">
   <properties>
    <property name="IconType" value="Break"/>
-   <property name="action" value="Break,Hammer,Good"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
-     <property name="action" value="Break,Good"/>
+     <property name="action" value="Break,Hammer,Good"/>
     </properties>
     <ellipse/>
    </object>

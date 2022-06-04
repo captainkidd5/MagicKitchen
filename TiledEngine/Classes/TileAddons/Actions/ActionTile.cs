@@ -70,9 +70,9 @@ namespace TiledEngine.Classes.TileAddons.Actions
         /// returns ToolTier.Good
         /// else returns ToolTier.None
         /// </summary>
-        private ToolTier GetRequiredToolTier()
+        protected virtual ToolTier GetRequiredToolTier()
         {
-            string property = Tile.GetProperty("action");
+            string property = Tile.GetProperty("action", true);
             string[] split = property.Split(',');
             if (split.Length > 0)
             {
@@ -83,9 +83,9 @@ namespace TiledEngine.Classes.TileAddons.Actions
             return ToolTier.None;
         }
 
-        private ItemType GetRequiredItemType()
+        protected virtual ItemType GetRequiredItemType()
         {
-            string property = Tile.GetProperty("action");
+            string property = Tile.GetProperty("action", true);
             string[] split = property.Split(',');
             if (split.Length > 0)
             {
@@ -98,7 +98,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
 
         protected bool MeetsItemRequirements(Item item)
         {
-            return item != null && item.ItemType == GetRequiredItemType() && item.ToolTier == GetRequiredToolTier();
+            return item != null && item.ItemType == GetRequiredItemType() && item.ToolTier >= GetRequiredToolTier();
         }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {

@@ -153,11 +153,13 @@ namespace TiledEngine.Classes
         private int MouseY { get; set; }
         #endregion
         public Tile MouseOverTile { get; private set; }
+
+        private Tile _tileToInteractWith;
         public void Update(GameTime gameTime)
         {
             CalculateStartAndEndIndexes();
             CalculateMouseIndex();
-            Tile tileToInteractWith = null;
+            _tileToInteractWith = null;
             for (int z = 0; z < Tiles.Count; z++)
             {
                 for (int x = StartX; x < EndX; x++)
@@ -167,20 +169,34 @@ namespace TiledEngine.Classes
                         Tiles[z][x, y].Update(gameTime, PathGrid);
                     }
                 }
-                Tile hoveredLayerTile = Tiles[z][MouseX, MouseY];
-                if (UI.Cursor.CursorIconType == CursorIconType.None && CheckIfCursorIconChangedFromTile(hoveredLayerTile))
-                {
-                    tileToInteractWith = hoveredLayerTile;
 
-                }
             }
-            if (tileToInteractWith != null)
-            {
-                if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
-                    tileToInteractWith.Interact(true, UI.PlayerCurrentSelectedItem);
-            }
+            CheckMouseTileInteractions();
+
+            
             MouseOverTile = Tiles[0][MouseX, MouseY];
             TileSelectorSprite.Update(gameTime, new Vector2(MouseOverTile.DestinationRectangle.X, MouseOverTile.DestinationRectangle.Y));
+        }
+
+        private void CheckMouseTileInteractions()
+        {
+            Tile hoveredLayerTile = Tiles[Tiles.Count - 1][MouseX, MouseY];
+
+            for (int z = Tiles.Count - 1; z > 0; z--)
+            {
+                hoveredLayerTile = Tiles[z][MouseX, MouseY];
+                if (CheckIfCursorIconChangedFromTile(hoveredLayerTile))
+                {
+                    _tileToInteractWith = hoveredLayerTile;
+                    break;
+                }
+            }
+
+            if (_tileToInteractWith != null)
+            {
+                if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
+                    _tileToInteractWith.Interact(true, UI.PlayerCurrentSelectedItem);
+            }
         }
 
         /// <summary>
@@ -190,14 +206,16 @@ namespace TiledEngine.Classes
         /// <param name="hoveredLayerTile"></param>
         private bool CheckIfCursorIconChangedFromTile(Tile hoveredLayerTile)
         {
+          
             CursorIconType iconType = hoveredLayerTile.GetCursorIconType();
             if (hoveredLayerTile.WithinRangeOfPlayer && iconType != CursorIconType.None)
             {
                 if (UI.Cursor.CursorIconType != iconType)
                 {
                     UI.Cursor.ChangeCursorIcon(iconType);
-                    return true;
                 }
+                return true;
+
             }
             return false;
         }
