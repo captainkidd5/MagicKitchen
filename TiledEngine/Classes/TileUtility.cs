@@ -35,12 +35,12 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Default gid is blank tile
         /// </summary>
-        public static void SwitchGid(Tile tile,Layers layer, int newGid = 0)
+        public static void SwitchGid(Tile tile,Layers layer, int newGid = -1)
         {
             tile.Unload();
             tile.Sprite = null;
             // tile = new Tile(newGid, MapDepths[(int)layer], tile.X, tile.Y);
-            tile.GID = newGid;
+            tile.GID = newGid + 1;
             AssignProperties(tile, layer);
         }
         internal static Rectangle GetTileSourceRectangle(int gid, TileSetPackage tileSetPackage, int tileSetDimension)
@@ -51,6 +51,7 @@ namespace TiledEngine.Classes
                 return TileRectangleHelper.GetNormalSourceRectangle(tileSetPackage.OffSetForegroundGID(gid), tileSetDimension);
 
         }
+  
         public static void AssignProperties(Tile tile, Layers layer)
         {
 

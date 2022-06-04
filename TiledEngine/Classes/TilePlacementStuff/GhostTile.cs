@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using InputEngine.Classes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
 using System;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes.Helpers;
 using TiledSharp;
+using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TilePlacementStuff
 {
@@ -15,7 +17,6 @@ namespace TiledEngine.Classes.TilePlacementStuff
     {
         public int GID { get; set; } = -1;
 
-        public bool ContainsItem => GID >= 0;
         public int X { get; set; }
         public int Y { get; set; }
 
@@ -30,25 +31,26 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
         public void LoadNewTile(int gid, bool isForeGround)
         {
-           GID = gid;
+            GID = gid;
             int gidForSprite = GID;
-            if(isForeGround)
+            if (isForeGround)
                 gidForSprite = _tileManager.TileSetPackage.OffSetBackgroundGID(gidForSprite);
             int tileSetDimension = _tileManager.TileSetPackage.GetDimension(gidForSprite);
 
             Rectangle sourceRectangle = TileUtility.GetTileSourceRectangle(
                 gidForSprite, _tileManager.TileSetPackage, tileSetDimension);
 
-            TmxTilesetTile tmxTileSetTile= _tileManager.TileSetPackage.GetTmxTileSetTile(gidForSprite);
+            TmxTilesetTile tmxTileSetTile = _tileManager.TileSetPackage.GetTmxTileSetTile(gidForSprite);
             if (tmxTileSetTile.Properties.ContainsKey("newSource"))
             {
-                Rectangle propertySourceRectangle = TileObjectHelper.GetSourceRectangleFromTileProperty(tmxTileSetTile.Properties["newSource"]);
+                Rectangle propertySourceRectangle = TileObjectHelper.GetSourceRectangleFromTileProperty(
+                    tmxTileSetTile.Properties["newSource"]);
 
                 sourceRectangle = TileRectangleHelper.AdjustSourceRectangle(sourceRectangle, propertySourceRectangle);
             }
             _sprite = SpriteFactory.CreateWorldSprite(
                 Vector2.Zero, sourceRectangle, _tileManager.TileSetPackage.ForegroundSpriteSheet,
-                Color.White,customLayer: .99f);
+                Color.White, customLayer: .99f);
         }
 
         public void ResetTileIfNotEmpty()
@@ -58,12 +60,23 @@ namespace TiledEngine.Classes.TilePlacementStuff
         }
         public void Update(GameTime gameTime, Vector2 position)
         {
-            if(_sprite != null)
-            _sprite.Update(gameTime,new Vector2( _tileManager.MouseOverTile.Position.X ,
-                _tileManager.MouseOverTile.Position.Y - _sprite.Height / 2));
+            if (_sprite != null)
+                _sprite.Update(gameTime, new Vector2(_tileManager.MouseOverTile.Position.X,
+                    _tileManager.MouseOverTile.Position.Y - _sprite.Height / 2));
 
-            if(ContainsItem)
+
+            //todo: check if area is clear
+            if (GID >= 0)
             {
+                if (Controls.IsClickedWorld)
+                {
+
+                    if (!Controls.ClickActionTriggeredThisFrame)
+                    {
+                        Tile tile = _tileManager.GetTileFromWorldPosition(_tileManager.MouseOverTile.Position, Layers.foreground);
+                        TileUtility.SwitchGid(tile, Layers.foreground, _tileManager.TileSetPackage.OffSetBackgroundGID(GID));
+                    }
+                }
 
             }
         }

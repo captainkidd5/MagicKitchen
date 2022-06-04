@@ -49,7 +49,7 @@ namespace TiledEngine.Classes
             }
             if (gidToSwapTo < 0)
                 return;
-            TileUtility.SwitchGid(tile, tile.IndexLayer, gidToSwapTo + 1);
+            TileUtility.SwitchGid(tile, tile.IndexLayer, gidToSwapTo );
             return;
 
         }
