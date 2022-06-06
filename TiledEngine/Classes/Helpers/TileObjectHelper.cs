@@ -19,7 +19,7 @@ namespace TiledEngine.Classes.Helpers
         /// <summary>
         /// Handles Tmx Object Groups by adding them to the tile's collision list. Updates pathgrid accordingly.
         /// </summary>
-        internal static void AddObjectsFromObjectGroups(Tile tile, Layers tileLayer, TileManager tileManager, TmxTilesetTile tileSetTile)
+        internal static void AddObjectsFromObjectGroups(Tile tile, Layers tileLayer, TileManager tileManager, TmxTilesetTile tileSetTile, bool tempTile)
         {
             for (int k = 0; k < tileSetTile.ObjectGroups[0].Objects.Count; k++)
             {
@@ -39,17 +39,18 @@ namespace TiledEngine.Classes.Helpers
                 IntermediateTmxShape intermediateTmxShape = GetIntermediateShape(tile, tempObjBody, tempObj.ObjectType, vertices);
 
 
-                CreateTileBodies(tile, tileLayer, tileManager, intermediateTmxShape, tempObj.Properties);
+                CreateTileBodies(tile, tileLayer, tileManager, intermediateTmxShape, tempObj.Properties, tempTile);
 
             }
         }
 
      
-        private static void CreateTileBodies(Tile tile, Layers tileLayer, TileManager tileManager, IntermediateTmxShape tmxShape, Dictionary<string, string> properties)
+        private static void CreateTileBodies(Tile tile, Layers tileLayer, TileManager tileManager, IntermediateTmxShape tmxShape, Dictionary<string, string> properties, bool tempTile)
         {
       
             Rectangle tileDestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
-            TileLocationHelper.UpdateMultiplePathGrid(tileManager, tmxShape.ColliderRectangle);
+            if(!tempTile)
+                TileLocationHelper.UpdateMultiplePathGrid(tileManager, tmxShape.ColliderRectangle, GridStatus.Obstructed);
 
             if (properties.ContainsKey("action"))
             {
@@ -75,9 +76,9 @@ namespace TiledEngine.Classes.Helpers
         /// <summary>
         /// For use with tile properties such as "newHitBox". Updates pathgrid accordingly.
         /// </summary>
-        internal static void AddObjectFromProperty(Tile tile, Layers layer,Dictionary<string,string> tileProperties, TileManager tileManager,string info)
+        internal static void AddObjectFromProperty(Tile tile, Layers layer,Dictionary<string,string> tileProperties, TileManager tileManager,string info, bool tempTile)
         {
-            CreateTileBodies(tile, layer, tileManager, GetShapeFromNewHitBox(tile, info), tileProperties);
+            CreateTileBodies(tile, layer, tileManager, GetShapeFromNewHitBox(tile, info), tileProperties, tempTile);
 
         }
 

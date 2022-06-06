@@ -216,6 +216,16 @@
                 
                 },
                 {
+                    "Id": 3001,
+                    "Name": "Crafting_Table",
+                    "Description" : "Craft more items!",
+                    "MaxStackSize": 1,
+                    "Price": 1,
+                     "PlacedItemGID" : 1215,
+                     "PlacedItemIsForeground" : true
+                    
+                    },
+                {
                     "Id": 3002,
                     "Name": "Furnace",
                     "Description" : "Smelts ores into Ingots",

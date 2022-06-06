@@ -170,17 +170,17 @@ namespace MagicKitchen
             if (UI.GameDisplayState == GameDisplayState.InGame)
             {
 
-                if (Flags.EnableShadows && Flags.IsNightTime)
-                {
-                    Penumbra.BeginDraw();
-                }
+                //if (Flags.EnableShadows && Flags.IsNightTime)
+                //{
+                //    Penumbra.BeginDraw();
+                //}
                 _stageManager.Draw(_spriteBatch, gameTime);
-                if (Flags.EnableShadows && Flags.IsNightTime)
-                {
-                    Penumbra.Transform = Camera.GetTransform(GraphicsDevice);
-                    Penumbra.Draw(gameTime);
+                //if (Flags.EnableShadows && Flags.IsNightTime)
+                //{
+                //    Penumbra.Transform = Camera.GetTransform(GraphicsDevice);
+                //    Penumbra.Draw(gameTime);
 
-                }
+                //}
 
             }
 

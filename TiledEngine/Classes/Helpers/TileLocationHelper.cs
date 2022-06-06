@@ -24,11 +24,7 @@ namespace TiledEngine.Classes.Helpers
             int bodyTilesWide = GetTilesWide(body);
             int bodyTilesHigh = GetTilesHigh(body);
 
-            if (bodyTilesWide < 1)
-                bodyTilesWide = 1;
 
-            if (bodyTilesHigh < 1)
-                bodyTilesHigh = 1;
             Point rectangleIndex = Vector2Helper.WorldPositionToTilePositionAsPoint(new Vector2(body.X, body.Y));
             for (int i = -1; i < bodyTilesWide + 1; i++)
             {
@@ -70,11 +66,6 @@ namespace TiledEngine.Classes.Helpers
             int bodyTilesWide = GetTilesWide(body);
             int bodyTilesHigh = GetTilesHigh(body);
 
-            if (bodyTilesWide < 1)
-                bodyTilesWide = 1;
-
-            if (bodyTilesHigh < 1)
-                bodyTilesHigh = 1;
             Point rectangleIndex = Vector2Helper.WorldPositionToTilePositionAsPoint(new Vector2(body.X, body.Y));
             for (int i = 0; i < bodyTilesWide; i++)
             {
@@ -95,22 +86,20 @@ namespace TiledEngine.Classes.Helpers
         /// <summary>
         /// Updates the pathgrid for when an object will span more than a single tile
         /// </summary>
-        internal static void UpdateMultiplePathGrid(TileManager tileManager,Rectangle body)
+        internal static void UpdateMultiplePathGrid(TileManager tileManager,Rectangle body, GridStatus gridStatus)
         {
             //how many tiles this body spans
             int bodyTilesWide = GetTilesWide(body);
             int bodyTilesHigh = GetTilesHigh(body);
-            if (bodyTilesWide < 1)
-                bodyTilesWide = 1;
+       
 
-            if (bodyTilesHigh < 1)
-                bodyTilesHigh = 1;
+       
             Point rectangleIndex = Vector2Helper.WorldPositionToTilePositionAsPoint(new Vector2(body.X, body.Y));
             for (int i = 0; i < bodyTilesWide; i++)
             {
                 for (int j = 0; j < bodyTilesHigh; j++)
                 {
-                    tileManager.UpdateGrid(rectangleIndex.X + i, rectangleIndex.Y + j, GridStatus.Obstructed);
+                    tileManager.UpdateGrid(rectangleIndex.X + i, rectangleIndex.Y + j, gridStatus);
 
                 }
             }
@@ -118,12 +107,18 @@ namespace TiledEngine.Classes.Helpers
 
         private static int GetTilesHigh(Rectangle body)
         {
-            return (int)(((float)body.Height / (float)Settings.TileSize) + .5f);
+            int high = (int)(((float)body.Height / (float)Settings.TileSize) + .5f);
+            if(high < 1)
+                high = 1;
+            return high;
         }
 
         private static int GetTilesWide(Rectangle body)
         {
-            return (int)(((float)body.Width / (float)Settings.TileSize) + .5f);
+            int wide = (int)(((float)body.Width / (float)Settings.TileSize) + .5f);
+            if (wide < 1)
+                wide = 1;
+            return wide;
         }
     }
 }

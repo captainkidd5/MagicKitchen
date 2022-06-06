@@ -50,6 +50,7 @@ namespace PhysicsEngine.Classes.Pathfinding
 
             if (X_IsValidIndex(indexI) && Y_IsValidIndex(indexJ))
             {
+                GridStatus oldStatus = (GridStatus)Weight[indexI, indexJ];
                 Weight[indexI, indexJ] = (byte)newValue;
                 return;
             }
@@ -159,14 +160,20 @@ namespace PhysicsEngine.Classes.Pathfinding
             return null;         
         }
 
+        /// <summary>
+        /// DO NOT USE THIS, see <see cref="Tile."/>
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void DrawDebug(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < Weight.GetLength(0); i++)
             {
                 for (int j = 0; j < Weight.GetLength(1); j++)
                 {
-                    //if (Weight[i, j] == (int)GridStatus.Obstructed)
-                    //spriteBatch.Draw(Settings.DebugTexture, new Rectangle(i * Settings.TileSize, j * Settings.TileSize, Settings.TileSize, Settings.TileSize), null, Color.Red, 0f, Vector2.One, SpriteEffects.None, layerDepth: .99f);
+
+                    if (Weight[i, j] == (int)GridStatus.Obstructed)
+                        spriteBatch.Draw(Settings.DebugTexture, new Rectangle((i + 1) * Settings.TileSize,
+                            (j + 1) * Settings.TileSize, Settings.TileSize, Settings.TileSize), null, Color.Red, 0f, Vector2.One, SpriteEffects.None, layerDepth: .99f);
                 }
             }
         }

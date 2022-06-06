@@ -43,14 +43,16 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
 
             CurrentTile = new Tile(_tileManager, gidForSprite, Layers.foreground, .99f, 0, 0);
-            TileUtility.AssignProperties(CurrentTile, Layers.foreground);
+            TileUtility.AssignProperties(CurrentTile, Layers.foreground, true);
 
 
             _sprite = SpriteFactory.CreateWorldSprite(
                 Vector2.Zero, CurrentTile.SourceRectangle, _tileManager.TileSetPackage.ForegroundSpriteSheet,
                 Color.White, customLayer: .99f);
 
-            //_obstructedArea = 
+            //Update once so that changing to valid placed item will immediately show if can place under cursor
+            //without actually having to move cursor
+            UpdateMayPlace();
         }
 
         public void ResetTileIfNotEmpty()
@@ -64,29 +66,14 @@ namespace TiledEngine.Classes.TilePlacementStuff
         public void Update(GameTime gameTime, Vector2 position)
         {
 
-
-
             //todo: check if area is clear
             if (GID >= 0)
             {
                 if (Controls.HasCursorTileIndexChanged)
                 {
-                    _obstructedArea = CurrentTile.GetTotalHitBoxRectangle();
-                    _obstructedArea = new Rectangle((int)_position.X,
-                           (int)_position.Y, _obstructedArea.Width, _obstructedArea.Height);
-                    _position = new Vector2(_tileManager.MouseOverTile.Position.X,
-                        _tileManager.MouseOverTile.Position.Y - _sprite.Height + _obstructedArea.Height);
-                    _sprite.Update(gameTime, _position);
-
-
-
-                    _mayPlace = TileLocationHelper.MayPlaceTile(_tileManager.PathGrid, RectangleHelper.RectangleFromPosition(
-                        new Vector2(_position.X, _position.Y + _sprite.Height - _obstructedArea.Height), _obstructedArea.Width, _obstructedArea.Height));
-                    if (_mayPlace)
-                        _sprite.UpdateColor(Color.Green);
-                    else
-                        _sprite.UpdateColor(Color.Red);
+                    UpdateMayPlace();
                 }
+                _sprite.Update(gameTime, _position);
 
                 if (Controls.IsClickedWorld)
                 {
@@ -104,6 +91,24 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
             }
         }
+
+        private void UpdateMayPlace()
+        {
+            _obstructedArea = CurrentTile.GetTotalHitBoxRectangle(_position);
+
+            _position = new Vector2(_tileManager.MouseOverTile.Position.X,
+                _tileManager.MouseOverTile.Position.Y - _sprite.Height + _obstructedArea.Height);
+
+
+
+            _mayPlace = TileLocationHelper.MayPlaceTile(_tileManager.PathGrid, RectangleHelper.RectFromPosition(
+                new Vector2(_position.X, _position.Y + _sprite.Height - _obstructedArea.Height), _obstructedArea.Width, _obstructedArea.Height));
+            if (_mayPlace)
+                _sprite.UpdateColor(Color.Green);
+            else
+                _sprite.UpdateColor(Color.Red);
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             if (GID >= 0)

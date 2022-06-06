@@ -73,9 +73,17 @@ namespace TiledEngine.Classes.TileAddons
         {
             if (TileLoader.TileLootManager.HasLootData(Tile.GID))
                 GenerateLoot();
+                             
+            if(IntermediateTmxShape.GetBoundingRectangle().Width <= Settings.TileSize)
+                TileLocationHelper.UpdateMultiplePathGrid(Tile.TileManager, Tile.GetTotalHitBoxRectangle(Position), GridStatus.Clear);
+            else
+                TileLocationHelper.UpdateMultiplePathGrid(Tile.TileManager, Tile.GetTotalHitBoxRectangle(), GridStatus.Clear);
+
+            
+
             TileUtility.SwitchGid(Tile,IndexLayer);
-            //TODO: May need to updae more than a single point in the grid if the tile body extends more than a point?
-            Tile.TileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
+
+
         }
         protected void GenerateLoot()
         {

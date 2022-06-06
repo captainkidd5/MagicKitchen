@@ -15,6 +15,20 @@
             <DestructionSoundPackageName>Break</DestructionSoundPackageName>
 
         </Item>
+         <Item>
+            <TileId>1215</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Crafting_Table</ItemName>
+            <Quantity>1</Quantity>
+            <Weight>100</Weight>
+            
+            </Item>
+
+            </Loot>
+            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+
+        </Item>
         <Item>
             <TileId>859</TileId>
             <Loot>
@@ -74,19 +88,6 @@
             <DestructionSoundPackageName>Break</DestructionSoundPackageName>
 
         </Item>
-          <Item>
-            <TileId>1215</TileId>
-            <Loot>
-            <Item Type="DataModels.LootData">
-            <ItemName>Furnace</ItemName>
-            <Quantity>1</Quantity>
-            <Weight>100</Weight>
-            
-            </Item>
 
-            </Loot>
-            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
-
-        </Item>
     </Asset>
 </XnaContent>

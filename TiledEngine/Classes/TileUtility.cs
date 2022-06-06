@@ -52,7 +52,11 @@ namespace TiledEngine.Classes
 
         }
   
-        public static void AssignProperties(Tile tile, Layers layer)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tempTile">Setting this to true will prevent the grid status from updating, good for ghost tile</param>
+        public static void AssignProperties(Tile tile, Layers layer, bool tempTile = false)
         {
 
             TileSetPackage tileSetPackage = tile.TileSetPackage;
@@ -99,7 +103,7 @@ namespace TiledEngine.Classes
                 {
 
 
-                    TileObjectHelper.AddObjectsFromObjectGroups(tile, layer, tileManager, tileSetTile);
+                    TileObjectHelper.AddObjectsFromObjectGroups(tile, layer, tileManager, tileSetTile, tempTile);
 
 
                 }
@@ -107,7 +111,7 @@ namespace TiledEngine.Classes
                 propertyString = "newHitBox";
                 if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
-                    TileObjectHelper.AddObjectFromProperty(tile, layer, tileSetTile.Properties, tileManager, propertyString);
+                    TileObjectHelper.AddObjectFromProperty(tile, layer, tileSetTile.Properties, tileManager, propertyString, tempTile);
 
                 }
 

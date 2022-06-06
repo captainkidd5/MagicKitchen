@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
@@ -120,10 +121,14 @@ namespace TiledEngine.Classes
 #if DEBUG
             if (Flags.DebugGrid)
             {
-                if (pathGrid.Weight[X, Y] == (byte)GridStatus.Obstructed)
-                {
-                    Sprite.UpdateColor(Color.Red);
-                }
+                //if (pathGrid.Weight[X, Y] == (byte)GridStatus.Obstructed)
+                //{
+                //    Sprite.UpdateColor(Color.Red);
+                //}
+                //else
+                //{
+                //    Sprite.UpdateColor(Color.White);
+                //}
             }
 #endif
 
@@ -156,7 +161,12 @@ namespace TiledEngine.Classes
             return "" + X + "," + Y + "," + layer;
         }
 
-        internal Rectangle GetTotalHitBoxRectangle()
+        /// <summary>
+        /// TODO: Combine rectangles into larger rectangle if multiple bodies do not overlap
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        internal Rectangle GetTotalHitBoxRectangle(Vector2? position = null)
         {
             Rectangle totalRectangle = Rectangle.Empty;
             foreach (ITileAddon addon in Addons)
@@ -165,7 +175,10 @@ namespace TiledEngine.Classes
                 {
                     TileBody body = (TileBody)addon;
                     Rectangle rect = body.IntermediateTmxShape.GetBoundingRectangle();
-                    return new Rectangle((int)Position.X, (int)Position.Y, rect.Width, rect.Height);
+                    //if(rect.Width <= Settings.TileSize)
+                    //    return RectangleHelper.RectFromPosition(position.Value, rect.Width, rect.Height);
+
+                    return RectangleHelper.RectFromPosition(position ?? Position, rect.Width, rect.Height);
                 }
             }
             return Rectangle.Empty;

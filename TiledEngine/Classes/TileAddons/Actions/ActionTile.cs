@@ -59,7 +59,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
         {
             base.Update(gameTime);
             Move(IntermediateTmxShape.HullPosition);
-            if (PlayerInClickRange && MouseHovering)
+            if (PlayerInClickRange && MouseHovering || PlayerInControllerActionRange)
             {
                 AlterCursorAndAlertTile();
             }

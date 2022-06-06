@@ -53,19 +53,13 @@ namespace TiledEngine.Classes.TileAddons
         protected override void AlterCursorAndAlertTile()
         {
 
-            //UI.Cursor.ChangeCursorIcon(Tile.GetCursorIconType());
             Tile.AlertTileManagerCursorIconChanged();
 
             if (MeetsItemRequirements(UI.PlayerCurrentSelectedItem))
-            {
                 UI.Cursor.ChangeCursorIcon(CursorIconType.Break);
 
-            }
-            //else
-            //{
-            //    UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
+            
 
-            //}
         }
 
 
