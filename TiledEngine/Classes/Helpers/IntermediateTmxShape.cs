@@ -24,10 +24,30 @@ namespace TiledEngine.Classes.Helpers
 
         public bool BlocksLight { get; set; } = true;
 
-        /// <summary>
-        /// Rectangle
-        /// </summary>
-        internal IntermediateTmxShape(TmxObjectType tmxObjectType, Rectangle colliderRectangle, Vector2 hullPosition, float widthCenter)
+
+        internal Rectangle GetBoundingRectangle()
+        {
+            switch (TmxObjectType)
+            {
+                case TmxObjectType.Basic:
+                    return ColliderRectangle;
+
+                case TmxObjectType.Ellipse:
+                    return new Rectangle((int)(HullPosition.X - Radius), (int)(HullPosition.Y - Radius), (int)(Radius * 2), (int)(Radius * 2));
+
+                //TODO
+                case TmxObjectType.Polygon:
+                    return new Rectangle((int)(HullPosition.X - Radius), (int)(HullPosition.Y - Radius), (int)(Radius * 2), (int)(Radius * 2));
+
+
+            }
+
+            throw new Exception($"Unsported TmxObjectType {TmxObjectType}");
+        }
+            /// <summary>
+            /// Rectangle
+            /// </summary>
+            internal IntermediateTmxShape(TmxObjectType tmxObjectType, Rectangle colliderRectangle, Vector2 hullPosition, float widthCenter)
         {
             if (widthCenter <= 0)
                 throw new Exception("Radius must be larger than 0");
@@ -62,5 +82,5 @@ namespace TiledEngine.Classes.Helpers
             Width = width;
             Height = height;
         }
+        }
     }
-}

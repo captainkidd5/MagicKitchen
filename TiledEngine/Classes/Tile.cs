@@ -106,89 +106,102 @@ namespace TiledEngine.Classes
         }
 
         internal bool HasAnimationFrames => TmxTileSetTile != null && TmxTileSetTile.AnimationFrames.Count > 0;
-    
-        public void Update(GameTime gameTime, PathGrid pathGrid)
-            {
-                WithinRangeOfPlayer = false;
-                Sprite.Update(gameTime, Position);
 
-                for (int i = 0; i < Addons.Count; i++)
-                {
-                    Addons[i].Update(gameTime);
-                }
+        public void Update(GameTime gameTime, PathGrid pathGrid)
+        {
+            WithinRangeOfPlayer = false;
+            Sprite.Update(gameTime, Position);
+
+            for (int i = 0; i < Addons.Count; i++)
+            {
+                Addons[i].Update(gameTime);
+            }
 
 #if DEBUG
-                if (Flags.DebugGrid)
+            if (Flags.DebugGrid)
+            {
+                if (pathGrid.Weight[X, Y] == (byte)GridStatus.Obstructed)
                 {
-                    if (pathGrid.Weight[X, Y] == (byte)GridStatus.Obstructed)
-                    {
-                        Sprite.UpdateColor(Color.Red);
-                    }
+                    Sprite.UpdateColor(Color.Red);
                 }
+            }
 #endif
 
-            }
-            internal void Draw(SpriteBatch spriteBatch, Texture2D texture)
+        }
+        internal void Draw(SpriteBatch spriteBatch, Texture2D texture)
+        {
+            Sprite.Draw(spriteBatch);
+            for (int i = 0; i < Addons.Count; i++)
             {
-                Sprite.Draw(spriteBatch);
-                for (int i = 0; i < Addons.Count; i++)
+                Addons[i].Draw(spriteBatch);
+            }
+
+
+
+            //if (TileIndexDebug)
+            //spriteBatch.DrawString(Game1.MainFont, X + "," + Y, Position, Color.Orange, 0f, Vector2.Zero, .35f, SpriteEffects.None, .99f);
+        }
+
+        /// <summary>
+        /// returns unique tile key thru bitwise shifting.
+        /// </summary>
+        /// <returns>Tile Key</returns>
+        internal int GetKey()
+        {
+            return ((X << 18) | (Y << 4) | ((int)IndexLayer << 0)); //14 bits for x and y, 4 bits for layer.
+        }
+
+        internal string GetTileKeyString(int layer, int x, int y)
+        {
+            return "" + X + "," + Y + "," + layer;
+        }
+
+        internal Rectangle GetTotalHitBoxRectangle()
+        {
+            Rectangle totalRectangle = Rectangle.Empty;
+            foreach (ITileAddon addon in Addons)
+            {
+                if(addon.GetType() == typeof(TileBody))
                 {
-                    Addons[i].Draw(spriteBatch);
+                    TileBody body = (TileBody)addon;
+                    Rectangle rect = body.IntermediateTmxShape.GetBoundingRectangle();
+                    return new Rectangle((int)Position.X, (int)Position.Y, rect.Width, rect.Height);
                 }
-
-
-
-                //if (TileIndexDebug)
-                //spriteBatch.DrawString(Game1.MainFont, X + "," + Y, Position, Color.Orange, 0f, Vector2.Zero, .35f, SpriteEffects.None, .99f);
             }
+            return Rectangle.Empty;
+        }
+        /// <summary>
+        /// Call at the end of assign properties.
+        /// </summary>
+        internal void Load()
+        {
+            foreach (ITileAddon addon in Addons)
+                addon.Load();
+        }
+        public void Interact(bool isPlayer, Item heldItem)
+        {
+            foreach (ITileAddon addon in Addons)
+                addon.Interact(isPlayer, heldItem);
+        }
 
-            /// <summary>
-            /// returns unique tile key thru bitwise shifting.
-            /// </summary>
-            /// <returns>Tile Key</returns>
-            internal int GetKey()
+        public void Unload()
+        {
+            foreach (ITileAddon addon in Addons)
             {
-                return ((X << 18) | (Y << 4) | ((int)IndexLayer << 0)); //14 bits for x and y, 4 bits for layer.
+                addon.CleanUp();
             }
-
-            internal string GetTileKeyString(int layer, int x, int y)
-            {
-                return "" + X + "," + Y + "," + layer;
-            }
-
-
-            /// <summary>
-            /// Call at the end of assign properties.
-            /// </summary>
-            internal void Load()
-            {
-                foreach (ITileAddon addon in Addons)
-                    addon.Load();
-            }
-            public void Interact(bool isPlayer, Item heldItem)
-            {
-                foreach (ITileAddon addon in Addons)
-                    addon.Interact(isPlayer, heldItem);
-            }
-
-            public void Unload()
-            {
-                foreach (ITileAddon addon in Addons)
-                {
-                    addon.CleanUp();
-                }
-                Addons.Clear();
-                Sprite = null;
-
-            }
-
-            public List<ITileAddon> GetAddonsByType(Type t)
-            {
-                return Addons.Where(x => x.GetType() == t).ToList();
-            }
-
-
-
+            Addons.Clear();
+            Sprite = null;
 
         }
+
+        public List<ITileAddon> GetAddonsByType(Type t)
+        {
+            return Addons.Where(x => x.GetType() == t).ToList();
+        }
+
+
+
+
     }
+}

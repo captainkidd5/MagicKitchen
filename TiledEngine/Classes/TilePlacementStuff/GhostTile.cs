@@ -49,13 +49,14 @@ namespace TiledEngine.Classes.TilePlacementStuff
                 Vector2.Zero, CurrentTile.SourceRectangle, _tileManager.TileSetPackage.ForegroundSpriteSheet,
                 Color.White, customLayer: .99f);
 
-            _obstructedArea = 
+            //_obstructedArea = 
         }
 
         public void ResetTileIfNotEmpty()
         {
             _sprite = null;
             GID = -1;
+            if(CurrentTile != null)
             CurrentTile.Unload();
             CurrentTile = null;
         }
@@ -75,8 +76,13 @@ namespace TiledEngine.Classes.TilePlacementStuff
             {
                 if (Controls.HasCursorTileIndexChanged)
                 {
-                    _mayPlace = TileLocationHelper.MayPlaceTile(_tileManager.PathGrid,
-                       new Rectangle((int)_position.X, (int)_position.Y, _sprite.Width, _sprite.Height));
+                   
+                    Rectangle tileHitBoxRectangle = CurrentTile.GetTotalHitBoxRectangle();
+
+                    tileHitBoxRectangle = new Rectangle((int)_position.X,
+                        (int)_position.Y, tileHitBoxRectangle.Width, tileHitBoxRectangle.Height);
+
+                    _mayPlace = TileLocationHelper.MayPlaceTile(_tileManager.PathGrid, tileHitBoxRectangle);
                     if (_mayPlace)
                         _sprite.UpdateColor(Color.Green);
                     else

@@ -22,7 +22,7 @@ namespace TiledEngine.Classes.TileAddons
     {
         public Tile Tile { get; private set; }
         protected Layers IndexLayer => Tile.IndexLayer;
-        protected IntermediateTmxShape IntermediateTmxShape { get; set; }
+        public IntermediateTmxShape IntermediateTmxShape { get;protected set; }
         public TileBody(Tile tile,  IntermediateTmxShape intermediateTmxShape)
         {
             Tile = tile;
@@ -74,6 +74,7 @@ namespace TiledEngine.Classes.TileAddons
             if (TileLoader.TileLootManager.HasLootData(Tile.GID))
                 GenerateLoot();
             TileUtility.SwitchGid(Tile,IndexLayer);
+            //TODO: May need to updae more than a single point in the grid if the tile body extends more than a point?
             Tile.TileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
         }
         protected void GenerateLoot()
