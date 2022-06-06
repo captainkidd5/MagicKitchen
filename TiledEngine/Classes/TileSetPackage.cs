@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiledEngine.Classes.TilePlacementStuff.TilingStuff;
 using TiledSharp;
 
 namespace TiledEngine.Classes
@@ -23,6 +24,7 @@ namespace TiledEngine.Classes
         public Texture2D ForegroundSpriteSheet { get; private set; }
         private int _foregroundDimension;
         private int _foregroundTileCount;
+        internal TilingSetManager TilingSetManager { get; private set; }
 
 
         public TileSetPackage(TmxMap tmxMap)
@@ -41,6 +43,8 @@ namespace TiledEngine.Classes
                 _foregroundTileCount = (int)foreGroundSet.TileCount;
 
             }
+
+            TilingSetManager = new TilingSetManager();
         }
 
         public void LoadContent(ContentManager content, string exteriorTexturePath, string interiorTexturePath)

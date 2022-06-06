@@ -118,19 +118,6 @@ namespace TiledEngine.Classes
                 Addons[i].Update(gameTime);
             }
 
-#if DEBUG
-            if (Flags.DebugGrid)
-            {
-                //if (pathGrid.Weight[X, Y] == (byte)GridStatus.Obstructed)
-                //{
-                //    Sprite.UpdateColor(Color.Red);
-                //}
-                //else
-                //{
-                //    Sprite.UpdateColor(Color.White);
-                //}
-            }
-#endif
 
         }
         internal void Draw(SpriteBatch spriteBatch, Texture2D texture)
@@ -154,11 +141,6 @@ namespace TiledEngine.Classes
         internal int GetKey()
         {
             return ((X << 18) | (Y << 4) | ((int)IndexLayer << 0)); //14 bits for x and y, 4 bits for layer.
-        }
-
-        internal string GetTileKeyString(int layer, int x, int y)
-        {
-            return "" + X + "," + Y + "," + layer;
         }
 
         /// <summary>

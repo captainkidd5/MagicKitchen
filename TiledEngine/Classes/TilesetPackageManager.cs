@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiledEngine.Classes.TilePlacementStuff.TilingStuff;
 using TiledSharp;
 
 namespace TiledEngine.Classes
@@ -15,7 +16,6 @@ namespace TiledEngine.Classes
         public TileSetPackage ExteriorTileSetPackage { get; private set; }
 
         public TileSetPackage InteriorTileSetPackage { get; private set; }
-
         public TilesetPackageManager()
         {
 
@@ -28,6 +28,7 @@ namespace TiledEngine.Classes
 
             InteriorTileSetPackage = new TileSetPackage(interiorMap);
             InteriorTileSetPackage.LoadContent(content, "maps/InteriorBackground_Spaced", "maps/InteriorForeground");
+
         }
 
         public TileSetPackage GetPackageFromMapType(MapType mapType)

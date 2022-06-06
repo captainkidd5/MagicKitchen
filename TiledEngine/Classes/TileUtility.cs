@@ -131,14 +131,13 @@ namespace TiledEngine.Classes
                 propertyString = "transparent";
                 if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
-
-
-
-
                     TestForTransparencyTile(tile, TileObjectHelper.GetSourceRectangleFromTileProperty(propertyString));
-
                 }
-
+                propertyString = "tilingSet";
+                if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
+                {
+                    tileSetPackage.TilingSetManager.AddNewSet(propertyString, tile.GID);
+                }
                 ////CREATE ANIMATION FRAMES
                 TileAnimationHelper.CheckForAnimationFrames(tile, tileManager, tileSetPackage, propertyString);
 

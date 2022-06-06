@@ -10,12 +10,6 @@ using tainicom.Aether.Physics2D.Dynamics;
 namespace PhysicsEngine.Classes
 {
 
-    
-    public enum ShapeType
-    {
-        Rectangle = 1,
-        Circle = 2
-    }
     /// <summary>
     /// Wrapper class for Velcro Physics Body! <see cref="TileObjectHelper"/> .
     /// </summary>
