@@ -179,6 +179,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 }
                
             }
+            Tile.TileManager.PlacedItemManager.RemoveAllPlacedItemsFromTile(Tile);
             base.DestroyTileAndGetLoot();
 
         }

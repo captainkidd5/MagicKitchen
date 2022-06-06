@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Penumbra;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using tainicom.Aether.Physics2D.Dynamics;
 
@@ -30,7 +31,7 @@ namespace PhysicsEngine.Classes
 
         //Penumbra hull
         public Hull Hull { get; set; }
-        public Vector2 Position { get { return Body.Position; } set { Body.SetTransform(new Vector2(value.X + XOffset, value.Y + YOffset), 0f); } }
+        public Vector2 Position { get { return Body.Position; } set { if (Body.World == null) { Debug.Assert(Body.World != null, $"world null"); return; } Body.SetTransform(new Vector2(value.X + XOffset, value.Y + YOffset), 0f); } }
 
         //Penumbra light
 

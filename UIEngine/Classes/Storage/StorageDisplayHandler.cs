@@ -69,6 +69,7 @@ namespace UIEngine.Classes.Storage
         {
             if(_secondaryInventoryDisplay.IsActive && Controls.ControllerConnected)
             {
+                UI.IsHovered = true;
                 if(Controls.WasGamePadButtonTapped(GamePadActionType.TriggerRight))
                     SwapControl(_secondaryInventoryDisplay);
                 else if (Controls.WasGamePadButtonTapped(GamePadActionType.TriggerLeft))

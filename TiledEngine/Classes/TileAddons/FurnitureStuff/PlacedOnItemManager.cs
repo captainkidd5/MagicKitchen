@@ -38,6 +38,13 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             if (_placedItemDictionary[placedItem.Key].Count < 1)
                 _placedItemDictionary.Remove(placedItem.Key);
         }
+
+        public void RemoveAllPlacedItemsFromTile(Tile tile)
+        {
+            if(_placedItemDictionary.ContainsKey(tile.GetKey()))
+                _placedItemDictionary.Remove(tile.GetKey());
+
+        }
         public List<PlacedOnItem> GetPlacedItemsFromTile(Tile tile)
         {
             if (_placedItemDictionary.ContainsKey(tile.GetKey()))

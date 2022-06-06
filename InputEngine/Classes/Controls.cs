@@ -61,6 +61,8 @@ namespace InputEngine.Classes
         }
 
         public static bool WasGamePadButtonTapped(GamePadActionType actionType) => _gamePadControls.WasActionTapped(actionType);
+        public static bool DidGamePadSelectWorld => (WasGamePadButtonTapped(GamePadActionType.Select) && !IsUiHovered);
+
         public static bool IsRightClicked => MouseManager.RightClicked;
 
         public static void ControllerSetUIMousePosition(Vector2 newPos)

@@ -186,7 +186,7 @@ namespace TiledEngine.Classes
         {
             if (TileToInteractWith != null)
             {
-                if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
+                if (Controls.IsClickedWorld || Controls.DidGamePadSelectWorld)
                     TileToInteractWith.Interact(true, UI.PlayerCurrentSelectedItem);
             }
         }
