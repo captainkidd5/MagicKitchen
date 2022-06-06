@@ -140,7 +140,10 @@ namespace Globals.Classes.Helpers
         {
             return new Rectangle(0, 0, texture.Width, texture.Height);
         }
-
+        public static Rectangle RectangleFromPosition(Vector2 position, int width, int height)
+        {
+            return new Rectangle((int)position.X, (int)position.Y, width, height);
+        }
         public static void WriteRectangle(BinaryWriter writer, Rectangle val)
         {
             writer.Write(val.X);

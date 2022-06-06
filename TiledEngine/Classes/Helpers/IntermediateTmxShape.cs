@@ -25,6 +25,9 @@ namespace TiledEngine.Classes.Helpers
         public bool BlocksLight { get; set; } = true;
 
 
+        /// <summary>
+        /// Returns a rectangle which contains the specified shape
+        /// </summary>
         internal Rectangle GetBoundingRectangle()
         {
             switch (TmxObjectType)

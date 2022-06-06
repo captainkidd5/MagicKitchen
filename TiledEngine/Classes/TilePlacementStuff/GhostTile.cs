@@ -1,4 +1,5 @@
-﻿using InputEngine.Classes;
+﻿using Globals.Classes.Helpers;
+using InputEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
@@ -56,19 +57,13 @@ namespace TiledEngine.Classes.TilePlacementStuff
         {
             _sprite = null;
             GID = -1;
-            if(CurrentTile != null)
-            CurrentTile.Unload();
+            if (CurrentTile != null)
+                CurrentTile.Unload();
             CurrentTile = null;
         }
         public void Update(GameTime gameTime, Vector2 position)
         {
-            if (_sprite != null)
-            {
-                _position = new Vector2(_tileManager.MouseOverTile.Position.X,
-                    _tileManager.MouseOverTile.Position.Y - _sprite.Height / 2);
-                _sprite.Update(gameTime, _position);
-            }
-                
+
 
 
             //todo: check if area is clear
@@ -76,34 +71,42 @@ namespace TiledEngine.Classes.TilePlacementStuff
             {
                 if (Controls.HasCursorTileIndexChanged)
                 {
-                   
-                    Rectangle tileHitBoxRectangle = CurrentTile.GetTotalHitBoxRectangle();
+                    _obstructedArea = CurrentTile.GetTotalHitBoxRectangle();
+                    _obstructedArea = new Rectangle((int)_position.X,
+                           (int)_position.Y, _obstructedArea.Width, _obstructedArea.Height);
+                    _position = new Vector2(_tileManager.MouseOverTile.Position.X,
+                        _tileManager.MouseOverTile.Position.Y - _sprite.Height + _obstructedArea.Height);
+                    _sprite.Update(gameTime, _position);
 
-                    tileHitBoxRectangle = new Rectangle((int)_position.X,
-                        (int)_position.Y, tileHitBoxRectangle.Width, tileHitBoxRectangle.Height);
 
-                    _mayPlace = TileLocationHelper.MayPlaceTile(_tileManager.PathGrid, tileHitBoxRectangle);
+
+                    _mayPlace = TileLocationHelper.MayPlaceTile(_tileManager.PathGrid, RectangleHelper.RectangleFromPosition(
+                        new Vector2(_position.X, _position.Y + _sprite.Height - _obstructedArea.Height), _obstructedArea.Width, _obstructedArea.Height));
                     if (_mayPlace)
                         _sprite.UpdateColor(Color.Green);
                     else
                         _sprite.UpdateColor(Color.Red);
                 }
-                   
+
                 if (Controls.IsClickedWorld)
                 {
-
-                    if (!Controls.ClickActionTriggeredThisFrame)
+                    if (_mayPlace)
                     {
-                        Tile tile = _tileManager.GetTileFromWorldPosition(_tileManager.MouseOverTile.Position, Layers.foreground);
-                        TileUtility.SwitchGid(tile, Layers.foreground, _tileManager.TileSetPackage.OffSetBackgroundGID(GID));
+
+                        if (!Controls.ClickActionTriggeredThisFrame)
+                        {
+                            Tile tile = _tileManager.GetTileFromWorldPosition(_tileManager.MouseOverTile.Position, Layers.foreground);
+                            TileUtility.SwitchGid(tile, Layers.foreground, _tileManager.TileSetPackage.OffSetBackgroundGID(GID));
+                        }
                     }
+
                 }
 
             }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (_sprite != null)
+            if (GID >= 0)
                 _sprite.Draw(spriteBatch);
         }
     }
