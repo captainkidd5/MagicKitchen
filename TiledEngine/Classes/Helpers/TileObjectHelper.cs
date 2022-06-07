@@ -50,7 +50,7 @@ namespace TiledEngine.Classes.Helpers
       
             Rectangle tileDestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
             if(!tempTile)
-                TileLocationHelper.UpdateMultiplePathGrid(tileManager, tmxShape.ColliderRectangle, GridStatus.Obstructed);
+                tile.TileManager.TileLocationHelper.UpdateMultiplePathGrid(tmxShape.ColliderRectangle, GridStatus.Obstructed);
 
             if (properties.ContainsKey("action"))
             {

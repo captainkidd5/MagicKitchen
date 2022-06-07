@@ -100,7 +100,7 @@ namespace EntityEngine.Classes.BehaviourStuff
         public List<Point> GetTilePoints(int gid, Layers layer, SearchType searchType = SearchType.Radial)
         {
             if (searchType == SearchType.Radial)
-                return TileManager.LocateTile_RadialSearch(gid, layer, Entity.TileOn, 10);
+                return TileManager.TileLocationHelper.LocateTile_RadialSearch(gid, layer, Entity.TileOn, 10);
 
             //else if (searchType == SearchType.Grid)
             //    return TileManager.LocateTile_GridSearch(gid, layer, Entity.TileOn, 10);

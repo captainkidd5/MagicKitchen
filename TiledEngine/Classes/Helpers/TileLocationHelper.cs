@@ -5,18 +5,24 @@ using PhysicsEngine.Classes.Pathfinding;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.Helpers
 {
-    public static class TileLocationHelper
+    public  class TileLocationHelper
     {
+        private readonly TileManager _tileManager;
 
+        public TileLocationHelper(TileManager tileManager)
+        {
+            _tileManager = tileManager;
+        }
         /// <summary>
         /// Gets a "ring" of clear points around a tile. Tile may span more than a tile. 
         /// </summary>
         /// <param name="requireAdjacency">Set to true to only return adjacent clear tiles</param>
         /// <returns></returns>
-        public static List<Point> GetSorroundingClearTilesAsPoints(PathGrid pathGrid, Tile tileToGetAdjacentPointsOf,
+        public  List<Point> GetSorroundingClearTilesAsPoints(Tile tileToGetAdjacentPointsOf,
             bool requireAdjacency = true)
         {
             List<Point> clearPoints = new List<Point>();
@@ -44,9 +50,9 @@ namespace TiledEngine.Classes.Helpers
                     int newX = rectangleIndex.X + i;
                     int newY = rectangleIndex.Y + j;
                     
-                    if (pathGrid.X_IsValidIndex(newX) && pathGrid.Y_IsValidIndex(newY))
+                    if (_tileManager.PathGrid.X_IsValidIndex(newX) && _tileManager.PathGrid.Y_IsValidIndex(newY))
                     {
-                        if(pathGrid.IsClear(newX, newY))
+                        if(_tileManager.PathGrid.IsClear(newX, newY))
                         {
                            
                             clearPoints.Add(new Point(newX, newY)); 
@@ -60,7 +66,7 @@ namespace TiledEngine.Classes.Helpers
 
         }
 
-        internal static bool MayPlaceTile(PathGrid pathGrid,Rectangle destinationRectangleToPlace)
+        internal bool MayPlaceTile(Rectangle destinationRectangleToPlace)
         {
             Rectangle body = destinationRectangleToPlace;
             int bodyTilesWide = GetTilesWide(body);
@@ -73,9 +79,9 @@ namespace TiledEngine.Classes.Helpers
                 {
 
 
-                    if (pathGrid.X_IsValidIndex(rectangleIndex.X + i) && pathGrid.Y_IsValidIndex(rectangleIndex.Y +j))
+                    if (_tileManager.PathGrid.X_IsValidIndex(rectangleIndex.X + i) && _tileManager.PathGrid.Y_IsValidIndex(rectangleIndex.Y +j))
                     {
-                        if (!pathGrid.IsClear(rectangleIndex.X + i, rectangleIndex.Y + j))
+                        if (!_tileManager.PathGrid.IsClear(rectangleIndex.X + i, rectangleIndex.Y + j))
                             return false;
                     }
 
@@ -86,7 +92,7 @@ namespace TiledEngine.Classes.Helpers
         /// <summary>
         /// Updates the pathgrid for when an object will span more than a single tile
         /// </summary>
-        internal static void UpdateMultiplePathGrid(TileManager tileManager,Rectangle body, GridStatus gridStatus)
+        internal void UpdateMultiplePathGrid(Rectangle body, GridStatus gridStatus)
         {
             //how many tiles this body spans
             int bodyTilesWide = GetTilesWide(body);
@@ -99,7 +105,7 @@ namespace TiledEngine.Classes.Helpers
             {
                 for (int j = 0; j < bodyTilesHigh; j++)
                 {
-                    tileManager.UpdateGrid(rectangleIndex.X + i, rectangleIndex.Y + j, gridStatus);
+                    _tileManager.UpdateGrid(rectangleIndex.X + i, rectangleIndex.Y + j, gridStatus);
 
                 }
             }
@@ -119,6 +125,58 @@ namespace TiledEngine.Classes.Helpers
             if (wide < 1)
                 wide = 1;
             return wide;
+        }
+
+        /// <summary>
+        /// Locates tile at given layer within search radius.
+        /// Searches in an expanding grid outwards from given point
+        /// Returns null if no tile found matching specified gid
+        /// </summary>ec
+        /// <param name="gid"></param>
+        /// <param name="layerToSearch"></param>
+        /// <param name="entityIndexPosition"></param>
+        /// <param name="searchRadius">5 would mean searching five tiles in all directions</param>
+        /// <returns></returns>
+        public List<Point> LocateTile_RadialSearch(int gid, Layers layerToSearch, Point entityIndexPosition, int searchRadius)
+        {
+            List<Point> tilesFound = new List<Point>();
+            int row = 1;
+            int col = 1;
+            int x_startIndex = -1;
+            int y_startIndex = -1;
+            //Expanding Search from center
+            for (int x = x_startIndex; x < row + 1; x++)
+            {
+                if (_tileManager.X_IsValidIndex(entityIndexPosition.X + x))
+                {
+                    for (int y = y_startIndex; y < col + 1; y++)
+                    {
+                        if (_tileManager.Y_IsValidIndex(entityIndexPosition.Y + y))
+                        {
+                            Tile tile = _tileManager.GetTileFromPoint(new Point(entityIndexPosition.X + x,
+                                entityIndexPosition.Y + y), layerToSearch);
+
+                            if (tile.GID == gid)
+                                tilesFound.Add(Vector2Helper.GetTileIndexPosition(tile.Position));
+
+                        }
+
+                    }
+                }
+                if (row == searchRadius)
+                    break;
+                if (x == row)
+                {
+                    x_startIndex--;
+                    x = x_startIndex;
+                    row++;
+
+                    y_startIndex--;
+                    col++;
+
+                }
+            }
+            return tilesFound;
         }
     }
 }

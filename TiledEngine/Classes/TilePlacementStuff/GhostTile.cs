@@ -103,7 +103,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
 
 
-            _mayPlace = TileLocationHelper.MayPlaceTile(_tileManager.PathGrid, RectangleHelper.RectFromPosition(
+            _mayPlace = CurrentTile.TileManager.TileLocationHelper.MayPlaceTile(RectangleHelper.RectFromPosition(
                 new Vector2(_position.X, _position.Y + _sprite.Height - _obstructedArea.Height), _obstructedArea.Width, _obstructedArea.Height));
             if (_mayPlace)
                 _sprite.UpdateColor(Color.Green);

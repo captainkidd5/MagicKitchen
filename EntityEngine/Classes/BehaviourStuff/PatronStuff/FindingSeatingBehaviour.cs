@@ -42,9 +42,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 }
                 else
                 {
-                    List<Point> clearPoints = TileLocationHelper.GetSorroundingClearTilesAsPoints(
-                        TileManager.PathGrid,
-                        TableSeatedAt.Tile);
+                    List<Point> clearPoints = TileManager.TileLocationHelper.GetSorroundingClearTilesAsPoints(TableSeatedAt.Tile);
 
                     //table has no adjacent clear spots
                     if (clearPoints.Count < 1)

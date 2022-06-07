@@ -75,9 +75,9 @@ namespace TiledEngine.Classes.TileAddons
                 GenerateLoot();
                              
             if(IntermediateTmxShape.GetBoundingRectangle().Width <= Settings.TileSize)
-                TileLocationHelper.UpdateMultiplePathGrid(Tile.TileManager, Tile.GetTotalHitBoxRectangle(Position), GridStatus.Clear);
+                Tile.TileManager.TileLocationHelper.UpdateMultiplePathGrid(Tile.GetTotalHitBoxRectangle(Position), GridStatus.Clear);
             else
-                TileLocationHelper.UpdateMultiplePathGrid(Tile.TileManager, Tile.GetTotalHitBoxRectangle(), GridStatus.Clear);
+                Tile.TileManager.TileLocationHelper.UpdateMultiplePathGrid(Tile.GetTotalHitBoxRectangle(), GridStatus.Clear);
 
             
 
