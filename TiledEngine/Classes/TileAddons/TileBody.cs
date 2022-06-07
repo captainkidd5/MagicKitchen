@@ -61,6 +61,8 @@ namespace TiledEngine.Classes.TileAddons
         }
         public override void CleanUp()
         {
+            CleanGrid();
+
             base.CleanUp();
         }
 
@@ -73,18 +75,22 @@ namespace TiledEngine.Classes.TileAddons
         {
             if (TileLoader.TileLootManager.HasLootData(Tile.GID))
                 GenerateLoot();
-                             
-            if(IntermediateTmxShape.GetBoundingRectangle().Width <= Settings.TileSize)
-                Tile.TileManager.TileLocationHelper.UpdateMultiplePathGrid(Tile.GetTotalHitBoxRectangle(Position), GridStatus.Clear);
-            else
-                Tile.TileManager.TileLocationHelper.UpdateMultiplePathGrid(Tile.GetTotalHitBoxRectangle(), GridStatus.Clear);
 
-            
+            CleanGrid();
 
-            TileUtility.SwitchGid(Tile,IndexLayer);
+            TileUtility.SwitchGid(Tile, IndexLayer);
 
 
         }
+
+        private void CleanGrid()
+        {
+            if (IntermediateTmxShape.GetBoundingRectangle().Width <= Settings.TileSize)
+                Tile.TileManager.TileLocationHelper.UpdateMultiplePathGrid(Tile.GetTotalHitBoxRectangle(Position), GridStatus.Clear);
+            else
+                Tile.TileManager.TileLocationHelper.UpdateMultiplePathGrid(Tile.GetTotalHitBoxRectangle(), GridStatus.Clear);
+        }
+
         protected void GenerateLoot()
         {
             TileLootData tileLootData = TileLoader.TileLootManager.GetLootData(Tile.GID);

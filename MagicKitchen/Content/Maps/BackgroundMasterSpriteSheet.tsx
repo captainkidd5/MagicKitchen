@@ -357,6 +357,26 @@
    <frame tileid="630" duration="800"/>
   </animation>
  </tile>
+ <tile id="920">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
+ </tile>
+ <tile id="921">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
+ </tile>
+ <tile id="922">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
+ </tile>
+ <tile id="923">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
+ </tile>
  <tile id="927">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="6" width="11" height="10">

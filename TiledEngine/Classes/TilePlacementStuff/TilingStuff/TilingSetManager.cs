@@ -34,14 +34,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             };
         }
 
-        private bool GidDictionaryMatch(Dictionary<int, int> dict, Tile tile, int alteredX, int alteredY)
-        {
-            if (dict.Values.Any(x => x == tile.TileManager.GetTileFromPoint(
-                new Point(alteredX, alteredY), tile.IndexLayer).GID))
-                return true;
-            return false;
-        }
-
+      
         public void WangSorroundingTiles(Tile tile)
         {
 
@@ -63,6 +56,16 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
                 }
             }
         }
+        private bool GidDictionaryMatch(Dictionary<int, int> dict, Tile tile, int alteredX, int alteredY)
+        {
+            int gidToCheck = tile.TileManager.GetTileFromPoint(
+                new Point(alteredX, alteredY), tile.IndexLayer).GID;
+
+            if (dict.Values.Any(x => x == gidToCheck))
+                return true;
+            return false;
+        }
+
         public int WangTile(Tile tile)
         {
 

@@ -34,19 +34,27 @@ namespace TiledEngine.Classes.TilePlacementStuff
             _tileManager = tileManager;
         }
 
+        internal bool DoesGIDMatch(int gid, bool isForeGround)
+        {
+            if(isForeGround)
+            {
+                return _tileManager.TileSetPackage.OffSetBackgroundGID(gid) == GID - 1;
+            }
+            return GID -1 == gid;
+        }
         public void LoadNewTile(int gid, bool isForeGround)
         {
             GID = gid + 1;
             _layer = Layers.background;
             if (isForeGround)
             {
-                GID = _tileManager.TileSetPackage.OffSetBackgroundGID(gid) ;
+                GID = _tileManager.TileSetPackage.OffSetBackgroundGID(gid+ 1) ;
                 _layer = Layers.foreground;
             }
 
 
             CurrentTile = new Tile(_tileManager, GID, _layer, .99f, 0, 0);
-            TileUtility.AssignProperties(CurrentTile, _layer, true);
+            TileUtility.AssignProperties(CurrentTile, _layer, false);
 
 
             _sprite = SpriteFactory.CreateWorldSprite(

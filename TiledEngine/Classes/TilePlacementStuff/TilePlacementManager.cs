@@ -1,4 +1,5 @@
 ﻿using InputEngine.Classes;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -23,11 +24,12 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
         public void Update(GameTime gameTime)
         {
-            if (UI.PlayerCurrentSelectedItem != null && UI.PlayerCurrentSelectedItem.PlaceableItem)
+            Item playeritem = UI.PlayerCurrentSelectedItem;
+            if (playeritem != null && playeritem.PlaceableItem)
             {
-                if (_ghostTile.GID -1 != UI.PlayerCurrentSelectedItem.PlacedItemGID)
+                if (!_ghostTile.DoesGIDMatch(playeritem.PlacedItemGID, playeritem.PlacedItemIsForeground))
                 {
-                    _ghostTile.LoadNewTile(UI.PlayerCurrentSelectedItem.PlacedItemGID, UI.PlayerCurrentSelectedItem.PlacedItemIsForeground);
+                    _ghostTile.LoadNewTile(playeritem.PlacedItemGID, playeritem.PlacedItemIsForeground);
                 }
             }
             else
