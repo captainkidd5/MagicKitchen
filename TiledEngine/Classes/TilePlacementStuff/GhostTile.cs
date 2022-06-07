@@ -104,10 +104,18 @@ namespace TiledEngine.Classes.TilePlacementStuff
             _position = new Vector2(_tileManager.MouseOverTile.Position.X,
                 _tileManager.MouseOverTile.Position.Y - _sprite.Height + _obstructedArea.Height);
 
+            Rectangle rect = RectangleHelper.RectFromPosition(
+              new Vector2(_position.X, _position.Y + _sprite.Height - _obstructedArea.Height), _obstructedArea.Width, _obstructedArea.Height);
 
-
-            _mayPlace = CurrentTile.TileManager.TileLocationHelper.MayPlaceTile(RectangleHelper.RectFromPosition(
-                new Vector2(_position.X, _position.Y + _sprite.Height - _obstructedArea.Height), _obstructedArea.Width, _obstructedArea.Height));
+            if (_layer > Layers.midground)
+            {
+                _mayPlace = CurrentTile.TileManager.TileLocationHelper.MayPlaceForegroundTile(rect);
+            }
+            else
+            {
+                _mayPlace = CurrentTile.TileManager.TileLocationHelper.MayPlaceBackgroundTile(rect, _layer);
+            }
+          
             if (_mayPlace)
                 _sprite.UpdateColor(Color.Green);
             else

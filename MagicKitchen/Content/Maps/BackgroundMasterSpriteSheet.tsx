@@ -9,7 +9,6 @@
  <tile id="201">
   <properties>
    <property name="step" value="StepDirt"/>
-   <property name="tilingSet" value="dirt"/>
   </properties>
  </tile>
  <tile id="428">
