@@ -13,10 +13,12 @@ namespace TiledEngine.Classes.TilePlacementStuff
     internal class TilePlacementManager
     {
         private GhostTile _ghostTile;
+        private readonly TileManager _tileManager;
 
         public TilePlacementManager(TileManager tileManager)
         {
             _ghostTile = new GhostTile(tileManager);
+            _tileManager = tileManager;
         }
 
         public void Update(GameTime gameTime)

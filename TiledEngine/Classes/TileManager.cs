@@ -137,7 +137,7 @@ namespace TiledEngine.Classes
                 {
                     for (int y = 0; y < MapWidth; y++)
                     {
-                        TileUtility.AssignProperties(Tiles[z][x, y], (Layers)z);
+                        TileUtility.AssignProperties(Tiles[z][x, y], (Layers)z,wang: false);
                     }
                 }
             }

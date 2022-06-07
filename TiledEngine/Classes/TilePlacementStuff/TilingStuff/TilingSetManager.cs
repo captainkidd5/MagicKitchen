@@ -40,16 +40,38 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
         private bool GidDictionaryMatch(Dictionary<int, int> dict, Tile tile, int alteredX, int alteredY)
         {
             if (dict.Values.Any(x => x == tile.TileManager.GetTileFromPoint(
-                new Point(x, alteredY), tile.IndexLayer).GID))
+                new Point(alteredX, alteredY), tile.IndexLayer).GID))
                 return true;
             return false;
         }
-        public void GenerationReassignForTiling(Tile tile)
+
+        public void WangSorroundingTiles(Tile tile)
         {
+      
+            for(int i = tile.X - 1; i < tile.X + 1; i++)
+            {
+                for(int j = tile.Y - 1; j < tile.Y + 1; j++)
+                {
+                    if(tile.TileManager.X_IsValidIndex(i) && tile.TileManager.Y_IsValidIndex(j))
+                    {
+                        Tile neighborTile = tile.TileManager.GetTileFromPoint(new Point(i, j),tile.IndexLayer);
+                        int newGid = WangTile(neighborTile);
+                        if (newGid != neighborTile.GID)
+                            TileUtility.SwitchGid(neighborTile, tile.IndexLayer, newGid);
+                    }
+                }
+            }
+        }
+        public int WangTile(Tile tile)
+        {
+            if (!_gidNameKeys.ContainsKey(tile.GID))
+                return tile.GID;
+            if (!TilingSets.ContainsKey(_gidNameKeys[tile.GID]))
+                return tile.GID;
             Dictionary<int, int> tDictionary = TilingSets[_gidNameKeys[tile.GID]];
 
             if (!GidDictionaryMatch(tDictionary,tile, tile.X, tile.Y))
-                return;
+                return tile.GID;
 
             int keyToCheck = 0;
 
@@ -79,13 +101,14 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
                if (GidDictionaryMatch(tDictionary,tile, tile.X - 1, tile.Y))
                     keyToCheck += 2;
             }
+       
 
             if (keyToCheck < 15)
             {
-                TileUtility.SwitchGid(tile, tile.IndexLayer, tDictionary[keyToCheck] + 1);
+                return tDictionary[keyToCheck];
 
             }
-
+            return tile.GID;
         }
     }
 }

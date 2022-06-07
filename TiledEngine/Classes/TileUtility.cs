@@ -35,13 +35,13 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Default gid is blank tile
         /// </summary>
-        public static void SwitchGid(Tile tile,Layers layer, int newGid = -1)
+        public static void SwitchGid(Tile tile,Layers layer, int newGid = -1, bool wang = false)
         {
             tile.Unload();
             tile.Sprite = null;
             // tile = new Tile(newGid, MapDepths[(int)layer], tile.X, tile.Y);
             tile.GID = newGid + 1;
-            AssignProperties(tile, layer);
+            AssignProperties(tile, layer, wang: wang);
         }
         internal static Rectangle GetTileSourceRectangle(int gid, TileSetPackage tileSetPackage, int tileSetDimension)
         {
@@ -51,15 +51,27 @@ namespace TiledEngine.Classes
                 return TileRectangleHelper.GetNormalSourceRectangle(tileSetPackage.OffSetForegroundGID(gid), tileSetDimension);
 
         }
-  
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="tempTile">Setting this to true will prevent the grid status from updating, good for ghost tile</param>
-        public static void AssignProperties(Tile tile, Layers layer, bool tempTile = false)
+        /// <param name="wang">Do not do this on loads/creates, only for individual tiles</param>
+        public static void AssignProperties(Tile tile, Layers layer, bool tempTile = false, bool wang = true)
         {
 
             TileSetPackage tileSetPackage = tile.TileSetPackage;
+            if(wang)
+            {
+                int newGID = tileSetPackage.TilingSetManager.WangTile(tile);
+                if(tile.GID != newGID)
+                {
+                    tile.GID = newGID;
+                    tileSetPackage.TilingSetManager.WangSorroundingTiles(tile);
+
+                }
+            }
+
             TileManager tileManager = tile.TileManager;
             int tileSetDimension = tileSetPackage.GetDimension(tile.GID);
             Texture2D texture = tileSetPackage.GetTexture(tile.GID);
