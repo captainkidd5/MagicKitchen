@@ -29,13 +29,13 @@ namespace TiledEngine.Classes.TilePlacementStuff
             {
                 if (!_ghostTile.DoesGIDMatch(playeritem.PlacedItemGID, playeritem.PlacedItemIsForeground))
                 {
-                    _ghostTile.LoadNewTile(playeritem.PlacedItemGID, playeritem.PlacedItemIsForeground);
+                    _ghostTile.LoadNewTile(playeritem.PlacedItemGID, playeritem.PlacedItemIsForeground, playeritem);
                 }
             }
             else
                 _ghostTile.ResetTileIfNotEmpty();
 
-           _ghostTile.Update(gameTime, Controls.MouseWorldPosition);
+           _ghostTile.Update(gameTime, Controls.MouseWorldPosition, playeritem);
         }
         public void Draw(SpriteBatch spriteBatch)
         {

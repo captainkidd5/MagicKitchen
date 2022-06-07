@@ -1,5 +1,7 @@
-﻿using Globals.Classes;
+﻿using DataModels.ItemStuff;
+using Globals.Classes;
 using Globals.Classes.Helpers;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes.Pathfinding;
 using System;
@@ -66,7 +68,7 @@ namespace TiledEngine.Classes.Helpers
 
         }
 
-        internal bool MayPlaceForegroundTile(Rectangle destinationRectangleToPlace)
+        internal bool MayPlaceForegroundTile(Item item, Rectangle destinationRectangleToPlace)
         {
             Rectangle body = destinationRectangleToPlace;
             int bodyTilesWide = GetTilesWide(body);
@@ -81,13 +83,38 @@ namespace TiledEngine.Classes.Helpers
 
                     if (_tileManager.PathGrid.X_IsValidIndex(rectangleIndex.X + i) && _tileManager.PathGrid.Y_IsValidIndex(rectangleIndex.Y + j))
                     {
-                        if (!_tileManager.PathGrid.IsClear(rectangleIndex.X + i, rectangleIndex.Y + j))
+                        Point point = new Point(rectangleIndex.X + i, rectangleIndex.Y + j);
+                        if (!_tileManager.PathGrid.IsClear(point.X, point.Y))
+                            return false;
+
+                        if (IsPlacementTypeBlacklisted(point, item))
                             return false;
                     }
 
                 }
             }
             return true;
+        }
+
+        /// <summary>
+        /// If item has a specified list of allowed tile types (no value provided defaults to land ok), then if this tiles property
+        /// is not contained in that list of allowed types, we shouldn't be allowed to place here.
+        /// </summary>
+        /// <param name="tilePoint"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        private bool IsPlacementTypeBlacklisted(Point tilePoint, Item item)
+        {
+            string tilingSetValueString = _tileManager.GetTileFromPoint(tilePoint, Layers.background).GetProperty("tilingSet");
+
+            if (!string.IsNullOrEmpty(tilingSetValueString))
+            {
+                AllowedPlacementTileType placementType = (AllowedPlacementTileType)Enum.Parse(typeof(AllowedPlacementTileType), tilingSetValueString);
+
+                if (!item.AllowedPlacementTileTypes.Contains(placementType))
+                    return true;
+            }
+            return false;
         }
         internal bool MayPlaceBackgroundTile(Rectangle destinationRectangleToPlace, Layers currentTileLayer)
         {

@@ -34,6 +34,8 @@ namespace ItemEngine.Classes
         public int PlacedItemGID => _itemData.PlacedItemGID;
         public bool PlacedItemIsForeground => _itemData.PlacedItemIsForeground;
         public bool PlaceableItem => _itemData.PlaceableItem;
+
+        public List<AllowedPlacementTileType> AllowedPlacementTileTypes => _itemData.AllowedPlacementTileTypes;
         internal Item(ItemData data)
         {
             _itemData = data;

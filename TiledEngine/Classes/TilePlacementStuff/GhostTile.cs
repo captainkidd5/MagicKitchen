@@ -1,5 +1,6 @@
 ﻿using Globals.Classes.Helpers;
 using InputEngine.Classes;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
@@ -42,7 +43,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
             }
             return GID -1 == gid;
         }
-        public void LoadNewTile(int gid, bool isForeGround)
+        public void LoadNewTile(int gid, bool isForeGround, Item item)
         {
             GID = gid + 1;
             _layer = Layers.background;
@@ -63,7 +64,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
             //Update once so that changing to valid placed item will immediately show if can place under cursor
             //without actually having to move cursor
-            UpdateMayPlace();
+            UpdateMayPlace(item);
         }
 
         public void ResetTileIfNotEmpty()
@@ -74,7 +75,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
                 CurrentTile.Unload();
             CurrentTile = null;
         }
-        public void Update(GameTime gameTime, Vector2 position)
+        public void Update(GameTime gameTime, Vector2 position, Item item)
         {
 
             //todo: check if area is clear
@@ -82,7 +83,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
             {
                 if (Controls.HasCursorTileIndexChanged)
                 {
-                    UpdateMayPlace();
+                    UpdateMayPlace(item);
                 }
                 _sprite.Update(gameTime, _position);
 
@@ -105,7 +106,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
             }
         }
 
-        private void UpdateMayPlace()
+        private void UpdateMayPlace(Item placedItem)
         {
             _obstructedArea = CurrentTile.GetTotalHitBoxRectangle(_position);
 
@@ -117,7 +118,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
             if (_layer > Layers.midground)
             {
-                _mayPlace = CurrentTile.TileManager.TileLocationHelper.MayPlaceForegroundTile(rect);
+                _mayPlace = CurrentTile.TileManager.TileLocationHelper.MayPlaceForegroundTile(placedItem,rect);
             }
             else
             {

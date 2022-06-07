@@ -26,6 +26,14 @@ namespace DataModels.ItemStuff
         Good = 2,
         Excellent = 3
     }
+
+    public enum AllowedPlacementTileType
+    {
+        land = 0,
+        water = 1,
+        all = 2,
+
+    }
     public class ItemData
     {
         public int Id { get; set; }
@@ -49,12 +57,16 @@ namespace DataModels.ItemStuff
 
         public int PlacedItemGID { get; set; } = -1;
         public bool PlacedItemIsForeground { get; set; }
+        public List<AllowedPlacementTileType> AllowedPlacementTileTypes { get; set; }
         public bool PlaceableItem => PlacedItemGID > -1;
         public void Load()
         {
             if(RecipeInfo != null)
-            RecipeInfo.Name = Name; 
+            RecipeInfo.Name = Name;
 
+            //If no value is supplied, will default to allowing land placement
+            if (AllowedPlacementTileTypes == null && PlaceableItem)
+                AllowedPlacementTileTypes = new List<AllowedPlacementTileType>() { AllowedPlacementTileType.land };
         }
 
 
