@@ -12,19 +12,16 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
     {
         internal Dictionary<string, Dictionary<int, int>> TilingSets { get; private set; }
 
-        //Just provides faster access later
-        private Dictionary<int, string> _gidNameKeys;
+      
         public TilingSetManager()
         {
             TilingSets = new Dictionary<string, Dictionary<int, int>>();
-            _gidNameKeys = new Dictionary<int, string>();
         }
 
         public void AddNewSet(string name, int gid)
         {
             if (TilingSets.ContainsKey(name))
                 return;
-            _gidNameKeys.Add(gid, name);
             TilingSets[name] = FillTilingDictionary(gid);
         }
         private Dictionary<int, int> FillTilingDictionary(int centralGID)
@@ -48,9 +45,9 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
         public void WangSorroundingTiles(Tile tile)
         {
 
-            for (int i = tile.X - 2; i <= tile.X + 2; i++)
+            for (int i = tile.X - 1; i <= tile.X + 1; i++)
             {
-                for (int j = tile.Y - 2; j <= tile.Y + 2; j++)
+                for (int j = tile.Y - 1; j <= tile.Y + 1; j++)
                 {
                     if (tile.TileManager.X_IsValidIndex(i) && tile.TileManager.Y_IsValidIndex(j))
                     {
@@ -68,11 +65,11 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
         }
         public int WangTile(Tile tile)
         {
-            if (!_gidNameKeys.ContainsKey(tile.GID))
+
+            if(string.IsNullOrEmpty(tile.GetProperty("tilingSet")))
                 return tile.GID;
-            if (!TilingSets.ContainsKey(_gidNameKeys[tile.GID]))
-                return tile.GID;
-            Dictionary<int, int> tDictionary = TilingSets[_gidNameKeys[tile.GID]];
+
+            Dictionary<int, int> tDictionary = TilingSets[tile.GetProperty("tilingSet")];
 
             if (!GidDictionaryMatch(tDictionary, tile, tile.X, tile.Y))
                 return tile.GID;
@@ -107,12 +104,12 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             }
 
 
-            if (keyToCheck < 15 && keyToCheck > 0)
-            {
+           // if (keyToCheck < 15 && keyToCheck > 0)
+           // {
                 return tDictionary[keyToCheck];
 
-            }
-            return tile.GID;
+           // }
+           // return tile.GID;
         }
     }
 }

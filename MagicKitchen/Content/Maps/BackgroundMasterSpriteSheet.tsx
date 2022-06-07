@@ -16,9 +16,21 @@
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
- <tile id="621">
+ <tile id="524">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="1" x="0" y="0" width="16" height="16">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="621">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="3" x="3" y="3" width="13" height="13">
+    <ellipse/>
+   </object>
   </objectgroup>
   <animation>
    <frame tileid="621" duration="800"/>
@@ -28,6 +40,9 @@
   </animation>
  </tile>
  <tile id="622">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
@@ -39,8 +54,13 @@
   </animation>
  </tile>
  <tile id="623">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="3" x="1" y="2" width="13" height="13">
+    <ellipse/>
+   </object>
   </objectgroup>
   <animation>
    <frame tileid="623" duration="800"/>
@@ -50,8 +70,13 @@
   </animation>
  </tile>
  <tile id="624">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="3" x="2" y="1" width="13" height="13">
+    <ellipse/>
+   </object>
   </objectgroup>
   <animation>
    <frame tileid="624" duration="800"/>
@@ -61,6 +86,9 @@
   </animation>
  </tile>
  <tile id="625">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
@@ -72,6 +100,9 @@
   </animation>
  </tile>
  <tile id="626">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
@@ -114,6 +145,9 @@
   </animation>
  </tile>
  <tile id="721">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
@@ -130,6 +164,9 @@
   </properties>
  </tile>
  <tile id="723">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
@@ -141,8 +178,13 @@
   </animation>
  </tile>
  <tile id="724">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="4" x="2" y="1" width="13" height="13">
+    <ellipse/>
+   </object>
   </objectgroup>
   <animation>
    <frame tileid="724" duration="800"/>
@@ -152,8 +194,13 @@
   </animation>
  </tile>
  <tile id="725">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="3" x="2" y="2" width="12" height="12">
+    <ellipse/>
+   </object>
   </objectgroup>
   <animation>
    <frame tileid="725" duration="800"/>
@@ -205,8 +252,13 @@
   </animation>
  </tile>
  <tile id="821">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="3" x="3" y="0" width="13" height="13">
+    <ellipse/>
+   </object>
   </objectgroup>
   <animation>
    <frame tileid="821" duration="800"/>
@@ -216,6 +268,9 @@
   </animation>
  </tile>
  <tile id="822">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
@@ -227,8 +282,16 @@
   </animation>
  </tile>
  <tile id="823">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="2" x="0" y="0" width="13" height="13">
+    <ellipse/>
+   </object>
+   <object id="3" x="0" y="0" width="13" height="13">
+    <ellipse/>
+   </object>
   </objectgroup>
   <animation>
    <frame tileid="823" duration="800"/>
@@ -238,8 +301,13 @@
   </animation>
  </tile>
  <tile id="824">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="3" x="0" y="1" width="13" height="13">
+    <ellipse/>
+   </object>
   </objectgroup>
   <animation>
    <frame tileid="824" duration="800"/>
@@ -249,8 +317,13 @@
   </animation>
  </tile>
  <tile id="825">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="3" x="2" y="2" width="13" height="13">
+    <ellipse/>
+   </object>
   </objectgroup>
   <animation>
    <frame tileid="825" duration="800"/>
