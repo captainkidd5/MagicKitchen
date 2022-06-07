@@ -368,7 +368,7 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Ensures X index is greater than zero and less than bounds of grid
         /// </summary>
-        private bool X_IsValidIndex(int x)
+        internal bool X_IsValidIndex(int x)
         {
             if (x >= 0)
                 if (x < Tiles[0].GetLength(0))
@@ -379,7 +379,7 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Ensures Y index is greater than zero and less than bounds of grid
         /// </summary>
-        private bool Y_IsValidIndex(int y)
+        internal bool Y_IsValidIndex(int y)
         {
             if (y >= 0)
                 if (y < Tiles[0].GetLength(1))
