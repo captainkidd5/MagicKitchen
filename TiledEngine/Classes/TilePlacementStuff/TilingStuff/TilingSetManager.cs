@@ -47,17 +47,22 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
         public void WangSorroundingTiles(Tile tile)
         {
-      
-            for(int i = tile.X - 1; i < tile.X + 1; i++)
+
+            for (int i = tile.X - 2; i <= tile.X + 2; i++)
             {
-                for(int j = tile.Y - 1; j < tile.Y + 1; j++)
+                for (int j = tile.Y - 2; j <= tile.Y + 2; j++)
                 {
-                    if(tile.TileManager.X_IsValidIndex(i) && tile.TileManager.Y_IsValidIndex(j))
+                    if (tile.TileManager.X_IsValidIndex(i) && tile.TileManager.Y_IsValidIndex(j))
                     {
-                        Tile neighborTile = tile.TileManager.GetTileFromPoint(new Point(i, j),tile.IndexLayer);
-                        int newGid = WangTile(neighborTile);
-                        if (newGid != neighborTile.GID)
-                            TileUtility.SwitchGid(neighborTile, tile.IndexLayer, newGid);
+                        if (i != 0 && j != 0)
+                        {
+
+                            Tile neighborTile = tile.TileManager.GetTileFromPoint(new Point(i, j), tile.IndexLayer);
+                            int newGid = WangTile(neighborTile);
+                            if (newGid != neighborTile.GID)
+                                TileUtility.SwitchGid(neighborTile, tile.IndexLayer, newGid);
+                        }
+
                     }
                 }
             }
@@ -70,20 +75,20 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
                 return tile.GID;
             Dictionary<int, int> tDictionary = TilingSets[_gidNameKeys[tile.GID]];
 
-            if (!GidDictionaryMatch(tDictionary,tile, tile.X, tile.Y))
+            if (!GidDictionaryMatch(tDictionary, tile, tile.X, tile.Y))
                 return tile.GID;
 
             int keyToCheck = 0;
 
             if (tile.TileManager.Y_IsValidIndex(tile.Y - 1))
             {
-                if(GidDictionaryMatch(tDictionary, tile, tile.X, tile.Y - 1))
+                if (GidDictionaryMatch(tDictionary, tile, tile.X, tile.Y - 1))
                     keyToCheck += 1;
             }
 
             if (tile.TileManager.Y_IsValidIndex(tile.Y + 1))
             {
-                if (GidDictionaryMatch(tDictionary,tile, tile.X, tile.Y + 1))
+                if (GidDictionaryMatch(tDictionary, tile, tile.X, tile.Y + 1))
                     keyToCheck += 8;
             }
 
@@ -92,18 +97,18 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             //looking at rightmost tile
             if (tile.TileManager.X_IsValidIndex(tile.X + 1))
             {
-                if (GidDictionaryMatch(tDictionary,tile, tile.X + 1, tile.Y))
+                if (GidDictionaryMatch(tDictionary, tile, tile.X + 1, tile.Y))
                     keyToCheck += 4;
             }
 
-            if (tile.TileManager.X_IsValidIndex(tile.X -1 ))
+            if (tile.TileManager.X_IsValidIndex(tile.X - 1))
             {
-               if (GidDictionaryMatch(tDictionary,tile, tile.X - 1, tile.Y))
+                if (GidDictionaryMatch(tDictionary, tile, tile.X - 1, tile.Y))
                     keyToCheck += 2;
             }
-       
 
-            if (keyToCheck < 15)
+
+            if (keyToCheck < 15 && keyToCheck > 0)
             {
                 return tDictionary[keyToCheck];
 

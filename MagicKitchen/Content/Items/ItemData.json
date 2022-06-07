@@ -44,7 +44,8 @@
     "Name": "Dirt",
     "Description" : "May be placed on water",
     "MaxStackSize": 999,
-    "Price": 1
+    "Price": 1,
+    "PlacedItemGID" : 201
 },
 {
     "Id": 1601,

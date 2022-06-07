@@ -67,9 +67,10 @@ namespace TiledEngine.Classes
                 if(tile.GID != newGID)
                 {
                     tile.GID = newGID;
-                    tileSetPackage.TilingSetManager.WangSorroundingTiles(tile);
 
                 }
+                tileSetPackage.TilingSetManager.WangSorroundingTiles(tile);
+
             }
 
             TileManager tileManager = tile.TileManager;

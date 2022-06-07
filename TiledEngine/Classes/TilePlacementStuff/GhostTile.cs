@@ -21,7 +21,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
         public int X { get; set; }
         public int Y { get; set; }
-
+        private Layers _layer;
         private Sprite _sprite;
         private readonly TileManager _tileManager;
 
@@ -36,18 +36,21 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
         public void LoadNewTile(int gid, bool isForeGround)
         {
-            GID = gid;
-            int gidForSprite = GID;
+            GID = gid + 1;
+            _layer = Layers.background;
             if (isForeGround)
-                gidForSprite = _tileManager.TileSetPackage.OffSetBackgroundGID(gidForSprite) + 1;
+            {
+                GID = _tileManager.TileSetPackage.OffSetBackgroundGID(gid) ;
+                _layer = Layers.foreground;
+            }
 
 
-            CurrentTile = new Tile(_tileManager, gidForSprite, Layers.foreground, .99f, 0, 0);
-            TileUtility.AssignProperties(CurrentTile, Layers.foreground, true);
+            CurrentTile = new Tile(_tileManager, GID, _layer, .99f, 0, 0);
+            TileUtility.AssignProperties(CurrentTile, _layer, true);
 
 
             _sprite = SpriteFactory.CreateWorldSprite(
-                Vector2.Zero, CurrentTile.SourceRectangle, _tileManager.TileSetPackage.ForegroundSpriteSheet,
+                Vector2.Zero, CurrentTile.SourceRectangle,  _tileManager.TileSetPackage.GetTexture(GID),
                 Color.White, customLayer: .99f);
 
             //Update once so that changing to valid placed item will immediately show if can place under cursor
@@ -83,9 +86,9 @@ namespace TiledEngine.Classes.TilePlacementStuff
                         if (!Controls.ClickActionTriggeredThisFrame)
                         {
                             Tile tile = _tileManager.GetTileFromWorldPosition(
-                                _tileManager.MouseOverTile.Position, Layers.foreground);
-                            TileUtility.SwitchGid(tile, Layers.foreground,
-                                _tileManager.TileSetPackage.OffSetBackgroundGID(GID));
+                                _tileManager.MouseOverTile.Position, _layer);
+                            TileUtility.SwitchGid(tile, _layer,
+                                GID -1, true);
                         }
                     }
 

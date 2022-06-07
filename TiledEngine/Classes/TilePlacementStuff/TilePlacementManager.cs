@@ -25,7 +25,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
         {
             if (UI.PlayerCurrentSelectedItem != null && UI.PlayerCurrentSelectedItem.PlaceableItem)
             {
-                if (_ghostTile.GID != UI.PlayerCurrentSelectedItem.PlacedItemGID)
+                if (_ghostTile.GID -1 != UI.PlayerCurrentSelectedItem.PlacedItemGID)
                 {
                     _ghostTile.LoadNewTile(UI.PlayerCurrentSelectedItem.PlacedItemGID, UI.PlayerCurrentSelectedItem.PlacedItemIsForeground);
                 }
