@@ -82,8 +82,10 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
                         if (!Controls.ClickActionTriggeredThisFrame)
                         {
-                            Tile tile = _tileManager.GetTileFromWorldPosition(_tileManager.MouseOverTile.Position, Layers.foreground);
-                            TileUtility.SwitchGid(tile, Layers.foreground, _tileManager.TileSetPackage.OffSetBackgroundGID(GID));
+                            Tile tile = _tileManager.GetTileFromWorldPosition(
+                                _tileManager.MouseOverTile.Position, Layers.foreground);
+                            TileUtility.SwitchGid(tile, Layers.foreground,
+                                _tileManager.TileSetPackage.OffSetBackgroundGID(GID));
                         }
                     }
 

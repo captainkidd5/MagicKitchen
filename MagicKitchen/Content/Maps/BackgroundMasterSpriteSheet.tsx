@@ -125,6 +125,11 @@
    <frame tileid="261" duration="800"/>
   </animation>
  </tile>
+ <tile id="442">
+  <properties>
+   <property name="tilingSet" value="water"/>
+  </properties>
+ </tile>
  <tile id="443">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
