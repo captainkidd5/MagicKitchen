@@ -43,6 +43,7 @@
  </tile>
  <tile id="201">
   <properties>
+   <property name="action" value="Dig,Hammer,Good"/>
    <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>

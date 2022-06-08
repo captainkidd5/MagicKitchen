@@ -59,10 +59,20 @@ namespace TiledEngine.Classes.TileAddons.Actions
         {
             base.Update(gameTime);
             Move(IntermediateTmxShape.HullPosition);
-            if (PlayerInClickRange && MouseHovering || PlayerInControllerActionRange)
+            if (WithinRangeOfPlayer())
             {
+                Tile.WithinRangeOfPlayer = true;
                 AlterCursorAndAlertTile();
+
             }
+
+
+
+        }
+
+        protected virtual bool WithinRangeOfPlayer()
+        {
+            return (PlayerInClickRange && MouseHovering || PlayerInControllerActionRange);
         }
 
         protected virtual void AlterCursorAndAlertTile()

@@ -20,6 +20,8 @@ namespace TiledEngine.Classes.TileAddons.Actions
                     return new IgniteActionTile(tile, intermediateTmxShape, action);
                 case "Break":
                     return new DestructableTile(tile, intermediateTmxShape, action);
+                case "Dig":
+                    return new DestructableTile(tile, intermediateTmxShape, action);
                 default:
                     throw new Exception($"Action type {action} could not be found");
             }

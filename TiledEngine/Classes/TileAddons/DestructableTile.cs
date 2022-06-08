@@ -37,19 +37,22 @@ namespace TiledEngine.Classes.TileAddons
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            HandleDestruction();
 
-            if (PlayerInClickRange || PlayerInControllerActionRange)
-                Tile.WithinRangeOfPlayer = true;
+        }
+
+        private void HandleDestruction()
+        {
             if (Tile.HasAnimationFrames && (Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
             {
                 FlaggedForDestruction = true;
 
             }
 
-            if(FlaggedForDestruction)
+            if (FlaggedForDestruction)
                 DestroyTileAndGetLoot();
-
         }
+
         protected override void AlterCursorAndAlertTile()
         {
 
