@@ -116,11 +116,12 @@ namespace TiledEngine.Classes.Helpers
             }
             return false;
         }
-        internal bool MayPlaceBackgroundTile(Rectangle destinationRectangleToPlace, Layers currentTileLayer)
+        internal bool MayPlaceBackgroundTile(Item item,Rectangle destinationRectangleToPlace, Layers currentTileLayer)
         {
             Rectangle body = destinationRectangleToPlace;
             int bodyTilesWide = GetTilesWide(body);
             int bodyTilesHigh = GetTilesHigh(body);
+
 
             Point rectangleIndex = Vector2Helper.WorldPositionToTilePositionAsPoint(new Vector2(body.X, body.Y));
             //Criteria for placing background tiles is different. All tiles in layers higher than desired placement must be empty.
@@ -139,6 +140,12 @@ namespace TiledEngine.Classes.Helpers
                             if (_tileManager.GetTileFromPoint(new Point(rectangleIndex.X + i, rectangleIndex.Y + j),(Layers)z).GID >0)
                                 return false;
                         }
+
+                        Point point = new Point(rectangleIndex.X + i, rectangleIndex.Y + j);
+             
+
+                        if (IsPlacementTypeBlacklisted(point, item))
+                            return false;
 
                     }
                 }

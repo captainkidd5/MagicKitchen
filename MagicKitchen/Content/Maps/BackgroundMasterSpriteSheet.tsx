@@ -1,14 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.3.0" name="BackgroundMasterSpriteSheet" tilewidth="16" tileheight="16" tilecount="10000" columns="100">
  <image source="BackgroundMasterSpriteSheet.png" width="1600" height="1600"/>
+ <tile id="100">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="101">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="102">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="103">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="104">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="105">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
  <tile id="112">
   <properties>
    <property name="step" value="StepGrass1"/>
   </properties>
  </tile>
+ <tile id="200">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
  <tile id="201">
   <properties>
    <property name="step" value="StepDirt"/>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="202">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="203">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="204">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="205">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="300">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="301">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="302">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="303">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="304">
+  <properties>
+   <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="305">
+  <properties>
+   <property name="tilingSet" value="land"/>
   </properties>
  </tile>
  <tile id="428">
@@ -74,7 +160,7 @@
    <property name="tilingSet" value="water"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="3" x="2" y="1" width="13" height="13">
+   <object id="3" x="3" y="2" width="11" height="10">
     <ellipse/>
    </object>
   </objectgroup>
@@ -182,7 +268,7 @@
    <property name="tilingSet" value="water"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="4" x="2" y="1" width="13" height="13">
+   <object id="4" x="4" y="2" width="11" height="12">
     <ellipse/>
    </object>
   </objectgroup>
@@ -198,7 +284,7 @@
    <property name="tilingSet" value="water"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="3" x="2" y="2" width="12" height="12">
+   <object id="3" x="2" y="0" width="12" height="12">
     <ellipse/>
    </object>
   </objectgroup>
@@ -321,7 +407,7 @@
    <property name="tilingSet" value="water"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="3" x="2" y="2" width="13" height="13">
+   <object id="3" x="2" y="3" width="13" height="13">
     <ellipse/>
    </object>
   </objectgroup>

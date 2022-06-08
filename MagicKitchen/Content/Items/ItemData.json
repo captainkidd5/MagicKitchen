@@ -45,7 +45,11 @@
     "Description" : "May be placed on water",
     "MaxStackSize": 999,
     "Price": 1,
-    "PlacedItemGID" : 201
+    "PlacedItemGID" : 201,
+    "AllowedPlacementTileTypes":
+    [
+        "water"
+    ]
 },
 {
     "Id": 1601,

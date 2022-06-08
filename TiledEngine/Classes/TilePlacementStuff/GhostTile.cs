@@ -110,11 +110,24 @@ namespace TiledEngine.Classes.TilePlacementStuff
         {
             _obstructedArea = CurrentTile.GetTotalHitBoxRectangle(_position);
 
+
+            int ySubtractionAmt;
+            if (_obstructedArea.Height < 1)
+            {
+                ySubtractionAmt = 0;
+
+            }
+            else
+            {
+                ySubtractionAmt = _sprite.Height - _obstructedArea.Height;
+
+            }
+
             _position = new Vector2(_tileManager.MouseOverTile.Position.X,
-                _tileManager.MouseOverTile.Position.Y - _sprite.Height + _obstructedArea.Height);
+                _tileManager.MouseOverTile.Position.Y - ySubtractionAmt);
 
             Rectangle rect = RectangleHelper.RectFromPosition(
-              new Vector2(_position.X, _position.Y + _sprite.Height - _obstructedArea.Height), _obstructedArea.Width, _obstructedArea.Height);
+              new Vector2(_position.X, _position.Y + ySubtractionAmt), _obstructedArea.Width, _obstructedArea.Height);
 
             if (_layer > Layers.midground)
             {
@@ -122,7 +135,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
             }
             else
             {
-                _mayPlace = CurrentTile.TileManager.TileLocationHelper.MayPlaceBackgroundTile(rect, _layer);
+                _mayPlace = CurrentTile.TileManager.TileLocationHelper.MayPlaceBackgroundTile(placedItem, rect, _layer);
             }
           
             if (_mayPlace)
