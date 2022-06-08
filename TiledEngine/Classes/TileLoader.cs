@@ -16,6 +16,7 @@ using static Globals.Classes.Settings;
 using System.Linq;
 using TiledEngine.Classes.ZoneStuff;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
+using static DataModels.Enums;
 
 namespace TiledEngine.Classes
 {

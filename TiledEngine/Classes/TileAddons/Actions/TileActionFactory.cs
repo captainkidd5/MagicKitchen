@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes.Helpers;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TileAddons.Actions

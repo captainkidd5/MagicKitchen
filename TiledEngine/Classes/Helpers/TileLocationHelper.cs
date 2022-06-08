@@ -7,6 +7,7 @@ using PhysicsEngine.Classes.Pathfinding;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.Helpers
@@ -68,31 +69,50 @@ namespace TiledEngine.Classes.Helpers
 
         }
 
-        internal bool MayPlaceForegroundTile(Item item, Rectangle destinationRectangleToPlace)
+
+
+        
+        internal bool MayPlaceTile(Item item,Rectangle destinationRectangleToPlace, Layers currentTileLayer)
         {
             Rectangle body = destinationRectangleToPlace;
             int bodyTilesWide = GetTilesWide(body);
             int bodyTilesHigh = GetTilesHigh(body);
 
+
             Point rectangleIndex = Vector2Helper.WorldPositionToTilePositionAsPoint(new Vector2(body.X, body.Y));
-            for (int i = 0; i < bodyTilesWide; i++)
+            //Criteria for placing background tiles is different. All tiles in layers higher than desired placement must be empty.
+            //We are not concerned if the tile we are replacing has an object (water edges have objects, but can be replaced)
+            for (int z = _tileManager.Tiles.Count - 1; z > (int)currentTileLayer; z--)
             {
-                for (int j = 0; j < bodyTilesHigh; j++)
+
+                for (int i = 0; i < bodyTilesWide; i++)
                 {
-
-
-                    if (_tileManager.PathGrid.X_IsValidIndex(rectangleIndex.X + i) && _tileManager.PathGrid.Y_IsValidIndex(rectangleIndex.Y + j))
+                    for (int j = 0; j < bodyTilesHigh; j++)
                     {
+
                         Point point = new Point(rectangleIndex.X + i, rectangleIndex.Y + j);
-                        if (!_tileManager.PathGrid.IsClear(point.X, point.Y))
-                            return false;
+
+                        if (_tileManager.X_IsValidIndex(rectangleIndex.X + i) && _tileManager.Y_IsValidIndex(rectangleIndex.Y + j))
+                        {
+
+                            if (currentTileLayer > Layers.midground)
+                            {
+                                if (!_tileManager.PathGrid.IsClear(point.X, point.Y))
+                                    return false;
+                            }
+                            if (!_tileManager.GetTileFromPoint(point, (Layers)z).Empty)
+                                return false;
+                        }
+
+             
 
                         if (IsPlacementTypeBlacklisted(point, item))
                             return false;
-                    }
 
+                    }
                 }
             }
+
             return true;
         }
 
@@ -116,43 +136,6 @@ namespace TiledEngine.Classes.Helpers
             }
             return false;
         }
-        internal bool MayPlaceBackgroundTile(Item item,Rectangle destinationRectangleToPlace, Layers currentTileLayer)
-        {
-            Rectangle body = destinationRectangleToPlace;
-            int bodyTilesWide = GetTilesWide(body);
-            int bodyTilesHigh = GetTilesHigh(body);
-
-
-            Point rectangleIndex = Vector2Helper.WorldPositionToTilePositionAsPoint(new Vector2(body.X, body.Y));
-            //Criteria for placing background tiles is different. All tiles in layers higher than desired placement must be empty.
-            //We are not concerned if the tile we are replacing has an object (water edges have objects, but can be replaced)
-            for (int z = _tileManager.Tiles.Count - 1; z > (int)currentTileLayer; z--)
-            {
-
-                for (int i = 0; i < bodyTilesWide; i++)
-                {
-                    for (int j = 0; j < bodyTilesHigh; j++)
-                    {
-
-
-                        if (_tileManager.X_IsValidIndex(rectangleIndex.X + i) && _tileManager.Y_IsValidIndex(rectangleIndex.Y + j))
-                        {
-                            if (_tileManager.GetTileFromPoint(new Point(rectangleIndex.X + i, rectangleIndex.Y + j),(Layers)z).GID >0)
-                                return false;
-                        }
-
-                        Point point = new Point(rectangleIndex.X + i, rectangleIndex.Y + j);
-             
-
-                        if (IsPlacementTypeBlacklisted(point, item))
-                            return false;
-
-                    }
-                }
-            }
-
-            return true;
-        }
         /// <summary>
         /// Updates the pathgrid for when an object will span more than a single tile
         /// </summary>
@@ -163,13 +146,13 @@ namespace TiledEngine.Classes.Helpers
             int bodyTilesHigh = GetTilesHigh(body);
 
 
-
             Point rectangleIndex = Vector2Helper.WorldPositionToTilePositionAsPoint(new Vector2(body.X, body.Y));
             for (int i = 0; i < bodyTilesWide; i++)
             {
                 for (int j = 0; j < bodyTilesHigh; j++)
                 {
-                    _tileManager.UpdateGrid(rectangleIndex.X + i, rectangleIndex.Y + j, gridStatus);
+                    if(rectangleIndex.X != 0 && rectangleIndex.Y != 0)
+                        _tileManager.UpdateGrid(rectangleIndex.X + i, rectangleIndex.Y + j, gridStatus);
 
                 }
             }

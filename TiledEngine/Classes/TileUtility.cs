@@ -14,6 +14,7 @@ using TiledEngine.Classes.Misc;
 using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
 using TiledSharp;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 using static TiledEngine.Classes.TileLoader;
 using static TiledEngine.Classes.TileManager;
@@ -164,7 +165,7 @@ namespace TiledEngine.Classes
                 tile.Sprite = SpriteFactory.CreateWorldSprite(tile.Position, tile.SourceRectangle, texture, customLayer: tile.Layer, randomizeLayers: false);
             else
             {
-                (tile.Sprite as AnimatedSpriteBase).CustomLayer = tile.Layer;
+                tile.Sprite.CustomLayer = tile.Layer;
             }
 
 

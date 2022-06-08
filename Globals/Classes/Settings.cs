@@ -3,19 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static DataModels.Enums;
 
 namespace Globals.Classes
 {
     public static class Settings
     {
-        public enum Layers
-        {
-            background = 0, //zero
-            midground = 1, //back
-            buildings = 2, //sprite
-            foreground = 3, //forward
-            front = 4 //front
-        }
+        
         public enum ElementType
         {
             UI = 1,

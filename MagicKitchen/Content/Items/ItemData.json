@@ -49,7 +49,9 @@
     "AllowedPlacementTileTypes":
     [
         "water"
-    ]
+    ],
+    "LayerToPlace" : "background"
+
 },
 {
     "Id": 1601,
@@ -242,8 +244,7 @@
                     "Description" : "Craft more items!",
                     "MaxStackSize": 1,
                     "Price": 1,
-                     "PlacedItemGID" : 1215,
-                     "PlacedItemIsForeground" : true
+                     "PlacedItemGID" : 1215
                     
                     },
                 {
@@ -252,8 +253,8 @@
                     "Description" : "Smelts ores into Ingots",
                     "MaxStackSize": 1,
                     "Price": 1,
-                     "PlacedItemGID" : 215,
-                     "PlacedItemIsForeground" : true
+                     "PlacedItemGID" : 215
+                     
                     
                     },
         {

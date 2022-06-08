@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes.Helpers;
 using TiledSharp;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TilePlacementStuff
@@ -35,23 +36,20 @@ namespace TiledEngine.Classes.TilePlacementStuff
             _tileManager = tileManager;
         }
 
-        internal bool DoesGIDMatch(int gid, bool isForeGround)
+        internal bool DoesGIDMatch(int gid, bool isForegroundTileset)
         {
-            if(isForeGround)
+            if(isForegroundTileset)
             {
                 return _tileManager.TileSetPackage.OffSetBackgroundGID(gid) == GID - 1;
             }
             return GID -1 == gid;
         }
-        public void LoadNewTile(int gid, bool isForeGround, Item item)
+        public void LoadNewTile(int gid, bool isForegroundTileSet, Item item, Layers layerToPlace)
         {
             GID = gid + 1;
-            _layer = Layers.background;
-            if (isForeGround)
-            {
+            _layer = layerToPlace;
+            if (isForegroundTileSet)
                 GID = _tileManager.TileSetPackage.OffSetBackgroundGID(gid+ 1) ;
-                _layer = Layers.foreground;
-            }
 
 
             CurrentTile = new Tile(_tileManager, GID, _layer, .99f, 0, 0);
@@ -129,14 +127,8 @@ namespace TiledEngine.Classes.TilePlacementStuff
             Rectangle rect = RectangleHelper.RectFromPosition(
               new Vector2(_position.X, _position.Y + ySubtractionAmt), _obstructedArea.Width, _obstructedArea.Height);
 
-            if (_layer > Layers.midground)
-            {
-                _mayPlace = CurrentTile.TileManager.TileLocationHelper.MayPlaceForegroundTile(placedItem,rect);
-            }
-            else
-            {
-                _mayPlace = CurrentTile.TileManager.TileLocationHelper.MayPlaceBackgroundTile(placedItem, rect, _layer);
-            }
+                _mayPlace = CurrentTile.TileManager.TileLocationHelper.MayPlaceTile(placedItem,rect,_layer);
+
           
             if (_mayPlace)
                 _sprite.UpdateColor(Color.Green);

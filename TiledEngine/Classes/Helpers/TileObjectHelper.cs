@@ -10,6 +10,7 @@ using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.TileAddons.Actions;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
 using TiledSharp;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.Helpers

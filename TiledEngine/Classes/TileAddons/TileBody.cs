@@ -15,6 +15,7 @@ using tainicom.Aether.Physics2D.Common;
 using tainicom.Aether.Physics2D.Dynamics;
 using TiledEngine.Classes.Helpers;
 using TiledSharp;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TileAddons
@@ -94,7 +95,7 @@ namespace TiledEngine.Classes.TileAddons
                 AllowedPlacementTileType allowedPlacementType = (AllowedPlacementTileType)Enum.Parse(typeof(AllowedPlacementTileType), tilingProperty);
                 if (allowedPlacementType == AllowedPlacementTileType.land)
                 {
-                    gidToSwitchTo = Tile.TileManager.TileSetPackage.TilingSetManager.TilingSets["water"][15];
+                    gidToSwitchTo = Tile.TileManager.TileSetPackage.TilingSetManager.TilingSets["water"][15] -1;
                 }
 
             }

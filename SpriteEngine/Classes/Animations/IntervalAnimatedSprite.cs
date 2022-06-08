@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DataModels.Enums;
 
 namespace SpriteEngine.Classes.Animations
 {
@@ -18,7 +19,7 @@ namespace SpriteEngine.Classes.Animations
         internal IntervalAnimatedSprite(GraphicsDevice graphics, ContentManager content,
             Settings.ElementType spriteType, Vector2 position, Rectangle sourceRectangle,
             Texture2D texture, AnimationFrame[] animationFrames, float standardDuration,
-            Color primaryColor, Vector2 origin, Vector2 scale, float rotation, Settings.Layers layer,
+            Color primaryColor, Vector2 origin, Vector2 scale, float rotation, Layers layer,
             bool randomizeLayers, bool flip, float? customLayer, int idleFrame = 0) : base(graphics, content, spriteType,
                 position, sourceRectangle, texture, animationFrames, standardDuration, primaryColor,
                 origin, scale, rotation, layer, randomizeLayers, flip, customLayer, idleFrame)

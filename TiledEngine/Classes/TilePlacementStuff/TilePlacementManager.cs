@@ -27,9 +27,10 @@ namespace TiledEngine.Classes.TilePlacementStuff
             Item playeritem = UI.PlayerCurrentSelectedItem;
             if (playeritem != null && playeritem.PlaceableItem)
             {
-                if (!_ghostTile.DoesGIDMatch(playeritem.PlacedItemGID, playeritem.PlacedItemIsForeground))
+                bool foreGroundSpriteSheet = playeritem.LayerToPlace != null && playeritem.LayerToPlace == DataModels.Enums.Layers.foreground;
+                if (!_ghostTile.DoesGIDMatch(playeritem.PlacedItemGID, foreGroundSpriteSheet))
                 {
-                    _ghostTile.LoadNewTile(playeritem.PlacedItemGID, playeritem.PlacedItemIsForeground, playeritem);
+                    _ghostTile.LoadNewTile(playeritem.PlacedItemGID, foreGroundSpriteSheet, playeritem, playeritem.LayerToPlace.Value);
                 }
             }
             else

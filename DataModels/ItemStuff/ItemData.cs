@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static DataModels.Enums;
 
 namespace DataModels.ItemStuff
 {
@@ -56,7 +57,7 @@ namespace DataModels.ItemStuff
         public ItemType ItemType { get; set; }
 
         public int PlacedItemGID { get; set; } = -1;
-        public bool PlacedItemIsForeground { get; set; }
+        public Layers? LayerToPlace { get; set; }
         public List<AllowedPlacementTileType> AllowedPlacementTileTypes { get; set; }
         public bool PlaceableItem => PlacedItemGID > -1;
         public void Load()
@@ -64,6 +65,8 @@ namespace DataModels.ItemStuff
             if(RecipeInfo != null)
             RecipeInfo.Name = Name;
 
+            if (PlaceableItem && LayerToPlace == null)
+                LayerToPlace = Layers.foreground;
             //If no value is supplied, will default to allowing land placement
             if (AllowedPlacementTileTypes == null && PlaceableItem)
                 AllowedPlacementTileTypes = new List<AllowedPlacementTileType>() { AllowedPlacementTileType.land };

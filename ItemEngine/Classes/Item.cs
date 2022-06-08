@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace ItemEngine.Classes
@@ -32,7 +33,7 @@ namespace ItemEngine.Classes
         public int FuelValue => _itemData.FuelValue;
 
         public int PlacedItemGID => _itemData.PlacedItemGID;
-        public bool PlacedItemIsForeground => _itemData.PlacedItemIsForeground;
+        public Layers? LayerToPlace => _itemData.LayerToPlace;
         public bool PlaceableItem => _itemData.PlaceableItem;
 
         public List<AllowedPlacementTileType> AllowedPlacementTileTypes => _itemData.AllowedPlacementTileTypes;

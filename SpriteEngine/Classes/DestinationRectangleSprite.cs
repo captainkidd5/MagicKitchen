@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DataModels.Enums;
 
 namespace SpriteEngine.Classes
 {
@@ -19,7 +20,7 @@ namespace SpriteEngine.Classes
         internal DestinationRectangleSprite(int width, int height, GraphicsDevice graphics, ContentManager content,
             Settings.ElementType spriteType, Vector2 position, Rectangle sourceRectangle,
             Texture2D texture, Color primaryColor, Vector2 origin, Vector2 scale, float rotation,
-            Settings.Layers layer, bool randomizeLayers, bool flip, float? customLayer) :
+            Layers layer, bool randomizeLayers, bool flip, float? customLayer) :
             base(graphics, content, spriteType, position, sourceRectangle, texture, primaryColor,
                 origin, scale, rotation, layer, randomizeLayers, flip, customLayer)
         {

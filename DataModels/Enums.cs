@@ -22,5 +22,14 @@ namespace DataModels
             Radial = 2,
         }
 
+        public enum Layers
+        {
+            background = 0, //zero
+            midground = 1, //back
+            buildings = 2, //sprite
+            foreground = 3, //forward
+            front = 4 //front
+        }
+
     }
 }
