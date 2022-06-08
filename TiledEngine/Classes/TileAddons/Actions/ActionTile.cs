@@ -25,11 +25,18 @@ namespace TiledEngine.Classes.TileAddons.Actions
         {
 
         }
-
+        protected override List<Category> GetCollisionCategories()
+        {
+            return new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.ActionTile };
+        }
+        protected override List<Category> GetCategoriesCollidesWith()
+        {
+            return new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Cursor, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
+        }
         public override void Load()
         {
-            List<Category> categoriesCollidesWith = new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Cursor, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
-            List<Category> collisionCategories = new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.ActionTile };
+            List<Category> categoriesCollidesWith =GetCategoriesCollidesWith();
+            List<Category> collisionCategories = GetCollisionCategories();
             if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Basic)
             {
                 AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, IntermediateTmxShape.HullPosition,
@@ -62,7 +69,8 @@ namespace TiledEngine.Classes.TileAddons.Actions
             if (WithinRangeOfPlayer())
             {
                 Tile.WithinRangeOfPlayer = true;
-                AlterCursorAndAlertTile();
+                if (IsHovered(Controls.ControllerConnected))
+                    AlterCursorAndAlertTile();
 
             }
 

@@ -60,7 +60,7 @@ namespace TiledEngine.Classes
 
         public Vector2 CentralPosition => new Vector2(Position.X + DestinationRectangle.Width / 2,
             Position.Y + DestinationRectangle.Height / 2);
-
+        public Vector2 GridPosition => new Vector2(X * Settings.TileSize, Y * Settings.TileSize);
         public bool WithinRangeOfPlayer { get; internal set; }
 
 

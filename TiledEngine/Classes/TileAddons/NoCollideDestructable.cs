@@ -44,25 +44,5 @@ namespace TiledEngine.Classes.TileAddons
   
 
         }
-
-    //    protected override void DestroyTileAndGetLoot()
-    //    {
-      
-    //        if (TileLoader.TileLootManager.HasLootData(Tile.GID))
-    //            GenerateLoot();
-
-    //        string tilingProperty = Tile.GetProperty("tilingSet");
-    //        if (!string.IsNullOrEmpty(tilingProperty))
-    //        {
-    //            AllowedPlacementTileType allowedPlacementType= (AllowedPlacementTileType)Enum.Parse(typeof(AllowedPlacementTileType), tilingProperty);
-    //            if(allowedPlacementType == AllowedPlacementTileType.land)
-
-    //        }
-    //            if()
-    //        TileUtility.SwitchGid(Tile, IndexLayer, 723, true);
-
-
-        
-    //}
     }
 }

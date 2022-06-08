@@ -183,7 +183,7 @@ namespace TiledEngine.Classes
 
 
 
-            TileSelectorSprite.Update(gameTime, new Vector2(MouseOverTile.DestinationRectangle.X, MouseOverTile.DestinationRectangle.Y));
+            TileSelectorSprite.Update(gameTime, MouseOverTile.GridPosition);
             _tilePlacementManager.Update(gameTime);
         }
 
