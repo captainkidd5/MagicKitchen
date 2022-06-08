@@ -1,4 +1,5 @@
-﻿using InputEngine.Classes;
+﻿using DataModels.ItemStuff;
+using InputEngine.Classes;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Pathfinding;
@@ -21,32 +22,18 @@ namespace TiledEngine.Classes.TileAddons
         {
             RequireLoopBeforeDestruction = requiredLoopBeforeDestruction;
         }
+        protected override List<Category> GetCollisionCategories()
+        {
+            return new List<Category>() { (Category)PhysCat.ActionTile };
+        }
+        protected override List<Category> GetCategoriesCollidesWith()
+        {
+            return new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Cursor, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
+        }
         public override void Load()
         {
-            List<Category> categoriesCollidesWith = new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Cursor, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
-            List<Category> collisionCategories = new List<Category>() { (Category)PhysCat.ActionTile };
-            if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Basic)
-            {
-                AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, IntermediateTmxShape.HullPosition,
-               IntermediateTmxShape.Width, IntermediateTmxShape.Height,
-             collisionCategories, categoriesCollidesWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight, mass: 0f)); ;
-            }
-            else if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Ellipse)
-            {
-                AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, IntermediateTmxShape.HullPosition, IntermediateTmxShape.Radius,
-                collisionCategories, categoriesCollidesWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight, mass: 0f));
-            }
-            else if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Polygon)
-            {
-
-                AddPrimaryBody(PhysicsManager.CreatePolygonHullBody(BodyType.Dynamic, IntermediateTmxShape.HullPosition, new Vertices(IntermediateTmxShape.Vertices),
-                  new List<Category>() { (Category)PhysCat.Solid }, new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC, (Category)PhysCat.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
-            }
-            else
-            {
-                throw new Exception($"{IntermediateTmxShape.TmxObjectType} is not supported.");
-            }
-            Move(IntermediateTmxShape.HullPosition);
+            base.Load();
+         
             Tile.TileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
         }
         public override void Update(GameTime gameTime)
@@ -58,25 +45,24 @@ namespace TiledEngine.Classes.TileAddons
 
         }
 
-        protected override void DestroyTileAndGetLoot()
-        {
+    //    protected override void DestroyTileAndGetLoot()
+    //    {
       
-            if (TileLoader.TileLootManager.HasLootData(Tile.GID))
-                GenerateLoot();
+    //        if (TileLoader.TileLootManager.HasLootData(Tile.GID))
+    //            GenerateLoot();
 
+    //        string tilingProperty = Tile.GetProperty("tilingSet");
+    //        if (!string.IsNullOrEmpty(tilingProperty))
+    //        {
+    //            AllowedPlacementTileType allowedPlacementType= (AllowedPlacementTileType)Enum.Parse(typeof(AllowedPlacementTileType), tilingProperty);
+    //            if(allowedPlacementType == AllowedPlacementTileType.land)
 
-            TileUtility.SwitchGid(Tile, IndexLayer, 723, true);
+    //        }
+    //            if()
+    //        TileUtility.SwitchGid(Tile, IndexLayer, 723, true);
 
 
         
-    }
-        protected override void CleanGrid()
-        {
-           // base.CleanGrid();
-        }
-        protected override bool WithinRangeOfPlayer()
-        {
-            return base.WithinRangeOfPlayer();
-        }
+    //}
     }
 }

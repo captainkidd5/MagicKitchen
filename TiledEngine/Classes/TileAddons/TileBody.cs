@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using DataModels.ItemStuff;
 using Globals.Classes;
 using Globals.Classes.Chance;
 using Globals.Classes.Helpers;
@@ -33,25 +34,34 @@ namespace TiledEngine.Classes.TileAddons
            // throw new NotImplementedException();
         }
 
+        protected virtual List<Category> GetCategoriesCollidesWith()
+        {
+            return new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Item, (Category)PhysCat.NPC, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
+        }
+        protected virtual List<Category> GetCollisionCategories()
+        {
+            return new List<Category>() { (Category)PhysCat.Solid };
+        }
         public virtual void Load()
         {
 
-            List<Category> categoriesCollidersWith = new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Item, (Category)PhysCat.NPC, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
+            List<Category> categoriesCollidersWith = GetCategoriesCollidesWith();
+            List<Category> collisionCatergories = GetCollisionCategories();
             if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Basic)
             {
                 AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,
-               IntermediateTmxShape.Width, IntermediateTmxShape.Height, new List<Category>() { (Category)PhysCat.Solid },
+               IntermediateTmxShape.Width, IntermediateTmxShape.Height, collisionCatergories,
                categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else if(IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Ellipse)
             {
                 AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, IntermediateTmxShape.HullPosition,IntermediateTmxShape.Radius,
-                    new List<Category>() { (Category)PhysCat.Solid }, categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+                    collisionCatergories, categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Polygon)
             {
                 AddPrimaryBody(PhysicsManager.CreatePolygonHullBody(BodyType.Static, IntermediateTmxShape.HullPosition, new Vertices(IntermediateTmxShape.Vertices),
-                    new List<Category>() { (Category)PhysCat.Solid }, categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+                  collisionCatergories, categoriesCollidersWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else 
             {
@@ -77,8 +87,19 @@ namespace TiledEngine.Classes.TileAddons
                 GenerateLoot();
 
             CleanGrid();
+            string tilingProperty = Tile.GetProperty("tilingSet");
+            int gidToSwitchTo = -1;
+            if (!string.IsNullOrEmpty(tilingProperty))
+            {
+                AllowedPlacementTileType allowedPlacementType = (AllowedPlacementTileType)Enum.Parse(typeof(AllowedPlacementTileType), tilingProperty);
+                if (allowedPlacementType == AllowedPlacementTileType.land)
+                {
+                    gidToSwitchTo = Tile.TileManager.TileSetPackage.TilingSetManager.TilingSets["water"][15];
+                }
 
-            TileUtility.SwitchGid(Tile, IndexLayer);
+            }
+            //Do not wang foreground tiles, unnecessary 
+            TileUtility.SwitchGid(Tile, IndexLayer, gidToSwitchTo, Tile.IndexLayer < Layers.buildings);
 
 
         }
