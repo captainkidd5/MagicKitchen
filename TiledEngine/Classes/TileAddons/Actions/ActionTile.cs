@@ -44,7 +44,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
             else if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Polygon)
             {
 
-                AddPrimaryBody(PhysicsManager.CreatePolygonHullBody(BodyType.Static, IntermediateTmxShape.HullPosition, new Vertices(IntermediateTmxShape.Vertices),
+                AddPrimaryBody(PhysicsManager.CreatePolygonHullBody(BodyType.Dynamic, IntermediateTmxShape.HullPosition, new Vertices(IntermediateTmxShape.Vertices),
                   new List<Category>() { (Category)PhysCat.Solid }, new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC, (Category)PhysCat.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else

@@ -63,6 +63,8 @@ namespace TiledEngine.Classes
 
         public bool WithinRangeOfPlayer { get; internal set; }
 
+
+        internal bool Empty => GID < 0;
         internal Tile(TileManager tileManager, int gid, Layers indexLayer, float layer, int x, int y)
         {
 

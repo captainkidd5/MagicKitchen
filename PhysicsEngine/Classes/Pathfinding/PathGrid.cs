@@ -160,10 +160,7 @@ namespace PhysicsEngine.Classes.Pathfinding
             return null;         
         }
 
-        /// <summary>
-        /// DO NOT USE THIS, see <see cref="Tile."/>
-        /// </summary>
-        /// <param name="spriteBatch"></param>
+
         public void DrawDebug(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < Weight.GetLength(0); i++)

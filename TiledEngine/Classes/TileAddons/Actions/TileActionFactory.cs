@@ -21,7 +21,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
                 case "Break":
                     return new DestructableTile(tile, intermediateTmxShape, action);
                 case "Dig":
-                    return new DestructableTile(tile, intermediateTmxShape, action);
+                    return new NoCollideDestructable(tile, intermediateTmxShape, action, false);
                 default:
                     throw new Exception($"Action type {action} could not be found");
             }

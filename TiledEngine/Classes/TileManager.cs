@@ -80,7 +80,7 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Generic load, should only be called by <see cref="TileLoader.LoadTileManager(string, TileManager)"/>
         /// </summary>
-        internal void CreateNewSave(TileManager tileManager,List<Tile[,]> tiles, int mapWidth, TileSetPackage tileSetPackage)
+        internal void CreateNewSave(TileManager tileManager, List<Tile[,]> tiles, int mapWidth, TileSetPackage tileSetPackage)
         {
 
             TileSetPackage = tileSetPackage;
@@ -137,7 +137,7 @@ namespace TiledEngine.Classes
                 {
                     for (int y = 0; y < MapWidth; y++)
                     {
-                        TileUtility.AssignProperties(Tiles[z][x, y], (Layers)z,wang: false);
+                        TileUtility.AssignProperties(Tiles[z][x, y], (Layers)z, wang: false);
                     }
                 }
             }
@@ -175,12 +175,14 @@ namespace TiledEngine.Classes
                         Tiles[z][x, y].Update(gameTime, PathGrid);
                     }
                 }
-
+                //Mouse over tile is the highest layered, non empty tile
+                if (!Tiles[z][MouseX, MouseY].Empty)
+                    MouseOverTile = Tiles[z][MouseX, MouseY];
             }
             CheckMouseTileInteractions();
 
-            
-            MouseOverTile = Tiles[0][MouseX, MouseY];
+
+
             TileSelectorSprite.Update(gameTime, new Vector2(MouseOverTile.DestinationRectangle.X, MouseOverTile.DestinationRectangle.Y));
             _tilePlacementManager.Update(gameTime);
         }
@@ -201,7 +203,7 @@ namespace TiledEngine.Classes
         /// <param name="hoveredLayerTile"></param>
         private bool CheckIfCursorIconChangedFromTile(Tile hoveredLayerTile)
         {
-          
+
             CursorIconType iconType = hoveredLayerTile.GetCursorIconType();
             if (hoveredLayerTile.WithinRangeOfPlayer && iconType != CursorIconType.None)
             {
@@ -281,7 +283,7 @@ namespace TiledEngine.Classes
                 MouseY = MapWidth - 1;
         }
 
-        public Tile GetTileFromTileKey(int key) 
+        public Tile GetTileFromTileKey(int key)
         {
             int x = (key >> 18) & 0x3fff;
             int y = (key >> 4) & 0x3fff;
@@ -315,8 +317,8 @@ namespace TiledEngine.Classes
             return Tiles[(int)layer][point.X, point.Y];
         }
 
-       
-       
+
+
 
         /// <summary>
         /// Ensures X index is greater than zero and less than bounds of grid

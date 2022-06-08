@@ -83,7 +83,7 @@ namespace TiledEngine.Classes.TileAddons
 
         }
 
-        private void CleanGrid()
+        protected virtual void CleanGrid()
         {
             if (IntermediateTmxShape.GetBoundingRectangle().Width <= Settings.TileSize)
                 Tile.TileManager.TileLocationHelper.UpdateMultiplePathGrid(Tile.GetTotalHitBoxRectangle(Position), GridStatus.Clear);

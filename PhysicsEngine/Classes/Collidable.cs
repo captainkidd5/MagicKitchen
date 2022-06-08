@@ -79,6 +79,13 @@ namespace PhysicsEngine.Classes
             
         }
 
+        protected void SetCategories(Body body, List<Category> collisionCategories)
+        {
+
+            body.SetCollisionCategories(PhysicsManager.GetCat(collisionCategories));
+
+        }
+
         public void PlaySound(string soundName)
         {
             SoundModuleManager.PlayDestructableSound(soundName);
@@ -99,6 +106,7 @@ namespace PhysicsEngine.Classes
 
             //Position is changed so that our sprite knows where to draw, and position
             //snaps to where the physics system moved the main hullbody
+            if(MainHullBody != null)
             Move(new Vector2(MainHullBody.Position.X, MainHullBody.Position.Y));
 
 

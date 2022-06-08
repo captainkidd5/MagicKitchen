@@ -43,10 +43,16 @@
  </tile>
  <tile id="201">
   <properties>
-   <property name="action" value="Dig,Hammer,Good"/>
    <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Dig,Hammer,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="202">
   <properties>

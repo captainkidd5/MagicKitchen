@@ -30,16 +30,28 @@ namespace TiledEngine.Classes
 
             s_backGroundTileLootData = tileLootData.ToDictionary(x => x.TileId, x => x);
         }
-
         internal bool HasLootData(int tileId)
+        {
+            return HasBackgroundLootData(tileId) || HasForeGroundLootData(tileId);
+        }
+        internal bool HasForeGroundLootData(int tileId)
         {
             return s_foreGroundTileLootData.ContainsKey(tileId);
         }
+        internal bool HasBackgroundLootData(int tileId)
+        {
+            return s_backGroundTileLootData.ContainsKey(tileId);
+        }
         internal TileLootData GetLootData(int tileId)
         {
-            if (!HasLootData(tileId))
+            if (HasBackgroundLootData(tileId))
+                return s_backGroundTileLootData[tileId];
+            else if(HasForeGroundLootData(tileId))
+                return s_foreGroundTileLootData[tileId];
+            else
                 throw new Exception($"No loot exists for tile with id {tileId}");
-            return s_foreGroundTileLootData[tileId];
+
+
         }
     }
 }
