@@ -70,12 +70,18 @@ namespace EntityEngine.Classes.PlayerStuff
             UI.Cursor.ItemDropped += DropHeldItem;
 
             CommandConsole.RegisterCommand("Hook", "Creates hook at mouse location", CreateHookCommand);
+            CommandConsole.RegisterCommand("tp", "teleports player to mouse position", TpCommand);
 
 
+        }
+        private void TpCommand(string[] args)
+        {
+            Move(Controls.MouseWorldPosition);
         }
         private void CreateHookCommand(string[] args)
         {
             _hook = PhysicsManager.CreateHook(Controls.MouseWorldPosition);
+            _hook.FireHook(Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving));
         }
         protected override void CreateBody(Vector2 position)
         {
