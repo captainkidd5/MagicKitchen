@@ -11,8 +11,8 @@ namespace ItemEngine.Classes
     public class FloatingItem : WorldItem
     {
         private Direction _floatDirection;
-        public FloatingItem(Item item, int count, Vector2 position, Vector2? jettisonDirection) :
-            base(item, count, position, jettisonDirection)
+        public FloatingItem(Item item, int count, Vector2 position,bool createFloor, Vector2? jettisonDirection) :
+            base(item, count, position,createFloor, jettisonDirection)
         {
 
         }

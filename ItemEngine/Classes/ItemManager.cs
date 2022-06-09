@@ -20,7 +20,7 @@ namespace ItemEngine.Classes
         {
             StageName = stageName;
             _items = new List<WorldItem>();
-            _floatingItemGenerator = new FloatingItemGenerator();
+            _floatingItemGenerator = new FloatingItemGenerator(this);
         }
 
         public void Update(GameTime gameTime)
@@ -43,7 +43,17 @@ namespace ItemEngine.Classes
             foreach (WorldItem item in _items)
                 item.Draw(spriteBatch);
         }
+        public void AddFloatingItem(Vector2 position, Item item, int count, Vector2? jettisonDirection)
+        {
+            _items.Add(ItemFactory.GenerateFloatingItem(item.Name, count, position, jettisonDirection));
 
+        }
+
+        public void AddFloatingItem(Vector2 position, string itemName, int count, Vector2? jettisonDirection)
+        {
+            _items.Add(ItemFactory.GenerateFloatingItem(itemName, count, position, jettisonDirection));
+
+        }
         public void AddWorldItem(Vector2 position, Item item, int count, Vector2? jettisonDirection)
         {
             _items.Add(ItemFactory.GenerateWorldItem(item.Name, count, position, jettisonDirection));

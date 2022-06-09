@@ -20,7 +20,6 @@ namespace ItemEngine.Classes
     {
         private static readonly int _width = 16;
         private static readonly float _timeUntilTouchable = 1f;
-        private static readonly float _timeUntilResting = 3f;
         public Item Item { get; private set; }
 
         public string Name => Item.Name;
@@ -33,7 +32,6 @@ namespace ItemEngine.Classes
         public Sprite Sprite { get; set; }
 
         private SimpleTimer _immunityTimer;
-        private SimpleTimer _bounceTimer;
 
 
         public bool FlaggedForRemoval { get; private set; }
@@ -59,11 +57,10 @@ namespace ItemEngine.Classes
             XOffSet = 8;
             YOffSet = 8;
             _immunityTimer = new SimpleTimer(_timeUntilTouchable);
-            _bounceTimer = new SimpleTimer(_timeUntilResting);
             if(jettisonDirection != null)
             {
                 Jettison(jettisonDirection.Value, null);
-                AddGadget(new ArtificialFloor(this));
+
             }
 
         }
@@ -90,8 +87,6 @@ namespace ItemEngine.Classes
             base.Update(gameTime);
 
             TestIfImmunityDone(gameTime);
-            TestIfShouldRest(gameTime);
-            //  Jettison(new Vector2(10,10));
 
             Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet));
         }
@@ -110,21 +105,7 @@ namespace ItemEngine.Classes
             }
         }
 
-        /// <summary>
-        /// Waits <see cref="_timeUntilResting"/> amount until artificial floor is removed and comes to a rest
-        /// </summary>
-        private void TestIfShouldRest(GameTime gameTime)
-        {
-            if (_bounceTimer != null && _bounceTimer.Run(gameTime))
-            {
-
-                SetCollidesWith(MainHullBody.Body, new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Player,
-                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass });
-                MainHullBody.Body.IgnoreGravity = true;
-                _bounceTimer = null;
-                ClearGadgets();
-            }
-        }
+      
 
         public void Draw(SpriteBatch spriteBatch)
         {
