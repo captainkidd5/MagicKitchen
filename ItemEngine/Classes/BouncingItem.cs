@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 
 namespace ItemEngine.Classes
 {
-    internal class BouncingItem :WorldItem
+    public class BouncingItem : WorldItem
     {
 
         private static readonly float _timeUntilResting = 3f;
@@ -46,6 +47,19 @@ namespace ItemEngine.Classes
                 _bounceTimer = null;
                 ClearGadgets();
             }
+        }
+        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
+            {
+                ArtificialFloor floor = Gadgets.FirstOrDefault(x => x.GetType() == typeof(ArtificialFloor)) as ArtificialFloor;
+                if (floor != null)
+                {
+                    floor.Destroy();
+                    Gadgets.Remove(floor);
+                }
+            }
+            return base.OnCollides(fixtureA, fixtureB, contact);
         }
     }
 }

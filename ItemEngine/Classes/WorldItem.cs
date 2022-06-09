@@ -114,19 +114,13 @@ namespace ItemEngine.Classes
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            return base.OnCollides(fixtureA, fixtureB, contact);
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
             {
-                if(Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null){
-                    AddGadget(new Magnetizer(this, (fixtureB.Tag as Collidable)));
-                    ArtificialFloor floor = Gadgets.FirstOrDefault(x => x.GetType() == typeof(ArtificialFloor)) as ArtificialFloor;
-                    if (floor != null)
-                    {
-                        floor.Destroy();
-                        Gadgets.Remove(floor);
-                    }
-                }
+                if(Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
+                    AddGadget(new Magnetizer(this, (fixtureB.Body.Tag as Collidable)));
             }
+            return base.OnCollides(fixtureA, fixtureB, contact);
+
         }
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)

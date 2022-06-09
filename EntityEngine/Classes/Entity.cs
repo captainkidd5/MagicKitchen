@@ -448,7 +448,7 @@ namespace EntityEngine.Classes
 
         protected virtual void DropCurrentlyHeldItemToWorld()
         {
-            InventoryHandler.ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet / 2), InventoryHandler.HeldItem, InventoryHandler.HeldItemCount, Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving));
+            InventoryHandler.ItemManager.AddBouncingItem(new Vector2(Position.X, Position.Y - YOffSet / 2), InventoryHandler.HeldItem, InventoryHandler.HeldItemCount, Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving));
 
         }
 

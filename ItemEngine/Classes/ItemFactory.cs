@@ -127,14 +127,14 @@ namespace ItemEngine.Classes
             return newName;
         }
 
-        public static WorldItem GenerateWorldItem(string itemName, int count, Vector2 worldPosition, Vector2? jettisonDirection)
+        public static BouncingItem GenerateBouncingItem(string itemName, int count, Vector2 worldPosition, Vector2? jettisonDirection)
         {
-            return new WorldItem(new Item(ItemDictionary[itemName]), count, worldPosition,true, jettisonDirection);
+            return new BouncingItem(new Item(ItemDictionary[itemName]), count, worldPosition,true, jettisonDirection);
         }
 
         public static FloatingItem GenerateFloatingItem(string itemName, int count, Vector2 worldPosition, Vector2? jettisonDirection)
         {
-            return new FloatingItem(new Item(ItemDictionary[itemName]), count, worldPosition,false, jettisonDirection);
+            return new FloatingItem(new Item(ItemDictionary[itemName]), count, worldPosition, jettisonDirection);
         }
     }
 }

@@ -63,7 +63,7 @@ namespace EntityEngine.Classes
             int originalCount = count;
             StorageContainer.RemoveItem(ItemFactory.GetItem(name).Id, ref count);
 
-            ItemManager.AddWorldItem(entityPosition,ItemFactory.GetItem(name), originalCount - count, jettisonVector);
+            ItemManager.AddBouncingItem(entityPosition,ItemFactory.GetItem(name), originalCount - count, jettisonVector);
         }
 
         public void DropItem(Vector2 entityPosition, Vector2 jettisonVector, Item item, int count)
@@ -71,7 +71,7 @@ namespace EntityEngine.Classes
             int originalCount = count;
             StorageContainer.RemoveItem(item.Id, ref count);
 
-            ItemManager.AddWorldItem(entityPosition,item, originalCount - count, jettisonVector);
+            ItemManager.AddBouncingItem(entityPosition,item, originalCount - count, jettisonVector);
         }
         public bool CanAfford(int amt) => StorageContainer.CanAfford(amt);
         public int Withdraw(int amt) => StorageContainer.WithdrawCoins(amt);

@@ -54,15 +54,15 @@ namespace ItemEngine.Classes
             _items.Add(ItemFactory.GenerateFloatingItem(itemName, count, position, jettisonDirection));
 
         }
-        public void AddWorldItem(Vector2 position, Item item, int count, Vector2? jettisonDirection)
+        public void AddBouncingItem(Vector2 position, Item item, int count, Vector2? jettisonDirection)
         {
-            _items.Add(ItemFactory.GenerateWorldItem(item.Name, count, position, jettisonDirection));
+            _items.Add(ItemFactory.GenerateBouncingItem(item.Name, count, position, jettisonDirection));
 
         }
 
-        public void AddWorldItem(Vector2 position, string itemName, int count, Vector2? jettisonDirection)
+        public void AddBouncingItem(Vector2 position, string itemName, int count, Vector2? jettisonDirection)
         {
-            _items.Add(ItemFactory.GenerateWorldItem(itemName, count, position, jettisonDirection));
+            _items.Add(ItemFactory.GenerateBouncingItem(itemName, count, position, jettisonDirection));
 
         }
 
@@ -92,7 +92,7 @@ namespace ItemEngine.Classes
                 int id = reader.ReadInt32();
                 int itemCount = reader.ReadInt32();
                 Vector2 pos = Vector2Helper.ReadVector2(reader);
-                AddWorldItem(pos, ItemFactory.GetItem(id), itemCount, null);
+                AddBouncingItem(pos, ItemFactory.GetItem(id), itemCount, null);
             }
 
             //throw new NotImplementedException();
