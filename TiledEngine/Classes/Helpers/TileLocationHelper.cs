@@ -151,8 +151,10 @@ namespace TiledEngine.Classes.Helpers
             {
                 for (int j = 0; j < bodyTilesHigh; j++)
                 {
-                    if(rectangleIndex.X != 0 && rectangleIndex.Y != 0)
-                        _tileManager.UpdateGrid(rectangleIndex.X + i, rectangleIndex.Y + j, gridStatus);
+                    int newX = rectangleIndex.X + i;
+                    int newY = rectangleIndex.Y + j;  
+                    if (newX >= 0 && rectangleIndex.Y >= 0)
+                        _tileManager.UpdateGrid(newX, newY, gridStatus);
 
                 }
             }

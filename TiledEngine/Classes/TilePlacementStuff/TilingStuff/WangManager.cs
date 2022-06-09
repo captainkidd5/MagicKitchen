@@ -8,12 +8,12 @@ using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 {
-    internal class TilingSetManager
+    internal class WangManager
     {
         internal Dictionary<string, Dictionary<int, int>> TilingSets { get; private set; }
 
       
-        public TilingSetManager()
+        public WangManager()
         {
             TilingSets = new Dictionary<string, Dictionary<int, int>>();
         }

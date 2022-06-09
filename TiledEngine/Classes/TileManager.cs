@@ -182,8 +182,8 @@ namespace TiledEngine.Classes
             CheckMouseTileInteractions();
 
 
-
-            TileSelectorSprite.Update(gameTime, MouseOverTile.GridPosition);
+            if(MouseOverTile != null)
+             TileSelectorSprite.Update(gameTime, MouseOverTile.GridPosition);
             _tilePlacementManager.Update(gameTime);
         }
 

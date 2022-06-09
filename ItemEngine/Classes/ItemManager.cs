@@ -14,43 +14,45 @@ namespace ItemEngine.Classes
     public class ItemManager : ISaveable
     {
         public string StageName { get; private set; }
-        private List<WorldItem> Items { get; set; }
-
+        private List<WorldItem> _items;
+        private FloatingItemGenerator _floatingItemGenerator;
         public ItemManager(string stageName)
         {
             StageName = stageName;
-            Items = new List<WorldItem>();
+            _items = new List<WorldItem>();
+            _floatingItemGenerator = new FloatingItemGenerator();
         }
 
         public void Update(GameTime gameTime)
         {
-            for (int i = Items.Count - 1; i >= 0; i--)
+            for (int i = _items.Count - 1; i >= 0; i--)
             {
-                WorldItem item = Items[i];
+                WorldItem item = _items[i];
                 item.Update(gameTime);
                 if (item.FlaggedForRemoval)
                 {
                     item.CleanUp();
-                    Items.RemoveAt(i);
+                    _items.RemoveAt(i);
                 }
             }
+            _floatingItemGenerator.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (WorldItem item in Items)
+            foreach (WorldItem item in _items)
                 item.Draw(spriteBatch);
         }
 
         public void AddWorldItem(Vector2 position, Item item, int count, Vector2? jettisonDirection)
         {
-            Items.Add(ItemFactory.GenerateWorldItem(item.Name, count, position, jettisonDirection));
+            _items.Add(ItemFactory.GenerateWorldItem(item.Name, count, position, jettisonDirection));
 
         }
 
         public void AddWorldItem(Vector2 position, string itemName, int count, Vector2? jettisonDirection)
         {
-            Items.Add(ItemFactory.GenerateWorldItem(itemName, count, position, jettisonDirection));
+            _items.Add(ItemFactory.GenerateWorldItem(itemName, count, position, jettisonDirection));
 
         }
 
@@ -61,10 +63,10 @@ namespace ItemEngine.Classes
 
         public void Save(BinaryWriter writer)
         {
-            writer.Write(Items.Count);
-            for (int i = 0; i < Items.Count; i++)
+            writer.Write(_items.Count);
+            for (int i = 0; i < _items.Count; i++)
             {
-                WorldItem item = Items[i];
+                WorldItem item = _items[i];
                 writer.Write(item.Id);
                 writer.Write(item.Count);
 
@@ -88,12 +90,12 @@ namespace ItemEngine.Classes
 
         public void CleanUp()
         {
-            for (int i = 0; i < Items.Count; i++)
+            for (int i = 0; i < _items.Count; i++)
             {
-                WorldItem item = Items[i];
+                WorldItem item = _items[i];
                 item.CleanUp();
             }
-            Items.Clear();
+            _items.Clear();
         }
     }
 }
