@@ -21,6 +21,8 @@ using System.IO;
 using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using tainicom.Aether.Physics2D.Dynamics;
+using Globals.Classes.Console;
+using PhysicsEngine.Classes.Prefabs;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -36,7 +38,7 @@ namespace EntityEngine.Classes.PlayerStuff
         internal ProgressManager ProgressManager { get;set; }
 
         protected HullBody FrontalSensor { get; set; }
-
+        private Hook _hook;
         public Player(StageNPCContainer container, GraphicsDevice graphics, ContentManager content,PlayerManager playerContainer, string name = "playerName") : base(container, graphics,content)
         {
             Name = name;
@@ -67,8 +69,14 @@ namespace EntityEngine.Classes.PlayerStuff
 
             UI.Cursor.ItemDropped += DropHeldItem;
 
-        }
+            CommandConsole.RegisterCommand("Hook", "Creates hook at mouse location", CreateHookCommand);
 
+
+        }
+        private void CreateHookCommand(string[] args)
+        {
+            _hook = PhysicsManager.CreateHook(Controls.MouseWorldPosition);
+        }
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Player },
@@ -141,7 +149,8 @@ namespace EntityEngine.Classes.PlayerStuff
                     DropHeldItem();
                 }
             }
-
+            if (_hook != null)
+                _hook.Update(gameTime);
             if (UI.TalkingWindow.IsActive)
             {
                 //EntityAnimator.

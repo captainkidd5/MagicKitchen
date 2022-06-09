@@ -83,9 +83,9 @@ namespace PhysicsEngine.Classes
             PhysicsDebugger.LoadContent(graphics, content);
             PhysicsDebugger.AppendFlags(DebugViewFlags.DebugPanel);
 
-            
 
         }
+  
         public static void Update(GameTime gameTime)
         {
             VelcroWorld.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * .001f);
@@ -245,12 +245,6 @@ namespace PhysicsEngine.Classes
         /// <summary>
         /// Welds two bodies together and returns the created joint.
         /// </summary>
-        /// <param name="bodyA"></param>
-        /// <param name="bodyB"></param>
-        /// <param name="bodyAAnchor"></param>
-        /// <param name="bodyBAnchor"></param>
-        /// <param name="dampingRatio"></param>
-        /// <param name="frequencyHz"></param>
         /// <returns></returns>
         public static WeldJoint Weld(Body bodyA, Body bodyB, Vector2? bodyAAnchor, Vector2? bodyBAnchor, float? dampingRatio, float? frequencyHz)
         {

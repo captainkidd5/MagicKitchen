@@ -11,25 +11,24 @@ using tainicom.Aether.Physics2D.Dynamics.Joints;
 
 namespace PhysicsEngine.Classes.Prefabs
 {
-    public class Hook
+    public class Hook : Collidable
     {
-        private const float SpiderBodyRadius = 0.65f;
+        private const float SpiderBodyRadius = 3f;
         private bool _kneeFlexed;
         private float _kneeTargetAngle = 0.4f;
         private AngleJoint _leftKneeAngleJoint;
         private AngleJoint _leftShoulderAngleJoint;
         private Sprite _lowerLeg;
-        private Vector2 _lowerLegSize = new Vector2(1.8f, 0.3f);
+        private Vector2 _lowerLegSize = new Vector2(12f, 2f);
 
         private AngleJoint _rightKneeAngleJoint;
         private AngleJoint _rightShoulderAngleJoint;
         private float _s;
-        private SpriteBatch _batch;
         private bool _shoulderFlexed;
         private float _shoulderTargetAngle = 0.2f;
         private Sprite _torso;
         private Sprite _upperLeg;
-        private Vector2 _upperLegSize = new Vector2(1.8f, 0.3f);
+        private Vector2 _upperLegSize = new Vector2(12f, 2f);
 
         private Body _circle;
         private Body _leftLower;
@@ -63,29 +62,30 @@ namespace PhysicsEngine.Classes.Prefabs
             //Create joints
             JointFactory.CreateRevoluteJoint(world, _circle, _leftUpper, new Vector2(_upperLegSize.X / 2f, 0f));
             _leftShoulderAngleJoint = JointFactory.CreateAngleJoint(world, _circle, _leftUpper);
-            _leftShoulderAngleJoint.MaxImpulse = 3f;
+            _leftShoulderAngleJoint.MaxImpulse = 5f;
 
             JointFactory.CreateRevoluteJoint(world, _circle, _rightUpper, new Vector2(-_upperLegSize.X / 2f, 0f));
             _rightShoulderAngleJoint = JointFactory.CreateAngleJoint(world, _circle, _rightUpper);
-            _rightShoulderAngleJoint.MaxImpulse = 3f;
+            _rightShoulderAngleJoint.MaxImpulse = 5f;
 
             JointFactory.CreateRevoluteJoint(world, _leftUpper, _leftLower, new Vector2(_lowerLegSize.X / 2f, 0f));
             _leftKneeAngleJoint = JointFactory.CreateAngleJoint(world, _leftUpper, _leftLower);
-            _leftKneeAngleJoint.MaxImpulse = 3f;
+            _leftKneeAngleJoint.MaxImpulse = 5f;
 
             JointFactory.CreateRevoluteJoint(world, _rightUpper, _rightLower, new Vector2(-_lowerLegSize.X / 2f, 0f));
             _rightKneeAngleJoint = JointFactory.CreateAngleJoint(world, _rightUpper, _rightLower);
-            _rightKneeAngleJoint.MaxImpulse = 3;
-
+            _rightKneeAngleJoint.MaxImpulse = 5f;
+            MainHullBody = new HullBody(_circle, null);
             //_torso = new Sprite(creator.CircleTexture(SpiderBodyRadius, MaterialType.Waves, Color.Gray, 1f, 24f));
             //_upperLeg = new Sprite(creator.TextureFromShape(_leftUpper.FixtureList[0].Shape, MaterialType.Blank, Color.DimGray, 1f));
             //_lowerLeg = new Sprite(creator.TextureFromShape(_leftLower.FixtureList[0].Shape, MaterialType.Blank, Color.DarkSlateGray, 1f));
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             _s += gameTime.ElapsedGameTime.Milliseconds;
-            if (_s > 4000)
+            if (_s > 2000)
             {
                 _s = 0;
 
