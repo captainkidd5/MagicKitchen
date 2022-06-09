@@ -35,7 +35,7 @@ namespace ItemEngine.Classes
         }
         private void AddNewFloatingItem()
         {
-            _itemManager.AddFloatingItem(GetSpawnLocation(), "Dirt", 1, Vector2Helper.GetTossDirectionFromDirectionFacing(Direction.Down));
+            _itemManager.AddWorldItem(GetSpawnLocation(), "Dirt", 1,WorldItemState.Floating, Vector2Helper.GetTossDirectionFromDirectionFacing(Direction.Down));
         }
     }
 }

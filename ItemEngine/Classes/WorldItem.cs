@@ -28,7 +28,7 @@ namespace ItemEngine.Classes
         private static readonly int _width = 16;
         private static readonly float _timeUntilTouchable = 1f;
         public Item Item { get; private set; }
-        private WorldItemState _itemState;
+        internal WorldItemState WorldItemState { get; set; }
         public string Name => Item.Name;
         public int Id => Item.Id;
         public bool Stackable => Item.Stackable;   
@@ -66,7 +66,7 @@ namespace ItemEngine.Classes
             Item = item;
             Count = count;
             Sprite = SpriteFactory.CreateWorldSprite(position, Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, scale:new Vector2(.75f,.75f));
-            _itemState = worldItemState;
+            WorldItemState = worldItemState;
             CreateBody(position);
             Move(position);
             XOffSet = 8;
@@ -74,7 +74,7 @@ namespace ItemEngine.Classes
             _immunityTimer = new SimpleTimer(_timeUntilTouchable);
 
 
-            switch (_itemState)
+            switch (WorldItemState)
             {
                 case WorldItemState.None:
                     break;
@@ -128,7 +128,7 @@ namespace ItemEngine.Classes
 
         public void ChangeState(WorldItemState worldItemState)
         {
-            _itemState = worldItemState;
+            WorldItemState = worldItemState;
         }
         public override void Update(GameTime gameTime)
         {

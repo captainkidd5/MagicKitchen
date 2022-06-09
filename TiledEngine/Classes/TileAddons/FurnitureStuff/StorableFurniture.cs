@@ -174,8 +174,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             {
                 if (!slot.Empty)
                 {
-                    Tile.TileManager.ItemManager.AddBouncingItem(Position,
-                                  slot.Item.Name, slot.StoredCount, Vector2Helper.GetRandomDirection());
+                    Tile.TileManager.ItemManager.AddWorldItem(Position,
+                                  slot.Item.Name, slot.StoredCount,WorldItemState.Bouncing, Vector2Helper.GetRandomDirection());
                 }
                
             }

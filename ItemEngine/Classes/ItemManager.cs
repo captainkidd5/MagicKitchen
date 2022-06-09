@@ -43,26 +43,16 @@ namespace ItemEngine.Classes
             foreach (WorldItem item in _items)
                 item.Draw(spriteBatch);
         }
-        public void AddFloatingItem(Vector2 position, Item item, int count, Vector2? jettisonDirection)
+
+        public void AddWorldItem(Vector2 position, Item item, int count,WorldItemState worldItemState, Vector2? jettisonDirection)
         {
-            _items.Add(ItemFactory.GenerateFloatingItem(item.Name, count, position, jettisonDirection));
+            _items.Add(ItemFactory.GenerateWorldItem(item.Name, count, position, worldItemState, jettisonDirection));
 
         }
 
-        public void AddFloatingItem(Vector2 position, string itemName, int count, Vector2? jettisonDirection)
+        public void AddWorldItem(Vector2 position, string itemName, int count, WorldItemState worldItemState, Vector2? jettisonDirection)
         {
-            _items.Add(ItemFactory.GenerateFloatingItem(itemName, count, position, jettisonDirection));
-
-        }
-        public void AddBouncingItem(Vector2 position, Item item, int count, Vector2? jettisonDirection)
-        {
-            _items.Add(ItemFactory.GenerateWorldItem(item.Name, count, position, jettisonDirection));
-
-        }
-
-        public void AddBouncingItem(Vector2 position, string itemName, int count, Vector2? jettisonDirection)
-        {
-            _items.Add(ItemFactory.GenerateWorldItem(itemName, count, position, jettisonDirection));
+            _items.Add(ItemFactory.GenerateWorldItem(itemName, count, position, worldItemState, jettisonDirection));
 
         }
 
@@ -79,7 +69,7 @@ namespace ItemEngine.Classes
                 WorldItem item = _items[i];
                 writer.Write(item.Id);
                 writer.Write(item.Count);
-
+                writer.Write((int)item.WorldItemState);
                 Vector2Helper.WriteVector2(writer, item.Position);
             }
         }
@@ -92,7 +82,8 @@ namespace ItemEngine.Classes
                 int id = reader.ReadInt32();
                 int itemCount = reader.ReadInt32();
                 Vector2 pos = Vector2Helper.ReadVector2(reader);
-                AddBouncingItem(pos, ItemFactory.GetItem(id), itemCount, null);
+                WorldItemState worldItemState = (WorldItemState)reader.ReadInt32();
+                AddWorldItem(pos, ItemFactory.GetItem(id), itemCount, worldItemState, null);
             }
 
             //throw new NotImplementedException();
