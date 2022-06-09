@@ -12,6 +12,10 @@ namespace ItemEngine.Classes.ItemStateStuff
 {
     internal class FloatingItemBehaviour : ItemBehaviour
     {
+        public FloatingItemBehaviour(WorldItem worldItem) : base(worldItem)
+        {
+        }
+
         public override bool OnCollides(List<PhysicsGadget> gadgets, Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             return base.OnCollides(gadgets,fixtureA, fixtureB, contact);

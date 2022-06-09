@@ -38,6 +38,7 @@ namespace ItemEngine.Classes
         public int Count { get; private set; }
         public Sprite Sprite { get; set; }
 
+        private bool ImmuneToPickup => _immunityTimer != null;
         private SimpleTimer _immunityTimer;
 
 
@@ -45,6 +46,12 @@ namespace ItemEngine.Classes
 
 
         private ItemBehaviour _itemBehaviour;
+
+
+        internal new void AddGadget(PhysicsGadget gadget) => Gadgets.Add(gadget);
+        internal new void ClearGadgets() => Gadgets.Clear();
+
+        internal void IgnoreGravity(bool val) => MainHullBody.Body.IgnoreGravity = val;
         public void Save(BinaryWriter writer)
         {
            
@@ -72,9 +79,10 @@ namespace ItemEngine.Classes
                 case WorldItemState.None:
                     break;
                 case WorldItemState.Bouncing:
-                    _itemBehaviour = new BouncingItemBehaviour();
+                    _itemBehaviour = new BouncingItemBehaviour(this);
                     break;
                 case WorldItemState.Floating:
+                    _itemBehaviour = new FloatingItemBehaviour(this);
                     break;
             }
 
@@ -90,7 +98,22 @@ namespace ItemEngine.Classes
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Item },
                new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.ArtificialFloor}, OnCollides, OnSeparates,blocksLight: true, userData: this);
         }
+        /// <summary>
+        /// Waits <see cref="_timeUntilTouchable"/> amount until entities can interact with it
+        /// </summary>
+        private void TestIfImmunityDone(GameTime gameTime)
+        {
+            if (_immunityTimer != null && _immunityTimer.Run(gameTime))
+            {
 
+                SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Player,
+                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass, (Category)PhysCat.ArtificialFloor });
+                _immunityTimer = null;
+
+
+
+            }
+        }
         public void Remove(int count)
         {
             if ((Count - count) > 1)
@@ -110,38 +133,17 @@ namespace ItemEngine.Classes
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            _itemBehaviour.Update(gameTime);
-            switch (_itemState)
-            {
-                case WorldItemState.None:
-                    break;
-                case WorldItemState.Bouncing:
-                    TestIfImmunityDone(gameTime);
 
-                    break;
-                case WorldItemState.Floating:
-                    break;
-            }
+            if(!ImmuneToPickup)
+               TestIfImmunityDone(gameTime);
+
+            _itemBehaviour.Update(gameTime);
 
             Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet));
         }
 
-        /// <summary>
-        /// Waits <see cref="_timeUntilTouchable"/> amount until entities can interact with it
-        /// </summary>
-        private void TestIfImmunityDone(GameTime gameTime)
-        {
-            if (_immunityTimer != null && _immunityTimer.Run(gameTime))
-            {
 
-                SetCollidesWith(MainHullBody.Body, new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Player,
-                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass, (Category)PhysCat.ArtificialFloor });
-                _immunityTimer = null;
-            }
-        }
-
-      
-
+     
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);

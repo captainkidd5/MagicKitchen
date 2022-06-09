@@ -13,32 +13,38 @@ namespace ItemEngine.Classes.ItemStateStuff
 {
     internal class BouncingItemBehaviour : ItemBehaviour
     {
+        private static readonly float _timeUntilResting = 3f;
+
         public BouncingItemBehaviour(WorldItem worldItem) : base(worldItem)
         {
+            SimpleTimer = new Globals.Classes.SimpleTimer(_timeUntilResting);
+            worldItem.AddGadget(new ArtificialFloor(worldItem));
+
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            TestIfShouldRest(gameTime);
+
         }
+       
+
         /// <summary>
-        /// Waits <see cref="_timeUntilTouchable"/> amount until entities can interact with it
+        /// Waits <see cref="_timeUntilResting"/> amount until artificial floor is removed and comes to a rest
         /// </summary>
-        private void TestIfImmunityDone(GameTime gameTime)
+        private void TestIfShouldRest(GameTime gameTime)
         {
             if (SimpleTimer != null && SimpleTimer.Run(gameTime))
             {
 
-                WorldItem.SetCollidesWith(MainHullBody.Body, new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Player,
-                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass, (Category)PhysCat.ArtificialFloor });
+                WorldItem.SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Player,
+                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass });
+                WorldItem.IgnoreGravity(true);
                 SimpleTimer = null;
-
-
-
+                WorldItem.ClearGadgets();
             }
         }
-       
-
         public override bool OnCollides(List<PhysicsGadget> gadgets, Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))

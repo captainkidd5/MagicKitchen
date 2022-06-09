@@ -71,8 +71,13 @@ namespace PhysicsEngine.Classes
         {
             HullBodies.Add(body);
         }
+        public void SetPrimaryCollidesWith( List<Category> collisionCategories)
+        {
 
-        protected void SetCollidesWith(Body body, List<Category> collisionCategories)
+            MainHullBody.Body.SetCollidesWith(PhysicsManager.GetCat(collisionCategories));
+
+        }
+        public void SetCollidesWith(Body body, List<Category> collisionCategories)
         {
      
                 body.SetCollidesWith(PhysicsManager.GetCat(collisionCategories));
