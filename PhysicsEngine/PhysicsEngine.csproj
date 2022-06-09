@@ -13,5 +13,6 @@
     <ProjectReference Include="..\Globals\Globals.csproj" />
     <ProjectReference Include="..\penumbra\Source\MonoGame.Penumbra.DesktopGL.csproj" />
     <ProjectReference Include="..\SoundEngine\SoundEngine.csproj" />
+    <ProjectReference Include="..\SpriteEngine\SpriteEngine.csproj" />
   </ItemGroup>
 </Project>

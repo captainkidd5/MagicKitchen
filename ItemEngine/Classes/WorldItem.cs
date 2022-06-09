@@ -134,7 +134,7 @@ namespace ItemEngine.Classes
         {
             base.Update(gameTime);
 
-            if(!ImmuneToPickup)
+            if(ImmuneToPickup)
                TestIfImmunityDone(gameTime);
 
             _itemBehaviour.Update(gameTime);

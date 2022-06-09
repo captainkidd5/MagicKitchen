@@ -10,6 +10,7 @@ using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Diagnostics;
 using tainicom.Aether.Physics2D.Common;
 using tainicom.Aether.Physics2D.Dynamics.Joints;
+using PhysicsEngine.Classes.Prefabs;
 
 namespace PhysicsEngine.Classes
 {
@@ -145,6 +146,11 @@ namespace PhysicsEngine.Classes
             body.Tag = userData;
             return new HullBody(body, hull);
 
+        }
+
+        public static Hook CreateHook(Vector2 position)
+        {
+            return new Hook(VelcroWorld, position);
         }
 
         public static HullBody CreateRectangularHullBody(BodyType bodyType, Vector2? position, float? width,float? height, List<Category>? collisionCategories, List<Category>? categoriesCollidesWith,

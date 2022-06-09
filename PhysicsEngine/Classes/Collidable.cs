@@ -155,21 +155,7 @@ namespace PhysicsEngine.Classes
             }
         }
 
-        /// <summary>
-        /// Moves away from position
-        /// </summary>
-
-        public virtual void Avoid(GameTime gameTime, Vector2 newPosition, float speed)
-        {
-            Vector2 dir = Position - newPosition;
-            dir.Normalize();
-            Position += dir * speed * (float)gameTime.ElapsedGameTime.TotalMilliseconds * .05f;
-
-            foreach (HullBody body in HullBodies)
-            {
-                body.Position = Position;
-            }
-        }
+     
 
         /// <summary>
         /// Use this instead of setting position so that all associated bodies have their positions updated as well
@@ -236,13 +222,5 @@ namespace PhysicsEngine.Classes
             }
         }
 
-        protected bool IsResting(float xThreshold = 2f, float yThreshold = 2f)
-        {
-            bool isResting = ((MainHullBody.Body.LinearVelocity.X < xThreshold) && (MainHullBody.Body.LinearVelocity.X > xThreshold * -1) &&
-                (MainHullBody.Body.LinearVelocity.Y < yThreshold) && (MainHullBody.Body.LinearVelocity.Y > yThreshold * -1));
-            if(isResting)
-                Console.WriteLine("test");
-            return isResting;
-        }
     }
 }
