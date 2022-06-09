@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using ItemEngine.Classes.ItemStateStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
@@ -16,12 +17,18 @@ using static Globals.Classes.Settings;
 
 namespace ItemEngine.Classes
 {
+    public enum WorldItemState
+    {
+        None =0,
+        Bouncing = 1,
+        Floating = 2
+    }
     public class WorldItem : Collidable, ISaveable
     {
         private static readonly int _width = 16;
         private static readonly float _timeUntilTouchable = 1f;
         public Item Item { get; private set; }
-
+        private WorldItemState _itemState;
         public string Name => Item.Name;
         public int Id => Item.Id;
         public bool Stackable => Item.Stackable;   
@@ -37,7 +44,7 @@ namespace ItemEngine.Classes
         public bool FlaggedForRemoval { get; private set; }
 
 
-
+        private ItemBehaviour _itemBehaviour;
         public void Save(BinaryWriter writer)
         {
            
@@ -47,17 +54,31 @@ namespace ItemEngine.Classes
         {
             throw new NotImplementedException();
         }
-        public WorldItem(Item item, int count, Vector2 position, Vector2? jettisonDirection)
+        public WorldItem(Item item, int count, Vector2 position, WorldItemState worldItemState, Vector2? jettisonDirection)
         {
             Item = item;
             Count = count;
             Sprite = SpriteFactory.CreateWorldSprite(position, Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, scale:new Vector2(.75f,.75f));
+            _itemState = worldItemState;
             CreateBody(position);
             Move(position);
             XOffSet = 8;
             YOffSet = 8;
             _immunityTimer = new SimpleTimer(_timeUntilTouchable);
-            if(jettisonDirection != null)
+
+
+            switch (_itemState)
+            {
+                case WorldItemState.None:
+                    break;
+                case WorldItemState.Bouncing:
+                    _itemBehaviour = new BouncingItemBehaviour();
+                    break;
+                case WorldItemState.Floating:
+                    break;
+            }
+
+            if (jettisonDirection != null)
             {
                 Jettison(jettisonDirection.Value, null);
 
@@ -82,11 +103,25 @@ namespace ItemEngine.Classes
             ClearGadgets();
         }
 
+        public void ChangeState(WorldItemState worldItemState)
+        {
+            _itemState = worldItemState;
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            _itemBehaviour.Update(gameTime);
+            switch (_itemState)
+            {
+                case WorldItemState.None:
+                    break;
+                case WorldItemState.Bouncing:
+                    TestIfImmunityDone(gameTime);
 
-            TestIfImmunityDone(gameTime);
+                    break;
+                case WorldItemState.Floating:
+                    break;
+            }
 
             Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet));
         }
@@ -114,10 +149,15 @@ namespace ItemEngine.Classes
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
+            _itemBehaviour.OnCollides(Gadgets, fixtureA, fixtureB, contact);
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
             {
                 if(Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
                     AddGadget(new Magnetizer(this, (fixtureB.Body.Tag as Collidable)));
+
+                //If magnetized, remove solids collisions
+                SetCollidesWith(MainHullBody.Body, new List<Category>() {  (Category)PhysCat.Player,
+                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass});
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
 

@@ -31,7 +31,7 @@ namespace ItemEngine.Classes
         }
         private Vector2 GetSpawnLocation()
         {
-            return Vector2Helper.GetWorldPositionFromTileIndex(116, 118);
+            return Vector2Helper.GetWorldPositionFromTileIndex(Settings.Random.Next(112,144), 111);
         }
         private void AddNewFloatingItem()
         {
