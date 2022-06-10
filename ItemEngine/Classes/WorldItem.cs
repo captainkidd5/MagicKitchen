@@ -88,8 +88,8 @@ namespace ItemEngine.Classes
 
             if (jettisonDirection != null)
             {
-                Jettison(jettisonDirection.Value, null);
-
+                // Jettison(jettisonDirection.Value, null);
+                MainHullBody.Body.IgnoreGravity = true;
             }
 
         }
@@ -137,10 +137,12 @@ namespace ItemEngine.Classes
 
             if(ImmuneToPickup)
                TestIfImmunityDone(gameTime);
-            if(_itemBehaviour != null)
-             _itemBehaviour.Update(gameTime);
+            Vector2 spriteBehaviourOffSet = Vector2.Zero;
+            if (_itemBehaviour != null)
+                spriteBehaviourOffSet = _itemBehaviour.Update(gameTime);
+            Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet) + spriteBehaviourOffSet);
 
-            Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet));
+            
         }
 
 
@@ -154,10 +156,20 @@ namespace ItemEngine.Classes
         {
             if(_itemBehaviour != null)
             _itemBehaviour.OnCollides(Gadgets, fixtureA, fixtureB, contact);
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor) || fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor) ||
+                fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
             {
                 if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
                     AddGadget(new Magnetizer(this, (fixtureB.Body.Tag as Collidable)));
+
+                ArtificialFloor floor = Gadgets.FirstOrDefault(x => x.GetType() == typeof(ArtificialFloor)) as ArtificialFloor;
+                if (floor != null)
+                {
+                    floor.Destroy();
+                    Gadgets.Remove(floor);
+                }
+
+               ChangeState(WorldItemState.None);
 
                 //If magnetized, remove solids collisions
                 SetCollidesWith(MainHullBody.Body, new List<Category>() {  (Category)PhysCat.Player,

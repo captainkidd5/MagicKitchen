@@ -21,9 +21,9 @@ namespace ItemEngine.Classes.ItemStateStuff
             WorldItem = worldItem;
         }
 
-        public virtual void Update(GameTime gameTime)
+        public virtual Vector2 Update(GameTime gameTime)
         {
-
+            return Vector2.Zero;
         }
 
         public virtual bool OnCollides(List<PhysicsGadget> gadgets, Fixture fixtureA, Fixture fixtureB, Contact contact)

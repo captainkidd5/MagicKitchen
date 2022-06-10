@@ -21,9 +21,11 @@ namespace ItemEngine.Classes.ItemStateStuff
             return base.OnCollides(gadgets,fixtureA, fixtureB, contact);
         }
 
-        public override void Update(GameTime gameTime)
+        public override Vector2 Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            return Vector2.Zero;
          
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes;
+using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Gadgets;
 using System;
@@ -14,28 +15,64 @@ namespace ItemEngine.Classes.ItemStateStuff
     internal class BouncingItemBehaviour : ItemBehaviour
     {
         private static readonly float _timeUntilResting = 3f;
+        float gravity = -500f;
 
+        private bool sleep = false;
+     
+        // The velocity we're moving at. Only for the y-axis.
+        float velocity;
+
+        // Our initial velocity up along the y-axis.
+        float initialVelocityY;
+        float initialVelocityX;
+
+        // A place for us to store the angularVelocity for the rigidbody2D. We don't want
+        // to rotate the entire rigidbody because that would offset the shadow sprite which
+        // follows the ground plane so we rotate the sprite by this velocity instead.
+        float angularVelocity;
+
+        // The amount we place the sprite above the game object to simulate it flying over
+        // the ground. The shadow follows the gameobject in a straight line so when we launch
+        // the sprite in an arc it looks like it's flying even though everything is still
+        // entirely flat.
+        float height;
         public BouncingItemBehaviour(WorldItem worldItem) : base(worldItem)
         {
             SimpleTimer = new Globals.Classes.SimpleTimer(_timeUntilResting);
-            worldItem.AddGadget(new ArtificialFloor(worldItem));
+
 
             WorldItem.SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.SolidHigh, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass });
-
+            // Set the initial velocity.
+        initialVelocityY = Settings.Random.Next(50, 300);
+            velocity = initialVelocityY;
+            angularVelocity = WorldItem.MainHullBody.Body.AngularVelocity;
+            WorldItem.MainHullBody.Body.AngularVelocity = 0f;
         }
 
-        public override void Update(GameTime gameTime)
+        public override Vector2 Update(GameTime gameTime)
         {
+            if (sleep)
+                return Vector2.Zero;
             base.Update(gameTime);
-            TestIfShouldRest(gameTime);
+            velocity += gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            height -= velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+           // WorldItem.Sprite.ForceSetPosition(new Vector2(0, WorldItem.MainHullBody.Body.Position.Y + height));
+            // If the height is 0 we've landed and we stop moving.
+            // The rigidbody2D's velocity is what moves us in a straight line across the ground,
+            // we're only faking the vertical part.
+            if (height >= 0 || TestIfShouldRest(gameTime))
+            {
+                WorldItem.MainHullBody.Body.LinearVelocity = Vector2.Zero;
+                sleep = true;
+            }
+            return new Vector2(0, height);
 
         }
-       
-
         /// <summary>
         /// Waits <see cref="_timeUntilResting"/> amount until artificial floor is removed and comes to a rest
         /// </summary>
-        private void TestIfShouldRest(GameTime gameTime)
+        private bool TestIfShouldRest(GameTime gameTime)
         {
             if (SimpleTimer != null && SimpleTimer.Run(gameTime))
             {
@@ -45,18 +82,15 @@ namespace ItemEngine.Classes.ItemStateStuff
                 WorldItem.IgnoreGravity(true);
                 SimpleTimer = null;
                 WorldItem.ClearGadgets();
+                return true;
             }
+            return false;
         }
         public override bool OnCollides(List<PhysicsGadget> gadgets, Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
             {
-                ArtificialFloor floor = gadgets.FirstOrDefault(x => x.GetType() == typeof(ArtificialFloor)) as ArtificialFloor;
-                if (floor != null)
-                {
-                    floor.Destroy();
-                    gadgets.Remove(floor);
-                }
+
 
                 WorldItem.ChangeState(WorldItemState.None);
 
