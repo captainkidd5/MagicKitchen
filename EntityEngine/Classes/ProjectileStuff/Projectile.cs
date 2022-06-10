@@ -29,7 +29,7 @@ namespace EntityEngine.Classes.ProjectileStuff
         protected override void CreateBody(Vector2 position)
         {
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Projectile },
-                new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Grass }, OnCollides,
+                new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.Grass }, OnCollides,
                 OnSeparates, ignoreGravity: true, blocksLight: true, userData: this);
 
             BigSensorCollidesWithCategories = new List<Category>() {  };

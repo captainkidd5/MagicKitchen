@@ -96,7 +96,7 @@ namespace ItemEngine.Classes
         protected override void CreateBody(Vector2 position)
         {
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Item },
-               new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Tool, (Category)PhysCat.ArtificialFloor}, OnCollides, OnSeparates,blocksLight: true, userData: this);
+               new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh, (Category)PhysCat.Tool, (Category)PhysCat.ArtificialFloor}, OnCollides, OnSeparates,blocksLight: true, userData: this);
         }
         /// <summary>
         /// Waits <see cref="_timeUntilTouchable"/> amount until entities can interact with it
@@ -106,7 +106,7 @@ namespace ItemEngine.Classes
             if (_immunityTimer != null && _immunityTimer.Run(gameTime))
             {
 
-                SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Tool,(Category)PhysCat.Player,
+                SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.SolidLow,(Category)PhysCat.SolidHigh, (Category)PhysCat.Tool,(Category)PhysCat.Player,
                     (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item,
                     (Category)PhysCat.Grass, (Category)PhysCat.ArtificialFloor });
                 _immunityTimer = null;

@@ -53,7 +53,7 @@ namespace ItemEngine.Classes.ToolStuff
         {
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 8f,
                 new List<Category>() { (Category)PhysCat.Tool },
-               new List<Category>() { (Category)PhysCat.Item }, OnCollides, OnSeparates,
+               new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.SolidHigh }, OnCollides, OnSeparates,
                blocksLight: true, userData: this, mass: 1);
 
 

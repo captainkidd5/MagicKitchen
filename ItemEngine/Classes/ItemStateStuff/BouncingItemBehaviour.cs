@@ -20,6 +20,8 @@ namespace ItemEngine.Classes.ItemStateStuff
             SimpleTimer = new Globals.Classes.SimpleTimer(_timeUntilResting);
             worldItem.AddGadget(new ArtificialFloor(worldItem));
 
+            WorldItem.SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.SolidHigh, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass });
+
         }
 
         public override void Update(GameTime gameTime)
@@ -38,8 +40,8 @@ namespace ItemEngine.Classes.ItemStateStuff
             if (SimpleTimer != null && SimpleTimer.Run(gameTime))
             {
 
-                WorldItem.SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Player,
-                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass });
+                WorldItem.SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.SolidHigh, (Category)PhysCat.SolidLow,  (Category)PhysCat.Player,
+                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass,(Category)PhysCat.Tool });
                 WorldItem.IgnoreGravity(true);
                 SimpleTimer = null;
                 WorldItem.ClearGadgets();

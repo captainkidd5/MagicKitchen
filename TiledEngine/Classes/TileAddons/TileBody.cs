@@ -37,11 +37,15 @@ namespace TiledEngine.Classes.TileAddons
 
         protected virtual List<Category> GetCategoriesCollidesWith()
         {
-            return new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Item, (Category)PhysCat.NPC, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
+            return new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Tool, (Category)PhysCat.Item, (Category)PhysCat.NPC, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
         }
         protected virtual List<Category> GetCollisionCategories()
         {
-            return new List<Category>() { (Category)PhysCat.Solid };
+            if(IndexLayer < Layers.buildings)
+            return new List<Category>() { (Category)PhysCat.SolidLow };
+            else
+                return new List<Category>() { (Category)PhysCat.SolidHigh };
+
         }
         public virtual void Load()
         {

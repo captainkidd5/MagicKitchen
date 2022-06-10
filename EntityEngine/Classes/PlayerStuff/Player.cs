@@ -44,8 +44,8 @@ namespace EntityEngine.Classes.PlayerStuff
             ScheduleName = "player1";
             Move(StartingPosition);
             StorageCapacity = 24;
-            XOffSet = 8;
-            YOffSet = 16;
+            XOffSet = 4;
+            YOffSet = 8;
             _playerContainer = playerContainer;
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
             ProgressManager = new ProgressManager();
@@ -86,13 +86,13 @@ namespace EntityEngine.Classes.PlayerStuff
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Player },
-            new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Grass, (Category)PhysCat.NPC, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item,
+            new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.Grass, (Category)PhysCat.NPC, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item,
                 (Category)PhysCat.NPCBigSensor, (Category)PhysCat.Portal}, OnCollides, OnSeparates, ignoreGravity:true,blocksLight:true, userData: this));
 
 
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() {
                 (Category)PhysCat.PlayerBigSensor }, new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Tool,(Category)PhysCat.Portal,
-                    (Category)PhysCat.Solid, (Category)PhysCat.NPC },
+                    (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.NPC },
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
 

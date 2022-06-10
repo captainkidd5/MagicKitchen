@@ -66,7 +66,7 @@ namespace ItemEngine.Classes.ToolStuff
         }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Item))
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Item) || fixtureB.CollisionCategories.HasFlag((Category)PhysCat.SolidHigh))
             {
                 Sprite.SetTargetFrame(1, true);
                 Return();

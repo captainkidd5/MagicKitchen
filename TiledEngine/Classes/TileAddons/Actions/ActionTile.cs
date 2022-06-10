@@ -14,6 +14,7 @@ using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes.Helpers;
 using UIEngine.Classes;
+using static DataModels.Enums;
 
 namespace TiledEngine.Classes.TileAddons.Actions
 {
@@ -27,11 +28,16 @@ namespace TiledEngine.Classes.TileAddons.Actions
         }
         protected override List<Category> GetCollisionCategories()
         {
-            return new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.ActionTile };
+            if (IndexLayer < Layers.buildings)
+                return new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.ActionTile };
+            else
+                return new List<Category>() { (Category)PhysCat.SolidHigh, (Category)PhysCat.ActionTile };
+
+
         }
         protected override List<Category> GetCategoriesCollidesWith()
         {
-            return new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Cursor, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
+            return new List<Category>() { (Category)PhysCat.Player,(Category)PhysCat.Tool, (Category)PhysCat.Cursor, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
         }
         public override void Load()
         {
@@ -52,7 +58,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
             {
 
                 AddPrimaryBody(PhysicsManager.CreatePolygonHullBody(BodyType.Dynamic, IntermediateTmxShape.HullPosition, new Vertices(IntermediateTmxShape.Vertices),
-                  new List<Category>() { (Category)PhysCat.Solid }, new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC, (Category)PhysCat.FrontalSensor }, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+                  GetCollisionCategories(), GetCategoriesCollidesWith(), OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
             }
             else
             {
