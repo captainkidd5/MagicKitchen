@@ -21,10 +21,12 @@ namespace PhysicsEngine.Classes.Prefabs
         private Collidable _bodyFiring;
 
         private List<Hook> _hooks;
+
+        private float _maximumDistanceFromEntity = 140f;
         public Hook()
         {
 
-       
+
         }
         public void Load(List<Hook> hooks)
         {
@@ -49,33 +51,45 @@ namespace PhysicsEngine.Classes.Prefabs
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-           
+            if(Vector2.Distance(MainHullBody.Position, _bodyFiring.Position) > _maximumDistanceFromEntity)
+            {
+                Return();
+            }
         }
 
         public void Draw()
         {
-           
+
         }
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Item))
             {
-                if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
-                {
-                    AddGadget(new Magnetizer(this, _bodyFiring));
-                    SetCollidesWith(MainHullBody.Body,
-                   new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Player });
-                }
-              
+                Return();
+
             }
             else if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Player))
             {
-                ClearGadgets();
-                MainHullBody.Destroy();
-                _hooks.Remove(this);
+                Unload();
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
+        }
+        private void Return()
+        {
+            if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
+            {
+                AddGadget(new Magnetizer(this, _bodyFiring));
+                SetCollidesWith(MainHullBody.Body,
+               new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Player });
+            }
+        }
+        private void Unload()
+        {
+            ClearGadgets();
+            MainHullBody.Destroy();
+            _hooks.Remove(this);
+
         }
     }
 }
