@@ -10,7 +10,6 @@ using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Diagnostics;
 using tainicom.Aether.Physics2D.Common;
 using tainicom.Aether.Physics2D.Dynamics.Joints;
-using PhysicsEngine.Classes.Prefabs;
 
 namespace PhysicsEngine.Classes
 {
@@ -148,10 +147,7 @@ namespace PhysicsEngine.Classes
 
         }
 
-        public static Hook CreateHook()
-        {
-            return new Hook();
-        }
+ 
 
         public static HullBody CreateRectangularHullBody(BodyType bodyType, Vector2? position, float? width,float? height, List<Category>? collisionCategories, List<Category>? categoriesCollidesWith,
             OnCollisionEventHandler? cDelegate, OnSeparationEventHandler? sDelegate, float density = 1f, float rotation = 0f,

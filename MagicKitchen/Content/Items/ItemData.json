@@ -7,6 +7,15 @@
     "Price": 25
 },
 {
+    "Id": 5,
+    "Name": "Wooden_Hook",
+    "Description" : "Can grab floating items",
+    "MaxStackSize": 1,
+    "Price": 25,
+    "ToolTier":"Good",
+    "ItemType": "Hook"
+},
+{
     "Id": 100,
     "Name": "Stone_Hammer",
     "Description" : "Capable of smashing rocks and removing furniture",

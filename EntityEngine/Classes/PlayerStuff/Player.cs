@@ -22,7 +22,7 @@ using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using tainicom.Aether.Physics2D.Dynamics;
 using Globals.Classes.Console;
-using PhysicsEngine.Classes.Prefabs;
+using ItemEngine.Classes.ToolStuff;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -81,7 +81,7 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         private void CreateHookCommand(string[] args)
         {
-            Hook hook = PhysicsManager.CreateHook();
+            Hook hook = new Hook();
             hook.Move(Position);
             hook.Load(_hookList);
             hook.FireHook(Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving),this);
@@ -205,6 +205,8 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+            for (int i = _hookList.Count - 1; i >= 0; i--)
+                _hookList[i].Draw(spriteBatch);
         }
 
         //Keep input updates separate from update because of multiplayer.

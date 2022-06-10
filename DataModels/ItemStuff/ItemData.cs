@@ -10,6 +10,7 @@ namespace DataModels.ItemStuff
     public enum ItemType
     {
         None = 0,
+        Hook = 20,
         Axe = 21,
         Hammer = 22,
         Shovel = 23,

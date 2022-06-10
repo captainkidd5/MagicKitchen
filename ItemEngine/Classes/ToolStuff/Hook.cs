@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Gadgets;
 using SpriteEngine.Classes;
 using System;
@@ -7,13 +8,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using tainicom.Aether.Physics2D.Collision.Shapes;
-using tainicom.Aether.Physics2D.Common;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
-using tainicom.Aether.Physics2D.Dynamics.Joints;
 
-namespace PhysicsEngine.Classes.Prefabs
+namespace ItemEngine.Classes.ToolStuff
 {
     public class Hook : Collidable
     {
@@ -33,6 +31,11 @@ namespace PhysicsEngine.Classes.Prefabs
             //_hookSprite = SpriteFactory.CreateWorldSprite()
             CreateBody(Position);
             _hooks = hooks;
+            _hookSprite = SpriteFactory.CreateWorldSprite(Position,
+                Item.GetItemSourceRectangle(ItemFactory.GetItemData("Wooden_Hook").Id),
+                ItemFactory.ItemSpriteSheet);
+            XOffSet = 8;
+            YOffSet = 8;
         }
         protected override void CreateBody(Vector2 position)
         {
@@ -51,15 +54,17 @@ namespace PhysicsEngine.Classes.Prefabs
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if(Vector2.Distance(MainHullBody.Position, _bodyFiring.Position) > _maximumDistanceFromEntity)
+            _hookSprite.Update(gameTime, new Vector2(MainHullBody.Position.X - XOffSet, MainHullBody.Position.Y - YOffSet));
+            _hookSprite.Rotation = MainHullBody.Body.Rotation;
+            if (Vector2.Distance(MainHullBody.Position, _bodyFiring.Position) > _maximumDistanceFromEntity)
             {
                 Return();
             }
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
-
+            _hookSprite.Draw(spriteBatch);
         }
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
@@ -93,4 +98,3 @@ namespace PhysicsEngine.Classes.Prefabs
         }
     }
 }
-
