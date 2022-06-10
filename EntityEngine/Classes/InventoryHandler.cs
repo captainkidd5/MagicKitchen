@@ -15,8 +15,8 @@ namespace EntityEngine.Classes
     {
         public StorageContainer StorageContainer { get; private set; }
         public ItemManager ItemManager { get; private set; }
-        public Item HeldItem => StorageContainer.Slots[0] != null ? StorageContainer.Slots[0].Item : null;
-        public int HeldItemCount => StorageContainer.Slots[0].StoredCount;
+        public virtual Item HeldItem => StorageContainer.Slots[0] != null ? StorageContainer.Slots[0].Item : null;
+        public virtual int HeldItemCount => StorageContainer.Slots[0].StoredCount;
         public InventoryHandler( int capacity)
         {
             StorageContainer = new StorageContainer(capacity);

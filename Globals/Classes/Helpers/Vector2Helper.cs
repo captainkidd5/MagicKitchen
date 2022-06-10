@@ -54,14 +54,18 @@ namespace Globals.Classes.Helpers
             return false;
         }
 
+        public static float GetDegreesBetween(Vector2 entity1, Vector2 entity2)
+        {
+           float degrees = MathHelper.ToDegrees((float)Math.Atan2(entity2.Y - entity1.Y, entity2.X - entity1.X));
+            return (degrees + 360) % 360;
+        }
         /// <summary>
         /// Returns direction of Entity 2 in comparison to Entity 1 (ex if entity 2 is right of entity 1, return direction.right)
         /// </summary>
         public static Direction GetDirectionOfEntityInRelationToEntity(Vector2 entity1, Vector2 entity2)
         {
             Direction directionToReturn = Direction.None;
-            float degrees = MathHelper.ToDegrees((float)Math.Atan2(entity2.Y - entity1.Y, entity2.X - entity1.X)) ;
-            degrees = (degrees + 360) % 360;
+            float degrees = GetDegreesBetween(entity1, entity2);
             if (degrees < 135 && degrees >= 60)
                 return Direction.Down;
             else if (degrees < 305 && degrees >= 225)
@@ -100,7 +104,7 @@ namespace Globals.Classes.Helpers
             return new Vector2((float)desiredSize.Width/ (float)currentSpriteSize.Width, (float)desiredSize.Height/ (float)currentSpriteSize.Height);
         }
         private static readonly float directionMagnitude = 10;
-
+      
         public static Vector2 GetTossDirectionFromDirectionFacing(Direction directionFacing)
         {
             switch (directionFacing)

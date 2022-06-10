@@ -24,6 +24,7 @@ namespace ItemEngine.Classes.ItemStateStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+         
         }
     }
 }

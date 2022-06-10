@@ -47,7 +47,7 @@ namespace EntityEngine.Classes.PlayerStuff
             XOffSet = 8;
             YOffSet = 16;
             _playerContainer = playerContainer;
-            InventoryHandler = new InventoryHandler(StorageCapacity);
+            InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
             ProgressManager = new ProgressManager();
         }
         public override void SwitchStage(string newStageName,  TileManager tileManager, ItemManager itemManager)
@@ -68,7 +68,6 @@ namespace EntityEngine.Classes.PlayerStuff
 
             UI.Cursor.ItemDropped += DropHeldItem;
 
-            CommandConsole.RegisterCommand("Hook", "Creates hook at mouse location", CreateHookCommand);
             CommandConsole.RegisterCommand("tp", "teleports player to mouse position", TpCommand);
 
 
@@ -77,13 +76,12 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             Move(Controls.MouseWorldPosition);
         }
-        private void CreateHookCommand(string[] args)
+        protected override void ActivateTool(Tool tool)
         {
-            Hook hook = new Hook();
-            hook.Move(Position);
-            hook.Load(ToolList);
-            hook.ActivateTool(Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving),this);
-            ToolList.Add(hook);
+            Vector2 distance = Controls.MouseWorldPosition - Position;
+            //distance.Normalize();
+            tool.ActivateTool(distance, this);
+
         }
         protected override void CreateBody(Vector2 position)
         {

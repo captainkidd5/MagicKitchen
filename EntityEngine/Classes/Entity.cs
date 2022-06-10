@@ -274,12 +274,19 @@ namespace EntityEngine.Classes
             {
 
                 Tool tool = (Tool)Tool.GetTool(InventoryHandler.HeldItem.ItemType.ToString());
-
+                if (tool == null)
+                    return;
                 tool.Load(ToolList);
                 tool.Move(Position);
-                tool.ActivateTool(Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving), this);
+                ActivateTool(tool);
                 ToolList.Add(tool);
             }
+
+        }
+
+        protected virtual void ActivateTool(Tool tool)
+        {
+            tool.ActivateTool(Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving), this);
 
         }
         public void ForceWarpTo(string stageTo, Vector2 position, TileManager tileManager, ItemManager itemManager)

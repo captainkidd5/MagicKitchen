@@ -137,8 +137,8 @@ namespace ItemEngine.Classes
 
             if(ImmuneToPickup)
                TestIfImmunityDone(gameTime);
-
-            _itemBehaviour.Update(gameTime);
+            if(_itemBehaviour != null)
+             _itemBehaviour.Update(gameTime);
 
             Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet));
         }
@@ -152,6 +152,7 @@ namespace ItemEngine.Classes
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
+            if(_itemBehaviour != null)
             _itemBehaviour.OnCollides(Gadgets, fixtureA, fixtureB, contact);
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor) || fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
             {
