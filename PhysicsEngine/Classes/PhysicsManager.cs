@@ -24,7 +24,7 @@ namespace PhysicsEngine.Classes
         NPC = 0x20,
         PlayerBigSensor = 0x40,
         Projectile = 0x80,
-        Hook = 0x100,
+        Tool = 0x100,
         Portal = 0x200,
         Cursor = 0x400,
         NPCBigSensor = 0x800,

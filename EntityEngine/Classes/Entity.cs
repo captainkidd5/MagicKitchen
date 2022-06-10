@@ -29,6 +29,7 @@ using SpriteEngine.Classes.Presets;
 using ItemEngine.Classes.StorageStuff;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
+using ItemEngine.Classes.ToolStuff;
 
 namespace EntityEngine.Classes
 {
@@ -85,6 +86,9 @@ namespace EntityEngine.Classes
         protected StageNPCContainer Container { get; }
 
         private OverheadItemDisplay _overHeadItemDisplay { get; set; }
+
+        protected List<Tool> ToolList { get; set; }
+
         public Entity(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : base()
         {
             _graphics = graphics;
@@ -98,6 +102,7 @@ namespace EntityEngine.Classes
             _warpHelper = new WarpHelper(this);
             InventoryHandler = new InventoryHandler(StorageCapacity);
             Container = container;
+            ToolList = new List<Tool>();
 
         }
         public void SelectItem(Item item) => _overHeadItemDisplay.SelectItem(item, Position);
@@ -254,12 +259,29 @@ namespace EntityEngine.Classes
             Animator.Update(gameTime, IsMoving, Position);
 
             _overHeadItemDisplay.Update(gameTime, Position, LayerDepth);
-
+            if (ToolList != null)
+                for (int i = 0; i < ToolList.Count; i++)
+                    ToolList[i].Update(gameTime);
 
             if (_warpHelper.IsWarping)
                 CheckOnWarpStatus();
         }
 
+        protected void UseHeldItem()
+        {
+            if(InventoryHandler.HeldItem != null && 
+                InventoryHandler.HeldItem.ItemType > DataModels.ItemStuff.ItemType.None)
+            {
+
+                Tool tool = (Tool)Tool.GetTool(InventoryHandler.HeldItem.ItemType.ToString());
+
+                tool.Load(ToolList);
+                tool.Move(Position);
+                tool.ActivateTool(Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving), this);
+                ToolList.Add(tool);
+            }
+
+        }
         public void ForceWarpTo(string stageTo, Vector2 position, TileManager tileManager, ItemManager itemManager)
         {
             Move(position);
@@ -302,6 +324,10 @@ namespace EntityEngine.Classes
             if (Flags.ShowEntityPaths)
                 BehaviourManager.DrawDebug(spriteBatch);
 #endif
+
+            if (ToolList != null)
+                for (int i = ToolList.Count - 1; i >= 0; i--)
+                    ToolList[i].Draw(spriteBatch);
         }
 
         public virtual void DrawDebug(SpriteBatch spriteBatch)

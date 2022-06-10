@@ -13,12 +13,9 @@ using tainicom.Aether.Physics2D.Dynamics.Contacts;
 
 namespace ItemEngine.Classes.ToolStuff
 {
-    public class Hook : Collidable
+    public class Hook : Tool
     {
-        private Sprite _hookSprite;
-        private Collidable _bodyFiring;
 
-        private List<Hook> _hooks;
 
         private float _maximumDistanceFromEntity = 140f;
         public Hook()
@@ -26,46 +23,22 @@ namespace ItemEngine.Classes.ToolStuff
 
 
         }
-        public void Load(List<Hook> hooks)
-        {
-            //_hookSprite = SpriteFactory.CreateWorldSprite()
-            CreateBody(Position);
-            _hooks = hooks;
-            _hookSprite = SpriteFactory.CreateWorldSprite(Position,
-                Item.GetItemSourceRectangle(ItemFactory.GetItemData("Wooden_Hook").Id),
-                ItemFactory.ItemSpriteSheet);
-            XOffSet = 8;
-            YOffSet = 8;
-        }
-        protected override void CreateBody(Vector2 position)
-        {
-            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f,
-                new List<Category>() { (Category)PhysCat.Hook },
-               new List<Category>() { (Category)PhysCat.Item }, OnCollides, OnSeparates,
-               blocksLight: true, userData: this, mass: 1);
 
 
-        }
-        public void FireHook(Vector2 directionVector, Collidable bodyFiring)
-        {
-            _bodyFiring = bodyFiring;
-            MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000f);
-        }
+        //public void FireHook(Vector2 directionVector, Collidable bodyFiring)
+        //{
+        //    _bodyFiring = bodyFiring;
+        //    MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000f);
+        //}
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            _hookSprite.Update(gameTime, new Vector2(MainHullBody.Position.X - XOffSet, MainHullBody.Position.Y - YOffSet));
-            _hookSprite.Rotation = MainHullBody.Body.Rotation;
-            if (Vector2.Distance(MainHullBody.Position, _bodyFiring.Position) > _maximumDistanceFromEntity)
+            if (Vector2.Distance(MainHullBody.Position, Holder.Position) > _maximumDistanceFromEntity)
             {
                 Return();
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            _hookSprite.Draw(spriteBatch);
-        }
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
@@ -84,17 +57,10 @@ namespace ItemEngine.Classes.ToolStuff
         {
             if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
             {
-                AddGadget(new Magnetizer(this, _bodyFiring));
+                AddGadget(new Magnetizer(this, Holder));
                 SetCollidesWith(MainHullBody.Body,
                new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Player });
             }
-        }
-        private void Unload()
-        {
-            ClearGadgets();
-            MainHullBody.Destroy();
-            _hooks.Remove(this);
-
         }
     }
 }

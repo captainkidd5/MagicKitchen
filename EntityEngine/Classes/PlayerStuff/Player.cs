@@ -38,7 +38,6 @@ namespace EntityEngine.Classes.PlayerStuff
         internal ProgressManager ProgressManager { get;set; }
 
         protected HullBody FrontalSensor { get; set; }
-        private List<Hook> _hookList;
         public Player(StageNPCContainer container, GraphicsDevice graphics, ContentManager content,PlayerManager playerContainer, string name = "playerName") : base(container, graphics,content)
         {
             Name = name;
@@ -50,7 +49,6 @@ namespace EntityEngine.Classes.PlayerStuff
             _playerContainer = playerContainer;
             InventoryHandler = new InventoryHandler(StorageCapacity);
             ProgressManager = new ProgressManager();
-            _hookList = new List<Hook>();
         }
         public override void SwitchStage(string newStageName,  TileManager tileManager, ItemManager itemManager)
         {
@@ -83,15 +81,15 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             Hook hook = new Hook();
             hook.Move(Position);
-            hook.Load(_hookList);
-            hook.FireHook(Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving),this);
-            _hookList.Add(hook);
+            hook.Load(ToolList);
+            hook.ActivateTool(Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving),this);
+            ToolList.Add(hook);
         }
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Player },
             new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Grass, (Category)PhysCat.NPC, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item,
-                (Category)PhysCat.NPCBigSensor, (Category)PhysCat.Portal,   (Category)PhysCat.Hook}, OnCollides, OnSeparates, ignoreGravity:true,blocksLight:true, userData: this));
+                (Category)PhysCat.NPCBigSensor, (Category)PhysCat.Portal,   (Category)PhysCat.Tool}, OnCollides, OnSeparates, ignoreGravity:true,blocksLight:true, userData: this));
 
 
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() {
@@ -158,9 +156,12 @@ namespace EntityEngine.Classes.PlayerStuff
                 {
                     DropHeldItem();
                 }
+                else
+                {
+                    UseHeldItem();
+                }
             }
-            for(int i =0; i < _hookList.Count; i++)
-                _hookList[i].Update(gameTime);
+        
 
             if (UI.TalkingWindow.IsActive)
             {
@@ -205,8 +206,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            for (int i = _hookList.Count - 1; i >= 0; i--)
-                _hookList[i].Draw(spriteBatch);
+          
         }
 
         //Keep input updates separate from update because of multiplayer.
