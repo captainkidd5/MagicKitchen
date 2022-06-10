@@ -113,7 +113,7 @@ namespace PhysicsEngine.Classes
 
 
         public static HullBody CreateCircularHullBody(BodyType bodyType, Vector2? position,float? radius, List<Category>? collisionCategories, List<Category>? categoriesCollidesWith,
-            OnCollisionEventHandler? cDelegate, OnSeparationEventHandler? sDelegate, float density = 1f,
+            OnCollisionEventHandler? cDelegate, OnSeparationEventHandler? sDelegate, float density = 1.5f,
             float restitution = 1f, float friction = 1f, float mass = 1f, float inertia = 0, bool sleepingAllowed = true,bool isSensor = false, bool ignoreGravity = false,
             object userData = null, int xOffset = 0, int yOffset = 0,bool blocksLight = false, Light light = null)
         {
@@ -148,9 +148,9 @@ namespace PhysicsEngine.Classes
 
         }
 
-        public static Hook CreateHook(Vector2 position)
+        public static Hook CreateHook()
         {
-            return new Hook(VelcroWorld, position);
+            return new Hook();
         }
 
         public static HullBody CreateRectangularHullBody(BodyType bodyType, Vector2? position, float? width,float? height, List<Category>? collisionCategories, List<Category>? categoriesCollidesWith,

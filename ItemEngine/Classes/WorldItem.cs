@@ -96,7 +96,7 @@ namespace ItemEngine.Classes
         protected override void CreateBody(Vector2 position)
         {
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Item },
-               new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.ArtificialFloor}, OnCollides, OnSeparates,blocksLight: true, userData: this);
+               new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Hook, (Category)PhysCat.ArtificialFloor}, OnCollides, OnSeparates,blocksLight: true, userData: this);
         }
         /// <summary>
         /// Waits <see cref="_timeUntilTouchable"/> amount until entities can interact with it
@@ -106,8 +106,9 @@ namespace ItemEngine.Classes
             if (_immunityTimer != null && _immunityTimer.Run(gameTime))
             {
 
-                SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Player,
-                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass, (Category)PhysCat.ArtificialFloor });
+                SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.Solid, (Category)PhysCat.Hook,(Category)PhysCat.Player,
+                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item,
+                    (Category)PhysCat.Grass, (Category)PhysCat.ArtificialFloor });
                 _immunityTimer = null;
 
 
@@ -152,16 +153,17 @@ namespace ItemEngine.Classes
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             _itemBehaviour.OnCollides(Gadgets, fixtureA, fixtureB, contact);
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor) || fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Hook))
             {
-                if(Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
+                if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
                     AddGadget(new Magnetizer(this, (fixtureB.Body.Tag as Collidable)));
 
                 //If magnetized, remove solids collisions
                 SetCollidesWith(MainHullBody.Body, new List<Category>() {  (Category)PhysCat.Player,
                     (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass});
             }
-            return base.OnCollides(fixtureA, fixtureB, contact);
+ 
+                return base.OnCollides(fixtureA, fixtureB, contact);
 
         }
 
