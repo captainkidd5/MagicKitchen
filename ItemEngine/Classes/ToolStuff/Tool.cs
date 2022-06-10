@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using SpriteEngine.Classes;
+using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,14 @@ namespace ItemEngine.Classes.ToolStuff
 {
     public class Tool : Collidable
     {
-
+        protected Rectangle SourceRectangle { get; set; }
         public static Tool GetTool(string typeName)
         {
             return (Tool)System.Reflection.Assembly.GetExecutingAssembly()
                 .CreateInstance($"ItemEngine.Classes.ToolStuff.{typeName}", true, System.Reflection.BindingFlags.CreateInstance,
                 null, new object[] { }, null, null);
         }
-        private Sprite _sprite;
+        protected AnimatedSprite Sprite { get; set; }
         protected Collidable Holder { get; set; }
 
         private List<Tool> _tools;
@@ -31,13 +32,19 @@ namespace ItemEngine.Classes.ToolStuff
 
 
         }
+
+        protected virtual AnimationFrame[] GetAnimationFrames()
+        {
+            throw new NotImplementedException();
+        }
         public void Load(List<Tool> tools)
         {
             CreateBody(Position);
             _tools = tools;
-            _sprite = SpriteFactory.CreateWorldSprite(Position,
-                Item.GetItemSourceRectangle(ItemFactory.GetItemData("Wooden_Hook").Id),
-                ItemFactory.ItemSpriteSheet);
+            
+            Sprite = SpriteFactory.CreateWorldAnimatedSprite(Position,SourceRectangle, 
+                ItemFactory.ToolSheet, GetAnimationFrames());
+            Sprite.Paused = true;
             XOffSet = 8;
             YOffSet = 8;
         }
@@ -58,14 +65,14 @@ namespace ItemEngine.Classes.ToolStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            _sprite.Update(gameTime, new Vector2(MainHullBody.Position.X - XOffSet, MainHullBody.Position.Y - YOffSet));
-            _sprite.Rotation = MainHullBody.Body.Rotation;
+            Sprite.Update(gameTime, new Vector2(MainHullBody.Position.X - XOffSet, MainHullBody.Position.Y - YOffSet));
+            Sprite.Rotation = MainHullBody.Body.Rotation;
 
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _sprite.Draw(spriteBatch);
+            Sprite.Draw(spriteBatch);
         }
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)

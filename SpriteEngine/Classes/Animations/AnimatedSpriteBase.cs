@@ -131,11 +131,18 @@ namespace SpriteEngine.Classes.Animations
             else
                 CurrentFrame--;
         }
-        public void SetTargetFrame(int frame)
+        public void SetTargetFrame(int frame, bool force = false)
         {
             TargetFrame = frame;
+            if (force)
+            {
+                CurrentFrame = (byte)TargetFrame.Value;
+
+                UpdateSourceRectangle(AnimationFrames[CurrentFrame]);
+
+            }
         }
-        public void ForceSetFrame(Vector2 position, float layer)
+        public void ResetToZero(Vector2 position, float layer)
         {
             ResetSpriteToRestingFrame();
             CustomLayer = layer; 

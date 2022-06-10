@@ -27,7 +27,7 @@ namespace EntityEngine.Classes.Animators
             bool resetToResting = !isMoving && WasMovingLastFrame;
             if (resetToResting)
             {
-                AnimatedSprites[(int)Entity.DirectionMoving - 1].ForceSetFrame(Position, entityLayer);
+                AnimatedSprites[(int)Entity.DirectionMoving - 1].ResetToZero(Position, entityLayer);
 
             }
                 if (isMoving)

@@ -88,7 +88,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             CurrentDirection = GetAnimationFromDirection(newDirection);
             for (int i = 0; i < CurrentSet.Length; i++)
             {
-                CurrentSet[i].ForceSetFrame(new Vector2(position.X - xOffset, position.Y - yOffset), layer + LayerOffSet);
+                CurrentSet[i].ResetToZero(new Vector2(position.X - xOffset, position.Y - yOffset), layer + LayerOffSet);
 
             };
 

@@ -27,13 +27,14 @@ namespace ItemEngine.Classes
 
 
         public static Texture2D ItemSpriteSheet { get; private set; }
+        public static Texture2D ToolSheet { get; private set; }
 
         public static CraftingGuide CraftingGuide { get; private set; }
         public static void LoadContent(ContentManager content)
         {
 
             ItemSpriteSheet = content.Load<Texture2D>("items/ItemSpriteSheet");
-
+            ToolSheet = content.Load<Texture2D>("items/Tools");
 
             //new
             string basePath = content.RootDirectory + "/items";

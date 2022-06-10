@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Gadgets;
 using SpriteEngine.Classes;
+using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +22,17 @@ namespace ItemEngine.Classes.ToolStuff
         public Hook()
         {
 
-
+            SourceRectangle = new Rectangle(16, 0, 16, 16);
         }
 
 
-        //public void FireHook(Vector2 directionVector, Collidable bodyFiring)
-        //{
-        //    _bodyFiring = bodyFiring;
-        //    MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000f);
-        //}
+        protected override AnimationFrame[] GetAnimationFrames()
+        {
+            AnimationFrame[] frames = new AnimationFrame[2];
+            frames[0] = new AnimationFrame(0, 0, 0, 1f);
+            frames[1] = new AnimationFrame(1, 0, 0, 1f);
+            return frames;
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -44,6 +47,7 @@ namespace ItemEngine.Classes.ToolStuff
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Item))
             {
+                Sprite.SetTargetFrame(1, true);
                 Return();
 
             }
