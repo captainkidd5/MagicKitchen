@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes.Helpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Gadgets;
@@ -16,7 +17,7 @@ namespace ItemEngine.Classes.ToolStuff
 {
     public class Hook : Tool
     {
-
+        private bool _isReturning;
 
         private float _maximumDistanceFromEntity = 140f;
         public Hook()
@@ -42,7 +43,21 @@ namespace ItemEngine.Classes.ToolStuff
             }
         }
 
+        protected override void AlterSpriteRotation()
+        {
+            //base.AlterSpriteRotation();
+            if (_isReturning)
+            {
 
+            Vector2 directionVector = MainHullBody.Position - Holder.Position;
+            directionVector.Normalize();
+            Sprite.Rotation = Vector2Helper.VectorToDegrees(directionVector);
+            XOffSet = (int)(Math.Ceiling((float)XOffSet * directionVector.X));
+            YOffSet = YOffSet + (int)(Math.Ceiling((float)YOffSet * directionVector.Y));
+            YOffSet = (int)((float)YOffSet * directionVector.X);
+            }
+
+        }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Item))
@@ -64,6 +79,8 @@ namespace ItemEngine.Classes.ToolStuff
                 AddGadget(new Magnetizer(this, Holder));
                 SetCollidesWith(MainHullBody.Body,
                new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Player });
+                _isReturning = true;
+
             }
         }
     }

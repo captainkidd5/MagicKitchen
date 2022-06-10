@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes.Helpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using SpriteEngine.Classes;
@@ -61,15 +62,24 @@ namespace ItemEngine.Classes.ToolStuff
         {
             Holder = holder;
             MainHullBody.Body.ApplyLinearImpulse(directionVector * 100000f);
+            Sprite.Rotation = Vector2Helper.VectorToDegrees(directionVector);
+            XOffSet =(int)(Math.Ceiling((float)XOffSet * directionVector.X)) ;
+            YOffSet =YOffSet + (int)(Math.Ceiling((float)YOffSet * directionVector.Y)) ;
+            YOffSet = (int)((float)YOffSet * directionVector.X);
+
+
         }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
             Sprite.Update(gameTime, new Vector2(MainHullBody.Position.X - XOffSet, MainHullBody.Position.Y - YOffSet));
+            AlterSpriteRotation();
+        }
+        protected virtual void AlterSpriteRotation()
+        {
             Sprite.Rotation = MainHullBody.Body.Rotation;
 
         }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);

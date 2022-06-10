@@ -59,6 +59,15 @@ namespace Globals.Classes.Helpers
            float degrees = MathHelper.ToDegrees((float)Math.Atan2(entity2.Y - entity1.Y, entity2.X - entity1.X));
             return (degrees + 360) % 360;
         }
+        public static float VectorToDegrees(Vector2 vector)
+        {
+             return (float)Math.Atan2(vector.Y, vector.X);
+        }
+
+        public static Vector2 AngleToVector(float angle)
+        {
+            return new Vector2((float)Math.Sin(angle), -(float)Math.Cos(angle));
+        }
         /// <summary>
         /// Returns direction of Entity 2 in comparison to Entity 1 (ex if entity 2 is right of entity 1, return direction.right)
         /// </summary>
