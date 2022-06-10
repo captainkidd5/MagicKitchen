@@ -135,15 +135,9 @@ namespace PhysicsEngine.Classes
             body.OnSeparation += sDelegate;
             body.SetIsSensor(isSensor);
 
-            if(light != null)
-                Penumbra.Lights.Add(light);
-            Hull hull = null;
-            if (blocksLight)
-                hull = Hull.CreateCircle(position, radius);
-            if (hull != null)
-                Penumbra.Hulls.Add(hull);
+
             body.Tag = userData;
-            return new HullBody(body, hull);
+            return new HullBody(body);
 
         }
 
@@ -177,16 +171,10 @@ namespace PhysicsEngine.Classes
             body.OnSeparation += sDelegate;
             body.SetIsSensor( isSensor);
 
-            if (light != null)
-                Penumbra.Lights.Add(light);
-            Hull hull = null;
-            if (blocksLight)
-                hull = Hull.CreateRectangle(position, new Vector2((float)width, (float)height), 0f);
-            if (hull != null)
-                Penumbra.Hulls.Add(hull);
+
             body.Tag = userData;
 
-            return new HullBody(body, hull);
+            return new HullBody(body);
 
         }
 
@@ -215,17 +203,11 @@ namespace PhysicsEngine.Classes
             body.OnSeparation += sDelegate;
             body.SetIsSensor(isSensor);
 
-            if (light != null)
-                Penumbra.Lights.Add(light);
-            Hull hull = null;
-            //if (blocksLight)
-            //    hull = Hull.CreateRectangle(position, new Vector2((float)width, (float)height), 0f);
-            if (hull != null)
-                Penumbra.Hulls.Add(hull);
+
 
             body.Tag = userData;
 
-            return new HullBody(body, hull);
+            return new HullBody(body);
 
         }
 

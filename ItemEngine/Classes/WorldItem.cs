@@ -82,6 +82,7 @@ namespace ItemEngine.Classes
                     _itemBehaviour = new BouncingItemBehaviour(this);
                     break;
                 case WorldItemState.Floating:
+                  //  Jettison(jettisonDirection.Value, null);
                     _itemBehaviour = new FloatingItemBehaviour(this);
                     break;
             }
@@ -159,6 +160,8 @@ namespace ItemEngine.Classes
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor) ||
                 fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
             {
+
+
                 if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
                     AddGadget(new Magnetizer(this, (fixtureB.Body.Tag as Collidable)));
 

@@ -23,37 +23,31 @@ namespace PhysicsEngine.Classes
         //Velcro physics body
         public Body Body { get; set; }
 
-        //Penumbra hull
-        public Hull Hull { get; set; }
+
+        public bool Destroyed { get; private set; }
+
         public Vector2 Position { get { return Body.Position; } set { if (Body.World == null) { Debug.Assert(Body.World != null, $"world null"); return; } Body.SetTransform(new Vector2(value.X + XOffset, value.Y + YOffset), 0f); } }
 
-        //Penumbra light
 
-        public Light Light { get; set; }
 
   
 
-        internal HullBody(Body body,Hull hull)
+        internal HullBody(Body body)
         {
             Body = body;
-            Hull = hull;
+
         }
       
         public void Update(GameTime gameTime)
         {
-            Hull.Position = Body.Position;
+            
         }
 
 
         public virtual void Destroy( )
         {
             PhysicsManager.VelcroWorld.RemoveAsync(Body);
-
-            if(Hull != null)
-                PhysicsManager.Penumbra.Hulls.Remove(Hull);
-
-            if(Light != null)
-                PhysicsManager.Penumbra.Lights.Remove(Light);
+            Destroyed = true;
 
         }
 

@@ -23,7 +23,8 @@ namespace PhysicsEngine.Classes.Gadgets
         }
         public override void Update(GameTime gameTime)
         {
-            JettisonTowardsVector();
+            if(!_collidableToMoveTowards.MainHullBody.Destroyed)
+             JettisonTowardsVector();
         }
         private bool JettisonTowardsVector()
         {

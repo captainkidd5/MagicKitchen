@@ -188,10 +188,7 @@ namespace PhysicsEngine.Classes
         {
             MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000, pointAppliedTo ?? new Vector2(0,0));
             MainHullBody.Body.IgnoreGravity = ignoreGrav;
-            //if (directionVector.X == 0)
-            //    MainHullBody.Body.GravityScale = gScaleUp;
-            //else
-            //    MainHullBody.Body.GravityScale = gScaleDown;
+
             MainHullBody.Body.SetRestitution(restitution);
             MainHullBody.Body.LinearDamping = linearDamp;
             MainHullBody.Body.SetFriction(friction);

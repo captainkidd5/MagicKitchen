@@ -26,7 +26,7 @@ namespace ItemEngine.Classes
         {
             if (_spawnNewItemTimer.Run(gameTime))
             {
-               // AddNewFloatingItem();
+                AddNewFloatingItem();
             }
         }
         private Vector2 GetSpawnLocation()
