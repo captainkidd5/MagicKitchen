@@ -32,7 +32,7 @@ namespace SpriteEngine.Classes
         public float Rotation { get; set; }
 
         public float? CustomLayer { get; set; }
-        protected float LayerDepth { get; set; }
+        public float LayerDepth { get; protected set; }
 
         public virtual int Width { get {  return SourceRectangle.Width;} }
         public virtual int Height { get { return SourceRectangle.Height;} }

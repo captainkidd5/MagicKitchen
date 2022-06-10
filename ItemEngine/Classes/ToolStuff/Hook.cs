@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Gadgets;
+using PhysicsEngine.Classes.Shapes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using System;
@@ -20,7 +21,7 @@ namespace ItemEngine.Classes.ToolStuff
         private bool _isReturning;
 
         private float _maximumDistanceFromEntity = 140f;
-        private static readonly Vector2 s_anchorOffSet = new Vector2(8, 8);
+        private static readonly Vector2 s_anchorOffSet = new Vector2(4,11);
         public Hook()
         {
 
@@ -38,7 +39,7 @@ namespace ItemEngine.Classes.ToolStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (Vector2.Distance(MainHullBody.Position, Holder.Position) > _maximumDistanceFromEntity)
+            if (Vector2.Distance(MainHullBody.Position, Holder.CenteredPosition) > _maximumDistanceFromEntity)
             {
                 Return();
             }
@@ -50,12 +51,16 @@ namespace ItemEngine.Classes.ToolStuff
             if (_isReturning)
             {
 
-            Vector2 directionVector = MainHullBody.Position - Holder.Position;
+            Vector2 directionVector = MainHullBody.Position - Holder.CenteredPosition;
             directionVector.Normalize();
             Sprite.Rotation = Vector2Helper.VectorToDegrees(directionVector);
-            //XOffSet = (int)(Math.Ceiling((float)XOffSet * directionVector.X));
-            //YOffSet = (int)s_anchorOffSet.Y + (int)(Math.Ceiling((float)s_anchorOffSet.Y * directionVector.Y));
-            //YOffSet = (int)((float)s_anchorOffSet.Y * directionVector.X);
+                int anchorX = XOffSet;
+                XOffSet = (int)(Math.Ceiling((float)s_anchorOffSet.X * directionVector.X));
+                XOffSet = XOffSet - (int)((float)anchorX * directionVector.Y);
+
+                YOffSet = (int)s_anchorOffSet.Y + (int)(Math.Ceiling((float)s_anchorOffSet.Y * directionVector.Y));
+                YOffSet = (int)((float)YOffSet * directionVector.X);
+
             }
 
         }
@@ -67,19 +72,24 @@ namespace ItemEngine.Classes.ToolStuff
                 Return();
 
             }
-            else if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Player))
+            else if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
             {
                 Unload();
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
         }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            LineUtility.DrawLine(null, spriteBatch, Position , Holder.CenteredPosition, Color.White, Sprite.LayerDepth);
+        }
         private void Return()
         {
             if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
             {
-                AddGadget(new Magnetizer(this, Holder));
+                AddGadget(new Magnetizer(this, Holder, 2));
                 SetCollidesWith(MainHullBody.Body,
-               new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Player });
+               new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.PlayerBigSensor });
                 _isReturning = true;
 
             }

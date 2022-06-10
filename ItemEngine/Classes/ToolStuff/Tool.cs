@@ -46,12 +46,12 @@ namespace ItemEngine.Classes.ToolStuff
             Sprite = SpriteFactory.CreateWorldAnimatedSprite(Position,SourceRectangle, 
                 ItemFactory.ToolSheet, GetAnimationFrames());
             Sprite.Paused = true;
-            XOffSet = 8;
-            YOffSet = 8;
+            XOffSet =4;
+            YOffSet = 11;
         }
         protected override void CreateBody(Vector2 position)
         {
-            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f,
+            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 8f,
                 new List<Category>() { (Category)PhysCat.Tool },
                new List<Category>() { (Category)PhysCat.Item }, OnCollides, OnSeparates,
                blocksLight: true, userData: this, mass: 1);
@@ -61,10 +61,13 @@ namespace ItemEngine.Classes.ToolStuff
         public virtual void ActivateTool(Vector2 directionVector, Collidable holder)
         {
             Holder = holder;
-            MainHullBody.Body.ApplyLinearImpulse(directionVector * 100000f);
+            MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000000f);
             Sprite.Rotation = Vector2Helper.VectorToDegrees(directionVector);
+            int anchorX = XOffSet;
             XOffSet =(int)(Math.Ceiling((float)XOffSet * directionVector.X)) ;
-            YOffSet =YOffSet + (int)(Math.Ceiling((float)YOffSet * directionVector.Y)) ;
+            XOffSet = XOffSet - (int)((float)anchorX * directionVector.Y);
+
+            YOffSet = YOffSet + (int)(Math.Ceiling((float)YOffSet * directionVector.Y)) ;
             YOffSet = (int)((float)YOffSet * directionVector.X);
 
 
@@ -80,7 +83,7 @@ namespace ItemEngine.Classes.ToolStuff
             Sprite.Rotation = MainHullBody.Body.Rotation;
 
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);
         }
