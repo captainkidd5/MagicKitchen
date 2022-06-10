@@ -20,6 +20,7 @@ namespace ItemEngine.Classes.ToolStuff
         private bool _isReturning;
 
         private float _maximumDistanceFromEntity = 140f;
+        private static readonly Vector2 s_anchorOffSet = new Vector2(8, 8);
         public Hook()
         {
 
@@ -52,9 +53,9 @@ namespace ItemEngine.Classes.ToolStuff
             Vector2 directionVector = MainHullBody.Position - Holder.Position;
             directionVector.Normalize();
             Sprite.Rotation = Vector2Helper.VectorToDegrees(directionVector);
-            XOffSet = (int)(Math.Ceiling((float)XOffSet * directionVector.X));
-            YOffSet = YOffSet + (int)(Math.Ceiling((float)YOffSet * directionVector.Y));
-            YOffSet = (int)((float)YOffSet * directionVector.X);
+            //XOffSet = (int)(Math.Ceiling((float)XOffSet * directionVector.X));
+            //YOffSet = (int)s_anchorOffSet.Y + (int)(Math.Ceiling((float)s_anchorOffSet.Y * directionVector.Y));
+            //YOffSet = (int)((float)s_anchorOffSet.Y * directionVector.X);
             }
 
         }
