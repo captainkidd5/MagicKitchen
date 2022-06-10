@@ -61,7 +61,14 @@ namespace InputEngine.Classes
             return Direction.None;
         }
 
-
+        public Vector2 GetRightThumbStickVector()
+        {
+            float thumbstickTolerance = 0.35f;
+            var gamePadThumbStick = _newGamePadState.ThumbSticks.Right;
+            var absX = Math.Abs(gamePadThumbStick.X);
+            var absY = Math.Abs(gamePadThumbStick.Y);
+            return new Vector2(absX > thumbstickTolerance ? absX : 0, absY > thumbstickTolerance ? absY : 0);
+        }
 
 
         private GamePadState _newGamePadState;

@@ -53,7 +53,7 @@ namespace ItemEngine.Classes.ToolStuff
         public virtual void ActivateTool(Vector2 directionVector, Collidable holder)
         {
             Holder = holder;
-            MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000f);
+            MainHullBody.Body.ApplyLinearImpulse(directionVector * 100000f);
         }
         public override void Update(GameTime gameTime)
         {

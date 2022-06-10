@@ -96,6 +96,18 @@ namespace InputEngine.Classes
             return KeyboardManager.PrimaryDirection;
         }
 
+        public static Vector2 WorldDistanceBetweenCursorAndVector(Vector2 other)
+        {
+            if (ControllerConnected)
+            {
+              other.Normalize();
+                return _gamePadControls.GetRightThumbStickVector() - other;
+            }
+            else
+            {
+                return MouseWorldPosition - other;
+            }
+        }
         /// <summary>
         /// Gets the secondary direction the player is currently facing.
         /// </summary>

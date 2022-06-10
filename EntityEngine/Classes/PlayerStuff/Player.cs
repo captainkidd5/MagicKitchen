@@ -78,8 +78,8 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         protected override void ActivateTool(Tool tool)
         {
-            Vector2 distance = Controls.MouseWorldPosition - Position;
-            //distance.Normalize();
+            Vector2 distance = Controls.WorldDistanceBetweenCursorAndVector(Position);
+            distance.Normalize();
             tool.ActivateTool(distance, this);
 
         }
