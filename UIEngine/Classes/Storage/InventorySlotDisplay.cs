@@ -28,7 +28,7 @@ namespace UIEngine.Classes.Storage
     {
         protected SlotVisualVariant VisualVariant { get; set; }
         public Item Item => _storageSlot.Item;
-
+        public void Remove(int amt) => _storageSlot.Remove(amt);
         private readonly int _xslotIndex;
         private readonly int _ySlotIndex;
         private readonly StorageSlot _storageSlot;

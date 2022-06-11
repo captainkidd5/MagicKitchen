@@ -73,7 +73,14 @@ namespace TiledEngine.Classes.TilePlacementStuff
                 CurrentTile.Unload();
             CurrentTile = null;
         }
-        public void Update(GameTime gameTime, Vector2 position, Item item)
+        /// <summary>
+        /// Returns true if item was successfully placed
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="position"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public bool Update(GameTime gameTime, Vector2 position, Item item)
         {
 
             //todo: check if area is clear
@@ -96,12 +103,14 @@ namespace TiledEngine.Classes.TilePlacementStuff
                                 _tileManager.MouseOverTile.Position, _layer);
                             TileUtility.SwitchGid(tile, _layer,
                                 GID -1, true);
+                            return true;
                         }
                     }
 
                 }
 
             }
+            return false;
         }
 
         private void UpdateMayPlace(Item placedItem)

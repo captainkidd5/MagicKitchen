@@ -24,6 +24,8 @@ namespace UIEngine.Classes.Storage
     {
         private InventoryDisplay _secondaryInventoryDisplay;
         public Item PlayerSelectedItem => _playerInventoryDisplay.CurrentlySelectedItem;
+        public void RemovePlayerSelectedItem(int amt) => _playerInventoryDisplay.DetractCurrentlySelectedItem(amt);  
+
 
         private PlayerInventoryDisplay _playerInventoryDisplay;
         private int _playerInventoryTotalSlots = 10;

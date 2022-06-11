@@ -55,6 +55,9 @@ namespace Globals.Classes.Console
                 case "fps":
                     Flags.DisplayFPS = !Flags.DisplayFPS;
                     break;
+                case "items":
+                    Flags.SpawnFloatingItems = !Flags.SpawnFloatingItems;
+                    break;
             }
         }
 

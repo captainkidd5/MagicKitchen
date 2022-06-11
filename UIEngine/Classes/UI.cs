@@ -99,7 +99,7 @@ namespace UIEngine.Classes
 
         public static Item PlayerCurrentSelectedItem => StorageDisplayHandler.PlayerSelectedItem;
 
-
+        public static void RemoveCurrentlySelectedItem(int amt) => StorageDisplayHandler.RemovePlayerSelectedItem(amt);
         private static float _frontLayeringDepth;
         public static void Load(Game game, GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager)
         {

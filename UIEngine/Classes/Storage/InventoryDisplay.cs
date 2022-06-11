@@ -29,6 +29,10 @@ namespace UIEngine.Classes.Storage
     {
         public Item CurrentlySelectedItem => SelectedSlot.Item;
 
+        public void DetractCurrentlySelectedItem(int amt)
+        {
+            SelectedSlot.Remove(amt);
+        }
         protected static readonly int _buttonWidth = 64;
         protected int Rows;
         protected int Columns;

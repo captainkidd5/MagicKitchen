@@ -36,7 +36,10 @@ namespace TiledEngine.Classes.TilePlacementStuff
             else
                 _ghostTile.ResetTileIfNotEmpty();
 
-           _ghostTile.Update(gameTime, Controls.MouseWorldPosition, playeritem);
+           if(_ghostTile.Update(gameTime, Controls.MouseWorldPosition, playeritem))
+            {
+                UI.RemoveCurrentlySelectedItem(1);
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {

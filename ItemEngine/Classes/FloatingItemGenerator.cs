@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using Globals.Classes.Console;
 using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using System;
@@ -15,27 +16,32 @@ namespace ItemEngine.Classes
         private readonly ItemManager _itemManager;
         private SimpleTimer _spawnNewItemTimer;
 
-
         public FloatingItemGenerator(ItemManager itemManager)
         {
             _itemManager = itemManager;
             _spawnNewItemTimer = new SimpleTimer(1f);
         }
 
+
         public void Update(GameTime gameTime)
         {
-            if (_spawnNewItemTimer.Run(gameTime))
+            if (Flags.SpawnFloatingItems)
             {
-                AddNewFloatingItem();
+
+                if (_spawnNewItemTimer.Run(gameTime))
+                {
+                    AddNewFloatingItem();
+                }
             }
+
         }
         private Vector2 GetSpawnLocation()
         {
-            return Vector2Helper.GetWorldPositionFromTileIndex(Settings.Random.Next(112,144), 111);
+            return Vector2Helper.GetWorldPositionFromTileIndex(Settings.Random.Next(112, 144), 111);
         }
         private void AddNewFloatingItem()
         {
-            _itemManager.AddWorldItem(GetSpawnLocation(), "Dirt", 1,WorldItemState.Floating, Vector2Helper.GetTossDirectionFromDirectionFacing(Direction.Down));
+            _itemManager.AddWorldItem(GetSpawnLocation(), "Dirt", 1, WorldItemState.Floating, Vector2Helper.GetTossDirectionFromDirectionFacing(Direction.Down));
         }
     }
 }
