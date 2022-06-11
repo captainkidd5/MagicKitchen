@@ -30,6 +30,7 @@ using DataModels.MapStuff;
 using Globals.Classes.Time;
 using TextEngine;
 using ItemEngine.Classes.StorageStuff;
+using UIEngine.Classes.StatusStuff;
 
 namespace UIEngine.Classes
 {
@@ -84,6 +85,7 @@ namespace UIEngine.Classes
         internal static ToolBar ToolBar { get; set; }
         internal static ClockBar ClockBar { get; set; }
 
+        public static StatusPanel StatusPanel { get; set; }
         internal static Curtain Curtain { get; set; }
         internal static EscMenu EscMenu { get; set; }
 
@@ -116,6 +118,8 @@ namespace UIEngine.Classes
 
             ToolBar = new ToolBar(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
             ClockBar = new ClockBar(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
+            StatusPanel = new StatusPanel(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
+
             EscMenu = new EscMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
             RecipeBook = new RecipeBook(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
@@ -123,7 +127,7 @@ namespace UIEngine.Classes
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
             StorageDisplayHandler = new StorageDisplayHandler(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             
-            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar, TalkingWindow,
+            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, TalkingWindow,
                 EscMenu, RecipeBook, StorageDisplayHandler };
 
             Cursor = new Cursor();

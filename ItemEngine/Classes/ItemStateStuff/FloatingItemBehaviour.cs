@@ -33,7 +33,7 @@ namespace ItemEngine.Classes.ItemStateStuff
         public override bool OnCollides(List<PhysicsGadget> gadgets, Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.SolidLow) ||
-               fixtureB.CollisionCategories.HasFlag((Category)PhysCat.SolidLow))
+               fixtureB.CollisionCategories.HasFlag((Category)PhysCat.SolidHigh))
             {
                 //Floating object just hit the side of the island, probably
                 _isSinking = true;

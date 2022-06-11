@@ -38,6 +38,10 @@ namespace EntityEngine.Classes.PlayerStuff
         internal ProgressManager ProgressManager { get;set; }
 
         protected HullBody FrontalSensor { get; set; }
+
+
+        public int MaxMana { get; set; } = 100;
+        public int CurrentMana { get; set; } = 100;
         public Player(StageNPCContainer container, GraphicsDevice graphics, ContentManager content,PlayerManager playerContainer, string name = "playerName") : base(container, graphics,content)
         {
             Name = name;
@@ -78,6 +82,7 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         protected override void ActivateTool(Tool tool)
         {
+            CurrentMana -= 5;
             Vector2 distance = Controls.WorldDistanceBetweenCursorAndVector(Position);
             distance.Normalize();
             tool.ActivateTool(distance, this);
@@ -147,6 +152,9 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.Update(gameTime);
             UI.Cursor.PlayerPosition = Position;
+            UI.StatusPanel.HealthBar.SetProgressRatio((float)CurrentHealth / (float)MaxHealth);
+            UI.StatusPanel.ManaBar.SetProgressRatio((float)CurrentMana / (float)MaxMana);
+
             if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Y))
             {
                 //Item should not eject if any part of the ui is hovered

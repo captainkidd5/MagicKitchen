@@ -155,7 +155,6 @@ namespace SpriteEngine.Classes
 
         public void AddFaderEffect(float? maxOpac, float? speed, bool immediatelyTriggerFade = false)
         {
-            CheckCE();
             ColorShifter = new ColorShifter(PrimaryColor, speed, maxOpac);
             if(immediatelyTriggerFade)
                 TriggerIntensityEffect(); 
@@ -163,16 +162,11 @@ namespace SpriteEngine.Classes
 
         public void AddSaturateEffect(Color? targetColor, bool immediatelyTriggerSaturation = false)
         {
-            CheckCE();
             ColorShifter = new ColorShifter(PrimaryColor,null, targetColor);
             if (immediatelyTriggerSaturation)
                 TriggerIntensityEffect();
         }
-        private void CheckCE()
-        {
-            //if (ColorShifter != null)
-              //  throw new Exception($"Color Effect is already instantiated");
-        }
+  
         /// <summary>
         /// 
         /// </summary>

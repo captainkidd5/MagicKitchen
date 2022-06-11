@@ -32,8 +32,8 @@ namespace UIEngine.Classes.Storage.Configurations
             base.Update(gameTime);
             if (IsActive)
             {
-                UIProgressBar.GetProgressRatio((StorageContainer as CraftingStorageContainer).CraftedItemMetre.Ratio);
-                FuelBar.GetProgressRatio((StorageContainer as CraftingStorageContainer).FuelMetre.Ratio);
+                UIProgressBar.SetProgressRatio((StorageContainer as CraftingStorageContainer).CraftedItemMetre.Ratio);
+                FuelBar.SetProgressRatio((StorageContainer as CraftingStorageContainer).FuelMetre.Ratio);
                 //CraftingActionButton.Update(gameTime);
             }
         }
@@ -147,8 +147,8 @@ namespace UIEngine.Classes.Storage.Configurations
 
             }
             StackPanel.Add(stackRow);
-            UIProgressBar.ProgressBarColor = Color.White;
-            FuelBar.ProgressBarColor = Color.Orange;
+            UIProgressBar.ProgressColor = Color.White;
+            FuelBar.ProgressColor = Color.Orange;
            // UIProgressBar.MovePosition(new Vector2(UIProgressBar.Position.X, UIProgressBar.Position.Y + UIProgressBar.Height / 2));
             //FuelBar.MovePosition(new Vector2(FuelBar.Position.X, FuelBar.Position.Y + FuelBar.Height / 2));
 

@@ -89,6 +89,10 @@ namespace EntityEngine.Classes
 
         protected List<Tool> ToolList { get; set; }
 
+        public int MaxHealth { get; protected set; } = 100;
+        public int CurrentHealth { get; protected set; } = 100;
+
+        protected bool IsUsingTool => ToolList.Count > 0;
         public Entity(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : base()
         {
             _graphics = graphics;
@@ -272,7 +276,8 @@ namespace EntityEngine.Classes
             if(InventoryHandler.HeldItem != null && 
                 InventoryHandler.HeldItem.ItemType > DataModels.ItemStuff.ItemType.None)
             {
-
+                if (IsUsingTool)
+                    return;
                 Tool tool = (Tool)Tool.GetTool(InventoryHandler.HeldItem.ItemType.ToString());
                 if (tool == null)
                     return;
