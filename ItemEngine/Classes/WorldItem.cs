@@ -19,7 +19,7 @@ namespace ItemEngine.Classes
 {
     public enum WorldItemState
     {
-        None =0,
+        None = 0,
         Bouncing = 1,
         Floating = 2
     }
@@ -31,7 +31,7 @@ namespace ItemEngine.Classes
         internal WorldItemState WorldItemState { get; set; }
         public string Name => Item.Name;
         public int Id => Item.Id;
-        public bool Stackable => Item.Stackable;   
+        public bool Stackable => Item.Stackable;
         public int MaxStackSize => Item.MaxStackSize;
         //How many items this item represents
 
@@ -54,7 +54,7 @@ namespace ItemEngine.Classes
         internal void IgnoreGravity(bool val) => MainHullBody.Body.IgnoreGravity = val;
         public void Save(BinaryWriter writer)
         {
-           
+
         }
 
         public void LoadSave(BinaryReader reader)
@@ -65,7 +65,7 @@ namespace ItemEngine.Classes
         {
             Item = item;
             Count = count;
-            Sprite = SpriteFactory.CreateWorldSprite(position, Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, scale:new Vector2(.75f,.75f));
+            Sprite = SpriteFactory.CreateWorldSprite(position, Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f));
             WorldItemState = worldItemState;
             CreateBody(position);
             Move(position);
@@ -82,7 +82,7 @@ namespace ItemEngine.Classes
                     _itemBehaviour = new BouncingItemBehaviour(this);
                     break;
                 case WorldItemState.Floating:
-                  //  Jettison(jettisonDirection.Value, null);
+                    //  Jettison(jettisonDirection.Value, null);
                     _itemBehaviour = new FloatingItemBehaviour(this);
                     break;
             }
@@ -97,7 +97,7 @@ namespace ItemEngine.Classes
         protected override void CreateBody(Vector2 position)
         {
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Item },
-               new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh, (Category)PhysCat.Tool, (Category)PhysCat.ArtificialFloor}, OnCollides, OnSeparates,blocksLight: true, userData: this);
+               new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh, (Category)PhysCat.Tool, (Category)PhysCat.ArtificialFloor }, OnCollides, OnSeparates, blocksLight: true, userData: this);
         }
         /// <summary>
         /// Waits <see cref="_timeUntilTouchable"/> amount until entities can interact with it
@@ -136,18 +136,18 @@ namespace ItemEngine.Classes
         {
             base.Update(gameTime);
 
-            if(ImmuneToPickup)
-               TestIfImmunityDone(gameTime);
+            if (ImmuneToPickup)
+                TestIfImmunityDone(gameTime);
             Vector2 spriteBehaviourOffSet = Vector2.Zero;
             if (_itemBehaviour != null)
                 spriteBehaviourOffSet = _itemBehaviour.Update(gameTime);
             Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet) + spriteBehaviourOffSet);
 
-            
+
         }
 
 
-     
+
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);
@@ -155,31 +155,34 @@ namespace ItemEngine.Classes
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if(_itemBehaviour != null)
-            _itemBehaviour.OnCollides(Gadgets, fixtureA, fixtureB, contact);
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor) ||
-                fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
+            if (_itemBehaviour != null)
+                _itemBehaviour.OnCollides(Gadgets, fixtureA, fixtureB, contact);
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
             {
+                //  if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
+                ClearGadgets();
+                    AddGadget(new Magnetizer(this, (fixtureB.Body.Tag as Collidable)));
+                //If magnetized, remove solids collisions
+                SetCollidesWith(MainHullBody.Body, new List<Category>() {  (Category)PhysCat.Player,
+                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass});
+                return true;
+            }
 
+                if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
+            {
 
                 if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
                     AddGadget(new Magnetizer(this, (fixtureB.Body.Tag as Collidable)));
 
-                ArtificialFloor floor = Gadgets.FirstOrDefault(x => x.GetType() == typeof(ArtificialFloor)) as ArtificialFloor;
-                if (floor != null)
-                {
-                    floor.Destroy();
-                    Gadgets.Remove(floor);
-                }
-
-               ChangeState(WorldItemState.None);
+                ChangeState(WorldItemState.None);
 
                 //If magnetized, remove solids collisions
                 SetCollidesWith(MainHullBody.Body, new List<Category>() {  (Category)PhysCat.Player,
                     (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass});
             }
- 
-                return base.OnCollides(fixtureA, fixtureB, contact);
+
+
+            return base.OnCollides(fixtureA, fixtureB, contact);
 
         }
 

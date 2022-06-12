@@ -192,7 +192,13 @@ namespace TiledEngine.Classes
             if (TileToInteractWith != null)
             {
                 if (Controls.IsClickedWorld || Controls.DidGamePadSelectWorld)
-                    TileToInteractWith.Interact(true, UI.PlayerCurrentSelectedItem);
+                {
+                    //Do not interact if another non empty tile has a layer greater than the one we
+                    //are trying to interact with
+                    if(MouseOverTile.Layer <= TileToInteractWith.Layer)
+                     TileToInteractWith.Interact(true, UI.PlayerCurrentSelectedItem);
+
+                }
             }
         }
 
