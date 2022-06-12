@@ -4,6 +4,13 @@ using System.Text;
 
 namespace DataModels.ItemStuff
 {
+
+    public enum CraftingCategory
+    {
+        None = 0,
+        Tool = 1,
+        Placeable = 2,
+    }
     public enum CraftAction
     {
         None = 0,
@@ -21,6 +28,7 @@ namespace DataModels.ItemStuff
         //if true, player will not start out with this recipe unlocked
         public bool StartsLocked { get; set; }
         public CraftAction CraftAction { get; set; }
+        public CraftingCategory CraftingCategory { get; set; }
         public float CookTime { get; set; }
 
         public List<CraftingIngredient> Ingredients { get; set; }

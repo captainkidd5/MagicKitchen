@@ -6,7 +6,7 @@ using static DataModels.Enums;
 
 namespace DataModels.ItemStuff
 {
-
+    
     public enum ItemType
     {
         None = 0,

@@ -14,7 +14,4 @@
     <ProjectReference Include="..\IOEngine\IOEngine.csproj" />
     <ProjectReference Include="..\SpriteEngine\SpriteEngine.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\CraftingMenuStuff\" />
-  </ItemGroup>
 </Project>
