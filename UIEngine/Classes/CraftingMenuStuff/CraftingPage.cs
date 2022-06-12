@@ -15,14 +15,17 @@ namespace UIEngine.Classes.CraftingMenuStuff
 {
     internal class CraftingPage : MenuSection
     {
-        public CraftingCategory CraftingCategory{ get; private set; }
+        public CraftingCategory CraftingCategory { get; private set; }
 
+
+        private readonly int s_columns = 5;
         private Rectangle _backGroundSourceRectangle = new Rectangle(624, 272, 224, 128);
         private Sprite _backGroundSprite;
 
         private StackPanel _stackPanel;
+        private Vector2 _scale = new Vector2(1f, 1f);
         public CraftingPage(CraftingCategory craftingCategory, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
-            Vector2? position, float layerDepth) : 
+            Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             CraftingCategory = craftingCategory;
@@ -35,17 +38,30 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 GetLayeringDepth(UILayeringDepths.Low));
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y,
                 _backGroundSourceRectangle.Width, _backGroundSourceRectangle.Height);
+            FillPage();
             base.LoadContent();
-            
+
         }
 
         private void FillPage()
         {
             _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
             List<ItemData> dataList = ItemFactory.ItemDataByCraftingCategory(CraftingCategory);
-            for(int i =0; i < dataList.Count; i++)
+            Selectables = new InterfaceSection[(int)Math.Ceiling((float)dataList.Count / (float)s_columns), s_columns];
+            int index = 0;
+            for (int i = 0; i < Selectables.GetLength(0); i++)
             {
-                CraftingMiniIcon icon = new CraftingMiniIcon(this, graphics, )
+                StackRow stackRow = new StackRow((int)(s_columns * 16 * _scale.X));
+                for (int j = 0; j < Selectables.GetLength(1); j++)
+                {
+                    if (index >= dataList.Count )
+                        break;
+                    CraftingMiniIcon icon = new CraftingMiniIcon(_stackPanel, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
+                    icon.LoadItemData(dataList[index]);
+                    index++;
+                    stackRow.AddItem(icon, StackOrientation.Left);
+                }
+                _stackPanel.Add(stackRow);
             }
 
         }
@@ -53,5 +69,23 @@ namespace UIEngine.Classes.CraftingMenuStuff
         {
             base.MovePosition(newPos);
         }
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if(IsActive)
+            {
+                _backGroundSprite.Update(gameTime, Position);
+            }
+        }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            if (IsActive)
+            {
+                _backGroundSprite.Draw(spriteBatch);
+            }
+        }
+
+       
     }
 }

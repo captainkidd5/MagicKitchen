@@ -13,7 +13,19 @@
     "MaxStackSize": 1,
     "Price": 25,
     "ToolTier":"Good",
-    "ItemType": "Hook"
+    "ItemType": "Hook",
+    "RecipeInfo": 
+    {
+    "CraftAction": "Craft",
+    "CraftingCategory": "Tool",
+    "CookTime": 1,
+    "Ingredients":[
+        {
+            "Name":"Iron_Ore",
+            "Count":1
+        }
+    ]
+}
 },
 {
     "Id": 100,

@@ -19,6 +19,7 @@ namespace DataModels.ItemStuff
         Bake = 3,
         Mix = 4,
         Smelt = 5,
+        Craft = 6,
     }
     public class RecipeInfo
     {

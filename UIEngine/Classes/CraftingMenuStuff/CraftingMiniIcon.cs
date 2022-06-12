@@ -16,7 +16,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
     internal class CraftingMiniIcon : InterfaceSection
     {
 
-        private Rectangle _backGroundSourceRectangle = new Rectangle(640, 144, 16, 16);
+        private Rectangle _backGroundSourceRectangle = new Rectangle(640, 144, 32, 32);
         private Button _button;
 
         public ItemData ItemData { get; private set; }
@@ -46,6 +46,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
+            LoadContent();
         }
     }
 }
