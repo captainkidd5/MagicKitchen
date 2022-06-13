@@ -16,34 +16,65 @@ using System.Threading.Tasks;
 using TextEngine;
 using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
+using UIEngine.Classes.Components;
 
 namespace UIEngine.Classes.EscMenuStuff
 {
     internal class EscMenu : MenuSection
     {
+
         private Rectangle _returnToMainMenuButtonBackgroundDimensions = new Rectangle(0, 0, 80, 96);
         private NineSliceButton _returnToMainMenuButton;
 
 
 
-        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 224, 320);
-        private NineSliceSprite _backGroundSprite;
+        private Sprite _backGroundSprite;
+
+        private Rectangle _backGroundSourceRectangle = new Rectangle(624, 224, 240, 256);
 
         private Action _returnToMainMenuAction;
+        private Vector2 _scale = new Vector2(2f, 2f);
+
+
+        private StackPanel _tabsStackPanel;
+        private int _tabWidth = 32;
+
+        private NineSliceButton _returnTabButton;
         public EscMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             Deactivate();
 
             NormallyActivated = false;
         }
+
+        private void GenerateTabs()
+        {
+            _tabsStackPanel = new StackPanel(this, graphics, content, new Vector2(TotalBounds.X, TotalBounds.Y - _tabWidth * _scale.Y), GetLayeringDepth(UILayeringDepths.Low));
+            StackRow stackRow1 = new StackRow(TotalBounds.Width);
+            _returnTabButton = new NineSliceButton(_tabsStackPanel, graphics, content, Position,
+                GetLayeringDepth(UILayeringDepths.Medium), new Rectangle(0,0,(int)(32 * _scale.X),(int)(32 * _scale.Y)),hoverTransparency:true);
+            stackRow1.AddItem(_returnTabButton, StackOrientation.Left);
+            _tabsStackPanel.Add(stackRow1);
+
+
+        }
         public override void LoadContent()
         {
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, (int)(_backGroundSourceRectangle.Width * _scale.X), (int)(_backGroundSourceRectangle.Height * _scale.Y));
+
             _returnToMainMenuAction = new Action(ReturnToMainMenu);
-            Vector2 escMenuPos = RectangleHelper.CenterRectangleOnScreen(_backGroundSpriteDimensions);
-            _backGroundSprite = SpriteFactory.CreateNineSliceSprite(escMenuPos, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height,
-                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back));
+            Vector2 escMenuPos = RectangleHelper.CenterRectangleOnScreen(TotalBounds);
+            TotalBounds = new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, TotalBounds.Width, TotalBounds.Height);
+            _backGroundSprite = SpriteFactory.CreateUISprite(escMenuPos, _backGroundSourceRectangle,
+                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back), scale: _scale);
 
             _backGroundSprite.LoadContent();
+
+
+            GenerateTabs();
+
+
+
             _returnToMainMenuButton = UI.ButtonFactory.CreateNSliceTxtBtn(this,
                 RectangleHelper.CenterRectangleInRectangle(_returnToMainMenuButtonBackgroundDimensions, _backGroundSprite.HitBox),GetLayeringDepth(UILayeringDepths.Low),
                 new List<string>() {"Return to main menu"}, _returnToMainMenuAction);
@@ -54,7 +85,7 @@ namespace UIEngine.Classes.EscMenuStuff
 
             AddSectionToGrid(_returnToMainMenuButton,1,1);
 
-            CloseButton = UI.ButtonFactory.CreateCloseButton(this, new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, _backGroundSprite.Width, _backGroundSprite.Height), GetLayeringDepth(UILayeringDepths.Medium),
+            CloseButton = UI.ButtonFactory.CreateCloseButton(this, TotalBounds, GetLayeringDepth(UILayeringDepths.Medium),
                 new Action(() =>
                 {
                     Deactivate();
@@ -65,7 +96,6 @@ namespace UIEngine.Classes.EscMenuStuff
             AddSectionToGrid(CloseButton, 1, 0);
 
 
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height);
             base.LoadContent();
 
         }

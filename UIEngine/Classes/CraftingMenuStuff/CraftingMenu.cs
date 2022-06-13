@@ -19,7 +19,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
             ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            Activate();
+            //Activate();
+            Deactivate();
             Position = RectangleHelper.CenterRectangleOnScreen(_totalRectangle);
         }
 

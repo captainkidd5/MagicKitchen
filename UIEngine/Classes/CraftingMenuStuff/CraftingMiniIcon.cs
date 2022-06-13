@@ -42,7 +42,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(3f,3f));
 
             _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                _backGroundSourceRectangle, foregroundSprite: itemSprite);
+                _backGroundSourceRectangle, foregroundSprite: itemSprite)
+            { ForeGroundSpriteOffSet = new Vector2(8, 8) };
             base.LoadContent();
         }
 
