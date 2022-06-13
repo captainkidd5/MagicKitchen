@@ -30,7 +30,7 @@ namespace UIEngine.Classes.EscMenuStuff
 
         private Sprite _backGroundSprite;
 
-        private Rectangle _backGroundSourceRectangle = new Rectangle(624, 224, 240, 256);
+        public Rectangle BackGroundSource = new Rectangle(624, 224, 240, 256);
 
         private Action _returnToMainMenuAction;
         private Vector2 _scale = new Vector2(2f, 2f);
@@ -39,51 +39,64 @@ namespace UIEngine.Classes.EscMenuStuff
         private StackPanel _tabsStackPanel;
         private int _tabWidth = 32;
 
-        private NineSliceButton _returnTabButton;
+
+        private MenuSection _activePage;
+
+        EscPrimary _escPrimary;
+        private NineSliceButton _escPrimaryTabButton;
+
         public EscMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             Deactivate();
 
             NormallyActivated = false;
+            
         }
 
+        private void SwapActivePage(MenuSection newSection)
+        {
+            _activePage= newSection;
+            _activePage.LoadContent();
+        }
         private void GenerateTabs()
         {
             _tabsStackPanel = new StackPanel(this, graphics, content, new Vector2(TotalBounds.X, TotalBounds.Y - _tabWidth * _scale.Y), GetLayeringDepth(UILayeringDepths.Low));
             StackRow stackRow1 = new StackRow(TotalBounds.Width);
-            _returnTabButton = new NineSliceButton(_tabsStackPanel, graphics, content, Position,
-                GetLayeringDepth(UILayeringDepths.Medium), new Rectangle(0,0,(int)(32 * _scale.X),(int)(32 * _scale.Y)),hoverTransparency:true);
-            stackRow1.AddItem(_returnTabButton, StackOrientation.Left);
+            _escPrimaryTabButton = new NineSliceButton(_tabsStackPanel, graphics, content, Position,
+                GetLayeringDepth(UILayeringDepths.Medium), new Rectangle(0, 0, (int)(32 * _scale.X), (int)(32 * _scale.Y)),
+                new Action(() => { SwapActivePage(_escPrimary); }), hoverTransparency:true);
+            stackRow1.AddItem(_escPrimaryTabButton, StackOrientation.Left);
+
+            AddSectionToGrid(_escPrimaryTabButton, 0, 0);
+
+
+
             _tabsStackPanel.Add(stackRow1);
 
 
         }
+
+        private void GeneratePages()
+        {
+            _escPrimary = new EscPrimary(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            ChildSections.Remove(_escPrimary);
+            
+        }
         public override void LoadContent()
         {
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, (int)(_backGroundSourceRectangle.Width * _scale.X), (int)(_backGroundSourceRectangle.Height * _scale.Y));
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, (int)(BackGroundSource.Width * _scale.X), (int)(BackGroundSource.Height * _scale.Y));
 
             _returnToMainMenuAction = new Action(ReturnToMainMenu);
             Vector2 escMenuPos = RectangleHelper.CenterRectangleOnScreen(TotalBounds);
             TotalBounds = new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, TotalBounds.Width, TotalBounds.Height);
-            _backGroundSprite = SpriteFactory.CreateUISprite(escMenuPos, _backGroundSourceRectangle,
+            _backGroundSprite = SpriteFactory.CreateUISprite(escMenuPos, BackGroundSource,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back), scale: _scale);
 
             _backGroundSprite.LoadContent();
 
 
             GenerateTabs();
-
-
-
-            _returnToMainMenuButton = UI.ButtonFactory.CreateNSliceTxtBtn(this,
-                RectangleHelper.CenterRectangleInRectangle(_returnToMainMenuButtonBackgroundDimensions, _backGroundSprite.HitBox),GetLayeringDepth(UILayeringDepths.Low),
-                new List<string>() {"Return to main menu"}, _returnToMainMenuAction);
-
-            _returnToMainMenuButton.AddConfirmationWindow($"Return to main menu?");
-
-            _returnToMainMenuButton.LoadContent();
-
-            AddSectionToGrid(_returnToMainMenuButton,1,1);
+            GeneratePages();
 
             CloseButton = UI.ButtonFactory.CreateCloseButton(this, TotalBounds, GetLayeringDepth(UILayeringDepths.Medium),
                 new Action(() =>
@@ -93,7 +106,7 @@ namespace UIEngine.Classes.EscMenuStuff
                 }));
             CloseButton.LoadContent();
 
-            AddSectionToGrid(CloseButton, 1, 0);
+            AddSectionToGrid(CloseButton, 0, 1);
 
 
             base.LoadContent();
@@ -117,6 +130,11 @@ namespace UIEngine.Classes.EscMenuStuff
 
             }
             base.Update(gameTime);
+            if (IsActive)
+            {
+                if(_activePage != null)
+                    _activePage.Update(gameTime);
+            }
           
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -124,6 +142,8 @@ namespace UIEngine.Classes.EscMenuStuff
             if (IsActive)
             {
                 _backGroundSprite.Draw(spriteBatch);
+                if (_activePage != null)
+                    _activePage.Draw(spriteBatch);
             }
             base.Draw(spriteBatch);
            
