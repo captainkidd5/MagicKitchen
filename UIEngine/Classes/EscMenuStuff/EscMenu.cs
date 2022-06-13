@@ -45,6 +45,8 @@ namespace UIEngine.Classes.EscMenuStuff
         EscPrimary _escPrimary;
         private NineSliceButton _escPrimaryTabButton;
 
+        public int TitleOffSet { get; set; }
+
         public EscMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             Deactivate();
@@ -85,7 +87,7 @@ namespace UIEngine.Classes.EscMenuStuff
         public override void LoadContent()
         {
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, (int)(BackGroundSource.Width * _scale.X), (int)(BackGroundSource.Height * _scale.Y));
-
+            TitleOffSet = (int)(48 * _scale.Y);
             _returnToMainMenuAction = new Action(ReturnToMainMenu);
             Vector2 escMenuPos = RectangleHelper.CenterRectangleOnScreen(TotalBounds);
             TotalBounds = new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, TotalBounds.Width, TotalBounds.Height);
