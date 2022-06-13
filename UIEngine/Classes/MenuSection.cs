@@ -24,6 +24,9 @@ namespace UIEngine.Classes
 
         //If has control, navigating selections with control stick will work
         protected bool HasControl { get; set; } = true;
+
+        protected Dictionary<Direction, MenuSection> TransferSections { get; set; }
+
         public MenuSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -33,11 +36,10 @@ namespace UIEngine.Classes
             TransferSections = new Dictionary<Direction, MenuSection>();
         }
 
-        protected Dictionary<Direction, MenuSection> TransferSections { get; set; }
         protected void AssignControlSectionAtEdge(Direction direction, MenuSection newSection)
         {
-            if (TransferSections.ContainsKey(direction))
-                throw new Exception($"Overwriting existing edge direction");
+            //if (TransferSections.ContainsKey(direction))
+            //    throw new Exception($"Overwriting existing edge direction");
             TransferSections[direction] = newSection;
         }
         internal void ReceiveControl(Direction direction)

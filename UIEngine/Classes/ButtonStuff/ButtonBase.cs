@@ -119,9 +119,13 @@ namespace UIEngine.Classes.ButtonStuff
 
             if (ForegroundSprite != null)
             {
-                ForegroundSprite.Update(gameTime,
-                    RectangleHelper.CenterRectangleInRectangle(ForegroundSprite.SourceRectangle,
-                    new Rectangle((int)Position.X - ForegroundSprite.SourceRectangle.Width, (int)Position.Y - ForegroundSprite.SourceRectangle.Height, BackGroundSprite.Width, BackGroundSprite.Height),1f));
+                Vector2 foreGroundSpritePos = RectangleHelper.CenterRectangleInRectangle(ForegroundSprite.SourceRectangle,
+                    new Rectangle((int)Position.X - ForegroundSprite.SourceRectangle.Width,
+                    (int)Position.Y - ForegroundSprite.SourceRectangle.Height, BackGroundSprite.Width, BackGroundSprite.Height)
+                   , 1f);
+                if (ForeGroundSpriteOffSet != null)
+                    foreGroundSpritePos += ForeGroundSpriteOffSet.Value;
+                ForegroundSprite.Update(gameTime, foreGroundSpritePos);
             }
 
 

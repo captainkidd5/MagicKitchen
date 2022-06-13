@@ -31,7 +31,6 @@ using Globals.Classes.Time;
 using TextEngine;
 using ItemEngine.Classes.StorageStuff;
 using UIEngine.Classes.StatusStuff;
-using UIEngine.Classes.CraftingMenuStuff;
 
 namespace UIEngine.Classes
 {
@@ -92,7 +91,6 @@ namespace UIEngine.Classes
 
         internal static RecipeBook RecipeBook { get; set; }
         
-        internal static CraftingMenu CraftingMenu { get; set; }
         internal static MainMenu MainMenu { get; set; }
         public static StorageDisplayHandler StorageDisplayHandler { get; set; }
         public static Cursor Cursor { get; set; }
@@ -124,7 +122,6 @@ namespace UIEngine.Classes
 
             EscMenu = new EscMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
             RecipeBook = new RecipeBook(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
-            CraftingMenu = new CraftingMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
 
             TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             SettingsMenu = new SettingsMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
@@ -132,7 +129,7 @@ namespace UIEngine.Classes
             StorageDisplayHandler = new StorageDisplayHandler(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, TalkingWindow,
-                EscMenu, RecipeBook,CraftingMenu, StorageDisplayHandler };
+                EscMenu, RecipeBook, StorageDisplayHandler };
 
             Cursor = new Cursor();
             Cursor.LoadContent(content);

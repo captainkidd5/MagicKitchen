@@ -8,20 +8,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UIEngine.Classes.EscMenuStuff;
 
 namespace UIEngine.Classes.CraftingMenuStuff
 {
     internal class CraftingMenu : MenuSection
     {
         private CraftingPage _craftingPage;
-        private Rectangle _totalRectangle = new Rectangle(0, 0, 240, 336);
         public CraftingMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             //Activate();
             Deactivate();
-            Position = RectangleHelper.CenterRectangleOnScreen(_totalRectangle);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -31,7 +30,14 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         public override void LoadContent()
         {
-         //   base.LoadContent();
+            //   base.LoadContent();
+            ClearGrid();
+            ChildSections.Clear();
+            TotalBounds = parentSection.TotalBounds;
+            int offSet = (parentSection as EscMenu).TitleOffSet;
+            Position = new Vector2(TotalBounds.X, TotalBounds.Y + offSet);
+
+
             _craftingPage = new CraftingPage(CraftingCategory.Tool, this, graphics, content, Position,
                 GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
             _craftingPage.LoadContent();
