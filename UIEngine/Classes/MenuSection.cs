@@ -23,7 +23,7 @@ namespace UIEngine.Classes
         protected Point RestingIndex { get; set; } = new Point(0, 0);
 
         //If has control, navigating selections with control stick will work
-        protected bool HasControl { get; set; } = true;
+        public bool HasControl { get; set; } = true;
 
         protected Dictionary<Direction, MenuSection> TransferSections { get; set; }
 
@@ -42,16 +42,17 @@ namespace UIEngine.Classes
             //    throw new Exception($"Overwriting existing edge direction");
             TransferSections[direction] = newSection;
         }
-        internal void ReceiveControl(Direction direction)
+        internal virtual void ReceiveControl(Direction direction)
         {
             HasControl = true;
             //Todo: make this dependant on direction
             CurrentSelected = Selectables[0, 0];
 
         }
-        private void GiveSectionControl(Direction direction)
+        protected virtual void GiveSectionControl(Direction direction)
         {
             HasControl = false;
+        
             TransferSections[direction].ReceiveControl(Vector2Helper.GetOppositeDirection(direction));
         }
         /// <summary>

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UIEngine.Classes.EscMenuStuff;
+using static DataModels.Enums;
 
 namespace UIEngine.Classes.CraftingMenuStuff
 {
@@ -19,8 +20,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
             ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            //Activate();
-            Deactivate();
+            Activate();
+            //Deactivate();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -41,8 +42,22 @@ namespace UIEngine.Classes.CraftingMenuStuff
             _craftingPage = new CraftingPage(CraftingCategory.Tool, this, graphics, content, Position,
                 GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
             _craftingPage.LoadContent();
+
+            AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
+
         }
 
+        protected override void GiveSectionControl(Direction direction)
+        {
+            _craftingPage.HasControl = false;
+            base.GiveSectionControl(direction);
+        }
+
+        internal override void ReceiveControl(Direction direction)
+        {
+            _craftingPage.HasControl = true;
+            base.ReceiveControl(direction);
+        }
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);

@@ -66,6 +66,8 @@ namespace UIEngine.Classes.EscMenuStuff
         private void SwapActivePage(MenuSection newSection)
         {
             _activePage= newSection;
+            AssignControlSectionAtEdge(Direction.Down, _activePage);
+
             _activePage.LoadContent();
         }
         private void GenerateTabs()
@@ -92,7 +94,7 @@ namespace UIEngine.Classes.EscMenuStuff
 
             _craftingTabButton = new NineSliceButton(_tabsStackPanel, graphics, content, Position,
                 GetLayeringDepth(UILayeringDepths.Medium), new Rectangle(0, 0, (int)(32 * _scale.X), (int)(32 * _scale.Y)),
-                new Action(() => { SwapActivePage(_craftingMenud); }), hoverTransparency: true,
+                new Action(() => { SwapActivePage(_craftingMenu); }), hoverTransparency: true,
                 foregroundSprite: craftingSprite)
             { ForeGroundSpriteOffSet = new Vector2(16, 16) };
             stackRow1.AddItem(_craftingTabButton, StackOrientation.Left);
@@ -141,7 +143,6 @@ namespace UIEngine.Classes.EscMenuStuff
 
             AddSectionToGrid(CloseButton, 0, 2);
 
-            AssignControlSectionAtEdge(Direction.Down, _escPrimary);
             SwapActivePage(_escPrimary);
             base.LoadContent();
 
