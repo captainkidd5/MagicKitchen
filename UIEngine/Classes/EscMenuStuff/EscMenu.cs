@@ -17,6 +17,7 @@ using TextEngine;
 using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
 using UIEngine.Classes.Components;
+using static DataModels.Enums;
 
 namespace UIEngine.Classes.EscMenuStuff
 {
@@ -52,7 +53,8 @@ namespace UIEngine.Classes.EscMenuStuff
             Deactivate();
 
             NormallyActivated = false;
-            
+            Selectables = new InterfaceSection[1, 2];
+
         }
 
         private void SwapActivePage(MenuSection newSection)
@@ -64,9 +66,13 @@ namespace UIEngine.Classes.EscMenuStuff
         {
             _tabsStackPanel = new StackPanel(this, graphics, content, new Vector2(TotalBounds.X, TotalBounds.Y - _tabWidth * _scale.Y), GetLayeringDepth(UILayeringDepths.Low));
             StackRow stackRow1 = new StackRow(TotalBounds.Width);
+
+            Sprite cogSprite = SpriteFactory.CreateUISprite(
+                Position, new Rectangle(64, 80, 32, 32), UI.ButtonTexture,
+                GetLayeringDepth(UILayeringDepths.High), scale: _scale);
             _escPrimaryTabButton = new NineSliceButton(_tabsStackPanel, graphics, content, Position,
                 GetLayeringDepth(UILayeringDepths.Medium), new Rectangle(0, 0, (int)(32 * _scale.X), (int)(32 * _scale.Y)),
-                new Action(() => { SwapActivePage(_escPrimary); }), hoverTransparency:true);
+                new Action(() => { SwapActivePage(_escPrimary); }), hoverTransparency:true, foregroundSprite: cogSprite);
             stackRow1.AddItem(_escPrimaryTabButton, StackOrientation.Left);
 
             AddSectionToGrid(_escPrimaryTabButton, 0, 0);
@@ -110,7 +116,7 @@ namespace UIEngine.Classes.EscMenuStuff
 
             AddSectionToGrid(CloseButton, 0, 1);
 
-
+            AssignControlSectionAtEdge(Direction.Down, _escPrimary);
             base.LoadContent();
 
         }

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UIEngine.Classes.ButtonStuff;
 using UIEngine.Classes.Components;
+using static DataModels.Enums;
 
 namespace UIEngine.Classes.EscMenuStuff
 {
@@ -23,6 +24,8 @@ namespace UIEngine.Classes.EscMenuStuff
         public EscPrimary(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position,
             float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
+            HasControl = false;
+            Selectables = new InterfaceSection[1, 1];
 
         }
 
@@ -54,7 +57,8 @@ namespace UIEngine.Classes.EscMenuStuff
             _returnToMainMenuButton.LoadContent();
             _stackPanel.Add(stackRow1);
 
-            AddSectionToGrid(_returnToMainMenuButton, 0, 1);
+            AddSectionToGrid(_returnToMainMenuButton, 0, 0);
+            AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
 
             base.LoadContent();
         }

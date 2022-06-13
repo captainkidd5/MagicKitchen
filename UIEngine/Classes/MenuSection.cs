@@ -12,7 +12,7 @@ using static DataModels.Enums;
 
 namespace UIEngine.Classes
 {
-    internal class MenuSection :InterfaceSection
+    internal class MenuSection : InterfaceSection
     {
         protected InterfaceSection CurrentSelected { get; set; }
 
@@ -21,15 +21,37 @@ namespace UIEngine.Classes
 
         //Default selected slot index in 2d array. Some slots may be null, such as the 0,0 in the dining table (which starts at 1,1)
         protected Point RestingIndex { get; set; } = new Point(0, 0);
+
+        //If has control, navigating selections with control stick will work
+        protected bool HasControl { get; set; } = true;
         public MenuSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
-            ContentManager content,Vector2? position, float layerDepth) :
+            ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            Selectables = new InterfaceSection[3,3];
+            Selectables = new InterfaceSection[3, 3];
             CurrentSelectedPoint = new Point(0, 1);
+            TransferSections = new Dictionary<Direction, MenuSection>();
         }
 
-       
+        protected Dictionary<Direction, MenuSection> TransferSections { get; set; }
+        protected void AssignControlSectionAtEdge(Direction direction, MenuSection newSection)
+        {
+            if (TransferSections.ContainsKey(direction))
+                throw new Exception($"Overwriting existing edge direction");
+            TransferSections[direction] = newSection;
+        }
+        internal void ReceiveControl(Direction direction)
+        {
+            HasControl = true;
+            //Todo: make this dependant on direction
+            CurrentSelected = Selectables[0, 0];
+
+        }
+        private void GiveSectionControl(Direction direction)
+        {
+            HasControl = false;
+            TransferSections[direction].ReceiveControl(Vector2Helper.GetOppositeDirection(direction));
+        }
         /// <summary>
         /// Selects next selectable based on 2d array
         /// </summary>
@@ -40,27 +62,60 @@ namespace UIEngine.Classes
             switch (direction)
             {
                 case Direction.Up:
-                    newIndex = new Point(newIndex.X-1, newIndex.Y ); 
-                    if(newIndex.X >= Selectables.GetLength(0))
+                    newIndex = new Point(newIndex.X - 1, newIndex.Y);
+                    if (newIndex.X >= Selectables.GetLength(0))
                         newIndex = new Point(0, newIndex.Y);
                     if (newIndex.X < 0)
-                        newIndex = new Point(Selectables.GetLength(0) - 1, newIndex.Y);
+                    {
+                        if(TransferSections.ContainsKey(direction))
+                        {
+                            GiveSectionControl(direction);
+                            return;
+                        }
+                         newIndex = new Point(Selectables.GetLength(0) - 1, newIndex.Y);
+
+                    }
                     break;
                 case Direction.Down:
                     newIndex = new Point(newIndex.X + 1, newIndex.Y);
 
                     if (newIndex.X >= Selectables.GetLength(0))
+                    {
+                        if (TransferSections.ContainsKey(direction))
+                        {
+                            GiveSectionControl(direction);
+
+                            return;
+                        }
                         newIndex = new Point(0, newIndex.Y);
-                    if (newIndex.X < 0)
-                        newIndex = new Point(Selectables.GetLength(0) - 1, newIndex.Y);
+
+                    }
+                   
                     break;
                 case Direction.Left:
                     newIndex = new Point(newIndex.X, newIndex.Y - 1);
 
+                    if(newIndex.Y < 0)
+                    {
+                        if (TransferSections.ContainsKey(direction))
+                        {
+                            GiveSectionControl(direction);
+
+                            return;
+                        }
+                    }
                     break;
                 case Direction.Right:
                     newIndex = new Point(newIndex.X, newIndex.Y + 1);
+                    if(newIndex.Y >= Selectables.GetLength(1))
+                    {
+                        if (TransferSections.ContainsKey(direction))
+                        {
+                            GiveSectionControl(direction);
 
+                            return;
+                        }
+                    }
                     break;
                 default:
                     break;
@@ -72,7 +127,7 @@ namespace UIEngine.Classes
         }
         protected virtual void DoSelection(Point newIndex)
         {
-         
+
             if (Selectables[newIndex.X, newIndex.Y] != null)
             {
                 CurrentSelectedPoint = newIndex;
@@ -123,9 +178,12 @@ namespace UIEngine.Classes
             if (CurrentSelected != null)
                 CurrentSelected.IsSelected = true;
             base.Update(gameTime);
-            CheckButtonTaps();
+            if (HasControl)
+                CheckButtonTaps();
+            else
+                CurrentSelected = null;
 
-         
+
         }
     }
 }
