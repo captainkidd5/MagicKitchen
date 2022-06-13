@@ -29,11 +29,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
         private Sprite _finishedRecipeIcon;
 
         //Bottom right stats section
-        private RecipeGuideBox _recipeGuideBox;
+       // private RecipeGuideBox _recipeGuideBox;
         private Vector2 _recipeGuideBoxPositionOffSet = new Vector2(0, 16);
         private Vector2 _recipeGuideBoxPosition = new Vector2(0, 16);
 
-        private RecipeStatsBox _recipeStatsBox;
+        //private RecipeStatsBox _recipeStatsBox;
         private Vector2 _recipeStatsBoxPositionOffSet = new Vector2(148, 79);
         private Vector2 _recipeStatsBoxPosition;
     }

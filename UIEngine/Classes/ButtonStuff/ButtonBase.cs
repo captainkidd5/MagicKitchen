@@ -123,7 +123,8 @@ namespace UIEngine.Classes.ButtonStuff
                     RectangleHelper.CenterRectangleInRectangle(ForegroundSprite.SourceRectangle,
                     new Rectangle((int)Position.X - ForegroundSprite.SourceRectangle.Width, (int)Position.Y - ForegroundSprite.SourceRectangle.Height, BackGroundSprite.Width, BackGroundSprite.Height),1f));
             }
-                
+
+
             if (!Locked)
             {
                 BackGroundSprite.Update(gameTime, Position);

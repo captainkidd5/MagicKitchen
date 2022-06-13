@@ -23,7 +23,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
         private Sprite _backGroundSprite;
 
         private StackPanel _stackPanel;
-        private Vector2 _scale = new Vector2(1f, 1f);
+        private Vector2 _scale = new Vector2(2f, 2f);
+
+        private RecipeBox _recipeBox;
+
+        private Vector2 _buttonOffSetStart = new Vector2(32,32);
         public CraftingPage(CraftingCategory craftingCategory, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -33,36 +37,44 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         public override void LoadContent()
         {
+            ClearGrid();
+            ChildSections.Clear();
 
             _backGroundSprite = SpriteFactory.CreateUISprite(Position, _backGroundSourceRectangle, UI.ButtonTexture,
-                GetLayeringDepth(UILayeringDepths.Low));
+                GetLayeringDepth(UILayeringDepths.Low), scale:_scale);
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y,
                 _backGroundSourceRectangle.Width, _backGroundSourceRectangle.Height);
             FillPage();
+           
             base.LoadContent();
 
         }
 
         private void FillPage()
         {
-            _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
+
+            _stackPanel = new StackPanel(this, graphics, content, Position + _buttonOffSetStart, GetLayeringDepth(UILayeringDepths.Medium));
             List<ItemData> dataList = ItemFactory.ItemDataByCraftingCategory(CraftingCategory);
             Selectables = new InterfaceSection[(int)Math.Ceiling((float)dataList.Count / (float)s_columns), s_columns];
+            CurrentSelectedPoint = new Point(0, 1);
             int index = 0;
             for (int i = 0; i < Selectables.GetLength(0); i++)
             {
-                StackRow stackRow = new StackRow((int)(s_columns * 16 * _scale.X));
+                StackRow stackRow = new StackRow((int)(s_columns * 32 * _scale.X));
                 for (int j = 0; j < Selectables.GetLength(1); j++)
                 {
                     if (index >= dataList.Count )
                         break;
                     CraftingMiniIcon icon = new CraftingMiniIcon(_stackPanel, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
                     icon.LoadItemData(dataList[index]);
+                    icon.LoadContent();
+                    Selectables[i, j] = icon;
                     index++;
                     stackRow.AddItem(icon, StackOrientation.Left);
                 }
                 _stackPanel.Add(stackRow);
             }
+            
 
         }
         public override void MovePosition(Vector2 newPos)
@@ -71,10 +83,13 @@ namespace UIEngine.Classes.CraftingMenuStuff
         }
         public override void Update(GameTime gameTime)
         {
+
             base.Update(gameTime);
             if(IsActive)
             {
+
                 _backGroundSprite.Update(gameTime, Position);
+               
             }
         }
         public override void Draw(SpriteBatch spriteBatch)

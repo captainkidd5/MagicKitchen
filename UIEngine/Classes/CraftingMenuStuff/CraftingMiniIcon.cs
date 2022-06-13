@@ -29,14 +29,17 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public void LoadItemData(ItemData itemData)
         {
             ItemData = itemData;
+           
         }
         public override void LoadContent()
         {
+
+            ChildSections.Clear();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y,
-                _backGroundSourceRectangle.Width, _backGroundSourceRectangle.Height);
+                _backGroundSourceRectangle.Width * 2, _backGroundSourceRectangle.Height * 2);
 
             Sprite itemSprite = SpriteFactory.CreateUISprite(Position, Item.GetItemSourceRectangle(ItemData.Id),
-                ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.Medium));
+                ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(3f,3f));
 
             _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
                 _backGroundSourceRectangle, foregroundSprite: itemSprite);
@@ -47,6 +50,14 @@ namespace UIEngine.Classes.CraftingMenuStuff
         {
             base.MovePosition(newPos);
             LoadContent();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            _button.IsSelected = IsSelected;
+
+            base.Update(gameTime);
+
         }
     }
 }

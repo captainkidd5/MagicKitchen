@@ -23,7 +23,7 @@ namespace Globals.Classes
 
         public static bool IsNightTime {get;set;} = false;
 
-        public static bool SpawnFloatingItems { get; set; } = true;
+        public static bool SpawnFloatingItems { get; set; } = false;
 
         public static string StagePlayerIn { get; set; } 
 

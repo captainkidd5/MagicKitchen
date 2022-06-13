@@ -23,6 +23,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
             Position = RectangleHelper.CenterRectangleOnScreen(_totalRectangle);
         }
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+        }
+
         public override void LoadContent()
         {
          //   base.LoadContent();
@@ -34,6 +39,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
         }
     }
 }
