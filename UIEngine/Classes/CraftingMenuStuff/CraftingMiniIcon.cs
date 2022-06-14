@@ -22,10 +22,13 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public ItemData ItemData { get; private set; }
 
         private Vector2 _scale = new Vector2(1.5f, 1.5f);
-        public CraftingMiniIcon(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
+        private readonly CraftingPage _craftingPage;
+
+        public CraftingMiniIcon(CraftingPage craftingPage, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
+            _craftingPage = craftingPage;
         }
 
         public void LoadItemData(ItemData itemData)
@@ -44,7 +47,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(2f,2f));
 
             _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                _backGroundSourceRectangle, foregroundSprite: itemSprite, scale: _scale.X)
+                _backGroundSourceRectangle, new Action(() => { _craftingPage.LoadNewRecipe(ItemData); }), foregroundSprite: itemSprite, scale: _scale.X)
             { ForeGroundSpriteOffSet = new Vector2(8, 8) };
             base.LoadContent();
         }

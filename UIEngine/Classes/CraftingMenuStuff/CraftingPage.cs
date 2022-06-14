@@ -43,14 +43,14 @@ namespace UIEngine.Classes.CraftingMenuStuff
             _backGroundSprite = SpriteFactory.CreateUISprite(Position, _backGroundSourceRectangle, UI.ButtonTexture,
                 GetLayeringDepth(UILayeringDepths.Low), scale:_scale);
             TotalBounds = parentSection.TotalBounds;
-           
-            FillPage();
             _recipeBox = new RecipeBox(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             _recipeBox.LoadContent();
+            FillPage();
+           
             base.LoadContent();
 
         }
-
+        public void LoadNewRecipe(ItemData itemData) => _recipeBox.LoadNewItemRecipe(itemData);
         private void FillPage()
         {
 
@@ -66,7 +66,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 {
                     if (index >= dataList.Count )
                         break;
-                    CraftingMiniIcon icon = new CraftingMiniIcon(_stackPanel, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
+                    CraftingMiniIcon icon = new CraftingMiniIcon(this,_stackPanel, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
                     icon.LoadItemData(dataList[index]);
                     icon.LoadContent();
                     Selectables[i, j] = icon;
