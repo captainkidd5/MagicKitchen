@@ -23,11 +23,11 @@ namespace UIEngine.Classes.Storage
     public class StorageDisplayHandler : InterfaceSection
     {
         private InventoryDisplay _secondaryInventoryDisplay;
-        public Item PlayerSelectedItem => _playerInventoryDisplay.CurrentlySelectedItem;
-        public void RemovePlayerSelectedItem(int amt) => _playerInventoryDisplay.DetractCurrentlySelectedItem(amt);  
+        public Item PlayerSelectedItem => PlayerInventoryDisplay.CurrentlySelectedItem;
+        public void RemovePlayerSelectedItem(int amt) => PlayerInventoryDisplay.DetractCurrentlySelectedItem(amt);  
 
 
-        private PlayerInventoryDisplay _playerInventoryDisplay;
+        internal PlayerInventoryDisplay PlayerInventoryDisplay;
         private int _playerInventoryTotalSlots = 10;
         private int _playerSlotWidth = 64;
 
@@ -58,11 +58,11 @@ namespace UIEngine.Classes.Storage
             Rectangle totalToolBarRectangle = new Rectangle(0, 0, _playerSlotWidth * _playerInventoryTotalSlots, _playerSlotWidth);
             Vector2 playerInventoryPosition = RectangleHelper.PlaceBottomCenterScreen(totalToolBarRectangle);
             playerInventoryPosition = new Vector2(playerInventoryPosition.X, playerInventoryPosition.Y - Settings.Gutter);
-            _playerInventoryDisplay = new PlayerInventoryDisplay(this, graphics, content, playerInventoryPosition, GetLayeringDepth(UILayeringDepths.Low));
-            _playerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer, true);
-            _playerInventoryDisplay.LoadContent();
-            _playerInventoryDisplay.GiveControl();
-            _currentlySelectedInventoryDisplay = _playerInventoryDisplay;
+            PlayerInventoryDisplay = new PlayerInventoryDisplay(this, graphics, content, playerInventoryPosition, GetLayeringDepth(UILayeringDepths.Low));
+            PlayerInventoryDisplay.LoadNewEntityInventory(playerStorageContainer, true);
+            PlayerInventoryDisplay.LoadContent();
+            PlayerInventoryDisplay.GiveControl();
+            _currentlySelectedInventoryDisplay = PlayerInventoryDisplay;
         }
 
         public override void Activate()
@@ -81,7 +81,7 @@ namespace UIEngine.Classes.Storage
                     SwapControl(_secondaryInventoryDisplay);
                 else if (Controls.WasGamePadButtonTapped(GamePadActionType.TriggerLeft))
                 {
-                    SwapControl(_playerInventoryDisplay);
+                    SwapControl(PlayerInventoryDisplay);
 
                 }
             }
@@ -94,9 +94,9 @@ namespace UIEngine.Classes.Storage
                     Controls.WasGamePadButtonTapped(GamePadActionType.Y))
                 {
                     if (_currentlySelectedInventoryDisplay == _secondaryInventoryDisplay)
-                        SwapControl(_playerInventoryDisplay);
+                        SwapControl(PlayerInventoryDisplay);
                     if (_secondaryInventoryDisplay.IsActive || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
-                        _playerInventoryDisplay.CloseExtendedInventory();
+                        PlayerInventoryDisplay.CloseExtendedInventory();
                     DeactivateSecondaryDisplay();
 
                     
@@ -126,10 +126,10 @@ namespace UIEngine.Classes.Storage
 
             _currentlySelectedInventoryDisplay.RemoveControl();
 
-            if (inventoryDisplay == _playerInventoryDisplay)
+            if (inventoryDisplay == PlayerInventoryDisplay)
             {
 
-                _currentlySelectedInventoryDisplay = _playerInventoryDisplay;
+                _currentlySelectedInventoryDisplay = PlayerInventoryDisplay;
 
             }
             else if( inventoryDisplay == _secondaryInventoryDisplay)
@@ -187,8 +187,8 @@ namespace UIEngine.Classes.Storage
 
             _secondaryInventoryDisplay.Activate();
             //Activate();
-            _playerInventoryDisplay.OpenExtendedInventory();
-            _playerInventoryDisplay.GiveControl();
+            PlayerInventoryDisplay.OpenExtendedInventory();
+            PlayerInventoryDisplay.GiveControl();
         }
 
         

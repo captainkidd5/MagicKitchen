@@ -47,7 +47,6 @@ namespace UIEngine.Classes.CraftingMenuStuff
             _recipeBox = new RecipeBox(this,this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             _recipeBox.LoadContent();
             FillPage();
-            AssignControlSectionAtEdge(Direction.Down, _recipeBox);
 
             base.LoadContent();
 
@@ -80,6 +79,12 @@ namespace UIEngine.Classes.CraftingMenuStuff
             
 
         }
+
+        public void GiveControlToRecipeBox()
+        {
+            _recipeBox.ReceiveControl(Direction.Up);
+            HasControl = false;
+        }
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
@@ -95,6 +100,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
                
             }
         }
+
+        
         internal override void ReceiveControl(Direction direction)
         {
             base.ReceiveControl(direction);

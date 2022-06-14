@@ -16,7 +16,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
     internal class CraftingMiniIcon : InterfaceSection
     {
 
-        private Rectangle _backGroundSourceRectangle = new Rectangle(640, 144, 32, 32);
+        private Rectangle _normalBackGroundSourceRectangle = new Rectangle(640, 144, 32, 32);
+        //red one
+        private Rectangle _noCraftBackGroundSourceRectangle = new Rectangle(608, 144, 32, 32);
+        //green one
+        private Rectangle _yesCraftBackGroundSourceRectangle = new Rectangle(640, 112, 32, 32);
         private Button _button;
 
         public ItemData ItemData { get; private set; }
@@ -24,6 +28,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         private Vector2 _scale = new Vector2(1.5f, 1.5f);
         private readonly CraftingPage _craftingPage;
 
+        private bool _mayCraft;
         public CraftingMiniIcon(CraftingPage craftingPage, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -34,20 +39,30 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public void LoadItemData(ItemData itemData)
         {
             ItemData = itemData;
-           
+            _mayCraft = true;
+            foreach(CraftingIngredient ingredient in itemData.RecipeInfo.Ingredients)
+            {
+                ItemData ingredientData = ItemFactory.GetItemData(ingredient.Name);
+                int storedCount = UI.StorageDisplayHandler.PlayerInventoryDisplay.StorageContainer.GetStoredCount(ingredientData.Id);
+                if (storedCount < ingredient.Count)
+                    _mayCraft = false;
+            }
+
         }
         public override void LoadContent()
         {
 
             ChildSections.Clear();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y,
-                (int)((float)_backGroundSourceRectangle.Width * _scale.X), (int)((float)_backGroundSourceRectangle.Height * _scale.Y));
+                (int)((float)_normalBackGroundSourceRectangle.Width * _scale.X), (int)((float)_normalBackGroundSourceRectangle.Height * _scale.Y));
 
             Sprite itemSprite = SpriteFactory.CreateUISprite(Position, Item.GetItemSourceRectangle(ItemData.Id),
                 ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(2f,2f));
-
+            Rectangle backgroundRectangleToUse = _noCraftBackGroundSourceRectangle;
+            if (_mayCraft)
+                backgroundRectangleToUse = _yesCraftBackGroundSourceRectangle;
             _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                _backGroundSourceRectangle, new Action(() => { _craftingPage.LoadNewRecipe(ItemData); }), foregroundSprite: itemSprite, scale: _scale.X)
+                backgroundRectangleToUse, new Action(() => { _craftingPage.GiveControlToRecipeBox(); }), foregroundSprite: itemSprite, scale: _scale.X)
             { ForeGroundSpriteOffSet = new Vector2(8, 8) };
             base.LoadContent();
         }
@@ -62,6 +77,10 @@ namespace UIEngine.Classes.CraftingMenuStuff
         {
             _button.IsSelected = IsSelected;
 
+            if (_button.WasJustSelected)
+            {
+                _craftingPage.LoadNewRecipe(ItemData);
+            }
             base.Update(gameTime);
 
         }

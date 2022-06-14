@@ -131,6 +131,21 @@ namespace ItemEngine.Classes.StorageStuff
             _wallet.CleanUp();
             Slots.Clear();
         }
+
+        public int GetStoredCount(int id)
+        {
+            int totalCount = 0;
+            foreach(StorageSlot slot in Slots)
+            {
+                if (!slot.Empty)
+                {
+                    if (slot.Item.Id == id)
+                        totalCount += slot.StoredCount;
+
+                }
+            }
+            return totalCount;
+        }
     }
 
   

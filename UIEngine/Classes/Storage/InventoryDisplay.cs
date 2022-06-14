@@ -44,7 +44,7 @@ namespace UIEngine.Classes.Storage
         protected int Columns;
 
         protected WalletDisplay WalletDisplay { get; set; }
-        protected StorageContainer StorageContainer { get; set; }
+        public StorageContainer StorageContainer { get; protected set; }
 
         protected InventorySlotDisplay[,] InventorySlots { get; set; }
 

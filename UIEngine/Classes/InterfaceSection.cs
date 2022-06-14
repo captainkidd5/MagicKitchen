@@ -75,6 +75,9 @@ namespace UIEngine.Classes
         public bool FlaggedForCriticalRemoval { get; set; }
 
         public bool IsSelected { get; set; }
+        private bool _wasSelectedLastFrame;
+
+        public bool WasJustSelected => IsSelected && !_wasSelectedLastFrame;
 
         //protected Rectangle BackgroundSourceRectangle { get; set; }
 
@@ -195,6 +198,7 @@ namespace UIEngine.Classes
                 CheckFramesActive();
                 CheckOveriddenLogic(gameTime);
             }
+            _wasSelectedLastFrame = IsSelected;
             //Set to false here. If this is part of another MenuSection,
             //and is selected from there, this will be set to true again
             IsSelected = false;
