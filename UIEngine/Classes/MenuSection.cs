@@ -25,6 +25,7 @@ namespace UIEngine.Classes
         //If has control, navigating selections with control stick will work
         public bool HasControl { get; set; } = true;
 
+
         protected Dictionary<Direction, MenuSection> TransferSections { get; set; }
 
         public MenuSection(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
@@ -46,8 +47,30 @@ namespace UIEngine.Classes
         {
             HasControl = true;
             //Todo: make this dependant on direction
-            CurrentSelectedPoint = new Point(0, 0);
-            CurrentSelected = Selectables[0, 0];
+
+            switch (direction)
+            {
+                case Direction.None:
+                    break;
+                case Direction.Up:
+                    CurrentSelectedPoint = new Point(0, 0);
+
+                    break;
+                case Direction.Down:
+                    CurrentSelectedPoint = new Point(0, Selectables.GetLength(1) - 1);
+
+
+                    break;
+                case Direction.Left:
+                    CurrentSelectedPoint = new Point(0,0);
+
+                    break;
+                case Direction.Right:
+                    CurrentSelectedPoint = new Point(Selectables.GetLength(0) - 1, 0);
+
+                    break;
+            }
+            CurrentSelected = Selectables[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
 
         }
         protected virtual void GiveSectionControl(Direction direction)

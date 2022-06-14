@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UIEngine.Classes.Components;
+using static DataModels.Enums;
 
 namespace UIEngine.Classes.CraftingMenuStuff
 {
@@ -43,10 +44,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
             _backGroundSprite = SpriteFactory.CreateUISprite(Position, _backGroundSourceRectangle, UI.ButtonTexture,
                 GetLayeringDepth(UILayeringDepths.Low), scale:_scale);
             TotalBounds = parentSection.TotalBounds;
-            _recipeBox = new RecipeBox(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            _recipeBox = new RecipeBox(this,this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             _recipeBox.LoadContent();
             FillPage();
-           
+            AssignControlSectionAtEdge(Direction.Down, _recipeBox);
+
             base.LoadContent();
 
         }
