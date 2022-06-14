@@ -95,6 +95,10 @@ namespace UIEngine.Classes.CraftingMenuStuff
                
             }
         }
+        internal override void ReceiveControl(Direction direction)
+        {
+            base.ReceiveControl(direction);
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);

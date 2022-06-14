@@ -24,6 +24,8 @@ namespace UIEngine.Classes.Storage
         None =0,
         Output = 1,
     }
+
+
     internal class InventorySlotDisplay : InterfaceSection
     {
         protected SlotVisualVariant VisualVariant { get; set; }
@@ -144,6 +146,7 @@ namespace UIEngine.Classes.Storage
 
         private void ItemChanged(Item item, int count)
         {
+            (parentSection as InventoryDisplay).AlertContentsChanged();
             if (item == null)
             {
                 _button.SwapForeGroundSprite(null);

@@ -21,9 +21,14 @@ namespace UIEngine.Classes.CraftingMenuStuff
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             Activate();
+            UI.StorageDisplayHandler.
             //Deactivate();
         }
 
+        private void PlayerInventoryChanged()
+        {
+
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);

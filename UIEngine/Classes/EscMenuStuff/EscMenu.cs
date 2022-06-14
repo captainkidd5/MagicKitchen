@@ -170,13 +170,18 @@ namespace UIEngine.Classes.EscMenuStuff
             base.LoadContent();
 
         }
+        public override void Deactivate()
+        {
+            base.Deactivate();
+            if(UI.StorageDisplayHandler != null)
+            UI.StorageDisplayHandler.AllowInteractions = true;
 
+        }
         private void ReturnToMainMenu()
         {
             UI.ReturnToMainMenu();
             _returnToMainMenuButton.Deactivate();
             Deactivate();
-
         }
         public override void Update(GameTime gameTime)
         {
@@ -190,6 +195,7 @@ namespace UIEngine.Classes.EscMenuStuff
             base.Update(gameTime);
             if (IsActive)
             {
+                UI.StorageDisplayHandler.AllowInteractions = false;
                 if (_activePage != null)
                     _activePage.Update(gameTime);
             }

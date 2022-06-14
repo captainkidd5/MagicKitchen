@@ -34,6 +34,8 @@ namespace UIEngine.Classes.Storage
         public event SecondaryStorageClosed SecondaryStorageClosed;
 
         private InventoryDisplay _currentlySelectedInventoryDisplay;
+
+        public bool AllowInteractions { get; set; } = true;
         public StorageDisplayHandler(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -69,6 +71,9 @@ namespace UIEngine.Classes.Storage
         }
         public override void Update(GameTime gameTime)
         {
+            if (AllowInteractions)
+            {
+
             if(_secondaryInventoryDisplay.IsActive && Controls.ControllerConnected)
             {
                 UI.IsHovered = true;
@@ -100,6 +105,8 @@ namespace UIEngine.Classes.Storage
 
                 }
             }
+            }
+
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

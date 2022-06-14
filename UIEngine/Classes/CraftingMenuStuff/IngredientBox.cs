@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
 
 namespace UIEngine.Classes.CraftingMenuStuff
@@ -23,6 +24,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public ItemData ItemData { get; private set; }
 
         private Vector2 _scale = new Vector2(1.5f, 1.5f);
+
+        private Text _requiredText; 
         public IngredientBox(CraftingPage craftingPage, CraftingIngredient craftingIngredient, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {

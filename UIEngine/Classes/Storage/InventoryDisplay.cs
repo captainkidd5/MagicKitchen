@@ -22,11 +22,17 @@ using ItemEngine.Classes.StorageStuff;
 
 namespace UIEngine.Classes.Storage
 {
+
+    public delegate void ContentsChanged();
+
     /// <summary>
     /// Graphical and interactable wrapper of storage container
     /// </summary>
     internal class InventoryDisplay : MenuSection
     {
+
+        public event ContentsChanged ContentsChanged;
+
         public Item CurrentlySelectedItem => SelectedSlot.Item;
 
         public void DetractCurrentlySelectedItem(int amt)
@@ -56,7 +62,6 @@ namespace UIEngine.Classes.Storage
 
         protected StackPanel StackPanel { get; set; }
 
-        public bool HasControl { get; protected set; }
         public bool ExtendedInventoryOpen
         {
             get;
@@ -164,6 +169,7 @@ namespace UIEngine.Classes.Storage
                 for (int j = 0; j < Columns; j++)
                 {
                     InventorySlotDisplay display = new InventorySlotDisplay(i, j, this, graphics, content, StorageContainer.Slots[slotIndex],
+
                     Position, GetLayeringDepth(UILayeringDepths.Low));
                     InventorySlots[i, j] = display;
                     AddSectionToGrid(display, i, j);
@@ -298,6 +304,14 @@ namespace UIEngine.Classes.Storage
                     BackdropSprite.Draw(spriteBatch);
             }
 
+        }
+
+        /// <summary>
+        /// Currently, this alerts the crafting menu so ingredients are recalculated
+        /// </summary>
+        internal void AlertContentsChanged()
+        {
+            ContentsChanged?.Invoke();
         }
 
     }
