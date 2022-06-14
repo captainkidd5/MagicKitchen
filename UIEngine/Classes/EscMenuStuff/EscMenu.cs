@@ -139,9 +139,11 @@ namespace UIEngine.Classes.EscMenuStuff
         {
             TransferSections.Clear();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, (int)(BackGroundSource.Width * _scale.X), (int)(BackGroundSource.Height * _scale.Y));
-            TitleOffSet = (int)(48 * _scale.Y);
+            TitleOffSet = (int)(32 * _scale.Y);
             _returnToMainMenuAction = new Action(ReturnToMainMenu);
             Vector2 escMenuPos = RectangleHelper.CenterRectangleOnScreen(TotalBounds);
+            escMenuPos = new Vector2(escMenuPos.X, escMenuPos.Y - 32);
+
             TotalBounds = new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, TotalBounds.Width, TotalBounds.Height);
             _backGroundSprite = SpriteFactory.CreateUISprite(escMenuPos, BackGroundSource,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back), scale: _scale);

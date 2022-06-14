@@ -19,7 +19,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
 
         private readonly int s_columns = 5;
-        private Rectangle _backGroundSourceRectangle = new Rectangle(624, 272, 224, 128);
+        private Rectangle _backGroundSourceRectangle = new Rectangle(624, 256, 240, 224);
         private Sprite _backGroundSprite;
 
         private StackPanel _stackPanel;
@@ -42,10 +42,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
             _backGroundSprite = SpriteFactory.CreateUISprite(Position, _backGroundSourceRectangle, UI.ButtonTexture,
                 GetLayeringDepth(UILayeringDepths.Low), scale:_scale);
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y,
-                _backGroundSourceRectangle.Width, _backGroundSourceRectangle.Height);
-            FillPage();
+            TotalBounds = parentSection.TotalBounds;
            
+            FillPage();
+            _recipeBox = new RecipeBox(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            _recipeBox.LoadContent();
             base.LoadContent();
 
         }
@@ -60,7 +61,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
             int index = 0;
             for (int i = 0; i < Selectables.GetLength(0); i++)
             {
-                StackRow stackRow = new StackRow((int)(s_columns * 32 * _scale.X));
+                StackRow stackRow = new StackRow((int)(s_columns * 32 * 2));
                 for (int j = 0; j < Selectables.GetLength(1); j++)
                 {
                     if (index >= dataList.Count )

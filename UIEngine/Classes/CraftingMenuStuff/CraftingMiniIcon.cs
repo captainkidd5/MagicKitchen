@@ -20,6 +20,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
         private Button _button;
 
         public ItemData ItemData { get; private set; }
+
+        private Vector2 _scale = new Vector2(1.5f, 1.5f);
         public CraftingMiniIcon(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -36,13 +38,13 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
             ChildSections.Clear();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y,
-                _backGroundSourceRectangle.Width * 2, _backGroundSourceRectangle.Height * 2);
+                (int)((float)_backGroundSourceRectangle.Width * _scale.X), (int)((float)_backGroundSourceRectangle.Height * _scale.Y));
 
             Sprite itemSprite = SpriteFactory.CreateUISprite(Position, Item.GetItemSourceRectangle(ItemData.Id),
-                ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(3f,3f));
+                ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(2f,2f));
 
             _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                _backGroundSourceRectangle, foregroundSprite: itemSprite)
+                _backGroundSourceRectangle, foregroundSprite: itemSprite, scale: _scale.X)
             { ForeGroundSpriteOffSet = new Vector2(8, 8) };
             base.LoadContent();
         }

@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes.Helpers;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
@@ -9,9 +12,9 @@ using TextEngine.Classes;
 
 namespace UIEngine.Classes.CraftingMenuStuff
 {
-    internal class RecipeBox
+    internal class RecipeBox : MenuSection
     {
-        private static readonly Rectangle s_backGroundSourceRectangle = new Rectangle(368, 144, 208, 128);
+        private static readonly Rectangle s_backGroundSourceRectangle = new Rectangle(624, 496, 240, 112);
 
         private Sprite _backGroundSprite;
 
@@ -36,5 +39,45 @@ namespace UIEngine.Classes.CraftingMenuStuff
         //private RecipeStatsBox _recipeStatsBox;
         private Vector2 _recipeStatsBoxPositionOffSet = new Vector2(148, 79);
         private Vector2 _recipeStatsBoxPosition;
+
+        private Vector2 _scale = new Vector2(2f, 2f);
+
+        public RecipeBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
+            Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
+        {
+        }
+
+        public override void LoadContent()
+        {
+
+            ClearGrid();
+            ChildSections.Clear();
+            TotalBounds = parentSection.TotalBounds;
+
+            Position = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
+                TotalBounds, s_backGroundSourceRectangle);
+
+            _backGroundSprite = SpriteFactory.CreateUISprite(Position, s_backGroundSourceRectangle, 
+                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), scale: _scale);
+            base.LoadContent();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (IsActive)
+            {
+                _backGroundSprite.Update(gameTime, Position);
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            if (IsActive)
+            {
+                _backGroundSprite.Draw(spriteBatch);
+            }
+        }
     }
 }

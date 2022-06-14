@@ -128,10 +128,16 @@ namespace Globals.Classes.Helpers
         /// <summary>
         ///  <see cref="EscButton"/> 
         /// </summary>
-        public static Vector2 PlaceRectangleAtBottomLeftOfParentRectangle(Rectangle parentRectangle, Rectangle rectangleToPlace)
+        public static Vector2 PlaceRectangleAtBottomLeftOfParentRectangle(
+            Rectangle parentRectangle, Rectangle rectangleToPlace, Vector2? childScale = null)
         {
-            return new Vector2(parentRectangle.X ,
+            if (childScale == null)
+            {
+                return new Vector2(parentRectangle.X,
                 parentRectangle.Y + parentRectangle.Height - rectangleToPlace.Height * 2);
+            }
+            return new Vector2(parentRectangle.X,
+            parentRectangle.Y + parentRectangle.Height - rectangleToPlace.Height * 2 * childScale.Value.Y);
         }
 
 
