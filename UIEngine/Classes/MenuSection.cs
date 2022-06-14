@@ -36,7 +36,7 @@ namespace UIEngine.Classes
             TransferSections = new Dictionary<Direction, MenuSection>();
         }
 
-        protected void AssignControlSectionAtEdge(Direction direction, MenuSection newSection)
+        public void AssignControlSectionAtEdge(Direction direction, MenuSection newSection)
         {
             //if (TransferSections.ContainsKey(direction))
             //    throw new Exception($"Overwriting existing edge direction");
@@ -46,6 +46,7 @@ namespace UIEngine.Classes
         {
             HasControl = true;
             //Todo: make this dependant on direction
+            CurrentSelectedPoint = new Point(0, 0);
             CurrentSelected = Selectables[0, 0];
 
         }

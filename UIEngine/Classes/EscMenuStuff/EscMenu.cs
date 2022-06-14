@@ -44,15 +44,24 @@ namespace UIEngine.Classes.EscMenuStuff
 
         private MenuSection _activePage;
 
+
+        private readonly Rectangle _unclickedTabRectangle = new Rectangle(640, 192, 32, 32);
+        private readonly Rectangle _selectedTabRectangle = new Rectangle(672, 186, 32, 38);
+
         EscPrimary _escPrimary;
-        private NineSliceButton _escPrimaryTabButton;
+        private Button _escPrimaryTabButton;
 
         CraftingMenu _craftingMenu;
-        private NineSliceButton _craftingTabButton;
+        private Button _craftingTabButton;
 
+        Dictionary<MenuSection, Button> _tabPairs;
 
         public int TitleOffSet { get; set; }
 
+        private Vector2 _tabForgroundOffset = new Vector2(4, 4);
+
+
+        private Point _tabSelectedPoint;
         public EscMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             Deactivate();
@@ -61,14 +70,23 @@ namespace UIEngine.Classes.EscMenuStuff
             Selectables = new InterfaceSection[1, 3];
             CurrentSelectedPoint = new Point(0, 0);
 
+
         }
 
         private void SwapActivePage(MenuSection newSection)
         {
-            _activePage= newSection;
+            _activePage = newSection;
             AssignControlSectionAtEdge(Direction.Down, _activePage);
 
             _activePage.LoadContent();
+            _tabSelectedPoint = CurrentSelectedPoint;
+            foreach (var pair in _tabPairs)
+            {
+                if (pair.Key == newSection)
+                    pair.Value.SwapBackgroundSprite(_selectedTabRectangle);
+                else
+                    pair.Value.SwapBackgroundSprite(_unclickedTabRectangle);
+            }
         }
         private void GenerateTabs()
         {
@@ -78,11 +96,11 @@ namespace UIEngine.Classes.EscMenuStuff
             Sprite cogSprite = SpriteFactory.CreateUISprite(
                 Position, new Rectangle(64, 80, 32, 32), UI.ButtonTexture,
                 GetLayeringDepth(UILayeringDepths.High), scale: _scale);
-            _escPrimaryTabButton = new NineSliceButton(_tabsStackPanel, graphics, content, Position,
-                GetLayeringDepth(UILayeringDepths.Medium), new Rectangle(0, 0, (int)(32 * _scale.X), (int)(32 * _scale.Y)),
+            _escPrimaryTabButton = new Button(_tabsStackPanel, graphics, content, Position,
+                GetLayeringDepth(UILayeringDepths.Medium), _unclickedTabRectangle,
                 new Action(() => { SwapActivePage(_escPrimary); }), hoverTransparency: true,
                 foregroundSprite: cogSprite)
-            { ForeGroundSpriteOffSet = new Vector2(16, 16)};
+            { ForeGroundSpriteOffSet = _tabForgroundOffset };
             stackRow1.AddItem(_escPrimaryTabButton, StackOrientation.Left);
 
             AddSectionToGrid(_escPrimaryTabButton, 0, 0);
@@ -92,11 +110,11 @@ namespace UIEngine.Classes.EscMenuStuff
                Position, new Rectangle(96, 80, 32, 32), UI.ButtonTexture,
                GetLayeringDepth(UILayeringDepths.High), scale: _scale);
 
-            _craftingTabButton = new NineSliceButton(_tabsStackPanel, graphics, content, Position,
-                GetLayeringDepth(UILayeringDepths.Medium), new Rectangle(0, 0, (int)(32 * _scale.X), (int)(32 * _scale.Y)),
+            _craftingTabButton = new Button(_tabsStackPanel, graphics, content, Position,
+                GetLayeringDepth(UILayeringDepths.Medium), _unclickedTabRectangle,
                 new Action(() => { SwapActivePage(_craftingMenu); }), hoverTransparency: true,
                 foregroundSprite: craftingSprite)
-            { ForeGroundSpriteOffSet = new Vector2(16, 16) };
+            { ForeGroundSpriteOffSet = _tabForgroundOffset };
             stackRow1.AddItem(_craftingTabButton, StackOrientation.Left);
 
             AddSectionToGrid(_craftingTabButton, 0, 1);
@@ -104,6 +122,7 @@ namespace UIEngine.Classes.EscMenuStuff
 
             _tabsStackPanel.Add(stackRow1);
 
+          
 
         }
 
@@ -114,7 +133,7 @@ namespace UIEngine.Classes.EscMenuStuff
 
             _craftingMenu = new CraftingMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             ChildSections.Remove(_craftingMenu);
-            
+
         }
         public override void LoadContent()
         {
@@ -132,7 +151,9 @@ namespace UIEngine.Classes.EscMenuStuff
 
             GenerateTabs();
             GeneratePages();
-
+            _tabPairs = new Dictionary<MenuSection, Button>();
+            _tabPairs.Add(_craftingMenu, _craftingTabButton);
+            _tabPairs.Add(_escPrimary, _escPrimaryTabButton);
             CloseButton = UI.ButtonFactory.CreateCloseButton(this, TotalBounds, GetLayeringDepth(UILayeringDepths.Medium),
                 new Action(() =>
                 {
@@ -167,10 +188,10 @@ namespace UIEngine.Classes.EscMenuStuff
             base.Update(gameTime);
             if (IsActive)
             {
-                if(_activePage != null)
+                if (_activePage != null)
                     _activePage.Update(gameTime);
             }
-          
+
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -181,11 +202,19 @@ namespace UIEngine.Classes.EscMenuStuff
                     _activePage.Draw(spriteBatch);
             }
             base.Draw(spriteBatch);
-           
+
         }
 
-       
+        internal override void ReceiveControl(Direction direction)
+        {
+            HasControl = true;
+            CurrentSelectedPoint = _tabSelectedPoint;
+            CurrentSelected = Selectables[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
 
-        
+
+        }
+
+
+
     }
 }

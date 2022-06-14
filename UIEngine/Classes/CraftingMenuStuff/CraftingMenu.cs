@@ -43,7 +43,9 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
             _craftingPage.LoadContent();
 
-            AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
+            _craftingPage.AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
+
+
 
         }
 
@@ -55,7 +57,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         internal override void ReceiveControl(Direction direction)
         {
-            _craftingPage.HasControl = true;
+            _craftingPage.ReceiveControl(direction);
             base.ReceiveControl(direction);
         }
         public override void MovePosition(Vector2 newPos)
