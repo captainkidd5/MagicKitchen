@@ -70,6 +70,8 @@ namespace UIEngine.Classes
         internal static Color[] GeneralInterfaceTexDat;
 
         private static bool s_isHovered;
+
+        internal static StorageContainer PStorage => StorageDisplayHandler.PlayerInventoryDisplay.StorageContainer;
         public static bool IsHovered
         {
             get { return s_isHovered; }

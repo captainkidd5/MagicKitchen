@@ -35,6 +35,22 @@ namespace ItemEngine.Classes.CraftingStuff
         }
 
         /// <summary>
+        /// Removes the materials from the inventory of entity crafting the item. Assumes that all materials exist,
+        /// will not throw error if they do not
+        /// </summary>
+        /// <param name="item">The item to craft</param>
+        public void RemoveIngredientsFromInventoryToMakeItem(Item item, StorageContainer storageContainer)
+        {
+            ItemData itemData = ItemFactory.GetItemData(item.Id);
+            RecipeInfo recipeInfo = itemData.RecipeInfo;
+            foreach (CraftingIngredient ingredient in recipeInfo.Ingredients)
+            {
+                int count = ingredient.Count;
+                storageContainer.RemoveItem(ingredient.Name, ref count);
+            }
+        }
+
+        /// <summary>
         /// If a crafting recipe with more copmlexity is also satisfied, use that one instead
         /// </summary>
         private bool IsMoreComplex(RecipeInfo newInfo, RecipeInfo oldInfo)

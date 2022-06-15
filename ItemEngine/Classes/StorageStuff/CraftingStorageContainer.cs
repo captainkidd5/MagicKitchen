@@ -44,7 +44,7 @@ namespace ItemEngine.Classes.StorageStuff
             OutputSlot.RemovePlaceLock();
             OutputSlot.Add(_currentlyCraftableItem.Name);
             OutputSlot.SetPlaceLock();
-            RemoveIngredientsFromInventoryToMakeItem(OutputSlot.Item);
+            ItemFactory.CraftingGuide.RemoveIngredientsFromInventoryToMakeItem(OutputSlot.Item, this);
       
             EvaluateOutputSlot();
 

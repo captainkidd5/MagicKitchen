@@ -1,6 +1,7 @@
 ﻿using DataModels.ItemStuff;
 using Globals.Classes.Helpers;
 using ItemEngine.Classes;
+using ItemEngine.Classes.CraftingStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,11 +32,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
         private Vector2 _nameTextPosition;
         private Text _nameText;
 
-        //In the top right large box. This is the unscaled offset from top left
-        private static Vector2 _finishedIconOffset = new Vector2(160, 32);
 
         private Rectangle _finishedIconSourceRectangle = new Rectangle(800, 496, 64, 64);
-        private Vector2 _finishedIconPosition;
         private Sprite _finishedRecipeIcon;
         private Button _finishedIconButton; 
 
@@ -45,6 +43,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
         private StackPanel _stackPanel;
         private Vector2 _scale = new Vector2(2f, 2f);
 
+
+        private bool _mayCraft = false;
         public RecipeBox(CraftingPage craftingPage, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -64,7 +64,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
             LoadContent();
             _currentItem = itemData;
             _nameText = TextFactory.CreateUIText(_currentItem.Name, GetLayeringDepth(UILayeringDepths.Medium));
-            
+            _mayCraft = true;
             StackRow stackRow1 = new StackRow(TotalBounds.Width);
             int row = 0;
             int column = 0;
@@ -73,13 +73,22 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 IngredientBox ingredientBox = new IngredientBox(_craftingPage, ingredient, _stackPanel,
                     graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
                 ingredientBox.LoadContent();
+                if (!ingredientBox.MayCraft)
+                    _mayCraft = false;
                 Selectables[row,column] = ingredientBox;
                 stackRow1.AddItem(ingredientBox, StackOrientation.Left);
                 column++;
             }
             CurrentSelectedPoint = new Point(0,0);
 
-            
+            if (!_mayCraft)
+            {
+                if(_finishedRecipeIcon != null)
+                {
+                    _finishedRecipeIcon.UpdateColor(_finishedRecipeIcon.PrimaryColor * .5f);
+
+                }
+            }
             _stackPanel.Add(stackRow1);
         }
         public override void LoadContent()
@@ -103,7 +112,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
               ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
 
             _finishedIconButton = new Button(this, graphics, content, finishedPos, GetLayeringDepth(UILayeringDepths.Medium),
-                _finishedIconSourceRectangle, null, _finishedRecipeIcon);
+                _finishedIconSourceRectangle, CraftRecipe, _finishedRecipeIcon);
             }
 
             _nameTextPosition = Position + _nameTextOffset;
@@ -112,6 +121,17 @@ namespace UIEngine.Classes.CraftingMenuStuff
             AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
 
             base.LoadContent();
+        }
+
+        private void CraftRecipe()
+        {
+            if (_mayCraft)
+            {
+                Item item = ItemFactory.GetItem(_currentItem.Id);
+                int amtToAdd = 1;
+                ItemFactory.CraftingGuide.RemoveIngredientsFromInventoryToMakeItem(ItemFactory.GetItem(_currentItem.Id), UI.PStorage);
+                UI.PStorage.AddItem(item, ref amtToAdd);
+            }
         }
 
         public override void Update(GameTime gameTime)

@@ -26,7 +26,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         private void PlayerInventoryChanged()
         {
-            Console.WriteLine("test");
+            if(IsActive)
+                LoadContent();
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

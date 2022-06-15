@@ -27,7 +27,9 @@ namespace UIEngine.Classes.CraftingMenuStuff
         private Vector2 _scale = new Vector2(1.5f, 1.5f);
 
         private Vector2 _textOffSet = new Vector2(0, 64);
-        private Text _requiredText; 
+        private Text _requiredText;
+        private int _storedCount;
+        public bool MayCraft => _storedCount >= _craftingIngredient.Count;
         public IngredientBox(CraftingPage craftingPage, CraftingIngredient craftingIngredient, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -56,8 +58,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 foregroundSprite: itemSprite, scale: _scale.X)
             { ForeGroundSpriteOffSet = new Vector2(8, 8) };
 
-            int storedCount = UI.StorageDisplayHandler.PlayerInventoryDisplay.StorageContainer.GetStoredCount(ItemData.Id);
-            _requiredText = TextFactory.CreateUIText($"{storedCount}/{_craftingIngredient.Count}",GetLayeringDepth(UILayeringDepths.Medium), .75f);
+            _storedCount = UI.StorageDisplayHandler.PlayerInventoryDisplay.StorageContainer.GetStoredCount(ItemData.Id);
+            _requiredText = TextFactory.CreateUIText($"{_storedCount}/{_craftingIngredient.Count}",GetLayeringDepth(UILayeringDepths.Medium), .75f);
             base.LoadContent();
 
         }
