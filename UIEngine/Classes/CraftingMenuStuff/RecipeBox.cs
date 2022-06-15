@@ -61,8 +61,9 @@ namespace UIEngine.Classes.CraftingMenuStuff
         }
         public void LoadNewItemRecipe(ItemData itemData)
         {
-            LoadContent();
             _currentItem = itemData;
+
+            LoadContent();
             _nameText = TextFactory.CreateUIText(_currentItem.Name, GetLayeringDepth(UILayeringDepths.Medium));
             _mayCraft = true;
             StackRow stackRow1 = new StackRow(TotalBounds.Width);

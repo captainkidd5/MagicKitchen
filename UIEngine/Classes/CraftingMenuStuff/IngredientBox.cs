@@ -19,7 +19,6 @@ namespace UIEngine.Classes.CraftingMenuStuff
     {
         private readonly CraftingPage _craftingPage;
         private readonly CraftingIngredient _craftingIngredient;
-        private Rectangle _backGroundSourceRectangle = new Rectangle(640, 144, 32, 32);
         private Button _button;
 
         public ItemData ItemData { get; private set; }
@@ -47,18 +46,20 @@ namespace UIEngine.Classes.CraftingMenuStuff
         {
 
             ChildSections.Clear();
+            _storedCount = UI.StorageDisplayHandler.PlayerInventoryDisplay.StorageContainer.GetStoredCount(ItemData.Id);
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y,
-                (int)((float)_backGroundSourceRectangle.Width * _scale.X), (int)((float)_backGroundSourceRectangle.Height * _scale.Y));
+                (int)((float)CraftingMenu._normalBackGroundSourceRectangle.Width * _scale.X), (int)((float)CraftingMenu._normalBackGroundSourceRectangle.Height * _scale.Y));
             Sprite itemSprite = SpriteFactory.CreateUISprite(Position, Item.GetItemSourceRectangle(ItemData.Id),
                 ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(2f, 2f));
-
+            Rectangle backgroundRectangleToUse = CraftingMenu._noCraftBackGroundSourceRectangle;
+            if (MayCraft)
+                backgroundRectangleToUse = CraftingMenu._yesCraftBackGroundSourceRectangle;
             _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                _backGroundSourceRectangle, new Action(() => {if(ItemData.RecipeInfo != null) _craftingPage.LoadNewRecipe(ItemData); }),
-                foregroundSprite: itemSprite, scale: _scale.X)
+                backgroundRectangleToUse, new Action(() => {if(ItemData.RecipeInfo != null) _craftingPage.LoadNewRecipe(ItemData); }),
+                foregroundSprite: itemSprite, scale: _scale.X, hoverTransparency:false)
             { ForeGroundSpriteOffSet = new Vector2(8, 8) };
 
-            _storedCount = UI.StorageDisplayHandler.PlayerInventoryDisplay.StorageContainer.GetStoredCount(ItemData.Id);
             _requiredText = TextFactory.CreateUIText($"{_storedCount}/{_craftingIngredient.Count}",GetLayeringDepth(UILayeringDepths.Medium), .75f);
             base.LoadContent();
 

@@ -15,6 +15,12 @@ namespace UIEngine.Classes.CraftingMenuStuff
 {
     internal class CraftingMenu : MenuSection
     {
+
+        public static Rectangle _normalBackGroundSourceRectangle = new Rectangle(640, 144, 32, 32);
+        //red one
+        public static Rectangle _noCraftBackGroundSourceRectangle = new Rectangle(608, 144, 32, 32);
+        //green one
+        public static Rectangle _yesCraftBackGroundSourceRectangle = new Rectangle(640, 112, 32, 32);
         private CraftingPage _craftingPage;
         public CraftingMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) : 
@@ -56,6 +62,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         }
 
+        private void Refresh()
+        {
+            _craftingPage.LoadContent();
+        }
+
         protected override void GiveSectionControl(Direction direction)
         {
             _craftingPage.HasControl = false;
@@ -76,7 +87,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         {
             if (ActivelyCrafting)
             {
-                LoadContent();
+                Refresh();
                 ActivelyCrafting = false;
             }
             base.Update(gameTime);

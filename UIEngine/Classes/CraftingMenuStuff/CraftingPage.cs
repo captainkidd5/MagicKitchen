@@ -49,12 +49,19 @@ namespace UIEngine.Classes.CraftingMenuStuff
             TotalBounds = parentSection.TotalBounds;
             _recipeBox = new RecipeBox(this,this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             _recipeBox.LoadContent();
+            if(_lastLoadedItemData != null)
+                LoadNewRecipe(_lastLoadedItemData);
             FillPage();
 
             base.LoadContent();
 
         }
-        public void LoadNewRecipe(ItemData itemData) => _recipeBox.LoadNewItemRecipe(itemData);
+        private ItemData _lastLoadedItemData;
+        public void LoadNewRecipe(ItemData itemData)
+        {
+            _lastLoadedItemData = itemData;
+            _recipeBox.LoadNewItemRecipe(itemData);
+        } 
         private void FillPage()
         {
 

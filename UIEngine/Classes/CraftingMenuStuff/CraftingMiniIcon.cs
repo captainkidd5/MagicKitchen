@@ -16,11 +16,6 @@ namespace UIEngine.Classes.CraftingMenuStuff
     internal class CraftingMiniIcon : InterfaceSection
     {
 
-        private Rectangle _normalBackGroundSourceRectangle = new Rectangle(640, 144, 32, 32);
-        //red one
-        private Rectangle _noCraftBackGroundSourceRectangle = new Rectangle(608, 144, 32, 32);
-        //green one
-        private Rectangle _yesCraftBackGroundSourceRectangle = new Rectangle(640, 112, 32, 32);
         private Button _button;
 
         public ItemData ItemData { get; private set; }
@@ -54,13 +49,13 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
             ChildSections.Clear();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y,
-                (int)((float)_normalBackGroundSourceRectangle.Width * _scale.X), (int)((float)_normalBackGroundSourceRectangle.Height * _scale.Y));
+                (int)((float)CraftingMenu._normalBackGroundSourceRectangle.Width * _scale.X), (int)((float)CraftingMenu._normalBackGroundSourceRectangle.Height * _scale.Y));
 
             Sprite itemSprite = SpriteFactory.CreateUISprite(Position, Item.GetItemSourceRectangle(ItemData.Id),
                 ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(2f,2f));
-            Rectangle backgroundRectangleToUse = _noCraftBackGroundSourceRectangle;
+            Rectangle backgroundRectangleToUse = CraftingMenu._noCraftBackGroundSourceRectangle;
             if (_mayCraft)
-                backgroundRectangleToUse = _yesCraftBackGroundSourceRectangle;
+                backgroundRectangleToUse = CraftingMenu._yesCraftBackGroundSourceRectangle;
             _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
                 backgroundRectangleToUse, new Action(() => { _craftingPage.GiveControlToRecipeBox(); }), foregroundSprite: itemSprite, scale: _scale.X)
             { ForeGroundSpriteOffSet = new Vector2(8, 8) };
