@@ -77,7 +77,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         {
             _button.IsSelected = IsSelected;
 
-            if (_button.WasJustSelected)
+            if (_button.WasJustSelected || _button.Clicked)
             {
                 _craftingPage.LoadNewRecipe(ItemData);
             }

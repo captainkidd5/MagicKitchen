@@ -1,5 +1,6 @@
 ﻿using DataModels.ItemStuff;
 using Globals.Classes.Helpers;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TextEngine;
 using TextEngine.Classes;
+using UIEngine.Classes.ButtonStuff;
 using UIEngine.Classes.Components;
 using static DataModels.Enums;
 
@@ -32,8 +34,10 @@ namespace UIEngine.Classes.CraftingMenuStuff
         //In the top right large box. This is the unscaled offset from top left
         private static Vector2 _finishedIconOffset = new Vector2(160, 32);
 
+        private Rectangle _finishedIconSourceRectangle = new Rectangle(800, 496, 64, 64);
         private Vector2 _finishedIconPosition;
         private Sprite _finishedRecipeIcon;
+        private Button _finishedIconButton; 
 
         //Offset from top left of box to top left icon
         private Vector2 _iconStartingOffSet = new Vector2(64, 80);
@@ -90,6 +94,17 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
             _backGroundSprite = SpriteFactory.CreateUISprite(Position, s_backGroundSourceRectangle,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), scale: _scale);
+            if (_currentItem != null)
+            {
+                Vector2 finishedPos = RectangleHelper.PlaceRectangleAtTopRightOfParentRectangle(
+                    new Rectangle((int)Position.X, (int)Position.Y,s_backGroundSourceRectangle.Width * 2, s_backGroundSourceRectangle.Height * 2),
+                    new Rectangle((int)Position.X, (int)Position.Y, _finishedIconSourceRectangle.Width * 2, _finishedIconSourceRectangle.Height * 2));
+            _finishedRecipeIcon = SpriteFactory.CreateUISprite(finishedPos, Item.GetItemSourceRectangle(_currentItem.Id),
+              ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
+
+            _finishedIconButton = new Button(this, graphics, content, finishedPos, GetLayeringDepth(UILayeringDepths.Medium),
+                _finishedIconSourceRectangle, null, _finishedRecipeIcon);
+            }
 
             _nameTextPosition = Position + _nameTextOffset;
 
