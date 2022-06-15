@@ -44,8 +44,8 @@ namespace UIEngine.Classes.ButtonStuff
             base.Update(gameTime);
            
 
-            if (ForegroundSprite != null)
-                ForegroundSprite.Update(gameTime, Position + ForeGroundSpriteOffSet.Value);
+            //if (ForegroundSprite != null)
+            //    ForegroundSprite.Update(gameTime, Position + ForeGroundSpriteOffSet.Value);
 
         }
 

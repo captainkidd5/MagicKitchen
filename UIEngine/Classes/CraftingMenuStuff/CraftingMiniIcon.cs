@@ -57,8 +57,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
             if (_mayCraft)
                 backgroundRectangleToUse = CraftingMenu._yesCraftBackGroundSourceRectangle;
             _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                backgroundRectangleToUse, new Action(() => { _craftingPage.GiveControlToRecipeBox(); }), foregroundSprite: itemSprite, scale: _scale.X)
-            { ForeGroundSpriteOffSet = new Vector2(8, 8) };
+                backgroundRectangleToUse, new Action(() => { _craftingPage.GiveControlToRecipeBox(); }), foregroundSprite: itemSprite, scale: _scale.X);
+            _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
             base.LoadContent();
         }
 

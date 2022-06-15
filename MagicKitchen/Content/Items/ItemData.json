@@ -338,7 +338,17 @@
                     "Description" : "Smelts ores into Ingots",
                     "MaxStackSize": 1,
                     "Price": 1,
-                     "PlacedItemGID" : 215
+                     "PlacedItemGID" : 215,
+                     "Ingredients":[
+                        {
+                            "Name":"Iron_Ore",
+                            "Count":3
+                        },
+                        {
+                            "Name":"Stone",
+                            "Count":2
+                        }
+                    ]
                      
                     
                     },
@@ -458,7 +468,18 @@
             "Name": "Chest",
             "Description" : "Stores Items",
             "MaxStackSize": 1,
-            "Price": 1
+            "Price": 1,
+            "PlacedItemGID" : 859,
+            "Ingredients":[
+                {
+                    "Name":"Iron_Ore",
+                    "Count":3
+                },
+                {
+                    "Name":"Stone",
+                    "Count":2
+                }
+            ]
             
             }
 

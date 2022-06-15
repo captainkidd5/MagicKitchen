@@ -99,8 +99,8 @@ namespace UIEngine.Classes.EscMenuStuff
             _escPrimaryTabButton = new Button(_tabsStackPanel, graphics, content, Position,
                 GetLayeringDepth(UILayeringDepths.Medium), _unclickedTabRectangle,
                 new Action(() => { SwapActivePage(_escPrimary); }), hoverTransparency: true,
-                foregroundSprite: cogSprite)
-            { ForeGroundSpriteOffSet = _tabForgroundOffset };
+                foregroundSprite: cogSprite);
+            _escPrimaryTabButton.SetForegroundSpriteOffSet(_tabForgroundOffset);
             stackRow1.AddItem(_escPrimaryTabButton, StackOrientation.Left);
 
             AddSectionToGrid(_escPrimaryTabButton, 0, 0);
@@ -113,8 +113,8 @@ namespace UIEngine.Classes.EscMenuStuff
             _craftingTabButton = new Button(_tabsStackPanel, graphics, content, Position,
                 GetLayeringDepth(UILayeringDepths.Medium), _unclickedTabRectangle,
                 new Action(() => { SwapActivePage(_craftingMenu); }), hoverTransparency: true,
-                foregroundSprite: craftingSprite)
-            { ForeGroundSpriteOffSet = _tabForgroundOffset };
+                foregroundSprite: craftingSprite);
+            _craftingTabButton.SetForegroundSpriteOffSet(_tabForgroundOffset);
             stackRow1.AddItem(_craftingTabButton, StackOrientation.Left);
 
             AddSectionToGrid(_craftingTabButton, 0, 1);
@@ -142,7 +142,7 @@ namespace UIEngine.Classes.EscMenuStuff
             TitleOffSet = (int)(32 * _scale.Y);
             _returnToMainMenuAction = new Action(ReturnToMainMenu);
             Vector2 escMenuPos = RectangleHelper.CenterRectangleOnScreen(TotalBounds);
-            escMenuPos = new Vector2(escMenuPos.X, escMenuPos.Y - 32);
+            escMenuPos = new Vector2(escMenuPos.X, escMenuPos.Y);
 
             TotalBounds = new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, TotalBounds.Width, TotalBounds.Height);
             _backGroundSprite = SpriteFactory.CreateUISprite(escMenuPos, BackGroundSource,

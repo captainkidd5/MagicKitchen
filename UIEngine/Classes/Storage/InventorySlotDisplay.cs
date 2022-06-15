@@ -162,7 +162,9 @@ namespace UIEngine.Classes.Storage
                 UI.IncrementLD(LayerDepth, true), Color.White, Vector2.Zero, _itemIconSpriteScale));
 
             }
-                _text.SetFullString(count.ToString());
+            _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
+
+            _text.SetFullString(count.ToString());
             _oldItemId = item.Id;
         }
     }

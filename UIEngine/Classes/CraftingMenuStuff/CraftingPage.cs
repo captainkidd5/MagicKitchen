@@ -22,20 +22,19 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         private readonly int s_columns = 5;
         private Rectangle _backGroundSourceRectangle = new Rectangle(624, 256, 240, 224);
-        private Sprite _backGroundSprite;
+
 
         private StackPanel _stackPanel;
         private Vector2 _scale = new Vector2(2f, 2f);
 
-        private RecipeBox _recipeBox;
 
         private Vector2 _buttonOffSetStart = new Vector2(32,32);
-        public void SetActivelyCrafting(bool val) => CraftingMenu.ActivelyCrafting = val;
-        public CraftingPage(CraftingMenu craftingMenu, CraftingCategory craftingCategory, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
+        public CraftingPage(CraftingMenu craftingMenu , CraftingCategory craftingCategory, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             CraftingMenu = craftingMenu;
+ 
             CraftingCategory = craftingCategory;
         }
 
@@ -44,23 +43,18 @@ namespace UIEngine.Classes.CraftingMenuStuff
             ClearGrid();
             ChildSections.Clear();
 
-            _backGroundSprite = SpriteFactory.CreateUISprite(Position, _backGroundSourceRectangle, UI.ButtonTexture,
-                GetLayeringDepth(UILayeringDepths.Low), scale:_scale);
+    
             TotalBounds = parentSection.TotalBounds;
-            _recipeBox = new RecipeBox(this,this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-            _recipeBox.LoadContent();
-            if(_lastLoadedItemData != null)
-                LoadNewRecipe(_lastLoadedItemData);
+           
+
             FillPage();
 
             base.LoadContent();
 
         }
-        private ItemData _lastLoadedItemData;
         public void LoadNewRecipe(ItemData itemData)
         {
-            _lastLoadedItemData = itemData;
-            _recipeBox.LoadNewItemRecipe(itemData);
+            CraftingMenu.LoadNewRecipe(itemData);
         } 
         private void FillPage()
         {
@@ -92,7 +86,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         public void GiveControlToRecipeBox()
         {
-            _recipeBox.ReceiveControl(Direction.Up);
+            CraftingMenu.GiveControlToRecipeBox();
             HasControl = false;
         }
         public override void MovePosition(Vector2 newPos)
@@ -103,12 +97,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         {
 
             base.Update(gameTime);
-            if(IsActive)
-            {
 
-                _backGroundSprite.Update(gameTime, Position);
-               
-            }
         }
 
         
@@ -119,10 +108,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            if (IsActive)
-            {
-                _backGroundSprite.Draw(spriteBatch);
-            }
+
         }
 
        

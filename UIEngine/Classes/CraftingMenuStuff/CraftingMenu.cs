@@ -3,6 +3,7 @@ using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
         //green one
         public static Rectangle _yesCraftBackGroundSourceRectangle = new Rectangle(640, 112, 32, 32);
         private CraftingPage _craftingPage;
+
+        private RecipeBox _recipeBox;
+
         public CraftingMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
-            ContentManager content, Vector2? position, float layerDepth) : 
+            ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             Activate();
@@ -34,7 +38,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         private void PlayerInventoryChanged()
         {
             //Do not want to reload while crafting
-            if(IsActive && !ActivelyCrafting)
+            if (IsActive && !ActivelyCrafting)
                 LoadContent();
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -58,13 +62,34 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
             _craftingPage.AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
 
+            _recipeBox = new RecipeBox(this, this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
+            _recipeBox.LoadContent();
 
+            if (_lastLoadedItemData != null)
+                LoadNewRecipe(_lastLoadedItemData);
 
         }
+        private ItemData _lastLoadedItemData;
 
+        public void GiveControlToRecipeBox()
+        {
+            _recipeBox.ReceiveControl(Direction.Up);
+        }
+        public void LoadNewRecipe(ItemData itemData)
+        {
+            if (itemData != _lastLoadedItemData)
+            {
+
+                _lastLoadedItemData = itemData;
+                _recipeBox.LoadNewItemRecipe(itemData);
+            }
+
+        }
         private void Refresh()
         {
             _craftingPage.LoadContent();
+            _recipeBox.LoadNewItemRecipe(_lastLoadedItemData);
+
         }
 
         protected override void GiveSectionControl(Direction direction)
@@ -85,12 +110,13 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         public override void Update(GameTime gameTime)
         {
+           
+            base.Update(gameTime);
             if (ActivelyCrafting)
             {
                 Refresh();
                 ActivelyCrafting = false;
             }
-            base.Update(gameTime);
         }
     }
 }

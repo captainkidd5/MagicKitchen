@@ -22,7 +22,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
     internal class RecipeBox : MenuSection
     {
         private static readonly Rectangle s_backGroundSourceRectangle = new Rectangle(624, 496, 240, 112);
-        private readonly CraftingPage _craftingPage;
+        private readonly CraftingMenu _craftingMenu;
         private Sprite _backGroundSprite;
 
         private ItemData _currentItem;
@@ -45,10 +45,10 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
 
         private bool _mayCraft = false;
-        public RecipeBox(CraftingPage craftingPage, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
+        public RecipeBox(CraftingMenu craftingMenu, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            _craftingPage = craftingPage;
+            _craftingMenu = craftingMenu;
         }
 
         internal override void ReceiveControl(Direction direction)
@@ -65,19 +65,23 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
             LoadContent();
             _nameText = TextFactory.CreateUIText(_currentItem.Name, GetLayeringDepth(UILayeringDepths.Medium));
+            _nameText.ForceSetPosition(_nameTextPosition);
+
             _mayCraft = true;
             StackRow stackRow1 = new StackRow(TotalBounds.Width);
             int row = 0;
             int column = 0;
             foreach(CraftingIngredient ingredient in itemData.RecipeInfo.Ingredients)
             {
-                IngredientBox ingredientBox = new IngredientBox(_craftingPage, ingredient, _stackPanel,
+                IngredientBox ingredientBox = new IngredientBox(_craftingMenu, ingredient, _stackPanel,
                     graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
                 ingredientBox.LoadContent();
                 if (!ingredientBox.MayCraft)
                     _mayCraft = false;
                 Selectables[row,column] = ingredientBox;
                 stackRow1.AddItem(ingredientBox, StackOrientation.Left);
+                stackRow1.AddSpacer(ingredientBox.TotalBounds, StackOrientation.Left);
+
                 column++;
             }
             CurrentSelectedPoint = new Point(0,0);
@@ -112,9 +116,9 @@ namespace UIEngine.Classes.CraftingMenuStuff
             _finishedRecipeIcon = SpriteFactory.CreateUISprite(finishedPos, Item.GetItemSourceRectangle(_currentItem.Id),
               ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale * 2);
 
-            _finishedIconButton = new Button(this, graphics, content, finishedPos, GetLayeringDepth(UILayeringDepths.Medium),
-                _finishedIconSourceRectangle, CraftRecipe, _finishedRecipeIcon)
-            { ForeGroundSpriteOffSet = new Vector2(_finishedIconSourceRectangle.Width /2, _finishedIconSourceRectangle.Height / 2) };
+                _finishedIconButton = new Button(this, graphics, content, finishedPos, GetLayeringDepth(UILayeringDepths.Medium),
+                    _finishedIconSourceRectangle, CraftRecipe, _finishedRecipeIcon);
+                _finishedIconButton.SetForegroundSpriteOffSet(new Vector2(_finishedIconSourceRectangle.Width / 2, _finishedIconSourceRectangle.Height / 2));
             }
 
             _nameTextPosition = Position + _nameTextOffset;
@@ -130,7 +134,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
             if (_mayCraft)
             {
 
-                _craftingPage.SetActivelyCrafting(true);
+                _craftingMenu.ActivelyCrafting = true;
                 Item item = ItemFactory.GetItem(_currentItem.Id);
                 int amtToAdd = 1;
                 ItemFactory.CraftingGuide.RemoveIngredientsFromInventoryToMakeItem(ItemFactory.GetItem(_currentItem.Id), UI.PStorage);

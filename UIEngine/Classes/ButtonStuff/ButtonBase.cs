@@ -37,7 +37,7 @@ namespace UIEngine.Classes.ButtonStuff
         private ConfirmationWindow _confirmationWindow;
 
         //Offsets foreground sprite from background sprite
-        public Vector2? ForeGroundSpriteOffSet { get; set; }
+        protected Vector2? ForeGroundSpriteOffSet { get; set; }
 
         public bool IgnoreDefaultSoundEffect { get; set; }
 
@@ -66,6 +66,12 @@ namespace UIEngine.Classes.ButtonStuff
             HoverTransparency = hoverTransparency;
 
            
+        }
+
+        public void SetForegroundSpriteOffSet(Vector2 pos)
+        {
+            ForeGroundSpriteOffSet = pos;
+            ForegroundSprite.ForceSetPosition(Position + ForeGroundSpriteOffSet.Value);
         }
 
         public void AddConfirmationWindow(string confirmationText = null)
@@ -119,13 +125,11 @@ namespace UIEngine.Classes.ButtonStuff
 
             if (ForegroundSprite != null)
             {
-                Vector2 foreGroundSpritePos = RectangleHelper.CenterRectangleInRectangle(ForegroundSprite.SourceRectangle,
-                    new Rectangle((int)Position.X - ForegroundSprite.SourceRectangle.Width,
-                    (int)Position.Y - ForegroundSprite.SourceRectangle.Height, BackGroundSprite.Width, BackGroundSprite.Height)
-                   , 1f);
+                Vector2 foregroundPos = Position;
                 if (ForeGroundSpriteOffSet != null)
-                    foreGroundSpritePos += ForeGroundSpriteOffSet.Value;
-                ForegroundSprite.Update(gameTime, foreGroundSpritePos);
+                    foregroundPos += ForeGroundSpriteOffSet.Value;
+                ForegroundSprite.Update(gameTime, foregroundPos);
+
             }
 
 

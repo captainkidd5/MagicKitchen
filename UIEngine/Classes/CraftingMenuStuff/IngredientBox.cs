@@ -17,7 +17,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
 {
     internal class IngredientBox : InterfaceSection
     {
-        private readonly CraftingPage _craftingPage;
+        private readonly CraftingMenu _craftingMenu;
         private readonly CraftingIngredient _craftingIngredient;
         private Button _button;
 
@@ -29,10 +29,10 @@ namespace UIEngine.Classes.CraftingMenuStuff
         private Text _requiredText;
         private int _storedCount;
         public bool MayCraft => _storedCount >= _craftingIngredient.Count;
-        public IngredientBox(CraftingPage craftingPage, CraftingIngredient craftingIngredient, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
+        public IngredientBox(CraftingMenu craftingmenu, CraftingIngredient craftingIngredient, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            _craftingPage = craftingPage;
+            _craftingMenu = craftingmenu;
             _craftingIngredient = craftingIngredient;
             ItemData = ItemFactory.GetItemData(_craftingIngredient.Name);
         }
@@ -56,11 +56,12 @@ namespace UIEngine.Classes.CraftingMenuStuff
             if (MayCraft)
                 backgroundRectangleToUse = CraftingMenu._yesCraftBackGroundSourceRectangle;
             _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                backgroundRectangleToUse, new Action(() => {if(ItemData.RecipeInfo != null) _craftingPage.LoadNewRecipe(ItemData); }),
-                foregroundSprite: itemSprite, scale: _scale.X, hoverTransparency:false)
-            { ForeGroundSpriteOffSet = new Vector2(8, 8) };
+                backgroundRectangleToUse, new Action(() => { if (ItemData.RecipeInfo != null) _craftingMenu.LoadNewRecipe(ItemData); }),
+                foregroundSprite: itemSprite, scale: _scale.X, hoverTransparency: false);
+            _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
 
             _requiredText = TextFactory.CreateUIText($"{_storedCount}/{_craftingIngredient.Count}",GetLayeringDepth(UILayeringDepths.Medium), .75f);
+            _requiredText.ForceSetPosition(Position + _textOffSet);
             base.LoadContent();
 
         }
