@@ -109,10 +109,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
                     new Rectangle((int)Position.X, (int)Position.Y,s_backGroundSourceRectangle.Width * 2, s_backGroundSourceRectangle.Height * 2),
                     new Rectangle((int)Position.X, (int)Position.Y, _finishedIconSourceRectangle.Width * 2, _finishedIconSourceRectangle.Height * 2));
             _finishedRecipeIcon = SpriteFactory.CreateUISprite(finishedPos, Item.GetItemSourceRectangle(_currentItem.Id),
-              ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale);
+              ItemFactory.ItemSpriteSheet, GetLayeringDepth(UILayeringDepths.High), scale: _scale * 2);
 
             _finishedIconButton = new Button(this, graphics, content, finishedPos, GetLayeringDepth(UILayeringDepths.Medium),
-                _finishedIconSourceRectangle, CraftRecipe, _finishedRecipeIcon);
+                _finishedIconSourceRectangle, CraftRecipe, _finishedRecipeIcon)
+            { ForeGroundSpriteOffSet = new Vector2(_finishedIconSourceRectangle.Width /2, _finishedIconSourceRectangle.Height / 2) };
             }
 
             _nameTextPosition = Position + _nameTextOffset;
@@ -127,6 +128,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
         {
             if (_mayCraft)
             {
+
+                _craftingPage.SetActivelyCrafting(true);
                 Item item = ItemFactory.GetItem(_currentItem.Id);
                 int amtToAdd = 1;
                 ItemFactory.CraftingGuide.RemoveIngredientsFromInventoryToMakeItem(ItemFactory.GetItem(_currentItem.Id), UI.PStorage);

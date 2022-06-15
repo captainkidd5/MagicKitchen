@@ -16,6 +16,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
 {
     internal class CraftingPage : MenuSection
     {
+        public CraftingMenu CraftingMenu { get; }
         public CraftingCategory CraftingCategory { get; private set; }
 
 
@@ -29,10 +30,12 @@ namespace UIEngine.Classes.CraftingMenuStuff
         private RecipeBox _recipeBox;
 
         private Vector2 _buttonOffSetStart = new Vector2(32,32);
-        public CraftingPage(CraftingCategory craftingCategory, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
+        public void SetActivelyCrafting(bool val) => CraftingMenu.ActivelyCrafting = val;
+        public CraftingPage(CraftingMenu craftingMenu, CraftingCategory craftingCategory, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
+            CraftingMenu = craftingMenu;
             CraftingCategory = craftingCategory;
         }
 

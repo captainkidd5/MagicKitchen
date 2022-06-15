@@ -23,10 +23,12 @@ namespace UIEngine.Classes.CraftingMenuStuff
             Activate();
             UI.StorageDisplayHandler.PlayerInventoryDisplay.ContentsChanged += PlayerInventoryChanged;
         }
+        public bool ActivelyCrafting { get; set; }
 
         private void PlayerInventoryChanged()
         {
-            if(IsActive)
+            //Do not want to reload while crafting
+            if(IsActive && !ActivelyCrafting)
                 LoadContent();
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -44,7 +46,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
             Position = new Vector2(TotalBounds.X, TotalBounds.Y + offSet);
 
 
-            _craftingPage = new CraftingPage(CraftingCategory.Tool, this, graphics, content, Position,
+            _craftingPage = new CraftingPage(this, CraftingCategory.Tool, this, graphics, content, Position,
                 GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
             _craftingPage.LoadContent();
 
@@ -72,6 +74,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         public override void Update(GameTime gameTime)
         {
+            if (ActivelyCrafting)
+            {
+                LoadContent();
+                ActivelyCrafting = false;
+            }
             base.Update(gameTime);
         }
     }

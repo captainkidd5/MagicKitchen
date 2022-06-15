@@ -73,13 +73,20 @@ namespace ItemEngine.Classes
             YOffSet = 8;
             _immunityTimer = new SimpleTimer(_timeUntilTouchable);
 
+            Sprite.CustomLayer = null;
 
             switch (WorldItemState)
             {
+
+                //want to set custom layer when bouncing because the sprite should be drawn at the
+                //initial launch point's layerdepth to help with the illusion
+
                 case WorldItemState.None:
                     break;
                 case WorldItemState.Bouncing:
                     _itemBehaviour = new BouncingItemBehaviour(this);
+                    Sprite.CustomLayer = Sprite.GetYAxisLayerDepth();
+
                     break;
                 case WorldItemState.Floating:
                     //  Jettison(jettisonDirection.Value, null);
