@@ -73,6 +73,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         public void GiveControlToRecipeBox()
         {
+            HasControl = false;
             _recipeBox.ReceiveControl(Direction.Up);
         }
         public void LoadNewRecipe(ItemData itemData)

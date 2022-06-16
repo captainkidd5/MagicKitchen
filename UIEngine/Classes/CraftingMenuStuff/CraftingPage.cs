@@ -29,6 +29,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
 
         private Vector2 _buttonOffSetStart = new Vector2(32,32);
+
+        private Point? _lastSelectedPoint;
         public CraftingPage(CraftingMenu craftingMenu , CraftingCategory craftingCategory, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -87,6 +89,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public void GiveControlToRecipeBox()
         {
             CraftingMenu.GiveControlToRecipeBox();
+            _lastSelectedPoint = CurrentSelectedPoint;
             HasControl = false;
         }
         public override void MovePosition(Vector2 newPos)
@@ -104,6 +107,10 @@ namespace UIEngine.Classes.CraftingMenuStuff
         internal override void ReceiveControl(Direction direction)
         {
             base.ReceiveControl(direction);
+
+
+            if (_lastSelectedPoint != null)
+                DoSelection(_lastSelectedPoint.Value);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

@@ -296,9 +296,7 @@
                 "CookTime": 2,
                 "Ingredients":[
                     {
-                        "Name":"Shmegg",
-                        "Row":0,
-                        "Column": 0
+                        "Name":"Shmegg"
                     }
                 ]
  
@@ -366,9 +364,7 @@
                 "CookTime": 2,
                 "Ingredients":[
                     {
-                        "Name":"Shmegg",
-                        "Row":0,
-                        "Column": 0
+                        "Name":"Shmegg"
                     }
                 ]   
             }
@@ -389,9 +385,7 @@
                 "CookTime": 2,
                 "Ingredients":[
                     {
-                        "Name":"Shmegg",
-                        "Row":0,
-                        "Column": 0
+                        "Name":"Shmegg"
                     }
                 ]
             }
@@ -410,9 +404,7 @@
                 "CookTime": 2,
                 "Ingredients":[
                     {
-                        "Name":"Shmegg",
-                        "Row":0,
-                        "Column": 0
+                        "Name":"Shmegg"
                     }
                 ]
             }
@@ -431,9 +423,7 @@
                 "CookTime": 2,
                 "Ingredients":[
                     {
-                        "Name":"Shmegg",
-                        "Row":0,
-                        "Column": 0
+                        "Name":"Shmegg"
                     }
                 ]
             }
@@ -454,9 +444,7 @@
                 "CookTime": 2,
                 "Ingredients":[
                     {
-                        "Name":"Shmegg",
-                        "Row":0,
-                        "Column": 0
+                        "Name":"Shmegg"
                     }
                 ]
             }

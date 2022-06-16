@@ -57,7 +57,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 backgroundRectangleToUse = CraftingMenu._yesCraftBackGroundSourceRectangle;
             _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
                 backgroundRectangleToUse, new Action(() => { if (ItemData.RecipeInfo != null) _craftingMenu.LoadNewRecipe(ItemData); }),
-                foregroundSprite: itemSprite, scale: _scale.X, hoverTransparency: false);
+                foregroundSprite: itemSprite, scale: _scale.X);
             _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
 
             _requiredText = TextFactory.CreateUIText($"{_storedCount}/{_craftingIngredient.Count}",GetLayeringDepth(UILayeringDepths.Medium), .75f);
@@ -69,6 +69,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public override void Update(GameTime gameTime)
         {
             _button.IsSelected = IsSelected;
+            if(IsSelected)
+                Console.WriteLine("test");
             _requiredText.Update(gameTime, Position + _textOffSet);
             base.Update(gameTime);
 

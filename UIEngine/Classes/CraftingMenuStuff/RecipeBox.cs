@@ -1,5 +1,6 @@
 ﻿using DataModels.ItemStuff;
 using Globals.Classes.Helpers;
+using InputEngine.Classes;
 using ItemEngine.Classes;
 using ItemEngine.Classes.CraftingStuff;
 using Microsoft.Xna.Framework;
@@ -54,8 +55,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
         internal override void ReceiveControl(Direction direction)
         {
             HasControl = true;
-            CurrentSelectedPoint = new Point(0,0);
-            CurrentSelected = Selectables[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
+            DoSelection(new Point(0, Selectables.GetLength(1) - 1));
+
 
 
         }
@@ -71,6 +72,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
             StackRow stackRow1 = new StackRow(TotalBounds.Width);
             int row = 0;
             int column = 0;
+            Selectables = new InterfaceSection[1, itemData.RecipeInfo.Ingredients.Count + 1];
             foreach(CraftingIngredient ingredient in itemData.RecipeInfo.Ingredients)
             {
                 IngredientBox ingredientBox = new IngredientBox(_craftingMenu, ingredient, _stackPanel,
@@ -84,7 +86,6 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
                 column++;
             }
-            CurrentSelectedPoint = new Point(0,0);
 
             if (!_mayCraft)
             {
@@ -94,8 +95,12 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
                 }
             }
+            Selectables[0, column] = _finishedIconButton;
+            DoSelection(new Point(0, column));
+
             _stackPanel.Add(stackRow1);
         }
+        
         public override void LoadContent()
         {
 
@@ -147,6 +152,12 @@ namespace UIEngine.Classes.CraftingMenuStuff
             base.Update(gameTime);
             if (IsActive)
             {
+                
+                if (HasControl && Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
+                {
+                    GiveSectionControl(Direction.Up);
+                    return;
+                }
                 _backGroundSprite.Update(gameTime, Position);
                 if (_currentItem != null)
                 {
