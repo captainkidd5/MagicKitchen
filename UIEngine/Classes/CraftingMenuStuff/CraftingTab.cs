@@ -14,10 +14,12 @@ namespace UIEngine.Classes.CraftingMenuStuff
 {
     internal class CraftingTab : InterfaceSection
     {
-        private Rectangle _backgroundSourceRectangle = new Rectangle(640, 144, 32, 32);
+        private Rectangle _backgroundSourceRectangle = new Rectangle(608, 240, 16, 16);
         private Rectangle _foreGroundSpriteSourceRectangle;
         private Button _button;
         private Sprite _foregroundSprite;
+
+        //private Vector2 _scale = new Vector2(1f, 1f);
         public CraftingTab(CraftingCategory craftingCategory, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position,
             float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -43,12 +45,25 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
+            LoadContent();
         }
         public override void LoadContent()
         {
-            _foregroundSprite = SpriteFactory.CreateUISprite(Position, _foreGroundSpriteSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium));
-            _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),_backgroundSourceRectangle, null, _foregroundSprite);
+            ChildSections.Clear();
+            _foregroundSprite = SpriteFactory.CreateUISprite(Position, _foreGroundSpriteSourceRectangle,
+                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium));
+            _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
+                _backgroundSourceRectangle, null, _foregroundSprite);
+            TotalBounds = _button.TotalBounds;
             base.LoadContent();
+        }
+        public override void Update(GameTime gameTime)
+        {
+            _button.IsSelected = IsSelected;
+            if (IsSelected)
+                Console.WriteLine("test");
+            base.Update(gameTime);
+           
         }
     }
 }

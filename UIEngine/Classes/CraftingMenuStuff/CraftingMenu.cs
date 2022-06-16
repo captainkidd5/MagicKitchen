@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UIEngine.Classes.Components;
 using UIEngine.Classes.EscMenuStuff;
 using static DataModels.Enums;
 
@@ -22,7 +23,12 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public static Rectangle _noCraftBackGroundSourceRectangle = new Rectangle(608, 144, 32, 32);
         //green one
         public static Rectangle _yesCraftBackGroundSourceRectangle = new Rectangle(640, 112, 32, 32);
+
+
+
+        private TabsColumnMenu _tabsColumnMenu;
         private CraftingPage _craftingPageTool;
+
         private CraftingPage _craftingPageMachine;
 
 
@@ -58,12 +64,19 @@ namespace UIEngine.Classes.CraftingMenuStuff
             TotalBounds = parentSection.TotalBounds;
             Position = new Vector2(TotalBounds.X, TotalBounds.Y);
 
+            _tabsColumnMenu = new TabsColumnMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
+            _tabsColumnMenu.LoadContent();
+            _tabsColumnMenu.AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
+
 
             _craftingPageTool = new CraftingPage(this, CraftingCategory.Tool, this, graphics, content, Position,
                 GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
             _craftingPageTool.LoadContent();
 
             _craftingPageTool.AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
+            _craftingPageTool.AssignControlSectionAtEdge(Direction.Left, _tabsColumnMenu);
+            _tabsColumnMenu.AssignControlSectionAtEdge(Direction.Right, _craftingPageTool);
+
 
             _recipeBox = new RecipeBox(this, this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
             _recipeBox.LoadContent();
