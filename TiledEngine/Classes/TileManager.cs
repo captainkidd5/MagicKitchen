@@ -173,21 +173,23 @@ namespace TiledEngine.Classes
                     for (int y = StartY; y < EndY; y++)
                     {
                         Tiles[z][x, y].Update(gameTime, PathGrid);
+
                     }
                 }
                 //Mouse over tile is the highest layered, non empty tile
                 if (!Tiles[z][MouseX, MouseY].Empty)
                     MouseOverTile = Tiles[z][MouseX, MouseY];
             }
-            CheckMouseTileInteractions();
+            if (MouseOverTile != null)
+                TileSelectorSprite.Update(gameTime, MouseOverTile.GridPosition);
+            CheckMouseTileInteractions(gameTime);
 
 
-            if(MouseOverTile != null)
-             TileSelectorSprite.Update(gameTime, MouseOverTile.GridPosition);
+         
             _tilePlacementManager.Update(gameTime);
         }
 
-        private void CheckMouseTileInteractions()
+        private void CheckMouseTileInteractions(GameTime gameTime)
         {
             if (TileToInteractWith != null)
             {
@@ -196,9 +198,14 @@ namespace TiledEngine.Classes
                     //Do not interact if another non empty tile has a layer greater than the one we
                     //are trying to interact with
                     if(MouseOverTile.Layer <= TileToInteractWith.Layer)
-                     TileToInteractWith.Interact(true, UI.PlayerCurrentSelectedItem);
+                    {
+                        TileToInteractWith.Interact(true, UI.PlayerCurrentSelectedItem);
+                    }
 
                 }
+                TileSelectorSprite.Update(gameTime, TileToInteractWith.GridPosition);
+
+
             }
         }
 
