@@ -45,7 +45,8 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
                     if (tile.TileManager.X_IsValidIndex(i) && tile.TileManager.Y_IsValidIndex(j))
                     {
                        
-
+                        if(i == tile.X && j == tile.Y)
+                            Console.WriteLine("test");
                             Tile neighborTile = tile.TileManager.GetTileFromPoint(new Point(i, j), tile.IndexLayer);
                             int newGid = WangTile(neighborTile);
                             if (newGid != neighborTile.GID)

@@ -203,6 +203,7 @@ namespace TiledEngine.Classes
                     }
 
                 }
+                //moreover, if tile to interact with is real, we want to make sure that tile selector sprite draws here instead
                 TileSelectorSprite.Update(gameTime, TileToInteractWith.GridPosition);
 
 
