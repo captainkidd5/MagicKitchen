@@ -64,7 +64,12 @@ namespace UIEngine.Classes
             //    throw new Exception($"Overwriting existing edge direction");
             TransferSections[direction] = newSection;
         }
-        internal virtual void ReceiveControl(Direction direction)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">Use sender for custom logic in inherited classes</param>
+        /// <param name="direction"></param>
+        internal virtual void ReceiveControl(MenuSection sender, Direction direction)
         {
             HasControl = true;
             //Todo: make this dependant on direction
@@ -100,7 +105,7 @@ namespace UIEngine.Classes
         {
             HasControl = false;
 
-            TransferSections[direction].ReceiveControl(Vector2Helper.GetOppositeDirection(direction));
+            TransferSections[direction].ReceiveControl(this, Vector2Helper.GetOppositeDirection(direction));
         }
         /// <summary>
         /// Selects next selectable based on 2d array

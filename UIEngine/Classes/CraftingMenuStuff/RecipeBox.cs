@@ -50,9 +50,10 @@ namespace UIEngine.Classes.CraftingMenuStuff
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             _craftingMenu = craftingMenu;
+            HasControl = false;
         }
 
-        internal override void ReceiveControl(Direction direction)
+        internal override void ReceiveControl(MenuSection sender, Direction direction)
         {
             HasControl = true;
             DoSelection(new Point(0, Selectables.GetLength(1) - 1));
@@ -152,7 +153,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
             base.Update(gameTime);
             if (IsActive)
             {
-                
+   
                 if (HasControl && Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
                 {
                     GiveSectionControl(Direction.Up);

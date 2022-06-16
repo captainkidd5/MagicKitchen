@@ -122,7 +122,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public void GiveControlToRecipeBox()
         {
             HasControl = false;
-            _recipeBox.ReceiveControl(Direction.Up);
+            _recipeBox.ReceiveControl(this, Direction.Up);
         }
         public void LoadNewRecipe(ItemData itemData)
         {
@@ -143,14 +143,14 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         protected override void GiveSectionControl(Direction direction)
         {
-            _craftingPageTool.HasControl = false;
+            _currentPage.HasControl = false;
             base.GiveSectionControl(direction);
         }
 
-        internal override void ReceiveControl(Direction direction)
+        internal override void ReceiveControl(MenuSection sender, Direction direction)
         {
-            _craftingPageTool.ReceiveControl(direction);
-            base.ReceiveControl(direction);
+            _currentPage.ReceiveControl(sender,direction);
+            base.ReceiveControl(sender,direction);
         }
         public override void MovePosition(Vector2 newPos)
         {

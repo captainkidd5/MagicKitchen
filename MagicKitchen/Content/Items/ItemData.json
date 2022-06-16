@@ -327,7 +327,19 @@
                     "Description" : "Craft more items!",
                     "MaxStackSize": 1,
                     "Price": 1,
-                     "PlacedItemGID" : 1215
+                     "PlacedItemGID" : 1215,
+                     "RecipeInfo": 
+                     {
+                     "CraftAction": "Craft",
+                     "CraftingCategory": "Placeable",
+                     "CookTime": 1,
+                     "Ingredients":[
+                         {
+                             "Name":"Iron_Ore",
+                             "Count":1
+                         }
+                     ]
+                 }
                     
                     },
                 {
@@ -459,17 +471,19 @@
             "Description" : "Stores Items",
             "MaxStackSize": 1,
             "Price": 1,
-            "PlacedItemGID" : 859,
+            "PlacedItemGID" : 859, 
+            "RecipeInfo": 
+            {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Placeable",
+            "CookTime": 1,
             "Ingredients":[
                 {
                     "Name":"Iron_Ore",
-                    "Count":3
-                },
-                {
-                    "Name":"Stone",
-                    "Count":2
+                    "Count":1
                 }
             ]
+        }
             
             }
 

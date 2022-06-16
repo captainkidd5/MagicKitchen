@@ -66,9 +66,9 @@ namespace UIEngine.Classes.CraftingMenuStuff
             TotalBounds = _tabsStackPanel.TotalBounds;
             //base.LoadContent();
         }
-        internal override void ReceiveControl(Enums.Direction direction)
+        internal override void ReceiveControl(MenuSection sender, Enums.Direction direction)
         {
-            base.ReceiveControl(direction);
+            base.ReceiveControl(sender,direction);
 
 
             DoSelection(CoordinatesOf(_tabCategories[_craftingMenu.CurrentCategorySelected]).Value);

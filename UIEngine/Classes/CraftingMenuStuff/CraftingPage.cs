@@ -104,11 +104,15 @@ namespace UIEngine.Classes.CraftingMenuStuff
         }
 
         
-        internal override void ReceiveControl(Direction direction)
+        internal override void ReceiveControl(MenuSection sender, Direction direction)
         {
-            base.ReceiveControl(direction);
+            base.ReceiveControl(sender, direction);
 
-
+            if (sender.GetType() == typeof(TabsColumnMenu))
+            {
+                DoSelection(new Point(0, 0));
+                return;
+            }
             if (_lastSelectedPoint != null)
                 DoSelection(_lastSelectedPoint.Value);
         }

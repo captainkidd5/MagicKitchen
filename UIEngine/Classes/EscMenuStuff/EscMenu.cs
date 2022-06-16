@@ -165,6 +165,7 @@ namespace UIEngine.Classes.EscMenuStuff
             AddSectionToGrid(CloseButton, 0, 2);
 
             SwapActivePage(_escPrimary);
+            DoSelection(CoordinatesOf(_tabPairs[_escPrimary]).Value);
             base.LoadContent();
 
         }
@@ -211,7 +212,7 @@ namespace UIEngine.Classes.EscMenuStuff
 
         }
 
-        internal override void ReceiveControl(Direction direction)
+        internal override void ReceiveControl(MenuSection sender, Direction direction)
         {
             HasControl = true;
             CurrentSelectedPoint = _tabSelectedPoint;
