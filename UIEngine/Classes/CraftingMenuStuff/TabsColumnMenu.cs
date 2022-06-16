@@ -21,12 +21,15 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         private CraftingTab _tabPlaceable;
 
-        public TabsColumnMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
+        Dictionary<CraftingCategory, CraftingTab> _tabCategories;
+        private readonly CraftingMenu _craftingMenu;
+
+        public TabsColumnMenu(CraftingMenu craftingMenu, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             Selectables = new InterfaceSection[2, 1];
             DoSelection(new Point(0, 0));
-
+            _craftingMenu = craftingMenu;
         }
         public override void MovePosition(Vector2 newPos)
         {
@@ -41,14 +44,16 @@ namespace UIEngine.Classes.CraftingMenuStuff
             StackRow stackRow = new StackRow(tab.Width);
             stackRow.AddItem(tab, StackOrientation.Left);
             _tabsStackPanel.Add(stackRow);
+            _tabCategories.Add(tab.CraftingCategory, tab);
+            
         }
         public override void LoadContent()
         {
             ChildSections.Clear();
             ClearGrid();
 
-
-            _tabsStackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X - 32, Position.Y), GetLayeringDepth(UILayeringDepths.Low));
+            _tabCategories = new Dictionary<CraftingCategory, CraftingTab>();
+            _tabsStackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X - 32, Position.Y + 32), GetLayeringDepth(UILayeringDepths.Low));
 
             _tabTool = new CraftingTab(parentSection as CraftingMenu,CraftingCategory.Tool, _tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             AddTab(_tabTool, new Point(0, 0));
@@ -64,6 +69,9 @@ namespace UIEngine.Classes.CraftingMenuStuff
         internal override void ReceiveControl(Enums.Direction direction)
         {
             base.ReceiveControl(direction);
+
+
+            DoSelection(CoordinatesOf(_tabCategories[_craftingMenu.CurrentCategorySelected]).Value);
         }
         public override void Update(GameTime gameTime)
         {

@@ -14,18 +14,21 @@ namespace UIEngine.Classes.CraftingMenuStuff
 {
     internal class CraftingTab : InterfaceSection
     {
-        private Rectangle _backgroundSourceRectangle = new Rectangle(608, 240, 16, 16);
+        private Rectangle _unselectedBackgroundSourceRectangle = new Rectangle(608, 240, 16, 16);
+
+        private Vector2 _selectedOffSet = new Vector2( 16,0);
+
         private Rectangle _foreGroundSpriteSourceRectangle;
         private Button _button;
         private Sprite _foregroundSprite;
         private readonly CraftingMenu _craftingMenu;
-        private readonly CraftingCategory _craftingCategory;
+        public CraftingCategory CraftingCategory { get; private set; }
 
         //private Vector2 _scale = new Vector2(1f, 1f);
         public CraftingTab(CraftingMenu craftingMenu, CraftingCategory craftingCategory, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position,
             float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            _craftingCategory = craftingCategory;
+            CraftingCategory = craftingCategory;
 
             _foreGroundSpriteSourceRectangle = GetSpriteFromCraftingCategory();
             _craftingMenu = craftingMenu;
@@ -33,7 +36,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         private Rectangle GetSpriteFromCraftingCategory( )
         {
-            switch (_craftingCategory)
+            switch (CraftingCategory)
             {
                 case CraftingCategory.None:
                     throw new Exception($"Must provide crafting category");
@@ -58,15 +61,22 @@ namespace UIEngine.Classes.CraftingMenuStuff
             _foregroundSprite = SpriteFactory.CreateUISprite(Position, _foreGroundSpriteSourceRectangle,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium));
             _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                _backgroundSourceRectangle, new Action(() => { _craftingMenu.SwitchCraftingPage(_craftingCategory); }), _foregroundSprite);
+                _unselectedBackgroundSourceRectangle, new Action(() => { _craftingMenu.SwitchCraftingPage(CraftingCategory); }), _foregroundSprite);
             TotalBounds = _button.TotalBounds;
             base.LoadContent();
         }
         public override void Update(GameTime gameTime)
         {
+           
             _button.IsSelected = IsSelected;
-            if (IsSelected)
-                Console.WriteLine("test");
+            if(_craftingMenu.CurrentCategorySelected == CraftingCategory)
+                _button.MovePosition(Position + _selectedOffSet);
+            else 
+                _button.MovePosition(Position);
+
+
+
+
             base.Update(gameTime);
            
         }

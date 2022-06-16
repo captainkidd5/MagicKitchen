@@ -38,6 +38,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         private RecipeBox _recipeBox;
 
+        public CraftingCategory CurrentCategorySelected => _currentPage.CraftingCategory;
 
         
         public CraftingMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
@@ -91,7 +92,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
             TotalBounds = parentSection.TotalBounds;
             Position = new Vector2(TotalBounds.X, TotalBounds.Y);
 
-            _tabsColumnMenu = new TabsColumnMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
+            _tabsColumnMenu = new TabsColumnMenu(this, this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
             _tabsColumnMenu.LoadContent();
             _tabsColumnMenu.AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
 

@@ -38,6 +38,26 @@ namespace UIEngine.Classes
             TransferSections = new Dictionary<Direction, MenuSection>();
         }
 
+        /// <summary>
+        /// Gets point where selected interface section is stored
+        /// </summary>
+        /// <returns></returns>
+        protected Point? CoordinatesOf(InterfaceSection value)
+        {
+            int w = Selectables.GetLength(0); // width
+            int h = Selectables.GetLength(1); // height
+
+            for (int x = 0; x < w; ++x)
+            {
+                for (int y = 0; y < h; ++y)
+                {
+                    if (Selectables[x, y].Equals(value))
+                        return new Point(x, y);
+                }
+            }
+
+            return null;
+        }
         public void AssignControlSectionAtEdge(Direction direction, MenuSection newSection)
         {
             //if (TransferSections.ContainsKey(direction))
@@ -79,7 +99,7 @@ namespace UIEngine.Classes
         protected virtual void GiveSectionControl(Direction direction)
         {
             HasControl = false;
-        
+
             TransferSections[direction].ReceiveControl(Vector2Helper.GetOppositeDirection(direction));
         }
         /// <summary>
@@ -97,12 +117,12 @@ namespace UIEngine.Classes
                         newIndex = new Point(0, newIndex.Y);
                     if (newIndex.X < 0)
                     {
-                        if(TransferSections.ContainsKey(direction))
+                        if (TransferSections.ContainsKey(direction))
                         {
                             GiveSectionControl(direction);
                             return;
                         }
-                         newIndex = new Point(Selectables.GetLength(0) - 1, newIndex.Y);
+                        newIndex = new Point(Selectables.GetLength(0) - 1, newIndex.Y);
 
                     }
                     break;
@@ -120,12 +140,12 @@ namespace UIEngine.Classes
                         newIndex = new Point(0, newIndex.Y);
 
                     }
-                   
+
                     break;
                 case Direction.Left:
                     newIndex = new Point(newIndex.X, newIndex.Y - 1);
 
-                    if(newIndex.Y < 0)
+                    if (newIndex.Y < 0)
                     {
                         if (TransferSections.ContainsKey(direction))
                         {
@@ -137,7 +157,7 @@ namespace UIEngine.Classes
                     break;
                 case Direction.Right:
                     newIndex = new Point(newIndex.X, newIndex.Y + 1);
-                    if(newIndex.Y >= Selectables.GetLength(1))
+                    if (newIndex.Y >= Selectables.GetLength(1))
                     {
                         if (TransferSections.ContainsKey(direction))
                         {
@@ -207,13 +227,13 @@ namespace UIEngine.Classes
         {
             if (HasControl && _hadControlLastFrame)
                 CheckButtonTaps();
-            else if(!HasControl)
+            else if (!HasControl)
                 CurrentSelected = null;
 
             if (CurrentSelected != null)
                 CurrentSelected.IsSelected = true;
             base.Update(gameTime);
-           
+
             _hadControlLastFrame = HasControl;
         }
     }

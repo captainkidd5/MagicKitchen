@@ -78,6 +78,8 @@ namespace UIEngine.Classes
         private bool _wasSelectedLastFrame;
 
         public bool WasJustSelected => IsSelected && !_wasSelectedLastFrame;
+        public bool WasJustUnSelected => !IsSelected && _wasSelectedLastFrame;
+
 
         //protected Rectangle BackgroundSourceRectangle { get; set; }
 
