@@ -337,17 +337,19 @@
                     "MaxStackSize": 1,
                     "Price": 1,
                      "PlacedItemGID" : 215,
-                     "Ingredients":[
-                        {
-                            "Name":"Iron_Ore",
-                            "Count":3
-                        },
-                        {
-                            "Name":"Stone",
-                            "Count":2
-                        }
-                    ]
-                     
+                    
+    "RecipeInfo": 
+    {
+    "CraftAction": "Craft",
+    "CraftingCategory": "Placeable",
+    "CookTime": 1,
+    "Ingredients":[
+        {
+            "Name":"Iron_Ore",
+            "Count":1
+        }
+    ]
+}
                     
                     },
         {

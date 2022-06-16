@@ -27,10 +27,14 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
 
         private TabsColumnMenu _tabsColumnMenu;
+
+
+        private CraftingPage _currentPage;
         private CraftingPage _craftingPageTool;
 
-        private CraftingPage _craftingPageMachine;
+        private CraftingPage _craftingPagePlaceable;
 
+        private Dictionary<CraftingCategory, CraftingPage> _pageDictionary;
 
         private RecipeBox _recipeBox;
 
@@ -53,9 +57,32 @@ namespace UIEngine.Classes.CraftingMenuStuff
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if (IsActive)
+            {
+                _currentPage.Draw(spriteBatch);
+            }
             base.Draw(spriteBatch);
         }
 
+        private void CreateCraftingPages()
+        {
+            _pageDictionary = new Dictionary<CraftingCategory, CraftingPage>();
+
+            _craftingPageTool = new CraftingPage(this, CraftingCategory.Tool, this, graphics, content, Position,
+                GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
+            _craftingPageTool.LoadContent();
+            ChildSections.Remove(_craftingPageTool);
+            _pageDictionary.Add(CraftingCategory.Tool, _craftingPageTool);
+
+            _craftingPagePlaceable = new CraftingPage(this, CraftingCategory.Placeable, this, graphics, content, Position,
+                GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
+            _craftingPagePlaceable.LoadContent();
+            ChildSections.Remove(_craftingPagePlaceable);
+
+
+            _pageDictionary.Add(CraftingCategory.Placeable, _craftingPagePlaceable);
+
+        }
         public override void LoadContent()
         {
             //   base.LoadContent();
@@ -68,14 +95,9 @@ namespace UIEngine.Classes.CraftingMenuStuff
             _tabsColumnMenu.LoadContent();
             _tabsColumnMenu.AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
 
+            CreateCraftingPages();
 
-            _craftingPageTool = new CraftingPage(this, CraftingCategory.Tool, this, graphics, content, Position,
-                GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
-            _craftingPageTool.LoadContent();
-
-            _craftingPageTool.AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
-            _craftingPageTool.AssignControlSectionAtEdge(Direction.Left, _tabsColumnMenu);
-            _tabsColumnMenu.AssignControlSectionAtEdge(Direction.Right, _craftingPageTool);
+            SwitchCraftingPage(CraftingCategory.Tool);
 
 
             _recipeBox = new RecipeBox(this, this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
@@ -84,6 +106,15 @@ namespace UIEngine.Classes.CraftingMenuStuff
             if (_lastLoadedItemData != null)
                 LoadNewRecipe(_lastLoadedItemData);
 
+        }
+        public void SwitchCraftingPage(CraftingCategory craftingCategory)
+        {
+            _currentPage = _pageDictionary[craftingCategory];
+
+            _currentPage.LoadContent();
+            _currentPage.AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
+            _currentPage.AssignControlSectionAtEdge(Direction.Left, _tabsColumnMenu);
+            _tabsColumnMenu.AssignControlSectionAtEdge(Direction.Right, _currentPage);
         }
         private ItemData _lastLoadedItemData;
 
@@ -129,11 +160,16 @@ namespace UIEngine.Classes.CraftingMenuStuff
         {
            
             base.Update(gameTime);
+            if (IsActive)
+            {
+                _currentPage.Update(gameTime);
+            }
             if (ActivelyCrafting)
             {
                 Refresh();
                 ActivelyCrafting = false;
             }
         }
+        
     }
 }

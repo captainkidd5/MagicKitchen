@@ -62,7 +62,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         {
 
             _stackPanel = new StackPanel(this, graphics, content, Position + _buttonOffSetStart, GetLayeringDepth(UILayeringDepths.Medium));
-            List<ItemData> dataList = ItemFactory.ItemDataWithRecipe();
+            List<ItemData> dataList = ItemFactory.ItemDataByCraftingCategory(CraftingCategory);
             Selectables = new InterfaceSection[(int)Math.Ceiling((float)dataList.Count / (float)s_columns), s_columns];
             CurrentSelectedPoint = new Point(0, 0);
             int index = 0;

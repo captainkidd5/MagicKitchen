@@ -18,17 +18,22 @@ namespace UIEngine.Classes.CraftingMenuStuff
         private Rectangle _foreGroundSpriteSourceRectangle;
         private Button _button;
         private Sprite _foregroundSprite;
+        private readonly CraftingMenu _craftingMenu;
+        private readonly CraftingCategory _craftingCategory;
 
         //private Vector2 _scale = new Vector2(1f, 1f);
-        public CraftingTab(CraftingCategory craftingCategory, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position,
+        public CraftingTab(CraftingMenu craftingMenu, CraftingCategory craftingCategory, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position,
             float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            _foreGroundSpriteSourceRectangle = GetSpriteFromCraftingCategory(craftingCategory);
+            _craftingCategory = craftingCategory;
+
+            _foreGroundSpriteSourceRectangle = GetSpriteFromCraftingCategory();
+            _craftingMenu = craftingMenu;
         }
 
-        private Rectangle GetSpriteFromCraftingCategory(CraftingCategory category)
+        private Rectangle GetSpriteFromCraftingCategory( )
         {
-            switch (category)
+            switch (_craftingCategory)
             {
                 case CraftingCategory.None:
                     throw new Exception($"Must provide crafting category");
@@ -53,7 +58,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
             _foregroundSprite = SpriteFactory.CreateUISprite(Position, _foreGroundSpriteSourceRectangle,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium));
             _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                _backgroundSourceRectangle, null, _foregroundSprite);
+                _backgroundSourceRectangle, new Action(() => { _craftingMenu.SwitchCraftingPage(_craftingCategory); }), _foregroundSprite);
             TotalBounds = _button.TotalBounds;
             base.LoadContent();
         }
