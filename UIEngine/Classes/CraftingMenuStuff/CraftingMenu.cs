@@ -52,8 +52,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
             ClearGrid();
             ChildSections.Clear();
             TotalBounds = parentSection.TotalBounds;
-            int offSet = (parentSection as EscMenu).TitleOffSet;
-            Position = new Vector2(TotalBounds.X, TotalBounds.Y + offSet);
+            Position = new Vector2(TotalBounds.X, TotalBounds.Y);
 
 
             _craftingPage = new CraftingPage(this, CraftingCategory.Tool, this, graphics, content, Position,

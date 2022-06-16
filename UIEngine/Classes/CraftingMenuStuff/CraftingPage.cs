@@ -20,7 +20,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public CraftingCategory CraftingCategory { get; private set; }
 
 
-        private readonly int s_columns = 5;
+        private readonly int s_columns = 9;
         private Rectangle _backGroundSourceRectangle = new Rectangle(624, 256, 240, 224);
 
 
@@ -62,7 +62,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         {
 
             _stackPanel = new StackPanel(this, graphics, content, Position + _buttonOffSetStart, GetLayeringDepth(UILayeringDepths.Medium));
-            List<ItemData> dataList = ItemFactory.ItemDataByCraftingCategory(CraftingCategory);
+            List<ItemData> dataList = ItemFactory.ItemDataWithRecipe();
             Selectables = new InterfaceSection[(int)Math.Ceiling((float)dataList.Count / (float)s_columns), s_columns];
             CurrentSelectedPoint = new Point(0, 0);
             int index = 0;

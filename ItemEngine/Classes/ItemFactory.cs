@@ -35,6 +35,11 @@ namespace ItemEngine.Classes
         {
             return ItemData.Where(x => x.RecipeInfo != null && x.RecipeInfo.CraftingCategory == craftingCategory).ToList();
         }
+
+        public static List<ItemData> ItemDataWithRecipe()
+        {
+            return ItemData.Where(x => x.RecipeInfo != null).ToList();
+        }
         public static void LoadContent(ContentManager content)
         {
 

@@ -32,7 +32,7 @@ namespace UIEngine.Classes.EscMenuStuff
 
         private Sprite _backGroundSprite;
 
-        public Rectangle BackGroundSource = new Rectangle(624, 224, 240, 256);
+        public Rectangle BackGroundSource = new Rectangle(624, 224, 240, 224);
 
         private Action _returnToMainMenuAction;
         private Vector2 _scale = new Vector2(2f, 2f);
@@ -56,7 +56,6 @@ namespace UIEngine.Classes.EscMenuStuff
 
         Dictionary<MenuSection, Button> _tabPairs;
 
-        public int TitleOffSet { get; set; }
 
         private Vector2 _tabForgroundOffset = new Vector2(4, 4);
 
@@ -139,10 +138,9 @@ namespace UIEngine.Classes.EscMenuStuff
         {
             TransferSections.Clear();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, (int)(BackGroundSource.Width * _scale.X), (int)(BackGroundSource.Height * _scale.Y));
-            TitleOffSet = (int)(32 * _scale.Y);
             _returnToMainMenuAction = new Action(ReturnToMainMenu);
             Vector2 escMenuPos = RectangleHelper.CenterRectangleOnScreen(TotalBounds);
-            escMenuPos = new Vector2(escMenuPos.X, escMenuPos.Y);
+            escMenuPos = new Vector2(escMenuPos.X, escMenuPos.Y - 32);
 
             TotalBounds = new Rectangle((int)escMenuPos.X, (int)escMenuPos.Y, TotalBounds.Width, TotalBounds.Height);
             _backGroundSprite = SpriteFactory.CreateUISprite(escMenuPos, BackGroundSource,
