@@ -41,7 +41,7 @@ namespace UIEngine.Classes.EscMenuStuff
             ClearGrid();
             ChildSections.Clear();
             TotalBounds = parentSection.TotalBounds;
-            Position = new Vector2(TotalBounds.X, TotalBounds.Y);
+            Position = new Vector2(TotalBounds.X, TotalBounds.Y + 32);
 
 
             _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));

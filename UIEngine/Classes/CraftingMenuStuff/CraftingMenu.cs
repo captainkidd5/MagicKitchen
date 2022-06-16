@@ -22,10 +22,14 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public static Rectangle _noCraftBackGroundSourceRectangle = new Rectangle(608, 144, 32, 32);
         //green one
         public static Rectangle _yesCraftBackGroundSourceRectangle = new Rectangle(640, 112, 32, 32);
-        private CraftingPage _craftingPage;
+        private CraftingPage _craftingPageTool;
+        private CraftingPage _craftingPageMachine;
+
 
         private RecipeBox _recipeBox;
 
+
+        
         public CraftingMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -55,11 +59,11 @@ namespace UIEngine.Classes.CraftingMenuStuff
             Position = new Vector2(TotalBounds.X, TotalBounds.Y);
 
 
-            _craftingPage = new CraftingPage(this, CraftingCategory.Tool, this, graphics, content, Position,
+            _craftingPageTool = new CraftingPage(this, CraftingCategory.Tool, this, graphics, content, Position,
                 GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
-            _craftingPage.LoadContent();
+            _craftingPageTool.LoadContent();
 
-            _craftingPage.AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
+            _craftingPageTool.AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
 
             _recipeBox = new RecipeBox(this, this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
             _recipeBox.LoadContent();
@@ -87,20 +91,20 @@ namespace UIEngine.Classes.CraftingMenuStuff
         }
         private void Refresh()
         {
-            _craftingPage.LoadContent();
+            _craftingPageTool.LoadContent();
             _recipeBox.LoadNewItemRecipe(_lastLoadedItemData);
 
         }
 
         protected override void GiveSectionControl(Direction direction)
         {
-            _craftingPage.HasControl = false;
+            _craftingPageTool.HasControl = false;
             base.GiveSectionControl(direction);
         }
 
         internal override void ReceiveControl(Direction direction)
         {
-            _craftingPage.ReceiveControl(direction);
+            _craftingPageTool.ReceiveControl(direction);
             base.ReceiveControl(direction);
         }
         public override void MovePosition(Vector2 newPos)

@@ -57,7 +57,7 @@ namespace UIEngine.Classes.EscMenuStuff
         Dictionary<MenuSection, Button> _tabPairs;
 
 
-        private Vector2 _tabForgroundOffset = new Vector2(4, 4);
+        private Vector2 _tabForgroundOffset = new Vector2(8, 8);
 
 
         private Point _tabSelectedPoint;
@@ -94,7 +94,7 @@ namespace UIEngine.Classes.EscMenuStuff
 
             Sprite cogSprite = SpriteFactory.CreateUISprite(
                 Position, new Rectangle(64, 80, 32, 32), UI.ButtonTexture,
-                GetLayeringDepth(UILayeringDepths.High), scale: _scale);
+                GetLayeringDepth(UILayeringDepths.High), scale: new Vector2(1.5f,1.5f));
             _escPrimaryTabButton = new Button(_tabsStackPanel, graphics, content, Position,
                 GetLayeringDepth(UILayeringDepths.Medium), _unclickedTabRectangle,
                 new Action(() => { SwapActivePage(_escPrimary); }), hoverTransparency: true,
@@ -107,7 +107,7 @@ namespace UIEngine.Classes.EscMenuStuff
 
             Sprite craftingSprite = SpriteFactory.CreateUISprite(
                Position, new Rectangle(96, 80, 32, 32), UI.ButtonTexture,
-               GetLayeringDepth(UILayeringDepths.High), scale: _scale);
+               GetLayeringDepth(UILayeringDepths.High),scale: new Vector2(1.5f, 1.5f));
 
             _craftingTabButton = new Button(_tabsStackPanel, graphics, content, Position,
                 GetLayeringDepth(UILayeringDepths.Medium), _unclickedTabRectangle,
