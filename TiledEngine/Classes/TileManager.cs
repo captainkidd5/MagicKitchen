@@ -435,6 +435,17 @@ namespace TiledEngine.Classes
 
         }
 
+
+        public bool IsWatertile(Vector2 position)
+        {
+            Tile tile = GetTileFromWorldPosition(position, Layers.background);
+
+            string tilingSetValue = tile.GetProperty("tilingSet");
+            if (tilingSetValue == "water")
+                return true;
+
+            return false;
+        }
         public void CleanUp()
         {
             for (int z = 0; z < Tiles.Count; z++)

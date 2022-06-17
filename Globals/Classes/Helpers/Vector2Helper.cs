@@ -131,10 +131,13 @@ namespace Globals.Classes.Helpers
                     throw new Exception(directionFacing.ToString() + " is invalid");
             }
         }
-
-        public static Vector2 GetRandomDirection()
+        public static Direction GetRandomDirection()
         {
-            Direction directionFacing = (Direction)Settings.Random.Next(1, 5);
+            return (Direction)Settings.Random.Next(1, 5);
+        }
+        public static Vector2 GetRandomDirectionAsVector2()
+        {
+            Direction directionFacing = GetRandomDirection();
             switch (directionFacing)
             {
                 case Direction.Down:

@@ -33,7 +33,6 @@ namespace ItemEngine.Classes
                     _items.RemoveAt(i);
                 }
             }
-            _floatingItemGenerator.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)

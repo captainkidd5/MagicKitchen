@@ -41,6 +41,16 @@ namespace Globals.Classes
 
         public static Camera2D Camera;
         public static GameWindow GameWindow;
+        public static Rectangle GetVisibleRectangle()
+        {
+        
+            Rectangle rect = new Rectangle((int)Camera.X - (int)(ScreenWidth / 2 / Camera.Zoom), (int)Camera.Y  - (int)(ScreenHeight/2 / Camera.Zoom), ScreenWidth, ScreenHeight);
+            return rect;
+        }
+        public static bool IsVisibleOnScreen(Vector2 position, int width = 16, int height = 16)
+        {
+            return ScreenRectangle.Intersects(new Rectangle((int)position.X, (int)position.Y, width, height));
+        }  
 
         /// <summary>
         /// 1x1 pixel texture for debugging things

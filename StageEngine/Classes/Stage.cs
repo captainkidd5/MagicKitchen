@@ -84,7 +84,16 @@ namespace StageEngine.Classes
             TileManager.Update(gameTime);
 
             ItemManager.Update(gameTime);
-            _flotsamGenerator.Update(gameTime);
+
+            Vector2? requestedSpawnLocation = _flotsamGenerator.Update(gameTime);
+            if(requestedSpawnLocation != null)
+            {
+                if (TileManager.IsWatertile(requestedSpawnLocation.Value))
+                {
+                    _flotsamGenerator.AddFlotsam(requestedSpawnLocation.Value);
+                }
+            }
+
             NPCContainer.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, PersistentManager characterContainer)

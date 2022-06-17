@@ -17,7 +17,7 @@ namespace ItemEngine.Classes.ItemStateStuff
     internal class FlotsamBehaviour : ItemBehaviour
     {
         private static readonly float s_sinkTime = 2f;
-        private static readonly float s_maxDistanceFromPlayer = 500;
+        private static readonly float s_maxDistanceFromPlayer = 1400;
 
         private bool _isSinking = false;
         private Direction _floatDirection;

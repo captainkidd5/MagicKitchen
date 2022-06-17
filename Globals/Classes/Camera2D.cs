@@ -18,7 +18,7 @@ namespace Globals.Classes
 
         private Rectangle _viewPortRectangle;
 
-
+     
         public float Zoom { get { return zoom; } set { zoom = value; if (zoom < 0.1f) zoom = 0.1f; } }
 
         public float X { get { return position.X; } }
