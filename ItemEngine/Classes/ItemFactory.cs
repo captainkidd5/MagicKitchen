@@ -1,6 +1,7 @@
 ﻿using DataModels;
 using DataModels.ItemStuff;
 using Globals.Classes;
+using Globals.Classes.Chance;
 using ItemEngine.Classes.CraftingStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -21,6 +22,8 @@ namespace ItemEngine.Classes
     public static class ItemFactory
     {
         public static List<ItemData> ItemData { get; private set; }
+        public static List<FlotsamData> FlotsamData { get; private set; }
+        public static Dictionary<string, FlotsamData> FlotsamDictionary { get; private set; }
 
         public static Dictionary<string, ItemData> ItemDictionary { get; private set; }
         public static Dictionary<int, ItemData> IntItemDictionary { get; private set; }
@@ -54,7 +57,8 @@ namespace ItemEngine.Classes
             var files = Directory.GetFiles(basePath);
             string jsonString = string.Empty;
             foreach (var file in files)
-                if (file.EndsWith(".json"))
+            {
+                if (file.EndsWith("ItemData.json"))
                 {
                     jsonString = File.ReadAllText(file);
                     ItemData = JsonSerializer.Deserialize<List<ItemData>>(jsonString, options);
@@ -64,11 +68,24 @@ namespace ItemEngine.Classes
                     IntItemDictionary = ItemData.ToDictionary(x => x.Id);
 
                 }
+                else if (file.EndsWith("FlotsamData.json"))
+                {
+                    jsonString = File.ReadAllText(file);
+                    FlotsamData = JsonSerializer.Deserialize<List<FlotsamData>>(jsonString, options);
+                 
+                    FlotsamDictionary = FlotsamData.ToDictionary(x => x.Name);
+                }
+            }
+                
 
             CraftingGuide = new CraftingGuide();
             CraftingGuide.LoadContent(ItemData);
         }
 
+        public static FlotsamData GetRandomFlotsam()
+        {
+            return (FlotsamData)ChanceHelper.GetWheelSelection(FlotsamData.Cast<IWeightable>().ToList(), Settings.Random);
+        }
         public static ItemData GetItemData(string name)
         {
             string newName = GetTitleCaseName(name);

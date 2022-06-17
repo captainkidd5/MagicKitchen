@@ -82,7 +82,7 @@ namespace EntityEngine.Classes.Flotsam
 
         public void AddFlotsam(Vector2 position, Vector2 jettisonDirection)
         {
-            _itemManager.AddWorldItem(position, "Dirt", 1, WorldItemState.Floating, jettisonDirection);
+            _itemManager.AddWorldItem(position, ItemFactory.GetRandomFlotsam().Name, 1, WorldItemState.Floating, jettisonDirection);
         }
     }
 }

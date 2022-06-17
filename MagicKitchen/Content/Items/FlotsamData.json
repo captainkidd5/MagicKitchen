@@ -1,0 +1,10 @@
+[
+    {
+        "Name":"Dirt",
+        "Weight":80
+    },
+    {
+        "Name":"Iron_Ore",
+        "Weight":20
+    }
+]
