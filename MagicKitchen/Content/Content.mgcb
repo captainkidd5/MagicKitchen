@@ -122,6 +122,18 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Tiles/Rocks/rockSmash1.wav
 
+#begin Audio/SoundEffects/Tools/HookFire.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tools/HookFire.wav
+
+#begin Audio/SoundEffects/Tools/HookMiss.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tools/HookMiss.wav
+
 #begin Audio/SoundEffects/UI/Button1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

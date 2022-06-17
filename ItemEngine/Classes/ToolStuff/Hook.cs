@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Gadgets;
 using PhysicsEngine.Classes.Shapes;
+using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using System;
@@ -21,7 +22,7 @@ namespace ItemEngine.Classes.ToolStuff
         private bool _isReturning;
 
         private float _maximumDistanceFromEntity = 140f;
-        private static readonly Vector2 s_anchorOffSet = new Vector2(4,11);
+        private static readonly Vector2 s_anchorOffSet = new Vector2(4, 11);
         public Hook()
         {
 
@@ -44,16 +45,20 @@ namespace ItemEngine.Classes.ToolStuff
                 Return();
             }
         }
-
+        public override void ActivateTool(Vector2 directionVector, Collidable holder)
+        {
+            base.ActivateTool(directionVector, holder);
+            SoundFactory.PlaySoundEffect("HookFire");
+        }
         protected override void AlterSpriteRotation()
         {
             //base.AlterSpriteRotation();
             if (_isReturning)
             {
 
-            Vector2 directionVector = MainHullBody.Position - Holder.CenteredPosition;
-            directionVector.Normalize();
-            Sprite.Rotation = Vector2Helper.VectorToDegrees(directionVector);
+                Vector2 directionVector = MainHullBody.Position - Holder.CenteredPosition;
+                directionVector.Normalize();
+                Sprite.Rotation = Vector2Helper.VectorToDegrees(directionVector);
                 int anchorX = XOffSet;
                 XOffSet = (int)(Math.Ceiling((float)s_anchorOffSet.X * directionVector.X));
                 XOffSet = XOffSet - (int)((float)anchorX * directionVector.Y);
@@ -66,9 +71,14 @@ namespace ItemEngine.Classes.ToolStuff
         }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Item) || fixtureB.CollisionCategories.HasFlag((Category)PhysCat.SolidHigh))
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Item))
             {
-                Sprite.SetTargetFrame(1, true);
+                Return();
+
+            }
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.SolidHigh))
+            {
+                SoundFactory.PlaySoundEffect("HookMiss");
                 Return();
 
             }
@@ -81,10 +91,12 @@ namespace ItemEngine.Classes.ToolStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            LineUtility.DrawLine(null, spriteBatch, Position , Holder.CenteredPosition, Color.White, Sprite.LayerDepth);
+            LineUtility.DrawLine(null, spriteBatch, Position, Holder.CenteredPosition, Color.White, Sprite.LayerDepth);
         }
         private void Return()
         {
+            Sprite.SetTargetFrame(1, true);
+
             if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
             {
                 AddGadget(new Magnetizer(this, Holder, 2));

@@ -42,6 +42,27 @@
                 </Item>
             </SoundChancers>
         </Item>
+
+         <Item>
+            <Name>HookFire</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>HookFire</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Tools</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
+        <Item>
+            <Name>HookMiss</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>HookMiss</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Tools</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
         <Item>
             <Name>Step</Name>
             <SoundChancers>
