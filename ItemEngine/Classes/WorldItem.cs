@@ -84,7 +84,7 @@ namespace ItemEngine.Classes
                 case WorldItemState.None:
                     break;
                 case WorldItemState.Bouncing:
-                    _itemBehaviour = new BouncingItemBehaviour(this);
+                    _itemBehaviour = new BouncingItemBehaviour(jettisonDirection.Value, this);
                     Sprite.CustomLayer = Sprite.GetYAxisLayerDepth();
 
                     break;

@@ -49,26 +49,7 @@ namespace EntityEngine.Classes.Generators
         public Vector2 GetSpawnLocation(Direction direction)
         {
 
-            Rectangle screenRectangle = Settings.GetVisibleRectangle();
-            switch (direction)
-            {
-                case Direction.None:
-                    throw new Exception($"Must specify direction");
-                case Direction.Up:
-                    return new Vector2(screenRectangle.X + Settings.Random.Next(0, screenRectangle.Width), screenRectangle.Y);
-                case Direction.Down:
-                    return new Vector2(screenRectangle.X + Settings.Random.Next(0, screenRectangle.Width), screenRectangle.Y + screenRectangle.Height);
-
-                case Direction.Left:
-                    return new Vector2(screenRectangle.X, screenRectangle.Y + Settings.Random.Next(0, screenRectangle.Height));
-
-                case Direction.Right:
-                    Vector2 spawnLocation = new Vector2(screenRectangle.X + screenRectangle.Width, screenRectangle.Y + Settings.Random.Next(0, screenRectangle.Height));
-                    return spawnLocation;
-
-
-            }
-            throw new Exception($"Must specify direction");
+            return GetRandomPositionAtEdgeOfScreen(direction);
 
         }
 

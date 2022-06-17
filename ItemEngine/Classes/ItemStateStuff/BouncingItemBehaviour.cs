@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Gadgets;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
+using static DataModels.Enums;
 
 namespace ItemEngine.Classes.ItemStateStuff
 {
@@ -36,7 +38,9 @@ namespace ItemEngine.Classes.ItemStateStuff
         // the sprite in an arc it looks like it's flying even though everything is still
         // entirely flat.
         float height;
-        public BouncingItemBehaviour(WorldItem worldItem) : base(worldItem)
+
+        float heightCutOff;
+        public BouncingItemBehaviour(Vector2 tossDirection, WorldItem worldItem) : base(worldItem)
         {
             SimpleTimer = new Globals.Classes.SimpleTimer(_timeUntilResting);
 
@@ -47,6 +51,8 @@ namespace ItemEngine.Classes.ItemStateStuff
             velocity = initialVelocityY;
             angularVelocity = WorldItem.MainHullBody.Body.AngularVelocity;
             WorldItem.MainHullBody.Body.AngularVelocity = 0f;
+
+            WorldItem.MainHullBody.Body.ApplyLinearImpulse(tossDirection * 1000);
         }
 
         public override Vector2 Update(GameTime gameTime)
@@ -57,7 +63,6 @@ namespace ItemEngine.Classes.ItemStateStuff
             velocity += gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
             height -= velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-           // WorldItem.Sprite.ForceSetPosition(new Vector2(0, WorldItem.MainHullBody.Body.Position.Y + height));
             // If the height is 0 we've landed and we stop moving.
             // The rigidbody2D's velocity is what moves us in a straight line across the ground,
             // we're only faking the vertical part.

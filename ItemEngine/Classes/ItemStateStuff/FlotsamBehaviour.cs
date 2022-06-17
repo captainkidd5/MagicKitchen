@@ -32,7 +32,7 @@ namespace ItemEngine.Classes.ItemStateStuff
         {
             Vector2 directionVector =Shared.PlayerPosition - spawnLocation;
             directionVector.Normalize();
-            directionVector = directionVector * 10;
+            directionVector = directionVector * 6;
             directionVector = OffSetFlotsamTrajectory(directionVector);
             return directionVector;
         }
