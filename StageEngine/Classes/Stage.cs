@@ -21,6 +21,7 @@ using Globals.Classes.Time;
 using static Globals.Classes.Settings;
 using IOEngine.Classes;
 using EntityEngine.Classes.NPCStuff;
+using EntityEngine.Classes.Flotsam;
 
 namespace StageEngine.Classes
 {
@@ -71,7 +72,7 @@ namespace StageEngine.Classes
             ItemManager = new ItemManager(Name);
 
             TileManager = new TileManager(graphics, content, camera, penumbra, _stageData.MapType, ItemManager);
-            _flotsamGenerator = new FlotsamGenerator(ItemManager);
+            _flotsamGenerator = new FlotsamGenerator(ItemManager, TileManager);
         }
 
 
@@ -84,15 +85,8 @@ namespace StageEngine.Classes
             TileManager.Update(gameTime);
 
             ItemManager.Update(gameTime);
+            _flotsamGenerator.Update(gameTime);
 
-            Vector2? requestedSpawnLocation = _flotsamGenerator.Update(gameTime);
-            if(requestedSpawnLocation != null)
-            {
-                if (TileManager.IsWatertile(requestedSpawnLocation.Value))
-                {
-                    _flotsamGenerator.AddFlotsam(requestedSpawnLocation.Value);
-                }
-            }
 
             NPCContainer.Update(gameTime);
         }

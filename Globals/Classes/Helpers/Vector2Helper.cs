@@ -123,9 +123,9 @@ namespace Globals.Classes.Helpers
                 case Direction.Up:
                     return new Vector2(0, -directionMagnitude);
                 case Direction.Left:
-                    return new Vector2(-directionMagnitude, -10);
+                    return new Vector2(-directionMagnitude, -directionMagnitude);
                 case Direction.Right:
-                    return new Vector2(directionMagnitude, -10);
+                    return new Vector2(directionMagnitude, -directionMagnitude);
 
                 default:
                     throw new Exception(directionFacing.ToString() + " is invalid");

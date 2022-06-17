@@ -20,17 +20,21 @@ namespace ItemEngine.Classes.ItemStateStuff
         private static readonly float s_maxDistanceFromPlayer = 1400;
 
         private bool _isSinking = false;
-        private Direction _floatDirection;
         public FlotsamBehaviour(WorldItem worldItem) : base(worldItem)
         {
             SimpleTimer = new SimpleTimer(s_sinkTime);
-            _floatDirection = Direction.Down;
-            Vector2 velocity = Vector2Helper.GetTossDirectionFromDirectionFacing(_floatDirection);
+            Vector2 velocity = GetJettisonDirection(worldItem.Position);
 
             WorldItem.MainHullBody.Body.LinearVelocity = velocity;
 
         }
-
+        private Vector2 GetJettisonDirection(Vector2 spawnLocation)
+        {
+            Vector2 directionVector =Shared.PlayerPosition - spawnLocation;
+            directionVector = directionVector / 80;
+           // directionVector.Normalize();
+            return directionVector;
+        }
         public override bool OnCollides(List<PhysicsGadget> gadgets, Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.SolidLow) ||

@@ -44,7 +44,10 @@ namespace Globals.Classes
         public static Rectangle GetVisibleRectangle()
         {
         
-            Rectangle rect = new Rectangle((int)Camera.X - (int)(ScreenWidth / 2 / Camera.Zoom), (int)Camera.Y  - (int)(ScreenHeight/2 / Camera.Zoom), ScreenWidth, ScreenHeight);
+            Rectangle rect = new Rectangle(
+                (int)Camera.X - (int)(ScreenWidth / 2 / Camera.Zoom),
+                (int)Camera.Y  - (int)(ScreenHeight/2 / Camera.Zoom),
+                (int)(ScreenWidth / Camera.Zoom), (int)(ScreenHeight  / Camera.Zoom));
             return rect;
         }
         public static bool IsVisibleOnScreen(Vector2 position, int width = 16, int height = 16)

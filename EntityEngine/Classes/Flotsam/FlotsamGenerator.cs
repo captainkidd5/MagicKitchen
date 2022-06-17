@@ -1,55 +1,68 @@
 ﻿using Globals.Classes;
-using Globals.Classes.Console;
 using Globals.Classes.Helpers;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiledEngine.Classes;
 using static DataModels.Enums;
 
-namespace ItemEngine.Classes
+namespace EntityEngine.Classes.Flotsam
 {
     public class FlotsamGenerator
     {
         private readonly ItemManager _itemManager;
+        private readonly TileManager _tileManager;
         private SimpleTimer _spawnNewItemTimer;
 
         private readonly int _spawnRadius = 600;
 
-        public FlotsamGenerator(ItemManager itemManager)
+        public FlotsamGenerator(ItemManager itemManager, TileManager tileManager)
         {
             _itemManager = itemManager;
+            _tileManager = tileManager;
             _spawnNewItemTimer = new SimpleTimer(1f);
         }
 
 
 
-        public Vector2? Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             if (Flags.SpawnFloatingItems)
             {
 
                 if (_spawnNewItemTimer.Run(gameTime))
                 {
-                   return GetSpawnLocation();
+                    Direction direction = Vector2Helper.GetRandomDirection();
+                    Vector2 spawnLocation = GetSpawnLocation(direction);
+                    if (_tileManager.IsWatertile(spawnLocation))
+                    {
+                        AddFlotsam(spawnLocation,GetJettisonDirection(spawnLocation));
+                    }
                 }
             }
 
-            return null;
         }
-        public Vector2 GetSpawnLocation()
+
+        private Vector2 GetJettisonDirection(Vector2 spawnLocation)
+        {
+            Vector2 directionVector = spawnLocation - Shared.PlayerPosition;
+            //directionVector.Normalize();
+            return directionVector;
+        }
+        public Vector2 GetSpawnLocation(Direction direction)
         {
 
-            Direction direction = Vector2Helper.GetRandomDirection();
             Rectangle screenRectangle = Settings.GetVisibleRectangle();
             switch (direction)
             {
                 case Direction.None:
                     throw new Exception($"Must specify direction");
                 case Direction.Up:
-                    return new Vector2(screenRectangle.X +Settings.Random.Next(0, screenRectangle.Width), screenRectangle.Y);
+                    return new Vector2(screenRectangle.X + Settings.Random.Next(0, screenRectangle.Width), screenRectangle.Y);
                 case Direction.Down:
                     return new Vector2(screenRectangle.X + Settings.Random.Next(0, screenRectangle.Width), screenRectangle.Y + screenRectangle.Height);
 
@@ -57,21 +70,19 @@ namespace ItemEngine.Classes
                     return new Vector2(screenRectangle.X, screenRectangle.Y + Settings.Random.Next(0, screenRectangle.Height));
 
                 case Direction.Right:
-                    return new Vector2(screenRectangle.X + screenRectangle.Width, screenRectangle.Y + Settings.Random.Next(0, screenRectangle.Height));
-
+                    Vector2 spawnLocation = new Vector2(screenRectangle.X + screenRectangle.Width, screenRectangle.Y + Settings.Random.Next(0, screenRectangle.Height));
+                    return spawnLocation;
 
 
             }
             throw new Exception($"Must specify direction");
 
-            Vector2 location = new Vector2(
-                Settings.Random.Next((int)Shared.PlayerPosition.X - _spawnRadius, (int)Shared.PlayerPosition.X + _spawnRadius),
-                   Settings.Random.Next((int)Shared.PlayerPosition.Y - _spawnRadius, (int)Shared.PlayerPosition.Y + _spawnRadius));
-            return location;
         }
-        public void AddFlotsam(Vector2 position)
+
+
+        public void AddFlotsam(Vector2 position, Vector2 jettisonDirection)
         {
-            _itemManager.AddWorldItem(position, "Dirt", 1, WorldItemState.Floating, Vector2Helper.GetTossDirectionFromDirectionFacing(Direction.Down));
+            _itemManager.AddWorldItem(position, "Dirt", 1, WorldItemState.Floating, jettisonDirection);
         }
     }
 }
