@@ -49,7 +49,7 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
-     <property name="action" value="Dig,Hammer,Good"/>
+     <property name="action" value="Dig,Shovel,Good"/>
     </properties>
    </object>
   </objectgroup>

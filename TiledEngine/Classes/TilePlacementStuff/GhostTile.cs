@@ -83,13 +83,12 @@ namespace TiledEngine.Classes.TilePlacementStuff
         public bool Update(GameTime gameTime, Vector2 position, Item item)
         {
 
-            //todo: check if area is clear
             if (GID >= 0)
             {
-                if (Controls.HasCursorTileIndexChanged)
-                {
+               // if (Controls.HasCursorTileIndexChanged)
+               // {
                     UpdateMayPlace(item);
-                }
+                //}
                 _sprite.Update(gameTime, _position);
 
                 if (Controls.IsClickedWorld)

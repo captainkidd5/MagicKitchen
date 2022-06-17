@@ -11,6 +11,17 @@
                 </Item>
             </SoundChancers>
         </Item>
+
+        <Item>
+            <Name>Dig</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>DirtDig1</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Tiles/Actions/Dig</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
 <Item>
             <Name>Ignite</Name>
             <SoundChancers>

@@ -59,7 +59,19 @@ namespace TiledEngine.Classes.TileAddons
             Tile.AlertTileManagerCursorIconChanged();
 
             if (MeetsItemRequirements(UI.PlayerCurrentSelectedItem))
-                UI.Cursor.ChangeCursorIcon(CursorIconType.Break);
+            {
+                CursorIconType iconType = CursorIconType.Break; 
+                string actionProperty = Tile.GetProperty("action", true);
+                if (!string.IsNullOrEmpty(actionProperty))
+                {
+                    string str = actionProperty.Split(',')[0];
+                     iconType = (CursorIconType)(Enum.Parse(typeof(CursorIconType), str));
+
+                }
+
+
+                UI.Cursor.ChangeCursorIcon(iconType);
+            }
 
             
 

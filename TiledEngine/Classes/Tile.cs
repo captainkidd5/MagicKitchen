@@ -98,12 +98,17 @@ namespace TiledEngine.Classes
 
             if (useObjectSearch)
             {
+                if(TmxTileSetTile.ObjectGroups.Count > 0)
+                {
+
                 var objects = TmxTileSetTile.ObjectGroups[0].Objects;
                 for (int k = 0; k < objects.Count; k++)
                 {
                     if (objects[k].Properties.ContainsKey(key))
                         return objects[k].Properties[key];
                 }
+                }
+
             }
             return null;
 

@@ -22,7 +22,7 @@
             <Weight>100</Weight>
             </Item>
             </Loot>
-            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+            <DestructionSoundPackageName>Dig</DestructionSoundPackageName>
 
         </Item>
     </Asset>

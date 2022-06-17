@@ -23,6 +23,7 @@ namespace InputEngine.Classes
         Speech = 3,
         Door = 4,
         Ignite = 5,
+        Dig = 6,
     }
     public static class Controls
     {

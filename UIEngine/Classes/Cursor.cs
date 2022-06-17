@@ -122,12 +122,6 @@ namespace UIEngine.Classes
 
         }
 
-        public void RemoveSingleHeldItem()
-        {
-            HeldItemCount--;
-            if (HeldItemCount == 0)
-                HeldItem = null;
-        }
         internal void Draw(SpriteBatch spriteBatch)
         {
             if (!Controls.ControllerConnected || HeldItem != null)
@@ -152,6 +146,8 @@ namespace UIEngine.Classes
                     return new Rectangle(32, 0, 32, 32);
                 case CursorIconType.Break:
                     return new Rectangle(96, 0, 32, 32);
+                case CursorIconType.Dig:
+                    return new Rectangle(64, 0, 32, 32);
                 case CursorIconType.Speech:
                     return new Rectangle(160, 0, 32, 32);
                 case CursorIconType.Door:

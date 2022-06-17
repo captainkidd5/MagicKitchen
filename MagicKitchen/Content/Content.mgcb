@@ -104,6 +104,12 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Steps/StepWood1.wav
 
+#begin Audio/SoundEffects/Tiles/Actions/Dig/DirtDig1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tiles/Actions/Dig/DirtDig1.wav
+
 #begin Audio/SoundEffects/Tiles/Actions/Ignite/ignite1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
