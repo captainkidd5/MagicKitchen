@@ -19,6 +19,7 @@ using TiledEngine.Classes;
 using ItemEngine.Classes;
 using EntityEngine.Classes.NPCStuff;
 using InputEngine.Classes;
+using Globals.Classes;
 
 namespace EntityEngine.Classes.CharacterStuff
 {
@@ -82,7 +83,7 @@ namespace EntityEngine.Classes.CharacterStuff
         {
             
             UI.TalkingWindow.CharacterClicked(DialogueInterpreter.GetSpeech(schedule.Dialogue));
-            FaceTowardsOtherEntity(UI.Cursor.PlayerPosition);
+            FaceTowardsOtherEntity(Shared.PlayerPosition);
             UI.TalkingWindow.DirectionPlayerShouldFace = Vector2Helper.GetOppositeDirection(DirectionMoving);
         }
 

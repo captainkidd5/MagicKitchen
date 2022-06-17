@@ -15,12 +15,10 @@ namespace ItemEngine.Classes
     {
         public string StageName { get; private set; }
         private List<WorldItem> _items;
-        private FloatingItemGenerator _floatingItemGenerator;
         public ItemManager(string stageName)
         {
             StageName = stageName;
             _items = new List<WorldItem>();
-            _floatingItemGenerator = new FloatingItemGenerator(this);
         }
 
         public void Update(GameTime gameTime)

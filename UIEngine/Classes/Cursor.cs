@@ -43,7 +43,6 @@ namespace UIEngine.Classes
 
         private bool _wasWorldIconChanged { get; set; }
 
-        public Vector2 PlayerPosition { get; set; }
         public static CursorIconType GetCursorIconTypeFromString(string str)
         {
             return (CursorIconType)Enum.Parse(typeof(CursorIconType), str);

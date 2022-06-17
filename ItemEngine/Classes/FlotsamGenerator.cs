@@ -11,16 +11,19 @@ using static DataModels.Enums;
 
 namespace ItemEngine.Classes
 {
-    internal class FloatingItemGenerator
+    public class FlotsamGenerator
     {
         private readonly ItemManager _itemManager;
         private SimpleTimer _spawnNewItemTimer;
 
-        public FloatingItemGenerator(ItemManager itemManager)
+        private readonly int _spawnRadius = 30;
+
+        public FlotsamGenerator(ItemManager itemManager)
         {
             _itemManager = itemManager;
             _spawnNewItemTimer = new SimpleTimer(1f);
         }
+
 
 
         public void Update(GameTime gameTime)
@@ -30,16 +33,19 @@ namespace ItemEngine.Classes
 
                 if (_spawnNewItemTimer.Run(gameTime))
                 {
-                    AddNewFloatingItem();
+                    AddFlotsam();
                 }
             }
 
         }
-        private Vector2 GetSpawnLocation()
+        public Vector2 GetSpawnLocation()
         {
-            return Vector2Helper.GetWorldPositionFromTileIndex(Settings.Random.Next(112, 144), 111);
+            Vector2 location = new Vector2(
+                Settings.Random.Next((int)Shared.PlayerPosition.X - _spawnRadius, (int)Shared.PlayerPosition.X + _spawnRadius),
+                   Settings.Random.Next((int)Shared.PlayerPosition.Y - _spawnRadius, (int)Shared.PlayerPosition.Y + _spawnRadius));
+            return location;
         }
-        private void AddNewFloatingItem()
+        private void AddFlotsam()
         {
             _itemManager.AddWorldItem(GetSpawnLocation(), "Dirt", 1, WorldItemState.Floating, Vector2Helper.GetTossDirectionFromDirectionFacing(Direction.Down));
         }

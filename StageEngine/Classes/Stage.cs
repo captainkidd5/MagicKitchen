@@ -53,6 +53,8 @@ namespace StageEngine.Classes
         private PathGrid _pathGrid => TileManager.PathGrid;
 
         internal bool CamLock => _stageData.MapType == MapType.Exterior;
+
+        private FlotsamGenerator _flotsamGenerator;
         public Stage(StageManager stageManager,PlayerManager playerManager, NPCManager npcManager, StageData stageData, ContentManager content,
             GraphicsDevice graphics, Camera2D camera, PenumbraComponent penumbra)
         {
@@ -69,7 +71,7 @@ namespace StageEngine.Classes
             ItemManager = new ItemManager(Name);
 
             TileManager = new TileManager(graphics, content, camera, penumbra, _stageData.MapType, ItemManager);
-
+            _flotsamGenerator = new FlotsamGenerator(ItemManager);
         }
 
 
@@ -82,7 +84,7 @@ namespace StageEngine.Classes
             TileManager.Update(gameTime);
 
             ItemManager.Update(gameTime);
-
+            _flotsamGenerator.Update(gameTime);
             NPCContainer.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, PersistentManager characterContainer)

@@ -90,7 +90,7 @@ namespace ItemEngine.Classes
                     break;
                 case WorldItemState.Floating:
                     //  Jettison(jettisonDirection.Value, null);
-                    _itemBehaviour = new FloatingItemBehaviour(this);
+                    _itemBehaviour = new FlotsamBehaviour(this);
                     break;
             }
 

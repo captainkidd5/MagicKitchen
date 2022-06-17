@@ -14,13 +14,14 @@ using static DataModels.Enums;
 
 namespace ItemEngine.Classes.ItemStateStuff
 {
-    internal class FloatingItemBehaviour : ItemBehaviour
+    internal class FlotsamBehaviour : ItemBehaviour
     {
         private static readonly float s_sinkTime = 2f;
+        private static readonly float s_maxDistanceFromPlayer = 500;
 
         private bool _isSinking = false;
         private Direction _floatDirection;
-        public FloatingItemBehaviour(WorldItem worldItem) : base(worldItem)
+        public FlotsamBehaviour(WorldItem worldItem) : base(worldItem)
         {
             SimpleTimer = new SimpleTimer(s_sinkTime);
             _floatDirection = Direction.Down;
@@ -47,12 +48,20 @@ namespace ItemEngine.Classes.ItemStateStuff
             base.Update(gameTime);
             if(_isSinking && SimpleTimer.Run(gameTime))
             {
-
-                //Remove
+                WorldItem.Remove(WorldItem.Count);
+            }
+            else if (IsTooFarFromPlayer())
+            {
                 WorldItem.Remove(WorldItem.Count);
             }
             return Vector2.Zero;
          
+        }
+
+        private bool IsTooFarFromPlayer()
+        {
+            float distance = Vector2.Distance(WorldItem.Position, Shared.PlayerPosition);
+            return distance > s_maxDistanceFromPlayer;
         }
     }
 }
