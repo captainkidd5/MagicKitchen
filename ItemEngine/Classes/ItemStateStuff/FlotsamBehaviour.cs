@@ -31,9 +31,15 @@ namespace ItemEngine.Classes.ItemStateStuff
         private Vector2 GetJettisonDirection(Vector2 spawnLocation)
         {
             Vector2 directionVector =Shared.PlayerPosition - spawnLocation;
-            directionVector = directionVector / 80;
-           // directionVector.Normalize();
+            directionVector.Normalize();
+            directionVector = directionVector * 10;
+            directionVector = OffSetFlotsamTrajectory(directionVector);
             return directionVector;
+        }
+
+        private Vector2 OffSetFlotsamTrajectory(Vector2 originalTrajectory)
+        {
+            return new Vector2(originalTrajectory.X + Settings.Random.Next(-7, 7), originalTrajectory.Y + Settings.Random.Next(-7, 7));
         }
         public override bool OnCollides(List<PhysicsGadget> gadgets, Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
