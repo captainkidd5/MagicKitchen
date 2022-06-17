@@ -21,7 +21,7 @@ using Globals.Classes.Time;
 using static Globals.Classes.Settings;
 using IOEngine.Classes;
 using EntityEngine.Classes.NPCStuff;
-using EntityEngine.Classes.Flotsam;
+using EntityEngine.Classes.Generators;
 
 namespace StageEngine.Classes
 {

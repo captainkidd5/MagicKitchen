@@ -10,35 +10,29 @@ using System.Threading.Tasks;
 using TiledEngine.Classes;
 using static DataModels.Enums;
 
-namespace EntityEngine.Classes.Flotsam
+namespace EntityEngine.Classes.Generators
 {
-    public class FlotsamGenerator
+    public class FlotsamGenerator : EntityGenerator
     {
-        private readonly ItemManager _itemManager;
-        private readonly TileManager _tileManager;
-        private SimpleTimer _spawnNewItemTimer;
 
-        private readonly int _spawnRadius = 600;
 
-        public FlotsamGenerator(ItemManager itemManager, TileManager tileManager)
+        public FlotsamGenerator(ItemManager itemManager, TileManager tileManager) : base(itemManager, tileManager)
         {
-            _itemManager = itemManager;
-            _tileManager = tileManager;
-            _spawnNewItemTimer = new SimpleTimer(1f);
+            SpawnRadius = 600;
+            SpawnInterval = 1f;
+            Load();
         }
 
-
-
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (Flags.SpawnFloatingItems)
             {
 
-                if (_spawnNewItemTimer.Run(gameTime))
+                if (SpawnTimer.Run(gameTime))
                 {
                     Direction direction = Vector2Helper.GetRandomDirection();
                     Vector2 spawnLocation = GetSpawnLocation(direction);
-                    if (_tileManager.IsWatertile(spawnLocation))
+                    if (TileManager.IsWatertile(spawnLocation))
                     {
                         AddFlotsam(spawnLocation,GetJettisonDirection(spawnLocation));
                     }
@@ -50,7 +44,6 @@ namespace EntityEngine.Classes.Flotsam
         private Vector2 GetJettisonDirection(Vector2 spawnLocation)
         {
             Vector2 directionVector = spawnLocation - Shared.PlayerPosition;
-            //directionVector.Normalize();
             return directionVector;
         }
         public Vector2 GetSpawnLocation(Direction direction)
@@ -82,7 +75,7 @@ namespace EntityEngine.Classes.Flotsam
 
         public void AddFlotsam(Vector2 position, Vector2 jettisonDirection)
         {
-            _itemManager.AddWorldItem(position, ItemFactory.GetRandomFlotsam().Name, 1, WorldItemState.Floating, jettisonDirection);
+            ItemManager.AddWorldItem(position, ItemFactory.GetRandomFlotsam().Name, 1, WorldItemState.Floating, jettisonDirection);
         }
     }
 }
