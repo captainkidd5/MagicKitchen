@@ -28,6 +28,7 @@ namespace ItemEngine.Classes.ToolStuff
 
         private List<Tool> _tools;
 
+        protected Point BaseOffSet = new Point(2, 7);
 
         public Tool()
         {
@@ -39,7 +40,7 @@ namespace ItemEngine.Classes.ToolStuff
         {
             throw new NotImplementedException();
         }
-        public void Load(List<Tool> tools)
+        public virtual void Load(List<Tool> tools)
         {
             CreateBody(Position);
             _tools = tools;
@@ -47,8 +48,8 @@ namespace ItemEngine.Classes.ToolStuff
             Sprite = SpriteFactory.CreateWorldAnimatedSprite(Position,SourceRectangle, 
                 ItemFactory.ToolSheet, GetAnimationFrames());
             Sprite.Paused = true;
-            XOffSet =4;
-            YOffSet = 11;
+            XOffSet = BaseOffSet.X;
+            YOffSet = BaseOffSet.Y;
         }
         protected override void CreateBody(Vector2 position)
         {
