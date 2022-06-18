@@ -74,25 +74,7 @@ namespace ItemEngine.Classes
             _immunityTimer = new SimpleTimer(_timeUntilTouchable);
 
             Sprite.CustomLayer = null;
-
-            switch (WorldItemState)
-            {
-
-                //want to set custom layer when bouncing because the sprite should be drawn at the
-                //initial launch point's layerdepth to help with the illusion
-
-                case WorldItemState.None:
-                    break;
-                case WorldItemState.Bouncing:
-                    _itemBehaviour = new BouncingItemBehaviour(jettisonDirection.Value, this);
-                    Sprite.CustomLayer = Sprite.GetYAxisLayerDepth();
-
-                    break;
-                case WorldItemState.Floating:
-                    //  Jettison(jettisonDirection.Value, null);
-                    _itemBehaviour = new FlotsamBehaviour(this);
-                    break;
-            }
+            GetBehaviour(jettisonDirection);
 
             if (jettisonDirection != null)
             {
@@ -101,6 +83,30 @@ namespace ItemEngine.Classes
             }
 
         }
+
+        private void GetBehaviour(Vector2? jettisonDirection)
+        {
+            switch (WorldItemState)
+            {
+
+                //want to set custom layer when bouncing because the sprite should be drawn at the
+                //initial launch point's layerdepth to help with the illusion
+
+                case WorldItemState.None:
+                    _itemBehaviour = null;
+                    break;
+                case WorldItemState.Bouncing:
+                    _itemBehaviour = new BouncingItemBehaviour(this, jettisonDirection);
+                    Sprite.CustomLayer = Sprite.GetYAxisLayerDepth();
+
+                    break;
+                case WorldItemState.Floating:
+                    //  Jettison(jettisonDirection.Value, null);
+                    _itemBehaviour = new FlotsamBehaviour(this);
+                    break;
+            }
+        }
+
         protected override void CreateBody(Vector2 position)
         {
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Item },
@@ -138,6 +144,7 @@ namespace ItemEngine.Classes
         public void ChangeState(WorldItemState worldItemState)
         {
             WorldItemState = worldItemState;
+            GetBehaviour(null);
         }
         public override void Update(GameTime gameTime)
         {

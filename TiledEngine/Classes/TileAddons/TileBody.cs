@@ -124,7 +124,7 @@ namespace TiledEngine.Classes.TileAddons
             foreach(LootData loot in trimmedLoot)
             {
                 Tile.TileManager.ItemManager.AddWorldItem(Position,
-                    loot.ItemName, loot.Quantity, WorldItemState.Bouncing, Vector2Helper.GetTossDirectionFromDirectionFacing(Enums.Direction.Up));
+                    loot.ItemName, loot.Quantity, WorldItemState.Bouncing,null);
             }
         }
 

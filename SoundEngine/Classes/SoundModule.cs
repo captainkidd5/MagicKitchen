@@ -12,14 +12,11 @@ namespace SoundEngine.Classes
         private Vector2 position;
         private SoundEffectInstance soundEffectInstance;
 
-        // private const float 
-        public bool IsPlaying => soundEffectInstance.State == SoundState.Playing;
-        public bool IsStopped => soundEffectInstance.State == SoundState.Stopped;
-        private SoundModuleManager Manager { get; }
+        private SoundModuleManager _soundManager { get; }
         public bool IsDisposed;
         internal SoundModule(SoundModuleManager manager, SoundEffect soundEffect)
         {
-            Manager = manager;
+            _soundManager = manager;
             soundEffectInstance = soundEffect.CreateInstance();
             soundEffectInstance.Volume = SoundFactory.GetVolumeOfSoundInRelationToPlayer(position);
 
@@ -29,7 +26,7 @@ namespace SoundEngine.Classes
         {
             if (!IsDisposed)
             {
-                Manager.RemoveSound(this);
+                _soundManager.RemoveSound(this);
                 IsDisposed = true;
             }
         }
@@ -43,20 +40,5 @@ namespace SoundEngine.Classes
                 Dispose();
         }
 
-        internal void Stop()
-        {
-
-            soundEffectInstance.Stop();
-        }
-
-        internal void Pause()
-        {
-            soundEffectInstance.Pause();
-        }
-
-        internal void Play()
-        {
-            soundEffectInstance.Play();
-        }
     }
 }

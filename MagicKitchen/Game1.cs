@@ -155,7 +155,6 @@ namespace MagicKitchen
             if (!Flags.Pause)
             {
                 PhysicsManager.Update(gameTime);
-                SoundFactory.Update(gameTime, Player1.Position);
 
             }
 

@@ -112,7 +112,7 @@ namespace Globals.Classes.Helpers
         {
             return new Vector2((float)desiredSize.Width/ (float)currentSpriteSize.Width, (float)desiredSize.Height/ (float)currentSpriteSize.Height);
         }
-        private static readonly float directionMagnitude = 10;
+        private static readonly int directionMagnitude = 5;
       
         public static Vector2 GetTossDirectionFromDirectionFacing(Direction directionFacing)
         {
@@ -123,9 +123,9 @@ namespace Globals.Classes.Helpers
                 case Direction.Up:
                     return new Vector2(0, -directionMagnitude);
                 case Direction.Left:
-                    return new Vector2(-directionMagnitude, -directionMagnitude);
+                    return new Vector2(-directionMagnitude,Settings.Random.Next( -directionMagnitude, directionMagnitude));
                 case Direction.Right:
-                    return new Vector2(directionMagnitude, -directionMagnitude);
+                    return new Vector2(directionMagnitude, Settings.Random.Next(-directionMagnitude, directionMagnitude));
 
                 default:
                     throw new Exception(directionFacing.ToString() + " is invalid");

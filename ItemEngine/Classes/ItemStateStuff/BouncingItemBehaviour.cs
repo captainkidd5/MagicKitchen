@@ -40,7 +40,7 @@ namespace ItemEngine.Classes.ItemStateStuff
         float height;
 
         float heightCutOff;
-        public BouncingItemBehaviour(Vector2 tossDirection, WorldItem worldItem) : base(worldItem)
+        public BouncingItemBehaviour( WorldItem worldItem,Vector2? tossDirection = null) : base(worldItem)
         {
             SimpleTimer = new Globals.Classes.SimpleTimer(_timeUntilResting);
 
@@ -52,13 +52,13 @@ namespace ItemEngine.Classes.ItemStateStuff
             angularVelocity = WorldItem.MainHullBody.Body.AngularVelocity;
             WorldItem.MainHullBody.Body.AngularVelocity = 0f;
 
-            WorldItem.MainHullBody.Body.ApplyLinearImpulse(tossDirection * 1000);
+            if(tossDirection != null)
+            WorldItem.MainHullBody.Body.ApplyLinearImpulse(tossDirection.Value * 1000);
         }
 
         public override Vector2 Update(GameTime gameTime)
         {
-            if (sleep)
-                return Vector2.Zero;
+
             base.Update(gameTime);
             velocity += gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
             height -= velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -69,7 +69,8 @@ namespace ItemEngine.Classes.ItemStateStuff
             if (height >= 0 || TestIfShouldRest(gameTime))
             {
                 WorldItem.MainHullBody.Body.LinearVelocity = Vector2.Zero;
-                sleep = true;
+                ReturnToNormal();
+
             }
             return new Vector2(0, height);
 
@@ -81,16 +82,22 @@ namespace ItemEngine.Classes.ItemStateStuff
         {
             if (SimpleTimer != null && SimpleTimer.Run(gameTime))
             {
-
-                WorldItem.SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.SolidHigh, (Category)PhysCat.SolidLow,  (Category)PhysCat.Player,
-                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass,(Category)PhysCat.Tool });
-                WorldItem.IgnoreGravity(true);
-                SimpleTimer = null;
-                WorldItem.ClearGadgets();
                 return true;
             }
             return false;
         }
+
+        private void ReturnToNormal()
+        {
+            WorldItem.SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.SolidHigh, (Category)PhysCat.SolidLow,  (Category)PhysCat.Player,
+                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass,(Category)PhysCat.Tool });
+            WorldItem.IgnoreGravity(true);
+            SimpleTimer = null;
+            WorldItem.ClearGadgets();
+            WorldItem.ChangeState(WorldItemState.None);
+
+        }
+
         public override bool OnCollides(List<PhysicsGadget> gadgets, Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))

@@ -1,11 +1,11 @@
 ﻿using DataModels;
 using DataModels.SoundStuff;
+using Globals.Classes;
 using Globals.Classes.Chance;
 using Globals.Classes.Console;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using SoundEngine.Classes.Players;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,12 +26,8 @@ namespace SoundEngine.Classes
         private static ContentManager s_content;
         private static Random s_random;
 
-        private static EffectPlayer s_ambientPlayer;
-        private static Dictionary<SoundType, EffectPlayer> s_effectPlayers;
 
         private static bool s_allowAmbientSounds;
-
-        private static Vector2 s_playerPosition;
 
         private static Dictionary<string, SoundPackage> s_soundPackages;
 
@@ -45,17 +41,6 @@ namespace SoundEngine.Classes
         /// </summary>
         private const float panVolumeFallOff = 400f;
 
-        public static bool IsPlayingAmbient => s_ambientPlayer.IsPlaying;
-        public static bool AllowAmbientSounds
-        {
-            get { return s_allowAmbientSounds; }
-            set
-            {
-                if (!value)
-                    s_ambientPlayer.Stop();
-                s_allowAmbientSounds = value;
-            }
-        }
 
         public static void Load(ContentManager content)
         {
@@ -64,10 +49,7 @@ namespace SoundEngine.Classes
 
            
 
-            s_effectPlayers = new Dictionary<SoundType, EffectPlayer>();
-            s_effectPlayers.Add(SoundType.Ambient, s_ambientPlayer);
 
-            s_playerPosition = Vector2.Zero;
 
             List<SoundPackage> soundPckages = content.Load<List<SoundPackage>>("Audio/SoundPackages");
             foreach (SoundPackage soundPackage in soundPckages)
@@ -76,40 +58,17 @@ namespace SoundEngine.Classes
             }
             s_soundPackages = soundPckages.ToDictionary(x => x.Name, x => x);
 
-            s_ambientPlayer = new EffectPlayer();
-            s_ambientPlayer.Load(s_random, s_soundPackages["AmbientDay"], "AmbientDay");
             CommandConsole.RegisterCommand("play_e", "plays effect", PlayEffectAction);
             CommandConsole.RegisterCommand("listeffects", "lists all effects", ListEffectsAction);
 
-            AllowAmbientSounds = true;
-        }
-
-
-
-
-        private static EffectPlayer GetEffectPlayer(SoundType soundType)
-        {
-            EffectPlayer player = null;
-            if (s_effectPlayers.TryGetValue(soundType, out player))
-                return player;
-            else
-                return null;
-        }
-
-        public static void Pause(SoundType soundType)
-        {
-            EffectPlayer player = GetEffectPlayer(soundType);
-            if (soundType == SoundType.All)
-            {
-                foreach (KeyValuePair<SoundType, EffectPlayer> p in s_effectPlayers)
-                    p.Value.Pause();
-                return;
-
-            }
-
-            player.Pause();
 
         }
+
+
+
+
+
+
 
         public static void PlaySoundEffect(string effectName)
         {
@@ -119,26 +78,16 @@ namespace SoundEngine.Classes
         }
         public static void PlayEffectPackage(string packageName)
         {
-            GetRandomSoundEffect(packageName).CreateInstance().Play();
+            PlayPackage(packageName).CreateInstance().Play();
         }
-        /// <summary>
-        /// Need the player position to determine how loud the sound will be played
-        /// </summary>
-        /// <param name="gameTime"></param>
-        /// <param name="playerPosition"></param>
-        public static void Update(GameTime gameTime, Vector2 playerPosition)
-        {
-            s_playerPosition = playerPosition;
-           
 
-        }
         /// <summary>
         /// Gets sound effect based on weights of sound chancers in a sound package
         /// </summary>
         /// <param name="soundPackageName">Name of the sound package</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        internal static SoundEffect GetRandomSoundEffect(string soundPackageName)
+        internal static SoundEffect PlayPackage(string soundPackageName)
         {
             SoundPackage package = new SoundPackage();
             if (s_soundPackages.TryGetValue(soundPackageName, out package))
@@ -193,7 +142,7 @@ namespace SoundEngine.Classes
         /// <returns></returns>
         internal static float GetVolumeOfSoundInRelationToPlayer(Vector2 soundEmitLocation)
         {
-            float distance = 1 - Vector2.Distance(s_playerPosition, soundEmitLocation)/ distanceVolumeFallOff;
+            float distance = 1 - Vector2.Distance(Shared.PlayerPosition, soundEmitLocation)/ distanceVolumeFallOff;
             if (distance > 1)
                 distance = 1;
             if (distance < 0)
@@ -208,7 +157,7 @@ namespace SoundEngine.Classes
         /// <returns></returns>
         internal static float GetPanOfSoundInRelationToPlayer(Vector2 soundEmitLocation)
         {
-            float xDistance = (s_playerPosition.X - soundEmitLocation.X) / panVolumeFallOff * -1;
+            float xDistance = (Shared.PlayerPosition.X - soundEmitLocation.X) / panVolumeFallOff * -1;
             if (xDistance > 1)
                 xDistance = 1;
             if (xDistance < -1)
@@ -251,13 +200,7 @@ namespace SoundEngine.Classes
 
         }
 
-        public static void PlayAmbientNoise(string stageName, bool force = false)
-        {
-            if (s_ambientPlayer.IsPlaying && !force)
-                throw new Exception($"Ambient player is already playing song: {s_ambientPlayer.GetCurrentEffectInstanceName()}");
-            else if (!force)
-                s_ambientPlayer.Play(stageName);
-        }
+
 
     }
 }

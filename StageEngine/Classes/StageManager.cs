@@ -142,8 +142,6 @@ namespace StageEngine.Classes
 
                 _npcManager.Update(gameTime);
 
-                if (SoundFactory.AllowAmbientSounds && !SoundFactory.IsPlayingAmbient)
-                    SoundFactory.PlayAmbientNoise(CurrentStage.Name);
             }
         }
 

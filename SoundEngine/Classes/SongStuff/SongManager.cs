@@ -17,7 +17,6 @@ namespace SoundEngine.Classes.SongStuff
     {
         public const string songRootPath = "Audio/Songs/";
         private static ContentManager s_content;
-        private static Random s_random;
 
         private static List<SongPackage> SongPackages { get; set; }
 
@@ -60,7 +59,6 @@ namespace SoundEngine.Classes.SongStuff
         public static void Load(ContentManager content)
         {
             s_content = content;
-            s_random = new Random();
             MediaPlayer.Volume = s_musicVolume;
             SongPackages = content.Load<List<SongPackage>>(songRootPath + "SongPackages");
 
@@ -133,7 +131,7 @@ namespace SoundEngine.Classes.SongStuff
 
                 while (newPos < 0 || s_recentlyPlayedQueue.Contains(s_currentPlayList[newPos]))
                 {
-                    newPos = s_random.Next(0, s_currentPlayList.Count);
+                    newPos = Settings.Random.Next(0, s_currentPlayList.Count);
 
                 }
                 _currentSong = s_currentPlayList[newPos];
@@ -142,7 +140,7 @@ namespace SoundEngine.Classes.SongStuff
             else if (s_currentPlayList.Count > 1)
             {
 
-                _currentSong = s_currentPlayList[s_random.Next(0, s_currentPlayList.Count)];
+                _currentSong = s_currentPlayList[Settings.Random.Next(0, s_currentPlayList.Count)];
 
             }
             else if(s_currentPlayList.Count > 0)

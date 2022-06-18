@@ -34,7 +34,7 @@ namespace SoundEngine.Classes
 
         public void PlayDestructableSound(string soundName)
         {
-            Sounds.Add(new SoundModule(this, SoundFactory.GetRandomSoundEffect(soundName)));
+            Sounds.Add(new SoundModule(this, SoundFactory.PlayPackage(soundName)));
         }
         public void PlaySpecificSound(string soundName)
         {
