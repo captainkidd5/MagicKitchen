@@ -106,6 +106,8 @@ namespace ItemEngine.Classes.ToolStuff
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Item))
             {
                 Return();
+                SoundFactory.PlaySoundEffect("HookGrab");
+
 
             }
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.SolidHigh))

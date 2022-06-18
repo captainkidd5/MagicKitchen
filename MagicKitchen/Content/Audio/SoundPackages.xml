@@ -42,7 +42,21 @@
                 </Item>
             </SoundChancers>
         </Item>
-
+<Item>
+            <Name>ItemGrab</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Bubble1</Name>
+                    <Weight>50</Weight>
+                    <LocalPath>SoundEffects/Obtain/Items</LocalPath>
+                </Item>
+                 <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Bubble2</Name>
+                    <Weight>50</Weight>
+                    <LocalPath>SoundEffects/Obtain/Items</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
          <Item>
             <Name>HookFire</Name>
             <SoundChancers>
@@ -58,6 +72,16 @@
             <SoundChancers>
                 <Item Type="DataModels.SoundStuff.SoundChancer">
                     <Name>HookMiss</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Tools</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
+        <Item>
+            <Name>HookGrab</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>HookGrab</Name>
                     <Weight>100</Weight>
                     <LocalPath>SoundEffects/Tools</LocalPath>
                 </Item>

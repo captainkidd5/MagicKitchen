@@ -30,6 +30,7 @@ using ItemEngine.Classes.StorageStuff;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using ItemEngine.Classes.ToolStuff;
+using SoundEngine.Classes;
 
 namespace EntityEngine.Classes
 {
@@ -208,6 +209,8 @@ namespace EntityEngine.Classes
             {
                 WorldItem worldItem = (fixtureB.Body.Tag as WorldItem);
                 InventoryHandler.GiveItem(worldItem);
+
+                SoundFactory.PlaySoundEffect("ItemGrab");
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
 

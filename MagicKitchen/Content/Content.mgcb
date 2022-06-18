@@ -74,6 +74,18 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Kitchen/CoinJingle.wav
 
+#begin Audio/SoundEffects/Obtain/Items/Bubble1.WAV
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Obtain/Items/Bubble1.WAV
+
+#begin Audio/SoundEffects/Obtain/Items/Bubble2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Obtain/Items/Bubble2.wav
+
 #begin Audio/SoundEffects/Steps/StepDirt.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -127,6 +139,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Tools/HookFire.wav
+
+#begin Audio/SoundEffects/Tools/HookGrab.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tools/HookGrab.wav
 
 #begin Audio/SoundEffects/Tools/HookMiss.wav
 /importer:WavImporter
