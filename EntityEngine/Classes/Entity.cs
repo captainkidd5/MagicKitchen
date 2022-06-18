@@ -210,7 +210,7 @@ namespace EntityEngine.Classes
                 WorldItem worldItem = (fixtureB.Body.Tag as WorldItem);
                 InventoryHandler.GiveItem(worldItem);
 
-                SoundFactory.PlaySoundEffect("ItemGrab");
+                SoundFactory.PlayEffectPackage("ItemGrab");
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
 

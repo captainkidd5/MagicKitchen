@@ -117,6 +117,10 @@ namespace SoundEngine.Classes
             chncer.SoundEffect.CreateInstance().Play();
 
         }
+        public static void PlayEffectPackage(string packageName)
+        {
+            GetRandomSoundEffect(packageName).CreateInstance().Play();
+        }
         /// <summary>
         /// Need the player position to determine how loud the sound will be played
         /// </summary>
