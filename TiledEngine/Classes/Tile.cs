@@ -134,7 +134,7 @@ namespace TiledEngine.Classes
             for (int i = 0; i < Addons.Count; i++)
             {
                 ITileAddon addon = Addons[i];
-                if (addon.GetType() == typeof(Collidable))
+                if (addon.GetType() == typeof(LightBody))
                     (addon as Collidable).DrawLights(spriteBatch);
             }
         }

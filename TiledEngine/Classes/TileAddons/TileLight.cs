@@ -26,7 +26,7 @@ namespace TiledEngine.Classes.TileAddons
         public override void Load()
         {
             CreateBody(Tile.Position);
-
+            AddLight();
         }
 
         protected override void CreateBody(Vector2 position)

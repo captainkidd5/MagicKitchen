@@ -217,6 +217,11 @@ namespace PhysicsEngine.Classes
                 MainHullBody.Destroy();
             MainHullBody = null;
             HullBodies.Clear();
+            if(Lights != null)
+            {
+                Lights.Clear();
+                Lights = null;
+            }
 
         }
         protected void AddGadget(PhysicsGadget gadget)

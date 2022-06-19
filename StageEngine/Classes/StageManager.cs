@@ -49,7 +49,8 @@ namespace StageEngine.Classes
 
         private Vector2 NewPlayerPositionOnStageSwitch { get; set; }
 
-        public StageManager(GraphicsDevice graphics, ContentManager content,PlayerManager playerManager, PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
+        public StageManager(GraphicsDevice graphics, ContentManager content,PlayerManager playerManager,
+            PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
         {
 
             Stages = new Dictionary<string, Stage>();

@@ -34,6 +34,7 @@
  <tile id="215">
   <properties>
    <property name="animate" value="pause"/>
+   <property name="lightSource" value="0,0,0"/>
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
   <objectgroup draworder="index" id="2">

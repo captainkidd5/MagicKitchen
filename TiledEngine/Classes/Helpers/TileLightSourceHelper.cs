@@ -17,37 +17,12 @@ namespace TiledEngine.Classes.Helpers
         ///// <summary>
         ///// For use with the "lightSource" tile property
         ///// </summary>
-        //public static void AddJustLightSource(Tile tile,TileManager tileManager, string lightPropertyString, float lightRadius, OnCollisionHandler? cHandler = null, OnSeparationHandler? sHandler = null)
-        //{
-
-        //    tile.Addons.Add(new LightBody(tile,tileManager, null, lightPropertyString, lightRadius));
-
-        //}
-
-        /// <summary>
-        /// For use with the "lightSource" tile property
-        /// </summary>
-        private static Point ParseLightString(string lightString)
+        public static void AddJustLightSource(Tile tile, TileManager tileManager, string lightPropertyString, float lightRadius)
         {
 
-            return new Point(int.Parse(lightString.Split(',')[1]),
-                int.Parse(lightString.Split(',')[2]));
-            
-        }
-        /// <summary>
-        /// Default tile collision behaviour (no response)
-        /// </summary>
-        private static void BasicOnCollilsion(Fixture a, Fixture b, Contact contact)
-        {
-            //Console.WriteLine("On Collision");
+            tile.Addons.Add(new LightBody(tile, new IntermediateTmxShape(TiledSharp.TmxObjectType.Ellipse, tile.DestinationRectangle, tile.Position, 3f), lightPropertyString, lightRadius));
+
         }
 
-        /// <summary>
-        /// Default tile separation behaviour (no response)
-        /// </summary>
-        private static void BasicOnSeparation(Fixture a, Fixture b, Contact contact)
-        {
-            //  Console.WriteLine("On Separation");
-        }
     }
 }
