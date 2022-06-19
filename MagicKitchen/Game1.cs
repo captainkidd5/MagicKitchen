@@ -71,7 +71,7 @@ namespace MagicKitchen
             Window.ClientSizeChanged += Settings.Window_ClientSizeChanged;
 
         }
-            
+
         protected override void Initialize()
         {
             IsFixedTimeStep = true;
@@ -126,7 +126,8 @@ namespace MagicKitchen
             _playerManager.LoadContent();
 
             SoundFactory.Load(Content);
-            Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs {
+            Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs
+            {
                 VirtualWidth = (int)Settings.NativeWidth,
                 VirtualHeight = (int)Settings.NativeHeight
             });
@@ -163,9 +164,19 @@ namespace MagicKitchen
 
         protected override void Draw(GameTime gameTime)
         {
-          
+            if (UI.GameDisplayState == GameDisplayState.InGame)
+            {
+                RenderTargetManager.SetTarget(RenderTargetManager.LightsTarget);
+                GraphicsDevice.Clear(Color.Black);
+
+
+                _spriteBatch.Begin(blendState: BlendState.Additive, transformMatrix: Settings.Camera.GetTransform(GraphicsDevice));
+                _stageManager.DrawLights(_spriteBatch);
+                _spriteBatch.End();
+            }
+
             RenderTargetManager.SetTarget(RenderTargetManager.MainTarget);
-            GraphicsDevice.Clear(Color.Transparent);
+            GraphicsDevice.Clear(Color.Black);
             if (UI.GameDisplayState == GameDisplayState.InGame)
             {
 
@@ -175,20 +186,25 @@ namespace MagicKitchen
 
             if (Flags.DebugVelcro)
                 PhysicsManager.Draw(GraphicsDevice, Camera);
-            _frameCounter.Update( gameTime.ElapsedGameTime.TotalSeconds);
+            _frameCounter.Update(gameTime.ElapsedGameTime.TotalSeconds);
 
             RenderTargetManager.RemoveRenderTarget();
+            GraphicsDevice.Clear(Color.Black);
 
-
+            SpriteFactory.LightEffect.Parameters["MaskTexture"].SetValue(RenderTargetManager.LightsTarget);
+            _spriteBatch.Begin(blendState: BlendState.AlphaBlend, effect: SpriteFactory.LightEffect);
+            _spriteBatch.Draw(RenderTargetManager.MainTarget, Vector2.Zero, Color.Red);
+            _spriteBatch.End();
 
             RenderTargetManager.SetTarget(RenderTargetManager.UITarget);
-            GraphicsDevice.Clear(Color.Transparent);
 
             UI.Draw(_spriteBatch, _frameCounter.framerate);
+
             RenderTargetManager.RemoveRenderTarget();
 
+           // GraphicsDevice.Clear(Color.Transparent);
 
-            RenderTargetManager.DrawTarget(_spriteBatch, RenderTargetManager.UITarget);
+            RenderTargetManager.DrawTarget(_spriteBatch);
 
 
             base.Draw(gameTime);

@@ -3,6 +3,7 @@ using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +14,7 @@ using TiledEngine.Classes;
 
 namespace EntityEngine.Classes
 {
-    public abstract class EntityContainer : Component, ISaveable
+    public abstract class EntityContainer : Component, ISaveable, ILightDrawable
     {
 
         internal List<Entity> Entities { get; set; }
@@ -65,7 +66,14 @@ namespace EntityEngine.Classes
             }
         }
 
+        public virtual void DrawLights(SpriteBatch spriteBatch)
+        {
+            foreach (Entity entity in Entities)
+            {
+                entity.DrawLights(spriteBatch);
 
+            }
+        }
         internal void GiveEntityItem(string entityName, WorldItem worldItem)
         { 
             Entity entity = GetEntity(entityName);

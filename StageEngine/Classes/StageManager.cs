@@ -151,6 +151,10 @@ namespace StageEngine.Classes
             CurrentStage.Draw(spriteBatch, gameTime, _npcManager.PersistentManager);
         }
 
+        public void DrawLights(SpriteBatch spriteBatch)
+        {
+            CurrentStage.DrawLights(spriteBatch);
+        }
         private bool ShouldUnloadStage(string stageName)
         {
             return !_doNotUnloadStages.Contains(stageName);

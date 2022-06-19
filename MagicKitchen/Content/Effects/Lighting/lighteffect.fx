@@ -7,25 +7,48 @@
 	#define PS_SHADERMODEL ps_4_0_level_9_1
 #endif
 
-sampler inputTexture;
+//	This is the texture that will be supplied by the SpriteBatch.Draw() command
+//	It should be the texture of the RenderTarget2D of the game render.
+Texture2D RenderTargetTexture;
 
-float4 MainPS(float2 textureCoordinates: TEXCOORD0): COLOR0
+//	This texture is the texture of the RenderTarget2D where we rendered all 
+//	the light masks on.
+Texture2D MaskTexture;
+
+//	This is the sampler for the render target texture.
+sampler2D RenderTargetSampler = sampler_state
 {
-	float4 color = tex2D(inputTexture, textureCoordinates);
-		
+	Texture = <RenderTargetTexture>;
+};
 
-	color.rgb = color.r * 0.2126 + color.g * 0.7152 + color.b * 0.0722;
-		
-	return color;
+//	This is the sampler for the mask texture.
+sampler2D MaskSampler = sampler_state
+{
+	Texture = <MaskTexture>;
+};
+
+//	No structs defined in this one.  We only need to know about
+//	the texture coordinates.  So instead of defining a struct and
+//	using that, we can just change the signature of our pixel shader
+//	so the parameter is a float2 that uses the ': TEXCOORD0' to 
+//	semantically link the paramter as the texture coordinate value.
+float4 MainPS(float2 textureCoords : TEXCOORD0) : COLOR
+{
+	//	First we sample the color of the pixel from the main render target
+	float4 pixelColor = tex2D(RenderTargetSampler, textureCoords);
+
+	//	Then we sample the color of the pixel at the same exact position but
+	//	this time from the light render target.
+	float4 lightColor = tex2D(MaskSampler, textureCoords);
+
+	//	We multiply the colors to get the resulting pixel color.
+	return pixelColor * lightColor;
 }
 
-technique Techninque1
+technique LightDrawing
 {
-	pass Pass1
+	pass P0
 	{
-		AlphaBlendEnable = TRUE;
-		DestBlend = INVSRCALPHA;
-		SrcBlend = SRCALPHA;
-		PixelShader = compile ps_3_0 MainPS();
+		PixelShader = compile PS_SHADERMODEL MainPS();
 	}
 };

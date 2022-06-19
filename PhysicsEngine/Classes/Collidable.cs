@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Penumbra;
 using PhysicsEngine.Classes.Gadgets;
 using SoundEngine.Classes;
+using SpriteEngine.Classes;
+using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +16,7 @@ namespace PhysicsEngine.Classes
     /// <summary>
     /// Inherit from this if your class should be collidable!
     /// </summary>
-    public class Collidable
+    public class Collidable : ILightDrawable
     {
         public Vector2 Position { get; private set; }
 
@@ -46,6 +49,8 @@ namespace PhysicsEngine.Classes
 
         protected HullBody BigSensor { get; set; }
         protected List<Category> BigSensorCollidesWithCategories { get; set; }
+
+        protected List<Sprite> Lights { get; set; }
 
         /// <summary>
         /// Will return if is hovered, regardless of input type
@@ -105,6 +110,15 @@ namespace PhysicsEngine.Classes
             {
                 body.Position = Position;
             }
+
+            if(Lights != null)
+            {
+                for (int i = 0; i < Lights.Count; i++)
+                {
+                    Lights[i].Update(gameTime, Position);
+                }
+            }
+           
             SoundModuleManager.Update(CenteredPosition);
 
 
@@ -217,6 +231,23 @@ namespace PhysicsEngine.Classes
                 Gadgets.RemoveAt(i);
             }
         }
+        protected void AddLight()
+        {
+            if (Lights == null)
+                Lights = new List<Sprite>();
 
+            Lights.Add(SpriteFactory.CreateLight(Position));
+        }
+        public void DrawLights(SpriteBatch spriteBatch)
+        {
+            if(Lights != null)
+            {
+                for (int i = 0; i < Lights.Count; i++)
+                {
+                    Lights[i].Draw(spriteBatch);
+                }
+            }
+            
+        }
     }
 }

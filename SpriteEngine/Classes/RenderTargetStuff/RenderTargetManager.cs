@@ -13,7 +13,7 @@ namespace SpriteEngine.Classes.RenderTargetStuff
         private static GraphicsDevice Graphics;
 
         public static RenderTarget2D DayTargetOverlay;
-        public static RenderTarget2D NightTargetOverlay;
+        public static RenderTarget2D LightsTarget;
 
         public static RenderTarget2D CurrentOverlayTarget;
 
@@ -24,11 +24,8 @@ namespace SpriteEngine.Classes.RenderTargetStuff
         public static void Load(GraphicsDevice graphics)
         {
             Graphics = graphics;
-            DayTargetOverlay = new RenderTarget2D(
-                graphics,
-                graphics.PresentationParameters.BackBufferWidth,
-                graphics.PresentationParameters.BackBufferHeight);
-            NightTargetOverlay = new RenderTarget2D(
+
+            LightsTarget = new RenderTarget2D(
                 graphics,
                 graphics.PresentationParameters.BackBufferWidth,
                 graphics.PresentationParameters.BackBufferHeight);
@@ -64,10 +61,9 @@ namespace SpriteEngine.Classes.RenderTargetStuff
         }
 
 
-        public static void DrawTarget(SpriteBatch spriteBatch, RenderTarget2D renderTarget2D)
+        public static void DrawTarget(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(MainTarget, Settings.ScreenRectangle, Color.White);
             spriteBatch.Draw(UITarget, Settings.ScreenRectangle, Color.White);
 
             spriteBatch.End();
@@ -76,7 +72,7 @@ namespace SpriteEngine.Classes.RenderTargetStuff
 
         private static RenderTarget2D GetTargetFromDayStatus(DayStatus dayStatus)
         {
-            return dayStatus == DayStatus.DayTime ? DayTargetOverlay : NightTargetOverlay;
+            return dayStatus == DayStatus.DayTime ? DayTargetOverlay : LightsTarget;
         }
 
         public static Vector2 HalfScreen()

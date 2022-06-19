@@ -128,6 +128,16 @@ namespace TiledEngine.Classes
 
 
         }
+
+        internal void DrawLights(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < Addons.Count; i++)
+            {
+                ITileAddon addon = Addons[i];
+                if (addon.GetType() == typeof(Collidable))
+                    (addon as Collidable).DrawLights(spriteBatch);
+            }
+        }
         internal void Draw(SpriteBatch spriteBatch, Texture2D texture)
         {
             Sprite.Draw(spriteBatch);

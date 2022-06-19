@@ -23,12 +23,22 @@ namespace SpriteEngine.Classes
         public static Texture2D StatusIconTexture { get; set; }
 
         public static Effect LightEffect { get; set; }
+
+        private static Texture2D _lightMask;
+        private static readonly Rectangle _lightSourceRectangle = new Rectangle(0, 0, 128, 128);
+
         public static void LoadContent(GraphicsDevice graphics, ContentManager content)
         {
             Graphics = graphics;
             Content = content;
             StatusIconTexture = content.Load<Texture2D>("entities/characters/statusicons");
             LightEffect = content.Load<Effect>("Effects/Lighting/lighteffect");
+            _lightMask = content.Load<Texture2D>("Effects/Lighting/lightmask");
+
+        }
+        public static Sprite CreateLight(Vector2 position)
+        {
+            return CreateWorldSprite(position, _lightSourceRectangle, _lightMask, customLayer:.99f);
         }
         /// <summary>
         /// For World vector2 position

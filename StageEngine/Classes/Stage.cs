@@ -22,10 +22,11 @@ using static Globals.Classes.Settings;
 using IOEngine.Classes;
 using EntityEngine.Classes.NPCStuff;
 using EntityEngine.Classes.Generators;
+using SpriteEngine.Classes.ShadowStuff;
 
 namespace StageEngine.Classes
 {
-    public class Stage : ISaveable
+    public class Stage : ISaveable, ILightDrawable
     {
         public string Name { get; private set; }
 
@@ -54,6 +55,8 @@ namespace StageEngine.Classes
 
         internal bool CamLock => _stageData.MapType == MapType.Exterior;
 
+        public List<ILightDrawable> LightDrawables { get; set; }
+
         private FlotsamGenerator _flotsamGenerator;
         public Stage(StageManager stageManager,PlayerManager playerManager, NPCManager npcManager, StageData stageData, ContentManager content,
             GraphicsDevice graphics, Camera2D camera, PenumbraComponent penumbra)
@@ -71,6 +74,8 @@ namespace StageEngine.Classes
 
             TileManager = new TileManager(graphics, content, camera, penumbra, _stageData.MapType, ItemManager);
             _flotsamGenerator = new FlotsamGenerator(ItemManager, TileManager);
+
+            LightDrawables = new List<ILightDrawable>() {TileManager, NPCContainer, _playerManager };
         }
 
 
@@ -106,6 +111,12 @@ namespace StageEngine.Classes
 
             spriteBatch.End();
 
+        }
+
+        public void DrawLights(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < LightDrawables.Count; i++)
+                LightDrawables[i].DrawLights(spriteBatch);
         }
         /// <summary>
         /// Loads tiles into memory, then saves them, from tmx map. Should only be called ONCE per stage, per save

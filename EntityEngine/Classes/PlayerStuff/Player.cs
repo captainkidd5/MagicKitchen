@@ -42,6 +42,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
         public int MaxMana { get; set; } = 100;
         public int CurrentMana { get; set; } = 100;
+
         public Player(StageNPCContainer container, GraphicsDevice graphics, ContentManager content,PlayerManager playerContainer, string name = "playerName") : base(container, graphics,content)
         {
             Name = name;
@@ -73,7 +74,6 @@ namespace EntityEngine.Classes.PlayerStuff
             UI.Cursor.ItemDropped += DropHeldItem;
 
             CommandConsole.RegisterCommand("tp", "teleports player to mouse position", TpCommand);
-
 
         }
         private void TpCommand(string[] args)
@@ -107,6 +107,7 @@ namespace EntityEngine.Classes.PlayerStuff
             AddSecondaryBody(FrontalSensor);
             // MainHullBody = HullBodies[0];
 
+            AddLight();
         }
 
         /// <summary>
@@ -154,7 +155,6 @@ namespace EntityEngine.Classes.PlayerStuff
             Shared.PlayerPosition = Position;
             UI.StatusPanel.HealthBar.SetProgressRatio((float)CurrentHealth / (float)MaxHealth);
             UI.StatusPanel.ManaBar.SetProgressRatio((float)CurrentMana / (float)MaxMana);
-
             if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Y))
             {
                 //Item should not eject if any part of the ui is hovered
@@ -212,7 +212,6 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-          
         }
 
         //Keep input updates separate from update because of multiplayer.

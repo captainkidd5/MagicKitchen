@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Penumbra;
 using PhysicsEngine.Classes.Pathfinding;
 using SpriteEngine.Classes;
+using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,7 +31,7 @@ using static TiledEngine.Classes.TileLoader;
 
 namespace TiledEngine.Classes
 {
-    public class TileManager : Component, ISaveable
+    public class TileManager : Component, ISaveable, ILightDrawable
     {
 
         //Top left of tilesheet is the tile selector. Very nice! Bro this is no longer tru u playin
@@ -248,7 +249,20 @@ namespace TiledEngine.Classes
                 TileSelectorSprite.Draw(spriteBatch);
             _tilePlacementManager.Draw(spriteBatch);
         }
+        public void DrawLights(SpriteBatch spriteBatch)
+        {
+            for (int z = 0; z < Tiles.Count; z++)
+            {
+                for (int x = StartX; x < EndX; x++)
+                {
+                    for (int y = StartY; y < EndY; y++)
+                    {
+                        Tiles[z][x, y].DrawLights(spriteBatch);
 
+                    }
+                }
+            }
+        }
 
 
         /// <summary>
@@ -463,5 +477,7 @@ namespace TiledEngine.Classes
             TileLocator.CleanUp();
             PlacedItemManager.CleanUp();
         }
+
+      
     }
 }
