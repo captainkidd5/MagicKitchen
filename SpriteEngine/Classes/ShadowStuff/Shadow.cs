@@ -20,9 +20,9 @@ namespace SpriteEngine.Classes.ShadowStuff
 
         public Sprite Sprite { get; set; }
         
-        public Shadow(Vector2 position, ShadowSize shadowSize, Texture2D texture, float layerDepth)
+        public Shadow(Vector2 position, ShadowSize shadowSize, Texture2D texture)
         {
-            Sprite = SpriteFactory.CreateWorldSprite(position, s_smallRectangle, texture, customLayer: layerDepth);
+            Sprite = SpriteFactory.CreateWorldSprite(position, s_smallRectangle, texture);
         }
         public void Update(GameTime gameTime, Vector2 position)
         {
