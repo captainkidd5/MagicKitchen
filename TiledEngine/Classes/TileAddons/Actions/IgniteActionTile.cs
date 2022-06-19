@@ -36,7 +36,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
             {
                 if (!IsPlayingASound)
                 {
-                    PlaySound(Tile.GetCursorIconType().ToString());
+                    PlayPackage(Tile.GetCursorIconType().ToString());
 
 
                 }

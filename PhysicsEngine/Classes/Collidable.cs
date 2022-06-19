@@ -91,7 +91,7 @@ namespace PhysicsEngine.Classes
 
         }
 
-        public void PlaySound(string soundName)
+        public void PlayPackage(string soundName)
         {
             SoundModuleManager.PlayPackage(soundName);
         }

@@ -12,6 +12,21 @@
             </SoundChancers>
         </Item>
 
+         <Item>
+            <Name>Splash</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Splash1</Name>
+                    <Weight>50</Weight>
+                    <LocalPath>SoundEffects/Ambient</LocalPath>
+                </Item>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Splash2</Name>
+                    <Weight>50</Weight>
+                    <LocalPath>SoundEffects/Ambient</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
         <Item>
             <Name>Dig</Name>
             <SoundChancers>

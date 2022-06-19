@@ -90,7 +90,7 @@ namespace TiledEngine.Classes.TileAddons
             }
 
             if (!IsPlayingASound)
-                PlaySound(GetDestructionSoundName());
+                PlayPackage(GetDestructionSoundName());
 
             if (RequireLoopBeforeDestruction)
             {

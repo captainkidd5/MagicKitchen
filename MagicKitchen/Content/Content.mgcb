@@ -68,6 +68,18 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Ambient/AmbientDay1.wav
 
+#begin Audio/SoundEffects/Ambient/Splash1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Ambient/Splash1.wav
+
+#begin Audio/SoundEffects/Ambient/Splash2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Ambient/Splash2.wav
+
 #begin Audio/SoundEffects/Kitchen/CoinJingle.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

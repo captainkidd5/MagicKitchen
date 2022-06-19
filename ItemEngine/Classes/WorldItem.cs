@@ -82,7 +82,6 @@ namespace ItemEngine.Classes
                 // Jettison(jettisonDirection.Value, null);
                 MainHullBody.Body.IgnoreGravity = true;
             }
-            Shadow = new Shadow(CenteredPosition, ShadowSize.Small, ItemFactory.ItemSpriteSheet);
 
 
         }
@@ -98,6 +97,7 @@ namespace ItemEngine.Classes
                 case WorldItemState.None:
                     _itemBehaviour = null;
                     Sprite.SwapSourceRectangle(new Rectangle(Sprite.SourceRectangle.X, Sprite.SourceRectangle.Y, 16, 16));
+                    Shadow = new Shadow(CenteredPosition, ShadowSize.Small, ItemFactory.ItemSpriteSheet);
 
                     break;
                 case WorldItemState.Bouncing:
@@ -165,7 +165,8 @@ namespace ItemEngine.Classes
             if (_itemBehaviour != null)
                 spriteBehaviourOffSet = _itemBehaviour.Update(gameTime);
             Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet) + spriteBehaviourOffSet);
-            Shadow.Update(gameTime, CenteredPosition);
+            if(Shadow != null)
+            Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y + 2));
 
         }
 
@@ -174,6 +175,7 @@ namespace ItemEngine.Classes
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);
+            if(Shadow != null)
             Shadow.Draw(spriteBatch);
         }
 
@@ -199,7 +201,7 @@ namespace ItemEngine.Classes
                     AddGadget(new Magnetizer(this, (fixtureB.Body.Tag as Collidable)));
 
                 ChangeState(WorldItemState.None);
-
+                PlayPackage("Splash");
                 //If magnetized, remove solids collisions
                 SetCollidesWith(MainHullBody.Body, new List<Category>() {  (Category)PhysCat.Player,
                     (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass});
