@@ -37,7 +37,6 @@ namespace StageEngine.Classes
         private readonly ContentManager _content;
         private readonly GraphicsDevice _graphics;
         private readonly Camera2D _camera;
-        private readonly PenumbraComponent _penumbra;
 
 
         private string _ambientSoundPackageName => _stageData.AmbientSoundPackageName;
@@ -67,7 +66,6 @@ namespace StageEngine.Classes
             _content = content;
             _graphics = graphics;
             _camera = camera;
-            _penumbra = penumbra;
 
             ItemManager = new ItemManager(Name);
 
@@ -93,7 +91,6 @@ namespace StageEngine.Classes
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, PersistentManager characterContainer)
         {
 
-            _penumbra.AmbientColor = Color.DarkSlateGray;
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: _camera.GetTransform(_graphics));
             _graphics.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };

@@ -53,15 +53,13 @@ namespace SpriteEngine.Classes.RenderTargetStuff
         {
  
             Graphics.SetRenderTarget(target);
-            Graphics.Clear(Color.Transparent);
-
 
         }
 
         public static void RemoveRenderTarget()
         {
+
             Graphics.SetRenderTarget(null);
-           // Graphics.Clear(Color.Transparent);
 
         }
 
@@ -69,7 +67,9 @@ namespace SpriteEngine.Classes.RenderTargetStuff
         public static void DrawTarget(SpriteBatch spriteBatch, RenderTarget2D renderTarget2D)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(renderTarget2D, Settings.ScreenRectangle, Color.White);
+            spriteBatch.Draw(MainTarget, Settings.ScreenRectangle, Color.White);
+            spriteBatch.Draw(UITarget, Settings.ScreenRectangle, Color.White);
+
             spriteBatch.End();
         }
 

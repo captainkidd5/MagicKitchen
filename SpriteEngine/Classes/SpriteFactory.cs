@@ -22,12 +22,13 @@ namespace SpriteEngine.Classes
 
         public static Texture2D StatusIconTexture { get; set; }
 
+        public static Effect LightEffect { get; set; }
         public static void LoadContent(GraphicsDevice graphics, ContentManager content)
         {
             Graphics = graphics;
             Content = content;
             StatusIconTexture = content.Load<Texture2D>("entities/characters/statusicons");
-
+            LightEffect = content.Load<Effect>("Effects/Lighting/lighteffect");
         }
         /// <summary>
         /// For World vector2 position

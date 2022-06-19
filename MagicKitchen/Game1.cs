@@ -165,21 +165,11 @@ namespace MagicKitchen
         {
           
             RenderTargetManager.SetTarget(RenderTargetManager.MainTarget);
-
+            GraphicsDevice.Clear(Color.Transparent);
             if (UI.GameDisplayState == GameDisplayState.InGame)
             {
 
-                //if (Flags.EnableShadows && Flags.IsNightTime)
-                //{
-                //    Penumbra.BeginDraw();
-                //}
                 _stageManager.Draw(_spriteBatch, gameTime);
-                //if (Flags.EnableShadows && Flags.IsNightTime)
-                //{
-                //    Penumbra.Transform = Camera.GetTransform(GraphicsDevice);
-                //    Penumbra.Draw(gameTime);
-
-                //}
 
             }
 
@@ -187,14 +177,19 @@ namespace MagicKitchen
                 PhysicsManager.Draw(GraphicsDevice, Camera);
             _frameCounter.Update( gameTime.ElapsedGameTime.TotalSeconds);
 
+            RenderTargetManager.RemoveRenderTarget();
+
+
+
+            RenderTargetManager.SetTarget(RenderTargetManager.UITarget);
+            GraphicsDevice.Clear(Color.Transparent);
+
             UI.Draw(_spriteBatch, _frameCounter.framerate);
-
             RenderTargetManager.RemoveRenderTarget();
-            // Everything between penumbra.BeginDraw and penumbra.Draw will be
-            // lit by the lighting system.
 
-            RenderTargetManager.DrawTarget(_spriteBatch, RenderTargetManager.MainTarget);
-            RenderTargetManager.RemoveRenderTarget();
+
+            RenderTargetManager.DrawTarget(_spriteBatch, RenderTargetManager.UITarget);
+
 
             base.Draw(gameTime);
 
