@@ -191,21 +191,25 @@ namespace MagicKitchen
             RenderTargetManager.RemoveRenderTarget();
             GraphicsDevice.Clear(Color.Black);
 
-            SpriteFactory.LightEffect.Parameters["MaskTexture"].SetValue(RenderTargetManager.LightsTarget);
-            _spriteBatch.Begin(blendState: BlendState.AlphaBlend, effect: SpriteFactory.LightEffect);
-            _spriteBatch.Draw(RenderTargetManager.MainTarget, Vector2.Zero, Color.Red);
-            _spriteBatch.End();
 
             RenderTargetManager.SetTarget(RenderTargetManager.UITarget);
+            GraphicsDevice.Clear(Color.Transparent);
 
             UI.Draw(_spriteBatch, _frameCounter.framerate);
 
             RenderTargetManager.RemoveRenderTarget();
+            SpriteFactory.LightEffect.Parameters["MaskTexture"].SetValue(RenderTargetManager.LightsTarget);
+            _spriteBatch.Begin(blendState: BlendState.AlphaBlend, effect: SpriteFactory.LightEffect);
+            _spriteBatch.Draw(RenderTargetManager.MainTarget, Settings.ScreenRectangle, Color.Red);
+            _spriteBatch.End();
 
-           // GraphicsDevice.Clear(Color.Transparent);
+           
 
-            RenderTargetManager.DrawTarget(_spriteBatch);
 
+            _spriteBatch.Begin(blendState: BlendState.AlphaBlend);
+            _spriteBatch.Draw(RenderTargetManager.UITarget, Settings.ScreenRectangle, Color.White);
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
 

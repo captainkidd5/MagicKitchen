@@ -38,7 +38,7 @@ namespace SpriteEngine.Classes
         }
         public static Sprite CreateLight(Vector2 position)
         {
-            return CreateWorldSprite(position, _lightSourceRectangle, _lightMask, customLayer:.99f);
+            return CreateWorldSprite(position, _lightSourceRectangle, _lightMask,origin: new Vector2(64,64), customLayer:.99f);
         }
         /// <summary>
         /// For World vector2 position
