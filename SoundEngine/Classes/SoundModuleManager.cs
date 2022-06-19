@@ -32,7 +32,7 @@ namespace SoundEngine.Classes
                 throw new Exception($"tried to remove {module} from sounds, but was not in list");
         }
 
-        public void PlayDestructableSound(string soundName)
+        public void PlayPackage(string soundName)
         {
             Sounds.Add(new SoundModule(this, SoundFactory.PlayPackage(soundName)));
         }

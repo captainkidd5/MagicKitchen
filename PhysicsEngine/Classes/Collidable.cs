@@ -93,7 +93,7 @@ namespace PhysicsEngine.Classes
 
         public void PlaySound(string soundName)
         {
-            SoundModuleManager.PlayDestructableSound(soundName);
+            SoundModuleManager.PlayPackage(soundName);
         }
         public virtual void Update(GameTime gameTime)
         {
@@ -107,7 +107,6 @@ namespace PhysicsEngine.Classes
             }
             SoundModuleManager.Update(CenteredPosition);
 
-           // MainHullBody.Body.LinearVelocity = Velocity * Speed * (float)gameTime.ElapsedGameTime.Milliseconds;
 
             //Position is changed so that our sprite knows where to draw, and position
             //snaps to where the physics system moved the main hullbody

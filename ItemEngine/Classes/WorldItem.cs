@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Gadgets;
 using SpriteEngine.Classes;
+using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,7 +38,7 @@ namespace ItemEngine.Classes
 
         public int Count { get; private set; }
         public Sprite Sprite { get; set; }
-
+        public Shadow Shadow { get; set; }
         private bool ImmuneToPickup => _immunityTimer != null;
         private SimpleTimer _immunityTimer;
 
@@ -81,6 +82,8 @@ namespace ItemEngine.Classes
                 // Jettison(jettisonDirection.Value, null);
                 MainHullBody.Body.IgnoreGravity = true;
             }
+            Shadow = new Shadow(CenteredPosition, ShadowSize.Small, ItemFactory.ItemSpriteSheet, Sprite.GetYAxisLayerDepth());
+
 
         }
 
@@ -98,6 +101,8 @@ namespace ItemEngine.Classes
                 case WorldItemState.Bouncing:
                     _itemBehaviour = new BouncingItemBehaviour(this, jettisonDirection);
                     Sprite.CustomLayer = Sprite.GetYAxisLayerDepth();
+                    Shadow = new Shadow(CenteredPosition, ShadowSize.Small, ItemFactory.ItemSpriteSheet, Sprite.CustomLayer.Value);
+
 
                     break;
                 case WorldItemState.Floating:
@@ -156,7 +161,7 @@ namespace ItemEngine.Classes
             if (_itemBehaviour != null)
                 spriteBehaviourOffSet = _itemBehaviour.Update(gameTime);
             Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet) + spriteBehaviourOffSet);
-
+            Shadow.Update(gameTime, CenteredPosition);
 
         }
 
@@ -165,6 +170,7 @@ namespace ItemEngine.Classes
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);
+            Shadow.Draw(spriteBatch);
         }
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
