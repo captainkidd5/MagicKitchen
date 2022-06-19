@@ -167,7 +167,8 @@ namespace MagicKitchen
             if (UI.GameDisplayState == GameDisplayState.InGame)
             {
                 RenderTargetManager.SetTarget(RenderTargetManager.LightsTarget);
-                GraphicsDevice.Clear(new Color(0, 0, 0, 50));
+                GraphicsDevice.Clear(Color.Transparent);
+
 
 
                 _spriteBatch.Begin(blendState: BlendState.Additive, transformMatrix: Settings.Camera.GetTransform(GraphicsDevice));
@@ -176,7 +177,8 @@ namespace MagicKitchen
             }
 
             RenderTargetManager.SetTarget(RenderTargetManager.MainTarget);
-            GraphicsDevice.Clear(new Color(0,0,0, 50));
+            GraphicsDevice.Clear(Color.Transparent);
+
             if (UI.GameDisplayState == GameDisplayState.InGame)
             {
 
@@ -189,7 +191,8 @@ namespace MagicKitchen
             _frameCounter.Update(gameTime.ElapsedGameTime.TotalSeconds);
 
             RenderTargetManager.RemoveRenderTarget();
-            GraphicsDevice.Clear(new Color(0, 0, 0, 50));
+            GraphicsDevice.Clear(Color.Transparent);
+
 
 
             RenderTargetManager.SetTarget(RenderTargetManager.UITarget);

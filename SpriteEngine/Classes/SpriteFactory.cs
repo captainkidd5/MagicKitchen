@@ -38,7 +38,8 @@ namespace SpriteEngine.Classes
         }
         public static Sprite CreateLight(Vector2 position)
         {
-            return CreateWorldSprite(position, _lightSourceRectangle, _lightMask,origin: new Vector2(_lightSourceRectangle.Width/2, _lightSourceRectangle.Height/2),scale: new Vector2(4,4),primaryColor: Color.LightBlue, customLayer:.99f);
+            //note: Color.LightBlue is nice here for more ominous nautical vibes
+            return CreateWorldSprite(position, _lightSourceRectangle, _lightMask,origin: new Vector2(_lightSourceRectangle.Width/2, _lightSourceRectangle.Height/2),scale: new Vector2(4,4),primaryColor: Color.White, customLayer:.99f);
         }
         /// <summary>
         /// For World vector2 position

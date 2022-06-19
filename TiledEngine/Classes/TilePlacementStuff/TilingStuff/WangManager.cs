@@ -20,6 +20,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
         public void AddNewSet(string name, int gid)
         {
+        
             if (TilingSets.ContainsKey(name))
                 return;
             TilingSets[name] = FillTilingDictionary(gid);

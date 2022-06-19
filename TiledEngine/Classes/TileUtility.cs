@@ -60,9 +60,12 @@ namespace TiledEngine.Classes
         /// <param name="wang">Do not do this on loads/creates, only for individual tiles</param>
         public static void AssignProperties(Tile tile, Layers layer, bool tempTile = false, bool wang = true)
         {
-
+            
             TileSetPackage tileSetPackage = tile.TileSetPackage;
-            if(wang)
+
+            if (tileSetPackage.OffSetBackgroundGID(tile.GID) == 3370)
+                Console.WriteLine("test");
+            if (wang)
             {
                 int newGID = tileSetPackage.TilingSetManager.WangTile(tile);
                 if(tile.GID != newGID)
@@ -147,7 +150,7 @@ namespace TiledEngine.Classes
                 {
                     TestForTransparencyTile(tile, TileObjectHelper.GetSourceRectangleFromTileProperty(propertyString));
                 }
-                propertyString = "tilingSet";
+                propertyString = "tilingKey";
                 if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
                     tileSetPackage.TilingSetManager.AddNewSet(propertyString, tile.GID);

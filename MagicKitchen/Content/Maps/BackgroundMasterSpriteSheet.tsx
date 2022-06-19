@@ -44,6 +44,7 @@
  <tile id="201">
   <properties>
    <property name="step" value="StepDirt"/>
+   <property name="tilingKey" value="land"/>
    <property name="tilingSet" value="land"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -253,6 +254,7 @@
  </tile>
  <tile id="722">
   <properties>
+   <property name="tilingKey" value="water"/>
    <property name="tilingSet" value="water"/>
   </properties>
  </tile>
