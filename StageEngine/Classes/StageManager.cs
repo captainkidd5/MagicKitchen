@@ -42,20 +42,19 @@ namespace StageEngine.Classes
 
         private Dictionary<string, Stage> Stages { get; set; }
         public Stage CurrentStage { get; private set; }
-        public PenumbraComponent Penumbra { get; private set; }
+
 
 
         private string StageSwitchingTo { get; set; }
 
         private Vector2 NewPlayerPositionOnStageSwitch { get; set; }
 
-        public StageManager(GraphicsDevice graphics, ContentManager content,PlayerManager playerManager,
-            PenumbraComponent penumbra, Camera2D camera) : base(graphics, content)
+        public StageManager(GraphicsDevice graphics, ContentManager content,PlayerManager playerManager, Camera2D camera) : base(graphics, content)
         {
 
             Stages = new Dictionary<string, Stage>();
             _playerManager = playerManager;
-            Penumbra = penumbra;
+
             _camera = camera;
             _portalManager = new PortalManager(this);
             _npcManager = new NPCManager(graphics,content);
@@ -204,7 +203,7 @@ namespace StageEngine.Classes
 
             foreach (StageData sd in stageData)
             {
-                Stages.Add(sd.Name, new Stage(this,_playerManager, _npcManager, sd, content, graphics, _camera, Penumbra));
+                Stages.Add(sd.Name, new Stage(this,_playerManager, _npcManager, sd, content, graphics, _camera));
             }
         }
         public void CreateNewSave(BinaryWriter writer)

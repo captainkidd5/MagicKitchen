@@ -63,11 +63,12 @@ namespace Globals.Classes
                     return Vector2.Zero;
             }
         }
+        const int camera_smoothing = 10;
+        const float camera_frame_size_hor = 4;
+        const float camera_frame_size_ver = 3;
         public void Follow(Vector2 amount, Rectangle mapRectangle)
         {
-            const int camera_smoothing = 10;
-            const float camera_frame_size_hor = 4;
-            const float camera_frame_size_ver = 3;
+           
 
             float camera_target_x = Math.Min(Math.Max(X, amount.X - camera_frame_size_hor), amount.X + camera_frame_size_hor);
             float camera_target_y = Math.Min(Math.Max(Y, amount.Y - camera_frame_size_ver), amount.Y + camera_frame_size_ver);

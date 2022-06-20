@@ -51,13 +51,13 @@ namespace PhysicsEngine.Classes
     }
     public static class PhysicsManager
     {
-        public static PenumbraComponent Penumbra;
+
         public static World VelcroWorld { get; set; }
         public static DebugView PhysicsDebugger { get; set; }
 
         internal static Random Random;
 
-        public static void Initialize(PenumbraComponent penumbra)
+        public static void Initialize( )
         {
             VelcroWorld = new World(new Vector2(0, 9.8f));
             if (PhysicsDebugger == null)
@@ -68,7 +68,7 @@ namespace PhysicsEngine.Classes
                 
             }
 
-            Penumbra = penumbra;
+ 
             Random = new Random();
         }
 

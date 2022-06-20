@@ -59,7 +59,7 @@ namespace StageEngine.Classes
 
         private FlotsamGenerator _flotsamGenerator;
         public Stage(StageManager stageManager,PlayerManager playerManager, NPCManager npcManager, StageData stageData, ContentManager content,
-            GraphicsDevice graphics, Camera2D camera, PenumbraComponent penumbra)
+            GraphicsDevice graphics, Camera2D camera)
         {
             Name = stageData.Name;
             _stageManager = stageManager;
@@ -72,7 +72,7 @@ namespace StageEngine.Classes
 
             ItemManager = new ItemManager(Name);
 
-            TileManager = new TileManager(graphics, content, camera, penumbra, _stageData.MapType, ItemManager);
+            TileManager = new TileManager(graphics, content, camera, _stageData.MapType, ItemManager);
             _flotsamGenerator = new FlotsamGenerator(ItemManager, TileManager);
 
             LightDrawables = new List<ILightDrawable>() {TileManager, NPCContainer, _playerManager };

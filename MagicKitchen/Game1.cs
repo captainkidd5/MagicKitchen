@@ -52,7 +52,6 @@ namespace MagicKitchen
 
         public static SpriteFont MainFont { get; set; }
 
-        public static PenumbraComponent Penumbra;
 
         private ConsoleComponent consoleComponent;
 
@@ -64,7 +63,6 @@ namespace MagicKitchen
             Content.RootDirectory = "Content";
             IsMouseVisible = false;
 
-            Penumbra = new PenumbraComponent(this);
             consoleComponent = new ConsoleComponent(this);
             Components.Add(consoleComponent);
             Window.AllowUserResizing = true;
@@ -83,14 +81,13 @@ namespace MagicKitchen
 
             Settings.SetResolution(Settings.ScreenWidth, Settings.ScreenHeight);
 
-            PhysicsManager.Initialize(Penumbra);
+            PhysicsManager.Initialize();
 
 
 
 
-            Penumbra.Initialize();
             _playerManager = new PlayerManager(GraphicsDevice, Content);
-            _stageManager = new StageManager(GraphicsDevice, Content, _playerManager, Penumbra, Camera);
+            _stageManager = new StageManager(GraphicsDevice, Content, _playerManager, Camera);
             //Penumbra.SpriteBatchTransformEnabled = true;
             _commandList = new CommandList();
             base.Initialize();
@@ -126,11 +123,6 @@ namespace MagicKitchen
             _playerManager.LoadContent();
 
             SoundFactory.Load(Content);
-            Penumbra.OnVirtualSizeChanged(new PenumbraComponent.VirtualSizeChagnedEventArgs
-            {
-                VirtualWidth = (int)Settings.NativeWidth,
-                VirtualHeight = (int)Settings.NativeHeight
-            });
 
             SaveLoadManager.SaveCreated += OnSaveCreated;
             SaveLoadManager.SaveLoaded += OnSaveLoaded;
@@ -243,6 +235,7 @@ namespace MagicKitchen
             Clock.Save(writer);
             _playerManager.Save(writer);
             _stageManager.CreateNewSave(writer);
+            _playerManager.Player1.GiveItem("Wooden_Hook", 1);
             SaveLoadManager.DestroyWriter(writer);
             Flags.FirstBootUp = false;
 

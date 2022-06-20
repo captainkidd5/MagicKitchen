@@ -85,6 +85,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
             CommandConsole.RegisterCommand("tp", "teleports player to mouse position", TpCommand);
 
+            
         }
         private void TpCommand(string[] args)
         {
@@ -122,7 +123,7 @@ namespace EntityEngine.Classes.PlayerStuff
                 (Category)PhysCat.PlayerBigSensor }, new List<Category>() { (Category)PhysCat.LightSource },
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(LightSensor);
-
+            
             //AddLight(LightType.Warm,new Vector2(XOffSet * -1, YOffSet * -1), 1f);
         }
 
@@ -223,6 +224,10 @@ namespace EntityEngine.Classes.PlayerStuff
             {
                 RechargeLumens(gameTime);
             }
+            else
+            {
+                DrainLumens(gameTime);
+            }
         }
 
         private void RechargeLumens(GameTime gameTime)
@@ -233,6 +238,19 @@ namespace EntityEngine.Classes.PlayerStuff
                 if (_lumenRechargeTimer.Run(gameTime))
                 {
                     CurrentLumens++;
+                }
+            }
+
+        }
+
+        private void DrainLumens(GameTime gameTime)
+        {
+            if (CurrentLumens > 0)
+            {
+
+                if (_lumenRechargeTimer.Run(gameTime))
+                {
+                    CurrentLumens--;
                 }
             }
 
