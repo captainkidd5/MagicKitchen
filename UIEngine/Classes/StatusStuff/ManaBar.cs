@@ -11,7 +11,7 @@ namespace UIEngine.Classes.StatusStuff
 {
     public class ManaBar : HealthBar
     {
-        private readonly Color ManaColor = new Color(134, 204, 209);
+        private readonly Color ManaColor = new Color(255, 255, 255);
 
         public ManaBar(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)

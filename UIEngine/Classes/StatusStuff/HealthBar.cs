@@ -31,7 +31,7 @@ namespace UIEngine.Classes.StatusStuff
         public override void LoadContent()
         {
             // MovePosition(Position);
-            SourceRectangle = new Rectangle(288, 576, 192, 48);
+            SourceRectangle = new Rectangle(288, 576, 128, 32);
             Scale = new Vector2(1f, 1f);
             OutlineSprite = SpriteFactory.CreateDestinationSprite(1, (int)((float)SourceRectangle.Height * (float)Scale.Y), Position, new Rectangle(688, 0, 1, 1),
                    UI.ButtonTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressColor);

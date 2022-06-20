@@ -271,6 +271,13 @@
    <frame tileid="1929" duration="100"/>
   </animation>
  </tile>
+ <tile id="1942">
+  <properties>
+   <property name="lightSource" value="0,0,0"/>
+   <property name="newHitBox" value="8,0,16,16"/>
+   <property name="newSource" value="0,-32,32,48"/>
+  </properties>
+ </tile>
  <tile id="1958">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>

@@ -9,14 +9,6 @@
             <AmbientSoundPackageName>Overworld_Outside</AmbientSoundPackageName>
         </Item>
         <Item>
-            <Id>2</Id>
-            <Name>Town</Name>
-            <Path>Town.tmx</Path>
-            <MapType>Exterior</MapType>
-            <AmbientSoundPackageName>Overworld_Outside</AmbientSoundPackageName>
-
-        </Item>
-        <Item>
             <Id>3</Id>
             <Name>Restaurant</Name>
             <Path>Restaurant.tmx</Path>
@@ -24,13 +16,6 @@
             <AmbientSoundPackageName>Overworld_Outside</AmbientSoundPackageName>
 
         </Item>
-        <Item>
-            <Id>4</Id>
-            <Name>NormalPan</Name>
-            <Path>NormalPan.tmx</Path>
-            <MapType>Interior</MapType>
-            <AmbientSoundPackageName>Overworld_Outside</AmbientSoundPackageName>
 
-        </Item>
     </Asset>
 </XnaContent>
