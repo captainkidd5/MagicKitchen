@@ -34,7 +34,7 @@
  <tile id="215">
   <properties>
    <property name="animate" value="pause"/>
-   <property name="lightSource" value="0,0,0"/>
+   <property name="lightSource" value="1,8,0,Warm"/>
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -62,6 +62,11 @@
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
+ <tile id="527">
+  <properties>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
+ </tile>
  <tile id="547">
   <properties>
    <property name="newSource" value="-16,-80,48,96"/>
@@ -76,6 +81,11 @@
  <tile id="708">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="709">
+  <properties>
+   <property name="newSource" value="0,-16,32,32"/>
   </properties>
  </tile>
  <tile id="761">
@@ -147,6 +157,9 @@
   </animation>
  </tile>
  <tile id="891">
+  <properties>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
   <animation>
    <frame tileid="891" duration="800"/>
    <frame tileid="709" duration="800"/>
@@ -271,9 +284,20 @@
    <frame tileid="1929" duration="100"/>
   </animation>
  </tile>
+ <tile id="1935">
+  <properties>
+   <property name="lightSource" value="3,8,0,Nautical"/>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+  <objectgroup draworder="index" id="3">
+   <object id="2" x="3" y="9" width="5" height="5">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="1942">
   <properties>
-   <property name="lightSource" value="0,0,0"/>
+   <property name="lightSource" value="3,8,0,Nautical"/>
    <property name="newHitBox" value="8,0,16,16"/>
    <property name="newSource" value="0,-32,32,48"/>
   </properties>

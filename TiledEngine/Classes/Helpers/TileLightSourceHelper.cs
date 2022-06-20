@@ -17,10 +17,14 @@ namespace TiledEngine.Classes.Helpers
         ///// <summary>
         ///// For use with the "lightSource" tile property
         ///// </summary>
-        public static void AddJustLightSource(Tile tile, TileManager tileManager, string lightPropertyString, float lightRadius)
+        public static void AddJustLightSource(Tile tile, TileManager tileManager, string lightPropertyString)
         {
 
-            tile.Addons.Add(new LightBody(tile, new IntermediateTmxShape(TiledSharp.TmxObjectType.Ellipse, tile.DestinationRectangle, tile.Position, 3f), lightPropertyString, lightRadius));
+            tile.Addons.Add(new LightBody(
+                tile, new IntermediateTmxShape(
+                    TiledSharp.TmxObjectType.Ellipse,
+                    tile.DestinationRectangle, tile.Position, 3f),
+                lightPropertyString));
 
         }
 

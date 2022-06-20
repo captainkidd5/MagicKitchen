@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Penumbra;
 using PhysicsEngine.Classes;
+using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,35 +15,56 @@ namespace TiledEngine.Classes.TileAddons
     {
         private Point _pointOffset;
         private float _lightRadius;
+        private LightType _lightType;
 
         public LightBody(Tile tile, IntermediateTmxShape intermediateTmxShape,
-            string lightPropertyString, float lightRadius) : base(tile, intermediateTmxShape)
+            string lightPropertyString) : base(tile, intermediateTmxShape)
         {
 
-            _pointOffset = ParseLightString(lightPropertyString);
-            _lightRadius = lightRadius;
+            _pointOffset = GetOffSet(lightPropertyString);
+            _lightRadius = GetRadius(lightPropertyString);
+            _lightType = GetLightType(lightPropertyString);
         }
         public override void Load()
         {
-            CreateBody(Tile.Position);
-            AddLight();
+            CreateBody(Tile.Position + new Vector2(_pointOffset.X, _pointOffset.Y));
+            AddLight(_lightType, new Vector2(_pointOffset.X, _pointOffset.Y), _lightRadius);
         }
 
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, Tile.Position, 4f,
                 new List<Category>() { (Category)PhysCat.LightSource }, null, null, null,
-               light: PhysicsManager.GetPointLight(new Vector2(Tile.Position.X + _pointOffset.X, Tile.Position.Y + _pointOffset.Y), true, 400),isSensor:true));
+              isSensor:true));
         }
 
         /// <summary>
         /// For use with the "lightSource" tile property
         /// </summary>
-        private Point ParseLightString(string lightString)
+        private Point GetOffSet(string lightString)
         {
 
             return new Point(int.Parse(lightString.Split(',')[1]),
                 int.Parse(lightString.Split(',')[2]));
+
+        }
+
+        /// <summary>
+        /// For use with the "lightSource" tile property
+        /// </summary>
+        private int GetRadius(string lightString)
+        {
+
+            return int.Parse(lightString.Split(',')[0]);
+
+        }
+        /// <summary>
+        /// For use with the "lightSource" tile property
+        /// </summary>
+        private LightType GetLightType(string lightString)
+        {
+
+            return (LightType)Enum.Parse(typeof(LightType),lightString.Split(',')[3]);
 
         }
     }

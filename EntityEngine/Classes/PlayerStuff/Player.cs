@@ -23,6 +23,7 @@ using InputEngine.Classes;
 using tainicom.Aether.Physics2D.Dynamics;
 using Globals.Classes.Console;
 using ItemEngine.Classes.ToolStuff;
+using SpriteEngine.Classes.ShadowStuff;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -107,7 +108,7 @@ namespace EntityEngine.Classes.PlayerStuff
             AddSecondaryBody(FrontalSensor);
             // MainHullBody = HullBodies[0];
 
-            AddLight();
+            AddLight(LightType.Warm,new Vector2(XOffSet * -1, YOffSet * -1), 1f);
         }
 
         /// <summary>

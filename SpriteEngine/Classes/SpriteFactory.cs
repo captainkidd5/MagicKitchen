@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes.Animations;
 using SpriteEngine.Classes.InterfaceStuff;
+using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -35,6 +36,14 @@ namespace SpriteEngine.Classes
             LightEffect = content.Load<Effect>("Effects/Lighting/lighteffect");
             _lightMask = content.Load<Texture2D>("Effects/Lighting/lightmask");
 
+        }
+
+        public static LightSprite CreateLight(Vector2 position,Vector2 offSet, LightType lightType, float scale)
+        {
+            Sprite lightSprite = CreateWorldSprite(position, _lightSourceRectangle, _lightMask, origin: new Vector2(_lightSourceRectangle.Width / 2, _lightSourceRectangle.Height / 2),
+                scale: new Vector2(2, 2) * scale,
+                primaryColor: LightSprite.ColorFromLightType(lightType), customLayer: .99f);
+            return new LightSprite(lightSprite, offSet);
         }
         public static Sprite CreateLight(Vector2 position)
         {

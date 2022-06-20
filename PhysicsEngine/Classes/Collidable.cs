@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Penumbra;
 using PhysicsEngine.Classes.Gadgets;
 using SoundEngine.Classes;
 using SpriteEngine.Classes;
@@ -50,7 +49,7 @@ namespace PhysicsEngine.Classes
         protected HullBody BigSensor { get; set; }
         protected List<Category> BigSensorCollidesWithCategories { get; set; }
 
-        protected List<Sprite> Lights { get; set; }
+        protected List<LightCollidable> LightsCollidable { get; set; }
 
         /// <summary>
         /// Will return if is hovered, regardless of input type
@@ -111,11 +110,12 @@ namespace PhysicsEngine.Classes
                 body.Position = Position;
             }
 
-            if(Lights != null)
+            if(LightsCollidable != null)
             {
-                for (int i = 0; i < Lights.Count; i++)
+                for (int i = 0; i < LightsCollidable.Count; i++)
                 {
-                    Lights[i].Update(gameTime, Position);
+                    LightsCollidable[i].Update(gameTime);
+                    LightsCollidable[i].Move(Position);
                 }
             }
            
@@ -217,10 +217,14 @@ namespace PhysicsEngine.Classes
                 MainHullBody.Destroy();
             MainHullBody = null;
             HullBodies.Clear();
-            if(Lights != null)
+            if(LightsCollidable != null)
             {
-                Lights.Clear();
-                Lights = null;
+                foreach(LightCollidable lightCollidable in LightsCollidable)
+                {
+                    lightCollidable.CleanUp();
+                }
+                LightsCollidable.Clear();
+                LightsCollidable = null;
             }
 
         }
@@ -236,20 +240,22 @@ namespace PhysicsEngine.Classes
                 Gadgets.RemoveAt(i);
             }
         }
-        protected void AddLight()
+        protected void AddLight(LightType lightType,Vector2 offSet, float scale = 1)
         {
-            if (Lights == null)
-                Lights = new List<Sprite>();
+            if (LightsCollidable == null)
+                LightsCollidable = new List<LightCollidable>();
 
-            Lights.Add(SpriteFactory.CreateLight(Position));
+            LightCollidable lightCollidable = new LightCollidable(Position, offSet, lightType, scale);
+            lightCollidable.CreateBody(Position);
+            LightsCollidable.Add(lightCollidable);
         }
         public void DrawLights(SpriteBatch spriteBatch)
         {
-            if(Lights != null)
+            if(LightsCollidable != null)
             {
-                for (int i = 0; i < Lights.Count; i++)
+                for (int i = 0; i < LightsCollidable.Count; i++)
                 {
-                    Lights[i].Draw(spriteBatch);
+                    LightsCollidable[i].Draw(spriteBatch);
                 }
             }
             

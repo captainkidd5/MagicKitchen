@@ -98,17 +98,7 @@ namespace PhysicsEngine.Classes
 
             PhysicsDebugger.RenderDebugData(proj, view);
         }
-        public static Light GetPointLight(Vector2 position, bool startOn = true, float scale = 400f)
-        {
-            Light light = new PointLight()
-            {
-                Position = position,
-                Enabled = startOn,
-                Scale = new Vector2(scale), // Range of the light source (how far the light will travel)
-                ShadowType = ShadowType.Occluded // Will not lit hulls themselves
-            };
-            return light;
-        }
+
 
 
         public static HullBody CreateCircularHullBody(BodyType bodyType, Vector2? position,float? radius, List<Category>? collisionCategories, List<Category>? categoriesCollidesWith,

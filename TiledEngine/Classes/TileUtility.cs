@@ -135,7 +135,7 @@ namespace TiledEngine.Classes
                 propertyString = "lightSource";
                 if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
-                    TileLightSourceHelper.AddJustLightSource(tile, tileManager, propertyString, 3f);
+                    TileLightSourceHelper.AddJustLightSource(tile, tileManager, propertyString);
                 }
 
                 propertyString = "replace";
