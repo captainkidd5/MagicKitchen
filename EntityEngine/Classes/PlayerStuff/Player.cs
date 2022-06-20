@@ -24,27 +24,35 @@ using tainicom.Aether.Physics2D.Dynamics;
 using Globals.Classes.Console;
 using ItemEngine.Classes.ToolStuff;
 using SpriteEngine.Classes.ShadowStuff;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
     public class Player : HumanoidEntity
     {
         public byte Id { get; private set; }
-        public readonly Vector2 StartingPosition = Vector2Helper.GetWorldPositionFromTileIndex(126,134);
+        public readonly Vector2 StartingPosition = Vector2Helper.GetWorldPositionFromTileIndex(126, 134);
         private readonly PlayerManager _playerContainer;
 
         private bool WasMovingLastFrame { get; set; }
 
 
-        internal ProgressManager ProgressManager { get;set; }
+        internal ProgressManager ProgressManager { get; set; }
 
         protected HullBody FrontalSensor { get; set; }
 
 
-        public int MaxMana { get; set; } = 100;
-        public int CurrentMana { get; set; } = 100;
+        public int MaxLumens { get; set; } = 100;
+        public int CurrentLumens { get; set; } = 100;
 
-        public Player(StageNPCContainer container, GraphicsDevice graphics, ContentManager content,PlayerManager playerContainer, string name = "playerName") : base(container, graphics,content)
+        protected HullBody LightSensor { get; set; }
+
+        public bool Illuminated { get; private set; }
+
+        private float _lumenRechargeRate = .5f;
+        private SimpleTimer _lumenRechargeTimer;
+
+        public Player(StageNPCContainer container, GraphicsDevice graphics, ContentManager content, PlayerManager playerContainer, string name = "playerName") : base(container, graphics, content)
         {
             Name = name;
             ScheduleName = "player1";
@@ -55,13 +63,14 @@ namespace EntityEngine.Classes.PlayerStuff
             _playerContainer = playerContainer;
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
             ProgressManager = new ProgressManager();
+            _lumenRechargeTimer = new SimpleTimer(_lumenRechargeRate);
         }
-        public override void SwitchStage(string newStageName,  TileManager tileManager, ItemManager itemManager)
+        public override void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
         {
             Flags.StagePlayerIn = newStageName;
             CurrentStageName = newStageName;
-            base.SwitchStage(newStageName,tileManager, itemManager);
-           // _playerContainer.PlayerSwitchedStage(newStageName);
+            base.SwitchStage(newStageName, tileManager, itemManager);
+            // _playerContainer.PlayerSwitchedStage(newStageName);
         }
         public override void LoadContent(Vector2? startPos, string? name, bool standardAnimator = false)
         {
@@ -83,7 +92,7 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         protected override void ActivateTool(Tool tool)
         {
-            CurrentMana -= 5;
+            CurrentLumens -= 5;
             Vector2 distance = Controls.WorldDistanceBetweenCursorAndVector(Position);
             distance.Normalize();
             tool.ActivateTool(distance, this);
@@ -93,12 +102,12 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Player },
             new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.Grass, (Category)PhysCat.NPC, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item,
-                (Category)PhysCat.NPCBigSensor, (Category)PhysCat.Portal}, OnCollides, OnSeparates, ignoreGravity:true,blocksLight:true, userData: this));
+                (Category)PhysCat.NPCBigSensor, (Category)PhysCat.Portal}, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this));
 
 
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() {
                 (Category)PhysCat.PlayerBigSensor }, new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Tool,(Category)PhysCat.Portal,
-                    (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.NPC },
+                    (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.NPC, (Category)PhysCat.LightSource },
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
 
@@ -106,9 +115,15 @@ namespace EntityEngine.Classes.PlayerStuff
                 (Category)PhysCat.FrontalSensor }, BigSensorCollidesWithCategories,
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(FrontalSensor);
-            // MainHullBody = HullBodies[0];
 
-            AddLight(LightType.Warm,new Vector2(XOffSet * -1, YOffSet * -1), 1f);
+
+
+            LightSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() {
+                (Category)PhysCat.PlayerBigSensor }, new List<Category>() { (Category)PhysCat.LightSource },
+               OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
+            AddSecondaryBody(LightSensor);
+
+            //AddLight(LightType.Warm,new Vector2(XOffSet * -1, YOffSet * -1), 1f);
         }
 
         /// <summary>
@@ -127,7 +142,7 @@ namespace EntityEngine.Classes.PlayerStuff
                     return new Vector2(0, -16);
                 case Direction.Down:
                     return new Vector2(0, 16);
-                    
+
                 case Direction.Left:
                     return new Vector2(-16, 0);
 
@@ -148,14 +163,14 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         protected override void UpdateBehaviour(GameTime gameTime)
         {
-           // base.UpdateBehaviour(gameTime);
+            // base.UpdateBehaviour(gameTime);
         }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
             Shared.PlayerPosition = Position;
             UI.StatusPanel.HealthBar.SetProgressRatio((float)CurrentHealth / (float)MaxHealth);
-            UI.StatusPanel.ManaBar.SetProgressRatio((float)CurrentMana / (float)MaxMana);
+            UI.StatusPanel.ManaBar.SetProgressRatio((float)CurrentLumens / (float)MaxLumens);
             if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Y))
             {
                 //Item should not eject if any part of the ui is hovered
@@ -168,12 +183,12 @@ namespace EntityEngine.Classes.PlayerStuff
                     UseHeldItem();
                 }
             }
-        
+            HandleLumens(gameTime);
 
             if (UI.TalkingWindow.IsActive)
             {
                 //EntityAnimator.
-              
+
                 Halt(true);
                 DirectionMoving = UI.TalkingWindow.DirectionPlayerShouldFace;
                 if (UI.TalkingWindow.WasJustActivated)
@@ -188,10 +203,44 @@ namespace EntityEngine.Classes.PlayerStuff
 
             SelectItem(UI.PlayerCurrentSelectedItem);
         }
+
+        /// <summary>
+        /// If player light sensor overlaps with any light, begin recharging. Recharges at interval, until 
+        /// current lumens is equal to max lumens
+        /// </summary>
+        /// <param name="gameTime"></param>
+        private void HandleLumens(GameTime gameTime)
+        {
+            Illuminated = false;
+
+            if (LightSensor.Body.ContactList != null)
+            {
+                if (LightSensor.Body.ContactList.Contact.IsTouching)
+                    Illuminated = true;
+            }
+
+            if (Illuminated)
+            {
+                RechargeLumens(gameTime);
+            }
+        }
+
+        private void RechargeLumens(GameTime gameTime)
+        {
+            if (CurrentLumens < MaxLumens)
+            {
+
+                if (_lumenRechargeTimer.Run(gameTime))
+                {
+                    CurrentLumens++;
+                }
+            }
+
+        }
         protected override void CheckOnWarpStatus()
         {
-            if(CurrentStageName != Flags.StagePlayerIn)
-               base.CheckOnWarpStatus();
+            if (CurrentStageName != Flags.StagePlayerIn)
+                base.CheckOnWarpStatus();
         }
         private void DropHeldItem()
         {
@@ -221,11 +270,11 @@ namespace EntityEngine.Classes.PlayerStuff
             if (!ForceStop)
             {
 
-            Velocity = Vector2.Zero;
-            Direction secondaryDirection = Controls.SecondaryDirectionFacing;
-            IsMoving = Controls.IsPlayerMoving;
-            GetPlayerMovementDirectionAndVelocity(Controls.DirectionFacing);
-            GetPlayerMovementDirectionAndVelocity(secondaryDirection);
+                Velocity = Vector2.Zero;
+                Direction secondaryDirection = Controls.SecondaryDirectionFacing;
+                IsMoving = Controls.IsPlayerMoving;
+                GetPlayerMovementDirectionAndVelocity(Controls.DirectionFacing);
+                GetPlayerMovementDirectionAndVelocity(secondaryDirection);
             }
 
             return (WasMovingLastFrame != IsMoving); //This frame's movement is different from last frames.
@@ -284,10 +333,10 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             Navigator.Unload();
 
-           
+
             TileManager = tileManager;
-        
-                Navigator.Load(TileManager.PathGrid);
+
+            Navigator.Load(TileManager.PathGrid);
             InventoryHandler.SwapItemManager(itemManager);
         }
     }
