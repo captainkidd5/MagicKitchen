@@ -54,12 +54,12 @@
     "CookTime": 1,
     "Ingredients":[
         {
-            "Name":"Iron_Ore",
-            "Count":1
+            "Name":"Flint",
+            "Count":2
         },
         {
-            "Name":"Stone",
-            "Count":1
+            "Name":"Drift_Wood",
+            "Count":2
         }
     ]
 }
@@ -139,6 +139,14 @@
 
 },
 {
+    "Id": 1300,
+    "Name": "Drift_Wood",
+    "Description" : "Water-logged",
+    "MaxStackSize": 999,
+    "Price": 1
+
+},
+{
     "Id": 1601,
     "Name": "Iron_Ore",
     "Description" : "A basic mineral",
@@ -166,6 +174,14 @@
 }
 },
 {
+    "Id": 2500,
+    "Name": "Flint",
+    "Description" : "A surpsingly buoyant stone",
+    "MaxStackSize": 99,
+    "Price": 1
+    
+    },
+{
     "Id": 2501,
     "Name": "Stone",
     "Description" : "Hard, round",
@@ -174,60 +190,8 @@
     
     },
    
-    {
-        "Id": 2617,
-        "Name": "Anchovy",
-        "Description" : "A small slippery fellow",
-        "MaxStackSize": 99,
-        "Price": 1
-        
-        },
-        {
-            "Id": 2618,
-            "Name": "Shmegg Mixture",
-            "Description" : "A Raw shmegg mixture",
-            "MaxStackSize": 99,
-            "Price": 1,
-            "RecipeInfo": 
-                {
-                "CraftAction": "Smelt",
-                "CookTime": 1,
-                "Ingredients":[
-                    {
-                        "Name":"Shmegg",
-                        "Count":1
-                    }
-                ]
-                
-            }
-        
-        },
-        {
-            "Id": 2619,
-            "Name": "Scrambled Shmeggs",
-            "Description" : "A basic egg dish",
-            "MaxStackSize": 99,
-            "Price": 1,
-            "RecipeInfo": 
-                {
-                "CraftAction": "Smelt",
-                "CookTime": 1,
-                "Ingredients":[
-                    {
-                        "Name":"Shmegg",
-                        "Count":1
-                    },
-                    {
-                        "Name":"Plepper",
-                        "Count":1
-
-                    }
-                ]
-                
-                
-            }
-        
-        },
+   
+      
     {
         "Id": 2711,
         "Name": "Water",
@@ -236,22 +200,7 @@
         "Price": 1
         
         },
-    {
-        "Id": 2713,
-        "Name": "Flour",
-        "Description" : "Grinded wheat",
-        "MaxStackSize": 99,
-        "Price": 1
-        
-        },
-        {
-            "Id": 2715,
-            "Name": "Shmegg",
-            "Description" : "Fresh clucken produceim",
-            "MaxStackSize": 99,
-            "Price": 1
-            
-            },
+   
     {
         "Id": 2717,
         "Name": "Pumpkin Chunk",
@@ -260,67 +209,12 @@
         "Price": 1
         
         },
-        {
-            "Id": 2814,
-            "Name": "Plate",
-            "Description" : "Porecelein serving dish",
-            "MaxStackSize": 99,
-            "Price": 1
-            
-            },
-        {
-            "Id": 2819,
-            "Name": "Plepper",
-            "Description" : "Sneeze inducing spice",
-            "MaxStackSize": 99,
-            "Price": 1
-            
-            },
-            {
-                "Id": 2820,
-                "Name": "Salt",
-                "Description" : "A seaside spice",
-                "MaxStackSize": 99,
-                "Price": 1
-                
-                },
-        {
-            "Id": 2915,
-            "Name": "Shmizza Dough",
-            "Description" : "Raw Shmizza dough, a foundation",
-            "MaxStackSize": 99,
-            "Price": 1,
-            "RecipeInfo": 
-                {
-                "CraftAction": "Mix",
-                "CookTime": 2,
-                "Ingredients":[
-                    {
-                        "Name":"Shmegg"
-                    }
-                ]
- 
-                
-            }
         
-        },
+       
+          
+       
         
-        {
-            "Id": 2917,
-            "Name": "Cheese",
-            "Description" : "A chunky of sweaty cheese",
-            "MaxStackSize": 99,
-            "Price": 1
-            
-            },
-            {
-                "Id": 2918,
-                "Name": "Slomato",
-                "Description" : "A bright red fruit",
-                "MaxStackSize": 99,
-                "Price": 1
-                
-                },
+        
                 {
                     "Id": 3001,
                     "Name": "Crafting_Table",
@@ -364,107 +258,11 @@
 }
                     
                     },
-        {
-            "Id": 3015,
-            "Name": "Slomato Shmizza",
-            "Description" : "An unfinished Shmizza Pie",
-            "MaxStackSize": 99,
-            "Price": 2,
-            
-            "RecipeInfo": 
-                {
-                    "ShownInParentRecipes": true,
-                "CraftAction": "Add",
-                "CookTime": 2,
-                "Ingredients":[
-                    {
-                        "Name":"Shmegg"
-                    }
-                ]   
-            }
-           
+      
+       
+       
         
-        },
-        {
-            "Id": 3016,
-            "Name": "Cheese Shmizza (Raw)",
-            "Description" : "An uninished cheese Shmizza",
-            "MaxStackSize": 99,
-            "Price": 1,
-            
-            "RecipeInfo": 
-                {
-                    "ShownInParentRecipes": true,
-                "CraftAction": "Add",
-                "CookTime": 2,
-                "Ingredients":[
-                    {
-                        "Name":"Shmegg"
-                    }
-                ]
-            }
-        },
-        {
-            "Id": 3017,
-            "Name": "Cheese Shmizza",
-            "Description" : "A basic Shmizza",
-            "MaxStackSize": 99,
-            "Price": 2,
-            
-            "RecipeInfo": 
-                {
-                    "ShownInParentRecipes": true,
-                "CraftAction": "Bake",
-                "CookTime": 2,
-                "Ingredients":[
-                    {
-                        "Name":"Shmegg"
-                    }
-                ]
-            }
-        },
-        {
-            "Id": 3018,
-            "Name": "Anchovy Shmizza (Raw)",
-            "Description" : "An unfinished anchovy shmizza",
-            "MaxStackSize": 99,
-            "Price": 5,
-            
-            "RecipeInfo": 
-                {
-                    "ShownInParentRecipes": true,
-                "CraftAction": "Add",
-                "CookTime": 2,
-                "Ingredients":[
-                    {
-                        "Name":"Shmegg"
-                    }
-                ]
-            }
-           
-        
-        },
-        {
-            "Id": 3019,
-            "Name": "Anchovy Shmizza",
-            "Description" : "An anchovy shmizza",
-            "MaxStackSize": 99,
-            "Price": 5,
-            
-            "RecipeInfo": 
-                {
-                    "ShownInParentRecipes": true,
-                "CraftAction": "Bake",
-                "CookTime": 2,
-                "Ingredients":[
-                    {
-                        "Name":"Shmegg"
-                    }
-                ]
-            }
-           
-        
-        },
+       
         {
             "Id": 3100,
             "Name": "Chest",

@@ -1,10 +1,15 @@
 [
     {
-        "Name":"Dirt",
-        "Weight":80
+        "Name":"Flint",
+        "Weight":50
     },
     {
         "Name":"Iron_Ore",
-        "Weight":20
+        "Weight":10
+    }
+    ,
+    {
+        "Name":"Drift_Wood",
+        "Weight":40
     }
 ]
