@@ -41,16 +41,17 @@ namespace EntityEngine.Classes.PlayerStuff
 
         protected HullBody FrontalSensor { get; set; }
 
+        private LumenHandler _lumenHandler;
 
-        public int MaxLumens { get; set; } = 100;
-        public int CurrentLumens { get; set; } = 100;
+        public int MaxLumens => _lumenHandler.MaxLumens;
+        public int CurrentLumens => _lumenHandler.CurrentLumens;
+        public bool Illuminated => _lumenHandler.Illuminated;
 
         protected HullBody LightSensor { get; set; }
 
-        public bool Illuminated { get; private set; }
 
-        private float _lumenRechargeRate = .5f;
-        private SimpleTimer _lumenRechargeTimer;
+
+
 
         public Player(StageNPCContainer container, GraphicsDevice graphics, ContentManager content, PlayerManager playerContainer, string name = "playerName") : base(container, graphics, content)
         {
@@ -63,7 +64,6 @@ namespace EntityEngine.Classes.PlayerStuff
             _playerContainer = playerContainer;
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
             ProgressManager = new ProgressManager();
-            _lumenRechargeTimer = new SimpleTimer(_lumenRechargeRate);
         }
         public override void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
         {
@@ -93,7 +93,7 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         protected override void ActivateTool(Tool tool)
         {
-            CurrentLumens -= 5;
+            _lumenHandler.CurrentLumens -= 5;
             Vector2 distance = Controls.WorldDistanceBetweenCursorAndVector(Position);
             distance.Normalize();
             tool.ReleaseTool(distance, this);
@@ -124,6 +124,7 @@ namespace EntityEngine.Classes.PlayerStuff
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(LightSensor);
             
+            _lumenHandler = new LumenHandler(LightSensor);
             //AddLight(LightType.Warm,new Vector2(XOffSet * -1, YOffSet * -1), 1f);
         }
 
@@ -186,14 +187,14 @@ namespace EntityEngine.Classes.PlayerStuff
             }
             else if (Controls.IsSelectDown())
             {
+                Halt(true);
                 ChargeHeldItem(gameTime, Controls.MouseWorldPosition);
             }
             else if(IsUsingTool && Tool.IsCharging && !Controls.IsSelectDown())
             {
                 ActivateTool(Tool);
             }
-
-            HandleLumens(gameTime);
+            _lumenHandler.HandleLumens(gameTime);
 
             if (UI.TalkingWindow.IsActive)
             {
@@ -204,8 +205,8 @@ namespace EntityEngine.Classes.PlayerStuff
                 if (UI.TalkingWindow.WasJustActivated)
                     Animator.ChangeDirection(DirectionMoving, Position);
             }
-            else
-                Resume();
+            //else
+            //    Resume();
 
 
             FrontalSensor.Position = Position + GetFrontalSensorPositionFromEntityDirection();
@@ -214,56 +215,7 @@ namespace EntityEngine.Classes.PlayerStuff
             SelectItem(UI.PlayerCurrentSelectedItem);
         }
 
-        /// <summary>
-        /// If player light sensor overlaps with any light, begin recharging. Recharges at interval, until 
-        /// current lumens is equal to max lumens
-        /// </summary>
-        /// <param name="gameTime"></param>
-        private void HandleLumens(GameTime gameTime)
-        {
-            Illuminated = false;
 
-            if (LightSensor.Body.ContactList != null)
-            {
-                if (LightSensor.Body.ContactList.Contact.IsTouching)
-                    Illuminated = true;
-            }
-
-            if (Illuminated)
-            {
-                RechargeLumens(gameTime);
-            }
-            else
-            {
-                DrainLumens(gameTime);
-            }
-        }
-
-        private void RechargeLumens(GameTime gameTime)
-        {
-            if (CurrentLumens < MaxLumens)
-            {
-
-                if (_lumenRechargeTimer.Run(gameTime))
-                {
-                    CurrentLumens++;
-                }
-            }
-
-        }
-
-        private void DrainLumens(GameTime gameTime)
-        {
-            if (CurrentLumens > 0)
-            {
-
-                if (_lumenRechargeTimer.Run(gameTime))
-                {
-                    CurrentLumens--;
-                }
-            }
-
-        }
         protected override void CheckOnWarpStatus()
         {
             if (CurrentStageName != Flags.StagePlayerIn)
@@ -303,6 +255,7 @@ namespace EntityEngine.Classes.PlayerStuff
                 GetPlayerMovementDirectionAndVelocity(Controls.DirectionFacing);
                 GetPlayerMovementDirectionAndVelocity(secondaryDirection);
             }
+      
 
             return (WasMovingLastFrame != IsMoving); //This frame's movement is different from last frames.
         }
