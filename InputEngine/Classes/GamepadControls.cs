@@ -75,7 +75,8 @@ namespace InputEngine.Classes
 
             var absX = Math.Abs(thumbStick.X);
             var absY = Math.Abs(thumbStick.Y);
-            return new Vector2(absX > thumbstickTolerance ? thumbStick.X : 0, absY > thumbstickTolerance ? thumbStick.Y : 0);
+            //Inverting y here cuz
+            return new Vector2(absX > thumbstickTolerance ? thumbStick.X : 0, absY > thumbstickTolerance ? thumbStick.Y * -1 : 0);
         }
 
         public float GetThumbStickRotation(Direction direction)

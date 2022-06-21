@@ -56,7 +56,7 @@ namespace ItemEngine.Classes.ToolStuff
 
                 if (Vector2Helper.IsNormalized(aimPosition))
                 {
-                    _arrowDirectionVector = aimPosition;
+                    _arrowDirectionVector = aimPosition * -1;
                 }
                 else
                 {
