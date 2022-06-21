@@ -30,6 +30,7 @@ namespace ItemEngine.Classes.ToolStuff
         {
 
             SourceRectangle = new Rectangle(16, 0, 16, 16);
+            RequiresCharge = true;
         }
 
         public override void Load()

@@ -18,6 +18,7 @@ namespace ItemEngine.Classes.ToolStuff
     {
         public bool Dirty { get; set; }
         protected Rectangle SourceRectangle { get; set; }
+        public bool RequiresCharge { get; set; }
         public static Tool GetTool(string typeName)
         {
             return (Tool)System.Reflection.Assembly.GetExecutingAssembly()

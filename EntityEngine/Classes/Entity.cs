@@ -88,12 +88,10 @@ namespace EntityEngine.Classes
 
         private OverheadItemDisplay _overHeadItemDisplay { get; set; }
 
-        protected Tool Tool { get; set; }
-
+        internal ToolHandler ToolHandler { get; set; }
         public int MaxHealth { get; protected set; } = 100;
         public int CurrentHealth { get; protected set; } = 100;
 
-        protected bool IsUsingTool => Tool != null;
         public Entity(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : base()
         {
             _graphics = graphics;
@@ -145,7 +143,7 @@ namespace EntityEngine.Classes
             BehaviourManager.Load();
             _overHeadItemDisplay = new OverheadItemDisplay();
 
-
+            ToolHandler = new ToolHandler(this, InventoryHandler);
 
         }
 
@@ -265,74 +263,19 @@ namespace EntityEngine.Classes
             Animator.Update(gameTime, IsMoving, Position);
 
             _overHeadItemDisplay.Update(gameTime, Position, LayerDepth);
-            if (Tool != null)
-            {
-                Tool.Update(gameTime);
-                if (Tool.Dirty)
-                    Tool = null;
-            }
+            ToolHandler.Update(gameTime);
+
 
 
             if (_warpHelper.IsWarping)
                 CheckOnWarpStatus();
         }
 
-        protected void UseHeldItem()
-        {
-            if(InventoryHandler.HeldItem != null && 
-                InventoryHandler.HeldItem.ItemType > DataModels.ItemStuff.ItemType.None)
-            {
-                if (IsUsingTool)
-                    return;
-                Tool tool = (Tool)ItemEngine.Classes.ToolStuff.Tool.GetTool(InventoryHandler.HeldItem.ItemType.ToString());
-                if (tool == null)
-                    return;
-                tool.Load();
-                tool.Move(Position);
-                ActivateTool(tool);
-                Tool = tool;
-            }
+        protected void UseHeldItem() => ToolHandler.UseHeldItem();
 
-        }
-        protected void ChargeHeldItem(GameTime gameTime, Vector2 aimDirection)
-        {
-            if (Tool != null)
-            {
-                if (Tool.IsCharging)
-                {
-                    Tool.ChargeUpTool(gameTime, aimDirection);
+        protected void ChargeHeldItem(GameTime gameTime, Vector2 aimDirection) => ToolHandler.ChargeHeldItem(gameTime, aimDirection);
 
-                }
-                else
-                {
-                    Tool.BeginCharge(this);
-
-                }
-            }
-            else
-            {
-                if (InventoryHandler.HeldItem != null &&
-                InventoryHandler.HeldItem.ItemType > DataModels.ItemStuff.ItemType.None)
-                {
-                    if (IsUsingTool)
-                        return;
-                    Tool tool = (Tool)ItemEngine.Classes.ToolStuff.Tool.GetTool(InventoryHandler.HeldItem.ItemType.ToString());
-                    if (tool == null)
-                        return;
-                    tool.Move(Position);
-                    tool.BeginCharge(this);
-                    Tool = tool;
-                }
-            }
-            
-            
-
-        }
-        protected virtual void ActivateTool(Tool tool)
-        {
-            tool.ReleaseTool(Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving), this);
-
-        }
+        protected virtual void ActivateTool(Tool tool) => ToolHandler.ActivateTool(tool);
         public void ForceWarpTo(string stageTo, Vector2 position, TileManager tileManager, ItemManager itemManager)
         {
             Move(position);
@@ -376,8 +319,7 @@ namespace EntityEngine.Classes
                 BehaviourManager.DrawDebug(spriteBatch);
 #endif
 
-            if (Tool != null)
-                    Tool.Draw(spriteBatch);
+            ToolHandler.Draw(spriteBatch);
         }
 
         public virtual void DrawDebug(SpriteBatch spriteBatch)

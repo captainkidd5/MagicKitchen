@@ -452,6 +452,8 @@ namespace TiledEngine.Classes
         {
             Tile tile = GetTileFromWorldPosition(position, Layers.background);
 
+            if (tile == null)
+                return false;
             string tilingSetValue = tile.GetProperty("tilingSet");
             if (tilingSetValue == "water")
                 return true;

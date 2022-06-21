@@ -59,7 +59,7 @@ namespace EntityEngine.Classes.PlayerStuff
             ScheduleName = "player1";
             Move(StartingPosition);
             StorageCapacity = 24;
-            XOffSet = 4;
+            XOffSet = 8;
             YOffSet = 8;
             _playerContainer = playerContainer;
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
@@ -85,20 +85,13 @@ namespace EntityEngine.Classes.PlayerStuff
 
             CommandConsole.RegisterCommand("tp", "teleports player to mouse position", TpCommand);
 
-            
+            ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
         }
         private void TpCommand(string[] args)
         {
             Move(Controls.MouseWorldPosition);
         }
-        protected override void ActivateTool(Tool tool)
-        {
-            _lumenHandler.CurrentLumens -= 5;
-            Vector2 distance = Controls.WorldDistanceBetweenCursorAndVector(Position);
-            distance.Normalize();
-            tool.ReleaseTool(distance, this);
 
-        }
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Player },
@@ -185,15 +178,7 @@ namespace EntityEngine.Classes.PlayerStuff
                     UseHeldItem();
                 }
             }
-            else if (Controls.IsSelectDown())
-            {
-                Halt(true);
-                ChargeHeldItem(gameTime, Controls.MouseWorldPosition);
-            }
-            else if(IsUsingTool && Tool.IsCharging && !Controls.IsSelectDown())
-            {
-                ActivateTool(Tool);
-            }
+
             _lumenHandler.HandleLumens(gameTime);
 
             if (UI.TalkingWindow.IsActive)
