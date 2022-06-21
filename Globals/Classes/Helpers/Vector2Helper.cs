@@ -64,6 +64,11 @@ namespace Globals.Classes.Helpers
              return (float)Math.Atan2(vector.Y, vector.X);
         }
 
+        public static bool IsNormalized(Vector2 vector)
+        {
+            return Math.Abs(vector.X) <= 1 && Math.Abs(vector.Y) <= 1;
+        }
+
         public static Vector2 AngleToVector(float angle)
         {
             return new Vector2((float)Math.Sin(angle), -(float)Math.Cos(angle));

@@ -273,7 +273,7 @@ namespace EntityEngine.Classes
 
         protected void UseHeldItem() => ToolHandler.UseHeldItem();
 
-        protected void ChargeHeldItem(GameTime gameTime, Vector2 aimDirection) => ToolHandler.ChargeHeldItem(gameTime, aimDirection);
+        protected void ChargeHeldItem(GameTime gameTime, Vector2 aimPosition ) => ToolHandler.ChargeHeldItem(gameTime, aimPosition);
 
         protected virtual void ActivateTool(Tool tool) => ToolHandler.ActivateTool(tool);
         public void ForceWarpTo(string stageTo, Vector2 position, TileManager tileManager, ItemManager itemManager)

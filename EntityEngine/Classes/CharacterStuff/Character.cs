@@ -20,6 +20,7 @@ using ItemEngine.Classes;
 using EntityEngine.Classes.NPCStuff;
 using InputEngine.Classes;
 using Globals.Classes;
+using EntityEngine.Classes.PlayerStuff;
 
 namespace EntityEngine.Classes.CharacterStuff
 {
@@ -60,6 +61,7 @@ namespace EntityEngine.Classes.CharacterStuff
              
             if (!UI.TalkingWindow.IsActive)
             {
+                if(this.GetType() != typeof(Player))
                 Resume();
                 if(StatusIcon.StatusIconType == StatusIconType.Speak)
                   StatusIcon.SetStatus(StatusIconType.None);

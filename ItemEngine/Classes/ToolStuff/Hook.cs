@@ -53,8 +53,17 @@ namespace ItemEngine.Classes.ToolStuff
             if (IsCharging)
             {
                 Move(Holder.CenteredPosition);
-                 _arrowDirectionVector = Holder.CenteredPosition - aimPosition;
-                _arrowDirectionVector.Normalize();
+
+                if (Vector2Helper.IsNormalized(aimPosition))
+                {
+                    _arrowDirectionVector = aimPosition;
+                }
+                else
+                {
+                    _arrowDirectionVector = Holder.CenteredPosition - aimPosition;
+                    _arrowDirectionVector.Normalize();
+                }
+                 
                 _directionalArrowSprite.Rotation = Vector2Helper.VectorToDegrees(_arrowDirectionVector) - (float)Math.PI /4;
                 _directionalArrowSprite.Update(gameTime, Position);
             }

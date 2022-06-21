@@ -59,27 +59,12 @@ namespace EntityEngine.Classes
             }
 
         }
-        public void ChargeHeldItem(GameTime gameTime, Vector2 aimDirection)
+        public void ChargeHeldItem(GameTime gameTime, Vector2 aimPosition)
         {
-            if (Tool != null)
-            {
-                if (Tool.IsCharging)
-                {
-                    Entity.Halt(true);
-
-                    Tool.ChargeUpTool(gameTime, aimDirection);
-
-                }
-                else
-                {
-                    Tool.BeginCharge(Entity);
-
-                }
-            }
-            else
+            if (!IsUsingTool)
             {
                 if (_inventoryHandler.HeldItem != null &&
-                _inventoryHandler.HeldItem.ItemType > DataModels.ItemStuff.ItemType.None)
+               _inventoryHandler.HeldItem.ItemType > DataModels.ItemStuff.ItemType.None)
                 {
                     if (IsUsingTool)
                         return;
@@ -91,9 +76,23 @@ namespace EntityEngine.Classes
                     Tool = tool;
                 }
             }
+            else if (IsUsingTool)
+            {
+                if (Tool.IsCharging)
+                {
+                    Entity.Halt(true);
+                  
+                        Tool.ChargeUpTool(gameTime, aimPosition);
 
+                    
 
+                }
+                else
+                {
+                    Tool.BeginCharge(Entity);
 
+                }
+            }
         }
         public virtual void ActivateTool(Tool tool)
         {

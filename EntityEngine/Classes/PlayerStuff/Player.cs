@@ -163,6 +163,7 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         public override void Update(GameTime gameTime)
         {
+            Resume();
             base.Update(gameTime);
             Shared.PlayerPosition = Position;
             UI.StatusPanel.HealthBar.SetProgressRatio((float)CurrentHealth / (float)MaxHealth);

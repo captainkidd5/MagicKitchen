@@ -61,15 +61,29 @@ namespace InputEngine.Classes
             return Direction.None;
         }
 
-        public Vector2 GetRightThumbStickVector()
+        public Vector2 GetThumbStickVector(Direction direction)
         {
-            float thumbstickTolerance = 0.35f;
-            var gamePadThumbStick = _newGamePadState.ThumbSticks.Right;
-            var absX = Math.Abs(gamePadThumbStick.X);
-            var absY = Math.Abs(gamePadThumbStick.Y);
-            return new Vector2(absX > thumbstickTolerance ? absX : 0, absY > thumbstickTolerance ? absY : 0);
+            Vector2 thumbStick = Vector2.Zero;
+            if (direction == Direction.Left)
+                thumbStick = _newGamePadState.ThumbSticks.Left;
+            else if (direction == Direction.Right)
+                thumbStick = _newGamePadState.ThumbSticks.Right;
+            else
+                throw new Exception($"Must provide either left or right");
+
+            float thumbstickTolerance = 0.15f;
+
+            var absX = Math.Abs(thumbStick.X);
+            var absY = Math.Abs(thumbStick.Y);
+            return new Vector2(absX > thumbstickTolerance ? thumbStick.X : 0, absY > thumbstickTolerance ? thumbStick.Y : 0);
         }
 
+        public float GetThumbStickRotation(Direction direction)
+        {
+            Vector2 thumbStick = GetThumbStickVector(direction);
+            float rotation = (float)Math.Atan2(thumbStick.Y, thumbStick.X);
+            return rotation;
+        }
 
         private GamePadState _newGamePadState;
         private GamePadState _oldGamePadState;

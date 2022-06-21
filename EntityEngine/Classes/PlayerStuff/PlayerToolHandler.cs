@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DataModels.Enums;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -22,6 +23,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public PlayerToolHandler(Entity entity, InventoryHandler inventoryHandler, LumenHandler lumenHandler) : base(entity, inventoryHandler)
         {
             _lumenHandler = lumenHandler;
+            _mayChargeAgain = true;
         }
         public override void Update(GameTime gameTime)
         {
@@ -30,18 +32,45 @@ namespace EntityEngine.Classes.PlayerStuff
             if(!_mayChargeAgain && !Controls.IsSelectDown())
                 _mayChargeAgain = true;
 
-            if (IsUsingTool && Tool.IsCharging && Controls.IsRightClicked)
+            if (IsUsingTool && Tool.IsCharging)
             {
-                Tool.Unload();
-                _mayChargeAgain = false;
-                return;
+                if (Controls.IsRightClicked)
+                {
+                    Tool.Unload();
+                    _mayChargeAgain = false;
+                    return;
+                }
+                
+
+                if (Controls.ControllerConnected &&
+             Controls.ThumbStickRotation(Direction.Left) == 0)
+                {
+                    if (!Controls.IsSelectDown())
+                    {
+                        Tool.Unload();
+                        _mayChargeAgain = false;
+                        return;
+                    }
+                    
+                }
             }
             if (_mayChargeAgain && Controls.IsSelectDown())
             {
-                ChargeHeldItem(gameTime, Controls.MouseWorldPosition);
+                if (Controls.ControllerConnected)
+                {
+
+                    ChargeHeldItem(gameTime, Controls.ThumbStickVector(Direction.Left));
+
+                }
+                else
+                {
+                    ChargeHeldItem(gameTime, Controls.MouseWorldPosition);
+
+                }
             }
             else if (IsUsingTool && Tool.IsCharging && !Controls.IsSelectDown())
             {
+               
                 ActivateTool(Tool);
             }
 
@@ -49,7 +78,12 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void ActivateTool(Tool tool)
         {
             _lumenHandler.CurrentLumens -= 5;
-            Vector2 distance = Controls.WorldDistanceBetweenCursorAndVector(Entity.Position);
+            Vector2 distance = Vector2.Zero;
+            if (Controls.ControllerConnected)
+                 distance = Controls.WorldDistanceBetweenCursorAndVector(Entity.Position, Direction.Left);
+            else
+                 distance = Controls.WorldDistanceBetweenCursorAndVector(Entity.Position);
+
             distance.Normalize();
             tool.ReleaseTool(distance, Entity);
         }

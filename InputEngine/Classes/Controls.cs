@@ -102,13 +102,17 @@ namespace InputEngine.Classes
             
             return KeyboardManager.PrimaryDirection;
         }
+        public static float ThumbStickRotation(Direction direction) => _gamePadControls.GetThumbStickRotation(direction);
+        public static Vector2 ThumbStickVector(Direction direction) => _gamePadControls.GetThumbStickVector(direction);
 
-        public static Vector2 WorldDistanceBetweenCursorAndVector(Vector2 other)
+        public static Vector2 WorldDistanceBetweenCursorAndVector(Vector2 other, Direction? direction = null)
         {
             if (ControllerConnected)
             {
+                if (direction == null)
+                    throw new Exception($"Gamepad must specify which stick to use");
               other.Normalize();
-                return _gamePadControls.GetRightThumbStickVector() - other;
+                return _gamePadControls.GetThumbStickVector(direction.Value) - other;
             }
             else
             {
