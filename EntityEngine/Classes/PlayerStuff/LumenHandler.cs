@@ -3,13 +3,14 @@ using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
-    internal class LumenHandler
+    internal class LumenHandler : ISaveable
     {
         public int MaxLumens { get; set; } = 100;
         public int CurrentLumens { get; set; } = 100;
@@ -23,7 +24,11 @@ namespace EntityEngine.Classes.PlayerStuff
         public LumenHandler(HullBody lightSensor)
         {
             LightSensor = lightSensor;
+        }
+        public void Load()
+        {
             _lumenRechargeTimer = new SimpleTimer(_lumenRechargeRate);
+
         }
         /// <summary>
         /// If player light sensor overlaps with any light, begin recharging. Recharges at interval, until 
@@ -74,6 +79,25 @@ namespace EntityEngine.Classes.PlayerStuff
                 }
             }
 
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+            writer.Write(CurrentLumens);
+            writer.Write(MaxLumens);
+            writer.Write(_lumenRechargeRate);
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            CurrentLumens = reader.ReadInt32();
+            MaxLumens = reader.ReadInt32();
+            _lumenRechargeRate = reader.ReadSingle();
+        }
+
+        public void CleanUp()
+        {
+            throw new NotImplementedException();
         }
     }
 }

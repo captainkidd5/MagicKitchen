@@ -103,6 +103,8 @@ namespace ItemEngine.Classes.ToolStuff
             if (IsCharging)
             {
                 _directionalArrowSprite.Draw(spriteBatch);
+                LineUtility.DrawLine(null, spriteBatch, Position, Holder.CenteredPosition, Color.White, .99f);
+
             }
             else
             {

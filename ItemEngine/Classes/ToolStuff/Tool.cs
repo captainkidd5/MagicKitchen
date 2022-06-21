@@ -123,9 +123,10 @@ namespace ItemEngine.Classes.ToolStuff
             return base.OnCollides(fixtureA, fixtureB, contact);
         }
 
-        protected void Unload()
+        public void Unload()
         {
             ClearGadgets();
+            if(MainHullBody != null)
             MainHullBody.Destroy();
             Dirty = true;
 

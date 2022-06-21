@@ -59,7 +59,7 @@ namespace EntityEngine.Classes.PlayerStuff
             ScheduleName = "player1";
             Move(StartingPosition);
             StorageCapacity = 24;
-            XOffSet = 8;
+            XOffSet = 0;
             YOffSet = 8;
             _playerContainer = playerContainer;
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
@@ -86,6 +86,7 @@ namespace EntityEngine.Classes.PlayerStuff
             CommandConsole.RegisterCommand("tp", "teleports player to mouse position", TpCommand);
 
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
+            _lumenHandler.Load();
         }
         private void TpCommand(string[] args)
         {
@@ -286,12 +287,14 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.Save(writer);
             ProgressManager.Save(writer);
+            _lumenHandler.Save(writer);
         }
 
         public override void LoadSave(BinaryReader reader)
         {
             base.LoadSave(reader);
             ProgressManager.LoadSave(reader);
+            _lumenHandler.LoadSave(reader);
         }
 
         protected override void LoadToNewStage(string newStage, TileManager tileManager, ItemManager itemManager)

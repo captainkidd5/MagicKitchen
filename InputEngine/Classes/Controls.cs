@@ -63,8 +63,7 @@ namespace InputEngine.Classes
                 if (_gamePadControls.WasActionTapped(GamePadActionType.Select))
                     return true;
             }
-            if(MouseManager.LeftClicked)
-                Console.WriteLine("test");
+ 
             return MouseManager.LeftClicked;
         }
 

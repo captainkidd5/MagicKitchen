@@ -17,7 +17,7 @@ namespace EntityEngine.Classes
 
         public bool IsUsingTool => Tool != null;
 
-        public Tool Tool { get; private set; }
+        public Tool Tool { get; protected set; }
         public ToolHandler(Entity entity, InventoryHandler inventoryHandler)
         {
             Entity = entity;
