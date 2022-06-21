@@ -88,12 +88,12 @@ namespace EntityEngine.Classes
 
         private OverheadItemDisplay _overHeadItemDisplay { get; set; }
 
-        protected List<Tool> ToolList { get; set; }
+        protected Tool Tool { get; set; }
 
         public int MaxHealth { get; protected set; } = 100;
         public int CurrentHealth { get; protected set; } = 100;
 
-        protected bool IsUsingTool => ToolList.Count > 0;
+        protected bool IsUsingTool => Tool != null;
         public Entity(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : base()
         {
             _graphics = graphics;
@@ -107,7 +107,6 @@ namespace EntityEngine.Classes
             _warpHelper = new WarpHelper(this);
             InventoryHandler = new InventoryHandler(StorageCapacity);
             Container = container;
-            ToolList = new List<Tool>();
 
         }
         public void SelectItem(Item item) => _overHeadItemDisplay.SelectItem(item, Position);
@@ -266,9 +265,13 @@ namespace EntityEngine.Classes
             Animator.Update(gameTime, IsMoving, Position);
 
             _overHeadItemDisplay.Update(gameTime, Position, LayerDepth);
-            if (ToolList != null)
-                for (int i = 0; i < ToolList.Count; i++)
-                    ToolList[i].Update(gameTime);
+            if (Tool != null)
+            {
+                Tool.Update(gameTime);
+                if (Tool.Dirty)
+                    Tool = null;
+            }
+
 
             if (_warpHelper.IsWarping)
                 CheckOnWarpStatus();
@@ -281,20 +284,53 @@ namespace EntityEngine.Classes
             {
                 if (IsUsingTool)
                     return;
-                Tool tool = (Tool)Tool.GetTool(InventoryHandler.HeldItem.ItemType.ToString());
+                Tool tool = (Tool)ItemEngine.Classes.ToolStuff.Tool.GetTool(InventoryHandler.HeldItem.ItemType.ToString());
                 if (tool == null)
                     return;
-                tool.Load(ToolList);
+                tool.Load();
                 tool.Move(Position);
                 ActivateTool(tool);
-                ToolList.Add(tool);
+                Tool = tool;
             }
 
         }
+        protected void ChargeHeldItem(GameTime gameTime, Vector2 aimDirection)
+        {
+            if (Tool != null)
+            {
+                if (Tool.IsCharging)
+                {
+                    Tool.ChargeUpTool(gameTime, aimDirection);
 
+                }
+                else
+                {
+                    Tool.BeginCharge(this);
+
+                }
+            }
+            else
+            {
+                if (InventoryHandler.HeldItem != null &&
+                InventoryHandler.HeldItem.ItemType > DataModels.ItemStuff.ItemType.None)
+                {
+                    if (IsUsingTool)
+                        return;
+                    Tool tool = (Tool)ItemEngine.Classes.ToolStuff.Tool.GetTool(InventoryHandler.HeldItem.ItemType.ToString());
+                    if (tool == null)
+                        return;
+                    tool.Move(Position);
+                    tool.BeginCharge(this);
+                    Tool = tool;
+                }
+            }
+            
+            
+
+        }
         protected virtual void ActivateTool(Tool tool)
         {
-            tool.ActivateTool(Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving), this);
+            tool.ReleaseTool(Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving), this);
 
         }
         public void ForceWarpTo(string stageTo, Vector2 position, TileManager tileManager, ItemManager itemManager)
@@ -340,9 +376,8 @@ namespace EntityEngine.Classes
                 BehaviourManager.DrawDebug(spriteBatch);
 #endif
 
-            if (ToolList != null)
-                for (int i = ToolList.Count - 1; i >= 0; i--)
-                    ToolList[i].Draw(spriteBatch);
+            if (Tool != null)
+                    Tool.Draw(spriteBatch);
         }
 
         public virtual void DrawDebug(SpriteBatch spriteBatch)

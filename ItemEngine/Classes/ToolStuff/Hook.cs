@@ -24,15 +24,17 @@ namespace ItemEngine.Classes.ToolStuff
 
         private float _maximumDistanceFromEntity = 140f;
         private static readonly Vector2 s_anchorOffSet = new Vector2(4, 11);
+
+        private Sprite _directionalArrowSprite;
         public Hook()
         {
 
             SourceRectangle = new Rectangle(16, 0, 16, 16);
         }
 
-        public override void Load(List<Tool> tools)
+        public override void Load()
         {
-            base.Load(tools);
+            base.Load();
             Sprite.Origin = new Vector2(XOffSet, YOffSet);
         }
         protected override AnimationFrame[] GetAnimationFrames()
@@ -42,43 +44,54 @@ namespace ItemEngine.Classes.ToolStuff
             frames[1] = new AnimationFrame(1, 0, 0, 1f);
             return frames;
         }
+
+        private Vector2 _arrowDirectionVector;
+        public override void ChargeUpTool(GameTime gameTime, Vector2 aimPosition)
+        {
+            base.ChargeUpTool(gameTime, aimPosition);
+            if (IsCharging)
+            {
+                Move(Holder.CenteredPosition);
+                 _arrowDirectionVector = Holder.CenteredPosition - aimPosition;
+                _arrowDirectionVector.Normalize();
+                _directionalArrowSprite.Rotation = Vector2Helper.VectorToDegrees(_arrowDirectionVector) - (float)Math.PI /4;
+                _directionalArrowSprite.Update(gameTime, Position);
+            }
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (Vector2.Distance(MainHullBody.Position, Holder.CenteredPosition) > _maximumDistanceFromEntity)
+           
+            
+            if (!IsCharging && Vector2.Distance(MainHullBody.Position, Holder.CenteredPosition) > _maximumDistanceFromEntity)
             {
                 Return();
             }
         }
-        public override void ActivateTool(Vector2 directionVector, Collidable holder)
+        public override void ReleaseTool(Vector2 directionVector, Collidable holder)
         {
-            base.ActivateTool(directionVector, holder);
+            base.ReleaseTool(_arrowDirectionVector, holder);
             SoundFactory.PlaySoundEffect("HookFire");
 
             Vector2 newOffSet = new Vector2(BaseOffSet.X, BaseOffSet.Y);
-            //if (directionVector.X < 0)
-            //    newOffSet.X = BaseOffSet.X * -1;
-            //if (directionVector.Y < 0)
-            //    newOffSet.Y = BaseOffSet.Y * -1;
+  
 
             Sprite.Origin = newOffSet;
 
         }
+        public override void BeginCharge(Collidable holder)
+        {
+            base.BeginCharge(holder);
+            _directionalArrowSprite = SpriteFactory.CreateWorldSprite(Position, new Rectangle(0, 96, 16, 16), ItemFactory.ItemSpriteSheet);
+
+        }
         protected override void AlterSpriteRotation()
         {
-            //base.AlterSpriteRotation();
             if (_isReturning)
             {
-
                 Vector2 directionVector = MainHullBody.Position - Holder.CenteredPosition;
                 directionVector.Normalize();
                 Sprite.Rotation = Vector2Helper.VectorToDegrees(directionVector);
-                //int anchorX = XOffSet;
-                //XOffSet = (int)(Math.Ceiling((float)s_anchorOffSet.X * directionVector.X));
-                //XOffSet = XOffSet - (int)((float)anchorX * directionVector.Y);
-
-                //YOffSet = (int)s_anchorOffSet.Y + (int)(Math.Ceiling((float)s_anchorOffSet.Y * directionVector.Y));
-                //YOffSet = (int)((float)YOffSet * directionVector.X);
 
             }
 
@@ -86,7 +99,15 @@ namespace ItemEngine.Classes.ToolStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            LineUtility.DrawLine(null, spriteBatch, Position, Holder.CenteredPosition, Color.White, Sprite.LayerDepth);
+            if (IsCharging)
+            {
+                _directionalArrowSprite.Draw(spriteBatch);
+            }
+            else
+            {
+                LineUtility.DrawLine(null, spriteBatch, Position, Holder.CenteredPosition, Color.White, Sprite.LayerDepth);
+
+            }
         }
         private void Return()
         {

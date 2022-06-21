@@ -230,9 +230,9 @@ namespace InputEngine.Classes
             internal List<KeyTimer> RecentlyPressedKeys { get; private set; }
             internal KeyTimer(Keys key, List<KeyTimer> recentlyPressedKeys)
             {
-                this.Key = key;
-                this.TimeLastPressed = 0f;
-                this.RecentlyPressedKeys = recentlyPressedKeys;
+                Key = key;
+                TimeLastPressed = 0f;
+                RecentlyPressedKeys = recentlyPressedKeys;
             }
 
             /// <summary>

@@ -27,8 +27,9 @@ namespace InputEngine.Classes.Input
 
         internal bool LeftClicked { get; 
             private set; }
-        internal bool LeftHeld { get; private set; }
+        private bool _leftHeld;
 
+        internal bool LeftHeld => _leftHeld && _tooLateForLeftClick;
         internal bool RightClicked { get; private set; }
         internal bool RightHeld { get; private set; }
 
@@ -138,9 +139,9 @@ namespace InputEngine.Classes.Input
             if (NewMouseState.LeftButton == ButtonState.Pressed && OldMouseState.LeftButton == ButtonState.Released)
                 _leftClickHeldTimer.Run(gameTime);
            
-            LeftHeld = DidHoldButton(OldMouseState.LeftButton, NewMouseState.LeftButton);
+            _leftHeld = DidHoldButton(OldMouseState.LeftButton, NewMouseState.LeftButton);
 
-            if (LeftHeld)
+            if (_leftHeld)
                 if (_leftClickHeldTimer.Run(gameTime))
                     _tooLateForLeftClick = true;
             LeftClicked = DidTapButton(OldMouseState.LeftButton, NewMouseState.LeftButton, _tooLateForLeftClick);

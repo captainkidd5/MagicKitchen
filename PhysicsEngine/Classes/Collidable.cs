@@ -226,7 +226,6 @@ namespace PhysicsEngine.Classes
                 LightsCollidable.Clear();
                 LightsCollidable = null;
             }
-
         }
         protected void AddGadget(PhysicsGadget gadget)
         {

@@ -143,13 +143,15 @@ namespace InputEngine.Classes
             _gamePadMappings.Add(GamePadActionType.DPadRight, mapping);
             return mapping;
         }
-
+        public bool IsActionHeld(GamePadActionType gamePadActionType)
+        {
+            return (_oldGamePadState.IsButtonDown(_gamePadMappings[gamePadActionType].Button) &&
+               _newGamePadState.IsButtonDown(_gamePadMappings[gamePadActionType].Button));
+        }
         public bool WasActionTapped(GamePadActionType gamePadActionType)
         {
-            if (_oldGamePadState.IsButtonDown(_gamePadMappings[gamePadActionType].Button) &&
-                _newGamePadState.IsButtonUp(_gamePadMappings[gamePadActionType].Button))
-                return true;
-            return false;
+            return (_oldGamePadState.IsButtonDown(_gamePadMappings[gamePadActionType].Button) &&
+                _newGamePadState.IsButtonUp(_gamePadMappings[gamePadActionType].Button));
         }
        
         

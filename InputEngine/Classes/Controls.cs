@@ -48,7 +48,14 @@ namespace InputEngine.Classes
         private static KeyboardManager KeyboardManager { get; set; }
         private static MouseManager MouseManager { get; set; }
         public static bool EscapePressed => KeyboardManager.WasKeyPressed(Keys.Escape);
-
+        public static bool IsSelectDown()
+        {
+            if (ControllerConnected)
+            {
+                return (_gamePadControls.IsActionHeld(GamePadActionType.Select));
+            }
+            return MouseManager.LeftHeld;
+        }
         public static bool DidClick()
         {
             if (ControllerConnected)

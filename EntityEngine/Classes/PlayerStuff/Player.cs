@@ -96,7 +96,7 @@ namespace EntityEngine.Classes.PlayerStuff
             CurrentLumens -= 5;
             Vector2 distance = Controls.WorldDistanceBetweenCursorAndVector(Position);
             distance.Normalize();
-            tool.ActivateTool(distance, this);
+            tool.ReleaseTool(distance, this);
 
         }
         protected override void CreateBody(Vector2 position)
@@ -184,6 +184,15 @@ namespace EntityEngine.Classes.PlayerStuff
                     UseHeldItem();
                 }
             }
+            else if (Controls.IsSelectDown())
+            {
+                ChargeHeldItem(gameTime, Controls.MouseWorldPosition);
+            }
+            else if(IsUsingTool && Tool.IsCharging && !Controls.IsSelectDown())
+            {
+                ActivateTool(Tool);
+            }
+
             HandleLumens(gameTime);
 
             if (UI.TalkingWindow.IsActive)

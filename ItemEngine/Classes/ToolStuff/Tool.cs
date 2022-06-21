@@ -16,6 +16,7 @@ namespace ItemEngine.Classes.ToolStuff
 {
     public class Tool : Collidable
     {
+        public bool Dirty { get; set; }
         protected Rectangle SourceRectangle { get; set; }
         public static Tool GetTool(string typeName)
         {
@@ -26,7 +27,8 @@ namespace ItemEngine.Classes.ToolStuff
         protected AnimatedSprite Sprite { get; set; }
         protected Collidable Holder { get; set; }
 
-        private List<Tool> _tools;
+        public bool IsCharging { get; set; }
+        public int ChargeAmt { get; set; }
 
         protected Point BaseOffSet = new Point(2, 7);
 
@@ -40,10 +42,10 @@ namespace ItemEngine.Classes.ToolStuff
         {
             throw new NotImplementedException();
         }
-        public virtual void Load(List<Tool> tools)
+        public virtual void Load()
         {
             CreateBody(Position);
-            _tools = tools;
+
             
             Sprite = SpriteFactory.CreateWorldAnimatedSprite(Position,SourceRectangle, 
                 ItemFactory.ToolSheet, GetAnimationFrames());
@@ -60,8 +62,23 @@ namespace ItemEngine.Classes.ToolStuff
 
 
         }
-        public virtual void ActivateTool(Vector2 directionVector, Collidable holder)
+        public virtual void BeginCharge(Collidable holder)
         {
+            IsCharging = true;
+            Holder = holder;
+           // Load();
+        }
+        public virtual void ChargeUpTool(GameTime gameTime, Vector2 aimPosition)
+        {
+
+        }
+        
+
+        
+        public virtual void ReleaseTool(Vector2 directionVector, Collidable holder)
+        {
+            Load();
+            IsCharging = false;
             Holder = holder;
             MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000000f);
             Sprite.Rotation = Vector2Helper.VectorToDegrees(directionVector);
@@ -77,8 +94,13 @@ namespace ItemEngine.Classes.ToolStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            if(Sprite != null)
+            {
+
             Sprite.Update(gameTime, new Vector2(MainHullBody.Position.X - XOffSet, MainHullBody.Position.Y - YOffSet));
             AlterSpriteRotation();
+            }
+
         }
         protected virtual void AlterSpriteRotation()
         {
@@ -87,7 +109,11 @@ namespace ItemEngine.Classes.ToolStuff
         }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            Sprite.Draw(spriteBatch);
+            if(Sprite != null)
+            {
+                Sprite.Draw(spriteBatch);
+
+            }
         }
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
@@ -100,7 +126,7 @@ namespace ItemEngine.Classes.ToolStuff
         {
             ClearGadgets();
             MainHullBody.Destroy();
-            _tools.Remove(this);
+            Dirty = true;
 
         }
     }
