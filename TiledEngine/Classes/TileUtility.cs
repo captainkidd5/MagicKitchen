@@ -141,7 +141,7 @@ namespace TiledEngine.Classes
                 propertyString = "replace";
                 if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
-                    tile.AddAddon(new GrassTuft(tile, texture));
+                    tile.Addons.Add(new GrassTuft(tile, texture));
 
                 }
 
@@ -185,7 +185,7 @@ namespace TiledEngine.Classes
         private static void TestForTransparencyTile(Tile tile, Rectangle rectangle)
         {
             //if (tile.Layer >= .3f && tile.GID != -1 && tile.DestinationRectangle.Height > rectangle.Height && tile.DestinationRectangle.Height > 32)
-            tile.AddAddon(new TileTransparency(tile, tile.Position, new Rectangle((int)tile.Position.X + (int)rectangle.Width, (int)tile.Position.X + (int)rectangle.Height, rectangle.Width, rectangle.Height)));
+            tile.Addons.Add(new TileTransparency(tile, tile.Position, new Rectangle((int)tile.Position.X + (int)rectangle.Width, (int)tile.Position.X + (int)rectangle.Height, rectangle.Width, rectangle.Height)));
         }
         /// <summary>
         /// If tile layer is in the forground we'll offset it according to its Y position. Else just give it the standard layerdepth.

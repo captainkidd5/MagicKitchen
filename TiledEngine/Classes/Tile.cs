@@ -44,6 +44,7 @@ namespace TiledEngine.Classes
 
         public int GID { get { return gid - 1; } internal set { gid = value; } }
 
+        //public TileType TileType { get; set; }
         internal float Layer { get; set; }
 
         internal Layers IndexLayer { get; set; }
@@ -55,14 +56,15 @@ namespace TiledEngine.Classes
         public Sprite Sprite { get; set; }
 
 
-        private List<ITileAddon> _addons;
+        internal List<ITileAddon> Addons { get; set; }
         public Vector2 Position { get; set; }
 
         public Vector2 CentralPosition => new Vector2(Position.X + DestinationRectangle.Width / 2,
             Position.Y + DestinationRectangle.Height / 2);
+        public Vector2 GridPosition => new Vector2(X * Settings.TileSize, Y * Settings.TileSize);
         public bool WithinRangeOfPlayer { get; internal set; }
 
-        public Vector2 GridPosition => new Vector2(X * Settings.TileSize, Y * Settings.TileSize);
+
         internal bool Empty => GID < 0;
         internal Tile(TileManager tileManager, int gid, Layers indexLayer, float layer, int x, int y)
         {
@@ -72,6 +74,7 @@ namespace TiledEngine.Classes
             IndexLayer = indexLayer;
             X = x;
             Y = y;
+            Addons = new List<ITileAddon>();
             TileManager = tileManager;
 
         }
@@ -95,15 +98,15 @@ namespace TiledEngine.Classes
 
             if (useObjectSearch)
             {
-                if(TmxTileSetTile.ObjectGroups.Count > 0)
+                if (TmxTileSetTile.ObjectGroups.Count > 0)
                 {
 
-                var objects = TmxTileSetTile.ObjectGroups[0].Objects;
-                for (int k = 0; k < objects.Count; k++)
-                {
-                    if (objects[k].Properties.ContainsKey(key))
-                        return objects[k].Properties[key];
-                }
+                    var objects = TmxTileSetTile.ObjectGroups[0].Objects;
+                    for (int k = 0; k < objects.Count; k++)
+                    {
+                        if (objects[k].Properties.ContainsKey(key))
+                            return objects[k].Properties[key];
+                    }
                 }
 
             }
@@ -118,37 +121,29 @@ namespace TiledEngine.Classes
             WithinRangeOfPlayer = false;
             Sprite.Update(gameTime, Position);
 
-            if(_addons != null)
+            for (int i = 0; i < Addons.Count; i++)
             {
+                Addons[i].Update(gameTime);
+            }
 
-            for (int i = 0; i < _addons.Count; i++)
-            {
-                _addons[i].Update(gameTime);
-            }
-            }
+
         }
 
         internal void DrawLights(SpriteBatch spriteBatch)
         {
-            if (_addons != null)
+            for (int i = 0; i < Addons.Count; i++)
             {
-                for (int i = 0; i < _addons.Count; i++)
-                {
-                    ITileAddon addon = _addons[i];
-                    if (addon.GetType() == typeof(LightBody))
-                        (addon as Collidable).DrawLights(spriteBatch);
-                }
+                ITileAddon addon = Addons[i];
+                if (addon.GetType() == typeof(LightBody))
+                    (addon as Collidable).DrawLights(spriteBatch);
             }
         }
         internal void Draw(SpriteBatch spriteBatch, Texture2D texture)
         {
             Sprite.Draw(spriteBatch);
-            if (_addons != null)
+            for (int i = 0; i < Addons.Count; i++)
             {
-                for (int i = 0; i < _addons.Count; i++)
-                {
-                    _addons[i].Draw(spriteBatch);
-                }
+                Addons[i].Draw(spriteBatch);
             }
 
 
@@ -174,9 +169,9 @@ namespace TiledEngine.Classes
         internal Rectangle GetTotalHitBoxRectangle(Vector2? position = null)
         {
             Rectangle totalRectangle = Rectangle.Empty;
-            foreach (ITileAddon addon in _addons)
+            foreach (ITileAddon addon in Addons)
             {
-                if(addon.GetType() == typeof(TileBody))
+                if (addon.GetType() == typeof(TileBody))
                 {
                     TileBody body = (TileBody)addon;
                     Rectangle rect = body.IntermediateTmxShape.GetBoundingRectangle();
@@ -193,62 +188,32 @@ namespace TiledEngine.Classes
         /// </summary>
         internal void Load()
         {
-            if (_addons != null)
-            {
-                foreach (ITileAddon addon in _addons)
-                    addon.Load();
-            }
+            foreach (ITileAddon addon in Addons)
+                addon.Load();
         }
         public void Interact(bool isPlayer, Item heldItem)
         {
-            if (_addons != null)
-            {
-                foreach (ITileAddon addon in _addons)
-                    addon.Interact(isPlayer, heldItem);
-            }
+            foreach (ITileAddon addon in Addons)
+                addon.Interact(isPlayer, heldItem);
         }
 
         public void Unload()
         {
-            if (_addons != null)
+            foreach (ITileAddon addon in Addons)
             {
-                foreach (ITileAddon addon in _addons)
-                {
-                    addon.CleanUp();
-                }
-                _addons.Clear();
-                _addons = null;
+                addon.CleanUp();
             }
+            Addons.Clear();
             Sprite = null;
 
         }
 
-        public void AddAddon(ITileAddon addon)
-        {
-            if (_addons == null)
-                _addons = new List<ITileAddon>();
-            _addons.Add(addon);
-        }
-
-        public void RemoveAddon(ITileAddon addon)
-        {
-            if (_addons == null)
-                return;
-            _addons.Remove(addon);
-            if (_addons.Count == 0)
-                _addons = null;
-        }
         public List<ITileAddon> GetAddonsByType(Type t)
         {
-            return _addons.Where(x => x.GetType() == t).ToList();
+            return Addons.Where(x => x.GetType() == t).ToList();
         }
 
-        public bool AnyAddon(Func<ITileAddon, bool> predicate)
-        {
-            if (_addons == null)
-                return false;
-            return _addons.Any(x => predicate(x));
-        }
+
 
 
     }
