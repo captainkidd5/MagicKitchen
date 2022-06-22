@@ -70,10 +70,10 @@ namespace StageEngine.Classes
             _content = content;
             _graphics = graphics;
             _camera = camera;
-
-            ItemManager = new ItemManager(Name);
-
             TileManager = new TileManager(graphics, content, camera, _stageData.MapType);
+
+            ItemManager = new ItemManager(Name,TileManager);
+
             _flotsamGenerator = new FlotsamGenerator(ItemManager, TileManager);
 
             LightDrawables = new List<ILightDrawable>() {TileManager, NPCContainer, _playerManager };

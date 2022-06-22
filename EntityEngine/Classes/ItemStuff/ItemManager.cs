@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiledEngine.Classes;
 
 namespace EntityEngine.ItemStuff
 {
@@ -16,9 +17,12 @@ namespace EntityEngine.ItemStuff
     {
         public string StageName { get; private set; }
         private List<WorldItem> _items;
-        public ItemManager(string stageName)
+        private readonly TileManager _tileManager;
+
+        public ItemManager(string stageName,TileManager tileManager)
         {
             StageName = stageName;
+            _tileManager = tileManager;
             _items = new List<WorldItem>();
         }
 
@@ -37,7 +41,7 @@ namespace EntityEngine.ItemStuff
         }
         public void OnWorldItemGenerated(object sender, WorldItemGeneratedEventArgs e)
         {
-            _items.Add(new WorldItem(e.Item, e.Count, e.Position, e.WorldItemState, e.JettisonDirection));
+            _items.Add(new WorldItem(_tileManager,e.Item, e.Count, e.Position, e.WorldItemState, e.JettisonDirection));
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -47,13 +51,13 @@ namespace EntityEngine.ItemStuff
 
         public void AddWorldItem(Vector2 position, Item item, int count,WorldItemState worldItemState, Vector2? jettisonDirection)
         {
-            _items.Add(new WorldItem(item, count, position,  worldItemState, jettisonDirection));
+            _items.Add(new WorldItem(_tileManager,item, count, position,  worldItemState, jettisonDirection));
 
         }
 
         public void AddWorldItem(Vector2 position, string itemName, int count, WorldItemState worldItemState, Vector2? jettisonDirection)
         {
-            _items.Add(new WorldItem(ItemFactory.GetItem(itemName), count, position, worldItemState, jettisonDirection));
+            _items.Add(new WorldItem(_tileManager,ItemFactory.GetItem(itemName), count, position, worldItemState, jettisonDirection));
 
         }
 

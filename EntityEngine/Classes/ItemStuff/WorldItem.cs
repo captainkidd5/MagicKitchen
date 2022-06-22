@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
+using TiledEngine.Classes;
 using static Globals.Classes.Settings;
 
 namespace EntityEngine.ItemStuff
@@ -24,6 +25,8 @@ namespace EntityEngine.ItemStuff
     {
         private static readonly int _width = 16;
         private static readonly float _timeUntilTouchable = 1f;
+        private readonly TileManager _tileManager;
+
         public Item Item { get; private set; }
         internal WorldItemState WorldItemState { get; set; }
         public string Name => Item.Name;
@@ -58,8 +61,9 @@ namespace EntityEngine.ItemStuff
         {
             throw new NotImplementedException();
         }
-        public WorldItem(Item item, int count, Vector2 position, WorldItemState worldItemState, Vector2? jettisonDirection)
+        public WorldItem(TileManager tileManager, Item item, int count, Vector2 position, WorldItemState worldItemState, Vector2? jettisonDirection)
         {
+            _tileManager = tileManager;
             Item = item;
             Count = count;
             Sprite = SpriteFactory.CreateWorldSprite(position, Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f));
@@ -197,7 +201,12 @@ namespace EntityEngine.ItemStuff
                     AddGadget(new Magnetizer(this, (fixtureB.Body.Tag as Collidable)));
 
                 ChangeState(WorldItemState.None);
-                PlayPackage("Splash");
+
+                if (_tileManager.IsWatertile(Position))
+                {
+                    PlayPackage("Splash");
+
+                }
                 //If magnetized, remove solids collisions
                 SetCollidesWith(MainHullBody.Body, new List<Category>() {  (Category)PhysCat.Player,
                     (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass});
