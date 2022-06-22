@@ -1,5 +1,6 @@
 ﻿using EntityEngine.Classes.Animators;
 using EntityEngine.Classes.PlayerStuff;
+using EntityEngine.ItemStuff;
 using Globals.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;

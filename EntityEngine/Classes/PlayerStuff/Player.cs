@@ -24,6 +24,7 @@ using tainicom.Aether.Physics2D.Dynamics;
 using Globals.Classes.Console;
 using SpriteEngine.Classes.ShadowStuff;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
+using EntityEngine.ItemStuff;
 
 namespace EntityEngine.Classes.PlayerStuff
 {

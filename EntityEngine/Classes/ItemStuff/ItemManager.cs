@@ -1,5 +1,6 @@
 ﻿using Globals.Classes;
 using Globals.Classes.Helpers;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ItemEngine.Classes
+namespace EntityEngine.ItemStuff
 {
     public class ItemManager : ISaveable
     {
@@ -34,7 +35,10 @@ namespace ItemEngine.Classes
                 }
             }
         }
-
+        public void OnWorldItemGenerated(object sender, WorldItemGeneratedEventArgs e)
+        {
+            _items.Add(new WorldItem(e.Item, e.Count, e.Position, e.WorldItemState, e.JettisonDirection));
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (WorldItem item in _items)
@@ -43,13 +47,13 @@ namespace ItemEngine.Classes
 
         public void AddWorldItem(Vector2 position, Item item, int count,WorldItemState worldItemState, Vector2? jettisonDirection)
         {
-            _items.Add(ItemFactory.GenerateWorldItem(item.Name, count, position, worldItemState, jettisonDirection));
+            _items.Add(new WorldItem(item, count, position,  worldItemState, jettisonDirection));
 
         }
 
         public void AddWorldItem(Vector2 position, string itemName, int count, WorldItemState worldItemState, Vector2? jettisonDirection)
         {
-            _items.Add(ItemFactory.GenerateWorldItem(itemName, count, position, worldItemState, jettisonDirection));
+            _items.Add(new WorldItem(ItemFactory.GetItem(itemName), count, position, worldItemState, jettisonDirection));
 
         }
 

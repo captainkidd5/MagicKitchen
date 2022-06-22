@@ -1,4 +1,5 @@
 ﻿using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.ItemStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
 using InputEngine.Classes;

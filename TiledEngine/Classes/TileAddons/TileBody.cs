@@ -123,8 +123,9 @@ namespace TiledEngine.Classes.TileAddons
             List<LootData> trimmedLoot = ChanceHelper.GetWeightedSelection(tileLootData.Loot.Cast<IWeightable>().ToList(), Settings.Random).Cast<LootData>().ToList();
             foreach(LootData loot in trimmedLoot)
             {
-                Tile.TileManager.ItemManager.AddWorldItem(Position,
-                    loot.ItemName, loot.Quantity, WorldItemState.Bouncing,null);
+                ItemFactory.GenerateWorldItem(
+                                loot.ItemName, loot.Quantity, Position, WorldItemState.Bouncing, Vector2Helper.GetRandomDirectionAsVector2());
+
             }
         }
 

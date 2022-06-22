@@ -19,6 +19,12 @@ using static Globals.Classes.Settings;
 
 namespace ItemEngine.Classes
 {
+    public enum WorldItemState
+    {
+        None = 0,
+        Bouncing = 1,
+        Floating = 2
+    }
     public static class ItemFactory
     {
         public static List<ItemData> ItemData { get; private set; }
@@ -154,10 +160,26 @@ namespace ItemEngine.Classes
 
             return newName;
         }
-
-        public static WorldItem GenerateWorldItem(string itemName, int count, Vector2 worldPosition, WorldItemState worldItemState,Vector2? jettisonDirection)
+        public static void OnWorldItemGenerated(WorldItemGeneratedEventArgs e)
         {
-            return new WorldItem(new Item(ItemDictionary[itemName]), count, worldPosition, worldItemState,jettisonDirection);
+            EventHandler<WorldItemGeneratedEventArgs> handler = WorldItemGenerated;
+            if (handler != null)
+            {
+                handler(null, e);
+            }
+        }
+
+        public static event EventHandler<WorldItemGeneratedEventArgs> WorldItemGenerated;
+        public static void GenerateWorldItem(string itemName, int count, Vector2 worldPosition, WorldItemState worldItemState,Vector2? jettisonDirection)
+        {
+            WorldItemGeneratedEventArgs args = new WorldItemGeneratedEventArgs();
+            args.Item = new Item(ItemDictionary[itemName]);
+            args.Count = count;
+            args.Position = worldPosition;
+            args.WorldItemState = worldItemState;
+            args.JettisonDirection = jettisonDirection;
+            OnWorldItemGenerated(args);
+           // return new WorldItem(new Item(ItemDictionary[itemName]), count, worldPosition, worldItemState,jettisonDirection);
         }
 
     }

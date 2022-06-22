@@ -12,7 +12,7 @@ using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using static DataModels.Enums;
 
-namespace ItemEngine.Classes.ItemStateStuff
+namespace EntityEngine.ItemStuff.ItemStateStuff
 {
     internal class FlotsamBehaviour : ItemBehaviour
     {

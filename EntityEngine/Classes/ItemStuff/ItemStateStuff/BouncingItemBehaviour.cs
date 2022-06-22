@@ -1,5 +1,6 @@
 ﻿using Globals.Classes;
 using Globals.Classes.Helpers;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Gadgets;
@@ -12,7 +13,7 @@ using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using static DataModels.Enums;
 
-namespace ItemEngine.Classes.ItemStateStuff
+namespace EntityEngine.ItemStuff.ItemStateStuff
 {
     internal class BouncingItemBehaviour : ItemBehaviour
     {

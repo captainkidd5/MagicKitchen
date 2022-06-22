@@ -23,6 +23,7 @@ using EntityEngine.Classes;
 using SoundEngine.Classes.SongStuff;
 using EntityEngine.Classes.NPCStuff;
 using Globals.Classes.Console;
+using ItemEngine.Classes;
 
 namespace StageEngine.Classes
 {
@@ -102,6 +103,8 @@ namespace StageEngine.Classes
 
 
             CurrentStage = GetStage(StageSwitchingTo);
+            ItemFactory.WorldItemGenerated += CurrentStage.ItemManager.OnWorldItemGenerated;
+
             Player1.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
             _npcManager.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);

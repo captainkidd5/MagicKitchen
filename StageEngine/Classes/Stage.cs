@@ -23,6 +23,7 @@ using IOEngine.Classes;
 using EntityEngine.Classes.NPCStuff;
 using EntityEngine.Classes.Generators;
 using SpriteEngine.Classes.ShadowStuff;
+using EntityEngine.ItemStuff;
 
 namespace StageEngine.Classes
 {
@@ -72,7 +73,7 @@ namespace StageEngine.Classes
 
             ItemManager = new ItemManager(Name);
 
-            TileManager = new TileManager(graphics, content, camera, _stageData.MapType, ItemManager);
+            TileManager = new TileManager(graphics, content, camera, _stageData.MapType);
             _flotsamGenerator = new FlotsamGenerator(ItemManager, TileManager);
 
             LightDrawables = new List<ILightDrawable>() {TileManager, NPCContainer, _playerManager };
@@ -177,6 +178,7 @@ namespace StageEngine.Classes
             ItemManager.CleanUp();
             NPCContainer.CleanUp();
             TileManager.CleanUp();
+            ItemFactory.WorldItemGenerated -= ItemManager.OnWorldItemGenerated;
 
 
         }

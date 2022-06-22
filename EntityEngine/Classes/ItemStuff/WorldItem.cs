@@ -1,5 +1,6 @@
-﻿using Globals.Classes;
-using ItemEngine.Classes.ItemStateStuff;
+﻿using EntityEngine.ItemStuff.ItemStateStuff;
+using Globals.Classes;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
@@ -16,14 +17,9 @@ using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using static Globals.Classes.Settings;
 
-namespace ItemEngine.Classes
+namespace EntityEngine.ItemStuff
 {
-    public enum WorldItemState
-    {
-        None = 0,
-        Bouncing = 1,
-        Floating = 2
-    }
+
     public class WorldItem : Collidable, ISaveable
     {
         private static readonly int _width = 16;

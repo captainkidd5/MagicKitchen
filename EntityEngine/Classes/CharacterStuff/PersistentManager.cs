@@ -2,6 +2,7 @@
 using DataModels.QuestStuff;
 using EntityEngine.Classes.CharacterStuff.QuestStuff;
 using EntityEngine.Classes.NPCStuff;
+using EntityEngine.ItemStuff;
 using Globals.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;

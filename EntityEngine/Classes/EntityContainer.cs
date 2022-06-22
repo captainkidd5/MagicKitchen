@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using EntityEngine.ItemStuff;
+using Globals.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;

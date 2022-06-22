@@ -1,6 +1,7 @@
 ﻿using DataModels;
 using EntityEngine.Classes.Animators;
 using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.ItemStuff;
 using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;

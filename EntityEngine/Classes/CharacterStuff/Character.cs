@@ -21,6 +21,7 @@ using EntityEngine.Classes.NPCStuff;
 using InputEngine.Classes;
 using Globals.Classes;
 using EntityEngine.Classes.PlayerStuff;
+using EntityEngine.ItemStuff;
 
 namespace EntityEngine.Classes.CharacterStuff
 {

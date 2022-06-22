@@ -41,7 +41,6 @@ namespace TiledEngine.Classes
         //some tiles (trees, buildings) are quite large so we have to extend culling a bit so as to not cut them off!
         private readonly int _cullingLeeWay = 8;
         private readonly Camera2D _camera;
-        internal readonly ItemManager ItemManager;
 
         private TilePlacementManager _tilePlacementManager;
         public PathGrid PathGrid { get; private set; }
@@ -62,13 +61,12 @@ namespace TiledEngine.Classes
 
         public TileLocationHelper TileLocationHelper { get; set; }
         public MapType MapType { get; internal set; }
-        public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera , MapType mapType, ItemManager itemManager) :
+        public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera , MapType mapType) :
             base(graphics, content)
         {
             OffSetLayersDictionary = new Dictionary<int, float>();
             Portals = new List<PortalData>();
             MapType = mapType;
-            ItemManager = itemManager;
             _camera = camera;
             TileLocator = new TileLocator();
             PlacedItemManager = new PlacedOnItemManager(this);
