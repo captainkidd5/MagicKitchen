@@ -41,7 +41,7 @@ namespace TiledEngine.Classes
             tile.Unload();
             tile.Sprite = null;
             // tile = new Tile(newGid, MapDepths[(int)layer], tile.X, tile.Y);
-            tile.GID = newGid + 1;
+            tile.GID = (ushort)(newGid + 1);
             AssignProperties(tile, layer, wang: wang);
         }
         internal static Rectangle GetTileSourceRectangle(int gid, TileSetPackage tileSetPackage, int tileSetDimension)
@@ -70,7 +70,7 @@ namespace TiledEngine.Classes
                 int newGID = tileSetPackage.TilingSetManager.WangTile(tile);
                 if (tile.GID != newGID)
                 {
-                    tile.GID = newGID + 1;
+                    tile.GID = (ushort)(newGID + 1);
 
                 }
                 tileSetPackage.TilingSetManager.WangSorroundingTiles(tile);

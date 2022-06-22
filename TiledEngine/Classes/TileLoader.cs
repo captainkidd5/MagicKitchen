@@ -137,7 +137,7 @@ namespace TiledEngine.Classes
             {
                 tilesToReturn.Add(new Tile[map.Width, map.Width]);
                 foreach (TmxLayerTile layerNameTile in allLayers[i].Tiles)
-                    tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new Tile(tileManager,layerNameTile.Gid, (Layers)i, MapDepths[i], layerNameTile.X, layerNameTile.Y);
+                    tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new Tile(tileManager,(ushort)layerNameTile.Gid, (Layers)i, MapDepths[i], (ushort)layerNameTile.X, (ushort)layerNameTile.Y);
             }
             return tilesToReturn;
         }

@@ -52,7 +52,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
                 GID = _tileManager.TileSetPackage.OffSetBackgroundGID(gid+ 1) ;
 
 
-            CurrentTile = new Tile(_tileManager, GID, _layer, .99f, 0, 0);
+            CurrentTile = new Tile(_tileManager, (ushort)GID, _layer, .99f, 0, 0);
             TileUtility.AssignProperties(CurrentTile, _layer, false);
 
 

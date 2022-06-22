@@ -26,7 +26,7 @@ namespace TiledEngine.Classes
 
         internal static bool TileIndexDebug = false;
 
-        private int gid;
+        private ushort gid;
 
         //The icon the mouse should change to when hovered over this tile
         internal CursorIconType GetCursorIconType()
@@ -42,14 +42,14 @@ namespace TiledEngine.Classes
         internal readonly TileManager TileManager;
         internal TileSetPackage TileSetPackage => TileManager.TileSetPackage;
 
-        public int GID { get { return gid - 1; } internal set { gid = value; } }
+        public ushort GID { get { return (ushort)(gid - 1); } internal set { gid = value; } }
 
         //public TileType TileType { get; set; }
         internal float Layer { get; set; }
 
         internal Layers IndexLayer { get; set; }
-        internal int X { get; set; }
-        internal int Y { get; set; }
+        internal ushort X { get; set; }
+        internal ushort Y { get; set; }
         internal Rectangle SourceRectangle { get; set; }
         internal Rectangle DestinationRectangle { get; set; }
 
@@ -66,7 +66,7 @@ namespace TiledEngine.Classes
 
 
         internal bool Empty => GID < 0;
-        internal Tile(TileManager tileManager, int gid, Layers indexLayer, float layer, int x, int y)
+        internal Tile(TileManager tileManager, ushort gid, Layers indexLayer, float layer, ushort x, ushort y)
         {
 
             GID = gid;
@@ -158,7 +158,7 @@ namespace TiledEngine.Classes
         /// <returns>Tile Key</returns>
         internal int GetKey()
         {
-            return ((X << 18) | (Y << 4) | ((int)IndexLayer << 0)); //14 bits for x and y, 4 bits for layer.
+            return (((int)X << 18) | ((int)Y << 4) | ((int)IndexLayer << 0)); //14 bits for x and y, 4 bits for layer.
         }
 
         /// <summary>

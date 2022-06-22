@@ -194,10 +194,10 @@ namespace TiledEngine.Classes
                 {
                     //Do not interact if another non empty tile has a layer greater than the one we
                     //are trying to interact with
-                    if(MouseOverTile.Layer <= TileToInteractWith.Layer)
-                    {
+                   // if(MouseOverTile.Layer <= TileToInteractWith.Layer)
+                   // {
                         TileToInteractWith.Interact(true, UI.PlayerCurrentSelectedItem);
-                    }
+             //       }
 
                 }
                 //moreover, if tile to interact with is real, we want to make sure that tile selector sprite draws here instead
@@ -410,8 +410,8 @@ namespace TiledEngine.Classes
                     for (int y = 0; y < yLength; y++)
                     {
                         writer.Write(Tiles[z][x, y].GID + 1);
-                        writer.Write(Tiles[z][x, y].X);
-                        writer.Write(Tiles[z][x, y].Y);
+                        writer.Write((int)Tiles[z][x, y].X);
+                        writer.Write((int)Tiles[z][x, y].Y);
 
                     }
                 }
@@ -434,7 +434,7 @@ namespace TiledEngine.Classes
                 {
                     for (int y = 0; y < length1; y++)
                     {
-                        Tiles[z][x, y] = new Tile(this, reader.ReadInt32(), (Layers)z, z, reader.ReadInt32(), reader.ReadInt32());
+                        Tiles[z][x, y] = new Tile(this, (ushort)reader.ReadInt32(), (Layers)z, z, (ushort)reader.ReadInt32(), (ushort)reader.ReadInt32());
 
                     }
                 }
