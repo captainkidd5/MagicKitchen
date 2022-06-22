@@ -82,7 +82,7 @@ namespace TiledEngine.Classes
             Texture2D texture = tileSetPackage.GetTexture(tile.GID);
             tile.SourceRectangle = GetTileSourceRectangle(tile.GID, tileSetPackage, tileSetDimension);
             tile.DestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
-            tile.Position = (Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle));
+            //tile.Position = (Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle));
 
             //tile has some sort of property.
             if (tileSetPackage.ContainsKey(tile.GID))
@@ -107,14 +107,17 @@ namespace TiledEngine.Classes
 
                     tile.SourceRectangle = TileRectangleHelper.AdjustSourceRectangle(tile.SourceRectangle, propertySourceRectangle);
                     tile.DestinationRectangle = TileRectangleHelper.AdjustDestinationRectangle(tile.DestinationRectangle, propertySourceRectangle);
-                    tile.Position = Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle);
+                    //tile.Position = Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle);
+                    tile.Sprite = SpriteFactory.CreateWorldSprite(tile.Position, tile.SourceRectangle, texture, customLayer: tile.Layer, randomizeLayers: false);
+                    tile.Sprite.OffSet = new Vector2(propertySourceRectangle.X, propertySourceRectangle.Y);
+                    //tile.Sprite.OffSet = tile.Sprite.OffSet * -1;
 
 
                 }
 
 
 
-              
+
 
                 if (tileSetTile.ObjectGroups.Count > 0)
                 {

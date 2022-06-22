@@ -57,7 +57,7 @@ namespace TiledEngine.Classes
 
 
         internal List<ITileAddon> Addons { get; set; }
-        public Vector2 Position { get; set; }
+        public Vector2 Position => new Vector2(X * Settings.TileSize, Y * Settings.TileSize);
 
         public Vector2 CentralPosition => new Vector2(Position.X + DestinationRectangle.Width / 2,
             Position.Y + DestinationRectangle.Height / 2);
