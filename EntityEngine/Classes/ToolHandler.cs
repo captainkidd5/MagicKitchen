@@ -1,5 +1,5 @@
-﻿using Globals.Classes.Helpers;
-using ItemEngine.Classes.ToolStuff;
+﻿using EntityEngine.Classes.ToolStuff;
+using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -47,7 +47,7 @@ namespace EntityEngine.Classes
             {
                 if (IsUsingTool)
                     return;
-                Tool tool = (Tool)ItemEngine.Classes.ToolStuff.Tool.GetTool(_inventoryHandler.HeldItem.ItemType.ToString());
+                Tool tool = (Tool)Tool.GetTool(_inventoryHandler.HeldItem.ItemType.ToString());
                 if (tool == null)
                     return;
                 if (tool.RequiresCharge)
@@ -68,7 +68,7 @@ namespace EntityEngine.Classes
                 {
                     if (IsUsingTool)
                         return;
-                    Tool tool = (Tool)ItemEngine.Classes.ToolStuff.Tool.GetTool(_inventoryHandler.HeldItem.ItemType.ToString());
+                    Tool tool = (Tool)Tool.GetTool(_inventoryHandler.HeldItem.ItemType.ToString());
                     if (tool == null)
                         return;
                     tool.Move(Entity.Position);

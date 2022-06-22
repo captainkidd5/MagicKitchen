@@ -22,7 +22,6 @@ using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using tainicom.Aether.Physics2D.Dynamics;
 using Globals.Classes.Console;
-using ItemEngine.Classes.ToolStuff;
 using SpriteEngine.Classes.ShadowStuff;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 

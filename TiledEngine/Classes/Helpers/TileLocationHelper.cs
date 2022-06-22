@@ -145,8 +145,30 @@ namespace TiledEngine.Classes.Helpers
             int bodyTilesWide = GetTilesWide(body);
             int bodyTilesHigh = GetTilesHigh(body);
 
+        
+
+            //if x starts at 1605, and x.width == 16, then x spans two tiles
+
 
             Point rectangleIndex = Vector2Helper.WorldPositionToTilePositionAsPoint(new Vector2(body.X, body.Y));
+
+            //If tile body is less than or equal to tilesize, but is offset, it may still span 2 tiles
+            if (bodyTilesWide == 1)
+            {
+                int remainderX = body.X / 16;
+                int remainderX1 = (body.X + body.Width - 1) / 16;
+                if (remainderX != remainderX1)
+                    bodyTilesWide++;
+
+            }
+            if (bodyTilesHigh == 1)
+            {
+                int remainderX = body.Y / 16;
+                int remainderX1 = (body.Y + body.Height - 1) / 16;
+                if (remainderX != remainderX1)
+                    bodyTilesHigh++;
+            }
+
             for (int i = 0; i < bodyTilesWide; i++)
             {
                 for (int j = 0; j < bodyTilesHigh; j++)

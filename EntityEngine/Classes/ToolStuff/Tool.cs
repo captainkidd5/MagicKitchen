@@ -1,4 +1,5 @@
 ﻿using Globals.Classes.Helpers;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 
-namespace ItemEngine.Classes.ToolStuff
+namespace EntityEngine.Classes.ToolStuff
 {
     public class Tool : Collidable
     {
@@ -22,7 +23,7 @@ namespace ItemEngine.Classes.ToolStuff
         public static Tool GetTool(string typeName)
         {
             return (Tool)System.Reflection.Assembly.GetExecutingAssembly()
-                .CreateInstance($"ItemEngine.Classes.ToolStuff.{typeName}", true, System.Reflection.BindingFlags.CreateInstance,
+                .CreateInstance($"EntityEngine.Classes.ToolStuff.{typeName}", true, System.Reflection.BindingFlags.CreateInstance,
                 null, new object[] { }, null, null);
         }
         protected AnimatedSprite Sprite { get; set; }

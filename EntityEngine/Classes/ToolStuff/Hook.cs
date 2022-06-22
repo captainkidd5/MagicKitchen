@@ -1,4 +1,5 @@
 ﻿using Globals.Classes.Helpers;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 
-namespace ItemEngine.Classes.ToolStuff
+namespace EntityEngine.Classes.ToolStuff
 {
     
     public class Hook : Tool
@@ -72,7 +73,6 @@ namespace ItemEngine.Classes.ToolStuff
         {
             base.Update(gameTime);
            
-            
             if (!IsCharging && Vector2.Distance(MainHullBody.Position, Holder.CenteredPosition) > _maximumDistanceFromEntity)
             {
                 Return();
@@ -141,7 +141,7 @@ namespace ItemEngine.Classes.ToolStuff
                 Return();
                 SoundFactory.PlaySoundEffect("HookGrab");
 
-
+                
             }
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.SolidHigh))
             {
