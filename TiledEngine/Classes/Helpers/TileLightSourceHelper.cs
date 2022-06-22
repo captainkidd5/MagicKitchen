@@ -20,7 +20,7 @@ namespace TiledEngine.Classes.Helpers
         public static void AddJustLightSource(Tile tile, TileManager tileManager, string lightPropertyString)
         {
 
-            tile.Addons.Add(new LightBody(
+            tile.AddAddon(new LightBody(
                 tile, new IntermediateTmxShape(
                     TiledSharp.TmxObjectType.Ellipse,
                     tile.DestinationRectangle, tile.Position, 3f),

@@ -36,7 +36,7 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Default gid is blank tile
         /// </summary>
-        public static void SwitchGid(Tile tile,Layers layer, int newGid = -1, bool wang = false)
+        public static void SwitchGid(Tile tile, Layers layer, int newGid = -1, bool wang = false)
         {
             tile.Unload();
             tile.Sprite = null;
@@ -60,7 +60,7 @@ namespace TiledEngine.Classes
         /// <param name="wang">Do not do this on loads/creates, only for individual tiles</param>
         public static void AssignProperties(Tile tile, Layers layer, bool tempTile = false, bool wang = true)
         {
-            
+
             TileSetPackage tileSetPackage = tile.TileSetPackage;
 
             if (tileSetPackage.OffSetBackgroundGID(tile.GID) == 3370)
@@ -68,7 +68,7 @@ namespace TiledEngine.Classes
             if (wang)
             {
                 int newGID = tileSetPackage.TilingSetManager.WangTile(tile);
-                if(tile.GID != newGID)
+                if (tile.GID != newGID)
                 {
                     tile.GID = newGID + 1;
 
@@ -82,7 +82,7 @@ namespace TiledEngine.Classes
             Texture2D texture = tileSetPackage.GetTexture(tile.GID);
             tile.SourceRectangle = GetTileSourceRectangle(tile.GID, tileSetPackage, tileSetDimension);
             tile.DestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
-            //tile.Position = (Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle));
+            tile.Position = (Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle));
 
             //tile has some sort of property.
             if (tileSetPackage.ContainsKey(tile.GID))
@@ -107,10 +107,7 @@ namespace TiledEngine.Classes
 
                     tile.SourceRectangle = TileRectangleHelper.AdjustSourceRectangle(tile.SourceRectangle, propertySourceRectangle);
                     tile.DestinationRectangle = TileRectangleHelper.AdjustDestinationRectangle(tile.DestinationRectangle, propertySourceRectangle);
-                    //tile.Position = Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle);
-                    tile.Sprite = SpriteFactory.CreateWorldSprite(tile.Position, tile.SourceRectangle, texture, customLayer: tile.Layer, randomizeLayers: false);
-                    tile.Sprite.OffSet = new Vector2(propertySourceRectangle.X, propertySourceRectangle.Y);
-                    //tile.Sprite.OffSet = tile.Sprite.OffSet * -1;
+                    tile.Position = Vector2Helper.GetVector2FromRectangle(tile.DestinationRectangle);
 
 
                 }
@@ -144,7 +141,7 @@ namespace TiledEngine.Classes
                 propertyString = "replace";
                 if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
                 {
-                    tile.Addons.Add(new GrassTuft(tile, texture));
+                    tile.AddAddon(new GrassTuft(tile, texture));
 
                 }
 
@@ -188,7 +185,7 @@ namespace TiledEngine.Classes
         private static void TestForTransparencyTile(Tile tile, Rectangle rectangle)
         {
             //if (tile.Layer >= .3f && tile.GID != -1 && tile.DestinationRectangle.Height > rectangle.Height && tile.DestinationRectangle.Height > 32)
-            tile.Addons.Add(new TileTransparency(tile, tile.Position, new Rectangle((int)tile.Position.X + (int)rectangle.Width, (int)tile.Position.X + (int)rectangle.Height, rectangle.Width, rectangle.Height)));
+            tile.AddAddon(new TileTransparency(tile, tile.Position, new Rectangle((int)tile.Position.X + (int)rectangle.Width, (int)tile.Position.X + (int)rectangle.Height, rectangle.Width, rectangle.Height)));
         }
         /// <summary>
         /// If tile layer is in the forground we'll offset it according to its Y position. Else just give it the standard layerdepth.

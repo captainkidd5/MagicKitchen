@@ -53,7 +53,7 @@ namespace TiledEngine.Classes.TileAddons
 
         public void Destroy()
         {
-            Tile.Addons.Remove(this);
+            Tile.RemoveAddon(this);
         }
 
         protected override void CreateBody(Vector2 position )

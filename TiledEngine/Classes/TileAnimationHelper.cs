@@ -106,8 +106,7 @@ namespace TiledEngine.Classes
                     tile.Layer = tile.Layer * .1f;
 
         
-
-                if(tile.Addons.Any(x => x.GetType() == typeof(DestructableTile)))
+                if(tile.AnyAddon(x => x.GetType() == typeof(DestructableTile)))
                 {
                     tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
                   texture, frames, customLayer: tile.Layer, randomizeLayers: false);

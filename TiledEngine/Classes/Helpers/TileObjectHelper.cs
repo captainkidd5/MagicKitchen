@@ -56,7 +56,7 @@ namespace TiledEngine.Classes.Helpers
             if (properties.ContainsKey("action"))
             {
                 ITileAddon addon = TileActionFactory.GetActionTile(properties["action"], tile, tileManager, tmxShape, tileLayer);
-                tile.Addons.Add(addon);
+                tile.AddAddon(addon);
                 if (addon.GetType() == typeof(NoCollideDestructable))
                     return;
 
@@ -65,13 +65,13 @@ namespace TiledEngine.Classes.Helpers
             if (properties.ContainsKey("furniture"))
             {
 
-                    tile.Addons.Add(Furniture.GetFurnitureFromProperty(properties["furniture"], tile, tileManager, tmxShape));
+                    tile.AddAddon(Furniture.GetFurnitureFromProperty(properties["furniture"], tile, tileManager, tmxShape));
 
             }
      
         
             TileBody tileBody = new TileBody(tile, tmxShape);
-            tile.Addons.Add(tileBody);
+            tile.AddAddon(tileBody);
 
 
         }

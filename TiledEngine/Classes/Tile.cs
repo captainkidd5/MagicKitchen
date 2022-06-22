@@ -44,7 +44,6 @@ namespace TiledEngine.Classes
 
         public int GID { get { return gid - 1; } internal set { gid = value; } }
 
-        //public TileType TileType { get; set; }
         internal float Layer { get; set; }
 
         internal Layers IndexLayer { get; set; }
@@ -56,15 +55,14 @@ namespace TiledEngine.Classes
         public Sprite Sprite { get; set; }
 
 
-        internal List<ITileAddon> Addons { get; set; }
-        public Vector2 Position => new Vector2(X * Settings.TileSize, Y * Settings.TileSize);
+        private List<ITileAddon> _addons;
+        public Vector2 Position { get; set; }
 
         public Vector2 CentralPosition => new Vector2(Position.X + DestinationRectangle.Width / 2,
             Position.Y + DestinationRectangle.Height / 2);
-        public Vector2 GridPosition => new Vector2(X * Settings.TileSize, Y * Settings.TileSize);
         public bool WithinRangeOfPlayer { get; internal set; }
 
-
+        public Vector2 GridPosition => new Vector2(X * Settings.TileSize, Y * Settings.TileSize);
         internal bool Empty => GID < 0;
         internal Tile(TileManager tileManager, int gid, Layers indexLayer, float layer, int x, int y)
         {
@@ -74,7 +72,6 @@ namespace TiledEngine.Classes
             IndexLayer = indexLayer;
             X = x;
             Y = y;
-            Addons = new List<ITileAddon>();
             TileManager = tileManager;
 
         }
@@ -121,29 +118,37 @@ namespace TiledEngine.Classes
             WithinRangeOfPlayer = false;
             Sprite.Update(gameTime, Position);
 
-            for (int i = 0; i < Addons.Count; i++)
+            if(_addons != null)
             {
-                Addons[i].Update(gameTime);
+
+            for (int i = 0; i < _addons.Count; i++)
+            {
+                _addons[i].Update(gameTime);
             }
-
-
+            }
         }
 
         internal void DrawLights(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < Addons.Count; i++)
+            if (_addons != null)
             {
-                ITileAddon addon = Addons[i];
-                if (addon.GetType() == typeof(LightBody))
-                    (addon as Collidable).DrawLights(spriteBatch);
+                for (int i = 0; i < _addons.Count; i++)
+                {
+                    ITileAddon addon = _addons[i];
+                    if (addon.GetType() == typeof(LightBody))
+                        (addon as Collidable).DrawLights(spriteBatch);
+                }
             }
         }
         internal void Draw(SpriteBatch spriteBatch, Texture2D texture)
         {
             Sprite.Draw(spriteBatch);
-            for (int i = 0; i < Addons.Count; i++)
+            if (_addons != null)
             {
-                Addons[i].Draw(spriteBatch);
+                for (int i = 0; i < _addons.Count; i++)
+                {
+                    _addons[i].Draw(spriteBatch);
+                }
             }
 
 
@@ -169,7 +174,7 @@ namespace TiledEngine.Classes
         internal Rectangle GetTotalHitBoxRectangle(Vector2? position = null)
         {
             Rectangle totalRectangle = Rectangle.Empty;
-            foreach (ITileAddon addon in Addons)
+            foreach (ITileAddon addon in _addons)
             {
                 if(addon.GetType() == typeof(TileBody))
                 {
@@ -188,32 +193,62 @@ namespace TiledEngine.Classes
         /// </summary>
         internal void Load()
         {
-            foreach (ITileAddon addon in Addons)
-                addon.Load();
+            if (_addons != null)
+            {
+                foreach (ITileAddon addon in _addons)
+                    addon.Load();
+            }
         }
         public void Interact(bool isPlayer, Item heldItem)
         {
-            foreach (ITileAddon addon in Addons)
-                addon.Interact(isPlayer, heldItem);
+            if (_addons != null)
+            {
+                foreach (ITileAddon addon in _addons)
+                    addon.Interact(isPlayer, heldItem);
+            }
         }
 
         public void Unload()
         {
-            foreach (ITileAddon addon in Addons)
+            if (_addons != null)
             {
-                addon.CleanUp();
+                foreach (ITileAddon addon in _addons)
+                {
+                    addon.CleanUp();
+                }
+                _addons.Clear();
+                _addons = null;
             }
-            Addons.Clear();
             Sprite = null;
 
         }
 
-        public List<ITileAddon> GetAddonsByType(Type t)
+        public void AddAddon(ITileAddon addon)
         {
-            return Addons.Where(x => x.GetType() == t).ToList();
+            if (_addons == null)
+                _addons = new List<ITileAddon>();
+            _addons.Add(addon);
         }
 
+        public void RemoveAddon(ITileAddon addon)
+        {
+            if (_addons == null)
+                return;
+            _addons.Remove(addon);
+            if (_addons.Count == 0)
+                _addons = null;
+        }
+        public List<ITileAddon> GetAddonsByType(Type t)
+        {
+            return _addons.Where(x => x.GetType() == t).ToList();
+        }
 
+        public bool AnyAddon(Func<ITileAddon, bool> predicate)
+        {
+            if (_addons == null)
+                return false;
+            return _addons.Any(x => predicate(x));
+        }
 
 
     }

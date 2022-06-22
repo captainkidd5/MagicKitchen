@@ -178,7 +178,7 @@ namespace TiledEngine.Classes
                     MouseOverTile = Tiles[z][MouseX, MouseY];
             }
             if (MouseOverTile != null)
-                TileSelectorSprite.Update(gameTime, MouseOverTile.GridPosition);
+                TileSelectorSprite.Update(gameTime, MouseOverTile.Position);
             CheckMouseTileInteractions(gameTime);
 
 
@@ -201,7 +201,7 @@ namespace TiledEngine.Classes
 
                 }
                 //moreover, if tile to interact with is real, we want to make sure that tile selector sprite draws here instead
-                TileSelectorSprite.Update(gameTime, TileToInteractWith.GridPosition);
+                TileSelectorSprite.Update(gameTime, TileToInteractWith.Position);
 
 
             }
