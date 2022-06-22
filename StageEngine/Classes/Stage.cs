@@ -131,7 +131,7 @@ namespace StageEngine.Classes
             //_portalManager.LoadNewStage(Name, TileManager);
 
             SaveToStageFile();
-            TileManager.CleanUp();
+            //TileManager.CleanUp();
 
         }
 
