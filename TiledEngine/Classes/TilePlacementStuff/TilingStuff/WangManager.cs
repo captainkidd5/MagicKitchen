@@ -69,6 +69,8 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             return false;
         }
 
+        //so, water should only wang if touching land tiles
+
         public int WangTile(TileManager tileManager, TileData tile)
         {
 
@@ -88,13 +90,17 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
             if (tileManager.Y_IsValidIndex(tile.Y - 1))
             {
-                if (GidDictionaryMatch(tDictionary,tileManager, tile, tile.X, tile.Y - 1))
+                //or not equal to land
+                if (GidDictionaryMatch(tDictionary,tileManager, tile, tile.X, tile.Y - 1) ||
+                    !GidDictionaryMatch(TilingSets["land"], tileManager, tile, tile.X, tile.Y - 1))
                     keyToCheck += 1;
             }
 
             if (tileManager.Y_IsValidIndex(tile.Y + 1))
             {
-                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X, tile.Y + 1))
+                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X, tile.Y + 1)
+                    ||
+                    !GidDictionaryMatch(TilingSets["land"], tileManager, tile, tile.X, tile.Y + 1))
                     keyToCheck += 8;
             }
 
@@ -103,13 +109,17 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             //looking at rightmost tile
             if (tileManager.X_IsValidIndex(tile.X + 1))
             {
-                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X + 1, tile.Y))
+                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X + 1, tile.Y)
+                    ||
+                    !GidDictionaryMatch(TilingSets["land"], tileManager, tile, tile.X + 1, tile.Y))
                     keyToCheck += 4;
             }
 
             if (tileManager.X_IsValidIndex(tile.X - 1))
             {
-                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X - 1, tile.Y))
+                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X - 1, tile.Y)
+                    ||
+                    !GidDictionaryMatch(TilingSets["land"], tileManager, tile, tile.X - 1, tile.Y))
                     keyToCheck += 2;
             }
 

@@ -45,7 +45,7 @@ namespace EntityEngine.ItemStuff
         public bool FlaggedForRemoval { get; private set; }
 
 
-        private ItemBehaviour _itemBehaviour;
+        internal ItemBehaviour ItemBehaviour { get; set; }
 
 
         internal new void AddGadget(PhysicsGadget gadget) => Gadgets.Add(gadget);
@@ -95,13 +95,13 @@ namespace EntityEngine.ItemStuff
                 //initial launch point's layerdepth to help with the illusion
 
                 case WorldItemState.None:
-                    _itemBehaviour = null;
+                    ItemBehaviour = null;
                     Sprite.SwapSourceRectangle(new Rectangle(Sprite.SourceRectangle.X, Sprite.SourceRectangle.Y, 16, 16));
                     Shadow = new Shadow(CenteredPosition, ShadowSize.Small, ItemFactory.ItemSpriteSheet);
                     Sprite.CustomLayer = null;
                     break;
                 case WorldItemState.Bouncing:
-                    _itemBehaviour = new BouncingItemBehaviour(this, jettisonDirection);
+                    ItemBehaviour = new BouncingItemBehaviour(this, jettisonDirection);
                     Sprite.CustomLayer = Sprite.GetYAxisLayerDepth();
                     Shadow = new Shadow(CenteredPosition, ShadowSize.Small, ItemFactory.ItemSpriteSheet);
 
@@ -113,7 +113,7 @@ namespace EntityEngine.ItemStuff
                     Shadow = null;
                     Sprite.CustomLayer = null;
 
-                    _itemBehaviour = new FlotsamBehaviour(this);
+                    ItemBehaviour = new FlotsamBehaviour(this);
                     //Drawing half the sprite creates the illusion that half of it is submerged
                     Sprite.SwapSourceRectangle(new Rectangle(Sprite.SourceRectangle.X, Sprite.SourceRectangle.Y, 16, 8));
                     break;
@@ -166,8 +166,8 @@ namespace EntityEngine.ItemStuff
             if (ImmuneToPickup)
                 TestIfImmunityDone(gameTime);
             Vector2 spriteBehaviourOffSet = Vector2.Zero;
-            if (_itemBehaviour != null)
-                spriteBehaviourOffSet = _itemBehaviour.Update(gameTime);
+            if (ItemBehaviour != null)
+                spriteBehaviourOffSet = ItemBehaviour.Update(gameTime);
             Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet) + spriteBehaviourOffSet);
             if(Shadow != null)
             Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y + 2));
@@ -185,8 +185,8 @@ namespace EntityEngine.ItemStuff
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (_itemBehaviour != null)
-                _itemBehaviour.OnCollides(Gadgets, fixtureA, fixtureB, contact);
+            if (ItemBehaviour != null)
+                ItemBehaviour.OnCollides(Gadgets, fixtureA, fixtureB, contact);
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
             {
                 //  if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)

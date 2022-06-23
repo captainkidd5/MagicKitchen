@@ -20,6 +20,7 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
         private static readonly float s_maxDistanceFromPlayer = 1400;
 
         private bool _isSinking = false;
+        public bool AllowSinking { get; set; } = true;
         public FlotsamBehaviour(WorldItem worldItem) : base(worldItem)
         {
             SimpleTimer = new SimpleTimer(s_sinkTime);
@@ -30,7 +31,7 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
         }
         private Vector2 GetJettisonDirection(Vector2 spawnLocation)
         {
-            Vector2 directionVector =Shared.PlayerPosition - spawnLocation;
+            Vector2 directionVector = Shared.PlayerPosition - spawnLocation;
             directionVector.Normalize();
             directionVector = directionVector * 6;
             directionVector = OffSetFlotsamTrajectory(directionVector);
@@ -47,16 +48,21 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
                fixtureB.CollisionCategories.HasFlag((Category)PhysCat.SolidHigh))
             {
                 //Floating object just hit the side of the island, probably
-                _isSinking = true;
-                WorldItem.Sprite.AddFaderEffect(0, null, true);
+                if (AllowSinking)
+                {
+
+                    _isSinking = true;
+                    WorldItem.Sprite.AddFaderEffect(0, null, true);
+                }
+
             }
-                return base.OnCollides(gadgets,fixtureA, fixtureB, contact);
+            return base.OnCollides(gadgets, fixtureA, fixtureB, contact);
         }
 
         public override Vector2 Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if(_isSinking && SimpleTimer.Run(gameTime))
+            if (_isSinking && SimpleTimer.Run(gameTime))
             {
                 WorldItem.Remove(WorldItem.Count);
             }
@@ -65,7 +71,7 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
                 WorldItem.Remove(WorldItem.Count);
             }
             return Vector2.Zero;
-         
+
         }
 
         private bool IsTooFarFromPlayer()

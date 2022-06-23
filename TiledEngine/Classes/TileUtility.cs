@@ -33,7 +33,7 @@ namespace TiledEngine.Classes
             return tile.Properties.TryGetValue(property, out property);
         }
 
-   
+
         internal static Rectangle GetTileSourceRectangle(int gid, TileSetPackage tileSetPackage, int tileSetDimension)
         {
             if (!tileSetPackage.IsForeground(gid))
@@ -43,16 +43,29 @@ namespace TiledEngine.Classes
 
         }
 
+        public static void PreliminaryData(TileSetPackage tileSetPackage, int gid)
+        {
+            if (tileSetPackage.ContainsKey(gid))
+            {
+                TmxTilesetTile tileSetTile = tileSetPackage.GetTmxTileSetTile(gid);
+
+                string propertyString = "tilingKey";
+                if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
+                {
+                    tileSetPackage.TilingSetManager.AddNewSet(propertyString, gid);
+                }
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="tempTile">Setting this to true will prevent the grid status from updating, good for ghost tile</param>
         /// <param name="wang">Do not do this on loads/creates, only for individual tiles</param>
-        public static void AssignProperties(TileManager tileManager,TileObject tileObject, TileData tileData, bool tempTile = false, bool wang = true)
+        public static void AssignProperties(TileManager tileManager, TileObject tileObject, TileData tileData, bool tempTile = false, bool wang = true)
         {
             TileSetPackage tileSetPackage = tileManager.TileSetPackage;
 
-           
+
             if (wang)
             {
                 int newGID = tileSetPackage.TilingSetManager.WangTile(tileManager, tileData);
@@ -139,11 +152,7 @@ namespace TiledEngine.Classes
                 {
                     TestForTransparencyTile(tileObject, TileObjectHelper.GetSourceRectangleFromTileProperty(propertyString));
                 }
-                propertyString = "tilingKey";
-                if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
-                {
-                    tileSetPackage.TilingSetManager.AddNewSet(propertyString, tileData.GID);
-                }
+  
                 ////CREATE ANIMATION FRAMES
                 TileAnimationHelper.CheckForAnimationFrames(tileObject, tileManager, tileSetPackage, propertyString);
 
@@ -157,7 +166,7 @@ namespace TiledEngine.Classes
                 tileObject.Sprite = SpriteFactory.CreateWorldSprite(tileObject.Position, tileObject.SourceRectangle, texture, customLayer: tileObject.DrawLayer, randomizeLayers: false);
 
             //this should come after new source rectangles are calculated because we need the height of those to calculate layer depth!
-           
+
 
             tileObject.Load();
 
@@ -181,10 +190,10 @@ namespace TiledEngine.Classes
         {
             if (layer == Layers.foreground)
             {
-                if (tileData.GID !=0)
+                if (tileData.GID != 0)
                     return GetTileVariedLayerDepth(tile.Position, tile.SourceRectangle, tileLayerOffsetDictionary);
             }
-               return TileLoader.MapDepths[(int)layer];
+            return TileLoader.MapDepths[(int)layer];
 
         }
 

@@ -98,6 +98,7 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
             if (WorldItem.InWater())
             {
                 WorldItem.ChangeState(WorldItemState.Floating);
+                (WorldItem.ItemBehaviour as FlotsamBehaviour).AllowSinking = false;
             }
             else
             {

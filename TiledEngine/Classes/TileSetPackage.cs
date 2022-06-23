@@ -52,6 +52,15 @@ namespace TiledEngine.Classes
             BackgroundSpriteSheet = content.Load<Texture2D>(exteriorTexturePath);
             ForegroundSpriteSheet = content.Load<Texture2D>(interiorTexturePath);
 
+            for(int i =0; i< _backgroundTileCount; i++)
+            {
+                TileUtility.PreliminaryData(this, i);
+            }
+
+            for (int i = 0; i < _foregroundTileCount; i++)
+            {
+                TileUtility.PreliminaryData(this, i);
+            }
         }
         public bool IsForeground(int tileGID)
         {
