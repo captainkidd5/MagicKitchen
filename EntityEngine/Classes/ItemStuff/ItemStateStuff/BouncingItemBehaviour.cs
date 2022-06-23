@@ -95,7 +95,15 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
             WorldItem.IgnoreGravity(true);
             SimpleTimer = null;
             WorldItem.ClearGadgets();
-            WorldItem.ChangeState(WorldItemState.None);
+            if (WorldItem.InWater())
+            {
+                WorldItem.ChangeState(WorldItemState.Floating);
+            }
+            else
+            {
+                WorldItem.ChangeState(WorldItemState.None);
+
+            }
 
         }
 

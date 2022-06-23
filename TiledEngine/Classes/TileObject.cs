@@ -33,7 +33,7 @@ namespace TiledEngine.Classes
         public bool FlaggedForRemoval { get; set; }
 
 
-        internal TileData TileData { get; set; }
+        internal TileData TileData;
 
         internal Rectangle SourceRectangle { get; set; }
         internal Rectangle DestinationRectangle { get; set; }

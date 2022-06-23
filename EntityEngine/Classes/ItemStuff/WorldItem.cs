@@ -109,6 +109,8 @@ namespace EntityEngine.ItemStuff
                     break;
                 case WorldItemState.Floating:
                     //  Jettison(jettisonDirection.Value, null);
+                    PlayPackage("Splash");
+                    Shadow = null;
                     _itemBehaviour = new FlotsamBehaviour(this);
                     //Drawing half the sprite creates the illusion that half of it is submerged
                     Sprite.SwapSourceRectangle(new Rectangle(Sprite.SourceRectangle.X, Sprite.SourceRectangle.Y, 16, 8));
@@ -202,7 +204,7 @@ namespace EntityEngine.ItemStuff
 
                 ChangeState(WorldItemState.None);
 
-                if (_tileManager.IsTypeOfTile("water",Position) || _tileManager.IsTypeOfTile("deepWater", Position))
+                if (InWater())
                 {
                     PlayPackage("Splash");
 
@@ -216,7 +218,10 @@ namespace EntityEngine.ItemStuff
             return base.OnCollides(fixtureA, fixtureB, contact);
 
         }
-
+        internal bool InWater()
+        {
+            return _tileManager.IsTypeOfTile("water", Position) || _tileManager.IsTypeOfTile("deepWater", Position);
+        }
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnSeparates(fixtureA, fixtureB, contact);

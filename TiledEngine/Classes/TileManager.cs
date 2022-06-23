@@ -168,7 +168,21 @@ namespace TiledEngine.Classes
             CalculateStartAndEndIndexes();
             CalculateMouseIndex();
             TileToInteractWith = null;
-           
+            foreach (var tileObject in TileObjects)
+            {
+                TileObject tileObj = tileObject.Value;
+                tileObj.Update(gameTime, PathGrid);
+                if (tileObj.FlaggedForRemoval)
+                {
+                    tileObj.Unload();
+
+                    DeadTileObjects.Add(tileObj.TileData.GetKey(), tileObj);
+                }
+            }
+            foreach (var pair in DeadTileObjects)
+            {
+                TileObjects.Remove(pair.Key);
+            }
             for (int z = 0; z < TileData.Count; z++)
             {
                 for (int x = StartX; x < EndX; x++)
@@ -195,21 +209,7 @@ namespace TiledEngine.Classes
                 }
             }
 
-            foreach (var tileObject in TileObjects)
-            {
-                TileObject tileObj = tileObject.Value;
-                tileObj.Update(gameTime, PathGrid);
-                if (tileObj.FlaggedForRemoval)
-                {
-                    tileObj.Unload();
-
-                    DeadTileObjects.Add(tileObj.TileData.GetKey(), tileObj);
-                }
-            }
-            foreach (var pair in DeadTileObjects)
-            {
-                TileObjects.Remove(pair.Key);
-            }
+            
 
             if (MouseOverTile != null)
                 TileSelectorSprite.Update(gameTime, MouseOverTile.Position);
