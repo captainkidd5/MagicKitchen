@@ -58,26 +58,26 @@ namespace TiledEngine.Classes
         /// if they exist in the tilesheet. The only restriction is that the hitbox must stay constant throughout the animation frames
         /// as the frame only accounts for the image, not additional data
         /// </summary>
-        public static void CheckForAnimationFrames(TileObject tile, TileManager tileManager, TileSetPackage tileSetPackage, string propertyString)
+        public static void CheckForAnimationFrames(TileObject tileObject, TileManager tileManager, TileSetPackage tileSetPackage, string propertyString)
         {
-            TmxTilesetTile tmxTileSetTile = tileSetPackage.GetTmxTileSetTile(tile.GID);
+            TmxTilesetTile tmxTileSetTile = tileSetPackage.GetTmxTileSetTile(tileObject.TileData.GID);
             Collection<TmxAnimationFrame> animationFrames = tmxTileSetTile.AnimationFrames;
 
-            int tileSetDimension = tileSetPackage.GetDimension(tile.GID);
-            Texture2D texture = tileSetPackage.GetTexture(tile.GID);
+            int tileSetDimension = tileSetPackage.GetDimension(tileObject.TileData.GID);
+            Texture2D texture = tileSetPackage.GetTexture(tileObject.TileData.GID);
             if (animationFrames.Count > 0)
             {
                 AnimationFrame[] frames = new AnimationFrame[animationFrames.Count];
 
                 for (int i = 0; i < animationFrames.Count; i++)
                 {
-                    Rectangle frameRectangle = tile.SourceRectangle;
+                    Rectangle frameRectangle = tileObject.SourceRectangle;
                     //First animation frame will already have expanded source rectangle
                     if (i > 0)
                     {
 
                         propertyString = "newSource";
-                        if (tileSetPackage.IsForeground(tile.GID))
+                        if (tileSetPackage.IsForeground(tileObject.TileData.GID))
                             frameRectangle = TileRectangleHelper.GetNormalSourceRectangle(animationFrames[i].Id, tileSetDimension);
                         else
                             frameRectangle = TileRectangleHelper.GetBackgroundSourceRectangle(animationFrames[i].Id, tileSetDimension);
@@ -85,7 +85,7 @@ namespace TiledEngine.Classes
                         //Animation frame ids are not global, need to offset them if we're using foreground sheet
                         int frameToCheckGID = animationFrames[i].Id;
 
-                        if (tileSetPackage.IsForeground(tile.GID))
+                        if (tileSetPackage.IsForeground(tileObject.TileData.GID))
                             frameToCheckGID = tileSetPackage.OffSetBackgroundGID(frameToCheckGID);
 
                         TmxTilesetTile tileSetTile = tileSetPackage.GetTmxTileSetTile(frameToCheckGID);
@@ -102,15 +102,15 @@ namespace TiledEngine.Classes
                     frames[i] = new AnimationFrame(i, frameRectangle,
                     animationFrames[i].Duration * .001f);
                 }
-                if (tile.Layer > 1)
-                    tile.Layer = tile.Layer * .1f;
+                if (tileObject.TileData.Layer> 1)
+                    tileObject.DrawLayer = tileObject.TileData.Layer * .1f;
 
         
-                if(tile.Addons.Any(x => x.GetType() == typeof(DestructableTile)))
+                if(tileObject.Addons.Any(x => x.GetType() == typeof(DestructableTile)))
                 {
-                    tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
-                  texture, frames, customLayer: tile.Layer, randomizeLayers: false);
-                    (tile.Sprite as AnimatedSprite).Paused = true;
+                    tileObject.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tileObject.Position, tileObject.SourceRectangle,
+                  texture, frames, customLayer: tileObject.TileData.Layer, randomizeLayers: false);
+                    (tileObject.Sprite as AnimatedSprite).Paused = true;
                     return;
                 }
 
@@ -121,9 +121,9 @@ namespace TiledEngine.Classes
                     switch (propertyString)
                     {
                         case "pause":
-                            tile.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tile.Position, tile.SourceRectangle,
-         texture, frames, customLayer: tile.Layer, randomizeLayers: false);
-                            (tile.Sprite as AnimatedSprite).PingPong = true;
+                            tileObject.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tileObject.Position, tileObject.SourceRectangle,
+         texture, frames, customLayer: tileObject.TileData.Layer, randomizeLayers: false);
+                            (tileObject.Sprite as AnimatedSprite).PingPong = true;
 
 
                             return;
@@ -134,8 +134,8 @@ namespace TiledEngine.Classes
 
 
 
-                tile.Sprite = SpriteFactory.CreateWorldIntervalAnimatedSprite(tile.Position, tile.SourceRectangle,
-                texture, frames, customLayer: tile.Layer, randomizeLayers: false);
+                tileObject.Sprite = SpriteFactory.CreateWorldIntervalAnimatedSprite(tileObject.Position, tileObject.SourceRectangle,
+                texture, frames, customLayer: tileObject.TileData.Layer, randomizeLayers: false);
 
 
             }

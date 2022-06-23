@@ -27,7 +27,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         private StorageSlot _slot;
 
         private static readonly int s_Width = 14;
-        public int Key => _tileTiedTo.GetKey();
+        public int Key => _tileTiedTo.TileData.GetKey();
 
         public PlacedOnItem(int listIndex, TileObject tileTiedTo)
         {
@@ -47,7 +47,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         private void CreateSprite()
         {
             _worldItemSprite = SpriteFactory.CreateWorldSprite(_position, Item.GetItemSourceRectangle(ItemId),
-                            ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f), customLayer: _tileTiedTo.Layer + Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f);
+                            ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f), customLayer: _tileTiedTo.TileData.Layer + Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f);
         }
 
         public void Update(GameTime gameTime)

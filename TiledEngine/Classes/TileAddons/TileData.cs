@@ -1,4 +1,5 @@
 ﻿using InputEngine.Classes;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace TiledEngine.Classes.TileAddons
             return (((int)X << 18) | ((int)Y << 4) | ((int)Layer << 0)); //14 bits for x and y, 4 bits for layer.
         }
 
-
+        public Point GetPoint() => new Point(X, Y); 
 
         /// <summary>
         /// 

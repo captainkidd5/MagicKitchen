@@ -41,15 +41,15 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public void RemoveAllPlacedItemsFromTile(TileObject tile)
         {
-            if(_placedItemDictionary.ContainsKey(tile.GetKey()))
-                _placedItemDictionary.Remove(tile.GetKey());
+            if(_placedItemDictionary.ContainsKey(tile.TileData.GetKey()))
+                _placedItemDictionary.Remove(tile.TileData.GetKey());
 
         }
         public List<PlacedOnItem> GetPlacedItemsFromTile(TileObject tile)
         {
-            if (_placedItemDictionary.ContainsKey(tile.GetKey()))
+            if (_placedItemDictionary.ContainsKey(tile.TileData.GetKey()))
             {
-                return _placedItemDictionary[tile.GetKey()];
+                return _placedItemDictionary[tile.TileData.GetKey()];
             }
             return new List<PlacedOnItem>();
         }
@@ -86,7 +86,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 int key = reader.ReadInt32();
                 for (int j = 0; j < listCount; j++)
                 {
-                    TileObject tileTiedTo = _tileManager.GetTileFromTileKey(key);
+                    TileObject tileTiedTo = _tileManager.TileObjects[key];
 
                     PlacedOnItem item = new PlacedOnItem(-1, tileTiedTo);
                     item.LoadSave(reader);

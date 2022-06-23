@@ -30,11 +30,11 @@ namespace TiledEngine.Classes
 
         internal readonly TileManager TileManager;
 
-        //public bool IsDirty { get; set; }
+        public bool FlaggedForRemoval { get; set; }
 
 
         internal TileData TileData { get; set; }
-      
+
         internal Rectangle SourceRectangle { get; set; }
         internal Rectangle DestinationRectangle { get; set; }
 
@@ -44,18 +44,28 @@ namespace TiledEngine.Classes
         internal List<ITileAddon> Addons { get; set; }
         public Vector2 Position { get; set; }
 
+        public float DrawLayer { get; set; }
         public Vector2 CentralPosition => new Vector2(Position.X + DestinationRectangle.Width / 2,
             Position.Y + DestinationRectangle.Height / 2);
         public bool WithinRangeOfPlayer { get; internal set; }
-
-        internal TileObject(TileManager tileManager,TileData tileData )
+        internal string GetProperty(string key, bool useObjectSearch = false)
+        {
+            return TileData.GetProperty(TileManager.TileSetPackage, key, useObjectSearch);
+        }
+        //The icon the mouse should change to when hovered over this tile
+        internal CursorIconType GetCursorIconType()
+        {
+            return TileData.GetCursorIconType(TileManager.TileSetPackage);
+        }
+        internal TileObject(TileManager tileManager, TileData tileData)
         {
 
             TileData = tileData;
 
-           
+
             Addons = new List<ITileAddon>();
             TileManager = tileManager;
+            TileUtility.AssignProperties(tileManager, this, tileData);
 
         }
 
@@ -63,19 +73,13 @@ namespace TiledEngine.Classes
         {
             TileManager.TileToInteractWith = this;
         }
-       
+
 
 
         public void Update(GameTime gameTime, PathGrid pathGrid)
         {
-            TileData? tileData = TileManager.GetTileDataFromPoint(new Point(TileData.X, TileData.Y), (Layers)TileData.Layer);
-            if(tileData != null)
-            {
-                if(tileData.Value.GetKey() == TileData.GetKey())
-                {
-                    Console.WriteLine("test");
-                }
-            }
+            if (!TileManager.IsWithinUpdateRange(TileData))
+                FlaggedForRemoval = true;
             WithinRangeOfPlayer = false;
             Sprite.Update(gameTime, Position);
 
@@ -110,7 +114,7 @@ namespace TiledEngine.Classes
             //spriteBatch.DrawString(Game1.MainFont, X + "," + Y, Position, Color.Orange, 0f, Vector2.Zero, .35f, SpriteEffects.None, .99f);
         }
 
-       
+
 
         /// <summary>
         /// TODO: Combine rectangles into larger rectangle if multiple bodies do not overlap

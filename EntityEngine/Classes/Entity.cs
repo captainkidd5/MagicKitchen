@@ -478,7 +478,7 @@ namespace EntityEngine.Classes
             TileData? tile = TileManager.GetTileDataFromPoint(tilePoint, tileLayer);
             if (tile == null)
                 throw new Exception($"No tile at {tilePoint} at layer {tileLayer.ToString()}!");
-            tile.Interact(false, InventoryHandler.HeldItem);
+            TileManager.TileObjects[tile.Value.GetKey()].Interact(false, InventoryHandler.HeldItem);
 
         }
         protected void PerformAction(ActionType actionType)

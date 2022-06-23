@@ -77,6 +77,8 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             string tilingSetValue = tile.GetProperty(tileManager.TileSetPackage, "tilingSet");
             if (tilingSetValue == "land")
                 return tile.GID;
+            if (!TilingSets.ContainsKey(tilingSetValue))
+                return tile.GID;
             Dictionary<int, int> tDictionary = TilingSets[tilingSetValue];
 
             if (!GidDictionaryMatch(tDictionary, tileManager, tile, tile.X, tile.Y))

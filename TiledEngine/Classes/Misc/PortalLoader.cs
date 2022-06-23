@@ -51,13 +51,13 @@ namespace TiledEngine.Classes.Misc
                 }           
             }
 
-            foreach (PortalData portal in s_allPortalData)
-            {
-                if (!s_portalgraph.HasEdge(portal.Key, s_portalDictionary[portal.To]))
-                {
-                    s_portalgraph.AddEdge(portal.Key, s_portalDictionary[portal.To]);
-                }
-            }
+            //foreach (PortalData portal in s_allPortalData)
+            //{
+            //    if (!s_portalgraph.HasEdge(portal.Key, s_portalDictionary[portal.To]))
+            //    {
+            //        s_portalgraph.AddEdge(portal.Key, s_portalDictionary[portal.To]);
+            //    }
+            //}
             s_graphTraverser = new GraphTraverser(s_portalgraph);
 
         }

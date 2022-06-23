@@ -43,7 +43,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override void Load()
         {
 
-            _progressIndicator.Load(Tile.Position, Tile.Layer, new Vector2(8, -16));
+            _progressIndicator.Load(Tile.Position, Tile.TileData.Layer, new Vector2(8, -16));
             base.Load();
 
         }

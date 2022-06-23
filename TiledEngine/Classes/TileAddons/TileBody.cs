@@ -23,7 +23,7 @@ namespace TiledEngine.Classes.TileAddons
     public class TileBody : Collidable, ITileAddon
     {
         public TileObject Tile { get; private set; }
-        protected Layers IndexLayer => Tile.IndexLayer;
+        protected Layers IndexLayer => (Layers)Tile.TileData.Layer;
         public IntermediateTmxShape IntermediateTmxShape { get;protected set; }
         public TileBody(TileObject tile,  IntermediateTmxShape intermediateTmxShape)
         {
@@ -88,11 +88,11 @@ namespace TiledEngine.Classes.TileAddons
 
         protected virtual void DestroyTileAndGetLoot()
         {
-            if (TileLoader.TileLootManager.HasLootData(Tile.GID))
+            if (TileLoader.TileLootManager.HasLootData(Tile.TileData.GID))
                 GenerateLoot();
 
             CleanGrid();
-            string tilingProperty = Tile.GetProperty("tilingSet");
+            string tilingProperty = Tile.TileData.GetProperty(Tile.TileManager.TileSetPackage, "tilingSet");
             int gidToSwitchTo = -1;
             if (!string.IsNullOrEmpty(tilingProperty))
             {
@@ -104,7 +104,7 @@ namespace TiledEngine.Classes.TileAddons
 
             }
             //Do not wang foreground tiles, unnecessary 
-            TileUtility.SwitchGid(Tile, IndexLayer, gidToSwitchTo, Tile.IndexLayer < Layers.buildings);
+            Tile.TileManager.SwitchGID((ushort)gidToSwitchTo, Tile.TileData,(Layers)Tile.TileData.Layer < Layers.buildings);
 
 
         }
@@ -119,7 +119,7 @@ namespace TiledEngine.Classes.TileAddons
 
         protected void GenerateLoot()
         {
-            TileLootData tileLootData = TileLoader.TileLootManager.GetLootData(Tile.GID);
+            TileLootData tileLootData = TileLoader.TileLootManager.GetLootData(Tile.TileData.GID);
             List<LootData> trimmedLoot = ChanceHelper.GetWeightedSelection(tileLootData.Loot.Cast<IWeightable>().ToList(), Settings.Random).Cast<LootData>().ToList();
             foreach(LootData loot in trimmedLoot)
             {
@@ -131,7 +131,7 @@ namespace TiledEngine.Classes.TileAddons
 
         protected string GetDestructionSoundName()
         {
-            string destructionSoundName = TileLoader.TileLootManager.GetLootData(Tile.GID).DestructionSoundPackageName;
+            string destructionSoundName = TileLoader.TileLootManager.GetLootData(Tile.TileData.GID).DestructionSoundPackageName;
             if (string.IsNullOrEmpty(destructionSoundName))
                 throw new Exception($"Must provide a destruction sound name in tilelootdata.xml");
             return destructionSoundName;

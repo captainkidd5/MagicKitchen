@@ -53,8 +53,8 @@ namespace TiledEngine.Classes.TilePlacementStuff
                 GID = _tileManager.TileSetPackage.OffSetBackgroundGID(gid+ 1) ;
 
 
-            CurrentTile = new TileObject(_tileManager, (ushort)GID, _layer, .99f, 0, 0);
-            TileUtility.AssignProperties(CurrentTile, _layer, false);
+            CurrentTile = new TileObject(_tileManager,CurrentTile.TileData);
+            TileUtility.AssignProperties(_tileManager, CurrentTile,CurrentTile.TileData,true);
 
 
             _sprite = SpriteFactory.CreateWorldSprite(
@@ -102,10 +102,8 @@ namespace TiledEngine.Classes.TilePlacementStuff
                             TileData? tileData = _tileManager.GetTileFromWorldPosition(
                                 _tileManager.MouseOverTile.Position, _layer);
 
-                            TileObject tile = _tileManager.GetTileFromWorldPosition(
-                                _tileManager.MouseOverTile.Position, _layer);
-                            TileUtility.SwitchGid(tile, _layer,
-                                GID -1, true);
+
+                            _tileManager.SwitchGID((ushort)(GID - 1), tileData.Value, true);
                             return true;
                         }
                     }

@@ -45,7 +45,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
             }
             if ((spr).HasLoopedAtLeastOnce)
             {
-                TileAnimationHelper.SwitchGidToAnimationFrame(Tile);
+                TileAnimationHelper.SwitchGidToAnimationFrame(Tile.TileManager, Tile);
 
             }
         }

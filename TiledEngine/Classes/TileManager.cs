@@ -52,7 +52,10 @@ namespace TiledEngine.Classes
         public Rectangle MapRectangle { get; private set; }
 
         internal List<TileData[,]> TileData { get; private set; }
-        internal Dictionary<int, TileObject> TileObjects { get; private set; }
+        public Dictionary<int, TileObject> TileObjects { get; private set; }
+
+        public Dictionary<int, TileObject> DeadTileObjects { get; private set; }
+
 
 
         public List<PortalData> Portals { get; private set; }
@@ -64,7 +67,7 @@ namespace TiledEngine.Classes
 
         public TileLocationHelper TileLocationHelper { get; set; }
         public MapType MapType { get; internal set; }
-        public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera , MapType mapType) :
+        public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera, MapType mapType) :
             base(graphics, content)
         {
             OffSetLayersDictionary = new Dictionary<int, float>();
@@ -77,6 +80,7 @@ namespace TiledEngine.Classes
             TileLocationHelper = new TileLocationHelper(this);
 
             TileObjects = new Dictionary<int, TileObject>();
+            DeadTileObjects = new Dictionary<int, TileObject>();
         }
 
         /// <summary>
@@ -165,37 +169,63 @@ namespace TiledEngine.Classes
         internal TileObject TileToInteractWith { get; set; }
         public void Update(GameTime gameTime)
         {
+            DeadTileObjects.Clear();
             CalculateStartAndEndIndexes();
             CalculateMouseIndex();
             TileToInteractWith = null;
-            for(int i = TileObjects.Count - 1; i > 0; i--)
+            foreach (var tileObject in TileObjects)
             {
-                TileObject tileObject = TileObjects[i];
-                tileObject.Update(gameTime, PathGrid);
+                TileObject tileObj = tileObject.Value;
+                tileObj.Update(gameTime, PathGrid);
+                if (tileObj.FlaggedForRemoval)
+                {
+                    DeadTileObjects.Add(tileObj.TileData.GetKey(), tileObj);
+                    tileObj.Unload();
+                }
             }
-            //for (int z = 0; z < TileObjects.Count; z++)
-            //{
-            //    for (int x = 0; x < s_viewDistance; x++)
-            //    {
-            //        for (int y = 0; y < s_viewDistance; y++)
-            //        {
-            //            TileObjects[z][x, y].Update(gameTime, PathGrid);
+            for (int z = 0; z < TileData.Count; z++)
+            {
+                for (int x = StartX; x < EndX; x++)
+                {
+                    for (int y = StartY; y < EndY; y++)
+                    {
+                        if (!TileObjects.ContainsKey(TileData[z][x, y].GetKey()))
+                        {
+                            TileObjects.Add(TileData[z][x, y].GetKey(), new TileObject(this, TileData[z][x, y]));
+                        }
 
-            //        }
-            //    }
-            //    //Mouse over tile is the highest layered, non empty tile
-            //    if (!TileObjects[z][MouseX, MouseY].Empty)
-            //        MouseOverTile = TileObjects[z][MouseX, MouseY];
-            //}
+                    }
+                }
+
+                //mouse over tile is the highest layered, non empty tile
+              //  if (!TileData[z][MouseX, MouseY].Empty)
+               //     MouseOverTile = TileObjects[TileData[z][MouseX, MouseY].GetKey()];
+            }
+            foreach(var pair in DeadTileObjects)
+            {
+                TileObjects.Remove(pair.Key);
+            }
+         
             if (MouseOverTile != null)
                 TileSelectorSprite.Update(gameTime, MouseOverTile.Position);
             CheckMouseTileInteractions(gameTime);
 
 
-         
+
             _tilePlacementManager.Update(gameTime);
         }
 
+        public bool IsWithinUpdateRange(TileData tileData)
+        {
+            if(tileData.X >= StartX && tileData.X < EndX)
+            {
+                if (tileData.Y >= StartY && tileData.Y < EndY)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         private void CheckMouseTileInteractions(GameTime gameTime)
         {
             if (TileToInteractWith != null)
@@ -204,10 +234,10 @@ namespace TiledEngine.Classes
                 {
                     //Do not interact if another non empty tile has a layer greater than the one we
                     //are trying to interact with
-                   // if(MouseOverTile.Layer <= TileToInteractWith.Layer)
-                   // {
-                        TileToInteractWith.Interact(true, UI.PlayerCurrentSelectedItem);
-             //       }
+                    // if(MouseOverTile.Layer <= TileToInteractWith.Layer)
+                    // {
+                    TileToInteractWith.Interact(true, UI.PlayerCurrentSelectedItem);
+                    //       }
 
                 }
                 //moreover, if tile to interact with is real, we want to make sure that tile selector sprite draws here instead
@@ -332,13 +362,13 @@ namespace TiledEngine.Classes
 
 
 
-        public void SwitchGID(ushort newGid, TileData tileData)
+        public void SwitchGID(ushort newGid, TileData tileData, bool tempTile = false, bool wang = false)
         {
             if (TileObjects.ContainsKey(tileData.GetKey()))
             {
                 TileObjects.Remove(tileData.GetKey());
             }
-            tileData.GID = (ushort)(newGid + 1); 
+            tileData.GID = (ushort)(newGid + 1);
             TileData[tileData.Layer][tileData.X, tileData.Y] = tileData;
         }
         public TileData? GetTileFromWorldPosition(Vector2 position, Layers layer)
@@ -478,7 +508,7 @@ namespace TiledEngine.Classes
 
             if (tile == null)
                 return false;
-            string tilingSetValue = tile.Value.GetProperty(TileSetPackage,"tilingSet");
+            string tilingSetValue = tile.Value.GetProperty(TileSetPackage, "tilingSet");
             if (tilingSetValue == "water")
                 return true;
 
@@ -486,16 +516,16 @@ namespace TiledEngine.Classes
         }
         public void CleanUp()
         {
-            foreach(var tileObject in TileObjects)
+            foreach (var tileObject in TileObjects)
             {
                 tileObject.Value.Unload();
             }
-
+            TileObjects.Clear();
             TileData.Clear();
             TileLocator.CleanUp();
             PlacedItemManager.CleanUp();
         }
 
-      
+
     }
 }

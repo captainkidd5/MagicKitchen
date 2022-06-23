@@ -23,6 +23,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
     {
 
         protected FurnitureData FurnitureData { get; private set; }
+        public TileManager TileManager { get; }
 
         public Furniture(FurnitureData furnitureData, TileObject tile, TileManager tileManager,
             IntermediateTmxShape intermediateTmxShape, string actionType) :
@@ -31,7 +32,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             Key = "furniture";
             SubKey = this.GetType().Name;   
             FurnitureData = furnitureData;
-
+            TileManager = tileManager;
         }
 
 

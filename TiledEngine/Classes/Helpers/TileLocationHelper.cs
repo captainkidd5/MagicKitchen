@@ -7,6 +7,7 @@ using PhysicsEngine.Classes.Pathfinding;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TiledEngine.Classes.TileAddons;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
@@ -100,7 +101,7 @@ namespace TiledEngine.Classes.Helpers
                                 if (!_tileManager.PathGrid.IsClear(point.X, point.Y))
                                     return false;
                             }
-                            if (!_tileManager.GetTileDataFromPoint(point, (Layers)z).Empty)
+                            if (!_tileManager.GetTileDataFromPoint(point, (Layers)z).Value.Empty)
                                 return false;
                         }
 
@@ -125,7 +126,7 @@ namespace TiledEngine.Classes.Helpers
         /// <returns></returns>
         private bool IsPlacementTypeBlacklisted(Point tilePoint, Item item)
         {
-            string tilingSetValueString = _tileManager.GetTileDataFromPoint(tilePoint, Layers.background).GetProperty("tilingSet");
+            string tilingSetValueString = _tileManager.GetTileDataFromPoint(tilePoint, Layers.background).Value.GetProperty(_tileManager.TileSetPackage,"tilingSet");
 
             if (!string.IsNullOrEmpty(tilingSetValueString))
             {
@@ -224,11 +225,11 @@ namespace TiledEngine.Classes.Helpers
                     {
                         if (_tileManager.Y_IsValidIndex(entityIndexPosition.Y + y))
                         {
-                            TileObject tile = _tileManager.GetTileDataFromPoint(new Point(entityIndexPosition.X + x,
+                            TileData? tile = _tileManager.GetTileDataFromPoint(new Point(entityIndexPosition.X + x,
                                 entityIndexPosition.Y + y), layerToSearch);
 
-                            if (tile.GID == gid)
-                                tilesFound.Add(Vector2Helper.GetTileIndexPosition(tile.Position));
+                            if (tile.Value.GID == gid)
+                                tilesFound.Add(tile.Value.GetPoint());
 
                         }
 

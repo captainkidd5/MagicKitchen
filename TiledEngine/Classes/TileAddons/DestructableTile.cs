@@ -43,7 +43,7 @@ namespace TiledEngine.Classes.TileAddons
 
         private void HandleDestruction()
         {
-            if (Tile.HasAnimationFrames && (Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
+            if (Tile.TileData.HasAnimationFrames(Tile.TileManager.TileSetPackage) && (Tile.Sprite as AnimatedSprite).HasLoopedAtLeastOnce)
             {
                 FlaggedForDestruction = true;
 
@@ -61,7 +61,7 @@ namespace TiledEngine.Classes.TileAddons
             if (MeetsItemRequirements(UI.PlayerCurrentSelectedItem))
             {
                 CursorIconType iconType = CursorIconType.Break; 
-                string actionProperty = Tile.GetProperty("action", true);
+                string actionProperty = Tile.TileData.GetProperty(Tile.TileManager.TileSetPackage, "action", true);
                 if (!string.IsNullOrEmpty(actionProperty))
                 {
                     string str = actionProperty.Split(',')[0];

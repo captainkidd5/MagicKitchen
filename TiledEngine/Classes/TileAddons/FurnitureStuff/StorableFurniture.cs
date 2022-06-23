@@ -143,7 +143,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             UI.StorageDisplayHandler.SecondaryStorageClosed -= OnUIClosed;
 
-            if (Tile.HasAnimationFrames)
+            if (Tile.TileData.HasAnimationFrames(TileManager.TileSetPackage))
             {
                 (Tile.Sprite as AnimatedSprite).Paused = false;
 
@@ -191,7 +191,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
                 //Subscribe to ui 
                 UI.StorageDisplayHandler.SecondaryStorageClosed += OnUIClosed;
-                if (Tile.HasAnimationFrames)
+                if (Tile.TileData.HasAnimationFrames(TileManager.TileSetPackage))
                 {
 
                 (Tile.Sprite as AnimatedSprite).Paused = false;

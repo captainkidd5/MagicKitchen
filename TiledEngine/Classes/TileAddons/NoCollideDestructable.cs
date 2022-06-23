@@ -34,7 +34,7 @@ namespace TiledEngine.Classes.TileAddons
         {
             base.Load();
          
-            Tile.TileManager.UpdateGrid(Tile.X, Tile.Y, GridStatus.Clear);
+            Tile.TileManager.UpdateGrid(Tile.TileData.X, Tile.TileData.Y, GridStatus.Clear);
         }
         public override void Update(GameTime gameTime)
         {

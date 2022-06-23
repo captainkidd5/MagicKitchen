@@ -49,7 +49,7 @@ namespace TiledEngine.Classes.Helpers
         private static void CreateTileBodies(TileObject tile, Layers tileLayer, TileManager tileManager, IntermediateTmxShape tmxShape, Dictionary<string, string> properties, bool tempTile)
         {
       
-            Rectangle tileDestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
+            Rectangle tileDestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile.TileData);
             if(!tempTile)
                 tile.TileManager.TileLocationHelper.UpdateMultiplePathGrid(tmxShape.ColliderRectangle, GridStatus.Obstructed);
 
@@ -95,7 +95,7 @@ namespace TiledEngine.Classes.Helpers
             if (objectType == TmxObjectType.Polygon && vertices == null)
                 throw new Exception($"Must provide vertices on polygon shapes");
 
-            Rectangle destinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
+            Rectangle destinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile.TileData);
             Rectangle colliderRectangle = new Rectangle(destinationRectangle.X + tempObj.X,
                                 destinationRectangle.Y + tempObj.Y, tempObj.Width,
                                 tempObj.Height);
