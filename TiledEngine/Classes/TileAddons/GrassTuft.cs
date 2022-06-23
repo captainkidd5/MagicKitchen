@@ -95,20 +95,10 @@ namespace TiledEngine.Classes.TileAddons
 
         public void Interact(bool isPlayer, Item heldItem)
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
 
 
 
-        ///// <summary>
-        ///// Grass has a chance to trigger a jekan battle!
-        ///// </summary>
-        //private void CheckForBattle()
-        //{
-        //    if (GlobalUtility.Random.Next(0, 100) < ChanceToTriggerBattle)
-        //        Game1.UserInterface.LoadNewBattle(BattleEncounterType.WildEncounter, Game1.JekanHandler.GetNewCreature(JekanStuff.CreatureType.Wavrunt),
-        //                Game1.JekanHandler.GetRandomEncounterCreature());
-
-        //}
     }
 }

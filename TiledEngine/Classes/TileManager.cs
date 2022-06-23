@@ -242,7 +242,7 @@ namespace TiledEngine.Classes
         }
         private void CheckMouseTileInteractions(GameTime gameTime)
         {
-            if (TileToInteractWith != null)
+            if (MouseOverTile != null)
             {
                 if (Controls.IsClickedWorld || Controls.DidGamePadSelectWorld)
                 {
@@ -250,12 +250,12 @@ namespace TiledEngine.Classes
                     //are trying to interact with
                     // if(MouseOverTile.Layer <= TileToInteractWith.Layer)
                     // {
-                    TileToInteractWith.Interact(true, UI.PlayerCurrentSelectedItem);
+                    MouseOverTile.Interact(true, UI.PlayerCurrentSelectedItem);
                     //       }
 
                 }
                 //moreover, if tile to interact with is real, we want to make sure that tile selector sprite draws here instead
-                TileSelectorSprite.Update(gameTime, TileToInteractWith.Position);
+                TileSelectorSprite.Update(gameTime, MouseOverTile.Position);
 
 
             }

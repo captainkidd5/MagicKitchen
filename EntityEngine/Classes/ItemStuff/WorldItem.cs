@@ -98,7 +98,7 @@ namespace EntityEngine.ItemStuff
                     _itemBehaviour = null;
                     Sprite.SwapSourceRectangle(new Rectangle(Sprite.SourceRectangle.X, Sprite.SourceRectangle.Y, 16, 16));
                     Shadow = new Shadow(CenteredPosition, ShadowSize.Small, ItemFactory.ItemSpriteSheet);
-
+                    Sprite.CustomLayer = null;
                     break;
                 case WorldItemState.Bouncing:
                     _itemBehaviour = new BouncingItemBehaviour(this, jettisonDirection);
@@ -111,6 +111,8 @@ namespace EntityEngine.ItemStuff
                     //  Jettison(jettisonDirection.Value, null);
                     PlayPackage("Splash");
                     Shadow = null;
+                    Sprite.CustomLayer = null;
+
                     _itemBehaviour = new FlotsamBehaviour(this);
                     //Drawing half the sprite creates the illusion that half of it is submerged
                     Sprite.SwapSourceRectangle(new Rectangle(Sprite.SourceRectangle.X, Sprite.SourceRectangle.Y, 16, 8));
