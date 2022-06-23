@@ -22,12 +22,12 @@ namespace TiledEngine.Classes.TileAddons
     {
 
 
-        public Tile Tile { get; set; }
+        public TileObject Tile { get; set; }
 
         public HullBody Tuft { get; set; }
 
         private readonly Vector2 _tuftOffSet = new Vector2(8, 32);
-        public GrassTuft(Tile tile, Texture2D texture)
+        public GrassTuft(TileObject tile, Texture2D texture)
         {
            Tile = tile;
             

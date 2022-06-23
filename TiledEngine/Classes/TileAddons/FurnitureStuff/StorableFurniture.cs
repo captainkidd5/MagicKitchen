@@ -35,7 +35,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         protected int TotalStorageCapacity { get; set; }
         protected Vector2 TopOfFurniture => new Vector2(CenteredPosition.X, CenteredPosition.Y - IntermediateTmxShape.Radius);
-        public StorableFurniture(FurnitureData furnitureData, Tile tile, TileManager tileManager,
+        public StorableFurniture(FurnitureData furnitureData, TileObject tile, TileManager tileManager,
             IntermediateTmxShape intermediateTmxShape, string actionType) :
             base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
         {
@@ -60,7 +60,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         }
 
-        protected virtual void AddPlacedItems(FurnitureData furnitureData, Tile tile)
+        protected virtual void AddPlacedItems(FurnitureData furnitureData, TileObject tile)
         {
             TotalStorageCapacity = furnitureData.StorageRows * furnitureData.StorageColumns;
             for (int i = 0; i < TotalStorageCapacity; i++)

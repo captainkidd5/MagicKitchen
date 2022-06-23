@@ -116,9 +116,9 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             
             
             
-            List<Tile> tilesWithTables = TileManager.TileLocator.LocateTile("furniture", "DiningTable");
+            List<TileObject> tilesWithTables = TileManager.TileLocator.LocateTile("furniture", "DiningTable");
             List<DiningTable> availableDiningTables = new List<DiningTable>();
-            foreach (Tile tile in tilesWithTables)
+            foreach (TileObject tile in tilesWithTables)
             {
                 List<ITileAddon> tileTables = tile.GetAddonsByType(typeof(DiningTable));
                 foreach (ITileAddon tileAddon in tileTables)

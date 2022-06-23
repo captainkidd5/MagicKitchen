@@ -20,7 +20,7 @@ namespace TiledEngine.Classes.Helpers
         /// <summary>
         /// Handles Tmx Object Groups by adding them to the tile's collision list. Updates pathgrid accordingly.
         /// </summary>
-        internal static void AddObjectsFromObjectGroups(Tile tile, Layers tileLayer, TileManager tileManager, TmxTilesetTile tileSetTile, bool tempTile)
+        internal static void AddObjectsFromObjectGroups(TileObject tile, Layers tileLayer, TileManager tileManager, TmxTilesetTile tileSetTile, bool tempTile)
         {
             for (int k = 0; k < tileSetTile.ObjectGroups[0].Objects.Count; k++)
             {
@@ -46,7 +46,7 @@ namespace TiledEngine.Classes.Helpers
         }
 
      
-        private static void CreateTileBodies(Tile tile, Layers tileLayer, TileManager tileManager, IntermediateTmxShape tmxShape, Dictionary<string, string> properties, bool tempTile)
+        private static void CreateTileBodies(TileObject tile, Layers tileLayer, TileManager tileManager, IntermediateTmxShape tmxShape, Dictionary<string, string> properties, bool tempTile)
         {
       
             Rectangle tileDestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile);
@@ -80,7 +80,7 @@ namespace TiledEngine.Classes.Helpers
         /// <summary>
         /// For use with tile properties such as "newHitBox". Updates pathgrid accordingly.
         /// </summary>
-        internal static void AddObjectFromProperty(Tile tile, Layers layer,Dictionary<string,string> tileProperties, TileManager tileManager,string info, bool tempTile)
+        internal static void AddObjectFromProperty(TileObject tile, Layers layer,Dictionary<string,string> tileProperties, TileManager tileManager,string info, bool tempTile)
         {
             CreateTileBodies(tile, layer, tileManager, GetShapeFromNewHitBox(tile, info), tileProperties, tempTile);
 
@@ -89,7 +89,7 @@ namespace TiledEngine.Classes.Helpers
         /// <summary>
         /// </summary>
         /// <param name="vertices">Must provide if polygon</param>
-        private static IntermediateTmxShape GetIntermediateShape(Tile tile, Rectangle tempObj,
+        private static IntermediateTmxShape GetIntermediateShape(TileObject tile, Rectangle tempObj,
             TmxObjectType objectType, List<Vector2> vertices = null)
         {
             if (objectType == TmxObjectType.Polygon && vertices == null)
@@ -126,7 +126,7 @@ namespace TiledEngine.Classes.Helpers
 
 
         /// </summary>
-        public static IntermediateTmxShape GetShapeFromNewHitBox(Tile tile, string info)
+        public static IntermediateTmxShape GetShapeFromNewHitBox(TileObject tile, string info)
         {
             TmxObjectType tmxObjectType = TmxObjectType.Basic;
 
@@ -187,7 +187,7 @@ namespace TiledEngine.Classes.Helpers
         /// <summary>
         /// Gets the UNADJUSTED rectangle from tile property. Needs to be manually added to the
         /// standard tile rectangle if that's what you want to do. <see cref="AdjustSourceRectangle(Rectangle, Rectangle)"/>
-        /// or <see cref="AdjustDestinationRectangle(Tile, Rectangle)"/>
+        /// or <see cref="AdjustDestinationRectangle(TileObject, Rectangle)"/>
         /// </summary>
         public static Rectangle GetSourceRectangleFromTileProperty(string info)
         {

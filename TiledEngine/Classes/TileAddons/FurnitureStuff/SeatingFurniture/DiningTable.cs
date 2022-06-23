@@ -24,12 +24,12 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public bool SeatingAvailable => OccupiedSeatCount < TotalSeatingCapacity;
 
 
-        public DiningTable(FurnitureData furnitureData, Tile tile, TileManager tileManager,
+        public DiningTable(FurnitureData furnitureData, TileObject tile, TileManager tileManager,
             IntermediateTmxShape intermediateTmxShape,string actionType) :
             base(furnitureData,tile, tileManager, intermediateTmxShape, actionType)
         {
         }
-        protected override void AddPlacedItems(FurnitureData furnitureData, Tile tile)
+        protected override void AddPlacedItems(FurnitureData furnitureData, TileObject tile)
         {
             Seats = new Dictionary<Direction, bool>();
             for(int i =0; i < TotalSeatingCapacity; i++)

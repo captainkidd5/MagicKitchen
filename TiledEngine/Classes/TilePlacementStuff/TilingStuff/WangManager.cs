@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiledEngine.Classes.TileAddons;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
@@ -36,77 +38,76 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
         }
 
       
-        public void WangSorroundingTiles(Tile tile)
+        public void WangSorroundingTiles(TileManager tileManager, TileData tileData)
         {
 
-            for (int i = tile.X - 1; i <= tile.X + 1; i++)
+            for (int i = tileData.X - 1; i <= tileData.X + 1; i++)
             {
-                for (int j = tile.Y - 1; j <= tile.Y + 1; j++)
+                for (int j = tileData.Y - 1; j <= tileData.Y + 1; j++)
                 {
-                    if (tile.TileManager.X_IsValidIndex(i) && tile.TileManager.Y_IsValidIndex(j))
+                    if (tileManager.X_IsValidIndex(i) && tileManager.Y_IsValidIndex(j))
                     {
                        
-                        if(i == tile.X && j == tile.Y)
-                            Console.WriteLine("test");
-                            Tile neighborTile = tile.TileManager.GetTileFromPoint(new Point(i, j), tile.IndexLayer);
-                            int newGid = WangTile(neighborTile);
-                            if (newGid != neighborTile.GID)
-                                TileUtility.SwitchGid(neighborTile, tile.IndexLayer, newGid);
+ 
+                            TileData neighborTile = tileManager.GetTileDataFromPoint(new Point(i, j), (Layers)tileData.Layer).Value;
+                            int newGid = WangTile(tileManager, neighborTile);
+                        if (newGid != neighborTile.GID)
+                            tileManager.SwitchGID((ushort)newGid, neighborTile);
                         
 
                     }
                 }
             }
         }
-        private bool GidDictionaryMatch(Dictionary<int, int> dict, Tile tile, int alteredX, int alteredY)
+        private bool GidDictionaryMatch(Dictionary<int, int> dict,TileManager tileManager, TileData tile, int alteredX, int alteredY)
         {
-            int gidToCheck = tile.TileManager.GetTileFromPoint(
-                new Point(alteredX, alteredY), tile.IndexLayer).GID;
+            int gidToCheck = tileManager.GetTileDataFromPoint(
+                new Point(alteredX, alteredY), (Layers)tile.Layer).Value.GID;
 
             if (dict.Values.Any(x => x == gidToCheck))
                 return true;
             return false;
         }
 
-        public int WangTile(Tile tile)
+        public int WangTile(TileManager tileManager, TileData tile)
         {
 
-            if(string.IsNullOrEmpty(tile.GetProperty("tilingSet")))
+            if(string.IsNullOrEmpty(tile.GetProperty(tileManager.TileSetPackage, "tilingSet")))
                 return tile.GID;
-            string tilingSetValue = tile.GetProperty("tilingSet");
+            string tilingSetValue = tile.GetProperty(tileManager.TileSetPackage, "tilingSet");
             if (tilingSetValue == "land")
                 return tile.GID;
             Dictionary<int, int> tDictionary = TilingSets[tilingSetValue];
 
-            if (!GidDictionaryMatch(tDictionary, tile, tile.X, tile.Y))
+            if (!GidDictionaryMatch(tDictionary, tileManager, tile, tile.X, tile.Y))
                 return tile.GID;
 
             int keyToCheck = 0;
 
-            if (tile.TileManager.Y_IsValidIndex(tile.Y - 1))
+            if (tileManager.Y_IsValidIndex(tile.Y - 1))
             {
-                if (GidDictionaryMatch(tDictionary, tile, tile.X, tile.Y - 1))
+                if (GidDictionaryMatch(tDictionary,tileManager, tile, tile.X, tile.Y - 1))
                     keyToCheck += 1;
             }
 
-            if (tile.TileManager.Y_IsValidIndex(tile.Y + 1))
+            if (tileManager.Y_IsValidIndex(tile.Y + 1))
             {
-                if (GidDictionaryMatch(tDictionary, tile, tile.X, tile.Y + 1))
+                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X, tile.Y + 1))
                     keyToCheck += 8;
             }
 
 
 
             //looking at rightmost tile
-            if (tile.TileManager.X_IsValidIndex(tile.X + 1))
+            if (tileManager.X_IsValidIndex(tile.X + 1))
             {
-                if (GidDictionaryMatch(tDictionary, tile, tile.X + 1, tile.Y))
+                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X + 1, tile.Y))
                     keyToCheck += 4;
             }
 
-            if (tile.TileManager.X_IsValidIndex(tile.X - 1))
+            if (tileManager.X_IsValidIndex(tile.X - 1))
             {
-                if (GidDictionaryMatch(tDictionary, tile, tile.X - 1, tile.Y))
+                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X - 1, tile.Y))
                     keyToCheck += 2;
             }
 

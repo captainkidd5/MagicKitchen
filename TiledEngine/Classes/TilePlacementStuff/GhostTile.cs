@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes.Helpers;
+using TiledEngine.Classes.TileAddons;
 using TiledSharp;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
@@ -18,7 +19,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
 {
     internal class GhostTile
     {
-        public Tile CurrentTile { get; private set; }
+        public TileObject CurrentTile { get; private set; }
         public int GID { get; set; } = -1;
 
         public int X { get; set; }
@@ -52,7 +53,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
                 GID = _tileManager.TileSetPackage.OffSetBackgroundGID(gid+ 1) ;
 
 
-            CurrentTile = new Tile(_tileManager, (ushort)GID, _layer, .99f, 0, 0);
+            CurrentTile = new TileObject(_tileManager, (ushort)GID, _layer, .99f, 0, 0);
             TileUtility.AssignProperties(CurrentTile, _layer, false);
 
 
@@ -98,7 +99,10 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
                         if (!Controls.ClickActionTriggeredThisFrame)
                         {
-                            Tile tile = _tileManager.GetTileFromWorldPosition(
+                            TileData? tileData = _tileManager.GetTileFromWorldPosition(
+                                _tileManager.MouseOverTile.Position, _layer);
+
+                            TileObject tile = _tileManager.GetTileFromWorldPosition(
                                 _tileManager.MouseOverTile.Position, _layer);
                             TileUtility.SwitchGid(tile, _layer,
                                 GID -1, true);

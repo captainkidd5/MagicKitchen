@@ -18,7 +18,7 @@ namespace TiledEngine.Classes.TileAddons
         protected string SubKey;
 
 
-        public LocateableTileAddon(Tile tile,
+        public LocateableTileAddon(TileObject tile,
             IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, intermediateTmxShape, actionType)
         {
             RequireLoopBeforeDestruction = false;

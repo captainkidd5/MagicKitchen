@@ -22,10 +22,10 @@ namespace TiledEngine.Classes.TileAddons
 {
     public class TileBody : Collidable, ITileAddon
     {
-        public Tile Tile { get; private set; }
+        public TileObject Tile { get; private set; }
         protected Layers IndexLayer => Tile.IndexLayer;
         public IntermediateTmxShape IntermediateTmxShape { get;protected set; }
-        public TileBody(Tile tile,  IntermediateTmxShape intermediateTmxShape)
+        public TileBody(TileObject tile,  IntermediateTmxShape intermediateTmxShape)
         {
             Tile = tile;
             IntermediateTmxShape = intermediateTmxShape;

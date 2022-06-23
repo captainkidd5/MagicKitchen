@@ -7,7 +7,7 @@ using TiledSharp;
 namespace TiledEngine.Classes.Helpers
 {
     /// <summary>
-    /// Data class for <see cref="TileObjectHelper.AddObjectsFromObjectGroups(Tile, Globals.Classes.Settings.Layers, TileManager, Dictionary{int, TmxTilesetTile})"/>
+    /// Data class for <see cref="TileObjectHelper.AddObjectsFromObjectGroups(TileObject, Globals.Classes.Settings.Layers, TileManager, Dictionary{int, TmxTilesetTile})"/>
     /// Primarily used because gathering these properties are all done in a batch and its easier to store it as a DTO. May want to refactor in the future
     /// </summary>
     public class IntermediateTmxShape

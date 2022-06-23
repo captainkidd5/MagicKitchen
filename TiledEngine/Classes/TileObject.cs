@@ -21,59 +21,39 @@ using static Globals.Classes.Settings;
 namespace TiledEngine.Classes
 {
 
-    public class Tile
+    public class TileObject
     {
 
         internal static bool TileIndexDebug = false;
 
-        private ushort gid;
 
-        //The icon the mouse should change to when hovered over this tile
-        internal CursorIconType GetCursorIconType()
-        {
-            string property = GetProperty("IconType");
-            if (property == null)
-                return CursorIconType.None;
-            //now need to check that no peripherary cursor icon types exist (ex. destructable)
-            return Cursor.GetCursorIconTypeFromString(property);
-        }
-        internal TmxTilesetTile TmxTileSetTile => TileSetPackage.GetTmxTileSetTile(GID);
 
         internal readonly TileManager TileManager;
-        internal TileSetPackage TileSetPackage => TileManager.TileSetPackage;
 
-        public ushort GID { get { return (ushort)(gid - 1); } internal set { gid = value; } }
+        //public bool IsDirty { get; set; }
 
-        //public TileType TileType { get; set; }
-        internal float Layer { get; set; }
 
-        internal Layers IndexLayer { get; set; }
-        internal ushort X { get; set; }
-        internal ushort Y { get; set; }
+        internal TileData TileData { get; set; }
+      
         internal Rectangle SourceRectangle { get; set; }
         internal Rectangle DestinationRectangle { get; set; }
 
         public Sprite Sprite { get; set; }
 
-
+        public bool IsLoaded { get; set; }
         internal List<ITileAddon> Addons { get; set; }
         public Vector2 Position { get; set; }
 
         public Vector2 CentralPosition => new Vector2(Position.X + DestinationRectangle.Width / 2,
             Position.Y + DestinationRectangle.Height / 2);
-        public Vector2 GridPosition => new Vector2(X * Settings.TileSize, Y * Settings.TileSize);
         public bool WithinRangeOfPlayer { get; internal set; }
 
-
-        internal bool Empty => GID < 0;
-        internal Tile(TileManager tileManager, ushort gid, Layers indexLayer, float layer, ushort x, ushort y)
+        internal TileObject(TileManager tileManager,TileData tileData )
         {
 
-            GID = gid;
-            Layer = layer;
-            IndexLayer = indexLayer;
-            X = x;
-            Y = y;
+            TileData = tileData;
+
+           
             Addons = new List<ITileAddon>();
             TileManager = tileManager;
 
@@ -83,41 +63,19 @@ namespace TiledEngine.Classes
         {
             TileManager.TileToInteractWith = this;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="useObjectSearch">If true, will search tile objects properties</param>
-        /// <returns></returns>
-        internal string GetProperty(string key, bool useObjectSearch = false)
-        {
-            if (TmxTileSetTile == null)
-                return null;
-            if (TmxTileSetTile.Properties.ContainsKey(key))
-                return TmxTileSetTile.Properties[key];
+       
 
-            if (useObjectSearch)
-            {
-                if (TmxTileSetTile.ObjectGroups.Count > 0)
-                {
-
-                    var objects = TmxTileSetTile.ObjectGroups[0].Objects;
-                    for (int k = 0; k < objects.Count; k++)
-                    {
-                        if (objects[k].Properties.ContainsKey(key))
-                            return objects[k].Properties[key];
-                    }
-                }
-
-            }
-            return null;
-
-        }
-
-        internal bool HasAnimationFrames => TmxTileSetTile != null && TmxTileSetTile.AnimationFrames.Count > 0;
 
         public void Update(GameTime gameTime, PathGrid pathGrid)
         {
+            TileData? tileData = TileManager.GetTileDataFromPoint(new Point(TileData.X, TileData.Y), (Layers)TileData.Layer);
+            if(tileData != null)
+            {
+                if(tileData.Value.GetKey() == TileData.GetKey())
+                {
+                    Console.WriteLine("test");
+                }
+            }
             WithinRangeOfPlayer = false;
             Sprite.Update(gameTime, Position);
 
@@ -152,14 +110,7 @@ namespace TiledEngine.Classes
             //spriteBatch.DrawString(Game1.MainFont, X + "," + Y, Position, Color.Orange, 0f, Vector2.Zero, .35f, SpriteEffects.None, .99f);
         }
 
-        /// <summary>
-        /// returns unique tile key thru bitwise shifting.
-        /// </summary>
-        /// <returns>Tile Key</returns>
-        internal int GetKey()
-        {
-            return (((int)X << 18) | ((int)Y << 4) | ((int)IndexLayer << 0)); //14 bits for x and y, 4 bits for layer.
-        }
+       
 
         /// <summary>
         /// TODO: Combine rectangles into larger rectangle if multiple bodies do not overlap

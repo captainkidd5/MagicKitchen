@@ -13,7 +13,7 @@ namespace TiledEngine.Classes.TileAddons
     public interface ITileAddon
     {
 
-        protected Tile Tile { get; }
+        protected TileObject Tile { get; }
         void Load();
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);

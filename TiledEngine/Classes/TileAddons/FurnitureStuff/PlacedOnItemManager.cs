@@ -39,13 +39,13 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 _placedItemDictionary.Remove(placedItem.Key);
         }
 
-        public void RemoveAllPlacedItemsFromTile(Tile tile)
+        public void RemoveAllPlacedItemsFromTile(TileObject tile)
         {
             if(_placedItemDictionary.ContainsKey(tile.GetKey()))
                 _placedItemDictionary.Remove(tile.GetKey());
 
         }
-        public List<PlacedOnItem> GetPlacedItemsFromTile(Tile tile)
+        public List<PlacedOnItem> GetPlacedItemsFromTile(TileObject tile)
         {
             if (_placedItemDictionary.ContainsKey(tile.GetKey()))
             {
@@ -86,7 +86,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 int key = reader.ReadInt32();
                 for (int j = 0; j < listCount; j++)
                 {
-                    Tile tileTiedTo = _tileManager.GetTileFromTileKey(key);
+                    TileObject tileTiedTo = _tileManager.GetTileFromTileKey(key);
 
                     PlacedOnItem item = new PlacedOnItem(-1, tileTiedTo);
                     item.LoadSave(reader);

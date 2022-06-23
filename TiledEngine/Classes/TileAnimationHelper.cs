@@ -17,9 +17,9 @@ namespace TiledEngine.Classes
     internal static class TileAnimationHelper
     {
 
-        public static void SwitchGidToAnimationFrame(Tile tile)
+        public static void SwitchGidToAnimationFrame(TileManager tileManager, TileObject tile)
         {
-            Collection<TmxAnimationFrame> baseAnimationFrames = tile.TileSetPackage.GetTmxTileSetTile(tile.GID).AnimationFrames;
+            Collection<TmxAnimationFrame> baseAnimationFrames = tileManager.TileSetPackage.GetTmxTileSetTile(tile.TileData.GID).AnimationFrames;
 
             if (baseAnimationFrames == null || baseAnimationFrames.Count < 1)
                 throw new Exception($"Should not try to switch to a GID on a tile with no animation frames");
@@ -28,14 +28,14 @@ namespace TiledEngine.Classes
             foreach (TmxAnimationFrame animationFrame in baseAnimationFrames)
             {
                 //Sometimes animation frames contain original tile gid, ignore that case
-                if (animationFrame.Id != tile.GID)
+                if (animationFrame.Id != tile.TileData.GID)
                 {
 
                     int newGID = animationFrame.Id;
-                    if (tile.TileSetPackage.IsForeground(tile.GID))
-                        newGID = tile.TileSetPackage.OffSetBackgroundGID(newGID);
+                    if (tileManager.TileSetPackage.IsForeground(tile.TileData.GID))
+                        newGID = tileManager.TileSetPackage.OffSetBackgroundGID(newGID);
 
-                    TmxTilesetTile tileSetTile = tile.TileSetPackage.GetTmxTileSetTile(newGID);
+                    TmxTilesetTile tileSetTile = tileManager.TileSetPackage.GetTmxTileSetTile(newGID);
 
                     if (tileSetTile.AnimationFrames != null && tileSetTile.AnimationFrames.Count > 0)
                     {
@@ -49,7 +49,7 @@ namespace TiledEngine.Classes
             }
             if (gidToSwapTo < 0)
                 return;
-            TileUtility.SwitchGid(tile, tile.IndexLayer, gidToSwapTo );
+            tileManager.SwitchGID((ushort)gidToSwapTo, tile.TileData);
             return;
 
         }
@@ -58,7 +58,7 @@ namespace TiledEngine.Classes
         /// if they exist in the tilesheet. The only restriction is that the hitbox must stay constant throughout the animation frames
         /// as the frame only accounts for the image, not additional data
         /// </summary>
-        public static void CheckForAnimationFrames(Tile tile, TileManager tileManager, TileSetPackage tileSetPackage, string propertyString)
+        public static void CheckForAnimationFrames(TileObject tile, TileManager tileManager, TileSetPackage tileSetPackage, string propertyString)
         {
             TmxTilesetTile tmxTileSetTile = tileSetPackage.GetTmxTileSetTile(tile.GID);
             Collection<TmxAnimationFrame> animationFrames = tmxTileSetTile.AnimationFrames;

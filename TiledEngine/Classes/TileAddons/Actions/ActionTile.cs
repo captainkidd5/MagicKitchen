@@ -22,7 +22,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
     public class ActionTile : TileBody
     {
 
-        public ActionTile(Tile tile,  IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, intermediateTmxShape)
+        public ActionTile(TileObject tile,  IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, intermediateTmxShape)
         {
 
         }

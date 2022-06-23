@@ -21,7 +21,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public int ItemId { get; private set; }
 
         public int ItemCount;
-        private Tile _tileTiedTo;
+        private TileObject _tileTiedTo;
         private Sprite _worldItemSprite;
         private Vector2 _position;
         private StorageSlot _slot;
@@ -29,7 +29,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         private static readonly int s_Width = 14;
         public int Key => _tileTiedTo.GetKey();
 
-        public PlacedOnItem(int listIndex, Tile tileTiedTo)
+        public PlacedOnItem(int listIndex, TileObject tileTiedTo)
         {
             ListIndex = listIndex;
             _tileTiedTo=tileTiedTo;

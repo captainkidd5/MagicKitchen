@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TiledEngine.Classes.TileAddons;
 
 namespace TiledEngine.Classes.Helpers
 {
@@ -43,10 +44,10 @@ namespace TiledEngine.Classes.Helpers
 
         }
 
-        public static Rectangle GetDestinationRectangle(Tile tile)
+        public static Rectangle GetDestinationRectangle(TileData tileData)
         {
-            return new Rectangle((int)(tile.X * Settings.TileSize),
-                (int)(tile.Y * Settings.TileSize), Settings.TileSize, Settings.TileSize);
+            return new Rectangle((int)(tileData.X * Settings.TileSize),
+                (int)(tileData.Y * Settings.TileSize), Settings.TileSize, Settings.TileSize);
         }
 
         public static Rectangle AdjustSourceRectangle(Rectangle oldRectangle, Rectangle newSourceRectangle)

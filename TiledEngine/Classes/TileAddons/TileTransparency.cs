@@ -22,10 +22,10 @@ namespace TiledEngine.Classes.TileAddons
         private readonly Rectangle destinationRectangle;
 
 
-        public Tile Tile { get; set; }
+        public TileObject Tile { get; set; }
 
 
-        public TileTransparency(Tile tile, Vector2 position, Rectangle destinationRectangle)
+        public TileTransparency(TileObject tile, Vector2 position, Rectangle destinationRectangle)
         {
             Tile = tile;
             Move(new Vector2(position.X + destinationRectangle.Width / 2, position.Y + destinationRectangle.Height / 2));

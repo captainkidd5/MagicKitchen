@@ -10,7 +10,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
     internal class Mixer : CraftingFurniture
     {
-        public Mixer(FurnitureData furnitureData, Tile tile, TileManager tileManager,
+        public Mixer(FurnitureData furnitureData, TileObject tile, TileManager tileManager,
             IntermediateTmxShape intermediateTmxShape, string actionType) :
             base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
         {

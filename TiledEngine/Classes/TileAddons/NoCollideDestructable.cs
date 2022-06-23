@@ -17,7 +17,7 @@ namespace TiledEngine.Classes.TileAddons
     //Tiles which will only ever take up a singluar tile space do not need colliders
     internal class NoCollideDestructable : DestructableTile
     {
-        public NoCollideDestructable(Tile tile, IntermediateTmxShape intermediateTmxShape, string action, bool requiredLoopBeforeDestruction) 
+        public NoCollideDestructable(TileObject tile, IntermediateTmxShape intermediateTmxShape, string action, bool requiredLoopBeforeDestruction) 
             : base(tile, intermediateTmxShape, action)
         {
             RequireLoopBeforeDestruction = requiredLoopBeforeDestruction;

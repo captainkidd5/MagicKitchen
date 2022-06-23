@@ -17,7 +17,7 @@ namespace TiledEngine.Classes.TileAddons
         private float _lightRadius;
         private LightType _lightType;
 
-        public LightBody(Tile tile, IntermediateTmxShape intermediateTmxShape,
+        public LightBody(TileObject tile, IntermediateTmxShape intermediateTmxShape,
             string lightPropertyString) : base(tile, intermediateTmxShape)
         {
 

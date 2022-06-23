@@ -8,18 +8,18 @@ namespace TiledEngine.Classes.TileAddons
 {
     public class TileLocator
     {
-        private Dictionary<string, Dictionary<string,List<Tile>>> FurnitureDictionary;
+        private Dictionary<string, Dictionary<string,List<TileObject>>> FurnitureDictionary;
 
         public TileLocator()
         {
-            FurnitureDictionary = new Dictionary<string, Dictionary<string, List<Tile>>>();
+            FurnitureDictionary = new Dictionary<string, Dictionary<string, List<TileObject>>>();
         }
 
 
         /// <summary>
         /// Returns a list of tiles with matching key
         /// </summary>
-        public List<Tile> LocateTile(string key, string subKey)
+        public List<TileObject> LocateTile(string key, string subKey)
         {
             return FurnitureDictionary[key][subKey];
         }
@@ -27,7 +27,7 @@ namespace TiledEngine.Classes.TileAddons
         /// Adds new tile to furniture dictionray with value as key. If no value is found, start a new Dictionary
         /// and add a new list of tiles with tile in it
         /// </summary>
-        public void AddItem(string key,string subKey, Tile tile)
+        public void AddItem(string key,string subKey, TileObject tile)
         {
             if (FurnitureDictionary.ContainsKey(key))
             {
@@ -38,19 +38,19 @@ namespace TiledEngine.Classes.TileAddons
                 }
                 else
                 {
-                    FurnitureDictionary[key].Add(subKey,new List<Tile>() { tile});
+                    FurnitureDictionary[key].Add(subKey,new List<TileObject>() { tile});
                 }
             }
             else
             {
-                Dictionary<string, List<Tile>> dict = new Dictionary<string, List<Tile>>();
-                dict.Add(key, new List<Tile>());
-                dict[subKey] = new List<Tile>() { tile };
+                Dictionary<string, List<TileObject>> dict = new Dictionary<string, List<TileObject>>();
+                dict.Add(key, new List<TileObject>());
+                dict[subKey] = new List<TileObject>() { tile };
                 FurnitureDictionary.Add(key, dict);
             }
         }
 
-        public void RemoveItem(string key, string subKey, Tile tile)
+        public void RemoveItem(string key, string subKey, TileObject tile)
         {
             if (FurnitureDictionary.ContainsKey(key))
             {

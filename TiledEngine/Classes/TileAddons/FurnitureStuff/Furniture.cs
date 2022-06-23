@@ -24,7 +24,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         protected FurnitureData FurnitureData { get; private set; }
 
-        public Furniture(FurnitureData furnitureData, Tile tile, TileManager tileManager,
+        public Furniture(FurnitureData furnitureData, TileObject tile, TileManager tileManager,
             IntermediateTmxShape intermediateTmxShape, string actionType) :
             base(tile, intermediateTmxShape, actionType)
         {
@@ -47,7 +47,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         
         public static Furniture GetFurnitureFromProperty(string value,
-            Tile tile, TileManager tileManager, IntermediateTmxShape tmxShape)
+            TileObject tile, TileManager tileManager, IntermediateTmxShape tmxShape)
         {
             string[] parsedValue = value.Split(',');
             FurnitureType furnitureType = (FurnitureType)Enum.Parse(typeof(FurnitureType), parsedValue[0]);

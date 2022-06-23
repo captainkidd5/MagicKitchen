@@ -26,7 +26,7 @@ namespace TiledEngine.Classes.TileAddons
     {
         protected bool RequireLoopBeforeDestruction { get; set; }
         public bool FlaggedForDestruction { get; set; }
-        public DestructableTile(Tile tile, IntermediateTmxShape intermediateTmxShape, string action) : base(tile,intermediateTmxShape, action)
+        public DestructableTile(TileObject tile, IntermediateTmxShape intermediateTmxShape, string action) : base(tile,intermediateTmxShape, action)
         {
     
             RequireLoopBeforeDestruction = true;

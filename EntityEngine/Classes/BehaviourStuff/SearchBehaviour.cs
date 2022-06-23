@@ -110,7 +110,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                 if (Navigator.HasActivePath)
                 {
                     //Need to make sure tile heading to hasn't been destroyed since search started
-                    if (TileManager.GetTileFromPoint(_tileHeadingTo.Value, _layerOfTile).GID != _gIDGoingTo)
+                    if (TileManager.GetTileDataFromPoint(_tileHeadingTo.Value, _layerOfTile).GID != _gIDGoingTo)
                     {
                         Navigator.Unload();
                         _tileHeadingTo = null;

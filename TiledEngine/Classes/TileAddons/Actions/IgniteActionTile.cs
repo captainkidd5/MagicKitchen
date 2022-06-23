@@ -15,7 +15,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
 {
     internal class IgniteActionTile : ActionTile
     {
-        public IgniteActionTile(Tile tile, IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, intermediateTmxShape, actionType)
+        public IgniteActionTile(TileObject tile, IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, intermediateTmxShape, actionType)
         {
             
      

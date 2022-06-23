@@ -25,7 +25,7 @@ namespace TiledEngine.Classes.Helpers
         /// </summary>
         /// <param name="requireAdjacency">Set to true to only return adjacent clear tiles</param>
         /// <returns></returns>
-        public List<Point> GetSorroundingClearTilesAsPoints(Tile tileToGetAdjacentPointsOf,
+        public List<Point> GetSorroundingClearTilesAsPoints(TileObject tileToGetAdjacentPointsOf,
             bool requireAdjacency = true)
         {
             List<Point> clearPoints = new List<Point>();
@@ -82,7 +82,7 @@ namespace TiledEngine.Classes.Helpers
             Point rectangleIndex = Vector2Helper.WorldPositionToTilePositionAsPoint(new Vector2(body.X, body.Y));
             //Criteria for placing background tiles is different. All tiles in layers higher than desired placement must be empty.
             //We are not concerned if the tile we are replacing has an object (water edges have objects, but can be replaced)
-            for (int z = _tileManager.Tiles.Count - 1; z > (int)currentTileLayer; z--)
+            for (int z = _tileManager.TileData.Count - 1; z > (int)currentTileLayer; z--)
             {
 
                 for (int i = 0; i < bodyTilesWide; i++)
@@ -100,7 +100,7 @@ namespace TiledEngine.Classes.Helpers
                                 if (!_tileManager.PathGrid.IsClear(point.X, point.Y))
                                     return false;
                             }
-                            if (!_tileManager.GetTileFromPoint(point, (Layers)z).Empty)
+                            if (!_tileManager.GetTileDataFromPoint(point, (Layers)z).Empty)
                                 return false;
                         }
 
@@ -125,7 +125,7 @@ namespace TiledEngine.Classes.Helpers
         /// <returns></returns>
         private bool IsPlacementTypeBlacklisted(Point tilePoint, Item item)
         {
-            string tilingSetValueString = _tileManager.GetTileFromPoint(tilePoint, Layers.background).GetProperty("tilingSet");
+            string tilingSetValueString = _tileManager.GetTileDataFromPoint(tilePoint, Layers.background).GetProperty("tilingSet");
 
             if (!string.IsNullOrEmpty(tilingSetValueString))
             {
@@ -224,7 +224,7 @@ namespace TiledEngine.Classes.Helpers
                     {
                         if (_tileManager.Y_IsValidIndex(entityIndexPosition.Y + y))
                         {
-                            Tile tile = _tileManager.GetTileFromPoint(new Point(entityIndexPosition.X + x,
+                            TileObject tile = _tileManager.GetTileDataFromPoint(new Point(entityIndexPosition.X + x,
                                 entityIndexPosition.Y + y), layerToSearch);
 
                             if (tile.GID == gid)

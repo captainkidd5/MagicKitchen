@@ -32,6 +32,7 @@ using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using SoundEngine.Classes;
 using EntityEngine.Classes.ToolStuff;
 using EntityEngine.ItemStuff;
+using TiledEngine.Classes.TileAddons;
 
 namespace EntityEngine.Classes
 {
@@ -474,7 +475,7 @@ namespace EntityEngine.Classes
 
         internal void InteractWithTile(Point tilePoint, Layers tileLayer)
         {
-            Tile tile = TileManager.GetTileFromPoint(tilePoint, tileLayer);
+            TileData? tile = TileManager.GetTileDataFromPoint(tilePoint, tileLayer);
             if (tile == null)
                 throw new Exception($"No tile at {tilePoint} at layer {tileLayer.ToString()}!");
             tile.Interact(false, InventoryHandler.HeldItem);

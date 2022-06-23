@@ -17,6 +17,7 @@ using System.Linq;
 using TiledEngine.Classes.ZoneStuff;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
 using static DataModels.Enums;
+using TiledEngine.Classes.TileAddons;
 
 namespace TiledEngine.Classes
 {
@@ -121,7 +122,7 @@ namespace TiledEngine.Classes
         /// Create new tiles based on tiles found in TMX map file. This should
         /// only be done once per map per save.
         /// </summary>
-        private static List<Tile[,]> ExtractTilesFromPreloadedMap(TileManager tileManager, TmxMap map)
+        private static List<TileData[,]> ExtractTilesFromPreloadedMap(TileManager tileManager, TmxMap map)
         {
             List<TmxLayer> allLayers = new List<TmxLayer>()
             {
@@ -131,13 +132,13 @@ namespace TiledEngine.Classes
            map.TileLayers["foreground"],
            map.TileLayers["front"]
         };
-            List<Tile[,]> tilesToReturn = new List<Tile[,]>();
+            List<TileData[,]> tilesToReturn = new List<TileData[,]>();
 
             for (int i = 0; i < MapDepths.Length; i++)
             {
-                tilesToReturn.Add(new Tile[map.Width, map.Width]);
+                tilesToReturn.Add(new TileData[map.Width, map.Width]);
                 foreach (TmxLayerTile layerNameTile in allLayers[i].Tiles)
-                    tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new Tile(tileManager,(ushort)layerNameTile.Gid, (Layers)i, MapDepths[i], (ushort)layerNameTile.X, (ushort)layerNameTile.Y);
+                    tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new TileData((ushort)layerNameTile.Gid,  (ushort)layerNameTile.X, (ushort)layerNameTile.Y, (byte)i);
             }
             return tilesToReturn;
         }
