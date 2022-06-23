@@ -103,7 +103,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
                             TileData? tileData = _tileManager.GetTileFromWorldPosition(
                                 _tileManager.MouseOverTile.Position, _layer);
 
-                            _tileManager.TileObjects[tileData.Value.GetKey()].Unload();
+                            //_tileManager.TileObjects[tileData.Value.GetKey()].Unload();
                             _tileManager.SwitchGID((ushort)(GID - 1), tileData.Value, false,false, true);
                             return true;
                         }

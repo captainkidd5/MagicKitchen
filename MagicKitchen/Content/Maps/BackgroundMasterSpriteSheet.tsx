@@ -486,6 +486,36 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="1020">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
+ <tile id="1021">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
+ <tile id="1022">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
+ <tile id="1023">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
+ <tile id="1024">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
+ <tile id="1025">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
  <tile id="1027">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
@@ -505,6 +535,32 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
+ </tile>
+ <tile id="1120">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
+ <tile id="1121">
+  <properties>
+   <property name="tilingKey" value="deepWater"/>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
+ <tile id="1122">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
+ <tile id="1123">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
+ <tile id="1124">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
  </tile>
  <tile id="1127">
   <objectgroup draworder="index" id="2">
@@ -529,6 +585,31 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="7" height="16"/>
   </objectgroup>
+ </tile>
+ <tile id="1220">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
+ <tile id="1221">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
+ <tile id="1222">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
+ <tile id="1223">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
+ </tile>
+ <tile id="1224">
+  <properties>
+   <property name="tilingSet" value="deepWater"/>
+  </properties>
  </tile>
  <tile id="1227">
   <objectgroup draworder="index" id="2">

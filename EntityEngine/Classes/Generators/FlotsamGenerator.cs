@@ -26,14 +26,14 @@ namespace EntityEngine.Classes.Generators
 
         public override void Update(GameTime gameTime)
         {
-            if (Flags.SpawnFloatingItems)
+            if (Flags.SpawnFlotsam)
             {
 
                 if (SpawnTimer.Run(gameTime))
                 {
                     Direction direction = Vector2Helper.GetRandomDirection();
                     Vector2 spawnLocation = GetSpawnLocation(direction);
-                    if (TileManager.IsWatertile(spawnLocation))
+                    if (TileManager.IsTypeOfTile("water",spawnLocation) || TileManager.IsTypeOfTile("deepWater", spawnLocation))
                     {
                         AddFlotsam(spawnLocation,GetJettisonDirection(spawnLocation));
                     }

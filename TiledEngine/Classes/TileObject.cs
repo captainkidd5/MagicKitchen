@@ -57,7 +57,7 @@ namespace TiledEngine.Classes
         {
             return TileData.GetCursorIconType(TileManager.TileSetPackage);
         }
-        internal TileObject(TileManager tileManager, TileData tileData)
+        internal TileObject(TileManager tileManager, TileData tileData, bool wang = false, bool tempTile = false)
         {
 
             TileData = tileData;
@@ -65,7 +65,7 @@ namespace TiledEngine.Classes
 
             Addons = new List<ITileAddon>();
             TileManager = tileManager;
-            TileUtility.AssignProperties(tileManager, this, tileData);
+            TileUtility.AssignProperties(tileManager, this, tileData,tempTile, wang);
 
         }
 
@@ -88,6 +88,7 @@ namespace TiledEngine.Classes
                 Addons[i].Update(gameTime);
             }
 
+            
 
         }
 

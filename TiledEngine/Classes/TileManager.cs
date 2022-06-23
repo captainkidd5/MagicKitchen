@@ -67,6 +67,8 @@ namespace TiledEngine.Classes
 
         public TileLocationHelper TileLocationHelper { get; set; }
         public MapType MapType { get; internal set; }
+
+        public bool JustResizedWindow { get; set; }
         public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera, MapType mapType) :
             base(graphics, content)
         {
@@ -81,6 +83,9 @@ namespace TiledEngine.Classes
 
             TileObjects = new Dictionary<int, TileObject>();
             DeadTileObjects = new Dictionary<int, TileObject>();
+            Settings.GameWindow.ClientSizeChanged -= Window_ClientSizeChanged;
+
+            Settings.GameWindow.ClientSizeChanged += Window_ClientSizeChanged;
         }
 
         /// <summary>
@@ -137,7 +142,7 @@ namespace TiledEngine.Classes
 
         private void AssignProperties()
         {
-    
+
             MapRectangle = new Rectangle(0, 0, Settings.TileSize * MapWidth, Settings.TileSize * MapWidth);
         }
 
@@ -163,25 +168,17 @@ namespace TiledEngine.Classes
             CalculateStartAndEndIndexes();
             CalculateMouseIndex();
             TileToInteractWith = null;
-            foreach (var tileObject in TileObjects)
-            {
-                TileObject tileObj = tileObject.Value;
-                tileObj.Update(gameTime, PathGrid);
-                if (tileObj.FlaggedForRemoval)
-                {
-                    DeadTileObjects.Add(tileObj.TileData.GetKey(), tileObj);
-                    tileObj.Unload();
-                }
-            }
+           
             for (int z = 0; z < TileData.Count; z++)
             {
                 for (int x = StartX; x < EndX; x++)
                 {
                     for (int y = StartY; y < EndY; y++)
                     {
-                        if (!TileObjects.ContainsKey(TileData[z][x, y].GetKey()))
+                        int key = TileData[z][x, y].GetKey();
+                        if (!TileObjects.ContainsKey(key))
                         {
-                            TileObjects.Add(TileData[z][x, y].GetKey(), new TileObject(this, TileData[z][x, y]));
+                            TileObjects.Add(key, new TileObject(this, TileData[z][x, y], z< 2 && !JustResizedWindow));
                         }
 
                     }
@@ -190,18 +187,30 @@ namespace TiledEngine.Classes
                 //mouse over tile is the highest layered, non empty tile
                 if (!TileData[z][MouseX, MouseY].Empty)
                 {
-                    TileObject mouseObj; 
+                    TileObject mouseObj;
                     TileObjects.TryGetValue(TileData[z][MouseX, MouseY].GetKey(), out mouseObj);
-                    if(mouseObj != null)
-                      MouseOverTile = mouseObj;
+                    if (mouseObj != null)
+                        MouseOverTile = mouseObj;
 
                 }
             }
-            foreach(var pair in DeadTileObjects)
+
+            foreach (var tileObject in TileObjects)
+            {
+                TileObject tileObj = tileObject.Value;
+                tileObj.Update(gameTime, PathGrid);
+                if (tileObj.FlaggedForRemoval)
+                {
+                    tileObj.Unload();
+
+                    DeadTileObjects.Add(tileObj.TileData.GetKey(), tileObj);
+                }
+            }
+            foreach (var pair in DeadTileObjects)
             {
                 TileObjects.Remove(pair.Key);
             }
-         
+
             if (MouseOverTile != null)
                 TileSelectorSprite.Update(gameTime, MouseOverTile.Position);
             CheckMouseTileInteractions(gameTime);
@@ -209,11 +218,20 @@ namespace TiledEngine.Classes
 
 
             _tilePlacementManager.Update(gameTime);
+            JustResizedWindow = false;
         }
-
+        public void Window_ClientSizeChanged(object sender, System.EventArgs e)
+        {
+            JustResizedWindow = true;
+            foreach (var obj in TileObjects)
+            {
+                obj.Value.Unload();
+            }
+            TileObjects.Clear();
+        }
         public bool IsWithinUpdateRange(TileData tileData)
         {
-            if(tileData.X >= StartX && tileData.X < EndX)
+            if (tileData.X >= StartX && tileData.X < EndX)
             {
                 if (tileData.Y >= StartY && tileData.Y < EndY)
                 {
@@ -270,19 +288,10 @@ namespace TiledEngine.Classes
             foreach (var tileObject in TileObjects)
             {
                 TileObject tileObj = tileObject.Value;
-                tileObj.Draw(spriteBatch, TileSetPackage.GetTexture(tileObj.TileData.GID));
+                if(!tileObj.TileData.Empty)
+                  tileObj.Draw(spriteBatch, TileSetPackage.GetTexture(tileObj.TileData.GID));
             }
-            //for (int z = 0; z < TileObjects.Count; z++)
-            //{
-            //    for (int x = 0; x < s_viewDistance; x++)
-            //    {
-            //        for (int y = 0; y < s_viewDistance; y++)
-            //        {
-            //            TileObjects[z][x, y].Draw(spriteBatch, TileSetPackage.GetTexture(TileData[z][x, y].GID));
 
-            //        }
-            //    }
-            //}
             if (Flags.ShowTileSelector)
                 TileSelectorSprite.Draw(spriteBatch);
             _tilePlacementManager.Draw(spriteBatch);
@@ -295,17 +304,7 @@ namespace TiledEngine.Classes
                 TileObject tileObj = tileObject.Value;
                 tileObj.DrawLights(spriteBatch);
             }
-            //for (int z = 0; z < TileData.Count; z++)
-            //{
-            //    for (int x = StartX; x < EndX; x++)
-            //    {
-            //        for (int y = StartY; y < EndY; y++)
-            //        {
-            //            TileObjects[z][x, y].DrawLights(spriteBatch);
 
-            //        }
-            //    }
-            //}
         }
 
 
@@ -360,14 +359,22 @@ namespace TiledEngine.Classes
 
         public void SwitchGID(ushort newGid, TileData tileData, bool tempTile = false, bool wang = false, bool addProperty = false)
         {
-            //if (TileObjects.ContainsKey(tileData.GetKey()))
-            //{
-            //    TileObjects.Remove(tileData.GetKey());
-            //}
+
             tileData.GID = (ushort)(newGid + 1);
             TileData[tileData.Layer][tileData.X, tileData.Y] = tileData;
-            if (addProperty)
-                TileObjects[tileData.GetKey()] = new TileObject(this, tileData);
+           // if (addProperty)
+          //  {
+                int key = tileData.GetKey();
+                TileObject obj;
+                TileObjects.TryGetValue(key, out obj);
+                if(obj != null)
+                {
+
+                    TileObjects[key].FlaggedForRemoval = true;
+                }
+               
+
+            //}
         }
         public TileData? GetTileFromWorldPosition(Vector2 position, Layers layer)
         {
@@ -500,14 +507,14 @@ namespace TiledEngine.Classes
         }
 
 
-        public bool IsWatertile(Vector2 position)
+        public bool IsTypeOfTile(string tileType, Vector2 position)
         {
             TileData? tile = GetTileFromWorldPosition(position, Layers.background);
 
             if (tile == null)
                 return false;
             string tilingSetValue = tile.Value.GetProperty(TileSetPackage, "tilingSet");
-            if (tilingSetValue == "water")
+            if (tilingSetValue == tileType)
                 return true;
 
             return false;

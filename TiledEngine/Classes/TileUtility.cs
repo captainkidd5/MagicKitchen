@@ -52,8 +52,7 @@ namespace TiledEngine.Classes
         {
             TileSetPackage tileSetPackage = tileManager.TileSetPackage;
 
-            if (tileSetPackage.OffSetBackgroundGID(tileData.GID) == 3370)
-                Console.WriteLine("test");
+           
             if (wang)
             {
                 int newGID = tileSetPackage.TilingSetManager.WangTile(tileManager, tileData);

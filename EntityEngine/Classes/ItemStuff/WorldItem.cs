@@ -202,7 +202,7 @@ namespace EntityEngine.ItemStuff
 
                 ChangeState(WorldItemState.None);
 
-                if (_tileManager.IsWatertile(Position))
+                if (_tileManager.IsTypeOfTile("water",Position) || _tileManager.IsTypeOfTile("deepWater", Position))
                 {
                     PlayPackage("Splash");
 
