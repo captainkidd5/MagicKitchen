@@ -33,6 +33,7 @@ namespace DataModels.ItemStuff
     {
         land = 0,
         water = 1,
+        deepWater = 2,
         all = 2,
 
     }

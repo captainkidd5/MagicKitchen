@@ -14,18 +14,25 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
     {
         internal Dictionary<string, Dictionary<int, int>> TilingSets { get; private set; }
 
-      
+        internal Dictionary<int, string> TilingPairs { get; private set; }
+
         public WangManager()
         {
             TilingSets = new Dictionary<string, Dictionary<int, int>>();
+            TilingPairs = new Dictionary<int, string>();
+
         }
 
-        public void AddNewSet(string name, int gid)
+        public void AddNewSet(string property, int gid)
         {
-        
+            string[] values = property.Split(',');
+            string name = values[0];
+
             if (TilingSets.ContainsKey(name))
                 return;
             TilingSets[name] = FillTilingDictionary(gid);
+            if (values.Length > 1)
+                TilingPairs.Add(gid, values[1]);
         }
         private Dictionary<int, int> FillTilingDictionary(int centralGID)
         {
@@ -87,12 +94,12 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
                 return tile.GID;
 
             int keyToCheck = 0;
-
+            Dictionary<int, int> secondaryDict = TilingSets[TilingPairs[tDictionary[15]]];
             if (tileManager.Y_IsValidIndex(tile.Y - 1))
             {
                 //or not equal to land
                 if (GidDictionaryMatch(tDictionary,tileManager, tile, tile.X, tile.Y - 1) ||
-                    !GidDictionaryMatch(TilingSets["land"], tileManager, tile, tile.X, tile.Y - 1))
+                    !GidDictionaryMatch(secondaryDict, tileManager, tile, tile.X, tile.Y - 1))
                     keyToCheck += 1;
             }
 
@@ -100,7 +107,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             {
                 if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X, tile.Y + 1)
                     ||
-                    !GidDictionaryMatch(TilingSets["land"], tileManager, tile, tile.X, tile.Y + 1))
+                    !GidDictionaryMatch(secondaryDict, tileManager, tile, tile.X, tile.Y + 1))
                     keyToCheck += 8;
             }
 
@@ -111,7 +118,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             {
                 if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X + 1, tile.Y)
                     ||
-                    !GidDictionaryMatch(TilingSets["land"], tileManager, tile, tile.X + 1, tile.Y))
+                    !GidDictionaryMatch(secondaryDict, tileManager, tile, tile.X + 1, tile.Y))
                     keyToCheck += 4;
             }
 
@@ -119,7 +126,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             {
                 if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X - 1, tile.Y)
                     ||
-                    !GidDictionaryMatch(TilingSets["land"], tileManager, tile, tile.X - 1, tile.Y))
+                    !GidDictionaryMatch(secondaryDict, tileManager, tile, tile.X - 1, tile.Y))
                     keyToCheck += 2;
             }
 

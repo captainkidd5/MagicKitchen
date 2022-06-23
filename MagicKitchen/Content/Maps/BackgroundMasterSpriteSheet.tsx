@@ -138,7 +138,7 @@
    <property name="tilingSet" value="water"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="6"/>
+   <object id="1" x="0" y="3" width="16" height="1"/>
   </objectgroup>
   <animation>
    <frame tileid="622" duration="800"/>
@@ -254,7 +254,7 @@
  </tile>
  <tile id="722">
   <properties>
-   <property name="tilingKey" value="water"/>
+   <property name="tilingKey" value="water,land"/>
    <property name="tilingSet" value="water"/>
   </properties>
  </tile>
@@ -543,7 +543,7 @@
  </tile>
  <tile id="1121">
   <properties>
-   <property name="tilingKey" value="deepWater"/>
+   <property name="tilingKey" value="deepWater,water"/>
    <property name="tilingSet" value="deepWater"/>
   </properties>
  </tile>
