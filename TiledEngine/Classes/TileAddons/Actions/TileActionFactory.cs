@@ -12,7 +12,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
    
     internal static class TileActionFactory
     {
-        public static ActionTile GetActionTile(string action, TileObject tile, TileManager tileManager,
+        public static ActionTile GetActionTile(string action, TileObject tile,
             IntermediateTmxShape intermediateTmxShape, Layers layer)
         {
             switch (action.Split(',')[0])

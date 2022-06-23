@@ -137,17 +137,7 @@ namespace TiledEngine.Classes
 
         private void AssignProperties()
         {
-            for (int z = 0; z < TileData.Count; z++)
-            {
-                for (int x = 0; x < MapWidth; x++)
-                {
-                    for (int y = 0; y < MapWidth; y++)
-                    {
-                        //TileUtility.AssignProperties(Tiles[z][x, y], (Layers)z, wang: false);
-                    }
-                }
-            }
-
+    
             MapRectangle = new Rectangle(0, 0, Settings.TileSize * MapWidth, Settings.TileSize * MapWidth);
         }
 
@@ -198,8 +188,14 @@ namespace TiledEngine.Classes
                 }
 
                 //mouse over tile is the highest layered, non empty tile
-              //  if (!TileData[z][MouseX, MouseY].Empty)
-               //     MouseOverTile = TileObjects[TileData[z][MouseX, MouseY].GetKey()];
+                if (!TileData[z][MouseX, MouseY].Empty)
+                {
+                    TileObject mouseObj; 
+                    TileObjects.TryGetValue(TileData[z][MouseX, MouseY].GetKey(), out mouseObj);
+                    if(mouseObj != null)
+                      MouseOverTile = mouseObj;
+
+                }
             }
             foreach(var pair in DeadTileObjects)
             {
@@ -362,14 +358,16 @@ namespace TiledEngine.Classes
 
 
 
-        public void SwitchGID(ushort newGid, TileData tileData, bool tempTile = false, bool wang = false)
+        public void SwitchGID(ushort newGid, TileData tileData, bool tempTile = false, bool wang = false, bool addProperty = false)
         {
-            if (TileObjects.ContainsKey(tileData.GetKey()))
-            {
-                TileObjects.Remove(tileData.GetKey());
-            }
+            //if (TileObjects.ContainsKey(tileData.GetKey()))
+            //{
+            //    TileObjects.Remove(tileData.GetKey());
+            //}
             tileData.GID = (ushort)(newGid + 1);
             TileData[tileData.Layer][tileData.X, tileData.Y] = tileData;
+            if (addProperty)
+                TileObjects[tileData.GetKey()] = new TileObject(this, tileData);
         }
         public TileData? GetTileFromWorldPosition(Vector2 position, Layers layer)
         {

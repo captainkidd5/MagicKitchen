@@ -110,7 +110,7 @@ namespace TiledEngine.Classes
                 {
 
 
-                    TileObjectHelper.AddObjectsFromObjectGroups(tileObject, (Layers)tileData.Layer, tileManager, tileSetTile, tempTile);
+                    TileObjectHelper.AddObjectsFromObjectGroups(tileObject, (Layers)tileData.Layer, tileSetTile, tempTile);
 
 
                 }
@@ -150,16 +150,13 @@ namespace TiledEngine.Classes
 
             }
 
+            tileObject.DrawLayer = AssignTileLayer(tileData, tileObject, (Layers)tileData.Layer,
+                    tileManager.OffSetLayersDictionary);
 
-           
             //Will be null if animation frames were not present
             if (tileObject.Sprite == null)
-                tileObject.Sprite = SpriteFactory.CreateWorldSprite(tileObject.Position, tileObject.SourceRectangle, texture, customLayer: tileData.Layer, randomizeLayers: false);
-            else
-            {
-                tileObject.Sprite.CustomLayer = AssignTileLayer(tileData, tileObject, (Layers)tileData.Layer,
-                    tileManager.OffSetLayersDictionary);
-            }
+                tileObject.Sprite = SpriteFactory.CreateWorldSprite(tileObject.Position, tileObject.SourceRectangle, texture, customLayer: tileObject.DrawLayer, randomizeLayers: false);
+
             //this should come after new source rectangles are calculated because we need the height of those to calculate layer depth!
            
 
@@ -181,7 +178,7 @@ namespace TiledEngine.Classes
         /// <summary>
         /// If tile layer is in the forground we'll offset it according to its Y position. Else just give it the standard layerdepth.
         /// </summary>
-        private static float AssignTileLayer(TileData tileData, TileObject tile, Layers layer, Dictionary<int, float> tileLayerOffsetDictionary)
+        internal static float AssignTileLayer(TileData tileData, TileObject tile, Layers layer, Dictionary<int, float> tileLayerOffsetDictionary)
         {
             if (layer == Layers.foreground)
             {

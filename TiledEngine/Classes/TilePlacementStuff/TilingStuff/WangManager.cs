@@ -52,7 +52,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
                             TileData neighborTile = tileManager.GetTileDataFromPoint(new Point(i, j), (Layers)tileData.Layer).Value;
                             int newGid = WangTile(tileManager, neighborTile);
                         if (newGid != neighborTile.GID)
-                            tileManager.SwitchGID((ushort)newGid, neighborTile);
+                            tileManager.SwitchGID((ushort)newGid, neighborTile,false,true,true);
                         
 
                     }

@@ -101,7 +101,10 @@ namespace TiledEngine.Classes.Helpers
                                 if (!_tileManager.PathGrid.IsClear(point.X, point.Y))
                                     return false;
                             }
-                            if (!_tileManager.GetTileDataFromPoint(point, (Layers)z).Value.Empty)
+                            ushort val = _tileManager.GetTileDataFromPoint(point, (Layers)z).Value.GID;
+
+                            bool empty = _tileManager.GetTileDataFromPoint(point, (Layers)z).Value.Empty;
+                            if (!empty)
                                 return false;
                         }
 

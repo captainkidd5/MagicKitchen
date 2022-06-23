@@ -35,9 +35,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         protected int TotalStorageCapacity { get; set; }
         protected Vector2 TopOfFurniture => new Vector2(CenteredPosition.X, CenteredPosition.Y - IntermediateTmxShape.Radius);
-        public StorableFurniture(FurnitureData furnitureData, TileObject tile, TileManager tileManager,
+        public StorableFurniture(FurnitureData furnitureData, TileObject tile,
             IntermediateTmxShape intermediateTmxShape, string actionType) :
-            base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
+            base(furnitureData, tile, intermediateTmxShape, actionType)
         {
             PlacedItems = new List<PlacedOnItem>();
 
@@ -143,7 +143,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             UI.StorageDisplayHandler.SecondaryStorageClosed -= OnUIClosed;
 
-            if (Tile.TileData.HasAnimationFrames(TileManager.TileSetPackage))
+            if (Tile.TileData.HasAnimationFrames(Tile.TileManager.TileSetPackage))
             {
                 (Tile.Sprite as AnimatedSprite).Paused = false;
 
@@ -191,7 +191,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
                 //Subscribe to ui 
                 UI.StorageDisplayHandler.SecondaryStorageClosed += OnUIClosed;
-                if (Tile.TileData.HasAnimationFrames(TileManager.TileSetPackage))
+                if (Tile.TileData.HasAnimationFrames(Tile.TileManager.TileSetPackage))
                 {
 
                 (Tile.Sprite as AnimatedSprite).Paused = false;

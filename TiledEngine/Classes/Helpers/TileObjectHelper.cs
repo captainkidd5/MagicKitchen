@@ -20,7 +20,7 @@ namespace TiledEngine.Classes.Helpers
         /// <summary>
         /// Handles Tmx Object Groups by adding them to the tile's collision list. Updates pathgrid accordingly.
         /// </summary>
-        internal static void AddObjectsFromObjectGroups(TileObject tile, Layers tileLayer, TileManager tileManager, TmxTilesetTile tileSetTile, bool tempTile)
+        internal static void AddObjectsFromObjectGroups(TileObject tile, Layers tileLayer,  TmxTilesetTile tileSetTile, bool tempTile)
         {
             for (int k = 0; k < tileSetTile.ObjectGroups[0].Objects.Count; k++)
             {
@@ -40,13 +40,13 @@ namespace TiledEngine.Classes.Helpers
                 IntermediateTmxShape intermediateTmxShape = GetIntermediateShape(tile, tempObjBody, tempObj.ObjectType, vertices);
 
 
-                CreateTileBodies(tile, tileLayer, tileManager, intermediateTmxShape, tempObj.Properties, tempTile);
+                CreateTileBodies(tile, tileLayer, intermediateTmxShape, tempObj.Properties, tempTile);
 
             }
         }
 
      
-        private static void CreateTileBodies(TileObject tile, Layers tileLayer, TileManager tileManager, IntermediateTmxShape tmxShape, Dictionary<string, string> properties, bool tempTile)
+        private static void CreateTileBodies(TileObject tile, Layers tileLayer,IntermediateTmxShape tmxShape, Dictionary<string, string> properties, bool tempTile)
         {
       
             Rectangle tileDestinationRectangle = TileRectangleHelper.GetDestinationRectangle(tile.TileData);
@@ -55,7 +55,7 @@ namespace TiledEngine.Classes.Helpers
 
             if (properties.ContainsKey("action"))
             {
-                ITileAddon addon = TileActionFactory.GetActionTile(properties["action"], tile, tileManager, tmxShape, tileLayer);
+                ITileAddon addon = TileActionFactory.GetActionTile(properties["action"], tile, tmxShape, tileLayer);
                 tile.Addons.Add(addon);
                 if (addon.GetType() == typeof(NoCollideDestructable))
                     return;
@@ -65,7 +65,7 @@ namespace TiledEngine.Classes.Helpers
             if (properties.ContainsKey("furniture"))
             {
 
-                    tile.Addons.Add(Furniture.GetFurnitureFromProperty(properties["furniture"], tile, tileManager, tmxShape));
+                    tile.Addons.Add(Furniture.GetFurnitureFromProperty(properties["furniture"], tile, tmxShape));
 
             }
      
@@ -82,7 +82,7 @@ namespace TiledEngine.Classes.Helpers
         /// </summary>
         internal static void AddObjectFromProperty(TileObject tile, Layers layer,Dictionary<string,string> tileProperties, TileManager tileManager,string info, bool tempTile)
         {
-            CreateTileBodies(tile, layer, tileManager, GetShapeFromNewHitBox(tile, info), tileProperties, tempTile);
+            CreateTileBodies(tile, layer, GetShapeFromNewHitBox(tile, info), tileProperties, tempTile);
 
         }
 

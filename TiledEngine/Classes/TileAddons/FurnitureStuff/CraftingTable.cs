@@ -10,7 +10,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
     internal class CraftingTable : CraftingFurniture
     {
-        public CraftingTable(FurnitureData furnitureData, TileObject tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType) : base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
+        public CraftingTable(FurnitureData furnitureData, TileObject tile, IntermediateTmxShape intermediateTmxShape, string actionType) : base(furnitureData, tile, intermediateTmxShape, actionType)
         {
             TotalStorageCapacity = 3;
             CraftAction = DataModels.ItemStuff.CraftAction.Smelt;

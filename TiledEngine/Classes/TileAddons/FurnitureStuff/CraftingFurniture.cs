@@ -23,8 +23,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public CraftAction CraftAction{ get; set; }
 
-        public CraftingFurniture(FurnitureData furnitureData, TileObject tile, TileManager tileManager, IntermediateTmxShape intermediateTmxShape, string actionType)
-            : base(furnitureData, tile, tileManager, intermediateTmxShape, actionType)
+        public CraftingFurniture(FurnitureData furnitureData, TileObject tile, IntermediateTmxShape intermediateTmxShape, string actionType)
+            : base(furnitureData, tile, intermediateTmxShape, actionType)
         {
             _progressIndicator = new ProgressBarSprite();
             SubKey = "CraftingFurniture";

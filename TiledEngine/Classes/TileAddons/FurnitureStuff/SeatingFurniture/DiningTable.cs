@@ -24,9 +24,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public bool SeatingAvailable => OccupiedSeatCount < TotalSeatingCapacity;
 
 
-        public DiningTable(FurnitureData furnitureData, TileObject tile, TileManager tileManager,
+        public DiningTable(FurnitureData furnitureData, TileObject tile,
             IntermediateTmxShape intermediateTmxShape,string actionType) :
-            base(furnitureData,tile, tileManager, intermediateTmxShape, actionType)
+            base(furnitureData,tile, intermediateTmxShape, actionType)
         {
         }
         protected override void AddPlacedItems(FurnitureData furnitureData, TileObject tile)

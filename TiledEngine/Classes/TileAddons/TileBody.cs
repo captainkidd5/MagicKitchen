@@ -103,8 +103,9 @@ namespace TiledEngine.Classes.TileAddons
                 }
 
             }
+            Tile.FlaggedForRemoval = true;
             //Do not wang foreground tiles, unnecessary 
-            Tile.TileManager.SwitchGID((ushort)gidToSwitchTo, Tile.TileData,(Layers)Tile.TileData.Layer < Layers.buildings);
+            Tile.TileManager.SwitchGID((ushort)gidToSwitchTo, Tile.TileData,false,(Layers)Tile.TileData.Layer < Layers.buildings,true);
 
 
         }

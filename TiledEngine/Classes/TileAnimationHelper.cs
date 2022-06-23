@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using TiledEngine.Classes.Helpers;
 using TiledEngine.Classes.TileAddons;
 using TiledSharp;
+using static DataModels.Enums;
 
 namespace TiledEngine.Classes
 {
@@ -102,14 +103,16 @@ namespace TiledEngine.Classes
                     frames[i] = new AnimationFrame(i, frameRectangle,
                     animationFrames[i].Duration * .001f);
                 }
-                if (tileObject.TileData.Layer> 1)
+                if (tileObject.TileData.Layer <3)
                     tileObject.DrawLayer = tileObject.TileData.Layer * .1f;
+                else
+                    tileObject.DrawLayer = TileUtility.AssignTileLayer(tileObject.TileData, tileObject, (Layers)tileObject.TileData.Layer,
+                       tileManager.OffSetLayersDictionary);
 
-        
-                if(tileObject.Addons.Any(x => x.GetType() == typeof(DestructableTile)))
+                if (tileObject.Addons.Any(x => x.GetType() == typeof(DestructableTile)))
                 {
                     tileObject.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tileObject.Position, tileObject.SourceRectangle,
-                  texture, frames, customLayer: tileObject.TileData.Layer, randomizeLayers: false);
+                  texture, frames, customLayer: tileObject.DrawLayer, randomizeLayers: false);
                     (tileObject.Sprite as AnimatedSprite).Paused = true;
                     return;
                 }
@@ -122,7 +125,7 @@ namespace TiledEngine.Classes
                     {
                         case "pause":
                             tileObject.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tileObject.Position, tileObject.SourceRectangle,
-         texture, frames, customLayer: tileObject.TileData.Layer, randomizeLayers: false);
+         texture, frames, customLayer: tileObject.DrawLayer, randomizeLayers: false);
                             (tileObject.Sprite as AnimatedSprite).PingPong = true;
 
 

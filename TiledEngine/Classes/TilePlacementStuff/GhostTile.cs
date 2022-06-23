@@ -51,9 +51,10 @@ namespace TiledEngine.Classes.TilePlacementStuff
             _layer = layerToPlace;
             if (isForegroundTileSet)
                 GID = _tileManager.TileSetPackage.OffSetBackgroundGID(gid+ 1) ;
-
-
-            CurrentTile = new TileObject(_tileManager,CurrentTile.TileData);
+            if (CurrentTile != null)
+                CurrentTile.Unload();
+            TileData newTileData = new TileData((ushort)GID, 0, 0, (byte)_layer);
+            CurrentTile = new TileObject(_tileManager, newTileData);
             TileUtility.AssignProperties(_tileManager, CurrentTile,CurrentTile.TileData,true);
 
 
@@ -102,8 +103,8 @@ namespace TiledEngine.Classes.TilePlacementStuff
                             TileData? tileData = _tileManager.GetTileFromWorldPosition(
                                 _tileManager.MouseOverTile.Position, _layer);
 
-
-                            _tileManager.SwitchGID((ushort)(GID - 1), tileData.Value, true);
+                            _tileManager.TileObjects[tileData.Value.GetKey()].Unload();
+                            _tileManager.SwitchGID((ushort)(GID - 1), tileData.Value, false,false, true);
                             return true;
                         }
                     }

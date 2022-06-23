@@ -20,7 +20,7 @@ namespace TiledEngine.Classes.TileAddons
         public ushort X;
         public ushort Y;
         public byte Layer;
-        internal bool Empty => GID < 0;
+        internal bool Empty => GID == ushort.MaxValue;
         public TileData(ushort gid, ushort x, ushort y, byte layer)
         {
             _gid = gid;

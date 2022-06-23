@@ -23,16 +23,14 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
     {
 
         protected FurnitureData FurnitureData { get; private set; }
-        public TileManager TileManager { get; }
 
-        public Furniture(FurnitureData furnitureData, TileObject tile, TileManager tileManager,
+        public Furniture(FurnitureData furnitureData, TileObject tile,
             IntermediateTmxShape intermediateTmxShape, string actionType) :
             base(tile, intermediateTmxShape, actionType)
         {
             Key = "furniture";
             SubKey = this.GetType().Name;   
             FurnitureData = furnitureData;
-            TileManager = tileManager;
         }
 
 
@@ -48,7 +46,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         
         public static Furniture GetFurnitureFromProperty(string value,
-            TileObject tile, TileManager tileManager, IntermediateTmxShape tmxShape)
+            TileObject tile, IntermediateTmxShape tmxShape)
         {
             string[] parsedValue = value.Split(',');
             FurnitureType furnitureType = (FurnitureType)Enum.Parse(typeof(FurnitureType), parsedValue[0]);
@@ -63,7 +61,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
             Furniture furniture = (Furniture)System.Reflection.Assembly.GetExecutingAssembly()
                            .CreateInstance($"TiledEngine.Classes.TileAddons.FurnitureStuff.{parsedValue[0]}", true, System.Reflection.BindingFlags.CreateInstance,
-                           null, new object[] { data, tile, tileManager, tmxShape, "None" }, null, null);
+                           null, new object[] { data, tile, tmxShape, "None" }, null, null);
 
             if (furniture == null)
                 throw new Exception($"Furniture type {parsedValue[0]} wasn't found. Did you make sure the class is in the correct namespaced hardcoded" +
