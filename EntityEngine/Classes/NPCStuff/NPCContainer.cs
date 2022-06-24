@@ -5,6 +5,8 @@ using EntityEngine.Classes.NPCStuff;
 using EntityEngine.Classes.NPCStuff.Props;
 using EntityEngine.ItemStuff;
 using Globals.Classes;
+using Globals.Classes.Console;
+using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -24,29 +26,38 @@ using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.CharacterStuff
 {
-    public class StageNPCContainer : EntityContainer
+    public class NPCContainer : EntityContainer, ICommandRegisterable
     {
-        private readonly NPCManager _npcManager;
 
-        public string StageName { get; private set; }
 
-        public StageNPCContainer(NPCManager npcManager, GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public NPCContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            _npcManager = npcManager;
+  
         }
 
+        public void RegisterCommands()
+        {
+            CommandConsole.RegisterCommand("add_npc", "adds npc to current stage", AddNPCCommand);
+            CommandConsole.RegisterCommand("train", "forces train into current stage", AddTrainCommand);
+        }
+        private void AddNPCCommand(string[] args)
+        {
+           CreateNPC(args[0], Controls.MouseWorldPosition, true);
+        }
+        private void AddTrainCommand(string[] args)
+        {
+           AddTrain();
+        }
 
         public void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
-            StageName = stageName;
             TileManager = tileManager;
             ItemManager = itemManager;
 
             foreach (NPC entity in Entities)
             {
 
-                entity.LoadContent(null,entity.Name,false);
-               entity.SwitchStage(stageName, tileManager, itemManager);
+                entity.LoadContent(this,null,entity.Name,false);
             }
 
 
@@ -54,9 +65,8 @@ namespace EntityEngine.Classes.CharacterStuff
 
         internal void AddTrain()
         {
-            Train train = new Train(this, graphics, content);
-            train.LoadContent(null, null);
-            train.SwitchStage(StageName, TileManager, ItemManager);
+            Train train = new Train(graphics, content);
+            train.LoadContent(this,null, null);
             Entities.Add(train);
         }
 
@@ -81,7 +91,7 @@ namespace EntityEngine.Classes.CharacterStuff
             {
                 foreach (NPCData npcData in EntityFactory.NPCData.Values)
                 {
-                    if (npcData.ImmediatelySpawn && this.GetType() == typeof(PersistentManager))
+                    if (npcData.ImmediatelySpawn)
                     {
 
                         NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
@@ -89,7 +99,7 @@ namespace EntityEngine.Classes.CharacterStuff
                             null, new object[] {this, graphics, content }, null, null);
 
                      
-                        npc.LoadContent(null, npcData.Name, npc.GetType() != typeof(HumanoidEntity));
+                        npc.LoadContent(this,null, npcData.Name, npc.GetType() != typeof(HumanoidEntity));
                         Entities.Add(npc);
                     }
                 }
@@ -107,27 +117,22 @@ namespace EntityEngine.Classes.CharacterStuff
                     .CreateInstance(savedType, true, System.Reflection.BindingFlags.CreateInstance,
                     null, new object[] { this, graphics, content },null,null);
                 npc.LoadSave(reader);
-                        npc.LoadContent(null, npc.Name, npc.GetType() != typeof(HumanoidEntity));
+                        npc.LoadContent(this,null, npc.Name, npc.GetType() != typeof(HumanoidEntity));
                 Entities.Add(npc);
             }
             }
 
         }
 
-        public PathGrid GetPathGrid(string stageName)
-        {
-            return _npcManager.StageGrids[stageName];
-        }
+
 
         public virtual void CreateNPC( string name, Vector2 position, bool standardAnimator, string stageName = null)
         {
-            if (stageName != StageName)
-                throw new Exception($"Persistent entities cannot be added non persistent managers");
+         
             NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                     .CreateInstance(EntityFactory.NPCData[name].ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
                     null, new object[] { this, graphics, content }, null, null);
-            npc.LoadContent(position, name, standardAnimator);
-            npc.SwitchStage(StageName, TileManager, ItemManager);
+            npc.LoadContent(this, position, name, standardAnimator);
             EntitiesToAdd.Add(npc);
         }
 

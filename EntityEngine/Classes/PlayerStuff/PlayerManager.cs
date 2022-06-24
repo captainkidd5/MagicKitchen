@@ -21,7 +21,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public Player Player1 { get; set; }
         public PlayerManager( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            Player1 = new Player(null, graphics, content,this);
+            Player1 = new Player(graphics, content);
             Entities.Add(Player1);
 
         }
@@ -33,12 +33,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
    
-        public void SwitchStage(string stageTo, TileManager tileManager, ItemManager itemManager)
-        {
-            if (Player1.CurrentStageName == stageTo)
-             Player1.SwitchStage(stageTo, tileManager, itemManager);
 
-        }
 
         public override void Update(GameTime gameTime)
         {
@@ -49,7 +44,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void LoadContent()
         {
             //base.LoadContent();
-            Player1.LoadContent(null, null);
+            Player1.LoadContent(this,null, null);
             CommandConsole.RegisterCommand("give", "gives player item with id", GivePlayerItem);
 
         }
@@ -61,7 +56,6 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void LoadSave(BinaryReader reader)
         {
               base.LoadSave(reader);
-            Flags.StagePlayerIn = Player1.CurrentStageName;
         }
 
        

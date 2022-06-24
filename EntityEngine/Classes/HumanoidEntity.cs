@@ -24,7 +24,7 @@ namespace EntityEngine.Classes
     public class HumanoidEntity : Character
     {
        
-        public HumanoidEntity(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : base(container, graphics, content)
+        public HumanoidEntity(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             BodyPiece[] bodyPieces = new BodyPiece[]
            {
@@ -78,9 +78,9 @@ namespace EntityEngine.Classes
         }
         internal override void ChangeClothingColor(Type t, Color color) => 
             (Animator as CustomizeableAnimator).ChangeClothingColor(t, color);
-        public override void LoadContent(Vector2? startPos, string? name, bool standardAnimator = false)
+        public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string? name, bool standardAnimator = false)
         {
-            base.LoadContent(startPos, name, standardAnimator);
+            base.LoadContent(entityContainer,startPos, name, standardAnimator);
             LoadAnimations(Animator);
 
             ChangeClothingColor(typeof(Hair), ColorHelper.GetRandomColor());

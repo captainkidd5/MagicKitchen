@@ -54,12 +54,10 @@ namespace EntityEngine.Classes
         public bool IsMoving { get; protected set; }
         protected bool ForceStop { get; private set; }
         //Entity gets the data representation of inventory while ui handles actual visuals
-        public string CurrentStageName { get; protected set; }
+
         internal Animator Animator { get; set; }
         protected Navigator Navigator { get; set; }
 
-        public string TargetStage { get; internal protected set; }
-        internal TileManager TileManager { get; set; }
         public string Name { get; protected set; }
         internal string ScheduleName { get; set; }
         protected StatusIcon StatusIcon { get; set; }
@@ -67,26 +65,17 @@ namespace EntityEngine.Classes
         public bool IsUsingProgressBar => ProgressBarSprite != null;
         protected ProgressBarSprite ProgressBarSprite { get; private set; }
 
-        /// <summary>
-        /// If entity is present at the current stage
-        /// </summary>
-        public bool IsInStage
-        {
-            get;
-            set;
-        }
+
         BehaviourManager BehaviourManager { get; set; }
 
         private protected InventoryHandler InventoryHandler { get; set; }
         public StorageContainer StorageContainer => InventoryHandler.StorageContainer;
 
-        //warp
-        private WarpHelper _warpHelper;
 
         public Point TileOn => Vector2Helper.GetTileIndexPosition(Position);
-        public bool IsWarping => _warpHelper.IsWarping;
 
-        protected StageNPCContainer Container { get; }
+
+        protected EntityContainer Container { get; set; }
 
         private OverheadItemDisplay _overHeadItemDisplay { get; set; }
 
@@ -94,7 +83,7 @@ namespace EntityEngine.Classes
         public int MaxHealth { get; protected set; } = 100;
         public int CurrentHealth { get; protected set; } = 100;
 
-        public Entity(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : base()
+        public Entity( GraphicsDevice graphics, ContentManager content) : base()
         {
             _graphics = graphics;
             _content = content;
@@ -104,9 +93,7 @@ namespace EntityEngine.Classes
             Navigator = new Navigator(Name);
             Speed = StartingSpeed;
 
-            _warpHelper = new WarpHelper(this);
             InventoryHandler = new InventoryHandler(StorageCapacity);
-            Container = container;
 
         }
         public void SelectItem(Item item) => _overHeadItemDisplay.SelectItem(item, Position);
@@ -133,51 +120,28 @@ namespace EntityEngine.Classes
         {
 
         }
-        public virtual void LoadContent()
+        public virtual void LoadContent(EntityContainer container)
         {
+            Container = container;
             StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
 
             CreateBody(Position);
 
             DirectionMoving = Direction.Down;
-            TargetStage = CurrentStageName;
-            BehaviourManager = new BehaviourManager(this, StatusIcon, Navigator, TileManager);
+            BehaviourManager = new BehaviourManager(this, StatusIcon, Navigator, Container.TileManager);
             BehaviourManager.Load();
             _overHeadItemDisplay = new OverheadItemDisplay();
 
             ToolHandler = new ToolHandler(this, InventoryHandler);
+            Navigator.Load(container.TileManager.PathGrid);
 
+            BehaviourManager.SwitchStage(Container.TileManager);
+            InventoryHandler.SwapItemManager(Container.ItemManager);
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="newStageName"></param>
-        /// <param name="isPlayerPresent"></param>
-        public virtual void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
-        {
-
-            if (CurrentStageName != Flags.StagePlayerIn)
-            {
-                IsInStage = false;
-                RemoveEntityPhysics();
-
-            }
-            else
-            {
-                IsInStage = true;
-            }
-
-            LoadToNewStage(newStageName, tileManager, itemManager);
 
 
-        }
-        public void StartWarp(string stageTo, Vector2 positionTo, TileManager tileManager, ItemManager itemManager, Direction directionToFace)
-        {
-            TileManager = tileManager;
-            _warpHelper.StartWarp(Animator, stageTo, positionTo, directionToFace);
-        }
         internal void LoadAnimations(Animator animator)
         {
             Animator = animator;
@@ -267,10 +231,6 @@ namespace EntityEngine.Classes
             _overHeadItemDisplay.Update(gameTime, Position, LayerDepth);
             ToolHandler.Update(gameTime);
 
-
-
-            if (_warpHelper.IsWarping)
-                CheckOnWarpStatus();
         }
 
         protected void UseHeldItem() => ToolHandler.UseHeldItem();
@@ -278,33 +238,11 @@ namespace EntityEngine.Classes
         protected void ChargeHeldItem(GameTime gameTime, Vector2 aimPosition ) => ToolHandler.ChargeHeldItem(gameTime, aimPosition);
 
         protected virtual void ActivateTool(Tool tool) => ToolHandler.ActivateTool(tool);
-        public void ForceWarpTo(string stageTo, Vector2 position, TileManager tileManager, ItemManager itemManager)
-        {
-            Move(position);
-            SwitchStage(stageTo, tileManager, itemManager);
-            FaceDirection(Direction.Down);
-        }
-        protected virtual void CheckOnWarpStatus()
-        {
-
-            if (_warpHelper.FinishWarpAndFinalMove(Animator, TileManager, InventoryHandler.ItemManager))
-                RestoreEntityPhysics();
-            else
-                RemoveEntityPhysics();
 
 
 
-        }
+ 
 
-        public bool IsInSameStageAs(Entity otherEntity)
-        {
-            return CurrentStageName == otherEntity.CurrentStageName;
-        }
-
-        public bool IsInPlayerStage()
-        {
-            return CurrentStageName == Flags.StagePlayerIn;
-        }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             StatusIcon.Draw(spriteBatch);
@@ -384,46 +322,7 @@ namespace EntityEngine.Classes
             RemoveBigSensorCat((Category)PhysCat.TransparencySensor);
 
         }
-        /// <summary>
-        /// This should be called whenever a player switches stages. If this entity exists in the stage being switched TO, then its body should be loaded
-        /// If the player is switching AWAY from this entity's stage, it should unload its body instead.s
-        /// </summary>
-        /// <param name="newStage"></param>
-        /// <param name="fullyUnload">Characters which should have their positions tracked even when not present on the current stage should not unload their body
-        /// instead they should just turn their bodies into sensors</param>
-        /// 
-        public void PlayerSwitchedStage(string newStage, bool fullyUnload = true)
-        {
-            IsInStage = CurrentStageName == newStage;
 
-            if (IsInStage)
-            {
-                if (MainHullBody == null)
-                    CreateBody(Position);
-                else
-                    RestoreEntityPhysics();
-            }
-            else if (MainHullBody != null)
-            {
-                if (fullyUnload)
-                    CleanUp();
-
-                else
-                    RemoveEntityPhysics();
-            }
-        }
-
-        protected virtual void LoadToNewStage(string newStage, TileManager tileManager, ItemManager itemManager)
-        {
-            // CurrentStageName = newStage;
-            Navigator.Unload();
-
-            Navigator.Load(Container.GetPathGrid(newStage));
-            TileManager = tileManager;
-
-            BehaviourManager.SwitchStage(TileManager);
-            InventoryHandler.SwapItemManager(itemManager);
-        }
 
         protected Direction UpdateDirection()
         {
@@ -445,14 +344,13 @@ namespace EntityEngine.Classes
 
         public void PlayStepSoundFromTile()
         {
-            if (IsInStage)
-            {
-                string soundName = TileManager.GetStepSoundFromPosition(Position);
+          
+                string soundName = Container.TileManager.GetStepSoundFromPosition(Position);
                 if (string.IsNullOrEmpty(soundName))
                     return;
 
                 SoundModuleManager.PlaySpecificSound(soundName);
-            }
+            
         }
 
         //Items
@@ -475,10 +373,10 @@ namespace EntityEngine.Classes
 
         internal void InteractWithTile(Point tilePoint, Layers tileLayer)
         {
-            TileData? tile = TileManager.GetTileDataFromPoint(tilePoint, tileLayer);
+            TileData? tile = Container.TileManager.GetTileDataFromPoint(tilePoint, tileLayer);
             if (tile == null)
                 throw new Exception($"No tile at {tilePoint} at layer {tileLayer.ToString()}!");
-            TileManager.TileObjects[tile.Value.GetKey()].Interact(false, InventoryHandler.HeldItem);
+            Container.TileManager.TileObjects[tile.Value.GetKey()].Interact(false, InventoryHandler.HeldItem);
 
         }
         protected void PerformAction(ActionType actionType)
@@ -506,10 +404,7 @@ namespace EntityEngine.Classes
 
         public virtual void Save(BinaryWriter writer)
         {
-            if (CurrentStageName != null)
-                writer.Write(CurrentStageName);
-            else
-                writer.Write("LullabyTown");
+
 
             Vector2Helper.WriteVector2(writer, Position);
 
@@ -518,8 +413,6 @@ namespace EntityEngine.Classes
         }
         public virtual void LoadSave(BinaryReader reader)
         {
-            //throw new NotImplementedException();
-            CurrentStageName = reader.ReadString();
             Move(Vector2Helper.ReadVector2(reader));
 
             InventoryHandler.LoadSave(reader);

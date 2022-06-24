@@ -26,30 +26,29 @@ namespace EntityEngine.Classes.NPCStuff
         protected NPCData NPCData;
 
 
-        public NPC(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) :
-            base(container, graphics, content)
+        public NPC( GraphicsDevice graphics, ContentManager content) :
+            base(graphics, content)
         {
         }
 
-        public virtual void LoadContent(Vector2? startPos, string? name, bool standardAnimator = true)
+        public virtual void LoadContent(EntityContainer container, Vector2? startPos, string? name, bool standardAnimator = true)
         {
+            base.LoadContent(container);
+
             if (!string.IsNullOrEmpty(name))
             {
 
                 NPCData = EntityFactory.NPCData[name];
                 Name = NPCData.Name;
                 ScheduleName = NPCData.ScheduleName;
-                if (!string.IsNullOrEmpty(NPCData.StartingStage))
-                {
-                    CurrentStageName = NPCData.StartingStage;  
-                }
+
                 if (standardAnimator)
                 {
                     List<AnimatedSprite> sprites = new List<AnimatedSprite>();
                     foreach (AnimationInfo info in NPCData.AnimationInfo)
                     {
                         sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(
-                            Position, info, StageNPCContainer.GetTextureFromNPCType(EntityFactory.NPCData[Name].NPCType),
+                            Position, info, NPCContainer.GetTextureFromNPCType(EntityFactory.NPCData[Name].NPCType),
                             new Rectangle(info.SpriteX * 16,
                             info.SpriteY * 16
                             , NPCData.SpriteWidth,
@@ -61,7 +60,6 @@ namespace EntityEngine.Classes.NPCStuff
                 }
               
             }
-            base.LoadContent();
             if (name != null)
                 Name = name;
             if (startPos != null)
@@ -78,16 +76,10 @@ namespace EntityEngine.Classes.NPCStuff
             Move(Position);
 
             
-            // EntityAnimator = new NPCAnimator(this, )
         }
 
 
-        public override void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
-        {
-            CurrentStageName = newStageName;
-            base.SwitchStage(newStageName, tileManager, itemManager);
-           
-        }
+
 
         public override void Save(BinaryWriter writer)
         {

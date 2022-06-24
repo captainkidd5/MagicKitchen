@@ -43,8 +43,6 @@ namespace EntityEngine.Classes.BehaviourStuff
             else
                 Entity.Halt();
 
-            if(_activeSchedule != null)
-            Entity.TargetStage = _activeSchedule.StageEndLocation;
         }
 
         public override void DrawDebug(SpriteBatch spriteBatch)

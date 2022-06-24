@@ -41,10 +41,7 @@ namespace TiledEngine.Classes
 
 
 
-        public static bool HasEdge(string stageFromName, string stageToName) => _portalLoader.HasEdge(stageFromName, stageToName);
-        public static string GetNextNodeStageName(string stageFromName, string stageToName) => _portalLoader.GetNextNodeStageName(stageFromName, stageToName);
 
-        public static Rectangle GetNextNodePortalRectangle(string stageFromName, string stageToName) => _portalLoader.GetNextPortalRectangle(stageFromName, stageToName);
         internal static TileSetPackage GetPackageFromMapType(MapType mapType) => TilesetPackageManager.GetPackageFromMapType(mapType);
 
         public static ZoneManager ZoneManager;
@@ -76,10 +73,6 @@ namespace TiledEngine.Classes
             FurnitureLoader.LoadContent(content);
         }
        
-        /// <summary>
-        /// Call after all stages have been loaded in at least once so that portal data is complete.
-        /// </summary>
-        public static void FillFinalPortalGraph() => _portalLoader.FillPortalGraph();
 
 
         /// <summary>

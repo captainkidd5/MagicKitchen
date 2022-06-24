@@ -36,8 +36,8 @@ namespace EntityEngine.Classes.NPCStuff.Props
 
         private int _currentPassengerCount;
 
-        public Train(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : 
-            base(container,graphics, content)
+        public Train(GraphicsDevice graphics, ContentManager content) : 
+            base(graphics, content)
         {
             _unloadTimer = new SimpleTimer(_unloadSpeed);
         }
@@ -64,9 +64,9 @@ namespace EntityEngine.Classes.NPCStuff.Props
             if(_unloadTimer.Run(gameTime))
             {
                 _currentPassengerCount--;
-                Container.CreateNPC("patron", new Vector2(
+                (Container as NPCContainer).CreateNPC("patron", new Vector2(
                     Position.X + Settings.Random.Next(0,20),
-                    Position.Y + Settings.Random.Next(40, 60) * -1), false, CurrentStageName);
+                    Position.Y + Settings.Random.Next(40, 60) * -1), false);
             }
             if (_currentPassengerCount == 0)
                 return true;

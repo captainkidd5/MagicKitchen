@@ -31,53 +31,39 @@ namespace StageEngine.Classes
     {
   
         private readonly PlayerManager _playerManager;
-        private readonly NPCManager _npcManager;
         private readonly string _startingStageName = "LullabyTown";
 
 
-        private readonly List<string> _doNotUnloadStages = new List<string>() { "Restaurant" };
 
         public Player Player1 => _playerManager.Player1;
         private Camera2D _camera;
         private readonly PortalManager _portalManager;
 
-        private Dictionary<string, Stage> Stages { get; set; }
         public Stage CurrentStage { get; private set; }
 
 
 
-        private string StageSwitchingTo { get; set; }
 
-        private Vector2 NewPlayerPositionOnStageSwitch { get; set; }
 
         public StageManager(GraphicsDevice graphics, ContentManager content,PlayerManager playerManager, Camera2D camera) : base(graphics, content)
         {
 
-            Stages = new Dictionary<string, Stage>();
             _playerManager = playerManager;
 
             _camera = camera;
             _portalManager = new PortalManager(this);
-            _npcManager = new NPCManager(graphics,content);
         }
 
         public override void LoadContent()
         {
             base.LoadContent();
             LoadStageData();
-            _npcManager.LoadContent();
         }
 
 
 
 
-        public Stage GetStage(string stageName)
-        {
-            Stage stage = Stages[stageName];
-            if (stage == null)
-                throw new Exception($"stage {stageName} not found");
-            return stage;
-        }
+
 
         /// <summary>
         /// Pauses the game and begins the curtain phase
@@ -87,44 +73,24 @@ namespace StageEngine.Classes
         public void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
             UI.DropCurtain(UI.CurtainDropRate, new Action(SwitchStage));
-
-            StageSwitchingTo = newStage;
-            NewPlayerPositionOnStageSwitch = newPlayerPos;
             Flags.Pause = true;
 
         }
         internal void SwitchStage()
         {
-            SongManager.ChangePlaylist(StageSwitchingTo);
             CurrentStage.SaveToStageFile();
 
-            if(ShouldUnloadStage(CurrentStage.Name))
-                CurrentStage.CleanUp();
 
 
-            CurrentStage = GetStage(StageSwitchingTo);
             ItemFactory.WorldItemGenerated += CurrentStage.ItemManager.OnWorldItemGenerated;
 
-            Player1.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
-            _npcManager.SwitchStage(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
-
-            if (ShouldUnloadStage(CurrentStage.Name))
                 CurrentStage.LoadFromStageFile();
 
-            if (_npcManager.CurrentContainer != null)
-                _npcManager.CurrentContainer.CleanUp();
-            _npcManager.CurrentContainer = CurrentStage.NPCContainer;
-            if (CurrentStage == null)
-                throw new Exception("Stage with name" + StageSwitchingTo + "does not exist");
 
             //CurrentStage.LoadFromStageFile();
             
             _camera.Jump(Player1.Position);
-            StageSwitchingTo = null;
-            Debug.Assert(NewPlayerPositionOnStageSwitch != Vector2.Zero, "New player position should not be zero");
-            Player1.Move(NewPlayerPositionOnStageSwitch);
-            NewPlayerPositionOnStageSwitch = Vector2.Zero;
 
             Flags.Pause = false;
             UI.RaiseCurtain(UI.CurtainDropRate);
@@ -143,7 +109,6 @@ namespace StageEngine.Classes
 
                 _playerManager.Update(gameTime);
 
-                _npcManager.Update(gameTime);
 
             }
         }
@@ -151,84 +116,57 @@ namespace StageEngine.Classes
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
 
-            CurrentStage.Draw(spriteBatch, gameTime, _npcManager.PersistentManager);
+            CurrentStage.Draw(spriteBatch, gameTime);
         }
 
         public void DrawLights(SpriteBatch spriteBatch)
         {
             CurrentStage.DrawLights(spriteBatch);
         }
-        private bool ShouldUnloadStage(string stageName)
-        {
-            return !_doNotUnloadStages.Contains(stageName);
-        }
+
 
         public void Save(BinaryWriter writer)
         {
             writer.Write(CurrentStage.Name);
             CurrentStage.SaveToStageFile();
-            _npcManager.Save(writer);
             TileLoader.Save(writer);
             _portalManager.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
         {
-            string currentStageName = reader.ReadString();
-            CurrentStage = GetStage(currentStageName);
-            _npcManager.LoadSave(reader);
+
             TileLoader.LoadSave(reader); 
             _portalManager.LoadSave(reader);
-
-            _npcManager.LoadContent();
+;
 
             //Still need to load all stages for portals and graph
             foreach (KeyValuePair<string, Stage> pair in Stages)
             {
                 pair.Value.LoadFromStageFile();
-                _npcManager.StageGrids.Add(pair.Value.Name, pair.Value.TileManager.PathGrid);
 
-                _npcManager.AssignCharactersToStages(pair.Value.Name, pair.Value.TileManager, pair.Value.ItemManager);
-              
             }
-            TileLoader.FillFinalPortalGraph();
 
-            foreach (KeyValuePair<string, Stage> pair in Stages)
-            {
-                if (pair.Value.Name != currentStageName && ShouldUnloadStage(pair.Value.Name))
-                    pair.Value.Unload();
-            }
+ 
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
         }
         private void LoadStageData()
         {
-            List<StageData> stageData = content.Load<List<StageData>>("maps/StageData");
+            StageData stageData = content.Load<StageData>("maps/StageData");
 
-            foreach (StageData sd in stageData)
-            {
-                Stages.Add(sd.Name, new Stage(this,_playerManager, _npcManager, sd, content, graphics, _camera));
-            }
+         
+          CurrentStage = new Stage(this,_playerManager, stageData, content, graphics, _camera);
+            
         }
         public void CreateNewSave(BinaryWriter writer)
         {
 
             LoadStageData();
             writer.Write(_startingStageName);
+            CurrentStage.CreateNewSave();
 
-            foreach (KeyValuePair<string, Stage> stage in Stages)
-            {
-                stage.Value.CreateNewSave();
-                _portalManager.LoadNewStage(stage.Value.Name, stage.Value.TileManager);
-            
-            }
-            TileLoader.FillFinalPortalGraph();
 
-            foreach (KeyValuePair<string, Stage> stage in Stages)
-            {
-                if (stage.Key != _startingStageName &&  ShouldUnloadStage(stage.Value.Name))
-                    stage.Value.Unload();
-            }
-                Stages.Clear();
+
             TileLoader.Save(writer);
             _portalManager.Save(writer);
             _portalManager.CleanUp();
@@ -239,13 +177,9 @@ namespace StageEngine.Classes
 
         public void CleanUp()
         {
-           foreach(Stage stage in Stages.Values)
-            {
-                stage.CleanUp();
-            }
-            Stages.Clear();
+            CurrentStage.CleanUp();
 
-            _npcManager.CleanUp();
+
             _portalManager.CleanUp();
             TileLoader.Unload();
             CurrentStage = null;

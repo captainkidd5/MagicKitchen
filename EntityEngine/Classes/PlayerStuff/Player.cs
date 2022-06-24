@@ -53,7 +53,8 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
 
-        public Player(StageNPCContainer container, GraphicsDevice graphics, ContentManager content, PlayerManager playerContainer, string name = "playerName") : base(container, graphics, content)
+        public Player(GraphicsDevice graphics, ContentManager content, string name = "playerName") 
+            : base(graphics, content)
         {
             Name = name;
             ScheduleName = "player1";
@@ -61,20 +62,13 @@ namespace EntityEngine.Classes.PlayerStuff
             StorageCapacity = 24;
             XOffSet = 0;
             YOffSet = 8;
-            _playerContainer = playerContainer;
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
             ProgressManager = new ProgressManager();
         }
-        public override void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
+
+        public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string? name, bool standardAnimator = false)
         {
-            Flags.StagePlayerIn = newStageName;
-            CurrentStageName = newStageName;
-            base.SwitchStage(newStageName, tileManager, itemManager);
-            // _playerContainer.PlayerSwitchedStage(newStageName);
-        }
-        public override void LoadContent(Vector2? startPos, string? name, bool standardAnimator = false)
-        {
-            base.LoadContent(startPos, name, standardAnimator);
+            base.LoadContent(entityContainer,startPos, name, standardAnimator);
             ProgressManager.LoadContent();
             UI.LoadPlayerInventory(StorageContainer);
             UI.LoadPlayerUnlockedRecipes(ProgressManager.UnlockedRecipes);
@@ -204,11 +198,7 @@ namespace EntityEngine.Classes.PlayerStuff
         }
 
 
-        protected override void CheckOnWarpStatus()
-        {
-            if (CurrentStageName != Flags.StagePlayerIn)
-                base.CheckOnWarpStatus();
-        }
+
         private void DropHeldItem()
         {
             DropCurrentlyHeldItemToWorld();
@@ -299,16 +289,7 @@ namespace EntityEngine.Classes.PlayerStuff
             _lumenHandler.LoadSave(reader);
         }
 
-        protected override void LoadToNewStage(string newStage, TileManager tileManager, ItemManager itemManager)
-        {
-            Navigator.Unload();
 
-
-            TileManager = tileManager;
-
-            Navigator.Load(TileManager.PathGrid);
-            InventoryHandler.SwapItemManager(itemManager);
-        }
         public List<Fixture> LightsTouching { get; set; }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {

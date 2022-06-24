@@ -33,7 +33,7 @@ namespace EntityEngine.Classes.CharacterStuff
         private Schedule ActiveSchedule { get; set; }
 
 
-        public Character(StageNPCContainer container, GraphicsDevice graphics, ContentManager content) : base(container, graphics, content)
+        public Character(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             
 
@@ -48,7 +48,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
    
 
-            if(IsInStage && ((PlayerInClickRange && MouseHovering)|| (Controls.ControllerConnected && PlayerInControllerActionRange)))
+            if(((PlayerInClickRange && MouseHovering)|| (Controls.ControllerConnected && PlayerInControllerActionRange)))
             {
                 UI.Cursor.ChangeCursorIcon(CursorIconType.Speech);
 
@@ -104,9 +104,6 @@ namespace EntityEngine.Classes.CharacterStuff
             base.ClickInteraction();
         }
 
-        public override void SwitchStage(string newStageName, TileManager tileManager, ItemManager itemManager)
-        {
-            base.SwitchStage(newStageName, tileManager, itemManager);
-        }
+
     }
 }

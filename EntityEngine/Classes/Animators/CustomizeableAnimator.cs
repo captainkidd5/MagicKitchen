@@ -106,8 +106,7 @@ namespace EntityEngine.Classes.Animators
              Layer = SetPositionAndGetEntityLayer(position);
 
             bool resetToResting = !isMoving && WasMovingLastFrame;
-            if (Entity.IsInStage)
-            {
+          
                 for (int i = 0; i < Animations.Length; i++)
                 {
                     if (resetToResting)
@@ -115,7 +114,7 @@ namespace EntityEngine.Classes.Animators
                     Animations[i].Update(gameTime, Entity.DirectionMoving, Position, Layer, isMoving);
                    
                 }
-            }
+            
            
 
             if (!HasLoadUpdatedOnce)

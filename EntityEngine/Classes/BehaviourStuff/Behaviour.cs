@@ -110,10 +110,9 @@ namespace EntityEngine.Classes.BehaviourStuff
         }
         public virtual void DrawDebug(SpriteBatch spriteBatch)
         {
-            if (Entity.IsInStage)
+ 
                 Navigator.DrawDebug(spriteBatch, Color.Green);
-            else
-                Navigator.DrawDebug(spriteBatch, Color.Red);
+      
         }
 
         public virtual bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)

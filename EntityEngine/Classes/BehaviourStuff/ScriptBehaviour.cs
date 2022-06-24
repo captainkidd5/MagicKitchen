@@ -151,7 +151,7 @@ namespace EntityEngine.Classes.BehaviourStuff
             Vector2 targetpos = Vector2.Zero;
             if (!string.IsNullOrEmpty(_currentAction.ZoneEnd))
             {
-                string zoneName = _currentAction.StageEnd ?? Entity.CurrentStageName;
+                string zoneName = _currentAction.StageEnd;
 
                 var stageZones = TileLoader.GetZones(zoneName);
                 var zones = stageZones.Where(x => x.PropertyName == _currentAction.ZoneEnd.Split(',')[0]);
@@ -188,7 +188,6 @@ namespace EntityEngine.Classes.BehaviourStuff
                     targetpos = Vector2Helper.GetWorldPositionFromTileIndex(
                     _currentAction.TileX, _currentAction.TileY);
                 }
-                Entity.TargetStage = zoneName;
 
                 base.GetPath(targetpos, zoneName);
                 // CommandConsole.Append($"{Entity.Name} current location : {Entity.CurrentStageName}");

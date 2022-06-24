@@ -105,15 +105,10 @@ namespace EntityEngine.Classes.BehaviourStuff
             if(_activeSchedule != newSchedule)
             {
                 _activeSchedule = newSchedule;
-                if(_entity.CurrentStageName != _activeSchedule.StageEndLocation)
-                {
-                    CurrentBehaviour = new RouteBehaviour(_entity, _statusIcon, _navigator, _tileManager, _activeSchedule, 2f);
-                }
-                else
-                {
+
                     CurrentBehaviour = BehaviourFromSchedule();
 
-                }
+                
             }
 
         }

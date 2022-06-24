@@ -34,7 +34,7 @@ namespace StageEngine.Classes
         private readonly StageManager _stageManager;
         private readonly PlayerManager _playerManager;
         private readonly StageData _stageData;
-        public StageNPCContainer NPCContainer { get; private set; }
+        public NPCContainer NPCContainer { get; private set; }
 
         private readonly ContentManager _content;
         private readonly GraphicsDevice _graphics;
@@ -59,14 +59,14 @@ namespace StageEngine.Classes
         public List<ILightDrawable> LightDrawables { get; set; }
 
         private FlotsamGenerator _flotsamGenerator;
-        public Stage(StageManager stageManager,PlayerManager playerManager, NPCManager npcManager, StageData stageData, ContentManager content,
+        public Stage(StageManager stageManager,PlayerManager playerManager, StageData stageData, ContentManager content,
             GraphicsDevice graphics, Camera2D camera)
         {
             Name = stageData.Name;
             _stageManager = stageManager;
             _playerManager = playerManager;
             _stageData = stageData;
-            NPCContainer = new StageNPCContainer(npcManager,graphics, content);
+            NPCContainer = new NPCContainer(graphics, content);
             _content = content;
             _graphics = graphics;
             _camera = camera;
@@ -94,14 +94,13 @@ namespace StageEngine.Classes
 
             NPCContainer.Update(gameTime);
         }
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, PersistentManager characterContainer)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
 
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: _camera.GetTransform(_graphics));
             _graphics.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
             TileManager.Draw(spriteBatch);
-            characterContainer.Draw(spriteBatch);
             ItemManager.Draw(spriteBatch);
             _playerManager.Draw(spriteBatch);
             NPCContainer.Draw(spriteBatch);

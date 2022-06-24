@@ -26,8 +26,8 @@ namespace EntityEngine.Classes
 
 
 
-        protected TileManager TileManager;
-        protected ItemManager ItemManager;
+        public TileManager TileManager;
+        public ItemManager ItemManager;
         public EntityContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             Entities = new List<Entity>();
@@ -40,7 +40,7 @@ namespace EntityEngine.Classes
             foreach (Entity entity in Entities)
             {
 
-                entity.LoadContent();
+                entity.LoadContent(this);
             }
         }
 

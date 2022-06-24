@@ -19,8 +19,6 @@ namespace TiledEngine.Classes.Misc
 
         private Dictionary<string, int> s_portalDictionary;
 
-        private PortalGraph s_portalgraph;
-        private GraphTraverser s_graphTraverser;
 
         public PortalLoader()
         {
@@ -33,7 +31,6 @@ namespace TiledEngine.Classes.Misc
         /// </summary>
         public void FillPortalGraph()
         {
-            s_portalgraph = new PortalGraph(s_allPortalData.Count);
             int portalKey = 0;
             s_portalDictionary = new Dictionary<string, int>();
             foreach (PortalData portal in s_allPortalData)
@@ -58,7 +55,6 @@ namespace TiledEngine.Classes.Misc
             //        s_portalgraph.AddEdge(portal.Key, s_portalDictionary[portal.To]);
             //    }
             //}
-            s_graphTraverser = new GraphTraverser(s_portalgraph);
 
         }
 
@@ -69,27 +65,7 @@ namespace TiledEngine.Classes.Misc
             s_allPortalData.AddRange(portalDataFromMap);
         }
 
-        /// <summary>
-        /// Checks to see if two stages are somehow connected, directly or indirectly
-        /// </summary>
-        /// <returns>Returns true if there is any connection</returns>
-        public bool HasEdge(string stageFromName, string stageToName)
-        {
-            return s_portalgraph.HasEdge(s_portalDictionary[stageFromName], s_portalDictionary[stageToName]);
-        }
 
-        /// <summary>
-        /// Gets the next stage in the connection between two nodes
-        /// </summary>
-        /// <returns>Returns the next stage name if found, otherwise returns null</returns>
-        public string GetNextNodeStageName(string stageFromName, string stageToName)
-        {
-            int nextNode =  s_graphTraverser.GetNextNodeInPath(s_portalDictionary[stageFromName], s_portalDictionary[stageToName]);
-            string name = s_portalDictionary.FirstOrDefault(x => x.Value == nextNode).Key;
-            if (string.IsNullOrEmpty(name))
-                return null;
-            return name;
-        }
 
         public  Rectangle GetNextPortalRectangle(string stageFrom, string stageTo)
         {
@@ -107,7 +83,6 @@ namespace TiledEngine.Classes.Misc
         {
             s_allPortalData.Clear();
             s_portalDictionary.Clear();
-            s_portalgraph.Unload();
         }
 
         public void Save(BinaryWriter writer)

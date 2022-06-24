@@ -35,8 +35,7 @@ namespace EntityEngine.Classes.BehaviourStuff
         public override void Update(GameTime gameTime, ref Vector2 velocity)
         {
             base.Update(gameTime, ref velocity);
-            if (Entity.IsInStage)
-            {
+         
                 if (_readyToInteract)
                 {
                     Entity.Halt();
@@ -132,7 +131,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                     Entity.Halt();
 
                 }
-            }
+            
 
         }
 
