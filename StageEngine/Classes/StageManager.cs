@@ -127,13 +127,11 @@ namespace StageEngine.Classes
         {
             writer.Write(CurrentStage.Name);
             CurrentStage.SaveToStageFile();
-            TileLoader.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
         {
 
-            TileLoader.LoadSave(reader); 
 ;
             CurrentStage.LoadFromStageFile();
  
@@ -149,9 +147,7 @@ namespace StageEngine.Classes
             _playerManager.Save(writer);
 
 
-            TileLoader.Save(writer);
 
-            TileLoader.Unload();
 
         }
 
@@ -160,7 +156,6 @@ namespace StageEngine.Classes
             CurrentStage.CleanUp();
 
 
-            TileLoader.Unload();
             CurrentStage = null;
 
         }

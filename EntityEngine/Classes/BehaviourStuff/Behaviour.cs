@@ -47,7 +47,7 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         }
 
-        protected void GetPath(Vector2 newPosition, string destinationStageName = null)
+        protected void GetPath(Vector2 newPosition)
         {
             //Vector2 targetPosition = Vector2.Zero;
             ////Trying to find path to new stage!

@@ -54,7 +54,7 @@ namespace StageEngine.Classes
 
         private PathGrid _pathGrid => TileManager.PathGrid;
 
-        internal bool CamLock => _stageData.MapType == MapType.Exterior;
+        internal bool CamLock = true;
 
         public List<ILightDrawable> LightDrawables { get; set; }
 
@@ -76,7 +76,7 @@ namespace StageEngine.Classes
             Name = _stageData.Name;
             NPCContainer = new NPCContainer(_graphics, _content);
 
-            TileManager = new TileManager(_graphics, _content, _camera, _stageData.MapType);
+            TileManager = new TileManager(_graphics, _content, _camera);
 
             ItemManager = new ItemManager(Name, TileManager);
 

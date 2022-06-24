@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,58 +12,64 @@ namespace TiledEngine.Classes.ZoneStuff
 {
     public class ZoneManager : ISaveable
     {
-        private Dictionary<string, List<SpecialZone>> SpecialZonesDictionary;
-        public List<SpecialZone> GetZones(string stageName)
-        {
-            return SpecialZonesDictionary[stageName];
-        }
+        private List<SpecialZone> SpecialZones;
+
         public ZoneManager()
         {
-            SpecialZonesDictionary = new Dictionary<string, List<SpecialZone>>();
+            SpecialZones = new List<SpecialZone>();
 
         }
 
-        public void CreateNewSave(string stageName, TmxMap tmxMap, TileManager tileManager)
+        public void CreateNewSave(TmxMap tmxMap)
         {
-            SpecialZonesDictionary.Add(stageName, tileManager.LoadZones(tmxMap));
+            SpecialZones = LoadZones(tmxMap);
 
         }
 
-      
+        private List<SpecialZone> LoadZones(TmxMap tmxMap)
+        {
+            TmxObjectGroup zones;
+
+            tmxMap.ObjectGroups.TryGetValue("SpecialZone", out zones);
+            List<SpecialZone> zonesList = new List<SpecialZone>();
+            foreach (TmxObject specialZone in zones.Objects)
+            {
+                SpecialZone zone = new SpecialZone(specialZone.Properties.ElementAt(0).Key,
+                    specialZone.Properties.ElementAt(0).Value, new Rectangle(
+                    (int)specialZone.X,
+                    (int)specialZone.Y,
+                    (int)specialZone.Width,
+                    (int)specialZone.Height));
+                zonesList.Add(zone);
+            }
+            return zonesList;
+        }
         public void Save(BinaryWriter writer)
         {
-            writer.Write(SpecialZonesDictionary.Count);
-            foreach (KeyValuePair<string, List<SpecialZone>> kvp in SpecialZonesDictionary)
+            writer.Write(SpecialZones.Count);
+            foreach (SpecialZone zone in SpecialZones)
             {
-                writer.Write(kvp.Key);
-                writer.Write(kvp.Value.Count);
-                foreach (var zone in kvp.Value)
-                {
-                    zone.Save(writer);
-                }
+                zone.Save(writer);
             }
         }
         public void LoadSave(BinaryReader reader)
         {
-            int dictCount = reader.ReadInt32();
-            for (int i = 0; i < dictCount; i++)
+
+
+            int zoneCount = reader.ReadInt32();
+            for (int j = 0; j < zoneCount; j++)
             {
-                string key = reader.ReadString();
-                List<SpecialZone> zones = new List<SpecialZone>();
-                int zoneCount = reader.ReadInt32();
-                for (int j = 0; j < zoneCount; j++)
-                {
-                    SpecialZone zone = new SpecialZone();
-                    zone.LoadSave(reader);
-                    zones.Add(zone);
-                }
-                SpecialZonesDictionary.Add(key, zones);
+                SpecialZone zone = new SpecialZone();
+                zone.LoadSave(reader);
+                SpecialZones.Add(zone);
             }
+
+
         }
 
         public void CleanUp()
         {
-            SpecialZonesDictionary.Clear();
+            SpecialZones.Clear();
         }
 
     }

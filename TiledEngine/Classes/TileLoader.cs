@@ -41,8 +41,6 @@ namespace TiledEngine.Classes
 
 
 
-        public static ZoneManager ZoneManager;
-        public static List<SpecialZone> GetZones(string stageName) => ZoneManager.GetZones(stageName);
 
         public static FurnitureLoader FurnitureLoader;
         
@@ -57,14 +55,11 @@ namespace TiledEngine.Classes
 
             TileSetPackage.LoadContent(content, "maps/BackgroundMasterSpriteSheet_Spaced", "maps/ForegroundMasterSpriteSheet");
 
-            TmxMap interiorMap = new TmxMap(s_mapPath + "Restaurant.tmx");
 
-            TileSetPackage.LoadContent(content, "maps/BackgroundMasterSpriteSheet_Spaced", "maps/ForegroundMasterSpriteSheet");
 
 
             TileLootManager = new TileLootManager();
             TileLootManager.LoadContent(content, TileSetPackage);
-            ZoneManager = new ZoneManager();
 
             FurnitureLoader = new FurnitureLoader();
             FurnitureLoader.LoadContent(content);
@@ -80,27 +75,14 @@ namespace TiledEngine.Classes
         public static void CreateNewSave(StageData stageData, TileManager tileManager, ContentManager content)
         {
             TmxMap mapToLoad = new TmxMap(s_mapPath + stageData.Path);
-            ZoneManager.CreateNewSave(stageData.Name, mapToLoad, tileManager);
 
-            tileManager.CreateNewSave(tileManager,ExtractTilesFromPreloadedMap(tileManager,mapToLoad), mapToLoad.Width,TileSetPackage);
+            tileManager.CreateNewSave(mapToLoad, ExtractTilesFromPreloadedMap(tileManager,mapToLoad), mapToLoad.Width,TileSetPackage);
 
-
-        }
-
-        public static void Save(BinaryWriter writer)
-        {
-            ZoneManager.Save(writer);
-           
-        }
-        public static void LoadSave(BinaryReader reader)
-        {
-            ZoneManager.LoadSave(reader);
-        }
-        public static void Unload()
-        {
-            ZoneManager.CleanUp();
 
         }
+
+
+        
 
         /// <summary>
         /// Create new tiles based on tiles found in TMX map file. This should

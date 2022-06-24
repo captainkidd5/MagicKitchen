@@ -61,7 +61,7 @@ namespace EntityEngine.Classes.BehaviourStuff
 
                 Vector2 targetpos = Scheduler.GetTargetFromSchedule( _activeSchedule);
 
-                base.GetPath(targetpos, _activeSchedule.StageEndLocation);
+                base.GetPath(targetpos);
 
                 if (Vector2Helper.WithinRangeOf(Entity.Position, targetpos))
                 {

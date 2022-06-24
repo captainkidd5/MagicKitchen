@@ -32,8 +32,7 @@ namespace TiledEngine.Classes
 {
     public class TileManager : Component, ISaveable, ILightDrawable
     {
-        private static int s_viewDistance = 40;
-
+        private TmxMap _tmxMap;
         //Top left of tilesheet is the tile selector. Very nice! Bro this is no longer tru u playin
         internal readonly Rectangle TileSelectorSourceRectangle = new Rectangle(16, 0, 16, 16);
 
@@ -55,6 +54,7 @@ namespace TiledEngine.Classes
 
         public Dictionary<int, TileObject> DeadTileObjects { get; private set; }
 
+        public ZoneManager ZoneManager { get; set; }
 
 
 
@@ -81,13 +81,16 @@ namespace TiledEngine.Classes
             Settings.GameWindow.ClientSizeChanged -= Window_ClientSizeChanged;
 
             Settings.GameWindow.ClientSizeChanged += Window_ClientSizeChanged;
+
+            ZoneManager = new ZoneManager();
         }
 
         /// <summary>
         /// Generic load, should only be called by <see cref="TileLoader.LoadTileManager(string, TileManager)"/>
         /// </summary>
-        internal void CreateNewSave(TileManager tileManager, List<TileData[,]> tiles, int mapWidth, TileSetPackage tileSetPackage)
+        internal void CreateNewSave(TmxMap tmxMap, List<TileData[,]> tiles, int mapWidth, TileSetPackage tileSetPackage)
         {
+            _tmxMap = tmxMap;
 
             TileSetPackage = tileSetPackage;
 
@@ -98,26 +101,11 @@ namespace TiledEngine.Classes
             TileData = tiles;
             TileSelectorSprite = SpriteFactory.CreateWorldSprite(Vector2.Zero, TileSelectorSourceRectangle, TileSetPackage.BackgroundSpriteSheet);
             AssignProperties();
+            ZoneManager.CreateNewSave(tmxMap);
         }
 
 
-        public List<SpecialZone> LoadZones(TmxMap tmxMap)
-        {
-            TmxObjectGroup zones;
-
-            tmxMap.ObjectGroups.TryGetValue("SpecialZone", out zones);
-            List<SpecialZone> zonesList = new List<SpecialZone>();
-            foreach (TmxObject specialZone in zones.Objects)
-            {
-                SpecialZone zone = new SpecialZone(specialZone.Properties.ElementAt(0).Key, specialZone.Properties.ElementAt(0).Value, new Rectangle(
-                    (int)specialZone.X,
-                    (int)specialZone.Y,
-                    (int)specialZone.Width,
-                    (int)specialZone.Height));
-                zonesList.Add(zone);
-            }
-            return zonesList;
-        }
+      
 
         private void AssignProperties()
         {
@@ -453,7 +441,6 @@ namespace TiledEngine.Classes
         }
         public void Save(BinaryWriter writer)
         {
-            writer.Write((int)MapType);
             writer.Write(MapWidth);
             writer.Write(TileData.Count);
 
@@ -480,7 +467,6 @@ namespace TiledEngine.Classes
         }
         public void LoadSave(BinaryReader reader)
         {
-            MapType mapType = (MapType)reader.ReadInt32();
             MapWidth = reader.ReadInt32();
             TileData = new List<TileData[,]>();
             int layerCount = reader.ReadInt32();
@@ -501,7 +487,7 @@ namespace TiledEngine.Classes
             }
             PlacedItemManager.LoadSave(reader);
             //Todo: this is sus
-            CreateNewSave(this, TileData, MapWidth, TileLoader.GetPackageFromMapType(mapType));
+            CreateNewSave(_tmxMap, TileData, MapWidth, TileLoader.TileSetPackage);
 
         }
 
