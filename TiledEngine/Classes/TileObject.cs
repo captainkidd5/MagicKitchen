@@ -30,6 +30,16 @@ namespace TiledEngine.Classes
 
         internal readonly TileManager TileManager;
 
+
+        internal bool IsHighestClearTile()
+        {
+            for(int i = TileManager.TileData.Count - 1; i >= TileData.Layer; i--)
+            {
+                if (!TileManager.TileData[i][TileData.X, TileData.Y].Empty)
+                    return false;
+            }
+            return true;
+        }
         public bool FlaggedForRemoval { get; set; }
 
 
@@ -71,6 +81,7 @@ namespace TiledEngine.Classes
 
         internal void AlertTileManagerCursorIconChanged()
         {
+            
             TileManager.TileToInteractWith = this;
         }
 

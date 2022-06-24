@@ -162,8 +162,22 @@ namespace TiledEngine.Classes
         public TileObject MouseOverTile { get; private set; }
 
         internal TileObject TileToInteractWith { get; set; }
+
+        internal Layers TopLeftPrecedence;
+
+        internal bool CheckPrecedence(Layers layer)
+        {
+            if (layer >= TopLeftPrecedence)
+            {
+                layer = TopLeftPrecedence;
+                return true;
+
+            }
+            return false;
+        }
         public void Update(GameTime gameTime)
         {
+            TopLeftPrecedence = 0;
             DeadTileObjects.Clear();
             CalculateStartAndEndIndexes();
             CalculateMouseIndex();
@@ -211,8 +225,9 @@ namespace TiledEngine.Classes
 
             
 
-            if (MouseOverTile != null)
-                TileSelectorSprite.Update(gameTime, MouseOverTile.Position);
+            if (TileToInteractWith != null)
+                TileSelectorSprite.Update(gameTime, new Vector2(TileToInteractWith.Position.X + TileToInteractWith.SourceRectangle.Width - 16,
+                    TileToInteractWith.Position.Y +TileToInteractWith.SourceRectangle.Height - 16));
             CheckMouseTileInteractions(gameTime);
 
 
@@ -246,16 +261,20 @@ namespace TiledEngine.Classes
             {
                 if (Controls.IsClickedWorld || Controls.DidGamePadSelectWorld)
                 {
+                    if(TileLocationHelper.IsAdjacentTo(MouseOverTile.TileData, Shared.PlayerPosition))
+                    {
+
                     //Do not interact if another non empty tile has a layer greater than the one we
                     //are trying to interact with
                     // if(MouseOverTile.Layer <= TileToInteractWith.Layer)
                     // {
                     MouseOverTile.Interact(true, UI.PlayerCurrentSelectedItem);
-                    //       }
+                        //       }
+                    }
 
                 }
                 //moreover, if tile to interact with is real, we want to make sure that tile selector sprite draws here instead
-                TileSelectorSprite.Update(gameTime, MouseOverTile.Position);
+                TileSelectorSprite.Update(gameTime, new Vector2(MouseOverTile.Position.X + MouseOverTile.SourceRectangle.Width - 16, MouseOverTile.Position.Y + MouseOverTile.SourceRectangle.Height - 16));
 
 
             }

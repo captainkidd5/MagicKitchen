@@ -133,7 +133,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
             }
 
             _position = new Vector2(_tileManager.MouseOverTile.Position.X,
-                _tileManager.MouseOverTile.Position.Y - ySubtractionAmt);
+                _tileManager.MouseOverTile.Position.Y - ySubtractionAmt - 16 + _tileManager.MouseOverTile.SourceRectangle.Height);
 
             Rectangle rect = RectangleHelper.RectFromPosition(
               new Vector2(_position.X, _position.Y + ySubtractionAmt), _obstructedArea.Width, _obstructedArea.Height);

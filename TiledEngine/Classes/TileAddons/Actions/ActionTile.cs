@@ -1,4 +1,5 @@
 ﻿using DataModels.ItemStuff;
+using Globals.Classes;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
@@ -76,7 +77,11 @@ namespace TiledEngine.Classes.TileAddons.Actions
             {
                 Tile.WithinRangeOfPlayer = true;
                 if (IsHovered(Controls.ControllerConnected))
-                    AlterCursorAndAlertTile();
+                {
+                    if(Tile.TileManager.CheckPrecedence((Layers)Tile.TileData.Layer))
+                        AlterCursorAndAlertTile();
+
+                }
 
             }
 
@@ -86,7 +91,12 @@ namespace TiledEngine.Classes.TileAddons.Actions
 
         protected virtual bool WithinRangeOfPlayer()
         {
-            return (PlayerInClickRange && MouseHovering || PlayerInControllerActionRange);
+            if (PlayerInClickRange)
+            {
+                if (MouseHovering || PlayerInControllerActionRange)
+                    return true;
+            }
+            return false;
         }
 
         protected virtual void AlterCursorAndAlertTile()

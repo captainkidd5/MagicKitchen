@@ -90,9 +90,9 @@ namespace TiledEngine.Classes
             int gidToCheck = gid;
             if (gid > _backgroundTileCount)
                 gidToCheck = OffSetForegroundGID(gidToCheck);
-            if (GetDictionary(gid).ContainsKey(gidToCheck))
-                return GetDictionary(gid)[gidToCheck];
-            return null;
+            TmxTilesetTile t;
+             GetDictionary(gid).TryGetValue(gidToCheck, out t);
+            return t;
         }
 
         private Dictionary<int, TmxTilesetTile> GetDictionary(int gid)

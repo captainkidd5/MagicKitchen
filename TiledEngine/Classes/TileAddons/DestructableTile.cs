@@ -1,4 +1,5 @@
 ﻿using DataModels.ItemStuff;
+using Globals.Classes;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
@@ -86,6 +87,8 @@ namespace TiledEngine.Classes.TileAddons
                 if (!PlayerInClickRange && !PlayerInControllerActionRange)
                     return;
                 if (!MeetsItemRequirements(heldItem))
+                    return;
+                if (Tile.TileManager.TileLocationHelper.IsOnTopOf(Tile.TileData, Shared.PlayerPosition))
                     return;
             }
 

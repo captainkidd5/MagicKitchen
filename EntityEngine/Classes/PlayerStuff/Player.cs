@@ -102,11 +102,11 @@ namespace EntityEngine.Classes.PlayerStuff
 
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() {
                 (Category)PhysCat.PlayerBigSensor }, new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Tool,(Category)PhysCat.Portal,
-                    (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.NPC, (Category)PhysCat.LightSource },
+                    (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.NPC, (Category)PhysCat.LightSource,(Category)PhysCat.ActionTile },
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
 
-            FrontalSensor = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, position, 16f, 16f, new List<Category>() {
+            FrontalSensor = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, position, 12f, 12f, new List<Category>() {
                 (Category)PhysCat.FrontalSensor }, BigSensorCollidesWithCategories,
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(FrontalSensor);

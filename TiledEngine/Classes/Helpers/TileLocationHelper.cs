@@ -21,6 +21,19 @@ namespace TiledEngine.Classes.Helpers
         {
             _tileManager = tileManager;
         }
+
+        public bool IsAdjacentTo(TileData tileData, Vector2 position)
+        {
+            Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(tileData.X, tileData.Y);
+            float distance = Vector2.Distance(position, tilePos + new Vector2(8,8));
+
+            return distance < Settings.TileSize * 1.5f;
+           
+        }
+        public bool IsOnTopOf(TileData tileData, Vector2 position)
+        {
+            return tileData.GetPoint() ==  Vector2Helper.WorldPositionToTilePositionAsPoint(position);
+        }
         /// <summary>
         /// Gets a "ring" of clear points around a tile. Tile may span more than a tile. 
         /// </summary>
