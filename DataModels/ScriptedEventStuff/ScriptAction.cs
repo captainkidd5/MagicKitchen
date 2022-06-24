@@ -17,7 +17,6 @@ namespace DataModels.ScriptedEventStuff
         public int TileX { get; set; }
         public int TileY { get; set; }
 
-        public string StageEnd { get; set; }
         public string ZoneStart { get; set; }
         public string ZoneEnd { get; set; }
 

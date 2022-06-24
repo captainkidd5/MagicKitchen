@@ -71,6 +71,8 @@ namespace StageEngine.Classes
         public void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
             UI.DropCurtain(UI.CurtainDropRate, new Action(EnterWorld));
+            _playerManager.LoadContent();
+
             Flags.Pause = true;
 
         }
@@ -88,7 +90,6 @@ namespace StageEngine.Classes
 
 
 
-            _playerManager.LoadContent();
             _camera.Jump(Player1.Position);
 
             Flags.Pause = false;

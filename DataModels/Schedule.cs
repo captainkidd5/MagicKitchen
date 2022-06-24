@@ -38,8 +38,7 @@ namespace DataModels
         //Jan4,2:20_AM-3:40_AM
         public string Date { get; set; }
 
-        //Name of the stage to end at
-        public string StageEndLocation { get; set; }
+      
         public int TileX { get; set; }
         public int TileY { get; set; }
 

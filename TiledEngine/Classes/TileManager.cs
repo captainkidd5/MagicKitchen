@@ -486,7 +486,6 @@ namespace TiledEngine.Classes
                 }
             }
             PlacedItemManager.LoadSave(reader);
-            //Todo: this is sus
             CreateNewSave(_tmxMap, TileData, MapWidth, TileLoader.TileSetPackage);
 
         }

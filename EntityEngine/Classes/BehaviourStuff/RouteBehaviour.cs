@@ -22,7 +22,6 @@ namespace EntityEngine.Classes.BehaviourStuff
    
 
 
-        public string TargetLocation => _activeSchedule.StageEndLocation;
         public RouteBehaviour(Entity entity,StatusIcon statusIcon, Navigator navigator,TileManager tileManager,
             Schedule activeSchedule, float? scheduleCheckFrequency) :
             base(entity,statusIcon, navigator,tileManager, scheduleCheckFrequency)

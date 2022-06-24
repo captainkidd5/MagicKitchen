@@ -42,7 +42,7 @@ namespace EntityEngine.Classes.BehaviourStuff
         public void Load()
         {
             _simpleTimer = new SimpleTimer(2f);
-            //CheckForUpdatedSchedule();
+            CheckForUpdatedSchedule();
 
 
         }

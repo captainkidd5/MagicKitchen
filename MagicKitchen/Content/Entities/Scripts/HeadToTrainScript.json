@@ -7,7 +7,6 @@
         "ScriptActions": [
             {
                 "Type":"Move",
-                "StageEnd":"LullabyTown",
                 "ZoneEnd": "passenger,loading",
                 "Speed": 3
 

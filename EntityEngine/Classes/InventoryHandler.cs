@@ -23,11 +23,7 @@ namespace EntityEngine.Classes
             StorageContainer = new StorageContainer(capacity);
         }
 
-        public void SwitchStage(ItemManager itemManager)
-        {
-            ItemManager = itemManager;
 
-        }
         /// <summary>
         /// Need reference to new stage items
         /// </summary>

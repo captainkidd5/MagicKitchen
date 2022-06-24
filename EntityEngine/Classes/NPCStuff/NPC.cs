@@ -33,7 +33,6 @@ namespace EntityEngine.Classes.NPCStuff
 
         public virtual void LoadContent(EntityContainer container, Vector2? startPos, string? name, bool standardAnimator = true)
         {
-            base.LoadContent(container);
 
             if (!string.IsNullOrEmpty(name))
             {
@@ -62,6 +61,8 @@ namespace EntityEngine.Classes.NPCStuff
             }
             if (name != null)
                 Name = name;
+            base.LoadContent(container);
+
             if (startPos != null)
                 Move(startPos.Value);
 

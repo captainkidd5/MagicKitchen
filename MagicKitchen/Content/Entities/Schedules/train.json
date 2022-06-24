@@ -1,7 +1,6 @@
 [
         {
         "Date": "Jan1,12:00_AM-12:20AM",
-        "StageEndLocation": "LullabyTown",
         "TileX": 4,
         "TileY": 4,
         "EndBehaviour" : "CustomScript",

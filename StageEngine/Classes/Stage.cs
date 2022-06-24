@@ -170,8 +170,9 @@ namespace StageEngine.Classes
         {
             TileManager.LoadSave(reader);
             ItemManager.LoadSave(reader);
-            NPCContainer.LoadSave(reader);
             NPCContainer.LoadContent(Name, TileManager, ItemManager);
+
+            NPCContainer.LoadSave(reader);
 
         }
         public void Unload()

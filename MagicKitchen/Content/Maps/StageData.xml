@@ -5,7 +5,6 @@
             <Id>1</Id>
             <Name>LullabyTown</Name>
             <Path>LullabyTown.tmx</Path>
-            <MapType>Exterior</MapType>
             <AmbientSoundPackageName>Overworld_Outside</AmbientSoundPackageName>
 
 
