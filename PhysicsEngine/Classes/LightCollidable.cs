@@ -26,7 +26,7 @@ namespace PhysicsEngine.Classes
             base.CreateBody(position);
 
             if (MainHullBody == null)
-                MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, _lightSprite.Sprite.Width, new List<Category>() { (Category)PhysCat.LightSource },
+                MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, _lightSprite.Sprite.Width * _lightSprite.Sprite.Scale.X /4, new List<Category>() { (Category)PhysCat.LightSource },
                     new List<Category>() { (Category)PhysCat.PlayerBigSensor }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this);
         }
         public override void Update(GameTime gameTime)

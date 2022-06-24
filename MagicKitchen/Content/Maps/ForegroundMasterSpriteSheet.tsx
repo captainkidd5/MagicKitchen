@@ -34,7 +34,6 @@
  <tile id="215">
   <properties>
    <property name="animate" value="pause"/>
-   <property name="lightSource" value="1,8,0,Warm"/>
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -286,7 +285,7 @@
  </tile>
  <tile id="1935">
   <properties>
-   <property name="lightSource" value="3,8,0,Nautical"/>
+   <property name="lightSource" value="2,8,8,Nautical"/>
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
   <objectgroup draworder="index" id="3">
@@ -297,7 +296,7 @@
  </tile>
  <tile id="1942">
   <properties>
-   <property name="lightSource" value="3,8,0,Nautical"/>
+   <property name="lightSource" value="3,8,8,Warm"/>
    <property name="newHitBox" value="8,0,16,16"/>
    <property name="newSource" value="0,-32,32,48"/>
   </properties>

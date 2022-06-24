@@ -120,6 +120,7 @@ namespace EntityEngine.Classes.PlayerStuff
             
             _lumenHandler = new LumenHandler(LightSensor);
             //AddLight(LightType.Warm,new Vector2(XOffSet * -1, YOffSet * -1), 1f);
+            LightsTouching = new List<Fixture>();
         }
 
         /// <summary>
@@ -180,7 +181,7 @@ namespace EntityEngine.Classes.PlayerStuff
                     UseHeldItem();
                 }
             }
-
+            _lumenHandler.Illuminated = LightsTouching.Count > 0;
             _lumenHandler.HandleLumens(gameTime);
 
             if (UI.TalkingWindow.IsActive)
@@ -307,6 +308,25 @@ namespace EntityEngine.Classes.PlayerStuff
 
             Navigator.Load(TileManager.PathGrid);
             InventoryHandler.SwapItemManager(itemManager);
+        }
+        public List<Fixture> LightsTouching { get; set; }
+        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.LightSource))
+            {
+                LightsTouching.Add(fixtureB);
+            }
+                return base.OnCollides(fixtureA, fixtureB, contact);
+        }
+
+        protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            base.OnSeparates(fixtureA, fixtureB, contact);
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.LightSource))
+            {
+                //if (LightsTouching.Contains(fixtureB))
+                    LightsTouching.Remove(fixtureB);
+            }
         }
     }
 }

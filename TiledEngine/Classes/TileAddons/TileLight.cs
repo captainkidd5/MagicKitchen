@@ -30,11 +30,14 @@ namespace TiledEngine.Classes.TileAddons
             CreateBody(Tile.Position + new Vector2(_pointOffset.X, _pointOffset.Y));
             AddLight(_lightType, new Vector2(_pointOffset.X, _pointOffset.Y), _lightRadius);
         }
-
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
         protected override void CreateBody(Vector2 position)
         {
-            AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, Tile.Position, 4f,
-                new List<Category>() { (Category)PhysCat.LightSource }, null, null, null,
+            AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 4f,
+                new List<Category>() { (Category)PhysCat.LightSource }, new List<Category>() { (Category)PhysCat.PlayerBigSensor }, null, null,
               isSensor:true));
         }
 

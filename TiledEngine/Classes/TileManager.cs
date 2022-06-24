@@ -226,7 +226,7 @@ namespace TiledEngine.Classes
             
 
             if (TileToInteractWith != null)
-                TileSelectorSprite.Update(gameTime, new Vector2(TileToInteractWith.Position.X + TileToInteractWith.SourceRectangle.Width - 16,
+                TileSelectorSprite.Update(gameTime, new Vector2(TileToInteractWith.Position.X + TileToInteractWith.SourceRectangle.Width / 2 - 8,
                     TileToInteractWith.Position.Y +TileToInteractWith.SourceRectangle.Height - 16));
             CheckMouseTileInteractions(gameTime);
 
@@ -274,7 +274,8 @@ namespace TiledEngine.Classes
 
                 }
                 //moreover, if tile to interact with is real, we want to make sure that tile selector sprite draws here instead
-                TileSelectorSprite.Update(gameTime, new Vector2(MouseOverTile.Position.X + MouseOverTile.SourceRectangle.Width - 16, MouseOverTile.Position.Y + MouseOverTile.SourceRectangle.Height - 16));
+                TileSelectorSprite.Update(gameTime, new Vector2(MouseOverTile.Position.X + MouseOverTile.SourceRectangle.Width/2 - 8,
+                    MouseOverTile.Position.Y + MouseOverTile.SourceRectangle.Height - 16));
 
 
             }

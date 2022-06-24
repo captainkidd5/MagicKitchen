@@ -17,10 +17,11 @@ namespace EntityEngine.Classes.PlayerStuff
 
         protected HullBody LightSensor { get; set; }
 
-        public bool Illuminated { get; private set; }
+        public bool Illuminated { get;  set; }
 
         private float _lumenRechargeRate = .5f;
         private SimpleTimer _lumenRechargeTimer;
+        
         public LumenHandler(HullBody lightSensor)
         {
             LightSensor = lightSensor;
@@ -37,14 +38,8 @@ namespace EntityEngine.Classes.PlayerStuff
         /// <param name="gameTime"></param>
         public void HandleLumens(GameTime gameTime)
         {
-            Illuminated = false;
 
-            if (LightSensor.Body.ContactList != null)
-            {
-                if (LightSensor.Body.ContactList.Contact.IsTouching)
-                    Illuminated = true;
-            }
-
+         
             if (Illuminated)
             {
                 RechargeLumens(gameTime);
@@ -53,6 +48,8 @@ namespace EntityEngine.Classes.PlayerStuff
             {
                 DrainLumens(gameTime);
             }
+            Illuminated = false;
+
         }
 
         private void RechargeLumens(GameTime gameTime)
