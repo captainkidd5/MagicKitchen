@@ -31,9 +31,9 @@ namespace StageEngine.Classes
     {
         public string Name { get; private set; }
 
-        private readonly StageManager _stageManager;
-        private readonly PlayerManager _playerManager;
-        private readonly StageData _stageData;
+        private  StageManager _stageManager;
+        private  PlayerManager _playerManager;
+        private  StageData _stageData;
         public NPCContainer NPCContainer { get; private set; }
 
         private readonly ContentManager _content;
@@ -59,27 +59,31 @@ namespace StageEngine.Classes
         public List<ILightDrawable> LightDrawables { get; set; }
 
         private FlotsamGenerator _flotsamGenerator;
-        public Stage(StageManager stageManager,PlayerManager playerManager, StageData stageData, ContentManager content,
+        public Stage(ContentManager content,
             GraphicsDevice graphics, Camera2D camera)
         {
-            Name = stageData.Name;
-            _stageManager = stageManager;
-            _playerManager = playerManager;
-            _stageData = stageData;
-            NPCContainer = new NPCContainer(graphics, content);
+
             _content = content;
             _graphics = graphics;
             _camera = camera;
-            TileManager = new TileManager(graphics, content, camera, _stageData.MapType);
+            
 
-            ItemManager = new ItemManager(Name,TileManager);
-
-            _flotsamGenerator = new FlotsamGenerator(ItemManager, TileManager);
-
-            LightDrawables = new List<ILightDrawable>() {TileManager, NPCContainer, _playerManager };
         }
 
+        public void Load(StageData stageData, StageManager stageManager, PlayerManager playerManager)
+        {
+            _stageData = stageData;
+            Name = _stageData.Name;
+            NPCContainer = new NPCContainer(_graphics, _content);
 
+            TileManager = new TileManager(_graphics, _content, _camera, _stageData.MapType);
+
+            ItemManager = new ItemManager(Name, TileManager);
+
+            _flotsamGenerator = new FlotsamGenerator(ItemManager, TileManager);
+            LightDrawables = new List<ILightDrawable>() { TileManager, NPCContainer, _playerManager };
+
+        }
 
         public void Update(GameTime gameTime)
         {
@@ -126,11 +130,9 @@ namespace StageEngine.Classes
 
             TileLoader.CreateNewSave(_stageData, TileManager, _content);
             MapRectangle = TileManager.MapRectangle;
-            //TileLoader.LoadStagePortals(_stageData, TileManager);
-            //_portalManager.LoadNewStage(Name, TileManager);
 
             SaveToStageFile();
-            //TileManager.CleanUp();
+
 
         }
 

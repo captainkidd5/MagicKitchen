@@ -15,32 +15,20 @@ namespace TiledEngine.Classes
 
         public TileSetPackage ExteriorTileSetPackage { get; private set; }
 
-        public TileSetPackage InteriorTileSetPackage { get; private set; }
+
         public TilesetPackageManager()
         {
 
         }
 
-        public void LoadContent(ContentManager content, TmxMap exteriorMap, TmxMap interiorMap)
+        public void LoadContent(ContentManager content, TmxMap exteriorMap)
         {
             ExteriorTileSetPackage = new TileSetPackage(exteriorMap);
             ExteriorTileSetPackage.LoadContent(content, "maps/BackgroundMasterSpriteSheet_Spaced", "maps/ForegroundMasterSpriteSheet");
 
-            InteriorTileSetPackage = new TileSetPackage(interiorMap);
-            InteriorTileSetPackage.LoadContent(content, "maps/InteriorBackground_Spaced", "maps/InteriorForeground");
 
         }
 
-        public TileSetPackage GetPackageFromMapType(MapType mapType)
-        {
-            if (mapType == MapType.Exterior)
-                return ExteriorTileSetPackage;
 
-
-            if (mapType == MapType.Interior)
-                return InteriorTileSetPackage;
-
-            throw new Exception($"No sprite sheet associated with map type {mapType.ToString()}");
-        }
     }
 }

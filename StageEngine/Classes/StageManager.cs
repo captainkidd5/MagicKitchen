@@ -36,7 +36,6 @@ namespace StageEngine.Classes
 
         public Player Player1 => _playerManager.Player1;
         private Camera2D _camera;
-        private readonly PortalManager _portalManager;
 
         public Stage CurrentStage { get; private set; }
 
@@ -50,13 +49,13 @@ namespace StageEngine.Classes
             _playerManager = playerManager;
 
             _camera = camera;
-            _portalManager = new PortalManager(this);
+            CurrentStage = new Stage(content, graphics, _camera);
+
         }
 
         public override void LoadContent()
         {
             base.LoadContent();
-            LoadStageData();
         }
 
 
@@ -71,12 +70,15 @@ namespace StageEngine.Classes
         /// <exception cref="Exception"></exception>
         public void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
-            UI.DropCurtain(UI.CurtainDropRate, new Action(EnterWOrld));
+            UI.DropCurtain(UI.CurtainDropRate, new Action(EnterWorld));
             Flags.Pause = true;
 
         }
-        internal void EnterWOrld()
+        internal void EnterWorld()
         {
+            StageData stageData = content.Load<StageData>("maps/StageData");
+
+            CurrentStage.Load(stageData, this, _playerManager);
             CurrentStage.SaveToStageFile();
 
 
@@ -84,7 +86,6 @@ namespace StageEngine.Classes
             ItemFactory.WorldItemGenerated += CurrentStage.ItemManager.OnWorldItemGenerated;
 
 
-                CurrentStage.LoadFromStageFile();
 
 
             _playerManager.LoadContent();
@@ -102,7 +103,6 @@ namespace StageEngine.Classes
 
             if (!Flags.Pause)
             {
-                _portalManager.Update(gameTime);
                 CurrentStage.Update(gameTime);
 
                 _playerManager.Update(gameTime);
@@ -128,39 +128,28 @@ namespace StageEngine.Classes
             writer.Write(CurrentStage.Name);
             CurrentStage.SaveToStageFile();
             TileLoader.Save(writer);
-            _portalManager.Save(writer);
         }
 
         public void LoadSave(BinaryReader reader)
         {
 
             TileLoader.LoadSave(reader); 
-            _portalManager.LoadSave(reader);
 ;
             CurrentStage.LoadFromStageFile();
  
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
         }
-        private void LoadStageData()
+
+        public void CreateNewSave(BinaryWriter writer)
         {
             StageData stageData = content.Load<StageData>("maps/StageData");
 
-         
-          CurrentStage = new Stage(this,_playerManager, stageData, content, graphics, _camera);
-            
-        }
-        public void CreateNewSave(BinaryWriter writer)
-        {
-
-            LoadStageData();
+            CurrentStage.Load(stageData, this, _playerManager);
             CurrentStage.CreateNewSave();
-           // _playerManager.LoadContent(
             _playerManager.Save(writer);
 
 
             TileLoader.Save(writer);
-            _portalManager.Save(writer);
-            _portalManager.CleanUp();
 
             TileLoader.Unload();
 
@@ -171,7 +160,6 @@ namespace StageEngine.Classes
             CurrentStage.CleanUp();
 
 
-            _portalManager.CleanUp();
             TileLoader.Unload();
             CurrentStage = null;
 

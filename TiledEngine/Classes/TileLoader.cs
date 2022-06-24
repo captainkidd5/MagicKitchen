@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Text;
 using TiledSharp;
 using Penumbra;
-using TiledEngine.Classes.Misc;
 using Microsoft.Xna.Framework;
 using System.Reflection;
 using System.IO;
@@ -34,15 +33,13 @@ namespace TiledEngine.Classes
 
         private static string s_mapPath;
 
-        private static PortalLoader _portalLoader;
 
-        internal static TilesetPackageManager TilesetPackageManager;
+        internal static TileSetPackage TileSetPackage;
         internal static TileLootManager TileLootManager;
 
 
 
 
-        internal static TileSetPackage GetPackageFromMapType(MapType mapType) => TilesetPackageManager.GetPackageFromMapType(mapType);
 
         public static ZoneManager ZoneManager;
         public static List<SpecialZone> GetZones(string stageName) => ZoneManager.GetZones(stageName);
@@ -56,17 +53,17 @@ namespace TiledEngine.Classes
         {
             s_mapPath = content.RootDirectory + "/Maps/";
             TmxMap worldMap = new TmxMap(s_mapPath + "LullabyTown.tmx");
-            TilesetPackageManager = new TilesetPackageManager();
+            TileSetPackage = new TileSetPackage(worldMap);
 
+            TileSetPackage.LoadContent(content, "maps/BackgroundMasterSpriteSheet_Spaced", "maps/ForegroundMasterSpriteSheet");
 
             TmxMap interiorMap = new TmxMap(s_mapPath + "Restaurant.tmx");
 
-            TilesetPackageManager.LoadContent(content, worldMap, interiorMap);
+            TileSetPackage.LoadContent(content, "maps/BackgroundMasterSpriteSheet_Spaced", "maps/ForegroundMasterSpriteSheet");
 
-            _portalLoader = new PortalLoader();
 
             TileLootManager = new TileLootManager();
-            TileLootManager.LoadContent(content, TilesetPackageManager.ExteriorTileSetPackage);
+            TileLootManager.LoadContent(content, TileSetPackage);
             ZoneManager = new ZoneManager();
 
             FurnitureLoader = new FurnitureLoader();
@@ -83,31 +80,25 @@ namespace TiledEngine.Classes
         public static void CreateNewSave(StageData stageData, TileManager tileManager, ContentManager content)
         {
             TmxMap mapToLoad = new TmxMap(s_mapPath + stageData.Path);
-            tileManager.MapType = stageData.MapType;
             ZoneManager.CreateNewSave(stageData.Name, mapToLoad, tileManager);
 
-            tileManager.CreateNewSave(tileManager,ExtractTilesFromPreloadedMap(tileManager,mapToLoad), mapToLoad.Width,
-                GetPackageFromMapType(stageData.MapType));
+            tileManager.CreateNewSave(tileManager,ExtractTilesFromPreloadedMap(tileManager,mapToLoad), mapToLoad.Width,TileSetPackage);
 
-            _portalLoader.AddPortals(tileManager.LoadPortals(mapToLoad));
 
         }
 
         public static void Save(BinaryWriter writer)
         {
             ZoneManager.Save(writer);
-            _portalLoader.Save(writer);
            
         }
         public static void LoadSave(BinaryReader reader)
         {
             ZoneManager.LoadSave(reader);
-            _portalLoader.LoadSave(reader); 
         }
         public static void Unload()
         {
             ZoneManager.CleanUp();
-            _portalLoader.CleanUp();
 
         }
 

@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using TiledEngine.Classes.Helpers;
-using TiledEngine.Classes.Misc;
 using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
 using TiledSharp;
@@ -93,14 +92,7 @@ namespace TiledEngine.Classes
                 string propertyString;
 
                 TmxTilesetTile tileSetTile = tileSetPackage.GetTmxTileSetTile(tileData.GID);
-                propertyString = "portal";
 
-                if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
-                {
-
-                    PortalData portaldata = PortalData.PortalFromPropertyString(propertyString, tileObject.Position);
-                    tileManager.Portals.Add(portaldata);
-                }
                 propertyString = "newSource";
 
                 if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))

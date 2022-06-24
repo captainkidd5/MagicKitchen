@@ -18,7 +18,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using TiledEngine.Classes.Helpers;
-using TiledEngine.Classes.Misc;
 using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
 using TiledEngine.Classes.TilePlacementStuff;
@@ -58,7 +57,6 @@ namespace TiledEngine.Classes
 
 
 
-        public List<PortalData> Portals { get; private set; }
 
         public TileLocator TileLocator { get; private set; }
         internal PlacedOnItemManager PlacedItemManager { get; set; }
@@ -66,15 +64,12 @@ namespace TiledEngine.Classes
         private Sprite TileSelectorSprite { get; set; }
 
         public TileLocationHelper TileLocationHelper { get; set; }
-        public MapType MapType { get; internal set; }
 
         public bool JustResizedWindow { get; set; }
-        public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera, MapType mapType) :
+        public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera) :
             base(graphics, content)
         {
             OffSetLayersDictionary = new Dictionary<int, float>();
-            Portals = new List<PortalData>();
-            MapType = mapType;
             _camera = camera;
             TileLocator = new TileLocator();
             PlacedItemManager = new PlacedOnItemManager(this);
@@ -105,23 +100,7 @@ namespace TiledEngine.Classes
             AssignProperties();
         }
 
-        /// <summary>
-        /// Grabs all of the objects from tmx map LAYER "Portal"
-        /// </summary>
-        internal List<PortalData> LoadPortals(TmxMap tmxMap)
-        {
-            LoadZones(tmxMap);
-            TmxObjectGroup portals;
 
-            tmxMap.ObjectGroups.TryGetValue("Portal", out portals);
-            foreach (TmxObject portal in portals.Objects)
-            {
-                Portals.Add(new PortalData(new Rectangle((int)portal.X, (int)portal.Y, (int)portal.Width, (int)portal.Height),
-                    portal.Properties["from"], portal.Properties["to"], int.Parse(portal.Properties["xOffSet"]), int.Parse(portal.Properties["yOffSet"]),
-                    (Direction)Enum.Parse(typeof(Direction), portal.Properties["directionToFace"]), bool.Parse(portal.Properties["Click"])));
-            }
-            return Portals;
-        }
         public List<SpecialZone> LoadZones(TmxMap tmxMap)
         {
             TmxObjectGroup zones;
