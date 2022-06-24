@@ -120,7 +120,6 @@ namespace MagicKitchen
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
             SongManager.Load(Content);
             UI.Load(this, GraphicsDevice, Content, _mainMenuContentManager);
-            _playerManager.LoadContent();
 
             SoundFactory.Load(Content);
 
@@ -233,7 +232,6 @@ namespace MagicKitchen
 
             BinaryWriter writer = e.BinaryWriter;
             Clock.Save(writer);
-            _playerManager.Save(writer);
             _stageManager.CreateNewSave(writer);
             _playerManager.Player1.GiveItem("Wooden_Hook", 1);
             SaveLoadManager.DestroyWriter(writer);

@@ -76,25 +76,7 @@ namespace StageEngine.Classes
             MainHullBody.Body.AngularVelocity = 0f;
             if (PlayerInClickRange)
             {
-                if (From == _stageManager.Player1.CurrentStageName)
-                {
-
-                    if (_mustBeClicked && PlayerInClickRange && (MouseHovering || PlayerInControllerActionRange))
-                    {
-                        UI.Cursor.ChangeCursorIcon(CursorIconType.Door);
-                        //Controls.UpdateCursor();
-
-                        if (Controls.IsClickedWorld)
-                        {
-
-                            _stageManager.RequestSwitchStage(To, _portalManager.GetDestinationPosition(this));
-                            UI.Cursor.ChangeCursorIcon(CursorIconType.None);
-                            _stageManager.Player1.StartWarp(To, _portalManager.GetDestinationPosition(this),
-                                _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
-
-                        }
-                    }
-                }
+               
             }
            
         }
@@ -103,37 +85,7 @@ namespace StageEngine.Classes
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
 
-            //If NPC big sensor collides with portal, warp them to that stage
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.NPCBigSensor))
-            {
-                HumanoidEntity entity = (fixtureB.Body.Tag as HumanoidEntity);
-                if(From == entity.CurrentStageName && To == entity.TargetStage)
-                {
-                    //DO NOT WANT TO HANDLE COLLISIONS ACROSS SEPARATE STAGES! Make sure entity and portal are in the same stage.
-                    //Ex: player should not be warping to home from within another house, even if the portal is technically at 50,50 in both places.
-                   
-                        entity.StartWarp(To, _portalManager.GetDestinationPosition(this), _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
-
-                        entity.IsInStage = To == Flags.StagePlayerIn;
-                        
-                    
-                }
-                
-                    
-            }
-            else if(!_mustBeClicked &&  fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Player))
-            {
-                Player entity = (fixtureB.Body.Tag as Player);
-                if (From == entity.CurrentStageName)
-                {
-
-                    _stageManager.RequestSwitchStage(To, _portalManager.GetDestinationPosition(this));
-                    entity.StartWarp(To, _portalManager.GetDestinationPosition(this),
-                    _stageManager.GetStage(To).TileManager, _stageManager.GetStage(To).ItemManager, _directionToFace);
-                }
-
-
-            }
+         
             return base.OnCollides(fixtureA, fixtureB, contact);
 
         }

@@ -279,14 +279,14 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.Save(writer);
             ProgressManager.Save(writer);
-            _lumenHandler.Save(writer);
+            //_lumenHandler.Save(writer);
         }
 
         public override void LoadSave(BinaryReader reader)
         {
             base.LoadSave(reader);
             ProgressManager.LoadSave(reader);
-            _lumenHandler.LoadSave(reader);
+           // _lumenHandler.LoadSave(reader);
         }
 
 

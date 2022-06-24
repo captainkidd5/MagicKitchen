@@ -31,7 +31,6 @@ namespace StageEngine.Classes
     {
   
         private readonly PlayerManager _playerManager;
-        private readonly string _startingStageName = "LullabyTown";
 
 
 
@@ -72,11 +71,11 @@ namespace StageEngine.Classes
         /// <exception cref="Exception"></exception>
         public void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
-            UI.DropCurtain(UI.CurtainDropRate, new Action(SwitchStage));
+            UI.DropCurtain(UI.CurtainDropRate, new Action(EnterWOrld));
             Flags.Pause = true;
 
         }
-        internal void SwitchStage()
+        internal void EnterWOrld()
         {
             CurrentStage.SaveToStageFile();
 
@@ -88,8 +87,7 @@ namespace StageEngine.Classes
                 CurrentStage.LoadFromStageFile();
 
 
-            //CurrentStage.LoadFromStageFile();
-            
+            _playerManager.LoadContent();
             _camera.Jump(Player1.Position);
 
             Flags.Pause = false;
@@ -139,14 +137,7 @@ namespace StageEngine.Classes
             TileLoader.LoadSave(reader); 
             _portalManager.LoadSave(reader);
 ;
-
-            //Still need to load all stages for portals and graph
-            foreach (KeyValuePair<string, Stage> pair in Stages)
-            {
-                pair.Value.LoadFromStageFile();
-
-            }
-
+            CurrentStage.LoadFromStageFile();
  
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
         }
@@ -162,9 +153,9 @@ namespace StageEngine.Classes
         {
 
             LoadStageData();
-            writer.Write(_startingStageName);
             CurrentStage.CreateNewSave();
-
+           // _playerManager.LoadContent(
+            _playerManager.Save(writer);
 
 
             TileLoader.Save(writer);
@@ -188,7 +179,7 @@ namespace StageEngine.Classes
 
         public void RegisterCommands()
         {
-            _npcManager.RegisterCommands();
+            //CurrentStage.RegisterCommands();
         }
     }
 }

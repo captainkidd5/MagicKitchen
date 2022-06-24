@@ -96,7 +96,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
                         NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                             .CreateInstance(npcData.ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
-                            null, new object[] {this, graphics, content }, null, null);
+                            null, new object[] { graphics, content }, null, null);
 
                      
                         npc.LoadContent(this,null, npcData.Name, npc.GetType() != typeof(HumanoidEntity));
@@ -115,7 +115,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
                 NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                     .CreateInstance(savedType, true, System.Reflection.BindingFlags.CreateInstance,
-                    null, new object[] { this, graphics, content },null,null);
+                    null, new object[] { graphics, content },null,null);
                 npc.LoadSave(reader);
                         npc.LoadContent(this,null, npc.Name, npc.GetType() != typeof(HumanoidEntity));
                 Entities.Add(npc);
@@ -131,7 +131,7 @@ namespace EntityEngine.Classes.CharacterStuff
          
             NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                     .CreateInstance(EntityFactory.NPCData[name].ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
-                    null, new object[] { this, graphics, content }, null, null);
+                    null, new object[] { graphics, content }, null, null);
             npc.LoadContent(this, position, name, standardAnimator);
             EntitiesToAdd.Add(npc);
         }
