@@ -49,7 +49,7 @@ namespace EntityEngine.Classes.CharacterStuff
            AddTrain();
         }
 
-        public void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
+        public override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
             TileManager = tileManager;
             ItemManager = itemManager;

@@ -71,17 +71,18 @@ namespace StageEngine.Classes
         public void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
             UI.DropCurtain(UI.CurtainDropRate, new Action(EnterWorld));
-            _playerManager.LoadContent();
+            StageData stageData = content.Load<StageData>("maps/StageData");
+
+            //CurrentStage.Load(stageData, this, _playerManager);
+            //CurrentStage.SaveToStageFile();
+            _playerManager.LoadContent(stageData.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
 
             Flags.Pause = true;
 
         }
         internal void EnterWorld()
         {
-            StageData stageData = content.Load<StageData>("maps/StageData");
-
-            CurrentStage.Load(stageData, this, _playerManager);
-            CurrentStage.SaveToStageFile();
+            
 
 
 
@@ -133,7 +134,9 @@ namespace StageEngine.Classes
         public void LoadSave(BinaryReader reader)
         {
 
-;
+; StageData stageData = content.Load<StageData>("maps/StageData");
+
+            CurrentStage.Load(stageData, this, _playerManager);
             CurrentStage.LoadFromStageFile();
  
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
@@ -144,6 +147,7 @@ namespace StageEngine.Classes
             StageData stageData = content.Load<StageData>("maps/StageData");
 
             CurrentStage.Load(stageData, this, _playerManager);
+
             CurrentStage.CreateNewSave();
             _playerManager.Save(writer);
 

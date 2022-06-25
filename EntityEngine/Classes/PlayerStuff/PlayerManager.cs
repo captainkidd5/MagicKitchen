@@ -40,14 +40,15 @@ namespace EntityEngine.Classes.PlayerStuff
             Player1.UpdateFromInput();
             base.Update(gameTime);
         }
-
-        public override void LoadContent()
+        public override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
-            //base.LoadContent();
-            Player1.LoadContent(this,null, null);
+            TileManager = tileManager;
+            ItemManager = itemManager;
+            Player1.LoadContent(this, null, null, false);
             CommandConsole.RegisterCommand("give", "gives player item with id", GivePlayerItem);
 
         }
+   
         public override void Save(BinaryWriter writer)
         {
 

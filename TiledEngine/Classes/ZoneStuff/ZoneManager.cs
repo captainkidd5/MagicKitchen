@@ -20,13 +20,9 @@ namespace TiledEngine.Classes.ZoneStuff
 
         }
 
-        public void CreateNewSave(TmxMap tmxMap)
-        {
-            SpecialZones = LoadZones(tmxMap);
 
-        }
 
-        private List<SpecialZone> LoadZones(TmxMap tmxMap)
+        public List<SpecialZone> LoadZones(TmxMap tmxMap)
         {
             TmxObjectGroup zones;
 

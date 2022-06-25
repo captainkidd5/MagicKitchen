@@ -88,7 +88,7 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Generic load, should only be called by <see cref="TileLoader.LoadTileManager(string, TileManager)"/>
         /// </summary>
-        internal void CreateNewSave(TmxMap tmxMap, List<TileData[,]> tiles, int mapWidth, TileSetPackage tileSetPackage)
+        internal void LoadMap(TmxMap tmxMap, List<TileData[,]> tiles, int mapWidth, TileSetPackage tileSetPackage, bool newSave = true)
         {
             _tmxMap = tmxMap;
 
@@ -101,7 +101,8 @@ namespace TiledEngine.Classes
             TileData = tiles;
             TileSelectorSprite = SpriteFactory.CreateWorldSprite(Vector2.Zero, TileSelectorSourceRectangle, TileSetPackage.BackgroundSpriteSheet);
             AssignProperties();
-            ZoneManager.CreateNewSave(tmxMap);
+            if (newSave)
+                ZoneManager.LoadZones(tmxMap);
         }
 
 
@@ -464,6 +465,7 @@ namespace TiledEngine.Classes
                 }
             }
             PlacedItemManager.Save(writer);
+            ZoneManager.Save(writer);
         }
         public void LoadSave(BinaryReader reader)
         {
@@ -486,7 +488,8 @@ namespace TiledEngine.Classes
                 }
             }
             PlacedItemManager.LoadSave(reader);
-            CreateNewSave(_tmxMap, TileData, MapWidth, TileLoader.TileSetPackage);
+            LoadMap(_tmxMap, TileData, MapWidth, TileLoader.TileSetPackage,false);
+            ZoneManager.LoadSave(reader);
 
         }
 

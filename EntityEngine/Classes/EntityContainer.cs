@@ -34,9 +34,10 @@ namespace EntityEngine.Classes
             EntitiesToAdd = new List<Entity>();
         }
  
-        public virtual void LoadContent()
+        public virtual void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
-
+            TileManager = tileManager;
+            ItemManager = itemManager;
             foreach (Entity entity in Entities)
             {
 

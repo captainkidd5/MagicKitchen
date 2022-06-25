@@ -29,7 +29,7 @@ namespace StageEngine.Classes
 {
     public class Stage : ISaveable, ILightDrawable
     {
-        public string Name { get; private set; }
+        public string Name => _stageData.Name;
 
         private  StageManager _stageManager;
         private  PlayerManager _playerManager;
@@ -73,7 +73,6 @@ namespace StageEngine.Classes
         public void Load(StageData stageData, StageManager stageManager, PlayerManager playerManager)
         {
             _stageData = stageData;
-            Name = _stageData.Name;
             NPCContainer = new NPCContainer(_graphics, _content);
 
             TileManager = new TileManager(_graphics, _content, _camera);
@@ -81,6 +80,7 @@ namespace StageEngine.Classes
             ItemManager = new ItemManager(Name, TileManager);
 
             _flotsamGenerator = new FlotsamGenerator(ItemManager, TileManager);
+            _playerManager = playerManager;
             LightDrawables = new List<ILightDrawable>() { TileManager, NPCContainer, _playerManager };
 
         }

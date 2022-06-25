@@ -76,7 +76,7 @@ namespace TiledEngine.Classes
         {
             TmxMap mapToLoad = new TmxMap(s_mapPath + stageData.Path);
 
-            tileManager.CreateNewSave(mapToLoad, ExtractTilesFromPreloadedMap(tileManager,mapToLoad), mapToLoad.Width,TileSetPackage);
+            tileManager.LoadMap(mapToLoad, ExtractTilesFromPreloadedMap(tileManager,mapToLoad), mapToLoad.Width,TileSetPackage);
 
 
         }
