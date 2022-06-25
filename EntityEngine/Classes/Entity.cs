@@ -206,6 +206,9 @@ namespace EntityEngine.Classes
         public virtual new void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            Speed = StartingSpeed;
+            if (Container.TileManager.IsTypeOfTile("water", Position))
+                Speed = StartingSpeed * .5f;
             UpdateBehaviour(gameTime);
             StatusIcon.Update(gameTime, Position);
 

@@ -62,6 +62,12 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
         public override Vector2 Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            if (!WorldItem.InWater())
+            {
+                WorldItem.ChangeState(ItemEngine.Classes.WorldItemState.None);
+                return Vector2.Zero;
+
+            }
             if (_isSinking && SimpleTimer.Run(gameTime))
             {
                 WorldItem.Remove(WorldItem.Count);

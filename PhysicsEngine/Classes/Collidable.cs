@@ -196,10 +196,10 @@ namespace PhysicsEngine.Classes
         /// Jetison's body in given direction
         /// </summary>
         /// <param name="directionVector"></param>
-        public void Jettison(Vector2 directionVector, Vector2? pointAppliedTo, bool ignoreGrav = false, float gScaleUp = 4f,float gScaleDown = 15f, float restitution = 1f,
+        public void Jettison(Vector2 directionVector, Vector2? pointAppliedTo, float speed = 1f, bool ignoreGrav = false, float gScaleUp = 4f,float gScaleDown = 15f, float restitution = 1f,
             float linearDamp = 2f, float friction = .15f, float bodyMass = 1f)
         {
-            MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000, pointAppliedTo ?? new Vector2(0,0));
+            MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000 * speed, pointAppliedTo ?? new Vector2(0,0));
             MainHullBody.Body.IgnoreGravity = ignoreGrav;
 
             MainHullBody.Body.SetRestitution(restitution);

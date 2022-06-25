@@ -15,7 +15,7 @@ namespace PhysicsEngine.Classes.Gadgets
         private readonly int _errorMargin;
         private readonly float _speed;
 
-        public Magnetizer(Collidable collidable, Collidable collidableToMoveTowards,int errorMargin = 4, float speed = 1f) :base(collidable)
+        public Magnetizer(Collidable collidable, Collidable collidableToMoveTowards,int errorMargin = 2, float speed = 2f) :base(collidable)
         {
             _collidableToMoveTowards = collidableToMoveTowards;
             _errorMargin = errorMargin;
@@ -30,7 +30,7 @@ namespace PhysicsEngine.Classes.Gadgets
         {
             // If we're already at the goal return immediatly
             Vector2 currentPos = CollidableToInteractWith.CenteredPosition;
-            Vector2 goal = _collidableToMoveTowards.MainHullBody.Position;
+            Vector2 goal = _collidableToMoveTowards.CenteredPosition;
             if (Vector2Helper.WithinRangeOf(currentPos, goal, _errorMargin))
                 return true;
 
@@ -47,7 +47,7 @@ namespace PhysicsEngine.Classes.Gadgets
             {
                 return true;
             }
-            CollidableToInteractWith.Jettison(direction, null);
+            CollidableToInteractWith.Jettison(direction, null,_speed);
 
             return false;
         }

@@ -123,7 +123,8 @@ namespace EntityEngine.ItemStuff
         protected override void CreateBody(Vector2 position)
         {
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Item },
-               new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh, (Category)PhysCat.Tool, (Category)PhysCat.ArtificialFloor }, OnCollides, OnSeparates, blocksLight: true, userData: this);
+               new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh, (Category)PhysCat.Tool, (Category)PhysCat.ArtificialFloor },
+               OnCollides, OnSeparates, blocksLight: true, userData: this);
         }
         /// <summary>
         /// Waits <see cref="_timeUntilTouchable"/> amount until entities can interact with it
@@ -166,21 +167,43 @@ namespace EntityEngine.ItemStuff
             if (ImmuneToPickup)
                 TestIfImmunityDone(gameTime);
             Vector2 spriteBehaviourOffSet = Vector2.Zero;
-            if (ItemBehaviour != null)
+            if (ItemBehaviour == null)
+            {
+                if (InWater())
+                {
+                    if(Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
+                    ChangeState(ItemEngine.Classes.WorldItemState.Floating);
+
+                }
+            }
+
+            else
+            {
                 spriteBehaviourOffSet = ItemBehaviour.Update(gameTime);
+
+            }
+
             Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet) + spriteBehaviourOffSet);
-            if(Shadow != null)
-            Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y + 2));
+            if (Shadow != null)
+                Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y + 2));
+
 
         }
 
-
+        public void SetStandardCollides()
+        {
+            SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.SolidLow,(Category)PhysCat.SolidHigh, (Category)PhysCat.Tool,(Category)PhysCat.Player,
+                    (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item,
+                    (Category)PhysCat.Grass, (Category)PhysCat.ArtificialFloor });
+            Gadgets.Clear();
+            MainHullBody.Body.IgnoreGravity = true;
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);
-            if(Shadow != null)
-            Shadow.Draw(spriteBatch);
+            if (Shadow != null)
+                Shadow.Draw(spriteBatch);
         }
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
@@ -191,14 +214,14 @@ namespace EntityEngine.ItemStuff
             {
                 //  if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
                 ClearGadgets();
-                    AddGadget(new Magnetizer(this, (fixtureB.Body.Tag as Collidable)));
+                AddGadget(new Magnetizer(this, (fixtureB.Body.Tag as Collidable)));
                 //If magnetized, remove solids collisions
                 SetCollidesWith(MainHullBody.Body, new List<Category>() {  (Category)PhysCat.Player,
                     (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass});
                 return true;
             }
 
-                if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
             {
 
                 if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
@@ -226,6 +249,7 @@ namespace EntityEngine.ItemStuff
         }
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
+
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 

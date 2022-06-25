@@ -1,4 +1,5 @@
-﻿using Globals.Classes.Helpers;
+﻿using EntityEngine.ItemStuff;
+using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,6 +28,8 @@ namespace EntityEngine.Classes.ToolStuff
         private static readonly Vector2 s_anchorOffSet = new Vector2(4, 11);
 
         private Sprite _directionalArrowSprite;
+
+        private WorldItem _hookedItem;
         public Hook()
         {
 
@@ -127,9 +130,9 @@ namespace EntityEngine.Classes.ToolStuff
 
             if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
             {
-                AddGadget(new Magnetizer(this, Holder, 2));
+                AddGadget(new Magnetizer(this, Holder,8,8));
                 SetCollidesWith(MainHullBody.Body,
-               new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.PlayerBigSensor });
+               new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Player });
                 _isReturning = true;
 
             }
@@ -140,6 +143,7 @@ namespace EntityEngine.Classes.ToolStuff
             {
                 Return();
                 SoundFactory.PlaySoundEffect("HookGrab");
+                _hookedItem = fixtureB.Body.Tag as WorldItem;
 
                 
             }
@@ -149,8 +153,10 @@ namespace EntityEngine.Classes.ToolStuff
                 Return();
 
             }
-            else if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
+            else if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Player))
             {
+                if (_hookedItem != null)
+                    _hookedItem.SetStandardCollides();
                 Unload();
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
