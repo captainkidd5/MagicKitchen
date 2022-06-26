@@ -52,15 +52,24 @@ namespace TiledEngine.Classes
             BackgroundSpriteSheet = content.Load<Texture2D>(exteriorTexturePath);
             ForegroundSpriteSheet = content.Load<Texture2D>(interiorTexturePath);
 
-            for(int i =0; i< _backgroundTileCount; i++)
+            foreach(var tile in _backgroundDictionary)
             {
-                TileUtility.PreliminaryData(this, i);
-            }
+                TileUtility.PreliminaryData(this, tile.Value);
 
-            for (int i = 0; i < _foregroundTileCount; i++)
-            {
-                TileUtility.PreliminaryData(this, i);
             }
+            foreach (var tile in _foregroundDictionary)
+            {
+                TileUtility.PreliminaryData(this, tile.Value);
+
+            }
+           
+
+        }
+        public int GetAdjustedGID(int unadjustedGID)
+        {
+            if (IsForeground(unadjustedGID))
+                return OffSetForegroundGID(unadjustedGID);
+            else return unadjustedGID;
         }
         public bool IsForeground(int tileGID)
         {

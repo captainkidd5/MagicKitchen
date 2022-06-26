@@ -204,7 +204,7 @@ namespace PhysicsEngine.Classes
 
             MainHullBody.Body.SetRestitution(restitution);
             MainHullBody.Body.LinearDamping = linearDamp;
-            MainHullBody.Body.SetFriction(friction);
+            MainHullBody.Body.SetFriction(0);
             MainHullBody.Body.Mass = bodyMass;
         }
         public virtual void CleanUp()

@@ -139,6 +139,15 @@
 
 },
 {
+    "Id": 1201,
+    "Name": "Wood_Wall",
+    "Description" : "A basic wooden structure",
+    "MaxStackSize": 999,
+    "Price": 1,
+    "PlacedItemGID" : 1477
+
+},
+{
     "Id": 1300,
     "Name": "Drift_Wood",
     "Description" : "Water-logged",

@@ -155,7 +155,7 @@ namespace EntityEngine.Classes.ToolStuff
             }
             else if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Player))
             {
-                if (_hookedItem != null)
+                if (_hookedItem != null && _hookedItem.MainHullBody!= null)
                     _hookedItem.SetStandardCollides();
                 Unload();
             }

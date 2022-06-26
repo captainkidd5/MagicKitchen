@@ -42,18 +42,20 @@ namespace TiledEngine.Classes
 
         }
 
-        public static void PreliminaryData(TileSetPackage tileSetPackage, int gid)
+        public static void PreliminaryData(TileSetPackage tileSetPackage, TmxTilesetTile tileSetTile)
         {
-            if (tileSetPackage.ContainsKey(gid))
-            {
-                TmxTilesetTile tileSetTile = tileSetPackage.GetTmxTileSetTile(gid);
+         
+           
+            
 
                 string propertyString = "tilingKey";
-                if (GetTileProperty(tileSetPackage, tileSetTile, ref propertyString))
-                {
-                    tileSetPackage.TilingSetManager.AddNewSet(propertyString, gid);
-                }
+            if (tileSetTile.Properties.ContainsKey(propertyString))
+            {
+                tileSetPackage.TilingSetManager.AddNewSet(tileSetTile.Properties[propertyString],tileSetTile.Id);
+
             }
+     
+            
         }
         /// <summary>
         /// 
@@ -70,6 +72,8 @@ namespace TiledEngine.Classes
                 int newGID = tileSetPackage.TilingSetManager.WangTile(tileManager, tileData);
                 if (tileData.GID != newGID)
                 {
+                    if(tileManager.TileSetPackage.IsForeground(tileData.GID))
+                        newGID = tileManager.TileSetPackage.OffSetBackgroundGID(newGID);
                     tileData.GID = (ushort)(newGID + 1);
                     tileObject.TileData.GID = (ushort)(tileData.GID + 1); ;
                 }

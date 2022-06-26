@@ -174,7 +174,7 @@ namespace TiledEngine.Classes
                         int key = TileData[z][x, y].GetKey();
                         if (!TileObjects.ContainsKey(key))
                         {
-                            TileObjects.Add(key, new TileObject(this, TileData[z][x, y], z< 2 && !JustResizedWindow));
+                            TileObjects.Add(key, new TileObject(this, TileData[z][x, y],!JustResizedWindow));
                         }
 
                     }
