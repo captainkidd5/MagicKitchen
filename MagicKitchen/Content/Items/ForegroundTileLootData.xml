@@ -43,7 +43,7 @@
 
         </Item>
         <Item>
-            <TileId>1834</TileId>
+            <TileId>2014</TileId>
             <Loot>
             <Item Type="DataModels.LootData">
             <ItemName>Stone</ItemName>
@@ -60,7 +60,7 @@
 
         </Item>
           <Item>
-            <TileId>1743</TileId>
+            <TileId>1914</TileId>
             <Loot>
             <Item Type="DataModels.LootData">
             <ItemName>Pumpkin Chunk</ItemName>

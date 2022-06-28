@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels;
+using Globals.Classes;
 using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
@@ -43,7 +44,7 @@ namespace TiledEngine.Classes
         public bool FlaggedForRemoval { get; set; }
 
 
-        internal TileData TileData;
+        public TileData TileData;
 
         internal Rectangle SourceRectangle { get; set; }
         internal Rectangle DestinationRectangle { get; set; }
@@ -158,10 +159,17 @@ namespace TiledEngine.Classes
             foreach (ITileAddon addon in Addons)
                 addon.Load();
         }
-        public void Interact(bool isPlayer, Item heldItem)
+        public ActionType? Interact(bool isPlayer, Item heldItem)
         {
+           ActionType? actionType = null;
             foreach (ITileAddon addon in Addons)
-                addon.Interact(isPlayer, heldItem);
+            {
+                ActionType? aType = addon.Interact(isPlayer, heldItem);
+                    if(aType != null)
+                    actionType = aType;
+
+            }
+            return actionType;
         }
 
         public void Unload()

@@ -227,20 +227,20 @@ namespace TiledEngine.Classes
         {
             if (MouseOverTile != null)
             {
-                if (Controls.IsClickedWorld || Controls.DidGamePadSelectWorld)
-                {
-                    if(TileLocationHelper.IsAdjacentTo(MouseOverTile.TileData, Shared.PlayerPosition))
-                    {
+                //if (Controls.IsClickedWorld || Controls.DidGamePadSelectWorld)
+                //{
+                //    if(TileLocationHelper.IsAdjacentTo(MouseOverTile.TileData, Shared.PlayerPosition))
+                //    {
 
-                    //Do not interact if another non empty tile has a layer greater than the one we
-                    //are trying to interact with
-                    // if(MouseOverTile.Layer <= TileToInteractWith.Layer)
-                    // {
-                    MouseOverTile.Interact(true, UI.PlayerCurrentSelectedItem);
-                        //       }
-                    }
+                //    //Do not interact if another non empty tile has a layer greater than the one we
+                //    //are trying to interact with
+                //    // if(MouseOverTile.Layer <= TileToInteractWith.Layer)
+                //    // {
+                //    MouseOverTile.Interact(true, UI.PlayerCurrentSelectedItem);
+                //        //       }
+                //    }
 
-                }
+                //}
                 //moreover, if tile to interact with is real, we want to make sure that tile selector sprite draws here instead
                 TileSelectorSprite.Update(gameTime, new Vector2(MouseOverTile.Position.X + MouseOverTile.SourceRectangle.Width/2 - 8,
                     MouseOverTile.Position.Y + MouseOverTile.SourceRectangle.Height - 16));

@@ -19,24 +19,27 @@ namespace EntityEngine.Classes.HumanoidCreation
 
 
 
-        
+
         public AnimateAction(BodyPiece bodyPiece, AnimatedSprite[] animations, bool repeat)
         {
             _bodyPiece = bodyPiece;
             Animations = animations;
             Repeat = repeat;
-   
-        }
-        public void Update(GameTime gameTime, Direction direction,bool hasDirectionChanged, Vector2 position, float layer, bool isMoving)
-        {
-            if (hasDirectionChanged)
-                SetRestingFrame(direction);
 
-            Animations[(int)direction -1].Update(gameTime, position, isMoving);
+        }
+        public void Update(GameTime gameTime, Direction direction, bool hasDirectionChanged, Vector2 position, float layer, bool isMoving)
+        {
+            if (Repeat && hasDirectionChanged)
+                SetRestingFrame(direction);
+            if (Repeat)
+                Animations[(int)direction - 1].Update(gameTime, position, isMoving);
+            else
+                Animations[(int)direction - 1].Update(gameTime, position, true);
+
 
             //So that the bodypart overlaps correctly, and is drawn relative to the entity's y position on the map.
             Animations[(int)direction - 1].CustomLayer = layer;
-            if(!Repeat && Animations[(int)direction - 1].HasLoopedAtLeastOnce)
+            if (!Repeat && Animations[(int)direction - 1].HasLoopedAtLeastOnce)
             {
                 _bodyPiece.ChangeParentSet(Animators.ActionType.Walking);
             }
@@ -48,8 +51,8 @@ namespace EntityEngine.Classes.HumanoidCreation
         }
         public void SetRestingFrame(Direction direction)
         {
-            if(direction != Direction.None)
-            Animations[(int)direction -1].ResetSpriteToRestingFrame();
+            if (direction != Direction.None)
+                Animations[(int)direction - 1].ResetSpriteToRestingFrame();
         }
         internal virtual void ChangeColor(Color color)
         {

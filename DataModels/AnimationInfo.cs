@@ -10,6 +10,13 @@ namespace DataModels
         None = 0,
         Walk = 1,
     }
+
+    public enum ActionType
+    {
+        None = 0,
+        Walking = 1,
+        Interact = 2,
+    }
     public class AnimationInfo
     {
         public MovementType MovementType { get; set; }

@@ -26,6 +26,7 @@ using SpriteEngine.Classes.ShadowStuff;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using EntityEngine.ItemStuff;
 using EntityEngine.Classes.Animators;
+using TiledEngine.Classes.Helpers;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -194,6 +195,14 @@ namespace EntityEngine.Classes.PlayerStuff
                 else
                 {
                     UseHeldItem();
+                }
+                TileObject mouseOverTile = Container.TileManager.MouseOverTile;
+                if (mouseOverTile != null)
+                {
+                    if (Container.TileManager.TileLocationHelper.IsAdjacentTo(mouseOverTile.TileData, Position))
+                    {
+                        Container.TileManager.MouseOverTile.Interact(true, InventoryHandler.HeldItem);
+                    }
                 }
             }
             _lumenHandler.Illuminated = LightsTouching.Count > 0;

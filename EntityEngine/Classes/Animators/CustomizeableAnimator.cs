@@ -29,12 +29,7 @@ namespace EntityEngine.Classes.Animators
         Pants = 2
     }
 
-    public enum ActionType
-    {
-        None = 0,
-        Walking = 1,
-        Interact = 2,
-    }
+
     /// <summary>
     /// Primarily for use with NPCS with exchangable parts, including the player
     /// </summary>
