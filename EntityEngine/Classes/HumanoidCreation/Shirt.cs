@@ -24,7 +24,6 @@ namespace EntityEngine.Classes.HumanoidCreation
             Rectangle destinationRectangle = new Rectangle((int)entityPosition.X, (int)entityPosition.Y, FrameWidth, FrameHeight);
             AnimationFrame[] walkUpFrames = new AnimationFrame[]
             {
-               new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
               new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
                 new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
                new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
@@ -39,10 +38,8 @@ namespace EntityEngine.Classes.HumanoidCreation
                new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
                new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
                new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
-               new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
 
               new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
-               new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
                new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
 
                new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
@@ -56,9 +53,11 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimationFrame[] walkLeftFrames = new AnimationFrame[]
            {
                new AnimationFrame(2, 0, 0, WalkLeftAnimationDuration,true),
-              new AnimationFrame(2, 0, 1, WalkLeftAnimationDuration,true),
-                new AnimationFrame(2, 0, 0, WalkLeftAnimationDuration,true),
+               new AnimationFrame(2, 0, 1, WalkLeftAnimationDuration,true),
+
+              new AnimationFrame(2, 0, 0, WalkLeftAnimationDuration,true),
                 new AnimationFrame(2, 0, 1, WalkLeftAnimationDuration,true),
+                new AnimationFrame(2, 0, 0, WalkLeftAnimationDuration,true),
 
        };
             WalkLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
@@ -67,9 +66,11 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimationFrame[] walkRightFrames = new AnimationFrame[]
            {
                new AnimationFrame(2, 0, 0, WalkLeftAnimationDuration),
-              new AnimationFrame(2, 0, 1, WalkLeftAnimationDuration),
-                new AnimationFrame(2, 0, 0, WalkLeftAnimationDuration),
+               new AnimationFrame(2, 0, 1, WalkLeftAnimationDuration),
+
+              new AnimationFrame(2, 0, 0, WalkLeftAnimationDuration),
                 new AnimationFrame(2, 0, 1, WalkLeftAnimationDuration),
+                new AnimationFrame(2, 0, 0, WalkLeftAnimationDuration),
 
        };
             WalkRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
