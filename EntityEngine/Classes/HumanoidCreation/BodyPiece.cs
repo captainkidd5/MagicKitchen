@@ -127,9 +127,14 @@ namespace EntityEngine.Classes.HumanoidCreation
         internal virtual void ChangeAnimation(ActionType actionType)
         {
             CurrentAction = AllAnimationSets[actionType];
+            SetRestingFrameIndex();
         }
 
+        internal void ChangeParentSet(ActionType actionType)
+        {
+            Entity.Animator.PerformAction(CurrentDirection, actionType);
 
+        }
 
         internal virtual void ChangeColor(Color color)
         {

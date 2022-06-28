@@ -80,7 +80,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimatedSprite WalkRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkRightFrames, idleFrame: 0);
             AnimatedSprite[] WalkingSet = new AnimatedSprite[] { WalkUp, WalkDown, WalkLeft, WalkRight };
-            WalkingAction = new AnimateAction(WalkingSet, true);
+            WalkingAction = new AnimateAction(this, WalkingSet, true);
 
         }
 
@@ -132,7 +132,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimatedSprite InteractRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight + yStart, FrameWidth, FrameHeight), Texture,
                 interactRigthFrames, idleFrame: 0);
             AnimatedSprite[] InteractSet = new AnimatedSprite[] { InteractUp, InteractDown, InteractLeft, InteractRight };
-            InteractAction = new AnimateAction(InteractSet, false);
+            InteractAction = new AnimateAction(this, InteractSet, false);
 
         }
     }

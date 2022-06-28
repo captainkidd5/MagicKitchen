@@ -12,14 +12,17 @@ namespace EntityEngine.Classes.HumanoidCreation
 {
     internal class AnimateAction
     {
+        private readonly BodyPiece _bodyPiece;
+
         public AnimatedSprite[] Animations { get; set; }
         public bool Repeat { get; }
 
 
 
         
-        public AnimateAction(AnimatedSprite[] animations, bool repeat)
+        public AnimateAction(BodyPiece bodyPiece, AnimatedSprite[] animations, bool repeat)
         {
+            _bodyPiece = bodyPiece;
             Animations = animations;
             Repeat = repeat;
    
@@ -33,6 +36,10 @@ namespace EntityEngine.Classes.HumanoidCreation
 
             //So that the bodypart overlaps correctly, and is drawn relative to the entity's y position on the map.
             Animations[(int)direction - 1].CustomLayer = layer;
+            if(!Repeat && Animations[(int)direction - 1].HasLoopedAtLeastOnce)
+            {
+                _bodyPiece.ChangeParentSet(Animators.ActionType.Walking);
+            }
         }
         public void Draw(SpriteBatch spriteBatch, Direction direction)
         {
@@ -41,6 +48,7 @@ namespace EntityEngine.Classes.HumanoidCreation
         }
         public void SetRestingFrame(Direction direction)
         {
+            if(direction != Direction.None)
             Animations[(int)direction -1].ResetSpriteToRestingFrame();
         }
         internal virtual void ChangeColor(Color color)

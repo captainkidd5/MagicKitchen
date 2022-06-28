@@ -152,7 +152,7 @@ namespace SpriteEngine.Classes.Animations
         /// <summary>
         /// Set animations to their default position. E.x. when the player stops running. Default is zero
         /// </summary>
-        public void ResetSpriteToRestingFrame( )
+        public virtual void ResetSpriteToRestingFrame( )
         {
 
             

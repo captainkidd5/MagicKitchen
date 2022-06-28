@@ -80,5 +80,11 @@ namespace SpriteEngine.Classes.Animations
                 Paused = true;
             }
         }
+
+        public override void ResetSpriteToRestingFrame()
+        {
+            base.ResetSpriteToRestingFrame();
+            Timer.ResetToZero();
+        }
     }
 }
