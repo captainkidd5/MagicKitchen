@@ -2,7 +2,7 @@
 <XnaContent xmlns:ns="Microsoft.Xna.Framework">
     <Asset Type="System.Collections.Generic.List[DataModels.TileLootData]">
       <Item>
-            <TileId>215</TileId>
+            <TileId>233</TileId>
             <Loot>
             <Item Type="DataModels.LootData">
             <ItemName>Furnace</ItemName>

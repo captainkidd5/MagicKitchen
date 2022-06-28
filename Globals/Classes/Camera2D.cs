@@ -28,7 +28,7 @@ namespace Globals.Classes
 
         public Camera2D(Viewport viewport)
         {
-            Zoom =6.0f;
+            Zoom =3.0f;
             Rotation = 0.0f;
             position = Vector2.Zero;
             LockBounds = true;
@@ -70,18 +70,18 @@ namespace Globals.Classes
         {
            
 
-            float camera_target_x = Math.Min(Math.Max(X, amount.X - camera_frame_size_hor), amount.X + camera_frame_size_hor);
-            float camera_target_y = Math.Min(Math.Max(Y, amount.Y - camera_frame_size_ver), amount.Y + camera_frame_size_ver);
-            position.X = ((X) * (camera_smoothing - 1) + camera_target_x) / camera_smoothing;
-            position.Y = ((Y) * (camera_smoothing - 1) + camera_target_y) / camera_smoothing;
+            //float camera_target_x = Math.Min(Math.Max(X, amount.X - camera_frame_size_hor), amount.X + camera_frame_size_hor);
+            //float camera_target_y = Math.Min(Math.Max(Y, amount.Y - camera_frame_size_ver), amount.Y + camera_frame_size_ver);
+            //position.X = ((X) * (camera_smoothing - 1) + camera_target_x) / camera_smoothing;
+            //position.Y = ((Y) * (camera_smoothing - 1) + camera_target_y) / camera_smoothing;
 
 
-            position = new Vector2((Math.Abs(amount.X) < 0.5f) ? amount.X :
-                (float)Math.Round(position.X), (Math.Abs(amount.Y) < 0.5f) ? position.Y
-                : (float)Math.Round(position.Y));
+            // position = new Vector2((Math.Abs(amount.X) < 0.5f) ? amount.X :
+            //     (float)Math.Round(position.X), (Math.Abs(amount.Y) < 0.5f) ? position.Y
+            //    : (float)Math.Round(position.Y));
 
-            position = new Vector2((float)Math.Round(position.X), (float)Math.Round(position.Y));
-
+            //position = new Vector2((float)Math.Round(position.X), (float)Math.Round(position.Y));
+            position = amount;
             _viewPortRectangle = new Rectangle((int)(mapRectangle.X + Settings.ScreenWidth / 2 / Zoom),
               (int)(mapRectangle.Y + Settings.ScreenHeight / 2 / Zoom),
                 (int)(mapRectangle.Width - Settings.ScreenWidth / 2 / Zoom),

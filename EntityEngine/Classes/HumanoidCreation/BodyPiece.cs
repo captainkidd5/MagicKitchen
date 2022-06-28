@@ -128,6 +128,7 @@ namespace EntityEngine.Classes.HumanoidCreation
         internal virtual void ChangeAnimation(ActionType actionType)
         {
             CurrentAction = AllAnimationSets[actionType];
+            CurrentAction.SetPosition(Entity.Position);
             SetRestingFrameIndex();
         }
 

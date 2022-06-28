@@ -43,6 +43,17 @@ namespace EntityEngine.Classes.HumanoidCreation
             if (!Repeat && Animations[(int)direction - 1].HasLoopedAtLeastOnce)
             {
                 _bodyPiece.ChangeParentSet(ActionType.Walking);
+                Animations[(int)direction - 1].HasLoopedAtLeastOnce = false;
+            }
+        }
+        public void SetPosition(Vector2 newPos)
+        {
+            foreach (var item in Animations)
+            {
+
+                item.ForceSetPosition(newPos);
+
+
             }
         }
         public void Draw(SpriteBatch spriteBatch, Direction direction)
