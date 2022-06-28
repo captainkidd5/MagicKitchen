@@ -23,9 +23,7 @@ namespace EntityEngine.Classes.HumanoidCreation
     {
         protected BodyParts BodyPart { get; set; }
         protected float LayerOffSet { get; set; }
-        protected static float WalkDownAnimationDuration = .1f;
-
-        protected static float WalkLeftAnimationDuration = .15f;
+       
 
 
         protected int Index { get; set; }
@@ -38,6 +36,9 @@ namespace EntityEngine.Classes.HumanoidCreation
         private Color _tint = Color.White;
 
         #region WALKING
+        protected static float WalkDownAnimationDuration = .1f;
+
+        protected static float WalkLeftAnimationDuration = .15f;
         protected AnimatedSprite[] WalkingSet { get; set; }
         protected AnimatedSprite WalkUp { get; set; }
         protected AnimatedSprite WalkDown { get; set; }
@@ -47,6 +48,9 @@ namespace EntityEngine.Classes.HumanoidCreation
         #endregion
 
         #region INTERACT
+        protected static float InteractDownAnimationDuration = .1f;
+
+        protected static float InteractLeftAnimationDuration = .15f;
         protected AnimatedSprite[] InteractSet { get; set; }
         protected AnimatedSprite InteractUp { get; set; }
         protected AnimatedSprite InteractDown { get; set; }
@@ -77,6 +81,15 @@ namespace EntityEngine.Classes.HumanoidCreation
             LayerOffSet = GetLayerOffSet();
             ClothingBaseColor = Color.Black;
             Entity = entity;
+            CreateWalkSet();
+            CreateInteractSet();
+        }
+        protected virtual void CreateWalkSet()
+        {
+
+        }
+        protected virtual void CreateInteractSet()
+        {
 
         }
         private float GetLayerOffSet()

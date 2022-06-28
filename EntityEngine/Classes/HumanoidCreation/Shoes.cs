@@ -21,18 +21,23 @@ namespace EntityEngine.Classes.HumanoidCreation
         }
         public override void Load(Entity entity, Vector2 entityPosition)
         {
-            base.Load(entity,entityPosition);
             Texture = EntityFactory.ShoesTexture;
 
-            Rectangle destinationRectangle = new Rectangle((int)entityPosition.X, (int)entityPosition.Y, FrameWidth, FrameHeight);
+            base.Load(entity, entityPosition);
+
+
+        }
+
+        protected override void CreateWalkSet()
+        {
             AnimationFrame[] walkUpFrames = new AnimationFrame[]
-            {
+                        {
                new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
               new AnimationFrame(1, 0, 0, WalkDownAnimationDuration),
                 new AnimationFrame(2, 0, 0, WalkDownAnimationDuration),
                new AnimationFrame(1, 0, 0, WalkDownAnimationDuration,true),
                 new AnimationFrame(2, 0, 0, WalkDownAnimationDuration,true),
-        };
+                    };
             WalkUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkUpFrames);
 
@@ -77,9 +82,50 @@ namespace EntityEngine.Classes.HumanoidCreation
       };
             WalkRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkRightFrames, idleFrame: 0);
-            WalkingSet = new AnimatedSprite[] { WalkUp,WalkDown, WalkLeft, WalkRight };
+            WalkingSet = new AnimatedSprite[] { WalkUp, WalkDown, WalkLeft, WalkRight };
+        }
+
+        protected override void CreateInteractSet()
+        {
+            AnimationFrame[] interactUpFrames = new AnimationFrame[]
+            {
+               new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
+               new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
 
 
+        };
+            InteractUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                interactUpFrames);
+
+            AnimationFrame[] interactDownFrames = new AnimationFrame[]
+            {
+               new AnimationFrame(3, 0, 0, InteractDownAnimationDuration),
+               new AnimationFrame(3, 0, 0, InteractDownAnimationDuration),
+
+
+
+        };
+            InteractDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                interactDownFrames);
+            AnimationFrame[] InteractLeftFrames = new AnimationFrame[]
+            {
+               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
+               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
+
+        };
+            InteractLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                InteractLeftFrames, idleFrame: 0);
+
+            AnimationFrame[] interactRigthFrames = new AnimationFrame[]
+           {
+               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration),
+               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration),
+
+
+       };
+            InteractRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                interactRigthFrames, idleFrame: 0);
+            InteractSet = new AnimatedSprite[] { InteractUp, InteractDown, InteractLeft, InteractRight };
         }
 
         internal override void Update(GameTime gameTime, Direction direction, Vector2 position, float entityLayer, bool isMoving)
