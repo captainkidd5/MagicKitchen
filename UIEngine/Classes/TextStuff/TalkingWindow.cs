@@ -50,6 +50,7 @@ namespace UIEngine.Classes.TextStuff
         }
         private void AddSpeechCommand(string[] args)
         {
+            DirectionPlayerShouldFace = Direction.Down;
             CreateTalkingText(args[0]);
         }
 
@@ -73,7 +74,7 @@ namespace UIEngine.Classes.TextStuff
 
                     }
                 }
-                if (Hovered && Controls.IsClicked)
+                if (Hovered && Controls.IsClicked || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
                 {
                     TextBuilder.ForceComplete();
                 }
