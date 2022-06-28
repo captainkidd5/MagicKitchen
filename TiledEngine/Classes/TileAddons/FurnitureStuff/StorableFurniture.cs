@@ -1,4 +1,5 @@
-﻿using DataModels.ItemStuff;
+﻿using DataModels;
+using DataModels.ItemStuff;
 using DataModels.MapStuff;
 using Globals.Classes.Helpers;
 using InputEngine.Classes;
@@ -183,7 +184,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base.DestroyTileAndGetLoot();
 
         }
-        public override void Interact(bool isPlayer, Item heldItem)
+        public override ActionType? Interact(bool isPlayer, Item heldItem)
         {
             base.Interact(isPlayer, heldItem);
             if (!FlaggedForDestruction)
@@ -199,7 +200,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 }
 
             }
-
+            return null;
         }
         public override void Update(GameTime gameTime)
         {

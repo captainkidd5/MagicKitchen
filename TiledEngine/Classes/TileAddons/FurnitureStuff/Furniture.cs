@@ -1,4 +1,5 @@
-﻿using DataModels.ItemStuff;
+﻿using DataModels;
+using DataModels.ItemStuff;
 using DataModels.MapStuff;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
@@ -101,9 +102,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             return ToolTier.Poor;
         }
-        public override void Interact(bool isPlayer, Item heldItem)
+        public override ActionType? Interact(bool isPlayer, Item heldItem)
         {
-            base.Interact(isPlayer, heldItem);
+            return base.Interact(isPlayer, heldItem);
 
         }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)

@@ -1,4 +1,5 @@
-﻿using DataModels.ItemStuff;
+﻿using DataModels;
+using DataModels.ItemStuff;
 using Globals.Classes;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
@@ -152,14 +153,15 @@ namespace TiledEngine.Classes.TileAddons.Actions
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-        public override void Interact(bool isPlayer, Item heldItem)
+        public override ActionType? Interact(bool isPlayer, Item heldItem)
         {
-            base.Interact(isPlayer, heldItem);
             if (isPlayer)
             {
                 if (!PlayerInClickRange)
-                    return;
+                    return null;
             }
+            return base.Interact(isPlayer, heldItem);
+
         }
     }
 }

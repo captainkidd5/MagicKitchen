@@ -1,4 +1,5 @@
-﻿using DataModels.ItemStuff;
+﻿using DataModels;
+using DataModels.ItemStuff;
 using Globals.Classes;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
@@ -80,20 +81,19 @@ namespace TiledEngine.Classes.TileAddons
 
 
 
-        public override void Interact(bool isPlayer, Item heldItem)
+        public override ActionType? Interact(bool isPlayer, Item heldItem)
         {
             if (isPlayer)
             {
                 if (!PlayerInClickRange && !PlayerInControllerActionRange)
-                    return;
+                    return null;
                 if (!MeetsItemRequirements(heldItem))
-                    return;
+                    return null;
                 if (Tile.TileManager.TileLocationHelper.IsOnTopOf(Tile.TileData, Shared.PlayerPosition))
-                    return;
+                    return null;
             }
 
-            if (!IsPlayingASound)
-                PlayPackage(GetDestructionSoundName());
+          
 
             if (RequireLoopBeforeDestruction)
             {
@@ -107,8 +107,9 @@ namespace TiledEngine.Classes.TileAddons
 
 
             }
-
-
+            if (!IsPlayingASound)
+                PlayPackage(GetDestructionSoundName());
+            return ActionType.Interact;
         }
     }
 }

@@ -33,6 +33,7 @@ using SoundEngine.Classes;
 using EntityEngine.Classes.ToolStuff;
 using EntityEngine.ItemStuff;
 using TiledEngine.Classes.TileAddons;
+using DataModels;
 
 namespace EntityEngine.Classes
 {

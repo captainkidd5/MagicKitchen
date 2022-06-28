@@ -27,6 +27,7 @@ using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using EntityEngine.ItemStuff;
 using EntityEngine.Classes.Animators;
 using TiledEngine.Classes.Helpers;
+using DataModels;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -201,7 +202,9 @@ namespace EntityEngine.Classes.PlayerStuff
                 {
                     if (Container.TileManager.TileLocationHelper.IsAdjacentTo(mouseOverTile.TileData, Position))
                     {
-                        Container.TileManager.MouseOverTile.Interact(true, InventoryHandler.HeldItem);
+                        ActionType? actionType = Container.TileManager.MouseOverTile.Interact(true, InventoryHandler.HeldItem);
+                        if (actionType != null)
+                            PerformAction(actionType.Value);
                     }
                 }
             }

@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels;
+using Globals.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -80,9 +81,9 @@ namespace TiledEngine.Classes.TileAddons
              Tile.Sprite.TriggerReduceEffect();
         }
 
-        public void Interact(bool isPlayer, Item heldItem)
+        public ActionType? Interact(bool isPlayer, Item heldItem)
         {
-         //   throw new NotImplementedException();
+            return null;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using EntityEngine.Classes.HumanoidCreation;
+﻿using DataModels;
+using EntityEngine.Classes.HumanoidCreation;
 using Globals.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

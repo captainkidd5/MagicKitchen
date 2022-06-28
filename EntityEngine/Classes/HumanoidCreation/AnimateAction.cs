@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DataModels;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes.Animations;
 using System;
@@ -41,7 +42,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             Animations[(int)direction - 1].CustomLayer = layer;
             if (!Repeat && Animations[(int)direction - 1].HasLoopedAtLeastOnce)
             {
-                _bodyPiece.ChangeParentSet(Animators.ActionType.Walking);
+                _bodyPiece.ChangeParentSet(ActionType.Walking);
             }
         }
         public void Draw(SpriteBatch spriteBatch, Direction direction)

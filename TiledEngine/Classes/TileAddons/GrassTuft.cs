@@ -1,4 +1,5 @@
 ﻿
+using DataModels;
 using Globals.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
@@ -93,9 +94,9 @@ namespace TiledEngine.Classes.TileAddons
       
         }
 
-        public void Interact(bool isPlayer, Item heldItem)
+        public ActionType? Interact(bool isPlayer, Item heldItem)
         {
-           // throw new NotImplementedException();
+            return null;
         }
 
 

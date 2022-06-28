@@ -81,8 +81,9 @@ namespace TiledEngine.Classes.TileAddons
             base.CleanUp();
         }
 
-        public virtual void Interact(bool isPlayer, Item heldItem)
+        public virtual ActionType? Interact(bool isPlayer, Item heldItem)
         {
+            return null;
             //throw new NotImplementedException();
         }
 

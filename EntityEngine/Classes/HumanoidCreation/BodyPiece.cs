@@ -1,4 +1,5 @@
-﻿using EntityEngine.Classes.Animators;
+﻿using DataModels;
+using EntityEngine.Classes.Animators;
 using Globals.Classes;
 using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;

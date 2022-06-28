@@ -1,4 +1,5 @@
-﻿using InputEngine.Classes;
+﻿using DataModels;
+using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -50,9 +51,9 @@ namespace TiledEngine.Classes.TileAddons.Actions
             }
         }
 
-        public override void Interact(bool isPlayer, Item heldItem)
+        public override ActionType? Interact(bool isPlayer, Item heldItem)
         {
-            base.Interact(isPlayer, heldItem);
+            return base.Interact(isPlayer, heldItem);
         }
 
     }
