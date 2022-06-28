@@ -17,6 +17,13 @@ namespace Globals.Classes.Helpers
             Vector2 returnVal = new Vector2(centerScreen.X + Settings.BarWidth - rectangle.Width * (float)scale / 2, centerScreen.Y + Settings.BarHeight - rectangle.Height / 2 * (float)scale);
             return returnVal;
         }
+
+
+        public static Rectangle RectangleToScale(Rectangle oldRectangle, Vector2 scale)
+        {
+            return new Rectangle(oldRectangle.X, oldRectangle.Y, (int)((float)oldRectangle.Width * scale.X),
+                (int)(((float)oldRectangle.Height * scale.Y)));
+        }
         public static Vector2 CenterRectangleOnScreen(int width, int height, float? scale = null)
         {
             scale = scale ?? Settings.GameScale;

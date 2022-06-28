@@ -21,22 +21,24 @@ namespace UIEngine.Classes.TextStuff
 {
     public class TalkingWindow : InterfaceSection
     {
-        private NineSliceSprite BackdropSprite { get; set; }
+        private Rectangle _backgroundSourceRectangle = new Rectangle(336, 272, 272, 288);
+        private Sprite BackdropSprite { get; set; }
         private TextBuilder TextBuilder { get; set; }
 
         public Direction DirectionPlayerShouldFace { get; set; }
 
         private Vector2 _textOffSet = new Vector2(16, 16);
+
+        private Vector2 _scale = new Vector2(2f, 2f);
         public TalkingWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             Position = new Vector2(Position.X + Settings.Gutter, Position.Y);
-            Rectangle totalBackDropRectangleDimensions = new Rectangle(0, 0, Settings.ScreenWidth - Settings.Gutter * 2, 128);
-            Position = RectangleHelper.PlaceBottomLeftScreen(totalBackDropRectangleDimensions);
-            BackdropSprite = SpriteFactory.CreateNineSliceSprite(Position,
-                totalBackDropRectangleDimensions.Width,
-                totalBackDropRectangleDimensions.Height, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back));
-            TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front)), .05f);
+            Position = RectangleHelper.PlaceTopRightScreen(RectangleHelper.RectangleToScale(_backgroundSourceRectangle, _scale));
+            BackdropSprite = SpriteFactory.CreateUISprite(Position, _backgroundSourceRectangle,
+                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back),scale :_scale);
+            TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front),.5f),
+                .05f);
             Deactivate();
 
 
@@ -51,7 +53,13 @@ namespace UIEngine.Classes.TextStuff
         private void AddSpeechCommand(string[] args)
         {
             DirectionPlayerShouldFace = Direction.Down;
-            CreateTalkingText(args[0]);
+            string totalString = string.Empty;
+            foreach(string arg in args)
+            {
+                totalString += " ";
+                totalString += arg;
+            }
+            CreateTalkingText(totalString);
         }
 
         public override void Update(GameTime gameTime)
@@ -102,7 +110,7 @@ namespace UIEngine.Classes.TextStuff
         public void CreateTalkingText(string speech)
         {
             TextBuilder.ClearText();
-            TextBuilder.SetText(TextFactory.CreateUIText(speech, GetLayeringDepth(UILayeringDepths.Front), scale: 2f), false);
+            TextBuilder.SetText(TextFactory.CreateUIText(speech, GetLayeringDepth(UILayeringDepths.Front), scale: 1f), false);
             Activate();
 
             UI.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UI.ClockBar });
