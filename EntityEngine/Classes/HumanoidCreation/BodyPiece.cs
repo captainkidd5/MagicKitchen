@@ -35,32 +35,22 @@ namespace EntityEngine.Classes.HumanoidCreation
 
         private Color _tint = Color.White;
 
-        #region WALKING
         protected static float WalkDownAnimationDuration = .1f;
 
         protected static float WalkLeftAnimationDuration = .15f;
-        protected List<AnimatedSprite[]> AllAnimationSets;
-        protected AnimatedSprite[] WalkingSet { get; set; }
-        protected AnimatedSprite WalkUp { get; set; }
-        protected AnimatedSprite WalkDown { get; set; }
+        protected Dictionary<ActionType, AnimateAction> AllAnimationSets;
 
-        protected AnimatedSprite WalkLeft { get; set; }
-        protected AnimatedSprite WalkRight { get; set; }
-        #endregion
+        protected AnimateAction WalkingAction { get; set; }
+        protected AnimateAction InteractAction { get; set; }
 
-        #region INTERACT
+
+
         protected static float InteractDownAnimationDuration = .1f;
 
         protected static float InteractLeftAnimationDuration = .15f;
-        protected AnimatedSprite[] InteractSet { get; set; }
-        protected AnimatedSprite InteractUp { get; set; }
-        protected AnimatedSprite InteractDown { get; set; }
 
-        protected AnimatedSprite InteractLeft { get; set; }
-        protected AnimatedSprite InteractRight { get; set; }
-        #endregion
 
-        protected AnimatedSprite[] CurrentSet { get; set; }
+        protected AnimateAction CurrentAction { get; set; }
         protected Texture2D Texture { get; set; }
 
         /// <summary>
@@ -68,7 +58,7 @@ namespace EntityEngine.Classes.HumanoidCreation
         /// </summary>
         protected Color ClothingBaseColor { get; set; }
 
-        protected int CurrentDirection { get; set; }
+        protected Direction CurrentDirection { get; set; }
 
 
         protected Entity Entity { get; private set; }
@@ -84,11 +74,11 @@ namespace EntityEngine.Classes.HumanoidCreation
             Entity = entity;
             CreateWalkSet();
             CreateInteractSet();
-            AllAnimationSets = new List<AnimatedSprite[]>()
-            {
-                WalkingSet,
-                InteractSet
-            };
+            AllAnimationSets = new Dictionary<ActionType, AnimateAction>();
+            AllAnimationSets.Add(ActionType.Walking, WalkingAction);
+            AllAnimationSets.Add(ActionType.Interact, InteractAction);
+
+
         }
         protected virtual void CreateWalkSet()
         {
@@ -102,28 +92,17 @@ namespace EntityEngine.Classes.HumanoidCreation
         {
             return (int)BodyPart * .000001f;
         }
-        public void ChangeCurrentDirection(Direction newDirection, Vector2 position, int xOffset, int yOffset, float layer)
-        {
-            CurrentDirection = GetAnimationFromDirection(newDirection);
-            for (int i = 0; i < CurrentSet.Length; i++)
-            {
-                CurrentSet[i].ResetToZero(new Vector2(position.X - xOffset, position.Y - yOffset), layer + LayerOffSet);
 
-            };
-
-        }
         internal virtual void Update(GameTime gameTime,Direction direction, Vector2 position, float entityLayer, bool isMoving)
         {
 
 
-
-            CurrentDirection = GetAnimationFromDirection(direction);
+            bool hasChanged = CurrentDirection != direction;
+            CurrentDirection = direction;
             if (direction != Direction.None)
             {
-                CurrentSet[CurrentDirection].Update(gameTime, position, isMoving);
 
-                //So that the bodypart overlaps correctly, and is drawn relative to the entity's y position on the map.
-                CurrentSet[CurrentDirection].CustomLayer = entityLayer + LayerOffSet;
+                CurrentAction.Update(gameTime, (Direction)CurrentDirection, hasChanged,position, entityLayer + LayerOffSet, isMoving);
             }
 
 
@@ -133,74 +112,24 @@ namespace EntityEngine.Classes.HumanoidCreation
         /// <summary>
         /// Resets sprite to resting frame for specified direction
         /// </summary>
-        public void SetRestingFrameIndex()
-        {
-            
-            CurrentSet[CurrentDirection].ResetSpriteToRestingFrame();
-        }
+        public void SetRestingFrameIndex() => CurrentAction.SetRestingFrame((Direction)CurrentDirection);
+       
 
-        internal virtual int GetAnimationFromDirection(Direction direction)
-        {
-            switch (direction)
-            {
-                case Direction.None:
-                    return -1;
-                case Direction.Up:
-                    return 0;
-                case Direction.Down:
-                    return 1;
-                case Direction.Left:
-                    return 2;
-                case Direction.Right:
-                    return 3;
-                default:
-                    goto case Direction.None;
-            }
-        }
+
 
         internal virtual void Draw(SpriteBatch spriteBatch)
         {
-            if (CurrentDirection != -1)
+            if (CurrentDirection != Direction.None)
             {
-                CurrentSet[CurrentDirection].Draw(spriteBatch);
+                CurrentAction.Draw(spriteBatch, (Direction)CurrentDirection);
             }
         }
         internal virtual void ChangeAnimation(ActionType actionType)
         {
-            switch (actionType)
-            {
-                case ActionType.Walking:
-                    CurrentSet = WalkingSet;
-                    return;
-                case ActionType.Interact:
-                    CurrentSet = InteractSet;
-                    return;
-                default:
-                    throw new Exception("Action set did not match any known sets");
-            }
+            CurrentAction = AllAnimationSets[actionType];
         }
 
-        internal virtual void FadeIn(bool flagForRemovalUponFinish)
-        {
-            CurrentSet[CurrentDirection].RemoveColorEffect(flagForRemovalUponFinish);
 
-        }
-
-        internal virtual void FadeOut()
-        {
-            CurrentSet[CurrentDirection].AddFaderEffect(null, null, true);
-
-        }
-
-        internal virtual bool IsOpaque()
-        {
-            return CurrentSet[CurrentDirection].IsOpaque;
-        }
-
-        internal virtual bool IsTransparent()
-        {
-            return CurrentSet[CurrentDirection].IsTransparent;
-        }
 
         internal virtual void ChangeColor(Color color)
         {
@@ -208,11 +137,8 @@ namespace EntityEngine.Classes.HumanoidCreation
             _tint = color;
             foreach(var item in AllAnimationSets)
             {
-                for (int i = 0; i < item.Length; i++)
-                {
-                    item[i].UpdateColor(_tint);
-
-                };
+                item.Value.ChangeColor(color);
+   
             }
           
         }

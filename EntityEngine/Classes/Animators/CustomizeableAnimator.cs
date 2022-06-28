@@ -40,47 +40,40 @@ namespace EntityEngine.Classes.Animators
     /// </summary>
     internal class CustomizeableAnimator : Animator, ISaveable
     {
-        protected internal BodyPiece[] Animations { get; set; }
+        protected internal BodyPiece[] BodyPieces { get; set; }
 
         public CustomizeableAnimator(Entity entity, BodyPiece[] animations,int xOffset = 8, int yOffset =32) : base(entity,xOffset, yOffset)
         {
-            Animations = animations;
+            BodyPieces = animations;
 
         }
         internal void ChangeClothingColor(Type t, Color color)
         {
-            for(int i = 0; i < Animations.Length; i++)
+            for(int i = 0; i < BodyPieces.Length; i++)
             {
-                if(Animations[i].GetType() == t)
+                if(BodyPieces[i].GetType() == t)
                 {
-                    Animations[i].ChangeColor(color);
+                    BodyPieces[i].ChangeColor(color);
                 }
             }
         }
         internal override void Load(SoundModuleManager moduleManager,Entity entity, Vector2 entityPosition)
         {
-            for(int i =0; i < Animations.Length; i++)
+            for(int i =0; i < BodyPieces.Length; i++)
             {
-                Animations[i].Load(entity, entityPosition);
-                Animations[i].ChangeAnimation(ActionType.Walking);
+                BodyPieces[i].Load(entity, entityPosition);
+                BodyPieces[i].ChangeAnimation(ActionType.Walking);
             }
 
         }
-        internal override void ChangeDirection(Direction newDirection, Vector2 position )
-        {
-            base.ChangeDirection(newDirection, position);
-            for (int i = 0; i < Animations.Length; i++)
-            {
-                Animations[i].ChangeCurrentDirection(newDirection, position, xOffset, yOffset, Layer);
-            }
-        }
+
         internal override void LoadUpdate(GameTime gameTime)
         {
 ;
-            for (int i = 0; i < Animations.Length; i++)
+            for (int i = 0; i < BodyPieces.Length; i++)
             {
-                Animations[i].Update(gameTime, Direction.Down, Position, Layer,true);
-                Animations[i].SetRestingFrameIndex();
+                BodyPieces[i].Update(gameTime, Direction.Down, Position, Layer,true);
+                BodyPieces[i].SetRestingFrameIndex();
             }
             HasLoadUpdatedOnce = true;
         }
@@ -88,9 +81,9 @@ namespace EntityEngine.Classes.Animators
         internal override void PerformAction(Direction direction, ActionType actionType)
         {
             base.PerformAction(direction, actionType);
-            for (int i = 0; i < Animations.Length; i++)
+            for (int i = 0; i < BodyPieces.Length; i++)
             {
-                Animations[i].ChangeAnimation(actionType);
+                BodyPieces[i].ChangeAnimation(actionType);
             }
         }
         public Vector2 PositionLastFrame { get; set; }
@@ -106,11 +99,11 @@ namespace EntityEngine.Classes.Animators
 
             bool resetToResting = !isMoving && WasMovingLastFrame;
           
-                for (int i = 0; i < Animations.Length; i++)
+                for (int i = 0; i < BodyPieces.Length; i++)
                 {
                     if (resetToResting)
-                        Animations[i].SetRestingFrameIndex();
-                    Animations[i].Update(gameTime, Entity.DirectionMoving, Position, Layer, isMoving);
+                        BodyPieces[i].SetRestingFrameIndex();
+                    BodyPieces[i].Update(gameTime, Entity.DirectionMoving, Position, Layer, isMoving);
                    
                 }
             
@@ -124,51 +117,28 @@ namespace EntityEngine.Classes.Animators
 
         internal override void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < Animations.Length; i++)
+            for (int i = 0; i < BodyPieces.Length; i++)
             {
-                Animations[i].Draw(spriteBatch);
+                BodyPieces[i].Draw(spriteBatch);
             }
         }
 
-        internal override void FadeIn(bool flagForRemovalUponFinish = true)
-        {
-            for (int i = 0; i < Animations.Length; i++)
-            {
-                Animations[i].FadeIn(flagForRemovalUponFinish);
-            }
-        }
 
-        internal override void FadeOut()
-        {
-            for (int i = 0; i < Animations.Length; i++)
-            {
-                Animations[i].FadeOut();
-            }
-        }
 
-        internal override bool IsOpaque(int bodyIndex = 0)
-        {
-            return Animations[bodyIndex].IsOpaque();
-        }
-
-        internal override bool IsTransparent(int bodyIndex = 0)
-        {
-            return Animations[bodyIndex].IsTransparent();
-        }
 
         public override void Save(BinaryWriter writer)
         {
-            for (int i = 0; i < Animations.Length; i++)
+            for (int i = 0; i < BodyPieces.Length; i++)
             {
-                Animations[i].Save(writer);
+                BodyPieces[i].Save(writer);
             }
         }
 
         public override void LoadSave(BinaryReader reader)
         {
-            for (int i = 0; i < Animations.Length; i++)
+            for (int i = 0; i < BodyPieces.Length; i++)
             {
-                Animations[i].LoadSave(reader);
+                BodyPieces[i].LoadSave(reader);
             }
         }
 

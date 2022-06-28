@@ -38,7 +38,7 @@ namespace EntityEngine.Classes.HumanoidCreation
                new AnimationFrame(1, 0, 0, WalkDownAnimationDuration,true),
                 new AnimationFrame(2, 0, 0, WalkDownAnimationDuration,true),
                     };
-            WalkUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+           AnimatedSprite WalkUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkUpFrames);
 
 
@@ -56,7 +56,7 @@ namespace EntityEngine.Classes.HumanoidCreation
                new AnimationFrame(4, 0, 1, WalkDownAnimationDuration,true),
 
        };
-            WalkDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            AnimatedSprite WalkDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkDownFrames);
 
             AnimationFrame[] walkLeftFrames = new AnimationFrame[]
@@ -68,7 +68,7 @@ namespace EntityEngine.Classes.HumanoidCreation
                 new AnimationFrame(9, 0, 1, WalkLeftAnimationDuration,true),
                 new AnimationFrame(10, 0, 0, WalkLeftAnimationDuration,true),
        };
-            WalkLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            AnimatedSprite WalkLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkLeftFrames, idleFrame: 0);
 
             AnimationFrame[] walkRightFrames = new AnimationFrame[]
@@ -80,9 +80,11 @@ namespace EntityEngine.Classes.HumanoidCreation
                 new AnimationFrame(9, 0, 1, WalkLeftAnimationDuration),
                 new AnimationFrame(10, 0, 0, WalkLeftAnimationDuration),
       };
-            WalkRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            AnimatedSprite WalkRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkRightFrames, idleFrame: 0);
-            WalkingSet = new AnimatedSprite[] { WalkUp, WalkDown, WalkLeft, WalkRight };
+            AnimatedSprite[] WalkingSet = new AnimatedSprite[] { WalkUp, WalkDown, WalkLeft, WalkRight };
+            WalkingAction = new AnimateAction(WalkingSet, true);
+
         }
 
         protected override void CreateInteractSet()
@@ -94,7 +96,7 @@ namespace EntityEngine.Classes.HumanoidCreation
 
 
         };
-            InteractUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            AnimatedSprite InteractUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 interactUpFrames);
 
             AnimationFrame[] interactDownFrames = new AnimationFrame[]
@@ -105,7 +107,7 @@ namespace EntityEngine.Classes.HumanoidCreation
 
 
         };
-            InteractDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            AnimatedSprite InteractDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 interactDownFrames);
             AnimationFrame[] InteractLeftFrames = new AnimationFrame[]
             {
@@ -113,7 +115,7 @@ namespace EntityEngine.Classes.HumanoidCreation
                new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
 
         };
-            InteractLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            AnimatedSprite InteractLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 InteractLeftFrames, idleFrame: 0);
 
             AnimationFrame[] interactRigthFrames = new AnimationFrame[]
@@ -123,47 +125,48 @@ namespace EntityEngine.Classes.HumanoidCreation
 
 
        };
-            InteractRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            AnimatedSprite InteractRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 interactRigthFrames, idleFrame: 0);
-            InteractSet = new AnimatedSprite[] { InteractUp, InteractDown, InteractLeft, InteractRight };
+            AnimatedSprite[] InteractSet = new AnimatedSprite[] { InteractUp, InteractDown, InteractLeft, InteractRight };
+            InteractAction = new AnimateAction(InteractSet, false);
         }
 
         internal override void Update(GameTime gameTime, Direction direction, Vector2 position, float entityLayer, bool isMoving)
         {
             base.Update(gameTime, direction, position, entityLayer,isMoving);
             
-            if(CurrentSet[CurrentDirection].HasFrameChanged() && CurrentSet == WalkingSet)
-            {
-                int stepFrame1 = 0;
-                int stepFrame2 = 0;
-                switch ((Direction)(CurrentDirection + 1))
-                {
-                    case Direction.Up:
-                        stepFrame1 = 1;
-                        stepFrame2 = 4;
-                        break;
-                       case Direction.Down:
-                        stepFrame1 = 1;
-                        stepFrame2 =4;
-                        break;
-                        case Direction.Left:
-                        stepFrame1 = 1;
-                        stepFrame2 = 3;
-                        break;
-                    case Direction.Right:
-                        stepFrame1 = 1;
-                        stepFrame2 = 3;
-                        break;
+            //if(CurrentAction[CurrentDirection].HasFrameChanged() && CurrentAction == WalkingSet)
+            //{
+            //    int stepFrame1 = 0;
+            //    int stepFrame2 = 0;
+            //    switch ((Direction)(CurrentDirection + 1))
+            //    {
+            //        case Direction.Up:
+            //            stepFrame1 = 1;
+            //            stepFrame2 = 4;
+            //            break;
+            //           case Direction.Down:
+            //            stepFrame1 = 1;
+            //            stepFrame2 =4;
+            //            break;
+            //            case Direction.Left:
+            //            stepFrame1 = 1;
+            //            stepFrame2 = 3;
+            //            break;
+            //        case Direction.Right:
+            //            stepFrame1 = 1;
+            //            stepFrame2 = 3;
+            //            break;
 
-                    default:
-                        break;
-                }
-                if(isMoving && (CurrentSet[CurrentDirection].FrameLastFrame == stepFrame1 || CurrentSet[CurrentDirection].FrameLastFrame == stepFrame2))
-                {
-                    Entity.PlayStepSoundFromTile();
+            //        default:
+            //            break;
+            //    }
+            //    if(isMoving && (CurrentAction[CurrentDirection].FrameLastFrame == stepFrame1 || CurrentAction[CurrentDirection].FrameLastFrame == stepFrame2))
+            //    {
+            //        Entity.PlayStepSoundFromTile();
 
-                }
-            }
+            //    }
+            //}
             
         }
 
