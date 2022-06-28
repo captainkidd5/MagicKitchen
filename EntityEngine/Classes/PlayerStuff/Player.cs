@@ -92,6 +92,7 @@ namespace EntityEngine.Classes.PlayerStuff
         private void ReloadAnimationsCommmand(string[] args)
         {
             Animator.Load(SoundModuleManager, this, Position);
+            GetClothingColors();
         }
         private void PlayAnimationCommand(string[] args)
         {
@@ -99,7 +100,9 @@ namespace EntityEngine.Classes.PlayerStuff
 
             string actionType = args[0];
             ActionType action;
-            if(Enum.TryParse(actionType, true,out action))
+            GetClothingColors();
+
+            if (Enum.TryParse(actionType, true,out action))
             {
                 Animator.PerformAction(DirectionMoving, action);
 

@@ -39,6 +39,7 @@ namespace EntityEngine.Classes.HumanoidCreation
         protected static float WalkDownAnimationDuration = .1f;
 
         protected static float WalkLeftAnimationDuration = .15f;
+        protected List<AnimatedSprite[]> AllAnimationSets;
         protected AnimatedSprite[] WalkingSet { get; set; }
         protected AnimatedSprite WalkUp { get; set; }
         protected AnimatedSprite WalkDown { get; set; }
@@ -83,6 +84,11 @@ namespace EntityEngine.Classes.HumanoidCreation
             Entity = entity;
             CreateWalkSet();
             CreateInteractSet();
+            AllAnimationSets = new List<AnimatedSprite[]>()
+            {
+                WalkingSet,
+                InteractSet
+            };
         }
         protected virtual void CreateWalkSet()
         {
@@ -200,11 +206,15 @@ namespace EntityEngine.Classes.HumanoidCreation
         {
 
             _tint = color;
-            for (int i = 0; i < CurrentSet.Length; i++)
+            foreach(var item in AllAnimationSets)
             {
-                CurrentSet[i].UpdateColor(_tint);
+                for (int i = 0; i < item.Length; i++)
+                {
+                    item[i].UpdateColor(_tint);
 
-            };
+                };
+            }
+          
         }
 
         public void Save(BinaryWriter writer)

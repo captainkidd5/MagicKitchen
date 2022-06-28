@@ -80,9 +80,14 @@ namespace EntityEngine.Classes
             (Animator as CustomizeableAnimator).ChangeClothingColor(t, color);
         public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string? name, bool standardAnimator = false)
         {
-            base.LoadContent(entityContainer,startPos, name, standardAnimator);
+            base.LoadContent(entityContainer, startPos, name, standardAnimator);
             LoadAnimations(Animator);
+            GetClothingColors();
 
+        }
+
+        protected void GetClothingColors()
+        {
             ChangeClothingColor(typeof(Hair), ColorHelper.GetRandomColor());
             Color shirtColor = ColorHelper.GetRandomColor();
             ChangeClothingColor(typeof(Shirt), shirtColor);
@@ -94,7 +99,6 @@ namespace EntityEngine.Classes
 
             ChangeClothingColor(typeof(Pants), ColorHelper.GetRandomColor());
             ChangeClothingColor(typeof(Shoes), ColorHelper.GetRandomColor());
-
         }
 
         public override void CleanUp()
