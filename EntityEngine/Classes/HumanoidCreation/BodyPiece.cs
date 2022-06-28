@@ -23,9 +23,9 @@ namespace EntityEngine.Classes.HumanoidCreation
     {
         protected BodyParts BodyPart { get; set; }
         protected float LayerOffSet { get; set; }
-        protected static float WalkDownAnimationDuration = .4f;
+        protected static float WalkDownAnimationDuration = .1f;
 
-        protected static float WalkLeftAnimationDuration = .4f;
+        protected static float WalkLeftAnimationDuration = .15f;
 
 
         protected int Index { get; set; }

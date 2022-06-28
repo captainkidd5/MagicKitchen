@@ -35,15 +35,16 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimationFrame[] walkDownFrames = new AnimationFrame[]
             {
 
-              new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
-                new AnimationFrame(0, 0, -2, WalkDownAnimationDuration),
-              new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
+              new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
 
+              new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
+              new AnimationFrame(0, 0, -2, WalkDownAnimationDuration),
+
+                new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
 
                new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
                 new AnimationFrame(0, 0, -2, WalkDownAnimationDuration),
                new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
-
         };
             WalkDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkDownFrames);

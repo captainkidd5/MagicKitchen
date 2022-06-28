@@ -25,6 +25,7 @@ using Globals.Classes.Console;
 using SpriteEngine.Classes.ShadowStuff;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using EntityEngine.ItemStuff;
+using EntityEngine.Classes.Animators;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -78,6 +79,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
             CommandConsole.RegisterCommand("tp", "teleports player to mouse position", TpCommand);
             CommandConsole.RegisterCommand("ra", "Reloads player animations", ReloadAnimationsCommmand);
+            CommandConsole.RegisterCommand("pa", "Plays specified animation", PlayAnimationCommand);
 
 
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
@@ -90,6 +92,18 @@ namespace EntityEngine.Classes.PlayerStuff
         private void ReloadAnimationsCommmand(string[] args)
         {
             Animator.Load(SoundModuleManager, this, Position);
+        }
+        private void PlayAnimationCommand(string[] args)
+        {
+            Animator.Load(SoundModuleManager, this, Position);
+
+            string actionType = args[0];
+            ActionType action;
+            if(Enum.TryParse(actionType, true,out action))
+            {
+                Animator.PerformAction(DirectionMoving, action);
+
+            }
         }
         protected override void CreateBody(Vector2 position)
         {

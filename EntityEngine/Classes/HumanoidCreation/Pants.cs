@@ -18,10 +18,16 @@ namespace EntityEngine.Classes.HumanoidCreation
         }
         public override void Load(Entity entity, Vector2 entityPosition)
         {
-            base.Load( entity, entityPosition);
+            base.Load(entity, entityPosition);
             Texture = EntityFactory.PantsTexture;
 
             Rectangle destinationRectangle = new Rectangle((int)entityPosition.X, (int)entityPosition.Y, FrameWidth, FrameHeight);
+            CreateWalkSet();
+
+        }
+
+        private void CreateWalkSet()
+        {
             AnimationFrame[] walkUpFrames = new AnimationFrame[]
             {
                new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
@@ -72,10 +78,62 @@ namespace EntityEngine.Classes.HumanoidCreation
        };
             WalkRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkRightFrames, idleFrame: 0);
-            WalkingSet = new AnimatedSprite[] { WalkUp,WalkDown, WalkLeft, WalkRight };
-
-
+            WalkingSet = new AnimatedSprite[] { WalkUp, WalkDown, WalkLeft, WalkRight };
         }
 
+        private void CreateInteractSet()
+        {
+            AnimationFrame[] walkUpFrames = new AnimationFrame[]
+            {
+               new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
+              new AnimationFrame(1, 0, 0, WalkDownAnimationDuration),
+                new AnimationFrame(2, 0, -1, WalkDownAnimationDuration),
+               new AnimationFrame(1, 0, 0, WalkDownAnimationDuration,true),
+                new AnimationFrame(2, 0, 0, WalkDownAnimationDuration,true),
+        };
+            InteractUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                walkUpFrames);
+
+            AnimationFrame[] walkDownFrames = new AnimationFrame[]
+            {
+               new AnimationFrame(3, 0, -1, WalkDownAnimationDuration),
+
+              new AnimationFrame(4, 0, 0, WalkDownAnimationDuration),
+                new AnimationFrame(5, 0, 0, WalkDownAnimationDuration),
+              new AnimationFrame(4, 0, 0, WalkDownAnimationDuration),
+
+
+               new AnimationFrame(4, 0, 0, WalkDownAnimationDuration,true),
+                new AnimationFrame(5, 0, -1, WalkDownAnimationDuration,true),
+               new AnimationFrame(4, 0, 0, WalkDownAnimationDuration,true),
+
+        };
+            InteractDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                walkDownFrames);
+            AnimationFrame[] walkLeftFrames = new AnimationFrame[]
+            {
+               new AnimationFrame(6, 0, 0, WalkLeftAnimationDuration,true),
+
+               new AnimationFrame(7, 0, 1, WalkLeftAnimationDuration,true),
+              new AnimationFrame(8, 0, 0, WalkLeftAnimationDuration,true),
+                new AnimationFrame(9, 0, 1, WalkLeftAnimationDuration,true),
+                new AnimationFrame(10, 0, 0, WalkLeftAnimationDuration,true)
+        };
+            InteractLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                walkLeftFrames, idleFrame: 0);
+
+            AnimationFrame[] walkRightFrames = new AnimationFrame[]
+           {
+               new AnimationFrame(6, 0, 0, WalkLeftAnimationDuration),
+
+               new AnimationFrame(7, 0, 1, WalkLeftAnimationDuration),
+              new AnimationFrame(8, 0, 0, WalkLeftAnimationDuration),
+                new AnimationFrame(9, 0, 1, WalkLeftAnimationDuration),
+                new AnimationFrame(10, 0, 0, WalkLeftAnimationDuration)
+       };
+            InteractRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                walkRightFrames, idleFrame: 0);
+            InteractSet = new AnimatedSprite[] { InteractUp, InteractDown, InteractLeft, InteractRight};
+        }
     }
 }
