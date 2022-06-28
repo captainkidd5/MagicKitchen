@@ -144,50 +144,50 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimationFrame[] interactUpFrames = new AnimationFrame[]
             {
                new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
-              new AnimationFrame(1, 0, 0, InteractDownAnimationDuration),
-                new AnimationFrame(2, 0, -1, InteractDownAnimationDuration),
-               new AnimationFrame(1, 0, 0, InteractDownAnimationDuration,true),
-                new AnimationFrame(2, 0, 0, InteractDownAnimationDuration,true),
+               new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
+
+              new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
+                new AnimationFrame(0, 0, -1, InteractDownAnimationDuration),
+
         };
             InteractUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 interactUpFrames);
 
             AnimationFrame[] interactDownFrames = new AnimationFrame[]
             {
-               new AnimationFrame(3, 0, -1, InteractDownAnimationDuration),
-
-              new AnimationFrame(4, 0, 0, InteractDownAnimationDuration),
-                new AnimationFrame(5, 0, 0, InteractDownAnimationDuration),
-              new AnimationFrame(4, 0, 0, InteractDownAnimationDuration),
+               new AnimationFrame(1, 0, 0, InteractDownAnimationDuration),
+               new AnimationFrame(1, 0, 0, InteractDownAnimationDuration),
 
 
-               new AnimationFrame(4, 0, 0, InteractDownAnimationDuration,true),
-                new AnimationFrame(5, 0, -1, InteractDownAnimationDuration,true),
-               new AnimationFrame(4, 0, 0, InteractDownAnimationDuration,true),
+                             new AnimationFrame(1, 0, -1, InteractDownAnimationDuration),
+               new AnimationFrame(1, 0, -2, InteractDownAnimationDuration),
+
 
         };
             InteractDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 interactDownFrames);
             AnimationFrame[] InteractLeftFrames = new AnimationFrame[]
             {
-               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
+               new AnimationFrame(2, 0, 0, InteractLeftAnimationDuration,true),
+               new AnimationFrame(2, 0, 0, InteractLeftAnimationDuration,true),
 
-               new AnimationFrame(7, 0, 1, InteractLeftAnimationDuration,true),
-              new AnimationFrame(8, 0, 0, InteractLeftAnimationDuration,true),
-                new AnimationFrame(9, 0, 1, InteractLeftAnimationDuration,true),
-                new AnimationFrame(10, 0, 0, InteractLeftAnimationDuration,true)
+
+               new AnimationFrame(2, 0, -1, InteractLeftAnimationDuration,true),
+              new AnimationFrame(2, 0, -2, InteractLeftAnimationDuration,true),
+
         };
             InteractLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 InteractLeftFrames, idleFrame: 0);
 
             AnimationFrame[] interactRigthFrames = new AnimationFrame[]
            {
-               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration),
+                  new AnimationFrame(2, 0, 0, InteractLeftAnimationDuration),
+                  new AnimationFrame(2, 0, 0, InteractLeftAnimationDuration),
 
-               new AnimationFrame(7, 0, 1, InteractLeftAnimationDuration),
-              new AnimationFrame(8, 0, 0, InteractLeftAnimationDuration),
-                new AnimationFrame(9, 0, 1, InteractLeftAnimationDuration),
-                new AnimationFrame(10, 0, 0, InteractLeftAnimationDuration)
+
+               new AnimationFrame(2, 0, -1, InteractLeftAnimationDuration),
+              new AnimationFrame(2, 0, -2, InteractLeftAnimationDuration),
+
        };
             InteractRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 interactRigthFrames, idleFrame: 0);

@@ -86,6 +86,8 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimationFrame[] interactUpFrames = new AnimationFrame[]
             {
                new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
+               new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
+
               new AnimationFrame(1, 0, 0, InteractDownAnimationDuration),
                 new AnimationFrame(2, 0, 0, InteractDownAnimationDuration),
   
@@ -96,6 +98,8 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimationFrame[] interactDownFrames = new AnimationFrame[]
             {
                new AnimationFrame(3, 0, 0, InteractDownAnimationDuration),
+               new AnimationFrame(3, 0, 0, InteractDownAnimationDuration),
+
 
               new AnimationFrame(4, 0, 0, InteractDownAnimationDuration),
                 new AnimationFrame(5, 0, 0, InteractDownAnimationDuration),
