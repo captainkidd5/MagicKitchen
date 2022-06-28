@@ -1,5 +1,6 @@
 ﻿using DataModels;
 using Globals.Classes;
+using Globals.Classes.Console;
 using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
@@ -40,10 +41,17 @@ namespace UIEngine.Classes.TextStuff
 
 
             TotalBounds = BackdropSprite.HitBox;
-
+            RegisterCommands();
         }
 
-
+        public void RegisterCommands()
+        {
+            CommandConsole.RegisterCommand("talk", "displays given text as speech", AddSpeechCommand);
+        }
+        private void AddSpeechCommand(string[] args)
+        {
+            CreateTalkingText(args[0]);
+        }
 
         public override void Update(GameTime gameTime)
         {
@@ -90,7 +98,7 @@ namespace UIEngine.Classes.TextStuff
 
 
         }
-        public void CharacterClicked(string speech)
+        public void CreateTalkingText(string speech)
         {
             TextBuilder.ClearText();
             TextBuilder.SetText(TextFactory.CreateUIText(speech, GetLayeringDepth(UILayeringDepths.Front), scale: 2f), false);
