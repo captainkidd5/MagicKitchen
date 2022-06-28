@@ -96,8 +96,7 @@ namespace EntityEngine.Classes.Animators
         public Vector2 PositionLastFrame { get; set; }
         internal override void Update(GameTime gameTime, bool isMoving, Vector2 position)
         {
-            //float dif1 = (Math.Abs(PositionLastFrame.X - position.X));
-          //  float dif2 = (Math.Abs(PositionLastFrame.Y - position.Y));
+        
             if ((Math.Abs(PositionLastFrame.X - position.X)) > .01
                 || (Math.Abs(PositionLastFrame.Y - position.Y) > .01))
             {

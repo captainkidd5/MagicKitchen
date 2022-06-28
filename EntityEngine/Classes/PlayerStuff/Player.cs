@@ -32,7 +32,6 @@ namespace EntityEngine.Classes.PlayerStuff
     {
         public byte Id { get; private set; }
         public readonly Vector2 StartingPosition = Vector2Helper.GetWorldPositionFromTileIndex(126, 134);
-        private readonly PlayerManager _playerContainer;
 
         private bool WasMovingLastFrame { get; set; }
 
@@ -78,6 +77,8 @@ namespace EntityEngine.Classes.PlayerStuff
             UI.Cursor.ItemDropped += DropHeldItem;
 
             CommandConsole.RegisterCommand("tp", "teleports player to mouse position", TpCommand);
+            CommandConsole.RegisterCommand("ra", "Reloads player animations", ReloadAnimationsCommmand);
+
 
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
             _lumenHandler.Load();
@@ -86,7 +87,10 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             Move(Controls.MouseWorldPosition);
         }
-
+        private void ReloadAnimationsCommmand(string[] args)
+        {
+            Animator.Load(SoundModuleManager, this, Position);
+        }
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Player },
