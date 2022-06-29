@@ -148,7 +148,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            //base.Update(gameTime);
         }
     }
 }

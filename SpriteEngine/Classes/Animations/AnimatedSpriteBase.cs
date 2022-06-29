@@ -162,7 +162,7 @@ namespace SpriteEngine.Classes.Animations
                 return;
             }
 
-
+            CurrentFrame = (byte)(ResetIndex);
             UpdateSourceRectangle(AnimationFrames[ResetIndex]);
 
         }

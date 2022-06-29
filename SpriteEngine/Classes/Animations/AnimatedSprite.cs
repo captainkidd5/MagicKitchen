@@ -84,6 +84,7 @@ namespace SpriteEngine.Classes.Animations
         public override void ResetSpriteToRestingFrame()
         {
             base.ResetSpriteToRestingFrame();
+
             Timer.ResetToZero();
         }
     }

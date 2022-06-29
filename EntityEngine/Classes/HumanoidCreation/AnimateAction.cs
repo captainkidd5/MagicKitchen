@@ -40,18 +40,21 @@ namespace EntityEngine.Classes.HumanoidCreation
 
             //So that the bodypart overlaps correctly, and is drawn relative to the entity's y position on the map.
             Animations[(int)direction - 1].CustomLayer = layer;
+
             if (!Repeat && Animations[(int)direction - 1].HasLoopedAtLeastOnce)
             {
-                _bodyPiece.ChangeParentSet(ActionType.Walking);
                 Animations[(int)direction - 1].HasLoopedAtLeastOnce = false;
+
+                _bodyPiece.ChangeParentSet(ActionType.Walking);
             }
+
         }
         public void SetPosition(Vector2 newPos)
         {
-            foreach (var item in Animations)
+            foreach (AnimatedSprite animatedSprite in Animations)
             {
 
-                item.ForceSetPosition(newPos);
+                animatedSprite.ForceSetPosition(new Vector2(newPos.X -8, newPos.Y - 32));
 
 
             }
@@ -59,6 +62,7 @@ namespace EntityEngine.Classes.HumanoidCreation
         public void Draw(SpriteBatch spriteBatch, Direction direction)
         {
             Animations[(int)direction - 1].Draw(spriteBatch);
+           
 
         }
         public void SetRestingFrame(Direction direction)
@@ -69,7 +73,7 @@ namespace EntityEngine.Classes.HumanoidCreation
         internal virtual void ChangeColor(Color color)
         {
 
-            foreach (var item in Animations)
+            foreach (AnimatedSprite item in Animations)
             {
 
                 item.UpdateColor(color);

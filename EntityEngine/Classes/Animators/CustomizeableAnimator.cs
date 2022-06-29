@@ -63,16 +63,7 @@ namespace EntityEngine.Classes.Animators
 
         }
 
-        internal override void LoadUpdate(GameTime gameTime)
-        {
-;
-            for (int i = 0; i < BodyPieces.Length; i++)
-            {
-                BodyPieces[i].Update(gameTime, Direction.Down, Position, Layer,true);
-                BodyPieces[i].SetRestingFrameIndex();
-            }
-            HasLoadUpdatedOnce = true;
-        }
+  
 
         internal override void PerformAction(Direction direction, ActionType actionType)
         {
@@ -104,9 +95,6 @@ namespace EntityEngine.Classes.Animators
                 }
             
            
-
-            if (!HasLoadUpdatedOnce)
-                LoadUpdate(gameTime);
             PositionLastFrame = position;
             WasMovingLastFrame = isMoving;
         }

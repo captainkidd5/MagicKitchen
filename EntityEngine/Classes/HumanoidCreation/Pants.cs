@@ -114,6 +114,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimationFrame[] InteractLeftFrames = new AnimationFrame[]
             {
                new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
+               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
 
                new AnimationFrame(7, 0, 0, InteractLeftAnimationDuration,true),
               new AnimationFrame(8, 0, 0, InteractLeftAnimationDuration,true),
@@ -124,6 +125,7 @@ namespace EntityEngine.Classes.HumanoidCreation
 
             AnimationFrame[] interactRigthFrames = new AnimationFrame[]
            {
+               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration),
                new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration),
 
                new AnimationFrame(7, 0, 0, InteractLeftAnimationDuration),

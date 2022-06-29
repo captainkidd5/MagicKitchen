@@ -34,12 +34,7 @@ namespace EntityEngine.Classes.Animators
         /// </summary>
         protected Vector2 Position { get; set; }
 
-        /// <summary>
-        /// Entities will do single gametime loop to ensure their sprites are in the correct location before they start moving,
-        /// which would correct it
-        /// </summary>
-
-        protected bool HasLoadUpdatedOnce { get; set; }
+    
 
         protected Entity Entity;
         
@@ -55,10 +50,7 @@ namespace EntityEngine.Classes.Animators
 
             
         }
-        internal virtual void LoadUpdate(GameTime gameTime)
-        {
 
-        }
         internal virtual void ChangeDirection(Direction newDirection, Vector2 position)
         {
 
@@ -98,8 +90,7 @@ namespace EntityEngine.Classes.Animators
 
 
              Layer = SetPositionAndGetEntityLayer(position);
-            if (!HasLoadUpdatedOnce)
-                LoadUpdate(gameTime);
+  
         }
 
         protected virtual float SetPositionAndGetEntityLayer(Vector2 position)

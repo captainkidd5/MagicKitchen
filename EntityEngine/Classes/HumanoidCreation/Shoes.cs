@@ -104,6 +104,10 @@ namespace EntityEngine.Classes.HumanoidCreation
                new AnimationFrame(3, 0, 0, InteractDownAnimationDuration),
                new AnimationFrame(3, 0, 0, InteractDownAnimationDuration),
 
+               new AnimationFrame(3, 0, 0, InteractDownAnimationDuration),
+
+               new AnimationFrame(3, 0, 0, InteractDownAnimationDuration),
+
 
 
         };
@@ -114,6 +118,10 @@ namespace EntityEngine.Classes.HumanoidCreation
                new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
                new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
 
+               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
+
+               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
+
         };
             AnimatedSprite InteractLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 InteractLeftFrames, idleFrame: 0);
@@ -121,6 +129,10 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimationFrame[] interactRigthFrames = new AnimationFrame[]
            {
                new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration),
+               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration),
+
+               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration),
+
                new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration),
 
 
