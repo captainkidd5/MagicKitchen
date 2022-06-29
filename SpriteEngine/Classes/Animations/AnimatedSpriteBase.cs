@@ -13,7 +13,7 @@ namespace SpriteEngine.Classes.Animations
     public abstract class AnimatedSpriteBase : Sprite
     {
         protected byte TotalFrames { get; set; }
-        protected byte CurrentFrame { get; set; }
+        public byte CurrentFrame { get; protected set; }
         public Direction Direction { get; set; } = Direction.Right;
         public byte FrameLastFrame { get; protected set; }
         public AnimationFrame[] AnimationFrames { get; protected set; }
@@ -30,7 +30,7 @@ namespace SpriteEngine.Classes.Animations
         /// A scenario where it would be higher would be something like a player animation
         /// where the zero-th frame is actually the idle position
         /// </summary>
-        private byte ResetIndex { get; set; }
+        public byte ResetIndex { get; set; }
         private int SpriteSourceRectangleStartX { get; set; } //we need these two properties because otherwise altering
         //the source rectangle of the sprite will be additive, and its value will always grow or decrease forever.
         private int SpriteSourceRectangleStartY { get; set; }
@@ -43,6 +43,9 @@ namespace SpriteEngine.Classes.Animations
         /// <see cref="DestructableTile"/>
         /// </summary>
         public bool HasLoopedAtLeastOnce { get; set; }
+
+
+        protected SimpleTimer Timer { get; set; }
 
         /// <summary>
         /// This should be the idle frame sprite
@@ -64,8 +67,10 @@ namespace SpriteEngine.Classes.Animations
             SpriteSourceRectangleStartY = SourceRectangle.Y;
             TotalFrames = (byte)(AnimationFrames.Length - 1);
             ResetIndex = (byte)idleFrame;
+            
             if (TotalFrames < 1)
                 throw new Exception("total frames must exceed 0");
+            Timer = new SimpleTimer(animationFrames[0].Duration);
 
         }
 
@@ -80,8 +85,21 @@ namespace SpriteEngine.Classes.Animations
            
 
         }
+        public bool IsAtRestingFrame()
+        {
+            return CurrentFrame == ResetIndex;
+        }
+        public void SetFrame(int frame, Vector2 position)
+        {
+            CurrentFrame = (byte)frame;
+            FrameLastFrame = CurrentFrame;
+                UpdateSourceRectangle(AnimationFrames[CurrentFrame]);
+            Timer.SetNewTargetTime(AnimationFrames[CurrentFrame].Duration);
+
+            Position = new Vector2(position.X + AnimationFrames[CurrentFrame].XOffSet, position.Y + AnimationFrames[CurrentFrame].YOffSet * -1);
 
 
+        }
 
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -155,15 +173,14 @@ namespace SpriteEngine.Classes.Animations
         public virtual void ResetSpriteToRestingFrame( )
         {
 
-            
-            if (ResetIndex < 0)
+            //Remember, reset index is defautled to -1, which most sprites use
+            if (ResetIndex < 0 || ResetIndex == byte.MaxValue)
             {
                 UpdateSourceRectangle(AnimationFrames[0]);
                 return;
             }
-
             CurrentFrame = (byte)(ResetIndex);
-            UpdateSourceRectangle(AnimationFrames[ResetIndex]);
+            UpdateSourceRectangle(AnimationFrames[CurrentFrame]);
 
         }
     }

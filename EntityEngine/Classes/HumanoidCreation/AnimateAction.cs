@@ -30,20 +30,35 @@ namespace EntityEngine.Classes.HumanoidCreation
         }
         public void Update(GameTime gameTime, Direction direction, bool hasDirectionChanged, Vector2 position, float layer, bool isMoving)
         {
+            AnimatedSprite anim = Animations[(int)direction - 1];
             if (Repeat && hasDirectionChanged)
                 SetRestingFrame(direction);
             if (Repeat)
-                Animations[(int)direction - 1].Update(gameTime, position, isMoving);
+            {
+                if(isMoving)
+                {
+                    if (anim.IsAtRestingFrame())
+                    {
+                        anim.SetFrame(anim.ResetIndex + 1, position);
+                    }
+                    anim.Update(gameTime, position, isMoving);
+
+                }
+
+            }
             else
-                Animations[(int)direction - 1].Update(gameTime, position, true);
+            {
+                anim.Update(gameTime, position, true);
+
+            }
 
 
             //So that the bodypart overlaps correctly, and is drawn relative to the entity's y position on the map.
-            Animations[(int)direction - 1].CustomLayer = layer;
+            anim.CustomLayer = layer;
 
-            if (!Repeat && Animations[(int)direction - 1].HasLoopedAtLeastOnce)
+            if (!Repeat && anim.HasLoopedAtLeastOnce)
             {
-                Animations[(int)direction - 1].HasLoopedAtLeastOnce = false;
+                anim.HasLoopedAtLeastOnce = false;
 
                 _bodyPiece.ChangeParentSet(ActionType.Walking);
             }

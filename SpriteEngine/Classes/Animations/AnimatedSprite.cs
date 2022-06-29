@@ -13,7 +13,6 @@ namespace SpriteEngine.Classes.Animations
 {
     public class AnimatedSprite : AnimatedSpriteBase
     {
-        private SimpleTimer Timer { get; set; }
         public bool Repeat { get; set; } = true;
         internal AnimatedSprite(GraphicsDevice graphics, ContentManager content, Settings.ElementType spriteType, Vector2 position,
             Rectangle sourceRectangle, Texture2D texture, AnimationFrame[] animationFrames, float standardDuration, Color primaryColor,
@@ -21,7 +20,6 @@ namespace SpriteEngine.Classes.Animations
             float rotation, Layers layer, bool randomizeLayers, bool flip, float? customLayer, int idleFrame = 0) 
             : base(graphics, content, spriteType, position, sourceRectangle, texture, animationFrames, standardDuration, primaryColor, origin, scale, rotation, layer, randomizeLayers, flip, customLayer, idleFrame)
         {
-            Timer = new SimpleTimer(animationFrames[0].Duration);
 
         }
         public override void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true)
@@ -62,6 +60,10 @@ namespace SpriteEngine.Classes.Animations
                 }
 
                 Position = new Vector2(position.X + frame.XOffSet, position.Y + frame.YOffSet * -1);
+            }
+            else if(FrameLastFrame != CurrentFrame)
+            {
+                ResetSpriteToRestingFrame();
             }
         }
 

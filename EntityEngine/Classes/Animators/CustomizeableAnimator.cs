@@ -86,6 +86,8 @@ namespace EntityEngine.Classes.Animators
 
             bool resetToResting = !isMoving && WasMovingLastFrame;
           
+            if(isMoving)
+                Console.WriteLine("test");
                 for (int i = 0; i < BodyPieces.Length; i++)
                 {
                     if (resetToResting)

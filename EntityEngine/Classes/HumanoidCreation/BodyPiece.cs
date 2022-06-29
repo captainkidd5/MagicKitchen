@@ -36,7 +36,7 @@ namespace EntityEngine.Classes.HumanoidCreation
 
         private Color _tint = Color.White;
 
-        protected static float WalkDownAnimationDuration = .1f;
+        protected static float WalkDownAnimationDuration = .15f;
 
         protected static float WalkLeftAnimationDuration = .15f;
         protected Dictionary<ActionType, AnimateAction> AllAnimationSets;
