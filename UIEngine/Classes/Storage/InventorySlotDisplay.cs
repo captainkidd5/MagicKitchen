@@ -70,6 +70,8 @@ namespace UIEngine.Classes.Storage
                 _waterMarkSprite = SpriteFactory.CreateUISprite(Position, new Rectangle(192, 80, 32, 32),
                     UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: _waterMarkSpriteScale); 
             }
+            if(_storageSlot.Item != null)
+            UpdateVisuals(_storageSlot.Item, _storageSlot.StoredCount);
         }
 
         private NineSliceButton NineSliceButtonFromVariant(SlotVisualVariant variant)
@@ -157,11 +159,21 @@ namespace UIEngine.Classes.Storage
             if (_oldItemId != item.Id)
 
             {
-                _button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
-                Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet,
-                UI.IncrementLD(LayerDepth, true), Color.White, Vector2.Zero, _itemIconSpriteScale));
-
+                UpdateVisuals(item, count);
+                return;
             }
+
+            _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
+
+            _text.SetFullString(count.ToString());
+            _oldItemId = item.Id;
+        }
+
+        private void UpdateVisuals(Item item, int count)
+        {
+            _button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
+            Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet,
+            UI.IncrementLD(LayerDepth, true), Color.White, Vector2.Zero, _itemIconSpriteScale));
             _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
 
             _text.SetFullString(count.ToString());

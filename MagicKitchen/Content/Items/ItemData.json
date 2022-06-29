@@ -251,7 +251,7 @@
                     "Description" : "Smelts ores into Ingots",
                     "MaxStackSize": 1,
                     "Price": 1,
-                     "PlacedItemGID" : 215,
+                     "PlacedItemGID" : 233,
                     
     "RecipeInfo": 
     {
