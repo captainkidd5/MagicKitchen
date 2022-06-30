@@ -35,25 +35,14 @@ namespace EntityEngine.Classes.HumanoidCreation
                 SetRestingFrame(direction);
             if (Repeat)
             {
-                if(isMoving)
+                if (isMoving)
                 {
                     //entity just began moving in a certain direction, start them off on the first non resting frame
                     if (anim.IsAtRestingFrame())
                     {
                         anim.SetFrame(anim.ResetIndex + 1, position);
                     }
-                    int oldFrame = anim.CurrentFrame;
-                  
-               
 
-
-                   
-                        if (_bodyPiece.GetType() == typeof(Arms))
-                        {
-                            if(anim.CurrentFrame == 1 && anim.WillIncrementNextFrame(gameTime)) 
-                             Console.WriteLine("test");
-
-                        }
                     anim.Update(gameTime, position, isMoving);
 
                 }
@@ -61,6 +50,11 @@ namespace EntityEngine.Classes.HumanoidCreation
             }
             else
             {
+                if (_bodyPiece.GetType() == typeof(Arms))
+                {
+                    if(anim.WillIncrementNextFrame(gameTime))
+                     Console.WriteLine("test");
+                }
                 anim.Update(gameTime, position, true);
 
             }
@@ -72,7 +66,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             if (!Repeat && anim.HasLoopedAtLeastOnce)
             {
                 anim.HasLoopedAtLeastOnce = false;
-
+                anim.ResetSpriteToRestingFrame();
                 _bodyPiece.ChangeParentSet(ActionType.Walking);
             }
 
@@ -82,15 +76,16 @@ namespace EntityEngine.Classes.HumanoidCreation
             foreach (AnimatedSprite animatedSprite in Animations)
             {
 
-                animatedSprite.ForceSetPosition(new Vector2(newPos.X -8, newPos.Y - 32));
+                animatedSprite.ForceSetPosition(new Vector2(newPos.X - 8, newPos.Y - 32));
 
 
             }
         }
         public void Draw(SpriteBatch spriteBatch, Direction direction)
         {
+        
             Animations[(int)direction - 1].Draw(spriteBatch);
-           
+          
 
         }
         public void SetRestingFrame(Direction direction)

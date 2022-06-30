@@ -182,6 +182,7 @@ namespace SpriteEngine.Classes.Animations
             if (ResetIndex < 0 || ResetIndex == byte.MaxValue)
             {
                 UpdateSourceRectangle(AnimationFrames[0]);
+                CurrentFrame = 0;
                 return;
             }
             CurrentFrame = (byte)(ResetIndex);
