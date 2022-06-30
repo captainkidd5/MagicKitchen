@@ -383,9 +383,9 @@ namespace EntityEngine.Classes
             Container.TileManager.TileObjects[tile.Value.GetKey()].Interact(false, InventoryHandler.HeldItem);
 
         }
-        protected void PerformAction(ActionType actionType)
+        protected void PerformAction(Direction direction, ActionType actionType)
         {
-            Animator.PerformAction(DirectionMoving, actionType);
+            Animator.PerformAction(direction, actionType);
         }
 
         internal bool IsFacingTowardsOtherEntity(Vector2 otherEntityPos)

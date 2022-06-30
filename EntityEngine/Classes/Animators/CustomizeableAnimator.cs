@@ -63,8 +63,11 @@ namespace EntityEngine.Classes.Animators
 
         }
 
-  
 
+        public override bool IsPerformingAnimation()
+        {
+            return !BodyPieces[0].CurrentAction.Interruptable;
+        }
         internal override void PerformAction(Direction direction, ActionType actionType)
         {
             base.PerformAction(direction, actionType);

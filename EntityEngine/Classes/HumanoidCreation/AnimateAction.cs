@@ -15,25 +15,25 @@ namespace EntityEngine.Classes.HumanoidCreation
     {
         private readonly BodyPiece _bodyPiece;
 
-        public AnimatedSprite[] Animations { get; set; }
-        public bool Repeat { get; }
-
+        private AnimatedSprite[] _animations;
+        private bool _repeat;
+        public bool Interruptable => _repeat;
 
 
 
         public AnimateAction(BodyPiece bodyPiece, AnimatedSprite[] animations, bool repeat)
         {
             _bodyPiece = bodyPiece;
-            Animations = animations;
-            Repeat = repeat;
+            _animations = animations;
+            _repeat = repeat;
 
         }
         public void Update(GameTime gameTime, Direction direction, bool hasDirectionChanged, Vector2 position, float layer, bool isMoving)
         {
-            AnimatedSprite anim = Animations[(int)direction - 1];
-            if (Repeat && hasDirectionChanged)
+            AnimatedSprite anim = _animations[(int)direction - 1];
+            if (_repeat && hasDirectionChanged)
                 SetRestingFrame(direction);
-            if (Repeat)
+            if (_repeat)
             {
                 if (isMoving)
                 {
@@ -63,7 +63,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             //So that the bodypart overlaps correctly, and is drawn relative to the entity's y position on the map.
             anim.CustomLayer = layer;
 
-            if (!Repeat && anim.HasLoopedAtLeastOnce)
+            if (!_repeat && anim.HasLoopedAtLeastOnce)
             {
                 anim.HasLoopedAtLeastOnce = false;
                 anim.ResetSpriteToRestingFrame();
@@ -73,7 +73,7 @@ namespace EntityEngine.Classes.HumanoidCreation
         }
         public void SetPosition(Vector2 newPos)
         {
-            foreach (AnimatedSprite animatedSprite in Animations)
+            foreach (AnimatedSprite animatedSprite in _animations)
             {
 
                 animatedSprite.ForceSetPosition(new Vector2(newPos.X - 8, newPos.Y - 32));
@@ -84,19 +84,19 @@ namespace EntityEngine.Classes.HumanoidCreation
         public void Draw(SpriteBatch spriteBatch, Direction direction)
         {
         
-            Animations[(int)direction - 1].Draw(spriteBatch);
+            _animations[(int)direction - 1].Draw(spriteBatch);
           
 
         }
         public void SetRestingFrame(Direction direction)
         {
             if (direction != Direction.None)
-                Animations[(int)direction - 1].ResetSpriteToRestingFrame();
+                _animations[(int)direction - 1].ResetSpriteToRestingFrame();
         }
         internal virtual void ChangeColor(Color color)
         {
 
-            foreach (AnimatedSprite item in Animations)
+            foreach (AnimatedSprite item in _animations)
             {
 
                 item.UpdateColor(color);

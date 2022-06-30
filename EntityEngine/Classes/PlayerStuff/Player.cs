@@ -182,6 +182,30 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void Update(GameTime gameTime)
         {
             Resume();
+
+            if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
+            {
+                TileObject mouseOverTile = Container.TileManager.MouseOverTile;
+                if (mouseOverTile != null)
+                {
+                    if (Container.TileManager.TileLocationHelper.IsAdjacentTo(mouseOverTile.TileData, Position))
+                    {
+                        if (!Animator.IsPerformingAnimation())
+                        {
+                            ActionType? actionType = Container.TileManager.MouseOverTile.Interact(true, InventoryHandler.HeldItem);
+                            if (actionType != null)
+                            {
+                                PerformAction(Controls.ControllerConnected ? DirectionMoving :
+                                   Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition),
+                                   actionType.Value);
+                                DirectionMoving = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition);
+                            }
+
+                        }
+
+                    }
+                }
+            }
             base.Update(gameTime);
             Shared.PlayerPosition = Position;
             UI.StatusPanel.HealthBar.SetProgressRatio((float)CurrentHealth / (float)MaxHealth);
@@ -197,16 +221,7 @@ namespace EntityEngine.Classes.PlayerStuff
                 {
                     UseHeldItem();
                 }
-                TileObject mouseOverTile = Container.TileManager.MouseOverTile;
-                if (mouseOverTile != null)
-                {
-                    if (Container.TileManager.TileLocationHelper.IsAdjacentTo(mouseOverTile.TileData, Position))
-                    {
-                        ActionType? actionType = Container.TileManager.MouseOverTile.Interact(true, InventoryHandler.HeldItem);
-                        if (actionType != null)
-                            PerformAction(actionType.Value);
-                    }
-                }
+              
             }
             _lumenHandler.Illuminated = LightsTouching.Count > 0;
             _lumenHandler.HandleLumens(gameTime);

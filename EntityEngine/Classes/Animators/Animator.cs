@@ -37,8 +37,11 @@ namespace EntityEngine.Classes.Animators
     
 
         protected Entity Entity;
-        
 
+        public virtual bool IsPerformingAnimation()
+        {
+            return false;
+        }
         public Animator(Entity entity, int? xOffset , int? yOffset)
         {
             this.xOffset = xOffset ?? 8;

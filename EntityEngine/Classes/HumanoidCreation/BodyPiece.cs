@@ -51,7 +51,7 @@ namespace EntityEngine.Classes.HumanoidCreation
         protected static float InteractLeftAnimationDuration = .1f;
 
 
-        protected AnimateAction CurrentAction { get; set; }
+        public AnimateAction CurrentAction { get; private set; }
         protected Texture2D Texture { get; set; }
 
         /// <summary>
