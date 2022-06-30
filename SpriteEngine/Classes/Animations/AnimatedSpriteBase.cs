@@ -78,6 +78,11 @@ namespace SpriteEngine.Classes.Animations
         {
             return CurrentFrame != FrameLastFrame;
         }
+        public bool WillIncrementNextFrame(GameTime gameTime)
+        {
+            return Timer.WillIncrement(gameTime);
+        }
+
         public override void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true)
         {
             base.Update(gameTime, position);

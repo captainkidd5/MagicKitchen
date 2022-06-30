@@ -89,7 +89,6 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimationFrame[] interactUpFrames = new AnimationFrame[]
             {
                new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
-               new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
 
               new AnimationFrame(1, 0, 0, InteractDownAnimationDuration),
                 new AnimationFrame(2, 0, 0, InteractDownAnimationDuration),
@@ -100,7 +99,6 @@ namespace EntityEngine.Classes.HumanoidCreation
 
             AnimationFrame[] interactDownFrames = new AnimationFrame[]
             {
-               new AnimationFrame(3, 0, 0, InteractDownAnimationDuration),
                new AnimationFrame(3, 0, 0, InteractDownAnimationDuration),
 
 
@@ -114,18 +112,16 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimationFrame[] InteractLeftFrames = new AnimationFrame[]
             {
                new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
-               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
 
                new AnimationFrame(7, 0, 0, InteractLeftAnimationDuration,true),
               new AnimationFrame(8, 0, 0, InteractLeftAnimationDuration,true),
 
         };
             AnimatedSprite InteractLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight + yStart, FrameWidth, FrameHeight), Texture,
-                InteractLeftFrames, idleFrame: 0);
+                InteractLeftFrames);
 
             AnimationFrame[] interactRigthFrames = new AnimationFrame[]
            {
-               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration),
                new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration),
 
                new AnimationFrame(7, 0, 0, InteractLeftAnimationDuration),
@@ -133,7 +129,7 @@ namespace EntityEngine.Classes.HumanoidCreation
   
        };
             AnimatedSprite InteractRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight + yStart, FrameWidth, FrameHeight), Texture,
-                interactRigthFrames, idleFrame: 0);
+                interactRigthFrames);
             AnimatedSprite[] InteractSet = new AnimatedSprite[] { InteractUp, InteractDown, InteractLeft, InteractRight};
             InteractAction = new AnimateAction(this, InteractSet, false);
 

@@ -36,6 +36,11 @@ namespace Globals.Classes
             return isDone;
         }
 
+        public bool WillIncrement(GameTime gameTime)
+        {
+            return _currentTime + (float)gameTime.ElapsedGameTime.TotalSeconds >= TargetTime ;
+        }
+
         public void ResetToZero()
         {
             _currentTime = 0f;

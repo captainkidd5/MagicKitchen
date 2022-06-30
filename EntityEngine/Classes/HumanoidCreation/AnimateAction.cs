@@ -37,10 +37,23 @@ namespace EntityEngine.Classes.HumanoidCreation
             {
                 if(isMoving)
                 {
+                    //entity just began moving in a certain direction, start them off on the first non resting frame
                     if (anim.IsAtRestingFrame())
                     {
                         anim.SetFrame(anim.ResetIndex + 1, position);
                     }
+                    int oldFrame = anim.CurrentFrame;
+                  
+               
+
+
+                   
+                        if (_bodyPiece.GetType() == typeof(Arms))
+                        {
+                            if(anim.CurrentFrame == 1 && anim.WillIncrementNextFrame(gameTime)) 
+                             Console.WriteLine("test");
+
+                        }
                     anim.Update(gameTime, position, isMoving);
 
                 }

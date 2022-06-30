@@ -22,6 +22,7 @@ namespace SpriteEngine.Classes.Animations
         {
 
         }
+
         public override void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true)
         {
             base.Update(gameTime, position, updatePeripheralActoins);
@@ -45,7 +46,7 @@ namespace SpriteEngine.Classes.Animations
                         GoToTargetFrame();
 
                     }
-
+                    frame = AnimationFrames[CurrentFrame];
 
 
                     UpdateSourceRectangle(frame);
