@@ -134,7 +134,7 @@ namespace SpriteEngine.Classes
             Position = position;
 
         }
-        public void ForceSetPosition(Vector2 position)
+        public virtual void ForceSetPosition(Vector2 position)
         {
             Position = position;
         }

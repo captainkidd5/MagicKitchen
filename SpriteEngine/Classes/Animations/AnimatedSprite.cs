@@ -22,7 +22,11 @@ namespace SpriteEngine.Classes.Animations
         {
 
         }
+        public override void ForceSetPosition(Vector2 position)
+        {
+            Position = new Vector2(position.X + AnimationFrames[CurrentFrame].XOffSet, position.Y + AnimationFrames[CurrentFrame].YOffSet * -1);
 
+        }
         public override void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true)
         {
             base.Update(gameTime, position, updatePeripheralActoins);

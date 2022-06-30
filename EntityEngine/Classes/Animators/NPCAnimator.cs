@@ -28,16 +28,20 @@ namespace EntityEngine.Classes.Animators
             if (resetToResting)
             {
                 AnimatedSprites[(int)Entity.DirectionMoving - 1].ResetToZero(Position, entityLayer);
-
             }
                 if (isMoving)
             {
                 AnimatedSprites[(int)Entity.DirectionMoving - 1].Update(gameTime, Position);
 
             }
-          
+            else
+            {
+                AnimatedSprites[(int)Entity.DirectionMoving - 1].ForceSetPosition(Position);
 
-           
+            }
+
+
+
 
             WasMovingLastFrame = isMoving;
 

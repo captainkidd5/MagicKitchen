@@ -60,7 +60,7 @@ namespace EntityEngine.Classes.CharacterStuff
                 entity.LoadContent(this,null,entity.Name,false);
             }
 
-
+            RegisterCommands();
         }
 
         internal void AddTrain()
@@ -148,7 +148,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
         public override void Update(GameTime gameTime)
         {
-            //base.Update(gameTime);
+            base.Update(gameTime);
         }
     }
 }
