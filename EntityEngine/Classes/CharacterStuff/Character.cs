@@ -60,7 +60,7 @@ namespace EntityEngine.Classes.CharacterStuff
             }
             base.Update(gameTime);
              
-            if (!UI.TalkingWindow.IsActive)
+            if (!UI.IsTalkingWindowActive)
             {
                 if(this.GetType() != typeof(Player))
                 Resume();
@@ -85,9 +85,9 @@ namespace EntityEngine.Classes.CharacterStuff
         public void OnCharacterClicked(Schedule schedule)
         {
             
-            UI.TalkingWindow.LoadNewConversation(DialogueInterpreter.GetSpeech(schedule.Dialogue));
+            UI.LoadNewConversation(schedule.Dialogue);
             FaceTowardsOtherEntity(Shared.PlayerPosition);
-            UI.TalkingWindow.DirectionPlayerShouldFace = Vector2Helper.GetOppositeDirection(DirectionMoving);
+            UI.TalkingDirection = Vector2Helper.GetOppositeDirection(DirectionMoving);
         }
 
         public override void ClickInteraction()

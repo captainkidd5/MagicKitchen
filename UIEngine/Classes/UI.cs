@@ -31,6 +31,7 @@ using Globals.Classes.Time;
 using TextEngine;
 using ItemEngine.Classes.StorageStuff;
 using UIEngine.Classes.StatusStuff;
+using DataModels.DialogueStuff;
 
 namespace UIEngine.Classes
 {
@@ -81,7 +82,7 @@ namespace UIEngine.Classes
         private static List<InterfaceSection> s_standardSections { get; set; }
         private static List<InterfaceSection> s_mainMenuSections { get; set; }
 
-        public static TalkingWindow TalkingWindow { get; set; }
+        private static TalkingWindow _talkingWindow { get; set; }
 
         internal static SettingsMenu SettingsMenu { get; set; }
         internal static ToolBar ToolBar { get; set; }
@@ -125,12 +126,12 @@ namespace UIEngine.Classes
             EscMenu = new EscMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
             RecipeBook = new RecipeBook(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
 
-            TalkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
+            _talkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             SettingsMenu = new SettingsMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
             StorageDisplayHandler = new StorageDisplayHandler(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             
-            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, TalkingWindow,
+            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, _talkingWindow,
                 EscMenu, RecipeBook, StorageDisplayHandler };
 
             Cursor = new Cursor();
@@ -394,5 +395,12 @@ namespace UIEngine.Classes
 
             }));
         }
+
+
+        public static void LoadNewConversation(Dialogue dialogue) => _talkingWindow.LoadNewConversation(dialogue);
+        public static Direction TalkingDirection { get => _talkingWindow.DirectionPlayerShouldFace; set => _talkingWindow.DirectionPlayerShouldFace = value; }
+
+        public static bool IsTalkingWindowActive => _talkingWindow.IsActive;
+        public static bool WasTalkingWindowJustActivated => _talkingWindow.WasJustActivated;
     }
 }

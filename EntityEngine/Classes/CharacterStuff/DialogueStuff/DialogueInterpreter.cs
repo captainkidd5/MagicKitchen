@@ -7,16 +7,16 @@ namespace EntityEngine.Classes.CharacterStuff.DialogueStuff
 {
     public static class DialogueInterpreter
     {
-        public static string GetSpeech(Dialogue dialogue)
-        {
-            string response = "unable to find text";
+        //public static string GetSpeech(Dialogue dialogue)
+        //{
+        //    string response = "unable to find text";
 
-            if(!dialogue.Options.TryGetValue("default", out response))
-            {
-                return "No default value!";
-            }
+        //    if(!dialogue.Options.TryGetValue("default", out response))
+        //    {
+        //        return "No default value!";
+        //    }
 
-            return response;
-        }
+        //    return response;
+        //}
     }
 }

@@ -226,13 +226,13 @@ namespace EntityEngine.Classes.PlayerStuff
             _lumenHandler.Illuminated = LightsTouching.Count > 0;
             _lumenHandler.HandleLumens(gameTime);
 
-            if (UI.TalkingWindow.IsActive)
+            if (UI.IsTalkingWindowActive)
             {
                 //EntityAnimator.
 
                 Halt(true);
-                DirectionMoving = UI.TalkingWindow.DirectionPlayerShouldFace;
-                if (UI.TalkingWindow.WasJustActivated)
+                DirectionMoving = UI.TalkingDirection;
+                if (UI.WasTalkingWindowJustActivated)
                     Animator.ChangeDirection(DirectionMoving, Position);
             }
             //else

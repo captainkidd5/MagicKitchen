@@ -15,12 +15,13 @@ using System.Collections.Generic;
 using System.Text;
 using TextEngine;
 using TextEngine.Classes;
+using UIEngine.Classes.Components;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace UIEngine.Classes.TextStuff
 {
-    public class TalkingWindow : InterfaceSection
+    internal class TalkingWindow : MenuSection
     {
         private Rectangle _backgroundSourceRectangle = new Rectangle(336, 272, 272, 288);
         private Sprite BackdropSprite { get; set; }
@@ -32,24 +33,34 @@ namespace UIEngine.Classes.TextStuff
 
         private Vector2 _scale = new Vector2(2f, 2f);
 
-        internal List<DialogueInterfaceOptionWindow> OptionWindows { get; set; }
+        private StackPanel _stackPanel;
+
+        private Dialogue _curerentDialogue;
+
+        internal List<TalkingOptionPanel> OptionWindows { get; set; }
         public TalkingWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
+        {
+            RegisterCommands();
+
+        }
+        public override void LoadContent()
         {
             Position = RectangleHelper.PlaceTopRightScreen(RectangleHelper.RectangleToScale(_backgroundSourceRectangle, _scale));
             Position = new Vector2(Position.X - Settings.Gutter, Position.Y + Settings.Gutter);
 
             BackdropSprite = SpriteFactory.CreateUISprite(Position, _backgroundSourceRectangle,
-                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back),scale :_scale);
-            TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front),.5f),
+                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back), scale: _scale);
+            TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front), .5f),
                 .05f);
             Deactivate();
 
 
             TotalBounds = BackdropSprite.HitBox;
-            RegisterCommands();
-        }
 
+            
+            base.LoadContent();
+        }
         public void RegisterCommands()
         {
             CommandConsole.RegisterCommand("talk", "displays given text as speech", AddSpeechCommand);
@@ -63,7 +74,7 @@ namespace UIEngine.Classes.TextStuff
                 totalString += " ";
                 totalString += arg;
             }
-            LoadNewConversation(totalString);
+          //  LoadNewConversation(totalString);
         }
 
         public override void Update(GameTime gameTime)
@@ -113,10 +124,25 @@ namespace UIEngine.Classes.TextStuff
         }
         public void LoadNewConversation(Dialogue dialogue)
         {
+
+            _curerentDialogue = dialogue;
             TextBuilder.ClearText();
-            TextBuilder.SetText(TextFactory.CreateUIText(dialogue.,  GetLayeringDepth(UILayeringDepths.Front), scale: 1f), BackdropSprite.HitBox.Width, false);
+            TextBuilder.SetText(TextFactory.CreateUIText(dialogue.DialogueText,  GetLayeringDepth(UILayeringDepths.Front), scale: 1f), BackdropSprite.HitBox.Width, false);
             Activate();
 
+            if (ChildSections.Contains(_stackPanel))
+                ChildSections.Remove(_stackPanel);
+
+            _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
+
+            foreach(var option in dialogue.Options)
+            {
+                StackRow stackRow = new StackRow((int)((float)_backgroundSourceRectangle.Width * _scale.X));
+                TalkingOptionPanel window = new TalkingOptionPanel(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
+                window.LoadNewOption(option.Value);
+                stackRow.AddItem(window, StackOrientation.Left);
+                _stackPanel.Add(stackRow);
+            }
             UI.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UI.ClockBar });
         }
 

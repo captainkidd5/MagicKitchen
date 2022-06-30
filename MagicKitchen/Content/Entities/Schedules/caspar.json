@@ -5,6 +5,8 @@
         "TileY": 56,
         "EndBehaviour" : "Wander",
         "Dialogue":{
+            "DialogueText":"This is the main dialogue",
+                        "FlavorText" : "(It smells funny)",
             "Options":
                 {
                     "Option 1": 
@@ -12,18 +14,19 @@
                         "DialogueText":"It seems you were saved by the grace of the sea candle...",
                         "FlavorText" : "(Its eyes gleam at you through the fading light)",
                         "DialogueRequirements":
-                        {
+                        [
 
-                        }
+                        ]
+                    
                     },
                     "Option 2": 
                     {
                         "DialogueText":"It seems you were saved by the grace of the sea candle...",
                         "FlavorText" : "(Its eyes gleam at you through the fading light)",
                         "DialogueRequirements":
-                        {
-
-                        }
+                         [
+                            
+                        ]
                     }
 
 
