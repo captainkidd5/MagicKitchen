@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataModels
+namespace DataModels.DialogueStuff
 {
     public class Dialogue
     {
-        public Dictionary<string,string> SpeechTree { get; set; }
+        public Dictionary<string, DialogueOption> Options {get;set;}
     }
 }

@@ -85,7 +85,7 @@ namespace EntityEngine.Classes.CharacterStuff
         public void OnCharacterClicked(Schedule schedule)
         {
             
-            UI.TalkingWindow.CreateTalkingText(DialogueInterpreter.GetSpeech(schedule.Dialogue));
+            UI.TalkingWindow.LoadNewConversation(DialogueInterpreter.GetSpeech(schedule.Dialogue));
             FaceTowardsOtherEntity(Shared.PlayerPosition);
             UI.TalkingWindow.DirectionPlayerShouldFace = Vector2Helper.GetOppositeDirection(DirectionMoving);
         }

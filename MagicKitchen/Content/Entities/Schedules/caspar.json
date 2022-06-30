@@ -5,55 +5,34 @@
         "TileY": 56,
         "EndBehaviour" : "Wander",
         "Dialogue":{
-            "SpeechTree":
+            "Options":
                 {
-                    "default": "It seems you were saved by the grace of the sea candle...",
-                    "option2": "response2",
-                    "option3": "response3"
+                    "Option 1": 
+                    {
+                        "DialogueText":"It seems you were saved by the grace of the sea candle...",
+                        "FlavorText" : "(Its eyes gleam at you through the fading light)",
+                        "DialogueRequirements":
+                        {
+
+                        }
+                    },
+                    "Option 2": 
+                    {
+                        "DialogueText":"It seems you were saved by the grace of the sea candle...",
+                        "FlavorText" : "(Its eyes gleam at you through the fading light)",
+                        "DialogueRequirements":
+                        {
+
+                        }
+                    }
 
 
                 }
 
                 
             
-        }
-    },
-    {
-        "Date": "Jan1,12:40_AM-12:20AM",
-        "TileX": 40,
-        "TileY": 36,
-        "EndBehaviour" : "Wander",
-        "Dialogue":{
-            "SpeechTree":
-                {
-                    "default": "This is my default response",
-                    "option2": "response2",
-
-                    "option3": "response3"
-
-
-                }
-
-                
-            
-        }
-    },
-    {
-        "Date": "Jan1,01:00_AM-1:20AM",
-        "TileX": 22,
-        "TileY": 18,
-        "EndBehaviour" : "Wander",
-        "Dialogue":{
-            "SpeechTree":
-                {
-                    "default": "This is my default response",
-                    "option2": "response2",
-
-                    "option3": "response3"
-
-                }
-      
         }
     }
+    
         
 ]

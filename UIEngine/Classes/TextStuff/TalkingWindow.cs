@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using DataModels.DialogueStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
 using Globals.Classes.Helpers;
@@ -30,6 +31,8 @@ namespace UIEngine.Classes.TextStuff
         private Vector2 _textOffSet = new Vector2(16, 16);
 
         private Vector2 _scale = new Vector2(2f, 2f);
+
+        internal List<DialogueInterfaceOptionWindow> OptionWindows { get; set; }
         public TalkingWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -60,7 +63,7 @@ namespace UIEngine.Classes.TextStuff
                 totalString += " ";
                 totalString += arg;
             }
-            CreateTalkingText(totalString);
+            LoadNewConversation(totalString);
         }
 
         public override void Update(GameTime gameTime)
@@ -108,10 +111,10 @@ namespace UIEngine.Classes.TextStuff
 
 
         }
-        public void CreateTalkingText(string speech)
+        public void LoadNewConversation(Dialogue dialogue)
         {
             TextBuilder.ClearText();
-            TextBuilder.SetText(TextFactory.CreateUIText(speech,  GetLayeringDepth(UILayeringDepths.Front), scale: 1f), BackdropSprite.HitBox.Width, false);
+            TextBuilder.SetText(TextFactory.CreateUIText(dialogue.,  GetLayeringDepth(UILayeringDepths.Front), scale: 1f), BackdropSprite.HitBox.Width, false);
             Activate();
 
             UI.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UI.ClockBar });

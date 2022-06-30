@@ -42,7 +42,8 @@ namespace TextEngine.Classes
         }
 
         /// <param name="autoComplete">Set to true if you want the given text to be show, rather than set.</param>
-        public void SetText(Text text, int textBoxWidth, bool autoComplete = true)
+        public void SetText(Text text,
+            int textBoxWidth, bool autoComplete = true)
         {
             _text = text;
             if (autoComplete)

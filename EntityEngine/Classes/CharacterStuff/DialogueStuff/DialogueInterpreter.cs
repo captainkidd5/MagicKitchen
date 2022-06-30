@@ -1,4 +1,4 @@
-﻿using DataModels;
+﻿using DataModels.DialogueStuff;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +11,7 @@ namespace EntityEngine.Classes.CharacterStuff.DialogueStuff
         {
             string response = "unable to find text";
 
-            if(!dialogue.SpeechTree.TryGetValue("default", out response))
+            if(!dialogue.Options.TryGetValue("default", out response))
             {
                 return "No default value!";
             }
