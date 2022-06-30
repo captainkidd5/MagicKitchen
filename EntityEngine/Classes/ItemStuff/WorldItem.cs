@@ -1,5 +1,6 @@
 ﻿using EntityEngine.ItemStuff.ItemStateStuff;
 using Globals.Classes;
+using Globals.Classes.Time;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,10 +24,9 @@ namespace EntityEngine.ItemStuff
 
     public class WorldItem : Collidable, ISaveable
     {
-        private static readonly int _width = 16;
-        private static readonly float _timeUntilTouchable = 1f;
         private readonly TileManager _tileManager;
 
+        public static float TTL = 4000; //400 seconds
         public Item Item { get; private set; }
         internal WorldItemState WorldItemState { get; set; }
         public string Name => Item.Name;
@@ -35,7 +35,7 @@ namespace EntityEngine.ItemStuff
         public int MaxStackSize => Item.MaxStackSize;
         //How many items this item represents
 
-        public int Count { get; private set; }
+        public ushort Count { get; private set; }
         public Sprite Sprite { get; set; }
         public Shadow Shadow { get; set; }
         private bool ImmuneToPickup => _immunityTimer != null;
@@ -52,6 +52,8 @@ namespace EntityEngine.ItemStuff
         internal new void ClearGadgets() => Gadgets.Clear();
 
         internal void IgnoreGravity(bool val) => MainHullBody.Body.IgnoreGravity = val;
+
+        public float TimeCreated { get; set; }
         public void Save(BinaryWriter writer)
         {
 
@@ -65,15 +67,15 @@ namespace EntityEngine.ItemStuff
         {
             _tileManager = tileManager;
             Item = item;
-            Count = count;
+            Count = (ushort)count;
             Sprite = SpriteFactory.CreateWorldSprite(position, Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f));
             WorldItemState = worldItemState;
             CreateBody(position);
             Move(position);
             XOffSet = 8;
             YOffSet = 8;
-            _immunityTimer = new SimpleTimer(_timeUntilTouchable);
-
+            _immunityTimer = new SimpleTimer(1f);
+            TimeCreated = Clock.TotalTime;
             Sprite.CustomLayer = null;
             GetBehaviour(jettisonDirection);
 
@@ -147,7 +149,7 @@ namespace EntityEngine.ItemStuff
         {
             if ((Count - count) > 1)
                 throw new Exception($"Unable to remove more than contained");
-            Count -= count;
+            Count -= (ushort)count;
 
             if (Count == 0)
                 FlaggedForRemoval = true;
@@ -163,7 +165,7 @@ namespace EntityEngine.ItemStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
+            
             if (ImmuneToPickup)
                 TestIfImmunityDone(gameTime);
             Vector2 spriteBehaviourOffSet = Vector2.Zero;
@@ -186,7 +188,8 @@ namespace EntityEngine.ItemStuff
             Sprite.Update(gameTime, new Vector2(Position.X - XOffSet, Position.Y - YOffSet) + spriteBehaviourOffSet);
             if (Shadow != null)
                 Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y + 2));
-
+            if (TimeCreated + TTL < Clock.TotalTime)
+                Remove(Count);
 
         }
 

@@ -31,7 +31,6 @@ namespace StageEngine.Classes
     {
         public string Name => _stageData.Name;
 
-        private  StageManager _stageManager;
         private  PlayerManager _playerManager;
         private  StageData _stageData;
         public NPCContainer NPCContainer { get; private set; }
