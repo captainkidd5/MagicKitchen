@@ -19,8 +19,10 @@ namespace UIEngine.Classes.TextStuff
         public DialogueOption DialogueOption { get; set; }
 
         private Rectangle _sourceRectangle = new Rectangle(64, 496, 272, 64);
+        private Text _titleText;
 
         private Text _dialogueText;
+        private Vector2 _dialogueTextPosition;
 
         private Sprite BackgroundSprite;
 
@@ -34,6 +36,7 @@ namespace UIEngine.Classes.TextStuff
         public void LoadNewOption( DialogueOption newOption)
         {
             DialogueOption = newOption;
+            _titleText = TextFactory.CreateUIText(DialogueOption.Title, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium), 1.2f);
             _dialogueText = TextFactory.CreateUIText(DialogueOption.DialogueText,GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium));
             LoadContent();
         }
@@ -41,7 +44,15 @@ namespace UIEngine.Classes.TextStuff
         {
             BackgroundSprite = SpriteFactory.CreateUISprite(Position, _sourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low),scale: _scale);
             TotalBounds = RectangleHelper.RectFromPosition(Position, _sourceRectangle.Width * (int)_scale.X, _sourceRectangle.Height * (int)_scale.Y);
+
             base.LoadContent();
+        }
+
+        public override void MovePosition(Vector2 newPos)
+        {
+            base.MovePosition(newPos);
+            _dialogueTextPosition = new Vector2(Position.X, Position.Y + _titleText.TotalStringHeight);
+
         }
 
         public override void Update(GameTime gameTime)
@@ -49,7 +60,9 @@ namespace UIEngine.Classes.TextStuff
             base.Update(gameTime);
 
             BackgroundSprite.Update(gameTime, Position);
-            _dialogueText.Update(gameTime, Position);
+            _titleText.Update(gameTime, Position);
+
+            _dialogueText.Update(gameTime, _dialogueTextPosition);
             
         }
 
@@ -57,6 +70,7 @@ namespace UIEngine.Classes.TextStuff
         {
             base.Draw(spriteBatch);
             BackgroundSprite.Draw(spriteBatch);
+            _titleText.Draw(spriteBatch, true);
             _dialogueText.Draw(spriteBatch, true);
         }
     }

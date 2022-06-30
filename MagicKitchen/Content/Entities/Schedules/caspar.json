@@ -5,14 +5,15 @@
         "TileY": 56,
         "EndBehaviour" : "Wander",
         "Dialogue":{
-            "DialogueText":"This is the main dialogue, and its made extra long so I know when it wrappppps boi",
-                        "FlavorText" : "(It smells funny)",
+            "DialogueText":"It seems you were saved by the grace of the sea candle...",
+                        "FlavorText" : "(Its eyes gleam at you through the fading light)",
             "Options":
                 {
                     "Option 1": 
                     {
-                        "DialogueText":"It seems you were saved by the grace of the sea candle...",
-                        "FlavorText" : "(Its eyes gleam at you through the fading light)",
+                        "Title":"Choose a Past",
+                        "DialogueText":"Decide who you were, and what you want to be",
+                        "FlavorText" : "(The opportunity of a new beggining is both frightening and exciting)",
                         "DialogueRequirements":
                         [
 
@@ -21,8 +22,10 @@
                     },
                     "Option 2": 
                     {
-                        "DialogueText":"It seems you were saved by the grace of the sea candle...",
-                        "FlavorText" : "(Its eyes gleam at you through the fading light)",
+                        "Title":"A Past Wreathed in Shadows",
+
+                        "DialogueText":"If you just want to get out to zee immediately, choose this. Opportunities to revisit your past will arrive later",
+                        "FlavorText" : "(Decide Later)",
                         "DialogueRequirements":
                          [
                             
