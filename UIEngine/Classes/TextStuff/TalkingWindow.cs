@@ -128,12 +128,13 @@ namespace UIEngine.Classes.TextStuff
             _curerentDialogue = dialogue;
             TextBuilder.ClearText();
             TextBuilder.SetText(TextFactory.CreateUIText(dialogue.DialogueText,  GetLayeringDepth(UILayeringDepths.Front), scale: 1f), BackdropSprite.HitBox.Width, false);
+            float totalTextHeight = TextBuilder.GetWidthOfTotalWrappedText(BackdropSprite.HitBox.Width);
             Activate();
 
             if (ChildSections.Contains(_stackPanel))
                 ChildSections.Remove(_stackPanel);
-
-            _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
+            
+            _stackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X, Position.Y + totalTextHeight), GetLayeringDepth(UILayeringDepths.Medium));
 
             foreach(var option in dialogue.Options)
             {

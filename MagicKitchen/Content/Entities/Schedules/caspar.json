@@ -5,7 +5,7 @@
         "TileY": 56,
         "EndBehaviour" : "Wander",
         "Dialogue":{
-            "DialogueText":"This is the main dialogue",
+            "DialogueText":"This is the main dialogue, and its made extra long so I know when it wrappppps boi",
                         "FlavorText" : "(It smells funny)",
             "Options":
                 {

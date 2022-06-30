@@ -242,6 +242,10 @@ namespace TextEngine.Classes
             FullString = WrapAutoText(textBoxWidth);
             CurrentString = FullString;
         }
+        internal float GetWidthOfTotalWrappedText(int textBoxWidth)
+        {
+            return GetTextHeight(WrapAutoText(textBoxWidth));
+        }
 
         /// <summary>
         /// String width and height already have their scale applied to them, scale parameter is for unscaled rectangle.

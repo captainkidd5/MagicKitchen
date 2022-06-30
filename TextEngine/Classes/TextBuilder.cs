@@ -110,6 +110,7 @@ namespace TextEngine.Classes
         /// </summary>
         public void ForceComplete(int textBoxWidth) => _text.ForceComplete(textBoxWidth);
 
+        public float GetWidthOfTotalWrappedText(int textBoxWidth) =>  _text.GetWidthOfTotalWrappedText( textBoxWidth);
 
         public bool IsComplete() => _text.CurrentString == _text.FullString;
         
