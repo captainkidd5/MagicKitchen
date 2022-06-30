@@ -33,8 +33,9 @@ namespace UIEngine.Classes.TextStuff
         public TalkingWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            Position = new Vector2(Position.X + Settings.Gutter, Position.Y);
             Position = RectangleHelper.PlaceTopRightScreen(RectangleHelper.RectangleToScale(_backgroundSourceRectangle, _scale));
+            Position = new Vector2(Position.X - Settings.Gutter, Position.Y + Settings.Gutter);
+
             BackdropSprite = SpriteFactory.CreateUISprite(Position, _backgroundSourceRectangle,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back),scale :_scale);
             TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front),.5f),
@@ -84,7 +85,7 @@ namespace UIEngine.Classes.TextStuff
                 }
                 if (Hovered && Controls.IsClicked || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
                 {
-                    TextBuilder.ForceComplete();
+                    TextBuilder.ForceComplete(BackdropSprite.HitBox.Width);
                 }
             }
 
@@ -110,7 +111,7 @@ namespace UIEngine.Classes.TextStuff
         public void CreateTalkingText(string speech)
         {
             TextBuilder.ClearText();
-            TextBuilder.SetText(TextFactory.CreateUIText(speech, GetLayeringDepth(UILayeringDepths.Front), scale: 1f), false);
+            TextBuilder.SetText(TextFactory.CreateUIText(speech,  GetLayeringDepth(UILayeringDepths.Front), scale: 1f), BackdropSprite.HitBox.Width, false);
             Activate();
 
             UI.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UI.ClockBar });

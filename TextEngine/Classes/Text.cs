@@ -84,19 +84,21 @@ namespace TextEngine.Classes
         internal bool ExceedsWidth(int width, int? line = null)
         {
             if (line == null)
-                return GetLengthOfCurrentLine() >= width;
+                return GetLengthOfCurrentLine() >= width - 32;
             else
-                return GetLengthOfLine(line.Value) >= width;
+                return GetLengthOfLine(line.Value) >= width - 32;
         }
        
         /// <summary>
         /// Appends the next letter of the target string.
         /// </summary>
         /// <returns>Returns true if the string matches the target string (we're done).</returns>
-        internal bool Append()
+        internal bool Append(int textBoxWidth)
         {
             if (CurrentString.Length < FullString.Length)
             {
+                if (ExceedsWidth(textBoxWidth))
+                    WrapInputText(textBoxWidth);
                 CurrentString += FullString[CurrentString.Length];
                 return false;
             }
@@ -123,7 +125,7 @@ namespace TextEngine.Classes
         {
             String line = String.Empty;
             String returnString = String.Empty;
-            String[] wordArray = CurrentString.Split(' ');
+            String[] wordArray = FullString.Split(' ');
 
             foreach (String word in wordArray)
             {
@@ -235,8 +237,9 @@ namespace TextEngine.Classes
         /// <summary>
         /// Sets the current string equal to the full string!
         /// </summary>
-        internal void ForceComplete()
+        internal void ForceComplete(int textBoxWidth)
         {
+            FullString = WrapAutoText(textBoxWidth);
             CurrentString = FullString;
         }
 

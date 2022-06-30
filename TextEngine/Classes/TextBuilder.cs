@@ -42,11 +42,11 @@ namespace TextEngine.Classes
         }
 
         /// <param name="autoComplete">Set to true if you want the given text to be show, rather than set.</param>
-        public void SetText(Text text, bool autoComplete = true)
+        public void SetText(Text text, int textBoxWidth, bool autoComplete = true)
         {
             _text = text;
             if (autoComplete)
-                ForceComplete();
+                ForceComplete(textBoxWidth);
         }
 
         /// <param name="textBoxWidth">Provide if you want the text to wrap.</param>
@@ -65,7 +65,7 @@ namespace TextEngine.Classes
                 { 
                     //text being appended on a timer.
                     if (_simpleTimer.Run(gameTime))
-                        if (_text.Append())
+                        if (_text.Append(textBoxWidth))
                             return true;
 
                 }
@@ -107,7 +107,7 @@ namespace TextEngine.Classes
         /// <summary>
         /// Forces text current string to equal total string
         /// </summary>
-        public void ForceComplete() => _text.ForceComplete();
+        public void ForceComplete(int textBoxWidth) => _text.ForceComplete(textBoxWidth);
 
 
         public bool IsComplete() => _text.CurrentString == _text.FullString;

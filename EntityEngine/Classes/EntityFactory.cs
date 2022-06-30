@@ -36,7 +36,7 @@ namespace EntityEngine.Classes
 
         internal static List<Color> SkinColors;
 
-        internal static Dictionary<string, NPCData> NPCData;
+        internal static Dictionary<string, NPCData> NPCData { get; set; }
 
         internal static Dictionary<string, List<Schedule>> Schedules;
 

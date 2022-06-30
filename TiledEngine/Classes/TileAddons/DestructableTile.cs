@@ -93,12 +93,15 @@ namespace TiledEngine.Classes.TileAddons
                     return null;
             }
 
-          
 
+            ActionType? actionType = null;
             if (RequireLoopBeforeDestruction)
             {
-          
+                if ((Tile.Sprite as AnimatedSprite).Paused)
+                    actionType = ActionType.Interact;
+
                     (Tile.Sprite as AnimatedSprite).Paused = false;
+
             }
 
             else
@@ -109,7 +112,10 @@ namespace TiledEngine.Classes.TileAddons
             }
             if (!IsPlayingASound)
                 PlayPackage(GetDestructionSoundName());
-            return ActionType.Interact;
+
+                return actionType;
+   
+
         }
     }
 }
