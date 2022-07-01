@@ -48,6 +48,26 @@
             </SoundChancers>
         </Item>
         <Item>
+            <Name>Harvest</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Harvest1</Name>
+                    <Weight>33</Weight>
+                    <LocalPath>SoundEffects/Tiles/Actions/Harvest</LocalPath>
+                </Item>
+                  <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Harvest2</Name>
+                    <Weight>3</Weight>
+                    <LocalPath>SoundEffects/Tiles/Actions/Harvest</LocalPath>
+                </Item>
+                  <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Harvest1</Name>
+                    <Weight>33</Weight>
+                    <LocalPath>SoundEffects/Tiles/Actions/Harvest</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
+        <Item>
             <Name>CoinJingle</Name>
             <SoundChancers>
                 <Item Type="DataModels.SoundStuff.SoundChancer">
