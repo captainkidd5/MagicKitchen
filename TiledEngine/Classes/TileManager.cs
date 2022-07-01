@@ -345,9 +345,11 @@ namespace TiledEngine.Classes
 
 
 
-        public void SwitchGID(ushort newGid, TileData tileData, bool tempTile = false, bool wang = false, bool addProperty = false)
+        public void SwitchGID(ushort newGid, TileData tileData, bool tempTile = false, bool wang = false, bool isForeGround = false)
         {
-
+            if(isForeGround)
+                newGid = (ushort)TileSetPackage.OffSetBackgroundGID(newGid);
+            
             tileData.GID = (ushort)(newGid + 1);
             TileData[tileData.Layer][tileData.X, tileData.Y] = tileData;
            // if (addProperty)

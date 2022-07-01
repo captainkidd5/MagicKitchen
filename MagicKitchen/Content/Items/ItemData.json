@@ -185,33 +185,10 @@
     
 }
 },
-{
-    "Id": 2502,
-    "Name": "Fibre",
-    "Description" : "Basic flotsam",
-    "MaxStackSize": 999,
-    "Price": 1
-},
-{
-    "Id": 2601,
-    "Name": "Rope",
-    "Description" : "Woven Fibre",
-    "MaxStackSize": 999,
-    "Price": 1, 
-    "RecipeInfo": 
-    {
-        "CraftAction": "Craft",
-        "CraftingCategory": "Refined",
-    "CookTime": 20,
-    "Ingredients":[
-        {
-            "Name":"Fibre",
-            "Count":3
-        }
-    ]
-    
-}
-},
+
+
+
+
 {
     "Id": 2500,
     "Name": "Flint",
@@ -220,6 +197,7 @@
     "Price": 1
     
     },
+
 {
     "Id": 2501,
     "Name": "Stone",
@@ -229,8 +207,41 @@
     
     },
    
+    {
+        "Id": 2502,
+        "Name": "Fibre",
+        "Description" : "Basic flotsam",
+        "MaxStackSize": 999,
+        "Price": 1
+    },
    
-      
+    {
+        "Id": 2601,
+        "Name": "Rope",
+        "Description" : "Woven Fibre",
+        "MaxStackSize": 999,
+        "Price": 1, 
+        "RecipeInfo": 
+        {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Refined",
+        "CookTime": 20,
+        "Ingredients":[
+            {
+                "Name":"Fibre",
+                "Count":3
+            }
+        ]
+        
+    }
+    },
+    {
+        "Id": 2616,
+        "Name": "Limpet",
+        "Description" : "Basic flotsam",
+        "MaxStackSize": 999,
+        "Price": 1
+    },
     {
         "Id": 2711,
         "Name": "Water",

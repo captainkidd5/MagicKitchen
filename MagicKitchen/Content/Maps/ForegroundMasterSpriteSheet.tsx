@@ -66,6 +66,16 @@
    <property name="newSource" value="0,-16,32,32"/>
   </properties>
  </tile>
+ <tile id="574">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="575">
+  <properties>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
+ </tile>
  <tile id="601">
   <properties>
    <property name="newSource" value="-16,-80,48,96"/>
@@ -87,26 +97,20 @@
    <property name="newSource" value="0,-16,32,32"/>
   </properties>
  </tile>
+ <tile id="774">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="775">
+  <properties>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
+ </tile>
  <tile id="833">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
- </tile>
- <tile id="872">
-  <animation>
-   <frame tileid="872" duration="800"/>
-   <frame tileid="672" duration="800"/>
-   <frame tileid="472" duration="800"/>
-   <frame tileid="672" duration="800"/>
-  </animation>
- </tile>
- <tile id="873">
-  <animation>
-   <frame tileid="873" duration="800"/>
-   <frame tileid="673" duration="800"/>
-   <frame tileid="473" duration="800"/>
-   <frame tileid="673" duration="800"/>
-  </animation>
  </tile>
  <tile id="940">
   <properties>
@@ -166,12 +170,34 @@
    <frame tileid="772" duration="800"/>
   </animation>
  </tile>
- <tile id="973">
+ <tile id="974">
+  <properties>
+   <property name="action" value="harvest,971"/>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <ellipse/>
+   </object>
+  </objectgroup>
   <animation>
-   <frame tileid="973" duration="800"/>
-   <frame tileid="773" duration="800"/>
-   <frame tileid="573" duration="800"/>
-   <frame tileid="773" duration="800"/>
+   <frame tileid="974" duration="800"/>
+   <frame tileid="774" duration="800"/>
+   <frame tileid="574" duration="800"/>
+   <frame tileid="774" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="975">
+  <properties>
+   <property name="action" value="Harvest,972"/>
+   <property name="newHitBox" value="0,-16,32,32"/>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
+  <animation>
+   <frame tileid="975" duration="800"/>
+   <frame tileid="775" duration="800"/>
+   <frame tileid="575" duration="800"/>
+   <frame tileid="775" duration="800"/>
   </animation>
  </tile>
  <tile id="1101">

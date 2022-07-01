@@ -21,6 +21,8 @@ namespace TiledEngine.Classes.TileAddons.Actions
                     return new IgniteActionTile(tile, intermediateTmxShape, action);
                 case "Break":
                     return new DestructableTile(tile, intermediateTmxShape, action);
+                case "Harvest":
+                    return new HarvestableTile(tile, intermediateTmxShape, action);
                 case "Dig":
                     return new NoCollideDestructable(tile, intermediateTmxShape, action, false);
                 default:

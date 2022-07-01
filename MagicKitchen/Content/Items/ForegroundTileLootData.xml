@@ -42,6 +42,19 @@
             <DestructionSoundPackageName>Break</DestructionSoundPackageName>
 
         </Item>
+         <Item>
+            <TileId>975</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Limpet</ItemName>
+            <Quantity>2</Quantity>
+            <Weight>100</Weight>
+            </Item>
+
+            </Loot>
+            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+
+        </Item>
         <Item>
             <TileId>2014</TileId>
             <Loot>
