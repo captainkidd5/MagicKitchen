@@ -115,23 +115,30 @@
     "Description" : "Fuel",
     "FuelValue" : 100,
     "MaxStackSize": 999,
-    "Price": 1,
-    "RecipeInfo": 
-    {
-    "CraftAction": "Craft",
-    "CraftingCategory": "Tool",
-    "CookTime": 1,
-    "Ingredients":[
-        {
-            "Name":"Iron_Ore",
-            "Count":1
-        }
-    ]
-}
+    "Price": 1
+
 },
 {
     "Id": 1200,
-    "Name": "Dirt",
+    "Name": "Mud",
+    "Description" : "Soggy dirt",
+    "MaxStackSize": 999,
+    "Price": 1
+
+},
+
+{
+    "Id": 1201,
+    "Name": "Wood_Wall",
+    "Description" : "A basic wooden structure",
+    "MaxStackSize": 999,
+    "Price": 1,
+    "PlacedItemGID" : 1477
+
+},
+{
+    "Id": 1205,
+    "Name": "Mud_Block",
     "Description" : "May be placed on water",
     "MaxStackSize": 999,
     "Price": 1,
@@ -140,16 +147,19 @@
     [
         "water"
     ],
-    "LayerToPlace" : "background"
-
-},
-{
-    "Id": 1201,
-    "Name": "Wood_Wall",
-    "Description" : "A basic wooden structure",
-    "MaxStackSize": 999,
-    "Price": 1,
-    "PlacedItemGID" : 1477
+    "LayerToPlace" : "background",
+    "RecipeInfo": 
+    {
+    "CraftAction": "Craft",
+    "CraftingCategory": "Refined",
+    "CookTime": 1,
+    "Ingredients":[
+        {
+            "Name":"Mud",
+            "Count":3
+        }
+    ]
+}
 
 },
 {

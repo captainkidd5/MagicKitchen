@@ -94,7 +94,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             return (int)BodyPart * .000001f;
         }
 
-        internal virtual void Update(GameTime gameTime,Direction direction, Vector2 position, float entityLayer, bool isMoving, float entitySpeed)
+        internal virtual void Update(GameTime gameTime,Direction direction, Vector2 position, float entityLayer, bool isMoving, float entitySpeed )
         {
 
 
@@ -118,11 +118,11 @@ namespace EntityEngine.Classes.HumanoidCreation
 
 
 
-        internal virtual void Draw(SpriteBatch spriteBatch)
+        internal virtual void Draw(SpriteBatch spriteBatch, bool submerged)
         {
             if (CurrentDirection != Direction.None)
             {
-                CurrentAction.Draw(spriteBatch, (Direction)CurrentDirection);
+                CurrentAction.Draw(spriteBatch, (Direction)CurrentDirection, submerged);
             }
         }
         internal virtual void ChangeAnimation(ActionType actionType)

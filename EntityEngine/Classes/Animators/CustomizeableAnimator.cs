@@ -107,7 +107,7 @@ namespace EntityEngine.Classes.Animators
         {
             for (int i = 0; i < BodyPieces.Length; i++)
             {
-                BodyPieces[i].Draw(spriteBatch);
+                BodyPieces[i].Draw(spriteBatch, Entity.Submerged);
             }
         }
 

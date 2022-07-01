@@ -113,7 +113,7 @@ namespace EntityEngine.Classes.PlayerStuff
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Player },
-            new List<Category>() { (Category)PhysCat.SolidHigh,  (Category)PhysCat.Grass, (Category)PhysCat.NPC, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item,
+            new List<Category>() { (Category)PhysCat.SolidHigh,(Category)PhysCat.SolidLow,  (Category)PhysCat.Grass, (Category)PhysCat.NPC, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item,
                 (Category)PhysCat.NPCBigSensor, (Category)PhysCat.Tool, (Category)PhysCat.Portal}, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this));
 
 

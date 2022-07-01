@@ -81,9 +81,17 @@ namespace EntityEngine.Classes.HumanoidCreation
 
             }
         }
-        public void Draw(SpriteBatch spriteBatch, Direction direction)
+        public void Draw(SpriteBatch spriteBatch, Direction direction, bool submerged)
         {
-        
+
+            //Do not draw pants or shoes if player is submerged
+            if (submerged)
+            {
+                Type t = _bodyPiece.GetType();
+                if (t == typeof(Shoes) || t == typeof(Pants))
+                    return;
+            }
+           
             _animations[(int)direction - 1].Draw(spriteBatch);
           
 

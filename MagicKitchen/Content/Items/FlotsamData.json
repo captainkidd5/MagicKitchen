@@ -1,7 +1,11 @@
 [
     {
         "Name":"Fibre",
-        "Weight":50
+        "Weight":30
+    },
+    {
+        "Name":"Mud",
+        "Weight":20
     },
     {
         "Name":"Iron_Ore",
@@ -10,6 +14,6 @@
     ,
     {
         "Name":"Drift_Wood",
-        "Weight":40
+        "Weight":30
     }
 ]

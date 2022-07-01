@@ -17,7 +17,7 @@
             <TileId>201</TileId>
             <Loot>
             <Item Type="DataModels.LootData">
-            <ItemName>Dirt</ItemName>
+            <ItemName>Mud</ItemName>
             <Quantity>1</Quantity>
             <Weight>100</Weight>
             </Item>

@@ -204,12 +204,18 @@ namespace EntityEngine.Classes
             if (!ForceStop)
                 BehaviourManager.Update(gameTime, ref Velocity);
         }
+        public bool Submerged { get; private set; }
         public virtual new void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            Submerged = false;
             Speed = BaseSpeed;
             if (Container.TileManager.IsTypeOfTile("water", Position))
+            {
+                Submerged = true;
                 Speed = BaseSpeed * .5f;
+
+            }
             UpdateBehaviour(gameTime);
             StatusIcon.Update(gameTime, Position);
 
