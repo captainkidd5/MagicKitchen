@@ -152,6 +152,9 @@
     "Name": "Drift_Wood",
     "Description" : "Water-logged",
     "MaxStackSize": 999,
+    "FuelValue" : 100,
+
+    
     "Price": 1
 
 },
@@ -177,6 +180,33 @@
         {
             "Name":"Iron_Ore",
             "Count":1
+        }
+    ]
+    
+}
+},
+{
+    "Id": 2502,
+    "Name": "Fibre",
+    "Description" : "Basic flotsam",
+    "MaxStackSize": 999,
+    "Price": 1
+},
+{
+    "Id": 2601,
+    "Name": "Rope",
+    "Description" : "Woven Fibre",
+    "MaxStackSize": 999,
+    "Price": 1, 
+    "RecipeInfo": 
+    {
+        "CraftAction": "Craft",
+        "CraftingCategory": "Refined",
+    "CookTime": 20,
+    "Ingredients":[
+        {
+            "Name":"Fibre",
+            "Count":3
         }
     ]
     

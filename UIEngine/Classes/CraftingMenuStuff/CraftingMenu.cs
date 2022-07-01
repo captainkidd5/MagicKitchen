@@ -33,6 +33,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
         private CraftingPage _craftingPageTool;
 
         private CraftingPage _craftingPagePlaceable;
+        private CraftingPage _craftingPageRefined;
+
 
         private Dictionary<CraftingCategory, CraftingPage> _pageDictionary;
 
@@ -82,6 +84,14 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
 
             _pageDictionary.Add(CraftingCategory.Placeable, _craftingPagePlaceable);
+
+            _craftingPageRefined = new CraftingPage(this, CraftingCategory.Refined, this, graphics, content, Position,
+                GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
+            _craftingPageRefined.LoadContent();
+            ChildSections.Remove(_craftingPageRefined);
+
+
+            _pageDictionary.Add(CraftingCategory.Refined, _craftingPageRefined);
 
         }
         public override void LoadContent()

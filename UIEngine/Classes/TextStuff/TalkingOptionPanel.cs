@@ -20,8 +20,11 @@ namespace UIEngine.Classes.TextStuff
 
         private Rectangle _sourceRectangle = new Rectangle(64, 496, 272, 64);
         private Text _titleText;
+        private TextBuilder _titleTextBuilder;
 
         private Text _dialogueText;
+        private TextBuilder _dialogueTextBuilder;
+
         private Vector2 _dialogueTextPosition;
 
         private Sprite BackgroundSprite;
@@ -51,8 +54,10 @@ namespace UIEngine.Classes.TextStuff
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
-            _dialogueTextPosition = new Vector2(Position.X, Position.Y + _titleText.TotalStringHeight);
+            _dialogueTextPosition = new Vector2(Position.X, Position.Y + _titleText.TotalStringHeight * 2);
 
+            _titleTextBuilder = new TextBuilder(_titleText);
+            _dialogueTextBuilder = new TextBuilder(_dialogueText);
         }
 
         public override void Update(GameTime gameTime)
@@ -60,9 +65,8 @@ namespace UIEngine.Classes.TextStuff
             base.Update(gameTime);
 
             BackgroundSprite.Update(gameTime, Position);
-            _titleText.Update(gameTime, Position);
-
-            _dialogueText.Update(gameTime, _dialogueTextPosition);
+            _titleTextBuilder.Update(gameTime, Position, TotalBounds.Width);
+            _dialogueTextBuilder.Update(gameTime, _dialogueTextPosition, TotalBounds.Width);
             
         }
 
@@ -70,8 +74,9 @@ namespace UIEngine.Classes.TextStuff
         {
             base.Draw(spriteBatch);
             BackgroundSprite.Draw(spriteBatch);
-            _titleText.Draw(spriteBatch, true);
-            _dialogueText.Draw(spriteBatch, true);
+            _titleTextBuilder.Draw(spriteBatch, true);
+            _dialogueTextBuilder.Draw(spriteBatch, true);
+
         }
     }
 }
