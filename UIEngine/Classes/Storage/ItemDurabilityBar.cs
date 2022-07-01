@@ -41,6 +41,19 @@ namespace UIEngine.Classes.Storage
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+          
+        }
+
+        public override void SetProgressRatio(float ratio)
+        {
+            base.SetProgressRatio(ratio);
+            if (ratio <= .4)
+                ProgressColor = Color.Red;
+            else if (ratio > .4 && ratio <= .7)
+                ProgressColor = Color.Yellow;
+            else
+                ProgressColor = Color.Green;
+            OutlineSprite.UpdateColor(ProgressColor);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

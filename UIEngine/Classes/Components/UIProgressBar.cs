@@ -42,7 +42,7 @@ namespace UIEngine.Classes.Components
            // base.LoadContent();
         }
 
-        public void SetProgressRatio(float ratio)
+        public virtual void SetProgressRatio(float ratio)
         {
             OutlineSprite.RectangleWidth = (int)(ratio * (float)SourceRectangle.Width * Scale.X);
 
