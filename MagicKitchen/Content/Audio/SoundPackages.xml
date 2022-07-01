@@ -123,6 +123,26 @@
             </SoundChancers>
         </Item>
         <Item>
+            <Name>ToolBreak</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>ToolBreak</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Tools</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
+         <Item>
+            <Name>ItemCraft</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>ItemCraftMetal</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Tools</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
+        <Item>
             <Name>Step</Name>
             <SoundChancers>
                 <Item Type="DataModels.SoundStuff.SoundChancer">

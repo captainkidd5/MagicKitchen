@@ -43,6 +43,19 @@
 
         </Item>
          <Item>
+            <TileId>974</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Limpet</ItemName>
+            <Quantity>1</Quantity>
+            <Weight>100</Weight>
+            </Item>
+
+            </Loot>
+            <DestructionSoundPackageName>Harvest</DestructionSoundPackageName>
+
+        </Item>
+         <Item>
             <TileId>975</TileId>
             <Loot>
             <Item Type="DataModels.LootData">
@@ -52,7 +65,7 @@
             </Item>
 
             </Loot>
-            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+            <DestructionSoundPackageName>Harvest</DestructionSoundPackageName>
 
         </Item>
         <Item>

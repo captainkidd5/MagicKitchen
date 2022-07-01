@@ -17,14 +17,15 @@ namespace EntityEngine.Classes.ToolStuff
 {
     public class Tool : Collidable
     {
+        public Item Item { get; set; }
         public bool Dirty { get; set; }
         protected Rectangle SourceRectangle { get; set; }
         public bool RequiresCharge { get; set; }
-        public static Tool GetTool(string typeName)
+        public static Tool GetTool(Item item)
         {
             return (Tool)System.Reflection.Assembly.GetExecutingAssembly()
-                .CreateInstance($"EntityEngine.Classes.ToolStuff.{typeName}", true, System.Reflection.BindingFlags.CreateInstance,
-                null, new object[] { }, null, null);
+                .CreateInstance($"EntityEngine.Classes.ToolStuff.{item.ItemType.ToString()}", true, System.Reflection.BindingFlags.CreateInstance,
+                null, new object[] {item }, null, null);
         }
         protected AnimatedSprite Sprite { get; set; }
         protected Collidable Holder { get; set; }
@@ -34,9 +35,9 @@ namespace EntityEngine.Classes.ToolStuff
 
         protected Point BaseOffSet = new Point(2, 7);
 
-        public Tool()
+        public Tool(Item item)
         {
-
+            Item = item;
 
         }
 
@@ -48,7 +49,7 @@ namespace EntityEngine.Classes.ToolStuff
         {
             CreateBody(Position);
 
-            
+ 
             Sprite = SpriteFactory.CreateWorldAnimatedSprite(Position,SourceRectangle, 
                 ItemFactory.ToolSheet, GetAnimationFrames());
             Sprite.Paused = true;
@@ -90,7 +91,7 @@ namespace EntityEngine.Classes.ToolStuff
 
             YOffSet = YOffSet + (int)(Math.Ceiling((float)YOffSet * directionVector.Y)) ;
             YOffSet = (int)((float)YOffSet * directionVector.X);
-
+            
 
         }
         public override void Update(GameTime gameTime)

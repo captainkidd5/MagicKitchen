@@ -47,7 +47,7 @@ namespace EntityEngine.Classes
             {
                 if (IsUsingTool)
                     return;
-                Tool tool = (Tool)Tool.GetTool(_inventoryHandler.HeldItem.ItemType.ToString());
+                Tool tool = (Tool)Tool.GetTool(_inventoryHandler.HeldItem);
                 if (tool == null)
                     return;
                 if (tool.RequiresCharge)
@@ -68,9 +68,10 @@ namespace EntityEngine.Classes
                 {
                     if (IsUsingTool)
                         return;
-                    Tool tool = (Tool)Tool.GetTool(_inventoryHandler.HeldItem.ItemType.ToString());
+                    Tool tool = (Tool)Tool.GetTool(_inventoryHandler.HeldItem);
                     if (tool == null)
                         return;
+                    
                     tool.Move(Entity.Position);
                     tool.BeginCharge(Entity);
                     Tool = tool;

@@ -27,7 +27,7 @@ namespace SpriteEngine.Classes.Animations
             Position = new Vector2(position.X + AnimationFrames[CurrentFrame].XOffSet, position.Y + AnimationFrames[CurrentFrame].YOffSet * -1);
 
         }
-        public override void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true)
+        public void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true, float speedModifier = 1f)
         {
             base.Update(gameTime, position, updatePeripheralActoins);
             if (updatePeripheralActoins)
@@ -55,7 +55,7 @@ namespace SpriteEngine.Classes.Animations
 
                     UpdateSourceRectangle(frame);
 
-                    Timer.SetNewTargetTime(frame.Duration);
+                    Timer.SetNewTargetTime(frame.Duration / speedModifier);
                     if (frame.Flip)
                         SpriteEffects = SpriteEffects.FlipHorizontally;
                     else

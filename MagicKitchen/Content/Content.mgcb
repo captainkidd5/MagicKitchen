@@ -182,6 +182,18 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Tools/HookMiss.wav
 
+#begin Audio/SoundEffects/Tools/ItemCraftMetal.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tools/ItemCraftMetal.wav
+
+#begin Audio/SoundEffects/Tools/ToolBreak.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tools/ToolBreak.wav
+
 #begin Audio/SoundEffects/UI/Button1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

@@ -28,7 +28,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             _repeat = repeat;
 
         }
-        public void Update(GameTime gameTime, Direction direction, bool hasDirectionChanged, Vector2 position, float layer, bool isMoving)
+        public void Update(GameTime gameTime, Direction direction, bool hasDirectionChanged, Vector2 position, float layer, bool isMoving, float speedModifier)
         {
             AnimatedSprite anim = _animations[(int)direction - 1];
             if (_repeat && hasDirectionChanged)
@@ -43,7 +43,7 @@ namespace EntityEngine.Classes.HumanoidCreation
                         anim.SetFrame(anim.ResetIndex + 1, position);
                     }
 
-                    anim.Update(gameTime, position, isMoving);
+                    anim.Update(gameTime, position, isMoving, speedModifier);
 
                 }
 
@@ -55,7 +55,7 @@ namespace EntityEngine.Classes.HumanoidCreation
                     if(anim.WillIncrementNextFrame(gameTime))
                      Console.WriteLine("test");
                 }
-                anim.Update(gameTime, position, true);
+                anim.Update(gameTime, position, true, speedModifier);
 
             }
 

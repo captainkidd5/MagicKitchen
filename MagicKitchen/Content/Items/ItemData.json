@@ -26,6 +26,7 @@
     "Price": 25,
     "ToolTier":"Good",
     "ItemType": "Hook",
+    "MaxDurability" : 20,
     "RecipeInfo": 
     {
     "CraftAction": "Craft",
@@ -33,8 +34,12 @@
     "CookTime": 1,
     "Ingredients":[
         {
-            "Name":"Iron_Ore",
-            "Count":1
+            "Name":"Rope",
+            "Count":2
+        },
+        {
+            "Name":"Drift_Wood",
+            "Count":2
         }
     ]
 }

@@ -172,11 +172,13 @@
  </tile>
  <tile id="974">
   <properties>
-   <property name="action" value="harvest,971"/>
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16">
+   <object id="1" x="2" y="0" width="13" height="13">
+    <properties>
+     <property name="action" value="Harvest,971"/>
+    </properties>
     <ellipse/>
    </object>
   </objectgroup>

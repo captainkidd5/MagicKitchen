@@ -64,6 +64,10 @@ namespace DataModels.ItemStuff
         public Layers? LayerToPlace { get; set; }
         public List<AllowedPlacementTileType> AllowedPlacementTileTypes { get; set; }
         public bool PlaceableItem => PlacedItemGID > -1;
+
+       
+
+        public ushort MaxDurability { get; set; }
         public void Load()
         {
             if(RecipeInfo != null)

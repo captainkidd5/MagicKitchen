@@ -47,7 +47,7 @@ namespace EntityEngine.Classes
         private readonly GraphicsDevice _graphics;
         private readonly ContentManager _content;
         //Movement
-        protected float StartingSpeed { get; set; } = 3f;
+        public float BaseSpeed { get; protected set; } = 3f;
         protected Vector2 Velocity;
         internal float Speed { get; set; }
         protected int StorageCapacity { get; set; }
@@ -92,7 +92,7 @@ namespace EntityEngine.Classes
 
             StorageCapacity = 4;
             Navigator = new Navigator(Name);
-            Speed = StartingSpeed;
+            Speed = BaseSpeed;
 
             InventoryHandler = new InventoryHandler(StorageCapacity);
 
@@ -207,9 +207,9 @@ namespace EntityEngine.Classes
         public virtual new void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            Speed = StartingSpeed;
+            Speed = BaseSpeed;
             if (Container.TileManager.IsTypeOfTile("water", Position))
-                Speed = StartingSpeed * .5f;
+                Speed = BaseSpeed * .5f;
             UpdateBehaviour(gameTime);
             StatusIcon.Update(gameTime, Position);
 

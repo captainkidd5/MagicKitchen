@@ -94,7 +94,7 @@ namespace EntityEngine.Classes.Animators
                 {
                     if (resetToResting)
                         BodyPieces[i].SetRestingFrameIndex();
-                    BodyPieces[i].Update(gameTime, Entity.DirectionMoving, Position, Layer, isMoving);
+                    BodyPieces[i].Update(gameTime, Entity.DirectionMoving, Position, Layer, isMoving, Entity.Speed/Entity.BaseSpeed);
                    
                 }
             

@@ -34,6 +34,7 @@ namespace TiledEngine.Classes.TileAddons
                 string propString = Tile.GetProperty("action", true);
                 int newGid = int.Parse(propString.Split(",")[1]);
                 Tile.TileManager.SwitchGID((ushort)newGid, Tile.TileData, false, (Layers)Tile.TileData.Layer < Layers.buildings,isForeGround: Tile.TileManager.TileSetPackage.IsForeground(Tile.TileData.GID));
+                PlayPackage(GetTileLootSound());
 
                 GenerateLoot();
             }
@@ -76,7 +77,7 @@ namespace TiledEngine.Classes.TileAddons
 
             
             if (!IsPlayingASound)
-                PlayPackage(GetDestructionSoundName());
+                PlayPackage(GetTileLootSound());
 
             return actionType;
 

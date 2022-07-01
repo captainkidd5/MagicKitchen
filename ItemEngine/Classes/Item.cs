@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Penumbra;
 using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Gadgets;
+using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ using static Globals.Classes.Settings;
 
 namespace ItemEngine.Classes
 {
-    public class Item
+    public class Item : ISaveable
     {
-        private readonly ItemData _itemData;
+        private  ItemData _itemData;
 
         private static readonly int SpriteSheetDimension = 100;
         public ItemType ItemType => _itemData.ItemType;
@@ -36,12 +37,36 @@ namespace ItemEngine.Classes
         public Layers? LayerToPlace => _itemData.LayerToPlace;
         public bool PlaceableItem => _itemData.PlaceableItem;
 
+        public ushort MaxDurability => _itemData.MaxDurability;
+        public ushort CurrentDurability { get;  private set; }
         public List<AllowedPlacementTileType> AllowedPlacementTileTypes => _itemData.AllowedPlacementTileTypes;
         internal Item(ItemData data)
         {
             _itemData = data;
+            CurrentDurability = MaxDurability;
         }
+        public Item()
+        {
+        }
+        /// <summary>
+        /// Returns true if item just broke
+        /// </summary>
+        /// <param name="amt"></param>
+        /// <returns></returns>
+        public bool RemoveDurability(int amt = 1)
+        {
+            if (MaxDurability <= 0)
+                throw new Exception($"Should not try to remove durability from item with no max durability");
+            CurrentDurability -= (ushort)amt;
+            if (CurrentDurability <= 0)
+            {
+                SoundFactory.PlayEffectPackage("ToolBreak");
+                return true;
 
+            }
+            return false;
+
+        }
         public static Rectangle GetItemSourceRectangle(int itemId)
         {
             int Row = itemId % SpriteSheetDimension;
@@ -55,6 +80,19 @@ namespace ItemEngine.Classes
         public void CleanUp()
         {
             throw new NotImplementedException();
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+            writer.Write(Id);
+            writer.Write(CurrentDurability);
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            _itemData = ItemFactory.GetItemData(reader.ReadInt32());
+            CurrentDurability = reader.ReadUInt16();
+
         }
     }
 }

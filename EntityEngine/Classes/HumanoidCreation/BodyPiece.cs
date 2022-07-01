@@ -94,7 +94,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             return (int)BodyPart * .000001f;
         }
 
-        internal virtual void Update(GameTime gameTime,Direction direction, Vector2 position, float entityLayer, bool isMoving)
+        internal virtual void Update(GameTime gameTime,Direction direction, Vector2 position, float entityLayer, bool isMoving, float entitySpeed)
         {
 
 
@@ -103,7 +103,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             if (direction != Direction.None)
             {
 
-                CurrentAction.Update(gameTime, (Direction)CurrentDirection, hasChanged,position, entityLayer + LayerOffSet, isMoving);
+                CurrentAction.Update(gameTime, (Direction)CurrentDirection, hasChanged,position, entityLayer + LayerOffSet, isMoving, entitySpeed);
             }
 
 

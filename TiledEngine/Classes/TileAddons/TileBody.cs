@@ -131,7 +131,7 @@ namespace TiledEngine.Classes.TileAddons
             }
         }
 
-        protected string GetDestructionSoundName()
+        protected string GetTileLootSound()
         {
             string destructionSoundName = TileLoader.TileLootManager.GetLootData(Tile.TileData.GID).DestructionSoundPackageName;
             if (string.IsNullOrEmpty(destructionSoundName))

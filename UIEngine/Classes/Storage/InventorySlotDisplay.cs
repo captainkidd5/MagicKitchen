@@ -1,4 +1,5 @@
-﻿using InputEngine.Classes;
+﻿using Globals.Classes.Helpers;
+using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
 using ItemEngine.Classes.StorageStuff;
@@ -52,6 +53,7 @@ namespace UIEngine.Classes.Storage
 
         internal protected new bool Hovered => _button.Hovered;
 
+        private ItemDurabilityBar _itemDurabilityBar;
 
         public InventorySlotDisplay(int XslotIndex, int ySlotIndex,InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content
              , StorageSlot storageSlot, Vector2 position, float layerDepth, SlotVisualVariant slotVisualVariant = SlotVisualVariant.None)
@@ -72,6 +74,8 @@ namespace UIEngine.Classes.Storage
             }
             if(_storageSlot.Item != null)
             UpdateVisuals(_storageSlot.Item, _storageSlot.StoredCount);
+            TotalBounds = _button.TotalBounds;
+
         }
 
         private NineSliceButton NineSliceButtonFromVariant(SlotVisualVariant variant)
@@ -103,7 +107,6 @@ namespace UIEngine.Classes.Storage
             {
                 ItemChanged(_storageSlot.Item, _storageSlot.StoredCount);
             }
-            TotalBounds = _button.TotalBounds;
             base.LoadContent();
         }
         public override void Update(GameTime gameTime)
@@ -134,6 +137,18 @@ namespace UIEngine.Classes.Storage
                 _storageSlot.RightClickInteraction(ref UI.Cursor.HeldItem, ref UI.Cursor.HeldItemCount);
             }
             _text.Update(gameTime, Position);
+
+            if (_itemDurabilityBar != null)
+            {
+                _itemDurabilityBar.Update(gameTime);
+                _itemDurabilityBar.SetProgressRatio((float)_storageSlot.Item.CurrentDurability / (float)_storageSlot.Item.MaxDurability);
+            }
+
+            if(!_storageSlot.Empty && _storageSlot.Item.MaxDurability > 0 && _storageSlot.Item.CurrentDurability <= 0)
+            {
+                _storageSlot.RemoveAll();
+                
+            }
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -144,6 +159,9 @@ namespace UIEngine.Classes.Storage
 
             _button.Draw(spriteBatch);
             _waterMarkSprite?.Draw(spriteBatch);
+
+            if (_itemDurabilityBar != null)
+                _itemDurabilityBar.Draw(spriteBatch);
         }
 
         private void ItemChanged(Item item, int count)
@@ -154,6 +172,11 @@ namespace UIEngine.Classes.Storage
                 _button.SwapForeGroundSprite(null);
                 _text.SetFullString(string.Empty);
                 _oldItemId = 0;
+                if(_itemDurabilityBar != null)
+                {
+                    ChildSections.Remove(_itemDurabilityBar);
+                    _itemDurabilityBar = null;
+                }
                 return;
             }
             if (_oldItemId != item.Id)
@@ -178,6 +201,12 @@ namespace UIEngine.Classes.Storage
 
             _text.SetFullString(count.ToString());
             _oldItemId = item.Id;
+
+            if (item.MaxDurability > 0)
+            {
+                _itemDurabilityBar = new ItemDurabilityBar(this, graphics, content,new Vector2(Position.X, Position.Y + _button.Height - 16), GetLayeringDepth(UILayeringDepths.High));
+                _itemDurabilityBar.LoadContent();
+            }
         }
     }
 }

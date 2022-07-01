@@ -288,7 +288,7 @@ namespace ItemEngine.Classes.StorageStuff
             writer.Write(StoredCount);
             if (StoredCount > 0)
             {
-                writer.Write(Item.Id);
+                Item.Save(writer);
             }
             writer.Write(PlaceLocked);
         }
@@ -297,7 +297,12 @@ namespace ItemEngine.Classes.StorageStuff
         {
             StoredCount = reader.ReadInt32();
             if (StoredCount > 0)
-                Item = ItemFactory.GetItem(reader.ReadInt32());
+            {
+                Item item = new Item();
+                item.LoadSave(reader);
+
+                Item = item;
+            }
             PlaceLocked = reader.ReadBoolean();
             //Call on item changed here to update UI with loaded changes, otherwise ui doesn't show anything until 
             //slot is interacted with again

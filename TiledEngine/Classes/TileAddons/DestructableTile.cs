@@ -111,7 +111,7 @@ namespace TiledEngine.Classes.TileAddons
 
             }
             if (!IsPlayingASound)
-                PlayPackage(GetDestructionSoundName());
+                PlayPackage(GetTileLootSound());
 
                 return actionType;
    

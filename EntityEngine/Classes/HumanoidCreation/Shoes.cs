@@ -142,9 +142,9 @@ namespace EntityEngine.Classes.HumanoidCreation
             InteractAction = new AnimateAction(this, InteractSet, false);
         }
 
-        internal override void Update(GameTime gameTime, Direction direction, Vector2 position, float entityLayer, bool isMoving)
+        internal override void Update(GameTime gameTime, Direction direction, Vector2 position, float entityLayer, bool isMoving, float entitySpeed)
         {
-            base.Update(gameTime, direction, position, entityLayer,isMoving);
+            base.Update(gameTime, direction, position, entityLayer,isMoving,entitySpeed);
             
             //if(CurrentAction[CurrentDirection].HasFrameChanged() && CurrentAction == WalkingSet)
             //{

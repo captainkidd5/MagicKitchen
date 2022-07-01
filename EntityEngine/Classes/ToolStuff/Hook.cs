@@ -30,14 +30,14 @@ namespace EntityEngine.Classes.ToolStuff
         private Sprite _directionalArrowSprite;
 
         private WorldItem _hookedItem;
-        public Hook()
+        public Hook(Item item) : base (item)
         {
 
             SourceRectangle = new Rectangle(16, 0, 16, 16);
             RequiresCharge = true;
         }
 
-        public override void Load()
+        public override void Load( )
         {
             base.Load();
             Sprite.Origin = new Vector2(XOffSet, YOffSet);
@@ -157,6 +157,7 @@ namespace EntityEngine.Classes.ToolStuff
             {
                 if (_hookedItem != null && _hookedItem.MainHullBody!= null)
                     _hookedItem.SetStandardCollides();
+                Item.RemoveDurability(1);
                 Unload();
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
