@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledSharp;
-using UIEngine.Classes;
+using UIEngine.Classes.CursorStuff;
 
 namespace TiledEngine.Classes.TileAddons
 {

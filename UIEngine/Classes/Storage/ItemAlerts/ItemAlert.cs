@@ -16,6 +16,11 @@ using UIEngine.Classes.ButtonStuff;
 
 namespace UIEngine.Classes.Storage.ItemAlerts
 {
+    /// <summary>
+    /// That little box that appears which shows which items have just been added to the player inventory.
+    /// Alerts come from <see cref="PlayerInventoryDisplay.OnItemAddedToInventory(Item, int)"/>
+    /// This also works nicely with crafted items being shown on craft
+    /// </summary>
     internal class ItemAlert : InterfaceSection
     {
         private static Rectangle _backgroundSourceRectangle = new Rectangle(176, 0, 96, 32);
@@ -40,6 +45,7 @@ namespace UIEngine.Classes.Storage.ItemAlerts
 
         public void Increment(int amt)
         {
+            _simpleTimer.ResetToZero();
             _simpleTimer.SetNewTargetTime(_TTL);
             Count += (byte)amt;
             _text.SetFullString($"{Item.Name} +{Count}");

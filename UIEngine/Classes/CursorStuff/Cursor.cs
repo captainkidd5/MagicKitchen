@@ -17,7 +17,7 @@ using TextEngine;
 using TextEngine.Classes;
 
 
-namespace UIEngine.Classes
+namespace UIEngine.Classes.CursorStuff
 {
     public delegate void CursorDroppedItem();
 
@@ -43,12 +43,13 @@ namespace UIEngine.Classes
 
         private bool _wasWorldIconChanged { get; set; }
 
+
         public static CursorIconType GetCursorIconTypeFromString(string str)
         {
             return (CursorIconType)Enum.Parse(typeof(CursorIconType), str);
         }
 
-        public  void OnItemDropped()
+        public void OnItemDropped()
         {
             ItemDropped?.Invoke();
         }
@@ -68,6 +69,7 @@ namespace UIEngine.Classes
 
             AddPrimaryBody(MainHullBody);
 
+
         }
         public void LoadContent(ContentManager content)
         {
@@ -79,25 +81,27 @@ namespace UIEngine.Classes
             MouseDebugText = TextFactory.CreateUIText("test", .99f);
             CreateBody(Controls.MouseWorldPosition);
             _toolTip = new CursorItemToolTip();
+            
+
         }
 
         public override void Update(GameTime gameTime)
         {
 
 
-                Move(Controls.MouseWorldPosition);
-                CursorSprite.Update(gameTime, Controls.MouseUIPosition);
-                if (Flags.DisplayMousePosition)
-                {
-                    MouseDebugText.Update(gameTime, new Vector2(Controls.MouseUIPosition.X - 32, Controls.MouseUIPosition.Y - 32));
-                    MouseDebugText.SetFullString($"{Controls.MouseUIPosition.X.ToString()} , {Controls.MouseUIPosition.Y.ToString()}");
+            Move(Controls.MouseWorldPosition);
+            CursorSprite.Update(gameTime, Controls.MouseUIPosition);
+            if (Flags.DisplayMousePosition)
+            {
+                MouseDebugText.Update(gameTime, new Vector2(Controls.MouseUIPosition.X - 32, Controls.MouseUIPosition.Y - 32));
+                MouseDebugText.SetFullString($"{Controls.MouseUIPosition.X.ToString()} , {Controls.MouseUIPosition.Y.ToString()}");
 
-                }
-                UpdateCursor();
+            }
+            UpdateCursor();
 
-                _toolTip.Update(gameTime, Controls.MouseUIPosition);
-                _wasWorldIconChanged = false;
-          
+            _toolTip.Update(gameTime, Controls.MouseUIPosition);
+            _wasWorldIconChanged = false;
+
 
         }
 
@@ -106,7 +110,7 @@ namespace UIEngine.Classes
         /// Swaps cursor texture
         /// </summary>
         /// <param name="newSourceRectangle">Leave null to put back as default</param>
-        internal void SwapMouseSpriteRectangle(Rectangle? newSourceRectangle, Texture2D? texture = null, Vector2? scale = null)
+        internal void SwapMouseSpriteRectangle(Rectangle? newSourceRectangle, Texture2D texture = null, Vector2? scale = null)
         {
             Rectangle newRectangle = newSourceRectangle ?? CursorSourceRectangle;
             Texture2D textureToUse = texture ?? CursorTexture;
@@ -125,13 +129,13 @@ namespace UIEngine.Classes
         {
             if (!Controls.ControllerConnected || HeldItem != null)
             {
-                if(!Controls.ControllerConnected)
-                     CursorSprite.Draw(spriteBatch);
+                if (!Controls.ControllerConnected)
+                    CursorSprite.Draw(spriteBatch);
 
-            if (HeldItem != null)
-                _toolTip.Draw(spriteBatch);
-            if (Flags.DisplayMousePosition)
-                MouseDebugText.Draw(spriteBatch, true);
+                if (HeldItem != null)
+                    _toolTip.Draw(spriteBatch);
+                if (Flags.DisplayMousePosition)
+                    MouseDebugText.Draw(spriteBatch, true);
             }
 
         }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using TextEngine;
 using TextEngine.Classes;
 
-namespace UIEngine.Classes
+namespace UIEngine.Classes.CursorStuff
 {
     /// <summary>
     /// Usually displayed to the bottom right of the normal cursor. Adds info about things like items which are currently held

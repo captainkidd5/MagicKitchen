@@ -33,6 +33,8 @@ using ItemEngine.Classes.StorageStuff;
 using UIEngine.Classes.StatusStuff;
 using DataModels.DialogueStuff;
 using UIEngine.Classes.Storage.ItemAlerts;
+using UIEngine.Classes.CursorStuff;
+using TextEngine.Classes;
 
 namespace UIEngine.Classes
 {
@@ -99,6 +101,7 @@ namespace UIEngine.Classes
         public static StorageDisplayHandler StorageDisplayHandler { get; set; }
 
         internal static ItemAlertManager ItemAlertManager {get;set;}
+        internal static CursorInfoBox CursorInfoBox { get; set; }
         public static Cursor Cursor { get; set; }
 
         private static Game s_game;
@@ -134,8 +137,11 @@ namespace UIEngine.Classes
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
             StorageDisplayHandler = new StorageDisplayHandler(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             ItemAlertManager = new ItemAlertManager(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
+
+            CursorInfoBox = new CursorInfoBox(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
+
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, _talkingWindow,
-                EscMenu, RecipeBook, StorageDisplayHandler, ItemAlertManager };
+                EscMenu, RecipeBook, StorageDisplayHandler, ItemAlertManager, CursorInfoBox };
 
             Cursor = new Cursor();
             Cursor.LoadContent(content);
@@ -150,6 +156,7 @@ namespace UIEngine.Classes
 
             _frontLayeringDepth = GetLayeringDepth(UILayeringDepths.Front);
         }
+        public static void LoadNewCursorInfo(List<string> text) => CursorInfoBox.LoadNewText(text);
 
         public static void ActivateSecondaryInventoryDisplay(FurnitureType t, StorageContainer storageContainer, bool displayWallet = false)
             => StorageDisplayHandler.ActivateSecondaryInventoryDisplay(t, storageContainer, displayWallet);

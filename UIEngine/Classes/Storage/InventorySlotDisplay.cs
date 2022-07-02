@@ -112,6 +112,19 @@ namespace UIEngine.Classes.Storage
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            if(Hovered && !WasHovered)
+            {
+                if(!_storageSlot.Empty)
+                {
+                    List<string> text = new List<string>();
+
+                    text.Add(_storageSlot.Item.Name);
+                    text.Add(_storageSlot.Item.Description);
+
+                    UI.LoadNewCursorInfo(text);
+                }
+                
+            }
             
         }
         
