@@ -117,6 +117,19 @@ namespace UIEngine.Classes.ButtonStuff
             BackGroundSprite.SwapSourceRectangle(newSourceRectangle);
         }
 
+        public void FadeOut()
+        {
+            BackGroundSprite.SetEffectToDefault();
+            BackGroundSprite.AddFaderEffect(null, null, true);
+
+            if (ForegroundSprite != null)
+            {
+                ForegroundSprite.SetEffectToDefault();
+                ForegroundSprite.AddFaderEffect(null, null, true);
+            }
+         
+        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

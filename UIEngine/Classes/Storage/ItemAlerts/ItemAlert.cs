@@ -26,7 +26,12 @@ namespace UIEngine.Classes.Storage.ItemAlerts
         private Text _text;
         private SimpleTimer _simpleTimer;
 
+        private Vector2 _backgroundOffSet = new Vector2(60, 0);
         private Vector2 _textOffSet = new Vector2(16, 16);
+
+
+        private NineSliceButton _button;
+
         public ItemAlert(Item item, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -39,25 +44,35 @@ namespace UIEngine.Classes.Storage.ItemAlerts
             Count += (byte)amt;
             _text.SetFullString($"{Item.Name} +{Count}");
             _background.ResetColors();
+           
         }
         public override void LoadContent()
         {
            // base.LoadContent();
             _simpleTimer = new SimpleTimer(_TTL, false);
             _text = TextFactory.CreateUIText($"", GetLayeringDepth(UILayeringDepths.Medium));
-            _background = SpriteFactory.CreateUISprite(Position, _backgroundSourceRectangle, UI.ButtonTexture,
+            _background = SpriteFactory.CreateUISprite(Position + _backgroundOffSet, _backgroundSourceRectangle, UI.ButtonTexture,
                 GetLayeringDepth(UILayeringDepths.Low), scale:new Vector2(2f,2f));
+            _button = new NineSliceButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), null, null, null, null, hoverTransparency: true);
+
+            _button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
+            Item.GetItemSourceRectangle(Item.Id), ItemFactory.ItemSpriteSheet,
+            UI.IncrementLD(GetLayeringDepth(UILayeringDepths.High), true), Color.White, Vector2.Zero, new Vector2(3f,3f)));
+            _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            _background.Update(gameTime, Position);
-            _text.Update(gameTime, Position + _textOffSet);
+            _background.Update(gameTime, Position + _backgroundOffSet);
+            _text.Update(gameTime, Position + _backgroundOffSet + _textOffSet);
             if (_simpleTimer.Run(gameTime))
+            {
                 _background.AddFaderEffect(null, null, true);
+                _button.FadeOut();
+            }
 
-            if(_background.IsTransparent)
+            if (_background.IsTransparent)
                 FlaggedForRemoval = true;
 
         }

@@ -35,7 +35,7 @@ namespace UIEngine.Classes.Storage.ItemAlerts
         public override void LoadContent()
         {
             _alerts = new Dictionary<int, ItemAlert>();
-            Position = new Vector2(Settings.CenterScreen.X + Settings.ScreenWidth / 4 + 80 , Settings.CenterScreen.Y + 80);
+            Position = new Vector2(Settings.CenterScreen.X + Settings.ScreenWidth / 4 , Settings.CenterScreen.Y + 80);
             RegisterCommands();
         }
         public void AddAlert(Item item, int count)
