@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using TextEngine;
 using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
+using UIEngine.Classes.Storage;
 
 namespace UIEngine.Classes.CursorStuff
 {
@@ -19,6 +20,8 @@ namespace UIEngine.Classes.CursorStuff
         public NineSliceTextButton NineSliceTextButton { get; set; }
 
         public Vector2 _offSet;
+
+        public bool IsDrawn { get; set; } = true;
         public CursorInfoBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position,
             float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -27,12 +30,13 @@ namespace UIEngine.Classes.CursorStuff
         public override void LoadContent()
         {
             //base.LoadContent();
-           
+
         }
 
-        public void LoadNewText(List<string> newText)
+        public void LoadNewText( List<string> newText)
         {
             ChildSections.Clear();
+;
             List<Text> text = new List<Text>();
 
             foreach (string s in newText)
@@ -48,19 +52,26 @@ namespace UIEngine.Classes.CursorStuff
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
-            if(NineSliceTextButton != null)
-             NineSliceTextButton.MovePosition(Position + _offSet);
+            if (NineSliceTextButton != null)
+                NineSliceTextButton.MovePosition(Position + _offSet);
 
         }
         public override void Update(GameTime gameTime)
         {
-            MovePosition(Controls.MouseUIPosition);
-            base.Update(gameTime);
+            if (IsDrawn )
+            {
+
+                MovePosition(Controls.MouseUIPosition);
+                base.Update(gameTime);
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            if (IsDrawn)
+                base.Draw(spriteBatch);
+            IsDrawn = false;
+
         }
     }
 }

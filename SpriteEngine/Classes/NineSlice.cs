@@ -70,7 +70,7 @@ namespace SpriteEngine.Classes
             SharedConstructor(position, texture, layer, color, scale);
 
             Width = (int)text.TotalStringWidth;
-            Height = (int)text.TotalStringHeight + (int)TextFactory.SingleCharacterWidth() * 4;
+            Height = (int)text.TotalStringHeight;// + (int)TextFactory.SingleCharacterWidth() * 4;
 
             BuildRectangle(_position);
 

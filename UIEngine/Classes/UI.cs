@@ -138,7 +138,7 @@ namespace UIEngine.Classes
             StorageDisplayHandler = new StorageDisplayHandler(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             ItemAlertManager = new ItemAlertManager(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
 
-            CursorInfoBox = new CursorInfoBox(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
+            CursorInfoBox = new CursorInfoBox(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
 
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, _talkingWindow,
                 EscMenu, RecipeBook, StorageDisplayHandler, ItemAlertManager, CursorInfoBox };
@@ -156,7 +156,7 @@ namespace UIEngine.Classes
 
             _frontLayeringDepth = GetLayeringDepth(UILayeringDepths.Front);
         }
-        public static void LoadNewCursorInfo(List<string> text) => CursorInfoBox.LoadNewText(text);
+        internal static void LoadNewCursorInfo( List<string> text) => CursorInfoBox.LoadNewText( text);
 
         public static void ActivateSecondaryInventoryDisplay(FurnitureType t, StorageContainer storageContainer, bool displayWallet = false)
             => StorageDisplayHandler.ActivateSecondaryInventoryDisplay(t, storageContainer, displayWallet);
