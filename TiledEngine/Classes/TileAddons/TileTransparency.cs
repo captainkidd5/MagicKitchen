@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Text;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
+using static DataModels.Enums;
 
 namespace TiledEngine.Classes.TileAddons
 {
@@ -81,7 +82,7 @@ namespace TiledEngine.Classes.TileAddons
              Tile.Sprite.TriggerReduceEffect();
         }
 
-        public ActionType? Interact(bool isPlayer, Item heldItem)
+        public ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
         {
             return null;
         }

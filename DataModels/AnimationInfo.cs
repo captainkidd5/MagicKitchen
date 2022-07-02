@@ -16,6 +16,10 @@ namespace DataModels
         None = 0,
         Walking = 1,
         Interact = 2,
+        JumpUp = 3,
+        JumpDown = 4,
+        JumpLeft = 5,
+        JumpRight = 6,
     }
     public class AnimationInfo
     {

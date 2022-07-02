@@ -25,6 +25,8 @@ namespace TiledEngine.Classes.TileAddons.Actions
                     return new HarvestableTile(tile, intermediateTmxShape, action);
                 case "Dig":
                     return new NoCollideDestructable(tile, intermediateTmxShape, action, false);
+                case "Submerge":
+                    return new SubmergeTile(tile, intermediateTmxShape, action);
                 default:
                     throw new Exception($"Action type {action} could not be found");
             }

@@ -159,12 +159,12 @@ namespace TiledEngine.Classes
             foreach (ITileAddon addon in Addons)
                 addon.Load();
         }
-        public ActionType? Interact(bool isPlayer, Item heldItem)
+        public ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
         {
            ActionType? actionType = null;
             foreach (ITileAddon addon in Addons)
             {
-                ActionType? aType = addon.Interact(isPlayer, heldItem);
+                ActionType? aType = addon.Interact(isPlayer, heldItem, entityPosition, directionEntityFacing);
                     if(aType != null)
                     actionType = aType;
 

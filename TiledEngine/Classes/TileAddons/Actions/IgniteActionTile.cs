@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes.Helpers;
-
+using static DataModels.Enums;
 
 namespace TiledEngine.Classes.TileAddons.Actions
 {
@@ -51,9 +51,9 @@ namespace TiledEngine.Classes.TileAddons.Actions
             }
         }
 
-        public override ActionType? Interact(bool isPlayer, Item heldItem)
+        public override ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
         {
-            return base.Interact(isPlayer, heldItem);
+            return base.Interact(isPlayer, heldItem, entityPosition, directionEntityFacing);
         }
 
     }

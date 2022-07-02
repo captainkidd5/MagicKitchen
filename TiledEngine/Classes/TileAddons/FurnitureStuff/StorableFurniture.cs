@@ -184,9 +184,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base.DestroyTileAndGetLoot();
 
         }
-        public override ActionType? Interact(bool isPlayer, Item heldItem)
+        public override ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
         {
-            base.Interact(isPlayer, heldItem);
+            base.Interact(isPlayer, heldItem, entityPosition, directionEntityFacing);
             if (!FlaggedForDestruction)
             {
                 UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);

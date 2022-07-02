@@ -68,6 +68,11 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
                 return Vector2.Zero;
 
             }
+            //if (_isSinking)
+            //{
+            //    WorldItem.Sprite.SwapSourceRectangle(new Rectangle(WorldItem.Sprite.SourceRectangle.X, WorldItem.Sprite.SourceRectangle.Y,
+            //        WorldItem.Sprite.SourceRectangle.Width, WorldItem.Sprite.SourceRectangle.Height - 1));
+            //}
             if (_isSinking && SimpleTimer.Run(gameTime))
             {
                 WorldItem.Remove(WorldItem.Count);

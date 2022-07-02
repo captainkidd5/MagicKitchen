@@ -15,6 +15,7 @@ using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using tainicom.Aether.Physics2D.Dynamics.Joints;
 using TiledEngine.Classes.Helpers;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TileAddons
@@ -94,7 +95,7 @@ namespace TiledEngine.Classes.TileAddons
       
         }
 
-        public ActionType? Interact(bool isPlayer, Item heldItem)
+        public ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
         {
             return null;
         }

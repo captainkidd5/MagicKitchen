@@ -4,6 +4,7 @@ using Globals.Classes;
 using Globals.Classes.Chance;
 using Globals.Classes.Helpers;
 using ItemEngine.Classes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Pathfinding;
@@ -81,7 +82,7 @@ namespace TiledEngine.Classes.TileAddons
             base.CleanUp();
         }
 
-        public virtual ActionType? Interact(bool isPlayer, Item heldItem)
+        public virtual ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
         {
             return null;
             //throw new NotImplementedException();

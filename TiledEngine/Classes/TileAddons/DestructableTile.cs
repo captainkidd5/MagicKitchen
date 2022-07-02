@@ -18,7 +18,7 @@ using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes.Helpers;
 using TiledEngine.Classes.TileAddons.Actions;
 using UIEngine.Classes;
-
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace TiledEngine.Classes.TileAddons
@@ -81,7 +81,7 @@ namespace TiledEngine.Classes.TileAddons
 
 
 
-        public override ActionType? Interact(bool isPlayer, Item heldItem)
+        public override ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
         {
             if (isPlayer)
             {

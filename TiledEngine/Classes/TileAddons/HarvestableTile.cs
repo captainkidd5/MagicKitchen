@@ -58,7 +58,7 @@ namespace TiledEngine.Classes.TileAddons
 
 
 
-        public override ActionType? Interact(bool isPlayer, Item heldItem)
+        public override ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
         {
             if (isPlayer)
             {

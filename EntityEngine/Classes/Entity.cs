@@ -386,8 +386,44 @@ namespace EntityEngine.Classes
             TileData? tile = Container.TileManager.GetTileDataFromPoint(tilePoint, tileLayer);
             if (tile == null)
                 throw new Exception($"No tile at {tilePoint} at layer {tileLayer.ToString()}!");
-            Container.TileManager.TileObjects[tile.Value.GetKey()].Interact(false, InventoryHandler.HeldItem);
+            ActionType? actionType = Container.TileManager.TileObjects[tile.Value.GetKey()].Interact(false, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
+            if(actionType != null && IsJumpActionType(actionType.Value))
+            {
+                ReactToJumpActionType(actionType.Value);
+            }
 
+        }
+        protected bool IsJumpActionType(ActionType actionType)
+        {
+            return actionType == ActionType.JumpUp || actionType == ActionType.JumpDown ||
+                actionType == ActionType.JumpLeft || actionType == ActionType.JumpRight;
+        }
+        protected void ReactToJumpActionType(ActionType jumpActionType)
+        {
+
+            switch (jumpActionType)
+            {
+                case ActionType.JumpUp:
+                    Move(new Vector2(Position.X, Position.Y - 16));
+                    break;
+                case ActionType.JumpDown:
+                    Move(new Vector2(Position.X, Position.Y + 16));
+                    break;
+                case ActionType.JumpLeft:
+                    Move(new Vector2(Position.X - 16, Position.Y));
+                    break;
+                case ActionType.JumpRight:
+                    Move(new Vector2(Position.X + 16, Position.Y));
+                    break;
+                default:
+                    throw new Exception($"Invalid actiontype provided");
+            }
+
+            if ( Container.TileManager.IsTypeOfTile("water", Position))
+            {
+                SoundModuleManager.PlayPackage("Splash");
+            }
+               
         }
         protected void PerformAction(Direction direction, ActionType actionType)
         {
