@@ -404,16 +404,16 @@ namespace EntityEngine.Classes
             switch (jumpActionType)
             {
                 case ActionType.JumpUp:
-                    Move(new Vector2(Position.X, Position.Y - 16));
+                    Move(new Vector2(Position.X, Position.Y - Settings.TileSize));
                     break;
                 case ActionType.JumpDown:
-                    Move(new Vector2(Position.X, Position.Y + 16));
+                    Move(new Vector2(Position.X, Position.Y + Settings.TileSize));
                     break;
                 case ActionType.JumpLeft:
-                    Move(new Vector2(Position.X - 16, Position.Y));
+                    Move(new Vector2(Position.X - Settings.TileSize, Position.Y));
                     break;
                 case ActionType.JumpRight:
-                    Move(new Vector2(Position.X + 16, Position.Y));
+                    Move(new Vector2(Position.X + Settings.TileSize, Position.Y));
                     break;
                 default:
                     throw new Exception($"Invalid actiontype provided");

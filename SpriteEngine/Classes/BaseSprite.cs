@@ -119,7 +119,7 @@ namespace SpriteEngine.Classes
         /// <param name="gameTime"></param>
         /// <param name="position"></param>
         /// <param name="updatePeripheralActoins">If true, will update more than just the sprite position/destination rectangle, such as animations or color shifters</param>
-        public virtual void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true)
+        public virtual void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true, float speedModifier = 1f)
         {
             if (updatePeripheralActoins)
             {

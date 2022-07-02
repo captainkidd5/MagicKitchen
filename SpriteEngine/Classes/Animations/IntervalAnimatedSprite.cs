@@ -27,9 +27,9 @@ namespace SpriteEngine.Classes.Animations
             _intervalDuration = standardDuration;
         }
 
-        public override void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true)
+        public override void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true, float speedModifier = 1f)
         {
-            base.Update(gameTime, position, updatePeripheralActoins);
+            base.Update(gameTime, position, updatePeripheralActoins, speedModifier);
             if (updatePeripheralActoins)
             {
 

@@ -83,9 +83,9 @@ namespace SpriteEngine.Classes.Animations
             return Timer.WillIncrement(gameTime);
         }
 
-        public override void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true)
+        public override void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true, float speedModifier = 1f)
         {
-            base.Update(gameTime, position);
+            base.Update(gameTime, position, updatePeripheralActoins, speedModifier);
 
            
 

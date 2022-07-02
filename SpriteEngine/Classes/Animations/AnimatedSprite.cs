@@ -27,9 +27,9 @@ namespace SpriteEngine.Classes.Animations
             Position = new Vector2(position.X + AnimationFrames[CurrentFrame].XOffSet, position.Y + AnimationFrames[CurrentFrame].YOffSet * -1);
 
         }
-        public void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true, float speedModifier = 1f)
+        public override void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true, float speedModifier = 1f)
         {
-            base.Update(gameTime, position, updatePeripheralActoins);
+            base.Update(gameTime, position, updatePeripheralActoins, speedModifier);
             if (updatePeripheralActoins)
             {
 

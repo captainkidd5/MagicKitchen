@@ -32,9 +32,9 @@ namespace SpriteEngine.Classes.InterfaceStuff
             base.ResetColors();
             NineSlice.Color = PrimaryColor;
         }
-        public override void Update(GameTime gameTime,Vector2 position, bool updatePeripheralActoins = true)
+        public override void Update(GameTime gameTime,Vector2 position, bool updatePeripheralActoins = true, float speedModifier = 1f)
         {
-            base.Update(gameTime, position, updatePeripheralActoins);
+            base.Update(gameTime, position, updatePeripheralActoins, speedModifier);
             NineSlice.Color = PrimaryColor;
 
         }
