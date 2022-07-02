@@ -50,6 +50,13 @@ namespace UIEngine.Classes.Storage
             CurrentSelected = Selectables[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
 
             LoadSelectorSprite();
+
+            StorageContainer.ItemAdded += OnItemAddedToInventory;
+        }
+
+        public void OnItemAddedToInventory(Item item, int amtAdded)
+        {
+            UI.ItemAlertManager.AddAlert(item, amtAdded);
         }
         public override void LoadContent()
         {

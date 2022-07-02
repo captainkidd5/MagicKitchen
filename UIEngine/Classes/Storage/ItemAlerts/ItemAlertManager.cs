@@ -1,6 +1,7 @@
 ﻿using Globals.Classes;
 using Globals.Classes.Console;
 using Globals.Classes.Helpers;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,28 +28,31 @@ namespace UIEngine.Classes.Storage.ItemAlerts
         }
         private void AddItemAlertCommand(string[] args)
         {
-            int id = int.Parse(args[0]);
+            string name = args[0];
             int count = int.Parse(args[1]);
-            AddAlert(id, count);
+            AddAlert(ItemFactory.GetItem(name), count);
         }
         public override void LoadContent()
         {
             _alerts = new Dictionary<int, ItemAlert>();
-            Position = new Vector2(Settings.CenterScreen.X + Settings.ScreenWidth / 4 + 64 , Settings.CenterScreen.Y);
+            Position = new Vector2(Settings.CenterScreen.X + Settings.ScreenWidth / 4 + 80 , Settings.CenterScreen.Y + 80);
             RegisterCommands();
         }
-        public void AddAlert(int itemId, int count)
+        public void AddAlert(Item item, int count)
         {
-            if (_alerts.ContainsKey(itemId))
+            if (_alerts.ContainsKey(item.Id))
             {
-                _alerts[itemId].Increment(count);
+                _alerts[item.Id].Increment(count);
 
             }
             else
             {
-                ItemAlert alert = new ItemAlert(this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
+                _alerts.Clear();
+                ChildSections.Clear();
+                ItemAlert alert = new ItemAlert(item, this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
                 alert.LoadContent();
-                _alerts.Add(itemId, alert);
+                alert.Increment(count);
+                _alerts.Add(item.Id, alert);
 
             }
         }

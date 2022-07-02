@@ -98,7 +98,7 @@ namespace UIEngine.Classes
         internal static MainMenu MainMenu { get; set; }
         public static StorageDisplayHandler StorageDisplayHandler { get; set; }
 
-        private static ItemAlertManager ItemAlertManager {get;set;}
+        internal static ItemAlertManager ItemAlertManager {get;set;}
         public static Cursor Cursor { get; set; }
 
         private static Game s_game;

@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,30 +20,31 @@ namespace UIEngine.Classes.Storage.ItemAlerts
     {
         private static Rectangle _backgroundSourceRectangle = new Rectangle(176, 0, 96, 32);
         private static float _TTL = 2f;
-        public int ItemId { get; set; }
+        public Item Item { get; set; }
         public byte Count { get; set; }
         private Sprite _background;
         private Text _text;
         private SimpleTimer _simpleTimer;
 
         private Vector2 _textOffSet = new Vector2(16, 16);
-        public ItemAlert(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
+        public ItemAlert(Item item, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
+            Item = item;
         }
 
         public void Increment(int amt)
         {
             _simpleTimer.SetNewTargetTime(_TTL);
             Count += (byte)amt;
-            _text.SetFullString($"+ {Count}");
+            _text.SetFullString($"{Item.Name} +{Count}");
             _background.ResetColors();
         }
         public override void LoadContent()
         {
            // base.LoadContent();
             _simpleTimer = new SimpleTimer(_TTL, false);
-            _text = TextFactory.CreateUIText($"+ {Count}", GetLayeringDepth(UILayeringDepths.Medium));
+            _text = TextFactory.CreateUIText($"", GetLayeringDepth(UILayeringDepths.Medium));
             _background = SpriteFactory.CreateUISprite(Position, _backgroundSourceRectangle, UI.ButtonTexture,
                 GetLayeringDepth(UILayeringDepths.Low), scale:new Vector2(2f,2f));
         }

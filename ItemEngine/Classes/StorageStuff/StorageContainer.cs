@@ -10,11 +10,15 @@ using System.Text;
 namespace ItemEngine.Classes.StorageStuff
 
 {
+
+    public delegate void ItemAdded(Item item, int amtAdded);
+
     /// <summary>
     /// Does not include visuals
     /// </summary>
     public class StorageContainer : ISaveable
     {
+        public event ItemAdded ItemAdded;
 
         public int Capacity { get; private set; }
         public List<StorageSlot> Slots { get; private set; }
@@ -49,6 +53,7 @@ namespace ItemEngine.Classes.StorageStuff
                     while (count > 0 && (partiallyFilledSlot.Add(item.Name)))
                     {
                         count--;
+                        ItemAdded.Invoke(item, 1);
                     }
                 }
                 else
@@ -66,12 +71,16 @@ namespace ItemEngine.Classes.StorageStuff
                 {
                     emptySlot.AddUniqueItem(item);
                     count--;
+                    ItemAdded.Invoke(item, 1);
+
                 }
                 else if (item.Stackable)
                 {
                     while (count > 0 && (emptySlot.Add(item.Name)))
                     {
                         count--;
+                        ItemAdded.Invoke(item, 1);
+
                     }
                 }
 
