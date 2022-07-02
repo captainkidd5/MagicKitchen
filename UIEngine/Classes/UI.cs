@@ -32,6 +32,7 @@ using TextEngine;
 using ItemEngine.Classes.StorageStuff;
 using UIEngine.Classes.StatusStuff;
 using DataModels.DialogueStuff;
+using UIEngine.Classes.Storage.ItemAlerts;
 
 namespace UIEngine.Classes
 {
@@ -93,9 +94,11 @@ namespace UIEngine.Classes
         internal static EscMenu EscMenu { get; set; }
 
         internal static RecipeBook RecipeBook { get; set; }
-        
+
         internal static MainMenu MainMenu { get; set; }
         public static StorageDisplayHandler StorageDisplayHandler { get; set; }
+
+        private static ItemAlertManager ItemAlertManager {get;set;}
         public static Cursor Cursor { get; set; }
 
         private static Game s_game;
@@ -130,9 +133,9 @@ namespace UIEngine.Classes
             SettingsMenu = new SettingsMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
             Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
             StorageDisplayHandler = new StorageDisplayHandler(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
-            
+            ItemAlertManager = new ItemAlertManager(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, _talkingWindow,
-                EscMenu, RecipeBook, StorageDisplayHandler };
+                EscMenu, RecipeBook, StorageDisplayHandler, ItemAlertManager };
 
             Cursor = new Cursor();
             Cursor.LoadContent(content);
