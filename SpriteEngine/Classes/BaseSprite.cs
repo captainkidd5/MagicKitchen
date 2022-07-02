@@ -34,8 +34,8 @@ namespace SpriteEngine.Classes
         public float? CustomLayer { get; set; }
         public float LayerDepth { get; protected set; }
 
-        public virtual int Width { get {  return SourceRectangle.Width;} }
-        public virtual int Height { get { return SourceRectangle.Height;} }
+        public virtual int Width { get { return SourceRectangle.Width; } }
+        public virtual int Height { get { return SourceRectangle.Height; } }
         public virtual Rectangle HitBox
         {
             get { return new Rectangle((int)(Position.X + OffSet.X), (int)(Position.Y + OffSet.Y), (int)(Width * Scale.X), (int)(Height * Scale.Y)); }
@@ -54,7 +54,9 @@ namespace SpriteEngine.Classes
 
         ColorShifter ColorShifter { get; set; }
 
-        public virtual void ResetColors() => ColorShifter.Reset(this);
+        public virtual void ResetColors()  {
+        if(ColorShifter!= null)ColorShifter.Reset(this); 
+        }
 
         public Vector2 OffSet { get; set; } = Vector2.Zero;
 
