@@ -42,8 +42,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
         private PlayOrExitMenu _playOrExitMenu;
 
-        public static Rectangle BackGroundSourceRectangle = new Rectangle(0, 0, 352, 352);
-        private NineSliceSprite _backGroundSprite;
+        public static Rectangle BackGroundSourceRectangle = new Rectangle(16, 288, 128, 192);
+        private Sprite _backGroundSprite;
         private Vector2 _backGroundSpritePosition;
         private Button _backButton;
 
@@ -114,9 +114,20 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         }
         public override void LoadContent()
         {
-            _createNewSaveMenu = new CreateNewSaveMenu(this, AdjustBackgroundRectangleAndBackButton(BackGroundSourceRectangle), graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
+            _backGroundSpritePosition = RectangleHelper.CenterRectangleOnScreen(RectangleHelper.RectangleToScale(BackGroundSourceRectangle, new Vector2(2f,2f)));
+            _backGroundSpritePosition = new Vector2(_backGroundSpritePosition.X, _backGroundSpritePosition.Y + 64);
+
+            _createNewSaveMenu = new CreateNewSaveMenu(this, BackGroundSourceRectangle, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
             _createNewSaveMenu.LoadContent();
-            AdjustBackgroundRectangleAndBackButton(BackGroundSourceRectangle);
+
+
+
+            _backGroundSprite = SpriteFactory.CreateUISprite(_backGroundSpritePosition, BackGroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), scale: new Vector2(2f, 2f));
+            Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
+                new Rectangle((int)_backGroundSpritePosition.X,
+                (int)_backGroundSpritePosition.Y, _backGroundSprite.Width, _backGroundSprite.Height), UISourceRectangles._backButtonRectangle);
+            _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition, GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle, ChangeToPlayOrExitState, scale: 2f);
+
 
             TotalBounds = new Rectangle((int)_backGroundSpritePosition.X, (int)_backGroundSpritePosition.Y, BackGroundSourceRectangle.Width, BackGroundSourceRectangle.Height);
 
@@ -142,18 +153,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
         }
 
-        private Rectangle AdjustBackgroundRectangleAndBackButton(Rectangle newRectangle)
-        {
-            _backGroundSpritePosition = RectangleHelper.CenterRectangleOnScreen(newRectangle);
-            _backGroundSpritePosition = new Vector2(_backGroundSpritePosition.X, _backGroundSpritePosition.Y + 64);
-            _backGroundSprite = SpriteFactory.CreateNineSliceSprite(_backGroundSpritePosition, newRectangle.Width, newRectangle.Height, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low));
-            Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
-                new Rectangle((int)_backGroundSpritePosition.X,
-                (int)_backGroundSpritePosition.Y, newRectangle.Width, newRectangle.Height), UISourceRectangles._backButtonRectangle);
-            _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition, GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle, ChangeToPlayOrExitState, scale:2f);
 
-            return new Rectangle((int)_backGroundSpritePosition.X, (int)_backGroundSpritePosition.Y, newRectangle.Width,newRectangle.Height);
-        }
 
         public override void Unload()
         {

@@ -24,7 +24,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
         private int _buttonWidth = 128;
         private int _buttonHeight = 64;
-        private NineSliceTextButton _playButton;
+        private Button _playButton;
         private NineSliceTextButton _exitButton;
         private NineSliceButton _toggleSettings;
 
@@ -48,10 +48,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                 parentSection.TotalBounds.Y);
             _stackPanel = new StackPanel(this, graphics, content, _anchorPos, LayerDepth);
 
+            _playButton = new Button(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
+                new Rectangle(160, 288, 96, 48), ChangeToViewGamesMenu);
 
-            _playButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, _anchorPos, 
-                GetLayeringDepth(UILayeringDepths.Low),
-               new List<string>() { "Play" }, ChangeToViewGamesMenu, true);
             AddSectionToGrid(_playButton, 0, 1);
 
 

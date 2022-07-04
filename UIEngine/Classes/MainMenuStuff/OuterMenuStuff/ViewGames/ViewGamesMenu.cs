@@ -47,7 +47,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
             _createNewButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, Position,GetLayeringDepth(UILayeringDepths.Low),
                 new List<string>() {
-                    "Create New"}, ChangeToCreateNewSaveMenu);
+                    "New"}, ChangeToCreateNewSaveMenu);
             AddSectionToGrid(_createNewButton, 0, 1);
 
             Dictionary<string,SaveFile> saveFiles = SaveLoadManager.SaveFiles;
