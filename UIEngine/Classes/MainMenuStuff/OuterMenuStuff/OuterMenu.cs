@@ -117,8 +117,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             _backGroundSpritePosition = RectangleHelper.CenterRectangleOnScreen(RectangleHelper.RectangleToScale(BackGroundSourceRectangle, new Vector2(2f,2f)));
             _backGroundSpritePosition = new Vector2(_backGroundSpritePosition.X, _backGroundSpritePosition.Y + 64);
 
-            _createNewSaveMenu = new CreateNewSaveMenu(this, BackGroundSourceRectangle, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
-            _createNewSaveMenu.LoadContent();
+          
 
 
 
@@ -130,7 +129,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
             TotalBounds = new Rectangle((int)_backGroundSpritePosition.X, (int)_backGroundSpritePosition.Y, (int)(BackGroundSourceRectangle.Width * _scale.X),
                 (int)(BackGroundSourceRectangle.Height* _scale.Y));
-
+            _createNewSaveMenu = new CreateNewSaveMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
+            _createNewSaveMenu.LoadContent();
             _viewGamesMenu = new ViewGamesMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
             _viewGamesMenu.LoadContent();
 
