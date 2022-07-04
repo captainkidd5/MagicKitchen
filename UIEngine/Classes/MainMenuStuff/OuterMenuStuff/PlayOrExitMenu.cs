@@ -74,16 +74,29 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
 
             AddSectionToGrid(_toggleSettings, 1, 1);
+            StackRow stackRowSpacer0 = new StackRow(_totalWidth);
+            stackRowSpacer0.AddSpacer(new Rectangle(0, 0, 64, 32), StackOrientation.Left);
 
+            _stackPanel.Add(stackRowSpacer0);
             StackRow stackRow1 = new StackRow(_totalWidth);
             stackRow1.AddItem(_playButton, StackOrientation.Center);
 
             _stackPanel.Add(stackRow1);
 
+            StackRow stackRowSpacer = new StackRow(_totalWidth);
+            stackRowSpacer.AddSpacer(new Rectangle(0, 0, 64, 32), StackOrientation.Left);
+
+            _stackPanel.Add(stackRowSpacer);
+
             StackRow stackRow2 = new StackRow(_totalWidth);
             stackRow2.AddItem(_toggleSettings, StackOrientation.Center);
 
             _stackPanel.Add(stackRow2);
+
+            StackRow stackRowSpacer2 = new StackRow(_totalWidth);
+            stackRowSpacer2.AddSpacer(new Rectangle(0, 0, 64, 32), StackOrientation.Left);
+
+            _stackPanel.Add(stackRowSpacer2);
 
             StackRow stackRow3 = new StackRow(_totalWidth);
             stackRow3.AddItem(_exitButton, StackOrientation.Center);

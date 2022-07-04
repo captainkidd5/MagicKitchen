@@ -45,8 +45,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         public static Rectangle BackGroundSourceRectangle = new Rectangle(16, 288, 128, 192);
         private Sprite _backGroundSprite;
         private Vector2 _backGroundSpritePosition;
-        private Button _backButton;
 
+
+        private Vector2 _scale = new Vector2(2f, 2f);
         public OuterMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -110,7 +111,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                 default:
                     throw new Exception("Must have a state");
             }
-            _backButton.CleanUp();
         }
         public override void LoadContent()
         {
@@ -126,10 +126,10 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
                 new Rectangle((int)_backGroundSpritePosition.X,
                 (int)_backGroundSpritePosition.Y, _backGroundSprite.Width, _backGroundSprite.Height), UISourceRectangles._backButtonRectangle);
-            _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition, GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle, ChangeToPlayOrExitState, scale: 2f);
 
 
-            TotalBounds = new Rectangle((int)_backGroundSpritePosition.X, (int)_backGroundSpritePosition.Y, BackGroundSourceRectangle.Width, BackGroundSourceRectangle.Height);
+            TotalBounds = new Rectangle((int)_backGroundSpritePosition.X, (int)_backGroundSpritePosition.Y, (int)(BackGroundSourceRectangle.Width * _scale.X),
+                (int)(BackGroundSourceRectangle.Height* _scale.Y));
 
             _viewGamesMenu = new ViewGamesMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.High));
             _viewGamesMenu.LoadContent();
@@ -165,8 +165,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             if(_activeSection != null)
                _activeSection.Update(gameTime);
 
-            if(_outerMenuState != OuterMenuState.PlaySettingsAndExit)
-            _backButton.Update(gameTime);
+
 
             if (_activeSection != _playOrExitMenu &&  Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
                 ChangeToPlayOrExitState();
@@ -178,15 +177,14 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             if (_activeSection != null)
                 _activeSection.Draw(spriteBatch);
 
-            if (_outerMenuState != OuterMenuState.PlaySettingsAndExit)
-                _backButton.Draw(spriteBatch);
+
         }
 
         private void ChangeToViewGamesMenu()
         {
             ChangeState(OuterMenuState.ViewGames);
         }
-        private void ChangeToPlayOrExitState()
+        public void ChangeToPlayOrExitState()
         {
             ChangeState(OuterMenuState.PlaySettingsAndExit);
             _activeSection = _playOrExitMenu;

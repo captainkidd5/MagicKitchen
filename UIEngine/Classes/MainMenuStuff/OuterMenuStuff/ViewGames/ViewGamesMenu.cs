@@ -22,9 +22,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
     /// </summary>
     internal class ViewGamesMenu : MenuSection
     {
-        private NineSliceTextButton _createNewButton;
-          
+        private Button _createNewButton;
 
+        private Button _backButton;
         private int _totalWidth;
         private StackPanel _stackPanel;
         public ViewGamesMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
@@ -44,16 +44,17 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
             SaveLoadManager.FetchAllMetadata();
             Vector2 _saveSlotPosition = Position;
+            _createNewButton = new Button(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
+            new Rectangle(208, 400, 96, 48), ChangeToCreateNewSaveMenu);
 
-            _createNewButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, Position,GetLayeringDepth(UILayeringDepths.Low),
-                new List<string>() {
-                    "New"}, ChangeToCreateNewSaveMenu);
-            AddSectionToGrid(_createNewButton, 0, 1);
+            Dictionary<string, SaveFile> saveFiles = SaveLoadManager.SaveFiles;
 
-            Dictionary<string,SaveFile> saveFiles = SaveLoadManager.SaveFiles;
+            Selectables = new InterfaceSection[saveFiles.Count + 1,3];
+
             StackRow stackRow1 = new StackRow(_totalWidth);
             stackRow1.AddItem(_createNewButton, StackOrientation.Center);
             _stackPanel.Add(stackRow1);
+            AddSectionToGrid(_createNewButton, 0, 1);
 
             int currentGridY = 1;
             foreach(KeyValuePair<string,SaveFile> file in saveFiles) { 
@@ -85,6 +86,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
                 _stackPanel.Add(stackRow);
                 currentGridY++;
             }
+            Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
+                parentSection.TotalBounds, UISourceRectangles._backButtonRectangle);
+
+            _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition,
+                GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle,
+                (parentSection as OuterMenu).ChangeToPlayOrExitState, scale: 2f);
+
             TotalBounds = parentSection.TotalBounds;
             CurrentSelected = _createNewButton;
             base.LoadContent();

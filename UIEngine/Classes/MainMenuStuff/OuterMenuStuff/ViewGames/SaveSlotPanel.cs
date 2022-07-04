@@ -27,7 +27,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         private readonly SaveFile _saveFile;
 
         private NineSliceTextButton _slotButton;
-        private static int _width = OuterMenu.BackGroundSourceRectangle.Width;
+        private static int _width = OuterMenu.BackGroundSourceRectangle.Width * 2;
         private static int _height = 80;
 
 
