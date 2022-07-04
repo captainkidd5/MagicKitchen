@@ -48,8 +48,8 @@ namespace UIEngine.Classes.Storage.ItemAlerts
             _simpleTimer.ResetToZero();
             _simpleTimer.SetNewTargetTime(_TTL);
             Count += (byte)amt;
-            _text.SetFullString($"{Item.Name} +{Count}");
-            _background.ResetColors();
+            _text.SetFullString($"{Item.Name} +({Count})");
+            _background.UpdateColor(Color.White);
            
         }
         public override void LoadContent()
