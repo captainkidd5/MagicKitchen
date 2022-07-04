@@ -25,12 +25,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         private int _buttonWidth = 128;
         private int _buttonHeight = 64;
         private Button _playButton;
-        private NineSliceTextButton _exitButton;
-        private NineSliceButton _toggleSettings;
+        private Button _toggleSettings;
+
+        private Button _exitButton;
 
         private Rectangle _settingsCogSourceRectangle = new Rectangle(64, 80, 32, 32);
 
-        private int _totalWidth = OuterMenu.BackGroundSourceRectangle.Width;
+        private int _totalWidth = OuterMenu.BackGroundSourceRectangle.Width * 2;
         private StackPanel _stackPanel;
 
         public PlayOrExitMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
@@ -50,13 +51,12 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
             _playButton = new Button(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
                 new Rectangle(160, 288, 96, 48), ChangeToViewGamesMenu);
-
+            _playButton.LoadContent();
             AddSectionToGrid(_playButton, 0, 1);
 
+            _exitButton = new Button(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
+                new Rectangle(208, 336, 96, 48), UI.Exit);
 
-            _exitButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel,
-                _anchorPos, GetLayeringDepth(UILayeringDepths.Low),
-                new List<string>() { "Exit"}, UI.Exit, true);
             AddSectionToGrid(_exitButton, 2, 1);
 
 
@@ -65,13 +65,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
             Vector2 settingsButtonPos = new Vector2(_anchorPos.X, _anchorPos.Y + _buttonHeight);
 
-            _toggleSettings = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel,
-                _anchorPos,  GetLayeringDepth(UILayeringDepths.Low),
-                 new List<string>() { "Settings"}, new Action(() =>
+            _toggleSettings = new Button(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
+                new Rectangle(160, 336, 40, 39), new Action(() =>
                 {
                     (parentSection as OuterMenu).ChangeState(OuterMenuState.Settings);
 
-                }),true);
+                }));
+
 
             AddSectionToGrid(_toggleSettings, 1, 1);
 

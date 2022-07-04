@@ -44,7 +44,7 @@ namespace UIEngine.Classes.MainMenuStuff
         public override void LoadContent()
         {
             _mainMenuBackDropTexture = content.Load<Texture2D>("UI/MainMenu/EtherCreepLogo");
-            Vector2 scale = Vector2Helper.GetScaleFromRequiredDimensions(_backDropDimensions, Settings.GetScreenRectangle());
+            Vector2 scale = new Vector2(.5f, .5f);
             _backDropSprite = SpriteFactory.CreateUISprite(Vector2.Zero, _backDropDimensions, _mainMenuBackDropTexture, LayerDepth, scale:scale);
             _outerMenu = new OuterMenu(this, graphics, content, null, LayerDepth);
             _outerMenu.LoadContent();
@@ -60,26 +60,6 @@ namespace UIEngine.Classes.MainMenuStuff
 
         }
 
-        /// <summary>
-        /// Toggle between main menu states
-        /// </summary>
-        public void ChangeState(MainMenuState newState)
-        {
-            if (_mainMenuState == newState)
-                throw new Exception($"Already in state {newState}!");
-            _mainMenuState = newState;
-            _activeSection.Deactivate();
-            switch (_mainMenuState)
-            {
-                case MainMenuState.OuterMenu:
-                    _activeSection = _outerMenu;
-                    _activeSection.Activate();
-
-                    break;
-                default:
-                    throw new Exception("Must have a state");
-            }
-        }
 
         public override void Unload()
         {
