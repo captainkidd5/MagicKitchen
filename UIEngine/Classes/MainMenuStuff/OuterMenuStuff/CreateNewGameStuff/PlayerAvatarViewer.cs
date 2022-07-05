@@ -18,7 +18,6 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
     {
         private Sprite _backgroundSprite;
         private CustomizeableAnimator _animator;
-      //  private Vector2 _avatarOffSet = new Vector2()
         private Rectangle _avatarBackground = new Rectangle(384, 640, 48, 64);
 
         private Vector2 _scale = new Vector2(2f, 2f);       
@@ -33,10 +32,20 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
         public override void LoadContent()
         {
-          
 
+
+
+            _backgroundSprite = SpriteFactory.CreateUISprite(Position, _avatarBackground, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), scale: _scale);
+
+            TotalBounds = RectangleHelper.RectFromPosition(Position, _backgroundSprite.HitBox.Width, _backgroundSprite.HitBox.Height);
+
+            base.LoadContent();
+        }
+        public override void MovePosition(Vector2 newPos)
+        {
+            base.MovePosition(newPos);
             BodyPiece[] bodyPieces = new BodyPiece[]
-           {
+        {
                     new Pants(0),
                     new Shoes(0),
                     new Shirt(0),
@@ -46,16 +55,15 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
                     new Head(0),
                       new Hair(0),
 
-           };
-            _animator = new CustomizeableAnimator(bodyPieces, 0,0);
-            _animator.Load(null, Position, new Vector2(3f,3f));
-            _animator.PerformAction(DataModels.Enums.Direction.Down, DataModels.ActionType.Walking);
+        };
 
             _backgroundSprite = SpriteFactory.CreateUISprite(Position, _avatarBackground, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), scale: _scale);
             TotalBounds = RectangleHelper.RectFromPosition(Position, _backgroundSprite.HitBox.Width, _backgroundSprite.HitBox.Height);
-            base.LoadContent();
-        }
+            _animator = new CustomizeableAnimator(bodyPieces, -24, -16);
+            _animator.Load(null, Position, new Vector2(3f, 3f));
+            _animator.PerformAction(DataModels.Enums.Direction.Down, DataModels.ActionType.Walking);
 
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
