@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
+using SpriteEngine.Classes.Animations.BodyPartStuff;
 using SpriteEngine.Classes.InterfaceStuff;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         private PlayerAvatarViewer _playerAvatarViewer;
 
         private StackPanel _stackPanel;
+
+        private AvatarPartSwapper _hairSwapper;
+
         public CreateNewSaveMenu(InterfaceSection 
             
             
@@ -52,6 +56,19 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
         public override void LoadContent()
         {
+            BodyPiece[] bodyPieces = new BodyPiece[]
+    {
+                    new Pants(0),
+                    new Shoes(0),
+                    new Shirt(0),
+                    new Shoulders(0),
+                    new Arms(0),
+                    new Eyes(0),
+                    new Head(0),
+                      new Hair(0),
+
+    };
+
             Position = new Vector2(parentSection.TotalBounds.X, parentSection.TotalBounds.Y);
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, parentSection.TotalBounds.Width, parentSection.TotalBounds.Height);
 
@@ -72,9 +89,17 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
             _playerAvatarViewer = new PlayerAvatarViewer(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
             _playerAvatarViewer.LoadContent();
-
+            _playerAvatarViewer.SetPieces(bodyPieces);
             avatarStackRow.AddItem(_playerAvatarViewer, StackOrientation.Center);
             _stackPanel.Add(avatarStackRow);
+
+            _hairSwapper = new AvatarPartSwapper(bodyPieces[7], _stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            _hairSwapper.LoadContent();
+
+            StackRow hairStackRow = new StackRow(Width);
+            hairStackRow.AddItem(_hairSwapper, StackOrientation.Center);
+            _stackPanel.Add(hairStackRow);
+
             _createNewGameAction = CreateNewSaveAction;
 
             _createNewGameButton = new Button(this, graphics, content, RectangleHelper.PlaceBottomRightQuadrant(parentSection.TotalBounds, _createNewGameButtonRectangle),

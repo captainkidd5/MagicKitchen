@@ -18,7 +18,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
         private Rectangle _rightSourceRectangle = new Rectangle(416, 704, 16, 16);
 
-
+        private Vector2 _rightButtonOffSet = new Vector2(48, 0);
         private Button _cycleLeftButton;
         private Button _cycleRightButton;
 
@@ -32,8 +32,15 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             _cycleLeftButton = new Button(this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low),
                 _leftSourceRectangle, new Action(() =>
                 {
-                    _bodyPiece.
-                })) ;
+                    _bodyPiece.CycleBackwards();
+                }));
+
+            _cycleRightButton = new Button(this, graphics, content, Position + _rightButtonOffSet, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low),
+               _rightSourceRectangle, new Action(() =>
+               {
+                   _bodyPiece.CycleForward();
+               }));
+            TotalBounds = new Rectangle(0, 0, 48, 32);
             base.LoadContent();
         }
 

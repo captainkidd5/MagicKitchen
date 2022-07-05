@@ -63,6 +63,9 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         protected Animator Animator { get; set; }
 
         protected Vector2 Scale { get; set; }
+
+        protected int MaxIndex = 1;
+
         internal BodyPiece(int index)
         {
             Index = index;
@@ -150,7 +153,16 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             }
           
         }
-
+        public void CycleForward()
+        {
+            Index = ScrollHelper.GetIndexFromScroll(Direction.Down, Index, 2);
+            Load(Animator, Vector2.Zero, Scale);
+        }
+        public void CycleBackwards()
+        {
+            Index = ScrollHelper.GetIndexFromScroll(Direction.Up, Index, MaxIndex);
+            Load(Animator, Vector2.Zero, Scale);
+        }
         public void Save(BinaryWriter writer)
         {
             ColorHelper.WriteColor(writer, _tint);

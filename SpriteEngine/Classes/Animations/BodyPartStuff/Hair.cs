@@ -13,7 +13,6 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
     public class Hair : BodyPiece
     {
-
         public Hair(int index) : base(index)
         {
             FrameWidth = 16;
