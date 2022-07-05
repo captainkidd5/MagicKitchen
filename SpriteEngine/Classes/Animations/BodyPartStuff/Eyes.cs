@@ -8,10 +8,10 @@ using System.Text;
 
 namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
-    internal class Eyes : BodyPiece
+    public class Eyes : BodyPiece
     {
 
-        internal Eyes(int index) : base(index)
+        public Eyes(int index) : base(index)
         {
             FrameWidth = 16;
             FrameHeight = 16;

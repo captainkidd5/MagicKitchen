@@ -1,5 +1,4 @@
 ﻿using DataModels;
-using EntityEngine.Classes.Animators;
 using EntityEngine.Classes.CharacterStuff;
 using Globals.Classes;
 using ItemEngine.Classes;

@@ -9,10 +9,10 @@ using System.Text;
 
 namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
-    internal class Shirt : BodyPiece
+    public class Shirt : BodyPiece
     {
 
-        internal Shirt(int index) : base(index)
+        public Shirt(int index) : base(index)
         {
             FrameWidth = 16;
             FrameHeight = 32;
@@ -21,7 +21,8 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         {
             Texture = SpriteFactory.ShirtTexture;
 
-            base.Load(Animator, entityPosition);
+            base.Load(animator, entityPosition);
+
 
             Rectangle destinationRectangle = new Rectangle((int)entityPosition.X, (int)entityPosition.Y, FrameWidth, FrameHeight);
 

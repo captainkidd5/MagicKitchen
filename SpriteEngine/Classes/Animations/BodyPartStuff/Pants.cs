@@ -9,10 +9,10 @@ using System.Text;
 
 namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
-    internal class Pants : BodyPiece
+    public class Pants : BodyPiece
     {
 
-        internal Pants(int index) : base(index)
+        public Pants(int index) : base(index)
         {
             FrameWidth = 16;
             FrameHeight = 32;
@@ -20,8 +20,8 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         public override void Load(Animator animator, Vector2 entityPosition)
         {
             Texture = SpriteFactory.PantsTexture;
+            base.Load(animator, entityPosition);
 
-            base.Load(Animator,entityPosition);
 
 
         }

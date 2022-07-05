@@ -8,10 +8,10 @@ using System.Text;
 
 namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
-    internal class Shoulders : BodyPiece
+    public class Shoulders : BodyPiece
     {
 
-        internal Shoulders(int index) : base(index)
+        public Shoulders(int index) : base(index)
         {
             FrameWidth = 16;
             FrameHeight = 32;
@@ -20,7 +20,8 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         {
             Texture = SpriteFactory.ShouldersTexture;
 
-            base.Load(Animator, entityPosition);
+            base.Load(animator, entityPosition);
+
 
 
         }

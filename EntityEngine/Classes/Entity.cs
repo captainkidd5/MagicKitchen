@@ -1,5 +1,4 @@
-﻿using EntityEngine.Classes.Animators;
-using EntityEngine.Classes.BehaviourStuff;
+﻿using EntityEngine.Classes.BehaviourStuff;
 using EntityEngine.Classes.CharacterStuff;
 using EntityEngine.Classes.PlayerStuff;
 using Globals.Classes;
@@ -236,7 +235,7 @@ namespace EntityEngine.Classes
             BigSensor.Position = Position;
 
 
-            Animator.Update(gameTime,DirectionMoving, IsMoving, Position, BaseSpeed / Speed);
+            Animator.Update(gameTime,DirectionMoving, IsMoving, Position, Speed/BaseSpeed);
 
             _overHeadItemDisplay.Update(gameTime, Position, LayerDepth);
             ToolHandler.Update(gameTime);

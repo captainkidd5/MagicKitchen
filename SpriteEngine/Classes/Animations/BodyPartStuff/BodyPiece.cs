@@ -126,7 +126,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         internal virtual void ChangeAnimation(ActionType actionType)
         {
             CurrentAction = AllAnimationSets[actionType];
-            CurrentAction.SetPosition(Entity.Position);
+            CurrentAction.SetPosition(Animator.Position);
             SetRestingFrameIndex();
         }
 

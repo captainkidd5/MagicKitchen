@@ -1,5 +1,4 @@
 ﻿using DataModels;
-using EntityEngine.Classes.HumanoidCreation;
 using Globals.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,7 +22,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
     /// <summary>
     /// Primarily for use with NPCS with exchangable parts, including the player
     /// </summary>
-    internal class CustomizeableAnimator : Animator, ISaveable
+    public class CustomizeableAnimator : Animator, ISaveable
     {
         protected internal BodyPiece[] BodyPieces { get; set; }
 
@@ -32,7 +31,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             BodyPieces = animations;
 
         }
-        internal void ChangeClothingColor(Type t, Color color)
+        public void ChangeClothingColor(Type t, Color color)
         {
             for(int i = 0; i < BodyPieces.Length; i++)
             {
@@ -42,11 +41,11 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
                 }
             }
         }
-        internal override void Load(SoundModuleManager moduleManager,Vector2 entityPosition)
+        public override void Load(SoundModuleManager moduleManager,Vector2 entityPosition)
         {
             for(int i =0; i < BodyPieces.Length; i++)
             {
-                BodyPieces[i].Load(entityPosition);
+                BodyPieces[i].Load(this, entityPosition);
                 BodyPieces[i].ChangeAnimation(ActionType.Walking);
             }
 
@@ -57,7 +56,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         {
             return !BodyPieces[0].CurrentAction.Interruptable;
         }
-        internal override void PerformAction(Direction direction, ActionType actionType)
+        public override void PerformAction(Direction direction, ActionType actionType)
         {
             base.PerformAction(direction, actionType);
             for (int i = 0; i < BodyPieces.Length; i++)
@@ -66,7 +65,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             }
         }
         public Vector2 PositionLastFrame { get; set; }
-        internal override void Update(GameTime gameTime,Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
+        public override void Update(GameTime gameTime,Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
         {
         
             if ((Math.Abs(PositionLastFrame.X - position.X)) > .01
@@ -83,7 +82,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
                 {
                     if (resetToResting)
                         BodyPieces[i].SetRestingFrameIndex();
-                    BodyPieces[i].Update(gameTime, directionMoving, Position, Layer, isMoving, speedRatio, Entity.Speed/Entity.BaseSpeed);
+                    BodyPieces[i].Update(gameTime, directionMoving, Position, Layer, isMoving, speedRatio);
                    
                 }
             
@@ -92,7 +91,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             WasMovingLastFrame = isMoving;
         }
 
-        internal override void Draw(SpriteBatch spriteBatch, bool submerged)
+        public override void Draw(SpriteBatch spriteBatch, bool submerged)
         {
             for (int i = 0; i < BodyPieces.Length; i++)
             {

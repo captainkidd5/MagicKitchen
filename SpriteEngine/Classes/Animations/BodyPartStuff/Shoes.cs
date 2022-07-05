@@ -11,10 +11,10 @@ using static Globals.Classes.Settings;
 
 namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
-    internal class Shoes : BodyPiece
+    public class Shoes : BodyPiece
     {
 
-        internal Shoes(int index) : base(index)
+        public Shoes(int index) : base(index)
         {
             FrameWidth = 16;
             FrameHeight = 32;
@@ -23,7 +23,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         {
             Texture = SpriteFactory.ShoesTexture;
 
-            base.Load(Animator,entityPosition);
+            base.Load(animator, entityPosition);
 
 
         }

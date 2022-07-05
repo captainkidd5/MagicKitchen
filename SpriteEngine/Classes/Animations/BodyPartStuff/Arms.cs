@@ -8,10 +8,10 @@ using System.Text;
 
 namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
-    internal class Arms : BodyPiece
+    public class Arms : BodyPiece
     {
 
-        internal Arms(int index) : base(index)
+        public Arms(int index) : base(index)
         {
             FrameWidth = 16;
             FrameHeight = 32;
@@ -20,7 +20,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         {
             Texture = SpriteFactory.ArmsTexture;
 
-            base.Load(Animator, entityPosition);
+            base.Load(animator, entityPosition);
         }
 
         protected override void CreateWalkSet()

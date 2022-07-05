@@ -1,5 +1,4 @@
-﻿using EntityEngine.Classes.HumanoidCreation;
-using EntityEngine.Classes.CharacterStuff;
+﻿using EntityEngine.Classes.CharacterStuff;
 using Globals.Classes;
 using InputEngine.Classes.Input;
 using ItemEngine.Classes;
@@ -25,7 +24,6 @@ using Globals.Classes.Console;
 using SpriteEngine.Classes.ShadowStuff;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using EntityEngine.ItemStuff;
-using EntityEngine.Classes.Animators;
 using TiledEngine.Classes.Helpers;
 using DataModels;
 
@@ -93,12 +91,12 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         private void ReloadAnimationsCommmand(string[] args)
         {
-            Animator.Load(SoundModuleManager, this, Position);
+            Animator.Load(SoundModuleManager, Position);
             GetClothingColors();
         }
         private void PlayAnimationCommand(string[] args)
         {
-            Animator.Load(SoundModuleManager, this, Position);
+            Animator.Load(SoundModuleManager, Position);
 
             string actionType = args[0];
             ActionType action;

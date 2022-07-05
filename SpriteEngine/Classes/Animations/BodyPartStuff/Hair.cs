@@ -11,10 +11,10 @@ using static Globals.Classes.Settings;
 
 namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
-    internal class Hair : BodyPiece
+    public class Hair : BodyPiece
     {
 
-        internal Hair(int index) : base(index)
+        public Hair(int index) : base(index)
         {
             FrameWidth = 16;
             FrameHeight = 16;
@@ -23,7 +23,8 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         {
             Texture = SpriteFactory.HairTexture;
 
-            base.Load(Animator, entityPosition);
+            base.Load(animator, entityPosition);
+
 
 
         }

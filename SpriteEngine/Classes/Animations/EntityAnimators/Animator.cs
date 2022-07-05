@@ -32,7 +32,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         /// <summary>
         /// Note: this is the position where the sprite is drawn, and is an offset of the entity position.
         /// </summary>
-        protected Vector2 Position { get; set; }
+        public Vector2 Position { get; set; }
 
     
 
@@ -48,13 +48,13 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             this.yOffset = yOffset ?? 32;
 
         }
-        internal virtual void Load(SoundModuleManager moduleManager, Vector2 entityPosition)
+        public virtual void Load(SoundModuleManager moduleManager, Vector2 entityPosition)
         {
 
             
         }
 
-        internal virtual void ChangeDirection(Direction newDirection, Vector2 position)
+        public virtual void ChangeDirection(Direction newDirection, Vector2 position)
         {
 
         }
@@ -102,7 +102,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             return SpriteUtility.GetYAxisLayerDepth(Position, new Rectangle(0, 0, xOffset * 2, yOffset));
         }
 
-        internal virtual void Draw(SpriteBatch spriteBatch, bool submerged)
+        public virtual void Draw(SpriteBatch spriteBatch, bool submerged)
         {
 
         }

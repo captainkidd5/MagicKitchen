@@ -1,6 +1,4 @@
-﻿using EntityEngine.Classes.Animators;
-using EntityEngine.Classes.HumanoidCreation;
-using EntityEngine.Classes.CharacterStuff;
+﻿using EntityEngine.Classes.CharacterStuff;
 using EntityEngine.Classes.PlayerStuff;
 using Globals.Classes;
 using Globals.Classes.Helpers;
@@ -18,6 +16,8 @@ using TiledEngine.Classes;
 using static Globals.Classes.Settings;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
+using SpriteEngine.Classes.Animations.BodyPartStuff;
+using SpriteEngine.Classes.Animations.EntityAnimations;
 
 namespace EntityEngine.Classes
 {
@@ -38,7 +38,7 @@ namespace EntityEngine.Classes
                       new Hair(0),
 
            };
-            Animator = new CustomizeableAnimator(this, bodyPieces);
+            Animator = new CustomizeableAnimator(bodyPieces);
         }
 
         

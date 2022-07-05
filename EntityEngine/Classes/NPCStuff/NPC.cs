@@ -1,5 +1,4 @@
 ﻿using DataModels;
-using EntityEngine.Classes.Animators;
 using EntityEngine.Classes.CharacterStuff;
 using EntityEngine.ItemStuff;
 using Globals.Classes.Helpers;
@@ -10,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes.Pathfinding;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
+using SpriteEngine.Classes.Animations.EntityAnimations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -55,7 +55,7 @@ namespace EntityEngine.Classes.NPCStuff
                     }
                     var spriteArray = sprites.ToArray();
 
-                    Animator = new NPCAnimator(this, spriteArray, NPCData.SpriteWidth / 2, NPCData.SpriteHeight);
+                    Animator = new NPCAnimator(spriteArray, NPCData.SpriteWidth / 2, NPCData.SpriteHeight);
                 }
               
             }

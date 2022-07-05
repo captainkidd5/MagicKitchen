@@ -8,10 +8,10 @@ using System.Text;
 
 namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
-    internal class Head : BodyPiece
+    public class Head : BodyPiece
     {
 
-        internal Head(int index) : base(index)
+        public Head(int index) : base(index)
         {
             FrameWidth = 16;
             FrameHeight = 16;
@@ -20,7 +20,8 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         {
             Texture = SpriteFactory.HeadTexture;
 
-            base.Load(Animator, entityPosition);
+            base.Load(animator, entityPosition);
+
 
 
         }

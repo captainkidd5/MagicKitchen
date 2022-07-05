@@ -10,7 +10,7 @@ using static Globals.Classes.Settings;
 
 namespace SpriteEngine.Classes.Animations.EntityAnimations
 {
-    internal class NPCAnimator : Animator
+    public class NPCAnimator : Animator
     {
 
         public NPCAnimator(AnimatedSprite[] animatedSprites, int? xOffset, int? yOffset)
@@ -19,7 +19,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             AnimatedSprites = animatedSprites;
         }
 
-        internal override void Update(GameTime gameTime, Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
+        public override void Update(GameTime gameTime, Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
         {
             Vector2 positionOffSet = new Vector2(position.X - xOffset, position.Y - yOffset);
             float entityLayer = SpriteUtility.GetYAxisLayerDepth(position, new Rectangle(0, 0, xOffset * 2, yOffset));
@@ -47,10 +47,10 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
 
         }
 
-        internal override void Draw(SpriteBatch spriteBatch, bool submerged)
+        public override void Draw(SpriteBatch spriteBatch, bool submerged)
         {
 
-            AnimatedSprites[(int)Entity.DirectionMoving - 1].Draw(spriteBatch);
+          //  AnimatedSprites[(int)Entity.DirectionMoving - 1].Draw(spriteBatch);
 
         }
     }
