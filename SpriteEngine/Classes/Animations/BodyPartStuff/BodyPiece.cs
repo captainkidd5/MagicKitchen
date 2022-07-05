@@ -1,12 +1,11 @@
 ﻿using DataModels;
-using EntityEngine.Classes.Animators;
 using Globals.Classes;
 using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using SoundEngine.Classes;
 using SpriteEngine.Classes.Animations;
+using SpriteEngine.Classes.Animations.EntityAnimations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,13 +13,13 @@ using System.Text;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
-namespace EntityEngine.Classes.HumanoidCreation
+namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
     /// <summary>
     /// Inheriting classes must name according to <see cref="BodyParts"/> as the layer offset uses the class name to automatically
     /// grab the layer depth offset.
     /// </summary>
-    internal abstract class BodyPiece : ISaveable
+    public abstract class BodyPiece : ISaveable
     {
         protected BodyParts BodyPart { get; set; }
         protected float LayerOffSet { get; set; }
@@ -61,18 +60,17 @@ namespace EntityEngine.Classes.HumanoidCreation
 
         protected Direction CurrentDirection { get; set; }
 
-
-        protected Entity Entity { get; private set; }
+        protected Animator Animator { get; set; }
         internal BodyPiece(int index)
         {
             Index = index;
         }
-        public virtual void Load(Entity entity, Vector2 entityPosition)
+        public virtual void Load(Animator animator, Vector2 entityPosition)
         {
+            Animator = animator;
             BodyPart = (BodyParts)Enum.Parse(typeof(BodyParts), this.GetType().Name.ToString());
             LayerOffSet = GetLayerOffSet();
             ClothingBaseColor = Color.Black;
-            Entity = entity;
             CreateWalkSet();
             CreateInteractSet();
             AllAnimationSets = new Dictionary<ActionType, AnimateAction>();
@@ -134,7 +132,7 @@ namespace EntityEngine.Classes.HumanoidCreation
 
         internal void ChangeParentSet(ActionType actionType)
         {
-            Entity.Animator.PerformAction(CurrentDirection, actionType);
+           Animator.PerformAction(CurrentDirection, actionType);
 
         }
 

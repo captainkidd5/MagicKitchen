@@ -12,9 +12,9 @@ using System.Text;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
-namespace EntityEngine.Classes.Animators
+namespace SpriteEngine.Classes.Animations.EntityAnimations
 {
-    internal abstract class Animator : ISaveable
+    public abstract class Animator : ISaveable
     {
        
         //Half of the width of a character
@@ -36,19 +36,19 @@ namespace EntityEngine.Classes.Animators
 
     
 
-        protected Entity Entity;
+
 
         public virtual bool IsPerformingAnimation()
         {
             return false;
         }
-        public Animator(Entity entity, int? xOffset , int? yOffset)
+        public Animator( int? xOffset , int? yOffset)
         {
             this.xOffset = xOffset ?? 8;
             this.yOffset = yOffset ?? 32;
-            Entity = entity;
+
         }
-        internal virtual void Load(SoundModuleManager moduleManager,Entity entity, Vector2 entityPosition)
+        internal virtual void Load(SoundModuleManager moduleManager, Vector2 entityPosition)
         {
 
             
@@ -59,7 +59,7 @@ namespace EntityEngine.Classes.Animators
 
         }
 
-        internal virtual void PerformAction(Direction direction, ActionType actionType)
+        public virtual void PerformAction(Direction direction, ActionType actionType)
         {
 
         }
@@ -88,7 +88,7 @@ namespace EntityEngine.Classes.Animators
         {
             return new Rectangle((int)Position.X, (int)Position.Y, xOffset * 2, yOffset);
         }
-        internal virtual void Update(GameTime gameTime, bool isMoving, Vector2 position)
+        public virtual void Update(GameTime gameTime, Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
         {
 
 
@@ -102,7 +102,7 @@ namespace EntityEngine.Classes.Animators
             return SpriteUtility.GetYAxisLayerDepth(Position, new Rectangle(0, 0, xOffset * 2, yOffset));
         }
 
-        internal virtual void Draw(SpriteBatch spriteBatch)
+        internal virtual void Draw(SpriteBatch spriteBatch, bool submerged)
         {
 
         }

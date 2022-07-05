@@ -14,4 +14,7 @@
     <ProjectReference Include="..\TiledEngine\TiledEngine.csproj" />
     <ProjectReference Include="..\UIEngine\UIEngine.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classes\HumanoidCreation\" />
+  </ItemGroup>
 </Project>

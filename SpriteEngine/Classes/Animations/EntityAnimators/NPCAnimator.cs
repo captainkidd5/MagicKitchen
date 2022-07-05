@@ -8,18 +8,18 @@ using System.Text;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
-namespace EntityEngine.Classes.Animators
+namespace SpriteEngine.Classes.Animations.EntityAnimations
 {
     internal class NPCAnimator : Animator
     {
 
-        public NPCAnimator(Entity entity, AnimatedSprite[] animatedSprites, int? xOffset, int? yOffset)
-            : base(entity, xOffset, yOffset)
+        public NPCAnimator(AnimatedSprite[] animatedSprites, int? xOffset, int? yOffset)
+            : base( xOffset, yOffset)
         {
             AnimatedSprites = animatedSprites;
         }
 
-        internal override void Update(GameTime gameTime, bool isMoving, Vector2 position)
+        internal override void Update(GameTime gameTime, Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
         {
             Vector2 positionOffSet = new Vector2(position.X - xOffset, position.Y - yOffset);
             float entityLayer = SpriteUtility.GetYAxisLayerDepth(position, new Rectangle(0, 0, xOffset * 2, yOffset));
@@ -27,16 +27,16 @@ namespace EntityEngine.Classes.Animators
             bool resetToResting = !isMoving && WasMovingLastFrame;
             if (resetToResting)
             {
-                AnimatedSprites[(int)Entity.DirectionMoving - 1].ResetToZero(Position, entityLayer);
+                AnimatedSprites[(int)directionMoving - 1].ResetToZero(Position, entityLayer);
             }
                 if (isMoving)
             {
-                AnimatedSprites[(int)Entity.DirectionMoving - 1].Update(gameTime, Position);
+                AnimatedSprites[(int)directionMoving - 1].Update(gameTime, Position);
 
             }
             else
             {
-                AnimatedSprites[(int)Entity.DirectionMoving - 1].ForceSetPosition(Position);
+                AnimatedSprites[(int)directionMoving - 1].ForceSetPosition(Position);
 
             }
 
@@ -47,7 +47,7 @@ namespace EntityEngine.Classes.Animators
 
         }
 
-        internal override void Draw(SpriteBatch spriteBatch)
+        internal override void Draw(SpriteBatch spriteBatch, bool submerged)
         {
 
             AnimatedSprites[(int)Entity.DirectionMoving - 1].Draw(spriteBatch);

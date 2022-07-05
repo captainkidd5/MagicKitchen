@@ -1,6 +1,5 @@
 ﻿using EntityEngine.Classes.Animators;
 using EntityEngine.Classes.BehaviourStuff;
-using EntityEngine.Classes.HumanoidCreation;
 using EntityEngine.Classes.CharacterStuff;
 using EntityEngine.Classes.PlayerStuff;
 using Globals.Classes;
@@ -34,6 +33,7 @@ using EntityEngine.Classes.ToolStuff;
 using EntityEngine.ItemStuff;
 using TiledEngine.Classes.TileAddons;
 using DataModels;
+using SpriteEngine.Classes.Animations.EntityAnimations;
 
 namespace EntityEngine.Classes
 {
@@ -146,7 +146,7 @@ namespace EntityEngine.Classes
         internal void LoadAnimations(Animator animator)
         {
             Animator = animator;
-            Animator.Load(SoundModuleManager, this, Position);
+            Animator.Load(SoundModuleManager, Position);
         }
 
         protected override void CreateBody(Vector2 position)
@@ -236,7 +236,7 @@ namespace EntityEngine.Classes
             BigSensor.Position = Position;
 
 
-            Animator.Update(gameTime, IsMoving, Position);
+            Animator.Update(gameTime,DirectionMoving, IsMoving, Position, BaseSpeed / Speed);
 
             _overHeadItemDisplay.Update(gameTime, Position, LayerDepth);
             ToolHandler.Update(gameTime);
@@ -260,7 +260,7 @@ namespace EntityEngine.Classes
             if (ProgressBarSprite != null)
                 ProgressBarSprite.Draw(spriteBatch);
 
-            Animator.Draw(spriteBatch);
+            Animator.Draw(spriteBatch, Submerged);
 
             _overHeadItemDisplay.Draw(spriteBatch);
 

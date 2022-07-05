@@ -72,6 +72,8 @@ namespace SpriteEngine.Classes
             Width = (int)text.TotalStringWidth;
             Height = (int)text.TotalStringHeight;// + (int)TextFactory.SingleCharacterWidth() * 4;
 
+            if (Height <= 16)
+                Height = 48;
             BuildRectangle(_position);
 
         }

@@ -28,6 +28,17 @@ namespace SpriteEngine.Classes
         private static Texture2D _lightMask;
         private static readonly Rectangle _lightSourceRectangle = new Rectangle(0, 0, 64, 64);
 
+        internal static Texture2D HatTexture;
+        internal static Texture2D HairTexture;
+        internal static Texture2D EyesTexture;
+        internal static Texture2D HeadTexture;
+        internal static Texture2D ShouldersTexture;
+
+        internal static Texture2D ArmsTexture;
+        internal static Texture2D ShirtTexture;
+        internal static Texture2D PantsTexture;
+        internal static Texture2D ShoesTexture;
+
         public static void LoadContent(GraphicsDevice graphics, ContentManager content)
         {
             Graphics = graphics;
@@ -35,6 +46,23 @@ namespace SpriteEngine.Classes
             StatusIconTexture = content.Load<Texture2D>("entities/characters/statusicons");
             LightEffect = content.Load<Effect>("Effects/Lighting/lighteffect");
             _lightMask = content.Load<Texture2D>("Effects/Lighting/lightmask");
+
+
+            HatTexture = content.Load<Texture2D>("Entities/Hats");
+            HairTexture = content.Load<Texture2D>("Entities/Hair");
+
+            EyesTexture = content.Load<Texture2D>("Entities/Eyes");
+
+            HeadTexture = content.Load<Texture2D>("Entities/Heads");
+            ShouldersTexture = content.Load<Texture2D>("Entities/Shoulders");
+
+            ArmsTexture = content.Load<Texture2D>("Entities/Arms");
+
+            ShirtTexture = content.Load<Texture2D>("Entities/Shirts");
+
+            PantsTexture = content.Load<Texture2D>("Entities/Pants");
+
+            ShoesTexture = content.Load<Texture2D>("Entities/Shoes");
 
         }
 

@@ -1,32 +1,31 @@
 ﻿using Microsoft.Xna.Framework;
-using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
+using SpriteEngine.Classes.Animations.EntityAnimations;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EntityEngine.Classes.HumanoidCreation
+namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
-    internal class Shoulders : BodyPiece
+    internal class Arms : BodyPiece
     {
 
-        internal Shoulders(int index) : base(index)
+        internal Arms(int index) : base(index)
         {
             FrameWidth = 16;
             FrameHeight = 32;
         }
-        public override void Load(Entity entity, Vector2 entityPosition)
+        public override void Load(Animator animator, Vector2 entityPosition)
         {
-            Texture = EntityFactory.ShouldersTexture;
+            Texture = SpriteFactory.ArmsTexture;
 
-            base.Load(entity, entityPosition);
-
-
+            base.Load(Animator, entityPosition);
         }
 
         protected override void CreateWalkSet()
         {
+            #region WALK
             AnimationFrame[] walkUpFrames = new AnimationFrame[]
             {
                new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
@@ -44,14 +43,13 @@ namespace EntityEngine.Classes.HumanoidCreation
                new AnimationFrame(3, 0, 0, WalkDownAnimationDuration),
 
               new AnimationFrame(4, 0, 0, WalkDownAnimationDuration),
-                new AnimationFrame(5, 0, 0, WalkDownAnimationDuration),
+                new AnimationFrame(5, 0, -1, WalkDownAnimationDuration),
               new AnimationFrame(4, 0, 0, WalkDownAnimationDuration),
 
 
                new AnimationFrame(4, 0, 0, WalkDownAnimationDuration,true),
                 new AnimationFrame(5, 0, 0, WalkDownAnimationDuration,true),
                new AnimationFrame(4, 0, 0, WalkDownAnimationDuration,true),
-
 
         };
             AnimatedSprite WalkDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
@@ -82,6 +80,9 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimatedSprite[] WalkingSet = new AnimatedSprite[] { WalkUp, WalkDown, WalkLeft, WalkRight };
             WalkingAction = new AnimateAction(this, WalkingSet, true);
 
+            #endregion
+
+
         }
 
         protected override void CreateInteractSet()
@@ -90,24 +91,25 @@ namespace EntityEngine.Classes.HumanoidCreation
 
             AnimationFrame[] interactUpFrames = new AnimationFrame[]
             {
+
                new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
 
               new AnimationFrame(1, 0, 0, InteractDownAnimationDuration),
                 new AnimationFrame(2, 0, 0, InteractDownAnimationDuration),
-
+   
         };
-            AnimatedSprite InteractUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight + yStart, FrameWidth, FrameHeight), Texture,
+            AnimatedSprite InteractUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight + yStart,  FrameWidth, FrameHeight), Texture,
                 interactUpFrames);
 
             AnimationFrame[] interactDownFrames = new AnimationFrame[]
             {
+
                new AnimationFrame(3, 0, 0, InteractDownAnimationDuration),
+
 
               new AnimationFrame(4, 0, 0, InteractDownAnimationDuration),
                 new AnimationFrame(5, 0, 0, InteractDownAnimationDuration),
-
-
-
+   
 
         };
             AnimatedSprite InteractDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight + yStart, FrameWidth, FrameHeight), Texture,
@@ -115,6 +117,7 @@ namespace EntityEngine.Classes.HumanoidCreation
             AnimationFrame[] InteractLeftFrames = new AnimationFrame[]
             {
                new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
+
 
                new AnimationFrame(7, 0, 0, InteractLeftAnimationDuration,true),
               new AnimationFrame(8, 0, 0, InteractLeftAnimationDuration,true),
@@ -125,10 +128,13 @@ namespace EntityEngine.Classes.HumanoidCreation
 
             AnimationFrame[] interactRigthFrames = new AnimationFrame[]
            {
-          new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration,true),
 
-               new AnimationFrame(7, 0, 0, InteractLeftAnimationDuration,true),
-              new AnimationFrame(8, 0, 0, InteractLeftAnimationDuration,true),
+               new AnimationFrame(6, 0, 0, InteractLeftAnimationDuration),
+
+
+               new AnimationFrame(7, 0, 0, InteractLeftAnimationDuration),
+              new AnimationFrame(8, 0, 0, InteractLeftAnimationDuration),
+ 
        };
             AnimatedSprite InteractRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight + yStart, FrameWidth, FrameHeight), Texture,
                 interactRigthFrames);

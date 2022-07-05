@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
+using SpriteEngine.Classes.Animations.BodyPartStuff;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,22 +14,10 @@ using System.Text;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
-namespace EntityEngine.Classes.Animators
+namespace SpriteEngine.Classes.Animations.EntityAnimations
 {
 
-    public enum BodyParts
-    {
-        None = 0,
-        Hat = 10,
-        Hair = 9,
-        Eyes = 8,
-        Head = 7,
-        Shoulders = 6,
-        Arms = 5,
-        Shirt = 4,
-        Shoes = 3,
-        Pants = 2
-    }
+
 
 
     /// <summary>
@@ -38,7 +27,7 @@ namespace EntityEngine.Classes.Animators
     {
         protected internal BodyPiece[] BodyPieces { get; set; }
 
-        public CustomizeableAnimator(Entity entity, BodyPiece[] animations,int xOffset = 8, int yOffset =32) : base(entity,xOffset, yOffset)
+        public CustomizeableAnimator(BodyPiece[] animations,int xOffset = 8, int yOffset =32) : base(xOffset, yOffset)
         {
             BodyPieces = animations;
 
@@ -53,11 +42,11 @@ namespace EntityEngine.Classes.Animators
                 }
             }
         }
-        internal override void Load(SoundModuleManager moduleManager,Entity entity, Vector2 entityPosition)
+        internal override void Load(SoundModuleManager moduleManager,Vector2 entityPosition)
         {
             for(int i =0; i < BodyPieces.Length; i++)
             {
-                BodyPieces[i].Load(entity, entityPosition);
+                BodyPieces[i].Load(entityPosition);
                 BodyPieces[i].ChangeAnimation(ActionType.Walking);
             }
 
@@ -77,7 +66,7 @@ namespace EntityEngine.Classes.Animators
             }
         }
         public Vector2 PositionLastFrame { get; set; }
-        internal override void Update(GameTime gameTime, bool isMoving, Vector2 position)
+        internal override void Update(GameTime gameTime,Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
         {
         
             if ((Math.Abs(PositionLastFrame.X - position.X)) > .01
@@ -94,7 +83,7 @@ namespace EntityEngine.Classes.Animators
                 {
                     if (resetToResting)
                         BodyPieces[i].SetRestingFrameIndex();
-                    BodyPieces[i].Update(gameTime, Entity.DirectionMoving, Position, Layer, isMoving, Entity.Speed/Entity.BaseSpeed);
+                    BodyPieces[i].Update(gameTime, directionMoving, Position, Layer, isMoving, speedRatio, Entity.Speed/Entity.BaseSpeed);
                    
                 }
             
@@ -103,11 +92,11 @@ namespace EntityEngine.Classes.Animators
             WasMovingLastFrame = isMoving;
         }
 
-        internal override void Draw(SpriteBatch spriteBatch)
+        internal override void Draw(SpriteBatch spriteBatch, bool submerged)
         {
             for (int i = 0; i < BodyPieces.Length; i++)
             {
-                BodyPieces[i].Draw(spriteBatch, Entity.Submerged);
+                BodyPieces[i].Draw(spriteBatch, submerged);
             }
         }
 

@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using static DataModels.Enums;
 
-namespace EntityEngine.Classes.HumanoidCreation
+namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
-    internal class AnimateAction
+    public class AnimateAction
     {
         private readonly BodyPiece _bodyPiece;
 

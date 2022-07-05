@@ -31,5 +31,19 @@ namespace DataModels
             front = 4 //front
         }
 
+        public enum BodyParts
+        {
+            None = 0,
+            Hat = 10,
+            Hair = 9,
+            Eyes = 8,
+            Head = 7,
+            Shoulders = 6,
+            Arms = 5,
+            Shirt = 4,
+            Shoes = 3,
+            Pants = 2
+        }
+
     }
 }

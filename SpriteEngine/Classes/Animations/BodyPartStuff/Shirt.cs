@@ -2,11 +2,12 @@
 using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
+using SpriteEngine.Classes.Animations.EntityAnimations;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EntityEngine.Classes.HumanoidCreation
+namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
     internal class Shirt : BodyPiece
     {
@@ -16,11 +17,11 @@ namespace EntityEngine.Classes.HumanoidCreation
             FrameWidth = 16;
             FrameHeight = 32;
         }
-        public override void Load(Entity entity, Vector2 entityPosition)
+        public override void Load(Animator animator, Vector2 entityPosition)
         {
-            Texture = EntityFactory.ShirtTexture;
+            Texture = SpriteFactory.ShirtTexture;
 
-            base.Load(entity, entityPosition);
+            base.Load(Animator, entityPosition);
 
             Rectangle destinationRectangle = new Rectangle((int)entityPosition.X, (int)entityPosition.Y, FrameWidth, FrameHeight);
 

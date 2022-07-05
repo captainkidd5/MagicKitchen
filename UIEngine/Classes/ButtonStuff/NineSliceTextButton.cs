@@ -50,7 +50,7 @@ namespace UIEngine.Classes.ButtonStuff
 
             int characterWidth = (int)TextFactory.SingleCharacterWidth();
             int width = _forcedWidth ?? (int)combinedtext.TotalStringWidth ;
-            int height = _forcedHeight ?? (int)combinedtext.TotalStringHeight ;
+
             Position = newPos;
 
             float newTextPosX = Position.X;
@@ -62,7 +62,7 @@ namespace UIEngine.Classes.ButtonStuff
             _textPositions = new List<Vector2>();
             GeneratePositionsForLines(new Vector2(newTextPosX, Position.Y ));
             if (_forcedWidth == null)
-                BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(Position, combinedtext, UI.ButtonTexture, LayerDepth);
+                BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X - 4, Position.Y - 8), combinedtext, UI.ButtonTexture, LayerDepth);
             else
                 BackGroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _forcedWidth.Value,
                     _forcedHeight.Value, UI.ButtonTexture, LayerDepth);

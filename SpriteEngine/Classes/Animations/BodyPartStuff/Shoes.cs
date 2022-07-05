@@ -1,15 +1,15 @@
 ﻿using Globals.Classes;
 using Microsoft.Xna.Framework;
-using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
+using SpriteEngine.Classes.Animations.EntityAnimations;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
-namespace EntityEngine.Classes.HumanoidCreation
+namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
     internal class Shoes : BodyPiece
     {
@@ -19,11 +19,11 @@ namespace EntityEngine.Classes.HumanoidCreation
             FrameWidth = 16;
             FrameHeight = 32;
         }
-        public override void Load(Entity entity, Vector2 entityPosition)
+        public override void Load(Animator animator, Vector2 entityPosition)
         {
-            Texture = EntityFactory.ShoesTexture;
+            Texture = SpriteFactory.ShoesTexture;
 
-            base.Load(entity, entityPosition);
+            base.Load(Animator,entityPosition);
 
 
         }

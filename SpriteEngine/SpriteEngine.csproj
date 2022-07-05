@@ -8,7 +8,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataModels\DataModels.csproj" />
     <ProjectReference Include="..\Globals\Globals.csproj" />
+    <ProjectReference Include="..\SoundEngine\SoundEngine.csproj" />
     <ProjectReference Include="..\TextEngine\TextEngine.csproj" />
   </ItemGroup>
 </Project>
