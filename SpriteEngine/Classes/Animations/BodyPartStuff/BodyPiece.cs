@@ -61,12 +61,16 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         protected Direction CurrentDirection { get; set; }
 
         protected Animator Animator { get; set; }
+
+        protected Vector2 Scale { get; set; }
         internal BodyPiece(int index)
         {
             Index = index;
         }
-        public virtual void Load(Animator animator, Vector2 entityPosition)
+        public virtual void Load(Animator animator, Vector2 entityPosition, Vector2? scale = null)
         {
+            Scale = scale ?? Vector2.One;
+
             Animator = animator;
             BodyPart = (BodyParts)Enum.Parse(typeof(BodyParts), this.GetType().Name.ToString());
             LayerOffSet = GetLayerOffSet();
@@ -76,7 +80,6 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AllAnimationSets = new Dictionary<ActionType, AnimateAction>();
             AllAnimationSets.Add(ActionType.Walking, WalkingAction);
             AllAnimationSets.Add(ActionType.Interact, InteractAction);
-
 
         }
         protected virtual void CreateWalkSet()

@@ -17,11 +17,11 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             FrameWidth = 16;
             FrameHeight = 32;
         }
-        public override void Load(Animator animator, Vector2 entityPosition)
+        public override void Load(Animator animator, Vector2 entityPosition, Vector2? scale = null)
         {
             Texture = SpriteFactory.ShirtTexture;
 
-            base.Load(animator, entityPosition);
+            base.Load(animator, entityPosition, scale);
 
 
             Rectangle destinationRectangle = new Rectangle((int)entityPosition.X, (int)entityPosition.Y, FrameWidth, FrameHeight);
@@ -38,7 +38,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
                 new AnimationFrame(0, 0, -1, WalkDownAnimationDuration),
                     };
             AnimatedSprite WalkUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
-                walkUpFrames, idleFrame: 0);
+                walkUpFrames, idleFrame: 0, scale: Scale);
 
 
             AnimationFrame[] walkDownFrames = new AnimationFrame[]
@@ -56,7 +56,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         };
             AnimatedSprite  WalkDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
-                walkDownFrames, idleFrame: 0);
+                walkDownFrames, idleFrame: 0, scale: Scale);
 
             AnimationFrame[] walkLeftFrames = new AnimationFrame[]
            {
@@ -69,7 +69,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
        };
             AnimatedSprite WalkLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
-                walkLeftFrames, idleFrame: 0);
+                walkLeftFrames, idleFrame: 0, scale: Scale);
 
             AnimationFrame[] walkRightFrames = new AnimationFrame[]
            {
@@ -82,7 +82,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
        };
             AnimatedSprite WalkRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
-                walkRightFrames, idleFrame: 0);
+                walkRightFrames, idleFrame: 0, scale: Scale);
 
             AnimatedSprite[] WalkingSet = new AnimatedSprite[] { WalkUp, WalkDown, WalkLeft, WalkRight };
             WalkingAction = new AnimateAction(this, WalkingSet, true);
@@ -100,7 +100,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         };
             AnimatedSprite InteractUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
-                interactUpFrames);
+                interactUpFrames, scale: Scale);
 
             AnimationFrame[] interactDownFrames = new AnimationFrame[]
             {
@@ -111,7 +111,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         };
             AnimatedSprite InteractDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
-                interactDownFrames);
+                interactDownFrames, scale: Scale);
             AnimationFrame[] InteractLeftFrames = new AnimationFrame[]
             {
                         new AnimationFrame(2, 0, 0, InteractDownAnimationDuration,true),
@@ -123,7 +123,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         };
             AnimatedSprite InteractLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
-                InteractLeftFrames);
+                InteractLeftFrames, scale: Scale);
 
             AnimationFrame[] interactRigthFrames = new AnimationFrame[]
            {
@@ -134,7 +134,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
        };
             AnimatedSprite InteractRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
-                interactRigthFrames);
+                interactRigthFrames, scale: Scale);
             AnimatedSprite[] InteractSet = new AnimatedSprite[] { InteractUp, InteractDown, InteractLeft, InteractRight };
             InteractAction = new AnimateAction(this, InteractSet, false);
 

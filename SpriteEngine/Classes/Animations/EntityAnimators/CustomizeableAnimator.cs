@@ -41,11 +41,11 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
                 }
             }
         }
-        public override void Load(SoundModuleManager moduleManager,Vector2 entityPosition)
+        public override void Load(SoundModuleManager moduleManager,Vector2 entityPosition, Vector2? scale = null)
         {
             for(int i =0; i < BodyPieces.Length; i++)
             {
-                BodyPieces[i].Load(this, entityPosition);
+                BodyPieces[i].Load(this, entityPosition, scale);
                 BodyPieces[i].ChangeAnimation(ActionType.Walking);
             }
 

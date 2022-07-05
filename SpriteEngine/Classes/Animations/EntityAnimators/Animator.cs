@@ -48,7 +48,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             this.yOffset = yOffset ?? 32;
 
         }
-        public virtual void Load(SoundModuleManager moduleManager, Vector2 entityPosition)
+        public virtual void Load(SoundModuleManager moduleManager, Vector2 entityPosition, Vector2? scale = null)
         {
 
             

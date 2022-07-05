@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using TextEngine;
 using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
+using UIEngine.Classes.Components;
 using UIEngine.Classes.TextStuff;
 
 namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
@@ -29,14 +30,17 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         private int _nameWindowWidth = 128;
         private int _nameWindowHeight = 32;
 
-        private Rectangle _createNewGameButtonRectangle = new Rectangle(0, 0, 32, 32);
+        private Rectangle _createNewGameButtonRectangle = new Rectangle(400, 720, 32, 32);
         private int _newGameWidth = 32;
         private int _newGameHeight = 32;
-        private NineSliceTextButton _createNewGameButton;
+        private Button _createNewGameButton;
         private Action _createNewGameAction;
 
         private Button _backButton;
 
+        private PlayerAvatarViewer _playerAvatarViewer;
+
+        private StackPanel _stackPanel;
         public CreateNewSaveMenu(InterfaceSection 
             
             
@@ -48,7 +52,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
         public override void LoadContent()
         {
-
+            Position = new Vector2(parentSection.TotalBounds.X, parentSection.TotalBounds.Y);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, parentSection.TotalBounds.Width, parentSection.TotalBounds.Height);
 
             _createNewText = TextFactory.CreateUIText("Create New Game", GetLayeringDepth(UILayeringDepths.High));
             _createNewTextPosition = Text.CenterInRectangle(parentSection.TotalBounds, _createNewText);
@@ -59,10 +64,22 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             typingBoxPos = new Vector2(typingBoxPos.X, _createNewTextPosition.Y + _createNewText.TotalStringHeight * 2);
             _nameTypingBox = new TypingBox(this,graphics, content, typingBoxPos, GetLayeringDepth(UILayeringDepths.Low), _nameWindowWidth, _nameWindowHeight);
 
+            Vector2 stackPanelPos = new Vector2(Position.X, typingBoxPos.Y + 64);
+            _stackPanel = new StackPanel(this, graphics, content, stackPanelPos, GetLayeringDepth(UILayeringDepths.Low));
+
+
+            StackRow avatarStackRow = new StackRow(Width);
+
+            _playerAvatarViewer = new PlayerAvatarViewer(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
+            _playerAvatarViewer.LoadContent();
+
+            avatarStackRow.AddItem(_playerAvatarViewer, StackOrientation.Center);
+            _stackPanel.Add(avatarStackRow);
             _createNewGameAction = CreateNewSaveAction;
-            _createNewGameButton = UI.ButtonFactory.CreateNSliceTxtBtn(this,
-                RectangleHelper.PlaceBottomRightQuadrant(parentSection.TotalBounds, _createNewGameButtonRectangle), GetLayeringDepth(UILayeringDepths.Low), new List<string>()
-                { "Go!" },  _createNewGameAction);
+
+            _createNewGameButton = new Button(this, graphics, content, RectangleHelper.PlaceBottomRightQuadrant(parentSection.TotalBounds, _createNewGameButtonRectangle),
+                GetLayeringDepth(UILayeringDepths.Medium), _createNewGameButtonRectangle, CreateNewSaveAction);
+
             _createNewGameButton.SetLock(true);
 
             Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
@@ -75,7 +92,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
                     (parentSection as OuterMenu).ChangeState(OuterMenuState.ViewGames);
                 })
               , scale: 2f);
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, parentSection.TotalBounds.Width, parentSection.TotalBounds.Height);
+
+
             base.LoadContent();
 
         }
@@ -97,6 +115,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             _createNewGameButton.Update(gameTime);
 
             _backButton.Update(gameTime);
+
+            _stackPanel.Update(gameTime);
             // _backGroundSprite.Update(gameTime, Position);
         }
 
@@ -118,6 +138,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             _createNewText.Draw(spriteBatch, true);
             _createNewGameButton.Draw(spriteBatch);
             _backButton.Draw(spriteBatch);
+            _stackPanel.Draw(spriteBatch);
            // _backGroundSprite.Draw(spriteBatch);  
         }
 
