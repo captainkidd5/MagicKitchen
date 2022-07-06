@@ -18,13 +18,13 @@ namespace IOEngine.Classes
         public static string BasePath;
 
         public static EventHandler<FileCreatedEventArgs> SaveCreated;
-        public static void Create(SaveFile file) => SaveCreated.Invoke(null, new FileCreatedEventArgs() { BinaryWriter = CreateWriter(file.MainSaveFilePath) });
+        public static void Create(SaveFile file) => SaveCreated.Invoke(null, new FileCreatedEventArgs() { BinaryWriter = CreateWriter(file.MetadataSaveData.MainSaveFilePath) });
 
         public static EventHandler<FileLoadedEventArgs> SaveLoaded;
-        public static void Load(SaveFile file) => SaveLoaded.Invoke(null, new FileLoadedEventArgs() { BinaryReader = CreateReader(file.MainSaveFilePath)});
+        public static void Load(SaveFile file) => SaveLoaded.Invoke(null, new FileLoadedEventArgs() { BinaryReader = CreateReader(file.MetadataSaveData.MainSaveFilePath) });
 
         public static EventHandler<FileSavedEventArgs> SaveSaved;
-        public static void Save(SaveFile file) => SaveSaved.Invoke(null, new FileSavedEventArgs() { BinaryWriter = CreateWriter(file.MainSaveFilePath) });
+        public static void Save(SaveFile file) => SaveSaved.Invoke(null, new FileSavedEventArgs() { BinaryWriter = CreateWriter(file.MetadataSaveData.MainSaveFilePath) });
 
 
         /// <summary>
@@ -45,11 +45,11 @@ namespace IOEngine.Classes
                 string metaDataFile = Directory.GetFiles(path).ToList().FirstOrDefault(x => x.Contains("MetaData"));
                 if (string.IsNullOrEmpty(metaDataFile))
                     throw new Exception("Metadata file for save not found!");
-                BinaryReader reader = CreateReader(metaDataFile);
+
                 SaveFile saveFile = new SaveFile();
-                saveFile.LoadSave(reader);
-                SaveFiles.Add(saveFile.Name, saveFile);
-                reader.Dispose();
+                saveFile.LoadSave(metaDataFile);
+                SaveFiles.Add(saveFile.MetadataSaveData.Name, saveFile);
+
             }
         }
 
@@ -89,10 +89,9 @@ namespace IOEngine.Classes
             SaveFile saveFile = new SaveFile();
             saveFile.CreateNew(name);
 
-            BinaryWriter writer = CreateWriter(saveFile.MetaDataPath);
 
-            saveFile.Save(writer);
-            DestroyWriter(writer);
+            saveFile.Save();
+
 
             SaveFiles.Add(name, saveFile);
             CurrentSave = saveFile;
@@ -138,16 +137,16 @@ namespace IOEngine.Classes
         public static BinaryWriter GetCurrentSaveFileWriter(string extension = null)
         {
             if (!string.IsNullOrEmpty(extension))
-                return CreateWriter(CurrentSave.FolderPath + extension);
+                return CreateWriter(CurrentSave.MetadataSaveData.FolderPath + extension);
             else       
-                return CreateWriter(CurrentSave.MainSaveFilePath);         
+                return CreateWriter(CurrentSave.MetadataSaveData.MainSaveFilePath);         
         }
         public static BinaryReader GetCurrentSaveFileReader(string extension = null)
         {
             if (!string.IsNullOrEmpty(extension))
-                return CreateReader(CurrentSave.FolderPath + extension);
+                return CreateReader(CurrentSave.MetadataSaveData.FolderPath + extension);
             else
-                return CreateReader(CurrentSave.MainSaveFilePath);
+                return CreateReader(CurrentSave.MetadataSaveData.MainSaveFilePath);
         }
 
 

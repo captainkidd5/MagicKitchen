@@ -141,7 +141,7 @@ namespace StageEngine.Classes
         /// </summary>
         public void SaveToStageFile()
         {
-            File.WriteAllText(SaveLoadManager.CurrentSave.StageFilePath + @"\" + _pathExtension, string.Empty);
+            File.WriteAllText(SaveLoadManager.CurrentSave.MetadataSaveData.StageFilePath + @"\" + _pathExtension, string.Empty);
             BinaryWriter stageWriter = SaveLoadManager.GetCurrentSaveFileWriter(@"\Stages\" + _pathExtension);
             Save(stageWriter);
             SaveLoadManager.DestroyWriter(stageWriter);

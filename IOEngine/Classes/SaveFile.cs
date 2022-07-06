@@ -1,29 +1,16 @@
-﻿using System;
+﻿using DataModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 
 namespace IOEngine.Classes
 {
     public class SaveFile 
     {
+        public MetadataSaveData MetadataSaveData { get; set; } = new MetadataSaveData();
 
-        public string Name { get; private set; }
-
-        public string FolderPath { get; private set; }
-
-        //The main save file, where all game data is saved to
-        public string MainSaveFilePath { get; private set; }
-
-
-        //METADATA - the file where the main menu reads about each save file
-        //without having to actually read the entirety of each save file bc that would be v slow
-        public string MetaDataPath { get; private set; }
-
-        //The date the new save was created on
-        public DateTime DateCreated { get; private set; }
-
-        public string StageFilePath { get; private set; }
 
 
         /// <summary>
@@ -32,52 +19,47 @@ namespace IOEngine.Classes
         /// <param name="name"></param>
         internal void CreateNew(string name)
         {
-            Name = name;
-            FolderPath = SaveLoadManager.BasePath + @"\" + Name;
-            MainSaveFilePath = FolderPath + @"\" + Name + ".dat";
-            StageFilePath = FolderPath + @"\" + "Stages";
-            Directory.CreateDirectory(FolderPath);
-            Directory.CreateDirectory(StageFilePath);
+            MetadataSaveData.Name = name;
+            MetadataSaveData.FolderPath = SaveLoadManager.BasePath + @"\" + MetadataSaveData.Name;
+            MetadataSaveData.MainSaveFilePath = MetadataSaveData.FolderPath + @"\" + MetadataSaveData.Name + ".dat";
+            MetadataSaveData.StageFilePath = MetadataSaveData.FolderPath + @"\" + "Stages";
+            Directory.CreateDirectory(MetadataSaveData.FolderPath);
+            Directory.CreateDirectory(MetadataSaveData.StageFilePath);
 
-            File.WriteAllText(MainSaveFilePath, string.Empty);
+            File.WriteAllText(MetadataSaveData.MainSaveFilePath, string.Empty);
 
-           CreateNewMetadata(FolderPath);
+           CreateNewMetadata(MetadataSaveData.FolderPath);
 
         }
 
         public void Delete()
         {
-            Directory.Delete(FolderPath, true);
+            Directory.Delete(MetadataSaveData.FolderPath, true);
         }
         /// <summary>
         /// Creates the metadata file 
         /// </summary>
         private void CreateNewMetadata(string folderPath)
         {
-
-            string fileName = "MetaData_" + Name;
-            DateCreated = DateTime.Now;
-            MetaDataPath = folderPath + @"\" + fileName + ".dat";
-            File.WriteAllText(MetaDataPath, string.Empty);
+            string fileName = "MetaData_" + MetadataSaveData. Name;
+            MetadataSaveData.DateCreated = DateTime.Now;
+            MetadataSaveData.MetaDataPath = folderPath + @"\" + fileName + ".json";
+           // File.WriteAllText(MetaDataPath, string.Empty);
         }
 
-        public void Save(BinaryWriter writer)
+        public void Save()
         {
-            writer.Write(Name);
-            writer.Write(DateCreated.ToBinary());
-            writer.Write(FolderPath);
-            writer.Write(MainSaveFilePath);
-            writer.Write(StageFilePath);
+            string jsonString = JsonSerializer.Serialize(MetadataSaveData);
+            File.WriteAllText(MetadataSaveData.MetaDataPath, jsonString);
+
             
         }
 
-        public void LoadSave(BinaryReader reader)
+        public void LoadSave(string fullFilePath)
         {
-            Name = reader.ReadString();
-            DateCreated = DateTime.FromBinary(reader.ReadInt64());
-            FolderPath = reader.ReadString();
-            MainSaveFilePath = reader.ReadString();
-            StageFilePath = reader.ReadString();
+            string jsonString = File.ReadAllText(fullFilePath);
+            MetadataSaveData = JsonSerializer.Deserialize<MetadataSaveData>(jsonString);
+    
         }
     }
 }
