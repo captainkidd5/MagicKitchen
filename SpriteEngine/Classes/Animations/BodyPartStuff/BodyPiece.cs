@@ -42,6 +42,8 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         protected AnimateAction WalkingAction { get; set; }
         protected AnimateAction InteractAction { get; set; }
+        protected AnimateAction EnterWaterAction { get; set; }
+
 
 
 
@@ -83,6 +85,15 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AllAnimationSets = new Dictionary<ActionType, AnimateAction>();
             AllAnimationSets.Add(ActionType.Walking, WalkingAction);
             AllAnimationSets.Add(ActionType.Interact, InteractAction);
+            AllAnimationSets.Add(ActionType.JumpUp, InteractAction);
+            AllAnimationSets.Add(ActionType.JumpDown, InteractAction);
+
+            AllAnimationSets.Add(ActionType.JumpLeft, InteractAction);
+            AllAnimationSets.Add(ActionType.JumpRight, InteractAction);
+
+
+
+
             CurrentAction = AllAnimationSets[ActionType.Walking];
 
         }

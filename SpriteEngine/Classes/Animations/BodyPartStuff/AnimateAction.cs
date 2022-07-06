@@ -50,11 +50,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             }
             else
             {
-                if (_bodyPiece.GetType() == typeof(Arms))
-                {
-                    if(anim.WillIncrementNextFrame(gameTime))
-                     Console.WriteLine("test");
-                }
+   
                 anim.Update(gameTime, position, true, speedModifier);
 
             }
@@ -76,7 +72,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             foreach (AnimatedSprite animatedSprite in _animations)
             {
 
-                animatedSprite.ForceSetPosition(new Vector2(newPos.X - 8, newPos.Y - 32));
+                animatedSprite.ForceSetPosition(new Vector2(newPos.X, newPos.Y));
 
 
             }

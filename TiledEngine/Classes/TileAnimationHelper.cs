@@ -76,7 +76,7 @@ namespace TiledEngine.Classes
                     //First animation frame will already have expanded source rectangle
                     if (i > 0)
                     {
-
+             
                         propertyString = "newSource";
                         if (tileSetPackage.IsForeground(tileObject.TileData.GID))
                             frameRectangle = TileRectangleHelper.GetNormalSourceRectangle(animationFrames[i].Id, tileSetDimension);
@@ -103,6 +103,8 @@ namespace TiledEngine.Classes
                     frames[i] = new AnimationFrame(i, frameRectangle,
                     animationFrames[i].Duration * .001f);
                 }
+
+       
                 if (tileObject.TileData.Layer <3)
                     tileObject.DrawLayer = tileObject.TileData.Layer * .1f;
                 else
@@ -138,7 +140,7 @@ namespace TiledEngine.Classes
 
 
                 tileObject.Sprite = SpriteFactory.CreateWorldIntervalAnimatedSprite(tileObject.Position, tileObject.SourceRectangle,
-                texture, frames, customLayer: tileObject.TileData.Layer, randomizeLayers: false);
+                texture, frames, customLayer: tileObject.DrawLayer, randomizeLayers: false);
 
 
             }

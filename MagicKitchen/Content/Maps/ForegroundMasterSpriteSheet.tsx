@@ -152,6 +152,11 @@
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="2" y="0" width="13" height="13">
+    <ellipse/>
+   </object>
+  </objectgroup>
   <animation>
    <frame tileid="971" duration="800"/>
    <frame tileid="771" duration="800"/>
@@ -161,6 +166,7 @@
  </tile>
  <tile id="972">
   <properties>
+   <property name="newHitBox" value="0,-16,32,32"/>
    <property name="newSource" value="0,-16,32,32"/>
   </properties>
   <animation>
