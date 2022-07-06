@@ -143,7 +143,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         }
 
-        internal virtual void ChangeColor(Color color)
+        public virtual void ChangeColor(Color color)
         {
 
             _tint = color;

@@ -84,9 +84,9 @@ namespace TextEngine.Classes
         internal bool ExceedsWidth(int width, int? line = null)
         {
             if (line == null)
-                return GetLengthOfCurrentLine() >= width - 32;
+                return GetLengthOfCurrentLine() >= width + 44;
             else
-                return GetLengthOfLine(line.Value) >= width - 32;
+                return GetLengthOfLine(line.Value) >= width + 44;
         }
        
         /// <summary>

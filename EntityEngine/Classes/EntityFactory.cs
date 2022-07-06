@@ -25,7 +25,6 @@ namespace EntityEngine.Classes
 
         internal static Texture2D Props_1;
 
-        internal static List<Color> SkinColors;
 
         internal static Dictionary<string, NPCData> NPCData { get; set; }
 
@@ -39,15 +38,7 @@ namespace EntityEngine.Classes
 
             Props_1 = content.Load<Texture2D>("Entities/Props/Props_1");
 
-            SkinColors = new List<Color>()
-            {
-                new Color(141, 85, 36),
-                new Color(198, 134, 66),
-                new Color(224, 172, 105),
-                new Color(241, 194, 125),
-                new Color(255, 219, 172),
-
-            };
+           
 
             string basePath = content.RootDirectory + "/entities/NPC";
             var options = new JsonSerializerOptions();
@@ -94,10 +85,7 @@ namespace EntityEngine.Classes
 
         public static List<Schedule> GetSchedules(string entityName) => Schedules[entityName.ToLower()];
         public static SubScript GetSubscript(string scriptName) => _scriptManager.GetSubscript(scriptName);
-        public static Color GetRandomSkinTone()
-        {
-            return SkinColors[Settings.Random.Next(0, SkinColors.Count)];
-        }
+       
 
     }
 }

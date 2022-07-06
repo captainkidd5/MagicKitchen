@@ -16,12 +16,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
     internal class AvatarPartSwapper : InterfaceSection
     {
 
-        private readonly BodyPiece _bodyPiece;
+        protected BodyPiece BodyPiece1 { get; set; }
         private Rectangle _leftSourceRectangle = new Rectangle(400, 704, 16, 16);
 
         private Rectangle _rightSourceRectangle = new Rectangle(416, 704, 16, 16);
 
-        private Vector2 _rightButtonOffSet = new Vector2(48, 0);
+        private Vector2 _leftButtonOffSet = new Vector2(-16, 0);
+        private Vector2 _rightButtonOffSet = new Vector2(164, 0);
         private Button _cycleLeftButton;
         private Button _cycleRightButton;
 
@@ -31,7 +32,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         public AvatarPartSwapper(string text, BodyPiece bodyPiece, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            _bodyPiece = bodyPiece;
+            BodyPiece1 = bodyPiece;
             _textString = text;
         }
 
@@ -40,29 +41,33 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             base.MovePosition(newPos);
             ChildSections.Clear();
             _text = TextFactory.CreateUIText(_textString, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
-            _cycleLeftButton = new Button(this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low),
-               _leftSourceRectangle, new Action(() =>
-               {
-                   _bodyPiece.CycleBackwards();
-               }));
+            _cycleLeftButton = new Button(this, graphics, content, Position + _leftButtonOffSet, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low),
+               _leftSourceRectangle, ForwardAction);
 
             _cycleRightButton = new Button(this, graphics, content, Position + _rightButtonOffSet, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low),
-               _rightSourceRectangle, new Action(() =>
-               {
-                   _bodyPiece.CycleForward();
-               }));
+               _rightSourceRectangle, BackwardsAction);
+        }
+
+        public virtual void ForwardAction()
+        {
+            BodyPiece1.CycleBackwards();
+        }
+        public virtual void BackwardsAction()
+        {
+            BodyPiece1.CycleForward();
+
         }
         public override void LoadContent()
         {
            
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, 64, 32);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, 180, 32);
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            _text.Update(gameTime, Position);
+            _text.Update(gameTime, new Vector2(Position.X + 60, Position.Y));
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

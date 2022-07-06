@@ -39,6 +39,9 @@ namespace SpriteEngine.Classes
         internal static Texture2D PantsTexture;
         internal static Texture2D ShoesTexture;
 
+        public  static List<Color> SkinColors;
+
+
         public static void LoadContent(GraphicsDevice graphics, ContentManager content)
         {
             Graphics = graphics;
@@ -63,9 +66,20 @@ namespace SpriteEngine.Classes
             PantsTexture = content.Load<Texture2D>("Entities/Pants");
 
             ShoesTexture = content.Load<Texture2D>("Entities/Shoes");
+            SkinColors = new List<Color>()
+            {
+                new Color(141, 85, 36),
+                new Color(198, 134, 66),
+                new Color(224, 172, 105),
+                new Color(241, 194, 125),
+                new Color(255, 219, 172),
 
+            };
         }
-
+        public static Color GetRandomSkinTone()
+        {
+            return SkinColors[Settings.Random.Next(0, SkinColors.Count)];
+        }
         public static LightSprite CreateLight(Vector2 position,Vector2 offSet, LightType lightType, float scale)
         {
             Sprite lightSprite = CreateWorldSprite(position, _lightSourceRectangle, _lightMask, origin: new Vector2(_lightSourceRectangle.Width / 2, _lightSourceRectangle.Height / 2),

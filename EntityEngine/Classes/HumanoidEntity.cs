@@ -18,6 +18,7 @@ using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using SpriteEngine.Classes.Animations.BodyPartStuff;
 using SpriteEngine.Classes.Animations.EntityAnimations;
+using SpriteEngine.Classes;
 
 namespace EntityEngine.Classes
 {
@@ -68,7 +69,7 @@ namespace EntityEngine.Classes
 
         internal void RandomizeColorCustomization()
         {
-            ChangeSkinTone(EntityFactory.GetRandomSkinTone());
+            ChangeSkinTone(SpriteFactory.GetRandomSkinTone());
         }
         internal override void ChangeSkinTone(Color newSkinTone)
         {
@@ -95,7 +96,7 @@ namespace EntityEngine.Classes
 
 
 
-            ChangeSkinTone(EntityFactory.GetRandomSkinTone());
+            ChangeSkinTone(SpriteFactory.GetRandomSkinTone());
 
             ChangeClothingColor(typeof(Pants), ColorHelper.GetRandomColor());
             ChangeClothingColor(typeof(Shoes), ColorHelper.GetRandomColor());

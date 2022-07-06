@@ -28,12 +28,11 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         private Vector2 _createNewTextPosition;
 
         private TypingBox _nameTypingBox;
-        private int _nameWindowWidth = 128;
-        private int _nameWindowHeight = 32;
+        private int _nameWindowWidth = 180;
+        private int _nameWindowHeight = 48;
 
         private Rectangle _createNewGameButtonRectangle = new Rectangle(400, 720, 32, 32);
-        private int _newGameWidth = 32;
-        private int _newGameHeight = 32;
+   
         private Button _createNewGameButton;
         private Action _createNewGameAction;
 
@@ -44,6 +43,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         private StackPanel _stackPanel;
 
         private AvatarPartSwapper _hairSwapper;
+
+        private AvatarColorSwapper _skinColorSwapper;
 
         public CreateNewSaveMenu(InterfaceSection 
             
@@ -74,15 +75,21 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
             _createNewText = TextFactory.CreateUIText("Create New Game", GetLayeringDepth(UILayeringDepths.High));
             _createNewTextPosition = Text.CenterInRectangle(parentSection.TotalBounds, _createNewText);
-            _createNewTextPosition = new Vector2(_createNewTextPosition.X, parentSection.TotalBounds.Y + 4);
+            _createNewTextPosition = new Vector2(_createNewTextPosition.X, parentSection.TotalBounds.Y + 8);
             _createNewText.ForceSetPosition(_createNewTextPosition);
 
-            Vector2 typingBoxPos = RectangleHelper.CenterRectangleInRectangle(_nameWindowWidth,_nameWindowHeight, parentSection.TotalBounds);
+            Vector2 typingBoxPos = RectangleHelper.CenterRectangleInRectangle(_nameWindowWidth, _nameWindowHeight, parentSection.TotalBounds);
             typingBoxPos = new Vector2(typingBoxPos.X, _createNewTextPosition.Y + _createNewText.TotalStringHeight * 2);
-            _nameTypingBox = new TypingBox(this,graphics, content, typingBoxPos, GetLayeringDepth(UILayeringDepths.Low), _nameWindowWidth, _nameWindowHeight);
 
             Vector2 stackPanelPos = new Vector2(Position.X, typingBoxPos.Y + 64);
             _stackPanel = new StackPanel(this, graphics, content, stackPanelPos, GetLayeringDepth(UILayeringDepths.Low));
+
+            StackRow nameBoxRow = new StackRow(Width);
+            
+            _nameTypingBox = new TypingBox(_stackPanel,graphics, content, typingBoxPos, GetLayeringDepth(UILayeringDepths.Low), _nameWindowWidth, _nameWindowHeight);
+            nameBoxRow.AddItem(_nameTypingBox, StackOrientation.Center);
+            _stackPanel.Add(nameBoxRow);
+          
 
 
             StackRow avatarStackRow = new StackRow(Width);
@@ -93,24 +100,38 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             avatarStackRow.AddItem(_playerAvatarViewer, StackOrientation.Center);
             _stackPanel.Add(avatarStackRow);
 
-            _hairSwapper = new AvatarPartSwapper("hair", bodyPieces[7], _stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-            _hairSwapper.LoadContent();
 
-            Rectangle spacer = new Rectangle(0, 0, 32, 32);
+
+            Rectangle spacer = new Rectangle(0, 0, 32, 16);
             StackRow spacer1 = new StackRow(Width);
             spacer1.AddSpacer(spacer, StackOrientation.Center);
             _stackPanel.Add(spacer1);
 
+            _hairSwapper = new AvatarPartSwapper("hair", bodyPieces[7], _stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            _hairSwapper.LoadContent();
             StackRow hairStackRow = new StackRow(Width);
             hairStackRow.AddItem(_hairSwapper, StackOrientation.Center);
             _stackPanel.Add(hairStackRow);
 
+            StackRow spacer2 = new StackRow(Width);
+            spacer2.AddSpacer(spacer, StackOrientation.Center);
+            _stackPanel.Add(spacer2);
+
+            _skinColorSwapper = new AvatarColorSwapper("Skin", bodyPieces[4], bodyPieces[6], _stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            _skinColorSwapper.LoadContent();
+            StackRow colorStackRow = new StackRow(Width);
+            colorStackRow.AddItem(_skinColorSwapper, StackOrientation.Center);
+            _stackPanel.Add(colorStackRow);
+
             _createNewGameAction = CreateNewSaveAction;
 
-            _createNewGameButton = new Button(this, graphics, content, RectangleHelper.PlaceBottomRightQuadrant(parentSection.TotalBounds, _createNewGameButtonRectangle),
+            Vector2 bottomRightQuadrant = RectangleHelper.PlaceBottomRightQuadrant(parentSection.TotalBounds, _createNewGameButtonRectangle);
+            _createNewGameButton = new Button(this, graphics, content,new Vector2(bottomRightQuadrant.X + 64, bottomRightQuadrant.Y + 32),
                 GetLayeringDepth(UILayeringDepths.Medium), _createNewGameButtonRectangle, CreateNewSaveAction);
 
             _createNewGameButton.SetLock(true);
+            _createNewGameButton.AddConfirmationWindow("Create new game?");
+            _createNewGameButton.LoadContent();
 
             Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
              parentSection.TotalBounds, UISourceRectangles._backButtonRectangle);
