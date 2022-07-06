@@ -93,8 +93,8 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             _stackPanel.Add(stackRow3);
 
 
-            Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
-              _backGroundSpriteDimensions, UISourceRectangles._backButtonRectangle);
+            Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(RectangleHelper.RectFromPosition(Position, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height),
+               UISourceRectangles._backButtonRectangle);
             _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition,
                 GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle,
              UI.MainMenu._outerMenu.ChangeToPlayOrExitState, scale: 2f);

@@ -186,7 +186,7 @@ namespace UIEngine.Classes.EscMenuStuff
         }
         public override void Update(GameTime gameTime)
         {
-            if (Controls.WasKeyTapped(Keys.Escape) || Controls.WasGamePadButtonTapped(GamePadActionType.Escape))
+            if (Controls.WasKeyTapped(Keys.Tab) || Controls.WasGamePadButtonTapped(GamePadActionType.Escape))
             {
                 Toggle();
 
