@@ -59,6 +59,16 @@ namespace EntityEngine.Classes.PlayerStuff
               base.LoadSave(reader);
         }
 
-       
+        public override void CleanUp()
+        {
+            //base.CleanUp();
+            Player1.CleanUp();
+        }
+        public override void SetToDefault()
+        {
+            base.SetToDefault();
+            Player1.SetToDefault();
+        }
+
     }
 }

@@ -175,7 +175,7 @@ namespace StageEngine.Classes
 
         public void SetToDefault()
         {
-            CurrentStage.SetToDefault();
+            CurrentStage?.SetToDefault();
             _playerManager.SetToDefault();
 
         }

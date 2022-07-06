@@ -471,7 +471,7 @@ namespace EntityEngine.Classes
             InventoryHandler.CleanUp();
             CurrentHealth = MaxHealth;
         }
-        public void SetToDefault()
+        public virtual void SetToDefault()
         {
             CleanUp();
         }

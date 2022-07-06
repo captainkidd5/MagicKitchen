@@ -336,6 +336,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.CleanUp();
             ProgressManager.CleanUp();
+            StorageCapacity = 24;
         }
 
         public override void Save(BinaryWriter writer)
@@ -380,6 +381,14 @@ namespace EntityEngine.Classes.PlayerStuff
                 //if (LightsTouching.Contains(fixtureB))
                     LightsTouching.Remove(fixtureB);
             }
+        }
+
+
+        public override void SetToDefault()
+        {
+            base.SetToDefault();
+            StorageCapacity = 24;
+            InventoryHandler.SetToDefault();
         }
     }
 }

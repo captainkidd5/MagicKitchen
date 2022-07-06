@@ -103,7 +103,7 @@ namespace EntityEngine.Classes
 
         }
 
-        public void CleanUp()
+        public virtual void CleanUp()
         {
             foreach (Entity entity in Entities)
             {
@@ -112,7 +112,7 @@ namespace EntityEngine.Classes
             Entities.Clear();
         }
 
-        public void SetToDefault()
+        public virtual void SetToDefault()
         {
             CleanUp();
         }
