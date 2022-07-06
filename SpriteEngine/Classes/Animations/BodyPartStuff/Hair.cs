@@ -148,6 +148,11 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             InteractAction = new AnimateAction(this, InteractSet, false);
 
         }
+
+        internal override void Draw(SpriteBatch spriteBatch, bool submerged)
+        {
+            base.Draw(spriteBatch, submerged);
+        }
     }
 }
 

@@ -83,6 +83,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AllAnimationSets = new Dictionary<ActionType, AnimateAction>();
             AllAnimationSets.Add(ActionType.Walking, WalkingAction);
             AllAnimationSets.Add(ActionType.Interact, InteractAction);
+            CurrentAction = AllAnimationSets[ActionType.Walking];
 
         }
         protected virtual void CreateWalkSet()

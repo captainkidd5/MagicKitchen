@@ -93,8 +93,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             avatarStackRow.AddItem(_playerAvatarViewer, StackOrientation.Center);
             _stackPanel.Add(avatarStackRow);
 
-            _hairSwapper = new AvatarPartSwapper(bodyPieces[7], _stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            _hairSwapper = new AvatarPartSwapper("hair", bodyPieces[7], _stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             _hairSwapper.LoadContent();
+
+            Rectangle spacer = new Rectangle(0, 0, 32, 32);
+            StackRow spacer1 = new StackRow(Width);
+            spacer1.AddSpacer(spacer, StackOrientation.Center);
+            _stackPanel.Add(spacer1);
 
             StackRow hairStackRow = new StackRow(Width);
             hairStackRow.AddItem(_hairSwapper, StackOrientation.Center);
