@@ -117,7 +117,7 @@ namespace UIEngine.Classes.Storage
         }
         public virtual void LoadNewEntityInventory(StorageContainer storageContainer, bool displayWallet)
         {
-
+            ChildSections.Clear();
             StorageContainer = storageContainer;
             //Furniture data was passed in, use the required configuration from that
             if (StorageContainer.FurnitureData != null)

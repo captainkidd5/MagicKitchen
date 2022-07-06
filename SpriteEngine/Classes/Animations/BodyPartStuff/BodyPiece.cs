@@ -183,5 +183,10 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         {
             throw new NotImplementedException();
         }
+
+        public void SetToDefault()
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

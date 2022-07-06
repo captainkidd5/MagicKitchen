@@ -64,5 +64,10 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             UnlockedRecipes.Clear();
         }
+
+        public void SetToDefault()
+        {
+            CleanUp(); ;
+        }
     }
 }

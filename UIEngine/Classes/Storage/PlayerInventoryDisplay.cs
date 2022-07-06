@@ -36,6 +36,7 @@ namespace UIEngine.Classes.Storage
 
         public override void LoadNewEntityInventory(StorageContainer storageContainer, bool displayWallet)
         {
+            ChildSections.Clear();
 
             StorageContainer = storageContainer;
             Rows = 3;
@@ -50,6 +51,8 @@ namespace UIEngine.Classes.Storage
             CurrentSelected = Selectables[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
 
             LoadSelectorSprite();
+
+            StorageContainer.ItemAdded -= OnItemAddedToInventory;
 
             StorageContainer.ItemAdded += OnItemAddedToInventory;
         }

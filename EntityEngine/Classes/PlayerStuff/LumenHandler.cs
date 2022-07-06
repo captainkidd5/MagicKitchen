@@ -19,6 +19,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
         public bool Illuminated { get;  set; }
 
+        private static float _baseLumenRechargeRate = .5f;
         private float _lumenRechargeRate = .5f;
         private SimpleTimer _lumenRechargeTimer;
         
@@ -95,6 +96,12 @@ namespace EntityEngine.Classes.PlayerStuff
         public void CleanUp()
         {
             throw new NotImplementedException();
+        }
+
+        public void SetToDefault( )
+        {
+            CurrentLumens = MaxLumens;
+            _lumenRechargeRate = _baseLumenRechargeRate;
         }
     }
 }

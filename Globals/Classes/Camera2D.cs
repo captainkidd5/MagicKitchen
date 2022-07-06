@@ -155,5 +155,10 @@ namespace Globals.Classes
         {
             throw new NotImplementedException();
         }
+
+        public void SetToDefault( )
+        {
+           // throw new NotImplementedException();
+        }
     }
 }

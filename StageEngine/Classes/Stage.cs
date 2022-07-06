@@ -174,21 +174,23 @@ namespace StageEngine.Classes
             NPCContainer.LoadSave(reader);
 
         }
-        public void Unload()
-        {
-            ItemManager.CleanUp();
-            NPCContainer.CleanUp();
-            TileManager.CleanUp();
-            ItemFactory.WorldItemGenerated -= ItemManager.OnWorldItemGenerated;
 
-
-        }
         public void CleanUp()
         {
             TileManager.CleanUp();
             ItemManager.CleanUp();
 
             NPCContainer.CleanUp();
+        }
+
+        public void SetToDefault()
+        {
+            TileManager?.SetToDefault();
+            ItemManager?.SetToDefault();
+            NPCContainer?.SetToDefault();
+            if(ItemManager != null)
+            ItemFactory.WorldItemGenerated -= ItemManager.OnWorldItemGenerated;
+
         }
     }
 }

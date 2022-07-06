@@ -520,6 +520,9 @@ namespace TiledEngine.Classes
             PlacedItemManager.CleanUp();
         }
 
-
+        public void SetToDefault( )
+        {
+            CleanUp();
+        }
     }
 }

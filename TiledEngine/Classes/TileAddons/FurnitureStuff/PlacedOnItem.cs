@@ -99,5 +99,10 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             writer.Write(ItemCount);
        
         }
+
+        public void SetToDefault()
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

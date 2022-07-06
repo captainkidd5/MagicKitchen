@@ -29,6 +29,7 @@ using DataModels;
 using IOEngine.Classes;
 using SpriteEngine.Classes.Animations.EntityAnimations;
 using SpriteEngine.Classes.Animations.BodyPartStuff;
+using ItemEngine.Classes.StorageStuff;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -73,7 +74,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.LoadContent(entityContainer,startPos, name, standardAnimator);
             ProgressManager.LoadContent();
-            UI.LoadPlayerInventory(StorageContainer);
+           // UI.LoadPlayerInventory(StorageContainer);
             UI.LoadPlayerUnlockedRecipes(ProgressManager.UnlockedRecipes);
 
             UI.Cursor.ItemDropped -= DropHeldItem;
@@ -341,6 +342,10 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.Save(writer);
             ProgressManager.Save(writer);
+            writer.Write(StorageCapacity);
+
+            InventoryHandler.Save(writer);
+            StorageContainer.Save(writer);
             //_lumenHandler.Save(writer);
         }
 
@@ -348,7 +353,12 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.LoadSave(reader);
             ProgressManager.LoadSave(reader);
-           // _lumenHandler.LoadSave(reader);
+            StorageCapacity = reader.ReadInt32();
+            InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
+            InventoryHandler.LoadSave(reader);
+            UI.LoadPlayerInventory(StorageContainer);
+
+            // _lumenHandler.LoadSave(reader);
         }
 
 

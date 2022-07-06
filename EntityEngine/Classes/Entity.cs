@@ -184,10 +184,7 @@ namespace EntityEngine.Classes
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-        public override void CleanUp()
-        {
-            base.CleanUp();
-        }
+       
 
         public virtual void Halt(bool forceStop = false)
         {
@@ -452,18 +449,31 @@ namespace EntityEngine.Classes
 
 
             Vector2Helper.WriteVector2(writer, Position);
-
+            writer.Write(StorageCapacity);
             InventoryHandler.Save(writer);
             writer.Write(ScheduleName);
         }
         public virtual void LoadSave(BinaryReader reader)
         {
             Move(Vector2Helper.ReadVector2(reader));
+            StorageCapacity = reader.ReadInt32();
+
+            InventoryHandler = new InventoryHandler(StorageCapacity);
 
             InventoryHandler.LoadSave(reader);
             ScheduleName = reader.ReadString();
         }
-
-
+        public override void CleanUp()
+        {
+            base.CleanUp();
+            Speed = BaseSpeed;
+            StorageCapacity = 4;
+            InventoryHandler.CleanUp();
+            CurrentHealth = MaxHealth;
+        }
+        public void SetToDefault()
+        {
+            CleanUp();
+        }
     }
 }

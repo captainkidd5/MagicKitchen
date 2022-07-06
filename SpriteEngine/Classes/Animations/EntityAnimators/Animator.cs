@@ -121,5 +121,10 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         {
             throw new NotImplementedException();
         }
+
+        public void SetToDefault( )
+        {
+         //   throw new NotImplementedException();
+        }
     }
 }

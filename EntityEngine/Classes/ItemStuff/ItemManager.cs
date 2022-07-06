@@ -61,9 +61,9 @@ namespace EntityEngine.ItemStuff
 
         }
 
-        public void CreateNewSave(BinaryWriter writer)
+        public void SetToDefault()
         {
-            throw new NotImplementedException();
+            CleanUp();
         }
 
         public void Save(BinaryWriter writer)

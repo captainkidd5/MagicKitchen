@@ -49,6 +49,7 @@ namespace UIEngine.Classes.Storage
         }
         public void Load(StorageContainer playerStorageContainer)
         {
+            ChildSections.Clear();
             _secondaryInventoryDisplay = new InventoryDisplay(this, graphics, content, null,
                GetLayeringDepth(UILayeringDepths.Medium));
             _secondaryInventoryDisplay.LoadContent();

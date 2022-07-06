@@ -68,5 +68,9 @@ namespace TiledEngine.Classes.ZoneStuff
             SpecialZones.Clear();
         }
 
+        public void SetToDefault()
+        {
+            CleanUp();
+        }
     }
 }

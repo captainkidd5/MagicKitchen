@@ -231,7 +231,9 @@ namespace MagicKitchen
             Flags.IsNewGame = true;
 
             BinaryWriter writer = e.BinaryWriter;
+            Clock.SetToDefault();
             Clock.Save(writer);
+
             _stageManager.CreateNewSave(writer);
             _playerManager.Player1.GiveItem("Wooden_Hook", 1);
             SaveLoadManager.DestroyWriter(writer);

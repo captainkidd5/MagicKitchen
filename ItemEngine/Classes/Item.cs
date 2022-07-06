@@ -94,5 +94,10 @@ namespace ItemEngine.Classes
             CurrentDurability = reader.ReadUInt16();
 
         }
+
+        public void SetToDefault( )
+        {
+            CurrentDurability = _itemData.MaxDurability;
+        }
     }
 }

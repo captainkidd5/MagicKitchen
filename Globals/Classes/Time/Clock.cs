@@ -58,6 +58,11 @@ namespace Globals.Classes.Time
             TimeKeeper.LoadSave(reader);
             TotalTime = reader.ReadSingle();
         }
+        public static void SetToDefault()
+        {
+            TimeKeeper.SetToDefault();
+            TotalTime = 0;
+        }
         public static void Update(GameTime gameTime)
         {
             if (!Paused)

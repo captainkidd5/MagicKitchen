@@ -313,5 +313,12 @@ namespace ItemEngine.Classes.StorageStuff
         {
             throw new NotImplementedException();
         }
+
+        public void SetToDefault( )
+        {
+            StoredCount = 0;
+            Item = null;
+            PlaceLocked = false;
+        }
     }
 }

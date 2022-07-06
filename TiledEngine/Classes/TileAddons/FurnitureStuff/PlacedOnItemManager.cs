@@ -101,5 +101,16 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             _placedItemDictionary.Clear();
         }
+
+        public void SetToDefault(BinaryWriter writer)
+        {
+           //
+
+        }
+
+        public void SetToDefault()
+        {
+            CleanUp();
+        }
     }
 }

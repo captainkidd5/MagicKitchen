@@ -256,5 +256,10 @@ namespace EntityEngine.ItemStuff
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
+
+        public void SetToDefault()
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

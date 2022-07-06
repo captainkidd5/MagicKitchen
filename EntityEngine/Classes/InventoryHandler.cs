@@ -85,7 +85,12 @@ namespace EntityEngine.Classes
 
         public void CleanUp()
         {
-            ItemManager.CleanUp();
+            //ItemManager.CleanUp();
+        }
+
+        public void SetToDefault()
+        {
+            StorageContainer.SetToDefault();
         }
     }
 }

@@ -111,5 +111,10 @@ namespace EntityEngine.Classes
             }
             Entities.Clear();
         }
+
+        public void SetToDefault()
+        {
+            CleanUp();
+        }
     }
 }

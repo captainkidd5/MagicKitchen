@@ -155,6 +155,15 @@ namespace ItemEngine.Classes.StorageStuff
             }
             return totalCount;
         }
+
+        public void SetToDefault( )
+        {
+            _wallet.SetToDefault();
+            foreach (StorageSlot slot in Slots)
+            {
+                slot.SetToDefault();
+            }
+        }
     }
 
   

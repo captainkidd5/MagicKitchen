@@ -145,6 +145,7 @@ namespace StageEngine.Classes
 
         public void CreateNewSave(BinaryWriter writer)
         {
+            SetToDefault();
             StageData stageData = content.Load<StageData>("maps/StageData");
             CurrentStage = new Stage(content, graphics, _camera);
 
@@ -170,6 +171,13 @@ namespace StageEngine.Classes
         public void RegisterCommands()
         {
             //CurrentStage.RegisterCommands();
+        }
+
+        public void SetToDefault()
+        {
+            CurrentStage.SetToDefault();
+            _playerManager.SetToDefault();
+
         }
     }
 }

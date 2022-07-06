@@ -36,6 +36,14 @@ namespace Globals.Classes.Time
             Minutes = reader.ReadInt32();
         }
 
-        
+        public void SetToDefault( )
+        {
+            Month = Month.Jan;
+            DayOfWeek = DayOfWeek.Sunday;
+            Days = 1;
+            Hours = 0;
+            Minutes = 0;
+
+        }
     }
 }

@@ -58,5 +58,10 @@ namespace ItemEngine.Classes
         {
             Balance = 0;
         }
+
+        public void SetToDefault()
+        {
+            CleanUp();
+        }
     }
 }

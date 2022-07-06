@@ -52,5 +52,10 @@ namespace TiledEngine.Classes.ZoneStuff
         {
             //throw new NotImplementedException();
         }
+
+        public void SetToDefault( )
+        {
+           // throw new NotImplementedException();
+        }
     }
 }
