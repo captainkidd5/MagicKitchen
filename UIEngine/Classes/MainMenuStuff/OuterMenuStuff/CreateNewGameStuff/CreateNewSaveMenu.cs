@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TextEngine;
 using TextEngine.Classes;
@@ -198,12 +199,14 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         {
             Dictionary<string, SaveFile> saveFiles = SaveLoadManager.SaveFiles;
 
-            if (saveFiles.Keys.Contains(_nameTypingBox.CurrentString)){
+            string regexString = _nameTypingBox.CurrentString.Replace("\n", "");
+            regexString = regexString.Replace(" ", "");
+            if (saveFiles.Keys.Contains(regexString)){
                 
                 return;
             }
-            SaveLoadManager.CreateNewSave(_nameTypingBox.CurrentString);
-            SaveLoadManager.SetCurrentSave(_nameTypingBox.CurrentString);
+            SaveLoadManager.CreateNewSave(regexString);
+            SaveLoadManager.SetCurrentSave(regexString);
             Flags.IsNewGame = true;
             UI.LoadGame(SaveLoadManager.CurrentSave);
         }
