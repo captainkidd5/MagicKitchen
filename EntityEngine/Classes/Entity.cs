@@ -231,8 +231,17 @@ namespace EntityEngine.Classes
             //Big sensor position just sticks on top of our main hullbody
             BigSensor.Position = Position;
 
+            //If submerged, draw sprite much lower than if on land, to better create illusion
+            if (Submerged)
+            {
+                Animator.Update(gameTime, DirectionMoving, IsMoving, new Vector2(Position.X, Position.Y + 14), Speed / BaseSpeed);
 
-            Animator.Update(gameTime,DirectionMoving, IsMoving, Position, Speed/BaseSpeed);
+            }
+            else
+            {
+                Animator.Update(gameTime, DirectionMoving, IsMoving, Position, Speed / BaseSpeed);
+
+            }
 
             _overHeadItemDisplay.Update(gameTime, Position, LayerDepth);
             ToolHandler.Update(gameTime);
