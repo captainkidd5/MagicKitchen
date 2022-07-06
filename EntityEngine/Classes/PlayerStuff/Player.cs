@@ -95,6 +95,7 @@ namespace EntityEngine.Classes.PlayerStuff
             PlayerAvatarData avatarData = SaveLoadManager.CurrentSave.PlayerAvatarData;
             ChangeSkinTone(new Color(avatarData.SkinRed, avatarData.SkinGreen, avatarData.SkinBlue));
             (Animator as CustomizeableAnimator).SetClothingIndex(typeof(Hair), avatarData.HairIndex);
+            ChangeClothingColor(typeof(Hair),new Color(avatarData.HairRed, avatarData.HairGreen, avatarData.HairBlue));
 
         }
         private void TpCommand(string[] args)

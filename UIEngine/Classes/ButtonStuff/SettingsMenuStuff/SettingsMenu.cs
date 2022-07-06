@@ -19,7 +19,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
 {
     internal class SettingsMenu : MenuSection
     {
-        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 352, 352);
+        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 416, 448);
         private NineSliceTextButton _saveSettingsButton;
         private StackPanel _stackPanel;
 
@@ -28,6 +28,9 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
 
         private bool _muteMusic;
         private bool _enableFullScren;
+
+        private Button _backButton;
+
         public SettingsMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             Selectables = new InterfaceSection[3, 3];
@@ -88,6 +91,13 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             AddSectionToGrid(_enableFullScrenCheckBox,2, 0);
 
             _stackPanel.Add(stackRow3);
+
+
+            Vector2 backButtonPosition = RectangleHelper.PlaceRectangleAtBottomLeftOfParentRectangle(
+              _backGroundSpriteDimensions, UISourceRectangles._backButtonRectangle);
+            _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition,
+                GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle,
+             UI.MainMenu._outerMenu.ChangeToPlayOrExitState, scale: 2f);
 
             Deactivate();
 

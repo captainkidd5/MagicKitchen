@@ -64,14 +64,14 @@ namespace UIEngine.Classes.ButtonStuff
             if (_forcedWidth == null)
                 BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X - 4, Position.Y - 8), combinedtext, UI.ButtonTexture, LayerDepth);
             else
-                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _forcedWidth.Value,
+                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(new Vector2(Position.X, Position.Y), _forcedWidth.Value,
                     _forcedHeight.Value, UI.ButtonTexture, LayerDepth);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,  _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
 
             if (_centerText)
             {
-                GeneratePositionsForLines(new Vector2(newTextPosX, Position.Y + BackGroundSprite.Height / 2 - combinedtext.TotalStringHeight /4));
+                GeneratePositionsForLines(new Vector2(newTextPosX, Position.Y));
 
             }
 
@@ -80,7 +80,7 @@ namespace UIEngine.Classes.ButtonStuff
         /// Fills <see cref="_textPositions"/> for each line of text provided. Increases by height x => x.Height == text.TotalStringHeight
         /// </summary>
         /// <param name="textIndexPos">Increases each loop</param>
-        private void GeneratePositionsForLines(Vector2 startPosition)
+        private void GeneratePositionsForLines(Vector2 startPosition, int extraSpacing = 8)
         {
             Vector2 textIndexPos = startPosition;
            
@@ -91,7 +91,7 @@ namespace UIEngine.Classes.ButtonStuff
             {
              
                 if(i > 0)
-                y += _textList[i].TotalStringHeight;
+                y += _textList[i].TotalStringHeight + extraSpacing;
                 textIndexPos = new Vector2(textIndexPos.X, y);
 
 

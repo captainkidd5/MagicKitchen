@@ -27,7 +27,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         {
             SkinIndex = ScrollHelper.GetIndexFromScroll(Direction.Down, SkinIndex, SpriteFactory.SkinColors.Count);
             BodyPiece1.ChangeColor(SpriteFactory.SkinColors[SkinIndex]);
-            _bodyPiece2.ChangeColor(SpriteFactory.SkinColors[SkinIndex]);
+            _bodyPiece2?.ChangeColor(SpriteFactory.SkinColors[SkinIndex]);
 
 
         }
@@ -36,7 +36,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         {
             SkinIndex = ScrollHelper.GetIndexFromScroll(Direction.Up, SkinIndex, SpriteFactory.SkinColors.Count);
             BodyPiece1.ChangeColor(SpriteFactory.SkinColors[SkinIndex]);
-            _bodyPiece2.ChangeColor(SpriteFactory.SkinColors[SkinIndex]);
+            _bodyPiece2?.ChangeColor(SpriteFactory.SkinColors[SkinIndex]);
 
         }
     }

@@ -48,6 +48,9 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
         private AvatarColorSwapper _skinColorSwapper;
 
+        private AvatarColorSwapper _hairColorSwapper;
+
+
         public PlayerAvatarData AvatarData { get; set; }
         public CreateNewSaveMenu(InterfaceSection 
             
@@ -116,6 +119,12 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             hairStackRow.AddItem(_hairSwapper, StackOrientation.Center);
             _stackPanel.Add(hairStackRow);
 
+            _hairColorSwapper = new AvatarColorSwapper("color", bodyPieces[7],null, _stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            _hairColorSwapper.LoadContent();
+            StackRow hairColorStackRow = new StackRow(Width);
+            hairColorStackRow.AddItem(_hairColorSwapper, StackOrientation.Center);
+            _stackPanel.Add(hairColorStackRow);
+
             StackRow spacer2 = new StackRow(Width);
             spacer2.AddSpacer(spacer, StackOrientation.Center);
             _stackPanel.Add(spacer2);
@@ -149,6 +158,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
 
             base.LoadContent();
+
+            _skinColorSwapper.BackwardsAction();
 
         }
 
@@ -213,6 +224,12 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             avatarData.SkinGreen = skinColor.G;
             avatarData.SkinBlue = skinColor.B;
             avatarData.HairIndex = _hairSwapper.Index;
+
+            Color hairColor = SpriteFactory.SkinColors[_hairColorSwapper.SkinIndex];
+            avatarData.HairRed = hairColor.R;
+            avatarData.HairGreen = hairColor.G;
+            avatarData.HairBlue = hairColor.B;
+
             SaveLoadManager.CreateNewSave(regexString, avatarData);
             SaveLoadManager.SetCurrentSave(regexString);
             Flags.IsNewGame = true;

@@ -100,7 +100,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                     //_activeSection = UI.SettingsMenu;
 
                     _activeSection = null;
-                    UI.SettingsMenu.ReadjustBasedOnParent(BackGroundSourceRectangle, _backGroundSpritePosition);
+                    UI.SettingsMenu.ReadjustBasedOnParent(RectangleHelper.RectangleToScale(BackGroundSourceRectangle, _scale), _backGroundSpritePosition);
                     UI.SettingsMenu.Activate();
                    // UI.SettingsMenu.LoadContent();
 

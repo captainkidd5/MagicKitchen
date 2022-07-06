@@ -30,7 +30,7 @@ namespace UIEngine.Classes.MainMenuStuff
         private Texture2D _mainMenuBackDropTexture;
         private Rectangle _backDropDimensions => _mainMenuBackDropTexture.Bounds;
         private Sprite _backDropSprite;
-        private OuterMenu _outerMenu;
+        public OuterMenu _outerMenu;
 
         private ToggleMusic _toggleMusic;
 
