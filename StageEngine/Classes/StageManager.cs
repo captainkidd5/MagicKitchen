@@ -135,6 +135,7 @@ namespace StageEngine.Classes
         {
 
 ; StageData stageData = content.Load<StageData>("maps/StageData");
+            CurrentStage = new Stage(content, graphics, _camera);
 
             CurrentStage.Load(stageData, this, _playerManager);
             CurrentStage.LoadFromStageFile();
@@ -145,6 +146,7 @@ namespace StageEngine.Classes
         public void CreateNewSave(BinaryWriter writer)
         {
             StageData stageData = content.Load<StageData>("maps/StageData");
+            CurrentStage = new Stage(content, graphics, _camera);
 
             CurrentStage.Load(stageData, this, _playerManager);
 

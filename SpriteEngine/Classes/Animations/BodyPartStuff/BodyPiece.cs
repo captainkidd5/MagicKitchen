@@ -26,7 +26,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
        
 
 
-        protected int Index { get; set; }
+        public int Index { get; protected set; }
 
 
        
@@ -62,7 +62,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         protected Animator Animator { get; set; }
 
-        protected Vector2 Scale { get; set; }
+        public Vector2 Scale { get; protected set; }
 
         protected int MaxIndex = 1;
 
@@ -153,6 +153,11 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
    
             }
           
+        }
+
+        public void SetIndex(int index)
+        {
+            Index = index;
         }
         public void CycleForward()
         {

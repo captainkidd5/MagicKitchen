@@ -26,6 +26,9 @@ using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using EntityEngine.ItemStuff;
 using TiledEngine.Classes.Helpers;
 using DataModels;
+using IOEngine.Classes;
+using SpriteEngine.Classes.Animations.EntityAnimations;
+using SpriteEngine.Classes.Animations.BodyPartStuff;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -85,6 +88,14 @@ namespace EntityEngine.Classes.PlayerStuff
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
             _lumenHandler.Load();
         }
+
+        protected override void LoadWardrobe()
+        {
+            PlayerAvatarData avatarData = SaveLoadManager.CurrentSave.PlayerAvatarData;
+            ChangeSkinTone(new Color(avatarData.SkinRed, avatarData.SkinGreen, avatarData.SkinBlue));
+            (Animator as CustomizeableAnimator).SetClothingIndex(typeof(Hair), avatarData.HairIndex);
+
+        }
         private void TpCommand(string[] args)
         {
             Move(Controls.MouseWorldPosition);
@@ -92,7 +103,7 @@ namespace EntityEngine.Classes.PlayerStuff
         private void ReloadAnimationsCommmand(string[] args)
         {
             Animator.Load(SoundModuleManager, Position);
-            GetClothingColors();
+            LoadWardrobe();
         }
         private void PlayAnimationCommand(string[] args)
         {
@@ -100,7 +111,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
             string actionType = args[0];
             ActionType action;
-            GetClothingColors();
+            LoadWardrobe();
 
             if (Enum.TryParse(actionType, true,out action))
             {

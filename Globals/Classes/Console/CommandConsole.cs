@@ -78,8 +78,8 @@ namespace Globals.Classes.Console
 
 
             s_manualInterpreter.RegisterCommand(commandName, command);
-
-            Commands.Add(commandName, ":---------------" + description);
+            if(!Commands.ContainsKey(commandName))
+             Commands.Add(commandName, ":---------------" + description);
 
 
         }

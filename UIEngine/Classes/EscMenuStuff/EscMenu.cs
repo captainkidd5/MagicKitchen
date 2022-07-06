@@ -89,6 +89,8 @@ namespace UIEngine.Classes.EscMenuStuff
         }
         private void GenerateTabs()
         {
+            Selectables = new InterfaceSection[1, 3];
+
             _tabsStackPanel = new StackPanel(this, graphics, content, new Vector2(TotalBounds.X, TotalBounds.Y - _tabWidth * _scale.Y), GetLayeringDepth(UILayeringDepths.Low));
             StackRow stackRow1 = new StackRow(TotalBounds.Width);
 

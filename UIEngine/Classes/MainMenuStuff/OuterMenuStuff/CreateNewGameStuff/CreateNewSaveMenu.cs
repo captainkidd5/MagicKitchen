@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels;
+using Globals.Classes;
 using Globals.Classes.Helpers;
 using IOEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -47,6 +48,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
         private AvatarColorSwapper _skinColorSwapper;
 
+        public PlayerAvatarData AvatarData { get; set; }
         public CreateNewSaveMenu(InterfaceSection 
             
             
@@ -205,7 +207,13 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
                 
                 return;
             }
-            SaveLoadManager.CreateNewSave(regexString);
+            PlayerAvatarData avatarData = new PlayerAvatarData();
+            Color skinColor = SpriteFactory.SkinColors[_skinColorSwapper.SkinIndex];
+            avatarData.SkinRed = skinColor.R;
+            avatarData.SkinGreen = skinColor.G;
+            avatarData.SkinBlue = skinColor.B;
+            avatarData.HairIndex = _hairSwapper.Index;
+            SaveLoadManager.CreateNewSave(regexString, avatarData);
             SaveLoadManager.SetCurrentSave(regexString);
             Flags.IsNewGame = true;
             UI.LoadGame(SaveLoadManager.CurrentSave);

@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels;
+using Globals.Classes;
 using Globals.Classes.Console;
 using System;
 using System.Collections.Generic;
@@ -18,13 +19,13 @@ namespace IOEngine.Classes
         public static string BasePath;
 
         public static EventHandler<FileCreatedEventArgs> SaveCreated;
-        public static void Create(SaveFile file) => SaveCreated.Invoke(null, new FileCreatedEventArgs() { BinaryWriter = CreateWriter(file.MetadataSaveData.MainSaveFilePath) });
+        public static void Create(SaveFile file) => SaveCreated.Invoke(null, new FileCreatedEventArgs() { BinaryWriter = CreateWriter(file.MetaData.MainSaveFilePath) });
 
         public static EventHandler<FileLoadedEventArgs> SaveLoaded;
-        public static void Load(SaveFile file) => SaveLoaded.Invoke(null, new FileLoadedEventArgs() { BinaryReader = CreateReader(file.MetadataSaveData.MainSaveFilePath) });
+        public static void Load(SaveFile file) => SaveLoaded.Invoke(null, new FileLoadedEventArgs() { BinaryReader = CreateReader(file.MetaData.MainSaveFilePath) });
 
         public static EventHandler<FileSavedEventArgs> SaveSaved;
-        public static void Save(SaveFile file) => SaveSaved.Invoke(null, new FileSavedEventArgs() { BinaryWriter = CreateWriter(file.MetadataSaveData.MainSaveFilePath) });
+        public static void Save(SaveFile file) => SaveSaved.Invoke(null, new FileSavedEventArgs() { BinaryWriter = CreateWriter(file.MetaData.MainSaveFilePath) });
 
 
         /// <summary>
@@ -45,10 +46,13 @@ namespace IOEngine.Classes
                 string metaDataFile = Directory.GetFiles(path).ToList().FirstOrDefault(x => x.Contains("MetaData"));
                 if (string.IsNullOrEmpty(metaDataFile))
                     throw new Exception("Metadata file for save not found!");
-
+                string avatarDataFile = Directory.GetFiles(path).ToList().FirstOrDefault(x => x.Contains("Avatar"));
+                if (string.IsNullOrEmpty(avatarDataFile))
+                    throw new Exception("Avatar file for save not found!");
                 SaveFile saveFile = new SaveFile();
-                saveFile.LoadSave(metaDataFile);
-                SaveFiles.Add(saveFile.MetadataSaveData.Name, saveFile);
+                saveFile.LoadMetaData(metaDataFile);
+                saveFile.LoadPlayerAvatarData(avatarDataFile);
+                SaveFiles.Add(saveFile.MetaData.Name, saveFile);
 
             }
         }
@@ -83,11 +87,11 @@ namespace IOEngine.Classes
         {
             CurrentSave = SaveFiles[name];
         }
-        public static void CreateNewSave(string name)
+        public static void CreateNewSave(string name, PlayerAvatarData avatarData)
         {
             
             SaveFile saveFile = new SaveFile();
-            saveFile.CreateNew(name);
+            saveFile.CreateNew(name, avatarData);
 
 
             saveFile.Save();
@@ -137,16 +141,16 @@ namespace IOEngine.Classes
         public static BinaryWriter GetCurrentSaveFileWriter(string extension = null)
         {
             if (!string.IsNullOrEmpty(extension))
-                return CreateWriter(CurrentSave.MetadataSaveData.FolderPath + extension);
+                return CreateWriter(CurrentSave.MetaData.FolderPath + extension);
             else       
-                return CreateWriter(CurrentSave.MetadataSaveData.MainSaveFilePath);         
+                return CreateWriter(CurrentSave.MetaData.MainSaveFilePath);         
         }
         public static BinaryReader GetCurrentSaveFileReader(string extension = null)
         {
             if (!string.IsNullOrEmpty(extension))
-                return CreateReader(CurrentSave.MetadataSaveData.FolderPath + extension);
+                return CreateReader(CurrentSave.MetaData.FolderPath + extension);
             else
-                return CreateReader(CurrentSave.MetadataSaveData.MainSaveFilePath);
+                return CreateReader(CurrentSave.MetaData.MainSaveFilePath);
         }
 
 

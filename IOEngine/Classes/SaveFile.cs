@@ -9,57 +9,78 @@ namespace IOEngine.Classes
 {
     public class SaveFile 
     {
-        public MetadataSaveData MetadataSaveData { get; set; } = new MetadataSaveData();
+        public MetadataSaveData MetaData { get; set; } = new MetadataSaveData();
 
 
+        public PlayerAvatarData PlayerAvatarData { get; set; }
 
         /// <summary>
         /// Creates new save file which includes: New folder, new metadata, and new save data
         /// </summary>
         /// <param name="name"></param>
-        internal void CreateNew(string name)
+        internal void CreateNew(string name, PlayerAvatarData playerAvatarData)
         {
-            MetadataSaveData.Name = name;
-            MetadataSaveData.FolderPath = SaveLoadManager.BasePath + @"\" + MetadataSaveData.Name;
-            MetadataSaveData.MainSaveFilePath = MetadataSaveData.FolderPath + @"\" + MetadataSaveData.Name + ".dat";
-            MetadataSaveData.StageFilePath = MetadataSaveData.FolderPath + @"\" + "Stages";
-            Directory.CreateDirectory(MetadataSaveData.FolderPath);
-            Directory.CreateDirectory(MetadataSaveData.StageFilePath);
+            MetaData.Name = name;
+            MetaData.FolderPath = SaveLoadManager.BasePath + @"\" + MetaData.Name;
+            MetaData.MainSaveFilePath = MetaData.FolderPath + @"\" + MetaData.Name + ".dat";
+            MetaData.StageFilePath = MetaData.FolderPath + @"\" + "Stages";
+            Directory.CreateDirectory(MetaData.FolderPath);
+            Directory.CreateDirectory(MetaData.StageFilePath);
 
-            File.WriteAllText(MetadataSaveData.MainSaveFilePath, string.Empty);
+            File.WriteAllText(MetaData.MainSaveFilePath, string.Empty);
 
-           CreateNewMetadata(MetadataSaveData.FolderPath);
+           CreateNewMetadata(MetaData.FolderPath);
+
+            PlayerAvatarData = playerAvatarData;
+
+
 
         }
 
         public void Delete()
         {
-            Directory.Delete(MetadataSaveData.FolderPath, true);
+            Directory.Delete(MetaData.FolderPath, true);
         }
         /// <summary>
         /// Creates the metadata file 
         /// </summary>
         private void CreateNewMetadata(string folderPath)
         {
-            string fileName = "MetaData_" + MetadataSaveData. Name;
-            MetadataSaveData.DateCreated = DateTime.Now;
-            MetadataSaveData.MetaDataPath = folderPath + @"\" + fileName + ".json";
-           // File.WriteAllText(MetaDataPath, string.Empty);
+            string fileName = "MetaData_" + MetaData.Name;
+            MetaData.DateCreated = DateTime.Now;
+            MetaData.MetaDataPath = folderPath + @"\" + fileName + ".json";
+        }
+
+        private void CreateNewAvatarPath()
+        {
+            string fileName = "Player_Avatar_" + MetaData.Name;
+            PlayerAvatarData.Path = MetaData.FolderPath + @"\" + fileName + ".json";
         }
 
         public void Save()
         {
-            string jsonString = JsonSerializer.Serialize(MetadataSaveData);
-            File.WriteAllText(MetadataSaveData.MetaDataPath, jsonString);
+            string jsonString = JsonSerializer.Serialize(MetaData);
+            File.WriteAllText(MetaData.MetaDataPath, jsonString);
 
-            
+            jsonString = JsonSerializer.Serialize(PlayerAvatarData);
+            CreateNewAvatarPath();
+            File.WriteAllText(PlayerAvatarData.Path, jsonString);
+
+
         }
 
-        public void LoadSave(string fullFilePath)
+        public void LoadMetaData(string fullFilePath)
         {
             string jsonString = File.ReadAllText(fullFilePath);
-            MetadataSaveData = JsonSerializer.Deserialize<MetadataSaveData>(jsonString);
-    
+            MetaData = JsonSerializer.Deserialize<MetadataSaveData>(jsonString);
+        }
+
+        public void LoadPlayerAvatarData(string fullFilePath)
+        {
+            string jsonString = File.ReadAllText(fullFilePath);
+
+            PlayerAvatarData = JsonSerializer.Deserialize<PlayerAvatarData>(jsonString);
+
         }
     }
 }

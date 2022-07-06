@@ -31,6 +31,18 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             BodyPieces = animations;
 
         }
+
+        public void SetClothingIndex(Type t, int index)
+        {
+            for (int i = 0; i < BodyPieces.Length; i++)
+            {
+                if (BodyPieces[i].GetType() == t)
+                {
+                    BodyPieces[i].SetIndex(index);
+                    BodyPieces[i].Load(this, Position, BodyPieces[i].Scale);
+                }
+            }
+        }
         public void ChangeClothingColor(Type t, Color color)
         {
             for(int i = 0; i < BodyPieces.Length; i++)

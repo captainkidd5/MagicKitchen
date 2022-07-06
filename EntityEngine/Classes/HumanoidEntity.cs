@@ -83,11 +83,11 @@ namespace EntityEngine.Classes
         {
             base.LoadContent(entityContainer, startPos, name, standardAnimator);
             LoadAnimations(Animator);
-            GetClothingColors();
+            LoadWardrobe();
 
         }
 
-        protected void GetClothingColors()
+        protected virtual void LoadWardrobe()
         {
             ChangeClothingColor(typeof(Hair), ColorHelper.GetRandomColor());
             Color shirtColor = ColorHelper.GetRandomColor();

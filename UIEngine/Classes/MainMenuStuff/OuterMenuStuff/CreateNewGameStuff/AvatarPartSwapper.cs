@@ -29,6 +29,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         private string _textString;
         private Text _text;
 
+        public int Index => BodyPiece1.Index;
         public AvatarPartSwapper(string text, BodyPiece bodyPiece, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
