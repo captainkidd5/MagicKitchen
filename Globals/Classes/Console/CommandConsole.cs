@@ -75,11 +75,15 @@ namespace Globals.Classes.Console
         }
         public static void RegisterCommand(string commandName, string description, Action<string[]> command)
         {
+            if (!Commands.ContainsKey(commandName))
+            {
+                Commands.Add(commandName, ":---------------" + description);
+                s_manualInterpreter.RegisterCommand(commandName, command);
 
 
-            s_manualInterpreter.RegisterCommand(commandName, command);
-            if(!Commands.ContainsKey(commandName))
-             Commands.Add(commandName, ":---------------" + description);
+            }
+
+
 
 
         }
