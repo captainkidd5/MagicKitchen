@@ -134,7 +134,7 @@ namespace UIEngine.Classes
 
             _talkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             SettingsMenu = new SettingsMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
-            Curtain = new Curtain(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
+            Curtain = new Curtain(null, graphics, content, null, .95f);
             StorageDisplayHandler = new StorageDisplayHandler(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             ItemAlertManager = new ItemAlertManager(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
 

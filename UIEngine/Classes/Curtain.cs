@@ -21,7 +21,7 @@ namespace UIEngine.Classes
         public static readonly float DropRate = .00055f;
         public bool FullyDropped => Opacity >= 1f;
 
-        private readonly float _layerDepth = .8f;
+        private readonly float _layerDepth = .95f;
 
 
         public Curtain(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :

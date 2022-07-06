@@ -271,6 +271,7 @@ namespace MagicKitchen
         public void OnReturnToMainMenu(object? sender, EventArgs e)
         {
             _stageManager.CleanUp();
+            UI.RaiseCurtain(UI.CurtainDropRate);
         }
 
     }

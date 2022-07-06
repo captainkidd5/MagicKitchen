@@ -44,11 +44,11 @@ namespace UIEngine.Classes.ButtonStuff
         {
             Position = RectangleHelper.CenterRectangleOnScreen(_backGroundSpriteDimensions);
             _backGroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height,
-                UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low));
+                UI.ButtonTexture,.9f);
 
             Vector2 confirmButtonPos = RectangleHelper.CenterRectangleInRectangle(ButtonFactory.s_greenCheckRectangle, _backGroundSprite.HitBox);
             confirmButtonPos = new Vector2(confirmButtonPos.X + 64, confirmButtonPos.Y);
-            _confirmButton = UI.ButtonFactory.CreateButton(this,confirmButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_greenCheckRectangle,
+            _confirmButton = UI.ButtonFactory.CreateButton(this,confirmButtonPos,.91f, ButtonFactory.s_greenCheckRectangle,
                 new Action(() =>
                 {
                     _confirmAction();
@@ -57,11 +57,11 @@ namespace UIEngine.Classes.ButtonStuff
             AddSectionToGrid(_confirmButton,0, 1);
             Vector2 cancelButtonPos = RectangleHelper.CenterRectangleInRectangle(ButtonFactory.s_redExRectangle, _backGroundSprite.HitBox);
             cancelButtonPos = new Vector2(cancelButtonPos.X - 64, cancelButtonPos.Y);
-            _cancelButton = UI.ButtonFactory.CreateButton(this, cancelButtonPos, GetLayeringDepth(UILayeringDepths.Medium), ButtonFactory.s_redExRectangle, _cancelAction);
+            _cancelButton = UI.ButtonFactory.CreateButton(this, cancelButtonPos,.91f, ButtonFactory.s_redExRectangle, _cancelAction);
             AddSectionToGrid(_cancelButton, 0, 0);
 
 
-            _text = TextFactory.CreateUIText(_confirmationText, GetLayeringDepth(UILayeringDepths.High));
+            _text = TextFactory.CreateUIText(_confirmationText,.91f);
             TotalBounds = _backGroundSprite.HitBox;
 
             _textPosition = Text.CenterInRectangle(TotalBounds, _text);

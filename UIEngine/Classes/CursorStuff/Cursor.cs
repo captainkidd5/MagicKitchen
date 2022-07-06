@@ -29,7 +29,7 @@ namespace UIEngine.Classes.CursorStuff
         public int HeldItemCount;
         private int _heldItemId;
         private int _oldHeldItemId;
-        private readonly float _cursorLayerDepth = .5f;
+        private readonly float _cursorLayerDepth = .99f;
 
         public bool IsHoldingItem => HeldItem != null;
         public Texture2D CursorTexture { get; set; }

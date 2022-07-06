@@ -45,6 +45,7 @@ namespace EntityEngine.Classes.PlayerStuff
             TileManager = tileManager;
             ItemManager = itemManager;
             Player1.LoadContent(this, null, null, false);
+            
             CommandConsole.RegisterCommand("give", "gives player item with id", GivePlayerItem);
 
         }
