@@ -32,6 +32,8 @@ namespace ItemEngine.Classes
         public RecipeInfo RecipeInfo => _itemData.RecipeInfo;
 
         public int FuelValue => _itemData.FuelValue;
+        public byte FoodValue => _itemData.FoodValue;
+
 
         public int PlacedItemGID => _itemData.PlacedItemGID;
         public Layers? LayerToPlace => _itemData.LayerToPlace;

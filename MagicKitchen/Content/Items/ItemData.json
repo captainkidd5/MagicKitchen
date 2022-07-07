@@ -253,8 +253,11 @@
     {
         "Id": 2616,
         "Name": "Limpet",
-        "Description" : "Basic flotsam",
+        "Description" : "Raw Shellfish",
         "MaxStackSize": 999,
+    "ItemType": "Food",
+
+        "FoodValue": 5,
         "Price": 1
     },
     {

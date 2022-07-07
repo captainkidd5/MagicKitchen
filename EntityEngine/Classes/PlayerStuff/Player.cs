@@ -30,6 +30,7 @@ using IOEngine.Classes;
 using SpriteEngine.Classes.Animations.EntityAnimations;
 using SpriteEngine.Classes.Animations.BodyPartStuff;
 using ItemEngine.Classes.StorageStuff;
+using DataModels.ItemStuff;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -58,6 +59,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public int MaxHunger => _hungerHandler.MaxHunger;
         public int CurrentHunger => _hungerHandler.CurrentHunger;
 
+        public void ConsumeFood(byte amt) => _hungerHandler.ConsumeFood(amt);
 
         public Player(GraphicsDevice graphics, ContentManager content, string name = "playerName") 
             : base(graphics, content)
@@ -234,18 +236,30 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
             UI.StatusPanel.HungerBar.SetProgressRatio((float)CurrentHunger / (float)MaxHunger);
-            if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Y))
+            if (Controls.IsRightClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Y))
             {
                 //Item should not eject if any part of the ui is hovered
                 if (UI.Cursor.IsHoldingItem)
                 {
                     DropHeldItem();
                 }
-                else
-                {
-                    UseHeldItem();
-                }
+            
               
+            }
+            else if(Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Y))
+            {
+                if (UI.Cursor.IsHoldingItem)
+                {
+
+                    if (UI.Cursor.HeldItem.ItemType == ItemType.Food)
+                    {
+                       ConsumeFood(UI.Cursor.HeldItem.FoodValue);
+                        UI.Cursor.HeldItemCount --;
+                        if(UI.Cursor.HeldItemCount == 0)
+                            UI.Cursor.HeldItem = null;
+                    }
+                }
+           
             }
             _lumenHandler.Illuminated = LightsTouching.Count > 0;
             _lumenHandler.HandleLumens(gameTime);

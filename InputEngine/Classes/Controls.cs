@@ -43,6 +43,8 @@ namespace InputEngine.Classes
 
         //Will return true if UI is not currently hovered and controls are clicked
         public static bool IsClickedWorld => IsClicked && !IsUiHovered;
+        public static bool IsRightClickedWorld => IsRightClicked && !IsUiHovered;
+
         public static bool IsPlayerControllable { get; set; }
         public static bool IsPlayerMoving { get; set; }
         private static KeyboardManager KeyboardManager { get; set; }

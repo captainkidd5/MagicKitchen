@@ -1,5 +1,8 @@
-﻿using EntityEngine.Classes.ToolStuff;
+﻿using DataModels.ItemStuff;
+using EntityEngine.Classes.PlayerStuff;
+using EntityEngine.Classes.ToolStuff;
 using Globals.Classes.Helpers;
+using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -42,12 +45,14 @@ namespace EntityEngine.Classes
         }
         public void UseHeldItem()
         {
-            if (_inventoryHandler.HeldItem != null &&
-                _inventoryHandler.HeldItem.ItemType > DataModels.ItemStuff.ItemType.None)
+            Item item = _inventoryHandler.HeldItem;
+            if (item != null &&
+                item.ItemType >ItemType.None)
             {
+              
                 if (IsUsingTool)
                     return;
-                Tool tool = (Tool)Tool.GetTool(_inventoryHandler.HeldItem);
+                Tool tool = (Tool)Tool.GetTool(item);
                 if (tool == null)
                     return;
                 if (tool.RequiresCharge)
@@ -64,7 +69,7 @@ namespace EntityEngine.Classes
             if (!IsUsingTool)
             {
                 if (_inventoryHandler.HeldItem != null &&
-               _inventoryHandler.HeldItem.ItemType > DataModels.ItemStuff.ItemType.None)
+               _inventoryHandler.HeldItem.ItemType > ItemType.None)
                 {
                     if (IsUsingTool)
                         return;

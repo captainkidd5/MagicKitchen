@@ -17,6 +17,7 @@ namespace DataModels.ItemStuff
         Sword = 25,
         Bow = 26,
         Ammunition = 27,
+        Food = 28,
         Tree = 40
 
     }
@@ -48,6 +49,7 @@ namespace DataModels.ItemStuff
         public string Description { get; set; }
 
         public int FuelValue { get; set; }
+        public byte FoodValue { get; set; }
 
         public int MaxStackSize { get; set; }
 

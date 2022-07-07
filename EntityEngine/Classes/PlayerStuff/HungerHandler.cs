@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels.ItemStuff;
+using Globals.Classes;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,12 @@ namespace EntityEngine.Classes.PlayerStuff
         }
 
 
-
+        public void ConsumeFood(byte amt)
+        {
+            CurrentHunger += amt;
+            if(CurrentHunger > MaxHunger)
+                CurrentHunger = MaxHunger;
+        }
         private void DrainHunger(GameTime gameTime)
         {
             if (CurrentHunger > 0)
