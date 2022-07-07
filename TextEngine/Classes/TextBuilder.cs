@@ -46,6 +46,7 @@ namespace TextEngine.Classes
             int textBoxWidth, bool autoComplete = true)
         {
             _text = text;
+
             if (autoComplete)
                 ForceComplete(textBoxWidth);
         }

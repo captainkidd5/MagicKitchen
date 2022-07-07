@@ -127,7 +127,12 @@ namespace UIEngine.Classes.TextStuff
 
             _curerentDialogue = dialogue;
             TextBuilder.ClearText();
-            TextBuilder.SetText(TextFactory.CreateUIText(dialogue.DialogueText,  GetLayeringDepth(UILayeringDepths.Front), scale: 1f), BackdropSprite.HitBox.Width, false);
+            Text text = TextFactory.CreateUIText(dialogue.DialogueText, GetLayeringDepth(UILayeringDepths.Front), scale: 1f);
+            text.SetFullString(text.WrapAutoText(BackdropSprite.HitBox.Width));
+
+
+
+            TextBuilder.SetText(text, BackdropSprite.HitBox.Width,false);
             float totalTextHeight = TextBuilder.GetWidthOfTotalWrappedText(BackdropSprite.HitBox.Width);
             Activate();
 

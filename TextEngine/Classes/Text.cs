@@ -121,7 +121,7 @@ namespace TextEngine.Classes
         /// <summary>
         /// Called once when dialogue should be parsed, NOT for player input.
         /// </summary>
-        private String WrapAutoText(float lineLimit)
+        public String WrapAutoText(float lineLimit)
         {
             String line = String.Empty;
             String returnString = String.Empty;
