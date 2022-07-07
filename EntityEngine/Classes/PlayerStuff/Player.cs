@@ -46,6 +46,7 @@ namespace EntityEngine.Classes.PlayerStuff
         protected HullBody FrontalSensor { get; set; }
 
         private LumenHandler _lumenHandler;
+        private HungerHandler _hungerHandler;
 
         public int MaxLumens => _lumenHandler.MaxLumens;
         public int CurrentLumens => _lumenHandler.CurrentLumens;
@@ -68,6 +69,8 @@ namespace EntityEngine.Classes.PlayerStuff
             YOffSet = 8;
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
             ProgressManager = new ProgressManager();
+            _hungerHandler = new HungerHandler();
+
         }
 
         public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string? name, bool standardAnimator = false)
@@ -88,6 +91,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
             _lumenHandler.Load();
+            _hungerHandler.Load();
         }
 
         protected override void LoadWardrobe()
@@ -242,6 +246,8 @@ namespace EntityEngine.Classes.PlayerStuff
             _lumenHandler.Illuminated = LightsTouching.Count > 0;
             _lumenHandler.HandleLumens(gameTime);
 
+            _hungerHandler.HandleHunger(gameTime);
+
             if (UI.IsTalkingWindowActive)
             {
                 //EntityAnimator.
@@ -348,6 +354,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
             InventoryHandler.Save(writer);
             StorageContainer.Save(writer);
+            _hungerHandler.Save(writer);
             //_lumenHandler.Save(writer);
         }
 
@@ -359,7 +366,7 @@ namespace EntityEngine.Classes.PlayerStuff
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
             InventoryHandler.LoadSave(reader);
             UI.LoadPlayerInventory(StorageContainer);
-
+            _hungerHandler.LoadSave(reader);
             // _lumenHandler.LoadSave(reader);
         }
 
