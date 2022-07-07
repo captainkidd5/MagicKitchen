@@ -95,6 +95,9 @@ namespace EntityEngine.Classes.PlayerStuff
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
             _lumenHandler.Load();
             _hungerHandler.Load();
+
+            AddLight(LightType.Warm, new Vector2(0, 0),false, 2);
+
         }
 
         protected override void LoadWardrobe()
@@ -393,6 +396,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.LightSource))
             {
+                if(fixtureB.Body.Tag != null && (fixtureB.Body.Tag as LightCollidable).RestoresLumens)
                 LightsTouching.Add(fixtureB);
             }
                 return base.OnCollides(fixtureA, fixtureB, contact);
@@ -404,6 +408,7 @@ namespace EntityEngine.Classes.PlayerStuff
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.LightSource))
             {
                 //if (LightsTouching.Contains(fixtureB))
+
                     LightsTouching.Remove(fixtureB);
             }
         }

@@ -15,8 +15,10 @@ namespace PhysicsEngine.Classes
     {
         private LightSprite _lightSprite;
 
-        public LightCollidable(Vector2 position, Vector2 offSet, LightType lightType, float scale)
+        public bool RestoresLumens { get; private set; }
+        public LightCollidable(Vector2 position, Vector2 offSet, LightType lightType,bool restoresLumens, float scale)
         {
+            RestoresLumens = restoresLumens;
             _lightSprite = SpriteFactory.CreateLight(Position, offSet, lightType, scale);
         }
 

@@ -28,7 +28,7 @@ namespace TiledEngine.Classes.TileAddons
         public override void Load()
         {
             CreateBody(Tile.Position + new Vector2(_pointOffset.X, _pointOffset.Y));
-            AddLight(_lightType, new Vector2(_pointOffset.X, _pointOffset.Y), _lightRadius);
+            AddLight(_lightType, new Vector2(_pointOffset.X, _pointOffset.Y), true,_lightRadius);
         }
         public override void Update(GameTime gameTime)
         {

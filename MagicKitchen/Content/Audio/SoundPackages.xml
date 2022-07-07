@@ -132,6 +132,16 @@
                 </Item>
             </SoundChancers>
         </Item>
+          <Item>
+            <Name>FoodBite</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>FoodBite1</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Tools</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
          <Item>
             <Name>ItemCraft</Name>
             <SoundChancers>

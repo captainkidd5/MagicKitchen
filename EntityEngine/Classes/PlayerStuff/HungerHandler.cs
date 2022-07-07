@@ -1,6 +1,7 @@
 ﻿using DataModels.ItemStuff;
 using Globals.Classes;
 using Microsoft.Xna.Framework;
+using SoundEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -44,6 +45,8 @@ namespace EntityEngine.Classes.PlayerStuff
             CurrentHunger += amt;
             if(CurrentHunger > MaxHunger)
                 CurrentHunger = MaxHunger;
+
+            SoundFactory.PlayEffectPackage("FoodBite");
         }
         private void DrainHunger(GameTime gameTime)
         {
