@@ -17,6 +17,8 @@ namespace UIEngine.Classes.StatusStuff
 
         public ManaBar ManaBar { get; set; }
 
+        public HungerBar HungerBar { get; set; }
+
 
         private StackPanel _stackPanel;
         public StatusPanel(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
@@ -47,6 +49,20 @@ namespace UIEngine.Classes.StatusStuff
 
             _stackRow3.AddItem(ManaBar, StackOrientation.Left);
             _stackPanel.Add(_stackRow3);
+
+
+
+            StackRow _stackRow4 = new StackRow(192);
+            _stackRow4.AddSpacer(new Rectangle(0, 0, 64, 16), StackOrientation.Left);
+            _stackPanel.Add(_stackRow4);
+
+            StackRow _stackRow5 = new StackRow(192);
+            HungerBar = new HungerBar(_stackPanel, graphics, content, Position,
+               GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
+            HungerBar.LoadContent();
+
+            _stackRow5.AddItem(HungerBar, StackOrientation.Left);
+            _stackPanel.Add(_stackRow5);
 
         }
 

@@ -55,7 +55,8 @@ namespace EntityEngine.Classes.PlayerStuff
         protected HullBody LightSensor { get; set; }
 
 
-
+        public int MaxHunger => _hungerHandler.MaxHunger;
+        public int CurrentHunger => _hungerHandler.CurrentHunger;
 
 
         public Player(GraphicsDevice graphics, ContentManager content, string name = "playerName") 
@@ -230,6 +231,9 @@ namespace EntityEngine.Classes.PlayerStuff
             Shared.PlayerPosition = Position;
             UI.StatusPanel.HealthBar.SetProgressRatio((float)CurrentHealth / (float)MaxHealth);
             UI.StatusPanel.ManaBar.SetProgressRatio((float)CurrentLumens / (float)MaxLumens);
+
+
+            UI.StatusPanel.HungerBar.SetProgressRatio((float)CurrentHunger / (float)MaxHunger);
             if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Y))
             {
                 //Item should not eject if any part of the ui is hovered
@@ -353,7 +357,6 @@ namespace EntityEngine.Classes.PlayerStuff
             writer.Write(StorageCapacity);
 
             InventoryHandler.Save(writer);
-            StorageContainer.Save(writer);
             _hungerHandler.Save(writer);
             //_lumenHandler.Save(writer);
         }

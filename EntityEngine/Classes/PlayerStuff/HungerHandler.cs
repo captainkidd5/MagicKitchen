@@ -11,13 +11,13 @@ namespace EntityEngine.Classes.PlayerStuff
 {
     internal class HungerHandler : ISaveable
     {
-        public ushort MaxHunger { get; set; } = 100;
-        public ushort CurrentHunger { get; set; } = 100;
+        public byte MaxHunger { get; set; } = 100;
+        public byte CurrentHunger { get; set; } = 100;
 
 
 
-        private static float _baseHungerDrainRate = .5f;
-        private float _currentHungerDrainRate = .5f;
+        private static float _baseHungerDrainRate = 2f;
+        private float _currentHungerDrainRate = 2f;
         private SimpleTimer _hungerRechargeTimer;
 
         public HungerHandler()
@@ -60,8 +60,8 @@ namespace EntityEngine.Classes.PlayerStuff
 
         public void LoadSave(BinaryReader reader)
         {
-            CurrentHunger = reader.ReadUInt16();
-            MaxHunger = reader.ReadUInt16();
+            CurrentHunger = reader.ReadByte();
+            MaxHunger = reader.ReadByte();
         }
 
         public void CleanUp()
