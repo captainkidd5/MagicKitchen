@@ -41,14 +41,14 @@ namespace DataModels.ItemStuff
     }
     public class ItemData
     {
-        public int Id { get; set; }
+        public ushort Id { get; set; }
 
         public string Name { get; set; }
         public string ProperName => Name.Replace("_", " ");
 
         public string Description { get; set; }
 
-        public int FuelValue { get; set; }
+        public byte FuelValue { get; set; }
         public byte FoodValue { get; set; }
 
         public int MaxStackSize { get; set; }

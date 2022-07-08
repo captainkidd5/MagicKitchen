@@ -64,12 +64,13 @@ namespace SpriteEngine.Classes.Animations
                         Paused = true;
                 }
 
-                Position = new Vector2(position.X + frame.XOffSet, position.Y + frame.YOffSet * -1);
             }
             else if(FrameLastFrame != CurrentFrame)
             {
                 ResetSpriteToRestingFrame();
             }
+            Position = new Vector2(position.X + AnimationFrames[CurrentFrame].XOffSet, position.Y + AnimationFrames[CurrentFrame].YOffSet * -1);
+
         }
 
         /// <summary>

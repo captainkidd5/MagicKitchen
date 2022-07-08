@@ -12,7 +12,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
 {
     public class NPCAnimator : Animator
     {
-
+        private AnimatedSprite _currentAnimation;
         public NPCAnimator(AnimatedSprite[] animatedSprites, int? xOffset, int? yOffset)
             : base( xOffset, yOffset)
         {
@@ -25,18 +25,20 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             float entityLayer = SpriteUtility.GetYAxisLayerDepth(position, new Rectangle(0, 0, xOffset * 2, yOffset));
             Position = position;
             bool resetToResting = !isMoving && WasMovingLastFrame;
+
+            _currentAnimation = AnimatedSprites[(int)directionMoving - 1];
             if (resetToResting)
             {
-                AnimatedSprites[(int)directionMoving - 1].ResetToZero(Position, entityLayer);
+                _currentAnimation.ResetToZero(Position, entityLayer);
             }
                 if (isMoving)
             {
-                AnimatedSprites[(int)directionMoving - 1].Update(gameTime, Position);
+                _currentAnimation.Update(gameTime, Position);
 
             }
             else
             {
-                AnimatedSprites[(int)directionMoving - 1].ForceSetPosition(Position);
+                _currentAnimation.ForceSetPosition(Position);
 
             }
 
@@ -49,8 +51,19 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
 
         public override void Draw(SpriteBatch spriteBatch, bool submerged)
         {
+            if(_currentAnimation != null)
+            {
+                if (submerged)
+                    _currentAnimation.SwapSourceRectangle(
+                        new Rectangle(_currentAnimation.SourceRectangle.X, _currentAnimation.SourceRectangle.Y,
+                        _currentAnimation.SourceRectangle.Width, yOffset/2));
+                else
+                    _currentAnimation.SwapSourceRectangle(
+                     new Rectangle(_currentAnimation.SourceRectangle.X, _currentAnimation.SourceRectangle.Y,
+                     _currentAnimation.SourceRectangle.Width, yOffset ));
+                _currentAnimation.Draw(spriteBatch);
 
-          //  AnimatedSprites[(int)Entity.DirectionMoving - 1].Draw(spriteBatch);
+            }
 
         }
     }

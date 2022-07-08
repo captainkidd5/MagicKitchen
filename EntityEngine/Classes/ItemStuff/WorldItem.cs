@@ -30,7 +30,7 @@ namespace EntityEngine.ItemStuff
         public Item Item { get; private set; }
         internal WorldItemState WorldItemState { get; set; }
         public string Name => Item.Name;
-        public int Id => Item.Id;
+        public ushort Id => Item.Id;
         public bool Stackable => Item.Stackable;
         public int MaxStackSize => Item.MaxStackSize;
         //How many items this item represents

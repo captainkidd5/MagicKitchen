@@ -32,7 +32,7 @@ namespace ItemEngine.Classes
         public static Dictionary<string, FlotsamData> FlotsamDictionary { get; private set; }
 
         public static Dictionary<string, ItemData> ItemDictionary { get; private set; }
-        public static Dictionary<int, ItemData> IntItemDictionary { get; private set; }
+        public static Dictionary<ushort, ItemData> IntItemDictionary { get; private set; }
 
 
         public static Texture2D ItemSpriteSheet { get; private set; }
@@ -100,16 +100,16 @@ namespace ItemEngine.Classes
                 return ItemDictionary[newName];
             return null;
         }
-        public static ItemData GetItemData(int id)
+        public static ItemData GetItemData(ushort id)
         {
             if (DoesItemExist(id))
                 return IntItemDictionary[id];
             return null;
         }
-        public static Item GetItem(int id)
+        public static Item GetItem(ushort id)
         {
             if (DoesItemExist(id))
-                return new Item(IntItemDictionary[id]);
+                return new Item(IntItemDictionary[(ushort)id]);
 
             throw new Exception($"Item with id {id} does not exist");
         }
@@ -124,7 +124,7 @@ namespace ItemEngine.Classes
 
         public static bool DoesItemExist(int id)
         {
-            if (IntItemDictionary.ContainsKey(id))
+            if (IntItemDictionary.ContainsKey((ushort)id))
                 return true;
 
             return false;

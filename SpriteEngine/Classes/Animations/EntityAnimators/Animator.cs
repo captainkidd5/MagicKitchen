@@ -54,11 +54,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             
         }
 
-        public virtual void ChangeDirection(Direction newDirection, Vector2 position)
-        {
-
-        }
-
+      
         public virtual void PerformAction(Direction direction, ActionType actionType)
         {
 

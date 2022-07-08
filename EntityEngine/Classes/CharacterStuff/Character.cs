@@ -69,7 +69,11 @@ namespace EntityEngine.Classes.CharacterStuff
 
             }
         }
+        protected override void DrawAnimator(SpriteBatch spriteBatch)
+        {
+            Animator.Draw(spriteBatch, Submerged);
 
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);

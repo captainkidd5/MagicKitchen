@@ -107,7 +107,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 if (placedItem.ItemId > 0)
                 {
 
-                    ItemData itemData = ItemFactory.GetItemData(placedItem.ItemId);
+                    ItemData itemData = ItemFactory.GetItemData(placedItem.ItemId.Value);
                     for (int j = 0; j < placedItem.ItemCount; j++)
                     {
                         StorageContainer.Slots[i].Add(itemData.Name);

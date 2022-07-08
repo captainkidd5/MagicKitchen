@@ -275,8 +275,8 @@ namespace EntityEngine.Classes.PlayerStuff
 
                 Halt(true);
                 DirectionMoving = UI.TalkingDirection;
-                if (UI.WasTalkingWindowJustActivated)
-                    Animator.ChangeDirection(DirectionMoving, Position);
+                //if (UI.WasTalkingWindowJustActivated)
+                //    Animator.FaceDirection(DirectionMoving, Position);
             }
             //else
             //    Resume();

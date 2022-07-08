@@ -41,7 +41,7 @@ namespace ItemEngine.Classes.StorageStuff
         /// <summary>
         /// Blacklisted items may not be placed in this slot
         /// </summary>
-        private bool IsItemBlackListed(int itemId)
+        private bool IsItemBlackListed(ushort itemId)
         {
             return BlacklistedItems != null && BlacklistedItems.Contains(itemId);
         }
@@ -147,7 +147,7 @@ namespace ItemEngine.Classes.StorageStuff
             OnItemChanged();
         }
 
-        protected virtual bool MayPlaceItem(int itemIdToTryToPlace)
+        protected virtual bool MayPlaceItem(ushort itemIdToTryToPlace)
         {
             if (PlaceLocked || IsItemBlackListed(itemIdToTryToPlace))
                 return false;

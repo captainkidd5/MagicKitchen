@@ -80,10 +80,10 @@ namespace EntityEngine.Classes
         private OverheadItemDisplay _overHeadItemDisplay { get; set; }
 
         internal ToolHandler ToolHandler { get; set; }
-        public int MaxHealth { get; protected set; } = 100;
-        public int CurrentHealth { get; protected set; } = 100;
+        public byte MaxHealth { get; protected set; } = 100;
+        public byte CurrentHealth { get; protected set; } = 100;
 
-        public Entity( GraphicsDevice graphics, ContentManager content) : base()
+        public Entity(GraphicsDevice graphics, ContentManager content) : base()
         {
             _graphics = graphics;
             _content = content;
@@ -154,7 +154,7 @@ namespace EntityEngine.Classes
                 MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },
                     new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh, (Category)PhysCat.Grass, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Portal }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this);
 
-            BigSensorCollidesWithCategories = new List<Category>() { (Category)PhysCat.NPC, (Category)PhysCat.Player, (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh};
+            BigSensorCollidesWithCategories = new List<Category>() { (Category)PhysCat.NPC, (Category)PhysCat.Player, (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh };
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { (Category)PhysCat.PlayerBigSensor }, BigSensorCollidesWithCategories,
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
@@ -184,7 +184,7 @@ namespace EntityEngine.Classes
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-       
+
 
         public virtual void Halt(bool forceStop = false)
         {
@@ -250,14 +250,21 @@ namespace EntityEngine.Classes
 
         protected void UseHeldItem() => ToolHandler.UseHeldItem();
 
-        protected void ChargeHeldItem(GameTime gameTime, Vector2 aimPosition ) => ToolHandler.ChargeHeldItem(gameTime, aimPosition);
+        protected void ChargeHeldItem(GameTime gameTime, Vector2 aimPosition) => ToolHandler.ChargeHeldItem(gameTime, aimPosition);
 
         protected virtual void ActivateTool(Tool tool) => ToolHandler.ActivateTool(tool);
 
 
 
- 
 
+        protected virtual void DrawAnimator(SpriteBatch spriteBatch)
+        {
+            Animator.Draw(spriteBatch, Submerged);
+
+
+
+
+        }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             StatusIcon.Draw(spriteBatch);
@@ -266,7 +273,7 @@ namespace EntityEngine.Classes
                 ProgressBarSprite.Draw(spriteBatch);
 
             Animator.Draw(spriteBatch, Submerged);
-
+            DrawAnimator(spriteBatch);
             _overHeadItemDisplay.Draw(spriteBatch);
 
 #if DEBUG
@@ -359,13 +366,13 @@ namespace EntityEngine.Classes
 
         public void PlayStepSoundFromTile()
         {
-          
-                string soundName = Container.TileManager.GetStepSoundFromPosition(Position);
-                if (string.IsNullOrEmpty(soundName))
-                    return;
 
-                SoundModuleManager.PlaySpecificSound(soundName);
-            
+            string soundName = Container.TileManager.GetStepSoundFromPosition(Position);
+            if (string.IsNullOrEmpty(soundName))
+                return;
+
+            SoundModuleManager.PlaySpecificSound(soundName);
+
         }
 
         //Items
@@ -392,7 +399,7 @@ namespace EntityEngine.Classes
             if (tile == null)
                 throw new Exception($"No tile at {tilePoint} at layer {tileLayer.ToString()}!");
             ActionType? actionType = Container.TileManager.TileObjects[tile.Value.GetKey()].Interact(false, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
-            if(actionType != null && IsJumpActionType(actionType.Value))
+            if (actionType != null && IsJumpActionType(actionType.Value))
             {
                 ReactToJumpActionType(actionType.Value);
             }
@@ -424,11 +431,11 @@ namespace EntityEngine.Classes
                     throw new Exception($"Invalid actiontype provided");
             }
 
-            if ( Container.TileManager.IsTypeOfTile("water", Position))
+            if (Container.TileManager.IsTypeOfTile("water", Position))
             {
                 SoundModuleManager.PlayPackage("Splash");
             }
-               
+
         }
         protected void PerformAction(Direction direction, ActionType actionType)
         {
@@ -443,13 +450,11 @@ namespace EntityEngine.Classes
         }
         internal void FaceTowardsOtherEntity(Vector2 otherEntityPos)
         {
-            Direction directionToFace = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos);
-            FaceDirection(directionToFace);
+            DirectionMoving = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos);
         }
 
         public void FaceDirection(Direction directionToFace)
         {
-            Animator.ChangeDirection(directionToFace, Position);
             DirectionMoving = directionToFace;
         }
 

@@ -19,7 +19,7 @@ namespace SpriteEngine.Classes.Animations
         public AnimationFrame[] AnimationFrames { get; protected set; }
         private bool Flip { get; set; }
 
-        protected int? TargetFrame { get; set; }
+        protected byte? TargetFrame { get; set; }
         /// <summary>
         /// If true, animation will play backwards upon reaching end frame, then forwards upon reaching start frame
         /// </summary>
@@ -156,7 +156,7 @@ namespace SpriteEngine.Classes.Animations
         }
         public void SetTargetFrame(int frame, bool force = false)
         {
-            TargetFrame = frame;
+            TargetFrame = (byte)frame;
             if (force)
             {
                 CurrentFrame = (byte)TargetFrame.Value;

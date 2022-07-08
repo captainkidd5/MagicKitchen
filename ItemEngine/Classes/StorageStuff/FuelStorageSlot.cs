@@ -13,7 +13,7 @@ namespace ItemEngine.Classes.StorageStuff
           //  AddBlackListedItem("Mana");
         }
 
-        protected override bool MayPlaceItem(int itemIdToTryToPlace)
+        protected override bool MayPlaceItem(ushort itemIdToTryToPlace)
         {
             if (ItemFactory.GetItemData(itemIdToTryToPlace).FuelValue <= 0)
                 return false;

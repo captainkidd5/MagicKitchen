@@ -26,7 +26,7 @@ namespace ItemEngine.Classes
         public ToolTier ToolTier => _itemData.ToolTier;
         public bool Stackable => MaxStackSize > 1;
         public int MaxStackSize => _itemData.MaxStackSize;
-        public int Id => _itemData.Id;
+        public ushort Id => _itemData.Id;
         public string Name => _itemData.Name;
         public string Description => _itemData.Description;
         public RecipeInfo RecipeInfo => _itemData.RecipeInfo;
@@ -92,7 +92,7 @@ namespace ItemEngine.Classes
 
         public void LoadSave(BinaryReader reader)
         {
-            _itemData = ItemFactory.GetItemData(reader.ReadInt32());
+            _itemData = ItemFactory.GetItemData(reader.ReadUInt16());
             CurrentDurability = reader.ReadUInt16();
 
         }

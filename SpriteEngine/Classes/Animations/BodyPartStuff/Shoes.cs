@@ -145,40 +145,40 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         internal override void Update(GameTime gameTime, Direction direction, Vector2 position, float entityLayer, bool isMoving, float entitySpeed)
         {
             base.Update(gameTime, direction, position, entityLayer,isMoving,entitySpeed);
-            
-            //if(CurrentAction[CurrentDirection].HasFrameChanged() && CurrentAction == WalkingSet)
-            //{
-            //    int stepFrame1 = 0;
-            //    int stepFrame2 = 0;
-            //    switch ((Direction)(CurrentDirection + 1))
-            //    {
-            //        case Direction.Up:
-            //            stepFrame1 = 1;
-            //            stepFrame2 = 4;
-            //            break;
-            //           case Direction.Down:
-            //            stepFrame1 = 1;
-            //            stepFrame2 =4;
-            //            break;
-            //            case Direction.Left:
-            //            stepFrame1 = 1;
-            //            stepFrame2 = 3;
-            //            break;
-            //        case Direction.Right:
-            //            stepFrame1 = 1;
-            //            stepFrame2 = 3;
-            //            break;
 
-            //        default:
-            //            break;
-            //    }
-            //    if(isMoving && (CurrentAction[CurrentDirection].FrameLastFrame == stepFrame1 || CurrentAction[CurrentDirection].FrameLastFrame == stepFrame2))
-            //    {
-            //        Entity.PlayStepSoundFromTile();
+            if (CurrentAction.HasFrameChanged() && CurrentAction == WalkingSet)
+            {
+                int stepFrame1 = 0;
+                int stepFrame2 = 0;
+                switch ((Direction)(CurrentDirection + 1))
+                {
+                    case Direction.Up:
+                        stepFrame1 = 1;
+                        stepFrame2 = 4;
+                        break;
+                    case Direction.Down:
+                        stepFrame1 = 1;
+                        stepFrame2 = 4;
+                        break;
+                    case Direction.Left:
+                        stepFrame1 = 1;
+                        stepFrame2 = 3;
+                        break;
+                    case Direction.Right:
+                        stepFrame1 = 1;
+                        stepFrame2 = 3;
+                        break;
 
-            //    }
-            //}
-            
+                    default:
+                        break;
+                }
+                if (isMoving && (CurrentAction[CurrentDirection].FrameLastFrame == stepFrame1 || CurrentAction[CurrentDirection].FrameLastFrame == stepFrame2))
+                {
+                    Entity.PlayStepSoundFromTile();
+
+                }
+            }
+
         }
 
     }

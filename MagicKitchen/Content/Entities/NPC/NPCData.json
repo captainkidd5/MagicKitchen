@@ -41,6 +41,55 @@
         ]
     }
 ]
+},
+{
+    "Name": "fish",
+    "ObjectType" : "EntityEngine.Classes.NPCStuff.NPC",
+    "ScheduleName": "wander_1",
+    "NPCType" : "Enemy",
+    "SpriteWidth": 16,
+    "SpriteHeight": 16,
+    "AlwaysSubmerged": true,
+    
+    "AnimationInfo": [
+        {
+        "MovementType": "Walk",
+        "MovementDirection": "Up",
+        "Flip" : false,
+    "SpriteY": 23,
+
+        "FrameIndicies":[
+            0,1,2
+        ]
+    },
+    {
+        "MovementType": "Walk",
+        "MovementDirection": "Down",
+        "Flip" : false,
+        "SpriteY": 23,
+        "FrameIndicies":[
+            3,4,5
+        ]
+    },
+    {
+        "MovementType": "Walk",
+        "MovementDirection": "Left",
+        "Flip" : true,
+        "SpriteY": 23,
+        "FrameIndicies":[
+            6,7,8
+        ]
+    },
+    {
+        "MovementType": "Walk",
+        "MovementDirection": "Right",
+        "Flip" : false,
+        "SpriteY": 23,
+        "FrameIndicies":[
+            6,7,8
+        ]
+    }
+]
 }
 ]
 

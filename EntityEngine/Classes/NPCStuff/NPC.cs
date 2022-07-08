@@ -51,7 +51,7 @@ namespace EntityEngine.Classes.NPCStuff
                             new Rectangle(info.SpriteX * 16,
                             info.SpriteY * 16
                             , NPCData.SpriteWidth,
-                            NPCData.SpriteHeight), NPCData.SpriteWidth / 2 * -1, NPCData.SpriteHeight / 2));
+                            NPCData.SpriteHeight), NPCData.SpriteWidth / 2 * -1, NPCData.SpriteHeight,info.Flip));
                     }
                     var spriteArray = sprites.ToArray();
 
@@ -80,7 +80,11 @@ namespace EntityEngine.Classes.NPCStuff
         }
 
 
+        protected override void DrawAnimator(SpriteBatch spriteBatch)
+        {
+            Animator.Draw(spriteBatch, Submerged && !NPCData.AlwaysSubmerged);
 
+        }
 
         public override void Save(BinaryWriter writer)
         {

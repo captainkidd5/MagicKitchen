@@ -25,6 +25,8 @@ namespace DataModels
 
         public int StartingX { get; set; }
         public int StartingY { get; set; }
+        //Set to true if npc will always be drawn in the water only (no need to crop sprite, such as fish)
+        public bool AlwaysSubmerged { get; set; }
         public List<AnimationInfo> AnimationInfo { get; set; }
 
 

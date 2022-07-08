@@ -18,7 +18,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
     {
 
         public int ListIndex { get; set; }
-        public int ItemId { get; private set; }
+        public ushort? ItemId { get; private set; }
 
         public int ItemCount;
         private TileObject _tileTiedTo;
@@ -46,7 +46,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         private void CreateSprite()
         {
-            _worldItemSprite = SpriteFactory.CreateWorldSprite(_position, Item.GetItemSourceRectangle(ItemId),
+            _worldItemSprite = SpriteFactory.CreateWorldSprite(_position, Item.GetItemSourceRectangle(ItemId.Value),
                             ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f), customLayer: _tileTiedTo.TileData.Layer + Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f);
         }
 
@@ -65,7 +65,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             if (item == null)
             {
                 _worldItemSprite = null;
-                ItemId = -1;
+                ItemId = null;
                 ItemCount = 0;
 
                 return;
@@ -88,14 +88,14 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public void LoadSave(BinaryReader reader)
         {
             ListIndex = reader.ReadInt32();
-            ItemId = reader.ReadInt32();
+            ItemId = reader.ReadUInt16();
             ItemCount = reader.ReadInt32();
         }
 
         public void Save(BinaryWriter writer)
         {
             writer.Write(ListIndex);
-            writer.Write(ItemId);
+            writer.Write(ItemId.Value);
             writer.Write(ItemCount);
        
         }

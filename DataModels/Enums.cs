@@ -6,7 +6,7 @@ namespace DataModels
 {
     public static class Enums
     {
-        public enum Direction
+        public enum Direction : byte
         {
             None = 0,
             Up = 1,
@@ -22,7 +22,7 @@ namespace DataModels
             Radial = 2,
         }
 
-        public enum Layers
+        public enum Layers : byte
         {
             background = 0, //zero
             midground = 1, //back
@@ -31,7 +31,7 @@ namespace DataModels
             front = 4 //front
         }
 
-        public enum BodyParts
+        public enum BodyParts : byte
         {
             None = 0,
             Hat = 10,

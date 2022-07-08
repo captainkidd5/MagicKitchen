@@ -43,9 +43,9 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
                         anim.SetFrame(anim.ResetIndex + 1, position);
                     }
 
-                    anim.Update(gameTime, position, isMoving, speedModifier);
 
                 }
+                anim.Update(gameTime, position, isMoving, speedModifier);
 
             }
             else

@@ -84,7 +84,7 @@ namespace EntityEngine.ItemStuff
             int count = reader.ReadInt32();
             for (int i = 0; i < count; i++)
             {
-                int id = reader.ReadInt32();
+                ushort id = reader.ReadUInt16();
                 int itemCount = reader.ReadUInt16();
                 Vector2 pos = Vector2Helper.ReadVector2(reader);
                 WorldItemState worldItemState = (WorldItemState)reader.ReadInt32();
