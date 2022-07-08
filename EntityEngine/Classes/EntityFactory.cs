@@ -27,6 +27,8 @@ namespace EntityEngine.Classes
 
 
         internal static Dictionary<string, NPCData> NPCData { get; set; }
+        //used for npc spawning
+        internal static List<IWeightable> WeightedNPCData { get; set; }
 
         internal static Dictionary<string, List<Schedule>> Schedules;
 
@@ -59,7 +61,7 @@ namespace EntityEngine.Classes
 
                 }
 
-
+            WeightedNPCData = NPCData.Values.ToList().Cast<IWeightable>().ToList();
             basePath = content.RootDirectory + "/Entities/Schedules";
 
 
