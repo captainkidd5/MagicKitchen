@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using EntityEngine.Classes.CharacterStuff;
 using Globals.Classes;
 using Globals.Classes.Chance;
 using Microsoft.Xna.Framework;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiledEngine.Classes;
 
 namespace EntityEngine.Classes.NPCStuff
 {
@@ -14,7 +16,15 @@ namespace EntityEngine.Classes.NPCStuff
     {
         private ushort _spawnRate;
         private byte MaxNPCSpawnValue = 5;
+        private TileManager _tileManager;
+        private NPCContainer _npcContainer;
         public float TotalNPCSpawnValue { get; set; }
+
+        public void Load(NPCContainer npcContainer, TileManager tileManager)
+        {
+            _npcContainer = npcContainer;
+            _tileManager = tileManager;
+        }
         public void Update(GameTime gameTime)
         {
             if (TotalNPCSpawnValue < MaxNPCSpawnValue)
@@ -23,6 +33,12 @@ namespace EntityEngine.Classes.NPCStuff
                 if (Settings.Random.Next(0, _spawnRate) < 2)
                 {
                     NPCData spawnedNPC = GetWeightedSpawn();
+                    TotalNPCSpawnValue += (float)spawnedNPC.SpawnSlotValue / 100;
+                    Vector2? emptyTile = _tileManager.RandomClearPositionWithinRange(Settings.Random);
+                    if (emptyTile != null)
+                    {
+                        _npcContainer.CreateNPC(spawnedNPC.Name, emptyTile.Value, true);
+                    }
                 }
             }
 

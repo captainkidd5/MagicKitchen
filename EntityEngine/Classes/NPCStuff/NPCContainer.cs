@@ -29,10 +29,10 @@ namespace EntityEngine.Classes.CharacterStuff
     public class NPCContainer : EntityContainer, ICommandRegisterable
     {
 
-
+        private MobSpawner _mobSpawner;
         public NPCContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-  
+            _mobSpawner = new MobSpawner();
         }
 
         public void RegisterCommands()
@@ -59,7 +59,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
                 entity.LoadContent(this,null,entity.Name,false);
             }
-
+            _mobSpawner.Load(this, tileManager);
             RegisterCommands();
         }
 
@@ -149,6 +149,7 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            _mobSpawner.Update(gameTime);
         }
     }
 }

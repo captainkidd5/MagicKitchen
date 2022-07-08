@@ -300,6 +300,24 @@ namespace TiledEngine.Classes
 
 
         /// <summary>
+        /// Gets a random clear tile within the viewport
+        /// </summary>
+        public Vector2? RandomClearPositionWithinRange(Random random, int tries = 10)
+        {
+
+            for (int i = 0; i < tries; i++)
+            {
+                int randomX = random.Next(StartX, EndX);
+                int randomY = random.Next(StartY, EndY);
+
+                if (PathGrid.IsClear(randomX, randomY))
+                    return Vector2Helper.GetWorldPositionFromTileIndex(randomX, randomY);
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Change grid value at specified index.
         /// </summary>
         public void UpdateGrid(int indexI, int indexJ, GridStatus newValue)

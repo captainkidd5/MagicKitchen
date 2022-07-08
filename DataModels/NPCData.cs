@@ -14,7 +14,8 @@ namespace DataModels
     public class NPCData : IWeightable
     {
         public int Weight { get; set; }
-        public float SpawnSlotValue { get; set; }
+        //Divided by 10 to get float value in MobSpawner.cs
+        public byte SpawnSlotValue { get; set; }
 
         public string Name { get; set; }
         public string ObjectType { get; set; }

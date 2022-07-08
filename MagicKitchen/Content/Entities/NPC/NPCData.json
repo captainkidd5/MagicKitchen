@@ -1,6 +1,8 @@
 [
 {
     "Name": "boar",
+    "Weight": 20,
+    "SpawnSlotValue": 80,
     "ObjectType" : "EntityEngine.Classes.NPCStuff.NPC",
     "ScheduleName": "wander_1",
     "NPCType" : "Enemy",
@@ -44,6 +46,8 @@
 },
 {
     "Name": "fish",
+    "Weight": 20,
+    "SpawnSlotValue": 80,
     "ObjectType" : "EntityEngine.Classes.NPCStuff.NPC",
     "ScheduleName": "wander_1",
     "NPCType" : "Enemy",
