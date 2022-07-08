@@ -59,8 +59,11 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             {
                 BodyPieces[i].Load(this, entityPosition, scale);
                 BodyPieces[i].ChangeAnimation(ActionType.Walking);
-            }
 
+                if (BodyPieces[i].GetType() == typeof(Shoes))
+                    (BodyPieces[i] as Shoes).OnStepSoundPlayed += OnStepSoundPlayed;
+            }
+            
         }
 
 

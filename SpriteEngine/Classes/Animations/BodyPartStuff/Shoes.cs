@@ -11,9 +11,11 @@ using static Globals.Classes.Settings;
 
 namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
+    public delegate void StepSoundPlayed();
+
     public class Shoes : BodyPiece
     {
-
+        public event StepSoundPlayed? OnStepSoundPlayed;
         public Shoes(int index) : base(index)
         {
             FrameWidth = 16;
@@ -146,19 +148,19 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         {
             base.Update(gameTime, direction, position, entityLayer,isMoving,entitySpeed);
 
-            if (CurrentAction.HasFrameChanged() && CurrentAction == WalkingSet)
+            if (CurrentAction.HasFrameChanged && CurrentAction == WalkingAction)
             {
                 int stepFrame1 = 0;
                 int stepFrame2 = 0;
-                switch ((Direction)(CurrentDirection + 1))
+                switch ((Direction)(CurrentDirection))
                 {
                     case Direction.Up:
                         stepFrame1 = 1;
-                        stepFrame2 = 4;
+                        stepFrame2 = 3;
                         break;
                     case Direction.Down:
                         stepFrame1 = 1;
-                        stepFrame2 = 4;
+                        stepFrame2 = 3;
                         break;
                     case Direction.Left:
                         stepFrame1 = 1;
@@ -172,9 +174,9 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
                     default:
                         break;
                 }
-                if (isMoving && (CurrentAction[CurrentDirection].FrameLastFrame == stepFrame1 || CurrentAction[CurrentDirection].FrameLastFrame == stepFrame2))
+                if (isMoving && (CurrentAction.FrameLastFrame == stepFrame1 || CurrentAction.FrameLastFrame == stepFrame2))
                 {
-                    Entity.PlayStepSoundFromTile();
+                    OnStepSoundPlayed?.Invoke();
 
                 }
             }

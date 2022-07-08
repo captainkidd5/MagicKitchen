@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
+using SpriteEngine.Classes.Animations.BodyPartStuff;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -54,7 +55,12 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             
         }
 
-      
+
+        public event StepSoundPlayed? SoundPlayed;
+        public virtual void OnStepSoundPlayed()
+        {
+            SoundPlayed?.Invoke();
+        }
         public virtual void PerformAction(Direction direction, ActionType actionType)
         {
 

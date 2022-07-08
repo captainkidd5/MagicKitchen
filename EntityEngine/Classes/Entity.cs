@@ -146,6 +146,8 @@ namespace EntityEngine.Classes
         {
             Animator = animator;
             Animator.Load(SoundModuleManager, Position);
+
+            Animator.SoundPlayed += PlayStepSoundFromTile;
         }
 
         protected override void CreateBody(Vector2 position)
