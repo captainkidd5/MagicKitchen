@@ -76,6 +76,11 @@
    <property name="newSource" value="0,-16,32,32"/>
   </properties>
  </tile>
+ <tile id="577">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
  <tile id="601">
   <properties>
    <property name="newSource" value="-16,-80,48,96"/>
@@ -105,6 +110,11 @@
  <tile id="775">
   <properties>
    <property name="newSource" value="0,-16,32,32"/>
+  </properties>
+ </tile>
+ <tile id="777">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
  <tile id="833">
@@ -206,6 +216,22 @@
    <frame tileid="775" duration="800"/>
    <frame tileid="575" duration="800"/>
    <frame tileid="775" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="977">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <ellipse/>
+   </object>
+  </objectgroup>
+  <animation>
+   <frame tileid="977" duration="800"/>
+   <frame tileid="777" duration="800"/>
+   <frame tileid="577" duration="800"/>
+   <frame tileid="777" duration="800"/>
   </animation>
  </tile>
  <tile id="1101">

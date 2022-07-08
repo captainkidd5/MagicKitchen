@@ -3,6 +3,7 @@ using Globals.Classes;
 using Globals.Classes.Console;
 using IOEngine.Classes;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
 using System;
@@ -43,6 +44,7 @@ namespace SoundEngine.Classes.SongStuff
         }
 
         private static SongPackage _currentSong;
+        private static SoundEffectInstance _instance; 
 
         private static List<SongPackage> s_currentPlayList;
 
@@ -107,20 +109,12 @@ namespace SoundEngine.Classes.SongStuff
 
             return pkg;
         }
-        public static void SwitchSong(string songName)
-        {
-            if ((_currentSong != null && _currentSong.Name != songName) || _currentSong == null)
-            {
-                _currentSong = GetSongPackage(songName);
-                s_fadingOut = true;
-                s_playOnSwitch = true;
 
-            }
-        }
 
         private static void GetNextSongInPlaylist()
         {
-
+            //if (_instance != null)
+            //    throw new Exception($"Instance already playing");
 
             if (s_currentPlayList.Count > s_minSongsBeforeRepeat)
             {
@@ -147,15 +141,17 @@ namespace SoundEngine.Classes.SongStuff
             {
                 _currentSong = s_currentPlayList[0];
             }
-
-
+            if(_instance != null)
+            _instance.Stop();
+            _instance = _currentSong.Song.CreateInstance();
+            _instance.Play();
 
         }
 
         private static void Stop(bool immediate = false)
         {
             if (immediate)
-                MediaPlayer.Stop();
+                _instance.Stop();
             else
                 s_fadingOut = true;
         }
@@ -164,7 +160,7 @@ namespace SoundEngine.Classes.SongStuff
         {
 
             if (!Muted)
-                MediaPlayer.Volume = MusicVolume;
+                _instance.Volume = MusicVolume;
 
 
             if (s_fadingIn)
@@ -176,13 +172,16 @@ namespace SoundEngine.Classes.SongStuff
                 DecreaseVolume(gameTime);
             }
 
-            if (DidSongFinish())
+            if (_instance == null)
             {
                 PlayNextSongInPlaylist();
             }
 
-            if (MediaPlayer.State == MediaState.Stopped && _currentSong != null)
-                MediaPlayer.Play(_currentSong.Song);
+            //if(_instance.State == SoundState.Stopped)
+
+
+            //if (MediaPlayer.State == MediaState.Stopped && _currentSong != null)
+            //    MediaPlayer.Play(_currentSong.Song);
 
         }
 
@@ -197,12 +196,7 @@ namespace SoundEngine.Classes.SongStuff
         {
             PlayNextSongInPlaylist();
         }
-        private static bool DidSongFinish()
-        {
-            if (MediaPlayer.PlayPosition.TotalSeconds >= (_currentSong.Song.Duration.TotalSeconds - 1))
-                return true;
-            return false;
-        }
+ 
 
         private static void DecreaseVolume(GameTime gameTime)
         {
@@ -220,7 +214,7 @@ namespace SoundEngine.Classes.SongStuff
             MusicVolume += (float)gameTime.ElapsedGameTime.TotalMilliseconds * FadeRate;
             if (s_playOnSwitch)
             {
-                MediaPlayer.Play(_currentSong.Song);
+                _instance.Play();
                 s_playOnSwitch = false;
             }
             if (MusicVolume >= 1f)

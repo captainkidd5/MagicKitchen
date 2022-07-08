@@ -2,36 +2,24 @@
 <XnaContent xmlns:ns="Microsoft.Xna.Framework">
     <Asset Type="System.Collections.Generic.List[DataModels.SoundStuff.SongPackage]">
         <Item>
-            <Name>FileSelect</Name>
+            <Name>NightTimeAmbience</Name>
             <ViableStages>
                 <Item>MainMenu-SaveMenu</Item>
-            </ViableStages>
-            <LocalPath>MainMenu/FileSelect</LocalPath>
-        </Item>
-         <Item>
-            <Name>MainMenu</Name>
-            <ViableStages>
                 <Item>MainMenu-Outer</Item>
-            </ViableStages>
-            <LocalPath>MainMenu/MainMenu</LocalPath>
-        </Item>
-         <Item>
 
-            <Name>TitleTheme</Name>
-            <ViableStages>
-                <Item>MainMenu-Outer</Item>
             </ViableStages>
-            <LocalPath>MainMenu/TitleTheme</LocalPath>
+            <LocalPath>MainMenu/NightTimeAmbience</LocalPath>
         </Item>
+
 
         <Item>
 
-            <Name>WarmDay</Name>
+            <Name>Pourous</Name>
             <ViableStages>
                 <Item>LullabyTown</Item>
                 <Item>Town</Item>
             </ViableStages>
-            <LocalPath>OverWorld/WarmDay</LocalPath>
+            <LocalPath>OverWorld/Pourous</LocalPath>
         </Item>
      
     </Asset>
