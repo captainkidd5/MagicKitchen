@@ -77,7 +77,7 @@ namespace TiledEngine.Classes.TileAddons
         }
         public override void CleanUp()
         {
-            CleanGrid();
+            //CleanGrid();
 
             base.CleanUp();
         }
