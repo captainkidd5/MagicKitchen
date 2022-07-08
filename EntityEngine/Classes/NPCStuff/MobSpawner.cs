@@ -33,11 +33,13 @@ namespace EntityEngine.Classes.NPCStuff
                 if (Settings.Random.Next(0, _spawnRate) < 2)
                 {
                     NPCData spawnedNPC = GetWeightedSpawn();
-                    TotalNPCSpawnValue += (float)spawnedNPC.SpawnSlotValue / 100;
-                    Vector2? emptyTile = _tileManager.RandomClearPositionWithinRange(Settings.Random);
+                    string requiredTileType = spawnedNPC.AlwaysSubmerged ? "water" : "land";
+                    Vector2? emptyTile = _tileManager.RandomClearPositionWithinRange(Settings.Random,tileType: requiredTileType);
                     if (emptyTile != null)
                     {
                         _npcContainer.CreateNPC(spawnedNPC.Name, emptyTile.Value, true);
+                        TotalNPCSpawnValue += (float)spawnedNPC.SpawnSlotValue / 100;
+
                     }
                 }
             }

@@ -302,7 +302,7 @@ namespace TiledEngine.Classes
         /// <summary>
         /// Gets a random clear tile within the viewport
         /// </summary>
-        public Vector2? RandomClearPositionWithinRange(Random random, int tries = 10)
+        public Vector2? RandomClearPositionWithinRange(Random random, int tries = 10, string tileType = null)
         {
 
             for (int i = 0; i < tries; i++)
@@ -311,7 +311,16 @@ namespace TiledEngine.Classes
                 int randomY = random.Next(StartY, EndY);
 
                 if (PathGrid.IsClear(randomX, randomY))
+                {
+                    Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(randomX, randomY);
+                    if (tileType != null)
+                    {
+                        if (!IsTypeOfTile(tileType, tilePos))
+                            return null;
+                    }
                     return Vector2Helper.GetWorldPositionFromTileIndex(randomX, randomY);
+
+                }
             }
 
             return null;
