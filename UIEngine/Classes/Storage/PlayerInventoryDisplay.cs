@@ -94,7 +94,7 @@ namespace UIEngine.Classes.Storage
         {
             base.CheckOveriddenLogic(gameTime);
 
-            if (Controls.WasGamePadButtonTapped(GamePadActionType.Y) || Controls.WasKeyTapped(Keys.Tab))
+            if (Controls.WasGamePadButtonTapped(GamePadActionType.Y) || Controls.WasKeyTapped(Keys.E))
             {
                 ToggleOpen();
             }

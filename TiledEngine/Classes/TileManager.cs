@@ -214,6 +214,20 @@ namespace TiledEngine.Classes
             }
             TileObjects.Clear();
         }
+        public bool IsWithinUpdateRange(Vector2 entityPosition)
+        {
+
+            Point point = Vector2Helper.GetTileIndexPosition(entityPosition);
+            if (point.X >= StartX && point.X < EndX)
+            {
+                if (point.Y >= StartY && point.Y < EndY)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool IsWithinUpdateRange(TileData tileData)
         {
             if (tileData.X >= StartX && tileData.X < EndX)

@@ -25,7 +25,7 @@ namespace ItemEngine.Classes
         public ItemType ItemType => _itemData.ItemType;
         public ToolTier ToolTier => _itemData.ToolTier;
         public bool Stackable => MaxStackSize > 1;
-        public int MaxStackSize => _itemData.MaxStackSize;
+        public ushort MaxStackSize => _itemData.MaxStackSize;
         public ushort Id => _itemData.Id;
         public string Name => _itemData.Name;
         public string Description => _itemData.Description;

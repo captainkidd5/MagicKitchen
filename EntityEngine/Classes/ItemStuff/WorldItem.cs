@@ -58,7 +58,10 @@ namespace EntityEngine.ItemStuff
         {
 
         }
-
+        public bool InTileManagerUpdateRange()
+        {
+            return _tileManager.IsWithinUpdateRange(Position);
+        }
         public void LoadSave(BinaryReader reader)
         {
             throw new NotImplementedException();
@@ -155,6 +158,8 @@ namespace EntityEngine.ItemStuff
                 FlaggedForRemoval = true;
 
             ClearGadgets();
+            Shadow = null;
+
         }
 
         public void ChangeState(WorldItemState worldItemState)

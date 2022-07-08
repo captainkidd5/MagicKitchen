@@ -51,9 +51,9 @@ namespace DataModels.ItemStuff
         public byte FuelValue { get; set; }
         public byte FoodValue { get; set; }
 
-        public int MaxStackSize { get; set; }
+        public ushort MaxStackSize { get; set; }
 
-        public int Price { get; set; }
+        public ushort Price { get; set; }
 
 
         public RecipeInfo RecipeInfo { get; set; }
