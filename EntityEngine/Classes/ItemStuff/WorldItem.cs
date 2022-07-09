@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace EntityEngine.ItemStuff
@@ -102,13 +103,13 @@ namespace EntityEngine.ItemStuff
                 case WorldItemState.None:
                     ItemBehaviour = null;
                     Sprite.SwapSourceRectangle(new Rectangle(Sprite.SourceRectangle.X, Sprite.SourceRectangle.Y, 16, 16));
-                    Shadow = new Shadow(CenteredPosition, ShadowSize.Small, ItemFactory.ItemSpriteSheet);
+                    Shadow = new Shadow(ShadowType.Item, CenteredPosition, ShadowSize.Small, ItemFactory.ItemSpriteSheet);
                     Sprite.CustomLayer = null;
                     break;
                 case WorldItemState.Bouncing:
                     ItemBehaviour = new BouncingItemBehaviour(this, jettisonDirection);
                     Sprite.CustomLayer = Sprite.GetYAxisLayerDepth();
-                    Shadow = new Shadow(CenteredPosition, ShadowSize.Small, ItemFactory.ItemSpriteSheet);
+                    Shadow = new Shadow(ShadowType.Item, CenteredPosition, ShadowSize.Small, ItemFactory.ItemSpriteSheet);
 
 
                     break;

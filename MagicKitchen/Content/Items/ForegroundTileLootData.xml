@@ -30,7 +30,7 @@
 
         </Item>
         <Item>
-            <TileId>859</TileId>
+            <TileId>940</TileId>
             <Loot>
             <Item Type="DataModels.LootData">
             <ItemName>Chest</ItemName>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static DataModels.Enums;
 
 namespace DataModels
 {
@@ -17,6 +18,7 @@ namespace DataModels
         //Divided by 10 to get float value in MobSpawner.cs
         public byte SpawnSlotValue { get; set; }
 
+        public ShadowSize ShadowSize { get; set; }
         public string Name { get; set; }
         public string ObjectType { get; set; }
         public string ScheduleName { get; set; }

@@ -10,6 +10,7 @@ using PhysicsEngine.Classes.Pathfinding;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using SpriteEngine.Classes.Animations.EntityAnimations;
+using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes;
-
+using static DataModels.Enums;
 
 namespace EntityEngine.Classes.NPCStuff
 {
@@ -25,6 +26,7 @@ namespace EntityEngine.Classes.NPCStuff
     {
         protected NPCData NPCData;
 
+        public Shadow Shadow { get; set; }
 
         public NPC( GraphicsDevice graphics, ContentManager content) :
             base(graphics, content)
@@ -40,7 +42,10 @@ namespace EntityEngine.Classes.NPCStuff
                 NPCData = EntityFactory.NPCData[name];
                 Name = NPCData.Name;
                 ScheduleName = NPCData.ScheduleName;
-
+                if(NPCData.ShadowSize > Enums.ShadowSize.None)
+                {
+                    Shadow = new Shadow(ShadowType.NPC,CenteredPosition, NPCData.ShadowSize, EntityFactory.NPCSheet);
+                }
                 if (standardAnimator)
                 {
                     List<AnimatedSprite> sprites = new List<AnimatedSprite>();
@@ -79,7 +84,20 @@ namespace EntityEngine.Classes.NPCStuff
             
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if (!Submerged && Shadow != null)
+                Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y + 2));
+        }
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            if (!Submerged &&  Shadow != null)
+                Shadow.Draw(spriteBatch);
+
+        }
         protected override void DrawAnimator(SpriteBatch spriteBatch)
         {
             Animator.Draw(spriteBatch, Submerged && !NPCData.AlwaysSubmerged);

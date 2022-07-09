@@ -41,7 +41,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
             AnimationFrame[] walkDownFrames = new AnimationFrame[]
             {
-               new AnimationFrame(3, 0, -1, WalkDownAnimationDuration),
+               new AnimationFrame(3, 0, 0, WalkDownAnimationDuration),
 
               new AnimationFrame(4, 0, 0, WalkDownAnimationDuration),
                 new AnimationFrame(5, 0, 0, WalkDownAnimationDuration),

@@ -6,6 +6,7 @@
     "ObjectType" : "EntityEngine.Classes.NPCStuff.NPC",
     "ScheduleName": "wander_1",
     "NPCType" : "Enemy",
+    "ShadowSize":"Small",
     "SpriteWidth": 48,
     "SpriteHeight": 32,
     
@@ -51,6 +52,7 @@
     "ObjectType" : "EntityEngine.Classes.NPCStuff.NPC",
     "ScheduleName": "wander_1",
     "NPCType" : "Enemy",
+
     "SpriteWidth": 16,
     "SpriteHeight": 16,
     "AlwaysSubmerged": true,
