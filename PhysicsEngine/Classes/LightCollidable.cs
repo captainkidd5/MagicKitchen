@@ -22,7 +22,10 @@ namespace PhysicsEngine.Classes
             _lightSprite = SpriteFactory.CreateLight(Position, offSet, lightType, scale);
         }
 
-        
+        public void ResizeLight(Vector2 newScale)
+        {
+            _lightSprite.Sprite.SwapScale(newScale);
+        }
         protected override void CreateBody(Vector2 position)
         {
             base.CreateBody(position);

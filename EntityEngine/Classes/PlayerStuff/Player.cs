@@ -95,10 +95,11 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
-            _lumenHandler.Load();
-            _hungerHandler.Load();
+            _hungerHandler.Load(this);
 
             AddLight(LightType.Warm, new Vector2(0, 0),false, 2);
+            _lumenHandler.Load(LightsCollidable[0]);
+
 
         }
         /// <summary>
@@ -107,6 +108,14 @@ namespace EntityEngine.Classes.PlayerStuff
         protected override void DestructionBehaviour()
         {
 
+
+
+            UI.DropCurtain(UI.CurtainDropRate, Die);
+
+        }
+        private void Die()
+        {
+            UI.RaiseCurtain(UI.CurtainDropRate);
             CurrentHealth = (byte)((float)MaxHealth / 2);
             _hungerHandler.CurrentHunger = (byte)((float)_hungerHandler.MaxHunger / 2);
             _lumenHandler.CurrentLumens = (byte)((float)_lumenHandler.MaxLumens / 2);

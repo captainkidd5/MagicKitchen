@@ -22,11 +22,13 @@ namespace EntityEngine.Classes.PlayerStuff
         private float _currentHungerDrainRate = 2f;
         private SimpleTimer _hungerRechargeTimer;
 
+        private Player _player;
         public HungerHandler()
         {
         }
-        public void Load()
+        public void Load(Player player)
         {
+            _player = player;
             _hungerRechargeTimer = new SimpleTimer(_currentHungerDrainRate);
 
         }
@@ -50,14 +52,21 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         private void DrainHunger(GameTime gameTime)
         {
-            if (CurrentHunger > 0)
-            {
-
+   
                 if (_hungerRechargeTimer.Run(gameTime))
                 {
-                    CurrentHunger--;
+                    if (CurrentHunger > 0)
+                    {
+
+                        CurrentHunger--;
+                    }
+                    else
+                    {
+                        _player.TakeDamage(5);
+
+                    }
                 }
-            }
+    
 
         }
 

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tainicom.Aether.Physics2D.Collision.Shapes;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -15,6 +16,8 @@ namespace EntityEngine.Classes.PlayerStuff
         public int MaxLumens { get; set; } = 100;
         public int CurrentLumens { get; set; } = 100;
 
+        public int LumensLastFrame { get; set; } = 100;
+
         protected HullBody LightSensor { get; set; }
 
         public bool Illuminated { get;  set; }
@@ -22,14 +25,15 @@ namespace EntityEngine.Classes.PlayerStuff
         private static float _baseLumenRechargeRate = .5f;
         private float _lumenRechargeRate = .5f;
         private SimpleTimer _lumenRechargeTimer;
-        
+        private LightCollidable _lightCollidable;
         public LumenHandler(HullBody lightSensor)
         {
             LightSensor = lightSensor;
         }
-        public void Load()
+        public void Load(LightCollidable lightCollidable)
         {
             _lumenRechargeTimer = new SimpleTimer(_lumenRechargeRate);
+            _lightCollidable = lightCollidable;
 
         }
         /// <summary>
@@ -39,8 +43,12 @@ namespace EntityEngine.Classes.PlayerStuff
         /// <param name="gameTime"></param>
         public void HandleLumens(GameTime gameTime)
         {
+            if(LumensLastFrame != CurrentLumens)
+            {
+                ResizeLightBody();
+            }
+            LumensLastFrame = CurrentLumens;
 
-         
             if (Illuminated)
             {
                 RechargeLumens(gameTime);
@@ -52,7 +60,12 @@ namespace EntityEngine.Classes.PlayerStuff
             Illuminated = false;
 
         }
+        private void ResizeLightBody()
+        {
+            float newVal = (float)CurrentLumens / (float)MaxLumens * 10;
+            _lightCollidable.ResizeLight(new Vector2(newVal, newVal));
 
+        }
         private void RechargeLumens(GameTime gameTime)
         {
             if (CurrentLumens < MaxLumens)
