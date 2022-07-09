@@ -18,31 +18,41 @@ namespace SpriteEngine.Classes.ShadowStuff
     }
     public class Shadow
     {
-        private static Rectangle s_itemSmallRectangle = new Rectangle(32, 48, 16, 16);
-
-        private static Rectangle s_npcSmallRectangle = new Rectangle(0, 384, 16, 16);
-        private static Rectangle s_npcMediumRectangle = new Rectangle(16, 384, 16, 16);
 
 
+
+        private static Rectangle[] s_itemRectangles = new Rectangle[]
+        {
+            new Rectangle(32, 48, 16, 16)
+        };
+
+        private static Rectangle[] s_npcRectangles = new Rectangle[]
+        {
+            new Rectangle(0, 384, 16, 16),
+            new Rectangle(16, 384, 16, 16),
+            new Rectangle(32, 384, 32, 16),
+
+        };
 
         public Sprite Sprite { get; set; }
         
         public Shadow(ShadowType shadowType, Vector2 position, ShadowSize shadowSize, Texture2D texture)
         {
-            Rectangle rectangleToUse = s_itemSmallRectangle;
+            
             switch (shadowType)
             {
                 case ShadowType.None:
                     throw new Exception("$Must provide shadowtype");
                 case ShadowType.Item:
-                    rectangleToUse = s_itemSmallRectangle;
+                    Sprite = SpriteFactory.CreateWorldSprite(position, s_itemRectangles[(int)shadowSize - 1], texture);
+
                     break;
                 case ShadowType.NPC:
-                    rectangleToUse = s_npcSmallRectangle;
+                    Sprite = SpriteFactory.CreateWorldSprite(position, s_npcRectangles[(int)shadowSize - 1], texture);
+
 
                     break;
             }
-            Sprite = SpriteFactory.CreateWorldSprite(position, rectangleToUse, texture);
         }
         public void Update(GameTime gameTime, Vector2 position)
         {

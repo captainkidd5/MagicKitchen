@@ -6,7 +6,7 @@
     "ObjectType" : "EntityEngine.Classes.NPCStuff.NPC",
     "ScheduleName": "wander_1",
     "NPCType" : "Enemy",
-    "ShadowSize":"Small",
+    "ShadowSize":"Medium",
     "SpriteWidth": 48,
     "SpriteHeight": 32,
     
