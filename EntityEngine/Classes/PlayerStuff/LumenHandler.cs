@@ -20,18 +20,20 @@ namespace EntityEngine.Classes.PlayerStuff
 
         protected HullBody LightSensor { get; set; }
 
-        public bool Illuminated { get;  set; }
+        public bool Illuminated { get; set; }
 
         private static float _baseLumenRechargeRate = .5f;
         private float _lumenRechargeRate = .5f;
         private SimpleTimer _lumenRechargeTimer;
         private LightCollidable _lightCollidable;
+        private Player _player;
         public LumenHandler(HullBody lightSensor)
         {
             LightSensor = lightSensor;
         }
-        public void Load(LightCollidable lightCollidable)
+        public void Load(Player player, LightCollidable lightCollidable)
         {
+            _player = player;
             _lumenRechargeTimer = new SimpleTimer(_lumenRechargeRate);
             _lightCollidable = lightCollidable;
 
@@ -43,7 +45,7 @@ namespace EntityEngine.Classes.PlayerStuff
         /// <param name="gameTime"></param>
         public void HandleLumens(GameTime gameTime)
         {
-            if(LumensLastFrame != CurrentLumens)
+            if (LumensLastFrame != CurrentLumens)
             {
                 ResizeLightBody();
             }
@@ -81,14 +83,20 @@ namespace EntityEngine.Classes.PlayerStuff
 
         private void DrainLumens(GameTime gameTime)
         {
-            if (CurrentLumens > 0)
-            {
 
-                if (_lumenRechargeTimer.Run(gameTime))
+
+            if (_lumenRechargeTimer.Run(gameTime))
+            {
+                if (CurrentLumens > 0)
                 {
                     CurrentLumens--;
                 }
+                else
+                {
+                    _player.TakeDamage(5);
+                }
             }
+
 
         }
 
@@ -111,7 +119,7 @@ namespace EntityEngine.Classes.PlayerStuff
             throw new NotImplementedException();
         }
 
-        public void SetToDefault( )
+        public void SetToDefault()
         {
             CurrentLumens = MaxLumens;
             _lumenRechargeRate = _baseLumenRechargeRate;

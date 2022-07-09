@@ -97,8 +97,8 @@ namespace EntityEngine.Classes.PlayerStuff
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
             _hungerHandler.Load(this);
 
-            AddLight(LightType.Warm, new Vector2(0, 0),false, 2);
-            _lumenHandler.Load(LightsCollidable[0]);
+            AddLight(LightType.Warm, new Vector2(0, -12),false, 2);
+            _lumenHandler.Load(this, LightsCollidable[0]);
 
 
         }
