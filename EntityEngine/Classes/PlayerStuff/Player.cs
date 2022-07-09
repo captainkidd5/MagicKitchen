@@ -90,6 +90,8 @@ namespace EntityEngine.Classes.PlayerStuff
             CommandConsole.RegisterCommand("tp", "teleports player to mouse position", TpCommand);
             CommandConsole.RegisterCommand("ra", "Reloads player animations", ReloadAnimationsCommmand);
             CommandConsole.RegisterCommand("pa", "Plays specified animation", PlayAnimationCommand);
+            CommandConsole.RegisterCommand("takeDmg", "Damages player by amount", TakeDamageCommand);
+
 
 
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
@@ -99,7 +101,18 @@ namespace EntityEngine.Classes.PlayerStuff
             AddLight(LightType.Warm, new Vector2(0, 0),false, 2);
 
         }
+        /// <summary>
+        /// When player dies, do this
+        /// </summary>
+        protected override void DestructionBehaviour()
+        {
 
+            CurrentHealth = (byte)((float)MaxHealth / 2);
+            _hungerHandler.CurrentHunger = (byte)((float)_hungerHandler.MaxHunger / 2);
+            _lumenHandler.CurrentLumens = (byte)((float)_lumenHandler.MaxLumens / 2);
+            Move(Vector2Helper.GetWorldPositionFromTileIndex(128, 132));
+
+        }
         protected override void LoadWardrobe()
         {
             PlayerAvatarData avatarData = SaveLoadManager.CurrentSave.PlayerAvatarData;
@@ -130,6 +143,11 @@ namespace EntityEngine.Classes.PlayerStuff
                 Animator.PerformAction(DirectionMoving, action);
 
             }
+        }
+
+        private void TakeDamageCommand(string[] args)
+        {
+            TakeDamage(int.Parse(args[0]));
         }
         protected override void CreateBody(Vector2 position)
         {

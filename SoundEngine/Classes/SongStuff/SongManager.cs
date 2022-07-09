@@ -32,16 +32,8 @@ namespace SoundEngine.Classes.SongStuff
                 s_musicVolume = value;
             }
         }
-        private static bool muted;
-        public static bool Muted
-        {
-            get { return muted; }
-            set
-            {
-                muted = value;
-                if (muted) { MediaPlayer.Volume = 0f; }
-            }
-        }
+
+        public static bool Muted { get; set; }
 
         private static SongPackage _currentSong;
         private static SoundEffectInstance _instance; 
@@ -158,8 +150,8 @@ namespace SoundEngine.Classes.SongStuff
 
         public static void Update(GameTime gameTime)
         {
-
-            if (!Muted)
+            if (Muted)
+                MusicVolume = 0f;
                 _instance.Volume = MusicVolume;
 
 

@@ -36,7 +36,7 @@ namespace EntityEngine.Classes
                     new Arms(0),
                     new Eyes(0),
                     new Head(0),
-                      new Hair(1),
+                      new Hair(0),
 
            };
             Animator = new CustomizeableAnimator(bodyPieces);

@@ -337,7 +337,7 @@
             "Description" : "Stores Items",
             "MaxStackSize": 1,
             "Price": 1,
-            "PlacedItemGID" : 859, 
+            "PlacedItemGID" : 940, 
             "RecipeInfo": 
             {
             "CraftAction": "Craft",

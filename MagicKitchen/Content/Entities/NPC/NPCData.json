@@ -47,7 +47,7 @@
 {
     "Name": "fish",
     "Weight": 20,
-    "SpawnSlotValue": 80,
+    "SpawnSlotValue": 40,
     "ObjectType" : "EntityEngine.Classes.NPCStuff.NPC",
     "ScheduleName": "wander_1",
     "NPCType" : "Enemy",

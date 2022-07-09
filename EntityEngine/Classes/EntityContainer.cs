@@ -47,11 +47,14 @@ namespace EntityEngine.Classes
 
         public virtual void Update(GameTime gameTime)
         {
-            foreach (Entity entity in Entities)
+            for(int i= Entities.Count - 1; i >= 0; i--)
             {
+                Entity entity = Entities[i];
                 entity.Update(gameTime);
-
+                if (entity.FlaggedForRemoval)
+                    Entities.RemoveAt(i);
             }
+  
 
             foreach(Entity entity in EntitiesToAdd)
                 Entities.Add(entity);

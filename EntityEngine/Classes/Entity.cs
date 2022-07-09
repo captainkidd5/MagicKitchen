@@ -83,6 +83,8 @@ namespace EntityEngine.Classes
         public byte MaxHealth { get; protected set; } = 100;
         public byte CurrentHealth { get; protected set; } = 100;
 
+        public bool FlaggedForRemoval { get; set; }
+
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
         {
             _graphics = graphics;
@@ -95,6 +97,22 @@ namespace EntityEngine.Classes
 
             InventoryHandler = new InventoryHandler(StorageCapacity);
 
+        }
+
+
+        public void TakeDamage(int amt)
+        {
+            int newHealth = CurrentHealth - amt;
+            if (newHealth <= 0)
+                DestructionBehaviour();
+            else
+                CurrentHealth = (byte)newHealth;
+
+        }
+
+        protected virtual void DestructionBehaviour()
+        {
+            FlaggedForRemoval = true;
         }
         public void SelectItem(Item item) => _overHeadItemDisplay.SelectItem(item, Position);
         public bool IsProgressComplete() => ProgressBarSprite.Done;

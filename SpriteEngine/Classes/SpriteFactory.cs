@@ -17,6 +17,8 @@ namespace SpriteEngine.Classes
 {
     public static class SpriteFactory 
     {
+
+        public static Color SubmergedColor = new Color(74, 92, 133);
         private static GraphicsDevice Graphics { get; set; }
 
         private static ContentManager Content { get; set; }
