@@ -48,7 +48,7 @@ namespace DataModels
         public enum EquipmentType
         {
             None =0,
-            Head = 1,
+            Helmet = 1,
             Torso = 2,
             Legs = 3,
             Boots = 4

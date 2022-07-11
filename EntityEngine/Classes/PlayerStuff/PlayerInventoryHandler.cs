@@ -8,7 +8,7 @@ using UIEngine.Classes;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
-    internal class PlayerInventoryHandler : InventoryHandler
+    internal class PlayerInventoryHandler : HumanoidInventoryHandler
     {
         public override Item HeldItem => UI.PlayerCurrentSelectedItem;
         public override int HeldItemCount => throw new NotImplementedException();

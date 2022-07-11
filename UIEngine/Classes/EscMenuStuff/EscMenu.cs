@@ -55,7 +55,7 @@ namespace UIEngine.Classes.EscMenuStuff
         CraftingMenu _craftingMenu;
         private Button _craftingTabButton;
 
-        EquipmentMenu _equipmentMenu;
+        public EquipmentMenu EquipmentMenu;
         private Button _equipmentTabButton;
 
         Dictionary<MenuSection, Button> _tabPairs;
@@ -131,7 +131,7 @@ namespace UIEngine.Classes.EscMenuStuff
 
             _equipmentTabButton = new Button(_tabsStackPanel, graphics, content, Position,
                 GetLayeringDepth(UILayeringDepths.Medium), _unclickedTabRectangle,
-                new Action(() => { SwapActivePage(_equipmentMenu); }), hoverTransparency: true,
+                new Action(() => { SwapActivePage(EquipmentMenu); }), hoverTransparency: true,
                 foregroundSprite: equipmentSprite);
             _equipmentTabButton.SetForegroundSpriteOffSet(_tabForgroundOffset);
             stackRow1.AddItem(_equipmentTabButton, StackOrientation.Left);
@@ -152,8 +152,9 @@ namespace UIEngine.Classes.EscMenuStuff
             _craftingMenu = new CraftingMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             ChildSections.Remove(_craftingMenu);
 
-            _equipmentMenu = new EquipmentMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-            ChildSections.Remove(_equipmentMenu);
+            EquipmentMenu = new EquipmentMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            EquipmentMenu.LoadContent();
+            ChildSections.Remove(EquipmentMenu);
 
         }
         public override void LoadContent()
@@ -176,6 +177,8 @@ namespace UIEngine.Classes.EscMenuStuff
             _tabPairs = new Dictionary<MenuSection, Button>();
             _tabPairs.Add(_craftingMenu, _craftingTabButton);
             _tabPairs.Add(_escPrimary, _escPrimaryTabButton);
+            _tabPairs.Add(EquipmentMenu, _equipmentTabButton);
+
             CloseButton = UI.ButtonFactory.CreateCloseButton(this, TotalBounds, GetLayeringDepth(UILayeringDepths.Medium),
                 new Action(() =>
                 {

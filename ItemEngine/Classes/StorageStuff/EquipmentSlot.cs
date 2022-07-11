@@ -9,9 +9,10 @@ namespace ItemEngine.Classes.StorageStuff
 {
     public class EquipmentSlot : StorageSlot
     {
-        public EquipmentType AllowedEquipment { get; set; }
-        public EquipmentSlot()
+        public EquipmentType AllowedEquipmentType { get; set; }
+        public EquipmentSlot(EquipmentType allowedEquipmentType)
         {
+            AllowedEquipmentType = allowedEquipmentType;
         }
         /// <summary>
         /// Must match this slots equipment type to add
@@ -22,7 +23,7 @@ namespace ItemEngine.Classes.StorageStuff
         {
             Item item = ItemFactory.GetItem(itemName);
             if (item != null)
-                if (item.EquipmentSlot != AllowedEquipment)
+                if (item.EquipmentSlot != AllowedEquipmentType)
                     return false;
             return base.Add(itemName);
         }

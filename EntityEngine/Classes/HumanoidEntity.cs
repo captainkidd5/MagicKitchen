@@ -19,12 +19,14 @@ using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using SpriteEngine.Classes.Animations.BodyPartStuff;
 using SpriteEngine.Classes.Animations.EntityAnimations;
 using SpriteEngine.Classes;
+using ItemEngine.Classes.StorageStuff;
 
 namespace EntityEngine.Classes
 {
     public class HumanoidEntity : Character
     {
-       
+        public EquipmentStorageContainer EquipmentStorageContainer => (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer;
+
         public HumanoidEntity(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             BodyPiece[] bodyPieces = new BodyPiece[]
@@ -40,9 +42,11 @@ namespace EntityEngine.Classes
 
            };
             Animator = new CustomizeableAnimator(bodyPieces);
+            InventoryHandler = new HumanoidInventoryHandler(StorageCapacity);
+
         }
 
-        
+
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },

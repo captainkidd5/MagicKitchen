@@ -179,7 +179,12 @@ namespace UIEngine.Classes
         {
             return LayeringDepths[(int)depth];
         }
-        public static void LoadPlayerInventory(StorageContainer playerStorageContainer) => StorageDisplayHandler.Load(playerStorageContainer);
+        public static void LoadPlayerInventory(StorageContainer playerStorageContainer, EquipmentStorageContainer equipmentStorageContainer)
+        {
+            StorageDisplayHandler.Load(playerStorageContainer);
+            EscMenu.LoadContent();
+            EscMenu.EquipmentMenu.EquipmentDisplay.LoadNewEntityInventory(equipmentStorageContainer, false);
+        }
 
         public static void LoadPlayerUnlockedRecipes(List<string> playerUnlockedrecipes) => RecipeBook.LoadAvailableRecipes(playerUnlockedrecipes);
         private static void LoadCurrentSection()

@@ -412,7 +412,7 @@ namespace EntityEngine.Classes.PlayerStuff
             StorageCapacity = reader.ReadByte();
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
             InventoryHandler.LoadSave(reader);
-            UI.LoadPlayerInventory(StorageContainer);
+            UI.LoadPlayerInventory(StorageContainer, EquipmentStorageContainer);
             _hungerHandler.LoadSave(reader);
             // _lumenHandler.LoadSave(reader);
         }

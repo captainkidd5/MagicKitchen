@@ -18,7 +18,7 @@ namespace UIEngine.Classes.EquipmentMenuStuff
 
         private Vector2 _scale = new Vector2(2f, 2f);
 
-        private FurnaceTableDisplay _inventoryDisplay;
+        public EquipmentDisplay EquipmentDisplay;
         public EquipmentMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -29,8 +29,8 @@ namespace UIEngine.Classes.EquipmentMenuStuff
         {
 
             TotalBounds = parentSection.TotalBounds;
-            _inventoryDisplay = new FurnaceTableDisplay(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-            _inventoryDisplay.LoadContent();
+            EquipmentDisplay = new EquipmentDisplay(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            EquipmentDisplay.LoadContent();
             base.LoadContent();
         }
 
