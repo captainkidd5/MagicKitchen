@@ -34,7 +34,7 @@ namespace EntityEngine.Classes.NPCStuff
                 {
                     NPCData spawnedNPC = GetWeightedSpawn();
                     string requiredTileType = spawnedNPC.AlwaysSubmerged ? "water" : "land";
-                    Vector2? emptyTile = _tileManager.RandomClearPositionWithinRange(Settings.Random,tileType: requiredTileType);
+                    Vector2? emptyTile = _tileManager.TileLocationHelper.RandomClearPositionWithinRange(Settings.Random,tileType: requiredTileType);
                     if (emptyTile != null)
                     {
                         _npcContainer.CreateNPC(spawnedNPC.Name, emptyTile.Value, true);

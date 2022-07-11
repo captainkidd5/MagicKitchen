@@ -44,12 +44,12 @@ namespace Globals.Classes
 
         //SpawnableArea is the area in which mobs may spawn. Subtracting the play area from this gives you a margin on sides of the screen
         //generally outside of viewport, but within a radius of the player
-        public static int SpawnableAreaWidth = 600;
+        public static int SpawnableAreaWidth = 800;
 
         public static int SpawnableAreaX => (int)Camera.X - SpawnableAreaWidth / 2;
         public static int SpawnableAreaY => (int)Camera.Y - SpawnableAreaWidth / 2;
 
-        public static int ActiveAreaWidth = 400;
+        public static int ActiveAreaWidth = 600;
 
         public static int ActiveAreaX => (int)Camera.X - ActiveAreaWidth / 2;
         public static int ActiveAreaY => (int)Camera.Y - ActiveAreaWidth / 2;

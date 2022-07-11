@@ -299,60 +299,7 @@ namespace TiledEngine.Classes
         }
 
 
-        /// <summary>
-        /// Gets a random clear tile outside of the viewport, but within play area
-        /// </summary>
-        public Vector2? RandomClearPositionWithinRange(Random random, int tries = 10, string tileType = null)
-        {
-
-            Vector2 chosenPos = Vector2.Zero;
-
-            Direction dir = Vector2Helper.GetRandomDirection();
-
-            switch (dir)
-            {
-                case Direction.None:
-                    throw new Exception($"Invalid spawn direction");
-                    break;
-                case Direction.Up:
-                    chosenPos = new Vector2(random.Next(Settings.SpawnableAreaX, Settings.SpawnableAreaX + Settings.SpawnableAreaWidth),
-                  random.Next(Settings.SpawnableAreaY, Settings.SpawnableAreaY + Settings.SpawnableAreaWidth - Settings.ActiveAreaWidth));
-                    break;
-                case Direction.Down:
-                    chosenPos = new Vector2(random.Next(Settings.SpawnableAreaX, Settings.SpawnableAreaX + Settings.SpawnableAreaWidth),
-                  random.Next(Settings.ActiveAreaY + Settings.ActiveAreaWidth, Settings.SpawnableAreaY + Settings.SpawnableAreaWidth));
-                    break;
-                case Direction.Left:
-                    chosenPos = new Vector2(random.Next(Settings.SpawnableAreaX, Settings.ActiveAreaX),
-                  random.Next(Settings.SpawnableAreaY, Settings.SpawnableAreaY + Settings.SpawnableAreaWidth));
-                    break;
-                case Direction.Right:
-                    chosenPos = new Vector2(random.Next(Settings.ActiveAreaX + ActiveAreaWidth, Settings.SpawnableAreaX + Settings.SpawnableAreaWidth),
-                  random.Next(Settings.SpawnableAreaY, Settings.SpawnableAreaY + Settings.SpawnableAreaWidth));
-                    break;
-            }
-
-            for (int i = 0; i < tries; i++)
-            {
-                //left column
-              
-                Point point = Vector2Helper.GetTileIndexPosition(chosenPos);
-                if (!X_IsValidIndex(point.X) || !Y_IsValidIndex(point.Y))
-                    continue;
-                if (PathGrid.IsClear(point.X, point.Y))
-                {
-                    if (tileType != null)
-                    {
-                        if (!IsTypeOfTile(tileType, chosenPos))
-                            return null;
-                    }
-                    return chosenPos;
-
-                }
-            }
-
-            return null;
-        }
+        
 
         /// <summary>
         /// Change grid value at specified index.
@@ -452,28 +399,11 @@ namespace TiledEngine.Classes
 
 
 
+        internal bool X_IsValidIndex(int x) => TileLocationHelper.X_IsValidIndex(x);
 
-        /// <summary>
-        /// Ensures X index is greater than zero and less than bounds of grid
-        /// </summary>
-        internal bool X_IsValidIndex(int x)
-        {
-            if (x >= 0)
-                if (x < TileData[0].GetLength(0))
-                    return true;
-            return false;
-        }
 
-        /// <summary>
-        /// Ensures Y index is greater than zero and less than bounds of grid
-        /// </summary>
-        internal bool Y_IsValidIndex(int y)
-        {
-            if (y >= 0)
-                if (y < TileData[0].GetLength(1))
-                    return true;
-            return false;
-        }
+        internal bool Y_IsValidIndex(int y) => TileLocationHelper.Y_IsValidIndex(y);
+
         /// <summary>
         /// Gets the tile underfoot the Npcs position, and returns the sound at layer 0, if exists
         /// </summary>
