@@ -35,6 +35,7 @@ using DataModels.DialogueStuff;
 using UIEngine.Classes.Storage.ItemAlerts;
 using UIEngine.Classes.CursorStuff;
 using TextEngine.Classes;
+using UIEngine.Classes.EquipmentMenuStuff;
 
 namespace UIEngine.Classes
 {
@@ -100,8 +101,10 @@ namespace UIEngine.Classes
         internal static MainMenu MainMenu { get; set; }
         public static StorageDisplayHandler StorageDisplayHandler { get; set; }
 
-        internal static ItemAlertManager ItemAlertManager {get;set;}
+        internal static ItemAlertManager ItemAlertManager { get; set; }
         internal static CursorInfoBox CursorInfoBox { get; set; }
+
+        internal static EquipmentMenu EquipmentMenu {get;set;}
         public static Cursor Cursor { get; set; }
 
         private static Game s_game;
@@ -139,9 +142,10 @@ namespace UIEngine.Classes
             ItemAlertManager = new ItemAlertManager(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
 
             CursorInfoBox = new CursorInfoBox(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
+            EquipmentMenu = new EquipmentMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
 
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, _talkingWindow,
-                EscMenu, RecipeBook, StorageDisplayHandler, ItemAlertManager, CursorInfoBox };
+                EscMenu, RecipeBook, StorageDisplayHandler, ItemAlertManager, CursorInfoBox, EquipmentMenu };
 
             Cursor = new Cursor();
             Cursor.LoadContent(content);
