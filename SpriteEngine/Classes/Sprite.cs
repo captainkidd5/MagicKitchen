@@ -25,9 +25,9 @@ namespace SpriteEngine.Classes
         private void CheckIfRandomizeLayers(Layers layer, bool randomizeLayers)
         {
             if (randomizeLayers)
-                this.LayerDepth = SpriteUtility.GetSpriteVariedLayerDepth(layer);
+                LayerDepth = SpriteUtility.GetSpriteVariedLayerDepth(layer);
             else
-                this.LayerDepth = Settings.GetLayerDepth(layer);
+                LayerDepth = Settings.GetLayerDepth(layer);
         }
 
         public void Load(ContentManager contentManager)

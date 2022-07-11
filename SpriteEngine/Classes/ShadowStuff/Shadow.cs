@@ -34,7 +34,7 @@ namespace SpriteEngine.Classes.ShadowStuff
 
         };
 
-        public Sprite Sprite { get; set; }
+        public Sprite Sprite { get; private set; }
         
         public Shadow(ShadowType shadowType, Vector2 position, ShadowSize shadowSize, Texture2D texture)
         {
@@ -45,12 +45,9 @@ namespace SpriteEngine.Classes.ShadowStuff
                     throw new Exception("$Must provide shadowtype");
                 case ShadowType.Item:
                     Sprite = SpriteFactory.CreateWorldSprite(position, s_itemRectangles[(int)shadowSize - 1], texture);
-
                     break;
                 case ShadowType.NPC:
                     Sprite = SpriteFactory.CreateWorldSprite(position, s_npcRectangles[(int)shadowSize - 1], texture);
-
-
                     break;
             }
         }
