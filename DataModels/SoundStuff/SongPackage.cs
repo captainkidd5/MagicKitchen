@@ -18,7 +18,7 @@ namespace DataModels.SoundStuff
 
         [ContentSerializerIgnoreAttribute]
 
-        public SoundEffect Song { get; set; }
+        public Song Song { get; set; }
 
 
         public SongPackage()
@@ -27,7 +27,7 @@ namespace DataModels.SoundStuff
         }
         public void LoadContent(ContentManager content,string songRootPath)
         {
-            Song = content.Load<SoundEffect>($"{songRootPath}/{LocalPath}");
+            Song = content.Load<Song>($"{songRootPath}/{LocalPath}");
         }
     }
 }

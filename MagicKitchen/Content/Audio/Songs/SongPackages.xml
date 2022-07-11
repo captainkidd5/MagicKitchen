@@ -2,24 +2,24 @@
 <XnaContent xmlns:ns="Microsoft.Xna.Framework">
     <Asset Type="System.Collections.Generic.List[DataModels.SoundStuff.SongPackage]">
         <Item>
-            <Name>NightTimeAmbience</Name>
+            <Name>MainMenu</Name>
             <ViableStages>
                 <Item>MainMenu-SaveMenu</Item>
                 <Item>MainMenu-Outer</Item>
 
             </ViableStages>
-            <LocalPath>MainMenu/NightTimeAmbience</LocalPath>
+            <LocalPath>MainMenu/MainMenu</LocalPath>
         </Item>
 
 
         <Item>
 
-            <Name>Pourous</Name>
+            <Name>WarmDay</Name>
             <ViableStages>
                 <Item>LullabyTown</Item>
                 <Item>Town</Item>
             </ViableStages>
-            <LocalPath>OverWorld/Pourous</LocalPath>
+            <LocalPath>OverWorld/WarmDay</LocalPath>
         </Item>
      
     </Asset>

@@ -409,7 +409,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.LoadSave(reader);
             ProgressManager.LoadSave(reader);
-            StorageCapacity = reader.ReadInt32();
+            StorageCapacity = reader.ReadByte();
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
             InventoryHandler.LoadSave(reader);
             UI.LoadPlayerInventory(StorageContainer);

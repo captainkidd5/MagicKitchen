@@ -49,7 +49,7 @@ namespace EntityEngine.Classes
         public float BaseSpeed { get; protected set; } = 3f;
         protected Vector2 Velocity;
         internal float Speed { get; set; }
-        protected int StorageCapacity { get; set; }
+        protected byte StorageCapacity { get; set; }
         public Direction DirectionMoving { get; set; }
         public bool IsMoving { get; protected set; }
         protected bool ForceStop { get; private set; }
@@ -490,7 +490,7 @@ namespace EntityEngine.Classes
         public virtual void LoadSave(BinaryReader reader)
         {
             Move(Vector2Helper.ReadVector2(reader));
-            StorageCapacity = reader.ReadInt32();
+            StorageCapacity = reader.ReadByte();
 
             InventoryHandler = new InventoryHandler(StorageCapacity);
 

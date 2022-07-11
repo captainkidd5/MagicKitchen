@@ -12,7 +12,8 @@ namespace EntityEngine.Classes.ItemStuff
 
         public ushort ItemId { get; set; }
         public Vector2 Position { get; set; }
-        public float TimeLeft { get; set; }
+        public float TimeCreated { get; set; }
+        public ushort Count { get; set; }
         public ushort? CurrentDurability { get; set; }
     }
 }

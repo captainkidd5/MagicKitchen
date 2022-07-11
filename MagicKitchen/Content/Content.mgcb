@@ -15,17 +15,35 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Audio/Songs/MainMenu/MainMenu.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Songs/MainMenu/MainMenu.mp3
+
 #begin Audio/Songs/MainMenu/NightTimeAmbience.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/Songs/MainMenu/NightTimeAmbience.wav
 
+#begin Audio/Songs/MainMenu/Title.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Songs/MainMenu/Title.mp3
+
 #begin Audio/Songs/OverWorld/Pourous.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/Songs/OverWorld/Pourous.wav
+
+#begin Audio/Songs/OverWorld/WarmDay.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Songs/OverWorld/WarmDay.mp3
 
 #begin Audio/Songs/SongPackages.xml
 /importer:XmlImporter
