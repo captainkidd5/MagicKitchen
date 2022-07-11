@@ -302,7 +302,6 @@ namespace TiledEngine.Classes.Helpers
 
             for (int i = 0; i < tries; i++)
             {
-                //left column
 
                 Point point = Vector2Helper.GetTileIndexPosition(chosenPos);
                 if (!X_IsValidIndex(point.X) || !Y_IsValidIndex(point.Y))

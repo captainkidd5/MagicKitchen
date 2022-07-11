@@ -24,7 +24,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
             base.Load(animator, entityPosition, scale);
 
-
+            MaxIndex = 3;
 
         }
 

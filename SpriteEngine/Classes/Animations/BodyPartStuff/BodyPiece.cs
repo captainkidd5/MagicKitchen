@@ -172,7 +172,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         }
         public void CycleForward()
         {
-            Index = ScrollHelper.GetIndexFromScroll(Direction.Down, Index, 2);
+            Index = ScrollHelper.GetIndexFromScroll(Direction.Down, Index, MaxIndex);
             Load(Animator, Vector2.Zero, Scale);
         }
         public void CycleBackwards()
