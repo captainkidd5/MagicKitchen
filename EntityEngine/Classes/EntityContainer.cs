@@ -52,7 +52,11 @@ namespace EntityEngine.Classes
                 Entity entity = Entities[i];
                 entity.Update(gameTime);
                 if (entity.FlaggedForRemoval)
+                {
+                    entity.CleanUp();
                     Entities.RemoveAt(i);
+
+                }
             }
   
 

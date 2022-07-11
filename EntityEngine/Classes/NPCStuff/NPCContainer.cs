@@ -148,7 +148,25 @@ namespace EntityEngine.Classes.CharacterStuff
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            float totalSpawnVal = 0;
+            for (int i = Entities.Count - 1; i >= 0; i--)
+            {
+                NPC entity = Entities[i] as NPC;
+                entity.Update(gameTime);
+                totalSpawnVal += (float)entity.NPCData.SpawnSlotValue / 100;
+                if (entity.FlaggedForRemoval)
+                {
+                    entity.CleanUp();
+                    Entities.RemoveAt(i);
+
+                }
+            }
+            _mobSpawner.TotalNPCSpawnValue = totalSpawnVal;
+
+            foreach (Entity entity in EntitiesToAdd)
+                Entities.Add(entity);
+
+            EntitiesToAdd.Clear();
             _mobSpawner.Update(gameTime);
         }
     }

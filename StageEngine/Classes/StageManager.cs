@@ -41,6 +41,8 @@ namespace StageEngine.Classes
         public Stage CurrentStage { get; private set; }
 
         private HullBody _playAreaBody;
+        private HullBody _spawnAreaBody;
+
 
 
 
@@ -102,9 +104,14 @@ namespace StageEngine.Classes
                 _playAreaBody.Destroy();
 
             _playAreaBody = PhysicsManager.CreateRectangularHullBody(tainicom.Aether.Physics2D.Dynamics.BodyType.Static, _camera.position,
-                Settings.ActiveAreaWidth, Settings.ActiveAreaHeight, new List<Category>() { (Category)PhysCat.PlayArea },
-                new List<Category>() { (Category)PhysCat.NPC },
-                null, null);
+                Settings.ActiveAreaWidth, Settings.ActiveAreaWidth, new List<Category>() { (Category)PhysCat.None },
+                new List<Category>() {  },
+                null, null,isSensor:true);
+
+            _spawnAreaBody = PhysicsManager.CreateRectangularHullBody(tainicom.Aether.Physics2D.Dynamics.BodyType.Static, _camera.position,
+               Settings.SpawnableAreaWidth, Settings.SpawnableAreaWidth, new List<Category>() { (Category)PhysCat.PlayArea },
+               new List<Category>() { (Category)PhysCat.NPC },
+               null, null, isSensor: true);
         }
 
         public void Update(GameTime gameTime)
@@ -117,6 +124,7 @@ namespace StageEngine.Classes
                 _playerManager.Update(gameTime);
 
                 _playAreaBody.Position = _camera.position;
+                _spawnAreaBody.Position = _camera.position;
             }
         }
 

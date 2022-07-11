@@ -38,7 +38,7 @@ namespace EntityEngine.Classes.NPCStuff
                     if (emptyTile != null)
                     {
                         _npcContainer.CreateNPC(spawnedNPC.Name, emptyTile.Value, true);
-                        TotalNPCSpawnValue += (float)spawnedNPC.SpawnSlotValue / 100;
+                        //TotalNPCSpawnValue += (float)spawnedNPC.SpawnSlotValue / 100;
 
                     }
                 }

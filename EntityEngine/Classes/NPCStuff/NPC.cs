@@ -28,14 +28,14 @@ namespace EntityEngine.Classes.NPCStuff
 {
     public class NPC : Entity
     {
-        protected NPCData NPCData;
+        public NPCData NPCData { get; protected set; }
 
         public Shadow Shadow { get; set; }
 
         private static float s_despawnTargetTime = 5f;
 
         private SimpleTimer _despawnTimer;
-        private bool _outsideOfPlayArea;
+        public bool OutsideOfPlayArea { get; protected set; }
         public NPC( GraphicsDevice graphics, ContentManager content) :
             base(graphics, content)
         {
@@ -98,12 +98,16 @@ namespace EntityEngine.Classes.NPCStuff
             base.Update(gameTime);
             if (!Submerged && Shadow != null)
                 Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y + 2));
-            if (_outsideOfPlayArea)
+            if (OutsideOfPlayArea)
             {
                 if (_despawnTimer.Run(gameTime))
                 {
-                    
+                    FlaggedForRemoval = true;
                 }
+            }
+            else
+            {
+                _despawnTimer.ResetToZero();
             }
         }
 
@@ -137,6 +141,7 @@ namespace EntityEngine.Classes.NPCStuff
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayArea))
             {
                 Console.WriteLine("test");
+                OutsideOfPlayArea = false;
 
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
@@ -147,6 +152,7 @@ namespace EntityEngine.Classes.NPCStuff
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayArea))
             {
                 Console.WriteLine("test");
+                OutsideOfPlayArea = true;
             }
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
