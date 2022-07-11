@@ -24,6 +24,7 @@ using SoundEngine.Classes.SongStuff;
 using EntityEngine.Classes.NPCStuff;
 using Globals.Classes.Console;
 using ItemEngine.Classes;
+using tainicom.Aether.Physics2D.Dynamics;
 
 namespace StageEngine.Classes
 {
@@ -39,7 +40,7 @@ namespace StageEngine.Classes
 
         public Stage CurrentStage { get; private set; }
 
-
+        private HullBody _playAreaBody;
 
 
 
@@ -97,7 +98,13 @@ namespace StageEngine.Classes
             UI.RaiseCurtain(UI.CurtainDropRate);
 
             Settings.Camera.LockBounds = CurrentStage.CamLock;
+            if (_playAreaBody != null)
+                _playAreaBody.Destroy();
 
+            _playAreaBody = PhysicsManager.CreateRectangularHullBody(tainicom.Aether.Physics2D.Dynamics.BodyType.Static, _camera.position,
+                Settings.ActiveAreaWidth, Settings.ActiveAreaHeight, new List<Category>() { (Category)PhysCat.PlayArea },
+                new List<Category>() { (Category)PhysCat.NPC },
+                null, null);
         }
 
         public void Update(GameTime gameTime)
@@ -109,7 +116,7 @@ namespace StageEngine.Classes
 
                 _playerManager.Update(gameTime);
 
-
+                _playAreaBody.Position = _camera.position;
             }
         }
 

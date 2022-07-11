@@ -12,7 +12,7 @@ namespace Globals.Classes
         private readonly Viewport viewport;
 
         private Vector2 origin { get; set; }
-        private Vector2 position;
+        public Vector2 position;
         private float zoom { get; set; }
         private float Rotation { get; set; }
 

@@ -85,6 +85,7 @@ namespace EntityEngine.Classes
 
         public bool FlaggedForRemoval { get; set; }
 
+
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
         {
             _graphics = graphics;
@@ -172,7 +173,7 @@ namespace EntityEngine.Classes
         {
             if (MainHullBody == null)
                 MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },
-                    new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh, (Category)PhysCat.Grass, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Portal }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this);
+                    new List<Category>() { (Category)PhysCat.PlayArea,(Category)PhysCat.Player, (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh, (Category)PhysCat.Grass, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Portal }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this);
 
             BigSensorCollidesWithCategories = new List<Category>() { (Category)PhysCat.NPC, (Category)PhysCat.Player, (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh };
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { (Category)PhysCat.PlayerBigSensor }, BigSensorCollidesWithCategories,

@@ -1,11 +1,13 @@
 ﻿using DataModels;
 using EntityEngine.Classes.CharacterStuff;
 using EntityEngine.ItemStuff;
+using Globals.Classes;
 using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Pathfinding;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
@@ -17,6 +19,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes;
 using static DataModels.Enums;
 
@@ -28,6 +32,10 @@ namespace EntityEngine.Classes.NPCStuff
 
         public Shadow Shadow { get; set; }
 
+        private static float s_despawnTargetTime = 5f;
+
+        private SimpleTimer _despawnTimer;
+        private bool _outsideOfPlayArea;
         public NPC( GraphicsDevice graphics, ContentManager content) :
             base(graphics, content)
         {
@@ -81,6 +89,7 @@ namespace EntityEngine.Classes.NPCStuff
 
             Move(Position);
 
+            _despawnTimer = new SimpleTimer(s_despawnTargetTime);
             
         }
 
@@ -89,6 +98,13 @@ namespace EntityEngine.Classes.NPCStuff
             base.Update(gameTime);
             if (!Submerged && Shadow != null)
                 Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y + 2));
+            if (_outsideOfPlayArea)
+            {
+                if (_despawnTimer.Run(gameTime))
+                {
+                    
+                }
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -114,6 +130,25 @@ namespace EntityEngine.Classes.NPCStuff
         {
             base.LoadSave(reader);
             Name = reader.ReadString();
+        }
+
+        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayArea))
+            {
+                Console.WriteLine("test");
+
+            }
+            return base.OnCollides(fixtureA, fixtureB, contact);
+        }
+
+        protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayArea))
+            {
+                Console.WriteLine("test");
+            }
+            base.OnSeparates(fixtureA, fixtureB, contact);
         }
     }
 }

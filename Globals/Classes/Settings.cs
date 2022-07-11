@@ -41,6 +41,16 @@ namespace Globals.Classes
 
         public static Camera2D Camera;
         public static GameWindow GameWindow;
+
+        public static int ActiveAreaWidth = 400;
+        public static int ActiveAreaHeight = 400;
+
+        public static Rectangle ActiveArea()
+        {
+            Point camPos = new Point((int)Camera.position.X, (int)Camera.position.Y);
+            return new Rectangle(camPos.X, camPos.Y, ActiveAreaWidth, ActiveAreaHeight);
+        }
+
         public static Rectangle GetVisibleRectangle()
         {
         
