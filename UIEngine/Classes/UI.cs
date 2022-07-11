@@ -104,7 +104,6 @@ namespace UIEngine.Classes
         internal static ItemAlertManager ItemAlertManager { get; set; }
         internal static CursorInfoBox CursorInfoBox { get; set; }
 
-        internal static EquipmentMenu EquipmentMenu {get;set;}
         public static Cursor Cursor { get; set; }
 
         private static Game s_game;
@@ -142,10 +141,9 @@ namespace UIEngine.Classes
             ItemAlertManager = new ItemAlertManager(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
 
             CursorInfoBox = new CursorInfoBox(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
-            EquipmentMenu = new EquipmentMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
 
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, _talkingWindow,
-                EscMenu, RecipeBook, StorageDisplayHandler, ItemAlertManager, CursorInfoBox, EquipmentMenu };
+                EscMenu, RecipeBook, StorageDisplayHandler, ItemAlertManager, CursorInfoBox };
 
             Cursor = new Cursor();
             Cursor.LoadContent(content);

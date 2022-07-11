@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ItemEngine.Classes.StorageStuff
 {
-    public class CraftingStorageContainer : StorageContainer
+    public class CraftingStorageContainer : FurnitureStorageContainer
     {
         public CraftAction CraftAction { get; private set; }
         public StorageSlot OutputSlot { get; set; }

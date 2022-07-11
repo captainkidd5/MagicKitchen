@@ -45,12 +45,7 @@ namespace ItemEngine.Classes.StorageStuff
         {
             return BlacklistedItems != null && BlacklistedItems.Contains(itemId);
         }
-        public void AddBlackListedItem(string itemName)
-        {
-            if(BlacklistedItems == null)
-                BlacklistedItems = new List<int>();
-            BlacklistedItems.Add(ItemFactory.GetItemData(itemName).Id);
-        }
+
         public void RemovePlaceLock()
         {
             if (!PlaceLocked)
@@ -93,7 +88,7 @@ namespace ItemEngine.Classes.StorageStuff
             return false;
         }
 
-        public bool Add(string itemName)
+        public virtual bool Add(string itemName)
         {
             if (PlaceLocked ||  IsItemBlackListed(ItemFactory.GetItemData(itemName).Id))
                 return false;

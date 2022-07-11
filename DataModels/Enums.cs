@@ -45,6 +45,15 @@ namespace DataModels
             Pants = 2
         }
 
+        public enum EquipmentType
+        {
+            None =0,
+            Head = 1,
+            Torso = 2,
+            Legs = 3,
+            Boots = 4
+        }
+
         public enum ShadowSize
         {
             None = 0,

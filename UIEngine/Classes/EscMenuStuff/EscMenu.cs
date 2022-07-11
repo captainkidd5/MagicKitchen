@@ -18,6 +18,7 @@ using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
 using UIEngine.Classes.Components;
 using UIEngine.Classes.CraftingMenuStuff;
+using UIEngine.Classes.EquipmentMenuStuff;
 using static DataModels.Enums;
 
 namespace UIEngine.Classes.EscMenuStuff
@@ -54,6 +55,9 @@ namespace UIEngine.Classes.EscMenuStuff
         CraftingMenu _craftingMenu;
         private Button _craftingTabButton;
 
+        EquipmentMenu _equipmentMenu;
+        private Button _equipmentTabButton;
+
         Dictionary<MenuSection, Button> _tabPairs;
 
 
@@ -89,7 +93,7 @@ namespace UIEngine.Classes.EscMenuStuff
         }
         private void GenerateTabs()
         {
-            Selectables = new InterfaceSection[1, 3];
+            Selectables = new InterfaceSection[1, 4];
 
             _tabsStackPanel = new StackPanel(this, graphics, content, new Vector2(TotalBounds.X, TotalBounds.Y - _tabWidth * _scale.Y), GetLayeringDepth(UILayeringDepths.Low));
             StackRow stackRow1 = new StackRow(TotalBounds.Width);
@@ -121,6 +125,19 @@ namespace UIEngine.Classes.EscMenuStuff
             AddSectionToGrid(_craftingTabButton, 0, 1);
 
 
+            Sprite equipmentSprite = SpriteFactory.CreateUISprite(
+           Position, new Rectangle(224, 80, 32, 32), UI.ButtonTexture,
+           GetLayeringDepth(UILayeringDepths.High), scale: new Vector2(1.5f, 1.5f));
+
+            _equipmentTabButton = new Button(_tabsStackPanel, graphics, content, Position,
+                GetLayeringDepth(UILayeringDepths.Medium), _unclickedTabRectangle,
+                new Action(() => { SwapActivePage(_equipmentMenu); }), hoverTransparency: true,
+                foregroundSprite: equipmentSprite);
+            _equipmentTabButton.SetForegroundSpriteOffSet(_tabForgroundOffset);
+            stackRow1.AddItem(_equipmentTabButton, StackOrientation.Left);
+
+            AddSectionToGrid(_equipmentTabButton, 0, 2);
+
             _tabsStackPanel.Add(stackRow1);
 
           
@@ -134,6 +151,9 @@ namespace UIEngine.Classes.EscMenuStuff
 
             _craftingMenu = new CraftingMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             ChildSections.Remove(_craftingMenu);
+
+            _equipmentMenu = new EquipmentMenu(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            ChildSections.Remove(_equipmentMenu);
 
         }
         public override void LoadContent()
@@ -164,7 +184,7 @@ namespace UIEngine.Classes.EscMenuStuff
                 }));
             CloseButton.LoadContent();
 
-            AddSectionToGrid(CloseButton, 0, 2);
+            AddSectionToGrid(CloseButton, 0, 3);
 
             SwapActivePage(_escPrimary);
             DoSelection(CoordinatesOf(_tabPairs[_escPrimary]).Value);

@@ -40,6 +40,8 @@ namespace ItemEngine.Classes
         public bool PlaceableItem => _itemData.PlaceableItem;
 
         public ushort MaxDurability => _itemData.MaxDurability;
+
+        public EquipmentType EquipmentSlot => _itemData.EquipmentSlot;
         public ushort CurrentDurability { get;  private set; }
         public List<AllowedPlacementTileType> AllowedPlacementTileTypes => _itemData.AllowedPlacementTileTypes;
         internal Item(ItemData data)

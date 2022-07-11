@@ -25,8 +25,7 @@ namespace ItemEngine.Classes.StorageStuff
 
         private Wallet _wallet;
 
-        public FurnitureData? FurnitureData { get; private set; }
-        public StorageContainer(int capacity, FurnitureData? furnitureData = null)
+        public StorageContainer(int capacity)
         {
             Capacity = capacity;
             Slots = new List<StorageSlot>();
@@ -36,7 +35,6 @@ namespace ItemEngine.Classes.StorageStuff
                 Slots.Add(new StorageSlot());
             }
 
-            FurnitureData = furnitureData;
         }
 
         public bool CanAfford(int amt) => _wallet.CanAfford(amt);

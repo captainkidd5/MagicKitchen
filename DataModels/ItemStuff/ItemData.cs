@@ -68,7 +68,7 @@ namespace DataModels.ItemStuff
         public bool PlaceableItem => PlacedItemGID > -1;
 
        
-
+        public EquipmentType EquipmentSlot { get; set; }
         public ushort MaxDurability { get; set; }
         public void Load()
         {

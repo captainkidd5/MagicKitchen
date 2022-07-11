@@ -9,27 +9,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UIEngine.Classes.Storage.Configurations;
 
 namespace UIEngine.Classes.EquipmentMenuStuff
 {
     internal class EquipmentMenu : MenuSection
     {
 
-        private Rectangle _backGroundSourceRectangle = new Rectangle(432, 624, 208, 224);
-        private Sprite _backGroundSprite;
         private Vector2 _scale = new Vector2(2f, 2f);
+
+        private FurnaceTableDisplay _inventoryDisplay;
         public EquipmentMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            Deactivate();
+           // Deactivate();
         }
         public override void LoadContent()
         {
 
-            _backGroundSprite = SpriteFactory.CreateUISprite(
-                Position, _backGroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low),scale:_scale);
-            TotalBounds = _backGroundSprite.HitBox;
+            TotalBounds = parentSection.TotalBounds;
+            _inventoryDisplay = new FurnaceTableDisplay(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            _inventoryDisplay.LoadContent();
             base.LoadContent();
         }
 
@@ -38,14 +39,12 @@ namespace UIEngine.Classes.EquipmentMenuStuff
             if (Controls.WasKeyTapped(Keys.C))
                 Toggle();
             base.Update(gameTime);
-            if (IsActive)
-                _backGroundSprite.Update(gameTime, Position);
+
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            if (IsActive)
-                _backGroundSprite.Draw(spriteBatch);
+
         }
 
        

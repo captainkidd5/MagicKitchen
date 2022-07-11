@@ -71,7 +71,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         }
         protected virtual void CreateStorageContainer()
         {
-            StorageContainer = new StorageContainer(TotalStorageCapacity, FurnitureData);
+            StorageContainer = new FurnitureStorageContainer(TotalStorageCapacity, FurnitureData);
 
         }
         public override void Load()
