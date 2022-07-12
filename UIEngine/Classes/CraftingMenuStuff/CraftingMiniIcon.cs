@@ -29,6 +29,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             _craftingPage = craftingPage;
+            
         }
 
         public void LoadItemData(ItemData itemData)
@@ -59,6 +60,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
             _button = new Button(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
                 backgroundRectangleToUse, new Action(() => { _craftingPage.GiveControlToRecipeBox(); }), foregroundSprite: itemSprite, scale: _scale.X);
             _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
+            _button.IgnoreDefaultHoverSoundEffect = true;
             base.LoadContent();
         }
 

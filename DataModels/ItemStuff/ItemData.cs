@@ -63,6 +63,8 @@ namespace DataModels.ItemStuff
         public ItemType ItemType { get; set; }
 
         public int PlacedItemGID { get; set; } = -1;
+
+
         public Layers? LayerToPlace { get; set; }
         public List<AllowedPlacementTileType> AllowedPlacementTileTypes { get; set; }
         public bool PlaceableItem => PlacedItemGID > -1;

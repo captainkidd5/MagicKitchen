@@ -41,10 +41,11 @@ namespace UIEngine.Classes.Storage.Configurations
 
         protected override void GenerateUI(bool displayWallet)
         {
+            Vector2 offSet = new Vector2(32,64);
+
             Position = parentSection.Position;
 
             Selectables = new InterfaceSection[4, 2];
-            Vector2 offSet = Vector2.Zero;
 
 
             int requiredSlots = 8;

@@ -64,6 +64,7 @@ namespace UIEngine.Classes
         public virtual bool Hovered { get { return _hovered; } protected set { _hovered = value; if (_hovered) { UI.IsHovered = true; } } }
         private bool _hoveredLastFrame;
 
+        protected bool JustHovered => !_hoveredLastFrame && Hovered;
         protected bool WasHovered => (_hoveredLastFrame && !Hovered);
         internal virtual protected bool Clicked { get; set; }
         internal virtual protected bool RightClicked { get; set; }

@@ -70,6 +70,7 @@ namespace UIEngine.Classes.Storage
             storageSlot.ItemChanged += ItemChanged;
             
             _button = NineSliceButtonFromVariant(slotVisualVariant);
+            
             _text = TextFactory.CreateUIText("0", UI.IncrementLD(_button.LayerDepth, true));
 
             if (storageSlot.HoldsVisibleFurnitureItem)
@@ -80,7 +81,8 @@ namespace UIEngine.Classes.Storage
             if(_storageSlot.Item != null)
             UpdateVisuals(_storageSlot.Item, _storageSlot.StoredCount);
             TotalBounds = _button.TotalBounds;
-
+            _button.IgnoreDefaultHoverSoundEffect = true;
+            
         }
 
         private ButtonBase NineSliceButtonFromVariant(SlotVisualVariant variant)

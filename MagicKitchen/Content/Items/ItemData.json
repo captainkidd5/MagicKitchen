@@ -201,7 +201,26 @@
 }
 },
 
-
+{
+    "Id": 2001,
+    "Name": "Iron_Helmet",
+    "Description" : "A helmet forged from iron",
+    "MaxStackSize": 1,
+    "Price": 1, 
+    "EquipmentSlot" : "Helmet",
+    "RecipeInfo": 
+    {
+    "CraftAction": "Craft",
+    "CookTime": 20,
+    "Ingredients":[
+        {
+            "Name":"Iron_Ore",
+            "Count":4
+        }
+    ]
+    
+}
+},
 
 
 {

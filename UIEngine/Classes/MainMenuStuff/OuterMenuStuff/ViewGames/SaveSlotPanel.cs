@@ -53,7 +53,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
                 GetLayeringDepth(UILayeringDepths.Medium), new List<string>() { _saveFile.MetaData.Name, _saveFile.MetaData.DateCreated.Date.ToString("d"),
                     _saveFile.MetaData.DateCreated.ToString("HH:mm") },  action);
 
-            _slotButton.IgnoreDefaultSoundEffect = true;
+            _slotButton.IgnoreDefaultClickSoundEffect = true;
             base.LoadContent();
 
         }

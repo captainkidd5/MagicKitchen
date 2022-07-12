@@ -39,7 +39,8 @@ namespace UIEngine.Classes.ButtonStuff
         //Offsets foreground sprite from background sprite
         protected Vector2? ForeGroundSpriteOffSet { get; set; }
 
-        public bool IgnoreDefaultSoundEffect { get; set; }
+        public bool IgnoreDefaultClickSoundEffect { get; set; }
+        public bool IgnoreDefaultHoverSoundEffect { get; set; }
 
         /// <summary>
         /// Nineslice constructor
@@ -154,10 +155,13 @@ namespace UIEngine.Classes.ButtonStuff
                     if (HoverTransparency)
                         BackGroundSprite.TriggerIntensityEffect();
 
+                    if(JustHovered)
+                        if (!IgnoreDefaultHoverSoundEffect)
+                            SoundFactory.PlaySoundEffect("Click1");
 
                     if (Clicked)
                     {
-                        if(!IgnoreDefaultSoundEffect)
+                        if(!IgnoreDefaultClickSoundEffect)
                             SoundFactory.PlaySoundEffect("Click1");
                         if (_requireConfirmation)
                         {
