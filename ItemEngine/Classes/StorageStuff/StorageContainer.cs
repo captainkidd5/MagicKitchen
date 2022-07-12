@@ -23,7 +23,6 @@ namespace ItemEngine.Classes.StorageStuff
         public int Capacity { get; private set; }
         public List<StorageSlot> Slots { get; protected set; }
 
-        private Wallet _wallet;
 
         public StorageContainer(int capacity)
         {
@@ -34,7 +33,6 @@ namespace ItemEngine.Classes.StorageStuff
         protected virtual void AddSlots()
         {
             Slots = new List<StorageSlot>();
-            _wallet = new Wallet();
             for (int i = 0; i < Capacity; i++)
             {
                 Slots.Add(new StorageSlot());
@@ -42,9 +40,7 @@ namespace ItemEngine.Classes.StorageStuff
 
         }
 
-        public bool CanAfford(int amt) => _wallet.CanAfford(amt);
-        public int WithdrawCoins(int amt) => _wallet.Withdraw(amt);
-        public void DepositCoins(int amt) => _wallet.Deposit(amt);
+
         public void AddItem(Item item, ref int count)
         {
             //Try to find partially filled stackable item slot matching stackable item
@@ -120,18 +116,16 @@ namespace ItemEngine.Classes.StorageStuff
             }
         }
 
-        public void Save(BinaryWriter writer)
+        public virtual void Save(BinaryWriter writer)
         {
-            _wallet.Save(writer);
            foreach(StorageSlot slot in Slots)
             {
                 slot.Save(writer);
             }
         }
 
-        public void LoadSave(BinaryReader reader)
+        public virtual void LoadSave(BinaryReader reader)
         {
-            _wallet.LoadSave(reader);
             foreach (StorageSlot slot in Slots)
             {
                 slot.LoadSave(reader);
@@ -140,7 +134,6 @@ namespace ItemEngine.Classes.StorageStuff
 
         public void CleanUp()
         {
-            _wallet.CleanUp();
             Slots.Clear();
         }
 
@@ -161,7 +154,6 @@ namespace ItemEngine.Classes.StorageStuff
 
         public void SetToDefault( )
         {
-            _wallet.SetToDefault();
             foreach (StorageSlot slot in Slots)
             {
                 slot.SetToDefault();

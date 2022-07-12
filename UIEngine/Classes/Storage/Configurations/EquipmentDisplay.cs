@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UIEngine.Classes.Components;
+using static DataModels.Enums;
 
 namespace UIEngine.Classes.Storage.Configurations
 {
@@ -118,6 +119,19 @@ namespace UIEngine.Classes.Storage.Configurations
                 default:
                     throw new Exception("Invalid row");
             }
+        }
+
+        internal override void ReceiveControl(MenuSection sender, Direction direction)
+        {
+            base.ReceiveControl(sender, direction);
+
+            //if (sender.GetType() == typeof(TabsColumnMenu))
+            //{
+            //    DoSelection(new Point(0, 0));
+            //    return;
+            //}
+            //if (_lastSelectedPoint != null)
+            //    DoSelection(_lastSelectedPoint.Value);
         }
     }
 }

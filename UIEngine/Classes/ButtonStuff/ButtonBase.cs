@@ -156,8 +156,11 @@ namespace UIEngine.Classes.ButtonStuff
                         BackGroundSprite.TriggerIntensityEffect();
 
                     if(JustHovered)
-                        if (!IgnoreDefaultHoverSoundEffect)
+                        if (!IgnoreDefaultHoverSoundEffect && UI.MayPlayButtonHoverSound)
+                        {
                             SoundFactory.PlaySoundEffect("Click1");
+                            UI.MayPlayButtonHoverSound = false;
+                        }
 
                     if (Clicked)
                     {

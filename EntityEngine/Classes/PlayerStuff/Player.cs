@@ -401,6 +401,8 @@ namespace EntityEngine.Classes.PlayerStuff
             writer.Write(StorageCapacity);
 
             InventoryHandler.Save(writer);
+            (InventoryHandler as PlayerInventoryHandler).EquipmentStorageContainer.Save(writer);
+
             _hungerHandler.Save(writer);
             //_lumenHandler.Save(writer);
         }
@@ -412,6 +414,7 @@ namespace EntityEngine.Classes.PlayerStuff
             StorageCapacity = reader.ReadByte();
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
             InventoryHandler.LoadSave(reader);
+            (InventoryHandler as PlayerInventoryHandler).EquipmentStorageContainer.LoadSave(reader);
             UI.LoadPlayerInventory(StorageContainer, EquipmentStorageContainer);
             _hungerHandler.LoadSave(reader);
             // _lumenHandler.LoadSave(reader);

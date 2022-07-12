@@ -25,6 +25,9 @@ namespace EntityEngine.Classes
 {
     public class HumanoidEntity : Character
     {
+
+        public byte Armor { get; set; }
+        public byte Strength { get; set; }
         public EquipmentStorageContainer EquipmentStorageContainer => (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer;
 
         public HumanoidEntity(GraphicsDevice graphics, ContentManager content) : base(graphics, content)

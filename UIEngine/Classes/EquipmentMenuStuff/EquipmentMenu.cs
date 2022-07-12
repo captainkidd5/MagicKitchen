@@ -1,4 +1,5 @@
-﻿using InputEngine.Classes;
+﻿using DataModels;
+using InputEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UIEngine.Classes.Storage.Configurations;
+using static DataModels.Enums;
 
 namespace UIEngine.Classes.EquipmentMenuStuff
 {
@@ -27,12 +29,19 @@ namespace UIEngine.Classes.EquipmentMenuStuff
         }
         public override void LoadContent()
         {
+            if(ChildSections.Count == 0)
+            {
 
             TotalBounds = parentSection.TotalBounds;
             Position = new Vector2(TotalBounds.X, TotalBounds.Y);
             EquipmentDisplay = new EquipmentDisplay(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             EquipmentDisplay.LoadContent();
-            base.LoadContent();
+
+                EquipmentDisplay.AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
+
+                base.LoadContent();
+            }
+
         }
 
         public override void Update(GameTime gameTime)
@@ -47,7 +56,16 @@ namespace UIEngine.Classes.EquipmentMenuStuff
             base.Draw(spriteBatch);
 
         }
+        protected override void GiveSectionControl(Direction direction)
+        {
+            EquipmentDisplay.HasControl = false;
+            base.GiveSectionControl(direction);
+        }
+        internal override void ReceiveControl(MenuSection sender, Enums.Direction direction)
+        {
+            EquipmentDisplay.ReceiveControl(sender, direction);
+            base.ReceiveControl(sender, direction);
+        }
 
-       
     }
 }

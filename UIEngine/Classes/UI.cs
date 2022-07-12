@@ -112,6 +112,11 @@ namespace UIEngine.Classes
 
         public static void RemoveCurrentlySelectedItem(int amt) => StorageDisplayHandler.RemovePlayerSelectedItem(amt);
         private static float _frontLayeringDepth;
+
+        //Use this to make sure player isn't overloaded with rapid hover sounds
+        internal static bool MayPlayButtonHoverSound;
+        private static SimpleTimer s_buttonSoundTimer;
+        private static readonly float s_buttonSoundInterval = .15f;
         public static void Load(Game game, GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager)
         {
             s_game = game;
@@ -157,6 +162,8 @@ namespace UIEngine.Classes
             LoadCurrentSection();
 
             _frontLayeringDepth = GetLayeringDepth(UILayeringDepths.Front);
+
+            s_buttonSoundTimer = new SimpleTimer(s_buttonSoundInterval, false);
         }
         internal static void LoadNewCursorInfo( List<string> text) => CursorInfoBox.LoadNewText( text);
 
@@ -240,6 +247,14 @@ namespace UIEngine.Classes
 
             }
 
+            if (!MayPlayButtonHoverSound)
+            {
+                if (s_buttonSoundTimer.Run(gameTime))
+                {
+                    MayPlayButtonHoverSound = true;
+                    s_buttonSoundTimer.ResetToZero();
+                }
+            }
 
             if (s_criticalSections.Count > 0)
             {

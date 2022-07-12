@@ -70,15 +70,13 @@ namespace EntityEngine.Classes
 
             ItemManager.AddWorldItem(entityPosition,item, originalCount - count, WorldItemState.Bouncing, jettisonVector);
         }
-        public bool CanAfford(int amt) => StorageContainer.CanAfford(amt);
-        public int Withdraw(int amt) => StorageContainer.WithdrawCoins(amt);
-        public void Deposit(int amt) => StorageContainer.DepositCoins(amt);
-        public void Save(BinaryWriter writer)
+
+        public virtual void Save(BinaryWriter writer)
         {
             StorageContainer.Save(writer);
         }
 
-        public void LoadSave(BinaryReader reader)
+        public virtual void LoadSave(BinaryReader reader)
         {
             StorageContainer.LoadSave(reader);
         }

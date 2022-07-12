@@ -52,13 +52,7 @@ namespace UIEngine.Classes.Storage
 
         internal InventorySlotDisplay SelectedSlot { get; set; }
 
-        internal new int Width { get { return XDrawEndIndex * _buttonWidth; } }
 
-
-        public int Capacity { get { return StorageContainer.Capacity; } }
-        protected int XDrawEndIndex { get; set; }
-
-        protected int YDrawEndIndex { get; set; }
 
         protected StackPanel StackPanel { get; set; }
 
