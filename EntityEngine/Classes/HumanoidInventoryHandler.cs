@@ -12,7 +12,7 @@ namespace EntityEngine.Classes
         public EquipmentStorageContainer EquipmentStorageContainer { get; set; }
         public HumanoidInventoryHandler(int capacity) : base(capacity)
         {
-            EquipmentStorageContainer = new EquipmentStorageContainer(capacity);
+            EquipmentStorageContainer = new EquipmentStorageContainer(8);
         }
     }
 }

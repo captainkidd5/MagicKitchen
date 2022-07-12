@@ -27,5 +27,13 @@ namespace ItemEngine.Classes.StorageStuff
                     return false;
             return base.Add(itemName);
         }
+        protected override bool MayPlaceItem(ushort itemIdToTryToPlace)
+        {
+            Item item = ItemFactory.GetItem(itemIdToTryToPlace);
+            if (item != null)
+                if (item.EquipmentSlot != AllowedEquipmentType)
+                    return false;
+            return base.MayPlaceItem(itemIdToTryToPlace);
+        }
     }
 }

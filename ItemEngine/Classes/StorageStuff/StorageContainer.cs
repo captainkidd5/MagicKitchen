@@ -21,13 +21,18 @@ namespace ItemEngine.Classes.StorageStuff
         public event ItemAdded? ItemAdded;
 
         public int Capacity { get; private set; }
-        public List<StorageSlot> Slots { get; private set; }
+        public List<StorageSlot> Slots { get; protected set; }
 
         private Wallet _wallet;
 
         public StorageContainer(int capacity)
         {
             Capacity = capacity;
+            AddSlots();
+        }
+
+        protected virtual void AddSlots()
+        {
             Slots = new List<StorageSlot>();
             _wallet = new Wallet();
             for (int i = 0; i < Capacity; i++)

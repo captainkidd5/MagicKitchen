@@ -51,7 +51,8 @@ namespace DataModels
             Helmet = 1,
             Torso = 2,
             Legs = 3,
-            Boots = 4
+            Boots = 4,
+            Trinket = 5
         }
 
         public enum ShadowSize

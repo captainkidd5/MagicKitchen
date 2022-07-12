@@ -24,6 +24,11 @@ namespace UIEngine.Classes.Storage
     {
         None =0,
         Output = 1,
+        Helmet = 2,
+        Torso = 3,
+        Legs = 4,
+        Boots = 5,
+        Trinket = 6
     }
 
 
@@ -37,7 +42,7 @@ namespace UIEngine.Classes.Storage
         private readonly StorageSlot _storageSlot;
         private readonly Vector2 _itemIconSpriteScale = new Vector2(3f, 3f);
 
-        private NineSliceButton _button;
+        private ButtonBase _button;
 
         //watermark sprite indicates special properties of the storage slot, such as an
         //eye to indicate that an item placed here will show up on the tile
@@ -78,14 +83,26 @@ namespace UIEngine.Classes.Storage
 
         }
 
-        private NineSliceButton NineSliceButtonFromVariant(SlotVisualVariant variant)
+        private ButtonBase NineSliceButtonFromVariant(SlotVisualVariant variant)
         {
             switch (variant)
             {
                 case SlotVisualVariant.None:
                     return new NineSliceButton(parentSection, graphics, content, Position, LayerDepth, null, null, null, null, hoverTransparency: true);
                 case SlotVisualVariant.Output:
-                    return new NineSliceButton(parentSection, graphics, content, Position, LayerDepth, new Rectangle(0,0,128,128), null, null, null, hoverTransparency: true);
+                    return new NineSliceButton(parentSection, graphics, content, Position, LayerDepth, new Rectangle(0, 0, 128, 128), null, null, null, hoverTransparency: true);
+                case SlotVisualVariant.Helmet:
+                    return new Button(parentSection, graphics, content, Position, LayerDepth, new Rectangle(320, 640, 32, 32));
+                case SlotVisualVariant.Torso:
+                    return new Button(parentSection, graphics, content, Position, LayerDepth, new Rectangle(320, 672, 32, 32));
+                case SlotVisualVariant.Legs:
+                    return new Button(parentSection, graphics, content, Position, LayerDepth, new Rectangle(320, 704, 32, 32));
+
+                case SlotVisualVariant.Boots:
+                    return new Button(parentSection, graphics, content, Position, LayerDepth, new Rectangle(320, 736, 32, 32));
+
+                case SlotVisualVariant.Trinket:
+                    return new Button(parentSection, graphics, content, Position, LayerDepth, new Rectangle(352, 640, 32, 32));
 
                 default:
                     return new NineSliceButton(parentSection, graphics, content, Position, LayerDepth, null, null, null, null, hoverTransparency: true);

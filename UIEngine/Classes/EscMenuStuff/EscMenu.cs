@@ -159,6 +159,9 @@ namespace UIEngine.Classes.EscMenuStuff
         }
         public override void LoadContent()
         {
+            if(EquipmentMenu == null)
+            {
+
             TransferSections.Clear();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, (int)(BackGroundSource.Width * _scale.X), (int)(BackGroundSource.Height * _scale.Y));
             _returnToMainMenuAction = new Action(ReturnToMainMenu);
@@ -192,6 +195,8 @@ namespace UIEngine.Classes.EscMenuStuff
             SwapActivePage(_escPrimary);
             DoSelection(CoordinatesOf(_tabPairs[_escPrimary]).Value);
             base.LoadContent();
+            }
+
 
         }
         public override void Deactivate()

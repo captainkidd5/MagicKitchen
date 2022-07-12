@@ -29,6 +29,7 @@ namespace UIEngine.Classes.EquipmentMenuStuff
         {
 
             TotalBounds = parentSection.TotalBounds;
+            Position = new Vector2(TotalBounds.X, TotalBounds.Y);
             EquipmentDisplay = new EquipmentDisplay(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             EquipmentDisplay.LoadContent();
             base.LoadContent();
