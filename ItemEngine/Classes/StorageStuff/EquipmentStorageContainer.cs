@@ -11,10 +11,13 @@ namespace ItemEngine.Classes.StorageStuff
     public class EquipmentStorageContainer : StorageContainer
     {
 
-        private EquipmentSlot _helmetEquipmentSlot;
-        private EquipmentSlot _torsoEquipmentSlot;
-        private EquipmentSlot _legsEquipmentSlot;
-        private EquipmentSlot _bootsEquipmentSlot;
+        public EquipmentSlot HelmetEquipmentSlot { get; private set; }
+        public EquipmentSlot TorsoEquipmentSlot { get; private set; }
+
+        public EquipmentSlot LegsEquipmentSlot { get; private set; }
+
+        public EquipmentSlot BootsEquipmentSlot { get; private set; }
+
 
 
 
@@ -27,15 +30,15 @@ namespace ItemEngine.Classes.StorageStuff
         protected override void AddSlots()
         {
             Slots = new List<StorageSlot>();
-            _helmetEquipmentSlot = new EquipmentSlot(EquipmentType.Helmet);
-            _torsoEquipmentSlot = new EquipmentSlot(EquipmentType.Torso);
+            HelmetEquipmentSlot = new EquipmentSlot(EquipmentType.Helmet);
+            TorsoEquipmentSlot = new EquipmentSlot(EquipmentType.Torso);
 
-            _legsEquipmentSlot = new EquipmentSlot(EquipmentType.Legs);
-            _bootsEquipmentSlot = new EquipmentSlot(EquipmentType.Boots);
-            Slots.Add(_helmetEquipmentSlot);
-            Slots.Add(_torsoEquipmentSlot);
-            Slots.Add(_legsEquipmentSlot);
-            Slots.Add(_bootsEquipmentSlot);
+            LegsEquipmentSlot = new EquipmentSlot(EquipmentType.Legs);
+            BootsEquipmentSlot = new EquipmentSlot(EquipmentType.Boots);
+            Slots.Add(HelmetEquipmentSlot);
+            Slots.Add(TorsoEquipmentSlot);
+            Slots.Add(LegsEquipmentSlot);
+            Slots.Add(BootsEquipmentSlot);
 
             for (int i = 0; i < 4; i++)
             {

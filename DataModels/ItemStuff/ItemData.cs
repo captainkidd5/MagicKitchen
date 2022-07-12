@@ -71,6 +71,7 @@ namespace DataModels.ItemStuff
 
        
         public EquipmentType EquipmentSlot { get; set; }
+        public byte EquipmentYIndex { get; set; }
         public ushort MaxDurability { get; set; }
         public void Load()
         {

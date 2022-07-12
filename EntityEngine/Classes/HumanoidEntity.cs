@@ -20,6 +20,7 @@ using SpriteEngine.Classes.Animations.BodyPartStuff;
 using SpriteEngine.Classes.Animations.EntityAnimations;
 using SpriteEngine.Classes;
 using ItemEngine.Classes.StorageStuff;
+using static DataModels.Enums;
 
 namespace EntityEngine.Classes
 {
@@ -47,8 +48,10 @@ namespace EntityEngine.Classes
             Animator = new CustomizeableAnimator(bodyPieces);
             InventoryHandler = new HumanoidInventoryHandler(StorageCapacity);
 
+            (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
         }
 
+   
 
         protected override void CreateBody(Vector2 position)
         {

@@ -31,7 +31,11 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             BodyPieces = animations;
 
         }
+        public void OnEquipmentChanged(EquipmentType equipmentType, int yIndex)
+        {
+            BodyPieces[7].EquipGear(yIndex);
 
+        }
         public void SetClothingIndex(Type t, int index)
         {
             for (int i = 0; i < BodyPieces.Length; i++)

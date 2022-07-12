@@ -42,6 +42,7 @@ namespace ItemEngine.Classes
         public ushort MaxDurability => _itemData.MaxDurability;
 
         public EquipmentType EquipmentSlot => _itemData.EquipmentSlot;
+        public byte EquipmentYIndex => _itemData.EquipmentYIndex;
         public ushort CurrentDurability { get;  private set; }
         public List<AllowedPlacementTileType> AllowedPlacementTileTypes => _itemData.AllowedPlacementTileTypes;
         internal Item(ItemData data)

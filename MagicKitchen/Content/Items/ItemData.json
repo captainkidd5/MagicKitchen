@@ -208,6 +208,7 @@
     "MaxStackSize": 1,
     "Price": 1, 
     "EquipmentSlot" : "Helmet",
+    "EquipmentYIndex": 0,
     "RecipeInfo": 
     {
     "CraftAction": "Craft",

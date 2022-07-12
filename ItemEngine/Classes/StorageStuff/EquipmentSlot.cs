@@ -7,8 +7,10 @@ using static DataModels.Enums;
 
 namespace ItemEngine.Classes.StorageStuff
 {
+    public delegate void EquipmentChanged(EquipmentType equipmentType, int yIndex);
     public class EquipmentSlot : StorageSlot
     {
+        public event EquipmentChanged EquipmentChanged;
         public EquipmentType AllowedEquipmentType { get; set; }
         public EquipmentSlot(EquipmentType allowedEquipmentType)
         {
@@ -33,6 +35,7 @@ namespace ItemEngine.Classes.StorageStuff
             if (item != null)
                 if (item.EquipmentSlot != AllowedEquipmentType)
                     return false;
+            EquipmentChanged?.Invoke(AllowedEquipmentType, item.EquipmentYIndex);
             return base.MayPlaceItem(itemIdToTryToPlace);
         }
     }

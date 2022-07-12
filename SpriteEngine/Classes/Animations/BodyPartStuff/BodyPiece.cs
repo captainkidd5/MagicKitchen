@@ -21,6 +21,8 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
     /// </summary>
     public abstract class BodyPiece : ISaveable
     {
+        public bool GearEquipped { get; set; }
+        protected int GearEquipX { get; set; }
         protected BodyParts BodyPart { get; set; }
         protected float LayerOffSet { get; set; }
        
@@ -28,8 +30,11 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         public int Index { get; protected set; }
 
-
-       
+        /// <summary>
+        /// If no gear equipped, just start at left of sprite sheet,
+        /// else if wearing gear, start the animation on the gear side of the sheet
+        /// </summary>
+       protected int StartX => GearEquipped ? GearEquipX : 0;
         protected int FrameWidth { get; set; }
         protected int FrameHeight { get; set; }
 
@@ -71,6 +76,12 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         internal BodyPiece(int index)
         {
             Index = index;
+        }
+
+        public void EquipGear(int yIndex)
+        {
+            GearEquipped = true;
+            Load(Animator, Vector2.Zero, Scale);
         }
         public virtual void Load(Animator animator, Vector2 entityPosition, Vector2? scale = null)
         {
