@@ -36,14 +36,19 @@ namespace ItemEngine.Classes.StorageStuff
             LegsEquipmentSlot = new EquipmentSlot(EquipmentType.Legs);
             BootsEquipmentSlot = new EquipmentSlot(EquipmentType.Boots);
             Slots.Add(HelmetEquipmentSlot);
-            Slots.Add(TorsoEquipmentSlot);
-            Slots.Add(LegsEquipmentSlot);
-            Slots.Add(BootsEquipmentSlot);
+            Slots.Add(new EquipmentSlot(EquipmentType.Trinket));
 
-            for (int i = 0; i < 4; i++)
-            {
-                Slots.Add(new EquipmentSlot(EquipmentType.Trinket));
-            }
+            Slots.Add(TorsoEquipmentSlot);
+            Slots.Add(new EquipmentSlot(EquipmentType.Trinket));
+
+            Slots.Add(LegsEquipmentSlot);
+            Slots.Add(new EquipmentSlot(EquipmentType.Trinket));
+
+            Slots.Add(BootsEquipmentSlot);
+            Slots.Add(new EquipmentSlot(EquipmentType.Trinket));
+
+
+      
 
         }
     }

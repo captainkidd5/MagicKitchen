@@ -40,15 +40,16 @@ namespace EntityEngine.Classes
                     new Shirt(0),
                     new Shoulders(0),
                     new Arms(0),
-                    new Eyes(0),
                     new Head(0),
+                    new Eyes(0),
+
                       new Hair(0),
 
            };
             Animator = new CustomizeableAnimator(bodyPieces);
             InventoryHandler = new HumanoidInventoryHandler(StorageCapacity);
 
-            (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
+          //  (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
         }
 
    

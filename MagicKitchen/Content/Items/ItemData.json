@@ -200,6 +200,28 @@
     
 }
 },
+{
+    "Id": 1801,
+    "Name": "Iron_Torso",
+    "Description" : "Sturdy body armor",
+    "MaxStackSize": 1,
+    "Price": 1, 
+    "EquipmentSlot" : "Torso",
+    "EquipmentYIndex": 0,
+    "MaxDurability": 100,
+    "RecipeInfo": 
+    {
+    "CraftAction": "Craft",
+    "CookTime": 20,
+    "Ingredients":[
+        {
+            "Name":"Iron_Ore",
+            "Count":4
+        }
+    ]
+    
+}
+},
 
 {
     "Id": 2001,
@@ -209,6 +231,7 @@
     "Price": 1, 
     "EquipmentSlot" : "Helmet",
     "EquipmentYIndex": 0,
+    "MaxDurability": 100,
     "RecipeInfo": 
     {
     "CraftAction": "Craft",

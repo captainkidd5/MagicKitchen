@@ -31,21 +31,22 @@ namespace DataModels
             front = 4 //front
         }
 
+        //Note, these are drawn in the order of their enums
         public enum BodyParts : byte
         {
             None = 0,
-            Hat = 10,
-            Hair = 9,
-            Eyes = 8,
-            Head = 7,
-            Shoulders = 6,
+            Pants = 1,
+            Shoes = 2,
+            Shirt = 3,
+            Shoulders = 4,
             Arms = 5,
-            Shirt = 4,
-            Shoes = 3,
-            Pants = 2
+            Head = 6,
+            Eyes = 7,
+
+            Hair = 8,
         }
 
-        public enum EquipmentType
+        public enum EquipmentType : byte
         {
             None =0,
             Helmet = 1,
@@ -54,6 +55,27 @@ namespace DataModels
             Boots = 4,
             Trinket = 5
         }
+
+        public static BodyParts? EquipmentTypeToBodyPart(EquipmentType equipmentType)
+        {
+            switch (equipmentType)
+            {
+                case EquipmentType.None:
+                    return null;
+                case EquipmentType.Helmet:
+                    return BodyParts.Hair;
+                case EquipmentType.Torso:
+                    return BodyParts.Shirt;
+                case EquipmentType.Legs:
+                    return BodyParts.Pants;
+                case EquipmentType.Boots:
+                    return BodyParts.Shoes;
+                case EquipmentType.Trinket:
+                   return null;
+            }
+            return null;
+        }
+       
 
         public enum ShadowSize
         {

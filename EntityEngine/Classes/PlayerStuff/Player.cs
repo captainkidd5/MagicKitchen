@@ -417,6 +417,7 @@ namespace EntityEngine.Classes.PlayerStuff
             (InventoryHandler as PlayerInventoryHandler).EquipmentStorageContainer.LoadSave(reader);
             UI.LoadPlayerInventory(StorageContainer, EquipmentStorageContainer);
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
+            (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.TorsoEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
 
 
             _hungerHandler.LoadSave(reader);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using static DataModels.Enums;
 
 namespace ItemEngine.Classes.StorageStuff
 {
-    public delegate void EquipmentChanged(EquipmentType equipmentType, int yIndex);
+    public delegate void EquipmentChanged(BodyParts? bodyParts, EquipmentType equipmentType, int yIndex);
     public class EquipmentSlot : StorageSlot
     {
         public event EquipmentChanged EquipmentChanged;
@@ -40,9 +41,9 @@ namespace ItemEngine.Classes.StorageStuff
         protected override void OnItemChanged()
         {
             if(Item == null)
-                EquipmentChanged?.Invoke(EquipmentType.None, 0);
+                EquipmentChanged?.Invoke(Enums.EquipmentTypeToBodyPart(AllowedEquipmentType), EquipmentType.None, 0);
             else
-                EquipmentChanged?.Invoke(AllowedEquipmentType, Item.EquipmentYIndex);
+                EquipmentChanged?.Invoke(Enums.EquipmentTypeToBodyPart(AllowedEquipmentType), AllowedEquipmentType, Item.EquipmentYIndex);
 
             base.OnItemChanged();
         }

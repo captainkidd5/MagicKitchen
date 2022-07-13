@@ -31,17 +31,42 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             BodyPieces = animations;
 
         }
-        public void OnEquipmentChanged(EquipmentType equipmentType, int yIndex)
+        public void OnEquipmentChanged(BodyParts? bodyParts, EquipmentType equipmentType, int yIndex)
         {
+            if (bodyParts == null)
+                return;
             if(equipmentType == EquipmentType.None)
             {
-                BodyPieces[7].UnequipGear();
+                BodyPieces[(int)(bodyParts) - 1].UnequipGear();
 
                 return;
             }
 
-            BodyPieces[7].EquipGear(yIndex);
+            BodyPieces[(int)(bodyParts) - 1].EquipGear(yIndex);
 
+        }
+
+        private int? EquipmentTypeToBodyPartIndex(EquipmentType equipmentType)
+        {
+            switch (equipmentType)
+            {
+                case EquipmentType.None:
+                    goto default;
+                case EquipmentType.Helmet:
+                    return 7;
+                case EquipmentType.Torso:
+                    return 2;
+                case EquipmentType.Legs:
+                    return 0;
+
+                case EquipmentType.Boots:
+                    return 1;
+
+                case EquipmentType.Trinket:
+                    goto default;
+
+                default: return null;
+            }
         }
         public void SetClothingIndex(Type t, int index)
         {
@@ -149,6 +174,6 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             throw new NotImplementedException();
         }
 
-       
+
     }
 }
