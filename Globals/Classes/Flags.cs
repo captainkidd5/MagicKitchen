@@ -6,6 +6,8 @@ namespace Globals.Classes
 {
     public static class Flags
     {
+        //Will show "developed by" screen if true
+        public static bool DisplaySplashScreens = true;
         public static bool ShowTileSelector { get; set; } = true;
 
         public static bool Pause { get; set; }

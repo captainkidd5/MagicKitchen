@@ -36,6 +36,7 @@ using UIEngine.Classes.Storage.ItemAlerts;
 using UIEngine.Classes.CursorStuff;
 using TextEngine.Classes;
 using UIEngine.Classes.EquipmentMenuStuff;
+using UIEngine.Classes.SplashScreens;
 
 namespace UIEngine.Classes
 {
@@ -43,7 +44,8 @@ namespace UIEngine.Classes
     {
         None = 0,
         MainMenu = 1,
-        InGame = 2
+        InGame = 2,
+        SplashScreens = 3,
     }
     public static class UI
     {
@@ -58,7 +60,7 @@ namespace UIEngine.Classes
         internal static ButtonFactory ButtonFactory;
         public static float CurtainDropRate => Curtain.DropRate;
 
-        public static GameDisplayState GameDisplayState { get; private set; } = GameDisplayState.MainMenu;
+        public static GameDisplayState GameDisplayState { get; private set; }
         private static GameDisplayState s_requestedGameState;
 
         private static List<InterfaceSection> s_activeSections;
@@ -85,6 +87,8 @@ namespace UIEngine.Classes
 
         private static List<InterfaceSection> s_standardSections { get; set; }
         private static List<InterfaceSection> s_mainMenuSections { get; set; }
+        private static List<InterfaceSection> s_splashScreenSections { get; set; }
+
 
         private static TalkingWindow _talkingWindow { get; set; }
 
@@ -107,7 +111,7 @@ namespace UIEngine.Classes
         public static Cursor Cursor { get; set; }
 
         private static Game s_game;
-
+        private static SplashScreen SplashScreen;
         public static Item PlayerCurrentSelectedItem => StorageDisplayHandler.PlayerSelectedItem;
 
         public static void RemoveCurrentlySelectedItem(int amt) => StorageDisplayHandler.RemovePlayerSelectedItem(amt);
@@ -117,8 +121,13 @@ namespace UIEngine.Classes
         internal static bool MayPlayButtonHoverSound;
         private static SimpleTimer s_buttonSoundTimer;
         private static readonly float s_buttonSoundInterval = .15f;
-        public static void Load(Game game, GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager)
+        public static void Load(Game game, GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager, ContentManager splashScreenContentManager)
         {
+            if(Flags.DisplaySplashScreens)
+            GameDisplayState = GameDisplayState.SplashScreens;
+            else
+                GameDisplayState = GameDisplayState.MainMenu;
+
             s_game = game;
             s_graphics = graphics;
             s_content = content;
@@ -155,6 +164,9 @@ namespace UIEngine.Classes
 
             MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null, GetLayeringDepth(UILayeringDepths.Back));
             s_mainMenuSections = new List<InterfaceSection>() { MainMenu, SettingsMenu };
+
+            SplashScreen = new SplashScreen(null, graphics, splashScreenContentManager,Vector2.Zero, GetLayeringDepth(UILayeringDepths.Low));
+            s_splashScreenSections = new List<InterfaceSection>() { SplashScreen };
             s_activeSections = GetActiveSections();
             s_criticalSections = new List<InterfaceSection>();
             Curtain.LoadContent();
@@ -164,6 +176,10 @@ namespace UIEngine.Classes
             _frontLayeringDepth = GetLayeringDepth(UILayeringDepths.Front);
 
             s_buttonSoundTimer = new SimpleTimer(s_buttonSoundInterval, false);
+
+
+           RaiseCurtain(CurtainDropRate);
+
         }
         internal static void LoadNewCursorInfo( List<string> text) => CursorInfoBox.LoadNewText( text);
 
@@ -217,6 +233,8 @@ namespace UIEngine.Classes
                     return s_mainMenuSections;
                 case GameDisplayState.InGame:
                     return s_standardSections;
+                case GameDisplayState.SplashScreens:
+                    return s_splashScreenSections;
                 default:
                     throw new System.Exception("Must have a game display state");
 
@@ -372,8 +390,9 @@ namespace UIEngine.Classes
         /// <summary>
         /// After curtain drops, event fired will cause main menu to have child components to cleanup and get rid of save-specific data so that
         /// a fresh save can be safely loaded in.
+        /// set sender is stage to false if going to main menu from somewhere besides in game (splash screen)
         /// </summary>
-        internal static void ReturnToMainMenu()
+        internal static void ReturnToMainMenu(bool senderIsStage = true)
         {
             s_requestedGameState = GameDisplayState.MainMenu;
 
@@ -381,19 +400,16 @@ namespace UIEngine.Classes
                 new Action(() =>
                 {
                     SongManager.ChangePlaylist("MainMenu-Outer");
-                    ReturnedToMainMenu.Invoke(null, null);
+                    if (senderIsStage)
+                        ReturnedToMainMenu.Invoke(null, null);
+                    else
+                        RaiseCurtain(CurtainDropRate);
                     FinishChangeGameState();
 
                 }));
 
         }
-        private static void StartChangeGameState(GameDisplayState newState)
-        {
-            DropCurtain(CurtainDropRate, new Action(FinishChangeGameState));
-            s_requestedGameState = newState;
 
-
-        }
         private static void FinishChangeGameState()
         {
             UnloadCurrentSection();

@@ -63,6 +63,7 @@ namespace TiledEngine.Classes.ZoneStuff
                 zonesList.Add(zone);
             }
             _musicZones = zonesList;
+
         }
         public void Save(BinaryWriter writer)
         {

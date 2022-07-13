@@ -34,6 +34,7 @@ namespace UIEngine.Classes
             BackdropSprite = SpriteFactory.CreateUISprite(Vector2.Zero,Settings.ScreenRectangle,Settings.DebugTexture, _layerDepth, Color.White);
 
             TotalBounds = Settings.ScreenRectangle;
+            Opacity = 1f;
             base.LoadContent();
 
 

@@ -41,9 +41,9 @@ namespace MagicKitchen
 
 
         private ContentManager _mainMenuContentManager;
+        private ContentManager _splashScreenContentManager;
 
         private StageManager _stageManager;
-
 
         private CommandList _commandList;
 
@@ -75,6 +75,9 @@ namespace MagicKitchen
             IsFixedTimeStep = true;
             _mainMenuContentManager = new ContentManager(Content.ServiceProvider);
             _mainMenuContentManager.RootDirectory = "Content";
+
+            _splashScreenContentManager = new ContentManager(Content.ServiceProvider);
+            _splashScreenContentManager.RootDirectory = "Content";
             Camera = new Camera2D(GraphicsDevice.Viewport);
 
             Settings.Load(_graphics, Camera, Window);
@@ -119,7 +122,7 @@ namespace MagicKitchen
 
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
             SongManager.Load(Content);
-            UI.Load(this, GraphicsDevice, Content, _mainMenuContentManager);
+            UI.Load(this, GraphicsDevice, Content, _mainMenuContentManager, _splashScreenContentManager);
 
             SoundFactory.Load(Content);
 

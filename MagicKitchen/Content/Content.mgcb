@@ -478,6 +478,18 @@
 /processor:PassThroughProcessor
 /build:Maps/StageData.xml
 
+#begin p2p3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:p2p3.png
+
 #begin UI/Buttons.png
 /importer:TextureImporter
 /processor:TextureProcessor
