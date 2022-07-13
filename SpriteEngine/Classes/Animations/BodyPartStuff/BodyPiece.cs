@@ -28,7 +28,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
        
 
 
-        public int Index { get; protected set; }
+        public byte Index { get; protected set; }
 
         /// <summary>
         /// If no gear equipped, just start at left of sprite sheet,
@@ -73,19 +73,24 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         protected int MaxIndex = 1;
 
+        //When putting on gear, remember this, so we can switch back
+        protected byte UnderGarmentSavedIndex { get; set; }
         internal BodyPiece(int index)
         {
-            Index = index;
+            Index = (byte)index;
         }
 
         public void EquipGear(int yIndex)
         {
+            UnderGarmentSavedIndex = Index;
+            Index = (byte)yIndex;
             GearEquipped = true;
             Load(Animator, Vector2.Zero, Scale);
         }
         public void UnequipGear()
         {
             GearEquipped = false;
+            Index = UnderGarmentSavedIndex;
             Load(Animator, Vector2.Zero, Scale);
 
         }
@@ -185,16 +190,16 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         public void SetIndex(int index)
         {
-            Index = index;
+            Index = (byte)index;
         }
         public void CycleForward()
         {
-            Index = ScrollHelper.GetIndexFromScroll(Direction.Down, Index, MaxIndex);
+            Index = (byte)ScrollHelper.GetIndexFromScroll(Direction.Down, Index, MaxIndex);
             Load(Animator, Vector2.Zero, Scale);
         }
         public void CycleBackwards()
         {
-            Index = ScrollHelper.GetIndexFromScroll(Direction.Up, Index, MaxIndex);
+            Index = (byte)ScrollHelper.GetIndexFromScroll(Direction.Up, Index, MaxIndex);
             Load(Animator, Vector2.Zero, Scale);
         }
         public void Save(BinaryWriter writer)
