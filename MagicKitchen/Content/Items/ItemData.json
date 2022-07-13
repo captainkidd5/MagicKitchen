@@ -266,7 +266,28 @@
     
 }
 },
-
+{
+    "Id": 2101,
+    "Name": "Iron_Boots",
+    "Description" : "Boots forged from iron",
+    "MaxStackSize": 1,
+    "Price": 1, 
+    "EquipmentSlot" : "Boots",
+    "EquipmentYIndex": 0,
+    "MaxDurability": 100,
+    "RecipeInfo": 
+    {
+    "CraftAction": "Craft",
+    "CookTime": 20,
+    "Ingredients":[
+        {
+            "Name":"Iron_Ore",
+            "Count":4
+        }
+    ]
+    
+}
+},
 
 {
     "Id": 2500,
