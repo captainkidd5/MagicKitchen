@@ -35,8 +35,16 @@ namespace ItemEngine.Classes.StorageStuff
             if (item != null)
                 if (item.EquipmentSlot != AllowedEquipmentType)
                     return false;
-            EquipmentChanged?.Invoke(AllowedEquipmentType, item.EquipmentYIndex);
             return base.MayPlaceItem(itemIdToTryToPlace);
+        }
+        protected override void OnItemChanged()
+        {
+            if(Item == null)
+                EquipmentChanged?.Invoke(EquipmentType.None, 0);
+            else
+                EquipmentChanged?.Invoke(AllowedEquipmentType, Item.EquipmentYIndex);
+
+            base.OnItemChanged();
         }
     }
 }

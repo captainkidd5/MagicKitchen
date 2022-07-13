@@ -33,6 +33,13 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         }
         public void OnEquipmentChanged(EquipmentType equipmentType, int yIndex)
         {
+            if(equipmentType == EquipmentType.None)
+            {
+                BodyPieces[7].UnequipGear();
+
+                return;
+            }
+
             BodyPieces[7].EquipGear(yIndex);
 
         }

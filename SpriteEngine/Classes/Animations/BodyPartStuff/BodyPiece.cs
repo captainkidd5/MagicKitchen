@@ -83,6 +83,12 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             GearEquipped = true;
             Load(Animator, Vector2.Zero, Scale);
         }
+        public void UnequipGear()
+        {
+            GearEquipped = false;
+            Load(Animator, Vector2.Zero, Scale);
+
+        }
         public virtual void Load(Animator animator, Vector2 entityPosition, Vector2? scale = null)
         {
             Scale = scale ?? Vector2.One;
