@@ -39,7 +39,9 @@ namespace ItemEngine.Classes
         public Layers? LayerToPlace => _itemData.LayerToPlace;
         public bool PlaceableItem => _itemData.PlaceableItem;
 
-        public ushort MaxDurability => _itemData.MaxDurability;
+        public byte MaxDurability => _itemData.MaxDurability;
+        public byte ArmorValue => _itemData.ArmorValue;
+
 
         public EquipmentType EquipmentSlot => _itemData.EquipmentSlot;
         public byte EquipmentYIndex => _itemData.EquipmentYIndex;

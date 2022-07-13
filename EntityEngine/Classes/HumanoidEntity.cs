@@ -94,8 +94,12 @@ namespace EntityEngine.Classes
         public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string? name, bool standardAnimator = false)
         {
             base.LoadContent(entityContainer, startPos, name, standardAnimator);
-            LoadAnimations(Animator);
-            LoadWardrobe();
+            if(this.GetType() != typeof(Player))
+            {
+                LoadAnimations(Animator);
+                LoadWardrobe();
+            }
+            
 
         }
 

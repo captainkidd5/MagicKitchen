@@ -21,6 +21,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         private CraftingTab _tabPlaceable;
         private CraftingTab _tabRefind;
+        private CraftingTab _tabEquipment;
+
 
 
         Dictionary<CraftingCategory, CraftingTab> _tabCategories;
@@ -29,7 +31,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
         public TabsColumnMenu(CraftingMenu craftingMenu, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            Selectables = new InterfaceSection[3, 1];
+            Selectables = new InterfaceSection[4, 1];
             DoSelection(new Point(0, 0));
             _craftingMenu = craftingMenu;
         }
@@ -66,6 +68,9 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
             _tabRefind = new CraftingTab(parentSection as CraftingMenu, CraftingCategory.Refined, _tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             AddTab(_tabRefind, new Point(2, 0));
+
+            _tabEquipment = new CraftingTab(parentSection as CraftingMenu, CraftingCategory.Equipment, _tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            AddTab(_tabEquipment, new Point(3, 0));
 
             TotalBounds = _tabsStackPanel.TotalBounds;
             //base.LoadContent();

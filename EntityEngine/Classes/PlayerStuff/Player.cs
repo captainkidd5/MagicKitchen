@@ -410,17 +410,21 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void LoadSave(BinaryReader reader)
         {
             base.LoadSave(reader);
+            Animator.Load(SoundModuleManager, Position);
+            LoadWardrobe();
             ProgressManager.LoadSave(reader);
             StorageCapacity = reader.ReadByte();
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
-            InventoryHandler.LoadSave(reader);
-            (InventoryHandler as PlayerInventoryHandler).EquipmentStorageContainer.LoadSave(reader);
-            UI.LoadPlayerInventory(StorageContainer, EquipmentStorageContainer);
+
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.TorsoEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.LegsEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.BootsEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
 
+            InventoryHandler.LoadSave(reader);
+            (InventoryHandler as PlayerInventoryHandler).EquipmentStorageContainer.LoadSave(reader);
+            UI.LoadPlayerInventory(StorageContainer, EquipmentStorageContainer);
+           
 
 
             _hungerHandler.LoadSave(reader);

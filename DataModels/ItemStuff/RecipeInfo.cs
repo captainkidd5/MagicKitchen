@@ -10,7 +10,8 @@ namespace DataModels.ItemStuff
         None = 0,
         Tool = 1,
         Placeable = 2,
-        Refined = 3
+        Refined = 3,
+        Equipment = 4
     }
     public enum CraftAction
     {

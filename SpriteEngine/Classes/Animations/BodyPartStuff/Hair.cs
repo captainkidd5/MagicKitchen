@@ -23,11 +23,11 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         public override void Load(Animator animator, Vector2 entityPosition, Vector2? scale = null)
         {
             Texture = SpriteFactory.HairTexture;
+            GearEquipX = 48;
+            MaxIndex = 3;
 
             base.Load(animator, entityPosition, scale);
 
-            MaxIndex = 3;
-            GearEquipX = 48;
 
         }
 

@@ -209,13 +209,15 @@
     "EquipmentSlot" : "Torso",
     "EquipmentYIndex": 0,
     "MaxDurability": 100,
+    "ArmorValue" : 2,
     "RecipeInfo": 
     {
     "CraftAction": "Craft",
+    "CraftingCategory": "Equipment",
     "CookTime": 20,
     "Ingredients":[
         {
-            "Name":"Iron_Ore",
+            "Name":"Iron_Ingot",
             "Count":4
         }
     ]
@@ -231,13 +233,15 @@
     "EquipmentSlot" : "Legs",
     "EquipmentYIndex": 0,
     "MaxDurability": 100,
+    "ArmorValue" : 2,
     "RecipeInfo": 
     {
     "CraftAction": "Craft",
+    "CraftingCategory": "Equipment",
     "CookTime": 20,
     "Ingredients":[
         {
-            "Name":"Iron_Ore",
+            "Name":"Iron_Ingot",
             "Count":4
         }
     ]
@@ -253,14 +257,16 @@
     "EquipmentSlot" : "Helmet",
     "EquipmentYIndex": 0,
     "MaxDurability": 100,
+    "ArmorValue" : 1,
     "RecipeInfo": 
     {
     "CraftAction": "Craft",
+    "CraftingCategory": "Equipment",
     "CookTime": 20,
     "Ingredients":[
         {
-            "Name":"Iron_Ore",
-            "Count":4
+            "Name":"Iron_Ingot",
+            "Count":2
         }
     ]
     
@@ -275,14 +281,16 @@
     "EquipmentSlot" : "Boots",
     "EquipmentYIndex": 0,
     "MaxDurability": 100,
+    "ArmorValue" : 1,
     "RecipeInfo": 
     {
     "CraftAction": "Craft",
+    "CraftingCategory": "Equipment",
     "CookTime": 20,
     "Ingredients":[
         {
-            "Name":"Iron_Ore",
-            "Count":4
+            "Name":"Iron_Ingot",
+            "Count":2
         }
     ]
     

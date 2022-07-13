@@ -46,6 +46,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
                     return new Rectangle(96, 80, 32, 32);
                 case CraftingCategory.Refined:
                     return new Rectangle(128, 80, 32, 32);
+                case CraftingCategory.Equipment:
+                    return new Rectangle(128, 80, 32, 32);
                 default:
                     throw new Exception($"Must provide crafting category");
 
