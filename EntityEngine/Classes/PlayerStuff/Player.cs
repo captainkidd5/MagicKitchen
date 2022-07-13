@@ -167,7 +167,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() {
                 (Category)PhysCat.PlayerBigSensor }, new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Tool,(Category)PhysCat.Portal,
-                    (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.NPC, (Category)PhysCat.LightSource,(Category)PhysCat.ActionTile },
+                    (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.NPC, (Category)PhysCat.LightSource,(Category)PhysCat.ActionTile,(Category)PhysCat.SpecialZone  },
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
 

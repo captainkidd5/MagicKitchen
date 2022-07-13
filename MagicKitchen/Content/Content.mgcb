@@ -194,6 +194,18 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/UI/Button1.wav
 
+#begin Audio/SoundEffects/UI/ButtonHover1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/UI/ButtonHover1.wav
+
+#begin Audio/SoundEffects/UI/ButtonHover2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/UI/ButtonHover2.wav
+
 #begin Audio/SoundEffects/UI/Click1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -205,6 +217,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/UI/StartGame.wav
+
+#begin Audio/SoundEffects/UI/StartGame2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/UI/StartGame2.wav
 
 #begin Audio/SoundPackages.xml
 /importer:XmlImporter

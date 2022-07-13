@@ -203,12 +203,27 @@
                 </Item>
             </SoundChancers>
         </Item>
+<Item>
+        <Name>ButtonHover</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>ButtonHover1</Name>
+                    <Weight>50</Weight>
+                    <LocalPath>SoundEffects/UI</LocalPath>
+                </Item>
+                   <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>ButtonHover2</Name>
+                    <Weight>50</Weight>
+                    <LocalPath>SoundEffects/UI</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
 
           <Item>
         <Name>StartGameClick</Name>
             <SoundChancers>
                 <Item Type="DataModels.SoundStuff.SoundChancer">
-                    <Name>StartGame</Name>
+                    <Name>StartGame2</Name>
                     <Weight>100</Weight>
                     <LocalPath>SoundEffects/UI</LocalPath>
                 </Item>

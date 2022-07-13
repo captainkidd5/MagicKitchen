@@ -152,12 +152,18 @@ namespace SoundEngine.Classes.SongStuff
         public static void Update(GameTime gameTime)
         {
             if (Muted)
-                MusicVolume = 0f;
+                MediaPlayer.Pause();
+            MediaPlayer.Volume = MusicVolume;
             if (_currentSong == null)
             {
                 PlayNextSongInPlaylist();
             }
+            else if(MediaPlayer.State == MediaState.Stopped)
+            {
+                PlayNextSongInPlaylist();
 
+                MediaPlayer.Play(_currentSong);
+            }
             if (s_fadingIn)
             {
                 IncreaseVolume(gameTime);

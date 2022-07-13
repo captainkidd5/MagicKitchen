@@ -205,11 +205,13 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         public void Save(BinaryWriter writer)
         {
             ColorHelper.WriteColor(writer, _tint);
+            writer.Write(UnderGarmentSavedIndex);
         }
 
         public void LoadSave(BinaryReader reader)
         {
-            _tint = ColorHelper.ReadColor(reader);  
+            _tint = ColorHelper.ReadColor(reader);
+            UnderGarmentSavedIndex = reader.ReadByte();
         }
 
         public void CleanUp()

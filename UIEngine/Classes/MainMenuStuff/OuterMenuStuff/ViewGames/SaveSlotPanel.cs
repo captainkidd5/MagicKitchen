@@ -97,7 +97,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
         private void LoadSave()
         {
             Flags.IsNewGame = false;
-            SoundFactory.PlaySoundEffect("StartGame");
+            SoundFactory.PlaySoundEffect("StartGame2");
 
             UI.LoadGame(_saveFile);
             

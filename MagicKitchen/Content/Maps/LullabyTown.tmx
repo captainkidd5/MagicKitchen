@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="256" height="256" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="78">
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="256" height="256" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="83">
  <tileset firstgid="1" source="BackgroundMasterSpriteSheet.tsx"/>
  <tileset firstgid="10001" source="ForegroundMasterSpriteSheet.tsx"/>
  <layer id="1" name="background" width="256" height="256">
@@ -1322,6 +1322,18 @@
   <object id="63" x="2038" y="2216" width="18" height="17.5588">
    <properties>
     <property name="passenger" value="loading"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="11" name="MusicZones">
+  <object id="80" x="1574" y="1795" width="897" height="692">
+   <properties>
+    <property name="Playlist" value="LullabyTown"/>
+   </properties>
+  </object>
+  <object id="82" x="2544" y="1448" width="910" height="592">
+   <properties>
+    <property name="Playlist" value="MainMenu-SaveMenu"/>
    </properties>
   </object>
  </objectgroup>

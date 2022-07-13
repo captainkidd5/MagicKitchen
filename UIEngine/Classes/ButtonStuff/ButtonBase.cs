@@ -158,7 +158,7 @@ namespace UIEngine.Classes.ButtonStuff
                     if(JustHovered)
                         if (!IgnoreDefaultHoverSoundEffect && UI.MayPlayButtonHoverSound)
                         {
-                            SoundFactory.PlaySoundEffect("Click1");
+                            SoundFactory.PlayEffectPackage("ButtonHover");
                             UI.MayPlayButtonHoverSound = false;
                         }
 
