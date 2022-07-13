@@ -222,7 +222,28 @@
     
 }
 },
-
+{
+    "Id": 1901,
+    "Name": "Iron_Legs",
+    "Description" : "Sturdy leg armor",
+    "MaxStackSize": 1,
+    "Price": 1, 
+    "EquipmentSlot" : "Legs",
+    "EquipmentYIndex": 0,
+    "MaxDurability": 100,
+    "RecipeInfo": 
+    {
+    "CraftAction": "Craft",
+    "CookTime": 20,
+    "Ingredients":[
+        {
+            "Name":"Iron_Ore",
+            "Count":4
+        }
+    ]
+    
+}
+},
 {
     "Id": 2001,
     "Name": "Iron_Helmet",

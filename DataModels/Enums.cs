@@ -38,8 +38,9 @@ namespace DataModels
             Pants = 1,
             Shoes = 2,
             Shirt = 3,
-            Shoulders = 4,
-            Arms = 5,
+            Arms = 4,
+            Shoulders = 5,
+
             Head = 6,
             Eyes = 7,
 

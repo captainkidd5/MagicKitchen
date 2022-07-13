@@ -39,9 +39,13 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             {
                 BodyPieces[(int)(bodyParts) - 1].UnequipGear();
 
+                //Shirt also unequips shoulders
+                if(bodyParts == BodyParts.Shirt)
+                    BodyPieces[(int)(BodyParts.Shoulders) - 1].UnequipGear();
                 return;
             }
-
+            if (bodyParts == BodyParts.Shirt)
+                BodyPieces[(int)(BodyParts.Shoulders) - 1].EquipGear(yIndex);
             BodyPieces[(int)(bodyParts) - 1].EquipGear(yIndex);
 
         }

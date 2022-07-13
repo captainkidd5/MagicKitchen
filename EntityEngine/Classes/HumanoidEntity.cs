@@ -38,8 +38,9 @@ namespace EntityEngine.Classes
                     new Pants(0),
                     new Shoes(0),
                     new Shirt(0),
-                    new Shoulders(0),
                     new Arms(0),
+                    new Shoulders(0),
+
                     new Head(0),
                     new Eyes(0),
 
