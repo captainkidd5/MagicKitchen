@@ -56,10 +56,10 @@ namespace TextEngine.Classes
         public void Draw(SpriteBatch spriteBatch, bool fullString = false)
         {
             if (fullString)
-                spriteBatch.DrawString(_spriteFont, FullString.ToLower(),
+                spriteBatch.DrawString(_spriteFont, FullString,
                     _position, _color, 0f, Vector2.Zero, _scale, SpriteEffects.None, LayerDepth);
             else
-                spriteBatch.DrawString(_spriteFont, CurrentString.ToLower(),
+                spriteBatch.DrawString(_spriteFont, CurrentString,
                     _position, _color, 0f, Vector2.Zero, _scale, SpriteEffects.None, LayerDepth);
 
         }
