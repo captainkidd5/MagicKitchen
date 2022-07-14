@@ -37,6 +37,8 @@ namespace UIEngine.Classes.CursorStuff
         private Rectangle CursorSourceRectangle = new Rectangle(0, 0, 32, 32);
         private CursorItemToolTip _toolTip;
         public Sprite CursorSprite { get; private set; }
+        private Vector2 _cursorScale = new Vector2(1f,1f);
+        private PulserTimer _cursorScalePulser;
         private Text MouseDebugText { get; set; }
         public CursorIconType CursorIconType { get; private set; }
         public CursorIconType OldCursorIconType { get; set; }
@@ -81,7 +83,9 @@ namespace UIEngine.Classes.CursorStuff
             MouseDebugText = TextFactory.CreateUIText("test", .99f);
             CreateBody(Controls.MouseWorldPosition);
             _toolTip = new CursorItemToolTip();
-            
+
+
+            _cursorScalePulser = new PulserTimer(1, 1.15f, .45f);
 
         }
 
@@ -91,6 +95,9 @@ namespace UIEngine.Classes.CursorStuff
 
             Move(Controls.MouseWorldPosition);
             CursorSprite.Update(gameTime, Controls.MouseUIPosition);
+            float scale = _cursorScalePulser.Update(gameTime);
+            _cursorScale = new Vector2(scale, scale);
+            CursorSprite.SwapScale(_cursorScale);
             if (Flags.DisplayMousePosition)
             {
                 MouseDebugText.Update(gameTime, new Vector2(Controls.MouseUIPosition.X - 32, Controls.MouseUIPosition.Y - 32));

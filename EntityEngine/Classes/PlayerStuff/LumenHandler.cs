@@ -36,6 +36,8 @@ namespace EntityEngine.Classes.PlayerStuff
             _player = player;
             _lumenRechargeTimer = new SimpleTimer(_lumenRechargeRate);
             _lightCollidable = lightCollidable;
+            ResizeLightBody();
+
 
         }
         /// <summary>
