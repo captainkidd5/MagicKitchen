@@ -272,6 +272,7 @@
  </tile>
  <tile id="722">
   <properties>
+   <property name="step" value="Wade1"/>
    <property name="tilingKey" value="water,land,back"/>
    <property name="tilingSet" value="water"/>
   </properties>

@@ -8,6 +8,9 @@ using static DataModels.Enums;
 
 namespace Globals.Classes
 {
+    /// <summary>
+    /// Returns a float value in the update loop which you can use to increase/decrease the scale of something <see cref="Cursor"/>
+    /// </summary>
     public class PulserTimer
     {
         private float _speed;

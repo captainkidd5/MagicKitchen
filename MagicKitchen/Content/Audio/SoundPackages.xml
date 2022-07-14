@@ -180,6 +180,11 @@
                     <Weight>100</Weight>
                     <LocalPath>SoundEffects/Steps</LocalPath>
                 </Item>
+                  <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Wade1</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Steps</LocalPath>
+                </Item>
             </SoundChancers>
         </Item>
 

@@ -10,6 +10,7 @@ namespace Globals.Classes
         public static bool DisplaySplashScreens = true;
         public static bool ShowTileSelector { get; set; } = true;
 
+        public static bool SpawnCharactersOnNewGame = false;
         public static bool Pause { get; set; }
 
         public static bool DebugVelcro { get; 

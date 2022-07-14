@@ -154,7 +154,7 @@ namespace UIEngine.Classes
             StorageDisplayHandler = new StorageDisplayHandler(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             ItemAlertManager = new ItemAlertManager(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
 
-            CursorInfoBox = new CursorInfoBox(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
+            CursorInfoBox = new CursorInfoBox(null, graphics, content, null,.9f);
 
             s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, _talkingWindow,
                 EscMenu, RecipeBook, StorageDisplayHandler, ItemAlertManager, CursorInfoBox };

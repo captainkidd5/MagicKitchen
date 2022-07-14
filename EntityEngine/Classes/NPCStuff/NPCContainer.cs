@@ -42,11 +42,11 @@ namespace EntityEngine.Classes.CharacterStuff
         }
         private void AddNPCCommand(string[] args)
         {
-           CreateNPC(args[0], Controls.MouseWorldPosition, true);
+            CreateNPC(args[0], Controls.MouseWorldPosition, true);
         }
         private void AddTrainCommand(string[] args)
         {
-           AddTrain();
+            AddTrain();
         }
 
         public override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
@@ -57,7 +57,7 @@ namespace EntityEngine.Classes.CharacterStuff
             foreach (NPC entity in Entities)
             {
 
-                entity.LoadContent(this,null,entity.Name,false);
+                entity.LoadContent(this, null, entity.Name, false);
             }
             _mobSpawner.Load(this, tileManager);
             RegisterCommands();
@@ -66,7 +66,7 @@ namespace EntityEngine.Classes.CharacterStuff
         internal void AddTrain()
         {
             Train train = new Train(graphics, content);
-            train.LoadContent(this,null, null);
+            train.LoadContent(this, null, null);
             Entities.Add(train);
         }
 
@@ -76,59 +76,64 @@ namespace EntityEngine.Classes.CharacterStuff
         {
 
             writer.Write(Entities.Count);
-                foreach (Entity n in Entities)
-                {
+            foreach (Entity n in Entities)
+            {
                 writer.Write(n.GetType().ToString());
 
                 n.Save(writer);
 
 
-                }
+            }
         }
         public override void LoadSave(BinaryReader reader)
         {
             if (Flags.IsNewGame)
             {
-                foreach (NPCData npcData in EntityFactory.NPCData.Values)
+                if (Flags.SpawnCharactersOnNewGame)
                 {
-                    if (npcData.ImmediatelySpawn)
+
+                    foreach (NPCData npcData in EntityFactory.NPCData.Values)
                     {
+                        if (npcData.ImmediatelySpawn)
+                        {
 
-                        NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
-                            .CreateInstance(npcData.ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
-                            null, new object[] { graphics, content }, null, null);
+                            NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
+                                .CreateInstance(npcData.ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
+                                null, new object[] { graphics, content }, null, null);
 
-                     
-                        npc.LoadContent(this,null, npcData.Name, npc.GetType() != typeof(HumanoidEntity));
-                        Entities.Add(npc);
+
+                            npc.LoadContent(this, null, npcData.Name, npc.GetType() != typeof(HumanoidEntity));
+                            Entities.Add(npc);
+                        }
                     }
                 }
+
             }
 
             else
             {
 
-         int count = reader.ReadInt32();
-            for(int i =0; i < count; i++)
-            {
-                string savedType = reader.ReadString();
+                int count = reader.ReadInt32();
+                for (int i = 0; i < count; i++)
+                {
+                    string savedType = reader.ReadString();
 
-                NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
-                    .CreateInstance(savedType, true, System.Reflection.BindingFlags.CreateInstance,
-                    null, new object[] { graphics, content },null,null);
-                npc.LoadSave(reader);
-                        npc.LoadContent(this,null, npc.Name, npc.GetType() != typeof(HumanoidEntity));
-                Entities.Add(npc);
-            }
+                    NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
+                        .CreateInstance(savedType, true, System.Reflection.BindingFlags.CreateInstance,
+                        null, new object[] { graphics, content }, null, null);
+                    npc.LoadSave(reader);
+                    npc.LoadContent(this, null, npc.Name, npc.GetType() != typeof(HumanoidEntity));
+                    Entities.Add(npc);
+                }
             }
 
         }
 
 
 
-        public virtual void CreateNPC( string name, Vector2 position, bool standardAnimator, string stageName = null)
+        public virtual void CreateNPC(string name, Vector2 position, bool standardAnimator, string stageName = null)
         {
-         
+
             NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                     .CreateInstance(EntityFactory.NPCData[name].ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
                     null, new object[] { graphics, content }, null, null);

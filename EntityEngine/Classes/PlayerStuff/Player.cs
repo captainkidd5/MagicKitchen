@@ -424,7 +424,8 @@ namespace EntityEngine.Classes.PlayerStuff
             InventoryHandler.LoadSave(reader);
             (InventoryHandler as PlayerInventoryHandler).EquipmentStorageContainer.LoadSave(reader);
             UI.LoadPlayerInventory(StorageContainer, EquipmentStorageContainer);
-           
+
+            Animator.SoundPlayed += PlayStepSoundFromTile;
 
 
             _hungerHandler.LoadSave(reader);

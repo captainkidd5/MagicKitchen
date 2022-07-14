@@ -85,7 +85,7 @@ namespace UIEngine.Classes.CursorStuff
             _toolTip = new CursorItemToolTip();
 
 
-            _cursorScalePulser = new PulserTimer(1, 1.15f, .45f);
+            _cursorScalePulser = new PulserTimer(1, 1.10f, .45f);
 
         }
 
