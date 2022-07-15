@@ -31,32 +31,46 @@ namespace EntityEngine.Classes.ToolStuff
             base.LoadSprite();
             Sprite.SwapScale(new Vector2(2f, 2f));
             Sprite.Origin = new Vector2(16, 16);
+            Sprite.Rotation = MainHullBody.Body.Rotation;
         }
 
         protected override void CreateBody(Vector2 position)
         {
             Vector2 startingRectangle = new Vector2(2, 34);
             Vector2 anchorPoint = new Vector2(1, 32);
-
+            bool counterClockWise = false;
             float rotation = 0;
             if(Direction == Direction.Right)
+            {
                 rotation = 0f;
 
+            }
+
             else if (Direction == Direction.Left)
-                rotation = MathHelper.Pi;
+            {
+                             rotation = MathHelper.Pi *2;
+
+                counterClockWise = true;
+            }
 
             else if (Direction == Direction.Up)
+            {
                 rotation = MathHelper.Pi + MathHelper.PiOver2;
 
+            }
+
             else if (Direction == Direction.Down)
+            {
                 rotation = MathHelper.PiOver2;
-            
+
+            }
+
             MainHullBody = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, Position, startingRectangle.X, startingRectangle.Y,
                 new List<Category>() { (Category)PhysCat.Tool },
                new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.NPC }, OnCollides, OnSeparates,
-               blocksLight: true, userData: this, mass: 0, isSensor: false, ignoreGravity: true, rotation: rotation);
-            _joint = PhysicsManager.RotateWeld(Holder.MainHullBody.Body, MainHullBody.Body, new Vector2(0,0), anchorPoint, null, null);
-
+               blocksLight: true, userData: this, mass: .1f, isSensor: false, ignoreGravity: true, rotation: rotation);
+            _joint = PhysicsManager.RotateWeld(Holder.MainHullBody.Body, MainHullBody.Body, new Vector2(0,0), anchorPoint, null, null,counterClockWise);
+            //_joint.CollideConnected = false;
         }
 
         protected override void AlterSpriteRotation(GameTime gameTime)
@@ -75,7 +89,8 @@ namespace EntityEngine.Classes.ToolStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            
+            Holder.MainHullBody.Body.LinearVelocity = Vector2.Zero;
+            Holder.MainHullBody.Body.AngularVelocity = 0f;
             //Move(Holder.CenteredPosition);
             if (_swingDurationtimer.Run(gameTime))
                 Unload();
