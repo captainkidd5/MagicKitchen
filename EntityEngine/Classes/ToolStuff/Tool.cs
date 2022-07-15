@@ -122,7 +122,7 @@ namespace EntityEngine.Classes.ToolStuff
             return base.OnCollides(fixtureA, fixtureB, contact);
         }
 
-        public void Unload()
+        public virtual void Unload()
         {
             ClearGadgets();
             if (MainHullBody != null)

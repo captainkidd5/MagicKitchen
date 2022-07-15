@@ -203,6 +203,26 @@ namespace PhysicsEngine.Classes
             return weldJoint;
 
         }
-       
+
+        /// <summary>
+        /// Welds two bodies together and returns the created joint.
+        /// </summary>
+        /// <returns></returns>
+        public static RevoluteJoint RotateWeld(Body bodyA, Body bodyB, Vector2? bodyAAnchor, Vector2? bodyBAnchor, float? dampingRatio, float? frequencyHz)
+        {
+            bodyAAnchor = bodyAAnchor ?? Vector2.Zero;
+            bodyBAnchor = bodyBAnchor ?? Vector2.Zero;
+
+            dampingRatio = dampingRatio ?? 20f;
+            frequencyHz = frequencyHz ?? 30f;
+            RevoluteJoint joint = JointFactory.CreateRevoluteJoint(VelcroWorld, bodyA, bodyB, bodyAAnchor.Value, bodyBAnchor.Value);
+            joint.MotorEnabled = true;
+            joint.MaxMotorTorque = 200;
+            joint.MotorSpeed = 1000; //1 turn per second counter clockwise
+    
+            return joint;
+
+        }
+
     }
 }
