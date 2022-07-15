@@ -15,7 +15,7 @@ using tainicom.Aether.Physics2D.Dynamics.Contacts;
 
 namespace EntityEngine.Classes.ToolStuff
 {
-    public class Tool : Collidable
+    public abstract class Tool : Collidable
     {
         public Item Item { get; set; }
         public bool Dirty { get; set; }
@@ -25,9 +25,9 @@ namespace EntityEngine.Classes.ToolStuff
         {
             return (Tool)System.Reflection.Assembly.GetExecutingAssembly()
                 .CreateInstance($"EntityEngine.Classes.ToolStuff.{item.ItemType.ToString()}", true, System.Reflection.BindingFlags.CreateInstance,
-                null, new object[] {item }, null, null);
+                null, new object[] { item }, null, null);
         }
-        protected AnimatedSprite Sprite { get; set; }
+        protected Sprite Sprite { get; set; }
         protected Collidable Holder { get; set; }
 
         public bool IsCharging { get; set; }
@@ -45,14 +45,18 @@ namespace EntityEngine.Classes.ToolStuff
         {
             throw new NotImplementedException();
         }
+        protected virtual void LoadSprite()
+        {
+           Sprite = SpriteFactory.CreateWorldSprite(Position, SourceRectangle,
+                   ItemFactory.ItemSpriteSheet);
+            
+        }
         public virtual void Load()
         {
             CreateBody(Position);
+            LoadSprite();
 
- 
-            Sprite = SpriteFactory.CreateWorldAnimatedSprite(Position,SourceRectangle, 
-                ItemFactory.ToolSheet, GetAnimationFrames());
-            Sprite.Paused = true;
+         
             XOffSet = BaseOffSet.X;
             YOffSet = BaseOffSet.Y;
         }
@@ -69,50 +73,43 @@ namespace EntityEngine.Classes.ToolStuff
         {
             IsCharging = true;
             Holder = holder;
-           // Load();
+            // Load();
         }
         public virtual void ChargeUpTool(GameTime gameTime, Vector2 aimPosition)
         {
 
         }
-        
 
-        
+
+
         public virtual void ReleaseTool(Vector2 directionVector, Collidable holder)
         {
             Load();
             IsCharging = false;
             Holder = holder;
-            MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000000f);
-            Sprite.Rotation = Vector2Helper.VectorToDegrees(directionVector);
-            int anchorX = XOffSet;
-            XOffSet =(int)(Math.Ceiling((float)XOffSet * directionVector.X)) ;
-            XOffSet = XOffSet - (int)((float)anchorX * directionVector.Y);
 
-            YOffSet = YOffSet + (int)(Math.Ceiling((float)YOffSet * directionVector.Y)) ;
-            YOffSet = (int)((float)YOffSet * directionVector.X);
-            
+
 
         }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if(Sprite != null)
+            if (Sprite != null)
             {
 
-            Sprite.Update(gameTime, new Vector2(MainHullBody.Position.X - XOffSet, MainHullBody.Position.Y - YOffSet));
-            AlterSpriteRotation();
+                Sprite.Update(gameTime, new Vector2(MainHullBody.Position.X - XOffSet, MainHullBody.Position.Y - YOffSet));
+                AlterSpriteRotation(gameTime);
             }
 
         }
-        protected virtual void AlterSpriteRotation()
+        protected virtual void AlterSpriteRotation(GameTime gameTime)
         {
             Sprite.Rotation = MainHullBody.Body.Rotation;
 
         }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            if(Sprite != null)
+            if (Sprite != null)
             {
                 Sprite.Draw(spriteBatch);
 
@@ -121,15 +118,15 @@ namespace EntityEngine.Classes.ToolStuff
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-       
+
             return base.OnCollides(fixtureA, fixtureB, contact);
         }
 
         public void Unload()
         {
             ClearGadgets();
-            if(MainHullBody != null)
-            MainHullBody.Destroy();
+            if (MainHullBody != null)
+                MainHullBody.Destroy();
             Dirty = true;
 
         }

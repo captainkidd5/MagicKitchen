@@ -282,10 +282,33 @@
     "EquipmentYIndex": 0,
     "MaxDurability": 100,
     "ArmorValue" : 1,
+
     "RecipeInfo": 
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Equipment",
+    "CookTime": 20,
+    "Ingredients":[
+        {
+            "Name":"Iron_Ingot",
+            "Count":2
+        }
+    ]
+    
+}
+},
+{
+    "Id": 2201,
+    "Name": "Iron_Sword",
+    "Description" : "A sturdy weapon",
+    "MaxStackSize": 1,
+    "Price": 1, 
+    "MaxDurability": 100,
+    "ToolTier":"Good",
+    "ItemType": "Sword",
+    "RecipeInfo": 
+    {
+    "CraftAction": "Craft",
     "CookTime": 20,
     "Ingredients":[
         {

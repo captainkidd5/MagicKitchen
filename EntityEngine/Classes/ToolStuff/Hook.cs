@@ -20,7 +20,7 @@ using tainicom.Aether.Physics2D.Dynamics.Contacts;
 namespace EntityEngine.Classes.ToolStuff
 {
     
-    public class Hook : Tool
+    public class Hook : ProjectileTool
     {
         private bool _isReturning;
 
@@ -98,7 +98,7 @@ namespace EntityEngine.Classes.ToolStuff
             _directionalArrowSprite = SpriteFactory.CreateWorldSprite(Position, new Rectangle(0, 96, 16, 16), ItemFactory.ItemSpriteSheet);
 
         }
-        protected override void AlterSpriteRotation()
+        protected override void AlterSpriteRotation(GameTime gameTime)
         {
             if (_isReturning)
             {
@@ -126,7 +126,7 @@ namespace EntityEngine.Classes.ToolStuff
         }
         private void Return()
         {
-            Sprite.SetTargetFrame(1, true);
+            (Sprite as AnimatedSprite).SetTargetFrame(1, true);
 
             if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
             {
@@ -136,6 +136,14 @@ namespace EntityEngine.Classes.ToolStuff
                 _isReturning = true;
 
             }
+        }
+
+        protected override void LoadSprite()
+        {
+         
+            Sprite = SpriteFactory.CreateWorldAnimatedSprite(Position, SourceRectangle,
+                  ItemFactory.ToolSheet, GetAnimationFrames());
+            (Sprite as AnimatedSprite).Paused = true;
         }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
