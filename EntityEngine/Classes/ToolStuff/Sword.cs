@@ -83,6 +83,7 @@ namespace EntityEngine.Classes.ToolStuff
         public override void ReleaseTool(Direction direction, Vector2 directionVector, Collidable holder)
         {
             base.ReleaseTool(direction, directionVector, holder);
+            SoundModuleManager.PlayPackage("Slash");
            // MainHullBody.Body.ApplyAngularImpulse(10f);
 
         }

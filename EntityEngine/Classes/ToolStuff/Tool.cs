@@ -97,7 +97,8 @@ namespace EntityEngine.Classes.ToolStuff
         }
         public override void Update(GameTime gameTime)
         {
-          //  base.Update(gameTime);
+            //  base.Update(gameTime);
+            SoundModuleManager.Update(Position);
             if (Sprite != null)
             {
 

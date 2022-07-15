@@ -188,6 +188,30 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Tools/ItemCraftMetal.wav
 
+#begin Audio/SoundEffects/Tools/Slash1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tools/Slash1.wav
+
+#begin Audio/SoundEffects/Tools/Slash2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tools/Slash2.wav
+
+#begin Audio/SoundEffects/Tools/Slash3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tools/Slash3.wav
+
+#begin Audio/SoundEffects/Tools/Slash4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tools/Slash4.wav
+
 #begin Audio/SoundEffects/Tools/ToolBreak.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

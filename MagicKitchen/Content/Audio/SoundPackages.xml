@@ -37,6 +37,31 @@
                 </Item>
             </SoundChancers>
         </Item>
+         <Item>
+            <Name>Slash</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Slash1</Name>
+                    <Weight>25</Weight>
+                    <LocalPath>SoundEffects/Tools</LocalPath>
+                </Item>
+                 <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Slash2</Name>
+                    <Weight>25</Weight>
+                    <LocalPath>SoundEffects/Tools</LocalPath>
+                </Item>
+                 <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Slash3</Name>
+                    <Weight>25</Weight>
+                    <LocalPath>SoundEffects/Tools</LocalPath>
+                </Item>
+                 <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Slash4</Name>
+                    <Weight>25</Weight>
+                    <LocalPath>SoundEffects/Tools</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
 <Item>
             <Name>Ignite</Name>
             <SoundChancers>

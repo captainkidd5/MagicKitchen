@@ -140,8 +140,12 @@ namespace EntityEngine.Classes.NPCStuff
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayArea))
             {
-                Console.WriteLine("test");
                 OutsideOfPlayArea = false;
+
+            }
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
+            {
+                TakeDamage(25);
 
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
@@ -151,7 +155,6 @@ namespace EntityEngine.Classes.NPCStuff
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayArea))
             {
-                Console.WriteLine("test");
                 OutsideOfPlayArea = true;
             }
             base.OnSeparates(fixtureA, fixtureB, contact);
