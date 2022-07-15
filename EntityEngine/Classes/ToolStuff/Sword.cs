@@ -37,39 +37,32 @@ namespace EntityEngine.Classes.ToolStuff
         {
             Vector2 startingRectangle = new Vector2(2, 34);
             Vector2 anchorPoint = new Vector2(1, 32);
-            Vector2 pos = Position;
+
+            float rotation = 0;
             if(Direction == Direction.Right)
-            {
-                startingRectangle = new Vector2(2, 34);
-                anchorPoint = new Vector2(startingRectangle.X - 1, startingRectangle.Y - 1);
+                rotation = 0f;
 
-            }
             else if (Direction == Direction.Left)
-            {
-                startingRectangle = new Vector2(2, 34);
-                pos = new Vector2(pos.X ,pos.Y - startingRectangle.Y);
-                anchorPoint = new Vector2(startingRectangle.X - 1,1);
+                rotation = MathHelper.Pi;
 
-            }
             else if (Direction == Direction.Up)
-            {
-                startingRectangle = new Vector2(34, 2);
-                anchorPoint = new Vector2(startingRectangle.X - 1, startingRectangle.Y - 1);
+                rotation = MathHelper.Pi + MathHelper.PiOver2;
 
-            }
-
-            MainHullBody = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, pos, startingRectangle.X, startingRectangle.Y,
+            else if (Direction == Direction.Down)
+                rotation = MathHelper.PiOver2;
+            
+            MainHullBody = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, Position, startingRectangle.X, startingRectangle.Y,
                 new List<Category>() { (Category)PhysCat.Tool },
                new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.NPC }, OnCollides, OnSeparates,
-               blocksLight: true, userData: this, mass: 0, isSensor: false, ignoreGravity: true);
+               blocksLight: true, userData: this, mass: 0, isSensor: false, ignoreGravity: true, rotation: rotation);
             _joint = PhysicsManager.RotateWeld(Holder.MainHullBody.Body, MainHullBody.Body, new Vector2(0,0), anchorPoint, null, null);
 
         }
 
         protected override void AlterSpriteRotation(GameTime gameTime)
         {
-            if(_joint != null)
-            Sprite.Rotation = _joint.JointAngle + (float)Math.PI / 4;
+            if (_joint != null)
+                Sprite.Rotation = MainHullBody.Body.Rotation + (float)Math.PI / 4; ;
             
 
         }
