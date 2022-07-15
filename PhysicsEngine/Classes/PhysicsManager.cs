@@ -109,8 +109,15 @@ namespace PhysicsEngine.Classes
             radius = radius ?? 6f;
             position = position ?? Vector2.Zero;
             Body body = VelcroWorld.CreateCircle((float)radius, density, (Vector2)position, bodyType);
+            CreateCommonSettings(collisionCategories, categoriesCollidesWith, cDelegate, sDelegate, sleepingAllowed, isSensor, ignoreGravity, body);
 
+            body.Tag = userData;
+            return new HullBody(body);
 
+        }
+
+        private static void CreateCommonSettings(List<Category> collisionCategories, List<Category> categoriesCollidesWith, OnCollisionEventHandler cDelegate, OnSeparationEventHandler sDelegate, bool sleepingAllowed, bool isSensor, bool ignoreGravity, Body body)
+        {
             if (categoriesCollidesWith != null)
                 body.SetCollidesWith(GetCat(categoriesCollidesWith));
 
@@ -124,14 +131,8 @@ namespace PhysicsEngine.Classes
             body.OnCollision += cDelegate;
             body.OnSeparation += sDelegate;
             body.SetIsSensor(isSensor);
-
-
-            body.Tag = userData;
-            return new HullBody(body);
-
         }
 
- 
 
         public static HullBody CreateRectangularHullBody(BodyType bodyType, Vector2? position, float? width,float? height, List<Category>? collisionCategories, List<Category>? categoriesCollidesWith,
             OnCollisionEventHandler? cDelegate, OnSeparationEventHandler? sDelegate, float density = 1f, float rotation = 0f,
@@ -145,21 +146,7 @@ namespace PhysicsEngine.Classes
             Body body = PhysicsManager.VelcroWorld.CreateRectangle( (float)width,(float) height, density,(Vector2)position, rotation, bodyType);
 
 
-
-            if (categoriesCollidesWith != null)
-                body.SetCollidesWith(GetCat(categoriesCollidesWith));
-
-
-            if (collisionCategories != null)
-                body.SetCollisionCategories(GetCat(collisionCategories));
-
-            
-
-            body.IgnoreGravity = ignoreGravity;
-            body.SleepingAllowed = sleepingAllowed;
-            body.OnCollision += cDelegate;
-            body.OnSeparation += sDelegate;
-            body.SetIsSensor( isSensor);
+            CreateCommonSettings(collisionCategories, categoriesCollidesWith, cDelegate, sDelegate, sleepingAllowed, isSensor, ignoreGravity, body);
 
 
             body.Tag = userData;
@@ -178,20 +165,7 @@ namespace PhysicsEngine.Classes
             position = position ?? Vector2.Zero;
 
             Body body = VelcroWorld.CreatePolygon(vertices, density, (Vector2)position, rotation, bodyType);
-            if (categoriesCollidesWith != null)
-                body.SetCollidesWith(GetCat(categoriesCollidesWith));
-
-
-            if (collisionCategories != null)
-                body.SetCollisionCategories(GetCat(collisionCategories));
-
-
-
-            body.IgnoreGravity = ignoreGravity;
-            body.SleepingAllowed = sleepingAllowed;
-            body.OnCollision += cDelegate;
-            body.OnSeparation += sDelegate;
-            body.SetIsSensor(isSensor);
+            CreateCommonSettings(collisionCategories, categoriesCollidesWith, cDelegate, sDelegate, sleepingAllowed, isSensor, ignoreGravity, body);
 
 
 

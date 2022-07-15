@@ -15,7 +15,7 @@ namespace Globals.Classes
 
         public static bool DebugVelcro { get; 
             set; } = false;
-
+        public static bool DisplayPlayAreaCollisions { get; set; } = false;
         public static bool DebugGrid { get; set; } = false;
         public static bool ShowEntityPaths { get; set; } = false;
         public static bool EnableShadows { get; set; } = false;

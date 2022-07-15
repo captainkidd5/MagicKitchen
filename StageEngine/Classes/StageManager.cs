@@ -30,7 +30,7 @@ namespace StageEngine.Classes
 {
     public class StageManager : Component, ISaveable, ICommandRegisterable
     {
-  
+
         private readonly PlayerManager _playerManager;
 
 
@@ -46,7 +46,7 @@ namespace StageEngine.Classes
 
 
 
-        public StageManager(GraphicsDevice graphics, ContentManager content,PlayerManager playerManager, Camera2D camera) : base(graphics, content)
+        public StageManager(GraphicsDevice graphics, ContentManager content, PlayerManager playerManager, Camera2D camera) : base(graphics, content)
         {
 
             _playerManager = playerManager;
@@ -85,7 +85,7 @@ namespace StageEngine.Classes
         }
         internal void EnterWorld()
         {
-            
+
 
 
 
@@ -102,16 +102,20 @@ namespace StageEngine.Classes
             Settings.Camera.LockBounds = CurrentStage.CamLock;
             if (_playAreaBody != null)
                 _playAreaBody.Destroy();
+            if (Flags.DisplayPlayAreaCollisions)
+            {
 
-            _playAreaBody = PhysicsManager.CreateRectangularHullBody(tainicom.Aether.Physics2D.Dynamics.BodyType.Static, _camera.position,
-                Settings.ActiveAreaWidth, Settings.ActiveAreaWidth, new List<Category>() { (Category)PhysCat.None },
-                new List<Category>() {  },
-                null, null,isSensor:true);
+                _playAreaBody = PhysicsManager.CreateRectangularHullBody(tainicom.Aether.Physics2D.Dynamics.BodyType.Static, _camera.position,
+                    Settings.ActiveAreaWidth, Settings.ActiveAreaWidth, new List<Category>() { (Category)PhysCat.None },
+                    new List<Category>() { },
+                    null, null, isSensor: true);
 
-            _spawnAreaBody = PhysicsManager.CreateRectangularHullBody(tainicom.Aether.Physics2D.Dynamics.BodyType.Static, _camera.position,
-               Settings.SpawnableAreaWidth, Settings.SpawnableAreaWidth, new List<Category>() { (Category)PhysCat.PlayArea },
-               new List<Category>() { (Category)PhysCat.NPC },
-               null, null, isSensor: true);
+                _spawnAreaBody = PhysicsManager.CreateRectangularHullBody(tainicom.Aether.Physics2D.Dynamics.BodyType.Static, _camera.position,
+                   Settings.SpawnableAreaWidth, Settings.SpawnableAreaWidth, new List<Category>() { (Category)PhysCat.PlayArea },
+                   new List<Category>() { (Category)PhysCat.NPC },
+                   null, null, isSensor: true);
+            }
+
         }
 
         public void Update(GameTime gameTime)
@@ -123,8 +127,13 @@ namespace StageEngine.Classes
 
                 _playerManager.Update(gameTime);
 
-                _playAreaBody.Position = _camera.position;
-                _spawnAreaBody.Position = _camera.position;
+                if (Flags.DisplayPlayAreaCollisions)
+                {
+
+                    _playAreaBody.Position = _camera.position;
+                    _spawnAreaBody.Position = _camera.position;
+                }
+
             }
         }
 
@@ -149,12 +158,12 @@ namespace StageEngine.Classes
         public void LoadSave(BinaryReader reader)
         {
 
-; StageData stageData = content.Load<StageData>("maps/StageData");
+            ; StageData stageData = content.Load<StageData>("maps/StageData");
             CurrentStage = new Stage(content, graphics, _camera);
 
             CurrentStage.Load(stageData, this, _playerManager);
             CurrentStage.LoadFromStageFile();
- 
+
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
         }
 

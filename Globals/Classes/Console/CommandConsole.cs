@@ -58,6 +58,9 @@ namespace Globals.Classes.Console
                 case "flotsam":
                     Flags.SpawnFlotsam = !Flags.SpawnFlotsam;
                     break;
+                case "play_area":
+                    Flags.DisplayPlayAreaCollisions = !Flags.DisplayPlayAreaCollisions;
+                    break;
             }
         }
 
