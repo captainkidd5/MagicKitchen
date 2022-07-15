@@ -216,9 +216,10 @@ namespace PhysicsEngine.Classes
             dampingRatio = dampingRatio ?? 20f;
             frequencyHz = frequencyHz ?? 30f;
             RevoluteJoint joint = JointFactory.CreateRevoluteJoint(VelcroWorld, bodyA, bodyB, bodyAAnchor.Value, bodyBAnchor.Value);
+            
             joint.MotorEnabled = true;
-            joint.MaxMotorTorque = 200;
-            joint.MotorSpeed = 1000; //1 turn per second counter clockwise
+            joint.MaxMotorTorque = 50000000;
+            joint.MotorSpeed = 10000000000; //1 turn per second clockwise
     
             return joint;
 

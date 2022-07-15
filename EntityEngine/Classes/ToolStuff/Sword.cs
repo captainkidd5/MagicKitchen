@@ -16,50 +16,56 @@ namespace EntityEngine.Classes.ToolStuff
     internal class Sword : Tool
     {
         private SimpleTimer _swingDurationtimer;
-        private float _swingDuration = 2f;
+        private float _swingDuration = .5f;
         private RevoluteJoint _joint;
         public Sword(Item item) : base(item)
         {
             RequiresCharge = false;
             SourceRectangle = Item.GetItemSourceRectangle(item.Id);
             _swingDurationtimer = new SimpleTimer(_swingDuration);
-
+            RequiresCharge = false;
         }
         protected override void LoadSprite()
         {
             base.LoadSprite();
+            Sprite.SwapScale(new Vector2(2f, 2f));
+            Sprite.Origin = new Vector2(16, 16);
         }
 
         protected override void CreateBody(Vector2 position)
         {
-            MainHullBody = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, Position, 2f,16f,
+            MainHullBody = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, Position, 2f,34,
                 new List<Category>() { (Category)PhysCat.Tool },
-               new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.SolidHigh }, OnCollides, OnSeparates,
-               blocksLight: true, userData: this, mass: 1, isSensor: true, ignoreGravity: true);
-            _joint = PhysicsManager.RotateWeld(Holder.MainHullBody.Body, MainHullBody.Body, Vector2.Zero,new Vector2(1,15), null, null);
+               new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.NPC }, OnCollides, OnSeparates,
+               blocksLight: true, userData: this, mass: 0, isSensor: false, ignoreGravity: true);
+            _joint = PhysicsManager.RotateWeld(Holder.MainHullBody.Body, MainHullBody.Body, new Vector2(0,0),new Vector2(1,32), null, null);
 
         }
 
         protected override void AlterSpriteRotation(GameTime gameTime)
         {
-            Sprite.Rotation = _joint.JointAngle;
+            if(_joint != null)
+            Sprite.Rotation = _joint.JointAngle + (float)Math.PI / 4;
+            
 
         }
         public override void ReleaseTool(Vector2 directionVector, Collidable holder)
         {
             base.ReleaseTool(directionVector, holder);
-            MainHullBody.Body.ApplyAngularImpulse(10f);
+           // MainHullBody.Body.ApplyAngularImpulse(10f);
 
         }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            Move(Holder.CenteredPosition);
+            
+            //Move(Holder.CenteredPosition);
             if (_swingDurationtimer.Run(gameTime))
                 Unload();
         }
         public override void Unload()
         {
+            if(_joint != null)
             PhysicsManager.VelcroWorld.RemoveAsync(_joint);
             base.Unload();
         }

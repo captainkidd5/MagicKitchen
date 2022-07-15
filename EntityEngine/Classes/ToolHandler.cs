@@ -47,9 +47,9 @@ namespace EntityEngine.Classes
         {
             Item item = _inventoryHandler.HeldItem;
             if (item != null &&
-                item.ItemType >ItemType.None)
+                item.ItemType > ItemType.None)
             {
-              
+
                 if (IsUsingTool)
                     return;
                 Tool tool = (Tool)Tool.GetTool(item);
@@ -66,31 +66,14 @@ namespace EntityEngine.Classes
         }
         public void ChargeHeldItem(GameTime gameTime, Vector2 aimPosition)
         {
-            if (!IsUsingTool)
-            {
-                if (_inventoryHandler.HeldItem != null &&
-               _inventoryHandler.HeldItem.ItemType > ItemType.None)
-                {
-                    if (IsUsingTool)
-                        return;
-                    Tool tool = (Tool)Tool.GetTool(_inventoryHandler.HeldItem);
-                    if (tool == null)
-                        return;
-                    
-                    tool.Move(Entity.Position);
-                    tool.BeginCharge(Entity);
-                    Tool = tool;
-                }
-            }
-            else if (IsUsingTool)
+
+            if (IsUsingTool)
             {
                 if (Tool.IsCharging)
                 {
                     Entity.Halt(true);
-                  
-                        Tool.ChargeUpTool(gameTime, aimPosition);
 
-                    
+                    Tool.ChargeUpTool(gameTime, aimPosition);
 
                 }
                 else
@@ -98,7 +81,29 @@ namespace EntityEngine.Classes
                     Tool.BeginCharge(Entity);
 
                 }
+                return;
+
             }
+
+
+            if (_inventoryHandler.HeldItem != null &&
+           _inventoryHandler.HeldItem.ItemType > ItemType.None)
+            {
+                if (IsUsingTool)
+                    return;
+                Tool tool = (Tool)Tool.GetTool(_inventoryHandler.HeldItem);
+                if (tool == null)
+                    return;
+
+                tool.Move(Entity.Position);
+                if(tool.RequiresCharge)
+                    tool.BeginCharge(Entity);
+                else
+                    ActivateTool(tool);
+                Tool = tool;
+            }
+
+
         }
         public virtual void ActivateTool(Tool tool)
         {

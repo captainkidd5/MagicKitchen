@@ -37,7 +37,7 @@ namespace EntityEngine.Classes.PlayerStuff
     public class Player : HumanoidEntity
     {
         public byte Id { get; private set; }
-        public readonly Vector2 StartingPosition = Vector2Helper.GetWorldPositionFromTileIndex(126, 134);
+        public readonly Vector2 StartingPosition = Vector2Helper.GetWorldPositionFromTileIndex(114, 143);
 
         private bool WasMovingLastFrame { get; set; }
 
@@ -109,7 +109,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
 
 
-
+            if(Flags.EnablePlayerDeath)
             UI.DropCurtain(UI.CurtainDropRate, Die);
 
         }

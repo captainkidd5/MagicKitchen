@@ -57,8 +57,8 @@ namespace EntityEngine.Classes.ToolStuff
             LoadSprite();
 
          
-            XOffSet = BaseOffSet.X;
-            YOffSet = BaseOffSet.Y;
+            //XOffSet = BaseOffSet.X;
+            //YOffSet = BaseOffSet.Y;
         }
         protected override void CreateBody(Vector2 position)
         {
@@ -84,20 +84,21 @@ namespace EntityEngine.Classes.ToolStuff
 
         public virtual void ReleaseTool(Vector2 directionVector, Collidable holder)
         {
+            Holder = holder;
+
             Load();
             IsCharging = false;
-            Holder = holder;
 
 
 
         }
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+          //  base.Update(gameTime);
             if (Sprite != null)
             {
 
-                Sprite.Update(gameTime, new Vector2(MainHullBody.Position.X - XOffSet, MainHullBody.Position.Y - YOffSet));
+                Sprite.Update(gameTime, new Vector2(Holder.CenteredPosition.X , Holder.CenteredPosition.Y ));
                 AlterSpriteRotation(gameTime);
             }
 

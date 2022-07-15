@@ -25,7 +25,6 @@ namespace EntityEngine.Classes.ToolStuff
         private bool _isReturning;
 
         private float _maximumDistanceFromEntity = 140f;
-        private static readonly Vector2 s_anchorOffSet = new Vector2(4, 11);
 
         private Sprite _directionalArrowSprite;
 

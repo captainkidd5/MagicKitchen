@@ -14,19 +14,19 @@ namespace Globals.Classes
         public static bool Pause { get; set; }
 
         public static bool DebugVelcro { get; 
-            set; } = false;
+            set; } = true;
         public static bool DisplayPlayAreaCollisions { get; set; } = false;
         public static bool DebugGrid { get; set; } = false;
         public static bool ShowEntityPaths { get; set; } = false;
         public static bool EnableShadows { get; set; } = false;
 
-        public static bool EnablePlayerDeath = true;
+        public static bool EnablePlayerDeath { get; set; } = false;
 
         public static bool DisplayMousePosition { get; set; } = false;
         public static bool DisplayFPS { get; set; } = false;
 
 
-        public static bool IsNightTime {get;set;} = true;
+        public static bool IsNightTime {get;set;} = false;
 
         public static bool SpawnFlotsam { get; set; } = true;
 

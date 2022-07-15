@@ -14,30 +14,22 @@ namespace EntityEngine.Classes.PlayerStuff
     {
         private readonly LumenHandler _lumenHandler;
 
-        /// <summary>
-        /// Used for the scenario that: Player is charging tool, player right clicks to cancel charging, 
-        /// but player left click is still held. We want to wait for the player to unclick, and rehold
-        /// again to retrigger tool charging
-        /// </summary>
-        private bool _mayChargeAgain;
+
         public PlayerToolHandler(Entity entity, InventoryHandler inventoryHandler, LumenHandler lumenHandler) : base(entity, inventoryHandler)
         {
             _lumenHandler = lumenHandler;
-            _mayChargeAgain = true;
+    
         }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            if(!_mayChargeAgain && !Controls.IsSelectDown())
-                _mayChargeAgain = true;
 
-            if (IsUsingTool && Tool.IsCharging)
+            if (IsUsingTool)
             {
                 if (Controls.IsRightClicked)
                 {
                     Tool.Unload();
-                    _mayChargeAgain = false;
                     return;
                 }
                 
@@ -48,13 +40,14 @@ namespace EntityEngine.Classes.PlayerStuff
                     if (!Controls.IsSelectDown())
                     {
                         Tool.Unload();
-                        _mayChargeAgain = false;
+      
                         return;
                     }
                     
                 }
+                return;
             }
-            if (_mayChargeAgain && Controls.IsSelectDown())
+            if (Controls.IsClicked)
             {
                 if (Controls.ControllerConnected)
                 {

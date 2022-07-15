@@ -180,9 +180,7 @@ namespace InputEngine.Classes.Input
         }
         private bool DidHoldButton(ButtonState oldButtonState, ButtonState newButtonState)
         {
-            if (oldButtonState == ButtonState.Pressed &&
-                newButtonState == ButtonState.Pressed)
-                return true;
+          
             return false;
         }
        
