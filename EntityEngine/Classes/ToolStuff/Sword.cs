@@ -10,13 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Joints;
+using static DataModels.Enums;
 
 namespace EntityEngine.Classes.ToolStuff
 {
     internal class Sword : Tool
     {
         private SimpleTimer _swingDurationtimer;
-        private float _swingDuration = .5f;
+        private float _swingDuration = .25f;
         private RevoluteJoint _joint;
         public Sword(Item item) : base(item)
         {
@@ -34,11 +35,34 @@ namespace EntityEngine.Classes.ToolStuff
 
         protected override void CreateBody(Vector2 position)
         {
-            MainHullBody = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, Position, 2f,34,
+            Vector2 startingRectangle = new Vector2(2, 34);
+            Vector2 anchorPoint = new Vector2(1, 32);
+            Vector2 pos = Position;
+            if(Direction == Direction.Right)
+            {
+                startingRectangle = new Vector2(2, 34);
+                anchorPoint = new Vector2(startingRectangle.X - 1, startingRectangle.Y - 1);
+
+            }
+            else if (Direction == Direction.Left)
+            {
+                startingRectangle = new Vector2(2, 34);
+                pos = new Vector2(pos.X ,pos.Y - startingRectangle.Y);
+                anchorPoint = new Vector2(startingRectangle.X - 1,1);
+
+            }
+            else if (Direction == Direction.Up)
+            {
+                startingRectangle = new Vector2(34, 2);
+                anchorPoint = new Vector2(startingRectangle.X - 1, startingRectangle.Y - 1);
+
+            }
+
+            MainHullBody = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, pos, startingRectangle.X, startingRectangle.Y,
                 new List<Category>() { (Category)PhysCat.Tool },
                new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.NPC }, OnCollides, OnSeparates,
                blocksLight: true, userData: this, mass: 0, isSensor: false, ignoreGravity: true);
-            _joint = PhysicsManager.RotateWeld(Holder.MainHullBody.Body, MainHullBody.Body, new Vector2(0,0),new Vector2(1,32), null, null);
+            _joint = PhysicsManager.RotateWeld(Holder.MainHullBody.Body, MainHullBody.Body, new Vector2(0,0), anchorPoint, null, null);
 
         }
 
@@ -49,9 +73,9 @@ namespace EntityEngine.Classes.ToolStuff
             
 
         }
-        public override void ReleaseTool(Vector2 directionVector, Collidable holder)
+        public override void ReleaseTool(Direction direction, Vector2 directionVector, Collidable holder)
         {
-            base.ReleaseTool(directionVector, holder);
+            base.ReleaseTool(direction, directionVector, holder);
            // MainHullBody.Body.ApplyAngularImpulse(10f);
 
         }

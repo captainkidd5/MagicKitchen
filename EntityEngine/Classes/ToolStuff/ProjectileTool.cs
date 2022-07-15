@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DataModels.Enums;
 
 namespace EntityEngine.Classes.ToolStuff
 {
@@ -16,9 +17,9 @@ namespace EntityEngine.Classes.ToolStuff
         {
         }
 
-        public override void ReleaseTool(Vector2 directionVector, Collidable holder)
+        public override void ReleaseTool(Direction direction, Vector2 directionVector, Collidable holder)
         {
-            base.ReleaseTool(directionVector, holder);
+            base.ReleaseTool(direction, directionVector, holder);
             MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000000f);
             Sprite.Rotation = Vector2Helper.VectorToDegrees(directionVector);
             int anchorX = XOffSet;

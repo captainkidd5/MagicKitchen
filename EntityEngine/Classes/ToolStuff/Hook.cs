@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
+using static DataModels.Enums;
 
 namespace EntityEngine.Classes.ToolStuff
 {
@@ -80,9 +81,9 @@ namespace EntityEngine.Classes.ToolStuff
                 Return();
             }
         }
-        public override void ReleaseTool(Vector2 directionVector, Collidable holder)
+        public override void ReleaseTool(Direction direction, Vector2 directionVector, Collidable holder)
         {
-            base.ReleaseTool(_arrowDirectionVector, holder);
+            base.ReleaseTool(direction, _arrowDirectionVector, holder);
             SoundFactory.PlaySoundEffect("HookFire");
 
             Vector2 newOffSet = new Vector2(BaseOffSet.X, BaseOffSet.Y);

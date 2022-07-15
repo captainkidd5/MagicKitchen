@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
+using static DataModels.Enums;
 
 namespace EntityEngine.Classes.ToolStuff
 {
@@ -34,6 +35,8 @@ namespace EntityEngine.Classes.ToolStuff
         public int ChargeAmt { get; set; }
 
         protected Point BaseOffSet = new Point(2, 7);
+
+        protected Direction Direction{ get; set; }
 
         public Tool(Item item)
         {
@@ -82,10 +85,10 @@ namespace EntityEngine.Classes.ToolStuff
 
 
 
-        public virtual void ReleaseTool(Vector2 directionVector, Collidable holder)
+        public virtual void ReleaseTool(Direction direction, Vector2 directionVector, Collidable holder)
         {
             Holder = holder;
-
+            Direction = direction;
             Load();
             IsCharging = false;
 

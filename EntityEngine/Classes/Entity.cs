@@ -471,9 +471,10 @@ namespace EntityEngine.Classes
                 return true;
             return false;
         }
-        internal void FaceTowardsOtherEntity(Vector2 otherEntityPos)
+        internal Direction FaceTowardsOtherEntity(Vector2 otherEntityPos)
         {
             DirectionMoving = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, otherEntityPos);
+            return DirectionMoving;
         }
 
         public void FaceDirection(Direction directionToFace)

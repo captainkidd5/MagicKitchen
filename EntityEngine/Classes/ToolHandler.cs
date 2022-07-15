@@ -107,7 +107,7 @@ namespace EntityEngine.Classes
         }
         public virtual void ActivateTool(Tool tool)
         {
-            tool.ReleaseTool(Vector2Helper.GetTossDirectionFromDirectionFacing(Entity.DirectionMoving), Entity);
+            tool.ReleaseTool(Entity.DirectionMoving,Vector2Helper.GetTossDirectionFromDirectionFacing(Entity.DirectionMoving), Entity);
 
         }
     }

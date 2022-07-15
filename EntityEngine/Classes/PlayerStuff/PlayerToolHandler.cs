@@ -1,4 +1,5 @@
 ﻿using EntityEngine.Classes.ToolStuff;
+using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using Microsoft.Xna.Framework;
 using System;
@@ -78,7 +79,7 @@ namespace EntityEngine.Classes.PlayerStuff
                  distance = Controls.WorldDistanceBetweenCursorAndVector(Entity.Position);
 
             distance.Normalize();
-            tool.ReleaseTool(distance, Entity);
+            tool.ReleaseTool(Entity.FaceTowardsOtherEntity(Controls.MouseWorldPosition), distance, Entity);
         }
     }
 }
