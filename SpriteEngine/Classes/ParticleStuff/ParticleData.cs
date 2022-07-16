@@ -27,6 +27,7 @@ namespace SpriteEngine.Classes.ParticleStuff
         public float speed = 100f;
         public float angle = 0f;
 
+        public bool EnableGravity = false;
         public int YVelocityMin = 50;
         public int YVelocityMax = 100;
         public int HeightCutOffMin = -25;
@@ -42,14 +43,16 @@ namespace SpriteEngine.Classes.ParticleStuff
 
         public void TextPreset()
         {
-            lifespan = .25f;
+            lifespan = .5f;
             colorStart = Color.Yellow;
             colorEnd = Color.Orange;
             opacityStart = 1f;
             opacityEnd = 0f;
             sizeStart = 4f;
             sizeEnd = 12;
-            speed = 200f;
+            speed = 50f;
+            EnableGravity = false;
+            
             angle = 0f;
         }
         public void FirePreset()
@@ -63,6 +66,7 @@ namespace SpriteEngine.Classes.ParticleStuff
             sizeEnd = 12;
             speed = 200f;
             angle = 0f;
+            EnableGravity = true;
         }
 
         private static Rectangle SourceRectangleFromParticleTextureType(ParticleTextureType p)

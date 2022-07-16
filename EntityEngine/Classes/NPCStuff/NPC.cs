@@ -156,7 +156,7 @@ namespace EntityEngine.Classes.NPCStuff
 
                 SoundModuleManager.PlayPackage("SwordConnect");
                 ParticleManager.AddParticleEmitter(this, EmitterType.Fire);
-                ParticleManager.AddParticleEmitter(this, EmitterType.Fire, dmgVal.ToString());
+                ParticleManager.AddParticleEmitter(this, EmitterType.Text, dmgVal.ToString());
 
 
 

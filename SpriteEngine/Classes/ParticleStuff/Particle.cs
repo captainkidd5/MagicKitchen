@@ -48,7 +48,7 @@ namespace SpriteEngine.Classes.ParticleStuff
 
             _velocity = Settings.Random.Next(_data.YVelocityMin, _data.YVelocityMax);
 
-           _heightCutOff = Settings.Random.Next(_data.HeightCutOffMin, _data.HeightCutOffMax) + (int)pos.Y;
+            _heightCutOff = Settings.Random.Next(_data.HeightCutOffMin, _data.HeightCutOffMax) + (int)pos.Y;
 
         }
 
@@ -72,18 +72,22 @@ namespace SpriteEngine.Classes.ParticleStuff
 
             float newHeight = Position.Y;
             Position += _direction * _data.speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_data.EnableGravity)
+            {
 
-            if (Position.Y < _heightCutOff)
-                newHeight = Position.Y  + _height;
-           
-            else
-                isFinished = true;
+                if (Position.Y < _heightCutOff)
+                    newHeight = Position.Y + _height;
 
-            Position = new Vector2(Position.X, newHeight);
+                else
+                    isFinished = true;
+                Position = new Vector2(Position.X, newHeight);
+
+            }
+
 
         }
 
-        public virtual void  Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_data.texture, Position, _data.SourceRectangle, Color * _opacity, 0f, _origin, _scale,
                 SpriteEffects.None, SpriteUtility.GetYAxisLayerDepth(Position, _data.SourceRectangle));

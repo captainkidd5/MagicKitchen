@@ -13,7 +13,8 @@ namespace SpriteEngine.Classes.ParticleStuff
     public enum EmitterType
     {
         None = 0,
-        Fire = 1
+        Fire = 1,
+        Text = 2
     }
     public static class ParticleManager
     {
@@ -41,9 +42,10 @@ namespace SpriteEngine.Classes.ParticleStuff
                 case EmitterType.None:
                     break;
                 case EmitterType.Fire:
-
                     data.FirePreset();
-
+                    break;
+                case EmitterType.Text:
+                    data.TextPreset();
                     break;
             }
             emitterData.ParticleData = data;

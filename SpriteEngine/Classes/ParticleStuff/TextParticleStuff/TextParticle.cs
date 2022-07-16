@@ -18,7 +18,6 @@ namespace SpriteEngine.Classes.ParticleStuff.TextParticleStuff
             _text = TextFactory.CreateUIText(text, SpriteUtility.GetYAxisLayerDepth(Position, data.SourceRectangle),.5f);
             data.colorStart = Color.Red;
             data.colorEnd = Color.Orange;
-            LifeSpanLeft = 2f;
         }
         public override void Update(GameTime gameTime)
         {
@@ -29,7 +28,7 @@ namespace SpriteEngine.Classes.ParticleStuff.TextParticleStuff
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+           // base.Draw(spriteBatch);
             _text.Draw(spriteBatch, true);
         }
     }

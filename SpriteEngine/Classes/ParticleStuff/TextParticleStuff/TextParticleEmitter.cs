@@ -19,7 +19,7 @@ namespace SpriteEngine.Classes.ParticleStuff.TextParticleStuff
         protected override void Emit(Vector2 pos)
         {
             ParticleData d = Data.ParticleData;
-            d.lifespan = ChanceHelper.RandomFloat(Data.LifespanMin, Data.LifespanMax);
+          //  d.lifespan = ChanceHelper.RandomFloat(Data.LifespanMin, Data.LifespanMax);
             d.speed = ChanceHelper.RandomFloat(Data.SpeedMin, Data.SpeedMax);
             d.angle = ChanceHelper.RandomFloat(Data.Angle - Data.AngleVariance, Data.Angle + Data.AngleVariance);
 
