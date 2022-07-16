@@ -25,6 +25,7 @@ namespace SpriteEngine.Classes.ParticleStuff
 
         private float _velocity;
         private float _height;
+        private int _heightCutOff;
         public Particle(Vector2 pos, ParticleData data)
         {
             _data = data;
@@ -33,7 +34,7 @@ namespace SpriteEngine.Classes.ParticleStuff
             _position = pos;
             _color = data.colorStart;
             _opacity = data.opacityStart;
-            _origin = new(_data.texture.Width / 2, _data.texture.Height / 2);
+            _origin = new(_data.SourceRectangle.Width / 2, _data.SourceRectangle.Height / 2);
 
             if (data.speed != 0)
             {
@@ -46,6 +47,8 @@ namespace SpriteEngine.Classes.ParticleStuff
             }
 
             _velocity = Settings.Random.Next(_data.YVelocityMin, _data.YVelocityMax);
+
+           _heightCutOff = Settings.Random.Next(_data.HeightCutOffMin, _data.HeightCutOffMax) + (int)pos.Y;
 
         }
 
@@ -65,18 +68,24 @@ namespace SpriteEngine.Classes.ParticleStuff
 
             _velocity += _data.Gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
             _height -= _velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_height > _data.HeightCutOff)
-                _height = _data.HeightCutOff;
 
 
+            float newHeight = _position.Y;
             _position += _direction * _data.speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            _position = new Vector2(_position.X, _position.Y + _height);
+
+            if (_position.Y < _heightCutOff)
+                newHeight = _position.Y  + _height;
+           
+            else
+                isFinished = true;
+
+            _position = new Vector2(_position.X, newHeight);
 
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_data.texture, _position, null, _color * _opacity, 0f, _origin, _scale, SpriteEffects.None, 1f);
+            spriteBatch.Draw(_data.texture, _position, _data.SourceRectangle, _color * _opacity, 0f, _origin, _scale, SpriteEffects.None, 1f);
         }
     }
 

@@ -74,6 +74,7 @@ namespace DataModels.ItemStuff
         public byte EquipmentYIndex { get; set; }
         public byte MaxDurability { get; set; }
         public byte ArmorValue { get; set; }
+        public byte DamageValue { get; set; }
         public void Load()
         {
             if(RecipeInfo != null)

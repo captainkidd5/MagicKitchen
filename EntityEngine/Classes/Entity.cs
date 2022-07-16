@@ -113,7 +113,6 @@ namespace EntityEngine.Classes
             else
                 CurrentHealth = (byte)newHealth;
 
-            ParticleManager.AddParticleEmitter(this, EmitterType.Fire);
 
         }
 

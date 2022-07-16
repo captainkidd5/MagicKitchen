@@ -1,6 +1,7 @@
 ﻿using DataModels;
 using DataModels.NPCStuff;
 using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.ToolStuff;
 using EntityEngine.ItemStuff;
 using Globals.Classes;
 using Globals.Classes.Helpers;
@@ -13,6 +14,7 @@ using PhysicsEngine.Classes.Pathfinding;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using SpriteEngine.Classes.Animations.EntityAnimations;
+using SpriteEngine.Classes.ParticleStuff;
 using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
@@ -146,11 +148,12 @@ namespace EntityEngine.Classes.NPCStuff
             }
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
             {
-                TakeDamage(25);
+                TakeDamage((fixtureB.Body.Tag as Sword).Item.DamageValue);
                 if(NPCData.NPCSoundData != null)
                     SoundModuleManager.PlayPackage(NPCData.NPCSoundData.Hurt);
 
                 SoundModuleManager.PlayPackage("SwordConnect");
+                ParticleManager.AddParticleEmitter(this, EmitterType.Fire);
 
 
             }

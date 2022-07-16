@@ -41,6 +41,8 @@ namespace ItemEngine.Classes
 
         public byte MaxDurability => _itemData.MaxDurability;
         public byte ArmorValue => _itemData.ArmorValue;
+        public byte DamageValue => _itemData.DamageValue;
+
 
 
         public EquipmentType EquipmentSlot => _itemData.EquipmentSlot;

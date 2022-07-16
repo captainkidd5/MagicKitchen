@@ -10,14 +10,14 @@ namespace SpriteEngine.Classes.ParticleStuff
     {
         public ParticleData ParticleData = new();
         public float Angle = 0f;
-        public float AngleVariance = 45f;
+        public float AngleVariance = 80f;
         public float LifespanMin = 0.1f;
-        public float LifespanMax = 2f;
-        public float SpeedMin = 10f;
+        public float LifespanMax = .4f;
+        public float SpeedMin = 60f;
         public float SpeedMax = 100f;
         public float Interval = .1f;
         public int EmitCount = 1;
-        public float TotalLifeSpan = 1f;
+        public float TotalLifeSpan = .6f;
 
         public ParticleEmitterData()
         {
