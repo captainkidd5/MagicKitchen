@@ -50,5 +50,10 @@ namespace Globals.Classes.Chance
             }
             return weightedList;
         }
+
+        public static float RandomFloat(float min, float max)
+        {
+            return (float)(Settings.Random.NextDouble() * (max - min)) + min;
+        }
     }
 }
