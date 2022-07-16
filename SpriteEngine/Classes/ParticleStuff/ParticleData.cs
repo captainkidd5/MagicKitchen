@@ -40,6 +40,18 @@ namespace SpriteEngine.Classes.ParticleStuff
             SourceRectangle = SourceRectangleFromParticleTextureType(ParticleTextureType);
         }
 
+        public void TextPreset()
+        {
+            lifespan = .25f;
+            colorStart = Color.Yellow;
+            colorEnd = Color.Orange;
+            opacityStart = 1f;
+            opacityEnd = 0f;
+            sizeStart = 4f;
+            sizeEnd = 12;
+            speed = 200f;
+            angle = 0f;
+        }
         public void FirePreset()
         {
             lifespan = .25f;

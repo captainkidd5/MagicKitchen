@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes.ParticleStuff.TextParticleStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace SpriteEngine.Classes.ParticleStuff
             _particles.Add(p);
         }
 
-        public static void AddParticleEmitter(IEmitter iEmitter, EmitterType emitterType)
+        public static void AddParticleEmitter(IEmitter iEmitter, EmitterType emitterType, string text = null)
         {
             ParticleData data = new ParticleData();
             ParticleEmitterData emitterData = new ParticleEmitterData();
@@ -46,7 +47,11 @@ namespace SpriteEngine.Classes.ParticleStuff
                     break;
             }
             emitterData.ParticleData = data;
+            if(text == null)
             emitter = new ParticleEmitter(iEmitter, emitterData);
+            else
+                emitter = new TextParticleEmitter(text,iEmitter, emitterData);
+
 
             _particleEmitters.Add(emitter);
 

@@ -13,10 +13,10 @@ namespace SpriteEngine.Classes.ParticleStuff
     {
 
         private readonly ParticleData _data;
-        protected Vector2 _position;
-        private float _lifespanLeft;
+        protected Vector2 Position;
+        protected float LifeSpanLeft;
         private float _lifespanAmount;
-        private Color _color;
+        protected Color Color { get; private set; }
         private float _opacity;
         public bool isFinished = false;
         private float _scale;
@@ -29,10 +29,10 @@ namespace SpriteEngine.Classes.ParticleStuff
         public Particle(Vector2 pos, ParticleData data)
         {
             _data = data;
-            _lifespanLeft = data.lifespan;
+            LifeSpanLeft = data.lifespan;
             _lifespanAmount = 1f;
-            _position = pos;
-            _color = data.colorStart;
+            Position = pos;
+            Color = data.colorStart;
             _opacity = data.opacityStart;
             _origin = new(_data.SourceRectangle.Width / 2, _data.SourceRectangle.Height / 2);
 
@@ -54,15 +54,15 @@ namespace SpriteEngine.Classes.ParticleStuff
 
         public virtual void Update(GameTime gameTime)
         {
-            _lifespanLeft -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (_lifespanLeft <= 0f)
+            LifeSpanLeft -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (LifeSpanLeft <= 0f)
             {
                 isFinished = true;
                 return;
             }
 
-            _lifespanAmount = MathHelper.Clamp(_lifespanLeft / _data.lifespan, 0, 1);
-            _color = Color.Lerp(_data.colorEnd, _data.colorStart, _lifespanAmount);
+            _lifespanAmount = MathHelper.Clamp(LifeSpanLeft / _data.lifespan, 0, 1);
+            Color = Color.Lerp(_data.colorEnd, _data.colorStart, _lifespanAmount);
             _opacity = MathHelper.Clamp(MathHelper.Lerp(_data.opacityEnd, _data.opacityStart, _lifespanAmount), 0, 1);
             _scale = MathHelper.Lerp(_data.sizeEnd, _data.sizeStart, _lifespanAmount) / _data.texture.Width;
 
@@ -70,22 +70,23 @@ namespace SpriteEngine.Classes.ParticleStuff
             _height -= _velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 
-            float newHeight = _position.Y;
-            _position += _direction * _data.speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float newHeight = Position.Y;
+            Position += _direction * _data.speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (_position.Y < _heightCutOff)
-                newHeight = _position.Y  + _height;
+            if (Position.Y < _heightCutOff)
+                newHeight = Position.Y  + _height;
            
             else
                 isFinished = true;
 
-            _position = new Vector2(_position.X, newHeight);
+            Position = new Vector2(Position.X, newHeight);
 
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void  Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_data.texture, _position, _data.SourceRectangle, _color * _opacity, 0f, _origin, _scale, SpriteEffects.None, 1f);
+            spriteBatch.Draw(_data.texture, Position, _data.SourceRectangle, Color * _opacity, 0f, _origin, _scale,
+                SpriteEffects.None, SpriteUtility.GetYAxisLayerDepth(Position, _data.SourceRectangle));
         }
     }
 

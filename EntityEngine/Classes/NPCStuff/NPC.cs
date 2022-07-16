@@ -148,12 +148,16 @@ namespace EntityEngine.Classes.NPCStuff
             }
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
             {
-                TakeDamage((fixtureB.Body.Tag as Sword).Item.DamageValue);
-                if(NPCData.NPCSoundData != null)
+                int dmgVal = (fixtureB.Body.Tag as Sword).Item.DamageValue;
+                TakeDamage(dmgVal);
+                (fixtureB.Body.Tag as Sword).Item.RemoveDurability();
+                if (NPCData.NPCSoundData != null)
                     SoundModuleManager.PlayPackage(NPCData.NPCSoundData.Hurt);
 
                 SoundModuleManager.PlayPackage("SwordConnect");
                 ParticleManager.AddParticleEmitter(this, EmitterType.Fire);
+                ParticleManager.AddParticleEmitter(this, EmitterType.Fire, dmgVal.ToString());
+
 
 
             }
