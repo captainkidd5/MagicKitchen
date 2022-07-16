@@ -9,28 +9,54 @@ using System.Threading.Tasks;
 
 namespace SpriteEngine.Classes.ParticleStuff
 {
+    public enum EmitterType
+    {
+        None = 0,
+        Fire = 1
+    }
     public static class ParticleManager
     {
         private static readonly List<Particle> _particles = new();
         private static readonly List<ParticleEmitter> _particleEmitters = new();
 
-        internal static Texture2D ParticleSheet;
+        internal static Texture2D ParticleAtlas;
 
         public static void Load(ContentManager content)
         {
-
+            ParticleAtlas = content.Load<Texture2D>("Effects/Particles/ParticleAtlas");
         }
         public static void AddParticle(Particle p)
         {
             _particles.Add(p);
         }
 
-        public static void AddParticleEmitter(ParticleEmitter e)
+        public static void AddParticleEmitter(IEmitter iEmitter, EmitterType emitterType)
+        {
+            ParticleData data = new ParticleData();
+            ParticleEmitterData emitterData = new ParticleEmitterData();
+            ParticleEmitter emitter;
+            switch (emitterType)
+            {
+                case EmitterType.None:
+                    break;
+                case EmitterType.Fire:
+
+                    data.FirePreset();
+
+                    break;
+            }
+            emitterData.ParticleData = data;
+            emitter = new ParticleEmitter(iEmitter, emitterData);
+
+            _particleEmitters.Add(emitter);
+
+        }
+            public static void AddParticleEmitter(ParticleEmitter e)
         {
             _particleEmitters.Add(e);
         }
 
-        public static void UpdateParticles(GameTime gameTime)
+        private static void UpdateParticles(GameTime gameTime)
         {
             foreach (var particle in _particles)
             {
@@ -40,12 +66,14 @@ namespace SpriteEngine.Classes.ParticleStuff
             _particles.RemoveAll(p => p.isFinished);
         }
 
-        public static void UpdateEmitters(GameTime gameTime)
+        private static void UpdateEmitters(GameTime gameTime)
         {
             foreach (var emitter in _particleEmitters)
             {
                 emitter.Update(gameTime);
             }
+            _particleEmitters.RemoveAll(e => e.IsFinished);
+
         }
 
         public static void Update(GameTime gameTime)
@@ -61,5 +89,6 @@ namespace SpriteEngine.Classes.ParticleStuff
                 particle.Draw(spriteBatch);
             }
         }
+        
     }
 }

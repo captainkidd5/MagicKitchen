@@ -33,6 +33,7 @@ using EntityEngine.ItemStuff;
 using TiledEngine.Classes.TileAddons;
 using DataModels;
 using SpriteEngine.Classes.Animations.EntityAnimations;
+using SpriteEngine.Classes.ParticleStuff;
 
 namespace EntityEngine.Classes
 {
@@ -41,10 +42,12 @@ namespace EntityEngine.Classes
     /// <summary>
     /// Represents any character-like thing
     /// </summary>
-    public abstract class Entity : Collidable, ISaveable
+    public abstract class Entity : Collidable, ISaveable, IEmitter
     {
         private readonly GraphicsDevice _graphics;
         private readonly ContentManager _content;
+
+        public Vector2 EmitPosition => Position;
         //Movement
         public float BaseSpeed { get; protected set; } = 3f;
         protected Vector2 Velocity;
@@ -109,6 +112,8 @@ namespace EntityEngine.Classes
                 DestructionBehaviour();
             else
                 CurrentHealth = (byte)newHealth;
+
+            ParticleManager.AddParticleEmitter(this, EmitterType.Fire);
 
         }
 

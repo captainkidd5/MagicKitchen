@@ -295,6 +295,18 @@
 /processorParam:TextureFormat=Color
 /build:Effects/Lighting/lightmask.png
 
+#begin Effects/Particles/ParticleAtlas.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Effects/Particles/ParticleAtlas.png
+
 #begin Entities/Arms.png
 /importer:TextureImporter
 /processor:TextureProcessor

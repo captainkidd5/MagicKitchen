@@ -25,9 +25,6 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
         // The velocity we're moving at. Only for the y-axis.
         float velocity;
 
-        // Our initial velocity up along the y-axis.
-        float initialVelocityY;
-        float initialVelocityX;
 
         // A place for us to store the angularVelocity for the rigidbody2D. We don't want
         // to rotate the entire rigidbody because that would offset the shadow sprite which
@@ -40,7 +37,6 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
         // entirely flat.
         float height;
 
-        float heightCutOff;
         public BouncingItemBehaviour( WorldItem worldItem,Vector2? tossDirection = null) : base(worldItem)
         {
             SimpleTimer = new Globals.Classes.SimpleTimer(_timeUntilResting);
@@ -48,8 +44,7 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
 
             WorldItem.SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.SolidHigh, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass });
             // Set the initial velocity.
-        initialVelocityY = Settings.Random.Next(50, 300);
-            velocity = initialVelocityY;
+            velocity = Settings.Random.Next(50, 300);
             angularVelocity = WorldItem.MainHullBody.Body.AngularVelocity;
             WorldItem.MainHullBody.Body.AngularVelocity = 0f;
 

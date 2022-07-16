@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace SpriteEngine.Classes.ParticleStuff
     {
 
         private readonly ParticleData _data;
-        private Vector2 _position;
+        protected Vector2 _position;
         private float _lifespanLeft;
         private float _lifespanAmount;
         private Color _color;
@@ -22,6 +23,8 @@ namespace SpriteEngine.Classes.ParticleStuff
         private Vector2 _origin;
         private Vector2 _direction;
 
+        private float _velocity;
+        private float _height;
         public Particle(Vector2 pos, ParticleData data)
         {
             _data = data;
@@ -41,9 +44,12 @@ namespace SpriteEngine.Classes.ParticleStuff
             {
                 _direction = Vector2.Zero;
             }
+
+            _velocity = Settings.Random.Next(_data.YVelocityMin, _data.YVelocityMax);
+
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             _lifespanLeft -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (_lifespanLeft <= 0f)
@@ -56,7 +62,16 @@ namespace SpriteEngine.Classes.ParticleStuff
             _color = Color.Lerp(_data.colorEnd, _data.colorStart, _lifespanAmount);
             _opacity = MathHelper.Clamp(MathHelper.Lerp(_data.opacityEnd, _data.opacityStart, _lifespanAmount), 0, 1);
             _scale = MathHelper.Lerp(_data.sizeEnd, _data.sizeStart, _lifespanAmount) / _data.texture.Width;
+
+            _velocity += _data.Gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _height -= _velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (_height > _data.HeightCutOff)
+                _height = _data.HeightCutOff;
+
+
             _position += _direction * _data.speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _position = new Vector2(_position.X, _position.Y + _height);
+
         }
 
         public void Draw(SpriteBatch spriteBatch)

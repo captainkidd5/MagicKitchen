@@ -24,6 +24,7 @@ using EntityEngine.Classes.NPCStuff;
 using EntityEngine.Classes.Generators;
 using SpriteEngine.Classes.ShadowStuff;
 using EntityEngine.ItemStuff;
+using SpriteEngine.Classes.ParticleStuff;
 
 namespace StageEngine.Classes
 {
@@ -96,6 +97,9 @@ namespace StageEngine.Classes
 
 
             NPCContainer.Update(gameTime);
+
+            ParticleManager.Update(gameTime);
+
         }
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
@@ -111,6 +115,7 @@ namespace StageEngine.Classes
             if (Flags.DebugGrid)
                 _pathGrid.DrawDebug(spriteBatch);
 #endif
+            ParticleManager.Draw(spriteBatch);
 
             spriteBatch.End();
 

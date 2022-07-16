@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes.Animations;
 using SpriteEngine.Classes.InterfaceStuff;
+using SpriteEngine.Classes.ParticleStuff;
 using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
@@ -77,6 +78,8 @@ namespace SpriteEngine.Classes
                 new Color(255, 219, 172),
 
             };
+
+            ParticleManager.Load(content);
         }
         public static Color GetRandomSkinTone()
         {
