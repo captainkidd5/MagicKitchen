@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using DataModels.NPCStuff;
 using DataModels.ScriptedEventStuff;
 using EntityEngine.Classes.ScriptStuff;
 using Globals.Classes;

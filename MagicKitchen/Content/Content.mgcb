@@ -74,6 +74,18 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Kitchen/CoinJingle.wav
 
+#begin Audio/SoundEffects/NPC/Boar/Grunt1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/NPC/Boar/Grunt1.wav
+
+#begin Audio/SoundEffects/NPC/Boar/Grunt2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/NPC/Boar/Grunt2.wav
+
 #begin Audio/SoundEffects/Obtain/Items/Bubble1.WAV
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -188,29 +200,35 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Tools/ItemCraftMetal.wav
 
-#begin Audio/SoundEffects/Tools/Slash1.wav
+#begin Audio/SoundEffects/Tools/Sword/Slash1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Audio/SoundEffects/Tools/Slash1.wav
+/build:Audio/SoundEffects/Tools/Sword/Slash1.wav
 
-#begin Audio/SoundEffects/Tools/Slash2.wav
+#begin Audio/SoundEffects/Tools/Sword/Slash2.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Audio/SoundEffects/Tools/Slash2.wav
+/build:Audio/SoundEffects/Tools/Sword/Slash2.wav
 
-#begin Audio/SoundEffects/Tools/Slash3.wav
+#begin Audio/SoundEffects/Tools/Sword/Slash3.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Audio/SoundEffects/Tools/Slash3.wav
+/build:Audio/SoundEffects/Tools/Sword/Slash3.wav
 
-#begin Audio/SoundEffects/Tools/Slash4.wav
+#begin Audio/SoundEffects/Tools/Sword/Slash4.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Audio/SoundEffects/Tools/Slash4.wav
+/build:Audio/SoundEffects/Tools/Sword/Slash4.wav
+
+#begin Audio/SoundEffects/Tools/Sword/SwordConnect1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tools/Sword/SwordConnect1.wav
 
 #begin Audio/SoundEffects/Tools/ToolBreak.wav
 /importer:WavImporter

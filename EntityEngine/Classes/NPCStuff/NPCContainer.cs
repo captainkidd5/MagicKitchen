@@ -1,4 +1,4 @@
-﻿using DataModels;
+﻿using DataModels.NPCStuff;
 using DataModels.QuestStuff;
 using EntityEngine.Classes.CharacterStuff.QuestStuff;
 using EntityEngine.Classes.NPCStuff;

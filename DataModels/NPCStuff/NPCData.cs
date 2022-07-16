@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using static DataModels.Enums;
 
-namespace DataModels
+namespace DataModels.NPCStuff
 {
     public enum NPCType
     {
-        None =0,
+        None = 0,
         Enemy = 1,
         Prop = 2,
         Customizable = 3
@@ -33,5 +33,6 @@ namespace DataModels
         //Set to true if npc will always be drawn in the water only (no need to crop sprite, such as fish)
         public bool AlwaysSubmerged { get; set; }
         public List<AnimationInfo> AnimationInfo { get; set; }
+        public NPCSoundData NPCSoundData { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using DataModels;
+﻿using DataModels.NPCStuff;
 using EntityEngine.Classes.CharacterStuff;
 using Globals.Classes;
 using Globals.Classes.Chance;

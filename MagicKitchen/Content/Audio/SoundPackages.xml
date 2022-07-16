@@ -37,28 +37,40 @@
                 </Item>
             </SoundChancers>
         </Item>
+           
          <Item>
             <Name>Slash</Name>
             <SoundChancers>
                 <Item Type="DataModels.SoundStuff.SoundChancer">
                     <Name>Slash1</Name>
                     <Weight>25</Weight>
-                    <LocalPath>SoundEffects/Tools</LocalPath>
+                    <LocalPath>SoundEffects/Tools/Sword</LocalPath>
                 </Item>
                  <Item Type="DataModels.SoundStuff.SoundChancer">
                     <Name>Slash2</Name>
                     <Weight>25</Weight>
-                    <LocalPath>SoundEffects/Tools</LocalPath>
+                    <LocalPath>SoundEffects/Tools/Sword</LocalPath>
                 </Item>
                  <Item Type="DataModels.SoundStuff.SoundChancer">
                     <Name>Slash3</Name>
                     <Weight>25</Weight>
-                    <LocalPath>SoundEffects/Tools</LocalPath>
+                    <LocalPath>SoundEffects/Tools/Sword</LocalPath>
                 </Item>
                  <Item Type="DataModels.SoundStuff.SoundChancer">
                     <Name>Slash4</Name>
                     <Weight>25</Weight>
-                    <LocalPath>SoundEffects/Tools</LocalPath>
+                    <LocalPath>SoundEffects/Tools/Sword</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
+          <Item>
+            <Name>SwordConnect</Name>
+            <SoundChancers>
+                
+                 <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>SwordConnect1</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/Tools/Sword</LocalPath>
                 </Item>
             </SoundChancers>
         </Item>
@@ -259,8 +271,21 @@
                 </Item>
             </SoundChancers>
         </Item>
-
-        
+ <Item>
+        <Name>Grunt</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Grunt1</Name>
+                    <Weight>50</Weight>
+                    <LocalPath>SoundEffects/NPC/Boar</LocalPath>
+                </Item>
+                   <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>Grunt2</Name>
+                    <Weight>50</Weight>
+                    <LocalPath>SoundEffects/NPC/Boar</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
        
 
     </Asset>

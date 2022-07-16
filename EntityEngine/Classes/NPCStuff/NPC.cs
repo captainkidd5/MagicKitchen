@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using DataModels.NPCStuff;
 using EntityEngine.Classes.CharacterStuff;
 using EntityEngine.ItemStuff;
 using Globals.Classes;
@@ -146,6 +147,11 @@ namespace EntityEngine.Classes.NPCStuff
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
             {
                 TakeDamage(25);
+                if(NPCData.NPCSoundData != null)
+                    SoundModuleManager.PlayPackage(NPCData.NPCSoundData.Hurt);
+
+                SoundModuleManager.PlayPackage("SwordConnect");
+
 
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
