@@ -26,7 +26,7 @@ namespace EntityEngine.ItemStuff
     public class WorldItem : Collidable, ISaveable
     {
         private readonly TileManager _tileManager;
-
+        private readonly Vector2? _jettisonDirection;
         public static float TTL = 4000; //400 seconds
         public Item Item { get; private set; }
         internal WorldItemState WorldItemState { get; set; }
@@ -69,25 +69,23 @@ namespace EntityEngine.ItemStuff
         }
         public WorldItem(TileManager tileManager, Item item, int count, Vector2 position, WorldItemState worldItemState, Vector2? jettisonDirection)
         {
+            Position = position;
             _tileManager = tileManager;
             Item = item;
             Count = (ushort)count;
             Sprite = SpriteFactory.CreateWorldSprite(position, Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f));
             WorldItemState = worldItemState;
-            CreateBody(position);
-            Move(position);
+            _jettisonDirection = jettisonDirection;
+            //CreateBody(position);
+            //if(MainHullBody.Body.World == null)
+            //    Console.WriteLine("test");
+            //Move(position);
             XOffSet = 8;
             YOffSet = 8;
             _immunityTimer = new SimpleTimer(1f);
             TimeCreated = Clock.TotalTime;
             Sprite.CustomLayer = null;
-            GetBehaviour(jettisonDirection);
-
-            if (jettisonDirection != null)
-            {
-                // Jettison(jettisonDirection.Value, null);
-                MainHullBody.Body.IgnoreGravity = true;
-            }
+      
 
 
         }
@@ -131,6 +129,18 @@ namespace EntityEngine.ItemStuff
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Item },
                new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh, (Category)PhysCat.Tool, (Category)PhysCat.ArtificialFloor },
                OnCollides, OnSeparates, blocksLight: true, userData: this);
+
+            GetBehaviour(_jettisonDirection);
+
+            if (_jettisonDirection != null)
+            {
+                // Jettison(jettisonDirection.Value, null);
+                MainHullBody.Body.IgnoreGravity = true;
+            }
+
+
+
+
         }
         /// <summary>
         /// Waits <see cref="_timeUntilTouchable"/> amount until entities can interact with it
@@ -171,7 +181,8 @@ namespace EntityEngine.ItemStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            
+            if (MainHullBody == null)
+                CreateBody(Position);
             if (ImmuneToPickup)
                 TestIfImmunityDone(gameTime);
             Vector2 spriteBehaviourOffSet = Vector2.Zero;

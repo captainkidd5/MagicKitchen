@@ -17,7 +17,7 @@ namespace PhysicsEngine.Classes
     /// </summary>
     public class Collidable : ILightDrawable
     {
-        public Vector2 Position { get; private set; }
+        public Vector2 Position { get; protected set; }
 
         protected int XOffSet { get; set; } 
         protected int YOffSet { get; set; } 

@@ -69,7 +69,7 @@ namespace EntityEngine.Classes.ToolStuff
             MainHullBody = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, Position, startingRectangle.X, startingRectangle.Y,
                 new List<Category>() { (Category)PhysCat.Tool },
                new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.NPC }, OnCollides, OnSeparates,
-               blocksLight: true, userData: this, mass: .1f, isSensor: false, ignoreGravity: true, rotation: rotation);
+               blocksLight: true, userData: this, mass: .1f, isSensor: true, ignoreGravity: true, rotation: rotation);
             _joint = PhysicsManager.RotateWeld(Holder.MainHullBody.Body, MainHullBody.Body, new Vector2(0, 0), anchorPoint, null, null, counterClockWise);
             //_joint.CollideConnected = false;
         }

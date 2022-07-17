@@ -108,7 +108,7 @@ namespace PhysicsEngine.Classes
         {
             radius = radius ?? 6f;
             position = position ?? Vector2.Zero;
-            Body body = VelcroWorld.CreateCircle((float)radius, density, (Vector2)position, bodyType);
+            Body body = PhysicsManager.VelcroWorld.CreateCircle((float)radius, density, (Vector2)position, bodyType);
             CreateCommonSettings(collisionCategories, categoriesCollidesWith, cDelegate, sDelegate, sleepingAllowed, isSensor, ignoreGravity, body);
 
             body.Tag = userData;
