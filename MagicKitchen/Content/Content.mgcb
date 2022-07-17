@@ -307,6 +307,12 @@
 /processorParam:TextureFormat=Color
 /build:Effects/Particles/ParticleAtlas.png
 
+#begin Effects/Shaders/FlashEffect.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Effects/Shaders/FlashEffect.fx
+
 #begin Entities/Arms.png
 /importer:TextureImporter
 /processor:TextureProcessor

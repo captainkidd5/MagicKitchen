@@ -27,6 +27,7 @@ namespace SpriteEngine.Classes
         public static Texture2D StatusIconTexture { get; set; }
 
         public static Effect LightEffect { get; set; }
+        public static Effect FlashEffect { get; set; }
 
         private static Texture2D _lightMask;
         private static readonly Rectangle _lightSourceRectangle = new Rectangle(0, 0, 64, 64);
@@ -51,6 +52,8 @@ namespace SpriteEngine.Classes
             Content = content;
             StatusIconTexture = content.Load<Texture2D>("entities/characters/statusicons");
             LightEffect = content.Load<Effect>("Effects/Lighting/lighteffect");
+            FlashEffect = content.Load<Effect>("Effects/Shaders/FlashEffect");
+
             _lightMask = content.Load<Texture2D>("Effects/Lighting/lightmask");
 
 
