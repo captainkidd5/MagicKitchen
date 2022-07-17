@@ -138,7 +138,17 @@ namespace EntityEngine.Classes.NPCStuff
             base.LoadSave(reader);
             Name = reader.ReadString();
         }
+        public override void TakeDamage(int amt, Vector2? knockBack = null)
+        {
+            base.TakeDamage(amt, knockBack);
+            if (NPCData != null && NPCData.NPCSoundData != null)
+                SoundModuleManager.PlayPackage(NPCData.NPCSoundData.Hurt);
 
+            ParticleManager.AddParticleEmitter(this, EmitterType.Fire);
+            ParticleManager.AddParticleEmitter(this, EmitterType.Text, amt.ToString());
+
+
+        }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayArea))
@@ -146,21 +156,7 @@ namespace EntityEngine.Classes.NPCStuff
                 OutsideOfPlayArea = false;
 
             }
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
-            {
-                int dmgVal = (fixtureB.Body.Tag as Sword).Item.DamageValue;
-                TakeDamage(dmgVal);
-                (fixtureB.Body.Tag as Sword).Item.RemoveDurability();
-                if (NPCData.NPCSoundData != null)
-                    SoundModuleManager.PlayPackage(NPCData.NPCSoundData.Hurt);
-
-                SoundModuleManager.PlayPackage("SwordConnect");
-                ParticleManager.AddParticleEmitter(this, EmitterType.Fire);
-                ParticleManager.AddParticleEmitter(this, EmitterType.Text, dmgVal.ToString());
-
-
-
-            }
+      
             return base.OnCollides(fixtureA, fixtureB, contact);
         }
 

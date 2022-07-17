@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using tainicom.Aether.Physics2D.Dynamics.Joints;
 using static DataModels.Enums;
 
@@ -40,7 +41,7 @@ namespace EntityEngine.Classes.ToolStuff
             Vector2 anchorPoint = new Vector2(1, 32);
             bool counterClockWise = false;
             float rotation = 0;
-            if(Direction == Direction.Right)
+            if (Direction == Direction.Right)
             {
                 rotation = 0f;
 
@@ -48,7 +49,7 @@ namespace EntityEngine.Classes.ToolStuff
 
             else if (Direction == Direction.Left)
             {
-                             rotation = MathHelper.Pi *2;
+                rotation = MathHelper.Pi * 2;
 
                 counterClockWise = true;
             }
@@ -69,7 +70,7 @@ namespace EntityEngine.Classes.ToolStuff
                 new List<Category>() { (Category)PhysCat.Tool },
                new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.NPC }, OnCollides, OnSeparates,
                blocksLight: true, userData: this, mass: .1f, isSensor: false, ignoreGravity: true, rotation: rotation);
-            _joint = PhysicsManager.RotateWeld(Holder.MainHullBody.Body, MainHullBody.Body, new Vector2(0,0), anchorPoint, null, null,counterClockWise);
+            _joint = PhysicsManager.RotateWeld(Holder.MainHullBody.Body, MainHullBody.Body, new Vector2(0, 0), anchorPoint, null, null, counterClockWise);
             //_joint.CollideConnected = false;
         }
 
@@ -77,14 +78,14 @@ namespace EntityEngine.Classes.ToolStuff
         {
             if (_joint != null)
                 Sprite.Rotation = MainHullBody.Body.Rotation + (float)Math.PI / 4; ;
-            
+
 
         }
         public override void ReleaseTool(Direction direction, Vector2 directionVector, Collidable holder)
         {
             base.ReleaseTool(direction, directionVector, holder);
             SoundModuleManager.PlayPackage("Slash");
-           // MainHullBody.Body.ApplyAngularImpulse(10f);
+            // MainHullBody.Body.ApplyAngularImpulse(10f);
 
         }
         public override void Update(GameTime gameTime)
@@ -98,9 +99,29 @@ namespace EntityEngine.Classes.ToolStuff
         }
         public override void Unload()
         {
-            if(_joint != null)
-            PhysicsManager.VelcroWorld.RemoveAsync(_joint);
+            if (_joint != null)
+                PhysicsManager.VelcroWorld.RemoveAsync(_joint);
             base.Unload();
         }
+        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.NPC))
+            {
+
+                (fixtureB.Body.Tag as Entity).TakeDamage(Item.DamageValue, 100 *Vector2Helper.GetTossDirectionFromDirectionFacing(Direction));
+                Item.RemoveDurability();
+
+                SoundModuleManager.PlayPackage("SwordConnect");
+
+            }
+
+            return base.OnCollides(fixtureA, fixtureB, contact);
+        }
+        protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            base.OnSeparates(fixtureA, fixtureB, contact);
+        }
+
+
     }
 }

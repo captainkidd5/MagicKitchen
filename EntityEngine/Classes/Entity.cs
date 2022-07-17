@@ -105,7 +105,7 @@ namespace EntityEngine.Classes
         }
 
 
-        public void TakeDamage(int amt)
+        public virtual void TakeDamage(int amt, Vector2? knockBack = null)
         {
             int newHealth = CurrentHealth - amt;
             if (newHealth <= 0)
@@ -113,6 +113,8 @@ namespace EntityEngine.Classes
             else
                 CurrentHealth = (byte)newHealth;
 
+            if (knockBack != null)
+                MainHullBody.Body.ApplyLinearImpulse(knockBack.Value * 10000);
 
         }
 
