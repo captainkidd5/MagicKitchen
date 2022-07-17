@@ -33,6 +33,7 @@ namespace DataModels
         Search = 3,
         Patron = 4,
         CustomScript = 5,
+        ChanseAndAttack = 6
     }
     public class Schedule
     {

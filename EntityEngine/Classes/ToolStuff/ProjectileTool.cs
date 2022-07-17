@@ -17,7 +17,7 @@ namespace EntityEngine.Classes.ToolStuff
         {
         }
 
-        public override void ReleaseTool(Direction direction, Vector2 directionVector, Collidable holder)
+        public override void ReleaseTool(Direction direction, Vector2 directionVector, Entity holder)
         {
             base.ReleaseTool(direction, directionVector, holder);
             MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000000f);

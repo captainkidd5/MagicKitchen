@@ -69,7 +69,7 @@ namespace EntityEngine.Classes
         protected ProgressBarSprite ProgressBarSprite { get; private set; }
 
 
-        BehaviourManager BehaviourManager { get; set; }
+        protected BehaviourManager BehaviourManager { get; set; }
 
         private protected InventoryHandler InventoryHandler { get; set; }
         public StorageContainer StorageContainer => InventoryHandler.StorageContainer;
@@ -105,7 +105,7 @@ namespace EntityEngine.Classes
         }
 
 
-        public virtual void TakeDamage(int amt, Vector2? knockBack = null)
+        public virtual void TakeDamage(Entity source, int amt, Vector2? knockBack = null)
         {
             int newHealth = CurrentHealth - amt;
             if (newHealth <= 0)
@@ -115,7 +115,7 @@ namespace EntityEngine.Classes
 
             if (knockBack != null)
                 MainHullBody.Body.ApplyLinearImpulse(knockBack.Value * 10000);
-
+           
         }
 
         protected virtual void DestructionBehaviour()

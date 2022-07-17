@@ -1,5 +1,6 @@
 ﻿using DataModels;
 using DataModels.NPCStuff;
+using EntityEngine.Classes.BehaviourStuff.Agression;
 using EntityEngine.Classes.CharacterStuff;
 using EntityEngine.Classes.ToolStuff;
 using EntityEngine.ItemStuff;
@@ -150,15 +151,18 @@ namespace EntityEngine.Classes.NPCStuff
             base.LoadSave(reader);
             Name = reader.ReadString();
         }
-        public override void TakeDamage(int amt, Vector2? knockBack = null)
+        public override void TakeDamage(Entity source, int amt, Vector2? knockBack = null)
         {
-            base.TakeDamage(amt, knockBack);
+            base.TakeDamage(source, amt, knockBack);
             if (NPCData != null && NPCData.NPCSoundData != null)
                 SoundModuleManager.PlayPackage(NPCData.NPCSoundData.Hurt);
 
             ParticleManager.AddParticleEmitter(this, EmitterType.Fire);
             ParticleManager.AddParticleEmitter(this, EmitterType.Text, amt.ToString());
 
+            if(source != null)
+             BehaviourManager.ChaseAndAttack(source);
+            
 
         }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)

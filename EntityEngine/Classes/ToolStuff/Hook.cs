@@ -81,7 +81,7 @@ namespace EntityEngine.Classes.ToolStuff
                 Return();
             }
         }
-        public override void ReleaseTool(Direction direction, Vector2 directionVector, Collidable holder)
+        public override void ReleaseTool(Direction direction, Vector2 directionVector, Entity holder)
         {
             base.ReleaseTool(direction, _arrowDirectionVector, holder);
             SoundFactory.PlaySoundEffect("HookFire");
@@ -92,7 +92,7 @@ namespace EntityEngine.Classes.ToolStuff
             Sprite.Origin = newOffSet;
 
         }
-        public override void BeginCharge(Collidable holder)
+        public override void BeginCharge(Entity holder)
         {
             base.BeginCharge(holder);
             _directionalArrowSprite = SpriteFactory.CreateWorldSprite(Position, new Rectangle(0, 96, 16, 16), ItemFactory.ItemSpriteSheet);

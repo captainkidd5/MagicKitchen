@@ -156,7 +156,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
         private void TakeDamageCommand(string[] args)
         {
-            TakeDamage(int.Parse(args[0]));
+            TakeDamage(null, int.Parse(args[0]));
         }
         protected override void CreateBody(Vector2 position)
         {

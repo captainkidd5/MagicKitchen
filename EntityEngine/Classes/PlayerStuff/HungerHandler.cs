@@ -62,7 +62,7 @@ namespace EntityEngine.Classes.PlayerStuff
                     }
                     else
                     {
-                        _player.TakeDamage(5);
+                        _player.TakeDamage(null,  5);
 
                     }
                 }

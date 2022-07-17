@@ -91,6 +91,22 @@
 }
 },
 {
+    "Id": 613,
+    "Name": "Leather",
+    "Description" : "Hide",
+    "MaxStackSize": 999,
+    "Price": 1
+    
+},
+{
+    "Id": 713,
+    "Name": "Haunch (Raw)",
+    "Description" : "Uncooked meat",
+    "MaxStackSize": 999,
+    "Price": 1
+    
+},
+{
     "Id": 900,
     "Name": "Coin",
     "Description" : "Currency",

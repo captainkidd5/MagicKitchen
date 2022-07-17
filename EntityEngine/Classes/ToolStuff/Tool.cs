@@ -29,7 +29,7 @@ namespace EntityEngine.Classes.ToolStuff
                 null, new object[] { item }, null, null);
         }
         protected Sprite Sprite { get; set; }
-        protected Collidable Holder { get; set; }
+        protected Entity Holder { get; set; }
 
         public bool IsCharging { get; set; }
         public int ChargeAmt { get; set; }
@@ -72,7 +72,7 @@ namespace EntityEngine.Classes.ToolStuff
 
 
         }
-        public virtual void BeginCharge(Collidable holder)
+        public virtual void BeginCharge(Entity holder)
         {
             IsCharging = true;
             Holder = holder;
@@ -85,7 +85,7 @@ namespace EntityEngine.Classes.ToolStuff
 
 
 
-        public virtual void ReleaseTool(Direction direction, Vector2 directionVector, Collidable holder)
+        public virtual void ReleaseTool(Direction direction, Vector2 directionVector, Entity holder)
         {
             Holder = holder;
             Direction = direction;

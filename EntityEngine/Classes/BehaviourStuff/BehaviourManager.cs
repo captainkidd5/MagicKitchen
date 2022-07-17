@@ -1,5 +1,6 @@
 ﻿using DataModels;
 using DataModels.ScriptedEventStuff;
+using EntityEngine.Classes.BehaviourStuff.Agression;
 using EntityEngine.Classes.BehaviourStuff.PatronStuff;
 using EntityEngine.Classes.CharacterStuff;
 using Globals;
@@ -21,7 +22,7 @@ using TiledEngine.Classes;
 
 namespace EntityEngine.Classes.BehaviourStuff
 {
-    internal class BehaviourManager : IDebuggable
+    public class BehaviourManager : IDebuggable
     {
         private Entity _entity;
         private StatusIcon _statusIcon;
@@ -47,10 +48,14 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         }
 
-
-        private Behaviour BehaviourFromSchedule()
+        public void ChaseAndAttack(Entity otherEntity)
         {
-            switch (_activeSchedule.EndBehaviour)
+            CurrentBehaviour = new ChaseAndAttackBehaviour(_entity, otherEntity, _statusIcon, _navigator, _tileManager, 2f);
+        }
+
+        public Behaviour ChangeBehaviour(EndBehaviour newbehaviour)
+        {
+            switch (newbehaviour)
             {
                 case EndBehaviour.None:
                     return null;
@@ -69,7 +74,8 @@ namespace EntityEngine.Classes.BehaviourStuff
                     ScriptBehaviour behaviour = new ScriptBehaviour(_entity, _statusIcon, _navigator, _tileManager, 2f);
                     behaviour.InjectSubscript(EntityFactory.GetSubscript(_activeSchedule.CustomScriptName));
                     return behaviour;
-             
+
+
                 default:
                     return null;
             }
@@ -90,7 +96,7 @@ namespace EntityEngine.Classes.BehaviourStuff
             if (CurrentBehaviour.GetType() == typeof(RouteBehaviour) &&
                            (CurrentBehaviour as RouteBehaviour).HasReachedEndOfScheduledRoute())
             {
-                CurrentBehaviour = BehaviourFromSchedule();
+                CurrentBehaviour = ChangeBehaviour(_activeSchedule.EndBehaviour);
             }
         }
 
@@ -106,7 +112,7 @@ namespace EntityEngine.Classes.BehaviourStuff
             {
                 _activeSchedule = newSchedule;
 
-                    CurrentBehaviour = BehaviourFromSchedule();
+                    CurrentBehaviour = ChangeBehaviour(_activeSchedule.EndBehaviour);
 
                 
             }

@@ -81,7 +81,7 @@ namespace EntityEngine.Classes.ToolStuff
 
 
         }
-        public override void ReleaseTool(Direction direction, Vector2 directionVector, Collidable holder)
+        public override void ReleaseTool(Direction direction, Vector2 directionVector, Entity holder)
         {
             base.ReleaseTool(direction, directionVector, holder);
             SoundModuleManager.PlayPackage("Slash");
@@ -108,7 +108,7 @@ namespace EntityEngine.Classes.ToolStuff
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.NPC))
             {
 
-                (fixtureB.Body.Tag as Entity).TakeDamage(Item.DamageValue, 100 *Vector2Helper.GetVectorFromDirection(Direction));
+                (fixtureB.Body.Tag as Entity).TakeDamage(Holder, Item.DamageValue, 100 *Vector2Helper.GetVectorFromDirection(Direction));
                 Item.RemoveDurability();
 
                 SoundModuleManager.PlayPackage("SwordConnect");
