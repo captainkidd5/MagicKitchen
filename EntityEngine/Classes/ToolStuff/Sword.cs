@@ -108,7 +108,7 @@ namespace EntityEngine.Classes.ToolStuff
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.NPC))
             {
 
-                (fixtureB.Body.Tag as Entity).TakeDamage(Item.DamageValue, 100 *Vector2Helper.GetTossDirectionFromDirectionFacing(Direction));
+                (fixtureB.Body.Tag as Entity).TakeDamage(Item.DamageValue, 100 *Vector2Helper.GetVectorFromDirection(Direction));
                 Item.RemoveDurability();
 
                 SoundModuleManager.PlayPackage("SwordConnect");

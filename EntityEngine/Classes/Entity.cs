@@ -120,6 +120,7 @@ namespace EntityEngine.Classes
 
         protected virtual void DestructionBehaviour()
         {
+
             FlaggedForRemoval = true;
         }
         public void SelectItem(Item item) => _overHeadItemDisplay.SelectItem(item, Position);
@@ -181,7 +182,7 @@ namespace EntityEngine.Classes
             if (MainHullBody == null)
                 MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },
                     new List<Category>() { (Category)PhysCat.PlayArea,(Category)PhysCat.Player, (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,
-                        (Category)PhysCat.Grass, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Portal,(Category)PhysCat.Tool }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this);
+                        (Category)PhysCat.Grass, (Category)PhysCat.TransparencySensor,  (Category)PhysCat.Portal,(Category)PhysCat.Tool }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this);
 
             BigSensorCollidesWithCategories = new List<Category>() { (Category)PhysCat.NPC, (Category)PhysCat.Player, (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh };
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { (Category)PhysCat.PlayerBigSensor }, BigSensorCollidesWithCategories,
@@ -411,13 +412,13 @@ namespace EntityEngine.Classes
 
         public void GiveItem(string name, int count) => InventoryHandler.GiveItem(name, count);
 
-        public void DropItem(string name, int count) => InventoryHandler.DropItem(Position, Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving), name, count);
-        public void DropItem(Item item, int count) => InventoryHandler.DropItem(Position, Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving), item, count);
+        public void DropItem(string name, int count) => InventoryHandler.DropItem(Position, Vector2Helper.GetVectorFromDirection(DirectionMoving), name, count);
+        public void DropItem(Item item, int count) => InventoryHandler.DropItem(Position, Vector2Helper.GetVectorFromDirection(DirectionMoving), item, count);
 
 
         protected virtual void DropCurrentlyHeldItemToWorld()
         {
-            InventoryHandler.ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet / 2), InventoryHandler.HeldItem, InventoryHandler.HeldItemCount, WorldItemState.Bouncing, Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving));
+            InventoryHandler.ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet / 2), InventoryHandler.HeldItem, InventoryHandler.HeldItemCount, WorldItemState.Bouncing, Vector2Helper.GetVectorFromDirection(DirectionMoving));
 
         }
 

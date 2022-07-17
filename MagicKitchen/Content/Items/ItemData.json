@@ -306,7 +306,7 @@
     "MaxDurability": 100,
     "ToolTier":"Good",
     "ItemType": "Sword",
-    "DamageValue" : 5,
+    "DamageValue" : 25,
     "RecipeInfo": 
     {
     "CraftAction": "Craft",

@@ -4,6 +4,7 @@ using EntityEngine.Classes.CharacterStuff;
 using EntityEngine.Classes.ToolStuff;
 using EntityEngine.ItemStuff;
 using Globals.Classes;
+using Globals.Classes.Chance;
 using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -95,7 +96,18 @@ namespace EntityEngine.Classes.NPCStuff
             _despawnTimer = new SimpleTimer(s_despawnTargetTime);
             
         }
+        protected override void DestructionBehaviour()
+        {
+            base.DestructionBehaviour();
+            List<LootData> trimmedLoot = ChanceHelper.GetWeightedSelection(NPCData.LootData.Cast<IWeightable>().ToList(), Settings.Random).Cast<LootData>().ToList();
+            foreach (LootData loot in trimmedLoot)
+            {
+                ItemFactory.GenerateWorldItem(
+                                loot.ItemName, loot.Quantity, Position, WorldItemState.Bouncing, Vector2Helper.GetRandomDirectionAsVector2());
 
+            }
+
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

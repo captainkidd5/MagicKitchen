@@ -119,7 +119,7 @@ namespace Globals.Classes.Helpers
         }
         private static readonly int directionMagnitude = 5;
       
-        public static Vector2 GetTossDirectionFromDirectionFacing(Direction directionFacing)
+        public static Vector2 GetVectorFromDirection(Direction directionFacing)
         {
             switch (directionFacing)
             {

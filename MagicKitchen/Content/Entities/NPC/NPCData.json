@@ -46,7 +46,14 @@
 ],
 "NPCSoundData":{
     "Hurt" : "Grunt"
-}
+},
+"LootData":[
+    {
+        "ItemName" : "Stone",
+        "Quantity" : 1,
+        "Weight" : 100
+    }
+]
 },
 {
     "Name": "fish",

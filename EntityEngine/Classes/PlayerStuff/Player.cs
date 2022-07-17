@@ -327,7 +327,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             InventoryHandler.ItemManager.AddWorldItem(new Vector2(Position.X, Position.Y - YOffSet / 2),
                 UI.Cursor.HeldItem, UI.Cursor.HeldItemCount, WorldItemState.Bouncing,
-                Vector2Helper.GetTossDirectionFromDirectionFacing(DirectionMoving));
+                Vector2Helper.GetVectorFromDirection(DirectionMoving));
 
             UI.Cursor.HeldItemCount = 0;
             UI.Cursor.HeldItem = null;

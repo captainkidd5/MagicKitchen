@@ -33,6 +33,7 @@ namespace DataModels.NPCStuff
         //Set to true if npc will always be drawn in the water only (no need to crop sprite, such as fish)
         public bool AlwaysSubmerged { get; set; }
         public List<AnimationInfo> AnimationInfo { get; set; }
+        public List<LootData> LootData { get; set; }
         public NPCSoundData NPCSoundData { get; set; }
     }
 }
