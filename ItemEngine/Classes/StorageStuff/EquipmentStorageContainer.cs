@@ -21,12 +21,28 @@ namespace ItemEngine.Classes.StorageStuff
 
 
 
-
         public EquipmentStorageContainer(int capacity) : base(capacity)
         {
           
         }
-
+        public void ReduceDurabilityOnEquippedArmor()
+        {
+            foreach (StorageSlot slot in Slots)
+            {
+                if (!slot.Empty)
+                    slot.Item.RemoveDurability(slot.Item.ArmorValue);
+            }
+        }
+        public int GetArmorValue()
+        {
+            int totalArmor = 0;
+            foreach(StorageSlot slot in Slots)
+            {
+                if (!slot.Empty)
+                    totalArmor += slot.Item.ArmorValue;
+            }
+            return totalArmor;
+        }
         protected override void AddSlots()
         {
             Slots = new List<StorageSlot>();

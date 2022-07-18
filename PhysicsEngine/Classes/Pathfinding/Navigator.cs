@@ -97,6 +97,7 @@ namespace PhysicsEngine.Classes.Pathfinding
         /// <returns>Returns false if unable to find valid path</returns>
         public bool FindPathTo(Vector2 currentPosition, Vector2 targetTestPos)
         {
+            PathFinder.SearchLimit = 100;
             CurrentPath = PathFinder.FindPath(Vector2Helper.WorldPositionToTilePositionAsPoint(currentPosition),
                 Vector2Helper.WorldPositionToTilePositionAsPoint(targetTestPos), DebugName);
             if (CurrentPath == null)

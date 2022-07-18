@@ -11,11 +11,13 @@ namespace EntityEngine.Classes
     internal class HumanoidInventoryHandler : InventoryHandler
     {
         public EquipmentStorageContainer EquipmentStorageContainer { get; set; }
+        public int ArmorValue => EquipmentStorageContainer.GetArmorValue();
         public HumanoidInventoryHandler(int capacity) : base(capacity)
         {
             EquipmentStorageContainer = new EquipmentStorageContainer(8);
         }
 
+        public void ReduceDurabilityOnEquippedArmor() => EquipmentStorageContainer.ReduceDurabilityOnEquippedArmor();
         public override void Save(BinaryWriter writer)
         {
             base.Save(writer);

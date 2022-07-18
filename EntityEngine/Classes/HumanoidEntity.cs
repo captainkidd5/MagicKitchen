@@ -27,7 +27,7 @@ namespace EntityEngine.Classes
     public class HumanoidEntity : Character
     {
 
-        public byte Armor { get; set; }
+        public int Armor => (InventoryHandler as HumanoidInventoryHandler).ArmorValue;
         public byte Strength { get; set; }
 
         private float _damageImmunityTime = 1f;
@@ -62,7 +62,8 @@ namespace EntityEngine.Classes
         {
             if (!ImmunteToDamage)
             {
-                base.TakeDamage(source, amt, knockBack);
+                base.TakeDamage(source, amt - Armor, knockBack);
+                (InventoryHandler as HumanoidInventoryHandler).ReduceDurabilityOnEquippedArmor();
                 ImmunteToDamage = true;
             }
         }
