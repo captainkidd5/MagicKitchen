@@ -22,10 +22,6 @@ namespace EntityEngine.Classes
     {
 
 
-        internal static Texture2D NPCSheet;
-
-        internal static Texture2D Props_1;
-
 
         internal static Dictionary<string, NPCData> NPCData { get; set; }
         //used for npc spawning
@@ -37,9 +33,7 @@ namespace EntityEngine.Classes
         public static void Load(ContentManager content)
         {
            
-            NPCSheet = content.Load<Texture2D>("Entities/NPC/NPCSheet");
-
-            Props_1 = content.Load<Texture2D>("Entities/Props/Props_1");
+            
 
            
 

@@ -46,6 +46,7 @@ namespace EntityEngine.Classes.NPCStuff
         {
         }
 
+
         public virtual void LoadContent(EntityContainer container, Vector2? startPos, string? name, bool standardAnimator = true)
         {
 
@@ -57,23 +58,12 @@ namespace EntityEngine.Classes.NPCStuff
                 ScheduleName = NPCData.ScheduleName;
                 if(NPCData.ShadowSize > Enums.ShadowSize.None)
                 {
-                    Shadow = new Shadow(ShadowType.NPC,CenteredPosition, NPCData.ShadowSize, EntityFactory.NPCSheet);
+                    Shadow = new Shadow(ShadowType.NPC,CenteredPosition, NPCData.ShadowSize, SpriteFactory.NPCSheet);
                 }
                 if (standardAnimator)
                 {
-                    List<AnimatedSprite> sprites = new List<AnimatedSprite>();
-                    foreach (AnimationInfo info in NPCData.AnimationInfo)
-                    {
-                        sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(
-                            Position, info, NPCContainer.GetTextureFromNPCType(EntityFactory.NPCData[Name].NPCType),
-                            new Rectangle(info.SpriteX * 16,
-                            info.SpriteY * 16
-                            , NPCData.SpriteWidth,
-                            NPCData.SpriteHeight), NPCData.SpriteWidth / 2 * -1, NPCData.SpriteHeight,info.Flip));
-                    }
-                    var spriteArray = sprites.ToArray();
-
-                    Animator = new NPCAnimator(spriteArray, NPCData.SpriteWidth / 2, NPCData.SpriteHeight);
+                   Animator = new NPCAnimator(NPCData, NPCData.SpriteWidth / 2, NPCData.SpriteHeight);
+                    Animator.LoadInitialAnimations();
                 }
               
             }
@@ -162,6 +152,8 @@ namespace EntityEngine.Classes.NPCStuff
 
             if(source != null)
              BehaviourManager.ChaseAndAttack(source);
+
+            Animator.PerformAction(Direction.Left, ActionType.Attack);
             
 
         }

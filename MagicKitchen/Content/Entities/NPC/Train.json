@@ -11,7 +11,7 @@
     "StartingStage" : "LullabyTown",
     "AnimationInfo": [
         {
-        "MovementType": "Walk",
+        "ActionType": "Walking",
         "MovementDirection": "Up",
         "Flip" : false,
         "SpriteX":10,
@@ -21,7 +21,7 @@
         ]
     },
     {
-        "MovementType": "Walk",
+        "ActionType": "Walking",
         "MovementDirection": "Down",
         "Flip" : false,
         "SpriteX":10,
@@ -31,7 +31,7 @@
         ]
     },
     {
-        "MovementType": "Walk",
+        "ActionType": "Walking",
         "MovementDirection": "Left",
         "Flip" : false,
         "SpriteX":10,
@@ -41,7 +41,7 @@
         ]
     },
     {
-        "MovementType": "Walk",
+        "ActionType": "Walking",
         "MovementDirection": "Right",
         "Flip" : false,
         "SpriteX":10,

@@ -12,7 +12,7 @@
     
     "AnimationInfo": [
         {
-        "MovementType": "Walk",
+        "ActionType": "Walking",
         "MovementDirection": "Up",
         "Flip" : false,
         "FrameIndicies":[
@@ -20,7 +20,7 @@
         ]
     },
     {
-        "MovementType": "Walk",
+        "ActionType": "Walking",
         "MovementDirection": "Down",
         "Flip" : false,
         "FrameIndicies":[
@@ -28,7 +28,7 @@
         ]
     },
     {
-        "MovementType": "Walk",
+        "ActionType": "Walking",
         "MovementDirection": "Left",
         "Flip" : false,
         "FrameIndicies":[
@@ -36,11 +36,55 @@
         ]
     },
     {
-        "MovementType": "Walk",
+        "ActionType": "Walking",
         "MovementDirection": "Right",
         "Flip" : false,
         "FrameIndicies":[
             9,10,11
+        ]
+    },
+
+
+
+
+
+
+
+
+    {
+        "ActionType": "Attack",
+        "MovementDirection": "Up",
+        "Flip" : false,
+        "SpriteY" : 2,
+        "FrameIndicies":[
+            6,7,8
+        ]
+    },
+    {
+        "ActionType": "Attack",
+        "MovementDirection": "Down",
+        "Flip" : false,
+        "SpriteY" : 2,
+        "FrameIndicies":[
+            6,7,8
+        ]
+    },
+    {
+        "ActionType": "Attack",
+        "MovementDirection": "Left",
+        "Flip" : false,
+        "SpriteY" : 2,
+        "FrameIndicies":[
+            6,7,8
+        ]
+    },
+    {
+        "ActionType": "Attack",
+        "MovementDirection": "Right",
+        "Flip" : false,
+        "SpriteY" : 2,
+        "FrameIndicies":[
+            6,7,8
         ]
     }
 ],
@@ -79,7 +123,7 @@
     
     "AnimationInfo": [
         {
-        "MovementType": "Walk",
+        "ActionType": "Walking",
         "MovementDirection": "Up",
         "Flip" : false,
     "SpriteY": 23,
@@ -89,7 +133,7 @@
         ]
     },
     {
-        "MovementType": "Walk",
+        "ActionType": "Walking",
         "MovementDirection": "Down",
         "Flip" : false,
         "SpriteY": 23,
@@ -98,7 +142,7 @@
         ]
     },
     {
-        "MovementType": "Walk",
+        "ActionType": "Walking",
         "MovementDirection": "Left",
         "Flip" : true,
         "SpriteY": 23,
@@ -107,7 +151,7 @@
         ]
     },
     {
-        "MovementType": "Walk",
+        "ActionType": "Walking",
         "MovementDirection": "Right",
         "Flip" : false,
         "SpriteY": 23,

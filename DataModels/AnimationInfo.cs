@@ -5,11 +5,7 @@ using static DataModels.Enums;
 
 namespace DataModels
 {
-    public enum MovementType
-    {
-        None = 0,
-        Walk = 1,
-    }
+
 
     public enum ActionType
     {
@@ -20,11 +16,11 @@ namespace DataModels
         JumpDown = 4,
         JumpLeft = 5,
         JumpRight = 6,
+        Attack = 7,
     }
     public class AnimationInfo
     {
-        public MovementType MovementType { get; set; }
-
+        public ActionType ActionType { get; set; }
         public Direction MovementDirection { get; set; }
 
         public bool Flip { get; set; }

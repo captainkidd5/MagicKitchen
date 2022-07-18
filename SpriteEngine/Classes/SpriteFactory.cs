@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using DataModels.NPCStuff;
 using Globals.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -46,6 +47,9 @@ namespace SpriteEngine.Classes
         public  static List<Color> SkinColors;
 
 
+        public static Texture2D NPCSheet;
+
+        public static Texture2D Props_1;
         public static void LoadContent(GraphicsDevice graphics, ContentManager content)
         {
             Graphics = graphics;
@@ -83,6 +87,10 @@ namespace SpriteEngine.Classes
             };
 
             ParticleManager.Load(content);
+
+            NPCSheet = content.Load<Texture2D>("Entities/NPC/NPCSheet");
+
+            Props_1 = content.Load<Texture2D>("Entities/Props/Props_1");
         }
         public static Color GetRandomSkinTone()
         {
@@ -190,6 +198,16 @@ namespace SpriteEngine.Classes
             return new IntervalAnimatedSprite(Graphics, Content, ElementType.World, position, startingSourceRectangle,
                 texture, animationFrames, standardDuration, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, rotation, layer,
                 randomizeLayers, flip, customLayer, idleFrame);
+        }
+
+        public static Texture2D GetTextureFromNPCType(NPCType npcType)
+        {
+            if (npcType == NPCType.Enemy)
+                return NPCSheet;
+            else if (npcType == NPCType.Prop)
+                return Props_1;
+            else
+                throw new Exception($"Invalid npc type {npcType.ToString()}");
         }
     }
 }

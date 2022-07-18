@@ -1,9 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DataModels;
+using DataModels.NPCStuff;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
@@ -13,12 +16,34 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
     public class NPCAnimator : Animator
     {
         private AnimatedSprite _currentAnimation;
-        public NPCAnimator(AnimatedSprite[] animatedSprites, int? xOffset, int? yOffset)
+        private NPCData _npcData;
+        public NPCAnimator(NPCData npcData,  int? xOffset, int? yOffset)
             : base( xOffset, yOffset)
         {
-            AnimatedSprites = animatedSprites;
+            _npcData = npcData;
         }
 
+        public override void LoadInitialAnimations()
+        {
+            PerformAction(Direction.Up, ActionType.Walking);
+        }
+
+        public override void PerformAction(Direction direction, ActionType actionType)
+        {
+            base.PerformAction(direction, actionType);
+            List<AnimatedSprite> sprites = new List<AnimatedSprite>();
+            foreach (AnimationInfo info in _npcData.AnimationInfo.Where(x => x.ActionType == actionType))
+            {
+                sprites.Add(SpriteFactory.AnimationInfoToWorldSprite(
+                    Position, info, SpriteFactory.GetTextureFromNPCType(_npcData.NPCType),
+                    new Rectangle(info.SpriteX * 16,
+                    info.SpriteY * 16
+                    , _npcData.SpriteWidth,
+                    _npcData.SpriteHeight), _npcData.SpriteWidth / 2 * -1, _npcData.SpriteHeight, info.Flip));
+            }
+            var spriteArray = sprites.ToArray();
+            AnimatedSprites = spriteArray;
+        }
         public override void Update(GameTime gameTime, Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
         {
             Vector2 positionOffSet = new Vector2(position.X , position.Y + yOffset /2);

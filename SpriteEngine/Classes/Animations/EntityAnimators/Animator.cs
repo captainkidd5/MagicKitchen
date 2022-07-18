@@ -55,6 +55,10 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             
         }
 
+        public virtual void LoadInitialAnimations()
+        {
+
+        }
 
         public event StepSoundPlayed? SoundPlayed;
         public virtual void OnStepSoundPlayed()

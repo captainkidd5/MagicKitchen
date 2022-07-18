@@ -141,15 +141,7 @@ namespace EntityEngine.Classes.CharacterStuff
             EntitiesToAdd.Add(npc);
         }
 
-        internal static Texture2D GetTextureFromNPCType(NPCType npcType)
-        {
-            if (npcType == NPCType.Enemy)
-                return EntityFactory.NPCSheet;
-            else if (npcType == NPCType.Prop)
-                return EntityFactory.Props_1;
-            else
-                throw new Exception($"Invalid npc type {npcType.ToString()}");
-        }
+     
 
         public override void Update(GameTime gameTime)
         {
