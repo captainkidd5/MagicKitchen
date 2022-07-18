@@ -38,9 +38,9 @@
     {
         "ActionType": "Walking",
         "MovementDirection": "Right",
-        "Flip" : false,
+        "Flip" : true,
         "FrameIndicies":[
-            9,10,11
+            6,7,8
         ]
     },
 
@@ -57,7 +57,7 @@
         "Flip" : false,
         "SpriteY" : 2,
         "FrameIndicies":[
-            6,7,8
+            0,1,2
         ]
     },
     {
@@ -66,7 +66,7 @@
         "Flip" : false,
         "SpriteY" : 2,
         "FrameIndicies":[
-            6,7,8
+            3,4,5
         ]
     },
     {
