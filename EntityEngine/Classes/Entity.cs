@@ -189,6 +189,7 @@ namespace EntityEngine.Classes
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
 
+            CreateDamageBody(position);
 
 
         }
@@ -201,7 +202,7 @@ namespace EntityEngine.Classes
             AddSecondaryBody(DamageBody);
         }
 
-        protected virtual void ActivateDamageBody(List<Category> hurtsTheseCategories)
+        internal virtual void ActivateDamageBody(List<Category> hurtsTheseCategories)
         {
             if (hurtsTheseCategories == null)
             {
@@ -209,7 +210,7 @@ namespace EntityEngine.Classes
             }
             DamageBody.Body.SetCollidesWith(PhysicsManager.GetCat(hurtsTheseCategories));
         }
-        protected virtual void DeactivateDamageBody()
+        internal virtual void DeactivateDamageBody()
         {
             DamageBody.Body.SetCollidesWith(PhysicsManager.GetCat(new List<Category>()));
 

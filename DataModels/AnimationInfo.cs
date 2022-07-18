@@ -7,7 +7,7 @@ namespace DataModels
 {
 
 
-    public enum ActionType
+    public enum ActionType : byte
     {
         None = 0,
         Walking = 1,
@@ -23,6 +23,8 @@ namespace DataModels
         public ActionType ActionType { get; set; }
         public Direction MovementDirection { get; set; }
 
+        //The only frame in which the entity activates its damage body
+        public byte? DamageFrame { get; set; }
         public bool Flip { get; set; }
         public int SpriteX { get; set; }
         public int SpriteY { get; set; }

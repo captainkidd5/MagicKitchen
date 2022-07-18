@@ -151,7 +151,7 @@ namespace EntityEngine.Classes.NPCStuff
             ParticleManager.AddParticleEmitter(this, EmitterType.Fire);
             ParticleManager.AddParticleEmitter(this, EmitterType.Text, amt.ToString());
 
-            if(source != null)
+            if(source != null && NPCData != null && NPCData.CombatResponse == CombatResponse.Retaliate)
              BehaviourManager.ChaseAndAttack(source);
 
             
@@ -164,7 +164,12 @@ namespace EntityEngine.Classes.NPCStuff
                 OutsideOfPlayArea = false;
 
             }
-      
+
+            if (fixtureA.CollisionCategories.HasFlag((Category)PhysCat.Damage))
+            {
+                (fixtureB.Body.Tag as Entity).TakeDamage(this, 10);
+
+            }
             return base.OnCollides(fixtureA, fixtureB, contact);
         }
 

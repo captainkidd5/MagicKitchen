@@ -40,7 +40,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
 
         public ActionType CurrentActionType { get; protected set; }
 
-
+        public virtual int CurrentFrame { get; private set; }
         public virtual bool IsPerformingAnimation()
         {
             return false;

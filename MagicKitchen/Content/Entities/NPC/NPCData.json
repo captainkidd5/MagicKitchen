@@ -7,6 +7,7 @@
     "ScheduleName": "wander_1",
     "NPCType" : "Enemy",
     "ShadowSize":"Medium",
+    "CombatResponse":"Retaliate",
     "SpriteWidth": 48,
     "SpriteHeight": 32,
     
@@ -54,6 +55,7 @@
     {
         "ActionType": "Attack",
         "MovementDirection": "Up",
+        "DamageFrame":2,
         "Flip" : false,
         "SpriteY" : 2,
         "FrameIndicies":[
@@ -63,6 +65,7 @@
     {
         "ActionType": "Attack",
         "MovementDirection": "Down",
+        "DamageFrame":2,
         "Flip" : false,
         "SpriteY" : 2,
         "FrameIndicies":[
@@ -72,6 +75,7 @@
     {
         "ActionType": "Attack",
         "MovementDirection": "Left",
+        "DamageFrame":2,
         "Flip" : false,
         "SpriteY" : 2,
         "FrameIndicies":[
@@ -81,6 +85,7 @@
     {
         "ActionType": "Attack",
         "MovementDirection": "Right",
+        "DamageFrame":2,
         "Flip" : true,
         "SpriteY" : 2,
         "FrameIndicies":[
@@ -112,7 +117,7 @@
     "ObjectType" : "EntityEngine.Classes.NPCStuff.NPC",
     "ScheduleName": "wander_1",
     "NPCType" : "Enemy",
-
+    "CombatResponse":"Flee",
     "SpriteWidth": 16,
     "SpriteHeight": 16,
     "AlwaysSubmerged": true,
