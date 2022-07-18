@@ -35,7 +35,7 @@ namespace PhysicsEngine.Classes
         ArtificialFloor = 0x10000,
         FrontalSensor = 0x20000,
         Projectile = 0x40000,
-        Cat20 = 0x80000,
+        Damage = 0x80000,
         Cat21 = 0x100000,
         Cat22 = 0x200000,
         Cat23 = 0x400000,

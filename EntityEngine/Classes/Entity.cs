@@ -89,7 +89,7 @@ namespace EntityEngine.Classes
 
         public bool FlaggedForRemoval { get; set; }
 
-
+        public HullBody DamageBody { get; protected set; }
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
         {
             _graphics = graphics;
@@ -115,7 +115,7 @@ namespace EntityEngine.Classes
 
             if (knockBack != null)
                 MainHullBody.Body.ApplyLinearImpulse(knockBack.Value * 10000);
-           
+
         }
 
         protected virtual void DestructionBehaviour()
@@ -193,7 +193,27 @@ namespace EntityEngine.Classes
 
         }
 
+        protected virtual void CreateDamageBody(Vector2 position)
+        {
+           
+            DamageBody = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { (Category)PhysCat.Damage }, new List<Category>(),
+              OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
+            AddSecondaryBody(DamageBody);
+        }
 
+        protected virtual void ActivateDamageBody(List<Category> hurtsTheseCategories)
+        {
+            if (hurtsTheseCategories == null)
+            {
+                hurtsTheseCategories = new List<Category>() { (Category)PhysCat.Player };
+            }
+            DamageBody.Body.SetCollidesWith(PhysicsManager.GetCat(hurtsTheseCategories));
+        }
+        protected virtual void DeactivateDamageBody()
+        {
+            DamageBody.Body.SetCollidesWith(PhysicsManager.GetCat(new List<Category>()));
+
+        }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             //Collision logic changes based on current behaviour!
