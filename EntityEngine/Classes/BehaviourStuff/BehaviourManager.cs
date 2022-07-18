@@ -82,6 +82,7 @@ namespace EntityEngine.Classes.BehaviourStuff
         }
         public void Update(GameTime gameTime, ref Vector2 velocity)
         {
+            _entity.Animator.OverridePause = false;
             if (_simpleTimer.Run(gameTime))
             {
                 CheckForUpdatedSchedule();

@@ -43,6 +43,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             }
             var spriteArray = sprites.ToArray();
             AnimatedSprites = spriteArray;
+            CurrentActionType = actionType;
         }
         public override void Update(GameTime gameTime, Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
         {
@@ -56,16 +57,13 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             {
                 _currentAnimation.ResetToZero(Position, entityLayer);
             }
-                if (isMoving)
-            {
+            _currentAnimation.Paused = !isMoving;
+
+            if (OverridePause)
+                _currentAnimation.Paused = false;
                 _currentAnimation.Update(gameTime, Position);
 
-            }
-            else
-            {
-                _currentAnimation.ForceSetPosition(Position);
 
-            }
 
 
 

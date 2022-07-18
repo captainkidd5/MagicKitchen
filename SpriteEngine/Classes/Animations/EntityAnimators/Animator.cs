@@ -35,8 +35,10 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         /// </summary>
         public Vector2 Position { get; set; }
 
-    
+        //Set to true in a behaviour if animator should still flip thru animations even when not moving (e.x. attacking, but not when walking)
+        public bool OverridePause { get; set; }
 
+        public ActionType CurrentActionType { get; protected set; }
 
 
         public virtual bool IsPerformingAnimation()

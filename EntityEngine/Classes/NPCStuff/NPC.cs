@@ -153,7 +153,6 @@ namespace EntityEngine.Classes.NPCStuff
             if(source != null)
              BehaviourManager.ChaseAndAttack(source);
 
-            Animator.PerformAction(Direction.Left, ActionType.Attack);
             
 
         }

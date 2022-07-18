@@ -1,4 +1,6 @@
-﻿using EntityEngine.Classes.CharacterStuff;
+﻿using DataModels;
+using EntityEngine.Classes.CharacterStuff;
+using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes.Pathfinding;
 using System;
@@ -7,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes;
+using static DataModels.Enums;
 
 namespace EntityEngine.Classes.BehaviourStuff.Agression
 {
@@ -34,9 +37,29 @@ namespace EntityEngine.Classes.BehaviourStuff.Agression
                 }
             }
             if (Navigator.HasActivePath)
+            {
                 Navigator.FollowPath(gameTime, Entity.Position, ref velocity);
+                if(Entity.Animator.CurrentActionType != ActionType.Walking)
+                {
+                    Entity.Animator.PerformAction(Vector2Helper.GetDirectionOfEntityInRelationToEntity(Entity.Position, _otherEntity.CenteredPosition), ActionType.Walking);
+
+                }
+            }
             else
-                Entity.Halt();
+            {
+                if (Entity.Animator.CurrentActionType != ActionType.Attack)
+                {
+                    Entity.Animator.PerformAction(Vector2Helper.GetDirectionOfEntityInRelationToEntity(Entity.Position, _otherEntity.CenteredPosition), ActionType.Attack);
+                    Entity.Halt();
+                }
+                else
+                {
+                    Entity.Animator.OverridePause = true;
+
+                }
+
+
+            }
         }
     
     }
