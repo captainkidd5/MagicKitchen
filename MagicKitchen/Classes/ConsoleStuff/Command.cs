@@ -207,9 +207,6 @@ namespace MagicKitchen.Classes.ConsoleStuff
 
 
 
-            Flags.EnableShadows = !Flags.EnableShadows;
-            CommandConsole.Append($"Toggled shadows to {Flags.EnableShadows.ToString()}");
-
 
 
         }

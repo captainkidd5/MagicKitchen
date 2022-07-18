@@ -20,19 +20,19 @@ namespace EntityEngine.Classes.BehaviourStuff.Agression
         {
             _otherEntity = otherEntity;
 
-
+            SimpleTimer.SetNewTargetTime(.25f);
         }
 
         public override void Update(GameTime gameTime, ref Vector2 velocity)
         {
             base.Update(gameTime, ref velocity);
-            if (!Navigator.HasActivePath)
+            if (!Navigator.HasActivePath && Vector2.Distance(Entity.Position, _otherEntity.CenteredPosition) > 18)
             {
                 if (SimpleTimer.Run(gameTime))
                 {
-                    if (Navigator.FindPathTo(Entity.Position, _otherEntity.CenteredPosition))
+                    if (Navigator.FindPathTo(Entity.Position, _otherEntity.CenteredPosition ))
                     {
-                        Navigator.SetTarget(_otherEntity.CenteredPosition);
+                        Navigator.SetTarget(_otherEntity.CenteredPosition );
                     }
                 }
             }
@@ -54,6 +54,7 @@ namespace EntityEngine.Classes.BehaviourStuff.Agression
                 }
                 else
                 {
+                    //keep playing attack animation
                     Entity.Animator.OverridePause = true;
 
                 }

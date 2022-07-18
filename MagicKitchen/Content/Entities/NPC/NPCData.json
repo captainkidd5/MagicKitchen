@@ -81,7 +81,7 @@
     {
         "ActionType": "Attack",
         "MovementDirection": "Right",
-        "Flip" : false,
+        "Flip" : true,
         "SpriteY" : 2,
         "FrameIndicies":[
             6,7,8
@@ -92,11 +92,7 @@
     "Hurt" : "Grunt"
 },
 "LootData":[
-    {
-        "ItemName" : "Stone",
-        "Quantity" : 1,
-        "Weight" : 100
-    },
+
     {
         "ItemName" : "Haunch (Raw)",
         "Quantity" : 1,
@@ -105,7 +101,7 @@
     {
         "ItemName" : "Leather",
         "Quantity" : 1,
-        "Weight" : 50
+        "Weight" : 70
     }
 ]
 },

@@ -71,7 +71,7 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         public override void ActivateTool(Tool tool)
         {
-            _lumenHandler.CurrentLumens -= 5;
+           // _lumenHandler.CurrentLumens -= 5;
             Vector2 distance = Vector2.Zero;
             if (Controls.ControllerConnected)
                  distance = Controls.WorldDistanceBetweenCursorAndVector(Entity.Position, Direction.Left);

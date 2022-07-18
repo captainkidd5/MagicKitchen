@@ -49,16 +49,17 @@ namespace EntityEngine.Classes.NPCStuff
 
         public virtual void LoadContent(EntityContainer container, Vector2? startPos, string? name, bool standardAnimator = true)
         {
-
             if (!string.IsNullOrEmpty(name))
             {
 
                 NPCData = EntityFactory.NPCData[name];
+                XOffSet = NPCData.SpriteWidth / 2;
+
                 Name = NPCData.Name;
                 ScheduleName = NPCData.ScheduleName;
                 if(NPCData.ShadowSize > Enums.ShadowSize.None)
                 {
-                    Shadow = new Shadow(ShadowType.NPC,CenteredPosition, NPCData.ShadowSize, SpriteFactory.NPCSheet);
+                    Shadow = new Shadow(ShadowType.NPC,CenteredPosition , NPCData.ShadowSize, SpriteFactory.NPCSheet);
                 }
                 if (standardAnimator)
                 {
@@ -103,7 +104,7 @@ namespace EntityEngine.Classes.NPCStuff
         {
             base.Update(gameTime);
             if (!Submerged && Shadow != null)
-                Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y + 2));
+                Shadow.Update(gameTime, new Vector2(Position.X, CenteredPosition.Y + 2));
             if (OutsideOfPlayArea)
             {
                 if (_despawnTimer.Run(gameTime))

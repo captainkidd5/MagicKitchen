@@ -51,9 +51,18 @@ namespace SpriteEngine.Classes.ShadowStuff
                     break;
             }
         }
-        public void Update(GameTime gameTime, Vector2 position)
+        public void Update(GameTime gameTime, Vector2 position, bool offSet = true)
         {
-            Sprite.Update(gameTime, position);
+            if (offSet)
+            {
+                Sprite.Update(gameTime, new Vector2(position.X - Sprite.SourceRectangle.Width / 2, position.Y));
+
+            }
+            else
+            {
+                Sprite.Update(gameTime,position);
+
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
