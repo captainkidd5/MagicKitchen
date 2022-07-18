@@ -40,6 +40,8 @@ namespace EntityEngine.Classes.NPCStuff
         private static float s_despawnTargetTime = 5f;
 
         private SimpleTimer _despawnTimer;
+
+
         public bool OutsideOfPlayArea { get; protected set; }
         public NPC( GraphicsDevice graphics, ContentManager content) :
             base(graphics, content)

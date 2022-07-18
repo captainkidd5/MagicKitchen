@@ -29,6 +29,10 @@ namespace EntityEngine.Classes
 
         public byte Armor { get; set; }
         public byte Strength { get; set; }
+
+        private float _damageImmunityTime = 1f;
+        private SimpleTimer _damageImmunityTimer;
+        public bool ImmunteToDamage { get; set; }
         public EquipmentStorageContainer EquipmentStorageContainer => (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer;
 
         public HumanoidEntity(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
@@ -49,12 +53,19 @@ namespace EntityEngine.Classes
            };
             Animator = new CustomizeableAnimator(bodyPieces);
             InventoryHandler = new HumanoidInventoryHandler(StorageCapacity);
-
+            _damageImmunityTimer = new SimpleTimer(_damageImmunityTime, true);
           //  (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
         }
 
-   
 
+        public override void TakeDamage(Entity source, int amt, Vector2? knockBack = null)
+        {
+            if (!ImmunteToDamage)
+            {
+                base.TakeDamage(source, amt, knockBack);
+                ImmunteToDamage = true;
+            }
+        }
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },
@@ -125,6 +136,11 @@ namespace EntityEngine.Classes
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if(ImmunteToDamage && _damageImmunityTimer.Run(gameTime))
+            {
+                ImmunteToDamage = false;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
