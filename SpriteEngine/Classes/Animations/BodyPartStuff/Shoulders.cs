@@ -140,7 +140,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AnimatedSprite SmashRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 SmashRightFrames, idleFrame: 0, scale: Scale);
             AnimatedSprite[] SmashingSet = new AnimatedSprite[] { SmashUp, SmashDown, SmashLeft, SmashRight };
-            SmashAction = new AnimateAction(this, SmashingSet, true);
+            SmashAction = new AnimateAction(this, SmashingSet, false);
 
         }
 

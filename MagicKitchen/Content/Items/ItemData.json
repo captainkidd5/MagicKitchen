@@ -52,6 +52,7 @@
     "Price": 25,
     "ToolTier":"Good",
     "ItemType": "Hammer",
+    "MaxDurability": 100,
     "RecipeInfo": 
     {
     "CraftAction": "Craft",

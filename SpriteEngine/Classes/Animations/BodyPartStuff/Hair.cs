@@ -153,7 +153,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
                 smashRightFrames, idleFrame: 0, scale: Scale);
 
             AnimatedSprite[] smashingSet = new AnimatedSprite[] { smashUp, smashDown, smashLeft, smashRight };
-            SmashAction = new AnimateAction(this, smashingSet, true);
+            SmashAction = new AnimateAction(this, smashingSet, false);
 
 
 
