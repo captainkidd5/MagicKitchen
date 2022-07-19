@@ -206,12 +206,23 @@ namespace PhysicsEngine.Classes
 
         }
 
+        public enum RotateSpeed
+        {
+            None =0,
+            VerySlow = 1,
+            Slow = 2,
+            Medium = 3,
+            Fast = 4,
+            Woah = 5
+        }
         /// <summary>
         /// Welds two bodies together and returns the created joint.
         /// </summary>
         /// <returns></returns>
-        public static RevoluteJoint RotateWeld(Body bodyA, Body bodyB, Vector2? bodyAAnchor, Vector2? bodyBAnchor, float? dampingRatio, float? frequencyHz, bool counterClockWise)
+        public static RevoluteJoint RotateWeld(RotateSpeed rotateSpeed, Body bodyA, Body bodyB, Vector2? bodyAAnchor, Vector2? bodyBAnchor, float? dampingRatio, float? frequencyHz, bool counterClockWise)
         {
+            if (rotateSpeed == RotateSpeed.None)
+                throw new Exception($"Forgot to set rotate speed in inherited swingable tool class");
             bodyAAnchor = bodyAAnchor ?? Vector2.Zero;
             bodyBAnchor = bodyBAnchor ?? Vector2.Zero;
 
@@ -219,8 +230,8 @@ namespace PhysicsEngine.Classes
             frequencyHz = frequencyHz ?? 30f;
             RevoluteJoint joint = JointFactory.CreateRevoluteJoint(VelcroWorld, bodyA, bodyB, bodyAAnchor.Value, bodyBAnchor.Value);
             joint.MotorEnabled = true;
-            joint.MaxMotorTorque = 500000;
-            joint.MotorSpeed = 100000000; //1 turn per second clockwise
+            joint.MaxMotorTorque = 100000 * (int)rotateSpeed;
+            joint.MotorSpeed = 10000000; //1 turn per second clockwise
             if (counterClockWise)
                 joint.MotorSpeed = joint.MotorSpeed * -1;
     
