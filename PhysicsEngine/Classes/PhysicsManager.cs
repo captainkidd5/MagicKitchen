@@ -109,7 +109,7 @@ namespace PhysicsEngine.Classes
             radius = radius ?? 6f;
             position = position ?? Vector2.Zero;
             Body body = PhysicsManager.VelcroWorld.CreateCircle((float)radius, density, (Vector2)position, bodyType);
-            CreateCommonSettings(collisionCategories, categoriesCollidesWith, cDelegate, sDelegate, sleepingAllowed, isSensor, ignoreGravity, body, mass);
+            CreateCommonSettings(collisionCategories, categoriesCollidesWith, cDelegate, sDelegate, sleepingAllowed, isSensor, ignoreGravity, body, mass,friction);
 
             body.Tag = userData;
             return new HullBody(body);
@@ -118,7 +118,7 @@ namespace PhysicsEngine.Classes
 
         private static void CreateCommonSettings(List<Category> collisionCategories, List<Category> categoriesCollidesWith,
             OnCollisionEventHandler cDelegate, OnSeparationEventHandler sDelegate, bool sleepingAllowed,
-            bool isSensor, bool ignoreGravity, Body body, float mass)
+            bool isSensor, bool ignoreGravity, Body body, float mass, float friction)
         {
             if (categoriesCollidesWith != null)
                 body.SetCollidesWith(GetCat(categoriesCollidesWith));
@@ -134,6 +134,7 @@ namespace PhysicsEngine.Classes
             body.OnSeparation += sDelegate;
             body.SetIsSensor(isSensor);
             body.Mass = mass;
+            body.SetFriction(friction);
         }
 
 
@@ -148,7 +149,8 @@ namespace PhysicsEngine.Classes
             position = position ?? Vector2.Zero;
             Body body = PhysicsManager.VelcroWorld.CreateRectangle( (float)width,(float) height, density,(Vector2)position, rotation, bodyType);
 
-            CreateCommonSettings(collisionCategories, categoriesCollidesWith, cDelegate, sDelegate, sleepingAllowed, isSensor, ignoreGravity, body, mass);
+            CreateCommonSettings(collisionCategories, categoriesCollidesWith, cDelegate, sDelegate, sleepingAllowed, isSensor, ignoreGravity, body, mass, friction);
+
 
 
             body.Tag = userData;
@@ -167,7 +169,8 @@ namespace PhysicsEngine.Classes
             position = position ?? Vector2.Zero;
 
             Body body = VelcroWorld.CreatePolygon(vertices, density, (Vector2)position, rotation, bodyType);
-            CreateCommonSettings(collisionCategories, categoriesCollidesWith, cDelegate, sDelegate, sleepingAllowed, isSensor, ignoreGravity, body, mass);
+            CreateCommonSettings(collisionCategories, categoriesCollidesWith, cDelegate, sDelegate, sleepingAllowed, isSensor, ignoreGravity, body, mass, friction);
+
 
 
 

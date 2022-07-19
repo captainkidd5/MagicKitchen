@@ -118,26 +118,26 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
                 SmashDownFrames, idleFrame: 0, scale: Scale);
             AnimationFrame[] SmashLeftFrames = new AnimationFrame[]
             {
-               new AnimationFrame(6, 0, 0, SmashAnimationDuration,true),
+                  new AnimationFrame(6, 0, 0, SmashAnimationDuration,true),
 
-               new AnimationFrame(7, 0, 1, SmashAnimationDuration,true),
+               new AnimationFrame(7, 0, 0, SmashAnimationDuration,true),
+               new AnimationFrame(7, 0, 0, SmashAnimationDuration,true),
+
               new AnimationFrame(8, 0, 0, SmashAnimationDuration,true),
-                new AnimationFrame(9, 0, 1, SmashAnimationDuration,true),
-                new AnimationFrame(10, 0, 0, SmashAnimationDuration,true)
         };
-            AnimatedSprite SmashLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            AnimatedSprite SmashLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight + yStart, FrameWidth, FrameHeight), Texture,
                 SmashLeftFrames, idleFrame: 0, scale: Scale);
 
             AnimationFrame[] SmashRightFrames = new AnimationFrame[]
            {
-               new AnimationFrame(6, 0, 0, SmashAnimationDuration),
+              new AnimationFrame(6, 0, 0, SmashAnimationDuration),
 
-               new AnimationFrame(7, 0, 1, SmashAnimationDuration),
+               new AnimationFrame(7, 0, 0, SmashAnimationDuration),
+               new AnimationFrame(7, 0, 0, SmashAnimationDuration),
+
               new AnimationFrame(8, 0, 0, SmashAnimationDuration),
-                new AnimationFrame(9, 0, 1, SmashAnimationDuration),
-                new AnimationFrame(10, 0, 0, SmashAnimationDuration)
        };
-            AnimatedSprite SmashRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            AnimatedSprite SmashRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight + yStart, FrameWidth, FrameHeight), Texture,
                 SmashRightFrames, idleFrame: 0, scale: Scale);
             AnimatedSprite[] SmashingSet = new AnimatedSprite[] { SmashUp, SmashDown, SmashLeft, SmashRight };
 

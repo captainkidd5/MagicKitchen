@@ -204,7 +204,7 @@ namespace EntityEngine.ItemStuff
 
             Sprite.Update(gameTime, CenteredPosition + spriteBehaviourOffSet);
             if (Shadow != null)
-                Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y), false);
+                Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y - 1), false);
             if (TimeCreated + TTL < Clock.TotalTime)
                 Remove(Count);
 

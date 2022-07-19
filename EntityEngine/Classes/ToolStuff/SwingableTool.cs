@@ -53,6 +53,8 @@ namespace EntityEngine.Classes.ToolStuff
             if (Direction == Direction.Right)
             {
                 rotation = 0f;
+                XOffSet = 4;
+                YOffSet = -4;
 
             }
 
@@ -61,6 +63,9 @@ namespace EntityEngine.Classes.ToolStuff
                 rotation = MathHelper.Pi * 2;
 
                 counterClockWise = true;
+                XOffSet = -4;
+                YOffSet = -4;
+
             }
 
             else if (Direction == Direction.Up)

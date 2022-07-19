@@ -116,22 +116,25 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             //todo
             AnimationFrame[] smashLeftFrames = new AnimationFrame[]
            {
-               new AnimationFrame(6, 0, 0, SmashAnimationDuration,true),
-              new AnimationFrame(7, 0, 1, SmashAnimationDuration,true),
-                new AnimationFrame(8, 0, 0, SmashAnimationDuration,true),
-                new AnimationFrame(9, 0, 1, SmashAnimationDuration,true),
-               new AnimationFrame(10, 0, 0, SmashAnimationDuration,true),
+               new AnimationFrame(7, 0, 0, SmashAnimationDuration, true),
+              new AnimationFrame(8, 0, 0, SmashAnimationDuration, true),
+              new AnimationFrame(9, 0, 0, SmashAnimationDuration, true),
+
+              new AnimationFrame(10, 0, 0, SmashAnimationDuration, true),
        };
             AnimatedSprite smashLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight + yStart, FrameWidth, FrameHeight), Texture,
                 smashLeftFrames, idleFrame: 0, scale: Scale);
 
             AnimationFrame[] smashRightFrames = new AnimationFrame[]
            {
-               new AnimationFrame(6, 0, 0, SmashAnimationDuration),
-              new AnimationFrame(7, 0, 1, SmashAnimationDuration),
-                new AnimationFrame(8, 0, 0, SmashAnimationDuration),
-                new AnimationFrame(9, 0, 1, SmashAnimationDuration),
-               new AnimationFrame(10, 0, 0, SmashAnimationDuration),
+
+
+               new AnimationFrame(7, 0, 0, SmashAnimationDuration),
+              new AnimationFrame(8, 0, 0, SmashAnimationDuration),
+              new AnimationFrame(9, 0, 0, SmashAnimationDuration),
+
+              new AnimationFrame(10, 0, 0, SmashAnimationDuration),
+
        };
             AnimatedSprite smashRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight + yStart, FrameWidth, FrameHeight), Texture,
                 smashRightFrames, idleFrame: 0, scale: Scale);

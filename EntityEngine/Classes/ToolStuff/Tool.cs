@@ -105,7 +105,7 @@ namespace EntityEngine.Classes.ToolStuff
             if (Sprite != null)
             {
 
-                Sprite.Update(gameTime, new Vector2(Holder.CenteredPosition.X , Holder.CenteredPosition.Y + YOffSet));
+                Sprite.Update(gameTime, new Vector2(Holder.CenteredPosition.X + XOffSet , Holder.CenteredPosition.Y + YOffSet));
                 AlterSpriteRotation(gameTime);
             }
 

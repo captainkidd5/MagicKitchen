@@ -121,11 +121,11 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AnimationFrame[] SmashLeftFrames = new AnimationFrame[]
            {
                new AnimationFrame(2, 0, 0, SmashAnimationDuration,true),
-               new AnimationFrame(2, 0, 1, SmashAnimationDuration,true),
+               new AnimationFrame(2, 0, -1, SmashAnimationDuration,true),
 
-              new AnimationFrame(2, 0, 0, SmashAnimationDuration,true),
-                new AnimationFrame(2, 0, 1, SmashAnimationDuration,true),
-                new AnimationFrame(2, 0, 0, SmashAnimationDuration,true),
+              new AnimationFrame(2, 0, -1, SmashAnimationDuration,true),
+                new AnimationFrame(2, 0, -1, SmashAnimationDuration,true),
+                new AnimationFrame(2, 0, -1, SmashAnimationDuration,true),
 
        };
             AnimatedSprite SmashLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
@@ -133,12 +133,12 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
             AnimationFrame[] SmashRightFrames = new AnimationFrame[]
            {
-               new AnimationFrame(2, 0, 0, SmashAnimationDuration),
-               new AnimationFrame(2, 0, 1, SmashAnimationDuration),
+               new AnimationFrame(2, 0, -1, SmashAnimationDuration),
+               new AnimationFrame(2, 0, -1, SmashAnimationDuration),
 
-              new AnimationFrame(2, 0, 0, SmashAnimationDuration),
-                new AnimationFrame(2, 0, 1, SmashAnimationDuration),
-                new AnimationFrame(2, 0, 0, SmashAnimationDuration),
+              new AnimationFrame(2, 0, -1, SmashAnimationDuration),
+                new AnimationFrame(2, 0, -1, SmashAnimationDuration),
+                new AnimationFrame(2, 0, -1, SmashAnimationDuration),
 
        };
             AnimatedSprite SmashRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight, FrameWidth, FrameHeight), Texture,

@@ -45,7 +45,7 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
             SimpleTimer = new Globals.Classes.SimpleTimer(_timeUntilResting);
 
 
-            WorldItem.SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.SolidHigh, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass });
+            WorldItem.SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.SolidHigh, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Grass });
             // Set the initial velocity.
             velocity = Settings.Random.Next(s_minBounceVelocity, s_maxBounceVelocity);
             angularVelocity = WorldItem.MainHullBody.Body.AngularVelocity;
