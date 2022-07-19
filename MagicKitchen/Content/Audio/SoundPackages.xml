@@ -245,6 +245,16 @@
                 </Item>
             </SoundChancers>
         </Item>
+        <Item>
+        <Name>BackButton</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>BackButton1</Name>
+                    <Weight>100</Weight>
+                    <LocalPath>SoundEffects/UI</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
 <Item>
         <Name>ButtonHover</Name>
             <SoundChancers>

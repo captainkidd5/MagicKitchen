@@ -17,6 +17,8 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
 {
     internal class BouncingItemBehaviour : ItemBehaviour
     {
+        private static readonly int s_minBounceVelocity = 50;
+        private static readonly int s_maxBounceVelocity = 300;
         private static readonly float _timeUntilResting = 3f;
         float gravity = -500f;
 
@@ -24,7 +26,8 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
      
         // The velocity we're moving at. Only for the y-axis.
         float velocity;
-
+        private byte _maxBounces = 3;
+        private byte _currentBounces = 0;
 
         // A place for us to store the angularVelocity for the rigidbody2D. We don't want
         // to rotate the entire rigidbody because that would offset the shadow sprite which
@@ -44,7 +47,7 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
 
             WorldItem.SetPrimaryCollidesWith(new List<Category>() { (Category)PhysCat.SolidHigh, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item, (Category)PhysCat.Grass });
             // Set the initial velocity.
-            velocity = Settings.Random.Next(50, 300);
+            velocity = Settings.Random.Next(s_minBounceVelocity, s_maxBounceVelocity);
             angularVelocity = WorldItem.MainHullBody.Body.AngularVelocity;
             WorldItem.MainHullBody.Body.AngularVelocity = 0f;
 
@@ -62,10 +65,19 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
             // If the height is 0 we've landed and we stop moving.
             // The rigidbody2D's velocity is what moves us in a straight line across the ground,
             // we're only faking the vertical part.
-            if (height >= 0 || TestIfShouldRest(gameTime))
+            if (height >= 0 || TestIfShouldRest(gameTime) )
             {
-                WorldItem.MainHullBody.Body.LinearVelocity = Vector2.Zero;
-                ReturnToNormal();
+                if(_currentBounces < _maxBounces && !WorldItem.InWater())
+                {
+                    _currentBounces++;
+                    velocity = s_minBounceVelocity;
+                }
+                else
+                {
+                    WorldItem.MainHullBody.Body.LinearVelocity = Vector2.Zero;
+                    ReturnToNormal();
+                }
+                
 
             }
             return new Vector2(0, height);

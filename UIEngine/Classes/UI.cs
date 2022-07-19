@@ -37,6 +37,7 @@ using UIEngine.Classes.CursorStuff;
 using TextEngine.Classes;
 using UIEngine.Classes.EquipmentMenuStuff;
 using UIEngine.Classes.SplashScreens;
+using System.Threading.Tasks;
 
 namespace UIEngine.Classes
 {
@@ -315,7 +316,11 @@ namespace UIEngine.Classes
             {
                 if (_saveTimer.Run(gameTime))
                 {
-                    SaveLoadManager.Save(SaveLoadManager.CurrentSave);
+                    Task.Run(() =>
+                    {
+                        SaveLoadManager.Save(SaveLoadManager.CurrentSave);
+
+                    });
                 }
             }
         }

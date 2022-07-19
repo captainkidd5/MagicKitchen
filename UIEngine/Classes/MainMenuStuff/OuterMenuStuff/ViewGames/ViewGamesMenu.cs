@@ -92,6 +92,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition,
                 GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle,
                 (parentSection as OuterMenu).ChangeToPlayOrExitState, scale: 2f);
+            _backButton.CustomClickSoundName = "BackButton1";
 
             TotalBounds = parentSection.TotalBounds;
             CurrentSelected = _createNewButton;

@@ -236,6 +236,12 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Tools/ToolBreak.wav
 
+#begin Audio/SoundEffects/UI/BackButton1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/UI/BackButton1.wav
+
 #begin Audio/SoundEffects/UI/Button1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

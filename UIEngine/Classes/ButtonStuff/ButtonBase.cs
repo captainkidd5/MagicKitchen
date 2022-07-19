@@ -41,6 +41,7 @@ namespace UIEngine.Classes.ButtonStuff
 
         public bool IgnoreDefaultClickSoundEffect { get; set; }
         public bool IgnoreDefaultHoverSoundEffect { get; set; }
+        public string CustomClickSoundName { get; set; }
 
         /// <summary>
         /// Nineslice constructor
@@ -165,7 +166,7 @@ namespace UIEngine.Classes.ButtonStuff
                     if (Clicked)
                     {
                         if(!IgnoreDefaultClickSoundEffect)
-                            SoundFactory.PlaySoundEffect("Click1");
+                            SoundFactory.PlaySoundEffect(CustomClickSoundName ?? "Click1");
                         if (_requireConfirmation)
                         {
                             _confirmationWindow.Activate();

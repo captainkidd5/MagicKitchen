@@ -98,6 +98,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition,
                 GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle,
              UI.MainMenu._outerMenu.ChangeToPlayOrExitState, scale: 2f);
+            _backButton.CustomClickSoundName = "BackButton1";
 
             Deactivate();
 

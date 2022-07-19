@@ -155,6 +155,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
                     (parentSection as OuterMenu).ChangeState(OuterMenuState.ViewGames);
                 })
               , scale: 2f);
+            _backButton.CustomClickSoundName = "BackButton1";
 
 
             base.LoadContent();
