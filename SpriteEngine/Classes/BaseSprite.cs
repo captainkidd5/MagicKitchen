@@ -23,7 +23,7 @@ namespace SpriteEngine.Classes
     {
         protected ElementType SpriteType { get; set; }
         protected Texture2D Texture { get; set; }
-        protected Vector2 Position { get; set; }
+        public Vector2 Position { get; protected set; }
         public Rectangle SourceRectangle { get; protected set; }
 
         public Vector2 Origin { get; set; }

@@ -40,6 +40,8 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
         // entirely flat.
         float height;
 
+
+        private Vector2? _tossedDirection;
         public BouncingItemBehaviour( WorldItem worldItem,Vector2? tossDirection = null) : base(worldItem)
         {
             SimpleTimer = new Globals.Classes.SimpleTimer(_timeUntilResting);
@@ -50,8 +52,8 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
             velocity = Settings.Random.Next(s_minBounceVelocity, s_maxBounceVelocity);
             angularVelocity = WorldItem.MainHullBody.Body.AngularVelocity;
             WorldItem.MainHullBody.Body.AngularVelocity = 0f;
-
-            if(tossDirection != null)
+            _tossedDirection = tossDirection;
+            if (tossDirection != null)
             WorldItem.MainHullBody.Body.ApplyLinearImpulse(tossDirection.Value * 1000);
         }
 
@@ -71,6 +73,8 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
                 {
                     _currentBounces++;
                     velocity = s_minBounceVelocity;
+                    WorldItem.MainHullBody.Body.ApplyLinearImpulse(_tossedDirection.Value * -1 * 5);
+
                 }
                 else
                 {

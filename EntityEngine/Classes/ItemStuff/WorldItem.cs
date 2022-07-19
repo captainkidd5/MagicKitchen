@@ -222,6 +222,11 @@ namespace EntityEngine.ItemStuff
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);
+            if(Count > 1)
+            {
+                Sprite.ForceSetPosition(new Vector2(Sprite.Position.X + 4, Sprite.Position.Y +4));
+                Sprite.Draw(spriteBatch);
+            }
             if (Shadow != null)
                 Shadow.Draw(spriteBatch);
         }
