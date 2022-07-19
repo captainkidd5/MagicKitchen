@@ -43,11 +43,14 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         protected static float WalkDownAnimationDuration = .15f;
 
         protected static float WalkLeftAnimationDuration = .15f;
+
+        protected static float SmashAnimationDuration = .15f;
+
         protected Dictionary<ActionType, AnimateAction> AllAnimationSets;
 
         protected AnimateAction WalkingAction { get; set; }
         protected AnimateAction InteractAction { get; set; }
-        protected AnimateAction EnterWaterAction { get; set; }
+        protected AnimateAction SmashAction { get; set; }
 
 
 
@@ -104,6 +107,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             ClothingBaseColor = Color.Black;
             CreateWalkSet();
             CreateInteractSet();
+            CreateSmashSet();
             AllAnimationSets = new Dictionary<ActionType, AnimateAction>();
             AllAnimationSets.Add(ActionType.Walking, WalkingAction);
             AllAnimationSets.Add(ActionType.Interact, InteractAction);
@@ -113,6 +117,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AllAnimationSets.Add(ActionType.JumpLeft, InteractAction);
             AllAnimationSets.Add(ActionType.JumpRight, InteractAction);
 
+            AllAnimationSets.Add(ActionType.Smash, SmashAction);
 
 
 
@@ -124,6 +129,10 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         }
         protected virtual void CreateInteractSet()
+        {
+
+        }
+        protected virtual void CreateSmashSet()
         {
 
         }

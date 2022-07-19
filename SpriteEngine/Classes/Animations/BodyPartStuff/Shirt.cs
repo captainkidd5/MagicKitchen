@@ -89,7 +89,66 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             WalkingAction = new AnimateAction(this, WalkingSet, true);
 
         }
+        protected override void CreateSmashSet()
+        {
+            AnimationFrame[] SmashUpFrames = new AnimationFrame[]
+                        {
+              new AnimationFrame(0, 0, -1, SmashAnimationDuration),
+                new AnimationFrame(0, 0, -1, SmashAnimationDuration),
+               new AnimationFrame(0, 0, -1, SmashAnimationDuration),
+                new AnimationFrame(0, 0, -1, SmashAnimationDuration),
+                    };
+            AnimatedSprite SmashUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                SmashUpFrames, idleFrame: 0, scale: Scale);
 
+
+            AnimationFrame[] SmashDownFrames = new AnimationFrame[]
+            {
+               new AnimationFrame(0, 0, 0, SmashAnimationDuration),
+               new AnimationFrame(0, 0, 0, SmashAnimationDuration),
+               new AnimationFrame(0, 0, 0, SmashAnimationDuration),
+
+              new AnimationFrame(0, 0, 0, SmashAnimationDuration),
+               new AnimationFrame(0, 0, 0, SmashAnimationDuration),
+
+               new AnimationFrame(0, 0, -1, SmashAnimationDuration),
+               new AnimationFrame(0, 0, 0, SmashAnimationDuration),
+
+
+        };
+            AnimatedSprite SmashDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                SmashDownFrames, idleFrame: 0, scale: Scale);
+
+            AnimationFrame[] SmashLeftFrames = new AnimationFrame[]
+           {
+               new AnimationFrame(2, 0, 0, SmashAnimationDuration,true),
+               new AnimationFrame(2, 0, 1, SmashAnimationDuration,true),
+
+              new AnimationFrame(2, 0, 0, SmashAnimationDuration,true),
+                new AnimationFrame(2, 0, 1, SmashAnimationDuration,true),
+                new AnimationFrame(2, 0, 0, SmashAnimationDuration,true),
+
+       };
+            AnimatedSprite SmashLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                SmashLeftFrames, idleFrame: 0, scale: Scale);
+
+            AnimationFrame[] SmashRightFrames = new AnimationFrame[]
+           {
+               new AnimationFrame(2, 0, 0, SmashAnimationDuration),
+               new AnimationFrame(2, 0, 1, SmashAnimationDuration),
+
+              new AnimationFrame(2, 0, 0, SmashAnimationDuration),
+                new AnimationFrame(2, 0, 1, SmashAnimationDuration),
+                new AnimationFrame(2, 0, 0, SmashAnimationDuration),
+
+       };
+            AnimatedSprite SmashRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                SmashRightFrames, idleFrame: 0, scale: Scale);
+
+            AnimatedSprite[] SmashingSet = new AnimatedSprite[] { SmashUp, SmashDown, SmashLeft, SmashRight };
+            SmashAction = new AnimateAction(this, SmashingSet, true);
+
+        }
         protected override void CreateInteractSet()
         {
             AnimationFrame[] interactUpFrames = new AnimationFrame[]

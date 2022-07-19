@@ -25,7 +25,6 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         protected override void CreateWalkSet()
         {
-            #region WALK
             AnimationFrame[] walkUpFrames = new AnimationFrame[]
             {
                new AnimationFrame(0, 0, 0, WalkDownAnimationDuration),
@@ -80,11 +79,67 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AnimatedSprite[] WalkingSet = new AnimatedSprite[] { WalkUp, WalkDown, WalkLeft, WalkRight };
             WalkingAction = new AnimateAction(this, WalkingSet, true);
 
-            #endregion
 
 
         }
+        protected override void CreateSmashSet()
+        {
+            AnimationFrame[] smashUpFrames = new AnimationFrame[]
+            {
+               new AnimationFrame(0, 0, 0, SmashAnimationDuration),
+              new AnimationFrame(1, 0, 0, SmashAnimationDuration),
+                new AnimationFrame(2, 0, 0, SmashAnimationDuration),
+               new AnimationFrame(1, 0, 0, SmashAnimationDuration,true),
+                new AnimationFrame(2, 0, 0, SmashAnimationDuration,true),
+        };
+            AnimatedSprite smashUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                smashUpFrames, idleFrame: 0, scale: Scale);
 
+
+            AnimationFrame[] smashDownFrames = new AnimationFrame[]
+            {
+               new AnimationFrame(3, 0, 0, SmashAnimationDuration),
+
+              new AnimationFrame(4, 0, 0, SmashAnimationDuration),
+                new AnimationFrame(5, 0, -1, SmashAnimationDuration),
+              new AnimationFrame(4, 0, 0, SmashAnimationDuration),
+
+
+               new AnimationFrame(4, 0, 0, SmashAnimationDuration,true),
+                new AnimationFrame(5, 0, 0, SmashAnimationDuration,true),
+               new AnimationFrame(4, 0, 0, SmashAnimationDuration,true),
+
+        };
+            AnimatedSprite smashDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                smashDownFrames, idleFrame: 0, scale: Scale);
+
+            //todo
+            AnimationFrame[] smashLeftFrames = new AnimationFrame[]
+           {
+               new AnimationFrame(6, 0, 0, SmashAnimationDuration,true),
+              new AnimationFrame(7, 0, 1, SmashAnimationDuration,true),
+                new AnimationFrame(8, 0, 0, SmashAnimationDuration,true),
+                new AnimationFrame(9, 0, 1, SmashAnimationDuration,true),
+               new AnimationFrame(10, 0, 0, SmashAnimationDuration,true),
+       };
+            AnimatedSprite smashLeft = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                smashLeftFrames, idleFrame: 0, scale: Scale);
+
+            AnimationFrame[] smashRightFrames = new AnimationFrame[]
+           {
+               new AnimationFrame(6, 0, 0, SmashAnimationDuration),
+              new AnimationFrame(7, 0, 1, SmashAnimationDuration),
+                new AnimationFrame(8, 0, 0, SmashAnimationDuration),
+                new AnimationFrame(9, 0, 1, SmashAnimationDuration),
+               new AnimationFrame(10, 0, 0, SmashAnimationDuration),
+       };
+            AnimatedSprite smashRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+                smashRightFrames, idleFrame: 0, scale: Scale);
+            AnimatedSprite[] smashingSet = new AnimatedSprite[] { smashUp, smashDown, smashLeft, smashRight };
+            SmashAction = new AnimateAction(this, smashingSet, true);
+
+
+        }
         protected override void CreateInteractSet()
         {
             int yStart = 32; //32 pixels down is where interact animations start
@@ -142,5 +197,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             InteractAction = new AnimateAction(this, InteractSet, false);
 
         }
+
+       
     }
 }

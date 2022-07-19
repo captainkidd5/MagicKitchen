@@ -17,6 +17,7 @@ namespace DataModels
         JumpLeft = 5,
         JumpRight = 6,
         Attack = 7,
+        Smash = 8
     }
     public class AnimationInfo
     {
