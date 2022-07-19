@@ -93,11 +93,15 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         {
             AnimationFrame[] SmashUpFrames = new AnimationFrame[]
                         {
-               new AnimationFrame(0, 0, 0, SmashAnimationDuration),
-              new AnimationFrame(1, 0, 0, SmashAnimationDuration),
-                new AnimationFrame(2, 0, 0, SmashAnimationDuration),
-               new AnimationFrame(1, 0, 0, SmashAnimationDuration,true),
-                new AnimationFrame(2, 0, 0, SmashAnimationDuration,true),
+           new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
+
+               new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
+               new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
+
+               new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
+
+               new AnimationFrame(0, 0, 0, InteractDownAnimationDuration),
+
                     };
             AnimatedSprite SmashUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                  SmashUpFrames, idleFrame: 0, scale: Scale);
@@ -106,15 +110,12 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AnimationFrame[] SmashDownFrames = new AnimationFrame[]
            {
                new AnimationFrame(3, 0, 0, SmashAnimationDuration),
+               new AnimationFrame(3, 0, 0, SmashAnimationDuration),
+               new AnimationFrame(3, 0, 0, SmashAnimationDuration),
+               new AnimationFrame(3, 0, 0, SmashAnimationDuration),
+               new AnimationFrame(3, 0, 0, SmashAnimationDuration),
 
-              new AnimationFrame(4, 0, 1, SmashAnimationDuration),
-                new AnimationFrame(5, 0, 2, SmashAnimationDuration),
-              new AnimationFrame(4, 0, 1, SmashAnimationDuration),
 
-
-               new AnimationFrame(4, 0, 1, SmashAnimationDuration,true),
-                new AnimationFrame(5, 0, 1, SmashAnimationDuration,true),
-               new AnimationFrame(4, 0, 1, SmashAnimationDuration,true),
 
        };
             AnimatedSprite SmashDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight, FrameWidth, FrameHeight), Texture,

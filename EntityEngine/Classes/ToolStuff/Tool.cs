@@ -1,4 +1,5 @@
-﻿using Globals.Classes.Helpers;
+﻿using DataModels;
+using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,6 +19,7 @@ namespace EntityEngine.Classes.ToolStuff
 {
     public abstract class Tool : Collidable
     {
+        protected virtual ActionType ActionType { get; set; } = ActionType.None;
         public Item Item { get; set; }
         public bool Dirty { get; set; }
         protected Rectangle SourceRectangle { get; set; }
@@ -87,11 +89,12 @@ namespace EntityEngine.Classes.ToolStuff
 
         public virtual void ReleaseTool(Direction direction, Vector2 directionVector, Entity holder)
         {
+            if (ActionType == ActionType.None)
+                throw new Exception($"Forgot to set action type");
             Holder = holder;
             Direction = direction;
             Load();
             IsCharging = false;
-
 
 
         }
@@ -102,7 +105,7 @@ namespace EntityEngine.Classes.ToolStuff
             if (Sprite != null)
             {
 
-                Sprite.Update(gameTime, new Vector2(Holder.CenteredPosition.X , Holder.CenteredPosition.Y ));
+                Sprite.Update(gameTime, new Vector2(Holder.CenteredPosition.X , Holder.CenteredPosition.Y + YOffSet));
                 AlterSpriteRotation(gameTime);
             }
 

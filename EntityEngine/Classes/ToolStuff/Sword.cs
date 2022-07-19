@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels;
+using Globals.Classes;
 using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -20,6 +21,7 @@ namespace EntityEngine.Classes.ToolStuff
     {
         protected override float SwingDuration { get; set; } = .25f;
         protected override RotateSpeed RotateSpeed { get; set; } = RotateSpeed.Fast;
+        protected override ActionType ActionType { get; set; } = ActionType.Smash;
 
         public Sword(Item item) : base(item)
         {

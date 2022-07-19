@@ -41,6 +41,8 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         public ActionType CurrentActionType { get; protected set; }
 
         public virtual int CurrentFrame { get; private set; }
+
+        protected float SpeedModifier = 1f;
         public virtual bool IsPerformingAnimation()
         {
             return false;
@@ -67,9 +69,9 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         {
             SoundPlayed?.Invoke();
         }
-        public virtual void PerformAction(Direction direction, ActionType actionType)
+        public virtual void PerformAction(Direction direction, ActionType actionType, float speedModifier = 1f)
         {
-
+            SpeedModifier = speedModifier;
         }
 
         internal virtual void FadeOut()

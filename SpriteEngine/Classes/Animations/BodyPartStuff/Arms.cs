@@ -100,16 +100,14 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
             AnimationFrame[] smashDownFrames = new AnimationFrame[]
             {
-               new AnimationFrame(3, 0, 0, SmashAnimationDuration),
+               new AnimationFrame(4, 0, 0, SmashAnimationDuration),
 
-              new AnimationFrame(4, 0, 0, SmashAnimationDuration),
-                new AnimationFrame(5, 0, -1, SmashAnimationDuration),
-              new AnimationFrame(4, 0, 0, SmashAnimationDuration),
+              new AnimationFrame(5, 0, 0, SmashAnimationDuration),
+                new AnimationFrame(6, 0, 0, SmashAnimationDuration),
 
-
-               new AnimationFrame(4, 0, 0, SmashAnimationDuration,true),
                 new AnimationFrame(5, 0, 0, SmashAnimationDuration,true),
-               new AnimationFrame(4, 0, 0, SmashAnimationDuration,true),
+
+
 
         };
             AnimatedSprite smashDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight + yStart, FrameWidth, FrameHeight), Texture,

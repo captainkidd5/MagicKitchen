@@ -105,8 +105,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AnimationFrame[] SmashDownFrames = new AnimationFrame[]
             {
                new AnimationFrame(0, 0, 0, SmashAnimationDuration),
-               new AnimationFrame(0, 0, 0, SmashAnimationDuration),
-               new AnimationFrame(0, 0, 0, SmashAnimationDuration),
+
 
               new AnimationFrame(0, 0, 0, SmashAnimationDuration),
                new AnimationFrame(0, 0, 0, SmashAnimationDuration),

@@ -38,6 +38,8 @@ namespace EntityEngine.Classes.ToolStuff
             Sprite.SwapScale(new Vector2(2f, 2f));
             Sprite.Origin = new Vector2(16, 16);
             Sprite.Rotation = MainHullBody.Body.Rotation;
+
+           
         }
 
         protected override void CreateBody(Vector2 position)
@@ -46,6 +48,8 @@ namespace EntityEngine.Classes.ToolStuff
             Vector2 anchorPoint = new Vector2(1, 32);
             bool counterClockWise = false;
             float rotation = 0;
+            YOffSet = 0;
+
             if (Direction == Direction.Right)
             {
                 rotation = 0f;
@@ -62,7 +66,7 @@ namespace EntityEngine.Classes.ToolStuff
             else if (Direction == Direction.Up)
             {
                 rotation = MathHelper.Pi + MathHelper.PiOver2;
-
+                YOffSet = -8;
             }
 
             else if (Direction == Direction.Down)
@@ -89,6 +93,7 @@ namespace EntityEngine.Classes.ToolStuff
         public override void ReleaseTool(Direction direction, Vector2 directionVector, Entity holder)
         {
             base.ReleaseTool(direction, directionVector, holder);
+            holder.Animator.PerformAction(direction, ActionType, (float)RotateSpeed);
 
         }
         public override void Update(GameTime gameTime)

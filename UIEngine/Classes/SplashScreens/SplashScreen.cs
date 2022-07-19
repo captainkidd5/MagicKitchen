@@ -46,7 +46,7 @@ namespace UIEngine.Classes.SplashScreens
             Position = RectangleHelper.CenterRectangleOnScreen(_sourceRectangle, _scale.X);
             Sprite = SpriteFactory.CreateUISprite(Position, _sourceRectangle, _profilePicTexture, GetLayeringDepth(UILayeringDepths.Low), scale: _scale);
             _splashDurationTimer = new SimpleTimer(_splashDurationTargetTime, false);
-            _text = TextFactory.CreateUIText("A game by Waiiki", .99f, 1f);
+            _text = TextFactory.CreateUIText("A Game by Waiiki", .99f, 1f);
             _textPosition = Text.CenterInRectangle(Settings.ScreenRectangle, _text, 1f);
             _textPosition = new Vector2(_textPosition.X, _textPosition.Y + 160);
 

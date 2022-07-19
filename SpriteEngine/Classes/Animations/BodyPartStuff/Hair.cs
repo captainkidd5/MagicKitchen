@@ -119,8 +119,8 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
 
                new AnimationFrame(1, 0, -1, SmashAnimationDuration),
-                new AnimationFrame(1, 0, -2, SmashAnimationDuration),
-               new AnimationFrame(1, 0, -1, SmashAnimationDuration),
+    
+  
 
         };
             AnimatedSprite smashDown = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight, FrameWidth, FrameHeight), Texture,

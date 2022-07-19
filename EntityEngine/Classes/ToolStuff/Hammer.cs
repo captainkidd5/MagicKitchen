@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels;
+using Globals.Classes;
 using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -18,8 +19,9 @@ namespace EntityEngine.Classes.ToolStuff
 {
     internal class Hammer : SwingableTool
     {
-        protected override float SwingDuration { get; set; } = .5f;
-        protected override RotateSpeed RotateSpeed { get; set; } = RotateSpeed.Slow;
+        protected override float SwingDuration { get; set; } = .6f;
+        protected override RotateSpeed RotateSpeed { get; set; } = RotateSpeed.VerySlow;
+        protected override ActionType ActionType { get; set; } = ActionType.Smash;
 
         public Hammer(Item item) : base(item)
         {

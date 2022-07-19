@@ -74,6 +74,7 @@ namespace EntityEngine.Classes.PlayerStuff
             ProgressManager = new ProgressManager();
             _hungerHandler = new HungerHandler();
 
+
         }
 
         public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string? name, bool standardAnimator = false)

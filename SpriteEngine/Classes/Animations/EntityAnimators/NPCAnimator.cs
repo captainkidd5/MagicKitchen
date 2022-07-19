@@ -32,9 +32,9 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             PerformAction(Direction.Up, ActionType.Walking);
         }
 
-        public override void PerformAction(Direction direction, ActionType actionType)
+        public override void PerformAction(Direction direction, ActionType actionType, float speedModifier = 1f)
         {
-            base.PerformAction(direction, actionType);
+            base.PerformAction(direction, actionType, speedModifier);
             List<AnimatedSprite> sprites = new List<AnimatedSprite>();
             foreach (AnimationInfo info in _npcData.AnimationInfo.Where(x => x.ActionType == actionType))
             {

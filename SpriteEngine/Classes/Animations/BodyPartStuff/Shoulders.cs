@@ -109,8 +109,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
 
                new AnimationFrame(4, 0, 0, SmashAnimationDuration,true),
-                new AnimationFrame(5, 0, 0, SmashAnimationDuration,true),
-               new AnimationFrame(4, 0, 0, SmashAnimationDuration,true),
+ 
 
 
         };

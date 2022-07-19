@@ -111,9 +111,9 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         {
             return !BodyPieces[0].CurrentAction.Interruptable;
         }
-        public override void PerformAction(Direction direction, ActionType actionType)
+        public override void PerformAction(Direction direction, ActionType actionType, float speedModifier = 1f)
         {
-            base.PerformAction(direction, actionType);
+            base.PerformAction(direction, actionType,speedModifier);
             for (int i = 0; i < BodyPieces.Length; i++)
             {
                 BodyPieces[i].ChangeAnimation(actionType);
@@ -122,7 +122,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         public Vector2 PositionLastFrame { get; set; }
         public override void Update(GameTime gameTime,Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
         {
-        
+            speedRatio *= SpeedModifier;
             if ((Math.Abs(PositionLastFrame.X - position.X)) > .01
                 || (Math.Abs(PositionLastFrame.Y - position.Y) > .01))
             {
