@@ -50,6 +50,8 @@ namespace UIEngine.Classes
     public static class UI
     {
 
+        private static float _saveFrequency = 10f;
+        private static SimpleTimer _saveTimer;
 
         private static GraphicsDevice s_graphics;
         private static ContentManager s_content;
@@ -85,7 +87,7 @@ namespace UIEngine.Classes
             internal set { s_isHovered = value; Controls.IsUiHovered = value; }
         }
 
-        private static List<InterfaceSection> s_standardSections { get; set; }
+        private static List<InterfaceSection> s_inGameSections { get; set; }
         private static List<InterfaceSection> s_mainMenuSections { get; set; }
         private static List<InterfaceSection> s_splashScreenSections { get; set; }
 
@@ -156,7 +158,7 @@ namespace UIEngine.Classes
 
             CursorInfoBox = new CursorInfoBox(null, graphics, content, null,.9f);
 
-            s_standardSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, _talkingWindow,
+            s_inGameSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, _talkingWindow,
                 EscMenu, RecipeBook, StorageDisplayHandler, ItemAlertManager, CursorInfoBox };
 
             Cursor = new Cursor();
@@ -179,6 +181,7 @@ namespace UIEngine.Classes
 
 
            RaiseCurtain(CurtainDropRate);
+            _saveTimer = new SimpleTimer(_saveFrequency);
 
         }
         internal static void LoadNewCursorInfo( List<string> text) => CursorInfoBox.LoadNewText( text);
@@ -232,7 +235,7 @@ namespace UIEngine.Classes
                 case GameDisplayState.MainMenu:
                     return s_mainMenuSections;
                 case GameDisplayState.InGame:
-                    return s_standardSections;
+                    return s_inGameSections;
                 case GameDisplayState.SplashScreens:
                     return s_splashScreenSections;
                 default:
@@ -308,7 +311,13 @@ namespace UIEngine.Classes
 
             Cursor.Update(gameTime);
 
-           
+            if (!Flags.Pause && s_activeSections == s_inGameSections)
+            {
+                if (_saveTimer.Run(gameTime))
+                {
+                    SaveLoadManager.Save(SaveLoadManager.CurrentSave);
+                }
+            }
         }
 
 
@@ -424,11 +433,7 @@ namespace UIEngine.Classes
             s_game.Exit();
         }
 
-        public static void SaveGame(SaveFile saveFile)
-        {
-            SaveLoadManager.Save(saveFile);
-        }
-
+    
         public static void LoadGame(SaveFile saveFile)
         {
 

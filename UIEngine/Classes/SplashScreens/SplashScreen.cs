@@ -2,6 +2,7 @@
 using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
@@ -30,6 +31,9 @@ namespace UIEngine.Classes.SplashScreens
 
         private Text _text;
         private Vector2 _textPosition;
+
+        private SoundEffect _chimes;
+        private SoundEffectInstance _chimesInstance;
         public SplashScreen(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice,
                 content, position, layerDepth)
@@ -45,16 +49,32 @@ namespace UIEngine.Classes.SplashScreens
             _text = TextFactory.CreateUIText("A game by Waiiki", .99f, 1f);
             _textPosition = Text.CenterInRectangle(Settings.ScreenRectangle, _text, 1f);
             _textPosition = new Vector2(_textPosition.X, _textPosition.Y + 160);
+
+            _chimes = content.Load<SoundEffect>("Audio/SoundEffects/UI/Chimes1");
+            _chimesInstance = _chimes.CreateInstance();
         }
         public override void Update(GameTime gameTime)
         {
+            if(_chimesInstance.State == SoundState.Stopped)
+            {
+                _chimesInstance.Play();
+            }    
             base.Update(gameTime);
             Sprite.Update(gameTime, Position);
             _text.Update(gameTime, _textPosition);
                 if (_splashDurationTimer.Run(gameTime) || Controls.IsClicked)
                 {
                     UI.ReturnToMainMenu(false);
+                if(_chimesInstance.Volume > 0)
+                {
+                    float vol = _chimesInstance.Volume;
+                    vol -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    if (vol < 0)
+                        vol = 0;
+                    _chimesInstance.Volume = vol;
+
                 }
+            }
           
         }
     

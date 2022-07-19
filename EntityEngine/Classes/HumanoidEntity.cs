@@ -63,6 +63,9 @@ namespace EntityEngine.Classes
             if (!ImmunteToDamage)
             {
                 base.TakeDamage(source, amt - Armor, knockBack);
+
+                //Don't want to reduce durabilty if a natural cause caused damage (e.x. hunger)
+                if (source != null)
                 (InventoryHandler as HumanoidInventoryHandler).ReduceDurabilityOnEquippedArmor();
                 ImmunteToDamage = true;
             }
