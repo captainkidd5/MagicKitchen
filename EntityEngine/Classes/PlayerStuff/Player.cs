@@ -244,9 +244,9 @@ namespace EntityEngine.Classes.PlayerStuff
                             ActionType? actionType = Container.TileManager.MouseOverTile.Interact(true, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
                             if (actionType != null)
                             {
-                                PerformAction(Controls.ControllerConnected ? DirectionMoving :
-                                   Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition),
-                                   actionType.Value);
+                                //PerformAction(Controls.ControllerConnected ? DirectionMoving :
+                                //   Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition),
+                                //   actionType.Value);
                                 DirectionMoving = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition);
 
                                 if (IsJumpActionType(actionType.Value))
