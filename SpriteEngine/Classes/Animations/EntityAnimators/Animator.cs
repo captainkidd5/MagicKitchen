@@ -112,7 +112,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             return SpriteUtility.GetYAxisLayerDepth(Position, new Rectangle(0, 0, xOffset * 2, yOffset));
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, bool submerged)
+        public virtual void Draw(SpriteBatch spriteBatch, SubmergenceLevel submergenceLevel)
         {
 
         }

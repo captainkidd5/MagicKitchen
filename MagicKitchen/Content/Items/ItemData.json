@@ -101,7 +101,7 @@
 },
 {
     "Id": 713,
-    "Name": "Haunch (Raw)",
+    "Name": "Raw_Haunch",
     "Description" : "Uncooked meat",
     "MaxStackSize": 999,
     "Price": 1
@@ -485,7 +485,28 @@
             ]
         }
             
+            },
+            {
+                "Id": 3101,
+                "Name": "Grill",
+                "Description" : "Turns raw food into cooked food",
+                "MaxStackSize": 1,
+                "Price": 1,
+                "PlacedItemGID" : 3134, 
+                "RecipeInfo": 
+                {
+                "CraftAction": "Craft",
+                "CraftingCategory": "Placeable",
+                "CookTime": 1,
+                "Ingredients":[
+                    {
+                        "Name":"Iron_Ore",
+                        "Count":2
+                    }
+                ]
             }
+                
+                }
 
 ]
 

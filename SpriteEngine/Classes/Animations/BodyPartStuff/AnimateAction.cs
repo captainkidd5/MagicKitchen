@@ -82,15 +82,20 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
             }
         }
-        public void Draw(SpriteBatch spriteBatch, Direction direction, bool submerged)
+        public void Draw(SpriteBatch spriteBatch, Direction direction, SubmergenceLevel submergenceLevel)
         {
 
             //Do not draw pants or shoes if player is submerged
-            if (submerged)
+            if (submergenceLevel > SubmergenceLevel.None)
             {
                 Type t = _bodyPiece.GetType();
                 if (t == typeof(Shoes) || t == typeof(Pants))
                     return;
+                if(submergenceLevel > SubmergenceLevel.Shallow)
+                {
+                    if (t == typeof(Shirt) || t == typeof(Arms) || t == typeof(Shoulders))
+                        return;
+                }
             }
            
             _animations[(int)direction - 1].Draw(spriteBatch);

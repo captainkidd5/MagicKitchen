@@ -221,11 +221,14 @@ namespace UIEngine.Classes.Storage
                     for (int j = 0; j < InventorySlots.GetLength(1); j++)
                     {
                         InventorySlotDisplay slot = InventorySlots[i, j];
+                        if(slot != null)
+                        {
 
                         slot.Update(gameTime);
                         if (slot.Hovered)
                             Hovered = true;
 
+                        }
 
                     }
 
@@ -287,8 +290,11 @@ namespace UIEngine.Classes.Storage
                 {
                     for (int j = 0; j < InventorySlots.GetLength(1); j++)
                     {
+                        if(InventorySlots[i, j] != null)
+                        {
+                            InventorySlots[i, j].Draw(spriteBatch);
 
-                        InventorySlots[i, j].Draw(spriteBatch);
+                        }
 
                     }
                 }

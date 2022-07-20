@@ -42,6 +42,19 @@
             <DestructionSoundPackageName>Break</DestructionSoundPackageName>
 
         </Item>
+        <Item>
+            <TileId>3134</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Grill</ItemName>
+            <Quantity>1</Quantity>
+            <Weight>100</Weight>
+            </Item>
+
+            </Loot>
+            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+
+        </Item>
          <Item>
             <TileId>974</TileId>
             <Loot>

@@ -99,7 +99,7 @@
 "LootData":[
 
     {
-        "ItemName" : "Haunch (Raw)",
+        "ItemName" : "Raw_Haunch",
         "Quantity" : 1,
         "Weight" : 100
     },

@@ -252,16 +252,23 @@ namespace EntityEngine.Classes
             //if (!ForceStop)
                 BehaviourManager.Update(gameTime, ref Velocity);
         }
-        public bool Submerged { get; private set; }
+        public SubmergenceLevel SubmergenceLevel { get; set; }
         public virtual new void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            Submerged = false;
+            SubmergenceLevel = SubmergenceLevel.None;
             Speed = BaseSpeed;
             if (Container.TileManager.IsTypeOfTile("water", Position))
             {
-                Submerged = true;
+                SubmergenceLevel = SubmergenceLevel.Shallow;
                 Speed = BaseSpeed * .5f;
+
+            }
+            if (Container.TileManager.IsTypeOfTile("deepWater", Position))
+            {
+                SubmergenceLevel = SubmergenceLevel.Deep;
+
+                Speed = BaseSpeed * .25f;
 
             }
             UpdateBehaviour(gameTime);
@@ -294,7 +301,7 @@ namespace EntityEngine.Classes
             BigSensor.Position = Position;
 
             //If submerged, draw sprite much lower than if on land, to better create illusion
-            if (Submerged)
+            if (SubmergenceLevel > SubmergenceLevel.None)
             {
                 Animator.Update(gameTime, DirectionMoving, IsMoving, new Vector2(Position.X, Position.Y + 14), Speed / BaseSpeed);
 
@@ -321,7 +328,7 @@ namespace EntityEngine.Classes
 
         protected virtual void DrawAnimator(SpriteBatch spriteBatch)
         {
-            Animator.Draw(spriteBatch, Submerged);
+            Animator.Draw(spriteBatch, SubmergenceLevel);
 
 
 
@@ -334,7 +341,7 @@ namespace EntityEngine.Classes
             if (ProgressBarSprite != null)
                 ProgressBarSprite.Draw(spriteBatch);
 
-            Animator.Draw(spriteBatch, Submerged);
+            Animator.Draw(spriteBatch, SubmergenceLevel);
             DrawAnimator(spriteBatch);
             _overHeadItemDisplay.Draw(spriteBatch);
 

@@ -69,7 +69,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            _animator.Draw(spriteBatch, false);
+            _animator.Draw(spriteBatch, DataModels.Enums.SubmergenceLevel.None);
             _backgroundSprite.Draw(spriteBatch);
         }
     }

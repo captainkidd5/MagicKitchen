@@ -7,6 +7,7 @@ using SpriteEngine.Classes.Animations.EntityAnimations;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
 namespace SpriteEngine.Classes.Animations.BodyPartStuff
@@ -213,9 +214,9 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         }
 
-        internal override void Draw(SpriteBatch spriteBatch, bool submerged)
+        internal override void Draw(SpriteBatch spriteBatch, SubmergenceLevel submergenceLevel)
         {
-            base.Draw(spriteBatch, submerged);
+            base.Draw(spriteBatch, submergenceLevel);
         }
     }
 }

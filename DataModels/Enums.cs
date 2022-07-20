@@ -86,6 +86,12 @@ namespace DataModels
             Large = 3
         }
 
+        public enum SubmergenceLevel : byte
+        {
+            None = 0,
+            Shallow = 1,
+            Deep = 2
+        }
   
 
     }

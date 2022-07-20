@@ -485,6 +485,19 @@
    <frame tileid="2219" duration="100"/>
   </animation>
  </tile>
+ <tile id="3134">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="furniture" value="DiningTable"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="3703">
   <properties>
    <property name="newHitBox" value="-48, -80, 128, 96"/>
@@ -510,6 +523,23 @@
  <tile id="3709">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="3756">
+  <properties>
+   <property name="lightSource" value="3,-8,8,Warm"/>
+   <property name="newSource" value="-16,-32,32,48"/>
+  </properties>
+  <objectgroup draworder="index" id="3">
+   <object id="2" x="5" y="8" width="8" height="8">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="3758">
+  <properties>
+   <property name="newHitBox" value="-8, -8, 26"/>
+   <property name="newSource" value="-16,-32,48,48"/>
   </properties>
  </tile>
  <tile id="4021">

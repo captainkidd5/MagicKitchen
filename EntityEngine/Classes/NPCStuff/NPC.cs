@@ -105,7 +105,7 @@ namespace EntityEngine.Classes.NPCStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (!Submerged && Shadow != null)
+            if (SubmergenceLevel == SubmergenceLevel.None && Shadow != null)
                 Shadow.Update(gameTime, new Vector2(Position.X, CenteredPosition.Y + 2));
             if (OutsideOfPlayArea)
             {
@@ -123,13 +123,13 @@ namespace EntityEngine.Classes.NPCStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            if (!Submerged &&  Shadow != null)
+            if (SubmergenceLevel == SubmergenceLevel.None &&  Shadow != null)
                 Shadow.Draw(spriteBatch);
 
         }
         protected override void DrawAnimator(SpriteBatch spriteBatch)
         {
-            Animator.Draw(spriteBatch, Submerged && !NPCData.AlwaysSubmerged);
+            Animator.Draw(spriteBatch, SubmergenceLevel);
 
         }
 

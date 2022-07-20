@@ -95,7 +95,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public void Save(BinaryWriter writer)
         {
             writer.Write(ListIndex);
-            writer.Write(ItemId.Value);
+            writer.Write(ItemId ?? 0);
             writer.Write(ItemCount);
        
         }

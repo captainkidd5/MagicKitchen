@@ -165,11 +165,11 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
 
 
-        internal virtual void Draw(SpriteBatch spriteBatch, bool submerged)
+        internal virtual void Draw(SpriteBatch spriteBatch, SubmergenceLevel submergenceLevel)
         {
             if (CurrentDirection != Direction.None)
             {
-                CurrentAction.Draw(spriteBatch, (Direction)CurrentDirection, submerged);
+                CurrentAction.Draw(spriteBatch, (Direction)CurrentDirection, submergenceLevel);
             }
         }
         internal virtual void ChangeAnimation(ActionType actionType)
