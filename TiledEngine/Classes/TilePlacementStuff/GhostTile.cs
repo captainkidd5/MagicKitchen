@@ -54,8 +54,8 @@ namespace TiledEngine.Classes.TilePlacementStuff
             if (CurrentTile != null)
                 CurrentTile.Unload();
             TileData newTileData = new TileData((ushort)GID, 0, 0, (byte)_layer);
-            CurrentTile = new TileObject(_tileManager, newTileData);
-            TileUtility.AssignProperties(_tileManager, CurrentTile,CurrentTile.TileData,true);
+            CurrentTile = new TileObject(_tileManager, newTileData,false, true);
+            //TileUtility.AssignProperties(_tileManager, CurrentTile,CurrentTile.TileData,true);
 
 
             _sprite = SpriteFactory.CreateWorldSprite(

@@ -163,7 +163,7 @@ namespace TiledEngine.Classes
 
             //this should come after new source rectangles are calculated because we need the height of those to calculate layer depth!
 
-
+            if(!tempTile)
             tileObject.Load();
 
         }

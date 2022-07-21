@@ -86,9 +86,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 int key = reader.ReadInt32();
                 for (int j = 0; j < listCount; j++)
                 {
-                    TileObject tileTiedTo = _tileManager.TileObjects[key];
 
-                    PlacedOnItem item = new PlacedOnItem(-1, tileTiedTo);
+                    PlacedOnItem item = new PlacedOnItem(-1, key);
                     item.LoadSave(reader);
                     placedItems.Add(item);
                 }

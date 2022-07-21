@@ -66,7 +66,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             TotalStorageCapacity = furnitureData.StorageRows * furnitureData.StorageColumns;
             for (int i = 0; i < TotalStorageCapacity; i++)
             {
-                PlacedItems.Add(new PlacedOnItem(i, tile));
+                PlacedItems.Add(new PlacedOnItem(i, tile.TileData.GetKey()));
             }
         }
         protected virtual void CreateStorageContainer()
@@ -115,7 +115,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                     }
                 }
 
-                placedItem.Load(TopOfFurniture + GetVisibleStorageIndexPositionOffSet(i), StorageContainer.Slots[i]);
+                placedItem.Load(TopOfFurniture + GetVisibleStorageIndexPositionOffSet(i), StorageContainer.Slots[i], Tile.DrawLayer);
                 if (!loadedItemsWereSavedAtLeastOnce)
                     Tile.TileManager.PlacedItemManager.AddNewItem(placedItem);
 

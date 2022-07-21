@@ -21,33 +21,32 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public ushort? ItemId { get; private set; }
 
         public int ItemCount;
-        private TileObject _tileTiedTo;
         private Sprite _worldItemSprite;
         private Vector2 _position;
         private StorageSlot _slot;
 
         private static readonly int s_Width = 14;
-        public int Key => _tileTiedTo.TileData.GetKey();
+        public int Key;
 
-        public PlacedOnItem(int listIndex, TileObject tileTiedTo)
+        public PlacedOnItem(int listIndex, int tileKey)
         {
             ListIndex = listIndex;
-            _tileTiedTo=tileTiedTo;
+            Key= tileKey;
         }
-        public void Load(Vector2 position, StorageSlot storageSlot)
+        public void Load(Vector2 position, StorageSlot storageSlot, float layerDepth)
         {
             _position = new Vector2(position.X - s_Width / 2, position.Y - s_Width / 2);
             if(ItemId > 0)
-                CreateSprite();
+                CreateSprite(layerDepth);
 
             _slot = storageSlot;
             _slot.ItemChanged += ItemChanged;
         }
 
-        private void CreateSprite()
+        private void CreateSprite(float layerDepth)
         {
             _worldItemSprite = SpriteFactory.CreateWorldSprite(_position, Item.GetItemSourceRectangle(ItemId.Value),
-                            ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f), customLayer: _tileTiedTo.TileData.Layer + Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f);
+                            ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f), customLayer: layerDepth + Settings.Random.Next(1, 999) * SpriteUtility.LayerMultiplier * .001f);
         }
 
         public void Update(GameTime gameTime)
@@ -74,7 +73,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
             {
                 ItemId = item.Id;
-                CreateSprite();
+                //todo
+                CreateSprite(.9f);
 
             }
             ItemCount = count;

@@ -39,7 +39,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             TotalStorageCapacity = 5;
             for (int i = 0; i < (TotalStorageCapacity); i++)
             {
-                PlacedItems.Add(new PlacedOnItem(i, tile));
+                PlacedItems.Add(new PlacedOnItem(i, tile.TileData.GetKey()));
             }
         }
 
