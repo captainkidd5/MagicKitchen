@@ -246,7 +246,7 @@ namespace UIEngine.Classes.Storage
 
             if (item.MaxDurability > 0)
             {
-                _itemDurabilityBar = new ItemDurabilityBar(this, graphics, content,new Vector2(Position.X, Position.Y + _button.Height - 16), GetLayeringDepth(UILayeringDepths.High));
+                _itemDurabilityBar = new ItemDurabilityBar(Components.BarOrientation.Horizontal, this, graphics, content,new Vector2(Position.X, Position.Y + _button.Height - 16), GetLayeringDepth(UILayeringDepths.High));
                 _itemDurabilityBar.LoadContent();
             }
         }

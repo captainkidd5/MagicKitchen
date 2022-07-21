@@ -15,13 +15,13 @@ using UIEngine.Classes.Components;
 
 namespace UIEngine.Classes.Storage.Configurations
 {
-    internal class FurnaceTableDisplay : CraftableDisplay
+    internal class GrillDisplay : CraftableDisplay
     {
 
 
         //XXX
         //X--
-        public FurnaceTableDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
+        public GrillDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -42,11 +42,11 @@ namespace UIEngine.Classes.Storage.Configurations
             base.Draw(spriteBatch);
             if (IsActive)
             {
-             //   CraftingActionButton.Draw(spriteBatch);
+                //   CraftingActionButton.Draw(spriteBatch);
             }
         }
 
-      
+
 
         protected override void GenerateUI(bool displayWallet)
         {
@@ -89,16 +89,16 @@ namespace UIEngine.Classes.Storage.Configurations
                 //add extra for spacing
                 for (int column = 0; column < Columns; column++)
                 {
-                    if(column == 1)
+                    if (column == 1)
                     {
-                        FuelBar = new UIProgressBar(BarOrientation.Horizontal, StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
+                        FuelBar = new UIProgressBar(BarOrientation.Vertical, StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
                         FuelBar.LoadContent();
                         stackRow.AddItem(FuelBar, StackOrientation.Left, true);
                         //FuelBar.LoadContent();
                     }
-                    if (column ==2 || column == 3)
+                    if (column == 2 || column == 3)
                     {
-                        InventorySlotDisplay display = new InventorySlotDisplay(row,column - 1,this, graphics, content, StorageContainer.Slots[slotIndex],
+                        InventorySlotDisplay display = new InventorySlotDisplay(row, column - 1, this, graphics, content, StorageContainer.Slots[slotIndex],
                    Position, GetLayeringDepth(UILayeringDepths.Medium));
                         InventorySlots[row, column - 1] = display;
                         AddSectionToGrid(display, row, column - 1);
@@ -109,7 +109,7 @@ namespace UIEngine.Classes.Storage.Configurations
                     }
                     if (IsOutputSlot(row, column))
                     {
-                        UIProgressBar = new UIProgressBar(BarOrientation.Horizontal, StackPanel, graphics, content,Position, GetLayeringDepth(UILayeringDepths.Medium));
+                        UIProgressBar = new UIProgressBar(BarOrientation.Horizontal, StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
                         UIProgressBar.LoadContent();
                         stackRow.AddItem(UIProgressBar, StackOrientation.Left, true);
                         UIProgressBar.LoadContent();
@@ -117,9 +117,9 @@ namespace UIEngine.Classes.Storage.Configurations
                         //stackRow.AddSpacer(new Rectangle(0,0,_buttonWidth,_buttonWidth), StackOrientation.Left);
 
 
-                        InventorySlotDisplay display = new InventorySlotDisplay(row,column,
+                        InventorySlotDisplay display = new InventorySlotDisplay(row, column,
                             this, graphics, content, (StorageContainer as CraftingStorageContainer).OutputSlot,
-             Position, GetLayeringDepth(UILayeringDepths.Medium),SlotVisualVariant.Output);
+             Position, GetLayeringDepth(UILayeringDepths.Medium), SlotVisualVariant.Output);
                         InventorySlots[row, column] = display;
                         AddSectionToGrid(display, row, column);
                         display.LoadContent();
@@ -130,9 +130,9 @@ namespace UIEngine.Classes.Storage.Configurations
                     {
 
 
-                
 
-                        InventorySlotDisplay display = new InventorySlotDisplay(row,column,this, graphics, content,
+
+                        InventorySlotDisplay display = new InventorySlotDisplay(row, column, this, graphics, content,
                            (StorageContainer as CraftingStorageContainer).FuelSlot,
                  Position, GetLayeringDepth(UILayeringDepths.Medium));
                         InventorySlots[row, column] = display;
@@ -140,7 +140,7 @@ namespace UIEngine.Classes.Storage.Configurations
                         display.LoadContent();
                         stackRow.AddItem(display, StackOrientation.Left, true);
                         slotIndex++;
-                
+
 
                     }
                 }
@@ -149,14 +149,14 @@ namespace UIEngine.Classes.Storage.Configurations
             StackPanel.Add(stackRow);
             UIProgressBar.ProgressColor = Color.White;
             FuelBar.ProgressColor = Color.Orange;
-           // UIProgressBar.MovePosition(new Vector2(UIProgressBar.Position.X, UIProgressBar.Position.Y + UIProgressBar.Height / 2));
+            // UIProgressBar.MovePosition(new Vector2(UIProgressBar.Position.X, UIProgressBar.Position.Y + UIProgressBar.Height / 2));
             //FuelBar.MovePosition(new Vector2(FuelBar.Position.X, FuelBar.Position.Y + FuelBar.Height / 2));
 
             AssignOutputSlot();
             AssignFuelSlot();
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
 
-          
+
 
         }
     }

@@ -169,8 +169,8 @@ namespace UIEngine.Classes.Storage
                         _secondaryInventoryDisplay.LayerDepth);
 
                     break;
-                case FurnitureType.Mixer:
-                    _secondaryInventoryDisplay = new MixerDisplay(this, graphics, content, _secondaryInventoryDisplay.Position,
+                case FurnitureType.Grill:
+                    _secondaryInventoryDisplay = new FurnaceTableDisplay(this, graphics, content, _secondaryInventoryDisplay.Position,
                         _secondaryInventoryDisplay.LayerDepth);
                     break;
                 case FurnitureType.CraftingTable:

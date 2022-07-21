@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UIEngine.Classes.Components;
 
 namespace UIEngine.Classes.StatusStuff
 {
@@ -13,8 +14,8 @@ namespace UIEngine.Classes.StatusStuff
     {
         private readonly Color ManaColor = new Color(255, 255, 255);
 
-        public ManaBar(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
-            Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
+        public ManaBar(BarOrientation barOrientation, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
+            Vector2? position, float layerDepth) : base(barOrientation,interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             ProgressColor = ManaColor;
         }

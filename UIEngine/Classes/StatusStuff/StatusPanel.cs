@@ -32,7 +32,7 @@ namespace UIEngine.Classes.StatusStuff
         {
             _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
             StackRow _stackRow1 = new StackRow(192);
-            HealthBar = new HealthBar(_stackPanel, graphics, content, Position,
+            HealthBar = new HealthBar(BarOrientation.Horizontal, _stackPanel, graphics, content, Position,
                GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
             HealthBar.LoadContent();
             _stackRow1.AddItem(HealthBar,StackOrientation.Left);
@@ -43,7 +43,7 @@ namespace UIEngine.Classes.StatusStuff
             _stackPanel.Add(_stackRow2);
 
             StackRow _stackRow3 = new StackRow(192);
-            ManaBar = new ManaBar(_stackPanel, graphics, content, Position,
+            ManaBar = new ManaBar(BarOrientation.Horizontal, _stackPanel, graphics, content, Position,
                GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
             ManaBar.LoadContent();
 
@@ -57,7 +57,7 @@ namespace UIEngine.Classes.StatusStuff
             _stackPanel.Add(_stackRow4);
 
             StackRow _stackRow5 = new StackRow(192);
-            HungerBar = new HungerBar(_stackPanel, graphics, content, Position,
+            HungerBar = new HungerBar(BarOrientation.Horizontal, _stackPanel, graphics, content, Position,
                GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
             HungerBar.LoadContent();
 

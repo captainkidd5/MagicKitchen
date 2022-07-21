@@ -64,10 +64,10 @@ namespace TiledEngine.Classes.TileAddons
 
                     return;
                 }
-            throw new Exception($"Subkey {subKey} not found");
+            //throw new Exception($"Subkey {subKey} not found");
 
             }
-            throw new Exception($"Key {key} not found");
+            //throw new Exception($"Key {key} not found");
         }
 
         public void CleanUp()

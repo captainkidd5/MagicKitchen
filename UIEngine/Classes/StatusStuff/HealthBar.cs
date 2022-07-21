@@ -15,9 +15,9 @@ namespace UIEngine.Classes.StatusStuff
     {
         private readonly Color HealthyColor = new Color(205, 94, 111);
 
-        public HealthBar(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
+        public HealthBar(BarOrientation barOrientation, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : 
-            base(interfaceSection, graphicsDevice, content, position, layerDepth)
+            base(barOrientation,interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             ProgressColor = HealthyColor;
 

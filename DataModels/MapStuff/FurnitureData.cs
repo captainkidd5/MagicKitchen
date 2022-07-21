@@ -10,7 +10,7 @@ namespace DataModels.MapStuff
         Furniture = 1,
         StorableFurniture = 2,
         DiningTable = 3,
-        Mixer = 4,
+        Grill = 4,
         CraftingTable =5,
 
     }

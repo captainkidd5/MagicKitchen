@@ -154,7 +154,7 @@ namespace UIEngine.Classes.RecipeStuff.PanelStuff
                     return new Rectangle(336, 224, 16, 16);
                 case CraftAction.Chop:
                     break;
-                case CraftAction.Bake:
+                case CraftAction.Grill:
                     return new Rectangle(352, 224, 16, 16);
 
                 default:

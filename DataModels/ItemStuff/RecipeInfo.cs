@@ -18,10 +18,9 @@ namespace DataModels.ItemStuff
         None = 0,
         Add = 1,
         Chop  = 2,
-        Bake = 3,
-        Mix = 4,
-        Smelt = 5,
-        Craft = 6,
+        Grill = 3,
+        Smelt = 4,
+        Craft = 5,
     }
     public class RecipeInfo
     {

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UIEngine.Classes.Components;
 
 namespace UIEngine.Classes.StatusStuff
 {
@@ -13,7 +14,8 @@ namespace UIEngine.Classes.StatusStuff
     {
         private readonly Color HungerColor = new Color(233, 164, 142);
 
-        public HungerBar(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
+        public HungerBar(BarOrientation barOrientation, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth)
+            : base(barOrientation,interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             ProgressColor = HungerColor;
         }

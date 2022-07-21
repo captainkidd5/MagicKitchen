@@ -13,9 +13,9 @@ namespace UIEngine.Classes.Storage
 {
     internal class ItemDurabilityBar : UIProgressBar
     {
-        public ItemDurabilityBar(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
+        public ItemDurabilityBar(BarOrientation barOrientation, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
            Vector2? position, float layerDepth) :
-           base(interfaceSection, graphicsDevice, content, position, layerDepth)
+           base(barOrientation, interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             ProgressColor = Color.Green;
 
