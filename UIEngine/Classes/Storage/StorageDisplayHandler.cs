@@ -170,7 +170,7 @@ namespace UIEngine.Classes.Storage
 
                     break;
                 case FurnitureType.Grill:
-                    _secondaryInventoryDisplay = new FurnaceTableDisplay(this, graphics, content, _secondaryInventoryDisplay.Position,
+                    _secondaryInventoryDisplay = new GrillDisplay(this, graphics, content, _secondaryInventoryDisplay.Position,
                         _secondaryInventoryDisplay.LayerDepth);
                     break;
                 case FurnitureType.CraftingTable:

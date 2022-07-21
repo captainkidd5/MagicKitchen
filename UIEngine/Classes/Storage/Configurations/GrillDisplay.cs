@@ -70,16 +70,16 @@ namespace UIEngine.Classes.Storage.Configurations
 
             ClearGrid();
             int slotIndex = 0;
-            Rows = 1;
-            Columns = 5;
+            Rows = 5;
+            Columns = 1;
 
             Selectables = new InterfaceSection[Rows, Columns - 1];
 
             InventorySlots = new InventorySlotDisplay[Rows, Columns - 1];
             DrawCutOff = Rows;
             OutputSlotRow = 0;
-            OutputSlotColumn = 3;
-            FuelSlotRow = 0;
+            OutputSlotColumn = 0;
+            FuelSlotRow = 4;
             FuelSlotColumn = 0;
 
             StackRow stackRow = new StackRow(BackgroundSourceRectangle.Width * 2);

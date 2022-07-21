@@ -41,18 +41,27 @@ namespace UIEngine.Classes.Components
         }
         public override void LoadContent()
         {
-             Scale = new Vector2(2f, 2f);
+            Scale = new Vector2(2f, 2f);
 
-            SourceRectangle = HorizontalSourceRectangle;
             if (BarOrientation == BarOrientation.Vertical)
+            {
                 SourceRectangle = VerticalSourceRectangle;
+                OutlineSprite = SpriteFactory.CreateDestinationSprite(1, (int)((float)SourceRectangle.Height * (float)Scale.Y), Position, new Rectangle(0, 0, 1, 1),
+              SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressColor);
+            }
+            else
+            {
+                SourceRectangle = HorizontalSourceRectangle;
+                OutlineSprite = SpriteFactory.CreateDestinationSprite((int)((float)SourceRectangle.Width * (float)Scale.X), 1, Position, new Rectangle(0, 0, 1, 1),
+              SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressColor);
+            }
 
-            OutlineSprite = SpriteFactory.CreateDestinationSprite(1, (int)((float)SourceRectangle.Height * (float)Scale.Y), Position, new Rectangle(0, 0, 1, 1),
-                  SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressColor);
+        
             ForegroundSprite = SpriteFactory.CreateUISprite(Position, SourceRectangle, SpriteFactory.StatusIconTexture,
              customLayer: GetLayeringDepth(UILayeringDepths.Medium), scale: Scale);
 
-            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, (int)((float)ForegroundSprite.Width * Scale.X), (int)((float)ForegroundSprite.Height * Scale.Y));
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, (int)((float)ForegroundSprite.Width * Scale.X),
+                (int)((float)ForegroundSprite.Height * Scale.Y));
            // base.LoadContent();
         }
 
