@@ -50,8 +50,8 @@ namespace UIEngine.Classes.Storage.Configurations
 
         protected override void GenerateUI(bool displayWallet)
         {
-
-            BackgroundSourceRectangle = new Rectangle(48, 640, 240, 64);
+            Position = new Vector2(Position.X, Position.Y - 128);
+            BackgroundSourceRectangle = new Rectangle(816, 0, 80, 96);
 
             BackgroundSpritePositionOffset = new Vector2(0, 0);
             Vector2 backdropScale = new Vector2(2f, 2f);
@@ -73,46 +73,26 @@ namespace UIEngine.Classes.Storage.Configurations
             Rows = 5;
             Columns = 1;
 
-            Selectables = new InterfaceSection[Rows, Columns - 1];
+            Selectables = new InterfaceSection[Rows , Columns ];
 
-            InventorySlots = new InventorySlotDisplay[Rows, Columns - 1];
+            InventorySlots = new InventorySlotDisplay[Rows, Columns];
             DrawCutOff = Rows;
             OutputSlotRow = 0;
             OutputSlotColumn = 0;
             FuelSlotRow = 4;
             FuelSlotColumn = 0;
 
-            StackRow stackRow = new StackRow(BackgroundSourceRectangle.Width * 2);
 
             for (int row = 0; row < Rows; row++)
             {
+                StackRow stackRow = new StackRow(BackgroundSourceRectangle.Width * 2);
+
                 //add extra for spacing
                 for (int column = 0; column < Columns; column++)
                 {
-                    if (column == 1)
+                    if (row == 0)
                     {
-                        FuelBar = new UIProgressBar(BarOrientation.Vertical, StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
-                        FuelBar.LoadContent();
-                        stackRow.AddItem(FuelBar, StackOrientation.Left, true);
-                        //FuelBar.LoadContent();
-                    }
-                    if (column == 2 || column == 3)
-                    {
-                        InventorySlotDisplay display = new InventorySlotDisplay(row, column - 1, this, graphics, content, StorageContainer.Slots[slotIndex],
-                   Position, GetLayeringDepth(UILayeringDepths.Medium));
-                        InventorySlots[row, column - 1] = display;
-                        AddSectionToGrid(display, row, column - 1);
-                        display.LoadContent();
 
-                        stackRow.AddItem(display, StackOrientation.Left, true);
-                        slotIndex++;
-                    }
-                    if (IsOutputSlot(row, column))
-                    {
-                        UIProgressBar = new UIProgressBar(BarOrientation.Horizontal, StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
-                        UIProgressBar.LoadContent();
-                        stackRow.AddItem(UIProgressBar, StackOrientation.Left, true);
-                        UIProgressBar.LoadContent();
 
                         //stackRow.AddSpacer(new Rectangle(0,0,_buttonWidth,_buttonWidth), StackOrientation.Left);
 
@@ -124,9 +104,37 @@ namespace UIEngine.Classes.Storage.Configurations
                         AddSectionToGrid(display, row, column);
                         display.LoadContent();
 
-                        stackRow.AddItem(display, StackOrientation.Left, true);
+                        stackRow.AddItem(display, StackOrientation.Center, true);
                     }
-                    else if (IsFuelSlot(row, column))
+                    if (row == 1)
+                    {
+                        UIProgressBar = new UIProgressBar(BarOrientation.Vertical, StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
+                        UIProgressBar.LoadContent();
+                        stackRow.AddItem(UIProgressBar, StackOrientation.Center, true);
+                        UIProgressBar.LoadContent();
+                    }
+                    if (row == 2)
+                    {
+                        InventorySlotDisplay display = new InventorySlotDisplay(row - 1, column, this, graphics, content, StorageContainer.Slots[slotIndex],
+                   Position, GetLayeringDepth(UILayeringDepths.Medium));
+                        InventorySlots[row - 1, column] = display;
+                        AddSectionToGrid(display, row - 1, column);
+                        display.LoadContent();
+
+                        stackRow.AddItem(display, StackOrientation.Center, true);
+                        slotIndex++;
+                    }
+                    if (row == 3)
+                    {
+                        FuelBar = new UIProgressBar(BarOrientation.Vertical, StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
+                        FuelBar.LoadContent();
+                        stackRow.AddItem(FuelBar, StackOrientation.Center, true);
+                        //FuelBar.LoadContent();
+                    }
+                   
+                   
+               
+                    if (row ==4)
                     {
 
 
@@ -136,17 +144,18 @@ namespace UIEngine.Classes.Storage.Configurations
                            (StorageContainer as CraftingStorageContainer).FuelSlot,
                  Position, GetLayeringDepth(UILayeringDepths.Medium));
                         InventorySlots[row, column] = display;
-                        AddSectionToGrid(display, row, column);
+                        AddSectionToGrid(display, row-1, column);
                         display.LoadContent();
-                        stackRow.AddItem(display, StackOrientation.Left, true);
+                        stackRow.AddItem(display, StackOrientation.Center, true);
                         slotIndex++;
 
 
                     }
+                    StackPanel.Add(stackRow);
+
                 }
 
             }
-            StackPanel.Add(stackRow);
             UIProgressBar.ProgressColor = Color.White;
             FuelBar.ProgressColor = Color.Orange;
             // UIProgressBar.MovePosition(new Vector2(UIProgressBar.Position.X, UIProgressBar.Position.Y + UIProgressBar.Height / 2));

@@ -46,14 +46,16 @@ namespace UIEngine.Classes.Components
             if (BarOrientation == BarOrientation.Vertical)
             {
                 SourceRectangle = VerticalSourceRectangle;
-                OutlineSprite = SpriteFactory.CreateDestinationSprite(1, (int)((float)SourceRectangle.Height * (float)Scale.Y), Position, new Rectangle(0, 0, 1, 1),
-              SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressColor);
+                OutlineSprite = SpriteFactory.CreateDestinationSprite((int)((float)SourceRectangle.Width * (float)Scale.X), 1, Position, new Rectangle(0, 0, 1, 1),
+SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressColor);
+
             }
             else
             {
                 SourceRectangle = HorizontalSourceRectangle;
-                OutlineSprite = SpriteFactory.CreateDestinationSprite((int)((float)SourceRectangle.Width * (float)Scale.X), 1, Position, new Rectangle(0, 0, 1, 1),
-              SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressColor);
+
+                OutlineSprite = SpriteFactory.CreateDestinationSprite(1, (int)((float)SourceRectangle.Height * (float)Scale.Y), Position, new Rectangle(0, 0, 1, 1),
+SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressColor);
             }
 
         

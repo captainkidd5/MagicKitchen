@@ -38,7 +38,7 @@
             "Count":2
         },
         {
-            "Name":"Drift_Wood",
+            "Name":"Wood",
             "Count":2
         }
     ]
@@ -64,7 +64,7 @@
             "Count":2
         },
         {
-            "Name":"Drift_Wood",
+            "Name":"Wood",
             "Count":2
         }
     ]
@@ -105,13 +105,16 @@
     "Description" : "Cooked meat",
     "MaxStackSize": 999,
     "Price": 1,
+    "ItemType": "Food",
+
+        "FoodValue": 20,
     "RecipeInfo": 
     {
     "CraftAction": "Grill",
     "CookTime": 20,
     "Ingredients":[
         {
-            "Name":"Iron_Ore",
+            "Name":"Raw_Haunch",
             "Count":1
         }
     ]
@@ -201,7 +204,7 @@
 },
 {
     "Id": 1300,
-    "Name": "Drift_Wood",
+    "Name": "Wood",
     "Description" : "Water-logged",
     "MaxStackSize": 999,
     "FuelValue" : 100,

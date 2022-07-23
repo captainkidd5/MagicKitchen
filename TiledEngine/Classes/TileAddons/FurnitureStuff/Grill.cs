@@ -17,7 +17,13 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             CraftAction = DataModels.ItemStuff.CraftAction.Grill;
 
         }
-
+        protected override void AddPlacedItems(FurnitureData furnitureData, TileObject tile)
+        {
+ 
+           
+                PlacedItems.Add(new PlacedOnItem(0, tile.TileData.GetKey()));
+            
+        }
         public override void Load()
         {
             base.Load();

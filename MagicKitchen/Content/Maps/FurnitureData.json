@@ -71,26 +71,6 @@
             "Index": 0,
             "XOffSet":0,
             "YOffSet": -8
-        },
-        {
-            "Index": 1,
-            "XOffSet":-8,
-            "YOffSet": 0
-        },
-        {
-            "Index": 2,
-            "XOffSet":0,
-            "YOffSet": 0
-        },
-        {
-            "Index": 3,
-            "XOffSet":8,
-            "YOffSet": 0
-        },
-        {
-            "Index": 4,
-            "XOffSet":0,
-            "YOffSet": 8
         }
     ]
 }
