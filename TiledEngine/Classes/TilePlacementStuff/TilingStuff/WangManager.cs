@@ -58,7 +58,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
         {
             return new Dictionary<int, int>()
             {
-                {0, centralGID + 104},{1, centralGID + 103}, {2,  centralGID +102 },  {3, centralGID + 301}, {4, centralGID +198}, {5, centralGID + 299},{6,centralGID +105},
+                {0, centralGID + 104},{1, centralGID + 103}, {2,  centralGID +102 },  {3, centralGID + 301}, {4, centralGID +98}, {5, centralGID + 299},{6,centralGID +105},
                 { 7, centralGID + 300}, {8, centralGID + 97}, {9, centralGID + 106}, {10, centralGID - 196}, {11, centralGID + 1},
                 { 12,centralGID - 198}, {13,centralGID - 1}, {14,centralGID - 197}, {15, centralGID}
             };
@@ -103,13 +103,12 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
         public int WangTile(TileManager tileManager, TileData tile)
         {
-            if (tile.Layer == Layers.foreground && tile.GID < 10000)
-                tile.GID = (ushort)tileManager.TileSetPackage.OffSetBackgroundGID(tile.GID);
+            //if (tile.Layer == Layers.foreground && tile.GID < 10000)
+            //    tile.GID = (ushort)tileManager.TileSetPackage.OffSetBackgroundGID(tile.GID);
             if (string.IsNullOrEmpty(tile.GetProperty(tileManager.TileSetPackage, "tilingSet")))
                 return tile.GID;
             string tilingSetValue = tile.GetProperty(tileManager.TileSetPackage, "tilingSet");
-            if (tilingSetValue == "wall")
-                Console.WriteLine("test");
+
             if (tilingSetValue == "land")
                 return tile.GID;
             if (!TilingSets.ContainsKey(tilingSetValue))
@@ -216,7 +215,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
             // if (keyToCheck < 15 && keyToCheck > 0)
             // {
-            return tDictionary[keyToCheck];
+            return tDictionary[keyToCheck] + 10000;
         }
     }
 }

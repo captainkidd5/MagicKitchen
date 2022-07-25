@@ -72,8 +72,8 @@ namespace TiledEngine.Classes
                 int newGID = tileSetPackage.TilingSetManager.WangTile(tileManager, tileData);
                 if (tileData.GID != newGID)
                 {
-                    if(tileManager.TileSetPackage.IsForeground(tileData.GID))
-                        newGID = tileManager.TileSetPackage.OffSetBackgroundGID(newGID);
+                    //if(tileManager.TileSetPackage.IsForeground(tileData.GID))
+                    //    newGID = tileManager.TileSetPackage.OffSetBackgroundGID(newGID);
                     tileData.GID = (ushort)(newGID + 1);
                     tileObject.TileData.GID = (ushort)(tileData.GID + 1); ;
                 }

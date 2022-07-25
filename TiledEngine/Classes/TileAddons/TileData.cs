@@ -49,7 +49,17 @@ namespace TiledEngine.Classes.TileAddons
         /// <returns></returns>
         internal string GetProperty(TileSetPackage tileSetPackage, string key, bool useObjectSearch = false)
         {
-            TmxTilesetTile tmxTile = tileSetPackage.GetTmxTileSetTile(GID);
+            TmxTilesetTile tmxTile;
+            if (Layer == Layers.foreground && GID < 10000)
+            {
+                tmxTile = tileSetPackage.GetTmxTileSetTile(tileSetPackage.OffSetBackgroundGID(GID));
+
+            }
+            else
+            {
+                tmxTile = tileSetPackage.GetTmxTileSetTile(GID);
+
+            }
             if (tmxTile == null)
                 return null;
             if (tmxTile.Properties.ContainsKey(key))

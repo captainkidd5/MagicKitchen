@@ -442,18 +442,27 @@
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="3693">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="3694">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="3">
+   <object id="2" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="3703">
   <properties>
@@ -504,36 +513,54 @@
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="3890">
   <properties>
    <property name="tilingKey" value="wall,land,tall"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="3891">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="3988">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="3992">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="3993">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="3994">
   <properties>
@@ -553,12 +580,18 @@
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="3996">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="4021">
   <properties>
@@ -570,18 +603,27 @@
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="4190">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="4191">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingSet" value="wall"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="4321">
   <properties>
