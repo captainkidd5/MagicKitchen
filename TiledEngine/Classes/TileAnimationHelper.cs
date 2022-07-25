@@ -106,8 +106,8 @@ namespace TiledEngine.Classes
                 }
 
        
-                if (tileObject.TileData.Layer <3)
-                    tileObject.DrawLayer = tileObject.TileData.Layer * .1f;
+                if (tileObject.TileData.Layer < Layers.foreground)
+                    tileObject.DrawLayer = (byte)tileObject.TileData.Layer * .1f;
                 else
                     tileObject.DrawLayer = TileUtility.AssignTileLayer(tileObject.TileData, tileObject, (Layers)tileObject.TileData.Layer,
                        tileManager.OffSetLayersDictionary);

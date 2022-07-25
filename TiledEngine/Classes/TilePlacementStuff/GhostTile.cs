@@ -53,7 +53,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
                 GID = _tileManager.TileSetPackage.OffSetBackgroundGID(gid+ 1) ;
             if (CurrentTile != null)
                 CurrentTile.Unload();
-            TileData newTileData = new TileData((ushort)GID, 0, 0, (byte)_layer);
+            TileData newTileData = new TileData((ushort)GID, 0, 0, _layer);
             CurrentTile = new TileObject(_tileManager, newTileData,false, true);
             //TileUtility.AssignProperties(_tileManager, CurrentTile,CurrentTile.TileData,true);
 

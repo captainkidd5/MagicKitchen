@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TiledSharp;
 using UIEngine.Classes.CursorStuff;
+using static DataModels.Enums;
 
 namespace TiledEngine.Classes.TileAddons
 {
@@ -19,9 +20,9 @@ namespace TiledEngine.Classes.TileAddons
 
         public ushort X;
         public ushort Y;
-        public byte Layer;
+        public Layers Layer;
         internal bool Empty => GID == ushort.MaxValue;
-        public TileData(ushort gid, ushort x, ushort y, byte layer)
+        public TileData(ushort gid, ushort x, ushort y, Layers layer)
         {
             _gid = gid;
             X = x;

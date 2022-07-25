@@ -505,6 +505,12 @@
    <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
+ <tile id="3890">
+  <properties>
+   <property name="tilingKey" value="wall,land,tall"/>
+   <property name="tilingSet" value="wall"/>
+  </properties>
+ </tile>
  <tile id="3891">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
@@ -532,7 +538,6 @@
  <tile id="3994">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
-   <property name="tilingKey" value="wall,land,tall"/>
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">

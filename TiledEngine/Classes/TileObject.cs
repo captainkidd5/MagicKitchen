@@ -34,7 +34,7 @@ namespace TiledEngine.Classes
 
         internal bool IsHighestClearTile()
         {
-            for(int i = TileManager.TileData.Count - 1; i >= TileData.Layer; i--)
+            for(int i = TileManager.TileData.Count - 1; i >= (byte)TileData.Layer; i--)
             {
                 if (!TileManager.TileData[i][TileData.X, TileData.Y].Empty)
                     return false;

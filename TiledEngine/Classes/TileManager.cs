@@ -356,7 +356,7 @@ namespace TiledEngine.Classes
                 newGid = (ushort)TileSetPackage.OffSetBackgroundGID(newGid);
             
             tileData.GID = (ushort)(newGid + 1);
-            TileData[tileData.Layer][tileData.X, tileData.Y] = tileData;
+            TileData[(byte)tileData.Layer][tileData.X, tileData.Y] = tileData;
            // if (addProperty)
           //  {
                 int key = tileData.GetKey();
@@ -472,7 +472,7 @@ namespace TiledEngine.Classes
                 {
                     for (int y = 0; y < length1; y++)
                     {
-                        TileData[z][x, y] = new TileData((ushort)reader.ReadInt32(), (ushort)reader.ReadInt32(), (ushort)reader.ReadInt32(), (byte)z);
+                        TileData[z][x, y] = new TileData((ushort)reader.ReadInt32(), (ushort)reader.ReadInt32(), (ushort)reader.ReadInt32(), (Layers)z);
 
                     }
                 }
