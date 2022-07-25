@@ -233,7 +233,7 @@ namespace PhysicsEngine.Classes
             frequencyHz = frequencyHz ?? 30f;
             RevoluteJoint joint = JointFactory.CreateRevoluteJoint(VelcroWorld, bodyA, bodyB, bodyAAnchor.Value, bodyBAnchor.Value);
             joint.MotorEnabled = true;
-            joint.MaxMotorTorque = 100000 * (int)rotateSpeed;
+            joint.MaxMotorTorque = 50000 * (int)rotateSpeed;
             joint.MotorSpeed = 10000000; //1 turn per second clockwise
             if (counterClockWise)
                 joint.MotorSpeed = joint.MotorSpeed * -1;

@@ -48,8 +48,9 @@ namespace EntityEngine.Classes.ToolStuff
             Vector2 anchorPoint = new Vector2(1, 32);
             bool counterClockWise = false;
             float rotation = 0;
-            YOffSet = 0;
+            YOffSet = Holder.SubmergenceLevel == SubmergenceLevel.Shallow ? 14 : 0;
 
+            RotateSpeed = Holder.SubmergenceLevel == SubmergenceLevel.Shallow ? RotateSpeed.VerySlow : RotateSpeed.Slow;
             if (Direction == Direction.Right)
             {
                 rotation = 0f;

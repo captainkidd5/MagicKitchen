@@ -51,6 +51,11 @@
    <frame tileid="1133" duration="100"/>
   </animation>
  </tile>
+ <tile id="479">
+  <properties>
+   <property name="newSource" value="-16,-48,48,64"/>
+  </properties>
+ </tile>
  <tile id="533">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
@@ -120,6 +125,11 @@
  <tile id="833">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="879">
+  <properties>
+   <property name="newSource" value="-16,-48,48,64"/>
   </properties>
  </tile>
  <tile id="940">
@@ -263,46 +273,25 @@
  </tile>
  <tile id="1279">
   <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
+   <property name="newSource" value="-16,-48,48,64"/>
   </properties>
- </tile>
- <tile id="1280">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
-  </properties>
- </tile>
- <tile id="1281">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
-  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <ellipse/>
+   </object>
+  </objectgroup>
+  <animation>
+   <frame tileid="1279" duration="800"/>
+   <frame tileid="879" duration="800"/>
+   <frame tileid="479" duration="800"/>
+   <frame tileid="879" duration="800"/>
+  </animation>
  </tile>
  <tile id="1332">
   <properties>
    <property name="furniture" value="CraftingTable"/>
    <property name="newHitBox" value="0,-8,32,24"/>
    <property name="newSource" value="0,-16,32,32"/>
-  </properties>
- </tile>
- <tile id="1476">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
-  </properties>
- </tile>
- <tile id="1477">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingKey" value="woodWall,,tall"/>
-   <property name="tilingSet" value="woodWall"/>
-  </properties>
- </tile>
- <tile id="1478">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
   </properties>
  </tile>
  <tile id="1547">

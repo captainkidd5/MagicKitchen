@@ -58,7 +58,8 @@ namespace EntityEngine.Classes
                 if (tool.RequiresCharge)
                     return;
                 tool.Load();
-                tool.Move(Entity.Position);
+             
+                tool.Move( Entity.Position);
                 ActivateTool(tool);
                 Tool = tool;
             }
@@ -92,11 +93,12 @@ namespace EntityEngine.Classes
                 if (IsUsingTool)
                     return;
                 Tool tool = (Tool)Tool.GetTool(_inventoryHandler.HeldItem);
+
                 if (tool == null)
                     return;
 
                 tool.Move(Entity.Position);
-                if(tool.RequiresCharge)
+                if (tool.RequiresCharge)
                     tool.BeginCharge(Entity);
                 else
                     ActivateTool(tool);
@@ -107,6 +109,7 @@ namespace EntityEngine.Classes
         }
         public virtual void ActivateTool(Tool tool)
         {
+           
             tool.ReleaseTool(Entity.DirectionMoving,Vector2Helper.GetVectorFromDirection(Entity.DirectionMoving), Entity);
 
         }

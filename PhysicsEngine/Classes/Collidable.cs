@@ -187,6 +187,7 @@ namespace PhysicsEngine.Classes
         }
 
 
+
         protected virtual bool IsStopped()
         {
             return MainHullBody.Body.LinearVelocity.X < .2 && MainHullBody.Body.LinearVelocity.Y < .2;
