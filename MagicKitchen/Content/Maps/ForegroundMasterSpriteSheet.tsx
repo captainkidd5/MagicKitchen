@@ -299,46 +299,14 @@
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
  </tile>
- <tile id="1774">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
-  </properties>
- </tile>
- <tile id="1775">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
-  </properties>
- </tile>
- <tile id="1779">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
-  </properties>
- </tile>
- <tile id="1780">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
-  </properties>
- </tile>
- <tile id="1781">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
-  </properties>
- </tile>
  <tile id="1782">
   <properties>
    <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
   </properties>
  </tile>
  <tile id="1783">
   <properties>
    <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
   </properties>
  </tile>
  <tile id="1847">
@@ -362,24 +330,6 @@
    <frame tileid="1918" duration="100"/>
    <frame tileid="1919" duration="100"/>
   </animation>
- </tile>
- <tile id="1976">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
-  </properties>
- </tile>
- <tile id="1977">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
-  </properties>
- </tile>
- <tile id="1978">
-  <properties>
-   <property name="newSource" value="0,-48,16,64"/>
-   <property name="tilingSet" value="woodWall"/>
-  </properties>
  </tile>
  <tile id="2014">
   <objectgroup draworder="index" id="2">
@@ -487,6 +437,21 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="3692">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="3693">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="3694">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
  <tile id="3703">
   <properties>
    <property name="newHitBox" value="-48, -80, 128, 96"/>
@@ -531,9 +496,67 @@
    <property name="newSource" value="-16,-32,48,48"/>
   </properties>
  </tile>
+ <tile id="3889">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="3891">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="3988">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="3992">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="3993">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="3994">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingKey" value="wall,land,tall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="4" y="6" width="8" height="10">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="3995">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
  <tile id="4021">
   <properties>
    <property name="newSource" value="0, -32, 32, 48"/>
+  </properties>
+ </tile>
+ <tile id="4189">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="4190">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="4191">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
   </properties>
  </tile>
  <tile id="4321">

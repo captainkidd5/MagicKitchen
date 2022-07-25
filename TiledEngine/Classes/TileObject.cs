@@ -27,7 +27,7 @@ namespace TiledEngine.Classes
 
         internal static bool TileIndexDebug = false;
 
-
+        internal bool HasAnimationFrames => TileManager.TileSetPackage.GetTmxTileSetTile(TileData.GID).AnimationFrames.Count > 0;
 
         internal readonly TileManager TileManager;
 

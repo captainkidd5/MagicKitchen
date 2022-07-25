@@ -481,8 +481,32 @@
         }
     ]
 }
+
                     
                     },
+                    {
+                        "Id": 2902,
+                        "Name": "Wall",
+                        "Description" : "Basic housing structure",
+                        "MaxStackSize": 999,
+                        "Price": 1,
+                         "PlacedItemGID" : 3994,
+                        
+        "RecipeInfo": 
+        {
+        "CraftAction": "Craft",
+        "CraftingCategory": "Placeable",
+        "CookTime": 1,
+        "Ingredients":[
+            {
+                "Name":"Wood",
+                "Count":5
+            }
+        ]
+    }
+    
+                        
+                        },
       
        
        

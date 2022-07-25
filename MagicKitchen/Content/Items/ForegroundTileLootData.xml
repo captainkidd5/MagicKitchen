@@ -56,6 +56,19 @@
 
         </Item>
          <Item>
+            <TileId>3994</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Wall</ItemName>
+            <Quantity>1</Quantity>
+            <Weight>100</Weight>
+            </Item>
+
+            </Loot>
+            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+
+        </Item>
+         <Item>
             <TileId>974</TileId>
             <Loot>
             <Item Type="DataModels.LootData">

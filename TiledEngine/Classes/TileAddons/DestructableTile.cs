@@ -31,7 +31,8 @@ namespace TiledEngine.Classes.TileAddons
         public DestructableTile(TileObject tile, IntermediateTmxShape intermediateTmxShape, string action) : base(tile,intermediateTmxShape, action)
         {
     
-            RequireLoopBeforeDestruction = true;
+            RequireLoopBeforeDestruction = tile.HasAnimationFrames;
+
         }
 
 

@@ -64,10 +64,11 @@ namespace TiledEngine.Classes
             TmxTilesetTile tmxTileSetTile = tileSetPackage.GetTmxTileSetTile(tileObject.TileData.GID);
             Collection<TmxAnimationFrame> animationFrames = tmxTileSetTile.AnimationFrames;
 
-            int tileSetDimension = tileSetPackage.GetDimension(tileObject.TileData.GID);
-            Texture2D texture = tileSetPackage.GetTexture(tileObject.TileData.GID);
+           
             if (animationFrames.Count > 0)
             {
+                int tileSetDimension = tileSetPackage.GetDimension(tileObject.TileData.GID);
+                Texture2D texture = tileSetPackage.GetTexture(tileObject.TileData.GID);
                 AnimationFrame[] frames = new AnimationFrame[animationFrames.Count];
 
                 for (int i = 0; i < animationFrames.Count; i++)
