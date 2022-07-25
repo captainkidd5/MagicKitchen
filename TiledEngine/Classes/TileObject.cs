@@ -76,7 +76,7 @@ namespace TiledEngine.Classes
 
             Addons = new List<ITileAddon>();
             TileManager = tileManager;
-            TileUtility.AssignProperties(tileManager, this, tileData,tempTile, wang);
+            TileUtility.AssignProperties(tileManager, this, tileData);
 
         }
 

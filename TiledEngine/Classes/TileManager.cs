@@ -176,7 +176,7 @@ namespace TiledEngine.Classes
                         int key = TileData[z][x, y].GetKey();
                         if (!TileObjects.ContainsKey(key))
                         {
-                            TileObjects.Add(key, new TileObject(this, TileData[z][x, y],!JustResizedWindow));
+                            TileObjects.Add(key, new TileObject(this, TileData[z][x, y]));
                         }
 
                     }
@@ -350,10 +350,10 @@ namespace TiledEngine.Classes
 
 
 
-        public void SwitchGID(ushort newGid, TileData tileData, bool tempTile = false, bool wang = false, bool isForeGround = false)
+        public void SwitchGID(ushort newGid, TileData tileData)
         {
-            if(isForeGround)
-                newGid = (ushort)TileSetPackage.OffSetBackgroundGID(newGid);
+           // if(TileSetPackage.IsForeground(newGid))
+               // newGid = (ushort)TileSetPackage.OffSetForegroundGID(newGid);
             
             tileData.GID = (ushort)(newGid + 1);
             TileData[(byte)tileData.Layer][tileData.X, tileData.Y] = tileData;

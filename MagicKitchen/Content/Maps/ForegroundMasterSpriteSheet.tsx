@@ -554,6 +554,12 @@
    <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
+ <tile id="3996">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="wall"/>
+  </properties>
+ </tile>
  <tile id="4021">
   <properties>
    <property name="newSource" value="0, -32, 32, 48"/>

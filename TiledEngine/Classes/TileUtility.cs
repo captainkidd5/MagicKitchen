@@ -62,12 +62,12 @@ namespace TiledEngine.Classes
         /// </summary>
         /// <param name="tempTile">Setting this to true will prevent the grid status from updating, good for ghost tile</param>
         /// <param name="wang">Do not do this on loads/creates, only for individual tiles</param>
-        public static void AssignProperties(TileManager tileManager, TileObject tileObject, TileData tileData, bool tempTile = false, bool wang = true)
+        public static void AssignProperties(TileManager tileManager, TileObject tileObject, TileData tileData, bool tempTile = false)
         {
             TileSetPackage tileSetPackage = tileManager.TileSetPackage;
 
 
-            if (wang)
+            if (!string.IsNullOrEmpty(tileData.GetProperty(tileSetPackage,"tilingSet")))
             {
                 int newGID = tileSetPackage.TilingSetManager.WangTile(tileManager, tileData);
                 if (tileData.GID != newGID)

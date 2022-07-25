@@ -104,7 +104,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
                                 _tileManager.MouseOverTile.Position, _layer);
 
                             //_tileManager.TileObjects[tileData.Value.GetKey()].Unload();
-                            _tileManager.SwitchGID((ushort)(GID - 1), tileData.Value, false,false);
+                            _tileManager.SwitchGID((ushort)(GID - 1), tileData.Value);
                             return true;
                         }
                     }
