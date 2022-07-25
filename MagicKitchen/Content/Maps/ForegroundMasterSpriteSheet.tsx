@@ -440,16 +440,19 @@
  <tile id="3692">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
  <tile id="3693">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
  <tile id="3694">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
  <tile id="3703">
@@ -499,32 +502,38 @@
  <tile id="3889">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
  <tile id="3891">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
  <tile id="3988">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
  <tile id="3992">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
  <tile id="3993">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
  <tile id="3994">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
    <property name="tilingKey" value="wall,land,tall"/>
+   <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="4" y="6" width="8" height="10">
@@ -537,6 +546,7 @@
  <tile id="3995">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
  <tile id="4021">
@@ -547,16 +557,19 @@
  <tile id="4189">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
  <tile id="4190">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
  <tile id="4191">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="wall"/>
   </properties>
  </tile>
  <tile id="4321">

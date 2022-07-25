@@ -51,7 +51,7 @@ namespace TiledEngine.Classes
                 string propertyString = "tilingKey";
             if (tileSetTile.Properties.ContainsKey(propertyString))
             {
-                tileSetPackage.TilingSetManager.AddNewSet(tileSetTile.Properties[propertyString],tileSetTile.Id);
+                tileSetPackage.TilingSetManager.AddTilingKey(tileSetTile.Properties[propertyString],tileSetTile.Id);
 
             }
      

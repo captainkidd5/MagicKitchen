@@ -23,7 +23,12 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
         }
 
-        public void AddNewSet(string property, int gid)
+        /// <summary>
+        /// For use with tile property "TilingKey". Each tiling set should have only a single central tile with this property
+        /// </summary>
+        /// <param name="property"></param>
+        /// <param name="gid">The central key</param>
+        public void AddTilingKey(string property, int gid)
         {
             string[] values = property.Split(',');
             string name = values[0];
@@ -88,7 +93,12 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
                 return true;
             return false;
         }
-
+        public bool IsPartOfSet(TileManager tileManager, string setName, int gid)
+        {
+            if (TilingSets[setName].Values.Any(x => x == tileManager.TileSetPackage.GetAdjustedGID(gid)))
+                return true;
+            return false;
+        }
         //so, water should only wang if touching land tiles
 
         public int WangTile(TileManager tileManager, TileData tile)

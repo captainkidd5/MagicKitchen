@@ -98,8 +98,12 @@ namespace TiledEngine.Classes.TileAddons
             int gidToSwitchTo = -1;
             if (!string.IsNullOrEmpty(tilingProperty))
             {
-                AllowedPlacementTileType allowedPlacementType = (AllowedPlacementTileType)Enum.Parse(typeof(AllowedPlacementTileType), tilingProperty);
-                if (allowedPlacementType == AllowedPlacementTileType.land)
+                AllowedPlacementTileType allowedPlacementType = AllowedPlacementTileType.all;
+                Enum.TryParse(tilingProperty, out allowedPlacementType);
+
+                if (Enum.IsDefined(typeof(AllowedPlacementTileType),allowedPlacementType) &&
+                    allowedPlacementType == AllowedPlacementTileType.land &&
+                    Tile.TileManager.TileSetPackage.TilingSetManager.IsPartOfSet(Tile.TileManager, "land", Tile.TileData.GID))
                 {
                     gidToSwitchTo = Tile.TileManager.TileSetPackage.TilingSetManager.TilingSets["water"][15] -1;
                 }
