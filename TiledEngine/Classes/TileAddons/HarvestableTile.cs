@@ -33,6 +33,8 @@ namespace TiledEngine.Classes.TileAddons
             {
                 string propString = Tile.GetProperty("action", true);
                 int newGid = int.Parse(propString.Split(",")[1]);
+                if(Tile.IsForeground)
+                   newGid = Tile.TileManager.TileSetPackage.OffSetBackgroundGID(newGid);
                 Tile.TileManager.SwitchGID((ushort)newGid, Tile.TileData);
                 PlayPackage(GetTileLootSound());
 

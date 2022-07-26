@@ -31,6 +31,7 @@ namespace TiledEngine.Classes
 
         internal readonly TileManager TileManager;
 
+        public bool IsForeground => TileManager.TileSetPackage.IsForeground(TileData.GID);
 
         internal bool IsHighestClearTile()
         {
