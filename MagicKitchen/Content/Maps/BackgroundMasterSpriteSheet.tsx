@@ -124,7 +124,7 @@
   <objectgroup draworder="index" id="2">
    <object id="3" x="3" y="3" width="13" height="13">
     <properties>
-     <property name="action" value="Submerge"/>
+     <property name="cat" value="solidLow"/>
     </properties>
     <ellipse/>
    </object>
@@ -141,11 +141,7 @@
    <property name="tilingSet" value="water"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="3" width="16" height="3">
-    <properties>
-     <property name="action" value="Submerge"/>
-    </properties>
-   </object>
+   <object id="1" x="0" y="3" width="16" height="3"/>
   </objectgroup>
   <animation>
    <frame tileid="622" duration="800"/>
@@ -160,9 +156,6 @@
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="3" x="1" y="2" width="13" height="13">
-    <properties>
-     <property name="action" value="Submerge"/>
-    </properties>
     <ellipse/>
    </object>
   </objectgroup>
@@ -179,6 +172,9 @@
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="3" x="3" y="2" width="11" height="10">
+    <properties>
+     <property name="cat" value="solidLow"/>
+    </properties>
     <ellipse/>
    </object>
   </objectgroup>
@@ -208,11 +204,7 @@
    <property name="tilingSet" value="water"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16">
-    <properties>
-     <property name="action" value="Submerge"/>
-    </properties>
-   </object>
+   <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
   <animation>
    <frame tileid="626" duration="800"/>
@@ -259,7 +251,7 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="3" height="16">
     <properties>
-     <property name="action" value="Submerge"/>
+     <property name="cat" value="solidLow"/>
     </properties>
    </object>
   </objectgroup>
@@ -284,7 +276,7 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="13" y="0" width="3" height="16">
     <properties>
-     <property name="action" value="Submerge"/>
+     <property name="cat" value="solidLow"/>
     </properties>
    </object>
   </objectgroup>
@@ -376,7 +368,7 @@
   <objectgroup draworder="index" id="2">
    <object id="3" x="3" y="0" width="13" height="13">
     <properties>
-     <property name="action" value="Submerge"/>
+     <property name="cat" value="solidLow"/>
     </properties>
     <ellipse/>
    </object>
@@ -395,7 +387,7 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="13" width="16" height="3">
     <properties>
-     <property name="action" value="Submerge"/>
+     <property name="cat" value="solidLow"/>
     </properties>
    </object>
   </objectgroup>
@@ -416,7 +408,7 @@
    </object>
    <object id="3" x="0" y="0" width="13" height="13">
     <properties>
-     <property name="action" value="Submerge"/>
+     <property name="cat" value="solidLow"/>
     </properties>
     <ellipse/>
    </object>

@@ -20,7 +20,7 @@ namespace EntityEngine.Classes.ToolStuff
     internal class Hammer : SwingableTool
     {
         protected override float SwingDuration { get; set; } = .6f;
-        protected override RotateSpeed RotateSpeed { get; set; } = RotateSpeed.VerySlow;
+        protected override RotateSpeed RotateSpeed { get; set; } = RotateSpeed.Slow;
         protected override ActionType ActionType { get; set; } = ActionType.Smash;
 
         public Hammer(Item item) : base(item)

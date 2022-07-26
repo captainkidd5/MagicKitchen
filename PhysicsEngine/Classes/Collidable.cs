@@ -133,7 +133,12 @@ namespace PhysicsEngine.Classes
         {
             Position = position;
         }
-
+        //protected void AddClickBox(int xOffSet, int yOffSet, int width, int height)
+        //{
+        //    PhysicsManager.CreateRectangularHullBody(BodyType.Static, new Vector2(Position.X + XOffSet, Position.Y + YOffSet),
+        //       width, height, new List<Category>() { (Category)PhysCat.ClickBox },
+        //       new List<Category>() { (Category)PhysCat.Cursor }, OnCollides, OnSeparates);
+        //}
         protected virtual bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Cursor) && fixtureA.CollidesWith.HasFlag((Category)PhysCat.Cursor))

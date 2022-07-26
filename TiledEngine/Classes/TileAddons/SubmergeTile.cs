@@ -3,11 +3,13 @@ using Globals.Classes;
 using InputEngine.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
+using PhysicsEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tainicom.Aether.Physics2D.Dynamics;
 using TiledEngine.Classes.Helpers;
 using TiledEngine.Classes.TileAddons.Actions;
 using UIEngine.Classes;
@@ -20,10 +22,36 @@ namespace TiledEngine.Classes.TileAddons
         public bool FlaggedForDestruction { get; set; }
         public SubmergeTile(TileObject tile, IntermediateTmxShape intermediateTmxShape, string action) : base(tile, intermediateTmxShape, action)
         {
+            string[] vals = action.Split(',');
+            if (vals.Length > 1)
+            {
+                int x;
+                int y;
+                int.TryParse(vals[1], out x);
+                int.TryParse(vals[2], out y);
+
+                XOffSet = x;
+                YOffSet = y;
+                IntermediateTmxShape.HullPosition = new Vector2(IntermediateTmxShape.HullPosition.X + XOffSet, IntermediateTmxShape.HullPosition.Y + YOffSet);
+
+            }
+        }
+        protected override List<Category> GetCollisionCategories()
+        {
+            return new List<Category>() { (Category)PhysCat.SolidLow };
+
 
         }
+        protected override bool ReturnIsSensor()
+        {
+            return false;
+        }
 
+        protected override List<Category> GetCategoriesCollidesWith()
+        {
+            return new List<Category>() {  (Category)PhysCat.Item };
 
+        }
 
         public override void Update(GameTime gameTime)
         {

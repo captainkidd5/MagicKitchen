@@ -57,7 +57,7 @@ namespace TiledEngine.Classes.Helpers
             {
                 ITileAddon addon = TileActionFactory.GetActionTile(properties["action"], tile, tmxShape, tileLayer);
                 tile.Addons.Add(addon);
-                if (addon.GetType() == typeof(NoCollideDestructable))
+                if (addon.GetType() == typeof(NoCollideDestructable) || addon.GetType() == typeof(SubmergeTile))
                     return;
 
             }

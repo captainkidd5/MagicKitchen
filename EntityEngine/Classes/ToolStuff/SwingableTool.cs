@@ -19,7 +19,7 @@ namespace EntityEngine.Classes.ToolStuff
     internal class SwingableTool : Tool
     {
         private SimpleTimer _swingDurationtimer;
-        protected virtual float SwingDuration { get; set; } = .25f;
+        protected virtual float SwingDuration { get; set; } = .6f;
         protected virtual RotateSpeed RotateSpeed { get; set; } = RotateSpeed.None;
 
         private RevoluteJoint _joint;
@@ -50,7 +50,7 @@ namespace EntityEngine.Classes.ToolStuff
             float rotation = 0;
             YOffSet = Holder.SubmergenceLevel == SubmergenceLevel.Shallow ? 14 : 0;
 
-            RotateSpeed = Holder.SubmergenceLevel == SubmergenceLevel.Shallow ? RotateSpeed.VerySlow : RotateSpeed.Slow;
+            RotateSpeed = Holder.SubmergenceLevel == SubmergenceLevel.Shallow ? RotateSpeed - 1 : RotateSpeed;
             if (Direction == Direction.Right)
             {
                 rotation = 0f;

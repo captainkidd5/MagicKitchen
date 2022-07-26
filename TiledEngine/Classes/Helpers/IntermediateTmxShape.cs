@@ -14,7 +14,7 @@ namespace TiledEngine.Classes.Helpers
     {
         public TmxObjectType TmxObjectType { get; private set; }
         public Rectangle ColliderRectangle { get; private set; }
-        public Vector2 HullPosition { get; private set; }
+        public Vector2 HullPosition { get;  set; }
         public float Radius { get; private set; }
 
         public List<Vector2> Vertices { get; set; }

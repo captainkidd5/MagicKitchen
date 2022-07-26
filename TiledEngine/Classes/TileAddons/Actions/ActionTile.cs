@@ -23,10 +23,10 @@ namespace TiledEngine.Classes.TileAddons.Actions
 
     public class ActionTile : TileBody
     {
-
+        
         public ActionTile(TileObject tile,  IntermediateTmxShape intermediateTmxShape, string actionType) : base(tile, intermediateTmxShape)
         {
-
+           
         }
         protected override List<Category> GetCollisionCategories()
         {
@@ -41,26 +41,31 @@ namespace TiledEngine.Classes.TileAddons.Actions
         {
             return new List<Category>() { (Category)PhysCat.Player,(Category)PhysCat.Tool, (Category)PhysCat.Cursor, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
         }
+        protected virtual bool ReturnIsSensor()
+        {
+            return false;
+        }
         public override void Load()
         {
             List<Category> categoriesCollidesWith =GetCategoriesCollidesWith();
             List<Category> collisionCategories = GetCollisionCategories();
+
             if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Basic)
             {
                 AddPrimaryBody(PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, IntermediateTmxShape.HullPosition,
                IntermediateTmxShape.Width, IntermediateTmxShape.Height,
-             collisionCategories, categoriesCollidesWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight, mass: 0f)); ;
+             collisionCategories, categoriesCollidesWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight, mass: 0f, isSensor: ReturnIsSensor())); ;
             }
             else if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Ellipse)
             {
                 AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, IntermediateTmxShape.HullPosition, IntermediateTmxShape.Radius,
-                collisionCategories, categoriesCollidesWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight, mass:0f));
+                collisionCategories, categoriesCollidesWith, OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight, mass:0f, isSensor: ReturnIsSensor()));
             }
             else if (IntermediateTmxShape.TmxObjectType == TiledSharp.TmxObjectType.Polygon)
             {
 
                 AddPrimaryBody(PhysicsManager.CreatePolygonHullBody(BodyType.Dynamic, IntermediateTmxShape.HullPosition, new Vertices(IntermediateTmxShape.Vertices),
-                  GetCollisionCategories(), GetCategoriesCollidesWith(), OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight));
+                  GetCollisionCategories(), GetCategoriesCollidesWith(), OnCollides, OnSeparates, blocksLight: IntermediateTmxShape.BlocksLight, isSensor: ReturnIsSensor()));
             }
             else
             {

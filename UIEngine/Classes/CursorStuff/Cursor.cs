@@ -66,7 +66,8 @@ namespace UIEngine.Classes.CursorStuff
             base.CreateBody(position);
 
             MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 1f, new List<Category>() { (Category)PhysCat.Cursor },
-                new List<Category>() { (Category)PhysCat.Portal, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.NPC, (Category)PhysCat.NPCBigSensor, (Category)PhysCat.ActionTile },
+                new List<Category>() { (Category)PhysCat.Portal, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.NPC, (Category)PhysCat.NPCBigSensor,
+                    (Category)PhysCat.ActionTile,(Category)PhysCat.ClickBox },
                 OnCollides, OnSeparates, isSensor: true, sleepingAllowed: false, ignoreGravity: false, friction: 0f, mass: 0f, restitution: 0f, userData: this);
 
             AddPrimaryBody(MainHullBody);

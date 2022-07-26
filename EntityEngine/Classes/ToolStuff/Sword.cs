@@ -19,8 +19,8 @@ namespace EntityEngine.Classes.ToolStuff
 {
     internal class Sword : SwingableTool
     {
-        protected override float SwingDuration { get; set; } = .25f;
-        protected override RotateSpeed RotateSpeed { get; set; } = RotateSpeed.Fast;
+        protected override float SwingDuration { get; set; } = .4f;
+        protected override RotateSpeed RotateSpeed { get; set; } = RotateSpeed.Woah;
         protected override ActionType ActionType { get; set; } = ActionType.Smash;
 
         public Sword(Item item) : base(item)
