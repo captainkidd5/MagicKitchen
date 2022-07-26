@@ -59,7 +59,7 @@ namespace TiledEngine.Classes
             }
             foreach (var tile in _foregroundDictionary)
             {
-                TileUtility.PreliminaryData(this, tile.Value);
+                TileUtility.PreliminaryData(this, tile.Value, true);
 
             }
            

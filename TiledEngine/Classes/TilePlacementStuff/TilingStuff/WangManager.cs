@@ -215,7 +215,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
             // if (keyToCheck < 15 && keyToCheck > 0)
             // {
-            return tDictionary[keyToCheck] + 10000;
+            return tDictionary[keyToCheck] ;
         }
     }
 }

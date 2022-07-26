@@ -58,7 +58,7 @@ namespace TiledEngine.Classes
 
 
 
-            TileLootManager = new TileLootManager();
+            TileLootManager = new TileLootManager(TileSetPackage);
             TileLootManager.LoadContent(content, TileSetPackage);
 
             FurnitureLoader = new FurnitureLoader();

@@ -42,7 +42,7 @@ namespace TiledEngine.Classes
 
         }
 
-        public static void PreliminaryData(TileSetPackage tileSetPackage, TmxTilesetTile tileSetTile)
+        public static void PreliminaryData(TileSetPackage tileSetPackage, TmxTilesetTile tileSetTile, bool isForeground = false)
         {
          
            
@@ -51,7 +51,8 @@ namespace TiledEngine.Classes
                 string propertyString = "tilingKey";
             if (tileSetTile.Properties.ContainsKey(propertyString))
             {
-                tileSetPackage.TilingSetManager.AddTilingKey(tileSetTile.Properties[propertyString],tileSetTile.Id);
+                
+                tileSetPackage.TilingSetManager.AddTilingKey(tileSetTile.Properties[propertyString],isForeground ? tileSetPackage.OffSetBackgroundGID(tileSetTile.Id) : tileSetTile.Id);
 
             }
      

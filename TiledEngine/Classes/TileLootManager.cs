@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiledSharp;
 
 namespace TiledEngine.Classes
 {
@@ -12,11 +13,13 @@ namespace TiledEngine.Classes
     {
         private Dictionary<int, TileLootData> s_foreGroundTileLootData;
         private Dictionary<int, TileLootData> s_backGroundTileLootData;
+        private readonly TileSetPackage _tileSetPackage;
 
-        public TileLootManager()
+        public TileLootManager(TileSetPackage tileSetPackage)
         {
             s_foreGroundTileLootData = new Dictionary<int, TileLootData>();
             s_backGroundTileLootData = new Dictionary<int, TileLootData>();
+            _tileSetPackage = tileSetPackage;
         }
 
         public void LoadContent(ContentManager content, TileSetPackage exteriorPackage)
@@ -46,11 +49,24 @@ namespace TiledEngine.Classes
         {
             if (HasBackgroundLootData(tileId))
                 return s_backGroundTileLootData[tileId];
-            else if(HasForeGroundLootData(tileId))
+            else if (HasForeGroundLootData(tileId))
                 return s_foreGroundTileLootData[tileId];
-            else
-                throw new Exception($"No loot exists for tile with id {tileId}");
 
+
+
+            TmxTilesetTile tmxTile = _tileSetPackage.GetTmxTileSetTile(tileId);
+            if(tmxTile != null)
+            {
+                string property = null;
+                tmxTile.Properties.TryGetValue("tilingSet", out property);
+                if (!string.IsNullOrEmpty(property))
+                {
+                    int centralWangedGid = _tileSetPackage.TilingSetManager.TilingSets[property][0];
+                    return GetLootData(centralWangedGid);
+                }
+
+            }
+                throw new Exception($"No loot exists for tile with id {tileId}");
 
         }
     }

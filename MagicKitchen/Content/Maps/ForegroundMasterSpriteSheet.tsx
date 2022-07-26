@@ -443,7 +443,11 @@
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="3693">
@@ -452,7 +456,11 @@
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="3694">
@@ -461,7 +469,11 @@
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="3">
-   <object id="2" x="0" y="0" width="16" height="16"/>
+   <object id="2" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="3703">
@@ -514,7 +526,11 @@
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="3890">
@@ -532,7 +548,11 @@
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="3988">
@@ -541,7 +561,11 @@
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="3992">
@@ -550,7 +574,11 @@
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="3993">
@@ -559,7 +587,11 @@
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="3994">
@@ -581,7 +613,11 @@
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="3996">
@@ -590,7 +626,11 @@
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="4021">
@@ -604,7 +644,11 @@
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="4190">
@@ -613,7 +657,11 @@
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="4191">
@@ -622,7 +670,11 @@
    <property name="tilingSet" value="wall"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16"/>
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
   </objectgroup>
  </tile>
  <tile id="4321">

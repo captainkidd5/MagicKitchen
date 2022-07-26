@@ -62,8 +62,11 @@ namespace TiledEngine.Classes.TileAddons
             }
             if (tmxTile == null)
                 return null;
-            if (tmxTile.Properties.ContainsKey(key))
-                return tmxTile.Properties[key];
+            string property = null;
+            tmxTile.Properties.TryGetValue(key, out property);
+            if (!string.IsNullOrEmpty(property))
+                return property;
+  
 
             if (useObjectSearch)
             {
