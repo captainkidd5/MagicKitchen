@@ -1,6 +1,7 @@
 ﻿using DataModels.ItemStuff;
 using Globals.Classes;
 using Globals.Classes.Helpers;
+using InputEngine.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes.Pathfinding;
@@ -96,7 +97,7 @@ namespace TiledEngine.Classes.Helpers
             Point rectangleIndex = Vector2Helper.WorldPositionToTilePositionAsPoint(new Vector2(body.X, body.Y));
             //Criteria for placing background tiles is different. All tiles in layers higher than desired placement must be empty.
             //We are not concerned if the tile we are replacing has an object (water edges have objects, but can be replaced)
-            for (int z = _tileManager.TileData.Count - 1; z > (int)currentTileLayer; z--)
+            for (int z = _tileManager.TileData.Count - 1; z > 0; z--)
             {
 
                 for (int i = 0; i < bodyTilesWide; i++)
@@ -114,11 +115,12 @@ namespace TiledEngine.Classes.Helpers
                                 if (!_tileManager.PathGrid.IsClear(point.X, point.Y))
                                     return false;
                             }
-                            ushort val = _tileManager.GetTileDataFromPoint(point, (Layers)z).Value.GID;
-
+                         //   ushort val = _tileManager.GetTileDataFromPoint(point, (Layers)z).Value.GID;
+        
                             bool empty = _tileManager.GetTileDataFromPoint(point, (Layers)z).Value.Empty;
                             if (!empty)
                                 return false;
+
                         }
 
              
