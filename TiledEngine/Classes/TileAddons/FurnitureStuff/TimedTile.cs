@@ -9,6 +9,9 @@ using TiledEngine.Classes.Helpers;
 
 namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 {
+    /// <summary>
+    /// Harvestable tiles convert into these, which then "refresh" the harvestability of the tile
+    /// </summary>
     internal class TimedTile : TileBody
     {
         public float TimeCreated { get; set; }

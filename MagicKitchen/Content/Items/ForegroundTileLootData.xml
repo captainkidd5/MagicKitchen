@@ -68,6 +68,32 @@
             <DestructionSoundPackageName>Break</DestructionSoundPackageName>
 
         </Item>
+          <Item>
+            <TileId>971</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Stone</ItemName>
+            <Quantity>1</Quantity>
+            <Weight>100</Weight>
+            </Item>
+
+            </Loot>
+            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+
+        </Item>
+          <Item>
+            <TileId>972</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Stone</ItemName>
+            <Quantity>3</Quantity>
+            <Weight>100</Weight>
+            </Item>
+
+            </Loot>
+            <DestructionSoundPackageName>Break</DestructionSoundPackageName>
+
+        </Item>
          <Item>
             <TileId>974</TileId>
             <Loot>
@@ -101,6 +127,19 @@
             <Item Type="DataModels.LootData">
             <ItemName>Fibre</ItemName>
             <Quantity>1</Quantity>
+            <Weight>100</Weight>
+            </Item>
+
+            </Loot>
+            <DestructionSoundPackageName>Harvest</DestructionSoundPackageName>
+
+        </Item>
+           <Item>
+            <TileId>1177</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Fibre</ItemName>
+            <Quantity>2</Quantity>
             <Weight>100</Weight>
             </Item>
 
