@@ -94,6 +94,20 @@
             <DestructionSoundPackageName>Harvest</DestructionSoundPackageName>
 
         </Item>
+
+           <Item>
+            <TileId>977</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Fibre</ItemName>
+            <Quantity>1</Quantity>
+            <Weight>100</Weight>
+            </Item>
+
+            </Loot>
+            <DestructionSoundPackageName>Harvest</DestructionSoundPackageName>
+
+        </Item>
         <Item>
             <TileId>2014</TileId>
             <Loot>
