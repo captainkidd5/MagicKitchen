@@ -78,9 +78,9 @@ namespace TiledEngine.Classes
                     tileData.GID = (ushort)(newGID + 1);
                     tileObject.TileData.GID = (ushort)(tileData.GID + 1); ;
                 }
-                tileSetPackage.TilingSetManager.WangSorroundingTiles(tileManager, tileData);
 
             }
+            tileSetPackage.TilingSetManager.WangSorroundingTiles(tileManager, tileData);
 
             int tileSetDimension = tileSetPackage.GetDimension(tileData.GID);
             Texture2D texture = tileSetPackage.GetTexture(tileData.GID);
