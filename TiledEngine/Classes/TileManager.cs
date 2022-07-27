@@ -382,14 +382,14 @@ namespace TiledEngine.Classes
                 throw new Exception("Tiles cannot be null");
             if (point.X >= TileData[(int)layer].GetLength(0) || point.X < 0)
             {
-                Debug.Assert(point.X > TileData[(int)layer].GetLength(0) || point.X < 0, $"{point.X} is outside the bounds of the array of length {TileData[(int)layer].GetLength(0)}");
+                //Debug.Assert(point.X > TileData[(int)layer].GetLength(0) || point.X < 0, $"{point.X} is outside the bounds of the array of length {TileData[(int)layer].GetLength(0)}");
 
                 return null;
             }
 
             if (point.Y >= TileData[(int)layer].GetLength(1) || point.Y < 0)
             {
-                Debug.Assert(point.Y > TileData[(int)layer].GetLength(1) || point.Y < 0, $"{point.Y} is outside the bounds of the array of length {TileData[(int)layer].GetLength(1)}");
+             //   Debug.Assert(point.Y > TileData[(int)layer].GetLength(1) || point.Y < 0, $"{point.Y} is outside the bounds of the array of length {TileData[(int)layer].GetLength(1)}");
                 return null;
 
             }

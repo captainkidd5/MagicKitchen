@@ -110,9 +110,11 @@ namespace TiledEngine.Classes.Helpers
                         if (_tileManager.X_IsValidIndex(rectangleIndex.X + i) && _tileManager.Y_IsValidIndex(rectangleIndex.Y + j))
                         {
 
-                            if (currentTileLayer > Layers.midground)
+                            if (currentTileLayer > Layers.midground && !IsPlacementTypeBlacklisted(point, item))
                             {
-                                if (!_tileManager.PathGrid.IsClear(point.X, point.Y))
+                                if (_tileManager.PathGrid.IsClear(point.X, point.Y))
+                                    return true;
+                                else
                                     return false;
                             }
                          //   ushort val = _tileManager.GetTileDataFromPoint(point, (Layers)z).Value.GID;

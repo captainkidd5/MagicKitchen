@@ -18,7 +18,7 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
     internal class BouncingItemBehaviour : ItemBehaviour
     {
         private static readonly int s_minBounceVelocity = 50;
-        private static readonly int s_maxBounceVelocity = 300;
+        private static readonly int s_maxBounceVelocity = 80;
         private static readonly float _timeUntilResting = 3f;
         float gravity = -500f;
 
