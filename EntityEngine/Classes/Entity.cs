@@ -101,7 +101,7 @@ namespace EntityEngine.Classes
             Speed = BaseSpeed;
 
             InventoryHandler = new InventoryHandler(StorageCapacity);
-
+             
         }
 
 

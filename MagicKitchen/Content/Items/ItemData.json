@@ -451,6 +451,30 @@
     }
     },
     {
+        "Id": 2615,
+        "Name": "Cooked_Limpet",
+        "Description" : "That was shellfish of you",
+        "MaxStackSize": 999,
+        "Price": 1, 
+        "ItemType": "Food",
+
+        "FoodValue": 12,
+        "RecipeInfo": 
+        {
+            "CraftAction": "Grill",
+            "CraftingCategory": "Refined",
+        "CookTime": 20,
+        
+        "Ingredients":[
+            {
+                "Name":"Limpet",
+                "Count":1
+            }
+        ]
+        
+    }
+    },
+    {
         "Id": 2616,
         "Name": "Limpet",
         "Description" : "Raw Shellfish",

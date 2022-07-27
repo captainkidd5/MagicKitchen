@@ -2,6 +2,7 @@
 using Globals.Classes;
 using Microsoft.Xna.Framework;
 using SoundEngine.Classes;
+using SpriteEngine.Classes.ParticleStuff;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -47,6 +48,7 @@ namespace EntityEngine.Classes.PlayerStuff
             CurrentHunger += amt;
             if(CurrentHunger > MaxHunger)
                 CurrentHunger = MaxHunger;
+            ParticleManager.AddParticleEmitter(_player, EmitterType.Text,"+" + amt.ToString(), Color.DarkGreen, Color.LightGreen);
 
             SoundFactory.PlayEffectPackage("FoodBite");
         }
