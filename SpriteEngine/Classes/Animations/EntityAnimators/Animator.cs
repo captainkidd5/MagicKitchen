@@ -112,7 +112,13 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             return SpriteUtility.GetYAxisLayerDepth(Position, new Rectangle(0, 0, xOffset * 2, yOffset));
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, SubmergenceLevel submergenceLevel)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="submergenceLevel"></param>
+        /// <param name="alwaysSubmerged">This is true for entities like fish, which should not be affectd by draw offsets</param>
+        public virtual void Draw(SpriteBatch spriteBatch, SubmergenceLevel submergenceLevel, bool alwaysSubmerged = false)
         {
 
         }

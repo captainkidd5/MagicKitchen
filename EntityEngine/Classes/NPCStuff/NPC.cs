@@ -129,7 +129,7 @@ namespace EntityEngine.Classes.NPCStuff
         }
         protected override void DrawAnimator(SpriteBatch spriteBatch)
         {
-            Animator.Draw(spriteBatch, SubmergenceLevel);
+            Animator.Draw(spriteBatch, SubmergenceLevel, NPCData.AlwaysSubmerged);
 
         }
 

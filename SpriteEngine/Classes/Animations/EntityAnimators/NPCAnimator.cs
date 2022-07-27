@@ -88,11 +88,11 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
 
         }
 
-        public override void Draw(SpriteBatch spriteBatch, SubmergenceLevel submergenceLevel)
+        public override void Draw(SpriteBatch spriteBatch, SubmergenceLevel submergenceLevel, bool alwaysSubmerged = false)
         {
             if (_currentAnimation != null)
             {
-                if (submergenceLevel > SubmergenceLevel.None)
+                if (submergenceLevel > SubmergenceLevel.None && !alwaysSubmerged)
                     _currentAnimation.SwapSourceRectangle(
                         new Rectangle(_currentAnimation.SourceRectangle.X, _currentAnimation.SourceRectangle.Y,
                         _currentAnimation.SourceRectangle.Width, yOffset / 2));

@@ -146,7 +146,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             WasMovingLastFrame = isMoving;
         }
 
-        public override void Draw(SpriteBatch spriteBatch, SubmergenceLevel submergenceLevel)
+        public override void Draw(SpriteBatch spriteBatch, SubmergenceLevel submergenceLevel, bool alwaysSubmerged = false)
         {
             for (int i = 0; i < BodyPieces.Length; i++)
             {
