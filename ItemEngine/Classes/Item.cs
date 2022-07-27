@@ -38,7 +38,7 @@ namespace ItemEngine.Classes
         public int PlacedItemGID => _itemData.PlacedItemGID;
         public Layers? LayerToPlace => _itemData.LayerToPlace;
         public bool PlaceableItem => _itemData.PlaceableItem;
-
+        public string PlacementSound => _itemData.PlacementSound;
         public byte MaxDurability => _itemData.MaxDurability;
         public byte ArmorValue => _itemData.ArmorValue;
         public byte DamageValue => _itemData.DamageValue;

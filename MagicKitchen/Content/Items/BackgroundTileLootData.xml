@@ -41,7 +41,7 @@
             <TileId>532</TileId>
             <Loot>
             <Item Type="DataModels.LootData">
-            <ItemName>Wood</ItemName>
+            <ItemName>Plank</ItemName>
             <Quantity>1</Quantity>
             <Weight>100</Weight>
             </Item>

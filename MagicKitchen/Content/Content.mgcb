@@ -164,6 +164,18 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Tiles/Actions/Ignite/ignite1.wav
 
+#begin Audio/SoundEffects/Tiles/Placeables/PlaceFurniture1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tiles/Placeables/PlaceFurniture1.wav
+
+#begin Audio/SoundEffects/Tiles/Placeables/PlaceFurniture2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tiles/Placeables/PlaceFurniture2.wav
+
 #begin Audio/SoundEffects/Tiles/Rocks/rockSmash1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

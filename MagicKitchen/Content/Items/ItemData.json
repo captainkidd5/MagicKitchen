@@ -174,6 +174,7 @@
     "MaxStackSize": 999,
     "Price": 1,
     "PlacedItemGID" : 532,
+    "PlacementSound" : "PlaceFurniture",
     "AllowedPlacementTileTypes":
     [
         "land"
@@ -200,6 +201,7 @@
     "MaxStackSize": 999,
     "Price": 1,
     "PlacedItemGID" : 201,
+    "PlacementSound" : "PlaceFurniture",
     "AllowedPlacementTileTypes":
     [
         "water"
@@ -518,6 +520,7 @@
                      {
                      "CraftAction": "Craft",
                      "CraftingCategory": "Placeable",
+                     "PlacementSound" : "PlaceFurniture",
                      "CookTime": 1,
                      "Ingredients":[
                          {
@@ -535,6 +538,7 @@
                     "MaxStackSize": 1,
                     "Price": 1,
                      "PlacedItemGID" : 233,
+                     "PlacementSound" : "PlaceFurniture",
                     
     "RecipeInfo": 
     {
@@ -558,6 +562,7 @@
                         "MaxStackSize": 999,
                         "Price": 1,
                          "PlacedItemGID" : 3994,
+                         "PlacementSound" : "PlaceFurniture",
                         
         "RecipeInfo": 
         {
@@ -586,6 +591,7 @@
             "MaxStackSize": 1,
             "Price": 1,
             "PlacedItemGID" : 940, 
+            "PlacementSound" : "PlaceFurniture",
             "RecipeInfo": 
             {
             "CraftAction": "Craft",

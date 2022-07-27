@@ -296,7 +296,21 @@
                 </Item>
             </SoundChancers>
         </Item>
-       
+       <Item>
+        <Name>PlaceFurniture</Name>
+            <SoundChancers>
+                <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>PlaceFurniture1</Name>
+                    <Weight>50</Weight>
+                    <LocalPath>SoundEffects/Tiles/Placeables</LocalPath>
+                </Item>
+                   <Item Type="DataModels.SoundStuff.SoundChancer">
+                    <Name>PlaceFurniture2</Name>
+                    <Weight>50</Weight>
+                  <LocalPath>SoundEffects/Tiles/Placeables</LocalPath>
+                </Item>
+            </SoundChancers>
+        </Item>
 
     </Asset>
 </XnaContent>

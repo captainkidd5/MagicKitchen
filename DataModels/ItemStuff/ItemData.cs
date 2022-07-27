@@ -69,6 +69,7 @@ namespace DataModels.ItemStuff
         public List<AllowedPlacementTileType> AllowedPlacementTileTypes { get; set; }
         public bool PlaceableItem => PlacedItemGID > -1;
 
+        public string PlacementSound { get; set; }
        
         public EquipmentType EquipmentSlot { get; set; }
         public byte EquipmentYIndex { get; set; }

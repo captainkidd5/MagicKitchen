@@ -3,6 +3,7 @@ using InputEngine.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
@@ -104,6 +105,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
                                 _tileManager.MouseOverTile.Position, _layer);
 
                             //_tileManager.TileObjects[tileData.Value.GetKey()].Unload();
+                            SoundFactory.PlayEffectPackage(item.PlacementSound);
                             _tileManager.SwitchGID((ushort)(GID - 1), tileData.Value);
                             return true;
                         }
