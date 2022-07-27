@@ -174,6 +174,9 @@
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="2" y="0" width="13" height="13">
+    <properties>
+     <property name="swapTo" value="974,after:5"/>
+    </properties>
     <ellipse/>
    </object>
   </objectgroup>
@@ -188,7 +191,7 @@
   <properties>
    <property name="newHitBox" value="0,-16,32,32"/>
    <property name="newSource" value="0,-16,32,32"/>
-   <property name="swapTo" value="975,after:100"/>
+   <property name="swapTo" value="975,after:5"/>
   </properties>
   <animation>
    <frame tileid="972" duration="800"/>
@@ -289,7 +292,7 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <properties>
-     <property name="swapTo" value="977,after:100"/>
+     <property name="swapTo" value="977,after:5"/>
     </properties>
     <ellipse/>
    </object>

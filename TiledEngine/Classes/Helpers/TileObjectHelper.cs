@@ -68,8 +68,13 @@ namespace TiledEngine.Classes.Helpers
                     tile.Addons.Add(Furniture.GetFurnitureFromProperty(properties["furniture"], tile, tmxShape));
 
             }
-     
-        
+            if (properties.ContainsKey("swapTo"))
+            {
+
+                tile.Addons.Add(new TimedTile(tile, tmxShape));
+
+            }
+
             TileBody tileBody = new TileBody(tile, tmxShape);
             tile.Addons.Add(tileBody);
 

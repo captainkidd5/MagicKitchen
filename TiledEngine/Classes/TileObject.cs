@@ -32,6 +32,7 @@ namespace TiledEngine.Classes
         internal readonly TileManager TileManager;
 
         public bool IsForeground => TileManager.TileSetPackage.IsForeground(TileData.GID);
+        public string GetProperty(string name, bool useObjectSearch = false) => TileData.GetProperty(TileManager.TileSetPackage, name, useObjectSearch);
 
         internal bool IsHighestClearTile()
         {
@@ -60,10 +61,7 @@ namespace TiledEngine.Classes
         public Vector2 CentralPosition => new Vector2(Position.X + DestinationRectangle.Width / 2,
             Position.Y + DestinationRectangle.Height / 2);
         public bool WithinRangeOfPlayer { get; internal set; }
-        internal string GetProperty(string key, bool useObjectSearch = false)
-        {
-            return TileData.GetProperty(TileManager.TileSetPackage, key, useObjectSearch);
-        }
+
         //The icon the mouse should change to when hovered over this tile
         internal CursorIconType GetCursorIconType()
         {

@@ -30,7 +30,7 @@ namespace Globals.Classes.Time
         public static TimeKeeper TimeKeeper;
 
         //Increases by 1 every time minutes increase, never decreases
-        public static float TotalTime;
+        public static float TotalTime { get; set; }
 
         public static bool Paused;
 
