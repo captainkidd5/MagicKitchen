@@ -89,7 +89,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             int gidToCheck = tileManager.GetTileDataFromPoint(
                 new Point(alteredX, alteredY), (Layers)tile.Layer).Value.GID;
 
-            if (dict.Values.Any(x => x == tileManager.TileSetPackage.GetAdjustedGID(gidToCheck)))
+            if (dict.Values.Any(x => x == gidToCheck))
                 return true;
             return false;
         }

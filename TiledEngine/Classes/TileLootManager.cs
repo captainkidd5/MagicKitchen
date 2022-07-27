@@ -53,7 +53,9 @@ namespace TiledEngine.Classes
                 return s_foreGroundTileLootData[tileId];
 
 
-
+            //This section will check to see if tile is a non-central wanged tiled (left side of wall) has a central tile.
+            //This is to avoid having to add loot for every single wanged version of a tile. This will just
+            //grab the loot from the central tile instead
             TmxTilesetTile tmxTile = _tileSetPackage.GetTmxTileSetTile(tileId);
             if(tmxTile != null)
             {

@@ -90,7 +90,7 @@ namespace TiledEngine.Classes.TileAddons
 
         protected virtual void DestroyTileAndGetLoot()
         {
-            if (TileLoader.TileLootManager.HasLootData(Tile.TileData.GID))
+           // if (TileLoader.TileLootManager.HasLootData(Tile.TileData.GID))
                 GenerateLoot();
 
             CleanGrid();
