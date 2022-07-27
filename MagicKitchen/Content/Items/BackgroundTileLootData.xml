@@ -25,5 +25,29 @@
             <DestructionSoundPackageName>Dig</DestructionSoundPackageName>
 
         </Item>
+          <Item>
+            <TileId>112</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Fibre</ItemName>
+            <Quantity>1</Quantity>
+            <Weight>100</Weight>
+            </Item>
+            </Loot>
+            <DestructionSoundPackageName>Dig</DestructionSoundPackageName>
+
+        </Item>
+          <Item>
+            <TileId>532</TileId>
+            <Loot>
+            <Item Type="DataModels.LootData">
+            <ItemName>Wood</ItemName>
+            <Quantity>1</Quantity>
+            <Weight>100</Weight>
+            </Item>
+            </Loot>
+            <DestructionSoundPackageName>Dig</DestructionSoundPackageName>
+
+        </Item>
     </Asset>
 </XnaContent>

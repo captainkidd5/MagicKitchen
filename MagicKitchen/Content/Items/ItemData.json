@@ -169,11 +169,28 @@
 
 {
     "Id": 1201,
-    "Name": "Wood_Wall",
-    "Description" : "A basic wooden structure",
+    "Name": "Plank",
+    "Description" : "Wooden flooring",
     "MaxStackSize": 999,
     "Price": 1,
-    "PlacedItemGID" : 1477
+    "PlacedItemGID" : 532,
+    "AllowedPlacementTileTypes":
+    [
+        "land"
+    ],
+    "LayerToPlace" : "midGround",
+    "RecipeInfo": 
+    {
+    "CraftAction": "Craft",
+    "CraftingCategory": "Refined",
+    "CookTime": 1,
+    "Ingredients":[
+        {
+            "Name":"Wood",
+            "Count":3
+        }
+    ]
+}
 
 },
 {

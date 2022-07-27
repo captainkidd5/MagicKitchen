@@ -194,12 +194,76 @@
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
+ <tile id="431">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+ </tile>
+ <tile id="432">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+ </tile>
+ <tile id="433">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+ </tile>
+ <tile id="434">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+ </tile>
+ <tile id="435">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+ </tile>
+ <tile id="436">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+ </tile>
  <tile id="524">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
     <ellipse/>
    </object>
   </objectgroup>
+ </tile>
+ <tile id="531">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+ </tile>
+ <tile id="532">
+  <properties>
+   <property name="step" value="StepGrass1"/>
+   <property name="tilingKey" value="plank,land,back"/>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Dig,Shovel,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="533">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+ </tile>
+ <tile id="534">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+ </tile>
+ <tile id="535">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
  </tile>
  <tile id="621">
   <properties>
@@ -300,6 +364,31 @@
  <tile id="628">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="631">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+ </tile>
+ <tile id="632">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+ </tile>
+ <tile id="633">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+ </tile>
+ <tile id="634">
+  <properties>
+   <property name="tilingSet" value="plank"/>
+  </properties>
+ </tile>
+ <tile id="635">
+  <properties>
+   <property name="tilingSet" value="plank"/>
   </properties>
  </tile>
  <tile id="719">
