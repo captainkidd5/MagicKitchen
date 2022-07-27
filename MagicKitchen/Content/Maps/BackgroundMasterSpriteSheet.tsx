@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.3.0" name="BackgroundMasterSpriteSheet" tilewidth="16" tileheight="16" tilecount="10000" columns="100">
  <image source="BackgroundMasterSpriteSheet.png" width="1600" height="1600"/>
+ <tile id="11">
+  <properties>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+ </tile>
+ <tile id="12">
+  <properties>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+ </tile>
+ <tile id="13">
+  <properties>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+ </tile>
+ <tile id="14">
+  <properties>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+ </tile>
+ <tile id="15">
+  <properties>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+ </tile>
+ <tile id="16">
+  <properties>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+ </tile>
  <tile id="100">
   <properties>
    <property name="tilingSet" value="land"/>
@@ -31,9 +61,38 @@
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
+ <tile id="111">
+  <properties>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+ </tile>
  <tile id="112">
   <properties>
    <property name="step" value="StepGrass1"/>
+   <property name="tilingKey" value="grass,land,back"/>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Dig,Shovel,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="113">
+  <properties>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+ </tile>
+ <tile id="114">
+  <properties>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+ </tile>
+ <tile id="115">
+  <properties>
+   <property name="tilingSet" value="grass"/>
   </properties>
  </tile>
  <tile id="200">
@@ -73,6 +132,31 @@
  <tile id="205">
   <properties>
    <property name="tilingSet" value="land"/>
+  </properties>
+ </tile>
+ <tile id="211">
+  <properties>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+ </tile>
+ <tile id="212">
+  <properties>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+ </tile>
+ <tile id="213">
+  <properties>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+ </tile>
+ <tile id="214">
+  <properties>
+   <property name="tilingSet" value="grass"/>
+  </properties>
+ </tile>
+ <tile id="215">
+  <properties>
+   <property name="tilingSet" value="grass"/>
   </properties>
  </tile>
  <tile id="300">

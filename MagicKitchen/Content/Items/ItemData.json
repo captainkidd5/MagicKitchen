@@ -203,6 +203,32 @@
 
 },
 {
+    "Id": 1206,
+    "Name": "Grass_Block",
+    "Description" : "May be placed on dirt",
+    "MaxStackSize": 999,
+    "Price": 1,
+    "PlacedItemGID" : 112,
+    "AllowedPlacementTileTypes":
+    [
+        "land"
+    ],
+    "LayerToPlace" : "midGround",
+    "RecipeInfo": 
+    {
+    "CraftAction": "Craft",
+    "CraftingCategory": "Refined",
+    "CookTime": 1,
+    "Ingredients":[
+        {
+            "Name":"Fibre",
+            "Count":3
+        }
+    ]
+}
+
+},
+{
     "Id": 1300,
     "Name": "Wood",
     "Description" : "Water-logged",
