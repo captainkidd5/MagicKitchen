@@ -296,11 +296,6 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/UI/StartGame2.wav
 
-#begin Audio/SoundPackages.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:Audio/SoundPackages.xml
-
 #begin Effects/Lighting/lighteffect.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -480,16 +475,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Entities/Shoulders.png
-
-#begin Items/BackgroundTileLootData.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:Items/BackgroundTileLootData.xml
-
-#begin Items/ForegroundTileLootData.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:Items/ForegroundTileLootData.xml
 
 #begin Items/ItemSpriteSheet.png
 /importer:TextureImporter

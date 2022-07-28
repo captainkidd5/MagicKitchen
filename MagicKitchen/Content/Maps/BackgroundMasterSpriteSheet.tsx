@@ -201,8 +201,40 @@
  </tile>
  <tile id="205">
   <properties>
+   <property name="alternateKey" value="land,0,Weight:20"/>
    <property name="tilingSet" value="land"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Dig,Shovel,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="206">
+  <properties>
+   <property name="alternateKey" value="land,0,Weight:20"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Dig,Shovel,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="207">
+  <properties>
+   <property name="alternateKey" value="land,0,Weight:20"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Dig,Shovel,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="211">
   <properties>
@@ -291,8 +323,28 @@
  </tile>
  <tile id="305">
   <properties>
+   <property name="alternateKey" value="land,0,Weight:20"/>
    <property name="tilingSet" value="land"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Dig,Shovel,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="306">
+  <properties>
+   <property name="alternateKey" value="land,0,Weight:20"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Dig,Shovel,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="428">
   <properties>
@@ -862,21 +914,25 @@
  </tile>
  <tile id="920">
   <properties>
+   <property name="alternateKey" value="water,0,Weight:20"/>
    <property name="tilingSet" value="water"/>
   </properties>
  </tile>
  <tile id="921">
   <properties>
+   <property name="alternateKey" value="water,0,Weight:20"/>
    <property name="tilingSet" value="water"/>
   </properties>
  </tile>
  <tile id="922">
   <properties>
+   <property name="alternateKey" value="water,0,Weight:20"/>
    <property name="tilingSet" value="water"/>
   </properties>
  </tile>
  <tile id="923">
   <properties>
+   <property name="alternateKey" value="water,0,Weight:20"/>
    <property name="tilingSet" value="water"/>
   </properties>
  </tile>

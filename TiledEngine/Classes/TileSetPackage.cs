@@ -54,15 +54,27 @@ namespace TiledEngine.Classes
 
             foreach(var tile in _backgroundDictionary)
             {
-                TileUtility.PreliminaryData(this, tile.Value);
+                TileUtility.Pass1PreliminaryData(this, tile.Value);
+            
+
+            }
+            foreach (var tile in _backgroundDictionary)
+            {
+                TileUtility.Pass2PreliminaryData(this, tile.Value);
+
 
             }
             foreach (var tile in _foregroundDictionary)
             {
-                TileUtility.PreliminaryData(this, tile.Value, true);
+                TileUtility.Pass1PreliminaryData(this, tile.Value, true);
 
             }
-           
+            foreach (var tile in _foregroundDictionary)
+            {
+                TileUtility.Pass2PreliminaryData(this, tile.Value, true);
+
+            }
+
 
         }
         public int GetAdjustedGID(int unadjustedGID)

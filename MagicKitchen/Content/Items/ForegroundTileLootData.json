@@ -86,7 +86,7 @@
          "Weight":100
      }   
     ],
-    "DestructionSoundPackageName":"Break"
+    "DestructionSoundPackageName":"Harvest"
 },
 {
     "TileId":975,
@@ -97,7 +97,7 @@
          "Weight":100
      }   
     ],
-    "DestructionSoundPackageName":"Break"
+    "DestructionSoundPackageName":"Harvest"
 },
 {
     "TileId":977,
@@ -108,7 +108,7 @@
          "Weight":100
      }   
     ],
-    "DestructionSoundPackageName":"Break"
+    "DestructionSoundPackageName":"Harvest"
 },
 {
     "TileId":1177,
@@ -119,7 +119,7 @@
          "Weight":100
      }   
     ],
-    "DestructionSoundPackageName":"Break"
+    "DestructionSoundPackageName":"Harvest"
 },
 {
     "TileId":2014,

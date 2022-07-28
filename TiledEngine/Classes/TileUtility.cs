@@ -12,6 +12,7 @@ using System.Text;
 using TiledEngine.Classes.Helpers;
 using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
+using TiledEngine.Classes.TilePlacementStuff.TilingStuff;
 using TiledSharp;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
@@ -42,7 +43,7 @@ namespace TiledEngine.Classes
 
         }
 
-        public static void PreliminaryData(TileSetPackage tileSetPackage, TmxTilesetTile tileSetTile, bool isForeground = false)
+        public static void Pass1PreliminaryData(TileSetPackage tileSetPackage, TmxTilesetTile tileSetTile, bool isForeground = false)
         {
          
            
@@ -59,6 +60,36 @@ namespace TiledEngine.Classes
             
         }
         /// <summary>
+        /// Second pass goes through and checks for alternative tiles which can be treated as part of the normal tiling set
+        /// for example, variations on dirt tiles
+        /// </summary>
+
+        public static void Pass2PreliminaryData(TileSetPackage tileSetPackage, TmxTilesetTile tileSetTile, bool isForeground = false)
+        {
+            //0: set name
+            //1: Index of dictionary which contains tile (0 would be the primary tile)
+            //2: Weight:20 gives a weight of 20
+
+
+
+            string propertyString = "alternateKey";
+            if (tileSetTile.Properties.ContainsKey(propertyString))
+            {
+                string val = tileSetTile.Properties[propertyString];
+                string[] arr = val.Split(",");
+                string setName = arr[0];
+                int tilingValue = int.Parse(arr[1]);
+
+                int weight = int.Parse(arr[2].Split(":")[1]);
+
+                tileSetPackage.TilingSetManager.WangSets[setName].Set[tilingValue].Add(new WangTile((byte)weight, tileSetTile.Id));
+
+
+            }
+
+
+        }
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="tempTile">Setting this to true will prevent the grid status from updating, good for ghost tile</param>
@@ -70,12 +101,12 @@ namespace TiledEngine.Classes
 
             if (!string.IsNullOrEmpty(tileData.GetProperty(tileSetPackage,"tilingSet")))
             {
-                int newGID = tileSetPackage.TilingSetManager.WangTile(tileManager, tileData);
-                if (tileData.GID != newGID)
+                List<int> ids = tileSetPackage.TilingSetManager.WangTile(tileManager, tileData);
+                if (!ids.Contains( tileData.GID))
                 {
                     //if(tileManager.TileSetPackage.IsForeground(tileData.GID))
                     //    newGID = tileManager.TileSetPackage.OffSetBackgroundGID(newGID);
-                    tileData.GID = (ushort)(newGID + 1);
+                    tileData.GID = (ushort)(ids[0] + 1);
                     tileObject.TileData.GID = (ushort)(tileData.GID + 1); ;
                 }
 

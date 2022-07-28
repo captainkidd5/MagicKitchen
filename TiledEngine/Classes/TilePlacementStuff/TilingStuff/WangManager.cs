@@ -60,9 +60,9 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
 
                         TileData neighborTile = tileManager.GetTileDataFromPoint(new Point(i, j), (Layers)tileData.Layer).Value;
-                        int newGid = WangTile(tileManager, neighborTile);
-                        if (newGid != neighborTile.GID)
-                            tileManager.SwitchGID((ushort)newGid, neighborTile);
+                        List<int> ids = WangTile(tileManager, neighborTile);
+                        if (!ids.Contains(neighborTile.GID))
+                            tileManager.SwitchGID((ushort)ids[0], neighborTile);
 
 
                     }
@@ -87,22 +87,24 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
         }
         //so, water should only wang if touching land tiles
 
-        public int WangTile(TileManager tileManager, TileData tile)
+        public List<int> WangTile(TileManager tileManager, TileData tile)
         {
+            List<int> returnedIds = new List<int>() { tile.GID };
+
             //if (tile.Layer == Layers.foreground && tile.GID < 10000)
             //    tile.GID = (ushort)tileManager.TileSetPackage.OffSetBackgroundGID(tile.GID);
             if (string.IsNullOrEmpty(tile.GetProperty(tileManager.TileSetPackage, "tilingSet")))
-                return tile.GID;
+                return returnedIds;
             string tilingSetValue = tile.GetProperty(tileManager.TileSetPackage, "tilingSet");
 
             if (tilingSetValue == "land")
-                return tile.GID;
+                return returnedIds;
             if (!WangSets.ContainsKey(tilingSetValue))
-                return tile.GID;
+                return returnedIds;
             WangSet wangSet = WangSets[tilingSetValue];
 
             if (!GidDictionaryMatch(wangSet, tileManager, tile, tile.X, tile.Y))
-                return tile.GID;
+                return returnedIds;
 
             int keyToCheck = 0;
             WangSet secondaryDict = null;
@@ -114,18 +116,27 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
                     break;
                 }
             }
-
+            returnedIds.Clear();
             if (tile.Layer == (byte)Layers.background)
-                return BackgroundTileWang(tileManager, tile, wangSet, ref keyToCheck, secondaryDict);
+            {
+               var list= BackgroundTileWang(tileManager, tile, wangSet, ref keyToCheck, secondaryDict);
+                foreach (var item in list)
+                    returnedIds.Add(item.GID);
+
+            }
             else
-                return ForegroundTileWang(tileManager, tile, wangSet, ref keyToCheck, secondaryDict);
+            {
+                var list = ForegroundTileWang(tileManager, tile, wangSet, ref keyToCheck, secondaryDict);
+                foreach (var item in list)
+                    returnedIds.Add(item.GID);
+            }
 
-
+            return returnedIds;
             // }
             // return tile.GID;
         }
 
-        private int BackgroundTileWang(TileManager tileManager, TileData tile, WangSet wangSet, ref int keyToCheck, WangSet secondaryDict)
+        private List<WangTile> BackgroundTileWang(TileManager tileManager, TileData tile, WangSet wangSet, ref int keyToCheck, WangSet secondaryDict)
         {
             if (tileManager.Y_IsValidIndex(tile.Y - 1))
             {
@@ -165,10 +176,10 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
             // if (keyToCheck < 15 && keyToCheck > 0)
             // {
-            return wangSet.GetWeightedvalue(keyToCheck);
+            return wangSet.Set[keyToCheck];
         }
 
-        private int ForegroundTileWang(TileManager tileManager, TileData tile, WangSet wangSet, ref int keyToCheck, WangSet secondaryDict)
+        private List<WangTile> ForegroundTileWang(TileManager tileManager, TileData tile, WangSet wangSet, ref int keyToCheck, WangSet secondaryDict)
         {
             if (tileManager.Y_IsValidIndex(tile.Y - 1))
             {
@@ -208,7 +219,8 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
             // if (keyToCheck < 15 && keyToCheck > 0)
             // {
-            return wangSet.GetWeightedvalue(keyToCheck);
+            return wangSet.Set[keyToCheck];
+
 
         }
     }
