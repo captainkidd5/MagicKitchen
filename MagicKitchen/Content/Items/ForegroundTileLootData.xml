@@ -56,7 +56,7 @@
 
         </Item>
          <Item>
-            <TileId>3994</TileId>
+            <TileId>3890</TileId>
             <Loot>
             <Item Type="DataModels.LootData">
             <ItemName>Wall</ItemName>
