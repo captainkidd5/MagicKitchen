@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Collision.Shapes;
+using tainicom.Aether.Physics2D.Dynamics;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -26,16 +27,18 @@ namespace EntityEngine.Classes.PlayerStuff
         private float _lumenRechargeRate = .5f;
         private SimpleTimer _lumenRechargeTimer;
         private LightCollidable _lightCollidable;
+        private List<Fixture> _lightsTouching;
         private Player _player;
         public LumenHandler(HullBody lightSensor)
         {
             LightSensor = lightSensor;
         }
-        public void Load(Player player, LightCollidable lightCollidable)
+        public void Load(Player player, LightCollidable lightCollidable, List<Fixture> lightsTouching)
         {
             _player = player;
             _lumenRechargeTimer = new SimpleTimer(_lumenRechargeRate);
             _lightCollidable = lightCollidable;
+            _lightsTouching = lightsTouching;
             ResizeLightBody();
 
 
@@ -56,11 +59,11 @@ namespace EntityEngine.Classes.PlayerStuff
             if (Illuminated)
             {
                 RechargeLumens(gameTime);
+
             }
-            else
-            {
+            
                 DrainLumens(gameTime);
-            }
+            
             Illuminated = false;
 
         }
@@ -77,7 +80,16 @@ namespace EntityEngine.Classes.PlayerStuff
 
                 if (_lumenRechargeTimer.Run(gameTime))
                 {
-                    CurrentLumens++;
+                    foreach (Fixture fixture in _lightsTouching)
+                    {
+                        int siphonedAmt = 0;
+                        siphonedAmt += (fixture.Body.Tag as LightCollidable).SiphonLumens(1);
+                        if (siphonedAmt > 0)
+                        {
+                            CurrentLumens += siphonedAmt;
+                            break;
+                        }
+                    }
                 }
             }
 

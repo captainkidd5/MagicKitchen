@@ -99,7 +99,9 @@ namespace EntityEngine.Classes.PlayerStuff
             _hungerHandler.Load(this);
 
             AddLight(LightType.Warm, new Vector2(0, -12),false, 2);
-            _lumenHandler.Load(this, LightsCollidable[0]);
+            LightsTouching = new List<Fixture>();
+
+            _lumenHandler.Load(this, LightsCollidable[0], LightsTouching);
 
 
         }
@@ -183,10 +185,9 @@ namespace EntityEngine.Classes.PlayerStuff
                 (Category)PhysCat.PlayerBigSensor }, new List<Category>() { (Category)PhysCat.LightSource },
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(LightSensor);
-            
+
             _lumenHandler = new LumenHandler(LightSensor);
             //AddLight(LightType.Warm,new Vector2(XOffSet * -1, YOffSet * -1), 1f);
-            LightsTouching = new List<Fixture>();
         }
 
         /// <summary>
