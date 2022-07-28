@@ -63,7 +63,7 @@ namespace TiledEngine.Classes
                 tmxTile.Properties.TryGetValue("tilingSet", out property);
                 if (!string.IsNullOrEmpty(property))
                 {
-                    int centralWangedGid = _tileSetPackage.TilingSetManager.TilingSets[property][15];
+                    int centralWangedGid = _tileSetPackage.TilingSetManager.WangSets[property][15];
                     return GetLootData(centralWangedGid);
                 }
 

@@ -12,13 +12,13 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 {
     internal class WangManager
     {
-        internal Dictionary<string, Dictionary<int, int>> TilingSets { get; private set; }
+        internal Dictionary<string,WangSet> WangSets { get; private set; }
 
         internal Dictionary<int, string> TilingPairs { get; private set; }
 
         public WangManager()
         {
-            TilingSets = new Dictionary<string, Dictionary<int, int>>();
+            WangSets = new Dictionary<string,WangSet>();
             TilingPairs = new Dictionary<int, string>();
 
         }
@@ -33,36 +33,18 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             string[] values = property.Split(',');
             string name = values[0];
 
-            if (TilingSets.ContainsKey(name))
+            if (WangSets.ContainsKey(name))
                 return;
             string fillType = values[2];
-            if(fillType == "back")
-                TilingSets[name] = FillBackTiling(gid);
+            if (fillType == "back")
+                WangSets[name].FillBackTiling(gid);
             else if (fillType == "tall")
-                TilingSets[name] = FillTall(gid);
+                WangSets[name].FillTall(gid);
 
             if (!string.IsNullOrEmpty(values[1]))
                 TilingPairs.Add(gid, values[1]);
         }
-        private Dictionary<int, int> FillBackTiling(int centralGID)
-        {
-            return new Dictionary<int, int>()
-            {
-                {0, centralGID -98},{1, centralGID + 3}, {2,  centralGID + 102 },  {3, centralGID + 101}, {4, centralGID + 2}, {5, centralGID + 99},{6,centralGID - 96},
-                { 7, centralGID + 100}, {8, centralGID + 103}, {9, centralGID - 97}, {10, centralGID - 99}, {11, centralGID + 1},
-                { 12,centralGID - 101}, {13,centralGID - 1}, {14,centralGID - 100}, {15, centralGID}
-            };
-        }
 
-        private Dictionary<int, int> FillTall(int centralGID)
-        {
-            return new Dictionary<int, int>()
-            {
-                {0, centralGID + 104},{1, centralGID + 103}, {2,  centralGID +102 },  {3, centralGID + 301}, {4, centralGID +98}, {5, centralGID + 299},{6,centralGID +105},
-                { 7, centralGID + 300}, {8, centralGID + 103}, {9, centralGID + 103}, {10, centralGID - 196}, {11, centralGID + 1},
-                { 12,centralGID - 198}, {13,centralGID - 1}, {14,centralGID - 197}, {15, centralGID}
-            };
-        }
         public void WangSorroundingTiles(TileManager tileManager, TileData tileData)
         {
 
@@ -95,7 +77,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
         }
         public bool IsPartOfSet(TileManager tileManager, string setName, int gid)
         {
-            if (TilingSets[setName].Values.Any(x => x == tileManager.TileSetPackage.GetAdjustedGID(gid)))
+            if (WangSets[setName].Set.Values.Any(x => x.Any(y => y.GID == tileManager.TileSetPackage.GetAdjustedGID(gid))))
                 return true;
             return false;
         }
@@ -111,9 +93,9 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
             if (tilingSetValue == "land")
                 return tile.GID;
-            if (!TilingSets.ContainsKey(tilingSetValue))
+            if (!WangSets.ContainsKey(tilingSetValue))
                 return tile.GID;
-            Dictionary<int, int> tDictionary = TilingSets[tilingSetValue];
+            WangSet tDictionary = WangSets[tilingSetValue];
 
             if (!GidDictionaryMatch(tDictionary, tileManager, tile, tile.X, tile.Y))
                 return tile.GID;
@@ -121,7 +103,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             int keyToCheck = 0;
             Dictionary<int, int> secondaryDict = null;
             if (TilingPairs.ContainsKey(tDictionary[15]))
-                secondaryDict = TilingSets[TilingPairs[tDictionary[15]]];
+                secondaryDict = WangSets[TilingPairs[tDictionary[15]]];
             if(tile.Layer == (byte)Layers.background)
              return BackgroundTileWang(tileManager, tile, tDictionary, ref keyToCheck, secondaryDict);
             else

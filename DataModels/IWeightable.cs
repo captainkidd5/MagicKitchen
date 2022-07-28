@@ -9,6 +9,6 @@ namespace DataModels
     /// </summary>
     public interface IWeightable
     {
-        public int Weight { get; set; }
+        public byte Weight { get; set; }
     }
 }
