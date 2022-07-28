@@ -1,0 +1,37 @@
+
+[
+    {
+        "TileId":201,
+        "Loot":[
+         {
+             "ItemName":"Mud",
+             "Quantity":1,
+             "Weight":100
+         }   
+        ],
+        "DestructionSoundPackageName":"Break"
+    },
+    {
+        "TileId":112,
+        "Loot":[
+         {
+             "ItemName":"Fibre",
+             "Quantity":1,
+             "Weight":100
+         }   
+        ],
+        "DestructionSoundPackageName":"Break"
+    },
+    {
+        "TileId":532,
+        "Loot":[
+         {
+             "ItemName":"Plank",
+             "Quantity":1,
+             "Weight":100
+         }   
+        ],
+        "DestructionSoundPackageName":"Break"
+    }
+    ]
+    

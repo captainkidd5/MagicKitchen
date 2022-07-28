@@ -105,7 +105,7 @@ namespace TiledEngine.Classes.TileAddons
                     allowedPlacementType == AllowedPlacementTileType.land &&
                     Tile.TileManager.TileSetPackage.TilingSetManager.IsPartOfSet(Tile.TileManager, "land", Tile.TileData.GID))
                 {
-                    gidToSwitchTo = Tile.TileManager.TileSetPackage.TilingSetManager.WangSets["water"][15] -1;
+                    gidToSwitchTo = Tile.TileManager.TileSetPackage.TilingSetManager.WangSets["water"].GetWeightedvalue(15) - 1;
                 }
 
             }

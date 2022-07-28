@@ -36,6 +36,9 @@
     <ProjectReference Include="..\UIEngine\UIEngine.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Content\Audio\SoundPackages.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Entities\Characters\Caspar\CasparData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -96,7 +99,13 @@
     <None Update="Content\Entities\Scripts\MoveTrainScript.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Content\Items\BackgroundTileLootData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\Items\FlotsamData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\Items\ForegroundTileLootData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Content\Items\ItemData.json">

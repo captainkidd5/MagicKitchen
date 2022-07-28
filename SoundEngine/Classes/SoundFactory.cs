@@ -9,8 +9,11 @@ using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SoundEngine.Classes
 {
@@ -47,11 +50,25 @@ namespace SoundEngine.Classes
             s_content = content;
             s_random = new Random();
 
-           
 
 
+            string basePath = content.RootDirectory + "/Audio";
+            var options = new JsonSerializerOptions();
+            options.Converters.Add(new JsonStringEnumConverter());
 
-            List<SoundPackage> soundPckages = content.Load<List<SoundPackage>>("Audio/SoundPackages");
+            var files = Directory.GetFiles(basePath);
+            string jsonString = string.Empty;
+            List<SoundPackage> soundPckages = new List<SoundPackage>();
+            foreach (var file in files)
+            {
+                if (file.EndsWith("SoundPackages.json"))
+                {
+                    jsonString = File.ReadAllText(file);
+
+                    soundPckages = JsonSerializer.Deserialize<List<SoundPackage>>(jsonString, options);
+                    break;
+                }
+            }
             foreach (SoundPackage soundPackage in soundPckages)
             {
                 soundPackage.Load(content);

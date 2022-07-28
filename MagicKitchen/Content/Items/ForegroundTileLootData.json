@@ -1,0 +1,135 @@
+
+[
+{
+    "TileId":233,
+    "Loot":[
+     {
+         "ItemName":"Furnace",
+         "Quantity":1,
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Break"
+},
+{
+    "TileId":1215,
+    "Loot":[
+     {
+         "ItemName":"Crafting Table",
+         "Quantity":1,
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Break"
+},
+{
+    "TileId":940,
+    "Loot":[
+     {
+         "ItemName":"Chest",
+         "Quantity":1,
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Break"
+},
+{
+    "TileId":3134,
+    "Loot":[
+     {
+         "ItemName":"Grill",
+         "Quantity":1,
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Break"
+},
+{
+    "TileId":3890,
+    "Loot":[
+     {
+         "ItemName":"Wall",
+         "Quantity":1,
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Break"
+},
+{
+    "TileId":971,
+    "Loot":[
+     {
+         "ItemName":"Stone",
+         "Quantity":1,
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Break"
+},
+{
+    "TileId":972,
+    "Loot":[
+     {
+         "ItemName":"Stone",
+         "Quantity":1,
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Break"
+},
+{
+    "TileId":974,
+    "Loot":[
+     {
+         "ItemName":"Limpet",
+         "Quantity":1,
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Break"
+},
+{
+    "TileId":975,
+    "Loot":[
+     {
+         "ItemName":"Limpet",
+         "Quantity":2,
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Break"
+},
+{
+    "TileId":977,
+    "Loot":[
+     {
+         "ItemName":"Fibre",
+         "Quantity":2,
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Break"
+},
+{
+    "TileId":1177,
+    "Loot":[
+     {
+         "ItemName":"Fibre",
+         "Quantity":2,
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Break"
+},
+{
+    "TileId":2014,
+    "Loot":[
+     {
+         "ItemName":"Stone",
+         "Quantity":1,
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Break"
+}
+]

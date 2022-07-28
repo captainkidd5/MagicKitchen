@@ -19,6 +19,15 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
                 Set.Add(i, new List<WangTile>());
             }
         }
+        public bool ContainsValue(int gid)
+        {
+            return Set.Any(x => x.Value.Any(y => y.GID == gid));
+        }
+
+        public int GetWeightedvalue(int key)
+        {
+            return Set[key][0].GID;
+        }
         /// <summary>
         /// Dirt, grass, water layerout etc
         /// </summary>

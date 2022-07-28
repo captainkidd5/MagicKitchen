@@ -12,13 +12,13 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 {
     internal class WangManager
     {
-        internal Dictionary<string,WangSet> WangSets { get; private set; }
+        internal Dictionary<string, WangSet> WangSets { get; private set; }
 
         internal Dictionary<int, string> TilingPairs { get; private set; }
 
         public WangManager()
         {
-            WangSets = new Dictionary<string,WangSet>();
+            WangSets = new Dictionary<string, WangSet>();
             TilingPairs = new Dictionary<int, string>();
 
         }
@@ -35,9 +35,12 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
             if (WangSets.ContainsKey(name))
                 return;
+            WangSets.Add(name, new WangSet());
+
             string fillType = values[2];
             if (fillType == "back")
                 WangSets[name].FillBackTiling(gid);
+            
             else if (fillType == "tall")
                 WangSets[name].FillTall(gid);
 
@@ -54,30 +57,31 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
                 {
                     if (tileManager.X_IsValidIndex(i) && tileManager.Y_IsValidIndex(j))
                     {
-                       
- 
-                            TileData neighborTile = tileManager.GetTileDataFromPoint(new Point(i, j), (Layers)tileData.Layer).Value;
-                            int newGid = WangTile(tileManager, neighborTile);
+
+
+                        TileData neighborTile = tileManager.GetTileDataFromPoint(new Point(i, j), (Layers)tileData.Layer).Value;
+                        int newGid = WangTile(tileManager, neighborTile);
                         if (newGid != neighborTile.GID)
                             tileManager.SwitchGID((ushort)newGid, neighborTile);
-                        
+
 
                     }
                 }
             }
         }
-        private bool GidDictionaryMatch(Dictionary<int, int> dict,TileManager tileManager, TileData tile, int alteredX, int alteredY)
+        private bool GidDictionaryMatch(WangSet wangSet, TileManager tileManager, TileData tile, int alteredX, int alteredY)
         {
             int gidToCheck = tileManager.GetTileDataFromPoint(
                 new Point(alteredX, alteredY), (Layers)tile.Layer).Value.GID;
 
-            if (dict.Values.Any(x => x == gidToCheck))
+            if (wangSet.ContainsValue(gidToCheck))
                 return true;
+
             return false;
         }
         public bool IsPartOfSet(TileManager tileManager, string setName, int gid)
         {
-            if (WangSets[setName].Set.Values.Any(x => x.Any(y => y.GID == tileManager.TileSetPackage.GetAdjustedGID(gid))))
+            if (WangSets[setName].ContainsValue(tileManager.TileSetPackage.GetAdjustedGID(gid)))
                 return true;
             return false;
         }
@@ -95,38 +99,45 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
                 return tile.GID;
             if (!WangSets.ContainsKey(tilingSetValue))
                 return tile.GID;
-            WangSet tDictionary = WangSets[tilingSetValue];
+            WangSet wangSet = WangSets[tilingSetValue];
 
-            if (!GidDictionaryMatch(tDictionary, tileManager, tile, tile.X, tile.Y))
+            if (!GidDictionaryMatch(wangSet, tileManager, tile, tile.X, tile.Y))
                 return tile.GID;
 
             int keyToCheck = 0;
-            Dictionary<int, int> secondaryDict = null;
-            if (TilingPairs.ContainsKey(tDictionary[15]))
-                secondaryDict = WangSets[TilingPairs[tDictionary[15]]];
-            if(tile.Layer == (byte)Layers.background)
-             return BackgroundTileWang(tileManager, tile, tDictionary, ref keyToCheck, secondaryDict);
+            WangSet secondaryDict = null;
+            foreach (WangTile wangTile in wangSet.Set[15])
+            {
+                if (TilingPairs.ContainsKey(wangTile.GID))
+                {
+                    secondaryDict = WangSets[TilingPairs[wangTile.GID]];
+                    break;
+                }
+            }
+
+            if (tile.Layer == (byte)Layers.background)
+                return BackgroundTileWang(tileManager, tile, wangSet, ref keyToCheck, secondaryDict);
             else
-                return ForegroundTileWang(tileManager, tile, tDictionary, ref keyToCheck, secondaryDict);
+                return ForegroundTileWang(tileManager, tile, wangSet, ref keyToCheck, secondaryDict);
 
 
             // }
             // return tile.GID;
         }
 
-        private int BackgroundTileWang(TileManager tileManager, TileData tile, Dictionary<int, int> tDictionary, ref int keyToCheck, Dictionary<int, int> secondaryDict)
+        private int BackgroundTileWang(TileManager tileManager, TileData tile, WangSet wangSet, ref int keyToCheck, WangSet secondaryDict)
         {
             if (tileManager.Y_IsValidIndex(tile.Y - 1))
             {
                 //or not equal to land
-                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X, tile.Y - 1) || (secondaryDict != null &&
+                if (GidDictionaryMatch(wangSet, tileManager, tile, tile.X, tile.Y - 1) || (secondaryDict != null &&
                     !GidDictionaryMatch(secondaryDict, tileManager, tile, tile.X, tile.Y - 1)))
                     keyToCheck += 1;
             }
 
             if (tileManager.Y_IsValidIndex(tile.Y + 1))
             {
-                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X, tile.Y + 1)
+                if (GidDictionaryMatch(wangSet, tileManager, tile, tile.X, tile.Y + 1)
                     || (secondaryDict != null &&
                     !GidDictionaryMatch(secondaryDict, tileManager, tile, tile.X, tile.Y + 1)))
                     keyToCheck += 8;
@@ -137,7 +148,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             //looking at rightmost tile
             if (tileManager.X_IsValidIndex(tile.X + 1))
             {
-                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X + 1, tile.Y)
+                if (GidDictionaryMatch(wangSet, tileManager, tile, tile.X + 1, tile.Y)
                     || (secondaryDict != null &&
                     !GidDictionaryMatch(secondaryDict, tileManager, tile, tile.X + 1, tile.Y)))
                     keyToCheck += 4;
@@ -145,7 +156,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
             if (tileManager.X_IsValidIndex(tile.X - 1))
             {
-                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X - 1, tile.Y)
+                if (GidDictionaryMatch(wangSet, tileManager, tile, tile.X - 1, tile.Y)
                     || (secondaryDict != null &&
                     !GidDictionaryMatch(secondaryDict, tileManager, tile, tile.X - 1, tile.Y)))
                     keyToCheck += 2;
@@ -154,22 +165,22 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
             // if (keyToCheck < 15 && keyToCheck > 0)
             // {
-            return tDictionary[keyToCheck];
+            return wangSet.GetWeightedvalue(keyToCheck);
         }
 
-        private int ForegroundTileWang(TileManager tileManager, TileData tile, Dictionary<int, int> tDictionary, ref int keyToCheck, Dictionary<int, int> secondaryDict)
+        private int ForegroundTileWang(TileManager tileManager, TileData tile, WangSet wangSet, ref int keyToCheck, WangSet secondaryDict)
         {
             if (tileManager.Y_IsValidIndex(tile.Y - 1))
             {
                 //or not equal to land
-                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X, tile.Y - 1) || (secondaryDict != null &&
+                if (GidDictionaryMatch(wangSet, tileManager, tile, tile.X, tile.Y - 1) || (secondaryDict != null &&
                     GidDictionaryMatch(secondaryDict, tileManager, tile, tile.X, tile.Y - 1)))
                     keyToCheck += 1;
             }
 
             if (tileManager.Y_IsValidIndex(tile.Y + 1))
             {
-                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X, tile.Y + 1)
+                if (GidDictionaryMatch(wangSet, tileManager, tile, tile.X, tile.Y + 1)
                     || (secondaryDict != null &&
                     GidDictionaryMatch(secondaryDict, tileManager, tile, tile.X, tile.Y + 1)))
                     keyToCheck += 8;
@@ -180,7 +191,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             //looking at rightmost tile
             if (tileManager.X_IsValidIndex(tile.X + 1))
             {
-                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X + 1, tile.Y)
+                if (GidDictionaryMatch(wangSet, tileManager, tile, tile.X + 1, tile.Y)
                     || (secondaryDict != null &&
                     GidDictionaryMatch(secondaryDict, tileManager, tile, tile.X + 1, tile.Y)))
                     keyToCheck += 4;
@@ -188,7 +199,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
             if (tileManager.X_IsValidIndex(tile.X - 1))
             {
-                if (GidDictionaryMatch(tDictionary, tileManager, tile, tile.X - 1, tile.Y)
+                if (GidDictionaryMatch(wangSet, tileManager, tile, tile.X - 1, tile.Y)
                     || (secondaryDict != null &&
                     GidDictionaryMatch(secondaryDict, tileManager, tile, tile.X - 1, tile.Y)))
                     keyToCheck += 2;
@@ -197,7 +208,8 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
             // if (keyToCheck < 15 && keyToCheck > 0)
             // {
-            return tDictionary[keyToCheck] ;
+            return wangSet.GetWeightedvalue(keyToCheck);
+
         }
     }
 }

@@ -8,6 +8,6 @@ namespace DataModels
     {
         public string ItemName { get; set; }
         public int Quantity { get; set; }
-        public int Weight { get; set; }
+        public byte Weight { get; set; }
     }
 }

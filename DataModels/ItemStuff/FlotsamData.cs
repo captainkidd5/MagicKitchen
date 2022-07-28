@@ -7,6 +7,6 @@ namespace DataModels.ItemStuff
     public class FlotsamData : IWeightable
     {
         public string Name { get; set; }
-        public int Weight { get; set; }
+        public byte Weight { get; set; }
     }
 }

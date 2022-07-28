@@ -9,7 +9,7 @@ namespace DataModels.SoundStuff
     public class SoundChancer : IWeightable
     {
         public string Name { get; set; }
-        public int Weight { get; set; }
+        public byte Weight { get; set; }
         public string LocalPath { get; set; }
 
         [ContentSerializerIgnoreAttribute]

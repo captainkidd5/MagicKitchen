@@ -1,0 +1,323 @@
+
+ [
+      {
+        "Name": "Break",
+        "SoundChancers": [
+          {
+            "Name": "RockSmash1",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Tiles/Rocks"
+          }
+        ]
+      },
+      {
+        "Name": "Splash",
+        "SoundChancers": 
+           [
+            {
+              "Name": "Splash1",
+              "Weight": 50,
+              "LocalPath": "SoundEffects/Ambient"
+            },
+            {
+              "Name": "Splash2",
+              "Weight": 50,
+              "LocalPath": "SoundEffects/Ambient"
+            }
+          ]
+        
+      },
+      {
+        "Name": "Dig",
+        "SoundChancers": [
+          {
+            "Name": "DirtDig1",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Tiles/Actions/Dig"
+          }
+        ]
+      },
+      {
+        "Name": "Slash",
+        "SoundChancers": [
+            {
+              "Name": "Slash1",
+              "Weight": 25,
+              "LocalPath": "SoundEffects/Tools/Sword"
+            },
+            {
+              "Name": "Slash2",
+              "Weight": 25,
+              "LocalPath": "SoundEffects/Tools/Sword"
+            },
+            {
+              "Name": "Slash3",
+              "Weight": 25,
+              "LocalPath": "SoundEffects/Tools/Sword"
+            },
+            {
+              "Name": "Slash4",
+              "Weight": 25,
+              "LocalPath": "SoundEffects/Tools/Sword"
+            }
+          ]
+        
+      },
+      {
+        "Name": "SwordConnect",
+        "SoundChancers": [
+         {
+            "Name": "SwordConnect1",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Tools/Sword"
+          }
+        ]
+        
+      },
+      {
+        "Name": "Ignite",
+        "SoundChancers": [
+            {
+
+            "Name": "Ignite1",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Tiles/Actions/Ignite"
+          }
+        ]
+        
+      },
+      {
+        "Name": "Harvest",
+        "SoundChancers":[
+          
+            {
+              "Name": "Harvest1",
+              "Weight": 33,
+              "LocalPath": "SoundEffects/Tiles/Actions/Harvest"
+            },
+            {
+              "Name": "Harvest2",
+              "Weight": 3,
+              "LocalPath": "SoundEffects/Tiles/Actions/Harvest"
+            },
+            {
+              "Name": "Harvest1",
+              "Weight": 33,
+              "LocalPath": "SoundEffects/Tiles/Actions/Harvest"
+            }
+          ]
+        
+      },
+      {
+        "Name": "CoinJingle",
+        "SoundChancers": [
+        {
+            "Name": "CoinJingle",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Kitchen"
+          }
+        ]
+      },
+      {
+        "Name": "ItemGrab",
+        "SoundChancers":  [
+            {
+              "Name": "Bubble1",
+              "Weight": 50,
+              "LocalPath": "SoundEffects/Obtain/Items"
+            },
+            {
+              "Name": "Bubble2",
+              "Weight": 50,
+              "LocalPath": "SoundEffects/Obtain/Items"
+            }
+          ]
+        
+      },
+      {
+        "Name": "HookFire",
+        "SoundChancers": [
+            {
+            "Name": "HookFire",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Tools"
+          }
+        ]
+      },
+      {
+        "Name": "HookMiss",
+        "SoundChancers": [
+         {
+            "Name": "HookMiss",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Tools"
+          }
+        ]
+      },
+      {
+        "Name": "HookGrab",
+        "SoundChancers": [
+            {
+            "Name": "HookGrab",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Tools"
+          }
+        ]
+      },
+      {
+        "Name": "ToolBreak",
+        "SoundChancers": [
+            {
+            "Name": "ToolBreak",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Tools"
+          }
+        ]
+      },
+      {
+        "Name": "FoodBite",
+        "SoundChancers":[
+            {
+            "Name": "FoodBite1",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Tools"
+          }
+        ]
+      },
+      {
+        "Name": "ItemCraft",
+        "SoundChancers": [
+             {
+            "Name": "ItemCraftMetal",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Tools"
+          }
+        ]
+      },
+      {
+        "Name": "Step",
+        "SoundChancers":  [
+            {
+              "Name": "StepDirt",
+              "Weight": 100,
+              "LocalPath": "SoundEffects/Steps"
+            },
+            {
+              "Name": "StepGrass1",
+              "Weight": 100,
+              "LocalPath": "SoundEffects/Steps"
+            },
+            {
+              "Name": "StepWood1",
+              "Weight": 100,
+              "LocalPath": "SoundEffects/Steps"
+            },
+            {
+              "Name": "StepStone1",
+              "Weight": 100,
+              "LocalPath": "SoundEffects/Steps"
+            },
+            {
+              "Name": "StepSand",
+              "Weight": 100,
+              "LocalPath": "SoundEffects/Steps"
+            },
+            {
+              "Name": "Wade1",
+              "Weight": 100,
+              "LocalPath": "SoundEffects/Steps"
+            }
+          ]
+        
+      },
+      {
+        "Name": "AmbientDay",
+        "SoundChancers": [
+            {
+            "Name": "AmbientDay1",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Ambient"
+          }
+        ]
+      },
+      {
+        "Name": "ButtonClick",
+        "SoundChancers": [
+        {
+            "Name": "Click1",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/UI"
+          }
+        ]
+      },
+      {
+        "Name": "BackButton",
+        "SoundChancers": [
+            {
+            "Name": "BackButton1",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/UI"
+          }
+        ]
+      },
+      {
+        "Name": "ButtonHover",
+        "SoundChancers":  [
+            {
+              "Name": "ButtonHover1",
+              "Weight": 50,
+              "LocalPath": "SoundEffects/UI"
+            },
+            {
+              "Name": "ButtonHover2",
+              "Weight": 50,
+              "LocalPath": "SoundEffects/UI"
+            }
+          ]
+        
+      },
+      {
+        "Name": "StartGameClick",
+        "SoundChancers": [
+         {
+            "Name": "StartGame2",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/UI"
+          }
+        ]
+      },
+      {
+        "Name": "Grunt",
+        "SoundChancers":[
+            {
+              "Name": "Grunt1",
+              "Weight": 50,
+              "LocalPath": "SoundEffects/NPC/Boar"
+            },
+            {
+              "Name": "Grunt2",
+              "Weight": 50,
+              "LocalPath": "SoundEffects/NPC/Boar"
+            }
+          ]
+ 
+      },
+      {
+        "Name": "PlaceFurniture",
+        "SoundChancers": 
+         [
+            {
+              "Name": "PlaceFurniture1",
+              "Weight": 50,
+              "LocalPath": "SoundEffects/Tiles/Placeables"
+            },
+            {
+              "Name": "PlaceFurniture2",
+              "Weight": 50,
+              "LocalPath": "SoundEffects/Tiles/Placeables"
+            }
+          ]
+        }
+      
+    ]
+  

@@ -2,8 +2,11 @@
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using TiledSharp;
 
@@ -24,14 +27,38 @@ namespace TiledEngine.Classes
 
         public void LoadContent(ContentManager content, TileSetPackage exteriorPackage)
         {
-            List<TileLootData> tileLootData = content.Load<List<TileLootData>>("Items/ForegroundTileLootData");
+
+            string basePath = content.RootDirectory + "/items";
+            var options = new JsonSerializerOptions();
+            options.Converters.Add(new JsonStringEnumConverter());
+
+            var files = Directory.GetFiles(basePath);
+            string jsonString = string.Empty;
+
+            List<TileLootData> foreGroundTileLootData = new List<TileLootData>();
+            List<TileLootData> backGroundTileLootData = new List<TileLootData>();
+
+            foreach (var file in files)
+            {
+                if (file.Contains("ForegroundTileLootData.json"))
+                {
+                    jsonString = File.ReadAllText(file);
+                    foreGroundTileLootData = JsonSerializer.Deserialize<List<TileLootData>>(jsonString, options);
+
+                }
+                else if (file.Contains("BackgroundTileLootData.json"))
+                {
+                    jsonString = File.ReadAllText(file);
+                    backGroundTileLootData = JsonSerializer.Deserialize<List<TileLootData>>(jsonString, options);
+
+                }
+            }
 
             //Offset foreground GID here to make it easy to fetch correct loot for GID at runtime
 
-            s_foreGroundTileLootData = tileLootData.ToDictionary(x => exteriorPackage.OffSetBackgroundGID(x.TileId), x => x);
-            tileLootData = content.Load<List<TileLootData>>("Items/BackgroundTileLootData");
+            s_foreGroundTileLootData = foreGroundTileLootData.ToDictionary(x => exteriorPackage.OffSetBackgroundGID(x.TileId), x => x);
 
-            s_backGroundTileLootData = tileLootData.ToDictionary(x => x.TileId, x => x);
+            s_backGroundTileLootData = backGroundTileLootData.ToDictionary(x => x.TileId, x => x);
         }
         internal bool HasLootData(int tileId)
         {
@@ -63,7 +90,7 @@ namespace TiledEngine.Classes
                 tmxTile.Properties.TryGetValue("tilingSet", out property);
                 if (!string.IsNullOrEmpty(property))
                 {
-                    int centralWangedGid = _tileSetPackage.TilingSetManager.WangSets[property][15];
+                    int centralWangedGid = _tileSetPackage.TilingSetManager.WangSets[property].GetWeightedvalue(15);
                     return GetLootData(centralWangedGid);
                 }
 
