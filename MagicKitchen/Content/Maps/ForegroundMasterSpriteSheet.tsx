@@ -411,7 +411,7 @@
  </tile>
  <tile id="2124">
   <properties>
-   <property name="lightSource" value="2,8,8,Nautical"/>
+   <property name="lightSource" value=".5,8,8,Nautical"/>
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
   <objectgroup draworder="index" id="3">

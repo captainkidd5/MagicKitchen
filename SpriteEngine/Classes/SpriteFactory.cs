@@ -98,7 +98,8 @@ namespace SpriteEngine.Classes
         }
         public static LightSprite CreateLight(Vector2 position,Vector2 offSet, LightType lightType, float scale)
         {
-            Sprite lightSprite = CreateWorldSprite(position, _lightSourceRectangle, _lightMask, origin: new Vector2(_lightSourceRectangle.Width / 2, _lightSourceRectangle.Height / 2),
+            Sprite lightSprite = CreateWorldSprite(position, _lightSourceRectangle, _lightMask,
+                origin: new Vector2(_lightSourceRectangle.Width / 2, _lightSourceRectangle.Height / 2),
                 scale: new Vector2(2, 2) * scale,
                 primaryColor: LightSprite.ColorFromLightType(lightType), customLayer: .99f);
             return new LightSprite(lightSprite, offSet);

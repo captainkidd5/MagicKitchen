@@ -914,25 +914,25 @@
  </tile>
  <tile id="920">
   <properties>
-   <property name="alternateKey" value="water,0,Weight:20"/>
+   <property name="alternateKey" value="water,15,Weight:20"/>
    <property name="tilingSet" value="water"/>
   </properties>
  </tile>
  <tile id="921">
   <properties>
-   <property name="alternateKey" value="water,0,Weight:20"/>
+   <property name="alternateKey" value="water,15,Weight:20"/>
    <property name="tilingSet" value="water"/>
   </properties>
  </tile>
  <tile id="922">
   <properties>
-   <property name="alternateKey" value="water,0,Weight:20"/>
+   <property name="alternateKey" value="water,15,Weight:20"/>
    <property name="tilingSet" value="water"/>
   </properties>
  </tile>
  <tile id="923">
   <properties>
-   <property name="alternateKey" value="water,0,Weight:20"/>
+   <property name="alternateKey" value="water,15,Weight:20"/>
    <property name="tilingSet" value="water"/>
   </properties>
  </tile>

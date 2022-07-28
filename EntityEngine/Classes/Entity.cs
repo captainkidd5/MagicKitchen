@@ -49,7 +49,7 @@ namespace EntityEngine.Classes
 
         public Vector2 EmitPosition => Position;
         //Movement
-        public float BaseSpeed { get; protected set; } = 3f;
+        public float BaseSpeed { get; protected set; } = 2.5f;
         protected Vector2 Velocity;
         internal float Speed { get; set; }
         protected byte StorageCapacity { get; set; }

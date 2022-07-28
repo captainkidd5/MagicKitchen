@@ -61,6 +61,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
                         TileData neighborTile = tileManager.GetTileDataFromPoint(new Point(i, j), (Layers)tileData.Layer).Value;
                         List<int> ids = WangTile(tileManager, neighborTile);
+                      
                         if (!ids.Contains(neighborTile.GID))
                             tileManager.SwitchGID((ushort)ids[0], neighborTile);
 
@@ -117,6 +118,7 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
                 }
             }
             returnedIds.Clear();
+     
             if (tile.Layer == (byte)Layers.background)
             {
                var list= BackgroundTileWang(tileManager, tile, wangSet, ref keyToCheck, secondaryDict);

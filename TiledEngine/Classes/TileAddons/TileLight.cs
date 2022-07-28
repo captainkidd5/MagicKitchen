@@ -55,10 +55,10 @@ namespace TiledEngine.Classes.TileAddons
         /// <summary>
         /// For use with the "lightSource" tile property
         /// </summary>
-        private int GetRadius(string lightString)
+        private float GetRadius(string lightString)
         {
 
-            return int.Parse(lightString.Split(',')[0]);
+            return float.Parse(lightString.Split(',')[0]);
 
         }
         /// <summary>
