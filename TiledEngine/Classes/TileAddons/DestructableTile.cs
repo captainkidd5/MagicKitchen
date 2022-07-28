@@ -95,7 +95,7 @@ namespace TiledEngine.Classes.TileAddons
             }
 
 
-            ActionType? actionType = null;
+            ActionType? actionType = ActionType.Interact;
             if (RequireLoopBeforeDestruction)
             {
                 if ((Tile.Sprite as AnimatedSprite).Paused)

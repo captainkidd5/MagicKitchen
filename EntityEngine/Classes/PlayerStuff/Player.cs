@@ -248,12 +248,13 @@ namespace EntityEngine.Classes.PlayerStuff
                                 //   Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition),
                                 //   actionType.Value);
                                 DirectionMoving = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition);
-
+                                PerformAction(DirectionMoving, actionType.Value);
                                 if (IsJumpActionType(actionType.Value))
                                 {
                                     ReactToJumpActionType(actionType.Value);
                                 }
                             }
+                   
 
                         }
 

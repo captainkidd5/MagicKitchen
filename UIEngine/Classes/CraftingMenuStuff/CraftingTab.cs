@@ -41,13 +41,13 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 case CraftingCategory.None:
                     throw new Exception($"Must provide crafting category");
                 case CraftingCategory.Tool:
-                    return new Rectangle(64, 80, 32, 32);
+                    return new Rectangle(320, 80, 32, 32);
                 case CraftingCategory.Placeable:
-                    return new Rectangle(96, 80, 32, 32);
+                    return new Rectangle(256, 80, 32, 32);
                 case CraftingCategory.Refined:
-                    return new Rectangle(128, 80, 32, 32);
+                    return new Rectangle(288, 80, 32, 32);
                 case CraftingCategory.Equipment:
-                    return new Rectangle(128, 80, 32, 32);
+                    return new Rectangle(224, 80, 32, 32);
                 default:
                     throw new Exception($"Must provide crafting category");
 

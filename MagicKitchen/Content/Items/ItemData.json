@@ -46,7 +46,7 @@
 },
 {
     "Id": 100,
-    "Name": "Stone_Hammer",
+    "Name": "Hammer",
     "Description" : "Capable of smashing rocks and removing furniture",
     "MaxStackSize": 1,
     "Price": 25,
@@ -60,19 +60,19 @@
     "CookTime": 1,
     "Ingredients":[
         {
-            "Name":"Flint",
+            "Name":"Rope",
             "Count":2
         },
         {
             "Name":"Wood",
-            "Count":2
+            "Count":4
         }
     ]
 }
 },
 {
     "Id": 300,
-    "Name": "Stone_Shovel",
+    "Name": "Shovel",
     "Description" : "Dig up the ground",
     "MaxStackSize": 1,
     "Price": 25,
@@ -85,8 +85,12 @@
     "CookTime": 1,
     "Ingredients":[
         {
-            "Name":"Iron_Ore",
-            "Count":1
+            "Name":"Rope",
+            "Count":2
+        },
+        {
+            "Name":"Wood",
+            "Count":4
         }
     ]
 }
@@ -175,6 +179,7 @@
     "Price": 1,
     "PlacedItemGID" : 532,
     "PlacementSound" : "PlaceFurniture",
+
     "AllowedPlacementTileTypes":
     [
         "land"

@@ -72,7 +72,7 @@ namespace TiledEngine.Classes.TileAddons
             }
 
 
-            ActionType? actionType = null;
+            ActionType? actionType = ActionType.Interact;
          
                 FlaggedForDestruction = true;
 
