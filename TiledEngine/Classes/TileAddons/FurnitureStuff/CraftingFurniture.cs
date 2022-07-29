@@ -63,7 +63,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                     container.TransferItemIntoFuel();
                 }
                 container.CraftedItemMetre.Update();
-                _progressIndicator.Update(gameTime);
+                _progressIndicator.Update(gameTime, Tile.Position);
            // }
 
         }

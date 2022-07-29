@@ -124,7 +124,7 @@ namespace EntityEngine.Classes
             FlaggedForRemoval = true;
         }
         public void SelectItem(Item item) => _overHeadItemDisplay.SelectItem(item, Position);
-        public bool IsProgressComplete() => ProgressBarSprite.Done;
+        public bool IsProgressComplete() => ProgressBarSprite.FullyCharged;
 
         public float LayerDepth => Animator.Layer;
         internal void AddProgressBar()
@@ -275,7 +275,7 @@ namespace EntityEngine.Classes
             StatusIcon.Update(gameTime, Position);
 
             if (ProgressBarSprite != null)
-                ProgressBarSprite.Update(gameTime);
+                ProgressBarSprite.Update(gameTime, Position);
 
             IsMoving = ((Velocity != Vector2.Zero));
 

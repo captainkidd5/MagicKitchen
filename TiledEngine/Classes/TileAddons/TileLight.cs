@@ -29,10 +29,19 @@ namespace TiledEngine.Classes.TileAddons
         {
             CreateBody(Tile.Position + new Vector2(_pointOffset.X, _pointOffset.Y));
             AddLight(_lightType, new Vector2(_pointOffset.X, _pointOffset.Y), true,_lightRadius);
+
+           
         }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            var addons = Tile.GetAddonsByType(typeof(TileProgressBar));
+
+            if (addons.Count == 0)
+                throw new Exception($"Tile light should not exist without tile progress bar");
+            TileProgressBar progressBar = addons[0] as TileProgressBar;
+            progressBar.ManualSetCurrentAmountAndUpdate(LightsCollidable[0].CurrentLumens, LightsCollidable[0].MaxLumens);
+
         }
         protected override void CreateBody(Vector2 position)
         {

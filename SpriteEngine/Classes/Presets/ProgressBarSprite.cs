@@ -26,7 +26,7 @@ namespace SpriteEngine.Classes.Presets
         private float _currentAmount;
         private float _globalStartTime;
         public bool Started { get; set; }
-        public bool Done => _currentAmount >= _goal;
+        public bool FullyCharged => _currentAmount >= _goal;
 
 
         public ProgressBarSprite()
@@ -40,7 +40,7 @@ namespace SpriteEngine.Classes.Presets
         /// <param name="rate"></param>
         /// <param name="position"></param>
         /// <param name="layerDepth"></param>
-        public void Load(Vector2 position, float layerDepth, Vector2? positionOffSet = null,Vector2? scale = null, ElementType elementType = ElementType.World)
+        public void Load(Vector2 position, float layerDepth, Vector2? positionOffSet = null,Vector2? scale = null, ElementType elementType = ElementType.World, Color? color = null)
         {
             if(positionOffSet != null)
                 _positionOffSet += positionOffSet.Value;
@@ -49,7 +49,7 @@ namespace SpriteEngine.Classes.Presets
 
             _scale = scale ?? Vector2.One;
             _outLineSprite = SpriteFactory.CreateDestinationSprite(1, 16, _position, new Rectangle(0, 0, 1, 1),
-                SpriteFactory.StatusIconTexture, elementType, customLayer: layerDepth, primaryColor: Color.Green);
+                SpriteFactory.StatusIconTexture, elementType, customLayer: layerDepth, primaryColor: color == null ? Color.Green : color.Value);
 
             if(elementType == ElementType.World)
             _foreGroundSprite = SpriteFactory.CreateWorldSprite(_position, _sourceRectangle, SpriteFactory.StatusIconTexture,
@@ -66,19 +66,32 @@ namespace SpriteEngine.Classes.Presets
             _goal = _globalStartTime + _globalStartTime;
             
         }
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Vector2 position)
         {
-            if (Started && !Done)
+            if (Started && !FullyCharged)
             {
 
                 _currentAmount = Clock.TotalTime - _globalStartTime;
                     _outLineSprite.RectangleWidth = (int)((float)((float)_currentAmount / (float)_goal) * (float)_sourceRectangle.Width * _scale.X);
             }
+            _position = position + _positionOffSet;
 
             _outLineSprite.Update(gameTime, _position);
             _foreGroundSprite.Update(gameTime, _position);
         }
 
+        /// <summary>
+        /// Call this if progress isn't based on a timer system
+        /// </summary>
+        /// <param name="currentAmt"></param>
+        /// <param name="totalAmt"></param>
+        public void ManualSetCurrentAmountAndUpdate(float currentAmt, float totalAmt)
+        {
+            _currentAmount = currentAmt;
+            _goal = totalAmt;
+            _outLineSprite.RectangleWidth = (int)((float)((float)currentAmt / (float)totalAmt) * (float)_sourceRectangle.Width * _scale.X);
+
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             _outLineSprite.Draw(spriteBatch);

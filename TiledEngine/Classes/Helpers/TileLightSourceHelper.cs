@@ -26,6 +26,11 @@ namespace TiledEngine.Classes.Helpers
                     tile.DestinationRectangle, tile.Position, 3f),
                 lightPropertyString));
 
+            TileProgressBar progressBar = new TileProgressBar(tile);
+           // progressBar.Load();
+
+            tile.Addons.Add(progressBar);
+
         }
 
     }

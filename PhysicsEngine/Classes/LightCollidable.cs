@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
+using SpriteEngine.Classes.Presets;
 using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,16 @@ namespace PhysicsEngine.Classes
 
         public bool RestoresLumens { get; private set; }
         public byte CurrentLumens { get; private set; }
+        public byte MaxLumens { get; set; }
         public LightCollidable(Vector2 position, Vector2 offSet, LightType lightType,bool restoresLumens, float scale)
         {
             RestoresLumens = restoresLumens;
-            CurrentLumens = (byte)(scale * 100);
+            MaxLumens = (byte)(scale * 100);
+            CurrentLumens = MaxLumens;
             _lightSprite = SpriteFactory.CreateLight(Position, offSet, lightType, scale);
             Vector2 newScale = new Vector2(CurrentLumens * .1f, CurrentLumens * .1f);
             ResizeLight(newScale);
-
+           
         }
 
         public void ResizeLight(Vector2 newScale)
@@ -38,6 +41,7 @@ namespace PhysicsEngine.Classes
             if (MainHullBody == null)
                 MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, _lightSprite.Sprite.Width * _lightSprite.Sprite.Scale.X /4, new List<Category>() { (Category)PhysCat.LightSource },
                     new List<Category>() { (Category)PhysCat.PlayerBigSensor }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this);
+
         }
 
         public int SiphonLumens(byte amt)
