@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TiledEngine.Classes.TileAddons;
+using TiledEngine.Classes.TileAddons.LightStuff;
 using TiledSharp;
 using UIEngine.Classes;
 using static DataModels.Enums;

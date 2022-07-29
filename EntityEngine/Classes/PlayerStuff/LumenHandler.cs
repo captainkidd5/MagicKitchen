@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using Globals.Classes.Console;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
 using System;
@@ -41,7 +42,15 @@ namespace EntityEngine.Classes.PlayerStuff
             _lightsTouching = lightsTouching;
             ResizeLightBody();
 
+            CommandConsole.RegisterCommand("drain", "drains x lumens from player", DrainLumensCommand);
 
+        }
+
+        private void DrainLumensCommand(string[] args)
+        {
+            CurrentLumens -= int.Parse(args[0]);
+            if (CurrentLumens < 0)
+                CurrentLumens = 0;
         }
         /// <summary>
         /// If player light sensor overlaps with any light, begin recharging. Recharges at interval, until 

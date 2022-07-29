@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes.Time;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using SpriteEngine.Classes.ShadowStuff;
@@ -9,7 +10,7 @@ using tainicom.Aether.Physics2D.Dynamics;
 using TiledEngine.Classes.Helpers;
 
 
-namespace TiledEngine.Classes.TileAddons
+namespace TiledEngine.Classes.TileAddons.LightStuff
 {
     internal class LightBody : TileBody
     {
@@ -29,9 +30,19 @@ namespace TiledEngine.Classes.TileAddons
         public override void Load()
         {
             CreateBody(Tile.Position + new Vector2(_pointOffset.X, _pointOffset.Y));
-           _light = AddLight(_lightType, new Vector2(_pointOffset.X, _pointOffset.Y), true,_lightRadius);
+            _light = AddLight(_lightType, new Vector2(_pointOffset.X, _pointOffset.Y), true, _lightRadius);
+            TileLightDataDTO? tileLightDto = Tile.TileManager.TileLightManager.GetLightFromTile(Tile);
+            if (tileLightDto != null)
+            {
+                _light.SetCurrentLumens(tileLightDto.Value.CurrentCharge);
+                _light.TimeSinceFull = tileLightDto.Value.TimeCreated;
+            }
+            else
+            {
+                tileLightDto = new TileLightDataDTO(Tile.TileData.GetKey(), Clock.TotalTime, _light.CurrentLumens);
+                Tile.TileManager.TileLightManager.AddNewItem(tileLightDto.Value);
+            }
 
-           
         }
         public override void Update(GameTime gameTime)
         {
@@ -48,7 +59,7 @@ namespace TiledEngine.Classes.TileAddons
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 4f,
                 new List<Category>() { (Category)PhysCat.LightSource }, new List<Category>() { (Category)PhysCat.PlayerBigSensor }, null, null,
-              isSensor:true));
+              isSensor: true));
         }
 
         /// <summary>
@@ -77,8 +88,16 @@ namespace TiledEngine.Classes.TileAddons
         private LightType GetLightType(string lightString)
         {
 
-            return (LightType)Enum.Parse(typeof(LightType),lightString.Split(',')[3]);
+            return (LightType)Enum.Parse(typeof(LightType), lightString.Split(',')[3]);
 
+        }
+
+        public override void CleanUp()
+        {
+            //when unloaded make sure tile light manager gets the updated values
+            Tile.TileManager.TileLightManager.Update(new TileLightDataDTO(Tile.TileData.GetKey(), _light.TimeSinceFull, _light.CurrentLumens));
+
+            base.CleanUp();
         }
     }
 }

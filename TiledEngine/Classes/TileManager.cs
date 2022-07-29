@@ -20,6 +20,7 @@ using System.Text;
 using TiledEngine.Classes.Helpers;
 using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
+using TiledEngine.Classes.TileAddons.LightStuff;
 using TiledEngine.Classes.TilePlacementStuff;
 using TiledEngine.Classes.ZoneStuff;
 using TiledSharp;
@@ -60,7 +61,7 @@ namespace TiledEngine.Classes
 
         public TileLocator TileLocator { get; private set; }
         internal PlacedOnItemManager PlacedItemManager { get; set; }
-
+        internal TileLightManager TileLightManager { get; set; }
         private Sprite TileSelectorSprite { get; set; }
 
         public TileLocationHelper TileLocationHelper { get; set; }
@@ -73,6 +74,7 @@ namespace TiledEngine.Classes
             _camera = camera;
             TileLocator = new TileLocator();
             PlacedItemManager = new PlacedOnItemManager(this);
+            TileLightManager = new TileLightManager();
             _tilePlacementManager = new TilePlacementManager(this);
             TileLocationHelper = new TileLocationHelper(this);
 
@@ -455,6 +457,7 @@ namespace TiledEngine.Classes
                 }
             }
             PlacedItemManager.Save(writer);
+            TileLightManager.Save(writer);
             ZoneManager.Save(writer);
         }
         public void LoadSave(BinaryReader reader)
@@ -478,6 +481,7 @@ namespace TiledEngine.Classes
                 }
             }
             PlacedItemManager.LoadSave(reader);
+            TileLightManager.LoadSave(reader);
             LoadMap(_tmxMap, TileData, MapWidth, TileLoader.TileSetPackage,false);
             ZoneManager.LoadSave(reader);
 
@@ -506,6 +510,7 @@ namespace TiledEngine.Classes
             TileData.Clear();
             TileLocator.CleanUp();
             PlacedItemManager.CleanUp();
+            TileLightManager.CleanUp();
         }
 
         public void SetToDefault( )

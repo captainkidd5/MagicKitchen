@@ -29,7 +29,7 @@ namespace PhysicsEngine.Classes
         public byte CurrentLumens { get; private set; }
         public byte MaxLumens { get; set; }
 
-
+        public void SetCurrentLumens(Byte val) => CurrentLumens = val;
         public LightCollidable(Vector2 position, Vector2 offSet, LightType lightType, bool restoresLumens, float scale)
         {
             RestoresLumens = restoresLumens;

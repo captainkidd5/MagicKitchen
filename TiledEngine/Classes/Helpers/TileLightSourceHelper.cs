@@ -7,7 +7,7 @@ using System.Text;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes.TileAddons;
-
+using TiledEngine.Classes.TileAddons.LightStuff;
 
 namespace TiledEngine.Classes.Helpers
 {
