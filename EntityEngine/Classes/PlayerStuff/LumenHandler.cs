@@ -2,6 +2,7 @@
 using Globals.Classes.Console;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
+using SoundEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -92,6 +93,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
                 if (_lumenRechargeTimer.Run(gameTime))
                 {
+
                     foreach (Fixture fixture in _lightsTouching)
                     {
                         int siphonedAmt = 0;
@@ -99,9 +101,11 @@ namespace EntityEngine.Classes.PlayerStuff
                         if (siphonedAmt > 0)
                         {
                             CurrentLumens += siphonedAmt;
+                            SoundFactory.PlayEffectPackage("LightRecharge");
                             break;
                         }
                     }
+
                 }
             }
 

@@ -317,7 +317,18 @@
               "LocalPath": "SoundEffects/Tiles/Placeables"
             }
           ]
-        }
+        },
+        {
+          "Name": "LightRecharge",
+          "SoundChancers": 
+           [
+              {
+                "Name": "LightRecharge1",
+                "Weight": 100,
+                "LocalPath": "SoundEffects/Tiles/Lights"
+              }
+            ]
+          }
       
     ]
   
