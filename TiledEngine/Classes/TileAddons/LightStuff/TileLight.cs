@@ -68,6 +68,11 @@ namespace TiledEngine.Classes.TileAddons.LightStuff
             progressBar.ManualSetCurrentAmountAndUpdate(_light.CurrentLumens, _light.MaxLumens);
 
         }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            _light.DrawEmitter(spriteBatch);
+        }
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 4f,

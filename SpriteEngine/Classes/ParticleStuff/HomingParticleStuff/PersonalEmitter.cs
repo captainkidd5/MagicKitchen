@@ -20,7 +20,10 @@ namespace SpriteEngine.Classes.ParticleStuff.HomingParticleStuff
         {
             ParticleData data = new ParticleData()
             {
-
+                sizeStart = 8f,
+                sizeEnd = 2f,
+                colorStart = new Color(255, 255, 255, 255),
+                colorEnd = new Color(255, 255, 255, 100)
             };
             HomingParticle particle = new HomingParticle(thisEntityPos, data);
             Particles.Add(particle);

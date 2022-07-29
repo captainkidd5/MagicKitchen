@@ -22,13 +22,14 @@ namespace SpriteEngine.Classes.ParticleStuff.HomingParticleStuff
         protected override void MoveParticle(GameTime gameTime, Vector2? targetPos)
         {
             LifeSpanLeft = 10;
-          //  velocity.Y += gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            velocity.Y += gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
            // height -= velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (Vector2Helper.MoveTowardsVector(targetPos.Value, Position, ref velocity, gameTime, 8))
             {
                 Console.WriteLine("test");
                 HasReachedTarget = true;
             }
+            Position = new Vector2(Position.X += velocity.X, Position.Y += velocity.Y);
             //base.MoveParticle(gameTime, targetPos);
         }
     }

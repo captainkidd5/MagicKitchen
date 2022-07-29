@@ -128,7 +128,12 @@ namespace PhysicsEngine.Classes
         public void Draw(SpriteBatch spriteBatch)
         {
             _lightSprite.Draw(spriteBatch);
+        }
+
+        public void DrawEmitter(SpriteBatch spriteBatch)
+        {
             _personaEmitter.Draw(spriteBatch);
+
         }
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
