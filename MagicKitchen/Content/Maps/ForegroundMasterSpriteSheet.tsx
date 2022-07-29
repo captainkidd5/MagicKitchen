@@ -31,6 +31,16 @@
    <property name="replace" value="4"/>
   </properties>
  </tile>
+ <tile id="121">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="233">
   <properties>
    <property name="animate" value="pause"/>
@@ -50,6 +60,16 @@
    <frame tileid="833" duration="100"/>
    <frame tileid="1133" duration="100"/>
   </animation>
+ </tile>
+ <tile id="320">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <ellipse/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="479">
   <properties>
@@ -93,6 +113,16 @@
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="615">
+  <properties>
+   <property name="newSource" value="-16,-64,48,80"/>
+  </properties>
+  <objectgroup draworder="index" id="3">
+   <object id="2" x="3" y="7" width="8" height="8">
     <ellipse/>
    </object>
   </objectgroup>
@@ -454,6 +484,87 @@
    <frame tileid="2219" duration="100"/>
   </animation>
  </tile>
+ <tile id="2546">
+  <properties>
+   <property name="newSource" value="0,0,32,32"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
+ </tile>
+ <tile id="2550">
+  <properties>
+   <property name="newSource" value="0,0,32,32"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
+ </tile>
+ <tile id="2641">
+  <properties>
+   <property name="newSource" value="-16,-16,32,32"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
+ </tile>
+ <tile id="2642">
+  <properties>
+   <property name="newSource" value="0,-16,32,32"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
+ </tile>
+ <tile id="2644">
+  <properties>
+   <property name="newSource" value="0,-16,32,32"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
+ </tile>
+ <tile id="2741">
+  <properties>
+   <property name="newSource" value="-16,0,32,32"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
+ </tile>
+ <tile id="2742">
+  <properties>
+   <property name="tilingKey" value="forrest,land,foliage"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="2744">
+  <properties>
+   <property name="newSource" value="0,0,32,32"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
+ </tile>
+ <tile id="2747">
+  <properties>
+   <property name="newSource" value="0,0,16,32"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
+ </tile>
+ <tile id="2941">
+  <properties>
+   <property name="newSource" value="-16,0,32,32"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
+ </tile>
+ <tile id="2944">
+  <properties>
+   <property name="newSource" value="0,0,32,32"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
+ </tile>
+ <tile id="2946">
+  <properties>
+   <property name="newSource" value="0,0,16,32"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
+ </tile>
+ <tile id="3048">
+  <properties>
+   <property name="newSource" value="0,0,32,16"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
+ </tile>
  <tile id="3134">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
@@ -466,6 +577,12 @@
     <ellipse/>
    </object>
   </objectgroup>
+ </tile>
+ <tile id="3142">
+  <properties>
+   <property name="newSource" value="0,0,32,32"/>
+   <property name="tilingSet" value="forrest"/>
+  </properties>
  </tile>
  <tile id="3692">
   <properties>

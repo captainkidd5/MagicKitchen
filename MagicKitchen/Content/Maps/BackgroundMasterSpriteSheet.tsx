@@ -653,6 +653,36 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="711">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
+ <tile id="712">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
+ <tile id="713">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
+ <tile id="714">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
+ <tile id="715">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
+ <tile id="716">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
  <tile id="719">
   <objectgroup draworder="index" id="2">
    <object id="1" x="16" y="0">
@@ -769,6 +799,33 @@
    <frame tileid="330" duration="800"/>
    <frame tileid="530" duration="800"/>
   </animation>
+ </tile>
+ <tile id="811">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
+ <tile id="812">
+  <properties>
+   <property name="step" value="StepGrass1"/>
+   <property name="tilingKey" value="jungleGrass,land,back"/>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
+ <tile id="813">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
+ <tile id="814">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
+ <tile id="815">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
  </tile>
  <tile id="819">
   <objectgroup draworder="index" id="2">
@@ -911,6 +968,31 @@
    <frame tileid="430" duration="800"/>
    <frame tileid="630" duration="800"/>
   </animation>
+ </tile>
+ <tile id="911">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
+ <tile id="912">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
+ <tile id="913">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
+ <tile id="914">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
+ </tile>
+ <tile id="915">
+  <properties>
+   <property name="tilingSet" value="jungleGrass"/>
+  </properties>
  </tile>
  <tile id="920">
   <properties>

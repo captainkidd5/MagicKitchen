@@ -43,6 +43,9 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             
             else if (fillType == "tall")
                 WangSets[name].FillTall(gid);
+            else if(fillType == "foliage")
+                WangSets[name].FillFoliage(gid);
+
 
             if (!string.IsNullOrEmpty(values[1]))
                 TilingPairs.Add(gid, values[1]);
@@ -119,7 +122,9 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             }
             returnedIds.Clear();
      
-            if (tile.Layer == (byte)Layers.background)
+            if(tile.Layer == Layers.foreground)
+                Console.WriteLine("test");
+            if (tile.Layer ==Layers.background)
             {
                var list= BackgroundTileWang(tileManager, tile, wangSet, ref keyToCheck, secondaryDict);
                 foreach (var item in list)
