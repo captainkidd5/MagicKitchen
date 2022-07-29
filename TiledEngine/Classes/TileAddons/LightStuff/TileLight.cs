@@ -16,6 +16,7 @@ namespace TiledEngine.Classes.TileAddons.LightStuff
     {
         private Point _pointOffset;
         private float _lightRadius;
+        private bool _immuneToDrain;
         private LightType _lightType;
         private LightCollidable _light;
 
@@ -26,11 +27,12 @@ namespace TiledEngine.Classes.TileAddons.LightStuff
             _pointOffset = GetOffSet(lightPropertyString);
             _lightRadius = GetRadius(lightPropertyString);
             _lightType = GetLightType(lightPropertyString);
+            _immuneToDrain = GetIfImmune(lightPropertyString);
         }
         public override void Load()
         {
             CreateBody(Tile.Position + new Vector2(_pointOffset.X, _pointOffset.Y));
-            _light = AddLight(_lightType, new Vector2(_pointOffset.X, _pointOffset.Y), true, _lightRadius);
+            _light = AddLight(_lightType, new Vector2(_pointOffset.X, _pointOffset.Y),_immuneToDrain, true, _lightRadius);
             TileLightDataDTO? tileLightDto = Tile.TileManager.TileLightManager.GetLightFromTile(Tile);
             if (tileLightDto != null)
             {
@@ -102,7 +104,15 @@ namespace TiledEngine.Classes.TileAddons.LightStuff
             return (LightType)Enum.Parse(typeof(LightType), lightString.Split(',')[3]);
 
         }
+        /// <summary>
+        /// For use with the "lightSource" tile property
+        /// </summary>
+        private bool GetIfImmune(string lightString)
+        {
 
+            return bool.Parse(lightString.Split(',')[4].Split(':')[1]);
+
+        }
         public override void CleanUp()
         {
             //when unloaded make sure tile light manager gets the updated values

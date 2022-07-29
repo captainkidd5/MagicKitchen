@@ -16,8 +16,8 @@ namespace EntityEngine.Classes.PlayerStuff
 {
     internal class LumenHandler : ISaveable
     {
-        public int MaxLumens { get; set; } = 100;
-        public int CurrentLumens { get; set; } = 100;
+        public int MaxLumens { get; set; } = 50;
+        public int CurrentLumens { get; set; } = 50;
 
         public int LumensLastFrame { get; set; } = 100;
 
@@ -28,6 +28,10 @@ namespace EntityEngine.Classes.PlayerStuff
         private static float _baseLumenRechargeRate = .5f;
         private float _lumenRechargeRate = .15f;
         private SimpleTimer _lumenRechargeTimer;
+
+        private float _lumenDrainRate = .4f;
+        private SimpleTimer _lumenDrainTimer;
+
         private LightCollidable _lightCollidable;
         private List<Fixture> _lightsTouching;
         private Player _player;
@@ -39,6 +43,8 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             _player = player;
             _lumenRechargeTimer = new SimpleTimer(_lumenRechargeRate);
+            _lumenDrainTimer = new SimpleTimer(_lumenDrainRate);
+
             _lightCollidable = lightCollidable;
             _lightsTouching = lightsTouching;
             ResizeLightBody();
@@ -60,24 +66,35 @@ namespace EntityEngine.Classes.PlayerStuff
         /// <param name="gameTime"></param>
         public void HandleLumens(GameTime gameTime)
         {
+
+
             if (LumensLastFrame != CurrentLumens)
             {
                 ResizeLightBody();
             }
             LumensLastFrame = CurrentLumens;
 
-            if (Illuminated)
+
+
+            if (!RechargeLumens(gameTime))
             {
-                RechargeLumens(gameTime);
+                
 
             }
-            else
-            {
-                DrainLumens(gameTime);
 
-            }
+
+
 
             Illuminated = false;
+
+            foreach (Fixture fixture in _lightsTouching)
+            {
+                if ((fixture.Body.Tag as LightCollidable).ImmuneToDrain)
+                {
+                    return;
+                }
+            }
+            DrainLumens(gameTime);
 
         }
         private void ResizeLightBody()
@@ -86,7 +103,12 @@ namespace EntityEngine.Classes.PlayerStuff
             _lightCollidable.ResizeLight(new Vector2(newVal, newVal));
 
         }
-        private void RechargeLumens(GameTime gameTime)
+        /// <summary>
+        /// Returns true if was able to gain any charge from lights nearby or timer has not run out
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <returns></returns>
+        private bool RechargeLumens(GameTime gameTime)
         {
             if (CurrentLumens < MaxLumens)
             {
@@ -102,20 +124,22 @@ namespace EntityEngine.Classes.PlayerStuff
                         {
                             CurrentLumens += siphonedAmt;
                             SoundFactory.PlayEffectPackage("LightRecharge");
-                            break;
+                            return true;
                         }
                     }
 
                 }
-            }
 
+
+            }
+            return false;
         }
 
         private void DrainLumens(GameTime gameTime)
         {
 
 
-            if (_lumenRechargeTimer.Run(gameTime))
+            if (_lumenDrainTimer.Run(gameTime))
             {
                 if (CurrentLumens > 0)
                 {

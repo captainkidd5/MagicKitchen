@@ -436,7 +436,7 @@
  </tile>
  <tile id="2124">
   <properties>
-   <property name="lightSource" value=".5,8,8,Nautical"/>
+   <property name="lightSource" value=".15,8,8,Nautical,immune:false"/>
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
   <objectgroup draworder="index" id="3">
@@ -447,7 +447,7 @@
  </tile>
  <tile id="2131">
   <properties>
-   <property name="lightSource" value="3,8,8,Warm"/>
+   <property name="lightSource" value=".4,8,8,Warm,immune:true"/>
    <property name="newHitBox" value="8,0,16,16"/>
    <property name="newSource" value="0,-32,32,48"/>
   </properties>
@@ -647,7 +647,7 @@
  </tile>
  <tile id="3756">
   <properties>
-   <property name="lightSource" value="3,-8,8,Warm"/>
+   <property name="lightSource" value=".6,-8,8,Warm,immune:true"/>
    <property name="newSource" value="-16,-32,32,48"/>
   </properties>
   <objectgroup draworder="index" id="3">

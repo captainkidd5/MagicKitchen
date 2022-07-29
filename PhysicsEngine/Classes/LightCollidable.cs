@@ -26,13 +26,17 @@ namespace PhysicsEngine.Classes
 
         private LightSprite _lightSprite;
         public bool RestoresLumens { get; private set; }
+        public bool ImmuneToDrain { get; }
         public byte CurrentLumens { get; private set; }
         public byte MaxLumens { get; set; }
 
         public void SetCurrentLumens(Byte val) => CurrentLumens = val;
-        public LightCollidable(Vector2 position, Vector2 offSet, LightType lightType, bool restoresLumens, float scale)
+
+        public bool HasCharge => CurrentLumens > 0;
+        public LightCollidable(Vector2 position, Vector2 offSet, LightType lightType, bool restoresLumens, float scale, bool immuneToDrain)
         {
             RestoresLumens = restoresLumens;
+            ImmuneToDrain = immuneToDrain;
             MaxLumens = (byte)(scale * 100);
             CurrentLumens = MaxLumens;
             _lightSprite = SpriteFactory.CreateLight(Position, offSet, lightType, scale);
@@ -60,8 +64,12 @@ namespace PhysicsEngine.Classes
 
             if ((int)CurrentLumens - (int)amt < 0)
                 return 0;
-            CurrentLumens -= amt;
-            ResizeLight(new Vector2(CurrentLumens * .1f, CurrentLumens * .1f));
+            if (!ImmuneToDrain)
+            {
+                CurrentLumens -= amt;
+                ResizeLight(new Vector2(CurrentLumens * .1f, CurrentLumens * .1f));
+            }
+           
 
 
             return amt;
@@ -102,6 +110,7 @@ namespace PhysicsEngine.Classes
                         CurrentLumens++;
                        else
                         _recharging = false;
+                    ResizeLight(new Vector2(CurrentLumens * .1f, CurrentLumens * .1f));
 
 
                 }

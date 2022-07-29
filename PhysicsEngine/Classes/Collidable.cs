@@ -245,12 +245,12 @@ namespace PhysicsEngine.Classes
                 Gadgets.RemoveAt(i);
             }
         }
-        protected LightCollidable AddLight(LightType lightType,Vector2 offSet,bool restoresLumens = true, float scale = 1)
+        protected LightCollidable AddLight(LightType lightType,Vector2 offSet,bool immuneToDrain, bool restoresLumens = true, float scale = 1)
         {
             if (LightsCollidable == null)
                 LightsCollidable = new List<LightCollidable>();
 
-            LightCollidable lightCollidable = new LightCollidable(Position, offSet, lightType, restoresLumens, scale);
+            LightCollidable lightCollidable = new LightCollidable(Position, offSet, lightType, restoresLumens, scale, immuneToDrain);
             lightCollidable.CreateBody(Position);
             LightsCollidable.Add(lightCollidable);
             return lightCollidable;
