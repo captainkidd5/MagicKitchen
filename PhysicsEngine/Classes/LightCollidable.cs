@@ -22,7 +22,8 @@ namespace PhysicsEngine.Classes
             RestoresLumens = restoresLumens;
             CurrentLumens = (byte)(scale * 100);
             _lightSprite = SpriteFactory.CreateLight(Position, offSet, lightType, scale);
-            ResizeLight(new Vector2(CurrentLumens * .01f, CurrentLumens * .01f));
+            Vector2 newScale = new Vector2(CurrentLumens * .1f, CurrentLumens * .1f);
+            ResizeLight(newScale);
 
         }
 
@@ -45,6 +46,7 @@ namespace PhysicsEngine.Classes
                 return 0;
             CurrentLumens -= amt;
             ResizeLight(new Vector2(CurrentLumens * .1f, CurrentLumens * .1f));
+
             return amt;
 
         }

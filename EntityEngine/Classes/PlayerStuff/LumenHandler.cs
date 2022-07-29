@@ -61,9 +61,12 @@ namespace EntityEngine.Classes.PlayerStuff
                 RechargeLumens(gameTime);
 
             }
-            
+            else
+            {
                 DrainLumens(gameTime);
-            
+
+            }
+
             Illuminated = false;
 
         }

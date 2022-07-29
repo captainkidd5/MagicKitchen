@@ -121,11 +121,6 @@
   <properties>
    <property name="newSource" value="-16,-64,48,80"/>
   </properties>
-  <objectgroup draworder="index" id="3">
-   <object id="2" x="3" y="7" width="8" height="8">
-    <ellipse/>
-   </object>
-  </objectgroup>
  </tile>
  <tile id="771">
   <properties>
