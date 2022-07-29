@@ -127,6 +127,101 @@
 ]
 },
 {
+    "Name": "rabbit",
+    "Weight": 20,
+    "SpawnSlotValue": 80,
+    "ObjectType" : "EntityEngine.Classes.NPCStuff.NPC",
+    "ScheduleName": "wander_1",
+    "NPCType" : "Enemy",
+    "ShadowSize":"Small",
+    "CombatResponse":"Retaliate",
+    "SpriteWidth": 16,
+    "SpriteHeight": 16,
+    
+    "AnimationInfo": [
+        {
+        "ActionType": "Walking",
+        "MovementDirection": "Up",
+        "Flip" : false,
+        "SpriteX": 23,
+
+        "SpriteY": 4,
+
+        "FrameIndicies":[
+            0,1,2
+        ]
+    },
+    {
+        "ActionType": "Walking",
+        "MovementDirection": "Down",
+        "Flip" : false,
+        "SpriteX": 23,
+
+        "SpriteY": 4,
+
+        "FrameIndicies":[
+            3,4,5
+        ]
+    },
+    {
+        "ActionType": "Walking",
+        "MovementDirection": "Left",
+        "Flip" : false,
+        "SpriteX": 23,
+
+        "SpriteY": 4,
+
+        "FrameIndicies":[
+            6,7,8
+        ]
+    },
+    {
+        "ActionType": "Walking",
+        "MovementDirection": "Right",
+        "Flip" : true,
+        "SpriteX": 23,
+
+        "SpriteY": 4,
+
+        "FrameIndicies":[
+            6,7,8
+        ]
+    }
+],
+"NPCSoundData":{
+    "Hurt" : "Grunt"
+},
+"LootData":[
+
+    {
+        "ItemName" : "Raw_Haunch",
+        "Quantity" : 1,
+        "Weight" : 100
+    },
+    {
+        "ItemName" : "Leather",
+        "Quantity" : 1,
+        "Weight" : 70
+    },
+    {
+        "ItemName" : "Coin",
+        "Quantity" : 1,
+        "Weight" : 40
+    },
+    {
+        "ItemName" : "Coin",
+        "Quantity" : 2,
+        "Weight" : 20
+    },
+  
+    {
+        "ItemName" : "Coin",
+        "Quantity" : 3,
+        "Weight" : 10
+    }
+]
+},
+{
     "Name": "fish",
     "Weight": 20,
     "SpawnSlotValue": 40,

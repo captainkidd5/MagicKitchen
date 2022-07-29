@@ -46,6 +46,7 @@ namespace EntityEngine.Classes.NPCStuff
         public NPC( GraphicsDevice graphics, ContentManager content) :
             base(graphics, content)
         {
+            XOffSet = 8;
         }
 
 

@@ -308,7 +308,7 @@ namespace EntityEngine.Classes
             }
             else
             {
-                Animator.Update(gameTime, DirectionMoving, IsMoving, Position, Speed / BaseSpeed);
+                Animator.Update(gameTime, DirectionMoving, IsMoving, new Vector2(Position.X, Position.Y), Speed / BaseSpeed);
 
             }
 
