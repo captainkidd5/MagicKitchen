@@ -618,6 +618,8 @@
                 "MaxStackSize": 1,
                 "Price": 1,
                 "PlacedItemGID" : 3134, 
+    "PlacementSound" : "PlaceFurniture",
+
                 "RecipeInfo": 
                 {
                 "CraftAction": "Craft",

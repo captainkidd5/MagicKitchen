@@ -17,7 +17,7 @@ namespace PhysicsEngine.Classes
 {
     public class LightCollidable : Collidable
     {
-        private static float s_rechargeRate = 1f;
+        public static readonly float S_RechargeRate = 1f;
         public float TimeSinceFull { get; set; }
         private float _restPeriod = 1f;
         private SimpleTimer _restPeriodTimer;

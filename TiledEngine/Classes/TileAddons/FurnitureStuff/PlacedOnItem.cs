@@ -17,10 +17,10 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
     public class PlacedOnItem : ISaveable
     {
 
-        public int ListIndex { get; set; }
+        public byte ListIndex { get; set; }
         public ushort? ItemId { get; private set; }
 
-        public int ItemCount;
+        public ushort ItemCount;
         private Sprite _worldItemSprite;
         private Vector2 _position;
         private StorageSlot _slot;
@@ -30,7 +30,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public PlacedOnItem(int listIndex, int tileKey)
         {
-            ListIndex = listIndex;
+            ListIndex = (byte)listIndex;
             Key= tileKey;
         }
         public void Load(Vector2 position, StorageSlot storageSlot, float layerDepth)
@@ -77,7 +77,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 CreateSprite(.9f);
 
             }
-            ItemCount = count;
+            ItemCount = (ushort)count;
         }
 
         public void CleanUp()
@@ -87,9 +87,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public void LoadSave(BinaryReader reader)
         {
-            ListIndex = reader.ReadInt32();
+            ListIndex = reader.ReadByte();
             ItemId = reader.ReadUInt16();
-            ItemCount = reader.ReadInt32();
+            ItemCount = reader.ReadUInt16();
         }
 
         public void Save(BinaryWriter writer)

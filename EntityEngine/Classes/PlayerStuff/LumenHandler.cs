@@ -25,7 +25,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public bool Illuminated { get; set; }
 
         private static float _baseLumenRechargeRate = .5f;
-        private float _lumenRechargeRate = .5f;
+        private float _lumenRechargeRate = .15f;
         private SimpleTimer _lumenRechargeTimer;
         private LightCollidable _lightCollidable;
         private List<Fixture> _lightsTouching;

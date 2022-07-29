@@ -39,8 +39,19 @@ namespace TiledEngine.Classes.TileAddons.LightStuff
             }
             else
             {
+                //else we load in the saved tile light data and adjust the current lumens based on the time elapsed from the save value
                 tileLightDto = new TileLightDataDTO(Tile.TileData.GetKey(), Clock.TotalTime, _light.CurrentLumens);
                 Tile.TileManager.TileLightManager.AddNewItem(tileLightDto.Value);
+                //to do, recharge current lumens based on time elapsed since unloaded
+                if(_light.CurrentLumens != _light.MaxLumens)
+                {
+                    float timeElapsedSinceUnloaded = Clock.TotalTime - tileLightDto.Value.TimeCreated;
+                    byte lumens = (byte)(LightCollidable.S_RechargeRate * timeElapsedSinceUnloaded);
+                    if(lumens > _light.MaxLumens)
+                        lumens = _light.MaxLumens;
+
+                    _light.SetCurrentLumens(lumens);
+                }
             }
 
         }
