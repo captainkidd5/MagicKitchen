@@ -245,7 +245,7 @@ namespace PhysicsEngine.Classes
                 Gadgets.RemoveAt(i);
             }
         }
-        protected void AddLight(LightType lightType,Vector2 offSet,bool restoresLumens = true, float scale = 1)
+        protected LightCollidable AddLight(LightType lightType,Vector2 offSet,bool restoresLumens = true, float scale = 1)
         {
             if (LightsCollidable == null)
                 LightsCollidable = new List<LightCollidable>();
@@ -253,6 +253,7 @@ namespace PhysicsEngine.Classes
             LightCollidable lightCollidable = new LightCollidable(Position, offSet, lightType, restoresLumens, scale);
             lightCollidable.CreateBody(Position);
             LightsCollidable.Add(lightCollidable);
+            return lightCollidable;
         }
         public void DrawLights(SpriteBatch spriteBatch)
         {

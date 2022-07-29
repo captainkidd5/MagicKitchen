@@ -16,6 +16,7 @@ namespace TiledEngine.Classes.TileAddons
         private Point _pointOffset;
         private float _lightRadius;
         private LightType _lightType;
+        private LightCollidable _light;
 
         public LightBody(TileObject tile, IntermediateTmxShape intermediateTmxShape,
             string lightPropertyString) : base(tile, intermediateTmxShape)
@@ -28,7 +29,7 @@ namespace TiledEngine.Classes.TileAddons
         public override void Load()
         {
             CreateBody(Tile.Position + new Vector2(_pointOffset.X, _pointOffset.Y));
-            AddLight(_lightType, new Vector2(_pointOffset.X, _pointOffset.Y), true,_lightRadius);
+           _light = AddLight(_lightType, new Vector2(_pointOffset.X, _pointOffset.Y), true,_lightRadius);
 
            
         }
@@ -40,7 +41,7 @@ namespace TiledEngine.Classes.TileAddons
             if (addons.Count == 0)
                 throw new Exception($"Tile light should not exist without tile progress bar");
             TileProgressBar progressBar = addons[0] as TileProgressBar;
-            progressBar.ManualSetCurrentAmountAndUpdate(LightsCollidable[0].CurrentLumens, LightsCollidable[0].MaxLumens);
+            progressBar.ManualSetCurrentAmountAndUpdate(_light.CurrentLumens, _light.MaxLumens);
 
         }
         protected override void CreateBody(Vector2 position)
