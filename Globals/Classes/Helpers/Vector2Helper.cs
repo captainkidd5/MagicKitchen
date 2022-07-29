@@ -158,6 +158,30 @@ namespace Globals.Classes.Helpers
                     throw new Exception(directionFacing.ToString() + " is invalid");
             }
         }
+
+        public static bool MoveTowardsVector(Vector2 goal, Vector2 currentPos, ref Vector2 velocity, GameTime gameTime, int errorMargin)
+        {
+            // If we're already at the goal return immediatly
+            if (Vector2Helper.WithinRangeOf(currentPos, goal, errorMargin))
+                return true;
+
+            // Find direction from current MainHull.Position to goal
+            Vector2 direction = Vector2.Normalize(goal - currentPos);
+
+            // If we moved PAST the goal, move it back to the goal
+            if (Math.Abs(Vector2.Dot(direction, Vector2.Normalize(goal - currentPos)) + 1) < 0.1f)
+                currentPos = goal;
+
+            // Return whether we've reached the goal or not, leeway of 2 pixels 
+            if (currentPos.X + errorMargin > goal.X && currentPos.X - errorMargin < goal.X
+               && currentPos.Y + errorMargin > goal.Y && currentPos.Y - errorMargin < goal.Y)
+            {
+                return true;
+            }
+            velocity = direction * (float)gameTime.ElapsedGameTime.TotalMilliseconds * .05f;
+
+            return false;
+        }
         public static void WriteVector2(BinaryWriter writer, Vector2 val)
         {
             writer.Write(val.X);

@@ -3,6 +3,7 @@ using Globals.Classes.Time;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
+using SpriteEngine.Classes.ParticleStuff.HomingParticleStuff;
 using SpriteEngine.Classes.Presets;
 using SpriteEngine.Classes.ShadowStuff;
 using System;
@@ -33,6 +34,8 @@ namespace PhysicsEngine.Classes
         public void SetCurrentLumens(Byte val) => CurrentLumens = val;
 
         public bool HasCharge => CurrentLumens > 0;
+
+        private PersonalEmitter _personaEmitter;
         public LightCollidable(Vector2 position, Vector2 offSet, LightType lightType, bool restoresLumens, float scale, bool immuneToDrain)
         {
             RestoresLumens = restoresLumens;
@@ -57,6 +60,8 @@ namespace PhysicsEngine.Classes
                 MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, _lightSprite.Sprite.Width * _lightSprite.Sprite.Scale.X / 4, new List<Category>() { (Category)PhysCat.LightSource },
                     new List<Category>() { (Category)PhysCat.PlayerBigSensor }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this);
             _restPeriodTimer = new SimpleTimer(_restPeriod);
+
+            _personaEmitter = new PersonalEmitter();
         }
 
         public int SiphonLumens(byte amt)
@@ -68,6 +73,7 @@ namespace PhysicsEngine.Classes
             {
                 CurrentLumens -= amt;
                 ResizeLight(new Vector2(CurrentLumens * .1f, CurrentLumens * .1f));
+                _personaEmitter.AddParticle(CenteredPosition);
             }
            
 
@@ -116,12 +122,13 @@ namespace PhysicsEngine.Classes
                 }
 
             }
-
+            _personaEmitter.Update(gameTime, Shared.PlayerPosition);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             _lightSprite.Draw(spriteBatch);
+            _personaEmitter.Draw(spriteBatch);
         }
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)

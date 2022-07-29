@@ -51,8 +51,8 @@ namespace SpriteEngine.Classes.ParticleStuff
             _heightCutOff = Settings.Random.Next(_data.HeightCutOffMin, _data.HeightCutOffMax) + (int)pos.Y;
 
         }
-
-        public virtual void Update(GameTime gameTime)
+        
+        public virtual void Update(GameTime gameTime, Vector2? targetPos = null)
         {
             LifeSpanLeft -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (LifeSpanLeft <= 0f)
@@ -66,6 +66,12 @@ namespace SpriteEngine.Classes.ParticleStuff
             _opacity = MathHelper.Clamp(MathHelper.Lerp(_data.opacityEnd, _data.opacityStart, _lifespanAmount), 0, 1);
             _scale = MathHelper.Lerp(_data.sizeEnd, _data.sizeStart, _lifespanAmount) / _data.texture.Width;
 
+            MoveParticle(gameTime, targetPos);
+
+
+        }
+        protected virtual void MoveParticle(GameTime gameTime, Vector2? targetPos)
+        {
             _velocity += _data.Gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
             _height -= _velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -83,15 +89,14 @@ namespace SpriteEngine.Classes.ParticleStuff
                 Position = new Vector2(Position.X, newHeight);
 
             }
-
-
         }
-
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_data.texture, Position, _data.SourceRectangle, Color * _opacity, 0f, _origin, _scale,
                 SpriteEffects.None, SpriteUtility.GetYAxisLayerDepth(Position, _data.SourceRectangle));
         }
+
+
     }
 
 }

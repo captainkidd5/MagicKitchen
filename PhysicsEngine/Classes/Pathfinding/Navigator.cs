@@ -66,8 +66,8 @@ namespace PhysicsEngine.Classes.Pathfinding
 
             //Make sure next destination point is at the center of the tile, not the top left corner, so we add half the tile's width to 
             //both x and y
-            if (MoveTowardsVector(GetCentralizedWorldPositionFromPathPoint(CurrentPath.Count - 1),
-                currentPos, ref velocity, gameTime))
+            if (Vector2Helper.MoveTowardsVector(GetCentralizedWorldPositionFromPathPoint(CurrentPath.Count - 1),
+                currentPos, ref velocity, gameTime, ErrorMargin))
             {
                 //reached the next tile
                 CurrentPath.RemoveAt(CurrentPath.Count - 1);
@@ -129,29 +129,6 @@ namespace PhysicsEngine.Classes.Pathfinding
                     LineUtility.DrawLine(null, spriteBatch, GetCentralizedWorldPositionFromPathPoint(i), GetCentralizedWorldPositionFromPathPoint(i + 1), color);             
         }
 
-        public virtual bool MoveTowardsVector(Vector2 goal, Vector2 currentPos, ref Vector2 velocity, GameTime gameTime)
-        {
-            // If we're already at the goal return immediatly
 
-            if (Vector2Helper.WithinRangeOf(currentPos, goal, ErrorMargin))
-                return true;
-
-            // Find direction from current MainHull.Position to goal
-            Vector2 direction = Vector2.Normalize(goal - currentPos);
-
-            // If we moved PAST the goal, move it back to the goal
-            if (Math.Abs(Vector2.Dot(direction, Vector2.Normalize(goal - currentPos)) + 1) < 0.1f)
-                currentPos = goal;
-
-            // Return whether we've reached the goal or not, leeway of 2 pixels 
-            if (currentPos.X + ErrorMargin > goal.X && currentPos.X - ErrorMargin < goal.X
-               && currentPos.Y + ErrorMargin > goal.Y && currentPos.Y - ErrorMargin < goal.Y)
-            {
-                return true;
-            }
-            velocity = direction * (float)gameTime.ElapsedGameTime.TotalMilliseconds * .05f;
-
-            return false;
-        }
     }
 }

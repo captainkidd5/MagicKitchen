@@ -19,9 +19,9 @@ namespace SpriteEngine.Classes.ParticleStuff.TextParticleStuff
             data.colorStart = Color.Red;
             data.colorEnd = Color.Orange;
         }
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, Vector2? position = null)
         {
-            base.Update(gameTime);
+            base.Update(gameTime, position);
             _text.ChangeColor(Color);
 
             _text.Update(gameTime, Position);
