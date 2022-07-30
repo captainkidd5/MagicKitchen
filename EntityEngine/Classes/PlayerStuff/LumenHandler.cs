@@ -119,13 +119,15 @@ namespace EntityEngine.Classes.PlayerStuff
                     foreach (Fixture fixture in _lightsTouching)
                     {
                         int siphonedAmt = 0;
-                        siphonedAmt += (fixture.Body.Tag as LightCollidable).SiphonLumens(1);
-                        if (siphonedAmt > 0)
-                        {
-                            CurrentLumens += siphonedAmt;
-                            SoundFactory.PlayEffectPackage("LightRecharge");
-                            return true;
-                        }
+                        (fixture.Body.Tag as LightCollidable).PReached -= OnParticleReachedDestination;
+                        (fixture.Body.Tag as LightCollidable).PReached += OnParticleReachedDestination;
+                        (fixture.Body.Tag as LightCollidable).SiphonLumens(1);
+                        //if (siphonedAmt > 0)
+                        //{
+                        //    CurrentLumens += siphonedAmt;
+                        //    SoundFactory.PlayEffectPackage("LightRecharge");
+                        //    return true;
+                        //}
                     }
 
                 }
@@ -134,7 +136,13 @@ namespace EntityEngine.Classes.PlayerStuff
             }
             return false;
         }
-
+        public void OnParticleReachedDestination()
+        {
+            CurrentLumens ++;
+            if (CurrentLumens > MaxLumens)
+                CurrentLumens = MaxLumens;
+            SoundFactory.PlayEffectPackage("LightRecharge");
+        }
         private void DrainLumens(GameTime gameTime)
         {
 

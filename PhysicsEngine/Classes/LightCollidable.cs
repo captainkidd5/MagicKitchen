@@ -36,6 +36,8 @@ namespace PhysicsEngine.Classes
         public bool HasCharge => CurrentLumens > 0;
 
         private PersonalEmitter _personaEmitter;
+        public event ParticleReachedDestination PReached;
+
         public LightCollidable(Vector2 position, Vector2 offSet, LightType lightType, bool restoresLumens, float scale, bool immuneToDrain)
         {
             RestoresLumens = restoresLumens;
@@ -85,7 +87,8 @@ namespace PhysicsEngine.Classes
 
         public void OnParticleReachedDestination()
         {
-            //Todo: give player lumens here
+            
+            PReached?.Invoke();
         }
         public override void Update(GameTime gameTime)
         {
