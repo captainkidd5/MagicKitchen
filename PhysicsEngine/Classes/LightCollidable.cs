@@ -73,10 +73,9 @@ namespace PhysicsEngine.Classes
             {
                 CurrentLumens -= amt;
                 ResizeLight(new Vector2(CurrentLumens * .1f, CurrentLumens * .1f));
-                _personaEmitter.AddParticle(CenteredPosition);
             }
-           
 
+            _personaEmitter.AddParticle(CenteredPosition);
 
             return amt;
 
