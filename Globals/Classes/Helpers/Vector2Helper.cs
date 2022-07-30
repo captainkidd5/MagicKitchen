@@ -159,7 +159,7 @@ namespace Globals.Classes.Helpers
             }
         }
 
-        public static bool MoveTowardsVector(Vector2 goal, Vector2 currentPos, ref Vector2 velocity, GameTime gameTime, int errorMargin)
+        public static bool MoveTowardsVector(Vector2 goal, Vector2 currentPos, ref Vector2 velocity, GameTime gameTime, int errorMargin, float speedMultiplier = 1f)
         {
             // If we're already at the goal return immediatly
             if (Vector2Helper.WithinRangeOf(currentPos, goal, errorMargin))
@@ -178,7 +178,7 @@ namespace Globals.Classes.Helpers
             {
                 return true;
             }
-            velocity = direction * (float)gameTime.ElapsedGameTime.TotalMilliseconds * .05f;
+            velocity = direction * (float)gameTime.ElapsedGameTime.TotalMilliseconds * .05f * speedMultiplier;
 
             return false;
         }

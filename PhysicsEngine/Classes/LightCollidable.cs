@@ -62,6 +62,7 @@ namespace PhysicsEngine.Classes
             _restPeriodTimer = new SimpleTimer(_restPeriod);
 
             _personaEmitter = new PersonalEmitter();
+            _personaEmitter.PReached += OnParticleReachedDestination;
         }
 
         public int SiphonLumens(byte amt)
@@ -80,9 +81,11 @@ namespace PhysicsEngine.Classes
             return amt;
 
         }
-        private void Recharge()
-        {
 
+
+        public void OnParticleReachedDestination()
+        {
+            //Todo: give player lumens here
         }
         public override void Update(GameTime gameTime)
         {

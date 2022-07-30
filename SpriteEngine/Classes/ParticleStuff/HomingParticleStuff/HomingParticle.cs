@@ -18,7 +18,7 @@ namespace SpriteEngine.Classes.ParticleStuff.HomingParticleStuff
         
         public HomingParticle(Vector2 pos, ParticleData data) : base(pos, data)
         {
-            impulse = new Vector2(Settings.Random.Next(-50,50), Settings.Random.Next(-50, 50));
+            impulse = new Vector2(Settings.Random.Next(-150, 150), Settings.Random.Next(-150, 150));
         }
 
         protected override void MoveParticle(GameTime gameTime, Vector2? targetPos)
@@ -26,7 +26,7 @@ namespace SpriteEngine.Classes.ParticleStuff.HomingParticleStuff
             LifeSpanLeft = 10;
             //velocity.Y += gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
            // height -= velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (Vector2Helper.MoveTowardsVector(targetPos.Value, Position, ref velocity, gameTime, 8))
+            if (Vector2Helper.MoveTowardsVector(targetPos.Value, Position, ref velocity, gameTime, 8,2f))
             {
                 HasReachedTarget = true;
             }

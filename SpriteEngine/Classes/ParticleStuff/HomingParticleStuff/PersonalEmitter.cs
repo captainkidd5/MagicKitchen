@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace SpriteEngine.Classes.ParticleStuff.HomingParticleStuff
 {
+    public delegate void ParticleReachedDestination();
     public class PersonalEmitter
     {
+        public event ParticleReachedDestination PReached;
         public List<HomingParticle> Particles{ get; set; }
 
         public PersonalEmitter()
@@ -34,8 +36,11 @@ namespace SpriteEngine.Classes.ParticleStuff.HomingParticleStuff
             {
                 HomingParticle p = Particles[i];
                 p.Update(gameTime, otherEntityPos);
-                if(p.HasReachedTarget)
+                if (p.HasReachedTarget)
+                {
                     Particles.RemoveAt(i);
+                    PReached?.Invoke();
+                }
             }
         }
 
