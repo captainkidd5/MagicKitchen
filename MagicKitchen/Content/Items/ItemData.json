@@ -270,7 +270,31 @@
     "MaxStackSize": 999,
     "Price": 1
 },
-
+{
+    "Id": 1607,
+    "Name": "Lumen_Pak",
+    "Description" : "Increases maximum lumens",
+    "MaxStackSize": 1,
+    "Price": 1, 
+    "EquipmentSlot" : "Trinket",
+    "EquipmentYIndex": 0,
+    "MaxDurability": 100,
+    "ArmorValue" : 2,
+    "MaximumLumenValue" : 10,
+    "RecipeInfo": 
+    {
+    "CraftAction": "Craft",
+    "CraftingCategory": "Equipment",
+    "CookTime": 20,
+    "Ingredients":[
+        {
+            "Name":"Iron_Ingot",
+            "Count":4
+        }
+    ]
+    
+}
+},
 {
     "Id": 1701,
     "Name": "Iron_Ingot",

@@ -11,6 +11,8 @@ namespace EntityEngine.Classes.PlayerStuff
     internal class PlayerInventoryHandler : HumanoidInventoryHandler
     {
         public override Item HeldItem => UI.PlayerCurrentSelectedItem;
+        public int MaxLumenValue => EquipmentStorageContainer.GetMaxLumens();
+
         public override int HeldItemCount => throw new NotImplementedException();
         public PlayerInventoryHandler(int capacity) : base(capacity)
         {

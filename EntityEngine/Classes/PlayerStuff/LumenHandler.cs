@@ -16,10 +16,10 @@ namespace EntityEngine.Classes.PlayerStuff
 {
     internal class LumenHandler : ISaveable
     {
-        public int MaxLumens { get; set; } = 50;
-        public int CurrentLumens { get; set; } = 50;
+        public int MaxLumens => _player.MaxLumens;
+        public int CurrentLumens { get; set; }
 
-        public int LumensLastFrame { get; set; } = 100;
+        public int LumensLastFrame { get; set; }
 
         protected HullBody LightSensor { get; set; }
 
@@ -48,7 +48,8 @@ namespace EntityEngine.Classes.PlayerStuff
             _lightCollidable = lightCollidable;
             _lightsTouching = lightsTouching;
             ResizeLightBody();
-
+            CurrentLumens = MaxLumens;
+            LumensLastFrame = CurrentLumens;
             CommandConsole.RegisterCommand("drain", "drains x lumens from player", DrainLumensCommand);
 
         }
@@ -165,14 +166,12 @@ namespace EntityEngine.Classes.PlayerStuff
         public void Save(BinaryWriter writer)
         {
             writer.Write(CurrentLumens);
-            writer.Write(MaxLumens);
             writer.Write(_lumenRechargeRate);
         }
 
         public void LoadSave(BinaryReader reader)
         {
             CurrentLumens = reader.ReadInt32();
-            MaxLumens = reader.ReadInt32();
             _lumenRechargeRate = reader.ReadSingle();
         }
 

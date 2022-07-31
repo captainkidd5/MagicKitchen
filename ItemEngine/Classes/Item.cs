@@ -49,6 +49,8 @@ namespace ItemEngine.Classes
         public byte EquipmentYIndex => _itemData.EquipmentYIndex;
         public ushort CurrentDurability { get;  private set; }
         public List<AllowedPlacementTileType> AllowedPlacementTileTypes => _itemData.AllowedPlacementTileTypes;
+
+        public float StatTypeToValue(StatType statType) => _itemData.StatTypeToValue(statType);
         internal Item(ItemData data)
         {
             _itemData = data;

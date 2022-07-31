@@ -1,4 +1,5 @@
-﻿using DataModels.MapStuff;
+﻿using DataModels.ItemStuff;
+using DataModels.MapStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,13 +36,23 @@ namespace ItemEngine.Classes.StorageStuff
         }
         public int GetArmorValue()
         {
-            int totalArmor = 0;
-            foreach(StorageSlot slot in Slots)
+
+            return (int)GetStatValue(StatType.Armor);
+        }
+        public int GetMaxLumens()
+        {
+
+            return (int)GetStatValue(StatType.MaxLumens);
+        }
+        public float GetStatValue(StatType statType)
+        {
+            float totalValue = 0;
+            foreach (StorageSlot slot in Slots)
             {
                 if (!slot.Empty)
-                    totalArmor += slot.Item.ArmorValue;
+                    totalValue += slot.Item.StatTypeToValue(statType);
             }
-            return totalArmor;
+            return totalValue;
         }
         protected override void AddSlots()
         {

@@ -106,6 +106,11 @@
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
+ <tile id="581">
+  <properties>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
+ </tile>
  <tile id="601">
   <properties>
    <property name="newSource" value="-16,-80,48,96"/>
@@ -145,6 +150,11 @@
  <tile id="777">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
+ <tile id="781">
+  <properties>
+   <property name="newSource" value="0,-16,32,32"/>
   </properties>
  </tile>
  <tile id="833">
@@ -276,6 +286,18 @@
    <frame tileid="777" duration="800"/>
    <frame tileid="577" duration="800"/>
    <frame tileid="777" duration="800"/>
+  </animation>
+ </tile>
+ <tile id="981">
+  <properties>
+   <property name="newHitBox" value="4, -8, 26"/>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
+  <animation>
+   <frame tileid="981" duration="800"/>
+   <frame tileid="781" duration="800"/>
+   <frame tileid="581" duration="800"/>
+   <frame tileid="781" duration="800"/>
   </animation>
  </tile>
  <tile id="1101">

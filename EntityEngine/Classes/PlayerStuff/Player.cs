@@ -49,7 +49,8 @@ namespace EntityEngine.Classes.PlayerStuff
         private LumenHandler _lumenHandler;
         private HungerHandler _hungerHandler;
 
-        public int MaxLumens => _lumenHandler.MaxLumens;
+        public readonly int  BaseMaxLumens = 100;
+        public int MaxLumens => BaseMaxLumens + (InventoryHandler as PlayerInventoryHandler).MaxLumenValue;
         public int CurrentLumens => _lumenHandler.CurrentLumens;
         public bool Illuminated => _lumenHandler.Illuminated;
 

@@ -12,6 +12,8 @@ namespace EntityEngine.Classes
     {
         public EquipmentStorageContainer EquipmentStorageContainer { get; set; }
         public int ArmorValue => EquipmentStorageContainer.GetArmorValue();
+        public int MaxLumenValue => EquipmentStorageContainer.GetMaxLumens();
+
         public HumanoidInventoryHandler(int capacity) : base(capacity)
         {
             EquipmentStorageContainer = new EquipmentStorageContainer(8);

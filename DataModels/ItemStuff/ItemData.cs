@@ -39,6 +39,13 @@ namespace DataModels.ItemStuff
         all = 4,
 
     }
+
+    public enum StatType
+    {
+        None = 0,
+        Armor = 1,
+        MaxLumens = 2
+    }
     public class ItemData
     {
         public ushort Id { get; set; }
@@ -75,6 +82,8 @@ namespace DataModels.ItemStuff
         public byte EquipmentYIndex { get; set; }
         public byte MaxDurability { get; set; }
         public byte ArmorValue { get; set; }
+        //Increases max lumens by this value
+        public byte MaximumLumenValue { get; set; }
         public byte DamageValue { get; set; }
         public void Load()
         {
@@ -88,6 +97,22 @@ namespace DataModels.ItemStuff
                 AllowedPlacementTileTypes = new List<AllowedPlacementTileType>() { AllowedPlacementTileType.land };
         }
 
+        public float StatTypeToValue(StatType statType)
+        {
+            switch (statType)
+            {
+                case StatType.None:
+                    goto default;
+                case StatType.Armor:
+                    return ArmorValue;
+                case StatType.MaxLumens:
+                    return MaximumLumenValue;
 
+                default:
+                    throw new Exception($"Invalid stat type");
+
+            }
+
+        }
     }
 }
