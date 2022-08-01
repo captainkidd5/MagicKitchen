@@ -21,7 +21,7 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
 {
     internal class DeveloperBoard : MenuSection
     {
-        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 832, 448);
+        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 960, 448);
         private NineSliceTextButton _saveSettingsButton;
         private StackPanel _stackPanel;
 
@@ -70,7 +70,12 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
             enablePlayerDeathSoundsCheckBox.ActionOnSave = new Action(() => { SettingsManager.EnablePlayerDeath = enablePlayerDeathSoundsCheckBox.Value; });
 
             AddCheckBox(enablePlayerDeathSoundsCheckBox, stackRow1, "Enable Death", SettingsManager.EnablePlayerDeath);
-   
+
+
+            CheckBox nightTimeCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
+            nightTimeCheckBox.ActionOnSave = new Action(() => { SettingsManager.IsNightTime = nightTimeCheckBox.Value; });
+
+            AddCheckBox(nightTimeCheckBox, stackRow1, "Toggle Night", SettingsManager.IsNightTime);
 
             _stackPanel.Add(stackRow1);
 
@@ -130,7 +135,7 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
             // UI.MainMenu._outerMenu.ChangeToPlayOrExitState, scale: 2f);
             //_backButton.CustomClickSoundName = "BackButton1";
 
-            //Deactivate();
+            Deactivate();
 
            // NormallyActivated = false;
         }
@@ -145,9 +150,12 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
         }
         public override void Update(GameTime gameTime)
         {
+#if DEBUG
             if (Controls.WasKeyTapped(Microsoft.Xna.Framework.Input.Keys.L))
                 Toggle();
             base.Update(gameTime);
+#endif 
+
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

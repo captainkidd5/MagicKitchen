@@ -158,7 +158,7 @@ namespace MagicKitchen
 
         protected override void Draw(GameTime gameTime)
         {
-            if (Flags.IsNightTime && UI.GameDisplayState == GameDisplayState.InGame)
+            if (SettingsManager.IsNightTime && UI.GameDisplayState == GameDisplayState.InGame)
             {
                 RenderTargetManager.SetTarget(RenderTargetManager.LightsTarget);
                 GraphicsDevice.Clear(Color.Transparent);
@@ -196,7 +196,7 @@ namespace MagicKitchen
 
             RenderTargetManager.RemoveRenderTarget();
 
-            if (Flags.IsNightTime)
+            if (SettingsManager.IsNightTime)
             {
                 SpriteFactory.LightEffect.Parameters["MaskTexture"].SetValue(RenderTargetManager.LightsTarget);
                 _spriteBatch.Begin(blendState: BlendState.AlphaBlend, effect: SpriteFactory.LightEffect);

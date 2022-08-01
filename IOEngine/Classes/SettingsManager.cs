@@ -43,7 +43,14 @@ namespace IOEngine.Classes
                 SettingsFile.EnablePlayerHurtSounds = value;
             }
         }
-       
+        public static bool IsNightTime
+        {
+            get { return SettingsFile.IsNightTime; }
+            set
+            {
+                SettingsFile.IsNightTime = value;
+            }
+        }
         public static void LoadSettings()
         {
             SettingsFile = new SettingsFile();

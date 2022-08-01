@@ -2,6 +2,7 @@
 using DataModels.ItemStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
+using IOEngine.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using System;
@@ -180,8 +181,8 @@ namespace MagicKitchen.Classes.ConsoleStuff
             }
 
 
-            Flags.IsNightTime = !Flags.IsNightTime;
-            CommandConsole.Append($"Toggled night to {Flags.IsNightTime.ToString()}");
+            SettingsManager.IsNightTime = !SettingsManager.IsNightTime;
+            CommandConsole.Append($"Toggled night to {SettingsManager.IsNightTime.ToString()}");
 
 
         }

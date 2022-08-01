@@ -16,6 +16,7 @@ namespace IOEngine.Classes
 
         public  bool EnablePlayerDeath = false;
         public  bool EnablePlayerHurtSounds = true;
+        public bool IsNightTime { get; set; } = true;
 
         public int CurrentScreenWidth { get; set; } = (int)Settings.NativeWidth;
         public int CurrentScreenHeight { get; set; } = (int)Settings.NativeHeight;

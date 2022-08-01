@@ -23,7 +23,6 @@ namespace Globals.Classes
         public static bool DisplayFPS = false;
 
 
-        public static bool IsNightTime = true;
 
         public static bool SpawnFlotsam = true;
 
