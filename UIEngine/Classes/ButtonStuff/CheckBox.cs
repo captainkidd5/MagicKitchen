@@ -33,7 +33,7 @@ namespace UIEngine.Classes.ButtonStuff
             ForeGroundSpriteOffSet = Vector2.Zero;
 
         }
-        public void ToggleValue(bool value)
+        public void SetToggleValue(bool value)
         {
             Value = value;
             if (!Value)
@@ -50,7 +50,7 @@ namespace UIEngine.Classes.ButtonStuff
             }
             if(ValueLastFrame != Value)
             {
-                ToggleValue(Value);
+                SetToggleValue(Value);
 
             }
             ValueLastFrame = Value;

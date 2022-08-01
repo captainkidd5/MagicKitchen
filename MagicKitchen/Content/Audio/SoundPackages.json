@@ -328,7 +328,18 @@
                 "LocalPath": "SoundEffects/Tiles/Lights"
               }
             ]
-          }
+          },
+          {
+            "Name": "PlayerHurt",
+            "SoundChancers": 
+             [
+                {
+                  "Name": "PlayerHurt1",
+                  "Weight": 100,
+                  "LocalPath": "SoundEffects/Player"
+                }
+              ]
+            }
       
     ]
   

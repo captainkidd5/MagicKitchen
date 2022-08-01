@@ -31,6 +31,7 @@ using SpriteEngine.Classes.Animations.EntityAnimations;
 using SpriteEngine.Classes.Animations.BodyPartStuff;
 using ItemEngine.Classes.StorageStuff;
 using DataModels.ItemStuff;
+using SoundEngine.Classes;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -99,7 +100,7 @@ namespace EntityEngine.Classes.PlayerStuff
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
             _hungerHandler.Load(this);
 
-            AddLight(LightType.Warm, new Vector2(0, -12),false,false, 2);
+            AddLight(LightType.Nautical, new Vector2(0, -12),false,false, 2);
             LightsTouching = new List<Fixture>();
 
             _lumenHandler.Load(this, LightsCollidable[0], LightsTouching);
@@ -161,6 +162,14 @@ namespace EntityEngine.Classes.PlayerStuff
         private void TakeDamageCommand(string[] args)
         {
             TakeDamage(null, int.Parse(args[0]));
+        }
+
+        public override void TakeDamage(Entity source, int amt, Vector2? knockBack = null)
+        {
+            if (!ImmunteToDamage && Flags.EnablePlayerHurtSounds)
+                SoundFactory.PlayEffectPackage("PlayerHurt");
+            base.TakeDamage(source, amt, knockBack);
+           
         }
         protected override void CreateBody(Vector2 position)
         {

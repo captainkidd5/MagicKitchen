@@ -14,7 +14,8 @@ namespace SpriteEngine.Classes.ShadowStuff
     {
         None =0,
         Warm = 1,
-        Nautical = 2
+        Nautical = 2,
+        Jungle = 3,
     }
     public class LightSprite 
     {
@@ -28,11 +29,15 @@ namespace SpriteEngine.Classes.ShadowStuff
                     return WarmColor;
                 case LightType.Nautical:
                     return NauticalColor;
+                case LightType.Jungle:
+                    return JungleColor;
             }
             throw new Exception($"Must have valid light type");
         }
         public static readonly Color WarmColor = Color.Yellow;
         public static readonly Color NauticalColor = Color.LightBlue;
+        public static readonly Color JungleColor = Color.DarkGreen;
+
         public Sprite Sprite { get; set; }
         private Vector2 _offSet;
         public LightSprite(Sprite sprite, Vector2 offSet)

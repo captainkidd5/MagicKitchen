@@ -33,6 +33,8 @@ namespace Globals.Classes
 
         private static bool _firstBootUp = true;
 
+        public static bool EnablePlayerHurtSounds { get; set; } = true;
+
         //Useful for things like registering commands, where commands should only be registered once ber game boot up, and then never again
         public static bool FirstBootUp { get { return _firstBootUp; } set 
             {

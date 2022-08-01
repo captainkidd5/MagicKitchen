@@ -327,6 +327,17 @@
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
  </tile>
+ <tile id="1137">
+  <properties>
+   <property name="lightSource" value=".4,8,8,Jungle,immune:false"/>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="1" y="12" width="4" height="4">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="1139">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>

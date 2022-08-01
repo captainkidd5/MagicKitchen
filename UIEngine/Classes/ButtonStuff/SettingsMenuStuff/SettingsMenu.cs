@@ -73,7 +73,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
 
             stackRow2.AddItem(_muteMusicText, StackOrientation.Left);
             _muteMusicCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-                _muteMusicCheckBox.ToggleValue(SettingsManager.Mute);
+                _muteMusicCheckBox.SetToggleValue(SettingsManager.Mute);
             stackRow2.AddItem(_muteMusicCheckBox, StackOrientation.Right);
             _stackPanel.Add(stackRow2);
 
@@ -86,7 +86,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
 
             stackRow3.AddItem(_enableFullScreenText, StackOrientation.Left);
             _enableFullScrenCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            _enableFullScrenCheckBox.ToggleValue(SettingsManager.FullScreen);
+            _enableFullScrenCheckBox.SetToggleValue(SettingsManager.FullScreen);
             stackRow3.AddItem(_enableFullScrenCheckBox, StackOrientation.Right);
             AddSectionToGrid(_enableFullScrenCheckBox,2, 0);
 

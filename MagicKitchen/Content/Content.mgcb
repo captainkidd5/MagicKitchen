@@ -98,6 +98,12 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Obtain/Items/Bubble2.wav
 
+#begin Audio/SoundEffects/Player/PlayerHurt1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Player/PlayerHurt1.wav
+
 #begin Audio/SoundEffects/Steps/StepDirt.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

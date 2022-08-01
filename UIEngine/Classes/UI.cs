@@ -38,6 +38,7 @@ using TextEngine.Classes;
 using UIEngine.Classes.EquipmentMenuStuff;
 using UIEngine.Classes.SplashScreens;
 using System.Threading.Tasks;
+using UIEngine.Classes.DebugStuff.DeveloperBoardStuff;
 
 namespace UIEngine.Classes
 {
@@ -115,6 +116,8 @@ namespace UIEngine.Classes
 
         private static Game s_game;
         private static SplashScreen SplashScreen;
+
+        private static DeveloperBoard s_developerBoard;
         public static Item PlayerCurrentSelectedItem => StorageDisplayHandler.PlayerSelectedItem;
 
         public static void RemoveCurrentlySelectedItem(int amt) => StorageDisplayHandler.RemovePlayerSelectedItem(amt);
@@ -158,9 +161,10 @@ namespace UIEngine.Classes
             ItemAlertManager = new ItemAlertManager(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
 
             CursorInfoBox = new CursorInfoBox(null, graphics, content, null,.9f);
+            s_developerBoard = new DeveloperBoard(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
 
             s_inGameSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, _talkingWindow,
-                EscMenu, RecipeBook, StorageDisplayHandler, ItemAlertManager, CursorInfoBox };
+                EscMenu, RecipeBook, StorageDisplayHandler, ItemAlertManager, CursorInfoBox, s_developerBoard };
 
             Cursor = new Cursor();
             Cursor.LoadContent(content);
@@ -170,6 +174,8 @@ namespace UIEngine.Classes
 
             SplashScreen = new SplashScreen(null, graphics, splashScreenContentManager,Vector2.Zero, GetLayeringDepth(UILayeringDepths.Low));
             s_splashScreenSections = new List<InterfaceSection>() { SplashScreen };
+
+
             s_activeSections = GetActiveSections();
             s_criticalSections = new List<InterfaceSection>();
             Curtain.LoadContent();
