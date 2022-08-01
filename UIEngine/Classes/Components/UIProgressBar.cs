@@ -46,26 +46,25 @@ namespace UIEngine.Classes.Components
             if (BarOrientation == BarOrientation.Vertical)
             {
                 SourceRectangle = VerticalSourceRectangle;
-                OutlineSprite = SpriteFactory.CreateDestinationSprite((int)((float)SourceRectangle.Width * (float)Scale.X), 1,
-                    Position, new Rectangle(0, 0, VerticalSourceRectangle.Width, VerticalSourceRectangle.Height),
-SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressColor);
-                OutlineSprite.RectangleWidth = 16;
-                OutlineSprite.RectangleHeight = 32;
+
             }
             else
             {
                 SourceRectangle = HorizontalSourceRectangle;
 
-                OutlineSprite = SpriteFactory.CreateDestinationSprite(1, (int)((float)SourceRectangle.Height * (float)Scale.Y),
-                    Position, new Rectangle(0, 0, HorizontalSourceRectangle.Width, HorizontalSourceRectangle.Height),
-SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressColor);
 
-                OutlineSprite.RectangleWidth = 32;
-                OutlineSprite.RectangleHeight= 16;
 
             }
 
+            OutlineSprite = SpriteFactory.CreateDestinationSprite(1, (int)((float)SourceRectangle.Height * (float)Scale.Y),
+               Position, new Rectangle(0, 0, SourceRectangle.Width, SourceRectangle.Height),
+SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressColor);
 
+
+
+            OutlineSprite.RectangleWidth = SourceRectangle.Width * (int)Scale.X;
+            OutlineSprite.RectangleHeight = SourceRectangle.Height * (int)Scale.Y;
+            OutlineSprite.SwapScale(new Vector2(Scale.X * 2, Scale.Y));
             ForegroundSprite = SpriteFactory.CreateUISprite(Position, SourceRectangle, SpriteFactory.StatusIconTexture,
              customLayer: GetLayeringDepth(UILayeringDepths.Medium), scale: Scale);
 
@@ -76,7 +75,8 @@ SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, custom
 
         public virtual void SetProgressRatio(float ratio)
         {
-            if(BarOrientation == BarOrientation.Horizontal)
+
+            if (BarOrientation == BarOrientation.Horizontal)
             {
                 Vector2 lerpedScale = Vector2.Lerp(OutlineSprite.Scale, new Vector2(ratio, OutlineSprite.Scale.Y), .1f);
                 OutlineSprite.SwapScale(lerpedScale);

@@ -25,8 +25,7 @@ namespace UIEngine.Classes.Storage.Configurations
 
 
         protected UIProgressBar UIProgressBar;
-        protected UIProgressBar FuelBar
-            ;
+        protected UIProgressBar FuelBar;
 
         public CraftableDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
