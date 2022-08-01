@@ -134,7 +134,7 @@
     "ScheduleName": "wander_1",
     "NPCType" : "Enemy",
     "ShadowSize":"Small",
-    "CombatResponse":"Retaliate",
+    "CombatResponse":"Flee",
     "SpriteWidth": 16,
     "SpriteHeight": 16,
     

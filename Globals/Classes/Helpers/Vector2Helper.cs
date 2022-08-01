@@ -182,6 +182,28 @@ namespace Globals.Classes.Helpers
 
             return false;
         }
+
+        public static bool MoveAwayFromVector(Vector2 moveAwayFrom, Vector2 currentPos, ref Vector2 velocity,
+            GameTime gameTime, int errorMargin, float speedMultiplier = 1f)
+        {
+            // If we're far enough away, return true
+            if (!Vector2Helper.WithinRangeOf(currentPos, moveAwayFrom, errorMargin))
+                return true;
+
+            // Find direction from current MainHull.Position to goal
+            Vector2 direction = Vector2.Normalize(currentPos - moveAwayFrom);
+
+          
+            // Return whether we've reached the goal or not, leeway of 2 pixels 
+            //if (currentPos.X + errorMargin > moveAwayFrom.X && currentPos.X - errorMargin < moveAwayFrom.X
+            //   && currentPos.Y + errorMargin > moveAwayFrom.Y && currentPos.Y - errorMargin < moveAwayFrom.Y)
+            //{
+            //    return true;
+            //}
+            velocity = direction * (float)gameTime.ElapsedGameTime.TotalMilliseconds * .05f * speedMultiplier;
+
+            return false;
+        }
         public static void WriteVector2(BinaryWriter writer, Vector2 val)
         {
             writer.Write(val.X);

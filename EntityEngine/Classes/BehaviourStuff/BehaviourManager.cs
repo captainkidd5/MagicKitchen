@@ -1,6 +1,6 @@
 ﻿using DataModels;
 using DataModels.ScriptedEventStuff;
-using EntityEngine.Classes.BehaviourStuff.Agression;
+using EntityEngine.Classes.BehaviourStuff.DamageResponses;
 using EntityEngine.Classes.BehaviourStuff.PatronStuff;
 using EntityEngine.Classes.CharacterStuff;
 using Globals;
@@ -52,7 +52,10 @@ namespace EntityEngine.Classes.BehaviourStuff
         {
             CurrentBehaviour = new ChaseAndAttackBehaviour(_entity, otherEntity, _statusIcon, _navigator, _tileManager, 2f);
         }
-
+        public void Flee(Entity otherEntity)
+        {
+            CurrentBehaviour = new FleeBehaviour(_entity, otherEntity, _statusIcon, _navigator, _tileManager, 2f);
+        }
         public Behaviour ChangeBehaviour(EndBehaviour newbehaviour)
         {
             switch (newbehaviour)

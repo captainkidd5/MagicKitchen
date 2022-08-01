@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using TiledEngine.Classes;
 using static DataModels.Enums;
 
-namespace EntityEngine.Classes.BehaviourStuff.Agression
+namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
 {
     internal class ChaseAndAttackBehaviour : Behaviour
     {

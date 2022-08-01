@@ -1,6 +1,6 @@
 ﻿using DataModels;
 using DataModels.NPCStuff;
-using EntityEngine.Classes.BehaviourStuff.Agression;
+using EntityEngine.Classes.BehaviourStuff.DamageResponses;
 using EntityEngine.Classes.CharacterStuff;
 using EntityEngine.Classes.ToolStuff;
 using EntityEngine.ItemStuff;
@@ -154,12 +154,26 @@ namespace EntityEngine.Classes.NPCStuff
             ParticleManager.AddParticleEmitter(this, EmitterType.Fire);
             ParticleManager.AddParticleEmitter(this, EmitterType.Text, amt.ToString());
 
-            if(source != null && NPCData != null && NPCData.CombatResponse == CombatResponse.Retaliate)
-             BehaviourManager.ChaseAndAttack(source);
+            if(source != null && NPCData != null)
+            {
+                switch (NPCData.CombatResponse)
+                {
+                    case CombatResponse.None:
+                        break;
+                    case CombatResponse.Retaliate:
+                        BehaviourManager.ChaseAndAttack(source);
+                        break;
+                    case CombatResponse.Flee:
+                        BehaviourManager.Flee(source);
 
-            
+                        break;
+                }
 
+
+
+            }
         }
+
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayArea))
