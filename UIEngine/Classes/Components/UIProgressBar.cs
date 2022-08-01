@@ -46,19 +46,26 @@ namespace UIEngine.Classes.Components
             if (BarOrientation == BarOrientation.Vertical)
             {
                 SourceRectangle = VerticalSourceRectangle;
-                OutlineSprite = SpriteFactory.CreateDestinationSprite((int)((float)SourceRectangle.Width * (float)Scale.X), 1, Position, new Rectangle(0, 0, 1, 1),
+                OutlineSprite = SpriteFactory.CreateDestinationSprite((int)((float)SourceRectangle.Width * (float)Scale.X), 1,
+                    Position, new Rectangle(0, 0, VerticalSourceRectangle.Width, VerticalSourceRectangle.Height),
 SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressColor);
-
+                OutlineSprite.RectangleWidth = 16;
+                OutlineSprite.RectangleHeight = 32;
             }
             else
             {
                 SourceRectangle = HorizontalSourceRectangle;
 
-                OutlineSprite = SpriteFactory.CreateDestinationSprite(1, (int)((float)SourceRectangle.Height * (float)Scale.Y), Position, new Rectangle(0, 0, 1, 1),
+                OutlineSprite = SpriteFactory.CreateDestinationSprite(1, (int)((float)SourceRectangle.Height * (float)Scale.Y),
+                    Position, new Rectangle(0, 0, HorizontalSourceRectangle.Width, HorizontalSourceRectangle.Height),
 SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, customLayer: GetLayeringDepth(UILayeringDepths.Low), primaryColor: ProgressColor);
+
+                OutlineSprite.RectangleWidth = 32;
+                OutlineSprite.RectangleHeight= 16;
+
             }
 
-        
+
             ForegroundSprite = SpriteFactory.CreateUISprite(Position, SourceRectangle, SpriteFactory.StatusIconTexture,
              customLayer: GetLayeringDepth(UILayeringDepths.Medium), scale: Scale);
 
@@ -71,12 +78,14 @@ SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, custom
         {
             if(BarOrientation == BarOrientation.Horizontal)
             {
-                OutlineSprite.RectangleWidth = (int)(ratio * (float)SourceRectangle.Width * Scale.X);
+                Vector2 lerpedScale = Vector2.Lerp(OutlineSprite.Scale, new Vector2(ratio, OutlineSprite.Scale.Y), .1f);
+                OutlineSprite.SwapScale(lerpedScale);
 
             }
             else if(BarOrientation == BarOrientation.Vertical)
             {
-                OutlineSprite.RectangleHeight = (int)(ratio * (float)SourceRectangle.Height * Scale.Y);
+                Vector2 lerpedScale = Vector2.Lerp(OutlineSprite.Scale, new Vector2(OutlineSprite.Scale.X, ratio), .1f);
+                OutlineSprite.SwapScale(lerpedScale);
 
             }
 
