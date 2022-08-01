@@ -20,5 +20,9 @@ namespace IOEngine.Classes
 
         public int CurrentScreenWidth { get; set; } = (int)Settings.NativeWidth;
         public int CurrentScreenHeight { get; set; } = (int)Settings.NativeHeight;
+
+        public bool DebugVelcro = false;
+        public bool DebugGrid = false;
+
     }
 }

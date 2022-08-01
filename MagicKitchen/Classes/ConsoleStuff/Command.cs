@@ -154,9 +154,7 @@ namespace MagicKitchen.Classes.ConsoleStuff
             }
 
 
-            Flags.DebugVelcro = !Flags.DebugVelcro;
             Flags.DisplayMousePosition = !Flags.DisplayMousePosition;
-            CommandConsole.Append($"Toggled debug to {Flags.DebugVelcro.ToString()}");
 
 
         }
@@ -229,8 +227,6 @@ namespace MagicKitchen.Classes.ConsoleStuff
 
 
 
-            Flags.DebugGrid = !Flags.DebugGrid;
-            CommandConsole.Append($"Toggled weight to {Flags.DebugGrid.ToString()}");
 
 
 

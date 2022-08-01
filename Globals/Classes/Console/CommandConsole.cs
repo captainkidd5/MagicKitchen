@@ -37,9 +37,7 @@ namespace Globals.Classes.Console
         {
             switch (commands[0])
             {
-                case "debug":
-                    Flags.DebugVelcro = !Flags.DebugVelcro;
-                    break;
+
                 case "debug_ui":
                 Flags.DisplayMousePosition = !Flags.DisplayMousePosition;
                     break;
@@ -49,9 +47,7 @@ namespace Globals.Classes.Console
                 case "epath":
                     Flags.ShowEntityPaths = !Flags.ShowEntityPaths;
                     break;
-                case "grid":
-                    Flags.DebugGrid = !Flags.DebugGrid;
-                    break;
+
                 case "fps":
                     Flags.DisplayFPS = !Flags.DisplayFPS;
                     break;

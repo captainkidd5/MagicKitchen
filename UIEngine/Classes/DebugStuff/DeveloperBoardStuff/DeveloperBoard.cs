@@ -79,6 +79,26 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
 
             _stackPanel.Add(stackRow1);
 
+
+            StackRow stackRow2 = new StackRow(_backGroundSpriteDimensions.Width);
+
+            CheckBox debugVelcroCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
+            debugVelcroCheckBox.ActionOnSave = new Action(() => { SettingsManager.DebugVelcro = debugVelcroCheckBox.Value; });
+
+            AddCheckBox(debugVelcroCheckBox, stackRow2, "Toggle velcro", SettingsManager.DebugVelcro);
+
+            CheckBox debugGridCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
+            debugGridCheckBox.ActionOnSave = new Action(() => { SettingsManager.DebugGrid = debugGridCheckBox.Value; });
+
+            AddCheckBox(debugGridCheckBox, stackRow2, "Toggle grid", SettingsManager.DebugGrid);
+
+
+       
+
+            _stackPanel.Add(stackRow2);
+
+
+
             StackRow stackRowSave = new StackRow(_backGroundSpriteDimensions.Width);
 
             _saveSettingsButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, Position,

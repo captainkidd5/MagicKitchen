@@ -51,6 +51,24 @@ namespace IOEngine.Classes
                 SettingsFile.IsNightTime = value;
             }
         }
+
+        public static bool DebugVelcro
+        {
+            get { return SettingsFile.DebugVelcro; }
+            set
+            {
+                SettingsFile.DebugVelcro = value;
+            }
+        }
+
+        public static bool DebugGrid
+        {
+            get { return SettingsFile.DebugGrid; }
+            set
+            {
+                SettingsFile.DebugGrid = value;
+            }
+        }
         public static void LoadSettings()
         {
             SettingsFile = new SettingsFile();

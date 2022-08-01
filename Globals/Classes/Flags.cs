@@ -13,9 +13,9 @@ namespace Globals.Classes
         public static bool SpawnCharactersOnNewGame = true;
         public static bool Pause;
 
-        public static bool DebugVelcro  = false;
+
         public static bool DisplayPlayAreaCollisions  = false;
-        public static bool DebugGrid  = false;
+
         public static bool ShowEntityPaths = false;
 
 

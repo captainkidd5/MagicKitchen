@@ -180,7 +180,7 @@ namespace MagicKitchen
 
             }
 
-            if (Flags.DebugVelcro)
+            if (SettingsManager.DebugVelcro)
                 PhysicsManager.Draw(GraphicsDevice, Camera);
             _frameCounter.Update(gameTime.ElapsedGameTime.TotalSeconds);
 

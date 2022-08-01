@@ -112,7 +112,7 @@ namespace StageEngine.Classes
             _playerManager.Draw(spriteBatch);
             NPCContainer.Draw(spriteBatch);
 #if DEBUG
-            if (Flags.DebugGrid)
+            if (SettingsManager.DebugGrid)
                 _pathGrid.DrawDebug(spriteBatch);
 #endif
             ParticleManager.Draw(spriteBatch);
