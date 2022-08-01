@@ -12,6 +12,7 @@ namespace DataModels.MapStuff
         DiningTable = 3,
         Grill = 4,
         CraftingTable =5,
+        Furnace = 6
 
     }
 
@@ -33,6 +34,9 @@ namespace DataModels.MapStuff
         //Would have storage indices of 0,1,3,4 where the middle isn't visible. This is of course up to
         //player discretion and only affects graphics
         public List<VisibleStorageIndex> VisibleStorageIndicies { get; set; }
+
+        public int? FuelSlotIndex { get; set; }
+        public int? OutputSlotIndex { get; set; }
 
 
     }

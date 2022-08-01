@@ -61,7 +61,7 @@ namespace UIEngine.Classes.Storage.Configurations
             Vector2 offSet = new Vector2(0, BackgroundSourceRectangle.Height / 2 * backdropScale.Y);
 
 
-            int requiredSlots = 3;
+            int requiredSlots = 4;
             if (StorageContainer.Slots.Count != requiredSlots)
                 throw new Exception($"Storage container passed into display must have exactly {requiredSlots} slots");
 

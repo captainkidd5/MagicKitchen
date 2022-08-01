@@ -38,8 +38,8 @@ namespace ItemEngine.Classes.StorageStuff
             CraftedItemMetre = new CraftedItemMetre(FuelMetre);
             CraftedItemMetre.ProgressDone += OnMetreCompleted;
 
-            Slots[0] = OutputSlot;
-            Slots[Slots.Count - 1] = FuelSlot;
+            Slots[furnitureData.OutputSlotIndex.Value] = OutputSlot;
+            Slots[furnitureData.FuelSlotIndex.Value] = FuelSlot;
 
         }
         private void OnMetreCompleted()

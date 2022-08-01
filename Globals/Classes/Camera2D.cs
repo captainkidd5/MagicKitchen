@@ -28,7 +28,7 @@ namespace Globals.Classes
 
         public Camera2D(Viewport viewport)
         {
-            Zoom =2.0f;
+            Zoom =3.0f;
             Rotation = 0.0f;
             position = Vector2.Zero;
             LockBounds = true;
