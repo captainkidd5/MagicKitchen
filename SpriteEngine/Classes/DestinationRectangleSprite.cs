@@ -37,8 +37,8 @@ namespace SpriteEngine.Classes
 
         protected override void DrawWorld(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture,new Rectangle((int)(Position.X + OffSet.X), (int)(Position.Y + OffSet.Y), RectangleWidth, RectangleHeight), SourceRectangle,
-                PrimaryColor, Rotation, Origin, SpriteEffects, CustomLayer ?? GetYAxisLayerDepth());
+            spriteBatch.Draw(Texture,new Vector2(Position.X + OffSet.X,Position.Y + OffSet.Y),  SourceRectangle,
+                PrimaryColor, Rotation, Origin,Scale, SpriteEffects, CustomLayer ?? GetYAxisLayerDepth());
 
         }
 

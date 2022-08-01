@@ -48,8 +48,7 @@ namespace SpriteEngine.Classes.Presets
             _position = position + _positionOffSet;
 
             _scale = scale ?? Vector2.One;
-            _outLineSprite = SpriteFactory.CreateDestinationSprite(1, 16, _position, new Rectangle(0, 0, 1, 1),
-                SpriteFactory.StatusIconTexture, elementType, customLayer: layerDepth, primaryColor: color == null ? Color.Green : color.Value);
+     
 
             if(elementType == ElementType.World)
             _foreGroundSprite = SpriteFactory.CreateWorldSprite(_position, _sourceRectangle, SpriteFactory.StatusIconTexture,
@@ -57,6 +56,11 @@ namespace SpriteEngine.Classes.Presets
             else
                 _foreGroundSprite = SpriteFactory.CreateUISprite(_position, _sourceRectangle, SpriteFactory.StatusIconTexture,
                customLayer: layerDepth + SpriteUtility.GetMinimumOffSet(), scale: _scale);
+
+            _outLineSprite = SpriteFactory.CreateDestinationSprite(32, 16, _position, new Rectangle(0, 0, _foreGroundSprite.Width, _foreGroundSprite.Height),
+         SpriteFactory.StatusIconTexture, elementType, customLayer: layerDepth, primaryColor: color == null ? Color.Green : color.Value);
+            _outLineSprite.RectangleWidth = _foreGroundSprite.Width;
+            _outLineSprite.RectangleHeight = _foreGroundSprite.Height;
         }
       
         public void Start(int secondsToRunFor)
@@ -72,7 +76,10 @@ namespace SpriteEngine.Classes.Presets
             {
 
                 _currentAmount = Clock.TotalTime - _globalStartTime;
-                    _outLineSprite.RectangleWidth = (int)((float)((float)_currentAmount / (float)_goal) * (float)_sourceRectangle.Width * _scale.X);
+               Vector2 lerpedScale = Vector2.Lerp(_outLineSprite.Scale, new Vector2((float)((float)_currentAmount / (float)_goal), _outLineSprite.Scale.Y), .5f);
+                _outLineSprite.SwapScale(lerpedScale);
+
+               // _outLineSprite.RectangleWidth = (int)((float)((float)_currentAmount / (float)_goal) * (float)_sourceRectangle.Width * _scale.X);
             }
             _position = position + _positionOffSet;
 
@@ -89,7 +96,10 @@ namespace SpriteEngine.Classes.Presets
         {
             _currentAmount = currentAmt;
             _goal = totalAmt;
-            _outLineSprite.RectangleWidth = (int)((float)((float)currentAmt / (float)totalAmt) * (float)_sourceRectangle.Width * _scale.X);
+            Vector2 lerpedScale = Vector2.Lerp(_outLineSprite.Scale, new Vector2((float)((float)currentAmt / (float)totalAmt), _outLineSprite.Scale.Y), .1f);
+
+            _outLineSprite.SwapScale(lerpedScale);
+            //_outLineSprite.RectangleWidth = (int)((float)((float)currentAmt / (float)totalAmt) * (float)_sourceRectangle.Width * _scale.X);
 
         }
         public void Draw(SpriteBatch spriteBatch)
