@@ -14,6 +14,9 @@ namespace IOEngine.Classes
 
         public bool FullScreen { get; set; } = false;
 
+        public  bool EnablePlayerDeath = false;
+        public  bool EnablePlayerHurtSounds = true;
+
         public int CurrentScreenWidth { get; set; } = (int)Settings.NativeWidth;
         public int CurrentScreenHeight { get; set; } = (int)Settings.NativeHeight;
     }

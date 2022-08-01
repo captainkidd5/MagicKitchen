@@ -27,6 +27,23 @@ namespace IOEngine.Classes
                 Settings.ToggleFullscreen(value);
             } }
 
+        public static bool EnablePlayerDeath
+        {
+            get { return SettingsFile.EnablePlayerDeath; }
+            set
+            {
+                SettingsFile.EnablePlayerDeath = value;
+            }
+        }
+        public static bool EnablePlayerHurtSounds
+        {
+            get { return SettingsFile.EnablePlayerHurtSounds; }
+            set
+            {
+                SettingsFile.EnablePlayerHurtSounds = value;
+            }
+        }
+       
         public static void LoadSettings()
         {
             SettingsFile = new SettingsFile();

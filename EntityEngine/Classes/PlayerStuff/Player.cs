@@ -114,7 +114,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
 
 
-            if(Flags.EnablePlayerDeath)
+            if(SettingsManager.EnablePlayerDeath)
             UI.DropCurtain(UI.CurtainDropRate, Die);
 
         }
@@ -166,7 +166,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
         public override void TakeDamage(Entity source, int amt, Vector2? knockBack = null)
         {
-            if (!ImmunteToDamage && Flags.EnablePlayerHurtSounds)
+            if (!ImmunteToDamage && SettingsManager.EnablePlayerHurtSounds)
                 SoundFactory.PlayEffectPackage("PlayerHurt");
             base.TakeDamage(source, amt, knockBack);
            

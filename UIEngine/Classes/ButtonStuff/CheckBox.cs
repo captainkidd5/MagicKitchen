@@ -55,5 +55,11 @@ namespace UIEngine.Classes.ButtonStuff
             }
             ValueLastFrame = Value;
         }
+
+        public Action ActionOnSave { get; set; }
+        public void SaveSettings()
+        {
+            ActionOnSave();
+        }
     }
 }
