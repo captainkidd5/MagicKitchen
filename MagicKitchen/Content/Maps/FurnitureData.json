@@ -66,6 +66,8 @@
 },
 {
     "FurnitureType": "Grill",
+    "StorageRows" : 3,
+    "StorageColumns": 1,
     "VisibleStorageIndicies":[
         {
             "Index": 0,

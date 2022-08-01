@@ -19,9 +19,9 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         }
         protected override void AddPlacedItems(FurnitureData furnitureData, TileObject tile)
         {
- 
+            base.AddPlacedItems(furnitureData, tile);
            
-                PlacedItems.Add(new PlacedOnItem(0, tile.TileData.GetKey()));
+                //PlacedItems.Add(new PlacedOnItem(0, tile.TileData.GetKey()));
             
         }
         public override void Load()

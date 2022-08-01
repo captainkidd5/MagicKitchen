@@ -37,7 +37,7 @@ namespace EntityEngine.Classes.CharacterStuff
         {
             
 
-            Speed = 3f;
+            Speed = 2f;
             XOffSet = 8;
             YOffSet = 16;
         }

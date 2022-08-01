@@ -13,7 +13,7 @@ namespace ItemEngine.Classes.StorageStuff
     public class CraftingStorageContainer : FurnitureStorageContainer
     {
         public CraftAction CraftAction { get; private set; }
-        public StorageSlot OutputSlot { get; set; }
+        public OutputSlot OutputSlot { get; set; }
         public FuelStorageSlot FuelSlot { get; set; }
 
         public bool ContainsFuelItem => FuelSlot.StoredCount > 0;
@@ -25,7 +25,7 @@ namespace ItemEngine.Classes.StorageStuff
             FurnitureData furnitureData = null) : base(capacity, furnitureData)
         {
             CraftAction = craftAction;
-            OutputSlot = new StorageSlot();
+            OutputSlot = new OutputSlot();
             FuelSlot = new FuelStorageSlot();
             OutputSlot.ItemChanged += OutputSlotClicked;
             foreach (StorageSlot slot in Slots)
@@ -37,6 +37,9 @@ namespace ItemEngine.Classes.StorageStuff
             FuelMetre = new FuelMetre();
             CraftedItemMetre = new CraftedItemMetre(FuelMetre);
             CraftedItemMetre.ProgressDone += OnMetreCompleted;
+
+            Slots[0] = OutputSlot;
+            Slots[Slots.Count - 1] = FuelSlot;
 
         }
         private void OnMetreCompleted()
@@ -58,8 +61,16 @@ namespace ItemEngine.Classes.StorageStuff
         }
         private void GetCraftingRecipe()
         {
+            //int fuelSlotIndex = Slots.IndexOf(FuelSlot);
+            //int outputSlotIndex = Slots.IndexOf(OutputSlot);
+            //Slots.RemoveAt(fuelSlotIndex);
+            //Slots.RemoveAt(outputSlotIndex);
+
             ItemData itemData = ItemFactory.CraftingGuide.GetCraftedItem(CraftAction, Slots);
             _currentlyCraftableItem = itemData;
+            //Slots.Insert(Slots.Count - 1, FuelSlot);
+            //Slots.Insert(outputSlotIndex, OutputSlot);
+
         }
 
         public void AnyItemChanged(Item item, int storedCount)

@@ -70,6 +70,7 @@ namespace UIEngine.Classes.Storage.Configurations
 
             ClearGrid();
             int slotIndex = 0;
+            //This is total rows, not just slots (includes progress bars etc)
             Rows = 5;
             Columns = 1;
 
@@ -105,6 +106,8 @@ namespace UIEngine.Classes.Storage.Configurations
                         display.LoadContent();
 
                         stackRow.AddItem(display, StackOrientation.Center, true);
+                        slotIndex++;
+
                     }
                     if (row == 1)
                     {

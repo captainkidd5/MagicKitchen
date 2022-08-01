@@ -61,7 +61,11 @@ namespace ItemEngine.Classes.CraftingStuff
         {
             foreach(CraftingIngredient ingredient in recipeInfo.Ingredients)
             {
-                if(!storageSlots.Any(x => x.Item != null && x.Item.Name == ingredient.Name && x.StoredCount >= ingredient.Count))
+                if(!storageSlots.Any(x => x.Item != null &&
+                x.GetType() != typeof(FuelStorageSlot) &&
+                x.GetType() != typeof(OutputSlot) &&
+                x.Item.Name == ingredient.Name &&
+                x.StoredCount >= ingredient.Count))
                 {
                     return false;
                 }
@@ -79,6 +83,8 @@ namespace ItemEngine.Classes.CraftingStuff
         {
             foreach (StorageSlot slot in storageSlots)
             {
+                if (slot.GetType() == typeof(OutputSlot) || slot.GetType() == typeof(FuelStorageSlot))
+                    break;
                 //Dissalow extra ingredients
                 if (slot.Item != null)
                     if (!recipeInfo.Ingredients.Any(x => x.Name == slot.Item.Name))
