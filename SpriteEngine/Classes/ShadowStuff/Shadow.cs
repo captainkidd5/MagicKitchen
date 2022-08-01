@@ -55,7 +55,7 @@ namespace SpriteEngine.Classes.ShadowStuff
         {
             if (offSet)
             {
-                Sprite.Update(gameTime, new Vector2(position.X - Sprite.SourceRectangle.Width / 2, position.Y));
+                Sprite.Update(gameTime, new Vector2(position.X - Sprite.SourceRectangle.Width / 2, position.Y - 4));
 
             }
             else

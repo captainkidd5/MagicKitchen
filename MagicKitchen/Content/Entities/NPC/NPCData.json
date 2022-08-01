@@ -189,7 +189,7 @@
     }
 ],
 "NPCSoundData":{
-    "Hurt" : "Grunt"
+    "Hurt" : "RabbitHurt"
 },
 "LootData":[
 

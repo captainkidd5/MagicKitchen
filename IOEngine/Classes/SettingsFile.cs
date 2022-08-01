@@ -14,16 +14,16 @@ namespace IOEngine.Classes
 
         public bool FullScreen { get; set; } = false;
 
-        public  bool EnablePlayerDeath = false;
-        public  bool EnablePlayerHurtSounds = true;
+        public  bool EnablePlayerDeath { get; set; } = false;
+        public  bool EnablePlayerHurtSounds { get; set; } = true;
         public bool IsNightTime { get; set; } = true;
 
         public int CurrentScreenWidth { get; set; } = (int)Settings.NativeWidth;
         public int CurrentScreenHeight { get; set; } = (int)Settings.NativeHeight;
 
-        public bool DebugVelcro = false;
-        public bool DebugGrid = false;
-        public static bool ShowEntityPaths = false;
+        public bool DebugVelcro { get; set; }
+        public bool DebugGrid { get; set; }
+        public static bool ShowEntityPaths { get; set; }
 
     }
 }

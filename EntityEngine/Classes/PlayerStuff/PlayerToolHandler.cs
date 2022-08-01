@@ -48,7 +48,7 @@ namespace EntityEngine.Classes.PlayerStuff
                 }
                 return;
             }
-            if (Controls.IsClicked)
+            if (Controls.IsClickedWorld)
             {
                 if (Controls.ControllerConnected)
                 {

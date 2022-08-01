@@ -47,6 +47,7 @@ namespace EntityEngine.Classes.NPCStuff
             base(graphics, content)
         {
             XOffSet = 8;
+            YOffSet = 4;
         }
 
 
@@ -57,6 +58,7 @@ namespace EntityEngine.Classes.NPCStuff
 
                 NPCData = EntityFactory.NPCData[name];
                 XOffSet = NPCData.SpriteWidth / 2;
+                YOffSet = NPCData.SpriteHeight / 2;
 
                 Name = NPCData.Name;
                 ScheduleName = NPCData.ScheduleName;
@@ -66,7 +68,7 @@ namespace EntityEngine.Classes.NPCStuff
                 }
                 if (standardAnimator)
                 {
-                   Animator = new NPCAnimator(NPCData, NPCData.SpriteWidth / 2, NPCData.SpriteHeight);
+                   Animator = new NPCAnimator(NPCData, XOffSet, NPCData.SpriteHeight);
                     Animator.LoadInitialAnimations();
                 }
               

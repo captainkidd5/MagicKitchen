@@ -303,6 +303,17 @@
  
       },
       {
+        "Name": "RabbitHurt",
+        "SoundChancers":[
+            {
+              "Name": "RabbitHurt1",
+              "Weight": 50,
+              "LocalPath": "SoundEffects/NPC/Rabbit"
+            }
+          ]
+ 
+      },
+      {
         "Name": "PlaceFurniture",
         "SoundChancers": 
          [
