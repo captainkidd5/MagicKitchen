@@ -34,6 +34,7 @@ using TiledEngine.Classes.TileAddons;
 using DataModels;
 using SpriteEngine.Classes.Animations.EntityAnimations;
 using SpriteEngine.Classes.ParticleStuff;
+using IOEngine.Classes;
 
 namespace EntityEngine.Classes
 {
@@ -183,7 +184,7 @@ namespace EntityEngine.Classes
                 MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },
                     new List<Category>() { (Category)PhysCat.PlayArea,(Category)PhysCat.Player, (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,
                         (Category)PhysCat.Grass, (Category)PhysCat.TransparencySensor,  (Category)PhysCat.Portal,(Category)PhysCat.Tool },
-                    OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this, mass: Settings.Random.Next(50, 150));
+                    OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this, mass: 200f);
 
             BigSensorCollidesWithCategories = new List<Category>() { (Category)PhysCat.NPC, (Category)PhysCat.Player, (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh };
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { (Category)PhysCat.PlayerBigSensor }, BigSensorCollidesWithCategories,
@@ -346,7 +347,7 @@ namespace EntityEngine.Classes
             _overHeadItemDisplay.Draw(spriteBatch);
 
 #if DEBUG
-            if (Flags.ShowEntityPaths)
+            if (SettingsManager.ShowEntityPaths)
                 BehaviourManager.DrawDebug(spriteBatch);
 #endif
 

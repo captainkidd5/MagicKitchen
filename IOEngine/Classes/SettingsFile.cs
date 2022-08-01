@@ -23,6 +23,7 @@ namespace IOEngine.Classes
 
         public bool DebugVelcro = false;
         public bool DebugGrid = false;
+        public static bool ShowEntityPaths = false;
 
     }
 }

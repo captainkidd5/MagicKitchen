@@ -69,6 +69,14 @@ namespace IOEngine.Classes
                 SettingsFile.DebugGrid = value;
             }
         }
+        public static bool ShowEntityPaths
+        {
+            get { return SettingsFile.ShowEntityPaths; }
+            set
+            {
+                SettingsFile.ShowEntityPaths = value;
+            }
+        }
         public static void LoadSettings()
         {
             SettingsFile = new SettingsFile();

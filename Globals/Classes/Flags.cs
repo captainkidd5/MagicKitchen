@@ -16,7 +16,6 @@ namespace Globals.Classes
 
         public static bool DisplayPlayAreaCollisions  = false;
 
-        public static bool ShowEntityPaths = false;
 
 
         public static bool DisplayMousePosition  = false;

@@ -44,9 +44,7 @@ namespace Globals.Classes.Console
                 case "t_selector":
                     Flags.ShowTileSelector = !Flags.ShowTileSelector;
                     break;
-                case "epath":
-                    Flags.ShowEntityPaths = !Flags.ShowEntityPaths;
-                    break;
+
 
                 case "fps":
                     Flags.DisplayFPS = !Flags.DisplayFPS;

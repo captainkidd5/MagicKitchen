@@ -92,8 +92,11 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
 
             AddCheckBox(debugGridCheckBox, stackRow2, "Toggle grid", SettingsManager.DebugGrid);
 
+            CheckBox ePathCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
+            ePathCheckBox.ActionOnSave = new Action(() => { SettingsManager.ShowEntityPaths = ePathCheckBox.Value; });
 
-       
+            AddCheckBox(ePathCheckBox, stackRow2, "Show Entity Paths", SettingsManager.ShowEntityPaths);
+
 
             _stackPanel.Add(stackRow2);
 
