@@ -108,11 +108,17 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 {
 
                     ItemData itemData = ItemFactory.GetItemData(placedItem.ItemId.Value);
+                    bool wasLocked = StorageContainer.Slots[i].PlaceLocked;
+                    if(wasLocked)
+                        UnlockPlaceLock(i);
+
                     for (int j = 0; j < placedItem.ItemCount; j++)
                     {
                         StorageContainer.Slots[i].Add(itemData.Name);
 
                     }
+                    if (wasLocked)
+                        SetPlaceLock(i);
                 }
 
                 placedItem.Load(TopOfFurniture + GetVisibleStorageIndexPositionOffSet(i), StorageContainer.Slots[i], Tile.DrawLayer);
