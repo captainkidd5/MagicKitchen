@@ -233,6 +233,8 @@
     "MaxStackSize": 999,
     "Price": 1,
     "PlacedItemGID" : 112,
+    "PlacementSound" : "StepGrass",
+
     "AllowedPlacementTileTypes":
     [
         "land"

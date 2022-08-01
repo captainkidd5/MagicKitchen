@@ -47,10 +47,11 @@ namespace EntityEngine.Classes.PlayerStuff
 
             _lightCollidable = lightCollidable;
             _lightsTouching = lightsTouching;
-            ResizeLightBody();
             CurrentLumens = MaxLumens;
             LumensLastFrame = CurrentLumens;
             CommandConsole.RegisterCommand("drain", "drains x lumens from player", DrainLumensCommand);
+            ResizeLightBody();
+
 
         }
 

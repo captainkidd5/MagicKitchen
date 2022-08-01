@@ -195,6 +195,16 @@
         ]
       },
       {
+        "Name": "StepGrass",
+        "SoundChancers": [
+             {
+            "Name": "StepGrass1",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Steps"
+          }
+        ]
+      },
+      {
         "Name": "Step",
         "SoundChancers":  [
             {
