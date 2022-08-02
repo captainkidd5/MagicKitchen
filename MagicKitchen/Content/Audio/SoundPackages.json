@@ -360,7 +360,19 @@
                   "LocalPath": "SoundEffects/Player"
                 }
               ]
-            }
+            },
+            {
+              "Name": "PressureRelease",
+              "SoundChancers": 
+               [
+                  {
+                    "Name": "PressureRelease1",
+                    "Weight": 100,
+                    "LocalPath": "SoundEffects/Tiles/Placeables"
+                  }
+                ]
+              }
+        
       
     ]
   

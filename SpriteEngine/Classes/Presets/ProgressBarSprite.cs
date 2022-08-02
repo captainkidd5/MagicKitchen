@@ -15,7 +15,7 @@ namespace SpriteEngine.Classes.Presets
     {
         private Vector2 _position;
         private Vector2 _positionOffSet;
-        private static Rectangle _sourceRectangle = new Rectangle(0, 16, 32, 16);
+        private static Rectangle _sourceRectangle = new Rectangle(0, 32, 32, 16);
         private DestinationRectangleSprite _outLineSprite;
         public int Width => (int)((float)_foreGroundSprite.Width * _scale.X);
         public int Height => (int)((float)_foreGroundSprite.Height * _scale.Y);

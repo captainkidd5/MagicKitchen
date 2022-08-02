@@ -50,7 +50,7 @@ namespace UIEngine.Classes.Storage.Configurations
 
         protected override void GenerateUI(bool displayWallet)
         {
-            Position = new Vector2(Position.X, Position.Y - 128);
+            Position = new Vector2(Position.X, Position.Y - 256);
             BackgroundSourceRectangle = new Rectangle(816, 0, 80, 96);
 
             BackgroundSpritePositionOffset = new Vector2(0, 0);

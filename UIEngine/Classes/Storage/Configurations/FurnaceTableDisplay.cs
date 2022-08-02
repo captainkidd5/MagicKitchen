@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Presets;
 using System;
@@ -32,7 +33,9 @@ namespace UIEngine.Classes.Storage.Configurations
             base.Update(gameTime);
             if (IsActive)
             {
-                UIProgressBar.SetProgressRatio((StorageContainer as CraftingStorageContainer).CraftedItemMetre.Ratio * 2);
+                float ratio = (StorageContainer as CraftingStorageContainer).CraftedItemMetre.Ratio * 2;
+
+                UIProgressBar.SetProgressRatio(ratio);
                 FuelBar.SetProgressRatio((StorageContainer as CraftingStorageContainer).FuelMetre.Ratio * 2);
                 //CraftingActionButton.Update(gameTime);
             }

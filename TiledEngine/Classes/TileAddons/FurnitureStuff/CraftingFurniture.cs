@@ -34,7 +34,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
 
         }
-
+        
         protected override void CreateStorageContainer()
         {
             StorageContainer = new CraftingStorageContainer(CraftAction, TotalStorageCapacity, FurnitureData);

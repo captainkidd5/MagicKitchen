@@ -2,6 +2,7 @@
 using DataModels.MapStuff;
 using Globals.Classes;
 using ItemEngine.Classes.CraftingStuff;
+using SoundEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,7 @@ namespace ItemEngine.Classes.StorageStuff
             ItemFactory.CraftingGuide.RemoveIngredientsFromInventoryToMakeItem(OutputSlot.Item, this);
       
             EvaluateOutputSlot();
+            SoundFactory.PlayEffectPackage("PressureRelease");
 
 
         }
@@ -61,15 +63,10 @@ namespace ItemEngine.Classes.StorageStuff
         }
         private void GetCraftingRecipe()
         {
-            //int fuelSlotIndex = Slots.IndexOf(FuelSlot);
-            //int outputSlotIndex = Slots.IndexOf(OutputSlot);
-            //Slots.RemoveAt(fuelSlotIndex);
-            //Slots.RemoveAt(outputSlotIndex);
+  
 
             ItemData itemData = ItemFactory.CraftingGuide.GetCraftedItem(CraftAction, Slots);
             _currentlyCraftableItem = itemData;
-            //Slots.Insert(Slots.Count - 1, FuelSlot);
-            //Slots.Insert(outputSlotIndex, OutputSlot);
 
         }
 
