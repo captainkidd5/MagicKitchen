@@ -43,7 +43,7 @@
  </tile>
  <tile id="233">
   <properties>
-   <property name="EmitOffSet" value="0,-27"/>
+   <property name="EmitOffSet" value="8,-3"/>
    <property name="animate" value="pause"/>
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
@@ -469,7 +469,7 @@
  </tile>
  <tile id="2124">
   <properties>
-   <property name="lightSource" value=".15,8,8,Nautical,immune:false"/>
+   <property name="lightSource" value=".15,4,6,Nautical,immune:false"/>
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
   <objectgroup draworder="index" id="3">
@@ -595,7 +595,6 @@
  </tile>
  <tile id="3134">
   <properties>
-   <property name="EmitOffSet" value="0,-8"/>
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
   <objectgroup draworder="index" id="2">

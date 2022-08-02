@@ -25,7 +25,7 @@ namespace PhysicsEngine.Classes
         private bool _mayStartRechargWaitTimer = true;
         private bool _recharging;
 
-        private LightSprite _lightSprite;
+        public LightSprite LightSprite { get; private set; }
         public bool RestoresLumens { get; private set; }
         public bool ImmuneToDrain { get; }
         public byte CurrentLumens { get; private set; }
@@ -44,22 +44,23 @@ namespace PhysicsEngine.Classes
             ImmuneToDrain = immuneToDrain;
             MaxLumens = (byte)(scale * 100);
             CurrentLumens = MaxLumens;
-            _lightSprite = SpriteFactory.CreateLight(Position, offSet, lightType, scale);
+            LightSprite = SpriteFactory.CreateLight(Position, offSet, lightType, scale);
             Vector2 newScale = new Vector2(CurrentLumens * .1f, CurrentLumens * .1f);
-            ResizeLight(newScale);
+
+            LightSprite.Sprite.SwapScale(newScale);
 
         }
 
         public void ResizeLight(Vector2 newScale)
         {
-            _lightSprite.Sprite.SwapScale(newScale);
+            LightSprite.Sprite.SwapScale(newScale);
         }
         protected override void CreateBody(Vector2 position)
         {
             base.CreateBody(position);
 
             if (MainHullBody == null)
-                MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, _lightSprite.Sprite.Width * _lightSprite.Sprite.Scale.X / 4, new List<Category>() { (Category)PhysCat.LightSource },
+                MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, LightSprite.Sprite.Width * LightSprite.Sprite.Scale.X / 4, new List<Category>() { (Category)PhysCat.LightSource },
                     new List<Category>() { (Category)PhysCat.PlayerBigSensor }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this);
             _restPeriodTimer = new SimpleTimer(_restPeriod);
 
@@ -75,7 +76,7 @@ namespace PhysicsEngine.Classes
             if (!ImmuneToDrain)
             {
                 CurrentLumens -= amt;
-                ResizeLight(new Vector2(CurrentLumens * .1f, CurrentLumens * .1f));
+
             }
 
             _personaEmitter.AddParticle(CenteredPosition);
@@ -93,7 +94,7 @@ namespace PhysicsEngine.Classes
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            _lightSprite.Update(gameTime, Position);
+            LightSprite.Update(gameTime, Position);
             if (CurrentLumens == MaxLumens)
             {
                 TimeSinceFull = -1;
@@ -121,18 +122,21 @@ namespace PhysicsEngine.Classes
                         CurrentLumens++;
                        else
                         _recharging = false;
-                    ResizeLight(new Vector2(CurrentLumens * .1f, CurrentLumens * .1f));
-
+             
 
                 }
 
             }
             _personaEmitter.Update(gameTime, Shared.PlayerPosition);
+            Vector2 lerpedScale = Vector2.Lerp(LightSprite.Sprite.Scale, new Vector2(CurrentLumens * .1f, CurrentLumens * .1f), .08f);
+            if (CurrentLumens <= 0)
+                lerpedScale = Vector2.Zero;
+            LightSprite.Sprite.SwapScale(lerpedScale);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            _lightSprite.Draw(spriteBatch);
+            LightSprite.Draw(spriteBatch);
         }
 
         public void DrawEmitter(SpriteBatch spriteBatch)

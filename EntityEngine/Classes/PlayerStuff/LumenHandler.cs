@@ -50,7 +50,7 @@ namespace EntityEngine.Classes.PlayerStuff
             CurrentLumens = MaxLumens;
             LumensLastFrame = CurrentLumens;
             CommandConsole.RegisterCommand("drain", "drains x lumens from player", DrainLumensCommand);
-            ResizeLightBody();
+
 
 
         }
@@ -70,10 +70,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
 
 
-            if (LumensLastFrame != CurrentLumens)
-            {
-                ResizeLightBody();
-            }
+       
             LumensLastFrame = CurrentLumens;
 
 
@@ -98,13 +95,10 @@ namespace EntityEngine.Classes.PlayerStuff
             }
             DrainLumens(gameTime);
 
-        }
-        private void ResizeLightBody()
-        {
-            float newVal = (float)CurrentLumens / (float)MaxLumens * 10;
-            _lightCollidable.ResizeLight(new Vector2(newVal, newVal));
+     
 
         }
+
         /// <summary>
         /// Returns true if was able to gain any charge from lights nearby or timer has not run out
         /// </summary>

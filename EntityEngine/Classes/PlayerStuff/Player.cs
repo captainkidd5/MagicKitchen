@@ -114,11 +114,12 @@ namespace EntityEngine.Classes.PlayerStuff
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
             _hungerHandler.Load(this);
 
-            AddLight(LightType.Nautical, new Vector2(0, -12),false,false, 2);
+            AddLight(LightType.Nautical, new Vector2(0, -12),false,false, .5f);
             LightsTouching = new List<Fixture>();
 
             _lumenHandler.Load(this, LightsCollidable[0], LightsTouching);
             _healthHandler.Load(this, _hungerHandler);
+            LightsCollidable[0].MaxLumens = (byte)_lumenHandler.MaxLumens;
 
 
         }
@@ -420,6 +421,11 @@ namespace EntityEngine.Classes.PlayerStuff
             base.CleanUp();
             ProgressManager.CleanUp();
             StorageCapacity = 24;
+        }
+        protected override void UpdateLights(GameTime gameTime)
+        {
+            LightsCollidable[0].SetCurrentLumens((byte)_lumenHandler.CurrentLumens);
+            base.UpdateLights(gameTime);
         }
 
         public override void Save(BinaryWriter writer)

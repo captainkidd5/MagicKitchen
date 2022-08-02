@@ -123,7 +123,22 @@ namespace PhysicsEngine.Classes
                 body.Position = Position;
             }
 
-            if(LightsCollidable != null)
+            UpdateLights(gameTime);
+
+            SoundModuleManager.Update(CenteredPosition);
+
+
+            //Position is changed so that our sprite knows where to draw, and position
+            //snaps to where the physics system moved the main hullbody
+            if (MainHullBody != null)
+                Move(new Vector2(MainHullBody.Position.X, MainHullBody.Position.Y));
+
+
+        }
+
+        protected virtual void UpdateLights(GameTime gameTime)
+        {
+            if (LightsCollidable != null)
             {
                 for (int i = 0; i < LightsCollidable.Count; i++)
                 {
@@ -131,17 +146,8 @@ namespace PhysicsEngine.Classes
                     LightsCollidable[i].Move(Position);
                 }
             }
-           
-            SoundModuleManager.Update(CenteredPosition);
-
-
-            //Position is changed so that our sprite knows where to draw, and position
-            //snaps to where the physics system moved the main hullbody
-            if(MainHullBody != null)
-            Move(new Vector2(MainHullBody.Position.X, MainHullBody.Position.Y));
-
-
         }
+
         protected virtual void CreateBody(Vector2 position)
         {
             Position = position;
