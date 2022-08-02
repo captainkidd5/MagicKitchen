@@ -20,12 +20,15 @@ namespace ItemEngine.Classes.StorageStuff
         public bool ContainsFuelItem => FuelSlot.StoredCount > 0;
 
         private ItemData _currentlyCraftableItem;
+        private readonly Action _actionOnComplete;
+
         public FuelMetre FuelMetre { get; set; }
         public CraftedItemMetre CraftedItemMetre { get; set; }
         public CraftingStorageContainer(CraftAction craftAction, int capacity,
-            FurnitureData furnitureData = null) : base(capacity, furnitureData)
+            FurnitureData furnitureData = null, Action actionOnComplete = null) : base(capacity, furnitureData)
         {
             CraftAction = craftAction;
+            _actionOnComplete = actionOnComplete;
             OutputSlot = new OutputSlot();
             FuelSlot = new FuelStorageSlot();
             OutputSlot.ItemChanged += OutputSlotClicked;
@@ -51,7 +54,8 @@ namespace ItemEngine.Classes.StorageStuff
             ItemFactory.CraftingGuide.RemoveIngredientsFromInventoryToMakeItem(OutputSlot.Item, this);
       
             EvaluateOutputSlot();
-            SoundFactory.PlayEffectPackage("PressureRelease");
+            if(_actionOnComplete != null)
+            _actionOnComplete();
 
 
         }

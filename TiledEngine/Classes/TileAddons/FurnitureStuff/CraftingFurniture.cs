@@ -37,8 +37,12 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         
         protected override void CreateStorageContainer()
         {
-            StorageContainer = new CraftingStorageContainer(CraftAction, TotalStorageCapacity, FurnitureData);
+            StorageContainer = new CraftingStorageContainer(CraftAction, TotalStorageCapacity, FurnitureData, CraftingDoneAction);
+        }
 
+        protected virtual void CraftingDoneAction()
+        {
+            PlayPackage("PressureRelease");
         }
         public override void Load()
         {
