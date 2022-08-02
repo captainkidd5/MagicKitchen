@@ -43,12 +43,11 @@ namespace EntityEngine.Classes
     /// <summary>
     /// Represents any character-like thing
     /// </summary>
-    public abstract class Entity : Collidable, ISaveable, IEmitter
+    public abstract class Entity : Collidable, ISaveable
     {
         private readonly GraphicsDevice _graphics;
         private readonly ContentManager _content;
 
-        public Vector2 EmitPosition => Position;
         //Movement
         public float BaseSpeed { get; protected set; } = 2.5f;
         protected Vector2 Velocity;

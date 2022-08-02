@@ -5,6 +5,7 @@ using ItemEngine.Classes.StorageStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
+using SpriteEngine.Classes.ParticleStuff;
 using SpriteEngine.Classes.Presets;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         protected virtual void CraftingDoneAction()
         {
             PlayPackage("PressureRelease");
+            ParticleManager.AddParticleEmitter(this, EmitterType.Smoke);
+          //  ParticleManager.AddParticleEmitter(this, EmitterType.Text, amt.ToString());
         }
         public override void Load()
         {

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes.Gadgets;
 using SoundEngine.Classes;
 using SpriteEngine.Classes;
+using SpriteEngine.Classes.ParticleStuff;
 using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace PhysicsEngine.Classes
     /// <summary>
     /// Inherit from this if your class should be collidable!
     /// </summary>
-    public class Collidable : ILightDrawable
+    public class Collidable : ILightDrawable, IEmitter
     {
         public Vector2 Position { get; protected set; }
 
@@ -50,6 +51,8 @@ namespace PhysicsEngine.Classes
         protected List<Category> BigSensorCollidesWithCategories { get; set; }
 
         protected List<LightCollidable> LightsCollidable { get; set; }
+
+        public Vector2 EmitPosition => Position;
 
         /// <summary>
         /// Will return if is hovered, regardless of input type

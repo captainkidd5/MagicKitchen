@@ -68,7 +68,19 @@ namespace SpriteEngine.Classes.ParticleStuff
             angle = 0f;
             EnableGravity = true;
         }
-
+        public void SmokePreset()
+        {
+            lifespan = .25f;
+            colorStart = Color.White;
+            colorEnd = Color.Gray;
+            opacityStart = 1f;
+            opacityEnd = 0f;
+            sizeStart = 4f;
+            sizeEnd = 12;
+            speed = 200f;
+            angle = 0f;
+            EnableGravity = false;
+        }
         private static Rectangle SourceRectangleFromParticleTextureType(ParticleTextureType p)
         {
             switch (p)

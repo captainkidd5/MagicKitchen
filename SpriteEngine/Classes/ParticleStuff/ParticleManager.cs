@@ -14,7 +14,8 @@ namespace SpriteEngine.Classes.ParticleStuff
     {
         None = 0,
         Fire = 1,
-        Text = 2
+        Text = 2,
+        Smoke =3,
     }
     public static class ParticleManager
     {
@@ -50,6 +51,12 @@ namespace SpriteEngine.Classes.ParticleStuff
                     data.colorEnd = colorEnd ?? data.colorEnd;
 
                     break;
+                case EmitterType.Smoke:
+                    data.SmokePreset();
+                    emitterData.AngleVariance = 4f;
+                    emitterData.EmitCount = 20;
+                    emitterData.TotalLifeSpan = 2f;
+                    break;
             }
             emitterData.ParticleData = data;
             if(text == null)
@@ -61,7 +68,7 @@ namespace SpriteEngine.Classes.ParticleStuff
             _particleEmitters.Add(emitter);
 
         }
-            public static void AddParticleEmitter(ParticleEmitter e)
+        public static void AddParticleEmitter(ParticleEmitter e)
         {
             _particleEmitters.Add(e);
         }
@@ -99,6 +106,6 @@ namespace SpriteEngine.Classes.ParticleStuff
                 particle.Draw(spriteBatch);
             }
         }
-        
+
     }
 }
