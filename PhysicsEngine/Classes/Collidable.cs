@@ -52,7 +52,17 @@ namespace PhysicsEngine.Classes
 
         protected List<LightCollidable> LightsCollidable { get; set; }
 
-        public Vector2 EmitPosition => Position;
+        public Vector2 EmitPosition
+        {
+            get
+            {
+                if (EmitOffSet != null)
+                    return EmitOffSet.Value + Position;
+                else
+                    return Position;
+            }
+        }
+        public Vector2? EmitOffSet { get; set; }
 
         /// <summary>
         /// Will return if is hovered, regardless of input type

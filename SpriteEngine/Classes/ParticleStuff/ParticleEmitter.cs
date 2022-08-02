@@ -12,15 +12,17 @@ namespace SpriteEngine.Classes.ParticleStuff
     {
 
         protected readonly ParticleEmitterData Data;
+        private readonly float? _customLayer;
         private float _intervalLeft;
         protected float LifeSpanLeft;
         public bool IsFinished => LifeSpanLeft <=0;
         protected readonly IEmitter Emitter;
 
-        public ParticleEmitter(IEmitter emitter, ParticleEmitterData data)
+        public ParticleEmitter(IEmitter emitter, ParticleEmitterData data, float? customLayer = null)
         {
             Emitter = emitter;
             Data = data;
+            _customLayer = customLayer;
             _intervalLeft = data.Interval;
             LifeSpanLeft = data.TotalLifeSpan;
         }
@@ -32,7 +34,7 @@ namespace SpriteEngine.Classes.ParticleStuff
             d.speed = ChanceHelper.RandomFloat(Data.SpeedMin, Data.SpeedMax);
             d.angle = ChanceHelper.RandomFloat(Data.Angle - Data.AngleVariance, Data.Angle + Data.AngleVariance);
 
-            Particle p = new Particle(pos, d);
+            Particle p = new Particle(pos, d, _customLayer);
             ParticleManager.AddParticle(p);
         }
 

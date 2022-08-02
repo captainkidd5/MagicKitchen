@@ -33,7 +33,8 @@ namespace SpriteEngine.Classes.ParticleStuff
             _particles.Add(p);
         }
 
-        public static void AddParticleEmitter(IEmitter iEmitter, EmitterType emitterType, string text = null, Color? colorstart = null, Color? colorEnd = null)
+        public static void AddParticleEmitter(IEmitter iEmitter, EmitterType emitterType, string text = null,
+            Color? colorstart = null, Color? colorEnd = null, float? customLayer = null)
         {
             ParticleData data = new ParticleData();
             ParticleEmitterData emitterData = new ParticleEmitterData();
@@ -60,7 +61,7 @@ namespace SpriteEngine.Classes.ParticleStuff
             }
             emitterData.ParticleData = data;
             if(text == null)
-            emitter = new ParticleEmitter(iEmitter, emitterData);
+            emitter = new ParticleEmitter(iEmitter, emitterData, customLayer);
             else
                 emitter = new TextParticleEmitter(text,iEmitter, emitterData);
 

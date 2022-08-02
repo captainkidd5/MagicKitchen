@@ -19,8 +19,8 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
 
-        private static float _baseHungerDrainRate = 2f;
-        private float _currentHungerDrainRate = 2f;
+        private static float _baseHungerDrainRate = 6f;
+        private float _currentHungerDrainRate;
         private SimpleTimer _hungerRechargeTimer;
 
         private Player _player;
@@ -30,6 +30,8 @@ namespace EntityEngine.Classes.PlayerStuff
         public void Load(Player player)
         {
             _player = player;
+            _currentHungerDrainRate = _baseHungerDrainRate;
+
             _hungerRechargeTimer = new SimpleTimer(_currentHungerDrainRate);
 
         }
@@ -62,11 +64,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
                         CurrentHunger--;
                     }
-                    else
-                    {
-                        _player.TakeDamage(null,  5);
-
-                    }
+           
                 }
     
 

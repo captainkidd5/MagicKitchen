@@ -30,6 +30,12 @@ namespace TiledEngine.Classes.TileAddons
         {
             Tile = tile;
             IntermediateTmxShape = intermediateTmxShape;
+            string emitOffSEt = Tile.GetProperty("EmitOffSet");
+            if (!string.IsNullOrEmpty(emitOffSEt))
+            {
+                string[] splitString = emitOffSEt.Split(',');
+                EmitOffSet = new Vector2(int.Parse(splitString[0]), int.Parse(splitString[1]));
+            }
         }
         public virtual void Draw(SpriteBatch spriteBatch)
         {

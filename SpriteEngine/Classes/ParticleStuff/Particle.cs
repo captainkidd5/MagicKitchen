@@ -26,7 +26,9 @@ namespace SpriteEngine.Classes.ParticleStuff
         private float _velocity;
         private float _height;
         private int _heightCutOff;
-        public Particle(Vector2 pos, ParticleData data)
+
+        private float? _customLayer;
+        public Particle(Vector2 pos, ParticleData data, float? customLayer = null)
         {
             _data = data;
             LifeSpanLeft = data.lifespan;
@@ -49,9 +51,9 @@ namespace SpriteEngine.Classes.ParticleStuff
             _velocity = Settings.Random.Next(_data.YVelocityMin, _data.YVelocityMax);
 
             _heightCutOff = Settings.Random.Next(_data.HeightCutOffMin, _data.HeightCutOffMax) + (int)pos.Y;
-
+            _customLayer = customLayer;
         }
-        
+
         public virtual void Update(GameTime gameTime, Vector2? targetPos = null)
         {
             LifeSpanLeft -= (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -93,7 +95,7 @@ namespace SpriteEngine.Classes.ParticleStuff
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_data.texture, Position, _data.SourceRectangle, Color * _opacity, 0f, _origin, _scale,
-                SpriteEffects.None, SpriteUtility.GetYAxisLayerDepth(Position, _data.SourceRectangle));
+                SpriteEffects.None,_customLayer ?? SpriteUtility.GetYAxisLayerDepth(Position, _data.SourceRectangle));
         }
 
 

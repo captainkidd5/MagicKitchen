@@ -49,6 +49,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
         private LumenHandler _lumenHandler;
         private HungerHandler _hungerHandler;
+        private HealthHandler _healthHandler;
 
         public readonly int  BaseMaxLumens = 100;
         public int MaxLumens => BaseMaxLumens + (InventoryHandler as PlayerInventoryHandler).MaxLumenValue;
@@ -61,6 +62,18 @@ namespace EntityEngine.Classes.PlayerStuff
         public int MaxHunger => _hungerHandler.MaxHunger;
         public int CurrentHunger => _hungerHandler.CurrentHunger;
 
+        public override byte MaxHealth => _healthHandler.MaxHealth;
+        public override byte CurrentHealth
+        {
+            get
+            {
+                return _healthHandler.CurrentHealth;
+            }
+            protected set
+            {
+                _healthHandler.CurrentHealth = value;
+            }
+        }
         public void ConsumeFood(byte amt) => _hungerHandler.ConsumeFood(amt);
 
         public Player(GraphicsDevice graphics, ContentManager content, string name = "playerName") 
@@ -75,6 +88,7 @@ namespace EntityEngine.Classes.PlayerStuff
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
             ProgressManager = new ProgressManager();
             _hungerHandler = new HungerHandler();
+            _healthHandler = new HealthHandler();
 
 
         }
@@ -104,6 +118,7 @@ namespace EntityEngine.Classes.PlayerStuff
             LightsTouching = new List<Fixture>();
 
             _lumenHandler.Load(this, LightsCollidable[0], LightsTouching);
+            _healthHandler.Load(this, _hungerHandler);
 
 
         }
@@ -308,7 +323,7 @@ namespace EntityEngine.Classes.PlayerStuff
             _lumenHandler.HandleLumens(gameTime);
 
             _hungerHandler.HandleHunger(gameTime);
-
+            _healthHandler.HandleHealth(gameTime);
             if (UI.IsTalkingWindowActive)
             {
                 //EntityAnimator.

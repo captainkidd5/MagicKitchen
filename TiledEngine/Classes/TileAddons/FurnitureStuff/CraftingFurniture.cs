@@ -44,7 +44,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         protected virtual void CraftingDoneAction()
         {
             PlayPackage("PressureRelease");
-            ParticleManager.AddParticleEmitter(this, EmitterType.Smoke);
+            ParticleManager.AddParticleEmitter(this, EmitterType.Smoke, customLayer: Tile.DrawLayer);
           //  ParticleManager.AddParticleEmitter(this, EmitterType.Text, amt.ToString());
         }
         public override void Load()

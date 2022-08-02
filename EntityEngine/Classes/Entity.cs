@@ -84,8 +84,8 @@ namespace EntityEngine.Classes
         private OverheadItemDisplay _overHeadItemDisplay { get; set; }
 
         internal ToolHandler ToolHandler { get; set; }
-        public byte MaxHealth { get; protected set; } = 100;
-        public byte CurrentHealth { get; protected set; } = 100;
+        public virtual byte  MaxHealth { get; protected set; } = 100;
+        public virtual byte CurrentHealth { get; protected set; } = 100;
 
         public bool FlaggedForRemoval { get; set; }
 
