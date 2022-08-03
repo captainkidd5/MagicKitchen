@@ -104,6 +104,12 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Obtain/Items/Bubble2.wav
 
+#begin Audio/SoundEffects/Player/EquipGear1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Player/EquipGear1.wav
+
 #begin Audio/SoundEffects/Player/PlayerHurt1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

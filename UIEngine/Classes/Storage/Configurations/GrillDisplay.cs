@@ -32,8 +32,8 @@ namespace UIEngine.Classes.Storage.Configurations
             base.Update(gameTime);
             if (IsActive)
             {
-                UIProgressBar.SetProgressRatio((StorageContainer as CraftingStorageContainer).CraftedItemMetre.Ratio);
-                FuelBar.SetProgressRatio((StorageContainer as CraftingStorageContainer).FuelMetre.Ratio);
+                UIProgressBar.SetProgressRatio((StorageContainer as CraftingStorageContainer).CraftedItemMetre.Ratio, true);
+                FuelBar.SetProgressRatio((StorageContainer as CraftingStorageContainer).FuelMetre.Ratio, true);
                 //CraftingActionButton.Update(gameTime);
             }
         }

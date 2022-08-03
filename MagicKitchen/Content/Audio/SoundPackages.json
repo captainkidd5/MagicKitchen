@@ -378,6 +378,17 @@
               ]
             },
             {
+              "Name": "EquipGear",
+              "SoundChancers": 
+               [
+                  {
+                    "Name": "EquipGear1",
+                    "Weight": 100,
+                    "LocalPath": "SoundEffects/Player"
+                  }
+                ]
+              },
+            {
               "Name": "PressureRelease",
               "SoundChancers": 
                [

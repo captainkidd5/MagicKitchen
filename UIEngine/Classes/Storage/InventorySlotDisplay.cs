@@ -183,7 +183,7 @@ namespace UIEngine.Classes.Storage
             if (_itemDurabilityBar != null)
             {
                 _itemDurabilityBar.Update(gameTime);
-                _itemDurabilityBar.SetProgressRatio((float)_storageSlot.Item.CurrentDurability / (float)_storageSlot.Item.MaxDurability);
+                _itemDurabilityBar.SetProgressRatio((float)_storageSlot.Item.CurrentDurability / (float)_storageSlot.Item.MaxDurability,false);
             }
 
             if(!_storageSlot.Empty && _storageSlot.Item.MaxDurability > 0 && _storageSlot.Item.CurrentDurability <= 0)

@@ -290,11 +290,11 @@ namespace EntityEngine.Classes.PlayerStuff
             }
             base.Update(gameTime);
             Shared.PlayerPosition = Position;
-            UI.StatusPanel.HealthBar.SetProgressRatio((float)CurrentHealth / (float)MaxHealth);
-            UI.StatusPanel.ManaBar.SetProgressRatio((float)CurrentLumens / (float)MaxLumens);
+            UI.StatusPanel.HealthBar.SetProgressRatio((float)CurrentHealth / (float)MaxHealth, true);
+            UI.StatusPanel.ManaBar.SetProgressRatio((float)CurrentLumens / (float)MaxLumens, true);
 
 
-            UI.StatusPanel.HungerBar.SetProgressRatio((float)CurrentHunger / (float)MaxHunger);
+            UI.StatusPanel.HungerBar.SetProgressRatio((float)CurrentHunger / (float)MaxHunger, true);
             if (Controls.IsRightClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Y))
             {
                 //Item should not eject if any part of the ui is hovered

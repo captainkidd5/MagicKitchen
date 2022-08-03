@@ -92,20 +92,37 @@ SpriteFactory.StatusIconTexture, Globals.Classes.Settings.ElementType.UI, custom
            // base.LoadContent();
         }
 
-        public virtual void SetProgressRatio(float ratio)
+        public virtual void SetProgressRatio(float ratio, bool doLerp)
         {
 
             if (BarOrientation == BarOrientation.Horizontal)
             {
-                Vector2 lerpedScale = Vector2.Lerp(OutlineSprite.Scale, new Vector2(ratio, OutlineSprite.Scale.Y), .1f);
-                OutlineSprite.SwapScale(lerpedScale);
+                if (doLerp)
+                {
+                    Vector2 lerpedScale = Vector2.Lerp(OutlineSprite.Scale, new Vector2(ratio, OutlineSprite.Scale.Y), .1f);
+                    OutlineSprite.SwapScale(lerpedScale);
+                }
+                else
+                {
+                    OutlineSprite.SwapScale(new Vector2(ratio, OutlineSprite.Scale.Y));
+
+                }
+
 
             }
             else if(BarOrientation == BarOrientation.Vertical)
             {
-                Vector2 lerpedScale = Vector2.Lerp(OutlineSprite.Scale, new Vector2(OutlineSprite.Scale.X, ratio * 2), .1f);
-                OutlineSprite.SwapScale(lerpedScale);
+                
+                if (doLerp)
+                {
+                    Vector2 lerpedScale = Vector2.Lerp(OutlineSprite.Scale, new Vector2(OutlineSprite.Scale.X, ratio * 2), .1f);
+                    OutlineSprite.SwapScale(lerpedScale);
+                }
+                else
+                {
+                    OutlineSprite.SwapScale(new Vector2(OutlineSprite.Scale.X, ratio* 2));
 
+                }
             }
 
 

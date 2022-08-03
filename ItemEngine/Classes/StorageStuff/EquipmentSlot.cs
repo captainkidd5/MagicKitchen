@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using SoundEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -42,9 +43,15 @@ namespace ItemEngine.Classes.StorageStuff
         protected override void OnItemChanged()
         {
             if(Item == null)
+            {
                 EquipmentChanged?.Invoke(Enums.EquipmentTypeToBodyPart(AllowedEquipmentType), EquipmentType.None, 0);
+
+            }
             else
+            {
                 EquipmentChanged?.Invoke(Enums.EquipmentTypeToBodyPart(AllowedEquipmentType), AllowedEquipmentType, Item.EquipmentYIndex);
+                SoundFactory.PlayEffectPackage("EquipGear");
+            }
 
             base.OnItemChanged();
         }

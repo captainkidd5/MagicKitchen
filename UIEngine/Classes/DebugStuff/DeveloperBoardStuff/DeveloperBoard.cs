@@ -31,6 +31,7 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
         public DeveloperBoard(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
+            NormallyActivated = false;
         }
   
 
