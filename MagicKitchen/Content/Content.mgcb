@@ -21,29 +21,59 @@
 /processorParam:Quality=Best
 /build:Audio/Songs/MainMenu/MainMenu.mp3
 
-#begin Audio/Songs/MainMenu/NightTimeAmbience.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/Songs/MainMenu/NightTimeAmbience.wav
-
 #begin Audio/Songs/MainMenu/Title.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Songs/MainMenu/Title.mp3
 
-#begin Audio/Songs/OverWorld/Pourous.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
+#begin Audio/Songs/OverWorld/Briar.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
 /processorParam:Quality=Best
-/build:Audio/Songs/OverWorld/Pourous.wav
+/build:Audio/Songs/OverWorld/Briar.mp3
+
+#begin Audio/Songs/OverWorld/Calm.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Songs/OverWorld/Calm.mp3
+
+#begin Audio/Songs/OverWorld/GhostWood.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Songs/OverWorld/GhostWood.mp3
+
+#begin Audio/Songs/OverWorld/Orwell.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Songs/OverWorld/Orwell.mp3
+
+#begin Audio/Songs/OverWorld/Pourous.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Songs/OverWorld/Pourous.mp3
 
 #begin Audio/Songs/OverWorld/WarmDay.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Audio/Songs/OverWorld/WarmDay.mp3
+
+#begin Audio/Songs/OverWorld/WarmDay.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Songs/OverWorld/WarmDay.mp3
+
+#begin Audio/Songs/OverWorld/Waves.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Songs/OverWorld/Waves.mp3
 
 #begin Audio/Songs/SongPackages.xml
 /importer:XmlImporter

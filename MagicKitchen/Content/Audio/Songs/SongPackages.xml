@@ -21,6 +21,71 @@
             </ViableStages>
             <LocalPath>OverWorld/WarmDay</LocalPath>
         </Item>
+        <Item>
+
+            <Name>Briar</Name>
+            <ViableStages>
+                <Item>LullabyTown</Item>
+                <Item>Town</Item>
+            </ViableStages>
+            <LocalPath>OverWorld/Briar</LocalPath>
+        </Item>
+        <Item>
+
+            <Name>Calm</Name>
+            <ViableStages>
+                <Item>LullabyTown</Item>
+                <Item>Town</Item>
+            </ViableStages>
+            <LocalPath>OverWorld/Calm</LocalPath>
+        </Item>
+        <Item>
+
+            <Name>GhostWood</Name>
+            <ViableStages>
+                <Item>LullabyTown</Item>
+                <Item>Town</Item>
+            </ViableStages>
+            <LocalPath>OverWorld/GhostWood</LocalPath>
+        </Item>
+        <Item>
+
+            <Name>Orwell</Name>
+            <ViableStages>
+                <Item>LullabyTown</Item>
+                <Item>Town</Item>
+            </ViableStages>
+            <LocalPath>OverWorld/Orwell</LocalPath>
+        </Item>
+        <Item>
+
+            <Name>Pourous</Name>
+            <ViableStages>
+                <Item>LullabyTown</Item>
+                <Item>Town</Item>
+            </ViableStages>
+            <LocalPath>OverWorld/Pourous</LocalPath>
+        </Item>
+
+         <Item>
+
+            <Name>GhostWood</Name>
+            <ViableStages>
+                <Item>LullabyTown</Item>
+                <Item>Town</Item>
+            </ViableStages>
+            <LocalPath>OverWorld/GhostWood</LocalPath>
+        </Item>
+
+         <Item>
+
+            <Name>Waves</Name>
+            <ViableStages>
+                <Item>LullabyTown</Item>
+                <Item>Town</Item>
+            </ViableStages>
+            <LocalPath>OverWorld/Waves</LocalPath>
+        </Item>
      
     </Asset>
 </XnaContent>
