@@ -117,7 +117,9 @@ namespace UIEngine.Classes.Storage
         {
             base.MovePosition(newPos);
             _button.MovePosition(newPos);
-            
+
+            if(_itemDurabilityBar != null)
+            _itemDurabilityBar.MovePosition(new Vector2(newPos.X, newPos.Y + _button.Height - _itemDurabilityBar.Height));
 
         }
         public override void LoadContent()
@@ -125,7 +127,9 @@ namespace UIEngine.Classes.Storage
             if (_storageSlot.Item != null)
             {
                 ItemChanged(_storageSlot.Item, _storageSlot.StoredCount);
+
             }
+
             base.LoadContent();
         }
         public override void Update(GameTime gameTime)
