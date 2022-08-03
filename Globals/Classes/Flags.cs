@@ -12,7 +12,7 @@ namespace Globals.Classes
 
         public static bool SpawnCharactersOnNewGame = true;
         public static bool Pause;
-
+        public static bool DisablePlayerUIInteractions = false;
 
         public static bool DisplayPlayAreaCollisions  = false;
 

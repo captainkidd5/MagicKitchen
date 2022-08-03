@@ -24,7 +24,7 @@ namespace UIEngine.Classes.Storage
     {
         private InventoryDisplay _secondaryInventoryDisplay;
         public Item PlayerSelectedItem => PlayerInventoryDisplay.CurrentlySelectedItem;
-        public void RemovePlayerSelectedItem(int amt) => PlayerInventoryDisplay.DetractCurrentlySelectedItem(amt);  
+        public void RemovePlayerSelectedItem(int amt) => PlayerInventoryDisplay.DetractCurrentlySelectedItem(amt);
 
 
         internal PlayerInventoryDisplay PlayerInventoryDisplay;
@@ -72,48 +72,48 @@ namespace UIEngine.Classes.Storage
         }
         public override void Update(GameTime gameTime)
         {
-            if (AllowInteractions)
+            if (AllowInteractions && !Flags.DisablePlayerUIInteractions)
             {
 
-            if(_secondaryInventoryDisplay.IsActive && Controls.ControllerConnected)
-            {
-                UI.IsHovered = true;
-                if(Controls.WasGamePadButtonTapped(GamePadActionType.TriggerRight))
-                    SwapControl(_secondaryInventoryDisplay);
-                else if (Controls.WasGamePadButtonTapped(GamePadActionType.TriggerLeft))
+                if (_secondaryInventoryDisplay.IsActive && Controls.ControllerConnected)
                 {
-                    SwapControl(PlayerInventoryDisplay);
-
-                }
-            }
-            base.Update(gameTime);
-            if (IsActive && !_secondaryInventoryDisplay.WasJustActivated)
-            {
-                _currentlySelectedInventoryDisplay.UpdateSelectorSprite(gameTime);
-
-                if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel) ||
-                    Controls.WasGamePadButtonTapped(GamePadActionType.Y))
-                {
-                    if (_currentlySelectedInventoryDisplay == _secondaryInventoryDisplay)
+                    UI.IsHovered = true;
+                    if (Controls.WasGamePadButtonTapped(GamePadActionType.TriggerRight))
+                        SwapControl(_secondaryInventoryDisplay);
+                    else if (Controls.WasGamePadButtonTapped(GamePadActionType.TriggerLeft))
+                    {
                         SwapControl(PlayerInventoryDisplay);
-                    if (_secondaryInventoryDisplay.IsActive || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
-                        PlayerInventoryDisplay.CloseExtendedInventory();
-                    DeactivateSecondaryDisplay();
 
-                    
-                    Flags.Pause = false;
-
-
+                    }
                 }
-            }
+                base.Update(gameTime);
+                if (IsActive && !_secondaryInventoryDisplay.WasJustActivated)
+                {
+                    _currentlySelectedInventoryDisplay.UpdateSelectorSprite(gameTime);
+
+                    if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel) ||
+                        Controls.WasGamePadButtonTapped(GamePadActionType.Y))
+                    {
+                        if (_currentlySelectedInventoryDisplay == _secondaryInventoryDisplay)
+                            SwapControl(PlayerInventoryDisplay);
+                        if (_secondaryInventoryDisplay.IsActive || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
+                            PlayerInventoryDisplay.CloseExtendedInventory();
+                        DeactivateSecondaryDisplay();
+
+
+                        Flags.Pause = false;
+
+
+                    }
+                }
             }
 
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            if(IsActive)
-            _currentlySelectedInventoryDisplay.DrawSelectorSprite(spriteBatch);
+            if (IsActive)
+                _currentlySelectedInventoryDisplay.DrawSelectorSprite(spriteBatch);
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace UIEngine.Classes.Storage
                 _currentlySelectedInventoryDisplay = PlayerInventoryDisplay;
 
             }
-            else if( inventoryDisplay == _secondaryInventoryDisplay)
+            else if (inventoryDisplay == _secondaryInventoryDisplay)
             {
                 _currentlySelectedInventoryDisplay = _secondaryInventoryDisplay;
 
@@ -149,7 +149,7 @@ namespace UIEngine.Classes.Storage
             _secondaryInventoryDisplay.Deactivate();
             SecondaryStorageClosed?.Invoke();
         }
-       
+
         public void ActivateSecondaryInventoryDisplay(FurnitureType t, StorageContainer storageContainer, bool displayWallet = false)
         {
             ChildSections.Remove(_secondaryInventoryDisplay);
@@ -159,7 +159,7 @@ namespace UIEngine.Classes.Storage
                 case FurnitureType.None:
                     throw new Exception($"must have storage type");
                 case FurnitureType.StorableFurniture:
-                    
+
                     _secondaryInventoryDisplay = new InventoryDisplay(this, graphics, content, _secondaryInventoryDisplay.Position,
                         _secondaryInventoryDisplay.LayerDepth);
 
@@ -183,7 +183,7 @@ namespace UIEngine.Classes.Storage
 
             }
             _secondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(_secondaryInventoryDisplay.TotalBounds));
-            _secondaryInventoryDisplay.MovePosition(_secondaryInventoryDisplay.Position + new Vector2(0, - 128));
+            _secondaryInventoryDisplay.MovePosition(_secondaryInventoryDisplay.Position + new Vector2(0, -128));
             _secondaryInventoryDisplay.LoadNewEntityInventory(storageContainer, displayWallet);
 
             _secondaryInventoryDisplay.Activate();
@@ -192,6 +192,6 @@ namespace UIEngine.Classes.Storage
             PlayerInventoryDisplay.GiveControl();
         }
 
-        
+
     }
 }

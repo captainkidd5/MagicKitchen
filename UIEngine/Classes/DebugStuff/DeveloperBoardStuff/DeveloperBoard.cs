@@ -33,7 +33,7 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
         {
             NormallyActivated = false;
         }
-  
+
 
         private void AddCheckBox(CheckBox checkBox, StackRow stackRow, string text, bool initialToggleValue)
         {
@@ -65,7 +65,7 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
             CheckBox playeerHurtSoundsCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
             playeerHurtSoundsCheckBox.ActionOnSave = new Action(() => { SettingsManager.EnablePlayerHurtSounds = playeerHurtSoundsCheckBox.Value; });
 
-            AddCheckBox(playeerHurtSoundsCheckBox,stackRow1, "Player Hurt Sound", SettingsManager.EnablePlayerHurtSounds);
+            AddCheckBox(playeerHurtSoundsCheckBox, stackRow1, "Player Hurt Sound", SettingsManager.EnablePlayerHurtSounds);
 
             CheckBox enablePlayerDeathSoundsCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
             enablePlayerDeathSoundsCheckBox.ActionOnSave = new Action(() => { SettingsManager.EnablePlayerDeath = enablePlayerDeathSoundsCheckBox.Value; });
@@ -118,11 +118,11 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
 
             Deactivate();
 
-           // NormallyActivated = false;
+            // NormallyActivated = false;
         }
         private void SetSettingsValues()
         {
-            foreach(CheckBox checkBox in _checkBoxes)
+            foreach (CheckBox checkBox in _checkBoxes)
             {
                 checkBox.SaveSettings();
             }
@@ -132,8 +132,13 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
         public override void Update(GameTime gameTime)
         {
 #if DEBUG
-            if (Controls.WasKeyTapped(Microsoft.Xna.Framework.Input.Keys.L))
-                Toggle();
+            if (!Flags.DisablePlayerUIInteractions)
+            {
+
+                if (Controls.WasKeyTapped(Microsoft.Xna.Framework.Input.Keys.L))
+                    Toggle();
+            }
+
             base.Update(gameTime);
 #endif 
 

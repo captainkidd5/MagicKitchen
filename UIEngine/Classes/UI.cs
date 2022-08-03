@@ -129,8 +129,8 @@ namespace UIEngine.Classes
         private static readonly float s_buttonSoundInterval = .15f;
         public static void Load(Game game, GraphicsDevice graphics, ContentManager content, ContentManager mainMenuContentManager, ContentManager splashScreenContentManager)
         {
-            if(Flags.DisplaySplashScreens)
-            GameDisplayState = GameDisplayState.SplashScreens;
+            if (Flags.DisplaySplashScreens)
+                GameDisplayState = GameDisplayState.SplashScreens;
             else
                 GameDisplayState = GameDisplayState.MainMenu;
 
@@ -160,7 +160,7 @@ namespace UIEngine.Classes
             StorageDisplayHandler = new StorageDisplayHandler(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             ItemAlertManager = new ItemAlertManager(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
 
-            CursorInfoBox = new CursorInfoBox(null, graphics, content, null,.9f);
+            CursorInfoBox = new CursorInfoBox(null, graphics, content, null, .9f);
             s_developerBoard = new DeveloperBoard(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
 
             s_inGameSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, _talkingWindow,
@@ -172,7 +172,7 @@ namespace UIEngine.Classes
             MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null, GetLayeringDepth(UILayeringDepths.Back));
             s_mainMenuSections = new List<InterfaceSection>() { MainMenu, SettingsMenu };
 
-            SplashScreen = new SplashScreen(null, graphics, splashScreenContentManager,Vector2.Zero, GetLayeringDepth(UILayeringDepths.Low));
+            SplashScreen = new SplashScreen(null, graphics, splashScreenContentManager, Vector2.Zero, GetLayeringDepth(UILayeringDepths.Low));
             s_splashScreenSections = new List<InterfaceSection>() { SplashScreen };
 
 
@@ -187,11 +187,11 @@ namespace UIEngine.Classes
             s_buttonSoundTimer = new SimpleTimer(s_buttonSoundInterval, false);
 
 
-           RaiseCurtain(CurtainDropRate);
+            RaiseCurtain(CurtainDropRate);
             _saveTimer = new SimpleTimer(_saveFrequency);
 
         }
-        internal static void LoadNewCursorInfo( List<string> text) => CursorInfoBox.LoadNewText( text);
+        internal static void LoadNewCursorInfo(List<string> text) => CursorInfoBox.LoadNewText(text);
 
         public static void ActivateSecondaryInventoryDisplay(FurnitureType t, StorageContainer storageContainer, bool displayWallet = false)
             => StorageDisplayHandler.ActivateSecondaryInventoryDisplay(t, storageContainer, displayWallet);
@@ -267,11 +267,20 @@ namespace UIEngine.Classes
         public static void Update(GameTime gameTime)
         {
             IsHovered = false;
+            Flags.Pause = false;
+            Flags.DisablePlayerUIInteractions = false;
+            if (CommandConsole.IsActive)
+            {
+                Flags.Pause = true;
+                Flags.DisablePlayerUIInteractions = true;
+            }
             //if (s_requestedGameState != GameDisplayState.None && Curtain.FullyDropped )
             //    FinishChangeGameState();
             if (Controls.WasKeyTapped(Keys.OemTilde))
             {
                 CommandConsole.Toggle();
+
+
 
             }
 
@@ -307,9 +316,10 @@ namespace UIEngine.Classes
             {
                 foreach (InterfaceSection section in s_activeSections)
                 {
+                  
+                        section.Update(gameTime);
 
-                    section.Update(gameTime);
-
+                    
 
 
                 }
@@ -373,8 +383,8 @@ namespace UIEngine.Classes
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
 
-            if(Flags.DisplayFPS)
-                spriteBatch.DrawString(TextFactory.BitmapFont, frameRate.ToString(),Settings.CenterScreen, Color.Black, layerDepth: .99f);
+            if (Flags.DisplayFPS)
+                spriteBatch.DrawString(TextFactory.BitmapFont, frameRate.ToString(), Settings.CenterScreen, Color.Black, layerDepth: .99f);
             Cursor.Draw(spriteBatch);
             foreach (InterfaceSection section in s_activeSections)
             {
@@ -444,7 +454,7 @@ namespace UIEngine.Classes
             s_game.Exit();
         }
 
-    
+
         public static void LoadGame(SaveFile saveFile)
         {
 

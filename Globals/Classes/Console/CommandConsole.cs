@@ -16,6 +16,7 @@ namespace Globals.Classes.Console
 
         public static void Toggle() => s_consoleComponent.ToggleOpenClose();
 
+        public static bool IsActive => s_consoleComponent.IsVisible;
         public static Dictionary<string, string> Commands { get; private set; }
         public static void Load(ConsoleComponent consoleComponent)
         {
