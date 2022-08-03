@@ -387,7 +387,18 @@
                     "LocalPath": "SoundEffects/Tiles/Placeables"
                   }
                 ]
-              }
+              },
+              {
+                "Name": "Grilling",
+                "SoundChancers": 
+                 [
+                    {
+                      "Name": "Grilling1",
+                      "Weight": 100,
+                      "LocalPath": "SoundEffects/Tiles/Placeables/Grill"
+                    }
+                  ]
+                }
         
       
     ]

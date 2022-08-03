@@ -24,6 +24,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 //PlacedItems.Add(new PlacedOnItem(0, tile.TileData.GetKey()));
             
         }
+        protected override void PlayFinishedSoundEffect()
+        {
+            PlayPackage("Grilling");
+
+        }
         public override void Load()
         {
             base.Load();

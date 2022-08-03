@@ -41,9 +41,14 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             StorageContainer = new CraftingStorageContainer(CraftAction, TotalStorageCapacity, FurnitureData, CraftingDoneAction);
         }
 
-        protected virtual void CraftingDoneAction()
+        protected virtual void PlayFinishedSoundEffect()
         {
             PlayPackage("PressureRelease");
+
+        }
+        protected virtual void CraftingDoneAction()
+        {
+            PlayFinishedSoundEffect();
             ParticleManager.AddParticleEmitter(this, EmitterType.Smoke, customLayer: Tile.DrawLayer);
           //  ParticleManager.AddParticleEmitter(this, EmitterType.Text, amt.ToString());
         }
