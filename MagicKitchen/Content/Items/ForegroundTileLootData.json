@@ -122,6 +122,22 @@
     "DestructionSoundPackageName":"Harvest"
 },
 {
+    "TileId":1273,
+    "Loot":[
+     {
+         "ItemName":"Flint",
+         "Quantity":1,
+         "Weight":75
+     },
+     {
+        "ItemName":"Flint",
+        "Quantity":2,
+        "Weight":25
+    }      
+    ],
+    "DestructionSoundPackageName":"RockTumble"
+},
+{
     "TileId":1044,
     "Loot":[
      {

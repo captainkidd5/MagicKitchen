@@ -340,6 +340,22 @@
           ]
         },
         {
+          "Name": "RockTumble",
+          "SoundChancers": 
+           [
+              {
+                "Name": "Rock_Tumble1",
+                "Weight": 50,
+                "LocalPath": "SoundEffects/Tiles/Rocks"
+              },
+              {
+                "Name": "Rock_Tumble2",
+                "Weight": 50,
+                "LocalPath": "SoundEffects/Tiles/Rocks"
+              }
+            ]
+          },
+        {
           "Name": "LightRecharge",
           "SoundChancers": 
            [

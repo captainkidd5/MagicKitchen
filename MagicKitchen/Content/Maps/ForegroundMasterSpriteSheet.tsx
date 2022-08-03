@@ -370,6 +370,22 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="1273">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Harvest"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
+  <animation>
+   <frame tileid="1273" duration="800"/>
+   <frame tileid="1173" duration="800"/>
+   <frame tileid="1073" duration="800"/>
+   <frame tileid="1173" duration="800"/>
+  </animation>
+ </tile>
  <tile id="1279">
   <properties>
    <property name="newSource" value="-16,-48,48,64"/>
