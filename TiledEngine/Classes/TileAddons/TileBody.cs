@@ -133,11 +133,15 @@ namespace TiledEngine.Classes.TileAddons
         protected void GenerateLoot()
         {
             TileLootData tileLootData = TileLoader.TileLootManager.GetLootData(Tile.TileData.GID);
-            List<LootData> trimmedLoot = ChanceHelper.GetWeightedSelection(tileLootData.Loot.Cast<IWeightable>().ToList(), Settings.Random).Cast<LootData>().ToList();
+
+            List<LootData> trimmedLoot = ChanceHelper.GetWeightedSelection(
+                tileLootData.Loot.Where(x => !x.Guaranteed).Cast<IWeightable>().ToList(),
+                Settings.Random).Cast<LootData>().ToList();
+            trimmedLoot.Add(tileLootData.Loot.Where(x => x.Guaranteed).First());
             foreach(LootData loot in trimmedLoot)
             {
                 ItemFactory.GenerateWorldItem(
-                                loot.ItemName, loot.Quantity, Position, WorldItemState.Bouncing, Vector2Helper.GetRandomDirectionAsVector2());
+                                loot.ItemName,Settings.Random.Next(loot.QuantityMin, loot.QuantityMax +1), Position, WorldItemState.Bouncing, Vector2Helper.GetRandomDirectionAsVector2());
 
             }
         }

@@ -100,7 +100,7 @@ namespace EntityEngine.Classes.NPCStuff
             foreach (LootData loot in trimmedLoot)
             {
                 ItemFactory.GenerateWorldItem(
-                                loot.ItemName, loot.Quantity, Position, WorldItemState.Bouncing, Vector2Helper.GetRandomDirectionAsVector2());
+                                loot.ItemName, loot.QuantityMin, Position, WorldItemState.Bouncing, Vector2Helper.GetRandomDirectionAsVector2());
 
             }
 

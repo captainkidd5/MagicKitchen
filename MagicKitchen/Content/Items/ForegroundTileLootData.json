@@ -5,7 +5,11 @@
     "Loot":[
      {
          "ItemName":"Furnace",
-         "Quantity":1,
+         "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":1,
+
          "Weight":100
      }   
     ],
@@ -16,7 +20,11 @@
     "Loot":[
      {
          "ItemName":"Crafting Table",
-         "Quantity":1,
+         "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":1,
+
          "Weight":100
      }   
     ],
@@ -27,7 +35,11 @@
     "Loot":[
      {
          "ItemName":"Chest",
-         "Quantity":1,
+         "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":1,
+
          "Weight":100
      }   
     ],
@@ -38,7 +50,11 @@
     "Loot":[
      {
          "ItemName":"Grill",
-         "Quantity":1,
+         "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":1,
+
          "Weight":100
      }   
     ],
@@ -49,7 +65,11 @@
     "Loot":[
      {
          "ItemName":"Wall",
-         "Quantity":1,
+         "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":1,
+
          "Weight":100
      }   
     ],
@@ -60,7 +80,11 @@
     "Loot":[
      {
          "ItemName":"Stone",
-         "Quantity":1,
+         "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":2,
+
          "Weight":100
      }   
     ],
@@ -71,7 +95,11 @@
     "Loot":[
      {
          "ItemName":"Stone",
-         "Quantity":1,
+         "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":2,
+
          "Weight":100
      }   
     ],
@@ -82,7 +110,11 @@
     "Loot":[
      {
          "ItemName":"Limpet",
-         "Quantity":1,
+         "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":2,
+
          "Weight":100
      }   
     ],
@@ -93,7 +125,11 @@
     "Loot":[
      {
          "ItemName":"Limpet",
-         "Quantity":2,
+         "Guaranteed":true,
+
+         "QuantityMin":2,
+         "QuantityMax":4,
+
          "Weight":100
      }   
     ],
@@ -104,7 +140,11 @@
     "Loot":[
      {
          "ItemName":"Fibre",
-         "Quantity":2,
+         "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":2,
+
          "Weight":100
      }   
     ],
@@ -115,7 +155,11 @@
     "Loot":[
      {
          "ItemName":"Fibre",
-         "Quantity":2,
+         "Guaranteed":true,
+
+         "QuantityMin":2,
+         "QuantityMax":4,
+
          "Weight":100
      }   
     ],
@@ -126,14 +170,14 @@
     "Loot":[
      {
          "ItemName":"Flint",
-         "Quantity":1,
+         "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":3,
+
          "Weight":75
-     },
-     {
-        "ItemName":"Flint",
-        "Quantity":2,
-        "Weight":25
-    }      
+     }
+  
     ],
     "DestructionSoundPackageName":"RockTumble"
 },
@@ -142,7 +186,10 @@
     "Loot":[
      {
          "ItemName":"Mushroom",
-         "Quantity":1,
+         "Guaranteed":true,
+         "QuantityMin":1,
+         "QuantityMax":1,
+
          "Weight":100
      }   
     ],
@@ -153,7 +200,11 @@
     "Loot":[
      {
          "ItemName":"Stone",
-         "Quantity":1,
+         "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":3,
+
          "Weight":100
      }   
     ],

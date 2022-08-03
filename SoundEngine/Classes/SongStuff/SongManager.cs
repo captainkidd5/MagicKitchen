@@ -83,7 +83,15 @@ namespace SoundEngine.Classes.SongStuff
 
         public static void Update(GameTime gameTime)
         {
-            if (MediaPlayer.State == MediaState.Stopped && _songTimer.Run(gameTime))
+            if(Muted)
+            {
+                MediaPlayer.Pause();
+            }
+            else
+            {
+                MediaPlayer.Resume();
+            }
+            if (!Muted && MediaPlayer.State == MediaState.Stopped && _songTimer.Run(gameTime))
             {
                 PlayNextSong();
 

@@ -100,29 +100,24 @@
 
     {
         "ItemName" : "Raw_Haunch",
-        "Quantity" : 1,
+        "Guaranteed":true,
+
+        "QuantityMin":1,
+        "QuantityMax":1,
         "Weight" : 100
     },
     {
         "ItemName" : "Leather",
-        "Quantity" : 1,
+
+        "QuantityMin":1,
+        "QuantityMax":2,
         "Weight" : 70
     },
     {
         "ItemName" : "Coin",
-        "Quantity" : 1,
+        "QuantityMin":1,
+        "QuantityMax":2,
         "Weight" : 40
-    },
-    {
-        "ItemName" : "Coin",
-        "Quantity" : 2,
-        "Weight" : 20
-    },
-  
-    {
-        "ItemName" : "Coin",
-        "Quantity" : 3,
-        "Weight" : 10
     }
 ]
 },
@@ -195,29 +190,10 @@
 
     {
         "ItemName" : "Raw_Haunch",
-        "Quantity" : 1,
+        "QuantityMin":1,
+        "QuantityMax":2,
+        "Guaranteed":true,
         "Weight" : 100
-    },
-    {
-        "ItemName" : "Leather",
-        "Quantity" : 1,
-        "Weight" : 70
-    },
-    {
-        "ItemName" : "Coin",
-        "Quantity" : 1,
-        "Weight" : 40
-    },
-    {
-        "ItemName" : "Coin",
-        "Quantity" : 2,
-        "Weight" : 20
-    },
-  
-    {
-        "ItemName" : "Coin",
-        "Quantity" : 3,
-        "Weight" : 10
     }
 ]
 },

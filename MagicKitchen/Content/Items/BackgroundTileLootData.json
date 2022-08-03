@@ -5,7 +5,10 @@
         "Loot":[
          {
              "ItemName":"Mud",
-             "Quantity":1,
+             "Guaranteed":true,
+
+             "QuantityMin":1,
+             "QuantityMax":1,
              "Weight":100
          }   
         ],
@@ -16,7 +19,10 @@
         "Loot":[
          {
              "ItemName":"Fibre",
-             "Quantity":1,
+             "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":1,
              "Weight":100
          }   
         ],
@@ -27,7 +33,10 @@
         "Loot":[
          {
              "ItemName":"Plank",
-             "Quantity":1,
+             "Guaranteed":true,
+
+             "QuantityMin":1,
+             "QuantityMax":1,
              "Weight":100
          }   
         ],
