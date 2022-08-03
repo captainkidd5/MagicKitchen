@@ -43,7 +43,7 @@ namespace TiledEngine.Classes.ZoneStuff
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            SongManager.ChangePlaylist(Value);
+            SongManager.CurrentPlayListName = Value;
             return base.OnCollides(fixtureA, fixtureB, contact);
         }
 

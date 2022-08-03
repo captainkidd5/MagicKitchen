@@ -419,7 +419,7 @@ namespace UIEngine.Classes
             DropCurtain(CurtainDropRate,
                 new Action(() =>
                 {
-                    SongManager.ChangePlaylist("MainMenu-Outer");
+                    SongManager.CurrentPlayListName = "MainMenu-Outer";
                     if (senderIsStage)
                         ReturnedToMainMenu.Invoke(null, null);
                     else

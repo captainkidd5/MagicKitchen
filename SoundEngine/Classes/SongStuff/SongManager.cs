@@ -19,7 +19,7 @@ namespace SoundEngine.Classes.SongStuff
         public const string songRootPath = "Audio/Songs/";
         private static ContentManager s_content;
 
-        private static List<SongPackage> SongPackages { get; set; }
+        private static List<SongPackage> AllSongs { get; set; }
 
         private static float s_musicVolume = 0f;
         public static float MusicVolume
@@ -50,179 +50,72 @@ namespace SoundEngine.Classes.SongStuff
         private static bool s_playOnSwitch;
 
         private static int s_minSongsBeforeRepeat = 3;
+
+        private static float s_timeBetweenSongs = 10f;
+        private static SimpleTimer _songTimer;
+
+        public static string CurrentPlayListName = "OverWorld";
         public static void Load(ContentManager content)
         {
             s_content = content;
             MediaPlayer.Volume = s_musicVolume;
-            SongPackages = content.Load<List<SongPackage>>(songRootPath + "SongPackages");
+            AllSongs = content.Load<List<SongPackage>>(songRootPath + "SongPackages");
 
-            foreach (SongPackage songPackage in SongPackages)
+            foreach (SongPackage songPackage in AllSongs)
                 songPackage.LoadContent(content, songRootPath);
 
             s_currentPlayList = new List<SongPackage>();
             s_currentPlayList = GetPlayList("MainMenu-Outer");
             s_recentlyPlayedQueue = new Queue<SongPackage>(s_minSongsBeforeRepeat);
             _songPackage = s_currentPlayList[0];
-            CommandConsole.RegisterCommand("skip_song", "skips current song in playlist", SkipSong);
+            CommandConsole.RegisterCommand("skip_song", "skips current song in playlist", PlayNextSongCommand);
             Muted = SettingsManager.SettingsFile.MuteMusic;
             MusicVolume = Muted ? 0f : 1f;
 
+
+            _songTimer = new SimpleTimer(s_timeBetweenSongs);
         }
 
-        public static void ChangePlaylist(string stageName, bool changeSongNow = true)
-        {
-            s_currentPlayList = GetPlayList(stageName);
-            if (changeSongNow)
-            {
-                PlayNextSongInPlaylist();
-            }
-
-        }
-
-        /// <summary>
-        /// If the current song being played (before stage switch) is not included in the new stage's viable songs, we should switch.
-        /// </summary>
-        /// <param name="newStage"></param>
-        /// <returns></returns>
-        public static bool ShouldChangeSong(string newStage)
-        {
-            if (GetPlayList(newStage).Any(x => x.Name == _songPackage.Name))
-                return false;
-            return true;
-        }
         private static List<SongPackage> GetPlayList(string stageName)
         {
-            return SongPackages.Where(x => x.ViableStages.Contains(stageName)).ToList();
-        }
-        private static SongPackage GetSongPackage(string songName)
-        {
-            SongPackage pkg = SongPackages.FirstOrDefault(s => s.Name == songName);
-            if (pkg == null)
-                throw new Exception($"Could not find {songName}");
-
-            return pkg;
-        }
-
-
-        private static void GetNextSongInPlaylist()
-        {
-            //if (_instance != null)
-            //    throw new Exception($"Instance already playing");
-
-            if (s_currentPlayList.Count > s_minSongsBeforeRepeat)
-            {
-                if (s_recentlyPlayedQueue.Count > s_minSongsBeforeRepeat)
-                    s_recentlyPlayedQueue.Dequeue();
-
-                int newPos = -1;
-
-                while (newPos < 0 || s_recentlyPlayedQueue.Contains(s_currentPlayList[newPos]))
-                {
-                    newPos = Settings.Random.Next(0, s_currentPlayList.Count);
-
-                }
-                _songPackage = s_currentPlayList[newPos];
-                s_recentlyPlayedQueue.Enqueue(_songPackage);
-            }
-            else if (s_currentPlayList.Count > 1)
-            {
-
-                _songPackage = s_currentPlayList[Settings.Random.Next(0, s_currentPlayList.Count)];
-
-            }
-            else if(s_currentPlayList.Count > 0)
-            {
-                _songPackage = s_currentPlayList[0];
-                _currentSong = _songPackage.Song;
-
-            }
-            if (_currentSong != null)
-                MediaPlayer.Play(_currentSong);
-     
-
-        }
-
-        private static void Stop(bool immediate = false)
-        {
-            if (immediate)
-                MediaPlayer.Stop();
-            else
-                s_fadingOut = true;
+            return AllSongs.Where(x => x.ViableStages.Contains(stageName)).ToList();
         }
 
         public static void Update(GameTime gameTime)
         {
-            if (Muted)
-                MediaPlayer.Pause();
-            MediaPlayer.Volume = MusicVolume;
-            if (_currentSong == null)
+            if (MediaPlayer.State == MediaState.Stopped && _songTimer.Run(gameTime))
             {
-                PlayNextSongInPlaylist();
-            }
-            else if(MediaPlayer.State == MediaState.Stopped)
-            {
-                PlayNextSongInPlaylist();
+                PlayNextSong();
 
-                MediaPlayer.Play(_currentSong);
-            }
-            if (s_fadingIn && !Muted)
-            {
-                IncreaseVolume(gameTime);
-            }
-            else if (s_fadingOut)
-            {
-                DecreaseVolume(gameTime);
-            }
-
-           
-
-            //if(_instance.State == SoundState.Stopped)
-
-
-            //if (MediaPlayer.State == MediaState.Stopped && _currentSong != null)
-            //    MediaPlayer.Play(_currentSong.Song);
-
-        }
-
-        private static void PlayNextSongInPlaylist()
-        {
-            GetNextSongInPlaylist();
-            s_fadingOut = true;
-            s_playOnSwitch = true;
-        }
-
-        private static void SkipSong(string[] args)
-        {
-            PlayNextSongInPlaylist();
-        }
- 
-
-        private static void DecreaseVolume(GameTime gameTime)
-        {
-            MusicVolume -= (float)gameTime.ElapsedGameTime.TotalMilliseconds * FadeRate;
-
-            if (MusicVolume <= 0f)
-            {
-                s_fadingOut = false;
-                if (s_playOnSwitch)
-                    s_fadingIn = true;
             }
         }
-        private static void IncreaseVolume(GameTime gameTime)
+        private static void PlayNextSongCommand(string[] args)
         {
-            MusicVolume += (float)gameTime.ElapsedGameTime.TotalMilliseconds * FadeRate;
-            if (s_playOnSwitch)
-            {
-                MediaPlayer.Play(_currentSong);
-                s_playOnSwitch = false;
-            }
-            if (MusicVolume >= 1f)
-            {
-                s_fadingIn = false;
+            PlayNextSong();
+        }
+        private static void PlayNextSong()
+        {
+            var playList = GetPlayList(CurrentPlayListName);
 
+            SongPackage currentPackage = GetNextSong(playList);
+            _currentSong = currentPackage.Song;
+            s_recentlyPlayedQueue.Enqueue(currentPackage);
+            if (s_recentlyPlayedQueue.Count > 3)
+                s_recentlyPlayedQueue.Dequeue();
+            _songTimer.ResetToZero();
+            MediaPlayer.Volume = 1f;
+            MediaPlayer.Play(_currentSong);
+        }
 
-            }
+        private static SongPackage GetNextSong(List<SongPackage> pkgs)
+        {
+            int index = Settings.Random.Next(0, pkgs.Count - 1);
 
+            SongPackage song = pkgs[index];
+
+            if (s_recentlyPlayedQueue.Contains(song))
+                return GetNextSong(pkgs);
+            return song;
         }
     }
 }

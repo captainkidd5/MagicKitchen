@@ -106,7 +106,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _buttonWidth, _buttonHeight);
 
             base.LoadContent();
-            SongManager.ChangePlaylist("MainMenu-Outer");
+            SongManager.CurrentPlayListName = "MainMenu-Outer";
             CurrentSelected = _playButton;
             //SelectNext(Direction.Down);
         }

@@ -67,7 +67,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
                 case OuterMenuState.ViewGames:
                     _activeSection.Deactivate();
-                    SongManager.ChangePlaylist("MainMenu-SaveMenu");
+                    SongManager.CurrentPlayListName = "MainMenu-SaveMenu";
 
                     _activeSection = _viewGamesMenu;
                     _activeSection.Activate();
@@ -75,7 +75,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
                     break;
                 case OuterMenuState.CreateNewSave:
                     _activeSection.Deactivate();
-                    SongManager.ChangePlaylist("MainMenu-SaveMenu");
+                    SongManager.CurrentPlayListName = "MainMenu-SaveMenu";
 
 
                     _activeSection = _createNewSaveMenu;
@@ -90,7 +90,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
 
                     _activeSection = _playOrExitMenu;
                     _activeSection.Activate();
-                    SongManager.ChangePlaylist("MainMenu-Outer");
+                    SongManager.CurrentPlayListName = "MainMenu-Outer";
 
                     break;
                 case OuterMenuState.Settings:
