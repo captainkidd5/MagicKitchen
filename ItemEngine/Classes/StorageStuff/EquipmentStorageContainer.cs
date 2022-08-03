@@ -26,12 +26,18 @@ namespace ItemEngine.Classes.StorageStuff
         {
           
         }
-        public void ReduceDurabilityOnEquippedArmor()
+        public void ReduceDurabilityOnEquippedArmor(int? amt = null)
         {
             foreach (StorageSlot slot in Slots)
             {
                 if (!slot.Empty)
-                    slot.Item.RemoveDurability(slot.Item.ArmorValue);
+                {
+                    if (slot.Item.RemoveDurability(amt ?? slot.Item.ArmorValue))
+                    {
+                        slot.Remove(slot.StoredCount);
+                    }
+
+                }
             }
         }
         public int GetArmorValue()

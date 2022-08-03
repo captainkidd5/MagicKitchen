@@ -109,6 +109,7 @@ namespace EntityEngine.Classes.PlayerStuff
             CommandConsole.RegisterCommand("pa", "Plays specified animation", PlayAnimationCommand);
             CommandConsole.RegisterCommand("takeDmg", "Damages player by amount", TakeDamageCommand);
 
+            CommandConsole.RegisterCommand("rem_dur", "removes x durability from all armor on player",(InventoryHandler as PlayerInventoryHandler).RemoveDurabilityCommand);
 
 
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);

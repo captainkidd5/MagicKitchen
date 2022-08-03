@@ -19,7 +19,7 @@ namespace EntityEngine.Classes
             EquipmentStorageContainer = new EquipmentStorageContainer(8);
         }
 
-        public void ReduceDurabilityOnEquippedArmor() => EquipmentStorageContainer.ReduceDurabilityOnEquippedArmor();
+        public void ReduceDurabilityOnEquippedArmor(int? amt = null) => EquipmentStorageContainer.ReduceDurabilityOnEquippedArmor(amt);
         public override void Save(BinaryWriter writer)
         {
             base.Save(writer);
