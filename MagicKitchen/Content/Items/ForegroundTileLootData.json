@@ -122,6 +122,17 @@
     "DestructionSoundPackageName":"Harvest"
 },
 {
+    "TileId":1044,
+    "Loot":[
+     {
+         "ItemName":"Mushroom",
+         "Quantity":1,
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Harvest"
+},
+{
     "TileId":2014,
     "Loot":[
      {

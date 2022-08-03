@@ -425,6 +425,8 @@ namespace EntityEngine.Classes.PlayerStuff
         protected override void UpdateLights(GameTime gameTime)
         {
             LightsCollidable[0].SetCurrentLumens((byte)_lumenHandler.CurrentLumens);
+            LightsCollidable[0].MaxLumens = ((byte)_lumenHandler.MaxLumens);
+
             base.UpdateLights(gameTime);
         }
 

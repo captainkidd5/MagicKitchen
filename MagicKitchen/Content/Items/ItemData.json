@@ -518,6 +518,16 @@
         "Price": 1
     },
     {
+        "Id": 2620,
+        "Name": "Mushroom",
+        "Description" : "Probably safe to eat",
+        "MaxStackSize": 999,
+    "ItemType": "Food",
+
+        "FoodValue": 2,
+        "Price": 1
+    },
+    {
         "Id": 2711,
         "Name": "Water",
         "Description" : "A glass of water",

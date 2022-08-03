@@ -32,9 +32,16 @@ namespace TiledEngine.Classes.TileAddons
             if (FlaggedForDestruction)
             {
                 string propString = Tile.GetProperty("action", true);
-                int newGid = int.Parse(propString.Split(",")[1]);
-                if(Tile.IsForeground)
-                   newGid = Tile.TileManager.TileSetPackage.OffSetBackgroundGID(newGid);
+                int newGid = 0;
+                string[] splitString = propString.Split(",");
+                //Length of 0 "Harvestable" just means to completely remove the tile
+                if (splitString.Length > 1)
+                {
+                    newGid = int.Parse(splitString[1]);
+                    if (Tile.IsForeground)
+                        newGid = Tile.TileManager.TileSetPackage.OffSetBackgroundGID(newGid);
+                }
+           
                 Tile.TileManager.SwitchGID((ushort)newGid, Tile.TileData);
                 PlayPackage(GetTileLootSound());
 

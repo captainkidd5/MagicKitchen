@@ -43,7 +43,7 @@
  </tile>
  <tile id="233">
   <properties>
-   <property name="EmitOffSet" value="8,-3"/>
+   <property name="EmitOffSet" value="8,-24"/>
    <property name="animate" value="pause"/>
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
@@ -300,6 +300,16 @@
    <frame tileid="581" duration="800"/>
    <frame tileid="781" duration="800"/>
   </animation>
+ </tile>
+ <tile id="1044">
+  <objectgroup draworder="index" id="4">
+   <object id="3" x="6" y="7" width="5" height="5">
+    <properties>
+     <property name="action" value="Harvest"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="1101">
   <properties>
