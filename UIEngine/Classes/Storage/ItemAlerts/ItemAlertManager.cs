@@ -12,6 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextEngine;
+using TextEngine.Classes;
+using UIEngine.Classes.ButtonStuff;
 
 namespace UIEngine.Classes.Storage.ItemAlerts
 {
@@ -19,10 +22,13 @@ namespace UIEngine.Classes.Storage.ItemAlerts
     {
         private Dictionary<int, ItemAlert> _alerts;
         private Queue<RecipeUnlockAlert> _recipeAlerts;
+        private byte _queueCountLastFrame = 0;
 
         private Vector2 _recipeUnlockPosition;
         private RecipeUnlockAlert _activeUnlockAlert;
 
+        private NineSliceTextButton _newItemUnlockedBox;
+        private static readonly string s_itemUnlockedString = "New Recipe(s) Unlocked!";
         public ItemAlertManager(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -43,7 +49,7 @@ namespace UIEngine.Classes.Storage.ItemAlerts
         {
             _alerts = new Dictionary<int, ItemAlert>();
             _recipeAlerts = new Queue<RecipeUnlockAlert>();
-            Position = new Vector2(Settings.CenterScreen.X + Settings.NativeWidth / 4 , Settings.CenterScreen.Y + 80);
+            Position = new Vector2(Settings.CenterScreen.X + Settings.NativeWidth / 4, Settings.CenterScreen.Y + 80);
             _recipeUnlockPosition = new Vector2(Settings.CenterScreen.X - 80, 80);
             RegisterCommands();
         }
@@ -73,32 +79,51 @@ namespace UIEngine.Classes.Storage.ItemAlerts
             ChildSections.Remove(recipeAlert);
             _recipeAlerts.Enqueue(recipeAlert);
 
+            if (!ChildSections.Contains(_newItemUnlockedBox))
+            {
+
+                Text newItemUnlockedText = TextFactory.CreateUIText(s_itemUnlockedString, GetLayeringDepth(UILayeringDepths.Medium));
+
+                _newItemUnlockedBox = new NineSliceTextButton(this, graphics, content, new Vector2(Settings.CenterScreen.X, 32),
+                GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low), new List<Text>() { newItemUnlockedText }, null);
+                _newItemUnlockedBox.MovePosition(new Vector2(_newItemUnlockedBox.Position.X - _newItemUnlockedBox.Width / 2, 32));
+            }
+
         }
         public override void Update(GameTime gameTime)
         {
-            
+            _queueCountLastFrame = (byte)_recipeAlerts.Count;
             _activeUnlockAlert = _recipeAlerts.FirstOrDefault();
-            
-            if(_activeUnlockAlert != null)
+
+            if (_activeUnlockAlert != null)
             {
                 _activeUnlockAlert.Update(gameTime);
                 if (_activeUnlockAlert.FlaggedForRemoval)
                     _recipeAlerts.Dequeue();
             }
+            //Want to remove new recipe unlocked message only when last item unlock alert fades out. It should be constant through all alerts until
+            //that point
+            if(_queueCountLastFrame > 0 && _recipeAlerts.Count == 0)
+            {
+                _newItemUnlockedBox.FadeOut();
+            }
+            if (_newItemUnlockedBox!= null && _newItemUnlockedBox.IsTransparent)
+                ChildSections.Remove(_newItemUnlockedBox);
+
             KeyValuePair<int, ItemAlert>? item = _alerts.FirstOrDefault(kvp => kvp.Value.FlaggedForRemoval == true);
 
-            if(item != null)
-               _alerts.Remove(item.Value.Key);
+            if (item != null)
+                _alerts.Remove(item.Value.Key);
             base.Update(gameTime);
 
-         
+
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (_activeUnlockAlert != null)
             {
                 _activeUnlockAlert.Draw(spriteBatch);
-  
+
             }
             base.Draw(spriteBatch);
         }
