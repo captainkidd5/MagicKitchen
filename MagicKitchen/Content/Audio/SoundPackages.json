@@ -184,16 +184,7 @@
           }
         ]
       },
-      {
-        "Name": "ItemCraft",
-        "SoundChancers": [
-             {
-            "Name": "ItemCraftMetal",
-            "Weight": 100,
-            "LocalPath": "SoundEffects/Tools"
-          }
-        ]
-      },
+
       {
         "Name": "StepGrass",
         "SoundChancers": [
@@ -409,7 +400,40 @@
                       "LocalPath": "SoundEffects/Tiles/Placeables/Grill"
                     }
                   ]
-                }
+                },
+                {
+                  "Name": "MetalCraft",
+                  "SoundChancers": 
+                   [
+                      {
+                        "Name": "Metal_Craft1",
+                        "Weight": 100,
+                        "LocalPath": "SoundEffects/Crafting"
+                      }
+                    ]
+                  },
+                  {
+                    "Name": "RuffleOpen",
+                    "SoundChancers": 
+                     [
+                        {
+                          "Name": "PaperRuffleOpen",
+                          "Weight": 100,
+                          "LocalPath": "SoundEffects/UI"
+                        }
+                      ]
+                    },
+                    {
+                      "Name": "RuffleClose",
+                      "SoundChancers": 
+                       [
+                          {
+                            "Name": "PaperRuffleClose",
+                            "Weight": 100,
+                            "LocalPath": "SoundEffects/UI"
+                          }
+                        ]
+                      }
         
       
     ]

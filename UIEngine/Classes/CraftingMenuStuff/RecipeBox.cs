@@ -6,6 +6,7 @@ using ItemEngine.Classes.CraftingStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
@@ -145,6 +146,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 int amtToAdd = 1;
                 ItemFactory.CraftingGuide.RemoveIngredientsFromInventoryToMakeItem(ItemFactory.GetItem(_currentItem.Id), UI.PStorage);
                 UI.PStorage.AddItem(item, ref amtToAdd);
+                SoundFactory.PlayEffectPackage("MetalCraft");
             }
         }
 

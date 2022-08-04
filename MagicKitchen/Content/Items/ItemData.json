@@ -1,7 +1,7 @@
 [
 {
     "Id": 1,
-    "Name": "Stone_Axe",
+    "Name": "Flint_Axe",
     "Description" : "A basic tool for chopping trees",
     "MaxStackSize": 1,
     "Price": 25,
@@ -9,11 +9,14 @@
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Tool",
-    "CookTime": 1,
     "Ingredients":[
         {
-            "Name":"Iron_Ore",
-            "Count":1
+            "Name":"Flint",
+            "Count":3
+        },
+        {
+            "Name":"Wood",
+            "Count":2
         }
     ]
 }
@@ -31,7 +34,6 @@
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Tool",
-    "CookTime": 1,
     "Ingredients":[
         {
             "Name":"Rope",
@@ -57,15 +59,14 @@
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Tool",
-    "CookTime": 1,
     "Ingredients":[
         {
-            "Name":"Rope",
-            "Count":2
+            "Name":"Flint",
+            "Count":3
         },
         {
             "Name":"Wood",
-            "Count":4
+            "Count":2
         }
     ]
 }
@@ -78,19 +79,24 @@
     "Price": 25,
     "ToolTier":"Good",
     "ItemType": "Shovel",
+    "MaxDurability": 100,
+
     "RecipeInfo": 
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Tool",
-    "CookTime": 1,
     "Ingredients":[
         {
-            "Name":"Rope",
-            "Count":2
+            "Name":"Flint",
+            "Count":1
         },
         {
             "Name":"Wood",
-            "Count":4
+            "Count":3
+        },
+        {
+            "Name":"Rope",
+            "Count":2
         }
     ]
 }
@@ -105,8 +111,8 @@
 },
 {
     "Id": 712,
-    "Name": "Cooked_Haunch",
-    "Description" : "Cooked meat",
+    "Name": "Cooked_Meat",
+    "Description" : "A slab of tasty meat",
     "MaxStackSize": 999,
     "Price": 1,
     "ItemType": "Food",
@@ -118,7 +124,7 @@
     "CookTime": 20,
     "Ingredients":[
         {
-            "Name":"Raw_Haunch",
+            "Name":"Raw_Meat",
             "Count":1
         }
     ]
@@ -128,7 +134,7 @@
 },
 {
     "Id": 713,
-    "Name": "Raw_Haunch",
+    "Name": "Raw_Meat",
     "Description" : "Uncooked meat",
     "MaxStackSize": 999,
     "Price": 1
@@ -139,19 +145,8 @@
     "Name": "Coin",
     "Description" : "Currency",
     "MaxStackSize": 999,
-    "Price": 1,
-    "RecipeInfo": 
-    {
-    "CraftAction": "Craft",
-    "CraftingCategory": "Tool",
-    "CookTime": 1,
-    "Ingredients":[
-        {
-            "Name":"Iron_Ore",
-            "Count":1
-        }
-    ]
-}
+    "Price": 1
+   
 },
 {
     "Id": 901,
@@ -189,7 +184,6 @@
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Refined",
-    "CookTime": 1,
     "Ingredients":[
         {
             "Name":"Wood",
@@ -216,7 +210,6 @@
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Refined",
-    "CookTime": 1,
     "Ingredients":[
         {
             "Name":"Mud",
@@ -244,7 +237,6 @@
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Refined",
-    "CookTime": 1,
     "Ingredients":[
         {
             "Name":"Fibre",
@@ -287,10 +279,13 @@
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Equipment",
-    "CookTime": 20,
     "Ingredients":[
         {
             "Name":"Iron_Ingot",
+            "Count":4
+        },
+        {
+            "Name":"Rope",
             "Count":4
         }
     ]
@@ -330,11 +325,10 @@
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Equipment",
-    "CookTime": 20,
     "Ingredients":[
         {
             "Name":"Iron_Ingot",
-            "Count":4
+            "Count":8
         }
     ]
     
@@ -354,11 +348,10 @@
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Equipment",
-    "CookTime": 20,
     "Ingredients":[
         {
             "Name":"Iron_Ingot",
-            "Count":4
+            "Count":6
         }
     ]
     
@@ -378,11 +371,10 @@
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Equipment",
-    "CookTime": 20,
     "Ingredients":[
         {
             "Name":"Iron_Ingot",
-            "Count":2
+            "Count":3
         }
     ]
     
@@ -403,7 +395,6 @@
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Equipment",
-    "CookTime": 20,
     "Ingredients":[
         {
             "Name":"Iron_Ingot",
@@ -426,11 +417,10 @@
     "RecipeInfo": 
     {
     "CraftAction": "Craft",
-    "CookTime": 20,
     "Ingredients":[
         {
             "Name":"Iron_Ingot",
-            "Count":2
+            "Count":4
         }
     ]
     
@@ -473,7 +463,6 @@
         {
             "CraftAction": "Craft",
             "CraftingCategory": "Refined",
-        "CookTime": 20,
         "Ingredients":[
             {
                 "Name":"Fibre",
@@ -495,7 +484,6 @@
         "RecipeInfo": 
         {
             "CraftAction": "Grill",
-            "CraftingCategory": "Refined",
         "CookTime": 20,
         
         "Ingredients":[
@@ -588,8 +576,8 @@
     "CookTime": 1,
     "Ingredients":[
         {
-            "Name":"Iron_Ore",
-            "Count":1
+            "Name":"Stone",
+            "Count":8
         }
     ]
 }
@@ -609,7 +597,6 @@
         {
         "CraftAction": "Craft",
         "CraftingCategory": "Placeable",
-        "CookTime": 1,
         "Ingredients":[
             {
                 "Name":"Wood",
@@ -637,7 +624,6 @@
             {
             "CraftAction": "Craft",
             "CraftingCategory": "Placeable",
-            "CookTime": 1,
             "Ingredients":[
                 {
                     "Name":"Iron_Ore",
@@ -660,7 +646,6 @@
                 {
                 "CraftAction": "Craft",
                 "CraftingCategory": "Placeable",
-                "CookTime": 1,
                 "Ingredients":[
                     {
                         "Name":"Iron_Ore",

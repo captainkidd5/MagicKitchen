@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.InterfaceStuff;
 using System;
@@ -219,6 +220,12 @@ namespace UIEngine.Classes.EscMenuStuff
                 Toggle();
 
                 Flags.Pause = IsActive;
+                if (IsActive)
+                    SoundFactory.PlayEffectPackage("RuffleOpen");
+                
+                else
+                    SoundFactory.PlayEffectPackage("RuffleClose");
+
 
             }
             base.Update(gameTime);

@@ -228,6 +228,10 @@ namespace UIEngine.Classes.Storage
             if (_oldItemId != item.Id)
 
             {
+                if(parentSection.GetType() == typeof(PlayerInventoryDisplay))
+                {
+                    (parentSection as PlayerInventoryDisplay).CheckForNewlyDiscoveredRecipes(item);
+                }
                 UpdateVisuals(item, count);
                 return;
             }

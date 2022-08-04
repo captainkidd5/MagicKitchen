@@ -63,7 +63,7 @@ namespace UIEngine.Classes.Storage
         {
             UI.ItemAlertManager.AddNormalItemAlert(item, amtAdded);
 
-            CheckForNewlyDiscoveredRecipes(item);
+           // CheckForNewlyDiscoveredRecipes(item);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace UIEngine.Classes.Storage
         /// that the recipe for a stone axe has all the necessary ingredients to be crafted, therefore we unlock it
         /// </summary>
         /// <param name="item"></param>
-        private static void CheckForNewlyDiscoveredRecipes(Item item)
+        public void CheckForNewlyDiscoveredRecipes(Item item)
         {
             if (!SaveLoadManager.CurrentSave.GameProgressData.IsItemDiscovered(item.Id))
             {
