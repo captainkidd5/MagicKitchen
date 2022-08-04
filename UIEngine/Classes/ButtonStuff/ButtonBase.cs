@@ -27,7 +27,9 @@ namespace UIEngine.Classes.ButtonStuff
         protected Action OnClick { get; set; }
 
         protected Sprite ForegroundSprite { get; set; }
-        public Color Color => BackGroundSprite.PrimaryColor;
+        public Color Color {get { return BackGroundSprite.PrimaryColor; } set { BackGroundSprite.UpdateColor(value); } }
+
+        public bool IsTransparent => BackGroundSprite.IsTransparent;
 
         //If locked, button will not respond to hover or click events.
         private bool Locked { get; set; }
