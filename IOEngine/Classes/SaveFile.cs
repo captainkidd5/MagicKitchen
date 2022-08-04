@@ -13,6 +13,8 @@ namespace IOEngine.Classes
 
 
         public PlayerAvatarData PlayerAvatarData { get; set; }
+        public GameProgressData GameProgressData { get; set; }
+
 
         /// <summary>
         /// Creates new save file which includes: New folder, new metadata, and new save data
@@ -33,8 +35,8 @@ namespace IOEngine.Classes
 
             PlayerAvatarData = playerAvatarData;
 
-
-
+            GameProgressData = new GameProgressData();
+            CreateNewGameProgressPath();
         }
 
         public void Delete()
@@ -56,8 +58,12 @@ namespace IOEngine.Classes
             string fileName = "Player_Avatar_" + MetaData.Name;
             PlayerAvatarData.Path = MetaData.FolderPath + @"\" + fileName + ".json";
         }
-
-        public void Save()
+        private void CreateNewGameProgressPath()
+        {
+            string fileName = "Progress_" + MetaData.Name;
+            GameProgressData.Path = MetaData.FolderPath + @"\" + fileName + ".json";
+        }
+        public void SaveAllMetaData()
         {
             string jsonString = JsonSerializer.Serialize(MetaData);
             File.WriteAllText(MetaData.MetaDataPath, jsonString);
@@ -66,6 +72,9 @@ namespace IOEngine.Classes
             CreateNewAvatarPath();
             File.WriteAllText(PlayerAvatarData.Path, jsonString);
 
+
+             jsonString = JsonSerializer.Serialize(GameProgressData);
+            File.WriteAllText(GameProgressData.Path, jsonString);
 
         }
 
@@ -82,5 +91,14 @@ namespace IOEngine.Classes
             PlayerAvatarData = JsonSerializer.Deserialize<PlayerAvatarData>(jsonString);
 
         }
+
+        public void LoadProgressData(string fullFilePath)
+        {
+            string jsonString = File.ReadAllText(fullFilePath);
+
+            GameProgressData = JsonSerializer.Deserialize<GameProgressData>(jsonString);
+
+        }
     }
+
 }

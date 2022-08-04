@@ -56,6 +56,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
         private void PlayerInventoryChanged()
         {
+            //TODO: are we sure about that?
             //Do not want to reload while crafting
             if (IsActive && !ActivelyCrafting)
                 LoadContent();

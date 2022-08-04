@@ -1,7 +1,9 @@
-﻿using Globals.Classes;
+﻿using DataModels.ItemStuff;
+using Globals.Classes;
 using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
+using IOEngine.Classes;
 using ItemEngine.Classes;
 using ItemEngine.Classes.StorageStuff;
 using Microsoft.Xna.Framework;
@@ -28,7 +30,7 @@ namespace UIEngine.Classes.Storage
         private Rectangle _closeBigInventoryUpArrowSourceRectangle = new Rectangle(128, 16, 16, 32);
 
 
-        public PlayerInventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
+        public PlayerInventoryDisplay(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             NormallyActivated = true;
@@ -45,8 +47,8 @@ namespace UIEngine.Classes.Storage
             Selectables = new InterfaceSection[Rows, Columns];
 
             GenerateUI(displayWallet);
-            
-            SelectedSlot = InventorySlots[0,0];
+
+            SelectedSlot = InventorySlots[0, 0];
             CurrentSelectedPoint = new Point(0, 0);
             CurrentSelected = Selectables[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
 
@@ -60,14 +62,63 @@ namespace UIEngine.Classes.Storage
         public void OnItemAddedToInventory(Item item, int amtAdded)
         {
             UI.ItemAlertManager.AddAlert(item, amtAdded);
+
+            CheckForNewlyDiscoveredRecipes(item);
         }
+
+        /// <summary>
+        /// Checks to see if the current save is able to unlock any new recipes with the added ingredient.
+        /// For example, if the player picks up a stone, and has previously picked up a stick, we can now see
+        /// that the recipe for a stone axe has all the necessary ingredients to be crafted, therefore we unlock it
+        /// </summary>
+        /// <param name="item"></param>
+        private static void CheckForNewlyDiscoveredRecipes(Item item)
+        {
+            if (!SaveLoadManager.CurrentSave.GameProgressData.IsItemDiscovered(item.Id))
+            {
+                SaveLoadManager.CurrentSave.GameProgressData.DiscoverNewItem(item.Id);
+
+
+                Dictionary<ushort, bool> discoveredItems = SaveLoadManager.CurrentSave.GameProgressData.DiscoveredItems;
+
+                Dictionary<ushort, bool> discoveredRecipes = SaveLoadManager.CurrentSave.GameProgressData.DiscoveredRecipes;
+
+
+                foreach (ItemData itemData in ItemFactory.ItemData)
+                {
+                    if (itemData.RecipeInfo != null)
+                    {
+                        if (!discoveredRecipes.ContainsKey(itemData.Id))
+                        {
+                            bool mayCraft = true;
+                            foreach (CraftingIngredient ingredient in itemData.RecipeInfo.Ingredients)
+                            {
+                                if (!discoveredItems.ContainsKey(ItemFactory.GetItemData(ingredient.Name).Id))
+                                {
+                                    mayCraft = false;
+                                }
+                            }
+
+
+                            if (mayCraft)
+                            {
+                                discoveredRecipes.Add(itemData.Id, true);
+                                //TODO: Add alert
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
         public override void LoadContent()
         {
             base.LoadContent();
             //DrawEndIndex = ExtendedInventoryCutOff;
             _openBigInventoryButton = UI.ButtonFactory.CreateButton(this,
-                new Vector2(Position.X + TotalBounds.Width, Position.Y),LayerDepth,
-                _openBigInventoryUpArrowSourceRectangle, new Action(ToggleOpen), scale:2f);
+                new Vector2(Position.X + TotalBounds.Width, Position.Y), LayerDepth,
+                _openBigInventoryUpArrowSourceRectangle, new Action(ToggleOpen), scale: 2f);
             _openBigInventoryButton.LoadContent();
 
             TotalBounds = new Rectangle(TotalBounds.X, TotalBounds.Y, TotalBounds.Width +
@@ -75,7 +126,7 @@ namespace UIEngine.Classes.Storage
 
 
             WalletDisplay = new WalletDisplay(this, graphics, content,
-                new Vector2(Position.X + TotalBounds.Width ,
+                new Vector2(Position.X + TotalBounds.Width,
                 _openBigInventoryButton.Position.Y), GetLayeringDepth(UILayeringDepths.Medium));
 
 
@@ -87,7 +138,7 @@ namespace UIEngine.Classes.Storage
 
             _openBigInventoryButton.Update(gameTime);
 
-        
+
         }
 
         protected override void CheckOveriddenLogic(GameTime gameTime)
@@ -116,14 +167,14 @@ namespace UIEngine.Classes.Storage
             _openBigInventoryButton.Draw(spriteBatch);
         }
 
-       
+
         protected override void GenerateUI(bool displayWallet)
         {
             InventorySlots = new InventorySlotDisplay[Rows, Columns];
             Vector2 slotPos = Vector2.Zero;
-            Vector2 slotoffSet = new Vector2(0, -1 * (_buttonWidth * (Rows -1)));
+            Vector2 slotoffSet = new Vector2(0, -1 * (_buttonWidth * (Rows - 1)));
             int containerSlotIndex = 0;
-            for(int i = 0; i < Rows; i++)
+            for (int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j < Columns; j++)
                 {
@@ -137,7 +188,7 @@ namespace UIEngine.Classes.Storage
 
                     slotPos = new Vector2(Position.X + ((j * _buttonWidth)), Position.Y + slotoffSet.Y + yRowOffset);
 
-                    InventorySlotDisplay slotDisplay = new InventorySlotDisplay(i,j,this, graphics, content,
+                    InventorySlotDisplay slotDisplay = new InventorySlotDisplay(i, j, this, graphics, content,
                     StorageContainer.Slots[containerSlotIndex], slotPos,
                     GetLayeringDepth(UILayeringDepths.Low));
                     containerSlotIndex++;
@@ -164,12 +215,12 @@ namespace UIEngine.Classes.Storage
                     }
                     else if (i == 2)
                     {
-                        AddSectionToGrid(InventorySlots[0, j],0, j);
+                        AddSectionToGrid(InventorySlots[0, j], 0, j);
 
                     }
                 }
             }
-                    TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Columns * _buttonWidth, Rows * _buttonWidth);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Columns * _buttonWidth, Rows * _buttonWidth);
 
 
         }
@@ -214,7 +265,7 @@ namespace UIEngine.Classes.Storage
             }
 
             SwitchSpriteFromToggleStatus();
-               
+
         }
 
         private void SwitchSpriteFromToggleStatus()

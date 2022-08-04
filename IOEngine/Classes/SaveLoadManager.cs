@@ -26,9 +26,13 @@ namespace IOEngine.Classes
         public static void Load(SaveFile file) => SaveLoaded.Invoke(null, new FileLoadedEventArgs() { BinaryReader = CreateReader(file.MetaData.MainSaveFilePath) });
 
         public static EventHandler<FileSavedEventArgs> SaveSaved;
-        public static void Save(SaveFile file) => SaveSaved.Invoke(null, new FileSavedEventArgs() { BinaryWriter = CreateWriter(file.MetaData.MainSaveFilePath) });
+        public static void Save(SaveFile file)
+        {
+            SaveSaved.Invoke(null, new FileSavedEventArgs() { BinaryWriter = CreateWriter(file.MetaData.MainSaveFilePath) });
 
+            file.SaveAllMetaData();
 
+        }
         /// <summary>
         /// Call once on game open, loads all the metadata files into memory
         /// </summary>
@@ -50,9 +54,17 @@ namespace IOEngine.Classes
                 string avatarDataFile = Directory.GetFiles(path).ToList().FirstOrDefault(x => x.Contains("Avatar"));
                 if (string.IsNullOrEmpty(avatarDataFile))
                     throw new Exception("Avatar file for save not found!");
+
+                string progressDataPath = Directory.GetFiles(path).ToList().FirstOrDefault(x => x.Contains("Progress"));
+                if (string.IsNullOrEmpty(progressDataPath))
+                    throw new Exception("Progress file for save not found!");
+
+
                 SaveFile saveFile = new SaveFile();
                 saveFile.LoadMetaData(metaDataFile);
                 saveFile.LoadPlayerAvatarData(avatarDataFile);
+                saveFile.LoadProgressData(progressDataPath);
+
                 SaveFiles.Add(saveFile.MetaData.Name, saveFile);
 
             }
@@ -95,7 +107,7 @@ namespace IOEngine.Classes
             saveFile.CreateNew(name, avatarData);
 
 
-            saveFile.Save();
+            saveFile.SaveAllMetaData();
 
 
             SaveFiles.Add(name, saveFile);

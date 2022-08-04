@@ -1,4 +1,5 @@
 ﻿using DataModels.ItemStuff;
+using IOEngine.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -63,6 +64,10 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
             _stackPanel = new StackPanel(this, graphics, content, Position + _buttonOffSetStart, GetLayeringDepth(UILayeringDepths.Medium));
             List<ItemData> dataList = ItemFactory.ItemDataByCraftingCategory(CraftingCategory);
+
+            //Filter by current save unlocked recipes
+            dataList = dataList.Where(x => SaveLoadManager.CurrentSave.GameProgressData.DiscoveredRecipes.Keys.Contains(x.Id)).ToList();
+
             Selectables = new InterfaceSection[(int)Math.Ceiling((float)dataList.Count / (float)s_columns), s_columns];
             CurrentSelectedPoint = new Point(0, 0);
             int index = 0;
