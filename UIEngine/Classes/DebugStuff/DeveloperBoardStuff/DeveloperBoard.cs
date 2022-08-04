@@ -21,7 +21,7 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
 {
     internal class DeveloperBoard : MenuSection
     {
-        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 960, 448);
+        private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 980, 448);
         private NineSliceTextButton _saveSettingsButton;
         private StackPanel _stackPanel;
 

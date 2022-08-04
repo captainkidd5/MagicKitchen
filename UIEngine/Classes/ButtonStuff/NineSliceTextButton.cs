@@ -62,7 +62,7 @@ namespace UIEngine.Classes.ButtonStuff
             _textPositions = new List<Vector2>();
             GeneratePositionsForLines(new Vector2(newTextPosX, Position.Y ));
             if (_forcedWidth == null)
-                BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X - 4, Position.Y - 8), combinedtext, UI.ButtonTexture, LayerDepth);
+                BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X - 8, Position.Y - 8), combinedtext, UI.ButtonTexture, LayerDepth);
             else
                 BackGroundSprite = SpriteFactory.CreateNineSliceSprite(new Vector2(Position.X, Position.Y), _forcedWidth.Value,
                     _forcedHeight.Value, UI.ButtonTexture, LayerDepth);

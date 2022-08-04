@@ -69,7 +69,7 @@ namespace SpriteEngine.Classes
         
             SharedConstructor(position, texture, layer, color, scale);
 
-            Width = (int)text.TotalStringWidth;
+            Width = (int)text.TotalStringWidth + (int)TextFactory.SingleCharacterWidth() ;
             Height = (int)text.TotalStringHeight;// + (int)TextFactory.SingleCharacterWidth() * 4;
 
             if (Height <= 16)
