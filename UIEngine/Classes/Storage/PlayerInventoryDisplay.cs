@@ -61,7 +61,7 @@ namespace UIEngine.Classes.Storage
 
         public void OnItemAddedToInventory(Item item, int amtAdded)
         {
-            UI.ItemAlertManager.AddAlert(item, amtAdded);
+            UI.ItemAlertManager.AddNormalItemAlert(item, amtAdded);
 
             CheckForNewlyDiscoveredRecipes(item);
         }
@@ -103,7 +103,8 @@ namespace UIEngine.Classes.Storage
                             if (mayCraft)
                             {
                                 discoveredRecipes.Add(itemData.Id, true);
-                                //TODO: Add alert
+                                UI.ItemAlertManager.AddRecipeUnlockAlert(itemData);
+
                             }
                         }
                     }

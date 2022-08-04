@@ -1,10 +1,12 @@
-﻿using Globals.Classes;
+﻿using DataModels.ItemStuff;
+using Globals.Classes;
 using Globals.Classes.Console;
 using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,11 @@ namespace UIEngine.Classes.Storage.ItemAlerts
     internal class ItemAlertManager : InterfaceSection
     {
         private Dictionary<int, ItemAlert> _alerts;
+        private Queue<RecipeUnlockAlert> _recipeAlerts;
+
+        private Vector2 _recipeUnlockPosition;
+        private RecipeUnlockAlert _activeUnlockAlert;
+
         public ItemAlertManager(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -30,15 +37,17 @@ namespace UIEngine.Classes.Storage.ItemAlerts
         {
             string name = args[0];
             int count = int.Parse(args[1]);
-            AddAlert(ItemFactory.GetItem(name), count);
+            AddNormalItemAlert(ItemFactory.GetItem(name), count);
         }
         public override void LoadContent()
         {
             _alerts = new Dictionary<int, ItemAlert>();
+            _recipeAlerts = new Queue<RecipeUnlockAlert>();
             Position = new Vector2(Settings.CenterScreen.X + Settings.NativeWidth / 4 , Settings.CenterScreen.Y + 80);
+            _recipeUnlockPosition = new Vector2(Settings.CenterScreen.X - 80, 48);
             RegisterCommands();
         }
-        public void AddAlert(Item item, int count)
+        public void AddNormalItemAlert(Item item, int count)
         {
             if (_alerts.ContainsKey(item.Id))
             {
@@ -48,16 +57,34 @@ namespace UIEngine.Classes.Storage.ItemAlerts
             else
             {
                 _alerts.Clear();
-                ChildSections.Clear();
-                ItemAlert alert = new ItemAlert(item, this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
+                ChildSections.RemoveAll(x => x.GetType() == typeof(ItemAlert));
+                ItemAlert alert = new ItemAlert(ItemFactory.GetItemData(item.Id), this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
                 alert.LoadContent();
                 alert.Increment(count);
                 _alerts.Add(item.Id, alert);
 
             }
         }
+        public void AddRecipeUnlockAlert(ItemData itemData)
+        {
+            RecipeUnlockAlert recipeAlert = new RecipeUnlockAlert(itemData, this, graphics, content, _recipeUnlockPosition, GetLayeringDepth(UILayeringDepths.Low));
+            recipeAlert.LoadContent();
+
+            ChildSections.Remove(recipeAlert);
+            _recipeAlerts.Enqueue(recipeAlert);
+
+        }
         public override void Update(GameTime gameTime)
         {
+            
+            _activeUnlockAlert = _recipeAlerts.FirstOrDefault();
+            
+            if(_activeUnlockAlert != null)
+            {
+                _activeUnlockAlert.Update(gameTime);
+                if (_activeUnlockAlert.FlaggedForRemoval)
+                    _recipeAlerts.Dequeue();
+            }
             KeyValuePair<int, ItemAlert>? item = _alerts.FirstOrDefault(kvp => kvp.Value.FlaggedForRemoval == true);
 
             if(item != null)
@@ -68,6 +95,11 @@ namespace UIEngine.Classes.Storage.ItemAlerts
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if (_activeUnlockAlert != null)
+            {
+                _activeUnlockAlert.Draw(spriteBatch);
+  
+            }
             base.Draw(spriteBatch);
         }
 

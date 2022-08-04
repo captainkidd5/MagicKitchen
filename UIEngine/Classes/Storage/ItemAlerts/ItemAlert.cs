@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels.ItemStuff;
+using Globals.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -24,8 +25,8 @@ namespace UIEngine.Classes.Storage.ItemAlerts
     internal class ItemAlert : InterfaceSection
     {
         private static Rectangle _backgroundSourceRectangle = new Rectangle(176, 0, 96, 32);
-        private static float _TTL = 2f;
-        public Item Item { get; set; }
+        protected virtual float TTl { get; set; } = 2f;
+        public ItemData ItemData { get; set; }
         public byte Count { get; set; }
         private Sprite _background;
         private Text _text;
@@ -37,32 +38,37 @@ namespace UIEngine.Classes.Storage.ItemAlerts
 
         private NineSliceButton _button;
 
-        public ItemAlert(Item item, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
+        public ItemAlert(ItemData itemData, InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
-            Item = item;
+            ItemData = itemData;
         }
 
-        public void Increment(int amt)
+        public virtual void Increment(int amt)
         {
             _simpleTimer.ResetToZero();
-            _simpleTimer.SetNewTargetTime(_TTL);
+            _simpleTimer.SetNewTargetTime(TTl);
             Count += (byte)amt;
-            _text.SetFullString($"{Item.Name} +({Count})");
+            _text.SetFullString($"{ItemData.Name} +({Count})");
             _background.UpdateColor(Color.White);
            
+        }
+        protected virtual Text SetInitialText()
+        {
+            return TextFactory.CreateUIText($"", GetLayeringDepth(UILayeringDepths.Medium));
+
         }
         public override void LoadContent()
         {
            // base.LoadContent();
-            _simpleTimer = new SimpleTimer(_TTL, false);
-            _text = TextFactory.CreateUIText($"", GetLayeringDepth(UILayeringDepths.Medium));
+            _simpleTimer = new SimpleTimer(TTl, false);
+            _text = SetInitialText();
             _background = SpriteFactory.CreateUISprite(Position + _backgroundOffSet, _backgroundSourceRectangle, UI.ButtonTexture,
                 GetLayeringDepth(UILayeringDepths.Low), scale:new Vector2(2f,2f));
             _button = new NineSliceButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), null, null, null, null, hoverTransparency: true);
 
             _button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
-            Item.GetItemSourceRectangle(Item.Id), ItemFactory.ItemSpriteSheet,
+            Item.GetItemSourceRectangle(ItemData.Id), ItemFactory.ItemSpriteSheet,
             UI.IncrementLD(GetLayeringDepth(UILayeringDepths.High), true), Color.White, Vector2.Zero, new Vector2(3f,3f)));
             _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
         }
