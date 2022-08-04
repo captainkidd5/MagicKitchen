@@ -77,7 +77,11 @@ namespace UIEngine.Classes.Storage.ItemAlerts
             UI.IncrementLD(GetLayeringDepth(UILayeringDepths.High), true), Color.White, Vector2.Zero, new Vector2(3f,3f)));
             _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
         }
-
+        protected virtual void TimerExpired()
+        {
+            _button.FadeOut();
+            _background.FadeOut();
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -85,8 +89,7 @@ namespace UIEngine.Classes.Storage.ItemAlerts
           //  _button.Update(gameTime);
             if (_simpleTimer.Run(gameTime))
             {
-                _button.FadeOut();
-                _background.FadeOut();
+                TimerExpired();
             }
 
             if (_button.IsTransparent || _background.IsTransparent)
