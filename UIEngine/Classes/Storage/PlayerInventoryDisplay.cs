@@ -88,6 +88,9 @@ namespace UIEngine.Classes.Storage
                 {
                     if (itemData.RecipeInfo != null)
                     {
+                        //Only want to add recipes which are craftable in the crafing menu (not cooking, smelting, etc)
+                        if (itemData.RecipeInfo.CraftAction != CraftAction.Craft)
+                            continue;
                         if (!discoveredRecipes.ContainsKey(itemData.Id))
                         {
                             bool mayCraft = true;

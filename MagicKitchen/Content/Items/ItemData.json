@@ -287,6 +287,11 @@
         {
             "Name":"Rope",
             "Count":4
+        },
+        
+        {
+            "Name":"Wood",
+            "Count":2
         }
     ]
     
@@ -573,7 +578,6 @@
     {
     "CraftAction": "Craft",
     "CraftingCategory": "Placeable",
-    "CookTime": 1,
     "Ingredients":[
         {
             "Name":"Stone",
@@ -626,8 +630,12 @@
             "CraftingCategory": "Placeable",
             "Ingredients":[
                 {
-                    "Name":"Iron_Ore",
-                    "Count":1
+                    "Name":"Wood",
+                    "Count":12
+                },
+                {
+                    "Name":"Rope",
+                    "Count":3
                 }
             ]
         }
@@ -648,8 +656,8 @@
                 "CraftingCategory": "Placeable",
                 "Ingredients":[
                     {
-                        "Name":"Iron_Ore",
-                        "Count":2
+                        "Name":"Iron_Ingot",
+                        "Count":4
                     }
                 ]
             }
