@@ -23,112 +23,44 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
     {
         private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 980, 448);
         private NineSliceTextButton _saveSettingsButton;
-        private StackPanel _stackPanel;
 
         private NineSliceSprite _backgroundSprite;
 
-        private List<CheckBox> _checkBoxes;
+        private List<MenuSection> _allPages;
+        private MenuSection _activeSection;
         public DeveloperBoard(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
             NormallyActivated = false;
+            _allPages = new List<MenuSection>();
         }
 
 
-        private void AddCheckBox(CheckBox checkBox, StackRow stackRow, string text, bool initialToggleValue)
-        {
-            checkBox.SetToggleValue(initialToggleValue);
-            stackRow.AddItem(checkBox, StackOrientation.Left);
 
-
-            NineSliceTextButton checkBoxDescription = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                new List<Text>() { TextFactory.CreateUIText(text, GetLayeringDepth(UILayeringDepths.Medium)) }, null);
-            checkBoxDescription.Displaybackground = false;
-
-            stackRow.AddItem(checkBoxDescription, StackOrientation.Left);
-            _checkBoxes.Add(checkBox);
-        }
         public override void MovePosition(Vector2 newPos)
         {
             //base.MovePosition(newPos);
         }
         public override void LoadContent()
         {
-            _checkBoxes = new List<CheckBox>();
-            ClearGrid();
-            // GetSettingsValues();
             Position = RectangleHelper.CenterRectangleInRectangle(_backGroundSpriteDimensions,
-                Settings.ScreenRectangle);
-            _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-            StackRow stackRow1 = new StackRow(_backGroundSpriteDimensions.Width);
+             Settings.ScreenRectangle);
+            _allPages.Clear();
+            ChildSections.Clear();
 
-            CheckBox playeerHurtSoundsCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            playeerHurtSoundsCheckBox.ActionOnSave = new Action(() => { SettingsManager.EnablePlayerHurtSounds = playeerHurtSoundsCheckBox.Value; });
+            MainDevPage page1 = new MainDevPage(null, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            page1.LoadContent();
 
-            AddCheckBox(playeerHurtSoundsCheckBox, stackRow1, "Player Hurt Sound", SettingsManager.EnablePlayerHurtSounds);
-
-            CheckBox enablePlayerDeathSoundsCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            enablePlayerDeathSoundsCheckBox.ActionOnSave = new Action(() => { SettingsManager.EnablePlayerDeath = enablePlayerDeathSoundsCheckBox.Value; });
-
-            AddCheckBox(enablePlayerDeathSoundsCheckBox, stackRow1, "Enable Death", SettingsManager.EnablePlayerDeath);
-
-
-            CheckBox nightTimeCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            nightTimeCheckBox.ActionOnSave = new Action(() => { SettingsManager.IsNightTime = nightTimeCheckBox.Value; });
-
-            AddCheckBox(nightTimeCheckBox, stackRow1, "Toggle Night", SettingsManager.IsNightTime);
-
-            _stackPanel.Add(stackRow1);
-
-
-            StackRow stackRow2 = new StackRow(_backGroundSpriteDimensions.Width);
-
-            CheckBox debugVelcroCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            debugVelcroCheckBox.ActionOnSave = new Action(() => { SettingsManager.DebugVelcro = debugVelcroCheckBox.Value; });
-
-            AddCheckBox(debugVelcroCheckBox, stackRow2, "Toggle velcro", SettingsManager.DebugVelcro);
-
-            CheckBox debugGridCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            debugGridCheckBox.ActionOnSave = new Action(() => { SettingsManager.DebugGrid = debugGridCheckBox.Value; });
-
-            AddCheckBox(debugGridCheckBox, stackRow2, "Toggle grid", SettingsManager.DebugGrid);
-
-            CheckBox ePathCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            ePathCheckBox.ActionOnSave = new Action(() => { SettingsManager.ShowEntityPaths = ePathCheckBox.Value; });
-
-            AddCheckBox(ePathCheckBox, stackRow2, "Show Entity Paths", SettingsManager.ShowEntityPaths);
-
-
-            _stackPanel.Add(stackRow2);
-
-
-
-            StackRow stackRowSave = new StackRow(_backGroundSpriteDimensions.Width);
-
-            _saveSettingsButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, Position,
-                GetLayeringDepth(UILayeringDepths.Medium), new List<string>()
-                { "Save Settings!" },
-                SetSettingsValues, true);
-            stackRowSave.AddItem(_saveSettingsButton, StackOrientation.Center);
-            _stackPanel.Add(stackRowSave);
-
+            _allPages.Add(page1);
+            _activeSection = _allPages[0];
             _backgroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height, UI.ButtonTexture,
                 GetLayeringDepth(UILayeringDepths.Low));
-
 
             Deactivate();
 
             // NormallyActivated = false;
         }
-        private void SetSettingsValues()
-        {
-            foreach (CheckBox checkBox in _checkBoxes)
-            {
-                checkBox.SaveSettings();
-            }
 
-            SettingsManager.SaveSettings();
-        }
         public override void Update(GameTime gameTime)
         {
 #if DEBUG
@@ -139,6 +71,7 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
                     Toggle();
             }
 
+            _activeSection.Update(gameTime);
             base.Update(gameTime);
 #endif 
 
@@ -147,6 +80,8 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
         {
             if (IsActive)
                 _backgroundSprite.Draw(spriteBatch);
+
+            _activeSection.Draw(spriteBatch);
             base.Draw(spriteBatch);
 
         }
