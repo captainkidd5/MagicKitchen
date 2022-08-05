@@ -22,12 +22,13 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
     internal class DeveloperBoard : MenuSection
     {
         private Rectangle _backGroundSpriteDimensions = new Rectangle(0, 0, 980, 448);
-        private NineSliceTextButton _saveSettingsButton;
 
         private NineSliceSprite _backgroundSprite;
 
         private List<MenuSection> _allPages;
         private MenuSection _activeSection;
+
+        private StackPanel _tabsStackPanel;
         public DeveloperBoard(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -50,12 +51,32 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
 
             MainDevPage page1 = new MainDevPage(null, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             page1.LoadContent();
-
             _allPages.Add(page1);
+
+            PhysDevPage physDevPage = new PhysDevPage(null, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            physDevPage.LoadContent();
+            _allPages.Add(physDevPage);
+
+
             _activeSection = _allPages[0];
             _backgroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height, UI.ButtonTexture,
                 GetLayeringDepth(UILayeringDepths.Low));
 
+            _tabsStackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X, Position.Y - 80), GetLayeringDepth(UILayeringDepths.Medium));
+            StackRow stackRow = new StackRow(_backgroundSprite.Width);
+
+            NineSliceButton mainTabButton = new NineSliceButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null,
+                new Action(() => { _activeSection = page1; }));
+            mainTabButton.LoadContent();
+            stackRow.AddItem(mainTabButton, StackOrientation.Left);
+
+
+            NineSliceButton physTabButton = new NineSliceButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null,
+             new Action(() => { _activeSection = physDevPage; }));
+            physTabButton.LoadContent();
+            stackRow.AddItem(physTabButton, StackOrientation.Left);
+
+            _tabsStackPanel.Add(stackRow);
             Deactivate();
 
             // NormallyActivated = false;
@@ -70,8 +91,11 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
                 if (Controls.WasKeyTapped(Microsoft.Xna.Framework.Input.Keys.L))
                     Toggle();
             }
+            if (IsActive)
+            {
+                _activeSection.Update(gameTime);
 
-            _activeSection.Update(gameTime);
+            }
             base.Update(gameTime);
 #endif 
 
@@ -79,9 +103,12 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (IsActive)
+            {
                 _backgroundSprite.Draw(spriteBatch);
 
-            _activeSection.Draw(spriteBatch);
+                _activeSection.Draw(spriteBatch);
+            }
+               
             base.Draw(spriteBatch);
 
         }

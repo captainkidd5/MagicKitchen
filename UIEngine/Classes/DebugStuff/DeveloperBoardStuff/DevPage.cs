@@ -72,7 +72,7 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
 
 
 
-            Deactivate();
+         //   Deactivate();
 
             // NormallyActivated = false;
         }
