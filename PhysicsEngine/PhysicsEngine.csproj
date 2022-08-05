@@ -3,8 +3,8 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Aether.Physics2D.Diagnostics.MG" Version="1.6.1" />
-    <PackageReference Include="Aether.Physics2D.MG" Version="1.6.1" />
+    <PackageReference Include="CaptainKidd.Aether.Physics.2D" Version="1.0.0" />
+    <PackageReference Include="CaptainKidd.Aether.Physics2D.Diaognostics" Version="1.0.2" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>

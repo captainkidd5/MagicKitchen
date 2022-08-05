@@ -82,9 +82,22 @@ namespace PhysicsEngine.Classes
             PhysicsDebugger.LoadContent(graphics, content);
             PhysicsDebugger.AppendFlags(DebugViewFlags.DebugPanel);
 
+            PhysicsDebugger.RemoveDebugCategory(Category.All);
+            PhysicsDebugger.AddDebugCategory((Category)PhysCat.SolidLow);
+            CommandConsole.RegisterCommand("add_f", "adds debug shape filter", AddCollisionFilterCommand);
+
+            CommandConsole.RegisterCommand("rem_f", "removes debug shape filter", RemoveCollisionFilterCommand);
 
         }
-  
+
+        private static void AddCollisionFilterCommand(string[] args)
+        {
+            PhysicsDebugger.AddDebugCategory((Category)Enum.Parse(typeof(PhysCat), args[0],true));
+        }
+        private static void RemoveCollisionFilterCommand(string[] args)
+        {
+            PhysicsDebugger.RemoveDebugCategory((Category)Enum.Parse(typeof(PhysCat), args[0], true));
+        }
         public static void Update(GameTime gameTime)
         {
             VelcroWorld.Step((float)gameTime.ElapsedGameTime.TotalMilliseconds * .001f);
