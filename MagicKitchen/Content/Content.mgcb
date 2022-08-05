@@ -368,6 +368,12 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/UI/PaperRuffleOpen.wav
 
+#begin Audio/SoundEffects/UI/RecipeUnlockAlert1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/UI/RecipeUnlockAlert1.wav
+
 #begin Audio/SoundEffects/UI/StartGame.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

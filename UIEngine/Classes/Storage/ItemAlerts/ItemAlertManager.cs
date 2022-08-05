@@ -6,6 +6,7 @@ using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SoundEngine.Classes;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
@@ -81,7 +82,7 @@ namespace UIEngine.Classes.Storage.ItemAlerts
 
             if (!ChildSections.Contains(_newItemUnlockedBox))
             {
-
+                SoundFactory.PlayEffectPackage("RecipeUnlockAlert");
                 Text newItemUnlockedText = TextFactory.CreateUIText(s_itemUnlockedString, GetLayeringDepth(UILayeringDepths.Medium));
 
                 _newItemUnlockedBox = new NineSliceTextButton(this, graphics, content, new Vector2(Settings.CenterScreen.X, 32),

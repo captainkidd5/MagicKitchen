@@ -44,5 +44,6 @@ namespace DataModels.NPCStuff
         public List<LootData> LootData { get; set; }
         public NPCSoundData NPCSoundData { get; set; }
 
+        public NPCLightData NPCLightData { get; set; }
     }
 }

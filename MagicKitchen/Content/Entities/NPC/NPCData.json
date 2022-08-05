@@ -248,7 +248,146 @@
         ]
     }
 ]
+},
+{
+    "Name": "hangler_fish",
+    "Weight": 20,
+    "SpawnSlotValue": 80,
+    "ObjectType" : "EntityEngine.Classes.NPCStuff.NPC",
+    "ScheduleName": "wander_1",
+    "NPCType" : "Enemy",
+    "ShadowSize":"Medium",
+    "CombatResponse":"Retaliate",
+    "SpriteWidth": 48,
+    "SpriteHeight": 32,
+
+    "NPCLightData":{
+        "LightType": "Nautical",
+        "RadiusScale": 20,
+        "XOffSet": 8,
+        "YOffSet": 0
+    },
+    
+    "AnimationInfo": [
+        {
+        "ActionType": "Walking",
+        "MovementDirection": "Up",
+        "Flip" : false,
+    "SpriteY": 23,
+            "SpriteX":13,
+        "FrameIndicies":[
+            0,0,0
+        ]
+    },
+    {
+        "ActionType": "Walking",
+        "MovementDirection": "Down",
+        "Flip" : false,
+        "SpriteY": 23,
+            "SpriteX":13,
+        "FrameIndicies":[
+            0,0,0
+        ]
+    },
+    {
+        "ActionType": "Walking",
+        "MovementDirection": "Left",
+        "Flip" : false,
+        "SpriteY": 23,
+            "SpriteX":13,
+        "FrameIndicies":[
+            0,0,0
+        ]
+    },
+    {
+        "ActionType": "Walking",
+        "MovementDirection": "Right",
+        "Flip" : true,
+        "SpriteY": 23,
+            "SpriteX":13,
+        "FrameIndicies":[
+            0,0,0
+        ]
+    },
+
+
+
+
+
+
+
+
+    {
+        "ActionType": "Attack",
+        "MovementDirection": "Up",
+        "DamageFrame":2,
+        "Flip" : false,
+        "SpriteY" : 2,
+        "FrameIndicies":[
+            0,1,2
+        ]
+    },
+    {
+        "ActionType": "Attack",
+        "MovementDirection": "Down",
+        "DamageFrame":2,
+        "Flip" : false,
+        "SpriteY" : 2,
+        "FrameIndicies":[
+            3,4,5
+        ]
+    },
+    {
+        "ActionType": "Attack",
+        "MovementDirection": "Left",
+        "DamageFrame":2,
+        "Flip" : false,
+        "SpriteY" : 2,
+        "FrameIndicies":[
+            6,7,8
+        ]
+    },
+    {
+        "ActionType": "Attack",
+        "MovementDirection": "Right",
+        "DamageFrame":2,
+        "Flip" : true,
+        "SpriteY" : 2,
+        "FrameIndicies":[
+            6,7,8
+        ]
+    }
+],
+"NPCSoundData":{
+    "Hurt" : "Grunt"
+},
+"LootData":[
+
+    {
+        "ItemName" : "Raw_Haunch",
+        "Guaranteed":true,
+
+        "QuantityMin":1,
+        "QuantityMax":1,
+        "Weight" : 100
+    },
+    {
+        "ItemName" : "Leather",
+
+        "QuantityMin":1,
+        "QuantityMax":2,
+        "Weight" : 70
+    },
+    {
+        "ItemName" : "Coin",
+        "QuantityMin":1,
+        "QuantityMax":2,
+        "Weight" : 40
+    }
+]
 }
+
+
 ]
 
 

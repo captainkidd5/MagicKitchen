@@ -92,7 +92,13 @@ namespace DataModels
             Shallow = 1,
             Deep = 2
         }
-  
 
+        public enum LightType
+        {
+            None = 0,
+            Warm = 1,
+            Nautical = 2,
+            Jungle = 3,
+        }
     }
 }

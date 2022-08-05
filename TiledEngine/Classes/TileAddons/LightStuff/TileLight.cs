@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using tainicom.Aether.Physics2D.Dynamics;
 using TiledEngine.Classes.Helpers;
-
+using static DataModels.Enums;
 
 namespace TiledEngine.Classes.TileAddons.LightStuff
 {

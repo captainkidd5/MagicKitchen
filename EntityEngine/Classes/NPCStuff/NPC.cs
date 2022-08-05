@@ -91,6 +91,11 @@ namespace EntityEngine.Classes.NPCStuff
             Move(Position);
 
             _despawnTimer = new SimpleTimer(s_despawnTargetTime);
+
+            if(NPCData != null && NPCData.NPCLightData != null)
+            {
+                AddLight(NPCData.NPCLightData.LightType, new Vector2(NPCData.NPCLightData.XOffSet, NPCData.NPCLightData.YOffSet), false, true, NPCData.NPCLightData.RadiusScale);
+            }
             
         }
         protected override void DestructionBehaviour()

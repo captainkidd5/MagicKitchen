@@ -51,6 +51,10 @@ namespace EntityEngine.Classes
                     var diction = JsonSerializer.Deserialize<List<NPCData>>(jsonString, options).ToDictionary(x => x.Name);
                     foreach(KeyValuePair<string, NPCData> pair in diction)
                     {
+                        if(pair.Value.NPCLightData != null)
+                        {
+                            pair.Value.NPCLightData.RadiusScale *= .01f;
+                        }
                         NPCData.Add(pair.Key,pair.Value);
                     }
 

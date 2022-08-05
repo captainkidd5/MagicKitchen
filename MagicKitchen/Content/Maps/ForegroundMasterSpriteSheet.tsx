@@ -879,6 +879,13 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="4201">
+  <properties>
+   <property name="lightSource" value=".3,8,8,Nautical,immune:true"/>
+   <property name="newHitBox" value="4, -8, 26"/>
+   <property name="newSource" value="0,-64,32,80"/>
+  </properties>
+ </tile>
  <tile id="4321">
   <properties>
    <property name="newSource" value="0, -32, 32, 48"/>

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Text;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
+using static DataModels.Enums;
 
 namespace PhysicsEngine.Classes
 {

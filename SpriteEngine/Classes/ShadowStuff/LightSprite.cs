@@ -5,18 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DataModels.Enums;
 
 namespace SpriteEngine.Classes.ShadowStuff
 {
 
     
-    public enum LightType
-    {
-        None =0,
-        Warm = 1,
-        Nautical = 2,
-        Jungle = 3,
-    }
+
     public class LightSprite 
     {
         public static Color ColorFromLightType(LightType lightType)

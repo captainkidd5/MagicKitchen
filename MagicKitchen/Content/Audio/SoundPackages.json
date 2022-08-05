@@ -433,6 +433,17 @@
                             "LocalPath": "SoundEffects/UI"
                           }
                         ]
+                      },
+                    {
+                      "Name": "RecipeUnlockAlert",
+                      "SoundChancers": 
+                       [
+                          {
+                            "Name": "RecipeUnlockAlert1",
+                            "Weight": 100,
+                            "LocalPath": "SoundEffects/UI"
+                          }
+                        ]
                       }
         
       

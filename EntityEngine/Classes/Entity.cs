@@ -351,6 +351,15 @@ namespace EntityEngine.Classes
 #endif
 
             ToolHandler.Draw(spriteBatch);
+            if(LightsCollidable != null)
+            {
+
+            foreach(var light in LightsCollidable)
+            {
+                light.DrawEmitter(spriteBatch);
+            }
+            }
+
         }
 
         public virtual void DrawDebug(SpriteBatch spriteBatch)
