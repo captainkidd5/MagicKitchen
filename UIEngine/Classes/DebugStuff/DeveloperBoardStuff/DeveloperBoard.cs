@@ -49,9 +49,9 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
             _allPages.Clear();
             ChildSections.Clear();
 
-            MainDevPage page1 = new MainDevPage(null, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-            page1.LoadContent();
-            _allPages.Add(page1);
+            MainDevPage mainDevPage = new MainDevPage(null, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            mainDevPage.LoadContent();
+            _allPages.Add(mainDevPage);
 
             PhysDevPage physDevPage = new PhysDevPage(null, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             physDevPage.LoadContent();
@@ -66,7 +66,7 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
             StackRow stackRow = new StackRow(_backgroundSprite.Width);
 
             NineSliceButton mainTabButton = new NineSliceButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null,
-                new Action(() => { _activeSection = page1; }));
+                new Action(() => { _activeSection = mainDevPage; }));
             mainTabButton.LoadContent();
             stackRow.AddItem(mainTabButton, StackOrientation.Left);
 

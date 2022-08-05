@@ -5,6 +5,7 @@ using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using PhysicsEngine.Classes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.InterfaceStuff;
 using System;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tainicom.Aether.Physics2D.Dynamics;
 using TextEngine;
 using TextEngine.Classes;
 using UIEngine.Classes.ButtonStuff;
@@ -37,58 +39,54 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
         {
             //base.MovePosition(newPos);
         }
+
+        Category category;
         public override void LoadContent()
         {
             base.LoadContent();
+            List<PhysCat> physCats = Enum.GetValues(typeof(PhysCat))
+                       .Cast<PhysCat>()
+                       .ToList();
+
+            StackRow currentStackRow = new StackRow(BackgroundSpriteDimensions.Width);
+            for (int i = 0; i < physCats.Count -1; i++)
+            {
+
+                if (i % 3 == 0)
+                {
+                    StackPanel.Add(currentStackRow);
+                    currentStackRow = new StackRow(BackgroundSpriteDimensions.Width);
+                }
+                CheckBox checkBox = new CheckBox(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
+                checkBox.ActionOnSave = new Action(() =>
+                {
+
+                    PhysCat cat = physCats[i];
+                    if (checkBox.Value)
+                    {
+                        PhysicsManager.PhysicsDebugger.AddDebugCategory((Category)cat);
+                    }
+                    else
+                    {
+                        PhysicsManager.PhysicsDebugger.RemoveDebugCategory((Category)cat);
+                    }
 
 
-            StackRow stackRow1 = new StackRow(BackgroundSpriteDimensions.Width);
-
-            CheckBox playeerHurtSoundsCheckBox = new CheckBox(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            playeerHurtSoundsCheckBox.ActionOnSave = new Action(() => { SettingsManager.EnablePlayerHurtSounds = playeerHurtSoundsCheckBox.Value; });
-
-            AddCheckBox(playeerHurtSoundsCheckBox, stackRow1, "Player Hurt Sound", SettingsManager.EnablePlayerHurtSounds);
-
-            CheckBox enablePlayerDeathSoundsCheckBox = new CheckBox(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            enablePlayerDeathSoundsCheckBox.ActionOnSave = new Action(() => { SettingsManager.EnablePlayerDeath = enablePlayerDeathSoundsCheckBox.Value; });
-
-            AddCheckBox(enablePlayerDeathSoundsCheckBox, stackRow1, "Enable Death", SettingsManager.EnablePlayerDeath);
+                }
+                );
+                AddCheckBox(checkBox, currentStackRow, physCats[i].ToString(),
+                    PhysicsManager.PhysicsDebugger.DebuggableCategories.HasFlag((Category)physCats[i]));
 
 
-            CheckBox nightTimeCheckBox = new CheckBox(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            nightTimeCheckBox.ActionOnSave = new Action(() => { SettingsManager.IsNightTime = nightTimeCheckBox.Value; });
+            }
 
-            AddCheckBox(nightTimeCheckBox, stackRow1, "Toggle Night", SettingsManager.IsNightTime);
-
-            StackPanel.Add(stackRow1);
-
-
-            StackRow stackRow2 = new StackRow(BackgroundSpriteDimensions.Width);
-
-            CheckBox debugVelcroCheckBox = new CheckBox(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            debugVelcroCheckBox.ActionOnSave = new Action(() => { SettingsManager.DebugVelcro = debugVelcroCheckBox.Value; });
-
-            AddCheckBox(debugVelcroCheckBox, stackRow2, "Toggle velcro", SettingsManager.DebugVelcro);
-
-            CheckBox debugGridCheckBox = new CheckBox(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            debugGridCheckBox.ActionOnSave = new Action(() => { SettingsManager.DebugGrid = debugGridCheckBox.Value; });
-
-            AddCheckBox(debugGridCheckBox, stackRow2, "Toggle grid", SettingsManager.DebugGrid);
-
-            CheckBox ePathCheckBox = new CheckBox(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            ePathCheckBox.ActionOnSave = new Action(() => { SettingsManager.ShowEntityPaths = ePathCheckBox.Value; });
-
-            AddCheckBox(ePathCheckBox, stackRow2, "Show Entity Paths", SettingsManager.ShowEntityPaths);
-
-
-            StackPanel.Add(stackRow2);
+           
 
 
 
 
 
-
-            Deactivate();
+            //Deactivate();
 
             // NormallyActivated = false;
         }
