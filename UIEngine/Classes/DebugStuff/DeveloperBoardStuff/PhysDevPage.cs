@@ -41,6 +41,14 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
         }
 
         Category category;
+
+        private void SetCheckBox(StackRow stackRow, PhysCat physCat)
+        {
+            CheckBox checkBox = new CheckBox(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
+            checkBox.ActionOnSave = new Action(() => { TogglePhysCat(checkBox.Value, physCat); });
+            AddCheckBox(checkBox, stackRow, physCat.ToString(),
+                PhysicsManager.PhysicsDebugger.DebuggableCategories.HasFlag((Category)physCat));
+        }
         public override void LoadContent()
         {
             base.LoadContent();
@@ -48,40 +56,21 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
                        .Cast<PhysCat>()
                        .ToList();
 
-            StackRow currentStackRow = new StackRow(BackgroundSpriteDimensions.Width);
-            for (int i = 0; i < physCats.Count -1; i++)
-            {
+            StackRow stackRow1 = new StackRow(BackgroundSpriteDimensions.Width);
 
-                if (i % 3 == 0)
-                {
-                    StackPanel.Add(currentStackRow);
-                    currentStackRow = new StackRow(BackgroundSpriteDimensions.Width);
-                }
-                CheckBox checkBox = new CheckBox(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-                checkBox.ActionOnSave = new Action(() =>
-                {
+            SetCheckBox(stackRow1, PhysCat.SolidLow);
+            SetCheckBox(stackRow1, PhysCat.SolidHigh);
+            SetCheckBox(stackRow1, PhysCat.TransparencySensor);
 
-                    PhysCat cat = physCats[i];
-                    if (checkBox.Value)
-                    {
-                        PhysicsManager.PhysicsDebugger.AddDebugCategory((Category)cat);
-                    }
-                    else
-                    {
-                        PhysicsManager.PhysicsDebugger.RemoveDebugCategory((Category)cat);
-                    }
+            StackPanel.Add(stackRow1);
+
+            StackRow stackRow2= new StackRow(BackgroundSpriteDimensions.Width);
+            SetCheckBox(stackRow2, PhysCat.Player);
+            SetCheckBox(stackRow2, PhysCat.PlayerBigSensor);
+            SetCheckBox(stackRow2, PhysCat.Item);
 
 
-                }
-                );
-                AddCheckBox(checkBox, currentStackRow, physCats[i].ToString(),
-                    PhysicsManager.PhysicsDebugger.DebuggableCategories.HasFlag((Category)physCats[i]));
-
-
-            }
-
-           
-
+            StackPanel.Add(stackRow2);
 
 
 
@@ -91,5 +80,19 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
             // NormallyActivated = false;
         }
 
+
+        private void TogglePhysCat(bool val, PhysCat cat)
+        {
+            if (val)
+            {
+                PhysicsManager.PhysicsDebugger.AddDebugCategory((Category)cat);
+            }
+            else
+            {
+                PhysicsManager.PhysicsDebugger.RemoveDebugCategory((Category)cat);
+            }
+
+
+        }
     }
 }
