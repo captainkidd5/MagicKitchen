@@ -457,14 +457,14 @@ namespace UIEngine.Classes
 
         public static void LoadGame(SaveFile saveFile)
         {
-
+            Flags.DisableAllUIUpdates = true;
             DropCurtain(CurtainDropRate, new Action(() =>
             {
                 SaveLoadManager.SetCurrentSave(saveFile.MetaData.Name);
                 SaveLoadManager.Load(saveFile);
                 s_requestedGameState = GameDisplayState.InGame;
                 SaveLoadManager.SaveGame(null);
-
+                Flags.DisableAllUIUpdates = false;
                 FinishChangeGameState();
 
             }));

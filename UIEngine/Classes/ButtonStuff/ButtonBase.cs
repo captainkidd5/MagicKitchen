@@ -1,4 +1,5 @@
-﻿using Globals.Classes.Helpers;
+﻿using Globals.Classes;
+using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -153,6 +154,11 @@ namespace UIEngine.Classes.ButtonStuff
             if (!Locked)
             {
                 BackGroundSprite.Update(gameTime, Position);
+                if (Flags.DisableAllUIUpdates)
+                {
+                    BackGroundSprite.ResetColors();
+                    return;
+                }
                 if (Hovered)
                 {
                     if (HoverTransparency)

@@ -62,6 +62,8 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
             SetCheckBox(stackRow1, PhysCat.SolidHigh);
             SetCheckBox(stackRow1, PhysCat.TransparencySensor);
 
+
+
             StackPanel.Add(stackRow1);
 
             StackRow stackRow2= new StackRow(BackgroundSpriteDimensions.Width);
@@ -69,11 +71,15 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
             SetCheckBox(stackRow2, PhysCat.PlayerBigSensor);
             SetCheckBox(stackRow2, PhysCat.Item);
 
-
             StackPanel.Add(stackRow2);
 
 
+            StackRow stackRow3 = new StackRow(BackgroundSpriteDimensions.Width);
+            SetCheckBox(stackRow3, PhysCat.Tool);
+            SetCheckBox(stackRow3, PhysCat.NPC);
+            SetCheckBox(stackRow3, PhysCat.NPCBigSensor);
 
+            StackPanel.Add(stackRow3);
 
             //Deactivate();
 

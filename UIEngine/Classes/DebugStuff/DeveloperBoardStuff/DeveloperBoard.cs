@@ -62,7 +62,7 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
             _backgroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _backGroundSpriteDimensions.Width, _backGroundSpriteDimensions.Height, UI.ButtonTexture,
                 GetLayeringDepth(UILayeringDepths.Low));
 
-            _tabsStackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X, Position.Y - 80), GetLayeringDepth(UILayeringDepths.Medium));
+            _tabsStackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X, Position.Y - 64), GetLayeringDepth(UILayeringDepths.Medium));
             StackRow stackRow = new StackRow(_backgroundSprite.Width);
 
             NineSliceButton mainTabButton = new NineSliceButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null,
