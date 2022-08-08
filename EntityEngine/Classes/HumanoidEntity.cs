@@ -21,6 +21,7 @@ using SpriteEngine.Classes.Animations.EntityAnimations;
 using SpriteEngine.Classes;
 using ItemEngine.Classes.StorageStuff;
 using static DataModels.Enums;
+using SpriteEngine.Classes.ShadowStuff;
 
 namespace EntityEngine.Classes
 {
@@ -74,7 +75,7 @@ namespace EntityEngine.Classes
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },
                 new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.Player, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.Cursor,
-                    (Category)PhysCat.Grass, (Category)PhysCat.Item, (Category)PhysCat.Portal, (Category)PhysCat.FrontalSensor}, OnCollides, OnSeparates, ignoreGravity: true, blocksLight:true, userData: this));
+                    (Category)PhysCat.Grass, (Category)PhysCat.Item, (Category)PhysCat.Portal, (Category)PhysCat.FrontalSensor}, OnCollides, OnSeparates,mass:500f, ignoreGravity: true, blocksLight:true, userData: this));
 
             BigSensorCollidesWithCategories = new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Portal, (Category)PhysCat.SolidHigh, (Category)PhysCat.SolidLow, (Category)PhysCat.PlayerBigSensor};
 
@@ -114,8 +115,10 @@ namespace EntityEngine.Classes
                 LoadAnimations(Animator);
                 LoadWardrobe();
             }
-            
+            Shadow = new Shadow(SpriteEngine.Classes.ShadowStuff.ShadowType.NPC, CenteredPosition, ShadowSize.Small, SpriteFactory.NPCSheet);
 
+            XOffSet = 0;
+            YOffSet = 8;
         }
 
         protected virtual void LoadWardrobe()

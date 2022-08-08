@@ -121,6 +121,7 @@ namespace EntityEngine.Classes.PlayerStuff
             _lumenHandler.Load(this, LightsCollidable[0], LightsTouching);
             _healthHandler.Load(this, _hungerHandler);
             LightsCollidable[0].MaxLumens = (byte)_lumenHandler.MaxLumens;
+            Shadow = new Shadow(SpriteEngine.Classes.ShadowStuff.ShadowType.NPC, CenteredPosition, ShadowSize.Small, SpriteFactory.NPCSheet);
 
 
         }

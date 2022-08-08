@@ -38,8 +38,8 @@ namespace EntityEngine.Classes.CharacterStuff
             
 
             Speed = 2f;
-            XOffSet = 8;
-            YOffSet = 16;
+            XOffSet = 0;
+            YOffSet = 8;
         }
 
 
