@@ -138,7 +138,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             }
              Layer = SetPositionAndGetEntityLayer(position);
 
-            bool resetToResting = !isMoving && WasMovingLastFrame && CurrentActionType == ActionType.Walking;
+            bool resetToResting = !isMoving && WasMovingLastFrame && CurrentActionType <= ActionType.Walking;
           
 
                 for (int i = 0; i < BodyPieces.Length; i++)
