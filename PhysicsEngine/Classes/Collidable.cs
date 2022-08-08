@@ -71,7 +71,7 @@ namespace PhysicsEngine.Classes
         /// <param name="controllerConnected">Physics engine may not reference controls project, must pass in as param</param>
         protected bool IsHovered(bool controllerConnected)
         {
-            return (controllerConnected && PlayerInControllerActionRange) || (MouseHovering && PlayerInControllerActionRange);
+            return (controllerConnected && PlayerInControllerActionRange) || (MouseHovering);
         }
         public Collidable()
         {

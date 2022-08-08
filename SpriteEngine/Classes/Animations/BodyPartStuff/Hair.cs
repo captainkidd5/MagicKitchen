@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DataModels;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SpriteEngine.Classes;
@@ -90,7 +91,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
                 walkRightFrames, idleFrame: 0, scale: Scale);
 
             AnimatedSprite[] WalkingSet = new AnimatedSprite[] { WalkUp, WalkDown, WalkLeft, WalkRight };
-            WalkingAction = new AnimateAction(this, WalkingSet, true);
+            WalkingAction = new AnimateAction(ActionType.Walking, this, WalkingSet, true);
 
             #endregion
 
@@ -152,7 +153,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
                 smashRightFrames, idleFrame: 0, scale: Scale);
 
             AnimatedSprite[] smashingSet = new AnimatedSprite[] { smashUp, smashDown, smashLeft, smashRight };
-            SmashAction = new AnimateAction(this, smashingSet, false);
+            SmashAction = new AnimateAction(ActionType.Smash, this, smashingSet, false);
 
 
 
@@ -210,7 +211,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AnimatedSprite InteractRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(StartX, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 interactRigthFrames, scale: Scale);
             AnimatedSprite[] InteractSet = new AnimatedSprite[] { InteractUp, InteractDown, InteractLeft, InteractRight };
-            InteractAction = new AnimateAction(this, InteractSet, false);
+            InteractAction = new AnimateAction(ActionType.Interact, this, InteractSet, false);
 
         }
 

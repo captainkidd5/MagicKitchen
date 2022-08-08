@@ -110,15 +110,18 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         public override bool IsPerformingAnimation()
         {
             bool result = CurrentActionType > ActionType.Walking;
-            if(result)
-                Console.WriteLine("test");
+
             return result;
             return !BodyPieces[0].CurrentAction.Interruptable;
         }
         public override void PerformAction(Direction direction, ActionType actionType, float speedModifier = 1f)
         {
+            if (CurrentActionType == actionType)
+                Console.WriteLine("test");
             base.PerformAction(direction, actionType,speedModifier);
             CurrentActionType = actionType;
+
+          
             for (int i = 0; i < BodyPieces.Length; i++)
             {
                 BodyPieces[i].ChangeAnimation(actionType);
@@ -135,7 +138,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             }
              Layer = SetPositionAndGetEntityLayer(position);
 
-            bool resetToResting = !isMoving && WasMovingLastFrame;
+            bool resetToResting = !isMoving && WasMovingLastFrame && CurrentActionType == ActionType.Walking;
           
 
                 for (int i = 0; i < BodyPieces.Length; i++)

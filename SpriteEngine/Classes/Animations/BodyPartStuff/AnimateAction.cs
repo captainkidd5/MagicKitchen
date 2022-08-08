@@ -14,8 +14,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
     public class AnimateAction
     {
-
-
+        private readonly ActionType _actionType;
         private readonly BodyPiece _bodyPiece;
 
         private AnimatedSprite[] _animations;
@@ -26,8 +25,11 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         public byte FrameLastFrame => _currentAnimation.FrameLastFrame;
         public bool HasFrameChanged => _currentAnimation.HasFrameChanged();
 
-        public AnimateAction(BodyPiece bodyPiece, AnimatedSprite[] animations, bool repeat)
+
+
+        public AnimateAction(ActionType actionType, BodyPiece bodyPiece, AnimatedSprite[] animations, bool repeat)
         {
+            _actionType = actionType;
             _bodyPiece = bodyPiece;
             _animations = animations;
             _repeat = repeat;
@@ -40,6 +42,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
                 SetRestingFrame(direction);
             if (_repeat)
             {
+               
                 if (isMoving)
                 {
                     //entity just began moving in a certain direction, start them off on the first non resting frame
@@ -55,19 +58,18 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             }
             else
             {
-
+                
+                
                 _currentAnimation.Update(gameTime, position, true, speedModifier);
 
             }
 
-
             //So that the bodypart overlaps correctly, and is drawn relative to the entity's y position on the map.
             _currentAnimation.CustomLayer = layer;
-
-            if (!_repeat && _currentAnimation.HasLoopedAtLeastOnce)
+            
+            if (!_repeat && _currentAnimation.HasLoopedAtLeastOnce && _actionType > ActionType.Walking)
             {
                 _currentAnimation.HasLoopedAtLeastOnce = false;
-                _currentAnimation.ResetSpriteToRestingFrame();
                 _bodyPiece.ChangeParentSet(ActionType.Walking);
             }
 
@@ -104,8 +106,16 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         }
         public void SetRestingFrame(Direction direction)
         {
-            if (direction != Direction.None)
-                _animations[(int)direction - 1].ResetSpriteToRestingFrame();
+           // if (direction != Direction.None)
+           // {
+           if(_actionType == ActionType.Interact)
+                Console.WriteLine("test");
+                foreach (AnimatedSprite animatedSprite in _animations)
+                {
+                    animatedSprite.ResetSpriteToRestingFrame();
+  
+                }
+           // }
         }
         internal virtual void ChangeColor(Color color)
         {

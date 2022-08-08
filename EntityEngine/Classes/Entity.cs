@@ -279,7 +279,7 @@ namespace EntityEngine.Classes
 
             IsMoving = ((Velocity != Vector2.Zero));
 
-            if (IsMoving && !ForceStop)
+            if (IsMoving && !ForceStop && !Animator.IsPerformingAnimation())
                 DirectionMoving = UpdateDirection();
 
             //if (Animator.CurrentActionType != ActionType.Walking && Animator.CurrentActionType != ActionType.None)

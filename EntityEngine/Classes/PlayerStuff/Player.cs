@@ -51,7 +51,7 @@ namespace EntityEngine.Classes.PlayerStuff
         private HungerHandler _hungerHandler;
         private HealthHandler _healthHandler;
 
-        public readonly int  BaseMaxLumens = 100;
+        public readonly int BaseMaxLumens = 100;
         public int MaxLumens => BaseMaxLumens + (InventoryHandler as PlayerInventoryHandler).MaxLumenValue;
         public int CurrentLumens => _lumenHandler.CurrentLumens;
         public bool Illuminated => _lumenHandler.Illuminated;
@@ -76,7 +76,7 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         public void ConsumeFood(byte amt) => _hungerHandler.ConsumeFood(amt);
 
-        public Player(GraphicsDevice graphics, ContentManager content, string name = "playerName") 
+        public Player(GraphicsDevice graphics, ContentManager content, string name = "playerName")
             : base(graphics, content)
         {
             Name = name;
@@ -95,9 +95,9 @@ namespace EntityEngine.Classes.PlayerStuff
 
         public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string? name, bool standardAnimator = false)
         {
-            base.LoadContent(entityContainer,startPos, name, standardAnimator);
+            base.LoadContent(entityContainer, startPos, name, standardAnimator);
             ProgressManager.LoadContent();
-           // UI.LoadPlayerInventory(StorageContainer);
+            // UI.LoadPlayerInventory(StorageContainer);
             UI.LoadPlayerUnlockedRecipes(ProgressManager.UnlockedRecipes);
 
             UI.Cursor.ItemDropped -= DropHeldItem;
@@ -109,13 +109,13 @@ namespace EntityEngine.Classes.PlayerStuff
             CommandConsole.RegisterCommand("pa", "Plays specified animation", PlayAnimationCommand);
             CommandConsole.RegisterCommand("takeDmg", "Damages player by amount", TakeDamageCommand);
 
-            CommandConsole.RegisterCommand("rem_dur", "removes x durability from all armor on player",(InventoryHandler as PlayerInventoryHandler).RemoveDurabilityCommand);
+            CommandConsole.RegisterCommand("rem_dur", "removes x durability from all armor on player", (InventoryHandler as PlayerInventoryHandler).RemoveDurabilityCommand);
 
 
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
             _hungerHandler.Load(this);
 
-            AddLight(LightType.Nautical, new Vector2(0, -12),false,false, .5f);
+            AddLight(LightType.Nautical, new Vector2(0, -12), false, false, .5f);
             LightsTouching = new List<Fixture>();
 
             _lumenHandler.Load(this, LightsCollidable[0], LightsTouching);
@@ -132,8 +132,8 @@ namespace EntityEngine.Classes.PlayerStuff
         {
 
 
-            if(SettingsManager.EnablePlayerDeath)
-            UI.DropCurtain(UI.CurtainDropRate, Die);
+            if (SettingsManager.EnablePlayerDeath)
+                UI.DropCurtain(UI.CurtainDropRate, Die);
 
         }
         private void Die()
@@ -150,7 +150,7 @@ namespace EntityEngine.Classes.PlayerStuff
             PlayerAvatarData avatarData = SaveLoadManager.CurrentSave.PlayerAvatarData;
             ChangeSkinTone(new Color(avatarData.SkinRed, avatarData.SkinGreen, avatarData.SkinBlue));
             (Animator as CustomizeableAnimator).SetClothingIndex(typeof(Hair), avatarData.HairIndex);
-            ChangeClothingColor(typeof(Hair),new Color(avatarData.HairRed, avatarData.HairGreen, avatarData.HairBlue));
+            ChangeClothingColor(typeof(Hair), new Color(avatarData.HairRed, avatarData.HairGreen, avatarData.HairBlue));
 
         }
         private void TpCommand(string[] args)
@@ -170,7 +170,7 @@ namespace EntityEngine.Classes.PlayerStuff
             ActionType action;
             LoadWardrobe();
 
-            if (Enum.TryParse(actionType, true,out action))
+            if (Enum.TryParse(actionType, true, out action))
             {
                 Animator.PerformAction(DirectionMoving, action);
 
@@ -187,13 +187,13 @@ namespace EntityEngine.Classes.PlayerStuff
             if (!ImmunteToDamage && SettingsManager.EnablePlayerHurtSounds)
                 SoundFactory.PlayEffectPackage("PlayerHurt");
             base.TakeDamage(source, amt, knockBack);
-           
+
         }
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Player },
             new List<Category>() { (Category)PhysCat.SolidHigh, (Category)PhysCat.Grass, (Category)PhysCat.NPC, (Category)PhysCat.TransparencySensor, (Category)PhysCat.Item,
-                (Category)PhysCat.NPCBigSensor, (Category)PhysCat.Tool, (Category)PhysCat.Portal,(Category)PhysCat.Damage }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this, mass:200f));
+                (Category)PhysCat.NPCBigSensor, (Category)PhysCat.Tool, (Category)PhysCat.Portal,(Category)PhysCat.Damage }, OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this, mass: 200f));
 
 
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() {
@@ -266,8 +266,10 @@ namespace EntityEngine.Classes.PlayerStuff
                 TileObject mouseOverTile = Container.TileManager.MouseOverTile;
                 if (mouseOverTile != null)
                 {
-                    if (Container.TileManager.TileLocationHelper.IsAdjacentTo(mouseOverTile.TileData, Position))
+                    if (UI.Cursor.CursorIconType != CursorIconType.None)
                     {
+                        //if (Container.TileManager.TileLocationHelper.IsAdjacentTo(mouseOverTile.TileData, Position))
+                        //{
                         if (!Animator.IsPerformingAnimation())
                         {
                             ActionType? actionType = Container.TileManager.MouseOverTile.Interact(true, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
@@ -284,12 +286,14 @@ namespace EntityEngine.Classes.PlayerStuff
                                     ReactToJumpActionType(actionType.Value);
                                 }
                             }
-                   
+
 
                         }
 
                     }
                 }
+
+                //}
             }
             base.Update(gameTime);
             Shared.PlayerPosition = Position;
@@ -305,23 +309,23 @@ namespace EntityEngine.Classes.PlayerStuff
                 {
                     DropHeldItem();
                 }
-            
-              
+
+
             }
-            else if(Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Y))
+            else if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Y))
             {
                 if (UI.Cursor.IsHoldingItem)
                 {
 
                     if (UI.Cursor.HeldItem.ItemType == ItemType.Food)
                     {
-                       ConsumeFood(UI.Cursor.HeldItem.FoodValue);
-                        UI.Cursor.HeldItemCount --;
-                        if(UI.Cursor.HeldItemCount == 0)
+                        ConsumeFood(UI.Cursor.HeldItem.FoodValue);
+                        UI.Cursor.HeldItemCount--;
+                        if (UI.Cursor.HeldItemCount == 0)
                             UI.Cursor.HeldItem = null;
                     }
                 }
-           
+
             }
             _lumenHandler.Illuminated = LightsTouching.Count > 0;
             _lumenHandler.HandleLumens(gameTime);
@@ -374,7 +378,7 @@ namespace EntityEngine.Classes.PlayerStuff
         //Keep input updates separate from update because of multiplayer.
         public bool UpdateFromInput()
         {
-            if (!ForceStop)
+            if (!ForceStop && !Animator.IsPerformingAnimation())
             {
 
                 Velocity = Vector2.Zero;
@@ -383,7 +387,7 @@ namespace EntityEngine.Classes.PlayerStuff
                 GetPlayerMovementDirectionAndVelocity(Controls.DirectionFacing);
                 GetPlayerMovementDirectionAndVelocity(secondaryDirection);
             }
-      
+
 
             return (WasMovingLastFrame != IsMoving); //This frame's movement is different from last frames.
         }
@@ -477,10 +481,10 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.LightSource))
             {
-                if(fixtureB.Body.Tag != null && (fixtureB.Body.Tag as LightCollidable).RestoresLumens)
-                LightsTouching.Add(fixtureB);
+                if (fixtureB.Body.Tag != null && (fixtureB.Body.Tag as LightCollidable).RestoresLumens)
+                    LightsTouching.Add(fixtureB);
             }
-                return base.OnCollides(fixtureA, fixtureB, contact);
+            return base.OnCollides(fixtureA, fixtureB, contact);
         }
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
@@ -490,7 +494,7 @@ namespace EntityEngine.Classes.PlayerStuff
             {
                 //if (LightsTouching.Contains(fixtureB))
 
-                    LightsTouching.Remove(fixtureB);
+                LightsTouching.Remove(fixtureB);
             }
         }
 

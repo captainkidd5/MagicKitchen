@@ -465,6 +465,7 @@ namespace UIEngine.Classes
                 s_requestedGameState = GameDisplayState.InGame;
                 SaveLoadManager.SaveGame(null);
                 Flags.DisableAllUIUpdates = false;
+                SongManager.CurrentPlayListName = "LullabyTown";
                 FinishChangeGameState();
 
             }));

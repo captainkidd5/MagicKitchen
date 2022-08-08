@@ -77,7 +77,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AnimatedSprite WalkRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 walkRightFrames, idleFrame: 0, scale: Scale);
             AnimatedSprite[] WalkingSet = new AnimatedSprite[] { WalkUp, WalkDown, WalkLeft, WalkRight };
-            WalkingAction = new AnimateAction(this, WalkingSet, true);
+            WalkingAction = new AnimateAction(DataModels.ActionType.Walking, this, WalkingSet, true);
 
 
 
@@ -139,7 +139,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AnimatedSprite smashRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight + yStart, FrameWidth, FrameHeight), Texture,
                 smashRightFrames, idleFrame: 0, scale: Scale);
             AnimatedSprite[] smashingSet = new AnimatedSprite[] { smashUp, smashDown, smashLeft, smashRight };
-            SmashAction = new AnimateAction(this, smashingSet, false);
+            SmashAction = new AnimateAction(DataModels.ActionType.Smash, this, smashingSet, false);
 
 
         }
@@ -197,7 +197,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AnimatedSprite InteractRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight + yStart, FrameWidth, FrameHeight), Texture,
                 interactRigthFrames, scale: Scale);
             AnimatedSprite[] InteractSet = new AnimatedSprite[] { InteractUp, InteractDown, InteractLeft, InteractRight };
-            InteractAction = new AnimateAction(this, InteractSet, false);
+            InteractAction = new AnimateAction(DataModels.ActionType.Interact, this, InteractSet, false);
 
         }
 

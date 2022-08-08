@@ -176,6 +176,8 @@ namespace InputEngine.Classes
                 IsPlayerMoving = !(GetDirectionFacing() == Direction.None);
                 CursorTileIndex = GetTileIndexPosition();
             }
+            if(WasKeyTapped(Keys.N))
+                Console.WriteLine("test");
         }
 
 

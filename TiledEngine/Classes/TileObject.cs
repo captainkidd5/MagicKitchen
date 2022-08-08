@@ -64,9 +64,12 @@ namespace TiledEngine.Classes
         public bool WithinRangeOfPlayer { get; internal set; }
 
         //The icon the mouse should change to when hovered over this tile
-        internal CursorIconType GetCursorIconType()
+        public CursorIconType GetCursorIconType()
         {
-            return TileData.GetCursorIconType(TileManager.TileSetPackage);
+            CursorIconType cursorIconType = TileData.GetCursorIconType(TileManager.TileSetPackage);
+            if(cursorIconType != CursorIconType.None)
+                Console.WriteLine("test");
+            return cursorIconType;
         }
         internal TileObject(TileManager tileManager, TileData tileData, bool wang = false, bool tempTile = false)
         {

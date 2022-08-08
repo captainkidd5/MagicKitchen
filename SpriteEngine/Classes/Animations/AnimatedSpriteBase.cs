@@ -56,8 +56,8 @@ namespace SpriteEngine.Classes.Animations
         internal AnimatedSpriteBase(GraphicsDevice graphics, ContentManager content, ElementType spriteType,
             Vector2 position, Rectangle sourceRectangle, Texture2D texture, AnimationFrame[] animationFrames, float standardDuration, Color primaryColor,
              Vector2 origin, Vector2 scale, float rotation, Layers layer,
-            bool randomizeLayers, bool flip, float? customLayer, int idleFrame =0) :
-            base(graphics, content, spriteType,position, sourceRectangle, texture, primaryColor, origin, scale, rotation,
+            bool randomizeLayers, bool flip, float? customLayer, int idleFrame = 0) :
+            base(graphics, content, spriteType, position, sourceRectangle, texture, primaryColor, origin, scale, rotation,
                 layer, randomizeLayers, flip, customLayer)
         {
             AnimationFrames = animationFrames;
@@ -67,7 +67,7 @@ namespace SpriteEngine.Classes.Animations
             SpriteSourceRectangleStartY = SourceRectangle.Y;
             TotalFrames = (byte)(AnimationFrames.Length - 1);
             ResetIndex = (byte)idleFrame;
-            
+
             if (TotalFrames < 1)
                 throw new Exception("total frames must exceed 0");
             Timer = new SimpleTimer(animationFrames[0].Duration);
@@ -85,9 +85,10 @@ namespace SpriteEngine.Classes.Animations
 
         public override void Update(GameTime gameTime, Vector2 position, bool updatePeripheralActoins = true, float speedModifier = 1f)
         {
+         
             base.Update(gameTime, position, updatePeripheralActoins, speedModifier);
 
-           
+
 
         }
         public bool IsAtRestingFrame()
@@ -98,7 +99,7 @@ namespace SpriteEngine.Classes.Animations
         {
             CurrentFrame = (byte)frame;
             FrameLastFrame = CurrentFrame;
-                UpdateSourceRectangle(AnimationFrames[CurrentFrame]);
+            UpdateSourceRectangle(AnimationFrames[CurrentFrame]);
             Timer.SetNewTargetTime(AnimationFrames[CurrentFrame].Duration);
 
             Position = new Vector2(position.X + AnimationFrames[CurrentFrame].XOffSet, position.Y + AnimationFrames[CurrentFrame].YOffSet * -1);
@@ -125,14 +126,14 @@ namespace SpriteEngine.Classes.Animations
                                    SpriteSourceRectangleStartY,
                                    SourceRectangle.Width,
                                    SourceRectangle.Height));
-            }        
+            }
         }
         protected void IncreaseFrames()
         {
             if (CurrentFrame >= TotalFrames)
             {
                 HasLoopedAtLeastOnce = true;
-                if(PingPong)
+                if (PingPong)
                     Direction = Direction.Left;
                 else
                     CurrentFrame = (byte)(ResetIndex + 1);
@@ -142,14 +143,14 @@ namespace SpriteEngine.Classes.Animations
         }
         protected void DecreaseFrames()
         {
-            if (CurrentFrame <= 0 )
+            if (CurrentFrame <= 0)
             {
                 HasLoopedAtLeastOnce = true;
 
                 if (PingPong)
-                    Direction =Direction.Right;
+                    Direction = Direction.Right;
                 else
-                CurrentFrame = (byte)(TotalFrames -1);
+                    CurrentFrame = (byte)(TotalFrames - 1);
             }
             else
                 CurrentFrame--;
@@ -168,14 +169,14 @@ namespace SpriteEngine.Classes.Animations
         public void ResetToZero(Vector2 position, float layer)
         {
             ResetSpriteToRestingFrame();
-            CustomLayer = layer; 
+            CustomLayer = layer;
             Position = new Vector2(position.X + AnimationFrames[0].XOffSet, position.Y + AnimationFrames[0].YOffSet * -1);
 
         }
         /// <summary>
         /// Set animations to their default position. E.x. when the player stops running. Default is zero
         /// </summary>
-        public virtual void ResetSpriteToRestingFrame( )
+        public virtual void ResetSpriteToRestingFrame()
         {
 
             //Remember, reset index is defautled to -1, which most sprites use
@@ -183,10 +184,13 @@ namespace SpriteEngine.Classes.Animations
             {
                 UpdateSourceRectangle(AnimationFrames[0]);
                 CurrentFrame = 0;
+                FrameLastFrame = CurrentFrame;
+
                 return;
             }
             CurrentFrame = (byte)(ResetIndex);
             UpdateSourceRectangle(AnimationFrames[CurrentFrame]);
+            FrameLastFrame = CurrentFrame;
 
         }
     }

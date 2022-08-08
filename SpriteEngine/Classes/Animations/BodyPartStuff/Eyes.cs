@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DataModels;
+using Microsoft.Xna.Framework;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using SpriteEngine.Classes.Animations.EntityAnimations;
@@ -82,7 +83,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
                 walkRightFrames, idleFrame: 0, scale: Scale);
 
             AnimatedSprite[] WalkingSet = new AnimatedSprite[] { WalkUp, WalkDown, WalkLeft, WalkRight };
-            WalkingAction = new AnimateAction(this, WalkingSet, true);
+            WalkingAction = new AnimateAction(ActionType.Walking, this, WalkingSet, true);
 
         }
         protected override void CreateSmashSet()
@@ -94,7 +95,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
                new AnimationFrame(0, 0, -1, SmashAnimationDuration),
                 new AnimationFrame(0, 0, -1, SmashAnimationDuration),
                     };
-            AnimatedSprite SmashUp = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
+            AnimatedSprite SmashUp = SpriteFactory.CreateWorldAnimatedSprite( Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 SmashUpFrames, idleFrame: 0, scale: Scale);
 
             AnimationFrame[] SmashDownFrames = new AnimationFrame[]
@@ -139,7 +140,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
                 SmashRightFrames, idleFrame: 0, scale: Scale);
 
             AnimatedSprite[] SmashingSet = new AnimatedSprite[] { SmashUp, SmashDown, SmashLeft, SmashRight };
-            SmashAction = new AnimateAction(this, SmashingSet, false);
+            SmashAction = new AnimateAction(ActionType.Smash, this, SmashingSet, false);
 
         }
         protected override void CreateInteractSet()
@@ -195,7 +196,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             AnimatedSprite InteractRight = SpriteFactory.CreateWorldAnimatedSprite(Vector2.Zero, new Rectangle(0, Index * FrameHeight, FrameWidth, FrameHeight), Texture,
                 interactRigthFrames, scale: Scale);
             AnimatedSprite[] InteractSet = new AnimatedSprite[] { InteractUp, InteractDown, InteractLeft, InteractRight };
-            InteractAction = new AnimateAction(this, InteractSet, false);
+            InteractAction = new AnimateAction(ActionType.Interact, this, InteractSet, false);
 
         }
     }
