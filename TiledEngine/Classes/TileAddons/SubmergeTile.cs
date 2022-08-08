@@ -78,9 +78,10 @@ namespace TiledEngine.Classes.TileAddons
 
 
 
-        public override ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+        public override Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+
         {
-            ActionType? actionType = null;
+            ActionType? atype = null;
             int newX = 0;
             int newY = 0;
             switch (directionEntityFacing)
@@ -88,31 +89,31 @@ namespace TiledEngine.Classes.TileAddons
                 case Direction.None:
                     break;
                 case Direction.Up:
-                    actionType = ActionType.JumpUp;
+                    atype = ActionType.JumpUp;
                     newY = -1;
                     break;
                 case Direction.Down:
-                    actionType = ActionType.JumpDown;
+                    atype = ActionType.JumpDown;
 
                     newY = 1;
                     break;
                 case Direction.Left:
-                    actionType = ActionType.JumpLeft;
+                    atype = ActionType.JumpLeft;
 
                     newX = -1;
                     break;
                 case Direction.Right:
-                    actionType = ActionType.JumpRight;
+                    atype = ActionType.JumpRight;
 
                     newX = 1;
                     break;
             }
             if (Tile.TileManager.PathGrid.IsClear(Tile.TileData.X + newX, Tile.TileData.Y + newY))
             {
-                return actionType;
+                actionType = atype;
             }
-            return null;
 
+            return null;
 
 
         }

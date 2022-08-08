@@ -272,7 +272,10 @@ namespace EntityEngine.Classes.PlayerStuff
                         //{
                         if (!Animator.IsPerformingAnimation())
                         {
-                            ActionType? actionType = Container.TileManager.MouseOverTile.Interact(true, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
+                            ActionType? actionType = null;
+                           Action actionToTrigger = Container.TileManager.MouseOverTile.Interact(ref actionType,true, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
+                            if(actionToTrigger != null)
+                            actionToTrigger();
                             Controls.ClickActionTriggeredThisFrame = true;
                             if (actionType != null)
                             {

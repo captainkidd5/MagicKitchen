@@ -190,20 +190,25 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             base.DestroyTileAndGetLoot();
 
         }
-        public override ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+        public override Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+
         {
-            base.Interact(isPlayer, heldItem, entityPosition, directionEntityFacing);
+            base.Interact(ref actionType, isPlayer, heldItem, entityPosition, directionEntityFacing);
             if (!FlaggedForDestruction)
             {
-                UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
-                //Subscribe to ui 
-                UI.StorageDisplayHandler.SecondaryStorageClosed += OnUIClosed;
-                if (Tile.TileData.HasAnimationFrames(Tile.TileManager.TileSetPackage))
+                return new Action(() =>
                 {
+                    UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
+                    //Subscribe to ui 
+                    UI.StorageDisplayHandler.SecondaryStorageClosed += OnUIClosed;
+                    if (Tile.TileData.HasAnimationFrames(Tile.TileManager.TileSetPackage))
+                    {
 
-                (Tile.Sprite as AnimatedSprite).Paused = false;
-                (Tile.Sprite as AnimatedSprite).SetTargetFrame((Tile.Sprite as AnimatedSprite).AnimationFrames.Length - 1);
-                }
+                        (Tile.Sprite as AnimatedSprite).Paused = false;
+                        (Tile.Sprite as AnimatedSprite).SetTargetFrame((Tile.Sprite as AnimatedSprite).AnimationFrames.Length - 1);
+                    }
+                });
+              
 
             }
             return null;

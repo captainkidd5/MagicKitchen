@@ -138,6 +138,8 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             }
              Layer = SetPositionAndGetEntityLayer(position);
 
+            //Must do only for walking or othe repeatable actions, otherwise causes weird behaviour with one time actions,
+            //Like interact
             bool resetToResting = !isMoving && WasMovingLastFrame && CurrentActionType <= ActionType.Walking;
           
 

@@ -82,7 +82,8 @@ namespace TiledEngine.Classes.TileAddons
 
 
 
-        public override ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+        public override Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+
         {
             if (isPlayer)
             {
@@ -93,28 +94,31 @@ namespace TiledEngine.Classes.TileAddons
                 if (Tile.TileManager.TileLocationHelper.IsOnTopOf(Tile.TileData, Shared.PlayerPosition))
                     return null;
             }
+            if (Tile.Sprite.GetType() == typeof(AnimatedSprite) && (Tile.Sprite as AnimatedSprite).Paused)
+                actionType = ActionType.Smash;
 
-
-            ActionType? actionType = ActionType.Interact;
-            if (RequireLoopBeforeDestruction)
-            {
-                if ((Tile.Sprite as AnimatedSprite).Paused)
-                    actionType = ActionType.Smash;
+            actionType = ActionType.Interact;
+            return new Action(() => {
+                if (RequireLoopBeforeDestruction)
+                {
+                  
 
                     (Tile.Sprite as AnimatedSprite).Paused = false;
 
+                }
+
+                else
+                {
+                    FlaggedForDestruction = true;
+
+
+                }
+                if (!IsPlayingASound)
+                    PlayPackage(GetTileLootSound());
             }
+            );
+            
 
-            else
-            {
-                FlaggedForDestruction = true;
-
-
-            }
-            if (!IsPlayingASound)
-                PlayPackage(GetTileLootSound());
-
-                return actionType;
    
 
         }

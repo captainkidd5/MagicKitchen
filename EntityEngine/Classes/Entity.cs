@@ -480,12 +480,14 @@ namespace EntityEngine.Classes
             TileData? tile = Container.TileManager.GetTileDataFromPoint(tilePoint, tileLayer);
             if (tile == null)
                 throw new Exception($"No tile at {tilePoint} at layer {tileLayer.ToString()}!");
-            ActionType? actionType = Container.TileManager.TileObjects[tile.Value.GetKey()].Interact(false, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
+            ActionType? actionType = null;
+           Action action = Container.TileManager.TileObjects[tile.Value.GetKey()].Interact(ref actionType,false, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
             if (actionType != null && IsJumpActionType(actionType.Value))
             {
                 ReactToJumpActionType(actionType.Value);
             }
-
+            //For now, entities immediately trigger tile effect
+            action();
         }
         protected bool IsJumpActionType(ActionType actionType)
         {

@@ -102,9 +102,10 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             return ToolTier.Poor;
         }
-        public override ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+        public override Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+
         {
-            return base.Interact(isPlayer, heldItem, entityPosition, directionEntityFacing);
+            return base.Interact(ref actionType, isPlayer, heldItem, entityPosition, directionEntityFacing);
 
         }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)

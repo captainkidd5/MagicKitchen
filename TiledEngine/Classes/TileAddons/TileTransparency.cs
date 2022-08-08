@@ -82,7 +82,7 @@ namespace TiledEngine.Classes.TileAddons
              Tile.Sprite.TriggerReduceEffect();
         }
 
-        public ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+        public Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
         {
             return null;
         }

@@ -158,14 +158,15 @@ namespace TiledEngine.Classes.TileAddons.Actions
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-        public override ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+        public override Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+
         {
             if (isPlayer)
             {
                 if (!PlayerInClickRange)
                     return null;
             }
-            return base.Interact(isPlayer, heldItem, entityPosition, directionEntityFacing);
+            return base.Interact(ref actionType, isPlayer, heldItem, entityPosition, directionEntityFacing);
 
         }
     }

@@ -51,9 +51,10 @@ namespace TiledEngine.Classes.TileAddons.Actions
             }
         }
 
-        public override ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+        public override Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+
         {
-            return base.Interact(isPlayer, heldItem, entityPosition, directionEntityFacing);
+            return base.Interact(ref actionType, isPlayer, heldItem, entityPosition, directionEntityFacing);
         }
 
     }

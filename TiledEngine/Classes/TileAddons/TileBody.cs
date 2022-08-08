@@ -88,7 +88,8 @@ namespace TiledEngine.Classes.TileAddons
             base.CleanUp();
         }
 
-        public virtual ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+        public virtual Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+
         {
             return null;
             //throw new NotImplementedException();

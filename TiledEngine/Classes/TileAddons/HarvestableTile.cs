@@ -67,7 +67,8 @@ namespace TiledEngine.Classes.TileAddons
 
 
 
-        public override ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+        public override Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+
         {
             if (isPlayer)
             {
@@ -79,16 +80,20 @@ namespace TiledEngine.Classes.TileAddons
             }
 
 
-            ActionType? actionType = ActionType.Interact;
-         
+             actionType = ActionType.Interact;
+
+            return new Action(() =>
+            {
                 FlaggedForDestruction = true;
 
 
-            
-            if (!IsPlayingASound)
-                PlayPackage(GetTileLootSound());
 
-            return actionType;
+                if (!IsPlayingASound)
+                    PlayPackage(GetTileLootSound());
+            });
+                
+
+           
 
 
         }

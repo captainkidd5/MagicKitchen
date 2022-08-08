@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DataModels.Enums;
 
 namespace TiledEngine.Classes.TileAddons
 {
@@ -42,7 +43,8 @@ namespace TiledEngine.Classes.TileAddons
                 _progressBar.Draw(spriteBatch);
         }
 
-        public ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Enums.Direction directionEntityFacing)
+        public Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
+
         {
             throw new NotImplementedException();
         }

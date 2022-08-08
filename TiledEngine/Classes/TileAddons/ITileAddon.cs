@@ -23,6 +23,6 @@ namespace TiledEngine.Classes.TileAddons
 
         void CleanUp();
 
-        ActionType? Interact(bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing);
+        Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing);
     }
 }
