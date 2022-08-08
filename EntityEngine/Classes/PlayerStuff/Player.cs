@@ -261,7 +261,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             Resume();
 
-            if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
+            if (!Controls.ClickActionTriggeredThisFrame && Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
             {
                 TileObject mouseOverTile = Container.TileManager.MouseOverTile;
                 if (mouseOverTile != null)
@@ -271,6 +271,7 @@ namespace EntityEngine.Classes.PlayerStuff
                         if (!Animator.IsPerformingAnimation())
                         {
                             ActionType? actionType = Container.TileManager.MouseOverTile.Interact(true, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
+                            Controls.ClickActionTriggeredThisFrame = true;
                             if (actionType != null)
                             {
                                 //PerformAction(Controls.ControllerConnected ? DirectionMoving :

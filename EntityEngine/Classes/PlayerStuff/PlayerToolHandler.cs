@@ -25,7 +25,8 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.Update(gameTime);
 
-
+            if (Controls.ClickActionTriggeredThisFrame)
+                return;
             if (IsUsingTool)
             {
                 if (Controls.IsRightClicked)

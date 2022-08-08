@@ -7,6 +7,8 @@
     "NPCType" : "Customizable",
     "SpriteWidth": 48,
     "SpriteHeight": 32,
+    "ShadowOffSetX": 0,
+    "ShadowOffSetY" : -6,
     "ImmediatelySpawn" : true,
     "StartingStage" : "LullabyTown",
     "StartingX": 128,

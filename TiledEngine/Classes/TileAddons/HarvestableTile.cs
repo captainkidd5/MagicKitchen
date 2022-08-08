@@ -74,8 +74,8 @@ namespace TiledEngine.Classes.TileAddons
                 if (!PlayerInClickRange && !PlayerInControllerActionRange)
                     return null;
              
-                if (Tile.TileManager.TileLocationHelper.IsOnTopOf(Tile.TileData, Shared.PlayerPosition))
-                    return null;
+               // if (Tile.TileManager.TileLocationHelper.IsOnTopOf(Tile.TileData, Shared.PlayerPosition))
+                   // return null;
             }
 
 

@@ -21,6 +21,11 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         public override int CurrentFrame => _currentAnimation.CurrentFrame;
         public bool IsAttackFrame => _attackFrame != null && CurrentFrame == _attackFrame;
         private int? _attackFrame;
+
+        public override bool IsPerformingAnimation()
+        {
+            return CurrentActionType != ActionType.Walking;
+        }
         public NPCAnimator(NPCData npcData, int? xOffset, int? yOffset)
             : base(xOffset, yOffset)
         {
@@ -79,7 +84,11 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
                 _currentAnimation.Paused = false;
             _currentAnimation.Update(gameTime, Position);
 
-
+            if(_currentAnimation.HasLoopedAtLeastOnce && CurrentActionType != ActionType.Walking)
+            {
+                CurrentActionType = ActionType.Walking;
+                PerformAction(directionMoving, CurrentActionType);
+            }
 
 
 

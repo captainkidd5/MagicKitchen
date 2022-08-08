@@ -44,12 +44,13 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
                     }
                 }
             }
-            if (Navigator.HasActivePath)
+            if (Navigator.HasActivePath && ! Entity.Animator.IsPerformingAnimation())
             {
                 Navigator.FollowPath(gameTime, Entity.Position, ref velocity);
                 if (Entity.Animator.CurrentActionType != ActionType.Walking)
                 {
-                    Entity.Animator.PerformAction(Vector2Helper.GetDirectionOfEntityInRelationToEntity(Entity.Position, _otherEntity.CenteredPosition), ActionType.Walking);
+                    Entity.Animator.PerformAction(Vector2Helper.GetDirectionOfEntityInRelationToEntity(Entity.Position,
+                        _otherEntity.CenteredPosition), ActionType.Walking);
 
                 }
             }
@@ -58,7 +59,8 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
                
                 if (Entity.Animator.CurrentActionType != ActionType.Attack)
                 {
-                    Entity.Animator.PerformAction(Vector2Helper.GetDirectionOfEntityInRelationToEntity(Entity.Position, _otherEntity.CenteredPosition), ActionType.Attack);
+                    Entity.Animator.PerformAction(Vector2Helper.GetDirectionOfEntityInRelationToEntity(Entity.Position,
+                        _otherEntity.CenteredPosition), ActionType.Attack);
                     Entity.Halt();
                 }
                 else

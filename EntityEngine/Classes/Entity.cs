@@ -282,7 +282,8 @@ namespace EntityEngine.Classes
             if (IsMoving && !ForceStop)
                 DirectionMoving = UpdateDirection();
 
-
+            //if (Animator.CurrentActionType != ActionType.Walking && Animator.CurrentActionType != ActionType.None)
+            //    Velocity = Vector2.Zero;
             MainHullBody.Body.LinearVelocity = Velocity * Speed * (float)gameTime.ElapsedGameTime.Milliseconds;
 
 
@@ -311,6 +312,7 @@ namespace EntityEngine.Classes
                 Animator.Update(gameTime, DirectionMoving, IsMoving, new Vector2(Position.X, Position.Y), Speed / BaseSpeed);
 
             }
+          
 
             _overHeadItemDisplay.Update(gameTime, Position, LayerDepth);
             ToolHandler.Update(gameTime);

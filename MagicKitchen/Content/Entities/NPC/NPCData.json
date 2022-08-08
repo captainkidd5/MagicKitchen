@@ -101,7 +101,7 @@
 "LootData":[
 
     {
-        "ItemName" : "Raw_Haunch",
+        "ItemName" : "Raw_Meat",
         "Guaranteed":true,
 
         "QuantityMin":1,
@@ -191,7 +191,7 @@
 "LootData":[
 
     {
-        "ItemName" : "Raw_Haunch",
+        "ItemName" : "Raw_Meat",
         "QuantityMin":1,
         "QuantityMax":2,
         "Guaranteed":true,
@@ -366,7 +366,7 @@
 "LootData":[
 
     {
-        "ItemName" : "Raw_Haunch",
+        "ItemName" : "Raw_Meat",
         "Guaranteed":true,
 
         "QuantityMin":1,
