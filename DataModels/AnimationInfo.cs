@@ -19,6 +19,8 @@ namespace DataModels
         Attack = 7,
         Smash = 8
     }
+
+    
     public class AnimationInfo
     {
         public ActionType ActionType { get; set; }

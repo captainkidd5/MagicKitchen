@@ -55,7 +55,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             TotalBounds = RectangleHelper.RectFromPosition(Position, _backgroundSprite.HitBox.Width, _backgroundSprite.HitBox.Height);
             _animator = new CustomizeableAnimator(_pieces, -24, -16);
             _animator.Load(null, Position, new Vector2(3f, 3f));
-            _animator.PerformAction(DataModels.Enums.Direction.Down, DataModels.ActionType.Walking);
+            _animator.PerformAction(null, DataModels.Enums.Direction.Down, DataModels.ActionType.Walking);
 
 
         }

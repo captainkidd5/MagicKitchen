@@ -26,7 +26,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
     {
         protected internal BodyPiece[] BodyPieces { get; set; }
 
-        public CustomizeableAnimator(BodyPiece[] animations,int xOffset = 8, int yOffset =32) : base(xOffset, yOffset)
+        public CustomizeableAnimator(BodyPiece[] animations, int xOffset = 8, int yOffset = 32) : base(xOffset, yOffset)
         {
             BodyPieces = animations;
 
@@ -35,12 +35,12 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         {
             if (bodyParts == null)
                 return;
-            if(equipmentType == EquipmentType.None)
+            if (equipmentType == EquipmentType.None)
             {
                 BodyPieces[(int)(bodyParts) - 1].UnequipGear();
 
                 //Shirt also unequips shoulders
-                if(bodyParts == BodyParts.Shirt)
+                if (bodyParts == BodyParts.Shirt)
                     BodyPieces[(int)(BodyParts.Shoulders) - 1].UnequipGear();
                 return;
             }
@@ -85,17 +85,17 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         }
         public void ChangeClothingColor(Type t, Color color)
         {
-            for(int i = 0; i < BodyPieces.Length; i++)
+            for (int i = 0; i < BodyPieces.Length; i++)
             {
-                if(BodyPieces[i].GetType() == t)
+                if (BodyPieces[i].GetType() == t)
                 {
                     BodyPieces[i].ChangeColor(color);
                 }
             }
         }
-        public override void Load(SoundModuleManager moduleManager,Vector2 entityPosition, Vector2? scale = null)
+        public override void Load(SoundModuleManager moduleManager, Vector2 entityPosition, Vector2? scale = null)
         {
-            for(int i =0; i < BodyPieces.Length; i++)
+            for (int i = 0; i < BodyPieces.Length; i++)
             {
                 BodyPieces[i].Load(this, entityPosition, scale);
                 BodyPieces[i].ChangeAnimation(ActionType.Walking);
@@ -103,7 +103,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
                 if (BodyPieces[i].GetType() == typeof(Shoes))
                     (BodyPieces[i] as Shoes).OnStepSoundPlayed += OnStepSoundPlayed;
             }
-            
+
         }
 
 
@@ -114,21 +114,21 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             return result;
             return !BodyPieces[0].CurrentAction.Interruptable;
         }
-        public override void PerformAction(Direction direction, ActionType actionType, float speedModifier = 1f)
+        public override void PerformAction(Action action, Direction direction, ActionType actionType, float speedModifier = 1f)
         {
             if (CurrentActionType == actionType)
                 Console.WriteLine("test");
-            base.PerformAction(direction, actionType,speedModifier);
+            base.PerformAction(action, direction, actionType, speedModifier);
             CurrentActionType = actionType;
 
-          
+
             for (int i = 0; i < BodyPieces.Length; i++)
             {
                 BodyPieces[i].ChangeAnimation(actionType);
             }
         }
         public Vector2 PositionLastFrame { get; set; }
-        public override void Update(GameTime gameTime,Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
+        public override void Update(GameTime gameTime, Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
         {
             speedRatio *= SpeedModifier;
             if ((Math.Abs(PositionLastFrame.X - position.X)) > .01
@@ -136,22 +136,40 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             {
                 isMoving = true;
             }
-             Layer = SetPositionAndGetEntityLayer(position);
+            Layer = SetPositionAndGetEntityLayer(position);
 
             //Must do only for walking or othe repeatable actions, otherwise causes weird behaviour with one time actions,
             //Like interact
             bool resetToResting = !isMoving && WasMovingLastFrame && CurrentActionType <= ActionType.Walking;
-          
 
-                for (int i = 0; i < BodyPieces.Length; i++)
+
+            for (int i = 0; i < BodyPieces.Length; i++)
+            {
+                if (resetToResting)
+                    BodyPieces[i].SetRestingFrameIndex();
+                BodyPieces[i].Update(gameTime, directionMoving, Position, Layer, isMoving, speedRatio);
+
+               
+
+            }
+
+
+            if(ActionToPerform != null)
+            {
+                byte val = 0;
+
+                if (SpriteFactory.PerformActionCustomizeableTriggers.TryGetValue(BodyPieces[0].CurrentAction.ActionType, out val))
                 {
-                    if (resetToResting)
-                        BodyPieces[i].SetRestingFrameIndex();
-                    BodyPieces[i].Update(gameTime, directionMoving, Position, Layer, isMoving, speedRatio);
-                   
+                    if(BodyPieces[0].CurrentAction.CurrentFrame == val)
+                    {
+                        ActionToPerform();
+                        ActionToPerform = null;
+                    }
+                    
                 }
-            
-           
+            }
+          
+          
             PositionLastFrame = position;
             WasMovingLastFrame = isMoving;
         }

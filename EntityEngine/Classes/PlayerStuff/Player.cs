@@ -172,7 +172,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
             if (Enum.TryParse(actionType, true, out action))
             {
-                Animator.PerformAction(DirectionMoving, action);
+                Animator.PerformAction(null, DirectionMoving, action);
 
             }
         }
@@ -274,8 +274,8 @@ namespace EntityEngine.Classes.PlayerStuff
                         {
                             ActionType? actionType = null;
                            Action actionToTrigger = Container.TileManager.MouseOverTile.Interact(ref actionType,true, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
-                            if(actionToTrigger != null)
-                            actionToTrigger();
+                            //if (actionToTrigger != null)
+                            //    Animator.ActionToPerform = actionToTrigger;
                             Controls.ClickActionTriggeredThisFrame = true;
                             if (actionType != null)
                             {
@@ -283,7 +283,7 @@ namespace EntityEngine.Classes.PlayerStuff
                                 //   Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition),
                                 //   actionType.Value);
                                 DirectionMoving = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition);
-                                PerformAction(DirectionMoving, actionType.Value);
+                                PerformAction(actionToTrigger,DirectionMoving, actionType.Value);
                                 if (IsJumpActionType(actionType.Value))
                                 {
                                     ReactToJumpActionType(actionType.Value);

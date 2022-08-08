@@ -181,7 +181,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         internal void ChangeParentSet(ActionType actionType)
         {
-           Animator.PerformAction(CurrentDirection, actionType);
+           Animator.PerformAction(null, CurrentDirection, actionType);
 
         }
 

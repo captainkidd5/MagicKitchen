@@ -99,7 +99,7 @@ namespace EntityEngine.Classes.ToolStuff
         public override void ReleaseTool(Direction direction, Vector2 directionVector, Entity holder)
         {
             base.ReleaseTool(direction, directionVector, holder);
-            holder.Animator.PerformAction(direction, ActionType, (float)RotateSpeed);
+            holder.Animator.PerformAction(null, direction, ActionType, (float)RotateSpeed);
 
         }
         public override void Update(GameTime gameTime)

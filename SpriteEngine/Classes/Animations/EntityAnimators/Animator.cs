@@ -17,7 +17,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
 {
     public abstract class Animator : ISaveable
     {
-       
+        public Action ActionToPerform { get; set; }
         //Half of the width of a character
         protected readonly int xOffset = 8;
         //Entire height of a character
@@ -69,8 +69,9 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         {
             SoundPlayed?.Invoke();
         }
-        public virtual void PerformAction(Direction direction, ActionType actionType, float speedModifier = 1f)
+        public virtual void PerformAction(Action action, Direction direction, ActionType actionType, float speedModifier = 1f)
         {
+            ActionToPerform = action;
             SpeedModifier = speedModifier;
         }
 

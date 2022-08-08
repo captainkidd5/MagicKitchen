@@ -521,9 +521,9 @@ namespace EntityEngine.Classes
             }
 
         }
-        protected void PerformAction(Direction direction, ActionType actionType)
+        protected void PerformAction(Action action, Direction direction, ActionType actionType)
         {
-            Animator.PerformAction(direction, actionType);
+            Animator.PerformAction(action, direction, actionType);
         }
 
         internal bool IsFacingTowardsOtherEntity(Vector2 otherEntityPos)

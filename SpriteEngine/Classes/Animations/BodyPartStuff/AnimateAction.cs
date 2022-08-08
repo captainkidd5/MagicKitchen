@@ -14,7 +14,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
     public class AnimateAction
     {
-        private readonly ActionType _actionType;
+        public readonly ActionType ActionType;
         private readonly BodyPiece _bodyPiece;
 
         private AnimatedSprite[] _animations;
@@ -25,11 +25,11 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         public byte FrameLastFrame => _currentAnimation.FrameLastFrame;
         public bool HasFrameChanged => _currentAnimation.HasFrameChanged();
 
-
+        public int CurrentFrame => _currentAnimation.CurrentFrame;
 
         public AnimateAction(ActionType actionType, BodyPiece bodyPiece, AnimatedSprite[] animations, bool repeat)
         {
-            _actionType = actionType;
+            ActionType = actionType;
             _bodyPiece = bodyPiece;
             _animations = animations;
             _repeat = repeat;
@@ -66,8 +66,11 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
             //So that the bodypart overlaps correctly, and is drawn relative to the entity's y position on the map.
             _currentAnimation.CustomLayer = layer;
-            
-            if (!_repeat && _currentAnimation.HasLoopedAtLeastOnce && _actionType > ActionType.Walking)
+
+           
+
+            if (SpriteFactory.PerformActionCustomizeableTriggers.ContainsKey(ActionType))
+            if (!_repeat && _currentAnimation.HasLoopedAtLeastOnce && ActionType > ActionType.Walking)
             {
                 _currentAnimation.HasLoopedAtLeastOnce = false;
                 _bodyPiece.ChangeParentSet(ActionType.Walking);
@@ -108,7 +111,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         {
            // if (direction != Direction.None)
            // {
-           if(_actionType == ActionType.Interact)
+           if(ActionType == ActionType.Interact)
                 Console.WriteLine("test");
                 foreach (AnimatedSprite animatedSprite in _animations)
                 {

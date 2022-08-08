@@ -34,12 +34,12 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
 
         public override void LoadInitialAnimations()
         {
-            PerformAction(Direction.Up, ActionType.Walking);
+            PerformAction(null, Direction.Up, ActionType.Walking);
         }
 
-        public override void PerformAction(Direction direction, ActionType actionType, float speedModifier = 1f)
+        public override void PerformAction(Action action, Direction direction, ActionType actionType, float speedModifier = 1f)
         {
-            base.PerformAction(direction, actionType, speedModifier);
+            base.PerformAction(action,direction, actionType, speedModifier);
             List<AnimatedSprite> sprites = new List<AnimatedSprite>();
             foreach (AnimationInfo info in _npcData.AnimationInfo.Where(x => x.ActionType == actionType))
             {
@@ -87,7 +87,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             if(_currentAnimation.HasLoopedAtLeastOnce && CurrentActionType != ActionType.Walking)
             {
                 CurrentActionType = ActionType.Walking;
-                PerformAction(directionMoving, CurrentActionType);
+                PerformAction(ActionToPerform, directionMoving, CurrentActionType);
             }
 
 

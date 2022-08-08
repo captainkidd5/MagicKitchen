@@ -50,6 +50,7 @@ namespace SpriteEngine.Classes
         public static Texture2D NPCSheet;
 
         public static Texture2D Props_1;
+        public static Dictionary<ActionType, byte> PerformActionCustomizeableTriggers = new Dictionary<ActionType, byte>();
         public static void LoadContent(GraphicsDevice graphics, ContentManager content)
         {
             Graphics = graphics;
@@ -91,6 +92,9 @@ namespace SpriteEngine.Classes
             NPCSheet = content.Load<Texture2D>("Entities/NPC/NPCSheet");
 
             Props_1 = content.Load<Texture2D>("Entities/Props/Props_1");
+
+            PerformActionCustomizeableTriggers = new Dictionary<ActionType, byte>();
+            PerformActionCustomizeableTriggers.Add(ActionType.Interact, 2);
         }
         public static Color GetRandomSkinTone()
         {
