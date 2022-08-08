@@ -284,6 +284,8 @@ namespace EntityEngine.Classes
 
             //if (Animator.CurrentActionType != ActionType.Walking && Animator.CurrentActionType != ActionType.None)
             //    Velocity = Vector2.Zero;
+            if (Animator.IsPerformingAnimation())
+                Halt();
             MainHullBody.Body.LinearVelocity = Velocity * Speed * (float)gameTime.ElapsedGameTime.Milliseconds;
 
 

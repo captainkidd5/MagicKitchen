@@ -109,11 +109,16 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
 
         public override bool IsPerformingAnimation()
         {
+            bool result = CurrentActionType > ActionType.Walking;
+            if(result)
+                Console.WriteLine("test");
+            return result;
             return !BodyPieces[0].CurrentAction.Interruptable;
         }
         public override void PerformAction(Direction direction, ActionType actionType, float speedModifier = 1f)
         {
             base.PerformAction(direction, actionType,speedModifier);
+            CurrentActionType = actionType;
             for (int i = 0; i < BodyPieces.Length; i++)
             {
                 BodyPieces[i].ChangeAnimation(actionType);
