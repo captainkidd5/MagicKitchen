@@ -114,7 +114,13 @@ namespace EntityEngine.Classes.NPCStuff
         {
             base.Update(gameTime);
             if (SubmergenceLevel == SubmergenceLevel.None && Shadow != null)
-                Shadow.Update(gameTime, new Vector2(Position.X, CenteredPosition.Y + 2));
+            {
+                int xShadowOffSet = NPCData != null ? NPCData.ShadowOffSetX : 0;
+                int yShadowOffSet = NPCData != null ? (int)Position.Y + NPCData.ShadowOffSetY : (int)CenteredPosition.Y;
+
+                Shadow.Update(gameTime, new Vector2(Position.X + xShadowOffSet, yShadowOffSet));
+
+            }
             if (OutsideOfPlayArea)
             {
                 if (_despawnTimer.Run(gameTime))

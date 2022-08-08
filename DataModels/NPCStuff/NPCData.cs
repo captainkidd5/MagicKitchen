@@ -25,6 +25,9 @@ namespace DataModels.NPCStuff
         public byte SpawnSlotValue { get; set; }
 
         public ShadowSize ShadowSize { get; set; }
+        public int ShadowOffSetX { get; set; }
+        public int ShadowOffSetY { get; set; }
+
         public string Name { get; set; }
         public string ObjectType { get; set; }
         public string ScheduleName { get; set; }
