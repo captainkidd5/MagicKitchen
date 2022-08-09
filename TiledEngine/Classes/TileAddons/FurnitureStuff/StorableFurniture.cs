@@ -109,7 +109,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
                     ItemData itemData = ItemFactory.GetItemData(placedItem.ItemId.Value);
                     bool wasLocked = StorageContainer.Slots[i].PlaceLocked;
-                    if(wasLocked)
+                    if (wasLocked)
                         UnlockPlaceLock(i);
 
                     for (int j = 0; j < placedItem.ItemCount; j++)
@@ -177,14 +177,14 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         protected override void DestroyTileAndGetLoot()
         {
 
-            foreach(var slot in StorageContainer.Slots)
+            foreach (var slot in StorageContainer.Slots)
             {
                 if (!slot.Empty)
                 {
                     ItemFactory.GenerateWorldItem(
                                   slot.Item.Name, slot.StoredCount, Position, WorldItemState.Bouncing, Vector2Helper.GetRandomDirectionAsVector2());
                 }
-               
+
             }
             Tile.TileManager.PlacedItemManager.RemoveAllPlacedItemsFromTile(Tile);
             base.DestroyTileAndGetLoot();
@@ -193,13 +193,16 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         public override Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
 
         {
-            base.Interact(ref actionType, isPlayer, heldItem, entityPosition, directionEntityFacing);
-            if (!FlaggedForDestruction)
+            Action action = base.Interact(ref actionType, isPlayer, heldItem, entityPosition, directionEntityFacing);
+
+            if (action != null)
+                return action;
+            return new Action(() =>
             {
-                return new Action(() =>
+                if (!FlaggedForDestruction)
                 {
                     UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
-                    //Subscribe to ui 
+                        //Subscribe to ui 
                     UI.StorageDisplayHandler.SecondaryStorageClosed += OnUIClosed;
                     if (Tile.TileData.HasAnimationFrames(Tile.TileManager.TileSetPackage))
                     {
@@ -207,10 +210,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                         (Tile.Sprite as AnimatedSprite).Paused = false;
                         (Tile.Sprite as AnimatedSprite).SetTargetFrame((Tile.Sprite as AnimatedSprite).AnimationFrames.Length - 1);
                     }
-                });
-              
+                }
+            });
 
-            }
+
+
             return null;
         }
         public override void Update(GameTime gameTime)
@@ -241,6 +245,15 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
             }
 
+        }
+        protected override void AlterCursorAndAlertTile()
+        {
+            base.AlterCursorAndAlertTile();
+            if (UI.PlayerCurrentSelectedItem == null || UI.PlayerCurrentSelectedItem.ItemType != ItemType.Hammer)
+            {
+                UI.Cursor.ChangeCursorIcon(CursorIconType.Selectable);
+
+            }
         }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {

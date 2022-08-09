@@ -20,7 +20,6 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         private AnimatedSprite[] _animations;
         private AnimatedSprite _currentAnimation;
         private bool _repeat;
-        public bool Interruptable => _repeat;
 
         public byte FrameLastFrame => _currentAnimation.FrameLastFrame;
         public bool HasFrameChanged => _currentAnimation.HasFrameChanged();

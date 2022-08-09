@@ -245,7 +245,7 @@ namespace TiledEngine.Classes
         {
             if (MouseOverTile != null)
             {
-                if(TileToInteractWith != null)
+                if(TileToInteractWith != null && TileToInteractWith.DrawLayer >= MouseOverTile.DrawLayer)
                     MouseOverTile = TileToInteractWith;
                 //moreover, if tile to interact with is real, we want to make sure that tile selector sprite draws here instead
                 TileSelectorSprite.Update(gameTime, new Vector2(MouseOverTile.Position.X + MouseOverTile.SourceRectangle.Width/2 - 8,

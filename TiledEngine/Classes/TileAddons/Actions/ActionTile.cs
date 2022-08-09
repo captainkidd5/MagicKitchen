@@ -15,6 +15,7 @@ using tainicom.Aether.Physics2D.Common;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes.Helpers;
+using TiledEngine.Classes.TileAddons.FurnitureStuff;
 using UIEngine.Classes;
 using static DataModels.Enums;
 
@@ -79,6 +80,10 @@ namespace TiledEngine.Classes.TileAddons.Actions
         {
             base.Update(gameTime);
             Move(IntermediateTmxShape.HullPosition);
+            if(this.GetType() == typeof(CraftingTable) && IsHovered(Controls.ControllerConnected))
+            {
+                Console.WriteLine("test");
+            }
             if (WithinRangeOfPlayer())
             {
                 Tile.WithinRangeOfPlayer = true;

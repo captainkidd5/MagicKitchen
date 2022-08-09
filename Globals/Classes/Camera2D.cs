@@ -59,6 +59,8 @@ namespace Globals.Classes
                     return new Vector2(120, 60);
                 case 3:
                     return new Vector2(164, 80);
+                case 4:
+                    return new Vector2(180, 92);
                 default:
                     return Vector2.Zero;
             }

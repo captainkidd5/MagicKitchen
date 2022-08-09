@@ -72,7 +72,7 @@ namespace TiledEngine.Classes.TileAddons
 
                 }
 
-
+                if(Tile.IsHighestOccupiedTile())
                 UI.Cursor.ChangeCursorIcon(iconType);
             }
 
@@ -85,6 +85,8 @@ namespace TiledEngine.Classes.TileAddons
         public override Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)
 
         {
+            actionType = ActionType.Interact;
+
             if (isPlayer)
             {
                 if (!PlayerInClickRange && !PlayerInControllerActionRange)
@@ -97,7 +99,6 @@ namespace TiledEngine.Classes.TileAddons
             if (Tile.Sprite.GetType() == typeof(AnimatedSprite) && (Tile.Sprite as AnimatedSprite).Paused)
                 actionType = ActionType.Smash;
 
-            actionType = ActionType.Interact;
             return new Action(() => {
                 if (RequireLoopBeforeDestruction)
                 {

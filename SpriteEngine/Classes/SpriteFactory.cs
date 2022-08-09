@@ -95,6 +95,8 @@ namespace SpriteEngine.Classes
 
             PerformActionCustomizeableTriggers = new Dictionary<ActionType, byte>();
             PerformActionCustomizeableTriggers.Add(ActionType.Interact, 2);
+            PerformActionCustomizeableTriggers.Add(ActionType.Smash, 2);
+
         }
         public static Color GetRandomSkinTone()
         {

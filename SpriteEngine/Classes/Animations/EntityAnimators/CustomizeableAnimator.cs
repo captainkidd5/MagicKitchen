@@ -112,7 +112,6 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             bool result = CurrentActionType > ActionType.Walking;
 
             return result;
-            return !BodyPieces[0].CurrentAction.Interruptable;
         }
         public override void PerformAction(Action action, Direction direction, ActionType actionType, float speedModifier = 1f)
         {
@@ -149,29 +148,37 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
                     BodyPieces[i].SetRestingFrameIndex();
                 BodyPieces[i].Update(gameTime, directionMoving, Position, Layer, isMoving, speedRatio);
 
-               
+
 
             }
 
+            CheckActionActivationFrame();
 
-            if(ActionToPerform != null)
+            PositionLastFrame = position;
+            WasMovingLastFrame = isMoving;
+        }
+
+        /// <summary>
+        /// Certain animations, such as interact, will only trigger the tile being interacted with on a certain frame. An action
+        /// From that tile is passed in here and is executed only on the specific frame. The full dictionary of values can be found
+        /// in SpriteFactory.cs in PerformActionCustomizeableTriggers 
+        /// </summary>
+        private void CheckActionActivationFrame()
+        {
+            if (ActionToPerform != null)
             {
                 byte val = 0;
 
                 if (SpriteFactory.PerformActionCustomizeableTriggers.TryGetValue(BodyPieces[0].CurrentAction.ActionType, out val))
                 {
-                    if(BodyPieces[0].CurrentAction.CurrentFrame == val)
+                    if (BodyPieces[0].CurrentAction.CurrentFrame == val)
                     {
                         ActionToPerform();
                         ActionToPerform = null;
                     }
-                    
+
                 }
             }
-          
-          
-            PositionLastFrame = position;
-            WasMovingLastFrame = isMoving;
         }
 
         public override void Draw(SpriteBatch spriteBatch, SubmergenceLevel submergenceLevel, bool alwaysSubmerged = false)

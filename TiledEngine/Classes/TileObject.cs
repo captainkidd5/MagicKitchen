@@ -44,6 +44,15 @@ namespace TiledEngine.Classes
             }
             return true;
         }
+        internal bool IsHighestOccupiedTile()
+        {
+            for (int i = (byte)TileData.Layer + 1 ; i <= TileManager.TileData.Count - 1; i++)
+            {
+                if (!TileManager.TileData[i][TileData.X, TileData.Y].Empty)
+                    return false;
+            }
+            return true;
+        }
         public bool FlaggedForRemoval { get; set; }
 
 

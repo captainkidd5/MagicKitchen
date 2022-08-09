@@ -1,4 +1,5 @@
-﻿using DataModels.ItemStuff;
+﻿using DataModels;
+using DataModels.ItemStuff;
 using EntityEngine.Classes.PlayerStuff;
 using EntityEngine.Classes.ToolStuff;
 using Globals.Classes.Helpers;
@@ -25,6 +26,33 @@ namespace EntityEngine.Classes
         {
             Entity = entity;
             _inventoryHandler = inventoryHandler;
+        }
+
+
+        public bool WillUseHeldItem(ActionType actionType)
+        {
+            switch (actionType)
+            {
+                case ActionType.None:
+                    break;
+                case ActionType.Walking:
+                    break;
+                case ActionType.Interact:
+                    break;
+                case ActionType.JumpUp:
+                    break;
+                case ActionType.JumpDown:
+                    break;
+                case ActionType.JumpLeft:
+                    break;
+                case ActionType.JumpRight:
+                    break;
+                case ActionType.Attack:
+                    break;
+                case ActionType.Smash:
+                    return true;
+            }
+            return false;
         }
 
         public virtual void Update(GameTime gameTime)

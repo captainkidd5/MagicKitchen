@@ -274,6 +274,9 @@ namespace EntityEngine.Classes.PlayerStuff
                         {
                             ActionType? actionType = null;
                            Action actionToTrigger = Container.TileManager.MouseOverTile.Interact(ref actionType,true, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
+
+                            if(ToolHandler.WillUseHeldItem(actionType.Value))
+                             ChargeHeldItem(gameTime, Controls.MouseWorldPosition);
                             //if (actionToTrigger != null)
                             //    Animator.ActionToPerform = actionToTrigger;
                             Controls.ClickActionTriggeredThisFrame = true;
