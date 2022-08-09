@@ -51,7 +51,7 @@ namespace TiledEngine.Classes
         public static void LoadContent(ContentManager content)
         {
             s_mapPath = content.RootDirectory + "/Maps/";
-            TmxMap worldMap = new TmxMap(s_mapPath + "LullabyTown.tmx");
+            TmxMap worldMap = new TmxMap(s_mapPath + "HomeIsland.tmx");
             TileSetPackage = new TileSetPackage(worldMap);
 
             TileSetPackage.LoadContent(content, "maps/BackgroundMasterSpriteSheet_Spaced", "maps/ForegroundMasterSpriteSheet");
@@ -77,14 +77,40 @@ namespace TiledEngine.Classes
         {
             TmxMap mapToLoad = new TmxMap(s_mapPath + stageData.Path);
             List<TileData[,]> mapData;// = ExtractTilesFromPreloadedMap(tileManager, mapToLoad);
-            mapData = GenerateEmptyMapArray(tileManager, mapToLoad, 256);
-            mapData[0] = GenerateAutomataLayer(mapToLoad.Width);
-            tileManager.LoadMap(mapToLoad, mapData, mapToLoad.Width, TileSetPackage);
+            mapData = GenerateEmptyMapArray(tileManager, mapToLoad, 512);
+            mapData[0] = GenerateAutomataLayer(512);
+
+            InsertCustomMapAt(mapData, new Point(250, 250), mapToLoad);
+            tileManager.LoadMap(mapToLoad, mapData, 512, TileSetPackage);
 
 
         }
 
+        private static void InsertCustomMapAt(List<TileData[,]> fullMapData, Point insertionPoint, TmxMap map)
+        {
+            List<TmxLayer> allLayers = new List<TmxLayer>()
+            {
+                map.TileLayers["background"],
+            map.TileLayers["midground"],
+           map.TileLayers["buildings"],
+           map.TileLayers["foreground"],
+           map.TileLayers["front"]
+        };
 
+            for (int i = 0; i < MapDepths.Length; i++)
+            {
+                foreach (TmxLayerTile layerNameTile in allLayers[i].Tiles)
+                {
+             
+                    fullMapData[i][insertionPoint.X + layerNameTile.X, insertionPoint.Y + layerNameTile.Y] =
+                                          new TileData((ushort)layerNameTile.Gid, (ushort)(insertionPoint.X + layerNameTile.X),
+                                          (ushort)(insertionPoint.Y + layerNameTile.Y), (Layers)i);
+
+
+                }
+
+            }
+        }
         /// <summary>
         /// Generates the first iteration of the background layer of the entire map
         /// </summary>
@@ -139,7 +165,7 @@ namespace TiledEngine.Classes
 
         private static List<TileData[,]> GenerateEmptyMapArray(TileManager tileManager, TmxMap map, int totalMapBounds)
         {
-          
+
             List<TileData[,]> tilesToReturn = new List<TileData[,]>();
 
             for (int z = 0; z < MapDepths.Length; z++)
@@ -150,7 +176,7 @@ namespace TiledEngine.Classes
                 {
                     for (int y = 0; y < totalMapBounds; y++)
                     {
-                        tilesToReturn[z][x,y] = new TileData(0, (ushort)x,(ushort)y, (Layers)z);
+                        tilesToReturn[z][x, y] = new TileData(0, (ushort)x, (ushort)y, (Layers)z);
 
                     }
                 }
