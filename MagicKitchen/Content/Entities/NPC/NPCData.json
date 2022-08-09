@@ -8,7 +8,7 @@
     "NPCType" : "Enemy",
     "ShadowSize":"Medium",
     "ShadowOffSetX": 0,
-    "ShadowOffSetY" : 6,
+    "ShadowOffSetY" : -6,
     "CombatResponse":"Retaliate",
     "SpriteWidth": 48,
     "SpriteHeight": 32,

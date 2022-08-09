@@ -17,6 +17,7 @@ using TiledEngine.Classes.ZoneStuff;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
 using static DataModels.Enums;
 using TiledEngine.Classes.TileAddons;
+using TiledEngine.Classes.Procedural;
 
 namespace TiledEngine.Classes
 {
@@ -43,7 +44,7 @@ namespace TiledEngine.Classes
 
 
         public static FurnitureLoader FurnitureLoader;
-        
+
         // <summary>
         /// This should only be called ONCE per save file.
         /// </summary>
@@ -64,7 +65,7 @@ namespace TiledEngine.Classes
             FurnitureLoader = new FurnitureLoader();
             FurnitureLoader.LoadContent(content);
         }
-       
+
 
 
         /// <summary>
@@ -75,15 +76,42 @@ namespace TiledEngine.Classes
         public static void CreateNewSave(StageData stageData, TileManager tileManager, ContentManager content)
         {
             TmxMap mapToLoad = new TmxMap(s_mapPath + stageData.Path);
-
-            tileManager.LoadMap(mapToLoad, ExtractTilesFromPreloadedMap(tileManager,mapToLoad), mapToLoad.Width,TileSetPackage);
+            List<TileData[,]> mapData;// = ExtractTilesFromPreloadedMap(tileManager, mapToLoad);
+            mapData = GenerateEmptyMapArray(tileManager, mapToLoad, 256);
+            mapData[0] = GenerateAutomataLayer(mapToLoad.Width);
+            tileManager.LoadMap(mapToLoad, mapData, mapToLoad.Width, TileSetPackage);
 
 
         }
 
 
-        
+        /// <summary>
+        /// Generates the first iteration of the background layer of the entire map
+        /// </summary>
+        /// <param name="mapWidth"></param>
+        /// <returns></returns>
+        private static TileData[,] GenerateAutomataLayer(int mapWidth)
+        {
+            TileData[,] tileDataToReturn = new TileData[mapWidth, mapWidth];
+            bool[,] automata = CellularAutomataGenerator.GenerateMap(mapWidth);
+            for (int i = 0; i < mapWidth; i++)
+            {
+                for (int j = 0; j < mapWidth; j++)
+                {
+                    ushort gid = 0;
+                    if (automata[i, j])
+                        gid = 1121;
+                    else
+                        gid = 723;
 
+                    tileDataToReturn[i, j] = new TileData(gid, (ushort)i, (ushort)j, 0);
+
+
+                }
+            }
+
+            return tileDataToReturn;
+        }
         /// <summary>
         /// Create new tiles based on tiles found in TMX map file. This should
         /// only be done once per map per save.
@@ -104,10 +132,31 @@ namespace TiledEngine.Classes
             {
                 tilesToReturn.Add(new TileData[map.Width, map.Width]);
                 foreach (TmxLayerTile layerNameTile in allLayers[i].Tiles)
-                    tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new TileData((ushort)layerNameTile.Gid,  (ushort)layerNameTile.X, (ushort)layerNameTile.Y, (Layers)i);
+                    tilesToReturn[i][layerNameTile.X, layerNameTile.Y] = new TileData((ushort)layerNameTile.Gid, (ushort)layerNameTile.X, (ushort)layerNameTile.Y, (Layers)i);
             }
             return tilesToReturn;
         }
-        
+
+        private static List<TileData[,]> GenerateEmptyMapArray(TileManager tileManager, TmxMap map, int totalMapBounds)
+        {
+          
+            List<TileData[,]> tilesToReturn = new List<TileData[,]>();
+
+            for (int z = 0; z < MapDepths.Length; z++)
+            {
+                tilesToReturn.Add(new TileData[totalMapBounds, totalMapBounds]);
+
+                for (int x = 0; x < totalMapBounds; x++)
+                {
+                    for (int y = 0; y < totalMapBounds; y++)
+                    {
+                        tilesToReturn[z][x,y] = new TileData(0, (ushort)x,(ushort)y, (Layers)z);
+
+                    }
+                }
+            }
+            return tilesToReturn;
+        }
+
     }
 }
