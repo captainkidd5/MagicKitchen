@@ -50,7 +50,7 @@ namespace TiledEngine.Classes
         public static void LoadContent(ContentManager content)
         {
             s_proceduralPlacer = new ProceduralPlacer();
-            s_proceduralPlacer.Load();
+            s_proceduralPlacer.Load(content);
 
             s_mapPath = content.RootDirectory + "/Maps/";
             TmxMap worldMap = new TmxMap(s_mapPath + "LullabyTown.tmx");
@@ -81,14 +81,14 @@ namespace TiledEngine.Classes
             TmxMap town = new TmxMap(s_mapPath + stageData["HomeIsland"].Path);
 
             List<TileData[,]> mapData;// = ExtractTilesFromPreloadedMap(tileManager, mapToLoad);
-            mapData = GenerateEmptyMapArray(tileManager, worldMap, 2048);
-            mapData[0] = GenerateAutomataLayer(256);
-
+            mapData = GenerateEmptyMapArray(tileManager, worldMap, 512);
+            mapData[0] = GenerateAutomataLayer(512);
             InsertCustomMapAt(mapData, new Point(112, 112), worldMap);
             InsertCustomMapAt(mapData, new Point(24, 24), town);
 
             tileManager.LoadMap(worldMap, mapData, 512, TileSetPackage);
 
+            s_proceduralPlacer.AddPoissonTiles(tileManager);
 
         }
 

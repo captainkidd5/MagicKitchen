@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels.MapStuff;
+using Globals.Classes;
 using Globals.Classes.Chance;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes.Pathfinding;
@@ -29,12 +30,17 @@ namespace TiledEngine.Classes.Procedural
             _activeSamples = new List<Point>();
         }
 
-        public void Generate(int gid, Layers layerToPlaceOn, Layers layerToCheckIfEmpty,
-            TileManager tileManager, int tries, int minDistance, int maxDistance)
+        public void Generate(PoissonData poissonData, Layers layerToCheckIfEmpty,
+            TileManager tileManager)
         {
             //generate first point randomly within grid
-            _activeSamples.Add(new Point(Settings.Random.Next(0, tileManager.TileData[0].GetLength(0) - 1),
-                Settings.Random.Next(0, tileManager.TileData[0].GetLength(0) - 1)));
+
+            for (int i = 0; i < 120; i++)
+            {
+
+                _activeSamples.Add(new Point(Settings.Random.Next(0, tileManager.TileData[0].GetLength(0) - 1),
+                    Settings.Random.Next(0, tileManager.TileData[0].GetLength(0) - 1)));
+            }
 
             while (_activeSamples.Count > 0)
             {
@@ -45,42 +51,42 @@ namespace TiledEngine.Classes.Procedural
                 bool found = false;
 
 
-                for (int k = 0; k < tries; k++) //try MaxK times to find a valid point
+                for (int k = 0; k < poissonData.Tries; k++) //try MaxK times to find a valid point
                 {
 
-                    int newX = sample.X + minDistance * ChanceHelper.GetNevagiveOrPositive1();
-                    int newY = sample.Y + minDistance * ChanceHelper.GetNevagiveOrPositive1();
+                    int newX = sample.X + poissonData.MinDistance * ChanceHelper.GetNevagiveOrPositive1();
+                    int newY = sample.Y + poissonData.MinDistance * ChanceHelper.GetNevagiveOrPositive1();
                     Point newPoint = new Point(newX, newY);
 
                     if (tileManager.IsValidPoint(newPoint))
                     {
-                        if (tileManager.TileData[(int)layerToPlaceOn][newPoint.X, newPoint.Y].Empty)
+                        if (tileManager.TileData[(int)poissonData.LayersToPlace][newPoint.X, newPoint.Y].Empty)
                         {
-                            if (IsFarEnough(tileManager,newPoint, minDistance, maxDistance))
+                            if (IsFarEnough(tileManager, newPoint, poissonData.MinDistance, poissonData.MaxDistance))
                             {
-                               
 
-                                    if (layerToCheckIfEmpty == Layers.background)
+
+                                if (layerToCheckIfEmpty == Layers.background)
+                                {
+                                    found = true;
+                                    _activeSamples.Add(newPoint);
+                                    tileManager.TileData[(int)poissonData.LayersToPlace][newPoint.X, newPoint.Y].GID = (ushort)poissonData.GID;
+                                }
+                                else
+                                {
+                                    if (tileManager.TileData[(int)poissonData.LayersToPlace][newPoint.X, newPoint.Y].Empty)
                                     {
                                         found = true;
                                         _activeSamples.Add(newPoint);
-                                    tileManager.TileData[(int)layerToPlaceOn][newPoint.X, newPoint.Y].GID = (ushort)gid;
+                                        tileManager.TileData[(int)poissonData.LayersToPlace][newPoint.X, newPoint.Y].GID = (ushort)poissonData.GID;
+                                        break;
                                     }
-                                    else
-                                    {
-                                        if (tileManager.TileData[(int)layerToPlaceOn][newPoint.X, newPoint.Y].Empty)
-                                        {
-                                            found = true;
-                                            _activeSamples.Add(newPoint);
-                                        tileManager.TileData[(int)layerToPlaceOn][newPoint.X, newPoint.Y].GID = (ushort)gid;
-                                            break;
-                                        }
-                                    }
+                                }
 
 
-                                    
 
-                                
+
+
 
                             }
                         }
@@ -104,9 +110,9 @@ namespace TiledEngine.Classes.Procedural
 
         }
 
-   
 
-        private bool IsFarEnough(TileManager tileManager,  Point sample, int minDistance, int maxDistance)
+
+        private bool IsFarEnough(TileManager tileManager, Point sample, int minDistance, int maxDistance)
         {
             int startingX = Math.Abs(sample.X - minDistance);
             int startingY = Math.Abs(sample.Y - minDistance);

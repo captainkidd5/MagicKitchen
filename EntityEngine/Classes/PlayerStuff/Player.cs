@@ -38,7 +38,7 @@ namespace EntityEngine.Classes.PlayerStuff
     public class Player : HumanoidEntity
     {
         public byte Id { get; private set; }
-        public readonly Vector2 StartingPosition = Vector2Helper.GetWorldPositionFromTileIndex(256, 256);
+        public readonly Vector2 StartingPosition = Vector2Helper.GetWorldPositionFromTileIndex(126, 126);
 
         private bool WasMovingLastFrame { get; set; }
 

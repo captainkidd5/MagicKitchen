@@ -1,6 +1,8 @@
 [
     {
-        "GID":2,
+        "GID":974,
+        "LayerToPlace": "foreGround",
+        "Tries" : 4,
         "MinDistance" : 4,
         "MaxDistance":6
     }
