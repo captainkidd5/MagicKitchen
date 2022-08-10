@@ -8,7 +8,7 @@ using System.Text;
 
 namespace PhysicsEngine.Classes.Pathfinding
 {
-    public enum GridStatus
+    public enum GridStatus : byte
     {
         Clear = 1,
         Obstructed = 0,
