@@ -1,5 +1,6 @@
 ﻿using DataModels.ItemStuff;
 using Globals.Classes;
+using Globals.Classes.Chance;
 using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using ItemEngine.Classes;
@@ -26,14 +27,14 @@ namespace TiledEngine.Classes.Helpers
         public bool IsAdjacentTo(TileData tileData, Vector2 position)
         {
             Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(tileData.X, tileData.Y);
-            float distance = Vector2.Distance(position, tilePos + new Vector2(8,8));
+            float distance = Vector2.Distance(position, tilePos + new Vector2(8, 8));
 
             return distance < Settings.TileSize * 1.5f;
-           
+
         }
         public bool IsOnTopOf(TileData tileData, Vector2 position)
         {
-            return tileData.GetPoint() ==  Vector2Helper.WorldPositionToTilePositionAsPoint(position);
+            return tileData.GetPoint() == Vector2Helper.WorldPositionToTilePositionAsPoint(position);
         }
         /// <summary>
         /// Gets a "ring" of clear points around a tile. Tile may span more than a tile. 
@@ -86,8 +87,8 @@ namespace TiledEngine.Classes.Helpers
 
 
 
-        
-        internal bool MayPlaceTile(Item item,Rectangle destinationRectangleToPlace, Layers currentTileLayer)
+
+        internal bool MayPlaceTile(Item item, Rectangle destinationRectangleToPlace, Layers currentTileLayer)
         {
             Rectangle body = destinationRectangleToPlace;
             int bodyTilesWide = GetTilesWide(body);
@@ -117,15 +118,15 @@ namespace TiledEngine.Classes.Helpers
                                 else
                                     return false;
                             }
-                         //   ushort val = _tileManager.GetTileDataFromPoint(point, (Layers)z).Value.GID;
-        
+                            //   ushort val = _tileManager.GetTileDataFromPoint(point, (Layers)z).Value.GID;
+
                             bool empty = _tileManager.GetTileDataFromPoint(point, (Layers)z).Value.Empty;
                             if (!empty)
                                 return false;
 
                         }
 
-             
+
 
                         if (IsPlacementTypeBlacklisted(point, item))
                             return false;
@@ -146,7 +147,7 @@ namespace TiledEngine.Classes.Helpers
         /// <returns></returns>
         private bool IsPlacementTypeBlacklisted(Point tilePoint, Item item)
         {
-            string tilingSetValueString = _tileManager.GetTileDataFromPoint(tilePoint, Layers.background).Value.GetProperty(_tileManager.TileSetPackage,"tilingSet");
+            string tilingSetValueString = _tileManager.GetTileDataFromPoint(tilePoint, Layers.background).Value.GetProperty(_tileManager.TileSetPackage, "tilingSet");
 
             if (!string.IsNullOrEmpty(tilingSetValueString))
             {
@@ -166,7 +167,7 @@ namespace TiledEngine.Classes.Helpers
             int bodyTilesWide = GetTilesWide(body);
             int bodyTilesHigh = GetTilesHigh(body);
 
-        
+
 
             //if x starts at 1605, and x.width == 16, then x spans two tiles
 
@@ -195,7 +196,7 @@ namespace TiledEngine.Classes.Helpers
                 for (int j = 0; j < bodyTilesHigh; j++)
                 {
                     int newX = rectangleIndex.X + i;
-                    int newY = rectangleIndex.Y + j;  
+                    int newY = rectangleIndex.Y + j;
                     if (newX >= 0 && rectangleIndex.Y >= 0)
                         _tileManager.UpdateGrid(newX, newY, gridStatus);
 
@@ -328,7 +329,7 @@ namespace TiledEngine.Classes.Helpers
         /// <summary>
         /// Ensures X index is greater than zero and less than bounds of grid
         /// </summary>
-        internal bool X_IsValidIndex( int x)
+        internal bool X_IsValidIndex(int x)
         {
             if (x >= 0)
                 if (x < _tileManager.TileData[0].GetLength(0))
@@ -347,7 +348,28 @@ namespace TiledEngine.Classes.Helpers
             return false;
         }
 
+        /// <summary>
+        /// Returns random point within range. Returns null if random point was outside bounds of map
+        /// </summary>
+        /// <returns></returns>
+        internal Point? RandomPointWithinRadius(Point centralPoint, int minDistance, int maxDistance)
+        {
 
-      
+            int x = Settings.Random.Next( minDistance, maxDistance + 1);
+            x = centralPoint.X  + x * ChanceHelper.GetNevagiveOrPositive1();
+            if (!X_IsValidIndex( x))
+                return null;
+
+            int y = Settings.Random.Next(minDistance, maxDistance + 1);
+           y = centralPoint.Y + y * ChanceHelper.GetNevagiveOrPositive1();
+            if (!Y_IsValidIndex( y))
+                return null;
+
+
+            return new Point(x, y);
+
+
+        }
+
     }
 }

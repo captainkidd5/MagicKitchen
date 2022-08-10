@@ -9,8 +9,11 @@ namespace DataModels.MapStuff
     {
         public ushort GID { get; set; }
         public Layers LayersToPlace { get; set; }
-        public byte Tries { get; set; }
+        public List<string> AllowedTilingSets { get; set; }
+        public ushort Tries { get; set; }
         public byte MinDistance { get; set; }
         public byte MaxDistance { get; set; }
+        public byte MaxCluster { get; set; }
+        public byte OddsAdditionalSpawn { get; set; }
     }
 }

@@ -21,75 +21,82 @@ namespace TiledEngine.Classes.Procedural
 
 
         private List<Point> _activeSamples;
-        public Rectangle GridRectangle { get; set; }
 
 
-        public PoissonSampler(int minDistance, int maxDistance)
+        public PoissonSampler()
         {
 
             _activeSamples = new List<Point>();
         }
 
+
+
         public void Generate(PoissonData poissonData, Layers layerToCheckIfEmpty,
             TileManager tileManager)
         {
             //generate first point randomly within grid
-
-            for (int i = 0; i < 120; i++)
+            List<Point> points = new List<Point>();
+            for (int z = 0; z <8; z++)
             {
-
                 _activeSamples.Add(new Point(Settings.Random.Next(0, tileManager.TileData[0].GetLength(0) - 1),
-                    Settings.Random.Next(0, tileManager.TileData[0].GetLength(0) - 1)));
+               Settings.Random.Next(0, tileManager.TileData[0].GetLength(0) - 1)));
             }
+
 
             while (_activeSamples.Count > 0)
             {
+                List<Point> currentCluster = new List<Point>();
+
                 int sampleIndex = Settings.Random.Next(0, _activeSamples.Count - 1); //pick random sample within activesample list
-                Point sample = _activeSamples[sampleIndex];
+                Point spawnCenter = _activeSamples[sampleIndex];
 
 
                 bool found = false;
 
-
+                Point newPoint = new Point(0, 0);
+                int currentClusterCount = 0;
                 for (int k = 0; k < poissonData.Tries; k++) //try MaxK times to find a valid point
                 {
-
-                    int newX = sample.X + poissonData.MinDistance * ChanceHelper.GetNevagiveOrPositive1();
-                    int newY = sample.Y + poissonData.MinDistance * ChanceHelper.GetNevagiveOrPositive1();
-                    Point newPoint = new Point(newX, newY);
+                    if (currentClusterCount > poissonData.MaxCluster)
+                        break;
+                    int newX = spawnCenter.X + poissonData.MinDistance * ChanceHelper.GetNevagiveOrPositive1();
+                    int newY = spawnCenter.Y + poissonData.MinDistance * ChanceHelper.GetNevagiveOrPositive1();
+                    newPoint = new Point(newX, newY);
 
                     if (tileManager.IsValidPoint(newPoint))
                     {
-                        if (tileManager.TileData[(int)poissonData.LayersToPlace][newPoint.X, newPoint.Y].Empty)
+
+                        bool correctTileType = CheckIfTileIsAllowedTileType(poissonData, tileManager, newPoint);
+                        if (!correctTileType)
+                            continue;
+
+                        if (IsFarEnough(tileManager, newPoint, poissonData.MinDistance, poissonData.MaxDistance))
                         {
-                            if (IsFarEnough(tileManager, newPoint, poissonData.MinDistance, poissonData.MaxDistance))
+
+
+                            if (layerToCheckIfEmpty == Layers.background)
                             {
-
-
-                                if (layerToCheckIfEmpty == Layers.background)
-                                {
-                                    found = true;
+                                found = true;
+                                if (currentClusterCount < poissonData.MaxCluster)
                                     _activeSamples.Add(newPoint);
-                                    tileManager.TileData[(int)poissonData.LayersToPlace][newPoint.X, newPoint.Y].GID = (ushort)poissonData.GID;
-                                }
-                                else
-                                {
-                                    if (tileManager.TileData[(int)poissonData.LayersToPlace][newPoint.X, newPoint.Y].Empty)
-                                    {
-                                        found = true;
-                                        _activeSamples.Add(newPoint);
-                                        tileManager.TileData[(int)poissonData.LayersToPlace][newPoint.X, newPoint.Y].GID = (ushort)poissonData.GID;
-                                        break;
-                                    }
-                                }
-
-
-
-
-
+                                tileManager.TileData[(int)poissonData.LayersToPlace][newPoint.X, newPoint.Y].GID = (ushort)poissonData.GID;
+                                currentClusterCount++;
+                            }
+                            else
+                            {
+                                // if (tileManager.TileData[(int)poissonData.LayersToPlace][newPoint.X, newPoint.Y].Empty)
+                                // {
+                                found = true;
+                                if(currentClusterCount < poissonData.MaxCluster)
+                                _activeSamples.Add(newPoint);
+                                tileManager.TileData[(int)poissonData.LayersToPlace][newPoint.X, newPoint.Y].GID = (ushort)poissonData.GID;
+                                //}
+                                currentClusterCount++;
 
                             }
+
                         }
+
                     }
 
 
@@ -99,21 +106,45 @@ namespace TiledEngine.Classes.Procedural
 
                 if (!found)
                 {
-                    _activeSamples[sampleIndex] = _activeSamples[_activeSamples.Count - 1];
-                    _activeSamples.RemoveAt(_activeSamples.Count - 1);
+                    if (_activeSamples.Count < 1)
+                        continue;
+
+                    // _activeSamples[sampleIndex] = _activeSamples[_activeSamples.Count - 1];
+                    _activeSamples.RemoveAt(sampleIndex);
+                    continue;
                 }
 
-
+     
             }
 
             return;
 
         }
 
+        /// <summary>
+        /// For example, limpet rock must be placed in shallow water
+        /// </summary>
+        /// <returns></returns>
+        private static bool CheckIfTileIsAllowedTileType(PoissonData poissonData, TileManager tileManager, Point newPoint)
+        {
+            bool correctTileType = false;
+            foreach (string tileType in poissonData.AllowedTilingSets)
+            {
+                if (tileManager.IsTypeOfTile(tileType, newPoint))
+                {
+                    correctTileType = true;
+                    break;
+                }
 
+            }
+
+            return correctTileType;
+        }
 
         private bool IsFarEnough(TileManager tileManager, Point sample, int minDistance, int maxDistance)
         {
+            if (!tileManager.IsValidPoint(sample))
+                return false;
             int startingX = Math.Abs(sample.X - minDistance);
             int startingY = Math.Abs(sample.Y - minDistance);
 
@@ -133,7 +164,8 @@ namespace TiledEngine.Classes.Procedural
             {
                 for (int j = startingY; j < endingIndexY; j++)
                 {
-                    if (tileManager.PathGrid.Weight[i, j] == (byte)GridStatus.Obstructed)
+                    ushort gid = tileManager.TileData[3][i, j].GID;
+                    if (tileManager.PathGrid.Weight[i, j] == (byte)GridStatus.Obstructed || !tileManager.TileData[3][i, j].Empty)
                     {
                         return false;
                     }

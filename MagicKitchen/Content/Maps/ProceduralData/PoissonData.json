@@ -1,10 +1,27 @@
 [
     {
         "GID":974,
-        "LayerToPlace": "foreGround",
-        "Tries" : 4,
-        "MinDistance" : 4,
-        "MaxDistance":6
+        "LayersToPlace": "foreground",
+        "AllowedTilingSets":[
+            "water"
+        ],
+        "Tries" : 1000,
+        "MinDistance" : 5,
+        "MaxDistance":8,
+        "MaxCluster" : 5,
+        "OddsAdditionalSpawn" : 80
+    },
+    {
+        "GID":1279,
+        "LayersToPlace": "foreground",
+        "AllowedTilingSets":[
+            "water"
+        ],
+        "Tries" : 5000,
+        "MinDistance" : 3,
+        "MaxDistance":8,
+        "MaxCluster" : 15,
+        "OddsAdditionalSpawn" : 90
     }
     
 ]

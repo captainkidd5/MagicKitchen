@@ -88,7 +88,8 @@ namespace TiledEngine.Classes
 
             tileManager.LoadMap(worldMap, mapData, 512, TileSetPackage);
 
-            s_proceduralPlacer.AddPoissonTiles(tileManager);
+            s_proceduralPlacer.AddClusterTiles(tileManager);
+            //s_proceduralPlacer.AddPoissonTiles(tileManager);
 
         }
 

@@ -488,7 +488,17 @@ namespace TiledEngine.Classes
 
         }
 
+        public bool IsTypeOfTile(string tileType,Point point)
+        {
+            TileData? tile = TileData[0][point.X, point.Y];
+            if (tile == null)
+                return false;
+            string tilingSetValue = tile.Value.GetProperty(TileSetPackage, "tilingSet");
+            if (tilingSetValue == tileType)
+                return true;
 
+            return false;
+        }
         public bool IsTypeOfTile(string tileType, Vector2 position)
         {
             TileData? tile = GetTileFromWorldPosition(position, Layers.background);

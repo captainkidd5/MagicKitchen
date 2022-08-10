@@ -13,7 +13,8 @@ namespace TiledEngine.Classes.Procedural
 {
     internal class ProceduralPlacer
     {
-        private PoissonSampler s_poissonSampler;
+        private PoissonSampler _poissonSampler;
+        private ClusterSampler _clusterSampler;
 
         private List<PoissonData> _poissonData;
         public ProceduralPlacer()
@@ -22,7 +23,8 @@ namespace TiledEngine.Classes.Procedural
 
         public void Load(ContentManager content)
         {
-            s_poissonSampler = new PoissonSampler(4, 12);
+            _poissonSampler = new PoissonSampler();
+            _clusterSampler = new ClusterSampler();
 
             string basePath = content.RootDirectory + "/maps/proceduraldata";
             var options = new JsonSerializerOptions();
@@ -40,13 +42,32 @@ namespace TiledEngine.Classes.Procedural
 
                 }
 
+            foreach(PoissonData data in _poissonData)
+            {
+                if (data.MinDistance > data.MaxDistance)
+                    throw new Exception($"procedural data with gid {data.GID} muts have max distance equal to or greater than min distance");
+                data.GID++;
+                if(data.LayersToPlace == DataModels.Enums.Layers.foreground)
+                {
+                    data.GID += 10000;
+                }
+            }
+
         }
 
         public void AddPoissonTiles(TileManager tileManager)
         {
             foreach(PoissonData poissonData in _poissonData)
             {
-                s_poissonSampler.Generate(poissonData, DataModels.Enums.Layers.foreground, tileManager);
+                _poissonSampler.Generate(poissonData, DataModels.Enums.Layers.foreground, tileManager);
+            }
+        }
+
+        public void AddClusterTiles(TileManager tileManager)
+        {
+            foreach (PoissonData poissonData in _poissonData)
+            {
+                _clusterSampler.Generate(poissonData, DataModels.Enums.Layers.foreground, tileManager);
             }
         }
     }
