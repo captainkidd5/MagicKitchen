@@ -24,7 +24,7 @@ namespace TiledEngine.Classes
         public Texture2D ForegroundSpriteSheet { get; private set; }
         private int _foregroundDimension;
         private int _foregroundTileCount;
-        internal WangManager TilingSetManager { get; private set; }
+        internal WangManager WangManager { get; private set; }
 
 
         public TileSetPackage(TmxMap tmxMap)
@@ -44,7 +44,7 @@ namespace TiledEngine.Classes
 
             }
 
-            TilingSetManager = new WangManager();
+            WangManager = new WangManager();
         }
 
         public void LoadContent(ContentManager content, string exteriorTexturePath, string interiorTexturePath)

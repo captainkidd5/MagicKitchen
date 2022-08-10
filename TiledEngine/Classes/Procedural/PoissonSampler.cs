@@ -31,7 +31,7 @@ namespace TiledEngine.Classes.Procedural
 
 
 
-        public void Generate(PoissonData poissonData, Layers layerToCheckIfEmpty,
+        public void Generate(TileGenerationData poissonData, Layers layerToCheckIfEmpty,
             TileManager tileManager)
         {
             //generate first point randomly within grid
@@ -125,7 +125,7 @@ namespace TiledEngine.Classes.Procedural
         /// For example, limpet rock must be placed in shallow water
         /// </summary>
         /// <returns></returns>
-        private static bool CheckIfTileIsAllowedTileType(PoissonData poissonData, TileManager tileManager, Point newPoint)
+        private static bool CheckIfTileIsAllowedTileType(TileGenerationData poissonData, TileManager tileManager, Point newPoint)
         {
             bool correctTileType = false;
             foreach (string tileType in poissonData.AllowedTilingSets)

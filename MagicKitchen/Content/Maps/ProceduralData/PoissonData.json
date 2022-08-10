@@ -2,6 +2,7 @@
     {
         "GID":974,
         "LayersToPlace": "foreground",
+        "OnlyCentralTilingTile":true,
         "AllowedTilingSets":[
             "water"
         ],
@@ -14,6 +15,7 @@
     {
         "GID":1279,
         "LayersToPlace": "foreground",
+        "OnlyCentralTilingTile":true,
         "AllowedTilingSets":[
             "water"
         ],
@@ -21,7 +23,21 @@
         "MinDistance" : 3,
         "MaxDistance":8,
         "MaxCluster" : 15,
-        "OddsAdditionalSpawn" : 90
+        "OddsAdditionalSpawn" : 80
+    },
+    {
+        "GID":977,
+        "LayersToPlace": "foreground",
+        "OnlyCentralTilingTile":true,
+        "AllowedTilingSets":[
+            "water"
+        ],
+        "Tries" : 8000,
+        "MinDistance" : 1,
+        "MaxDistance":3,
+        "MaxCluster" : 15,
+        "OddsAdditionalSpawn" : 95
     }
+    
     
 ]

@@ -26,7 +26,7 @@ namespace TiledEngine.Classes.Procedural
 
 
 
-        public void Generate(PoissonData poissonData, Layers layerToCheckIfEmpty,
+        public void Generate(TileGenerationData poissonData, Layers layerToCheckIfEmpty,
             TileManager tileManager)
         {
             for (int i = 0; i < poissonData.Tries; i++)
@@ -36,9 +36,9 @@ namespace TiledEngine.Classes.Procedural
 
                 int numberOfAdditionalSpawns = 0;
 
-                while ((Settings.Random.Next(0, 100) <poissonData.OddsAdditionalSpawn) && numberOfAdditionalSpawns <= poissonData.MaxCluster)
+                while ((Settings.Random.Next(0, 100) < poissonData.OddsAdditionalSpawn) && numberOfAdditionalSpawns <= poissonData.MaxCluster)
                 {
-                    Point? point = tileManager.TileLocationHelper.RandomPointWithinRadius(spawnPoint,poissonData.MinDistance, poissonData.MaxDistance);
+                    Point? point = tileManager.TileLocationHelper.RandomPointWithinRadius(spawnPoint, poissonData.MinDistance, poissonData.MaxDistance);
                     if (point != null)
                     {
                         if (tileManager.TileData[(byte)layerToCheckIfEmpty][point.Value.X, point.Value.Y].Empty &&
@@ -55,17 +55,41 @@ namespace TiledEngine.Classes.Procedural
         /// <summary>
         /// For example, limpet rock must be placed in shallow water
         /// </summary>
+        /// Require central tile would meaning spawning things in water should not spawn on partial water tiles, only the central water tile
+        /// Trees for example wouldn't look right jutting out of a water edge tile
         /// <returns></returns>
-        private static bool CheckIfTileIsAllowedTileType(PoissonData poissonData, TileManager tileManager, Point newPoint)
+        private static bool CheckIfTileIsAllowedTileType(TileGenerationData poissonData, TileManager tileManager, Point newPoint)
         {
             bool correctTileType = false;
             foreach (string tileType in poissonData.AllowedTilingSets)
             {
+
                 if (tileManager.IsTypeOfTile(tileType, newPoint))
                 {
-                    correctTileType = true;
-                    break;
+                    if (poissonData.OnlyCentralTilingTile)
+                    {
+                        int wangGId = tileManager.TileSetPackage.WangManager.WangSets[tileType].Set.ElementAt(15).Value[0].GID;
+                        if (tileManager.TileData[0][newPoint.X, newPoint.Y].GID == wangGId)
+                        {
+                            correctTileType = true;
+                            break;
+                        }
+                        else
+                        {
+                            ushort id = tileManager.TileData[0][newPoint.X, newPoint.Y].GID;
+                            Console.WriteLine("test");
+                        }
+
+                    }
+                    else
+                    {
+                        correctTileType = true;
+                        break;
+                    }
+                   
                 }
+
+
 
             }
 

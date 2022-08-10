@@ -53,7 +53,7 @@ namespace TiledEngine.Classes
             if (tileSetTile.Properties.ContainsKey(propertyString))
             {
                 
-                tileSetPackage.TilingSetManager.AddTilingKey(tileSetTile.Properties[propertyString],isForeground ? tileSetPackage.OffSetBackgroundGID(tileSetTile.Id) : tileSetTile.Id);
+                tileSetPackage.WangManager.AddTilingKey(tileSetTile.Properties[propertyString],isForeground ? tileSetPackage.OffSetBackgroundGID(tileSetTile.Id) : tileSetTile.Id);
 
             }
      
@@ -82,7 +82,7 @@ namespace TiledEngine.Classes
 
                 int weight = int.Parse(arr[2].Split(":")[1]);
 
-                tileSetPackage.TilingSetManager.WangSets[setName].Set[tilingValue].Add(new WangTile((byte)weight, tileSetTile.Id));
+                tileSetPackage.WangManager.WangSets[setName].Set[tilingValue].Add(new WangTile((byte)weight, tileSetTile.Id));
 
 
             }
@@ -101,7 +101,7 @@ namespace TiledEngine.Classes
 
             if (!string.IsNullOrEmpty(tileData.GetProperty(tileSetPackage,"tilingSet")))
             {
-                List<int> ids = tileSetPackage.TilingSetManager.WangTile(tileManager, tileData);
+                List<int> ids = tileSetPackage.WangManager.WangTile(tileManager, tileData);
                 if (!ids.Contains( tileData.GID))
                 {
                     //if(tileManager.TileSetPackage.IsForeground(tileData.GID))
@@ -111,7 +111,7 @@ namespace TiledEngine.Classes
                 }
 
             }
-            tileSetPackage.TilingSetManager.WangSorroundingTiles(tileManager, tileData);
+            tileSetPackage.WangManager.WangSorroundingTiles(tileManager, tileData);
 
             int tileSetDimension = tileSetPackage.GetDimension(tileData.GID);
             Texture2D texture = tileSetPackage.GetTexture(tileData.GID);

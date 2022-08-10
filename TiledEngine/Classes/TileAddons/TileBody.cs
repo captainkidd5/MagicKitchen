@@ -110,9 +110,9 @@ namespace TiledEngine.Classes.TileAddons
 
                 if (Enum.IsDefined(typeof(AllowedPlacementTileType),allowedPlacementType) &&
                     allowedPlacementType == AllowedPlacementTileType.land &&
-                    Tile.TileManager.TileSetPackage.TilingSetManager.IsPartOfSet(Tile.TileManager, "land", Tile.TileData.GID))
+                    Tile.TileManager.TileSetPackage.WangManager.IsPartOfSet(Tile.TileManager, "land", Tile.TileData.GID))
                 {
-                    gidToSwitchTo = Tile.TileManager.TileSetPackage.TilingSetManager.WangSets["water"].GetWeightedvalue(15) - 1;
+                    gidToSwitchTo = Tile.TileManager.TileSetPackage.WangManager.WangSets["water"].GetWeightedvalue(15) - 1;
                 }
 
             }

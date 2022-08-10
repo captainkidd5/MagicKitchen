@@ -16,7 +16,7 @@ namespace TiledEngine.Classes.Procedural
         private PoissonSampler _poissonSampler;
         private ClusterSampler _clusterSampler;
 
-        private List<PoissonData> _poissonData;
+        private List<TileGenerationData> _poissonData;
         public ProceduralPlacer()
         {
         }
@@ -37,12 +37,12 @@ namespace TiledEngine.Classes.Procedural
                 if (file.EndsWith("PoissonData.json"))
                 {
                     jsonString = File.ReadAllText(file);
-                    _poissonData = JsonSerializer.Deserialize<List<PoissonData>>(jsonString, options);
+                    _poissonData = JsonSerializer.Deserialize<List<TileGenerationData>>(jsonString, options);
 
 
                 }
 
-            foreach(PoissonData data in _poissonData)
+            foreach(TileGenerationData data in _poissonData)
             {
                 if (data.MinDistance > data.MaxDistance)
                     throw new Exception($"procedural data with gid {data.GID} muts have max distance equal to or greater than min distance");
@@ -57,7 +57,7 @@ namespace TiledEngine.Classes.Procedural
 
         public void AddPoissonTiles(TileManager tileManager)
         {
-            foreach(PoissonData poissonData in _poissonData)
+            foreach(TileGenerationData poissonData in _poissonData)
             {
                 _poissonSampler.Generate(poissonData, DataModels.Enums.Layers.foreground, tileManager);
             }
@@ -65,7 +65,7 @@ namespace TiledEngine.Classes.Procedural
 
         public void AddClusterTiles(TileManager tileManager)
         {
-            foreach (PoissonData poissonData in _poissonData)
+            foreach (TileGenerationData poissonData in _poissonData)
             {
                 _clusterSampler.Generate(poissonData, DataModels.Enums.Layers.foreground, tileManager);
             }
