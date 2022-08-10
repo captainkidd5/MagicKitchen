@@ -129,10 +129,10 @@ namespace StageEngine.Classes
         /// <summary>
         /// Loads tiles into memory, then saves them, from tmx map. Should only be called ONCE per stage, per save
         /// </summary>
-        public void CreateNewSave()
+        public void CreateNewSave(Dictionary<string, StageData> allStageData)
         {
 
-            TileLoader.CreateNewSave(_stageData, TileManager, _content);
+            TileLoader.CreateNewSave(allStageData, TileManager, _content);
             MapRectangle = TileManager.MapRectangle;
 
             SaveToStageFile();

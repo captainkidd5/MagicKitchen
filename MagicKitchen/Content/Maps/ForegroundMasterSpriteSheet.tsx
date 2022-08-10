@@ -408,6 +408,17 @@
    <property name="newSource" value="0,-16,32,32"/>
   </properties>
  </tile>
+ <tile id="1536">
+  <properties>
+   <property name="lightSource" value=".15,4,24,Nautical,immune:false"/>
+   <property name="newSource" value="0,-48,16,64"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="3" y="5" width="11" height="8">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="1547">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>

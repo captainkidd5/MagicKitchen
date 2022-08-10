@@ -25,6 +25,8 @@ using EntityEngine.Classes.NPCStuff;
 using Globals.Classes.Console;
 using ItemEngine.Classes;
 using tainicom.Aether.Physics2D.Dynamics;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace StageEngine.Classes
 {
@@ -170,12 +172,33 @@ namespace StageEngine.Classes
         public void CreateNewSave(BinaryWriter writer)
         {
             SetToDefault();
-            StageData stageData = content.Load<StageData>("maps/StageData");
+
+
+            string basePath = content.RootDirectory + "/Maps";
+            var options = new JsonSerializerOptions();
+            options.Converters.Add(new JsonStringEnumConverter());
+
+            var files = Directory.GetFiles(basePath);
+            string jsonString = string.Empty;
+
+            Dictionary<string, StageData> allStageData = new Dictionary<string, StageData>();
+            foreach (var file in files)
+                if (file.EndsWith("StageData.json"))
+                {
+                    jsonString = File.ReadAllText(file);
+                    allStageData = JsonSerializer.Deserialize<List<StageData>>(jsonString, options).ToDictionary(x => x.Name);
+                    break;
+
+                }
+
+
+
+           // StageData stageData = content.Load<StageData>("maps/StageData");
             CurrentStage = new Stage(content, graphics, _camera);
 
-            CurrentStage.Load(stageData, this, _playerManager);
+            CurrentStage.Load(allStageData["LullabyTown"], this, _playerManager);
 
-            CurrentStage.CreateNewSave();
+            CurrentStage.CreateNewSave(allStageData);
             _playerManager.Save(writer);
 
 

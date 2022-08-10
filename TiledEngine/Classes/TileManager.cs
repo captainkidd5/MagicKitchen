@@ -400,7 +400,7 @@ namespace TiledEngine.Classes
             return TileData[(int)layer][point.X, point.Y];
         }
 
-
+        internal bool IsValidPoint(Point point) => TileLocationHelper.X_IsValidIndex(point.X) && TileLocationHelper.Y_IsValidIndex(point.Y);
 
         internal bool X_IsValidIndex(int x) => TileLocationHelper.X_IsValidIndex(x);
 

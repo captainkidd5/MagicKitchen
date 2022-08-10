@@ -51,7 +51,7 @@ namespace TiledEngine.Classes
         public static void LoadContent(ContentManager content)
         {
             s_mapPath = content.RootDirectory + "/Maps/";
-            TmxMap worldMap = new TmxMap(s_mapPath + "HomeIsland.tmx");
+            TmxMap worldMap = new TmxMap(s_mapPath + "LullabyTown.tmx");
             TileSetPackage = new TileSetPackage(worldMap);
 
             TileSetPackage.LoadContent(content, "maps/BackgroundMasterSpriteSheet_Spaced", "maps/ForegroundMasterSpriteSheet");
@@ -73,15 +73,19 @@ namespace TiledEngine.Classes
         /// First load loads all the tiles in from the TMX maps, from then on
         /// all the tiles will be loaded with the binary reader
         /// </summary>
-        public static void CreateNewSave(StageData stageData, TileManager tileManager, ContentManager content)
+        public static void CreateNewSave(Dictionary<string, StageData> stageData, TileManager tileManager, ContentManager content)
         {
-            TmxMap mapToLoad = new TmxMap(s_mapPath + stageData.Path);
+            TmxMap worldMap = new TmxMap(s_mapPath + stageData["LullabyTown"].Path);
+            TmxMap town = new TmxMap(s_mapPath + stageData["HomeIsland"].Path);
+
             List<TileData[,]> mapData;// = ExtractTilesFromPreloadedMap(tileManager, mapToLoad);
-            mapData = GenerateEmptyMapArray(tileManager, mapToLoad, 512);
+            mapData = GenerateEmptyMapArray(tileManager, worldMap, 512);
             mapData[0] = GenerateAutomataLayer(512);
 
-            InsertCustomMapAt(mapData, new Point(250, 250), mapToLoad);
-            tileManager.LoadMap(mapToLoad, mapData, 512, TileSetPackage);
+            InsertCustomMapAt(mapData, new Point(250, 250), worldMap);
+            InsertCustomMapAt(mapData, new Point(180, 180), town);
+
+            tileManager.LoadMap(worldMap, mapData, 512, TileSetPackage);
 
 
         }

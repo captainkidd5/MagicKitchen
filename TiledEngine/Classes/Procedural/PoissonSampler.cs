@@ -15,8 +15,7 @@ namespace TiledEngine.Classes.Procedural
     {
         private const int CellSize = 16; //standard tile size
         private int _tries; //Maximum number of tries for a new point.
-
-
+        private readonly TileManager _tileManager;
         private int _minDistance; //Minimum distance points must be separated from one another
         private int _maxDistance;//Maximum distance a point can be from at least one other point
 
@@ -25,20 +24,21 @@ namespace TiledEngine.Classes.Procedural
         public Rectangle GridRectangle { get; set; }
 
 
-        public PoissonSampler(int minDistance, int maxDistance, int tries)
+        public PoissonSampler(TileManager tileManager, int minDistance, int maxDistance, int tries)
         {
+            _tileManager = tileManager;
             _minDistance = minDistance;
             _maxDistance = maxDistance;
             _activeSamples = new List<Point>();
             _tries = tries;
         }
 
-        public void Generate(int gid, List<TileData[,]> tileData, int layerToPlace, Layers layerToPlaceOn, Layers layerToCheckIfEmpty,
-            TileManager TileManager, GenerationType generationType, Random random, bool isCrop)
+        public void Generate(int gid, Layers layerToPlaceOn, Layers layerToCheckIfEmpty,
+            TileManager TileManager, Random random, bool isCrop)
         {
             //generate first point randomly within grid
-            _activeSamples.Add(new Point(random.Next(0, tileData.GetLength(0) - 1),
-                random.Next(0, tileData.GetLength(0) - 1)));
+            _activeSamples.Add(new Point(random.Next(0, _tileManager.TileData[0].GetLength(0) - 1),
+                random.Next(0, _tileManager.TileData[0].GetLength(0) - 1)));
 
             while (_activeSamples.Count > 0)
             {
@@ -56,28 +56,27 @@ namespace TiledEngine.Classes.Procedural
                     int newY = sample.Y + _minDistance * ChanceHelper.GetNevagiveOrPositive1();
                     Point newPoint = new Point(newX, newY);
 
-                    if (GridContains(newPoint))
+                    if (_tileManager.IsValidPoint(newPoint))
                     {
-                        if (tileData[newPoint.X, newPoint.Y].Empty)
+                        if (_tileManager.TileData[(int)layerToPlaceOn][newPoint.X, newPoint.Y].Empty)
                         {
                             if (IsFarEnough(newPoint))
                             {
-                                if (TileManager.AllTiles[layerToPlaceOn][newPoint.X, newPoint.Y].GenerationType == generationType)
-                                {
+                               
 
                                     if (layerToCheckIfEmpty == Layers.background)
                                     {
                                         found = true;
                                         _activeSamples.Add(newPoint);
-                                        tileData[newPoint.X, newPoint.Y].GID = (ushort)gid;
+                                        _tileManager.TileData[(int)layerToPlaceOn][newPoint.X, newPoint.Y].GID = (ushort)gid;
                                     }
                                     else
                                     {
-                                        if (tileData[layerToCheckIfEmpty][newPoint.X, newPoint.Y].Empty)
+                                        if (_tileManager.TileData[(int)layerToPlaceOn][newPoint.X, newPoint.Y].Empty)
                                         {
                                             found = true;
                                             _activeSamples.Add(newPoint);
-                                            tileData[newPoint.X, newPoint.Y].GID = (ushort)gid;
+                                        _tileManager.TileData[(int)layerToPlaceOn][newPoint.X, newPoint.Y].GID = (ushort)gid;
                                             break;
                                         }
                                     }
@@ -85,7 +84,7 @@ namespace TiledEngine.Classes.Procedural
 
                                     
 
-                                }
+                                
 
                             }
                         }
@@ -109,40 +108,33 @@ namespace TiledEngine.Classes.Procedural
 
         }
 
-        private bool GridContains(Point sample)
-        {
-            if (sample.X > 0 && sample.Y > 0 && sample.X < Grid.GetLength(0) && sample.Y < Grid.GetLength(1))
-            {
-                return true;
-            }
-            return false;
-        }
+   
 
-        private bool IsFarEnough(Point sample, TileData[,] tileData)
+        private bool IsFarEnough(Point sample)
         {
             int startingX = sample.X - _minDistance;
             int startingY = sample.Y - _minDistance;
-            Game1.Utility.EnsurePositive(ref startingX);
-            Game1.Utility.EnsurePositive(ref startingY);
+            //Game1.Utility.EnsurePositive(ref startingX);
+            //Game1.Utility.EnsurePositive(ref startingY);
 
-            int endingIndexX = sample.X + _minDistance;
-            int endingIndexY = sample.Y + _minDistance;
-            int max = tileData.GetLength(0) - 1;
+            //int endingIndexX = sample.X + _minDistance;
+            //int endingIndexY = sample.Y + _minDistance;
+            //int max = _tileManager.TileData[0].GetLength(0) - 1;
 
-            Game1.Utility.EnsureNoMoreThanMax(ref endingIndexX, max);
-            Game1.Utility.EnsureNoMoreThanMax(ref endingIndexY, max);
+            //Game1.Utility.EnsureNoMoreThanMax(ref endingIndexX, max);
+            //Game1.Utility.EnsureNoMoreThanMax(ref endingIndexY, max);
 
 
-            for (int i = startingX; i < endingIndexX; i++)
-            {
-                for (int j = startingY; j < endingIndexY; j++)
-                {
-                    if (tileData[i,j].Empty)
-                    {
-                        return false;
-                    }
-                }
-            }
+            //for (int i = startingX; i < endingIndexX; i++)
+            //{
+            //    for (int j = startingY; j < endingIndexY; j++)
+            //    {
+            //        if (_tileManager.TileData[i,j].Empty)
+            //        {
+            //            return false;
+            //        }
+            //    }
+            //}
             return true;
         }
     }
