@@ -55,5 +55,14 @@ namespace Globals.Classes.Chance
         {
             return (float)(Settings.Random.NextDouble() * (max - min)) + min;
         }
+
+        /// <summary>
+        /// Returns 1 or -1 at a 50% chance
+        /// </summary>
+        /// <returns></returns>
+        public static int GetNevagiveOrPositive1()
+        {
+            return Settings.Random.Next(0, 2) * 2 - 1;
+        }
     }
 }
