@@ -11,7 +11,7 @@ namespace DataModels.MapStuff
         public Layers LayersToPlace { get; set; }
         public List<string> AllowedTilingSets { get; set; }
 
-        //Only complete water tile, for example, none of its tiling
+        //Only complete water tile, for example, not 
         public bool OnlyCentralTilingTile { get; set; }
 
         public ushort Tries { get; set; }

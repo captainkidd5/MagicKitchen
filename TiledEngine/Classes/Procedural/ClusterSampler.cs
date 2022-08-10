@@ -55,47 +55,60 @@ namespace TiledEngine.Classes.Procedural
         /// <summary>
         /// For example, limpet rock must be placed in shallow water
         /// </summary>
-        /// Require central tile would meaning spawning things in water should not spawn on partial water tiles, only the central water tile
-        /// Trees for example wouldn't look right jutting out of a water edge tile
         /// <returns></returns>
-        private static bool CheckIfTileIsAllowedTileType(TileGenerationData poissonData, TileManager tileManager, Point newPoint)
+        private bool CheckIfTileIsAllowedTileType(TileGenerationData poissonData, TileManager tileManager, Point newPoint)
         {
             bool correctTileType = false;
             foreach (string tileType in poissonData.AllowedTilingSets)
             {
-
                 if (tileManager.IsTypeOfTile(tileType, newPoint))
                 {
                     if (poissonData.OnlyCentralTilingTile)
                     {
-                        int wangGId = tileManager.TileSetPackage.WangManager.WangSets[tileType].Set.ElementAt(15).Value[0].GID;
-                        if (tileManager.TileData[0][newPoint.X, newPoint.Y].GID == wangGId)
+                        if (TouchingAnyOtherTiles(poissonData, tileManager, newPoint,
+                            tileManager.TileSetPackage.WangManager.WangSets[tileType].Set.ElementAt(15).Value[0].GID))
                         {
-                            correctTileType = true;
                             break;
                         }
-                        else
-                        {
-                            ushort id = tileManager.TileData[0][newPoint.X, newPoint.Y].GID;
-                            Console.WriteLine("test");
-                        }
-
                     }
-                    else
-                    {
-                        correctTileType = true;
-                        break;
-                    }
-                   
+                    correctTileType = true;
+                    break;
                 }
-
-
 
             }
 
             return correctTileType;
         }
 
+        /// <summary>
+        /// Returns if specified gid touches any other gid in a sorrounding area other than itself
+        /// </summary>
+        /// <param name="poissonData"></param>
+        /// <param name="tileManager"></param>
+        /// <param name="newPoint"></param>
+        /// <param name="gidToCheckFor"></param>
+        /// <returns></returns>
+        private bool TouchingAnyOtherTiles(TileGenerationData poissonData, TileManager tileManager, Point newPoint, int gidToCheckFor)
+        {
+            for (int i = -1; i < 2; i++)
+            {
+                for (int j = -1; j < 2; j++)
+                {
+                    Point sorroundingPoint = new Point(newPoint.X + i, newPoint.Y + j);
+                    if (tileManager.IsValidPoint(sorroundingPoint))
+                    {
+                        int sorroundinGid = tileManager.TileData[0][sorroundingPoint.X, sorroundingPoint.Y].GID;
+                        if (sorroundinGid != gidToCheckFor)
+                        {
+                            return true;
+                        }
+
+                    }
+                }
+            }
+
+            return false;
+        }
         private bool IsFarEnough(TileManager tileManager, Point sample, int minDistance, int maxDistance)
         {
             if (!tileManager.IsValidPoint(sample))
