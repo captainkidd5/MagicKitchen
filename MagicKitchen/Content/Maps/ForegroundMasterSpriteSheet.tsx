@@ -903,6 +903,12 @@
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
  </tile>
+ <tile id="4613">
+  <properties>
+   <property name="newHitBox" value="-16,-64,128,80"/>
+   <property name="newSource" value="-16,-128,128,144"/>
+  </properties>
+ </tile>
  <tile id="4621">
   <properties>
    <property name="newHitBox" value="4, -8, 26"/>

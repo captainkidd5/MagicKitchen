@@ -10,5 +10,11 @@
         "Name":"HomeIsland",
         "Path":"HomeIsland.tmx",
         "AmbientSoundPackageName":"Overworld_Outside"
+    },
+    {
+        "Id":3,
+        "Name":"Caravan",
+        "Path":"Caravan.tmx",
+        "AmbientSoundPackageName":"Overworld_Outside"
     }
 ]

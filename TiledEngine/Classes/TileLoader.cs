@@ -79,11 +79,14 @@ namespace TiledEngine.Classes
         {
             TmxMap worldMap = new TmxMap(s_mapPath + stageData["LullabyTown"].Path);
             TmxMap town = new TmxMap(s_mapPath + stageData["HomeIsland"].Path);
+            TmxMap caravan = new TmxMap(s_mapPath + stageData["Caravan"].Path);
 
             List<TileData[,]> mapData;// = ExtractTilesFromPreloadedMap(tileManager, mapToLoad);
             mapData = GenerateEmptyMapArray(tileManager, worldMap, 512);
             mapData[0] = GenerateAutomataLayer(512);
             InsertCustomMapAt(mapData, new Point(112, 112), worldMap);
+            InsertCustomMapAt(mapData, new Point(96, 96), caravan);
+
             InsertCustomMapAt(mapData, new Point(24, 24), town);
 
             tileManager.LoadMap(worldMap, mapData, 512, TileSetPackage);
