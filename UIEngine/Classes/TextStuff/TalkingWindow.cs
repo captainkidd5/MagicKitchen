@@ -24,6 +24,7 @@ namespace UIEngine.Classes.TextStuff
 {
     internal class TalkingWindow : MenuSection
     {
+        private static readonly int s_portraitWidth = 96;
         private Rectangle _backgroundSourceRectangle = new Rectangle(64, 496, 272, 64);
         private Sprite BackdropSprite { get; set; }
         private TextBuilder TextBuilder { get; set; }
@@ -71,7 +72,7 @@ namespace UIEngine.Classes.TextStuff
             _goToNextDialogueButton = new Button(null, graphics, content,
                 RectangleHelper.PlaceRectangleAtBottomRightOfParentRectangle(TotalBounds,_goToNextDialogueButtonSourceRectangle),
                 GetLayerDepth(Layers.midground), _goToNextDialogueButtonSourceRectangle, GoToNext );
-            _portraitSpritePosition = new Vector2(Position.X + TotalBounds.Width, Position.Y);
+            _portraitSpritePosition = new Vector2(Position.X + TotalBounds.Width - s_portraitWidth * 2, Position.Y - s_portraitWidth * 2);
             base.LoadContent();
         }
         public void RegisterCommands()
@@ -162,11 +163,12 @@ namespace UIEngine.Classes.TextStuff
         }
         public void LoadNewConversation(Dialogue dialogue)
         {
-            _portraitSprite = SpriteFactory.CreateUISprite(Position, new Rectangle(0, 0, 98, 98),
+            _portraitSprite = SpriteFactory.CreateUISprite(_portraitSpritePosition, new Rectangle(dialogue.DialogueText[_curerentDialogueIndex].IndexX * s_portraitWidth,
+                dialogue.DialogueText[_curerentDialogueIndex].IndexY * s_portraitWidth, s_portraitWidth, s_portraitWidth),
                 UI.PortraitsManager.PortraitsTexture, GetLayeringDepth(UILayeringDepths.Medium), scale:new Vector2(2f,2f));
             _curerentDialogue = dialogue;
             TextBuilder.ClearText();
-            Text text = TextFactory.CreateUIText(dialogue.DialogueText[_curerentDialogueIndex], GetLayeringDepth(UILayeringDepths.Front), scale: 1f);
+            Text text = TextFactory.CreateUIText(dialogue.DialogueText[_curerentDialogueIndex].DialogueText, GetLayeringDepth(UILayeringDepths.Front), scale: 1f);
             text.SetFullString(text.WrapAutoText(BackdropSprite.HitBox.Width));
 
 
