@@ -1,0 +1,42 @@
+[
+        {
+            
+                "Name" : "A Light in the Dark",
+                "PreRequisites":
+                [
+                    {
+                        
+                    }
+                ],
+                "Steps":
+                {
+                    
+                        "1":
+                        {
+                            "Index":0,
+                            "AqcuiredFrom":"Ned",
+                            "TurnInto" : "Ned",
+                            "StartText": "start test",
+                            "EndText" : "end test",
+                            "PreRequisites":[
+                                {
+                                    "ItemRequirements":[
+                                        {
+                                            "ItemName" : "Fibre",
+                                            "Count" : 8
+                                        }
+                                    ]
+                                }
+                            ]
+
+                        }
+                        
+                       
+                    
+                    }
+            
+
+    }
+    
+        
+]

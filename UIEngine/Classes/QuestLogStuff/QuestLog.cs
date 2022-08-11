@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels.QuestStuff;
+using Globals.Classes;
 using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -14,8 +15,10 @@ namespace UIEngine.Classes.QuestLogStuff
 {
     internal class QuestLog : MenuSection
     {
-        private QuestList _questList;
+        private QuestList _activeQuestList;
         private Rectangle _totalSourceRectangleBounds;
+
+        public QuestManager QuestManager { get; set; }
         public QuestLog(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -28,8 +31,8 @@ namespace UIEngine.Classes.QuestLogStuff
             Position = RectangleHelper.CenterRectangleInRectangle(_totalSourceRectangleBounds, Settings.ScreenRectangle);
             Position = new Vector2(Position.X, Position.Y + 48);
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _totalSourceRectangleBounds.Width, _totalSourceRectangleBounds.Height);
-            _questList = new QuestList(this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
-            _questList.LoadContent();
+            _activeQuestList = new QuestList(this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
+            _activeQuestList.LoadContent();
             base.LoadContent();
 
         }

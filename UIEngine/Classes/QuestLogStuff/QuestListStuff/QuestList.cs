@@ -17,7 +17,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
         private Rectangle _backGroundSourceRectangle = new Rectangle(336, 304, 240, 256);
         private Sprite _backGroundSprite;
 
-        private Vector2 _scale = new Vector2(1f, 2f);
+        private Vector2 _scale = new Vector2(2f, 2f);
         public QuestList(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
 
@@ -26,9 +26,17 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
         {
 
             _backGroundSprite = SpriteFactory.CreateUISprite(Position, _backGroundSourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back), scale:_scale);
-            _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
             
            // base.LoadContent();
+
+        }
+
+        public void LoadQuests()
+        {
+            if (ChildSections.Contains(_stackPanel))
+                ChildSections.Remove(_stackPanel);
+
+            _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
 
         }
 

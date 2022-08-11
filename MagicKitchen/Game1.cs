@@ -21,7 +21,6 @@ using TiledEngine.Classes;
 using EntityEngine.Classes;
 using EntityEngine.Classes.CharacterStuff;
 using Globals.Classes.Time;
-using EntityEngine.Classes.CharacterStuff.QuestStuff;
 using SoundEngine;
 using SoundEngine.Classes;
 using QuakeConsole;
@@ -30,6 +29,7 @@ using MagicKitchen.Classes.ConsoleStuff;
 using System;
 using SoundEngine.Classes.SongStuff;
 using InputEngine.Classes;
+using DataModels.QuestStuff;
 
 namespace MagicKitchen
 {
@@ -48,6 +48,8 @@ namespace MagicKitchen
         private CommandList _commandList;
 
         private PlayerManager _playerManager;
+
+        private QuestManager _questManager;
         public Player Player1 => _playerManager.Player1;
 
         public static SpriteFont MainFont { get; set; }
@@ -113,7 +115,8 @@ namespace MagicKitchen
             ItemFactory.LoadContent(Content);
             EntityFactory.Load(Content);
 
-
+            _questManager = new QuestManager();
+            _questManager.Load(Content);
             Controls.Load(Camera, GraphicsDevice, Content);
             RenderTargetManager.Load(GraphicsDevice);
 
@@ -123,7 +126,7 @@ namespace MagicKitchen
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
             SongManager.Load(Content);
             UI.Load(this, GraphicsDevice, Content, _mainMenuContentManager, _splashScreenContentManager);
-
+            UI.LoadQuests(_questManager);
             SoundFactory.Load(Content);
 
             SaveLoadManager.SaveCreated += OnSaveCreated;

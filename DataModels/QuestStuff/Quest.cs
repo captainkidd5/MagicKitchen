@@ -10,21 +10,11 @@ namespace DataModels.QuestStuff
     
     public class Quest
     {
-        [JsonIgnore]
-        public bool Completed { get; set; }
-        /// <summary>
-        /// Name of the quest, must be unique
-        /// </summary>
-        public string QuestName { get; set; }
-        /// <summary>
-        /// Name of the NPC to talk to to get
-        /// </summary>
-        public string AcquiredFrom { get; set; }
-        /// <summary>
-        /// Name of the NPC to talk to once conditions are met
-        /// </summary>
-        public string TurnInto { get; set; }
+        public string Name { get; set; }
         public List<PreRequisite> PreRequisites { get; set; }
+
+        public Dictionary<int, QuestStep> Steps { get; set; }
+
 
         public static List<Quest> GetQuests(string characterSubDirectory)
         {

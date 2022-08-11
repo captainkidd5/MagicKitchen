@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace DataModels.QuestStuff
 {
-    public class SubQuest
+    public class QuestStep
     {
         [JsonIgnore]
 
@@ -20,7 +20,7 @@ namespace DataModels.QuestStuff
         /// <summary>
         /// Name of the NPC to talk to once conditions are met
         /// </summary>
-        public string TurnInTo { get; set; }
+        public string TurnInto { get; set; }
         /// <summary>
         /// List of prerequisites to complete this STEP in the overall quest
         /// </summary>

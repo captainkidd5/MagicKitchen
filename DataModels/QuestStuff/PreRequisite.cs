@@ -10,6 +10,9 @@ namespace DataModels.QuestStuff
         /// Names of all quests needed to be complete before can start quest assigned to
         /// </summary>
         public List<string> RequiredQuestNames { get; set; }
+
+        public List<QuestItemRequirement> ItemRequirements { get; set; }
+
         //TODO: Add more things like lvl reqs
     }
 }

@@ -39,6 +39,7 @@ using UIEngine.Classes.SplashScreens;
 using System.Threading.Tasks;
 using UIEngine.Classes.DebugStuff.DeveloperBoardStuff;
 using UIEngine.Classes.QuestLogStuff;
+using DataModels.QuestStuff;
 
 namespace UIEngine.Classes
 {
@@ -192,6 +193,7 @@ namespace UIEngine.Classes
             _saveTimer = new SimpleTimer(_saveFrequency);
 
         }
+        public static void LoadQuests(QuestManager questManager) => QuestLog.QuestManager = questManager;
         internal static void LoadNewCursorInfo(List<string> text) => CursorInfoBox.LoadNewText(text);
 
         public static void ActivateSecondaryInventoryDisplay(FurnitureType t, StorageContainer storageContainer, bool displayWallet = false)
