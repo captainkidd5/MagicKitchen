@@ -23,7 +23,13 @@
                                     "ItemRequirements":[
                                         {
                                             "ItemName" : "Fibre",
-                                            "Count" : 8
+                                            "Count" : 8,
+                                            "Description": "Ned would like me to bring him: "
+                                        },
+                                        {
+                                            "ItemName" : "Stone",
+                                            "Count" : 3,
+                                            "Description": "Ned would like me to bring him: "
                                         }
                                     ]
                                 }

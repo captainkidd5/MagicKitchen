@@ -8,5 +8,7 @@ namespace DataModels.QuestStuff
     {
         public string ItemName { get; set; }
         public ushort Count { get; set; }
+
+        public string Description { get; set; }
     }
 }
