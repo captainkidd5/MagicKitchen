@@ -1,4 +1,6 @@
 ﻿using DataModels.QuestStuff;
+using Globals.Classes.Console;
+using Globals.Classes.Helpers;
 using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -20,7 +22,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
     {
         private StackPanel _stackPanel;
         
-        private Rectangle _backGroundSourceRectangle = new Rectangle(336, 304, 240, 256);
+        private Rectangle _backGroundSourceRectangle = new Rectangle(336, 304, 112, 256);
         private Sprite _backGroundSprite;
 
         private Vector2 _scale = new Vector2(2f, 2f);
@@ -35,7 +37,16 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
             _stackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
 
 
-            foreach(KeyValuePair<string, Quest> questPair in SaveLoadManager.CurrentSave.GameProgressData.QuestProgress)
+            StackRow row1 = new StackRow((int)(_backGroundSprite.Width * _scale.X));
+            List<Text> titleText = new List<Text>() { TextFactory.CreateUIText("Active Quests", GetLayeringDepth(UILayeringDepths.High)) };
+
+            NineSliceTextButton titleButton = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), titleText,
+                null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: 60,centerText:true, hoverTransparency:false);
+            row1.AddItem(titleButton, StackOrientation.Left);
+            _stackPanel.Add(row1);
+
+
+            foreach (KeyValuePair<string, Quest> questPair in SaveLoadManager.CurrentSave.GameProgressData.QuestProgress)
             {
                 Quest quest = questPair.Value;
                 
@@ -43,12 +54,20 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
                 List<Text> text = new List<Text>() { TextFactory.CreateUIText(quest.Name, GetLayeringDepth(UILayeringDepths.High)) };
 
                 NineSliceTextButton btn = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), text,
-                    null, forcedWidth:(int)(_backGroundSprite.Width* _scale.X), forcedHeight: 60);
+                    new Action (()=> { SetActiveQuest(quest); }), forcedWidth:(int)(_backGroundSprite.Width* _scale.X), forcedHeight: 60,centerText: true);
                 stackRow.AddItem(btn, StackOrientation.Left);
                 _stackPanel.Add(stackRow);
             }
  
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, (int)(_backGroundSourceRectangle.Width * _scale.X),
+                (int)(_backGroundSourceRectangle.Height * _scale.Y));
+        }
 
+       
+
+        private void SetActiveQuest(Quest quest)
+        {
+            (parentSection as QuestLog).SetActiveQuest(quest);
         }
 
 

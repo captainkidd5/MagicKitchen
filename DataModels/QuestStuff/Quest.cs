@@ -13,6 +13,7 @@ namespace DataModels.QuestStuff
         public string Name { get; set; }
         public List<PreRequisite> PreRequisites { get; set; }
 
+        public int CurrentStep { get; set; }
         public Dictionary<int, QuestStep> Steps { get; set; }
 
 

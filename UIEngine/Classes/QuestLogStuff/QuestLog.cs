@@ -1,10 +1,12 @@
 ﻿using DataModels.QuestStuff;
 using Globals.Classes;
+using Globals.Classes.Console;
 using Globals.Classes.Helpers;
 using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +20,7 @@ namespace UIEngine.Classes.QuestLogStuff
     {
         private QuestList _activeQuestList;
         private Rectangle _totalSourceRectangleBounds;
-
+        private Gazetteer _gazetteer;
         public QuestLoader QuestLoader { get; set; }
 
         private Dictionary<string, Quest> _quests => SaveLoadManager.CurrentSave.GameProgressData.QuestProgress;
@@ -34,12 +36,27 @@ namespace UIEngine.Classes.QuestLogStuff
             Position = RectangleHelper.CenterRectangleInRectangle(_totalSourceRectangleBounds, Settings.ScreenRectangle);
             Position = new Vector2(Position.X, Position.Y + 48);
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _totalSourceRectangleBounds.Width, _totalSourceRectangleBounds.Height);
-            _activeQuestList = new QuestList(this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
+            _activeQuestList = new QuestList(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             _activeQuestList.LoadContent();
+            Vector2 gazetteerPos = new Vector2(_activeQuestList.Position.X + _activeQuestList.Width, Position.Y);
+            _gazetteer = new Gazetteer(this, graphics, content, gazetteerPos, GetLayeringDepth(UILayeringDepths.Low) );
+            _gazetteer.LoadContent();
 
-           // SaveLoadManager.CurrentSave.GameProgressData.StartNewQuest(QuestLoader.AllQuests["A Light in the Dark"]);
+            // SaveLoadManager.CurrentSave.GameProgressData.StartNewQuest(QuestLoader.AllQuests["A Light in the Dark"]);
+            CommandConsole.RegisterCommand("startQ", "Starts quest of given name", StartNewQuest);
             base.LoadContent();
 
+        }
+        private void StartNewQuest(string[] args)
+        {
+            SaveLoadManager.CurrentSave.GameProgressData.StartNewQuest(QuestLoader.AllQuests[args[0]]);
+            _activeQuestList.LoadContent();
+
+        }
+        public void SetActiveQuest(Quest quest)
+        {
+            _gazetteer.ActiveQuest = quest;
+            _gazetteer.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
