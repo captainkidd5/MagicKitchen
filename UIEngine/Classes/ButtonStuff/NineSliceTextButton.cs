@@ -63,7 +63,7 @@ namespace UIEngine.Classes.ButtonStuff
             if (_forcedWidth == null)
                 BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X - 8, Position.Y - 8), combinedtext, UI.ButtonTexture, LayerDepth);
             else
-                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(new Vector2(Position.X, Position.Y), _forcedWidth.Value,
+                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(new Vector2(Position.X - 8, Position.Y - 8), _forcedWidth.Value,
                     _forcedHeight.Value, UI.ButtonTexture, LayerDepth);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,  _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);

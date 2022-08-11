@@ -48,6 +48,9 @@ namespace UIEngine.Classes.TextStuff
 
         private Vector2 _portraitSpritePosition;
         private Sprite _portraitSprite;
+
+        private StackPanel _tabsStackPanel;
+        private NineSliceTextButton _talkTab;
         public TalkingWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -56,6 +59,8 @@ namespace UIEngine.Classes.TextStuff
         }
         public override void LoadContent()
         {
+
+
             Position = RectangleHelper.PlaceBottomCenterScreen(RectangleHelper.RectangleToScale(_backgroundSourceRectangle, _scale));
             Position = new Vector2(Position.X, Position.Y - Settings.Gutter);
 
@@ -70,11 +75,28 @@ namespace UIEngine.Classes.TextStuff
 
             _curerentDialogueIndex = 0;
             _goToNextDialogueButton = new Button(null, graphics, content,
-                RectangleHelper.PlaceRectangleAtBottomRightOfParentRectangle(TotalBounds,_goToNextDialogueButtonSourceRectangle),
-                GetLayerDepth(Layers.midground), _goToNextDialogueButtonSourceRectangle, GoToNext );
+                RectangleHelper.PlaceRectangleAtBottomRightOfParentRectangle(TotalBounds, _goToNextDialogueButtonSourceRectangle),
+                GetLayerDepth(Layers.midground), _goToNextDialogueButtonSourceRectangle, GoToNext);
             _portraitSpritePosition = new Vector2(Position.X + TotalBounds.Width - s_portraitWidth * 2, Position.Y - s_portraitWidth * 2);
+
+            AddTabs();
             base.LoadContent();
         }
+
+        /// <summary>
+        /// Talk, Quest, and Shop, if available
+        /// </summary>
+        private void AddTabs()
+        {
+            Vector2 tabsStackPanelPosition = new Vector2(Position.X, Position.Y - 64);
+            _tabsStackPanel = new StackPanel(this, graphics, content, tabsStackPanelPosition, GetLayeringDepth(UILayeringDepths.Low));
+            StackRow _tabStackRow = new StackRow(TotalBounds.Width);
+            _talkTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
+                new List<Text>() { TextFactory.CreateUIText("Talk", GetLayeringDepth(UILayeringDepths.Medium)) }, null, forcedWidth: 128, forcedHeight: 64, centerText: true);
+            _tabStackRow.AddItem(_talkTab, StackOrientation.Left);
+            _tabsStackPanel.Add(_tabStackRow);
+        }
+
         public void RegisterCommands()
         {
             CommandConsole.RegisterCommand("talk", "displays given text as speech", AddSpeechCommand);

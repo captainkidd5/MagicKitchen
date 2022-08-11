@@ -26,7 +26,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
         private Sprite _backGroundSprite;
         private Vector2 _scale = new Vector2(2f, 2f);
 
-        private float _paragraphTextSize = .8f;
+        private float _paragraphTextSize = .7f;
         public Gazetteer(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -80,12 +80,12 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
             foreach(PreRequisite requirement in ActiveQuest.Steps[ActiveQuest.CurrentStep].PreRequisites)
             {
                 StackRow stackRowDescription = new StackRow((int)(_backGroundSprite.Width * _scale.X));
-                List<Text> requirementDescriptionText = new List<Text>() { TextFactory.CreateUIText("Return with ", GetLayeringDepth(UILayeringDepths.High), _paragraphTextSize) };
+                List<Text> requirementDescriptionText = new List<Text>() { TextFactory.CreateUIText($"Return to {ActiveQuest.Steps[ActiveQuest.CurrentStep].TurnInto} with", GetLayeringDepth(UILayeringDepths.High), _paragraphTextSize) };
                 requirementDescriptionText[0].SetFullString(requirementDescriptionText[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
 
                 NineSliceTextButton requirementDescriptionButton = new NineSliceTextButton(_stackPanel, graphics, content, Position,
                     GetLayeringDepth(UILayeringDepths.Medium), requirementDescriptionText,
-                    null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementDescriptionText[0].TotalStringHeight + 16), centerText: false)
+                    null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementDescriptionText[0].TotalStringHeight + 16), centerText: true)
                 { Displaybackground = false };
                 stackRowDescription.AddItem(requirementDescriptionButton, StackOrientation.Left);
                 _stackPanel.Add(stackRowDescription);
@@ -97,7 +97,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
 
                     NineSliceTextButton requirementButton = new NineSliceTextButton(_stackPanel, graphics, content, Position,
                         GetLayeringDepth(UILayeringDepths.Medium), requirementText,
-                        null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementText[0].TotalStringHeight + 16), centerText: false)
+                        null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementText[0].TotalStringHeight + 16), centerText: true)
                     { Displaybackground = false };
                     stackRow.AddItem(requirementButton, StackOrientation.Left);
                     _stackPanel.Add(stackRow);

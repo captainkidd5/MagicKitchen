@@ -9,7 +9,7 @@
             {
                 "0":  {
                   
-                    "DialogueText" : "Hello, I'm Ned. Well, I suppose you're a little confused. This is a Sea Candle, it provides a nearly endless supply of light.",
+                    "DialogueText" : "Hello, I'm Ned. Well, I suppose you're a little confused. This is a Sea Candle, it provides a nearly endless supply of light. A long long long test for you",
                     "PortraitIndexX" : 0,
                     "PortraitIndexY":0,
                     "GoTo":"1"

@@ -16,7 +16,7 @@
                             "Index":0,
                             "AqcuiredFrom":"Ned",
                             "TurnInto" : "Ned",
-                            "StartText": "First things first, we need to get this candle up and running. \n I'll need some supplies. These things should do it. Come back to me when you've got them all with you.",
+                            "StartText": "Ned: 'First things first, we need to get this candle up and running. \n I'll need some supplies. These things should do it. Come back to me when you've got them all with you.'",
                             "EndText" : "end test",
                             "PreRequisites":[
                                 {
@@ -24,7 +24,7 @@
                                         {
                                             "ItemName" : "Fibre",
                                             "Count" : 8,
-                                            "Description": "Ned would like me to bring him: "
+                                            "Description": "(Have all of these items in your inventory)"
                                         },
                                         {
                                             "ItemName" : "Stone",
