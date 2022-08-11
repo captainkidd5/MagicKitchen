@@ -98,7 +98,6 @@ namespace EntityEngine.Classes.PlayerStuff
             base.LoadContent(entityContainer, startPos, name, standardAnimator);
             ProgressManager.LoadContent();
             // UI.LoadPlayerInventory(StorageContainer);
-            UI.LoadPlayerUnlockedRecipes(ProgressManager.UnlockedRecipes);
 
             UI.Cursor.ItemDropped -= DropHeldItem;
 

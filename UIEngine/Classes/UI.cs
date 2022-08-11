@@ -21,7 +21,6 @@ using Globals.Classes.Console;
 using SoundEngine.Classes.SongStuff;
 using UIEngine.Classes.ButtonStuff.SettingsMenuStuff;
 using MonoGame.Extended.BitmapFonts;
-using UIEngine.Classes.RecipeStuff;
 using Globals.Classes.Helpers;
 using System.Linq;
 using static DataModels.Enums;
@@ -39,6 +38,7 @@ using UIEngine.Classes.EquipmentMenuStuff;
 using UIEngine.Classes.SplashScreens;
 using System.Threading.Tasks;
 using UIEngine.Classes.DebugStuff.DeveloperBoardStuff;
+using UIEngine.Classes.QuestLogStuff;
 
 namespace UIEngine.Classes
 {
@@ -106,8 +106,7 @@ namespace UIEngine.Classes
         internal static Curtain Curtain { get; set; }
         internal static EscMenu EscMenu { get; set; }
 
-        internal static RecipeBook RecipeBook { get; set; }
-
+        internal static QuestLog QuestLog { get; set; } 
         internal static MainMenu MainMenu { get; set; }
         public static StorageDisplayHandler StorageDisplayHandler { get; set; }
 
@@ -155,8 +154,7 @@ namespace UIEngine.Classes
             StatusPanel = new StatusPanel(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
 
             EscMenu = new EscMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Medium));
-            RecipeBook = new RecipeBook(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
-
+            QuestLog = new QuestLog(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Low));
             _talkingWindow = new TalkingWindow(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             SettingsMenu = new SettingsMenu(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.Front));
             Curtain = new Curtain(null, graphics, content, null, .95f);
@@ -167,7 +165,7 @@ namespace UIEngine.Classes
             s_developerBoard = new DeveloperBoard(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
 
             s_inGameSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, _talkingWindow,
-                EscMenu, RecipeBook, StorageDisplayHandler, ItemAlertManager, CursorInfoBox, s_developerBoard };
+                EscMenu, StorageDisplayHandler, ItemAlertManager, CursorInfoBox, s_developerBoard, QuestLog };
 
             Cursor = new Cursor();
             Cursor.LoadContent(content);
@@ -222,7 +220,6 @@ namespace UIEngine.Classes
             EscMenu.EquipmentMenu.EquipmentDisplay.LoadNewEntityInventory(equipmentStorageContainer, false);
         }
 
-        public static void LoadPlayerUnlockedRecipes(List<string> playerUnlockedrecipes) => RecipeBook.LoadAvailableRecipes(playerUnlockedrecipes);
         private static void LoadCurrentSection()
         {
             foreach (InterfaceSection section in s_activeSections)

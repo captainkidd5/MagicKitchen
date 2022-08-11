@@ -21,8 +21,8 @@ namespace UIEngine.Classes
     internal class ToolBar : InterfaceSection
     {
         private StackPanel _stackPanel;
-        private Button _openRecipeBookButton;
-        private Rectangle _openRecipeIcon = new Rectangle(160, 80, 32, 32);
+        private Button _openQuestLogButton;
+        private Rectangle _openQuestLogIcon = new Rectangle(160, 80, 32, 32);
 
         
 
@@ -44,9 +44,9 @@ namespace UIEngine.Classes
             StackRow stackRow = new StackRow(totalRectangle.Width);
   
 
-            _openRecipeBookButton = new Button(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-               _openRecipeIcon, new Action(()=> { UI.RecipeBook.Toggle(); }));
-            stackRow.AddItem(_openRecipeBookButton, StackOrientation.Left);
+            _openQuestLogButton = new Button(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
+               _openQuestLogIcon, new Action(()=> { UI.QuestLog.Toggle(); } ));
+            stackRow.AddItem(_openQuestLogButton, StackOrientation.Left);
             _stackPanel.Add(stackRow);
 
 
