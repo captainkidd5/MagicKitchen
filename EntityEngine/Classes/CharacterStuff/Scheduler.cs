@@ -23,14 +23,10 @@ namespace EntityEngine.Classes.CharacterStuff
         public static Schedule GetScheduleFromCurrentTime(string entityName)
         {
             List<Schedule> schedules = EntityFactory.GetSchedules(entityName);
-            TimeSpan clockHours = TimeSpan.FromHours(Clock.TimeKeeper.Hours);
-            TimeSpan clockMinutes = TimeSpan.FromMinutes(Clock.TimeKeeper.Minutes);
-            clockHours = clockHours.Add(clockMinutes);
-            //TODO: Filter more
 
-            int closestIndex = schedules.BinarySearch(new Schedule() { StartTime = clockHours }, new ScheduleTimeComparer());
-            closestIndex = closestIndex >= 0 ? closestIndex : 0;
-            return schedules[closestIndex];
+            return schedules.FirstOrDefault(x => x.DayStatus == Clock.DayStatus || x.DayStatus == Enums.DayStatus.Any);
+
+
         }
 
         /// <summary>
@@ -42,18 +38,13 @@ namespace EntityEngine.Classes.CharacterStuff
         /// <returns></returns>
         public static Vector2 GetTargetFromSchedule(Schedule schedule)
         {
-            return Vector2Helper.GetWorldPositionFromTileIndex(schedule.TileX, schedule.TileY);
+            //TODO Reimplement with zones
+            return Vector2.Zero;
+           // return Vector2Helper.GetWorldPositionFromTileIndex(schedule.TileX, schedule.TileY);
 
         }
 
         
 
-        public class ScheduleTimeComparer : IComparer<Schedule>
-        {
-            public int Compare(Schedule x, Schedule y)
-            {
-                return x.StartTime.CompareTo(y.StartTime);
-            }
-        }
     }
 }

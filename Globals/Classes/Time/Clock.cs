@@ -4,15 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using static DataModels.Enums;
 
 namespace Globals.Classes.Time
 {
     
-    public enum DayStatus
-    {
-        DayTime = 1,
-        NightTime = 2
-    }
+   
     public delegate void ClockTimeChanged(TimeKeeper timeKeeper);
     public static class Clock
     {

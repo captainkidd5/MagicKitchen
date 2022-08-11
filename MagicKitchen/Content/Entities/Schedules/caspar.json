@@ -1,11 +1,9 @@
 [
         {
-        "Date": "Jan1,12:00_AM-12:20AM",
-        "TileX": 32,
-        "TileY": 56,
+        "DayStatus": "Any",
         "EndBehaviour" : "Wander",
         "Dialogue":{
-            "DialogueText":"It seems you were saved by the grace of the sea candle...",
+            "DialogueText":"Hello, I'm Ned. Well, I suppose you're a little confused.",
                         "FlavorText" : "(Its eyes gleam at you through the fading light)",
             "Options":
                 {
@@ -14,6 +12,8 @@
                         "Title":"Choose a Past",
                         "DialogueText":"Decide who you were, and what you want to be",
                         "FlavorText" : "(The opportunity of a new beggining is both frightening and exciting)",
+                "DialogueAction" : "OpenShop",
+
                         "DialogueRequirements":
                         [
 

@@ -6,6 +6,12 @@ namespace DataModels
 {
     public static class Enums
     {
+        public enum DayStatus
+        {
+            Any = 0,
+            DayTime = 1,
+            NightTime = 2
+        }
         public enum Direction : byte
         {
             None = 0,

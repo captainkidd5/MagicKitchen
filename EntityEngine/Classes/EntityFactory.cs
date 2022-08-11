@@ -71,10 +71,10 @@ namespace EntityEngine.Classes
                 jsonString = File.ReadAllText(file);
                 List<Schedule> schedules = JsonSerializer.Deserialize<List<Schedule>>(jsonString, options);
 
-                foreach (Schedule sch in schedules)
-                    sch.ConvertTimeString();
+                //foreach (Schedule sch in schedules)
+                //    sch.ConvertTimeString();
 
-                schedules.Sort(0, schedules.Count, new ScheduleTimeComparer());
+                //schedules.Sort(0, schedules.Count, new ScheduleTimeComparer());
                 Schedules.Add(Path.GetFileName(file).Split(".json")[0], schedules);
 
             }
