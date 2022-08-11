@@ -193,7 +193,7 @@ namespace UIEngine.Classes
             _saveTimer = new SimpleTimer(_saveFrequency);
 
         }
-        public static void LoadQuests(QuestManager questManager) => QuestLog.QuestManager = questManager;
+        public static void LoadQuests(QuestLoader questManager) => QuestLog.QuestLoader = questManager;
         internal static void LoadNewCursorInfo(List<string> text) => CursorInfoBox.LoadNewText(text);
 
         public static void ActivateSecondaryInventoryDisplay(FurnitureType t, StorageContainer storageContainer, bool displayWallet = false)

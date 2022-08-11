@@ -43,7 +43,6 @@ namespace EntityEngine.Classes.PlayerStuff
         private bool WasMovingLastFrame { get; set; }
 
 
-        internal ProgressManager ProgressManager { get; set; }
 
         protected HullBody FrontalSensor { get; set; }
 
@@ -86,7 +85,6 @@ namespace EntityEngine.Classes.PlayerStuff
             XOffSet = 0;
             YOffSet = 8;
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
-            ProgressManager = new ProgressManager();
             _hungerHandler = new HungerHandler();
             _healthHandler = new HealthHandler();
 
@@ -96,7 +94,6 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string? name, bool standardAnimator = false)
         {
             base.LoadContent(entityContainer, startPos, name, standardAnimator);
-            ProgressManager.LoadContent();
             // UI.LoadPlayerInventory(StorageContainer);
 
             UI.Cursor.ItemDropped -= DropHeldItem;
@@ -431,7 +428,6 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void CleanUp()
         {
             base.CleanUp();
-            ProgressManager.CleanUp();
             StorageCapacity = 24;
         }
         protected override void UpdateLights(GameTime gameTime)
@@ -445,7 +441,6 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void Save(BinaryWriter writer)
         {
             base.Save(writer);
-            ProgressManager.Save(writer);
             writer.Write(StorageCapacity);
 
             InventoryHandler.Save(writer);
@@ -460,7 +455,6 @@ namespace EntityEngine.Classes.PlayerStuff
             base.LoadSave(reader);
             Animator.Load(SoundModuleManager, Position);
             LoadWardrobe();
-            ProgressManager.LoadSave(reader);
             StorageCapacity = reader.ReadByte();
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
 

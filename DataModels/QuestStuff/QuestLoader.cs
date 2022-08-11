@@ -11,12 +11,12 @@ using System.Text.Json.Serialization;
 
 namespace DataModels.QuestStuff
 {
-    public class QuestManager 
+    public class QuestLoader 
     {
        
 
-        private Dictionary<string, Quest> AllQuests { get; set; }
-        public QuestManager()
+        public Dictionary<string, Quest> AllQuests { get; private set; }
+        public QuestLoader()
         {
         }
 

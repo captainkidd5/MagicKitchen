@@ -49,7 +49,7 @@ namespace MagicKitchen
 
         private PlayerManager _playerManager;
 
-        private QuestManager _questManager;
+        private QuestLoader _questManager;
         public Player Player1 => _playerManager.Player1;
 
         public static SpriteFont MainFont { get; set; }
@@ -115,7 +115,7 @@ namespace MagicKitchen
             ItemFactory.LoadContent(Content);
             EntityFactory.Load(Content);
 
-            _questManager = new QuestManager();
+            _questManager = new QuestLoader();
             _questManager.Load(Content);
             Controls.Load(Camera, GraphicsDevice, Content);
             RenderTargetManager.Load(GraphicsDevice);

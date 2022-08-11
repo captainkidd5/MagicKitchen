@@ -1,6 +1,7 @@
 ﻿using DataModels.QuestStuff;
 using Globals.Classes;
 using Globals.Classes.Helpers;
+using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,7 +19,9 @@ namespace UIEngine.Classes.QuestLogStuff
         private QuestList _activeQuestList;
         private Rectangle _totalSourceRectangleBounds;
 
-        public QuestManager QuestManager { get; set; }
+        public QuestLoader QuestLoader { get; set; }
+
+        private Dictionary<string, Quest> _quests => SaveLoadManager.CurrentSave.GameProgressData.QuestProgress;
         public QuestLog(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
             Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -33,6 +36,8 @@ namespace UIEngine.Classes.QuestLogStuff
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _totalSourceRectangleBounds.Width, _totalSourceRectangleBounds.Height);
             _activeQuestList = new QuestList(this, graphics, content, Position, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
             _activeQuestList.LoadContent();
+
+           // SaveLoadManager.CurrentSave.GameProgressData.StartNewQuest(QuestLoader.AllQuests["A Light in the Dark"]);
             base.LoadContent();
 
         }
