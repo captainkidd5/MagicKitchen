@@ -78,16 +78,26 @@ namespace TiledEngine.Classes
         public static void CreateNewSave(Dictionary<string, StageData> stageData, TileManager tileManager, ContentManager content)
         {
             TmxMap worldMap = new TmxMap(s_mapPath + stageData["LullabyTown"].Path);
-            TmxMap town = new TmxMap(s_mapPath + stageData["HomeIsland"].Path);
-            TmxMap caravan = new TmxMap(s_mapPath + stageData["Caravan"].Path);
+            //TmxMap town = new TmxMap(s_mapPath + stageData["HomeIsland"].Path);
+            //TmxMap caravan = new TmxMap(s_mapPath + stageData["Caravan"].Path);
+            //TmxMap testIsland = new TmxMap(s_mapPath + stageData["TestIsland"].Path);
+
 
             List<TileData[,]> mapData;// = ExtractTilesFromPreloadedMap(tileManager, mapToLoad);
             mapData = GenerateEmptyMapArray(tileManager, worldMap, 512);
             mapData[0] = GenerateAutomataLayer(512);
-            InsertCustomMapAt(mapData, new Point(112, 112), worldMap);
-            InsertCustomMapAt(mapData, new Point(96, 96), caravan);
 
-            InsertCustomMapAt(mapData, new Point(24, 24), town);
+            foreach(var sd in stageData)
+            {
+                InsertCustomMapAt(mapData, new Point(sd.Value.InsertionX, sd.Value.InsertionY), new TmxMap(s_mapPath + sd.Value.Path));
+
+            }
+            //InsertCustomMapAt(mapData, new Point(112, 112), testIsland);
+            //InsertCustomMapAt(mapData, new Point(96, 96), caravan);
+
+            //InsertCustomMapAt(mapData, new Point(24, 24), town);
+            //InsertCustomMapAt(mapData, new Point(2, 2), worldMap);
+
 
             tileManager.LoadMap(worldMap, mapData, 512, TileSetPackage);
 

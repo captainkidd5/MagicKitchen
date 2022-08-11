@@ -5,6 +5,8 @@
             <Id>1</Id>
             <Name>LullabyTown</Name>
             <Path>LullabyTown.tmx</Path>
+            <InsertionX>2</InsertionX>
+            <InsertionY>2</InsertionY>
             <AmbientSoundPackageName>Overworld_Outside</AmbientSoundPackageName>
 
 

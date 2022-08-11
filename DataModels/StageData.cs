@@ -10,6 +10,8 @@ namespace DataModels
         public string Name { get; set; }
         public string Path { get; set; }
 
+        public int InsertionX { get; set; }
+        public int InsertionY { get; set; }
         public string AmbientSoundPackageName { get; set; }
     }
 }

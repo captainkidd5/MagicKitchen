@@ -3,18 +3,32 @@
         "Id":1,
         "Name":"LullabyTown",
         "Path":"LullabyTown.tmx",
+        "InsertionX":2,
+        "InsertionY":2,
         "AmbientSoundPackageName":"Overworld_Outside"
     },
     {
         "Id":2,
         "Name":"HomeIsland",
         "Path":"HomeIsland.tmx",
+        "InsertionX":15,
+        "InsertionY":15,
         "AmbientSoundPackageName":"Overworld_Outside"
     },
     {
         "Id":3,
         "Name":"Caravan",
         "Path":"Caravan.tmx",
+        "InsertionX":48,
+        "InsertionY":48,
+        "AmbientSoundPackageName":"Overworld_Outside"
+    },
+    {
+        "Id":4,
+        "Name":"TestIsland",
+        "Path":"TestIsland.tmx",
+        "InsertionX":112,
+        "InsertionY":112,
         "AmbientSoundPackageName":"Overworld_Outside"
     }
 ]
