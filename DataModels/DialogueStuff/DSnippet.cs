@@ -9,7 +9,6 @@ namespace DataModels.DialogueStuff
         public string DialogueText { get; set; }
         public byte PortraitIndexX{ get; set; }
         public byte PortraitIndexY { get; set; }
-
         public string GoTo { get; set; }
 
     }
