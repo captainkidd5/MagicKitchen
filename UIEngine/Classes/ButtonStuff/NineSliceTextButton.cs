@@ -48,7 +48,6 @@ namespace UIEngine.Classes.ButtonStuff
             
             Text combinedtext = TextFactory.CombineText(_textList, LayerDepth);
 
-            int characterWidth = (int)TextFactory.SingleCharacterWidth();
             int width = _forcedWidth ?? (int)combinedtext.TotalStringWidth ;
 
             Position = newPos;

@@ -26,6 +26,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
         private Sprite _backGroundSprite;
         private Vector2 _scale = new Vector2(2f, 2f);
 
+        private float _paragraphTextSize = .8f;
         public Gazetteer(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -46,7 +47,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
             List<Text> titleText = new List<Text>() { TextFactory.CreateUIText(ActiveQuest.Name, GetLayeringDepth(UILayeringDepths.High)) };
 
             NineSliceTextButton titleButton = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), titleText,
-                null, forcedWidth: (int)(_backGroundSprite.Width/2 * _scale.X), forcedHeight: 60, centerText: true, hoverTransparency: false);
+                null, centerText: false, hoverTransparency: false);
             row1.AddItem(titleButton, StackOrientation.Center);
             _stackPanel.Add(row1);
 
@@ -56,11 +57,12 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
 
 
             StackRow stackRow = new StackRow((int)(_backGroundSprite.Width * _scale.X));
-            List<Text> text = new List<Text>() { TextFactory.CreateUIText(ActiveQuest.Steps[ActiveQuest.CurrentStep].StartText, GetLayeringDepth(UILayeringDepths.High)) };
+            List<Text> text = new List<Text>() { TextFactory.CreateUIText(ActiveQuest.Steps[ActiveQuest.CurrentStep].StartText, GetLayeringDepth(UILayeringDepths.High), _paragraphTextSize) };
+            text[0].SetFullString(text[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
 
             NineSliceTextButton btn = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), text,
-                null, forcedWidth: (int)(_backGroundSprite.Width / 2 * _scale.X), forcedHeight: (int)(48), centerText: true)
-            { Displaybackground = false };
+                null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(text[0].TotalStringHeight), centerText: false)
+            { Displaybackground = true };
             stackRow.AddItem(btn, StackOrientation.Left);
             _stackPanel.Add(stackRow);
 
