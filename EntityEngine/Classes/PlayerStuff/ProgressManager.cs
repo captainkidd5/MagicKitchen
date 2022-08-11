@@ -1,5 +1,6 @@
 ﻿using DataModels;
 using DataModels.ItemStuff;
+using DataModels.QuestStuff;
 using Globals.Classes;
 using ItemEngine.Classes;
 using System;
@@ -19,6 +20,7 @@ namespace EntityEngine.Classes.PlayerStuff
     {
         public List<string> UnlockedRecipes { get; private set; }
 
+        public Dictionary<string,Quest> QuestProgress{ get; set; }
         public ProgressManager()
         {
             UnlockedRecipes = new List<string>();
