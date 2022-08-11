@@ -7,10 +7,10 @@ namespace DataModels.DialogueStuff
     public class DSnippet
     {
         public string DialogueText { get; set; }
-        public byte IndexX{ get; set; }
-        public byte IndexY { get; set; }
+        public byte PortraitIndexX{ get; set; }
+        public byte PortraitIndexY { get; set; }
 
-        public byte GoTo { get; set; }
+        public string GoTo { get; set; }
 
     }
 }

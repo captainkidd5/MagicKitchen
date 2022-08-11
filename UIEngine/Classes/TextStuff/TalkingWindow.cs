@@ -114,6 +114,8 @@ namespace UIEngine.Classes.TextStuff
                     {
                         UI.ReactiveSections();
                         Deactivate();
+                        _curerentDialogueIndex = 0;
+
 
                     }
                 }
@@ -146,25 +148,41 @@ namespace UIEngine.Classes.TextStuff
 
 
         }
+        public override void Deactivate()
+        {
+            UI.ReactiveSections();
+            _curerentDialogueIndex = 0;
+            _portraitSprite = null;
+            base.Deactivate();
 
+        }
         private void GoToNext()
         {
-            _curerentDialogueIndex++;
-            if(_curerentDialogue.DialogueText.Count <= _curerentDialogueIndex)
+            string goToResult = _curerentDialogue.DialogueText[_curerentDialogueIndex].GoTo;
+
+            int newIndex = 0;
+
+            if(int.TryParse(goToResult, out newIndex))
             {
-                UI.ReactiveSections();
-                Deactivate();
-                _curerentDialogueIndex = 0;
-                _portraitSprite = null;
-                return;
+                _curerentDialogueIndex = newIndex;
+                LoadNewConversation(_curerentDialogue);
+                _selectNextActionJustOccurred = true;
             }
-            LoadNewConversation(_curerentDialogue);
-            _selectNextActionJustOccurred = true;
+            else
+            {
+                if(goToResult == "End")
+                {
+                    Deactivate();
+                    return;
+                }
+            }
+
+
         }
         public void LoadNewConversation(Dialogue dialogue)
         {
-            _portraitSprite = SpriteFactory.CreateUISprite(_portraitSpritePosition, new Rectangle(dialogue.DialogueText[_curerentDialogueIndex].IndexX * s_portraitWidth,
-                dialogue.DialogueText[_curerentDialogueIndex].IndexY * s_portraitWidth, s_portraitWidth, s_portraitWidth),
+            _portraitSprite = SpriteFactory.CreateUISprite(_portraitSpritePosition, new Rectangle(dialogue.DialogueText[_curerentDialogueIndex].PortraitIndexX * s_portraitWidth,
+                dialogue.DialogueText[_curerentDialogueIndex].PortraitIndexY * s_portraitWidth, s_portraitWidth, s_portraitWidth),
                 UI.PortraitsManager.PortraitsTexture, GetLayeringDepth(UILayeringDepths.Medium), scale:new Vector2(2f,2f));
             _curerentDialogue = dialogue;
             TextBuilder.ClearText();
