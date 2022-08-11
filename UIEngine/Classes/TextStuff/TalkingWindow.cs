@@ -23,7 +23,7 @@ namespace UIEngine.Classes.TextStuff
 {
     internal class TalkingWindow : MenuSection
     {
-        private Rectangle _backgroundSourceRectangle = new Rectangle(336, 272, 272, 288);
+        private Rectangle _backgroundSourceRectangle = new Rectangle(64, 496, 272, 64);
         private Sprite BackdropSprite { get; set; }
         private TextBuilder TextBuilder { get; set; }
 
@@ -31,7 +31,7 @@ namespace UIEngine.Classes.TextStuff
 
         private Vector2 _textOffSet = new Vector2(16, 16);
 
-        private Vector2 _scale = new Vector2(2f, 2f);
+        private Vector2 _scale = new Vector2(3f,3f);
 
         private StackPanel _stackPanel;
 
@@ -46,8 +46,8 @@ namespace UIEngine.Classes.TextStuff
         }
         public override void LoadContent()
         {
-            Position = RectangleHelper.PlaceTopRightScreen(RectangleHelper.RectangleToScale(_backgroundSourceRectangle, _scale));
-            Position = new Vector2(Position.X - Settings.Gutter, Position.Y + Settings.Gutter);
+            Position = RectangleHelper.PlaceBottomCenterScreen(RectangleHelper.RectangleToScale(_backgroundSourceRectangle, _scale));
+            Position = new Vector2(Position.X, Position.Y - Settings.Gutter);
 
             BackdropSprite = SpriteFactory.CreateUISprite(Position, _backgroundSourceRectangle,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back), scale: _scale);
@@ -143,7 +143,7 @@ namespace UIEngine.Classes.TextStuff
 
             foreach(var option in dialogue.Options)
             {
-                StackRow stackRow = new StackRow((int)((float)_backgroundSourceRectangle.Width * _scale.X));
+                StackRow stackRow = new StackRow((int)((float)_backgroundSourceRectangle.Width /4 * _scale.X));
                 TalkingOptionPanel window = new TalkingOptionPanel(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
                 window.LoadNewOption(option.Value);
                 stackRow.AddItem(window, StackOrientation.Left);

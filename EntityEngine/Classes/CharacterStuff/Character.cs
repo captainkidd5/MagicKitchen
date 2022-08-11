@@ -72,6 +72,12 @@ namespace EntityEngine.Classes.CharacterStuff
             }
         }
 
+        protected override void UpdateBehaviour(GameTime gameTime)
+        {
+            if(!_isInteractingWithPlayer)
+                base.UpdateBehaviour(gameTime);
+        }
+
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },
@@ -114,6 +120,7 @@ namespace EntityEngine.Classes.CharacterStuff
             UI.LoadNewConversation(schedule.Dialogue);
             FaceTowardsOtherEntity(Shared.PlayerPosition);
             UI.TalkingDirection = Vector2Helper.GetOppositeDirection(DirectionMoving);
+            _isInteractingWithPlayer = true;
         }
 
         public override void ClickInteraction()

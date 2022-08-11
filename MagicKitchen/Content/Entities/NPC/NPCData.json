@@ -260,6 +260,8 @@
     "NPCType" : "Enemy",
     "ShadowSize":"Medium",
     "CombatResponse":"Retaliate",
+    "AlwaysSubmerged": true,
+
     "SpriteWidth": 48,
     "SpriteHeight": 32,
 

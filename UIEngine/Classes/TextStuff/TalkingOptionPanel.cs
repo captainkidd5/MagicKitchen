@@ -29,7 +29,7 @@ namespace UIEngine.Classes.TextStuff
 
         private Sprite BackgroundSprite;
 
-        private Vector2 _scale = new Vector2(2f, 2f);
+        private Vector2 _scale = new Vector2(.5f, .5f);
         public TalkingOptionPanel(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -46,7 +46,7 @@ namespace UIEngine.Classes.TextStuff
         public override void LoadContent()
         {
             BackgroundSprite = SpriteFactory.CreateUISprite(Position, _sourceRectangle, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low),scale: _scale);
-            TotalBounds = RectangleHelper.RectFromPosition(Position, _sourceRectangle.Width * (int)_scale.X, _sourceRectangle.Height * (int)_scale.Y);
+            TotalBounds = RectangleHelper.RectFromPosition(Position, (int)(_sourceRectangle.Width * _scale.X), (int)(_sourceRectangle.Height * _scale.Y));
 
             base.LoadContent();
         }
