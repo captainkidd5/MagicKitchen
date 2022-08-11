@@ -2,38 +2,17 @@
         {
         "DayStatus": "Any",
         "EndBehaviour" : "Wander",
+        "FlavorText" : "(Its eyes gleam at you through the fading light)",
+
         "Dialogue":{
-            "DialogueText":"Hello, I'm Ned. Well, I suppose you're a little confused.",
-                        "FlavorText" : "(Its eyes gleam at you through the fading light)",
-            "Options":
-                {
-                    "Option 1": 
-                    {
-                        "Title":"Choose a Past",
-                        "DialogueText":"Decide who you were, and what you want to be",
-                        "FlavorText" : "(The opportunity of a new beggining is both frightening and exciting)",
-                "DialogueAction" : "OpenShop",
+            "DialogueText":
+            {
+                "0":  "Hello, I'm Ned. Well, I suppose you're a little confused. This is a Sea Candle, it provides a nearly endless supply of light.",
+                "1":  "Stay near to it and you'll absorb some of its light temporarily."
 
-                        "DialogueRequirements":
-                        [
-
-                        ]
-                    
-                    },
-                    "Option 2": 
-                    {
-                        "Title":"A Past Wreathed in Shadows",
-
-                        "DialogueText":"If you just want to get out to zee immediately, choose this. Opportunities to revisit your past will arrive later",
-                        "FlavorText" : "(Decide Later)",
-                        "DialogueRequirements":
-                         [
-                            
-                        ]
-                    }
-
-
-                }
+            
+            }
+           
 
                 
             

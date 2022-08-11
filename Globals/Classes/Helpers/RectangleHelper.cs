@@ -147,7 +147,20 @@ namespace Globals.Classes.Helpers
             parentRectangle.Y + parentRectangle.Height - rectangleToPlace.Height * 2 * childScale.Value.Y);
         }
 
-
+        /// <summary>
+        ///  <see cref="EscButton"/> 
+        /// </summary>
+        public static Vector2 PlaceRectangleAtBottomRightOfParentRectangle(
+            Rectangle parentRectangle, Rectangle rectangleToPlace, Vector2? childScale = null)
+        {
+            if (childScale == null)
+            {
+                return new Vector2(parentRectangle.X + parentRectangle.Width  -rectangleToPlace.Width * 2,
+                parentRectangle.Y + parentRectangle.Height - rectangleToPlace.Height * 2);
+            }
+            return new Vector2(parentRectangle.X + parentRectangle.Width - rectangleToPlace.Width * 2 * childScale.Value.X,
+            parentRectangle.Y + parentRectangle.Height - rectangleToPlace.Height * 2 * childScale.Value.Y);
+        }
 
         public static Rectangle GetEntireSourceRectangle(Texture2D texture)
         {

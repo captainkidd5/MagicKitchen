@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Text;
 using TextEngine;
 using TextEngine.Classes;
+using UIEngine.Classes.ButtonStuff;
 using UIEngine.Classes.Components;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
@@ -37,6 +38,11 @@ namespace UIEngine.Classes.TextStuff
 
         private Dialogue _curerentDialogue;
 
+        private int _curerentDialogueIndex;
+
+        private Rectangle _goToNextDialogueButtonSourceRectangle = new Rectangle(144, 0, 32, 16);
+        private Button _goToNextDialogueButton;
+        private bool _displayNextButton;
         internal List<TalkingOptionPanel> OptionWindows { get; set; }
         public TalkingWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -58,7 +64,10 @@ namespace UIEngine.Classes.TextStuff
 
             TotalBounds = BackdropSprite.HitBox;
 
-            
+            _curerentDialogueIndex = 0;
+            _goToNextDialogueButton = new Button(null, graphics, content,
+                RectangleHelper.PlaceRectangleAtBottomRightOfParentRectangle(TotalBounds,_goToNextDialogueButtonSourceRectangle),
+                GetLayerDepth(Layers.midground), _goToNextDialogueButtonSourceRectangle, GoToNext );
             base.LoadContent();
         }
         public void RegisterCommands()
@@ -83,7 +92,10 @@ namespace UIEngine.Classes.TextStuff
 
             if (IsActive)
             {
+                _displayNextButton = TextBuilder.IsComplete();
 
+                if (_displayNextButton)
+                    _goToNextDialogueButton.Update(gameTime);
                 Hovered = Controls.IsHovering(ElementType.UI, BackdropSprite.HitBox);
 
 
@@ -115,19 +127,26 @@ namespace UIEngine.Classes.TextStuff
             base.Draw(spriteBatch);
             if (IsActive)
             {
-
+                if (_displayNextButton)
+                    _goToNextDialogueButton.Draw(spriteBatch);
                 BackdropSprite.Draw(spriteBatch);
                 TextBuilder.Draw(spriteBatch);
             }
 
 
         }
+
+        private void GoToNext()
+        {
+            _curerentDialogueIndex++;
+            LoadNewConversation(_curerentDialogue);
+        }
         public void LoadNewConversation(Dialogue dialogue)
         {
 
             _curerentDialogue = dialogue;
             TextBuilder.ClearText();
-            Text text = TextFactory.CreateUIText(dialogue.DialogueText, GetLayeringDepth(UILayeringDepths.Front), scale: 1f);
+            Text text = TextFactory.CreateUIText(dialogue.DialogueText[_curerentDialogueIndex], GetLayeringDepth(UILayeringDepths.Front), scale: 1f);
             text.SetFullString(text.WrapAutoText(BackdropSprite.HitBox.Width));
 
 
@@ -141,6 +160,9 @@ namespace UIEngine.Classes.TextStuff
             
             _stackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X, Position.Y + totalTextHeight), GetLayeringDepth(UILayeringDepths.Medium));
 
+            if(dialogue.Options != null)
+            {
+
             foreach(var option in dialogue.Options)
             {
                 StackRow stackRow = new StackRow((int)((float)_backgroundSourceRectangle.Width /4 * _scale.X));
@@ -149,6 +171,8 @@ namespace UIEngine.Classes.TextStuff
                 stackRow.AddItem(window, StackOrientation.Left);
                 _stackPanel.Add(stackRow);
             }
+            }
+
             UI.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UI.ClockBar });
         }
 
