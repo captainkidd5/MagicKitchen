@@ -44,6 +44,9 @@ namespace UIEngine.Classes.TextStuff
         private Button _goToNextDialogueButton;
         private bool _displayNextButton;
         internal List<TalkingOptionPanel> OptionWindows { get; set; }
+
+        private Vector2 _portraitSpritePosition;
+        private Sprite _portraitSprite;
         public TalkingWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -68,6 +71,7 @@ namespace UIEngine.Classes.TextStuff
             _goToNextDialogueButton = new Button(null, graphics, content,
                 RectangleHelper.PlaceRectangleAtBottomRightOfParentRectangle(TotalBounds,_goToNextDialogueButtonSourceRectangle),
                 GetLayerDepth(Layers.midground), _goToNextDialogueButtonSourceRectangle, GoToNext );
+            _portraitSpritePosition = new Vector2(Position.X + TotalBounds.Width, Position.Y);
             base.LoadContent();
         }
         public void RegisterCommands()
@@ -86,12 +90,15 @@ namespace UIEngine.Classes.TextStuff
           //  LoadNewConversation(totalString);
         }
 
+        private bool _selectNextActionJustOccurred = false;
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
             if (IsActive)
             {
+                if (_portraitSprite != null)
+                    _portraitSprite.Update(gameTime, _portraitSpritePosition);
                 _displayNextButton = TextBuilder.IsComplete();
 
                 if (_displayNextButton)
@@ -109,14 +116,14 @@ namespace UIEngine.Classes.TextStuff
 
                     }
                 }
-                if (Hovered && Controls.IsClicked || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
+                if (!_selectNextActionJustOccurred && Hovered && Controls.IsClicked || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
                 {
                     TextBuilder.ForceComplete(BackdropSprite.HitBox.Width);
                 }
             }
 
 
-
+            _selectNextActionJustOccurred = false;
 
 
         }
@@ -129,6 +136,9 @@ namespace UIEngine.Classes.TextStuff
             {
                 if (_displayNextButton)
                     _goToNextDialogueButton.Draw(spriteBatch);
+
+                if (_portraitSprite != null)
+                    _portraitSprite.Draw(spriteBatch);
                 BackdropSprite.Draw(spriteBatch);
                 TextBuilder.Draw(spriteBatch);
             }
@@ -139,11 +149,21 @@ namespace UIEngine.Classes.TextStuff
         private void GoToNext()
         {
             _curerentDialogueIndex++;
+            if(_curerentDialogue.DialogueText.Count <= _curerentDialogueIndex)
+            {
+                UI.ReactiveSections();
+                Deactivate();
+                _curerentDialogueIndex = 0;
+                _portraitSprite = null;
+                return;
+            }
             LoadNewConversation(_curerentDialogue);
+            _selectNextActionJustOccurred = true;
         }
         public void LoadNewConversation(Dialogue dialogue)
         {
-
+            _portraitSprite = SpriteFactory.CreateUISprite(Position, new Rectangle(0, 0, 98, 98),
+                UI.PortraitsManager.PortraitsTexture, GetLayeringDepth(UILayeringDepths.Medium), scale:new Vector2(2f,2f));
             _curerentDialogue = dialogue;
             TextBuilder.ClearText();
             Text text = TextFactory.CreateUIText(dialogue.DialogueText[_curerentDialogueIndex], GetLayeringDepth(UILayeringDepths.Front), scale: 1f);

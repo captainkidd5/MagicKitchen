@@ -77,6 +77,8 @@ namespace UIEngine.Classes
         internal static Texture2D ButtonTexture { get; set; }
         internal static Texture2D GeneralInterfaceTexture { get; set; }
 
+        internal static PortraitsManager PortraitsManager { get; set; }
+
         internal static Color[] ButtonTextureDat;
         internal static Color[] GeneralInterfaceTexDat;
 
@@ -142,7 +144,8 @@ namespace UIEngine.Classes
             ButtonTexture = content.Load<Texture2D>("UI/Buttons");
             ButtonTextureDat = new Color[ButtonTexture.Width * ButtonTexture.Height];
             ButtonTexture.GetData<Color>(ButtonTextureDat);
-
+            PortraitsManager = new PortraitsManager();
+            PortraitsManager.LoadContent(content);
             GeneralInterfaceTexture = content.Load<Texture2D>("UI/GeneralInterface");
             GeneralInterfaceTexDat = new Color[GeneralInterfaceTexture.Width * GeneralInterfaceTexture.Height];
             GeneralInterfaceTexture.GetData<Color>(GeneralInterfaceTexDat);

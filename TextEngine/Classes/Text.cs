@@ -224,6 +224,7 @@ namespace TextEngine.Classes
         internal void Clear()
         {
             CurrentString = string.Empty;
+            FullString = string.Empty;
         }
 
         /// <summary>
