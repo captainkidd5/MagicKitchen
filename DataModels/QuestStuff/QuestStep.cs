@@ -10,9 +10,8 @@ namespace DataModels.QuestStuff
         [JsonIgnore]
 
         public bool Completed { get; set; }
-        public int Index { get; set; }
+        public string StepName{ get; set; }
         
-
         /// <summary>
         /// Name of the NPC to talk to to get
         /// </summary>

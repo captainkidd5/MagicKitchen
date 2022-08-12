@@ -52,8 +52,18 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
             row1.AddItem(titleButton, StackOrientation.Center);
             _stackPanel.Add(row1);
 
+            StackRow stackRowDescription = new StackRow((int)(_backGroundSprite.Width * _scale.X));
+            List<Text> stepDescription = new List<Text>() { TextFactory.CreateUIText
+                ($"Part {ActiveQuest.CurrentStep + 1}: {ActiveQuest.Steps[ActiveQuest.CurrentStep].StepName}",
+                GetLayeringDepth(UILayeringDepths.High)) };
+           // stepDescription[0].SetFullString(stepDescription[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
 
+            NineSliceTextButton stepBtn = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), stepDescription,
+                null, centerText: false)
+            { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true };
+            stackRowDescription.AddItem(stepBtn, StackOrientation.Center);
 
+            _stackPanel.Add(stackRowDescription);
 
 
 

@@ -6,7 +6,7 @@
         ],
         "Steps": {
             "0": {
-                "Index": 0,
+                "StepName": "The Wick",
                 "AcquiredFrom": "Caspar",
                 "TurnInto": "Caspar",
                 "StartText": "Caspar: 'First things first, we need to get this candle up and running. \n I'll need some supplies. These things should do it. Come back to me when you've got them all with you.'",
@@ -34,6 +34,34 @@
                     "Items" : {
                        
                         "Coin": 5
+                       
+                    }
+                }
+            },
+            "1": {
+                "StepName": "The Flame",
+                "AcquiredFrom": "Caspar",
+                "TurnInto": "Caspar",
+                "StartText": "Caspar: 'Alright, I'm going to go ahead and get started on repairing the wick. In the meantime why don't you collect some meat.'",
+                "HelpText" : "I'm still working on the wick, come back after you've gathered some meat.",
+                "EndText": "Perfect, these will do nicely.",
+                "PreRequisites": [
+                    {
+                        "ItemRequirements": [
+                            {
+                                "ItemName": "Raw_Meat",
+                                "Count": 5,
+                                "Description": "(Have all of these items in your inventory)"
+                            }
+                        ]
+                    }
+                ],
+
+                "QuestReward":
+                {
+                    "Items" : {
+                       
+                        "Coin": 12
                        
                     }
                 }
