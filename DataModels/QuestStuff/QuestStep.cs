@@ -41,5 +41,7 @@ namespace DataModels.QuestStuff
 
 
         public List<PreRequisite> PreRequisites { get; set; }
+
+        public QuestReward QuestReward { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using IOEngine.Classes;
+using ItemEngine.Classes;
 using ItemEngine.Classes.StorageStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -192,7 +193,7 @@ namespace UIEngine.Classes.TextStuff
                         }
                     }
                 }
-
+                RewardPlayer(questStep.QuestReward, playerStorageContainer);
                 MoveToNextQuestStep(quest);
             }
             else
@@ -202,7 +203,14 @@ namespace UIEngine.Classes.TextStuff
 
         }
 
-
+        private void RewardPlayer(QuestReward questReward, StorageContainer playerStorageContainer)
+        {
+            foreach(KeyValuePair<string, int> item in questReward.Items)
+            {
+                int countToAdd = item.Value;
+                playerStorageContainer.AddItem(ItemFactory.GetItem(item.Key), ref countToAdd);
+            }
+        }
         private void MoveToNextQuestStep(Quest quest)
         {
             var snippets = new Dictionary<int, DSnippet>();
