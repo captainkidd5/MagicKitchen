@@ -8,6 +8,7 @@ using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
 using IOEngine.Classes;
+using ItemEngine.Classes.StorageStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -134,7 +135,7 @@ namespace UIEngine.Classes.TextStuff
                 StackRow stackRow = new StackRow(TotalBounds.Width);
                 NineSliceTextButton btn = new NineSliceTextButton(_questButtonsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
                     new List<Text>() { TextFactory.CreateUIText(quest.Name, GetLayeringDepth(UILayeringDepths.High)) },
-                    new Action(() => { LoadInQuestHelpText(quest); }));
+                    new Action(() => { DetermineNextQuestDialogue(quest); }));
                 stackRow.AddItem(btn, StackOrientation.Center);
                 _questButtonsStackPanel.Add(stackRow);
             }
@@ -158,18 +159,63 @@ namespace UIEngine.Classes.TextStuff
         }
         private void DetermineNextQuestDialogue(Quest quest)
         {
+            _questButtonsStackPanel.Deactivate();
+
+            var completedQuests = SaveLoadManager.CurrentSave.GameProgressData.CompletedQuests();
             QuestStep questStep = quest.Steps[quest.CurrentStep];
+
+            StorageContainer playerStorageContainer = UI.StorageDisplayHandler.PlayerInventoryDisplay.StorageContainer;
+
+            Dictionary<string, int> storedItems = new Dictionary<string, int>();
+
+
+
             bool satisfied = true;
             foreach(var preReq in questStep.PreRequisites)
             {
-                if (preReq.Satisfied())
+                if (!preReq.Satisfied(playerStorageContainer.GetItemStoredAsDictionary(), completedQuests))
                     satisfied = false;
             }
 
+            if (satisfied)
+            {
+                foreach (var preReq in questStep.PreRequisites)
+                {
+                   if(preReq.ItemRequirements != null)
+                    {
+                        //Remove handed-in items from player inventory
+                        foreach(var itemReq in preReq.ItemRequirements)
+                        {
+                            int countToRemove = itemReq.Count;
+
+                            playerStorageContainer.RemoveItem(itemReq.ItemName, ref countToRemove);
+                        }
+                    }
+                }
+
+                MoveToNextQuestStep(quest);
+            }
+            else
+            {
+                LoadInQuestHelpText(quest);
+            }
+
+        }
+
+
+        private void MoveToNextQuestStep(Quest quest)
+        {
+            var snippets = new Dictionary<int, DSnippet>();
+            DSnippet snippet = new DSnippet() { DialogueText = quest.Steps[quest.CurrentStep].EndText };
+            snippets.Add(0, snippet);
+            Dialogue dialogue = new Dialogue() { DialogueText = snippets };
+            LoadNewConversation(CurrentNPCTalkingTo, dialogue);
+
+
+            quest.IncrementStep();
         }
         private void LoadInQuestHelpText(Quest quest)
         {
-            _questButtonsStackPanel.Deactivate();
 
             var snippets = new Dictionary<int, DSnippet>();
             DSnippet snippet = new DSnippet() { DialogueText = quest.Steps[quest.CurrentStep].HelpText };

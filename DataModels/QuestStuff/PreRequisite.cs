@@ -17,26 +17,28 @@ namespace DataModels.QuestStuff
         //TODO: Add more things like lvl reqs
 
 
-        public bool Satisfied(Dictionary<string, int> itemsHeld, List<string> completedQuestNames)
+        public bool Satisfied(Dictionary<string, int> itemsHeld, List<Quest> completedQuests)
         {
             if(ItemRequirements != null)
             {
                 foreach (QuestItemRequirement itemRequirement in ItemRequirements)
                 {
                     int itemCountHeld = 0;
-                    if(itemsHeld.TryGetValue(itemRequirement.ItemName, out itemCountHeld))
+                    if (itemsHeld.TryGetValue(itemRequirement.ItemName, out itemCountHeld))
                     {
                         //Player did not have all required items
                         if (itemCountHeld < itemRequirement.Count)
                             return false;
                     }
+                    else
+                        return false;
                 }
             }
 
             if(RequiredQuestNames != null)
-                foreach(string requiredQuestName in RequiredQuestNames)
+                foreach(Quest requiredQuest in completedQuests)
                 {
-                    if (!completedQuestNames.Contains(requiredQuestName))
+                    if (!completedQuests.Contains(requiredQuest))
                         return false;
                 }
 

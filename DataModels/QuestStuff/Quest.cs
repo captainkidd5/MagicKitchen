@@ -18,6 +18,15 @@ namespace DataModels.QuestStuff
 
         public bool Completed => CurrentStep == Steps.Count;
 
+
+        public void IncrementStep()
+        {
+            CurrentStep++;
+            if (Completed)
+            {
+                Console.WriteLine("test");
+            }
+        }
         public static List<Quest> GetQuests(string characterSubDirectory)
         {
             List<Quest> quests = new List<Quest>();

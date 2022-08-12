@@ -1,6 +1,7 @@
 ﻿using DataModels.QuestStuff;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DataModels
@@ -39,6 +40,11 @@ namespace DataModels
         public void CompleteQuestStep(Quest quest, int index)
         {
             QuestProgress[quest.Name].Steps[index].Completed = true;
+        }
+
+        public List<Quest> CompletedQuests()
+        {
+            return QuestProgress.Values.Where(x => x.Completed).ToList();
         }
     }
 }

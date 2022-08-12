@@ -152,6 +152,35 @@ namespace ItemEngine.Classes.StorageStuff
             return totalCount;
         }
 
+        public Dictionary<string, int> GetItemStoredAsDictionary()
+        {
+            Dictionary<string, int> dictionaryToReturn = new Dictionary<string, int>();
+
+            foreach (StorageSlot slot in Slots)
+            {
+                if (!slot.Empty)
+                {
+                    dictionaryToReturn.Add(slot.Item.Name, slot.StoredCount);
+
+                }
+            }
+            return dictionaryToReturn;
+        }
+        //public int GetStoredCount(string itemName)
+        //{
+        //    int totalCount = 0;
+        //    foreach (StorageSlot slot in Slots)
+        //    {
+        //        if (!slot.Empty)
+        //        {
+        //            if (slot.Item.Name == itemName)
+        //                totalCount += slot.StoredCount;
+
+        //        }
+        //    }
+        //    return totalCount;
+        //}
+
         public void SetToDefault( )
         {
             foreach (StorageSlot slot in Slots)
