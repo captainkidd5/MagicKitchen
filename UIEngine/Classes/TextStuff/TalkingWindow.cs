@@ -1,5 +1,6 @@
 ﻿using DataModels;
 using DataModels.DialogueStuff;
+using DataModels.NPCStuff;
 using DataModels.QuestStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
@@ -73,6 +74,7 @@ namespace UIEngine.Classes.TextStuff
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back), scale: _scale);
             TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front), .5f),
                 .05f);
+
             Deactivate();
 
 
@@ -107,35 +109,33 @@ namespace UIEngine.Classes.TextStuff
             _tabsStackPanel.Add(_tabStackRow);
         }
 
-        private StackPanel _buttonsStackPanel;
+        private StackPanel _questButtonsStackPanel;
         private List<NineSliceTextButton> _availableQuests;
         private void SwitchToQuestTab()
         {
             //Find all quests which start with this NPC
             List<Quest> quests = UI.QuestLog.QuestLoader.AllQuests.Values.Where(x =>
-            x.Steps.First().Value.AcquiredFrom == _curerentDialogue.Name).ToList();
+            x.Steps.First().Value.AcquiredFrom.ToLower() == CurrentNPCTalkingTo.Name.ToLower()).ToList();
 
             //And make sure that quest isn't already completed
             quests = quests.Where(x => !SaveLoadManager.CurrentSave.GameProgressData.QuestProgress[x.Name].Completed).ToList();
-            if (ChildSections.Contains(_buttonsStackPanel))
-                ChildSections.Remove(_buttonsStackPanel);
-            if (_buttonsStackPanel == null)
-                _buttonsStackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
-            else
-                _buttonsStackPanel.ChildSections.Clear();
-
-          
-
-
+            ClearQuestStackPanel();
+            _questButtonsStackPanel.Activate();
             _availableQuests = new List<NineSliceTextButton>();
-
-            foreach(Quest quest in quests)
+            StackRow explanationRow = new StackRow(TotalBounds.Width);
+            NineSliceTextButton explBtn = new NineSliceTextButton(_questButtonsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
+                  new List<Text>() { TextFactory.CreateUIText("Talk about which quest?", GetLayeringDepth(UILayeringDepths.High)) }, null, centerText: true)
+            { Displaybackground = false };
+            explanationRow.AddItem(explBtn, StackOrientation.Center);
+            _questButtonsStackPanel.Add(explanationRow);
+            foreach (Quest quest in quests)
             {
                 StackRow stackRow = new StackRow(TotalBounds.Width);
-                NineSliceTextButton btn = new NineSliceTextButton(_buttonsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
-                    new List<Text>() { TextFactory.CreateUIText(quest.Name, GetLayeringDepth(UILayeringDepths.High)) }, null);
+                NineSliceTextButton btn = new NineSliceTextButton(_questButtonsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
+                    new List<Text>() { TextFactory.CreateUIText(quest.Name, GetLayeringDepth(UILayeringDepths.High)) },
+                    new Action(() => { LoadInQuestHelpText(quest); }));
                 stackRow.AddItem(btn, StackOrientation.Center);
-                _buttonsStackPanel.Add(stackRow);
+                _questButtonsStackPanel.Add(stackRow);
             }
 
 
@@ -143,6 +143,28 @@ namespace UIEngine.Classes.TextStuff
             //Dialogue dialogue = new Dialogue() { DialogueText = new Dictionary<int, DSnippet>() { };  }
             TextBuilder.ClearText();
 
+        }
+
+        private void ClearQuestStackPanel()
+        {
+            if (ChildSections.Contains(_questButtonsStackPanel))
+                ChildSections.Remove(_questButtonsStackPanel);
+          
+                _questButtonsStackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X, Position.Y + 8), GetLayeringDepth(UILayeringDepths.Low));
+        
+
+           
+        }
+
+        private void LoadInQuestHelpText(Quest quest)
+        {
+            _questButtonsStackPanel.Deactivate();
+
+            var snippets = new Dictionary<int, DSnippet>();
+            DSnippet snippet = new DSnippet() { DialogueText = quest.Steps[quest.CurrentStep].HelpText };
+            snippets.Add(0, snippet);
+            Dialogue dialogue = new Dialogue() { DialogueText = snippets };
+            LoadNewConversation(CurrentNPCTalkingTo,dialogue);
         }
         public void RegisterCommands()
         {
@@ -234,7 +256,7 @@ namespace UIEngine.Classes.TextStuff
             if(int.TryParse(goToResult, out newIndex))
             {
                 _curerentDialogueIndex = newIndex;
-                LoadNewConversation(_curerentDialogue);
+                LoadNewConversation(CurrentNPCTalkingTo, _curerentDialogue);
                 _selectNextActionJustOccurred = true;
             }
             else
@@ -248,8 +270,12 @@ namespace UIEngine.Classes.TextStuff
 
 
         }
-        public void LoadNewConversation(Dialogue dialogue)
+        public NPCData CurrentNPCTalkingTo { get; set; }
+        public void LoadNewConversation(NPCData npcData, Dialogue dialogue)
         {
+            CurrentNPCTalkingTo = npcData;
+            ClearQuestStackPanel();
+
             _portraitSprite = SpriteFactory.CreateUISprite(_portraitSpritePosition, new Rectangle(dialogue.DialogueText[_curerentDialogueIndex].PortraitIndexX * s_portraitWidth,
                 dialogue.DialogueText[_curerentDialogueIndex].PortraitIndexY * s_portraitWidth, s_portraitWidth, s_portraitWidth),
                 UI.PortraitsManager.PortraitsTexture, GetLayeringDepth(UILayeringDepths.Medium), scale:new Vector2(2f,2f));

@@ -28,6 +28,12 @@ namespace DataModels.QuestStuff
         /// What the NPC will say to Player at start of sub quest
         /// </summary>
         public string StartText { get; set; }
+
+
+        /// <summary>
+        /// What the NPC says when you talk to them about the quest step when it is not yet completed
+        /// </summary>
+        public string HelpText { get; set; }
         /// <summary>
         /// What the NPC will say to Player at start of end of sub quest
         /// </summary>

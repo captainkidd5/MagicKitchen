@@ -117,7 +117,7 @@ namespace EntityEngine.Classes.CharacterStuff
         public void OnCharacterClicked(Schedule schedule)
         {
             
-            UI.LoadNewConversation(schedule.Dialogue);
+            UI.LoadNewConversation(NPCData, schedule.Dialogue);
             FaceTowardsOtherEntity(Shared.PlayerPosition);
             UI.TalkingDirection = Vector2Helper.GetOppositeDirection(DirectionMoving);
             _isInteractingWithPlayer = true;

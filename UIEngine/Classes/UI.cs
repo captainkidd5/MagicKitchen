@@ -40,6 +40,7 @@ using System.Threading.Tasks;
 using UIEngine.Classes.DebugStuff.DeveloperBoardStuff;
 using UIEngine.Classes.QuestLogStuff;
 using DataModels.QuestStuff;
+using DataModels.NPCStuff;
 
 namespace UIEngine.Classes
 {
@@ -474,7 +475,7 @@ namespace UIEngine.Classes
         }
 
 
-        public static void LoadNewConversation(Dialogue dialogue) => _talkingWindow.LoadNewConversation(dialogue);
+        public static void LoadNewConversation(NPCData npcData, Dialogue dialogue) => _talkingWindow.LoadNewConversation(npcData, dialogue);
         public static Direction TalkingDirection { get => _talkingWindow.DirectionPlayerShouldFace; set => _talkingWindow.DirectionPlayerShouldFace = value; }
 
         public static bool IsTalkingWindowActive => _talkingWindow.IsActive;
