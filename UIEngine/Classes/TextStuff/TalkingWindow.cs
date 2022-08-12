@@ -118,14 +118,15 @@ namespace UIEngine.Classes.TextStuff
             x.Steps.First().Value.AcquiredFrom.ToLower() == CurrentNPCTalkingTo.Name.ToLower()).ToList();
 
             //And make sure that quest isn't already completed
-            quests = quests.Where(x => !SaveLoadManager.CurrentSave.GameProgressData.QuestProgress[x.Name].Completed).ToList();
+            quests = quests.Where(x => SaveLoadManager.CurrentSave.GameProgressData.QuestProgress.ContainsKey(x.Name) &&
+            !SaveLoadManager.CurrentSave.GameProgressData.QuestProgress[x.Name].Completed).ToList();
             ClearQuestStackPanel();
             _questButtonsStackPanel.Activate();
             _availableQuests = new List<NineSliceTextButton>();
             StackRow explanationRow = new StackRow(TotalBounds.Width);
             NineSliceTextButton explBtn = new NineSliceTextButton(_questButtonsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
                   new List<Text>() { TextFactory.CreateUIText("Talk about which quest?", GetLayeringDepth(UILayeringDepths.High)) }, null, centerText: true)
-            { Displaybackground = false };
+            { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true, };
             explanationRow.AddItem(explBtn, StackOrientation.Center);
             _questButtonsStackPanel.Add(explanationRow);
             foreach (Quest quest in quests)
@@ -155,7 +156,17 @@ namespace UIEngine.Classes.TextStuff
 
            
         }
+        private void DetermineNextQuestDialogue(Quest quest)
+        {
+            QuestStep questStep = quest.Steps[quest.CurrentStep];
+            bool satisfied = true;
+            foreach(var preReq in questStep.PreRequisites)
+            {
+                if (preReq.Satisfied())
+                    satisfied = false;
+            }
 
+        }
         private void LoadInQuestHelpText(Quest quest)
         {
             _questButtonsStackPanel.Deactivate();

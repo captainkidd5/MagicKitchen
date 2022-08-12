@@ -47,7 +47,8 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
             List<Text> titleText = new List<Text>() { TextFactory.CreateUIText(ActiveQuest.Name, GetLayeringDepth(UILayeringDepths.High)) };
 
             NineSliceTextButton titleButton = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), titleText,
-                null, centerText: false, hoverTransparency: false);
+                null, centerText: false, hoverTransparency: false)
+            {IgnoreDefaultHoverSoundEffect = true};
             row1.AddItem(titleButton, StackOrientation.Center);
             _stackPanel.Add(row1);
 
@@ -62,7 +63,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
 
             NineSliceTextButton btn = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), text,
                 null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(text[0].TotalStringHeight), centerText: false)
-            { Displaybackground = false };
+            { Displaybackground = false,IgnoreDefaultHoverSoundEffect = true };
             stackRow.AddItem(btn, StackOrientation.Left);
             _stackPanel.Add(stackRow);
 
@@ -86,7 +87,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
                 NineSliceTextButton requirementDescriptionButton = new NineSliceTextButton(_stackPanel, graphics, content, Position,
                     GetLayeringDepth(UILayeringDepths.Medium), requirementDescriptionText,
                     null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementDescriptionText[0].TotalStringHeight + 16), centerText: true)
-                { Displaybackground = false };
+                { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true };
                 stackRowDescription.AddItem(requirementDescriptionButton, StackOrientation.Left);
                 _stackPanel.Add(stackRowDescription);
                 foreach (QuestItemRequirement itemReq in requirement.ItemRequirements)
@@ -98,7 +99,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
                     NineSliceTextButton requirementButton = new NineSliceTextButton(_stackPanel, graphics, content, Position,
                         GetLayeringDepth(UILayeringDepths.Medium), requirementText,
                         null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementText[0].TotalStringHeight + 16), centerText: true)
-                    { Displaybackground = false };
+                    { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true };
                     stackRow.AddItem(requirementButton, StackOrientation.Left);
                     _stackPanel.Add(stackRow);
 
