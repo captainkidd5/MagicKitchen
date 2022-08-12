@@ -5,6 +5,7 @@
         "FlavorText" : "(Its eyes gleam at you through the fading light)",
 
         "Dialogue":{
+            "Name" : "Ned",
             "DialogueText":
             {
                 "0":  {

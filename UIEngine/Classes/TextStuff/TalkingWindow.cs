@@ -107,6 +107,8 @@ namespace UIEngine.Classes.TextStuff
             _tabsStackPanel.Add(_tabStackRow);
         }
 
+        private StackPanel _buttonsStackPanel;
+        private List<NineSliceTextButton> _availableQuests;
         private void SwitchToQuestTab()
         {
             //Find all quests which start with this NPC
@@ -114,9 +116,33 @@ namespace UIEngine.Classes.TextStuff
             x.Steps.First().Value.AcquiredFrom == _curerentDialogue.Name).ToList();
 
             //And make sure that quest isn't already completed
-            quests = quests.Where(x => !SaveLoadManager.CurrentSave.GameProgressData.QuestProgress.ContainsKey(x.Name)).ToList();
+            quests = quests.Where(x => !SaveLoadManager.CurrentSave.GameProgressData.QuestProgress[x.Name].Completed).ToList();
+            if (ChildSections.Contains(_buttonsStackPanel))
+                ChildSections.Remove(_buttonsStackPanel);
+            if (_buttonsStackPanel == null)
+                _buttonsStackPanel = new StackPanel(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
+            else
+                _buttonsStackPanel.ChildSections.Clear();
 
-            LoadNewConversation()
+          
+
+
+            _availableQuests = new List<NineSliceTextButton>();
+
+            foreach(Quest quest in quests)
+            {
+                StackRow stackRow = new StackRow(TotalBounds.Width);
+                NineSliceTextButton btn = new NineSliceTextButton(_buttonsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
+                    new List<Text>() { TextFactory.CreateUIText(quest.Name, GetLayeringDepth(UILayeringDepths.High)) }, null);
+                stackRow.AddItem(btn, StackOrientation.Center);
+                _buttonsStackPanel.Add(stackRow);
+            }
+
+
+
+            //Dialogue dialogue = new Dialogue() { DialogueText = new Dictionary<int, DSnippet>() { };  }
+            TextBuilder.ClearText();
+
         }
         public void RegisterCommands()
         {

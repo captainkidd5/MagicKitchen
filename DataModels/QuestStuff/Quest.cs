@@ -16,6 +16,7 @@ namespace DataModels.QuestStuff
         public int CurrentStep { get; set; }
         public Dictionary<int, QuestStep> Steps { get; set; }
 
+        public bool Completed => CurrentStep == Steps.Count;
 
         public static List<Quest> GetQuests(string characterSubDirectory)
         {
