@@ -194,6 +194,7 @@ namespace UIEngine.Classes.TextStuff
                     }
                 }
                 RewardPlayer(questStep.QuestReward, playerStorageContainer);
+                UI.CentralAlertQueue.AddTextToQueue($"Quest Complete!:{quest.Steps[quest.CurrentStep].StepName}", 2f);
                 MoveToNextQuestStep(quest);
             }
             else
@@ -205,6 +206,7 @@ namespace UIEngine.Classes.TextStuff
 
         private void RewardPlayer(QuestReward questReward, StorageContainer playerStorageContainer)
         {
+
             foreach(KeyValuePair<string, int> item in questReward.Items)
             {
                 int countToAdd = item.Value;

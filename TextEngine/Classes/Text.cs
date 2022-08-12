@@ -22,7 +22,7 @@ namespace TextEngine.Classes
         public string CurrentString { get; set; }
         public string FullString { get; private set; }
         private float _scale;
-        private Color _color;
+        public Color Color { get; private set; }
         private Vector2 _position;
         private BitmapFont _spriteFont;
 
@@ -34,7 +34,7 @@ namespace TextEngine.Classes
             CurrentString = string.Empty;
             FullString = value;
             _scale = scale;
-            _color = Color.Black;
+            Color = Color.Black;
             _spriteFont = spriteFont;
 
             LayerDepth = layerDepth;
@@ -57,16 +57,16 @@ namespace TextEngine.Classes
         {
             if (fullString)
                 spriteBatch.DrawString(_spriteFont, FullString,
-                    _position, _color, 0f, Vector2.Zero, _scale, SpriteEffects.None, LayerDepth);
+                    _position, Color, 0f, Vector2.Zero, _scale, SpriteEffects.None, LayerDepth);
             else
                 spriteBatch.DrawString(_spriteFont, CurrentString,
-                    _position, _color, 0f, Vector2.Zero, _scale, SpriteEffects.None, LayerDepth);
+                    _position, Color, 0f, Vector2.Zero, _scale, SpriteEffects.None, LayerDepth);
 
         }
 
         public void ChangeColor(Color newColor)
         {
-            _color = newColor;
+            Color = newColor;
         }
 
         /// <summary>

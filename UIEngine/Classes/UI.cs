@@ -110,6 +110,8 @@ namespace UIEngine.Classes
 
         internal static QuestLog QuestLog { get; set; } 
         internal static MainMenu MainMenu { get; set; }
+
+        internal static CentralAlertQueue CentralAlertQueue { get; set; }
         public static StorageDisplayHandler StorageDisplayHandler { get; set; }
 
         internal static ItemAlertManager ItemAlertManager { get; set; }
@@ -165,9 +167,9 @@ namespace UIEngine.Classes
 
             CursorInfoBox = new CursorInfoBox(null, graphics, content, null, .9f);
             s_developerBoard = new DeveloperBoard(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
-
+            CentralAlertQueue = new CentralAlertQueue(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             s_inGameSections = new List<InterfaceSection>() { ToolBar, ClockBar,StatusPanel, _talkingWindow,
-                EscMenu, StorageDisplayHandler, ItemAlertManager, CursorInfoBox, s_developerBoard, QuestLog };
+                EscMenu, StorageDisplayHandler, ItemAlertManager, CursorInfoBox, s_developerBoard, QuestLog, CentralAlertQueue };
 
             Cursor = new Cursor();
             Cursor.LoadContent(content);
