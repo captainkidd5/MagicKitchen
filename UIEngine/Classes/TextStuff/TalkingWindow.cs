@@ -1,10 +1,12 @@
 ﻿using DataModels;
 using DataModels.DialogueStuff;
+using DataModels.QuestStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
 using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using InputEngine.Classes.Input;
+using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,6 +14,7 @@ using SpriteEngine.Classes;
 using SpriteEngine.Classes.InterfaceStuff;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TextEngine;
 using TextEngine.Classes;
@@ -51,6 +54,8 @@ namespace UIEngine.Classes.TextStuff
 
         private StackPanel _tabsStackPanel;
         private NineSliceTextButton _talkTab;
+        private NineSliceTextButton _questTab;
+
         public TalkingWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -94,9 +99,25 @@ namespace UIEngine.Classes.TextStuff
             _talkTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
                 new List<Text>() { TextFactory.CreateUIText("Talk", GetLayeringDepth(UILayeringDepths.Medium)) }, null, forcedWidth: 128, forcedHeight: 64, centerText: true);
             _tabStackRow.AddItem(_talkTab, StackOrientation.Left);
+
+            _questTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
+                new List<Text>() { TextFactory.CreateUIText("Quest", GetLayeringDepth(UILayeringDepths.Medium)) }, SwitchToQuestTab, forcedWidth: 128, forcedHeight: 64, centerText: true);
+            _tabStackRow.AddItem(_questTab, StackOrientation.Left);
+
             _tabsStackPanel.Add(_tabStackRow);
         }
 
+        private void SwitchToQuestTab()
+        {
+            //Find all quests which start with this NPC
+            List<Quest> quests = UI.QuestLog.QuestLoader.AllQuests.Values.Where(x =>
+            x.Steps.First().Value.AcquiredFrom == _curerentDialogue.Name).ToList();
+
+            //And make sure that quest isn't already completed
+            quests = quests.Where(x => !SaveLoadManager.CurrentSave.GameProgressData.QuestProgress.ContainsKey(x.Name)).ToList();
+
+            LoadNewConversation()
+        }
         public void RegisterCommands()
         {
             CommandConsole.RegisterCommand("talk", "displays given text as speech", AddSpeechCommand);

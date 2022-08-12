@@ -1,48 +1,70 @@
 [
-        {
-            
-                "Name" : "a_light",
-                "PreRequisites":
-                [
+    {
+        "Name": "a_light",
+        "PreRequisites": [
+            {}
+        ],
+        "Steps": {
+            "0": {
+                "Index": 0,
+                "AqcuiredFrom": "Ned",
+                "TurnInto": "Ned",
+                "StartText": "Ned: 'First things first, we need to get this candle up and running. \n I'll need some supplies. These things should do it. Come back to me when you've got them all with you.'",
+                "EndText": "end test",
+                "PreRequisites": [
                     {
-                        
+                        "ItemRequirements": [
+                            {
+                                "ItemName": "Fibre",
+                                "Count": 8,
+                                "Description": "(Have all of these items in your inventory)"
+                            },
+                            {
+                                "ItemName": "Stone",
+                                "Count": 3,
+                                "Description": "Ned would like me to bring him: "
+                            }
+                        ]
                     }
-                ],
-                "Steps":
-                {
-                    
-                        "0":
-                        {
-                            "Index":0,
-                            "AqcuiredFrom":"Ned",
-                            "TurnInto" : "Ned",
-                            "StartText": "Ned: 'First things first, we need to get this candle up and running. \n I'll need some supplies. These things should do it. Come back to me when you've got them all with you.'",
-                            "EndText" : "end test",
-                            "PreRequisites":[
-                                {
-                                    "ItemRequirements":[
-                                        {
-                                            "ItemName" : "Fibre",
-                                            "Count" : 8,
-                                            "Description": "(Have all of these items in your inventory)"
-                                        },
-                                        {
-                                            "ItemName" : "Stone",
-                                            "Count" : 3,
-                                            "Description": "Ned would like me to bring him: "
-                                        }
-                                    ]
-                                }
-                            ]
+                ]
+            }
+        }
+    },
 
-                        }
-                        
-                       
-                    
+    {
+        "Name": "starting",
+        "PreRequisites": [
+            {}
+        ],
+        "Steps": {
+            "0": {
+                "Index": 0,
+                "AqcuiredFrom": "Julian",
+                "TurnInto": "Julian",
+                "StartText": "Julian: 'Hello, I see you're new here. Welcome to the world.'",
+                "EndText": "end test",
+                "PreRequisites": [
+                    {
+                        "ItemRequirements": [
+                            {
+                                "ItemName": "Meat",
+                                "Count": 2,
+                                "Description": "(Have all of these items in your inventory)"
+                            },
+                            {
+                                "ItemName": "Wood",
+                                "Count": 4,
+                                "Description": "Ned would like me to bring him: "
+                            },
+                            {
+                                "ItemName": "Stone",
+                                "Count": 2,
+                                "Description": "Ned would like me to bring him: "
+                            }
+                        ]
                     }
-            
-
+                ]
+            }
+        }
     }
-    
-        
 ]

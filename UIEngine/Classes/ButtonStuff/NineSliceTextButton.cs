@@ -51,8 +51,9 @@ namespace UIEngine.Classes.ButtonStuff
             int width = _forcedWidth ?? (int)combinedtext.TotalStringWidth ;
 
             Position = newPos;
-
-            float newTextPosX = Position.X;
+            //Prevents text from hugging the literal left side of the text box
+            float leftMargin = 8;
+            float newTextPosX = Position.X + leftMargin;
             if (_centerText)
             {
                 int halfStringWidth = (int)(combinedtext.TotalStringWidth /2);
@@ -63,7 +64,7 @@ namespace UIEngine.Classes.ButtonStuff
             if (_forcedWidth == null)
                 BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X - 8, Position.Y - 8), combinedtext, UI.ButtonTexture, LayerDepth);
             else
-                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(new Vector2(Position.X - 8, Position.Y - 8), _forcedWidth.Value,
+                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _forcedWidth.Value,
                     _forcedHeight.Value, UI.ButtonTexture, LayerDepth);
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,  _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
