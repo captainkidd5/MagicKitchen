@@ -13,7 +13,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using static EntityEngine.Classes.CharacterStuff.Scheduler;
 
 namespace EntityEngine.Classes
 {
@@ -27,7 +26,6 @@ namespace EntityEngine.Classes
         //used for npc spawning
         internal static List<IWeightable> WeightedNPCData { get; set; }
 
-        internal static Dictionary<string, List<Schedule>> Schedules;
 
         private static ScriptManager _scriptManager;
         public static void Load(ContentManager content)
@@ -65,26 +63,13 @@ namespace EntityEngine.Classes
 
 
 
-            Schedules = new Dictionary<string, List<Schedule>>();
-            foreach(var file in Directory.GetFiles(basePath))
-            {
-                jsonString = File.ReadAllText(file);
-                List<Schedule> schedules = JsonSerializer.Deserialize<List<Schedule>>(jsonString, options);
-
-                //foreach (Schedule sch in schedules)
-                //    sch.ConvertTimeString();
-
-                //schedules.Sort(0, schedules.Count, new ScheduleTimeComparer());
-                Schedules.Add(Path.GetFileName(file).Split(".json")[0], schedules);
-
-            }
+           
 
 
             _scriptManager = new ScriptManager();
             _scriptManager.LoadScripts(content);
         }
 
-        public static List<Schedule> GetSchedules(string entityName) => Schedules[entityName.ToLower()];
         public static SubScript GetSubscript(string scriptName) => _scriptManager.GetSubscript(scriptName);
        
 

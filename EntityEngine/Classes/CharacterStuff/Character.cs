@@ -24,6 +24,7 @@ using EntityEngine.Classes.PlayerStuff;
 using EntityEngine.ItemStuff;
 using PhysicsEngine.Classes;
 using tainicom.Aether.Physics2D.Dynamics;
+using TextEngine.Classes;
 
 namespace EntityEngine.Classes.CharacterStuff
 {

@@ -30,6 +30,7 @@ using System;
 using SoundEngine.Classes.SongStuff;
 using InputEngine.Classes;
 using DataModels.QuestStuff;
+using TextEngine.Classes;
 
 namespace MagicKitchen
 {
@@ -111,6 +112,7 @@ namespace MagicKitchen
             Clock.Load();
             MainFont = Content.Load<SpriteFont>("Fonts/Font");
             TextFactory.Load(Content);
+            Scheduler.Load(Content);
             TileLoader.LoadContent(Content);
             ItemFactory.LoadContent(Content);
             EntityFactory.Load(Content);

@@ -103,7 +103,7 @@ namespace UIEngine.Classes.TextStuff
             _tabsStackPanel = new StackPanel(this, graphics, content, tabsStackPanelPosition, GetLayeringDepth(UILayeringDepths.Low));
             StackRow _tabStackRow = new StackRow(TotalBounds.Width);
             _talkTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                new List<Text>() { TextFactory.CreateUIText("Talk", GetLayeringDepth(UILayeringDepths.Medium)) }, null, forcedWidth: 128, forcedHeight: 64, centerText: true);
+                new List<Text>() { TextFactory.CreateUIText("Talk", GetLayeringDepth(UILayeringDepths.Medium)) }, SwitchToTalkTab, forcedWidth: 128, forcedHeight: 64, centerText: true);
             _tabStackRow.AddItem(_talkTab, StackOrientation.Left);
 
             _questTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
@@ -115,6 +115,11 @@ namespace UIEngine.Classes.TextStuff
 
         private StackPanel _questButtonsStackPanel;
         private List<NineSliceTextButton> _availableQuests;
+
+        private void SwitchToTalkTab()
+        {
+            LoadNewConversation(CurrentNPCTalkingTo, Scheduler.GetScheduleFromCurrentTime(CurrentNPCTalkingTo.Name).Dialogue);
+        }
         private void SwitchToQuestTab()
         {
             //Find all quests which start with this NPC

@@ -20,7 +20,6 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TiledEngine.Classes;
-using static EntityEngine.Classes.CharacterStuff.Scheduler;
 using static Globals.Classes.Settings;
 
 namespace EntityEngine.Classes.CharacterStuff
