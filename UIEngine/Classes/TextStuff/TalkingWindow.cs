@@ -39,7 +39,7 @@ namespace UIEngine.Classes.TextStuff
 
         private Vector2 _textOffSet = new Vector2(16, 16);
 
-        private Vector2 _scale = new Vector2(3f,3f);
+        private Vector2 _scale = new Vector2(3f, 3f);
 
         private StackPanel _stackPanel;
 
@@ -58,6 +58,8 @@ namespace UIEngine.Classes.TextStuff
         private StackPanel _tabsStackPanel;
         private NineSliceTextButton _talkTab;
         private NineSliceTextButton _questTab;
+
+        private Quest _activeTalkedQuest;
 
         public TalkingWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
            base(interfaceSection, graphicsDevice, content, position, layerDepth)
@@ -133,6 +135,8 @@ namespace UIEngine.Classes.TextStuff
             _questButtonsStackPanel.Add(explanationRow);
             foreach (Quest quest in quests)
             {
+                if (quest.Completed)
+                    continue;
                 StackRow stackRow = new StackRow(TotalBounds.Width);
                 NineSliceTextButton btn = new NineSliceTextButton(_questButtonsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
                     new List<Text>() { TextFactory.CreateUIText(quest.Name, GetLayeringDepth(UILayeringDepths.High)) },
@@ -152,14 +156,15 @@ namespace UIEngine.Classes.TextStuff
         {
             if (ChildSections.Contains(_questButtonsStackPanel))
                 ChildSections.Remove(_questButtonsStackPanel);
-          
-                _questButtonsStackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X, Position.Y + 8), GetLayeringDepth(UILayeringDepths.Low));
-        
 
-           
+            _questButtonsStackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X, Position.Y + 8), GetLayeringDepth(UILayeringDepths.Low));
+
+
+
         }
         private void DetermineNextQuestDialogue(Quest quest)
         {
+            _activeTalkedQuest = quest;
             _questButtonsStackPanel.Deactivate();
 
             var completedQuests = SaveLoadManager.CurrentSave.GameProgressData.CompletedQuests();
@@ -172,7 +177,7 @@ namespace UIEngine.Classes.TextStuff
 
 
             bool satisfied = true;
-            foreach(var preReq in questStep.PreRequisites)
+            foreach (var preReq in questStep.PreRequisites)
             {
                 if (!preReq.Satisfied(playerStorageContainer.GetItemStoredAsDictionary(), completedQuests))
                     satisfied = false;
@@ -182,10 +187,10 @@ namespace UIEngine.Classes.TextStuff
             {
                 foreach (var preReq in questStep.PreRequisites)
                 {
-                   if(preReq.ItemRequirements != null)
+                    if (preReq.ItemRequirements != null)
                     {
                         //Remove handed-in items from player inventory
-                        foreach(var itemReq in preReq.ItemRequirements)
+                        foreach (var itemReq in preReq.ItemRequirements)
                         {
                             int countToRemove = itemReq.Count;
 
@@ -195,7 +200,9 @@ namespace UIEngine.Classes.TextStuff
                 }
                 RewardPlayer(questStep.QuestReward, playerStorageContainer);
                 UI.CentralAlertQueue.AddTextToQueue($"Quest Complete!:{quest.Steps[quest.CurrentStep].StepName}", 2f);
-                MoveToNextQuestStep(quest);
+                quest.IncrementStep();
+
+                MoveToNextQuestStep(quest, true);
             }
             else
             {
@@ -207,22 +214,34 @@ namespace UIEngine.Classes.TextStuff
         private void RewardPlayer(QuestReward questReward, StorageContainer playerStorageContainer)
         {
 
-            foreach(KeyValuePair<string, int> item in questReward.Items)
+            foreach (KeyValuePair<string, int> item in questReward.Items)
             {
                 int countToAdd = item.Value;
                 playerStorageContainer.AddItem(ItemFactory.GetItem(item.Key), ref countToAdd);
             }
         }
-        private void MoveToNextQuestStep(Quest quest)
+        private void MoveToNextQuestStep(Quest quest, bool isEnd = false)
         {
             var snippets = new Dictionary<int, DSnippet>();
-            DSnippet snippet = new DSnippet() { DialogueText = quest.Steps[quest.CurrentStep].EndText };
+            string dialogueText = string.Empty;
+            if (isEnd)
+                dialogueText = quest.Steps[quest.CurrentStep - 1].EndText;
+            else
+                dialogueText = quest.Steps[quest.CurrentStep].StartText;
+
+            string goToResult = string.Empty;
+            if (quest.Completed)
+                goToResult = "End";
+            else
+                goToResult = "questStep";
+            DSnippet snippet = new DSnippet() { DialogueText = dialogueText, GoTo = goToResult };
             snippets.Add(0, snippet);
             Dialogue dialogue = new Dialogue() { DialogueText = snippets };
+            _curerentDialogueIndex = 0;
+            
             LoadNewConversation(CurrentNPCTalkingTo, dialogue);
 
 
-            quest.IncrementStep();
         }
         private void LoadInQuestHelpText(Quest quest)
         {
@@ -231,7 +250,8 @@ namespace UIEngine.Classes.TextStuff
             DSnippet snippet = new DSnippet() { DialogueText = quest.Steps[quest.CurrentStep].HelpText };
             snippets.Add(0, snippet);
             Dialogue dialogue = new Dialogue() { DialogueText = snippets };
-            LoadNewConversation(CurrentNPCTalkingTo,dialogue);
+            _curerentDialogueIndex = 0;
+            LoadNewConversation(CurrentNPCTalkingTo, dialogue);
         }
         public void RegisterCommands()
         {
@@ -241,12 +261,12 @@ namespace UIEngine.Classes.TextStuff
         {
             DirectionPlayerShouldFace = Direction.Down;
             string totalString = string.Empty;
-            foreach(string arg in args)
+            foreach (string arg in args)
             {
                 totalString += " ";
                 totalString += arg;
             }
-          //  LoadNewConversation(totalString);
+            //  LoadNewConversation(totalString);
         }
 
         private bool _selectNextActionJustOccurred = false;
@@ -320,19 +340,21 @@ namespace UIEngine.Classes.TextStuff
 
             int newIndex = 0;
 
-            if(int.TryParse(goToResult, out newIndex))
+            if (int.TryParse(goToResult, out newIndex))
             {
                 _curerentDialogueIndex = newIndex;
                 LoadNewConversation(CurrentNPCTalkingTo, _curerentDialogue);
                 _selectNextActionJustOccurred = true;
             }
-            else
+
+            else if (goToResult == "End")
             {
-                if(goToResult == "End")
-                {
-                    Deactivate();
-                    return;
-                }
+                Deactivate();
+                return;
+            }
+            else if (goToResult == "questStep")
+            {
+                MoveToNextQuestStep(_activeTalkedQuest);
             }
 
 
@@ -345,7 +367,7 @@ namespace UIEngine.Classes.TextStuff
 
             _portraitSprite = SpriteFactory.CreateUISprite(_portraitSpritePosition, new Rectangle(dialogue.DialogueText[_curerentDialogueIndex].PortraitIndexX * s_portraitWidth,
                 dialogue.DialogueText[_curerentDialogueIndex].PortraitIndexY * s_portraitWidth, s_portraitWidth, s_portraitWidth),
-                UI.PortraitsManager.PortraitsTexture, GetLayeringDepth(UILayeringDepths.Medium), scale:new Vector2(2f,2f));
+                UI.PortraitsManager.PortraitsTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(2f, 2f));
             _curerentDialogue = dialogue;
             TextBuilder.ClearText();
             Text text = TextFactory.CreateUIText(dialogue.DialogueText[_curerentDialogueIndex].DialogueText, GetLayeringDepth(UILayeringDepths.Front), scale: 1f);
@@ -353,26 +375,26 @@ namespace UIEngine.Classes.TextStuff
 
 
 
-            TextBuilder.SetText(text, BackdropSprite.HitBox.Width,false);
+            TextBuilder.SetText(text, BackdropSprite.HitBox.Width, false);
             float totalTextHeight = TextBuilder.GetWidthOfTotalWrappedText(BackdropSprite.HitBox.Width);
             Activate();
 
             if (ChildSections.Contains(_stackPanel))
                 ChildSections.Remove(_stackPanel);
-            
+
             _stackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X, Position.Y + totalTextHeight), GetLayeringDepth(UILayeringDepths.Medium));
 
-            if(dialogue.Options != null)
+            if (dialogue.Options != null)
             {
 
-            foreach(var option in dialogue.Options)
-            {
-                StackRow stackRow = new StackRow((int)((float)_backgroundSourceRectangle.Width /4 * _scale.X));
-                TalkingOptionPanel window = new TalkingOptionPanel(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
-                window.LoadNewOption(option.Value);
-                stackRow.AddItem(window, StackOrientation.Left);
-                _stackPanel.Add(stackRow);
-            }
+                foreach (var option in dialogue.Options)
+                {
+                    StackRow stackRow = new StackRow((int)((float)_backgroundSourceRectangle.Width / 4 * _scale.X));
+                    TalkingOptionPanel window = new TalkingOptionPanel(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
+                    window.LoadNewOption(option.Value);
+                    stackRow.AddItem(window, StackOrientation.Left);
+                    _stackPanel.Add(stackRow);
+                }
             }
 
             UI.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UI.ClockBar });

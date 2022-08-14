@@ -52,6 +52,8 @@ namespace UIEngine.Classes.QuestLogStuff
             SaveLoadManager.CurrentSave.GameProgressData.StartNewQuest(QuestLoader.AllQuests[args[0]]);
             _activeQuestList.LoadContent();
 
+            UI.CentralAlertQueue.AddTextToQueue($"Quest Started: {QuestLoader.AllQuests[args[0]].Name}", 2f);
+
         }
         public void SetActiveQuest(Quest quest)
         {

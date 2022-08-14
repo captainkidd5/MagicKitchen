@@ -126,7 +126,7 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void ClickInteraction()
         {
             
-            StatusIcon.SetStatus(StatusIconType.Speak);
+            StatusIcon.SetStatus(StatusIconType.None);
 
             if (ActiveSchedule == null)
                 ActiveSchedule = Scheduler.GetScheduleFromCurrentTime(NPCData.Name);

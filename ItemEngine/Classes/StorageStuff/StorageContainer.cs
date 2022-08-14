@@ -160,7 +160,10 @@ namespace ItemEngine.Classes.StorageStuff
             {
                 if (!slot.Empty)
                 {
-                    dictionaryToReturn.Add(slot.Item.Name, slot.StoredCount);
+                    if (dictionaryToReturn.ContainsKey(slot.Item.Name))
+                        dictionaryToReturn[slot.Item.Name] += slot.StoredCount;
+                    else
+                        dictionaryToReturn.Add(slot.Item.Name, slot.StoredCount);
 
                 }
             }

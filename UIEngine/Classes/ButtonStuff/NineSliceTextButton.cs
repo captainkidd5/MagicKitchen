@@ -53,14 +53,16 @@ namespace UIEngine.Classes.ButtonStuff
             Position = newPos;
             //Prevents text from hugging the literal left side of the text box
             float leftMargin = 8;
+            float topMargin = 4;
             float newTextPosX = Position.X + leftMargin;
+            float newTextPosY = Position.Y + topMargin; 
             if (_centerText)
             {
                 int halfStringWidth = (int)(combinedtext.TotalStringWidth /2);
                 newTextPosX = Position.X + width / 2 - halfStringWidth ;
             }
             _textPositions = new List<Vector2>();
-            GeneratePositionsForLines(new Vector2(newTextPosX, Position.Y ));
+            GeneratePositionsForLines(new Vector2(newTextPosX, newTextPosY));
             if (_forcedWidth == null)
                 BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X - 8, Position.Y - 8), combinedtext, UI.ButtonTexture, LayerDepth);
             else
@@ -71,7 +73,7 @@ namespace UIEngine.Classes.ButtonStuff
 
             if (_centerText)
             {
-                GeneratePositionsForLines(new Vector2(newTextPosX, Position.Y));
+                GeneratePositionsForLines(new Vector2(newTextPosX, newTextPosY));
 
             }
 
