@@ -5,6 +5,7 @@
         "Path":"LullabyTown.tmx",
         "InsertionX":2,
         "InsertionY":2,
+        "IslandDistance" : "Mid",
         "AmbientSoundPackageName":"Overworld_Outside"
     },
     {
@@ -13,6 +14,7 @@
         "Path":"HomeIsland.tmx",
         "InsertionX":15,
         "InsertionY":15,
+        "IslandDistance" : "None",
         "AmbientSoundPackageName":"Overworld_Outside"
     },
     {
@@ -21,6 +23,7 @@
         "Path":"Caravan.tmx",
         "InsertionX":48,
         "InsertionY":48,
+        "IslandDistance" : "Inner",
         "AmbientSoundPackageName":"Overworld_Outside"
     },
     {
@@ -29,6 +32,7 @@
         "Path":"TestIsland.tmx",
         "InsertionX":112,
         "InsertionY":112,
+        "IslandDistance" : "Outer",
         "AmbientSoundPackageName":"Overworld_Outside"
     }
 ]

@@ -13,6 +13,45 @@
         "OddsAdditionalSpawn" : 80
     },
     {
+        "GID":2014,
+        "LayersToPlace": "foreground",
+        "OnlyCentralTilingTile":true,
+        "AllowedTilingSets":[
+            "land"
+        ],
+        "Tries" : 1000,
+        "MinDistance" : 5,
+        "MaxDistance":8,
+        "MaxCluster" : 5,
+        "OddsAdditionalSpawn" : 30
+    },
+    {
+        "GID":2124,
+        "LayersToPlace": "foreground",
+        "OnlyCentralTilingTile":true,
+        "AllowedTilingSets":[
+            "water"
+        ],
+        "Tries" : 2000,
+        "MinDistance" : 5,
+        "MaxDistance":8,
+        "MaxCluster" : 2,
+        "OddsAdditionalSpawn" : 40
+    },
+    {
+        "GID":1273,
+        "LayersToPlace": "foreground",
+        "OnlyCentralTilingTile":true,
+        "AllowedTilingSets":[
+            "water"
+        ],
+        "Tries" : 1000,
+        "MinDistance" : 5,
+        "MaxDistance":8,
+        "MaxCluster" : 5,
+        "OddsAdditionalSpawn" : 80
+    },
+    {
         "GID":1279,
         "LayersToPlace": "foreground",
         "OnlyCentralTilingTile":true,

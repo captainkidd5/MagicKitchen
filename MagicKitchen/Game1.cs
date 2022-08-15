@@ -236,6 +236,8 @@ namespace MagicKitchen
         /// <param name="e"></param>
         public void OnSaveCreated(object? sender, FileCreatedEventArgs e)
         {
+            _stageManager.LoadContent();
+
             Flags.IsNewGame = true;
 
             BinaryWriter writer = e.BinaryWriter;
