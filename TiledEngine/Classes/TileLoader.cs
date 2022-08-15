@@ -21,6 +21,15 @@ using TiledEngine.Classes.Procedural;
 
 namespace TiledEngine.Classes
 {
+    public enum WorldSize
+    {
+        None =0,
+        Small = 512,
+        Medium = 1024,
+        Large = 2048,
+        Huge = 4096
+
+    }
     public static class TileLoader
     {
         public static float[] MapDepths = new float[5]
@@ -32,6 +41,7 @@ namespace TiledEngine.Classes
                 .5f,
             };
 
+        private static WorldSize s_currentWorldSize;
         private static string s_mapPath;
 
 
@@ -49,6 +59,7 @@ namespace TiledEngine.Classes
         /// </summary>
         public static void LoadContent(ContentManager content)
         {
+            s_currentWorldSize = WorldSize.Huge;
             s_proceduralPlacer = new ProceduralPlacer();
             s_proceduralPlacer.Load(content);
 
@@ -84,8 +95,8 @@ namespace TiledEngine.Classes
 
 
             List<TileData[,]> mapData;// = ExtractTilesFromPreloadedMap(tileManager, mapToLoad);
-            mapData = GenerateEmptyMapArray(tileManager, worldMap, 512);
-            mapData[0] = GenerateAutomataLayer(512);
+            mapData = GenerateEmptyMapArray(tileManager, worldMap, (int)s_currentWorldSize);
+            mapData[0] = GenerateAutomataLayer((int)s_currentWorldSize);
 
             foreach(var sd in stageData)
             {

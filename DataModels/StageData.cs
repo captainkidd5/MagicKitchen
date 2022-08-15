@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataModels
 {
-    public enum IslandDistance : byte
+    public enum IslandDistance
     {
         None = 0,
         Inner = 1,

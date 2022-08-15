@@ -91,11 +91,10 @@ namespace StageEngine.Classes
         public void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
             UI.DropCurtain(UI.CurtainDropRate, new Action(EnterWorld));
-            StageData stageData = content.Load<StageData>("maps/StageData");
 
             //CurrentStage.Load(stageData, this, _playerManager);
             //CurrentStage.SaveToStageFile();
-            _playerManager.LoadContent(stageData.Name, CurrentStage.TileManager, CurrentStage.ItemManager, AllStageData);
+            _playerManager.LoadContent("LullabyTown", CurrentStage.TileManager, CurrentStage.ItemManager, AllStageData);
 
             Flags.Pause = true;
 
@@ -175,7 +174,7 @@ namespace StageEngine.Classes
         public void LoadSave(BinaryReader reader)
         {
 
-            ; StageData stageData = content.Load<StageData>("maps/StageData");
+            StageData stageData = AllStageData["LullabyTown"];
             CurrentStage = new Stage(content, graphics, _camera);
 
             CurrentStage.Load(stageData, this, _playerManager);
