@@ -1,4 +1,5 @@
-﻿using EntityEngine.ItemStuff;
+﻿using DataModels;
+using EntityEngine.ItemStuff;
 using Globals.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -33,8 +34,8 @@ namespace EntityEngine.Classes
             Entities = new List<Entity>();
             EntitiesToAdd = new List<Entity>();
         }
- 
-        public virtual void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
+ public Dictionary<string,StageData> AllStageData { get; protected set; }
+        public virtual void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager, Dictionary<string, StageData> allStageData)
         {
             TileManager = tileManager;
             ItemManager = itemManager;
@@ -43,6 +44,7 @@ namespace EntityEngine.Classes
 
                 entity.LoadContent(this);
             }
+            AllStageData = allStageData;
         }
 
         public virtual void Update(GameTime gameTime)

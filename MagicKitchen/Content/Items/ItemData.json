@@ -553,6 +553,25 @@
         }
     },
     {
+        "Id": 2904,
+        "Name": "Stone_Fence",
+        "Description": "Basic housing structure",
+        "MaxStackSize": 999,
+        "Price": 1,
+        "PlacedItemGID": 740,
+        "PlacementSound": "PlaceFurniture",
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Placeable",
+            "Ingredients": [
+                {
+                    "Name": "Stone",
+                    "Count": 12
+                }
+            ]
+        }
+    },
+    {
         "Id": 3100,
         "Name": "Chest",
         "Description": "Stores Items",

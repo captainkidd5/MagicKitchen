@@ -1,4 +1,5 @@
-﻿using EntityEngine.ItemStuff;
+﻿using DataModels;
+using EntityEngine.ItemStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
 using InputEngine.Classes.Input;
@@ -40,8 +41,9 @@ namespace EntityEngine.Classes.PlayerStuff
             Player1.UpdateFromInput();
             base.Update(gameTime);
         }
-        public override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
+        public override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager, Dictionary<string, StageData> allStageData)
         {
+            AllStageData = allStageData;
             TileManager = tileManager;
             ItemManager = itemManager;
             Player1.LoadContent(this, null, null, false);
@@ -49,6 +51,8 @@ namespace EntityEngine.Classes.PlayerStuff
             CommandConsole.RegisterCommand("give", "gives player item with id", GivePlayerItem);
 
         }
+
+
    
         public override void Save(BinaryWriter writer)
         {

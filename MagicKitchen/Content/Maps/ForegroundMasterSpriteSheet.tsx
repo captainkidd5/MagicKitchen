@@ -82,6 +82,30 @@
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
  </tile>
+ <tile id="537">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="stoneFence"/>
+  </properties>
+ </tile>
+ <tile id="538">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="stoneFence"/>
+  </properties>
+ </tile>
+ <tile id="539">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="stoneFence"/>
+  </properties>
+ </tile>
+ <tile id="540">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="stoneFence"/>
+  </properties>
+ </tile>
  <tile id="571">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
@@ -126,6 +150,31 @@
  <tile id="615">
   <properties>
    <property name="newSource" value="-16,-64,48,80"/>
+  </properties>
+ </tile>
+ <tile id="737">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="stoneFence"/>
+  </properties>
+ </tile>
+ <tile id="738">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="stoneFence"/>
+  </properties>
+ </tile>
+ <tile id="739">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="stoneFence"/>
+  </properties>
+ </tile>
+ <tile id="740">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingKey" value="stoneFence,land,fence"/>
+   <property name="tilingSet" value="stoneFence"/>
   </properties>
  </tile>
  <tile id="771">

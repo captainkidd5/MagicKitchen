@@ -1,4 +1,5 @@
-﻿using DataModels.NPCStuff;
+﻿using DataModels;
+using DataModels.NPCStuff;
 using DataModels.QuestStuff;
 using EntityEngine.Classes.NPCStuff;
 using EntityEngine.Classes.NPCStuff.Props;
@@ -47,11 +48,11 @@ namespace EntityEngine.Classes.CharacterStuff
             AddTrain();
         }
 
-        public override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
+        public override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager, Dictionary<string, StageData> allStageData)
         {
             TileManager = tileManager;
             ItemManager = itemManager;
-
+            AllStageData = allStageData;
             foreach (NPC entity in Entities)
             {
 

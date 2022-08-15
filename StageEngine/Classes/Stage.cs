@@ -174,7 +174,7 @@ namespace StageEngine.Classes
         {
             TileManager.LoadSave(reader);
             ItemManager.LoadSave(reader);
-            NPCContainer.LoadContent(Name, TileManager, ItemManager);
+            NPCContainer.LoadContent(Name, TileManager, ItemManager,StageManager.AllStageData);
 
             NPCContainer.LoadSave(reader);
 

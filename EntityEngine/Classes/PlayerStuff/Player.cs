@@ -101,6 +101,8 @@ namespace EntityEngine.Classes.PlayerStuff
             UI.Cursor.ItemDropped += DropHeldItem;
 
             CommandConsole.RegisterCommand("tp", "teleports player to mouse position", TpCommand);
+            CommandConsole.RegisterCommand("tpi", "teleports player to give island name", TpIslandCommand);
+
             CommandConsole.RegisterCommand("ra", "Reloads player animations", ReloadAnimationsCommmand);
             CommandConsole.RegisterCommand("pa", "Plays specified animation", PlayAnimationCommand);
             CommandConsole.RegisterCommand("takeDmg", "Damages player by amount", TakeDamageCommand);
@@ -121,6 +123,8 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
         }
+
+ 
         /// <summary>
         /// When player dies, do this
         /// </summary>
@@ -152,6 +156,11 @@ namespace EntityEngine.Classes.PlayerStuff
         private void TpCommand(string[] args)
         {
             Move(Controls.MouseWorldPosition);
+        }
+
+        private void TpIslandCommand(string[] args)
+        {
+            Move(new Vector2(Container.AllStageData[args[0]].InsertionX, Container.AllStageData[args[0]].InsertionY));
         }
         private void ReloadAnimationsCommmand(string[] args)
         {

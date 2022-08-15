@@ -46,7 +46,7 @@ namespace StageEngine.Classes
         private HullBody _spawnAreaBody;
 
 
-
+        public static Dictionary<string, StageData> AllStageData;
 
         public StageManager(GraphicsDevice graphics, ContentManager content, PlayerManager playerManager, Camera2D camera) : base(graphics, content)
         {
@@ -60,6 +60,21 @@ namespace StageEngine.Classes
 
         public override void LoadContent()
         {
+            string basePath = content.RootDirectory + "/Maps";
+            var options = new JsonSerializerOptions();
+            options.Converters.Add(new JsonStringEnumConverter());
+
+            var files = Directory.GetFiles(basePath);
+            string jsonString = string.Empty;
+
+            foreach (var file in files)
+                if (file.EndsWith("StageData.json"))
+                {
+                    jsonString = File.ReadAllText(file);
+                    AllStageData = JsonSerializer.Deserialize<List<StageData>>(jsonString, options).ToDictionary(x => x.Name);
+                    break;
+
+                }
             base.LoadContent();
         }
 
@@ -80,7 +95,7 @@ namespace StageEngine.Classes
 
             //CurrentStage.Load(stageData, this, _playerManager);
             //CurrentStage.SaveToStageFile();
-            _playerManager.LoadContent(stageData.Name, CurrentStage.TileManager, CurrentStage.ItemManager);
+            _playerManager.LoadContent(stageData.Name, CurrentStage.TileManager, CurrentStage.ItemManager, AllStageData);
 
             Flags.Pause = true;
 
@@ -174,31 +189,16 @@ namespace StageEngine.Classes
             SetToDefault();
 
 
-            string basePath = content.RootDirectory + "/Maps";
-            var options = new JsonSerializerOptions();
-            options.Converters.Add(new JsonStringEnumConverter());
-
-            var files = Directory.GetFiles(basePath);
-            string jsonString = string.Empty;
-
-            Dictionary<string, StageData> allStageData = new Dictionary<string, StageData>();
-            foreach (var file in files)
-                if (file.EndsWith("StageData.json"))
-                {
-                    jsonString = File.ReadAllText(file);
-                    allStageData = JsonSerializer.Deserialize<List<StageData>>(jsonString, options).ToDictionary(x => x.Name);
-                    break;
-
-                }
+            
 
 
 
            // StageData stageData = content.Load<StageData>("maps/StageData");
             CurrentStage = new Stage(content, graphics, _camera);
 
-            CurrentStage.Load(allStageData["LullabyTown"], this, _playerManager);
+            CurrentStage.Load(AllStageData["LullabyTown"], this, _playerManager);
 
-            CurrentStage.CreateNewSave(allStageData);
+            CurrentStage.CreateNewSave(AllStageData);
             _playerManager.Save(writer);
 
 
