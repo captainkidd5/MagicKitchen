@@ -76,6 +76,21 @@
     "DestructionSoundPackageName":"Break"
 },
 {
+    "TileId":4781,
+    "Loot":[
+     {
+         "ItemName":"Wood_Fence",
+         "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":1,
+
+         "Weight":100
+     }   
+    ],
+    "DestructionSoundPackageName":"Break"
+},
+{
     "TileId":971,
     "Loot":[
      {

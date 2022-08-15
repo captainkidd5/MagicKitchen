@@ -75,6 +75,28 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             Set[14].Add(new WangTile(100, centralGID - 197));
             Set[15].Add(new WangTile(100, centralGID));
         }
+
+        public void FillFence(int centralGID)
+        {
+            Set[0].Add(new WangTile(100, centralGID));
+            Set[1].Add(new WangTile(100, centralGID -200));
+
+            Set[2].Add(new WangTile(100, centralGID -1));
+            Set[3].Add(new WangTile(100, centralGID + -201));
+
+            Set[4].Add(new WangTile(100, centralGID -3));
+            Set[5].Add(new WangTile(100, centralGID -203));
+            Set[6].Add(new WangTile(100, centralGID -2));
+            Set[7].Add(new WangTile(100, centralGID -202));
+            Set[8].Add(new WangTile(100, centralGID));
+            Set[9].Add(new WangTile(100, centralGID ));
+            Set[10].Add(new WangTile(100, centralGID - 1));
+            Set[11].Add(new WangTile(100, centralGID -201));
+            Set[12].Add(new WangTile(100, centralGID - 3));
+            Set[13].Add(new WangTile(100, centralGID - 203));
+            Set[14].Add(new WangTile(100, centralGID - 2));
+            Set[15].Add(new WangTile(100, centralGID -202));
+        }
         public void FillFoliage(int centralGID)
         {
             Set[0].Add(new WangTile(100, centralGID -96));

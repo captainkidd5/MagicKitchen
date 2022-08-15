@@ -349,7 +349,6 @@ namespace UIEngine.Classes.TextStuff
             {
                 _curerentDialogueIndex = newIndex;
                 LoadNewConversation(CurrentNPCTalkingTo, _curerentDialogue);
-                _selectNextActionJustOccurred = true;
             }
 
             else if (goToResult == "End")
@@ -367,6 +366,8 @@ namespace UIEngine.Classes.TextStuff
         public NPCData CurrentNPCTalkingTo { get; set; }
         public void LoadNewConversation(NPCData npcData, Dialogue dialogue)
         {
+            _selectNextActionJustOccurred = true;
+
             CurrentNPCTalkingTo = npcData;
             ClearQuestStackPanel();
 

@@ -83,6 +83,18 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
 
             GenerateRequirementTextRows();
 
+            StackRow spacerRow = new StackRow((int)(_backGroundSprite.Width * _scale.X), 24);
+            spacerRow.AddSpacer(new Rectangle(0, 0, 16, 32), StackOrientation.Center);
+            _stackPanel.Add(spacerRow);
+            StackRow rewardsTextStackRow = new StackRow((int)(_backGroundSprite.Width * _scale.X));
+            List<Text> requirementDescriptionText = new List<Text>() { TextFactory.CreateUIText($"Rewards", GetLayeringDepth(UILayeringDepths.High), _paragraphTextSize) };
+
+            NineSliceTextButton rewardsDescriptionButton = new NineSliceTextButton(_stackPanel, graphics, content, Position,
+                GetLayeringDepth(UILayeringDepths.Medium), requirementDescriptionText,
+                null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementDescriptionText[0].TotalStringHeight + 16), centerText: true)
+            { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true };
+            rewardsTextStackRow.AddItem(rewardsDescriptionButton, StackOrientation.Center);
+            _stackPanel.Add(rewardsTextStackRow);
         }
 
         private void GenerateRequirementTextRows()

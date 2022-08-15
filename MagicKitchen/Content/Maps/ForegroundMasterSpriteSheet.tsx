@@ -897,11 +897,93 @@
    <property name="newHitBox" value="4, -8, 26"/>
    <property name="newSource" value="0,-64,32,80"/>
   </properties>
+  <animation>
+   <frame tileid="4201" duration="100"/>
+   <frame tileid="4203" duration="100"/>
+   <frame tileid="4205" duration="100"/>
+   <frame tileid="4207" duration="100"/>
+   <frame tileid="4209" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="4203">
+  <properties>
+   <property name="newSource" value="0,-64,32,80"/>
+  </properties>
+ </tile>
+ <tile id="4205">
+  <properties>
+   <property name="newSource" value="0,-64,32,80"/>
+  </properties>
+ </tile>
+ <tile id="4207">
+  <properties>
+   <property name="newSource" value="0,-64,32,80"/>
+  </properties>
+ </tile>
+ <tile id="4209">
+  <properties>
+   <property name="newSource" value="0,-64,32,80"/>
+  </properties>
  </tile>
  <tile id="4321">
   <properties>
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
+ </tile>
+ <tile id="4578">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="woodFence"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="2" y="1" width="14" height="14">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="4579">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="woodFence"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="14">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="4580">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="woodFence"/>
+  </properties>
+  <objectgroup draworder="index" id="3">
+   <object id="2" x="0" y="0" width="14" height="15">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="4581">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="woodFence"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="4" y="7" width="8" height="8">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="4613">
   <properties>
@@ -919,6 +1001,62 @@
    <frame tileid="4321" duration="100"/>
    <frame tileid="4021" duration="100"/>
   </animation>
+ </tile>
+ <tile id="4778">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="woodFence"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="3" y="1" width="14" height="14">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="4779">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="woodFence"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="14">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="4780">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingSet" value="woodFence"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="1" width="14" height="14">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="4781">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="tilingKey" value="woodFence,land,fence"/>
+   <property name="tilingSet" value="woodFence"/>
+  </properties>
+  <objectgroup draworder="index" id="4">
+   <object id="3" x="4" y="7" width="8" height="8">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+    <ellipse/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="4921">
   <properties>

@@ -38,13 +38,24 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
             WangSets.Add(name, new WangSet());
 
             string fillType = values[2];
-            if (fillType == "back")
-                WangSets[name].FillBackTiling(gid);
-            
-            else if (fillType == "tall")
-                WangSets[name].FillTall(gid);
-            else if(fillType == "foliage")
-                WangSets[name].FillFoliage(gid);
+
+            switch (fillType)
+            {
+                case "back":
+                    WangSets[name].FillBackTiling(gid);
+                    break;
+                case "tall":
+                    WangSets[name].FillTall(gid);
+                    break;
+                case "fence":
+                    WangSets[name].FillFence(gid);
+                    break;
+                case "foliage":
+                    WangSets[name].FillFoliage(gid);
+                    break;
+                default:
+                    break;
+            }
 
 
             if (!string.IsNullOrEmpty(values[1]))
