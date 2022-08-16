@@ -26,8 +26,12 @@ namespace IOEngine.Classes
             MetaData.FolderPath = SaveLoadManager.BasePath + @"\" + MetaData.Name;
             MetaData.MainSaveFilePath = MetaData.FolderPath + @"\" + MetaData.Name + ".dat";
             MetaData.StageFilePath = MetaData.FolderPath + @"\" + "Stages";
+            MetaData.ChunkPath = MetaData.FolderPath + @"\" + "Stages" + @"\" + "Chunks";
+
             Directory.CreateDirectory(MetaData.FolderPath);
             Directory.CreateDirectory(MetaData.StageFilePath);
+            Directory.CreateDirectory(MetaData.ChunkPath);
+
 
             File.WriteAllText(MetaData.MainSaveFilePath, string.Empty);
 

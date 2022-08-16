@@ -122,7 +122,7 @@ namespace IOEngine.Classes
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        private static BinaryWriter CreateWriter(string path)
+        public static BinaryWriter CreateWriter(string path)
         {
             FileStream fileStream = File.OpenWrite(path);
             return new BinaryWriter(fileStream);
@@ -140,7 +140,7 @@ namespace IOEngine.Classes
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        private static BinaryReader CreateReader(string path)
+        public static BinaryReader CreateReader(string path)
         {
             FileStream fileStream = File.OpenRead(path);
             return new BinaryReader(fileStream);

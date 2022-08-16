@@ -64,10 +64,10 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
             Set[4].Add(new WangTile(100, centralGID + 98));
             Set[5].Add(new WangTile(100, centralGID + 299));
-            Set[6].Add(new WangTile(100, centralGID +105));
+            Set[6].Add(new WangTile(100, centralGID + 105));
             Set[7].Add(new WangTile(100, centralGID + 300));
             Set[8].Add(new WangTile(100, centralGID + 103));
-            Set[9].Add(new WangTile(100, centralGID - 103));
+            Set[9].Add(new WangTile(100, centralGID + 103));
             Set[10].Add(new WangTile(100, centralGID - 196));
             Set[11].Add(new WangTile(100, centralGID + 1));
             Set[12].Add(new WangTile(100, centralGID - 198));

@@ -59,7 +59,7 @@ namespace TiledEngine.Classes
         /// </summary>
         public static void LoadContent(ContentManager content)
         {
-            s_currentWorldSize = WorldSize.Huge;
+            s_currentWorldSize = WorldSize.Small;
             s_proceduralPlacer = new ProceduralPlacer();
             s_proceduralPlacer.Load(content);
 

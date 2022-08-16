@@ -160,7 +160,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
         private void TpIslandCommand(string[] args)
         {
-            Move(new Vector2(Container.AllStageData[args[0]].InsertionX, Container.AllStageData[args[0]].InsertionY));
+            Move(new Vector2((Container.AllStageData[args[0]].InsertionX +32) * 16 , (Container.AllStageData[args[0]].InsertionY + 32) * 16));
         }
         private void ReloadAnimationsCommmand(string[] args)
         {

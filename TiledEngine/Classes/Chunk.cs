@@ -1,4 +1,6 @@
 ﻿using Globals.Classes;
+using IOEngine.Classes;
+using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,14 +12,15 @@ using static DataModels.Enums;
 
 namespace TiledEngine.Classes
 {
-    internal class Chunk : ISaveable
+    internal class Chunk
     {
         private static readonly int ChunkSize = 64;
         private readonly TileManager _tileManager;
-
+        private ContentManager _content;
         public int X { get; set; }
         public int Y { get; set; }
-
+        
+        private string _path => $"{SaveLoadManager.CurrentSave.MetaData.ChunkPath}/Chunk_{X}_{Y}";
         public Chunk(TileManager tileManager, int x, int y)
         {
             _tileManager = tileManager;
@@ -25,14 +28,19 @@ namespace TiledEngine.Classes
             Y = y;
         }
 
-        public void Save(BinaryWriter writer)
+        public void LoadContent(ContentManager content)
+        {
+            _content = content;
+        }
+
+        public void Save( )
         {
             int startXTiles = X * Settings.TileSize;
             int startYTiles = Y * Settings.TileSize;
 
             int endXTiles = startXTiles + ChunkSize;
             int endYTiles = startYTiles + ChunkSize;
-
+            BinaryWriter writer = SaveLoadManager.CreateWriter(_path);
             for (int z = 0; z < _tileManager.TileData.Count; z++)
             {
                 for (int x = startXTiles; x < endXTiles; x++)
@@ -46,11 +54,12 @@ namespace TiledEngine.Classes
                     }
                 }
             }
+            SaveLoadManager.DestroyWriter(writer);
         }
 
-        public void LoadSave(BinaryReader reader)
+        public void LoadSave()
         {
-
+            BinaryReader reader = SaveLoadManager.CreateReader(_path); 
             int startXTiles = X * Settings.TileSize;
             int startYTiles = Y * Settings.TileSize;
 
@@ -68,6 +77,7 @@ namespace TiledEngine.Classes
                     }
                 }
             }
+            SaveLoadManager.DestroyReader(reader);
         }
 
         public void SetToDefault()

@@ -10,6 +10,7 @@ namespace DataModels
         public DateTime DateCreated { get; set; }
         public string StageFilePath { get; set; }
 
+        public string ChunkPath { get; set; }
         public string FolderPath { get; set; }
         public string MainSaveFilePath { get; set; }
 
