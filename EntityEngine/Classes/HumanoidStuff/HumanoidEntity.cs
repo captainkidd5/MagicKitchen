@@ -160,7 +160,24 @@ namespace EntityEngine.Classes.HumanoidStuff
 
         public override void ClickInteraction()
         {
+            StatusIcon.SetStatus(StatusIconType.None);
+
+            FaceTowardsOtherEntity(Shared.PlayerPosition);
+            UI.TalkingDirection = Vector2Helper.GetOppositeDirection(DirectionMoving);
+
             UI.ActivateSecondaryInventoryDisplay(null, StorageContainer);
+            UI.StorageDisplayHandler.SecondaryStorageClosed += OnSecondaryInventoryClosed;
+            Halt(true);
+
+
+        }
+        /// <summary>
+        /// Want npcs to be able to move again once their inventory is closed by the player
+        /// </summary>
+        protected virtual void OnSecondaryInventoryClosed()
+        {
+            Resume();
+            UI.StorageDisplayHandler.SecondaryStorageClosed -= OnSecondaryInventoryClosed;
 
         }
         public override void Draw(SpriteBatch spriteBatch)

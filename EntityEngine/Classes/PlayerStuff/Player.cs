@@ -272,7 +272,7 @@ namespace EntityEngine.Classes.PlayerStuff
                 TileObject mouseOverTile = Container.TileManager.MouseOverTile;
                 if (mouseOverTile != null)
                 {
-                    if (UI.Cursor.CursorIconType != CursorIconType.None)
+                    if (UI.Cursor.CursorIconType != CursorIconType.None && UI.Cursor.CursorIconType != CursorIconType.Speech)
                     {
                         //if (Container.TileManager.TileLocationHelper.IsAdjacentTo(mouseOverTile.TileData, Position))
                         //{
