@@ -380,7 +380,11 @@ namespace EntityEngine.Classes.PlayerStuff
             UI.Cursor.HeldItem = null;
 
         }
+        protected override void DrawAnimator(SpriteBatch spriteBatch)
+        {
+            Animator.Draw(spriteBatch, SubmergenceLevel);
 
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);

@@ -22,10 +22,11 @@ using SpriteEngine.Classes;
 using ItemEngine.Classes.StorageStuff;
 using static DataModels.Enums;
 using SpriteEngine.Classes.ShadowStuff;
+using EntityEngine.Classes.NPCStuff;
 
 namespace EntityEngine.Classes
 {
-    public class HumanoidEntity : Character
+    public class HumanoidEntity : NPC
     {
 
         public int Armor => (InventoryHandler as HumanoidInventoryHandler).ArmorValue;
