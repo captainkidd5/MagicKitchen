@@ -296,7 +296,7 @@
     {
         "ActionType": "Walking",
         "MovementDirection": "Left",
-        "Flip" : false,
+        "Flip" : true,
         "SpriteY": 23,
             "SpriteX":13,
         "FrameIndicies":[
@@ -306,7 +306,7 @@
     {
         "ActionType": "Walking",
         "MovementDirection": "Right",
-        "Flip" : true,
+        "Flip" : false,
         "SpriteY": 23,
             "SpriteX":13,
         "FrameIndicies":[
@@ -326,9 +326,10 @@
         "MovementDirection": "Up",
         "DamageFrame":2,
         "Flip" : false,
-        "SpriteY" : 2,
+        "SpriteY": 23,
+        "SpriteX":17,
         "FrameIndicies":[
-            0,1,2
+            0,1,2,3,4,5
         ]
     },
     {
@@ -336,29 +337,32 @@
         "MovementDirection": "Down",
         "DamageFrame":2,
         "Flip" : false,
-        "SpriteY" : 2,
+        "SpriteY": 23,
+        "SpriteX":17,
         "FrameIndicies":[
-            3,4,5
+            0,1,2,3,4,5
         ]
     },
     {
         "ActionType": "Attack",
         "MovementDirection": "Left",
         "DamageFrame":2,
-        "Flip" : false,
-        "SpriteY" : 2,
+        "Flip" : true,
+        "SpriteY": 23,
+        "SpriteX":17,
         "FrameIndicies":[
-            6,7,8
+            0,1,2,3,4,5
         ]
     },
     {
         "ActionType": "Attack",
         "MovementDirection": "Right",
         "DamageFrame":2,
-        "Flip" : true,
-        "SpriteY" : 2,
+        "Flip" : false,
+        "SpriteY": 23,
+        "SpriteX":17,
         "FrameIndicies":[
-            6,7,8
+            0,1,2,3,4,5
         ]
     }
 ],
