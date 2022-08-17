@@ -100,7 +100,7 @@ namespace UIEngine.Classes.Storage.Configurations
 
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, Rows * _buttonWidth, Columns * _buttonWidth);
 
-
+            parentSection.TotalBounds = TotalBounds;
 
         }
 

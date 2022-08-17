@@ -23,13 +23,14 @@ namespace EntityEngine.Classes.HumanoidStuff
         public override void Save(BinaryWriter writer)
         {
             base.Save(writer);
+            EquipmentStorageContainer.Save(writer);
 
         }
 
         public override void LoadSave(BinaryReader reader)
         {
             base.LoadSave(reader);
-
+            EquipmentStorageContainer.LoadSave(reader);
         }
     }
 }

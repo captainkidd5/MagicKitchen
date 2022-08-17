@@ -96,7 +96,7 @@ namespace EntityEngine.Classes
             _content = content;
             Name = GetType().ToString();
 
-            StorageCapacity = 4;
+            StorageCapacity = 6;
             Navigator = new Navigator(Name);
             Speed = BaseSpeed;
 

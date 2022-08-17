@@ -32,14 +32,14 @@ namespace UIEngine.Classes.EquipmentMenuStuff
             if(ChildSections.Count == 0)
             {
 
-            TotalBounds = parentSection.TotalBounds;
+            //TotalBounds = parentSection.TotalBounds;
             Position = new Vector2(TotalBounds.X, TotalBounds.Y);
             EquipmentDisplay = new EquipmentDisplay(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             EquipmentDisplay.LoadContent();
-
+                //TotalBounds = EquipmentDisplay.TotalBounds;
                 EquipmentDisplay.AssignControlSectionAtEdge(Direction.Up, parentSection as MenuSection);
 
-                base.LoadContent();
+                //base.LoadContent();
             }
 
         }

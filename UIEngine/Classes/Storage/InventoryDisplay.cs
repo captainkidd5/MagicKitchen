@@ -129,8 +129,8 @@ namespace UIEngine.Classes.Storage
             }
             else //Else use standard rows and columns from this class
             {
-                Rows = StorageContainer.Capacity / 2;
-                Columns = StorageContainer.Capacity / 2;
+                Rows = 2;
+                Columns = StorageContainer.Capacity / Rows;
                 //Rows = 3;
                 //Columns = 8;
             }

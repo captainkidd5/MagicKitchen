@@ -98,8 +98,16 @@ namespace PhysicsEngine.Classes.Pathfinding
         public bool FindPathTo(Vector2 currentPosition, Vector2 targetTestPos)
         {
             PathFinder.SearchLimit = 100;
-            CurrentPath = PathFinder.FindPath(Vector2Helper.WorldPositionToTilePositionAsPoint(currentPosition),
-                Vector2Helper.WorldPositionToTilePositionAsPoint(targetTestPos), DebugName);
+            Point currentPoint = Vector2Helper.WorldPositionToTilePositionAsPoint(currentPosition);
+            if (!Vector2Helper.IsPositive(currentPoint))
+                throw new Exception($"Negative points are invalid");
+
+            Point targetPoint = Vector2Helper.WorldPositionToTilePositionAsPoint(targetTestPos);
+            if (!Vector2Helper.IsPositive(targetPoint))
+                throw new Exception($"Negative points are invalid");
+
+            CurrentPath = PathFinder.FindPath(currentPoint,
+                targetPoint, DebugName);
             if (CurrentPath == null)
                 return false;
             return true;

@@ -472,10 +472,7 @@ namespace EntityEngine.Classes.PlayerStuff
             StorageCapacity = reader.ReadByte();
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
 
-            (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
-            (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.TorsoEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
-            (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.LegsEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
-            (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.BootsEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
+            SubscribeEquipmentSlots();
 
             InventoryHandler.LoadSave(reader);
             (InventoryHandler as PlayerInventoryHandler).EquipmentStorageContainer.LoadSave(reader);

@@ -112,20 +112,31 @@ namespace EntityEngine.Classes.HumanoidStuff
             (Animator as CustomizeableAnimator).ChangeClothingColor(t, color);
         public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string name, bool standardAnimator = false)
         {
-            base.LoadContent(entityContainer, startPos, name, standardAnimator);
             if (GetType() != typeof(Player))
             {
                 LoadAnimations(Animator);
                 LoadWardrobe();
             }
+
             Shadow = new Shadow(ShadowType.NPC, CenteredPosition, ShadowSize.Small, SpriteFactory.NPCSheet);
 
+            SubscribeEquipmentSlots();
+            //XOffSet = 0;
+            //YOffSet = 8;
+            base.LoadContent(entityContainer, startPos, name, standardAnimator);
+
+        }
+
+
+        /// <summary>
+        /// Will alert body parts when equipment is changed based on these events
+        /// </summary>
+        protected void SubscribeEquipmentSlots()
+        {
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.TorsoEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.LegsEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.BootsEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
-            //XOffSet = 0;
-            //YOffSet = 8;
         }
 
         protected virtual void LoadWardrobe()
@@ -167,6 +178,9 @@ namespace EntityEngine.Classes.HumanoidStuff
 
             UI.ActivateSecondaryInventoryDisplay(null, StorageContainer);
             UI.StorageDisplayHandler.SecondaryStorageClosed += OnSecondaryInventoryClosed;
+
+            UI.ActivateSecondaryEquipmentMenu(EquipmentStorageContainer);
+
             Halt(true);
 
 
@@ -193,6 +207,8 @@ namespace EntityEngine.Classes.HumanoidStuff
 
         public override void LoadSave(BinaryReader reader)
         {
+            SubscribeEquipmentSlots();
+
             base.LoadSave(reader);
             Animator.LoadSave(reader);
         }

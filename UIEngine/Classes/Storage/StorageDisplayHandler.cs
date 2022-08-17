@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UIEngine.Classes.EquipmentMenuStuff;
 using UIEngine.Classes.Storage.Configurations;
 using static DataModels.Enums;
 
@@ -23,6 +24,7 @@ namespace UIEngine.Classes.Storage
     public class StorageDisplayHandler : InterfaceSection
     {
         private InventoryDisplay _secondaryInventoryDisplay;
+        private EquipmentMenu _secondaryEquipmentMenu;
         public Item PlayerSelectedItem => PlayerInventoryDisplay.CurrentlySelectedItem;
         public void RemovePlayerSelectedItem(int amt) => PlayerInventoryDisplay.DetractCurrentlySelectedItem(amt);
 
@@ -54,6 +56,10 @@ namespace UIEngine.Classes.Storage
                GetLayeringDepth(UILayeringDepths.Medium));
             _secondaryInventoryDisplay.LoadContent();
             _secondaryInventoryDisplay.Deactivate();
+
+            _secondaryEquipmentMenu = new EquipmentMenu(this, graphics, content, Position, _secondaryInventoryDisplay.LayerDepth);
+            _secondaryEquipmentMenu.LoadContent();
+            _secondaryEquipmentMenu.Deactivate();
             //X and y actually don't matter, multiply by 10 because toolbar is 10 slots wide, at 64 pixels per slot
 
             Rectangle totalToolBarRectangle = new Rectangle(0, 0, _playerSlotWidth * _playerInventoryTotalSlots, _playerSlotWidth);
@@ -147,7 +153,19 @@ namespace UIEngine.Classes.Storage
         public void DeactivateSecondaryDisplay()
         {
             _secondaryInventoryDisplay.Deactivate();
+            _secondaryEquipmentMenu.Deactivate();
             SecondaryStorageClosed?.Invoke();
+        }
+
+        public void ActivateSecondaryEquipmentMenu(EquipmentStorageContainer equipmentStorageContainer)
+        {
+            
+            _secondaryEquipmentMenu.EquipmentDisplay.LoadNewEntityInventory(equipmentStorageContainer, false);
+            _secondaryEquipmentMenu.Activate();
+
+            _secondaryEquipmentMenu.MovePosition(new Vector2(_secondaryInventoryDisplay.Position.X  + _secondaryEquipmentMenu.Width/2, _secondaryInventoryDisplay.Position.Y));
+           // _secondaryEquipmentMenu.MovePosition(_secondaryInventoryDisplay.Position + new Vector2(0, -128));
+
         }
 
         public void ActivateSecondaryInventoryDisplay(FurnitureType? t, StorageContainer storageContainer, bool displayWallet = false)
@@ -186,10 +204,14 @@ namespace UIEngine.Classes.Storage
                     throw new Exception($"must have storage type");
 
             }
+   
+
             _secondaryInventoryDisplay.MovePosition(RectangleHelper.CenterRectangleOnScreen(_secondaryInventoryDisplay.TotalBounds));
             _secondaryInventoryDisplay.MovePosition(_secondaryInventoryDisplay.Position + new Vector2(0, -128));
             _secondaryInventoryDisplay.LoadNewEntityInventory(storageContainer, displayWallet);
+            TotalBounds = _secondaryInventoryDisplay.TotalBounds;
 
+            
             _secondaryInventoryDisplay.Activate();
             //Activate();
             PlayerInventoryDisplay.OpenExtendedInventory();
