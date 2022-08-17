@@ -50,28 +50,28 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
 
         }
 
-        private int? EquipmentTypeToBodyPartIndex(EquipmentType equipmentType)
-        {
-            switch (equipmentType)
-            {
-                case EquipmentType.None:
-                    goto default;
-                case EquipmentType.Helmet:
-                    return 7;
-                case EquipmentType.Torso:
-                    return 2;
-                case EquipmentType.Legs:
-                    return 0;
+        //private int? EquipmentTypeToBodyPartIndex(EquipmentType equipmentType)
+        //{
+        //    switch (equipmentType)
+        //    {
+        //        case EquipmentType.None:
+        //            goto default;
+        //        case EquipmentType.Helmet:
+        //            return 7;
+        //        case EquipmentType.Torso:
+        //            return 2;
+        //        case EquipmentType.Legs:
+        //            return 0;
 
-                case EquipmentType.Boots:
-                    return 1;
+        //        case EquipmentType.Boots:
+        //            return 1;
 
-                case EquipmentType.Trinket:
-                    goto default;
+        //        case EquipmentType.Trinket:
+        //            goto default;
 
-                default: return null;
-            }
-        }
+        //        default: return null;
+        //    }
+        //}
         public void SetClothingIndex(Type t, int index)
         {
             for (int i = 0; i < BodyPieces.Length; i++)

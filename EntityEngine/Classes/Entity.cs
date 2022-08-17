@@ -548,16 +548,13 @@ namespace EntityEngine.Classes
 
 
             Vector2Helper.WriteVector2(writer, Position);
-            writer.Write(StorageCapacity);
             InventoryHandler.Save(writer);
             writer.Write(ScheduleName);
         }
         public virtual void LoadSave(BinaryReader reader)
         {
             Move(Vector2Helper.ReadVector2(reader));
-            StorageCapacity = reader.ReadByte();
 
-            InventoryHandler = new InventoryHandler(StorageCapacity);
 
             InventoryHandler.LoadSave(reader);
             ScheduleName = reader.ReadString();

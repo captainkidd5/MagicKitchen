@@ -136,7 +136,7 @@ namespace EntityEngine.Classes.CharacterStuff
             NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                     .CreateInstance(EntityFactory.NPCData[name].ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
                     null, new object[] { graphics, content }, null, null);
-            npc.LoadContent(this, position, name, standardAnimator);
+            npc.LoadContent(this, position, name, EntityFactory.NPCData[name].NPCType == NPCType.Enemy);
             EntitiesToAdd.Add(npc);
         }
 
