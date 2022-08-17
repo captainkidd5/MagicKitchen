@@ -2,7 +2,7 @@
 [
 {
     "Name": "patron",
-    "ObjectType" : "EntityEngine.Classes.HumanoidEntity",
+    "ObjectType" : "EntityEngine.Classes.HumanoidStuff.HumanoidEntity",
     "ScheduleName": "patron",
     "NPCType" : "Customizable",
     "SpriteWidth": 48,

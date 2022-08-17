@@ -1,6 +1,7 @@
 ﻿using DataModels;
 using DataModels.NPCStuff;
 using DataModels.QuestStuff;
+using EntityEngine.Classes.HumanoidStuff;
 using EntityEngine.Classes.NPCStuff;
 using EntityEngine.Classes.NPCStuff.Props;
 using EntityEngine.ItemStuff;

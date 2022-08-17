@@ -1,4 +1,5 @@
-﻿using Globals.Classes.Console;
+﻿using EntityEngine.Classes.HumanoidStuff;
+using Globals.Classes.Console;
 using ItemEngine.Classes;
 using System;
 using System.Collections.Generic;

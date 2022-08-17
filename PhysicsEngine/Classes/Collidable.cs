@@ -164,6 +164,7 @@ namespace PhysicsEngine.Classes
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Cursor) && fixtureA.CollidesWith.HasFlag((Category)PhysCat.Cursor))
             {
                 MouseHovering = true;
+
                 
             }
            if(fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))

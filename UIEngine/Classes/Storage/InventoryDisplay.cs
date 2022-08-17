@@ -129,9 +129,10 @@ namespace UIEngine.Classes.Storage
             }
             else //Else use standard rows and columns from this class
             {
-
-                Rows = 3;
-                Columns = 8;
+                Rows = StorageContainer.Capacity / 2;
+                Columns = StorageContainer.Capacity / 2;
+                //Rows = 3;
+                //Columns = 8;
             }
             DrawCutOff = Rows;
             GenerateUI(displayWallet);

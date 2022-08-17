@@ -7,6 +7,7 @@ using EntityEngine.ItemStuff;
 using Globals.Classes;
 using Globals.Classes.Chance;
 using Globals.Classes.Helpers;
+using InputEngine.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -27,6 +28,7 @@ using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes;
+using UIEngine.Classes;
 using static DataModels.Enums;
 
 namespace EntityEngine.Classes.NPCStuff
@@ -50,7 +52,7 @@ namespace EntityEngine.Classes.NPCStuff
             YOffSet = 4;
         }
 
-
+        public bool Inspectable { get; set; }
         public virtual void LoadContent(EntityContainer container, Vector2? startPos, string? name, bool standardAnimator = true)
         {
             if (!string.IsNullOrEmpty(name))
@@ -110,9 +112,43 @@ namespace EntityEngine.Classes.NPCStuff
             }
 
         }
+        protected override void UpdateBehaviour(GameTime gameTime)
+        {
+            if(!_isInteractingWithPlayer)
+            base.UpdateBehaviour(gameTime);
+        }
+        protected override void Resume()
+        {
+
+            base.Resume();
+            _isInteractingWithPlayer = false;
+        }
+        private bool _isInteractingWithPlayer;
+
+        /// <summary>
+        /// Check for click interaction, must be <see cref="Inspectable"/>
+        /// </summary>
+        protected virtual void CheckInspection()
+        {
+            
+            if (((PlayerInClickRange && MouseHovering) || (Controls.ControllerConnected && PlayerInControllerActionRange)))
+            {
+                UI.Cursor.ChangeCursorIcon(CursorIconType.Speech);
+
+                if (Controls.IsClickedWorld && !_isInteractingWithPlayer)
+                {
+                    ClickInteraction();
+                    _isInteractingWithPlayer = true;
+
+                }
+            }
+        }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (Inspectable && !_isInteractingWithPlayer)
+                CheckInspection();
             if (SubmergenceLevel == SubmergenceLevel.None && Shadow != null)
             {
                 int xShadowOffSet = NPCData != null ? NPCData.ShadowOffSetX : 0;

@@ -150,7 +150,7 @@ namespace UIEngine.Classes.Storage
             SecondaryStorageClosed?.Invoke();
         }
 
-        public void ActivateSecondaryInventoryDisplay(FurnitureType t, StorageContainer storageContainer, bool displayWallet = false)
+        public void ActivateSecondaryInventoryDisplay(FurnitureType? t, StorageContainer storageContainer, bool displayWallet = false)
         {
             ChildSections.Remove(_secondaryInventoryDisplay);
             switch (t)
@@ -176,6 +176,10 @@ namespace UIEngine.Classes.Storage
                 case FurnitureType.CraftingTable:
                     _secondaryInventoryDisplay = new FurnaceTableDisplay(this, graphics, content, _secondaryInventoryDisplay.Position,
                         _secondaryInventoryDisplay.LayerDepth);
+                    break;
+                case null:
+                    _secondaryInventoryDisplay = new InventoryDisplay(this, graphics, content, _secondaryInventoryDisplay.Position,
+                       _secondaryInventoryDisplay.LayerDepth);
                     break;
                 default:
 

@@ -23,8 +23,9 @@ using ItemEngine.Classes.StorageStuff;
 using static DataModels.Enums;
 using SpriteEngine.Classes.ShadowStuff;
 using EntityEngine.Classes.NPCStuff;
+using UIEngine.Classes;
 
-namespace EntityEngine.Classes
+namespace EntityEngine.Classes.HumanoidStuff
 {
     public class HumanoidEntity : NPC
     {
@@ -56,7 +57,8 @@ namespace EntityEngine.Classes
             Animator = new CustomizeableAnimator(bodyPieces);
             InventoryHandler = new HumanoidInventoryHandler(StorageCapacity);
             _damageImmunityTimer = new SimpleTimer(_damageImmunityTime, true);
-          //  (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
+            Inspectable = true;
+            //  (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
         }
 
 
@@ -68,27 +70,27 @@ namespace EntityEngine.Classes
 
                 //Don't want to reduce durabilty if a natural cause caused damage (e.x. hunger)
                 if (source != null)
-                (InventoryHandler as HumanoidInventoryHandler).ReduceDurabilityOnEquippedArmor();
+                    (InventoryHandler as HumanoidInventoryHandler).ReduceDurabilityOnEquippedArmor();
                 ImmunteToDamage = true;
             }
         }
-        //protected override void CreateBody(Vector2 position)
-        //{
-        //    AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },
-        //        new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.Player, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.Cursor,
-        //            (Category)PhysCat.Grass, (Category)PhysCat.Item, (Category)PhysCat.Portal, (Category)PhysCat.FrontalSensor}, OnCollides, OnSeparates,mass:500f, ignoreGravity: true, blocksLight:true, userData: this));
+        protected override void CreateBody(Vector2 position)
+        {
+            AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },
+                new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.Player, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.Cursor,
+                    (Category)PhysCat.Grass, (Category)PhysCat.Item, (Category)PhysCat.Portal, (Category)PhysCat.FrontalSensor}, OnCollides, OnSeparates, mass: 500f, ignoreGravity: true, blocksLight: true, userData: this));
 
-        //    BigSensorCollidesWithCategories = new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Portal, (Category)PhysCat.SolidHigh, (Category)PhysCat.SolidLow, (Category)PhysCat.PlayerBigSensor};
+            BigSensorCollidesWithCategories = new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Portal, (Category)PhysCat.SolidHigh, (Category)PhysCat.SolidLow, (Category)PhysCat.PlayerBigSensor };
 
-        //    BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() { (Category)PhysCat.NPCBigSensor }, BigSensorCollidesWithCategories,
-        //       OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
-        //    AddSecondaryBody(BigSensor);
+            BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() { (Category)PhysCat.NPCBigSensor }, BigSensorCollidesWithCategories,
+               OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
+            AddSecondaryBody(BigSensor);
 
-        //}
+        }
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            return base.OnCollides(fixtureA, fixtureB, contact);  
+            return base.OnCollides(fixtureA, fixtureB, contact);
         }
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
@@ -106,17 +108,17 @@ namespace EntityEngine.Classes
             (Animator as CustomizeableAnimator).ChangeClothingColor(typeof(Arms), newSkinTone);
 
         }
-        internal override void ChangeClothingColor(Type t, Color color) => 
+        internal override void ChangeClothingColor(Type t, Color color) =>
             (Animator as CustomizeableAnimator).ChangeClothingColor(t, color);
-        public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string? name, bool standardAnimator = false)
+        public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string name, bool standardAnimator = false)
         {
             base.LoadContent(entityContainer, startPos, name, standardAnimator);
-            if(this.GetType() != typeof(Player))
+            if (GetType() != typeof(Player))
             {
                 LoadAnimations(Animator);
                 LoadWardrobe();
             }
-            Shadow = new Shadow(SpriteEngine.Classes.ShadowStuff.ShadowType.NPC, CenteredPosition, ShadowSize.Small, SpriteFactory.NPCSheet);
+            Shadow = new Shadow(ShadowType.NPC, CenteredPosition, ShadowSize.Small, SpriteFactory.NPCSheet);
 
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.TorsoEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
@@ -149,12 +151,18 @@ namespace EntityEngine.Classes
         {
             base.Update(gameTime);
 
-            if(ImmunteToDamage && _damageImmunityTimer.Run(gameTime))
+            if (ImmunteToDamage && _damageImmunityTimer.Run(gameTime))
             {
                 ImmunteToDamage = false;
             }
+
         }
 
+        public override void ClickInteraction()
+        {
+            UI.ActivateSecondaryInventoryDisplay(null, StorageContainer);
+
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);

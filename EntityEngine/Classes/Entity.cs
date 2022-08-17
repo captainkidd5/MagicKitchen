@@ -250,6 +250,7 @@ namespace EntityEngine.Classes
         protected virtual void UpdateBehaviour(GameTime gameTime)
         {
             //if (!ForceStop)
+            
                 BehaviourManager.Update(gameTime, ref Velocity);
         }
         public SubmergenceLevel SubmergenceLevel { get; set; }

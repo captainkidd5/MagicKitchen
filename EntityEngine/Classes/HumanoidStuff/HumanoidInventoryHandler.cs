@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityEngine.Classes
+namespace EntityEngine.Classes.HumanoidStuff
 {
     internal class HumanoidInventoryHandler : InventoryHandler
     {

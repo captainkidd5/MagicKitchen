@@ -32,7 +32,6 @@ namespace EntityEngine.Classes.CharacterStuff
     public class Character : NPC
     {
 
-        private bool _isInteractingWithPlayer;
         private Schedule ActiveSchedule { get; set; }
 
 
@@ -43,6 +42,7 @@ namespace EntityEngine.Classes.CharacterStuff
             Speed = 2f;
             XOffSet = 0;
             YOffSet = 8;
+            Inspectable = true;
         }
 
 
@@ -51,16 +51,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
    
 
-            if(((PlayerInClickRange && MouseHovering)|| (Controls.ControllerConnected && PlayerInControllerActionRange)))
-            {
-                UI.Cursor.ChangeCursorIcon(CursorIconType.Speech);
-
-                if (Controls.IsClickedWorld && !_isInteractingWithPlayer)
-                {
-                    ClickInteraction();
-
-                }
-            }
+         
             base.Update(gameTime);
              
             if (!UI.IsTalkingWindowActive)
@@ -73,12 +64,7 @@ namespace EntityEngine.Classes.CharacterStuff
             }
         }
 
-        protected override void UpdateBehaviour(GameTime gameTime)
-        {
-            if(!_isInteractingWithPlayer)
-                base.UpdateBehaviour(gameTime);
-        }
-
+ 
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },
@@ -108,12 +94,6 @@ namespace EntityEngine.Classes.CharacterStuff
             base.Draw(spriteBatch);
         }
 
-        protected override void Resume()
-        {
-            base.Resume();
-            _isInteractingWithPlayer = false;
-        }
-
 
         public void OnCharacterClicked(Schedule schedule)
         {
@@ -121,7 +101,7 @@ namespace EntityEngine.Classes.CharacterStuff
             UI.LoadNewConversation(NPCData, schedule.Dialogue);
             FaceTowardsOtherEntity(Shared.PlayerPosition);
             UI.TalkingDirection = Vector2Helper.GetOppositeDirection(DirectionMoving);
-            _isInteractingWithPlayer = true;
+           // _isInteractingWithPlayer = true;
         }
 
         public override void ClickInteraction()
@@ -132,7 +112,7 @@ namespace EntityEngine.Classes.CharacterStuff
             if (ActiveSchedule == null)
                 ActiveSchedule = Scheduler.GetScheduleFromCurrentTime(NPCData.Name);
 
-            if(!_isInteractingWithPlayer)
+            //if(!_isInteractingWithPlayer)
                 OnCharacterClicked(ActiveSchedule);
             Halt(true);
             base.ClickInteraction();

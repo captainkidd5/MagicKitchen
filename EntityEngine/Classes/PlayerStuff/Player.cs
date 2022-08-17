@@ -32,6 +32,7 @@ using SpriteEngine.Classes.Animations.BodyPartStuff;
 using ItemEngine.Classes.StorageStuff;
 using DataModels.ItemStuff;
 using SoundEngine.Classes;
+using EntityEngine.Classes.HumanoidStuff;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
