@@ -1058,6 +1058,12 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="4172">
+  <properties>
+   <property name="newHitBox" value="-16,0,64,16"/>
+   <property name="newSource" value="-16,-48,64,64"/>
+  </properties>
+ </tile>
  <tile id="4189">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>

@@ -21,8 +21,8 @@
         "Id":3,
         "Name":"Caravan",
         "Path":"Caravan.tmx",
-        "InsertionX":48,
-        "InsertionY":48,
+        "InsertionX":248,
+        "InsertionY":248,
         "IslandDistance" : "Inner",
         "AmbientSoundPackageName":"Overworld_Outside"
     },
