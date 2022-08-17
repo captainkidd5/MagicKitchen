@@ -1176,6 +1176,19 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="4293">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="4295">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+  </properties>
+ </tile>
  <tile id="4321">
   <properties>
    <property name="newSource" value="0, -32, 32, 48"/>
@@ -1252,6 +1265,12 @@
    <frame tileid="4321" duration="100"/>
    <frame tileid="4021" duration="100"/>
   </animation>
+ </tile>
+ <tile id="4690">
+  <properties>
+   <property name="newHitBox" value="0,-16,32,32"/>
+   <property name="newSource" value="0,-48,32,64"/>
+  </properties>
  </tile>
  <tile id="4778">
   <properties>
