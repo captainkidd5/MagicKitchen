@@ -17,13 +17,23 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
 {
     internal class ChaseAndAttackBehaviour : Behaviour
     {
-        private readonly Entity _otherEntity;
+        private readonly NPC _otherEntity;
         //When entity is this distance away from chased entity, stop attacking and chase again (basically, outside of hit zone)
         private int _distanceToReschase = 18;
-        public ChaseAndAttackBehaviour(NPC entity, Entity otherEntity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) : base(entity, statusIcon, tileManager, timerFrequency)
+        public ChaseAndAttackBehaviour(NPC entity, NPC otherEntity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) : base(entity, statusIcon, tileManager, timerFrequency)
         {
             _otherEntity = otherEntity;
             SimpleTimer.SetNewTargetTime(.25f);
+            _otherEntity.TilePositionChanged += OnChasedEntityPointChanged;
+        }
+
+        private void OnChasedEntityPointChanged(Point otherPoint)
+        {
+            Entity.ResetNavigator();
+            if (Entity.FindPathTo(_otherEntity.CenteredPosition))
+            {
+                Entity.SetNavigatorTarget(_otherEntity.CenteredPosition);
+            }
         }
 
         public override void Update(GameTime gameTime, ref Vector2 velocity)

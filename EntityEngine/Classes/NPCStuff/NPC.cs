@@ -36,8 +36,12 @@ using static DataModels.Enums;
 
 namespace EntityEngine.Classes.NPCStuff
 {
+
+    public delegate void TilePositionChanged(Point newPoint);
     public class NPC : Entity
     {
+
+        public event TilePositionChanged TilePositionChanged;
         public NPCData NPCData { get; protected set; }
 
         public Shadow Shadow { get; set; }
@@ -55,7 +59,10 @@ namespace EntityEngine.Classes.NPCStuff
             XOffSet = 8;
             YOffSet = 4;
         }
-
+        protected virtual void OnTilePositionChanged(Point newPoint)
+        {
+            TilePositionChanged?.Invoke(newPoint);
+        }
         public bool Inspectable { get; set; }
         public virtual void LoadContent(EntityContainer container, Vector2? startPos, string? name, bool standardAnimator = true)
         {
@@ -151,6 +158,7 @@ namespace EntityEngine.Classes.NPCStuff
         }
         public override void Update(GameTime gameTime)
         {
+            _pointOverLastFrame = _currentPointOver;
             UpdateBehaviour(gameTime);
 
             base.Update(gameTime);
@@ -176,8 +184,12 @@ namespace EntityEngine.Classes.NPCStuff
             {
                 _despawnTimer.ResetToZero();
             }
+            _currentPointOver = Vector2Helper.GetTileIndexPosition(Position);
+            if (_pointOverLastFrame != _currentPointOver)
+                OnTilePositionChanged(_currentPointOver);
         }
-
+        private Point _currentPointOver;
+        private Point _pointOverLastFrame;
         public override void Draw(SpriteBatch spriteBatch)
         {
 #if DEBUG
@@ -236,7 +248,7 @@ namespace EntityEngine.Classes.NPCStuff
                     case CombatResponse.None:
                         break;
                     case CombatResponse.Retaliate:
-                        BehaviourManager.ChaseAndAttack(source);
+                        BehaviourManager.ChaseAndAttack(source as NPC);
                         break;
                     case CombatResponse.Flee:
                         BehaviourManager.Flee(source);
