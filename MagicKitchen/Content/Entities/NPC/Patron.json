@@ -11,6 +11,8 @@
     "StartingStage" : "LullabyTown",
     "StartingX": 64,
     "StartingY" : 72,
+    "ShadowOffSetY" : -5,
+
     "AnimationInfo": [
         {
         "MovementType": "Walk",

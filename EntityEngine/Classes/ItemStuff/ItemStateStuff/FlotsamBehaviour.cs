@@ -65,13 +65,13 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
             if (!WorldItem.InWater())
             {
                 //Player goes out of range, item floats into non-water, player comes back into range, item should have despawned
-                if (!WorldItem.InTileManagerUpdateRange())
-                {
-                    WorldItem.Remove(WorldItem.Count);
-                    return Vector2.Zero;
-                }
+                //if (!WorldItem.InTileManagerUpdateRange())
+                //{
+                //    WorldItem.Remove(WorldItem.Count);
+                //    return Vector2.Zero;
+                //}
 
-                WorldItem.ChangeState(ItemEngine.Classes.WorldItemState.None);
+                WorldItem.Remove(WorldItem.Count);
                 return Vector2.Zero;
 
             }

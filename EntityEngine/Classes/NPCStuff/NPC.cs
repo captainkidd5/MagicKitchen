@@ -151,9 +151,10 @@ namespace EntityEngine.Classes.NPCStuff
                 CheckInspection();
             if (SubmergenceLevel == SubmergenceLevel.None && Shadow != null)
             {
+                if(NPCData != null && NPCData.Name.ToLower() == "rabbit")
+                    Console.WriteLine("test");
                 int xShadowOffSet = NPCData != null ? NPCData.ShadowOffSetX : 0;
-                int yShadowOffSet = NPCData != null ? (int)Position.Y + NPCData.ShadowOffSetY : (int)CenteredPosition.Y;
-
+                int yShadowOffSet = NPCData != null ? (int)Position.Y+ NPCData.ShadowOffSetY : (int)Position.Y - 6;
                 Shadow.Update(gameTime, new Vector2(Position.X + xShadowOffSet, yShadowOffSet));
 
             }

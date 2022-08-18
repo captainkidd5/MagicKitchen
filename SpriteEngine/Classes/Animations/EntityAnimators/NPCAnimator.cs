@@ -68,13 +68,17 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         }
         public override void Update(GameTime gameTime, Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
         {
+            _currentAnimation = AnimatedSprites[(int)directionMoving - 1];
+
             Vector2 positionOffSet = new Vector2(position.X, position.Y  );
             //TODO: Layer offset for npcs is wrong
-            float entityLayer = SpriteUtility.GetYAxisLayerDepth(position, new Rectangle(0, 0, xOffset * 2, yOffset));
+            float entityLayer  = SetPositionAndGetEntityLayer(position);
+
             Position = positionOffSet;
             bool resetToResting = !isMoving && WasMovingLastFrame;
 
-            _currentAnimation = AnimatedSprites[(int)directionMoving - 1];
+            _currentAnimation.CustomLayer = entityLayer;
+
             if (resetToResting)
             {
                 _currentAnimation.ResetToZero(Position, entityLayer);

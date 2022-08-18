@@ -85,7 +85,7 @@ namespace EntityEngine.ItemStuff
             _immunityTimer = new SimpleTimer(1f);
             TimeCreated = Clock.TotalTime;
             Sprite.CustomLayer = null;
-      
+
 
 
         }
@@ -103,6 +103,7 @@ namespace EntityEngine.ItemStuff
                     Sprite.SwapSourceRectangle(new Rectangle(Sprite.SourceRectangle.X, Sprite.SourceRectangle.Y, 16, 16));
                     Shadow = new Shadow(ShadowType.Item, CenteredPosition, ShadowSize.Small, ItemFactory.ItemSpriteSheet);
                     Sprite.CustomLayer = null;
+
                     break;
                 case WorldItemState.Bouncing:
                     ItemBehaviour = new BouncingItemBehaviour(this, jettisonDirection);
@@ -190,8 +191,8 @@ namespace EntityEngine.ItemStuff
             {
                 if (InWater())
                 {
-                    if(Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
-                    ChangeState(ItemEngine.Classes.WorldItemState.Floating);
+                    if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
+                        ChangeState(ItemEngine.Classes.WorldItemState.Floating);
 
                 }
             }
@@ -204,7 +205,18 @@ namespace EntityEngine.ItemStuff
 
             Sprite.Update(gameTime, CenteredPosition + spriteBehaviourOffSet);
             if (Shadow != null)
-                Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y - 1), false);
+            {
+                if (Count > 1)
+                {
+                    Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y + 4), false);
+
+                }
+                else
+                {
+                    Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y - 1), false);
+
+                }
+            }
             if (TimeCreated + TTL < Clock.TotalTime)
                 Remove(Count);
 
@@ -222,9 +234,9 @@ namespace EntityEngine.ItemStuff
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);
-            if(Count > 1)
+            if (Count > 1)
             {
-                Sprite.ForceSetPosition(new Vector2(Sprite.Position.X + 4, Sprite.Position.Y +4));
+                Sprite.ForceSetPosition(new Vector2(Sprite.Position.X + 4, Sprite.Position.Y + 4));
                 Sprite.Draw(spriteBatch);
             }
             if (Shadow != null)

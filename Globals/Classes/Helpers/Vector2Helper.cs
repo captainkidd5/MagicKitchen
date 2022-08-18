@@ -206,7 +206,7 @@ namespace Globals.Classes.Helpers
         }
         public static bool IsPositive(Point point)
         {
-            return point.X > 0 && point.Y > 0;
+            return point.X >= 0 && point.Y >= 0;
         }
         public static void WriteVector2(BinaryWriter writer, Vector2 val)
         {

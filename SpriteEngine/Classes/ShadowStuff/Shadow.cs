@@ -53,6 +53,7 @@ namespace SpriteEngine.Classes.ShadowStuff
         }
         public void Update(GameTime gameTime, Vector2 position, bool offSet = true)
         {
+            Sprite.CustomLayer = SpriteUtility.GetYAxisLayerDepth(position, Sprite.SourceRectangle) - SpriteUtility.GetMinimumOffSet();
             if (offSet)
             {
                 Sprite.Update(gameTime, new Vector2(position.X - Sprite.SourceRectangle.Width / 2, position.Y - 4));

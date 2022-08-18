@@ -131,6 +131,7 @@
     "ScheduleName": "wander_1",
     "NPCType" : "Enemy",
     "ShadowSize":"Small",
+    "ShadowOffSetY" : -5,
     "CombatResponse":"Flee",
     "SpriteWidth": 16,
     "SpriteHeight": 16,
