@@ -1,5 +1,6 @@
 ﻿using DataModels.ScriptedEventStuff;
 using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.NPCStuff;
 using EntityEngine.Classes.NPCStuff.Props;
 using Globals.Classes.Console;
 using Globals.Classes.Helpers;
@@ -25,9 +26,9 @@ namespace EntityEngine.Classes.BehaviourStuff
         private ScriptAction _currentAction;
         private int _currentActionStep = 0;
         private bool _started;
-        public ScriptBehaviour(Entity entity, StatusIcon statusIcon, Navigator navigator,
+        public ScriptBehaviour(NPC entity, StatusIcon statusIcon,
             TileManager tileManager, float? timerFrequency) :
-            base(entity, statusIcon, navigator, tileManager, timerFrequency)
+            base(entity, statusIcon, tileManager, timerFrequency)
         {
             _tileManager = tileManager;
 
@@ -67,9 +68,9 @@ namespace EntityEngine.Classes.BehaviourStuff
                 case ScriptActionType.None:
                     break;
                 case ScriptActionType.Move:
-                    if (Navigator.HasActivePath)
+                    if (Entity.HasActivePath)
                     {
-                        if (Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
+                        if (Entity.FollowPath(gameTime, ref velocity))
                         {
 
                             CompleteStep();

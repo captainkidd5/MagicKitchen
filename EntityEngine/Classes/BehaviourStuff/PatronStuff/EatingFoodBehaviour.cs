@@ -1,5 +1,6 @@
 ﻿using DataModels.ItemStuff;
 using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.NPCStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes.Pathfinding;
@@ -25,8 +26,8 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
         private readonly Direction _directionSeatedAt;
 
         public EatingFoodBehaviour(PatronBehaviourManager patronBehaviour, DiningTable diningTable, Direction directionSeatedAt,
-            Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) :
-            base(patronBehaviour, diningTable, entity, statusIcon, navigator, tileManager, timerFrequency)
+            NPC entity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
+            base(patronBehaviour, diningTable, entity, statusIcon, tileManager, timerFrequency)
         {
             _directionSeatedAt = directionSeatedAt;
         }

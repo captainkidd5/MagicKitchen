@@ -49,13 +49,13 @@ namespace PhysicsEngine.Classes.PathFinding.PatherFinder
         private bool mStopped = true;
         private int mHoriz = 0;
         private HeuristicFormula mFormula = HeuristicFormula.Manhattan;
-        private bool mDiagonals = false;
+        private bool mDiagonals = true;
         private int mHEstimate = 2;
         private bool mPunishChangeDirection = false;
         private bool mReopenCloseNodes = true;
-        private bool mTieBreaker = false;
+        private bool mTieBreaker = true;
         private bool mHeavyDiagonals = false;
-        private int mSearchLimit = 3000;
+        private int mSearchLimit = 1000;
         private double mCompletedTime = 0;
         private bool mDebugProgress = false;
         private bool mDebugFoundPath = false;

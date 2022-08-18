@@ -1,5 +1,6 @@
 ﻿using DataModels.ItemStuff;
 using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.NPCStuff;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,8 +26,8 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
         //The item the npc actually wants
         private ItemData _desiredItem;
         public OrderingFoodBehaviour(PatronBehaviourManager patronBehaviour, DiningTable diningTable, Direction directionSeatedAt,
-            Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) :
-            base(patronBehaviour, diningTable, entity, statusIcon, navigator, tileManager, timerFrequency)
+            NPC entity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
+            base(patronBehaviour, diningTable, entity, statusIcon, tileManager, timerFrequency)
         {
             _directionSeated = directionSeatedAt;
 

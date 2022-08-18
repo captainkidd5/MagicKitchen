@@ -1,4 +1,5 @@
 ﻿using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.NPCStuff;
 using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes.Pathfinding;
@@ -17,7 +18,8 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
         //When entity is this distance away from chased entity, stop attacking and chase again (basically, outside of hit zone)
         private int _distanceToStop = 160;
         private float _speedModifier = 4f;
-        public FleeBehaviour(Entity entity, Entity otherEntity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) : base(entity, statusIcon, navigator, tileManager, timerFrequency)
+        public FleeBehaviour(NPC entity, Entity otherEntity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
+            base(entity, statusIcon, tileManager, timerFrequency)
         {
             _otherEntity = otherEntity;
 

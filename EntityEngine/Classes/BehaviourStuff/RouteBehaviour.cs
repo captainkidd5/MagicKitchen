@@ -1,5 +1,6 @@
 ﻿using DataModels;
 using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.NPCStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
 using Globals.Classes.Helpers;
@@ -23,9 +24,9 @@ namespace EntityEngine.Classes.BehaviourStuff
    
 
 
-        public RouteBehaviour(Entity entity,StatusIcon statusIcon, Navigator navigator,TileManager tileManager,
+        public RouteBehaviour(NPC entity,StatusIcon statusIcon,TileManager tileManager,
             Schedule activeSchedule, float? scheduleCheckFrequency) :
-            base(entity,statusIcon, navigator,tileManager, scheduleCheckFrequency)
+            base(entity,statusIcon,tileManager, scheduleCheckFrequency)
         {
             _activeSchedule = activeSchedule;
         }
@@ -38,8 +39,8 @@ namespace EntityEngine.Classes.BehaviourStuff
             {
                 CheckForUpdatedSchedule();
             }
-            if (Navigator.HasActivePath)
-                Navigator.FollowPath(gameTime, Entity.Position, ref velocity);
+            if (Entity.HasActivePath)
+                Entity.FollowPath(gameTime,  ref velocity);
             else
                 Entity.Halt();
 
@@ -54,7 +55,7 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         private void CheckForUpdatedSchedule()
         {
-            if (!Navigator.HasActivePath)
+            if (!Entity.HasActivePath)
             {
                 _activeSchedule = Scheduler.GetScheduleFromCurrentTime(Entity.Name);
 

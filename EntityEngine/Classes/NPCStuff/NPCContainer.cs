@@ -146,6 +146,7 @@ namespace EntityEngine.Classes.CharacterStuff
         public override void Update(GameTime gameTime)
         {
             float totalSpawnVal = 0;
+            int totalBoarCount = 0;
             for (int i = Entities.Count - 1; i >= 0; i--)
             {
                 NPC entity = Entities[i] as NPC;
@@ -157,7 +158,10 @@ namespace EntityEngine.Classes.CharacterStuff
                     Entities.RemoveAt(i);
 
                 }
+                if (entity.NPCData != null && entity.NPCData.Name.ToLower() == "boar")
+                    totalBoarCount++;
             }
+            Console.WriteLine($"{ totalBoarCount}");
             _mobSpawner.TotalNPCSpawnValue = totalSpawnVal;
 
             foreach (Entity entity in EntitiesToAdd)

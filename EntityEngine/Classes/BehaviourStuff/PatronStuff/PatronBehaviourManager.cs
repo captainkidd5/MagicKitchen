@@ -1,4 +1,5 @@
 ﻿using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.NPCStuff;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes.Pathfinding;
 using System;
@@ -25,9 +26,9 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
     {
         private PatronState _patronState;
         private Behaviour _currentPatronBehaviour;
-        public PatronBehaviourManager(Entity entity, StatusIcon statusIcon, Navigator navigator,
+        public PatronBehaviourManager(NPC entity, StatusIcon statusIcon,
             TileManager tileManager, float? timerFrequency) :
-            base(entity, statusIcon, navigator, tileManager, timerFrequency)
+            base(entity, statusIcon, tileManager, timerFrequency)
         {
             _patronState = PatronState.FindingSeating;
         }
@@ -49,7 +50,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
             if(SimpleTimer.Run(gameTime) && _currentPatronBehaviour == null)
             {
-                _currentPatronBehaviour = new FindingSeatingBehaviour(this, null, Entity, StatusIcon, Navigator, TileManager, null);
+                _currentPatronBehaviour = new FindingSeatingBehaviour(this, null, Entity, StatusIcon, TileManager, null);
 
             }
         }
@@ -60,7 +61,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 throw new Exception($"Patron must find seating before being able to order");
             _patronState = PatronState.Ordering;
             _currentPatronBehaviour = new OrderingFoodBehaviour(this, tableAt, directedSeated, Entity,
-                StatusIcon, Navigator, TileManager, null);
+                StatusIcon, TileManager, null);
         }
 
         public void ChangePatronStateToEating(DiningTable tableAt, Direction directedSeated)
@@ -70,7 +71,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             _patronState = PatronState.Eating;
 
             _currentPatronBehaviour = new EatingFoodBehaviour(this, tableAt, directedSeated, Entity,
-                StatusIcon, Navigator, TileManager, null);
+                StatusIcon, TileManager, null);
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.NPCStuff;
 using Globals;
 using Globals.Classes;
 using Microsoft.Xna.Framework;
@@ -17,18 +18,16 @@ namespace EntityEngine.Classes.BehaviourStuff
 {
     public abstract class Behaviour : IDebuggable
     {
-        protected Entity Entity;
+        protected NPC Entity;
         protected StatusIcon StatusIcon;
-        protected Navigator Navigator;
         protected TileManager TileManager;
         protected SimpleTimer SimpleTimer;
 
         protected float TimerFrequency;
-        public Behaviour(Entity entity,StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency)
+        public Behaviour(NPC entity,StatusIcon statusIcon, TileManager tileManager, float? timerFrequency)
         {
             Entity = entity;
            StatusIcon = statusIcon;
-            Navigator = navigator;
             TileManager = tileManager;
             timerFrequency = timerFrequency ?? 5f;
             SimpleTimer = new SimpleTimer(timerFrequency.Value, true);
@@ -111,7 +110,7 @@ namespace EntityEngine.Classes.BehaviourStuff
         public virtual void DrawDebug(SpriteBatch spriteBatch)
         {
  
-                Navigator.DrawDebug(spriteBatch, Color.Green);
+                Entity.DrawDebug(spriteBatch);
       
         }
 

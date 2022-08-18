@@ -1,4 +1,5 @@
 ﻿using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.NPCStuff;
 using PhysicsEngine.Classes.Pathfinding;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,8 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
         protected DiningTable TableSeatedAt;
 
-        public PBehaviourBase(PatronBehaviourManager patronBehaviourManager,DiningTable table, Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) : base(entity, statusIcon, navigator, tileManager, timerFrequency)
+        public PBehaviourBase(PatronBehaviourManager patronBehaviourManager,DiningTable table, NPC entity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
+            base(entity, statusIcon, tileManager, timerFrequency)
         {
             PatronBehaviourManager = patronBehaviourManager;
             TableSeatedAt = table;

@@ -1,4 +1,5 @@
 ﻿using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.NPCStuff;
 using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes.Pathfinding;
@@ -21,8 +22,8 @@ namespace EntityEngine.Classes.BehaviourStuff
         private Layers _layerOfTile = Layers.foreground;
 
         private bool _readyToInteract;
-        public SearchBehaviour(Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, Point? wanderRange, float? timerFrequency)
-            : base(entity, statusIcon, navigator, tileManager, timerFrequency)
+        public SearchBehaviour(NPC entity, StatusIcon statusIcon, TileManager tileManager, Point? wanderRange, float? timerFrequency)
+            : base(entity, statusIcon, tileManager, timerFrequency)
         {
             //Default range is 5
             _wanderRange = wanderRange ?? new Point(5, 5);
@@ -51,7 +52,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                     return;
 
                 }
-                if (!Navigator.HasActivePath)
+                if (!Entity.HasActivePath)
                 {
                     if (_gIDGoingTo > 0)
                     {
@@ -71,10 +72,10 @@ namespace EntityEngine.Classes.BehaviourStuff
                             bool hasCheckedFirst = false;
                             foreach (Point point in tilePoints)
                             {
-                                Point? nearestClearPoint = Navigator.NearestClearPoint(point, 3);
+                                Point? nearestClearPoint = Entity.NearestClearPoint(point, 3);
                                 if (nearestClearPoint != null)
                                 {
-                                    int distance = Navigator.PathDistance(Vector2Helper.WorldPositionToTilePositionAsPoint(Entity.Position), nearestClearPoint.Value);
+                                    int distance = Entity.GetPathDistance(Vector2Helper.WorldPositionToTilePositionAsPoint(Entity.Position), nearestClearPoint.Value);
                                     if(distance > 0 && !hasCheckedFirst)
                                     {
                                         shortestDistance = distance;
@@ -96,9 +97,9 @@ namespace EntityEngine.Classes.BehaviourStuff
                             else
                             {
                                 Vector2 tilePos = Vector2Helper.GetWorldPositionFromTileIndex(shortestPoint.Value.X, shortestPoint.Value.Y);
-                                if (Navigator.FindPathTo(Entity.Position, tilePos))
+                                if (Entity.FindPathTo(tilePos))
                                 {
-                                    Navigator.SetTarget(tilePos);
+                                Entity.SetNavigatorTarget(tilePos);
                                 }
                             }
 
@@ -106,18 +107,18 @@ namespace EntityEngine.Classes.BehaviourStuff
                     }
 
                 }
-                if (Navigator.HasActivePath)
+                if (Entity.HasActivePath)
                 {
                     //Need to make sure tile heading to hasn't been destroyed since search started
                     if (TileManager.GetTileDataFromPoint(_tileHeadingTo.Value, _layerOfTile).Value.GID != _gIDGoingTo)
                     {
-                        Navigator.Unload();
+                    Entity.ResetNavigator();
                         _tileHeadingTo = null;
                         _readyToInteract = false;
                         Entity.Halt();
                         return;
                     }
-                    if (Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
+                    if (Entity.FollowPath(gameTime, ref velocity))
                     {
                         _readyToInteract = true;
 

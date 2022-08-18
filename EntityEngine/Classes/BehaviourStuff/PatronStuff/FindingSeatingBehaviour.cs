@@ -1,4 +1,5 @@
 ﻿using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.NPCStuff;
 using Globals.Classes;
 using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
@@ -23,8 +24,8 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
 
         public FindingSeatingBehaviour(PatronBehaviourManager patronBehaviour,DiningTable diningTable,
-            Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) :
-            base(patronBehaviour, diningTable, entity, statusIcon, navigator, tileManager, timerFrequency)
+            NPC entity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
+            base(patronBehaviour, diningTable, entity, statusIcon, tileManager, timerFrequency)
         {
         }
         public override void Update(GameTime gameTime, ref Vector2 velocity)
@@ -54,15 +55,15 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
                         Point chosenPoint = clearPoints[Settings.Random.Next(0, clearPoints.Count)];
 
-                        if (Navigator.FindPathTo(
-                            Entity.Position, Vector2Helper.GetWorldPositionFromTileIndex(
+                        if (Entity.FindPathTo(
+                             Vector2Helper.GetWorldPositionFromTileIndex(
                                 chosenPoint.X,
                                 chosenPoint.Y)))
 
 
 
                         {
-                            Navigator.SetTarget(TableSeatedAt.Tile.Position);
+                            Entity.SetNavigatorTarget(TableSeatedAt.Tile.Position);
                             HasLocatedTable = true;
                         }
                         else
@@ -76,9 +77,9 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 }
 
             }
-            else if (HasLocatedTable && Navigator.HasActivePath)
+            else if (HasLocatedTable && Entity.HasActivePath)
             {
-                if (Navigator.FollowPath(gameTime, Entity.Position, ref velocity))
+                if (Entity.FollowPath(gameTime, ref velocity))
                 {
                     Direction direction = Vector2Helper.GetDirectionOfEntityInRelationToEntity(
                         Entity.Position, TableSeatedAt.Tile.CentralPosition);

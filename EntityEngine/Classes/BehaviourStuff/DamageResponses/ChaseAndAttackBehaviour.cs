@@ -20,33 +20,44 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
         private readonly Entity _otherEntity;
         //When entity is this distance away from chased entity, stop attacking and chase again (basically, outside of hit zone)
         private int _distanceToReschase = 18;
-        public ChaseAndAttackBehaviour(Entity entity, Entity otherEntity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager, float? timerFrequency) : base(entity, statusIcon, navigator, tileManager, timerFrequency)
+        public ChaseAndAttackBehaviour(NPC entity, Entity otherEntity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) : base(entity, statusIcon, tileManager, timerFrequency)
         {
             _otherEntity = otherEntity;
-
             SimpleTimer.SetNewTargetTime(.25f);
         }
 
         public override void Update(GameTime gameTime, ref Vector2 velocity)
         {
+            Entity.Speed = Entity.BaseSpeed * 2.5f;
+
             base.Update(gameTime, ref velocity);
             if (Entity.DamageBody.Body.FixtureList[0].CollidesWith > tainicom.Aether.Physics2D.Dynamics.Category.None)
             {
                 Entity.DeactivateDamageBody();
             }
-            if (!Navigator.HasActivePath && Vector2.Distance(Entity.Position, _otherEntity.CenteredPosition) > _distanceToReschase)
+            if (!Entity.HasActivePath && Vector2.Distance(Entity.Position, _otherEntity.CenteredPosition) > _distanceToReschase)
             {
                 if (SimpleTimer.Run(gameTime))
                 {
-                    if (Navigator.FindPathTo(Entity.Position, _otherEntity.CenteredPosition))
+                    if(Entity.NPCData != null)
                     {
-                        Navigator.SetTarget(_otherEntity.CenteredPosition);
+                        if (Entity.NPCData.AlwaysSubmerged)
+                        {
+
+                        }
+                        if (Entity.IsWater(_otherEntity.CenteredPosition)){
+
+                        }
+                    }
+                    if (Entity.FindPathTo(_otherEntity.CenteredPosition))
+                  {
+                        Entity.SetNavigatorTarget(_otherEntity.CenteredPosition);
                     }
                 }
             }
-            if (Navigator.HasActivePath && ! Entity.Animator.IsPerformingAnimation())
+            if (Entity.HasActivePath && ! Entity.Animator.IsPerformingAnimation())
             {
-                Navigator.FollowPath(gameTime, Entity.Position, ref velocity);
+                Entity.FollowPath(gameTime, ref velocity);
                 if (Entity.Animator.CurrentActionType != ActionType.Walking)
                 {
                     Entity.Animator.PerformAction(null, Vector2Helper.GetDirectionOfEntityInRelationToEntity(Entity.Position,

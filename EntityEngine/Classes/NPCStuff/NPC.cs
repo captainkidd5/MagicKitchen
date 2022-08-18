@@ -1,5 +1,7 @@
 ﻿using DataModels;
 using DataModels.NPCStuff;
+using DataModels.ScriptedEventStuff;
+using EntityEngine.Classes.BehaviourStuff;
 using EntityEngine.Classes.BehaviourStuff.DamageResponses;
 using EntityEngine.Classes.CharacterStuff;
 using EntityEngine.Classes.ToolStuff;
@@ -8,6 +10,7 @@ using Globals.Classes;
 using Globals.Classes.Chance;
 using Globals.Classes.Helpers;
 using InputEngine.Classes;
+using IOEngine.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -42,6 +45,7 @@ namespace EntityEngine.Classes.NPCStuff
         private static float s_despawnTargetTime = 5f;
 
         private SimpleTimer _despawnTimer;
+        protected BehaviourManager BehaviourManager { get; set; }
 
 
         public bool OutsideOfPlayArea { get; protected set; }
@@ -79,6 +83,10 @@ namespace EntityEngine.Classes.NPCStuff
                 Name = name;
             base.LoadContent(container);
 
+            BehaviourManager = new BehaviourManager(this, StatusIcon, Navigator, Container.TileManager);
+            BehaviourManager.Load();
+            BehaviourManager.SwitchStage(Container.TileManager);
+
             if (startPos != null)
                 Move(startPos.Value);
 
@@ -100,6 +108,8 @@ namespace EntityEngine.Classes.NPCStuff
             }
             
         }
+        public void InjectScript(SubScript subscript) => BehaviourManager.InjectScript(subscript);
+
         protected override void DestructionBehaviour()
         {
             base.DestructionBehaviour();
@@ -112,11 +122,7 @@ namespace EntityEngine.Classes.NPCStuff
             }
 
         }
-        protected override void UpdateBehaviour(GameTime gameTime)
-        {
-            if(!_isInteractingWithPlayer)
-            base.UpdateBehaviour(gameTime);
-        }
+
         protected override void Resume()
         {
 
@@ -145,14 +151,15 @@ namespace EntityEngine.Classes.NPCStuff
         }
         public override void Update(GameTime gameTime)
         {
+            UpdateBehaviour(gameTime);
+
             base.Update(gameTime);
 
             if (Inspectable && !_isInteractingWithPlayer)
                 CheckInspection();
             if (SubmergenceLevel == SubmergenceLevel.None && Shadow != null)
             {
-                if(NPCData != null && NPCData.Name.ToLower() == "rabbit")
-                    Console.WriteLine("test");
+        
                 int xShadowOffSet = NPCData != null ? NPCData.ShadowOffSetX : 0;
                 int yShadowOffSet = NPCData != null ? (int)Position.Y+ NPCData.ShadowOffSetY : (int)Position.Y - 6;
                 Shadow.Update(gameTime, new Vector2(Position.X + xShadowOffSet, yShadowOffSet));
@@ -173,6 +180,10 @@ namespace EntityEngine.Classes.NPCStuff
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+#if DEBUG
+            if (SettingsManager.ShowEntityPaths)
+                BehaviourManager.DrawDebug(spriteBatch);
+#endif
             base.Draw(spriteBatch);
             if (SubmergenceLevel == SubmergenceLevel.None &&  Shadow != null)
                 Shadow.Draw(spriteBatch);
@@ -182,6 +193,20 @@ namespace EntityEngine.Classes.NPCStuff
         {
             Animator.Draw(spriteBatch, SubmergenceLevel, NPCData.AlwaysSubmerged);
 
+        }
+
+        public override bool FindPathTo(Vector2 otherPos)
+        {
+            bool isWater = IsWater(otherPos);
+            //water npcs should not be able to navigate to land
+            if (NPCData.AlwaysSubmerged && !isWater)
+                return false;
+            //Similarly, land npcs should not be able to navigate to water
+            else if (!NPCData.AlwaysSubmerged && isWater)
+                return false;
+
+            
+            return base.FindPathTo(otherPos);
         }
 
         public override void Save(BinaryWriter writer)
@@ -223,9 +248,16 @@ namespace EntityEngine.Classes.NPCStuff
 
             }
         }
-
+        protected virtual void UpdateBehaviour(GameTime gameTime)
+        {
+            //if (!ForceStop)
+            if (!_isInteractingWithPlayer)
+                BehaviourManager.Update(gameTime, ref Velocity);
+        }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
+            BehaviourManager.OnCollides(fixtureA, fixtureB, contact);
+
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayArea))
             {
                 OutsideOfPlayArea = false;

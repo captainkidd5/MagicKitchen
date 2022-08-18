@@ -69,7 +69,6 @@ namespace EntityEngine.Classes
         protected ProgressBarSprite ProgressBarSprite { get; private set; }
 
 
-        protected BehaviourManager BehaviourManager { get; set; }
 
         private protected InventoryHandler InventoryHandler { get; set; }
         public StorageContainer StorageContainer => InventoryHandler.StorageContainer;
@@ -137,7 +136,6 @@ namespace EntityEngine.Classes
         {
             ProgressBarSprite = null;
         }
-        public void InjectScript(SubScript subscript) => BehaviourManager.InjectScript(subscript);
 
         internal virtual void ChangeSkinTone(Color newSkinTone)
         {
@@ -155,14 +153,12 @@ namespace EntityEngine.Classes
             CreateBody(Position);
 
             DirectionMoving = Direction.Down;
-            BehaviourManager = new BehaviourManager(this, StatusIcon, Navigator, Container.TileManager);
-            BehaviourManager.Load();
+
             _overHeadItemDisplay = new OverheadItemDisplay();
 
             ToolHandler = new ToolHandler(this, InventoryHandler);
             Navigator.Load(container.TileManager.PathGrid);
 
-            BehaviourManager.SwitchStage(Container.TileManager);
             InventoryHandler.SwapItemManager(Container.ItemManager);
         }
 
@@ -195,6 +191,21 @@ namespace EntityEngine.Classes
 
         }
 
+        public void SetNavigatorTarget(Vector2 pos) => Navigator.SetTarget(pos);
+        public bool HasActivePath => Navigator.HasActivePath;
+        public bool FollowPath(GameTime gameTime, ref Vector2 velocity) => Navigator.FollowPath(gameTime, Position, ref velocity);
+
+        public Point? NearestClearPoint(Point point, int radius) => Navigator.NearestClearPoint(point, radius);
+        public int GetPathDistance(Point start, Point end) => Navigator.PathDistance(start, end);
+
+        public void ResetNavigator() => Navigator.Unload();
+        public virtual bool FindPathTo(Vector2 otherPos)
+        {
+
+            if (Navigator.FindPathTo(Position, otherPos))
+                return true;
+            return false;
+        }
         protected virtual void CreateDamageBody(Vector2 position)
         {
            
@@ -219,7 +230,6 @@ namespace EntityEngine.Classes
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             //Collision logic changes based on current behaviour!
-            BehaviourManager.OnCollides(fixtureA, fixtureB, contact);
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Item) && fixtureA.CollisionCategories.HasFlag((Category)PhysCat.Player))
             {
                 WorldItem worldItem = (fixtureB.Body.Tag as WorldItem);
@@ -247,12 +257,7 @@ namespace EntityEngine.Classes
         {
             ForceStop = false;
         }
-        protected virtual void UpdateBehaviour(GameTime gameTime)
-        {
-            //if (!ForceStop)
-            
-                BehaviourManager.Update(gameTime, ref Velocity);
-        }
+      
         public SubmergenceLevel SubmergenceLevel { get; set; }
         public virtual new void Update(GameTime gameTime)
         {
@@ -272,7 +277,6 @@ namespace EntityEngine.Classes
                 Speed = BaseSpeed * .25f;
 
             }
-            UpdateBehaviour(gameTime);
             StatusIcon.Update(gameTime, Position);
 
             if (ProgressBarSprite != null)
@@ -321,7 +325,10 @@ namespace EntityEngine.Classes
             ToolHandler.Update(gameTime);
 
         }
-
+        internal bool IsWater(Vector2 position)
+        {
+            return Container.TileManager.IsTypeOfTile("water", position) || Container.TileManager.IsTypeOfTile("deepWater", position);
+        }
         protected void UseHeldItem() => ToolHandler.UseHeldItem();
 
         protected void ChargeHeldItem(GameTime gameTime, Vector2 aimPosition) => ToolHandler.ChargeHeldItem(gameTime, aimPosition);
@@ -350,10 +357,7 @@ namespace EntityEngine.Classes
             DrawAnimator(spriteBatch);
             _overHeadItemDisplay.Draw(spriteBatch);
 
-#if DEBUG
-            if (SettingsManager.ShowEntityPaths)
-                BehaviourManager.DrawDebug(spriteBatch);
-#endif
+
 
             ToolHandler.Draw(spriteBatch);
             if(LightsCollidable != null)
@@ -369,6 +373,7 @@ namespace EntityEngine.Classes
 
         public virtual void DrawDebug(SpriteBatch spriteBatch)
         {
+            Navigator.DrawDebug(spriteBatch, Color.White);
             //spriteBatch.DrawString(TextFactory.BitmapFont, $"{Name} \n {CurrentStageName}",
             //    CenteredPosition, Color.Red, 0f, Vector2.Zero, .5f, SpriteEffects.None, .99f);
         }

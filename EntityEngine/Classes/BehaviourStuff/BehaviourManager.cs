@@ -3,6 +3,7 @@ using DataModels.ScriptedEventStuff;
 using EntityEngine.Classes.BehaviourStuff.DamageResponses;
 using EntityEngine.Classes.BehaviourStuff.PatronStuff;
 using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.NPCStuff;
 using Globals;
 using Globals.Classes;
 using Globals.Classes.Console;
@@ -25,7 +26,7 @@ namespace EntityEngine.Classes.BehaviourStuff
 {
     public class BehaviourManager : IDebuggable
     {
-        private Entity _entity;
+        private NPC _entity;
         private StatusIcon _statusIcon;
         private Navigator _navigator;
         private TileManager _tileManager;
@@ -33,7 +34,7 @@ namespace EntityEngine.Classes.BehaviourStuff
         private Schedule _activeSchedule;
 
         protected Behaviour CurrentBehaviour { get; set; }
-        public BehaviourManager(Entity entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager)
+        public BehaviourManager(NPC entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager)
         {
             _entity = entity;
             _statusIcon = statusIcon;
@@ -51,11 +52,12 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         public void ChaseAndAttack(Entity otherEntity)
         {
-            CurrentBehaviour = new ChaseAndAttackBehaviour(_entity, otherEntity, _statusIcon, _navigator, _tileManager, 2f);
+            _navigator.Unload();
+            CurrentBehaviour = new ChaseAndAttackBehaviour(_entity, otherEntity, _statusIcon, _tileManager, 2f);
         }
         public void Flee(Entity otherEntity)
         {
-            CurrentBehaviour = new FleeBehaviour(_entity, otherEntity, _statusIcon, _navigator, _tileManager, 2f);
+            CurrentBehaviour = new FleeBehaviour(_entity, otherEntity, _statusIcon, _tileManager, 2f);
         }
         public Behaviour ChangeBehaviour(EndBehaviour newbehaviour)
         {
@@ -66,16 +68,16 @@ namespace EntityEngine.Classes.BehaviourStuff
                 case EndBehaviour.Stationary:
                     return null;
                 case EndBehaviour.Wander:
-                    return new WanderBehaviour(_entity, _statusIcon, _navigator, _tileManager, new Point(5, 5), 2f);
+                    return new WanderBehaviour(_entity, _statusIcon, _tileManager, new Point(5, 5), 2f);
 
                 case EndBehaviour.Search:
-                    return new SearchBehaviour(_entity, _statusIcon, _navigator, _tileManager, new Point(5, 5), 2f);
+                    return new SearchBehaviour(_entity, _statusIcon, _tileManager, new Point(5, 5), 2f);
 
                 case EndBehaviour.Patron:
-                    return new PatronBehaviourManager(_entity, _statusIcon, _navigator, _tileManager, 2f);
+                    return new PatronBehaviourManager(_entity, _statusIcon, _tileManager, 2f);
 
                 case EndBehaviour.CustomScript:
-                    ScriptBehaviour behaviour = new ScriptBehaviour(_entity, _statusIcon, _navigator, _tileManager, 2f);
+                    ScriptBehaviour behaviour = new ScriptBehaviour(_entity, _statusIcon, _tileManager, 2f);
                     behaviour.InjectSubscript(EntityFactory.GetSubscript(_activeSchedule.CustomScriptName));
                     return behaviour;
 
@@ -107,7 +109,7 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         public void InjectScript(SubScript subscript)
         {
-            CurrentBehaviour = new ScriptBehaviour(_entity, _statusIcon, _navigator, _tileManager, 2f);
+            CurrentBehaviour = new ScriptBehaviour(_entity, _statusIcon, _tileManager, 2f);
             (CurrentBehaviour as ScriptBehaviour).InjectSubscript(subscript);
         }
         private void CheckForUpdatedSchedule()
