@@ -206,6 +206,7 @@ namespace EntityEngine.Classes
                 return true;
             return false;
         }
+
         protected virtual void CreateDamageBody(Vector2 position)
         {
            

@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes;
 using static DataModels.Enums;
 
@@ -77,7 +79,33 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
             }
             else
             {
-               
+               //Todo, check to make sure entity is within a certain radius of other entity
+                if (Entity.Animator.CurrentActionType == ActionType.Attack)
+                {
+                    //keep playing attack animation
+                    Entity.Animator.OverridePause = true;
+
+                    if (((Entity as NPC).Animator as NPCAnimator).IsAttackFrame)
+                    {
+
+                        if (Entity.DamageBody.Body.FixtureList[0].CollidesWith <= tainicom.Aether.Physics2D.Dynamics.Category.None)
+                        {
+                            Entity.ActivateDamageBody(null);
+                        }
+                    }
+                }
+              
+
+
+            }
+        }
+
+        public override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+
+            if(fixtureB.Body.Tag == _otherEntity)
+            {
+                //Todo, check to make sure entity is within a certain radius of other entity
                 if (Entity.Animator.CurrentActionType != ActionType.Attack)
                 {
                     Entity.Animator.PerformAction(null, Vector2Helper.GetDirectionOfEntityInRelationToEntity(Entity.Position,
@@ -97,12 +125,10 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
                             Entity.ActivateDamageBody(null);
                         }
                     }
-              
+
                 }
-
-
             }
+                return base.OnCollides(fixtureA, fixtureB, contact);
         }
-
     }
 }

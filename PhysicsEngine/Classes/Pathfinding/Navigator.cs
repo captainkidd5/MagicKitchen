@@ -19,7 +19,7 @@ namespace PhysicsEngine.Classes.Pathfinding
         private PathGrid PathGrid { get; set; }
         public bool HasActivePath { get; private set; }
 
-        private int ErrorMargin { get; set; } = 2;
+        private int ErrorMargin { get; set; } = 15;
 
 
         public int MaxValue { get { return PathGrid.Weight.GetLength(0); } }
