@@ -117,18 +117,7 @@ namespace EntityEngine.Classes.NPCStuff
         }
         public void InjectScript(SubScript subscript) => BehaviourManager.InjectScript(subscript);
 
-        protected override void DestructionBehaviour()
-        {
-            base.DestructionBehaviour();
-            List<LootData> trimmedLoot = ChanceHelper.GetWeightedSelection(NPCData.LootData.Cast<IWeightable>().ToList(), Settings.Random).Cast<LootData>().ToList();
-            foreach (LootData loot in trimmedLoot)
-            {
-                ItemFactory.GenerateWorldItem(
-                                loot.ItemName, loot.QuantityMin, Position, WorldItemState.Bouncing, Vector2Helper.GetRandomDirectionAsVector2());
 
-            }
-
-        }
 
         protected override void Resume()
         {
@@ -232,11 +221,42 @@ namespace EntityEngine.Classes.NPCStuff
             base.LoadSave(reader);
             Name = reader.ReadString();
         }
-        public override void TakeDamage(Entity source, int amt, Vector2? knockBack = null)
+
+        protected virtual void DestructionBehaviour()
         {
-            base.TakeDamage(source, amt, knockBack);
-            if (NPCData != null && NPCData.NPCSoundData != null)
-                SoundModuleManager.PlayPackage(NPCData.NPCSoundData.Hurt);
+            if (NPCData != null && !string.IsNullOrEmpty(NPCData.NPCSoundData.Die))
+            {
+                SoundModuleManager.PlayPackage(NPCData.NPCSoundData.Die);
+
+            }
+            FlaggedForRemoval = true;
+            List<LootData> trimmedLoot = ChanceHelper.GetWeightedSelection(NPCData.LootData.Cast<IWeightable>().ToList(), Settings.Random).Cast<LootData>().ToList();
+            foreach (LootData loot in trimmedLoot)
+            {
+                ItemFactory.GenerateWorldItem(
+                                loot.ItemName, loot.QuantityMin, Position, WorldItemState.Bouncing, Vector2Helper.GetRandomDirectionAsVector2());
+
+            }
+        }
+        public virtual void TakeDamage(Entity source, int amt, Vector2? knockBack = null)
+        {
+           
+            int newHealth = CurrentHealth - amt;
+            if (newHealth <= 0)
+            {
+                DestructionBehaviour();
+
+            }
+            else
+            {
+                CurrentHealth = (byte)newHealth;
+                if (NPCData != null && NPCData.NPCSoundData != null)
+                    SoundModuleManager.PlayPackage(NPCData.NPCSoundData.Hurt);
+            }
+
+            if (knockBack != null)
+                MainHullBody.Body.ApplyLinearImpulse(knockBack.Value * 100000000);
+          
 
             ParticleManager.AddParticleEmitter(this, EmitterType.Fire);
             ParticleManager.AddParticleEmitter(this, EmitterType.Text, amt.ToString());
@@ -260,6 +280,36 @@ namespace EntityEngine.Classes.NPCStuff
 
             }
         }
+        protected override void CreateBody(Vector2 position)
+        {
+            base.CreateBody(position);
+            CreateDamageBody(position);
+            
+        }
+
+        protected virtual void CreateDamageBody(Vector2 position)
+        {
+
+            DamageBody = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { (Category)PhysCat.Damage }, new List<Category>(),
+              OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
+            AddSecondaryBody(DamageBody);
+        }
+
+        internal virtual void ActivateDamageBody(List<Category> hurtsTheseCategories)
+        {
+            SoundModuleManager.PlayPackage(NPCData.NPCSoundData.Attack);
+
+            if (hurtsTheseCategories == null)
+            {
+                hurtsTheseCategories = new List<Category>() { (Category)PhysCat.Player };
+            }
+            DamageBody.Body.SetCollidesWith(PhysicsManager.GetCat(hurtsTheseCategories));
+        }
+        internal virtual void DeactivateDamageBody()
+        {
+            DamageBody.Body.SetCollidesWith(PhysicsManager.GetCat(new List<Category>()));
+
+        }
         protected virtual void UpdateBehaviour(GameTime gameTime)
         {
             //if (!ForceStop)
@@ -278,7 +328,7 @@ namespace EntityEngine.Classes.NPCStuff
 
             if (fixtureA.CollisionCategories.HasFlag((Category)PhysCat.Damage))
             {
-                (fixtureB.Body.Tag as Entity).TakeDamage(this, 10);
+                (fixtureB.Body.Tag as NPC).TakeDamage(this, 10);
 
             }
             return base.OnCollides(fixtureA, fixtureB, contact);

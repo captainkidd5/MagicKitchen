@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using EntityEngine.Classes.NPCStuff;
 using Globals.Classes;
 using Globals.Classes.Helpers;
 using ItemEngine.Classes;
@@ -42,7 +43,7 @@ namespace EntityEngine.Classes.ToolStuff
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.NPC))
             {
 
-                (fixtureB.Body.Tag as Entity).TakeDamage(Holder, Item.DamageValue, 100 *Vector2Helper.GetVectorFromDirection(Direction));
+                (fixtureB.Body.Tag as NPC).TakeDamage(Holder, Item.DamageValue, 100 *Vector2Helper.GetVectorFromDirection(Direction));
                 Item.RemoveDurability();
 
                 SoundModuleManager.PlayPackage("SwordConnect");

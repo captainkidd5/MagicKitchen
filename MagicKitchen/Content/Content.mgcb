@@ -104,6 +104,18 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Kitchen/CoinJingle.wav
 
+#begin Audio/SoundEffects/NPC/Boar/Boar_Attack1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/NPC/Boar/Boar_Attack1.wav
+
+#begin Audio/SoundEffects/NPC/Boar/Boar_Death1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/NPC/Boar/Boar_Death1.wav
+
 #begin Audio/SoundEffects/NPC/Boar/Grunt1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

@@ -96,7 +96,9 @@
     }
 ],
 "NPCSoundData":{
-    "Hurt" : "Grunt"
+    "Hurt" : "Grunt",
+    "Attack":"Boar_Attack",
+    "Die" : "Boar_Die"
 },
 "LootData":[
 

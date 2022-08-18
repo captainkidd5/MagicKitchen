@@ -85,7 +85,7 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
                     //keep playing attack animation
                     Entity.Animator.OverridePause = true;
 
-                    if (((Entity as NPC).Animator as NPCAnimator).IsAttackFrame)
+                    if (((Entity as NPC).Animator as NPCAnimator).JustChangedToAttackFrame)
                     {
 
                         if (Entity.DamageBody.Body.FixtureList[0].CollidesWith <= tainicom.Aether.Physics2D.Dynamics.Category.None)

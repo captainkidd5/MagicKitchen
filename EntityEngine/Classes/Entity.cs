@@ -104,24 +104,7 @@ namespace EntityEngine.Classes
         }
 
 
-        public virtual void TakeDamage(Entity source, int amt, Vector2? knockBack = null)
-        {
-            int newHealth = CurrentHealth - amt;
-            if (newHealth <= 0)
-                DestructionBehaviour();
-            else
-                CurrentHealth = (byte)newHealth;
-
-            if (knockBack != null)
-                MainHullBody.Body.ApplyLinearImpulse(knockBack.Value * 100000000);
-
-        }
-
-        protected virtual void DestructionBehaviour()
-        {
-
-            FlaggedForRemoval = true;
-        }
+    
         public void SelectItem(Item item) => _overHeadItemDisplay.SelectItem(item, Position);
         public bool IsProgressComplete() => ProgressBarSprite.FullyCharged;
 
@@ -186,7 +169,6 @@ namespace EntityEngine.Classes
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
 
-            CreateDamageBody(position);
 
 
         }
@@ -207,27 +189,7 @@ namespace EntityEngine.Classes
             return false;
         }
 
-        protected virtual void CreateDamageBody(Vector2 position)
-        {
-           
-            DamageBody = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 16f, new List<Category>() { (Category)PhysCat.Damage }, new List<Category>(),
-              OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
-            AddSecondaryBody(DamageBody);
-        }
 
-        internal virtual void ActivateDamageBody(List<Category> hurtsTheseCategories)
-        {
-            if (hurtsTheseCategories == null)
-            {
-                hurtsTheseCategories = new List<Category>() { (Category)PhysCat.Player };
-            }
-            DamageBody.Body.SetCollidesWith(PhysicsManager.GetCat(hurtsTheseCategories));
-        }
-        internal virtual void DeactivateDamageBody()
-        {
-            DamageBody.Body.SetCollidesWith(PhysicsManager.GetCat(new List<Category>()));
-
-        }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             //Collision logic changes based on current behaviour!

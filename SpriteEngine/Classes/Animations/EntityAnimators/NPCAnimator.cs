@@ -19,7 +19,9 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         private NPCData _npcData;
 
         public override int CurrentFrame => _currentAnimation.CurrentFrame;
+        public int LastFrame => _currentAnimation.FrameLastFrame;
         public bool IsAttackFrame => _attackFrame != null && CurrentFrame == _attackFrame;
+        public bool JustChangedToAttackFrame => IsAttackFrame && LastFrame != _attackFrame;
         private int? _attackFrame;
 
         public override bool IsPerformingAnimation()

@@ -304,6 +304,28 @@
  
       },
       {
+        "Name": "Boar_Die",
+        "SoundChancers":[
+            {
+              "Name": "Boar_Death1",
+              "Weight": 100,
+              "LocalPath": "SoundEffects/NPC/Boar"
+            }
+          ]
+ 
+      },
+      {
+        "Name": "Boar_Attack",
+        "SoundChancers":[
+            {
+              "Name": "Boar_Attack1",
+              "Weight": 100,
+              "LocalPath": "SoundEffects/NPC/Boar"
+            }
+          ]
+ 
+      },
+      {
         "Name": "RabbitHurt",
         "SoundChancers":[
             {
