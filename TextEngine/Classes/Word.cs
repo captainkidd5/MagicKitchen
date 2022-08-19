@@ -19,6 +19,11 @@ namespace TextEngine.Classes
         private Color _color;
 
         private Vector2 _scale;
+
+        public float Height => ImageFont.FontDimension * _scale.Y;
+        public float Width => _str.Length * ImageFont.FontDimension;
+
+        public bool Empty => String.IsNullOrEmpty(_str);
         public Word(string str,FontType fontType, ImageFont imgFont, Color? color = null, Vector2? scale = null)
         {
             _str = str;
@@ -27,8 +32,19 @@ namespace TextEngine.Classes
 
             _color = color ?? Color.White;
             _scale = scale ?? Vector2.One;
-        }
 
+         
+        }
+        
+
+        public void Append(char c)
+        {
+            _str += c;
+        }
+        /// <summary>
+        /// Pos should be the start position of the first character of the word
+        /// </summary>
+        /// <param name="pos"></param>
         public void Update(Vector2 pos)
         {
             _pos = pos;
