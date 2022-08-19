@@ -1333,6 +1333,17 @@
    <property name="newSource" value="0, -32, 32, 48"/>
   </properties>
  </tile>
+ <tile id="5305">
+  <properties>
+   <property name="newSource" value="-48,-64,112,80"/>
+  </properties>
+  <animation>
+   <frame tileid="5305" duration="800"/>
+   <frame tileid="5805" duration="800"/>
+   <frame tileid="6305" duration="800"/>
+   <frame tileid="5805" duration="800"/>
+  </animation>
+ </tile>
  <tile id="5321">
   <properties>
    <property name="newSource" value="0, -32, 32, 48"/>
@@ -1352,6 +1363,16 @@
    <frame tileid="4321" duration="100"/>
    <frame tileid="4021" duration="100"/>
   </animation>
+ </tile>
+ <tile id="5805">
+  <properties>
+   <property name="newSource" value="-48,-64,112,80"/>
+  </properties>
+ </tile>
+ <tile id="6305">
+  <properties>
+   <property name="newSource" value="-48,-64,112,80"/>
+  </properties>
  </tile>
  <tile id="6822">
   <properties>
