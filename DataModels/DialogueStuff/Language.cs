@@ -9,6 +9,6 @@ namespace DataModels.DialogueStuff
     {
         public string Name { get; set; }
 
-        public Dictionary<char, Point> CharPoints { get; set;- }
+        public Dictionary<char, Point> CharPoints { get; set; }
     }
 }
