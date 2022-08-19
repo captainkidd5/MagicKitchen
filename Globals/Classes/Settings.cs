@@ -20,6 +20,8 @@ namespace Globals.Classes
         {
             return (float)layerDepths * .1f;
         }
+
+        public static bool WindowFocused = false;
         public static Random Random;
         private static GraphicsDeviceManager Graphics;
 

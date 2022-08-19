@@ -71,7 +71,20 @@ namespace MagicKitchen
             Window.AllowUserResizing = true;
             Window.ClientSizeChanged += Settings.Window_ClientSizeChanged;
 
+            Activated += IsActivated;
+            Deactivated += IsDeactivated;
         }
+
+        private void IsDeactivated(object sender, EventArgs e)
+        {
+            Settings.WindowFocused = false;
+        }
+
+        private void IsActivated(object sender, EventArgs e)
+        {
+            Settings.WindowFocused = true;
+        }
+
 
         protected override void Initialize()
         {
@@ -89,6 +102,7 @@ namespace MagicKitchen
 
             PhysicsManager.Initialize();
 
+            Window.Title = "Magic ";
 
 
 
@@ -144,88 +158,100 @@ namespace MagicKitchen
         {
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //    Exit();
-            Controls.Update(gameTime);
-            SongManager.Update(gameTime);
-            if (UI.GameDisplayState == GameDisplayState.InGame)
+            if (Settings.WindowFocused)
             {
-                _stageManager.Update(gameTime);
 
+                Controls.Update(gameTime);
+                SongManager.Update(gameTime);
+                if (UI.GameDisplayState == GameDisplayState.InGame)
+                {
+                    _stageManager.Update(gameTime);
+
+                }
+                UI.Update(gameTime);
+                if (!Flags.Pause)
+                {
+                    PhysicsManager.Update(gameTime);
+
+                }
+
+                base.Update(gameTime);
             }
-            UI.Update(gameTime);
-            if (!Flags.Pause)
-            {
-                PhysicsManager.Update(gameTime);
 
-            }
-
-            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            if (SettingsManager.IsNightTime && UI.GameDisplayState == GameDisplayState.InGame)
+            if (Settings.WindowFocused)
             {
-                RenderTargetManager.SetTarget(RenderTargetManager.LightsTarget);
+
+                if (SettingsManager.IsNightTime && UI.GameDisplayState == GameDisplayState.InGame)
+                {
+                    RenderTargetManager.SetTarget(RenderTargetManager.LightsTarget);
+                    GraphicsDevice.Clear(Color.Transparent);
+
+
+
+                    _spriteBatch.Begin(blendState: BlendState.Additive, transformMatrix: Settings.Camera.GetTransform(GraphicsDevice));
+                    _stageManager.DrawLights(_spriteBatch);
+                    _spriteBatch.End();
+                }
+
+                RenderTargetManager.SetTarget(RenderTargetManager.MainTarget);
+                GraphicsDevice.Clear(Color.Transparent);
+
+                if (UI.GameDisplayState == GameDisplayState.InGame)
+                {
+
+                    _stageManager.Draw(_spriteBatch, gameTime);
+
+                }
+
+                if (SettingsManager.DebugVelcro)
+                    PhysicsManager.Draw(GraphicsDevice, Camera);
+                _frameCounter.Update(gameTime.ElapsedGameTime.TotalSeconds);
+
+                RenderTargetManager.RemoveRenderTarget();
                 GraphicsDevice.Clear(Color.Transparent);
 
 
 
-                _spriteBatch.Begin(blendState: BlendState.Additive, transformMatrix: Settings.Camera.GetTransform(GraphicsDevice));
-                _stageManager.DrawLights(_spriteBatch);
+                RenderTargetManager.SetTarget(RenderTargetManager.UITarget);
+                GraphicsDevice.Clear(Color.Transparent);
+
+                UI.Draw(_spriteBatch, _frameCounter.framerate);
+
+                RenderTargetManager.RemoveRenderTarget();
+
+                if (SettingsManager.IsNightTime)
+                {
+                    SpriteFactory.LightEffect.Parameters["MaskTexture"].SetValue(RenderTargetManager.LightsTarget);
+                    _spriteBatch.Begin(blendState: BlendState.AlphaBlend, effect: SpriteFactory.LightEffect);
+                    _spriteBatch.Draw(RenderTargetManager.MainTarget, Settings.ScreenRectangle, Color.Red);
+                    _spriteBatch.End();
+                }
+                else
+                {
+                    _spriteBatch.Begin(blendState: BlendState.AlphaBlend);
+                    _spriteBatch.Draw(RenderTargetManager.MainTarget, Settings.ScreenRectangle, Color.White);
+                    _spriteBatch.End();
+                }
+
+
+
+
+                _spriteBatch.Begin(blendState: BlendState.AlphaBlend);
+                _spriteBatch.Draw(RenderTargetManager.UITarget, Settings.ScreenRectangle, Color.White);
+
                 _spriteBatch.End();
-            }
 
-            RenderTargetManager.SetTarget(RenderTargetManager.MainTarget);
-            GraphicsDevice.Clear(Color.Transparent);
+                base.Draw(gameTime);
 
-            if (UI.GameDisplayState == GameDisplayState.InGame)
-            {
-
-                _stageManager.Draw(_spriteBatch, gameTime);
-
-            }
-
-            if (SettingsManager.DebugVelcro)
-                PhysicsManager.Draw(GraphicsDevice, Camera);
-            _frameCounter.Update(gameTime.ElapsedGameTime.TotalSeconds);
-
-            RenderTargetManager.RemoveRenderTarget();
-            GraphicsDevice.Clear(Color.Transparent);
-
-
-
-            RenderTargetManager.SetTarget(RenderTargetManager.UITarget);
-            GraphicsDevice.Clear(Color.Transparent);
-
-            UI.Draw(_spriteBatch, _frameCounter.framerate);
-
-            RenderTargetManager.RemoveRenderTarget();
-
-            if (SettingsManager.IsNightTime)
-            {
-                SpriteFactory.LightEffect.Parameters["MaskTexture"].SetValue(RenderTargetManager.LightsTarget);
-                _spriteBatch.Begin(blendState: BlendState.AlphaBlend, effect: SpriteFactory.LightEffect);
-                _spriteBatch.Draw(RenderTargetManager.MainTarget, Settings.ScreenRectangle, Color.Red);
-                _spriteBatch.End();
             }
             else
             {
-                _spriteBatch.Begin(blendState: BlendState.AlphaBlend);
-                _spriteBatch.Draw(RenderTargetManager.MainTarget, Settings.ScreenRectangle, Color.White);
-                _spriteBatch.End();
+                Console.WriteLine("test");
             }
-   
-           
-
-
-            _spriteBatch.Begin(blendState: BlendState.AlphaBlend);
-            _spriteBatch.Draw(RenderTargetManager.UITarget, Settings.ScreenRectangle, Color.White);
-
-            _spriteBatch.End();
-
-            base.Draw(gameTime);
-
-
 
         }
 

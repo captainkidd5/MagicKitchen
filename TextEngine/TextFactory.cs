@@ -14,11 +14,12 @@ namespace TextEngine
     {
         public static BitmapFont BitmapFont { get; set; }
 
+        public static Texture2D StandardFontTexture { get; set; }
 
         public static void Load(ContentManager content)
         {
             BitmapFont = content.Load<BitmapFont>("UI/Fonts/test_font_1");
-
+            StandardFontTexture = content.Load<Texture2D>("UI/Fonts/MyFirstFont");
 
 
         }
