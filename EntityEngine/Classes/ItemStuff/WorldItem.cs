@@ -38,6 +38,8 @@ namespace EntityEngine.ItemStuff
 
         public ushort Count { get; private set; }
         public Sprite Sprite { get; set; }
+
+        public Sprite MultipleItemsSprite { get; set; }
         public Shadow Shadow { get; set; }
         private bool ImmuneToPickup => _immunityTimer != null;
         private SimpleTimer _immunityTimer;
@@ -73,8 +75,12 @@ namespace EntityEngine.ItemStuff
             _tileManager = tileManager;
             Item = item;
             Count = (ushort)count;
+          
             Sprite = SpriteFactory.CreateWorldSprite(position, Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f));
             WorldItemState = worldItemState;
+
+            if (Count > 1)
+                MultipleItemsSprite = SpriteFactory.CreateWorldSprite(position, Item.GetItemSourceRectangle(item.Id), ItemFactory.ItemSpriteSheet, scale: new Vector2(.75f, .75f));
             _jettisonDirection = jettisonDirection;
             //CreateBody(position);
             //if(MainHullBody.Body.World == null)
@@ -166,6 +172,8 @@ namespace EntityEngine.ItemStuff
                 throw new Exception($"Unable to remove more than contained");
             Count -= (ushort)count;
 
+            if (Count == 1 && MultipleItemsSprite != null)
+                MultipleItemsSprite = null;
             if (Count == 0)
                 FlaggedForRemoval = true;
 
@@ -204,6 +212,8 @@ namespace EntityEngine.ItemStuff
             }
 
             Sprite.Update(gameTime, CenteredPosition + spriteBehaviourOffSet);
+            if (MultipleItemsSprite != null)
+                MultipleItemsSprite.Update(gameTime, new Vector2(Sprite.Position.X + 4, Sprite.Position.Y + 4));
             if (Shadow != null)
             {
                 if (Count > 1)
@@ -234,11 +244,8 @@ namespace EntityEngine.ItemStuff
         public void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch);
-            if (Count > 1)
-            {
-                Sprite.ForceSetPosition(new Vector2(Sprite.Position.X + 4, Sprite.Position.Y + 4));
-                Sprite.Draw(spriteBatch);
-            }
+            if(MultipleItemsSprite != null)
+                MultipleItemsSprite.Draw(spriteBatch);
             if (Shadow != null)
                 Shadow.Draw(spriteBatch);
         }

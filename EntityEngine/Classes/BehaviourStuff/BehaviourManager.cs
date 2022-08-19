@@ -59,32 +59,35 @@ namespace EntityEngine.Classes.BehaviourStuff
         {
             CurrentBehaviour = new FleeBehaviour(_entity, otherEntity, _statusIcon, _tileManager, 2f);
         }
-        public Behaviour ChangeBehaviour(EndBehaviour newbehaviour)
+        public void ChangeBehaviour(EndBehaviour newbehaviour)
         {
+            Behaviour behaviour = null;
             switch (newbehaviour)
             {
                 case EndBehaviour.None:
-                    return null;
+                    return;
                 case EndBehaviour.Stationary:
-                    return null;
+                    return;
                 case EndBehaviour.Wander:
-                    return new WanderBehaviour(_entity, _statusIcon, _tileManager, new Point(5, 5), 2f);
-
+                    behaviour = new WanderBehaviour(_entity, _statusIcon, _tileManager, new Point(5, 5), 2f);
+                    break;
                 case EndBehaviour.Search:
-                    return new SearchBehaviour(_entity, _statusIcon, _tileManager, new Point(5, 5), 2f);
-
+                    behaviour = new SearchBehaviour(_entity, _statusIcon, _tileManager, new Point(5, 5), 2f);
+                    break;
                 case EndBehaviour.Patron:
-                    return new PatronBehaviourManager(_entity, _statusIcon, _tileManager, 2f);
-
+                    behaviour = new PatronBehaviourManager(_entity, _statusIcon, _tileManager, 2f);
+                    break;
                 case EndBehaviour.CustomScript:
-                    ScriptBehaviour behaviour = new ScriptBehaviour(_entity, _statusIcon, _tileManager, 2f);
-                    behaviour.InjectSubscript(EntityFactory.GetSubscript(_activeSchedule.CustomScriptName));
-                    return behaviour;
+                    behaviour = new ScriptBehaviour(_entity, _statusIcon, _tileManager, 2f);
+                    (behaviour as ScriptBehaviour).InjectSubscript(EntityFactory.GetSubscript(_activeSchedule.CustomScriptName));
+                    break;
 
 
                 default:
-                    return null;
+                    return;
             }
+
+            CurrentBehaviour = behaviour;
         }
         public void Update(GameTime gameTime, ref Vector2 velocity)
         {
@@ -103,7 +106,7 @@ namespace EntityEngine.Classes.BehaviourStuff
             if (CurrentBehaviour.GetType() == typeof(RouteBehaviour) &&
                            (CurrentBehaviour as RouteBehaviour).HasReachedEndOfScheduledRoute())
             {
-                CurrentBehaviour = ChangeBehaviour(_activeSchedule.EndBehaviour);
+               ChangeBehaviour(_activeSchedule.EndBehaviour);
             }
         }
 
@@ -119,7 +122,7 @@ namespace EntityEngine.Classes.BehaviourStuff
             {
                 _activeSchedule = newSchedule;
 
-                    CurrentBehaviour = ChangeBehaviour(_activeSchedule.EndBehaviour);
+                    ChangeBehaviour(_activeSchedule.EndBehaviour);
 
                 
             }

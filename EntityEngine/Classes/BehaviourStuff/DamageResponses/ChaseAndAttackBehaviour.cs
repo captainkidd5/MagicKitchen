@@ -69,23 +69,29 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
                     else
                     {
                         Vector2Helper.MoveTowardsVector(_otherEntity.CenteredPosition, Entity.Position, ref velocity, gameTime, 15);
-                        if (IsStuck(gameTime))
-                        {
-                            Entity.ResumeDefaultBehaviour();
-                            return;
-                        }
+                        
                     }
+                  
                 }
+            }
+            if (IsStuck(gameTime))
+            {
+                Entity.ResumeDefaultBehaviour();
+                _otherEntity.TilePositionChanged -= OnChasedEntityPointChanged;
+
+                return;
             }
             if (Entity.HasActivePath && !Entity.Animator.IsPerformingAnimation())
             {
                 Entity.FollowPath(gameTime, ref velocity);
                 if (IsStuck(gameTime))
                 {
-                     if (Entity.FindPathTo(_otherEntity.CenteredPosition))
-                    {
-                        Entity.SetNavigatorTarget(_otherEntity.CenteredPosition);
-                    }
+                  
+                        Entity.ResumeDefaultBehaviour();
+                    _otherEntity.TilePositionChanged -= OnChasedEntityPointChanged;
+
+                    return;
+                    
                 }
                 if (Entity.Animator.CurrentActionType != ActionType.Walking)
                 {
