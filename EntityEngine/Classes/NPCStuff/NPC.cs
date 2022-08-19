@@ -49,6 +49,7 @@ namespace EntityEngine.Classes.NPCStuff
         private static float s_despawnTargetTime = 5f;
 
         private SimpleTimer _despawnTimer;
+        //private SimpleTimer _im
         protected BehaviourManager BehaviourManager { get; set; }
 
 
@@ -147,10 +148,11 @@ namespace EntityEngine.Classes.NPCStuff
         }
         public override void Update(GameTime gameTime)
         {
-            _pointOverLastFrame = _currentPointOver;
-            UpdateBehaviour(gameTime);
-
             base.Update(gameTime);
+
+            UpdateBehaviour(gameTime);
+            _pointOverLastFrame = _currentPointOver;
+
 
             if (Inspectable && !_isInteractingWithPlayer)
                 CheckInspection();
@@ -173,12 +175,17 @@ namespace EntityEngine.Classes.NPCStuff
             {
                 _despawnTimer.ResetToZero();
             }
+            FinalMove(gameTime);
+
             _currentPointOver = Vector2Helper.GetTileIndexPosition(Position);
             if (_pointOverLastFrame != _currentPointOver)
                 OnTilePositionChanged(_currentPointOver);
         }
         private Point _currentPointOver;
         private Point _pointOverLastFrame;
+
+
+        public bool HasPointChanged => _currentPointOver != _pointOverLastFrame;
         public override void Draw(SpriteBatch spriteBatch)
         {
 #if DEBUG
@@ -237,6 +244,11 @@ namespace EntityEngine.Classes.NPCStuff
                                 loot.ItemName, loot.QuantityMin, Position, WorldItemState.Bouncing, Vector2Helper.GetRandomDirectionAsVector2());
 
             }
+        }
+
+        public void ResumeDefaultBehaviour()
+        {
+            BehaviourManager.ChangeBehaviour(EndBehaviour.Wander);
         }
         public virtual void TakeDamage(Entity source, int amt, Vector2? knockBack = null)
         {

@@ -21,9 +21,12 @@ namespace EntityEngine.Classes.BehaviourStuff
         protected NPC Entity;
         protected StatusIcon StatusIcon;
         protected TileManager TileManager;
-        protected SimpleTimer SimpleTimer;
 
+        protected SimpleTimer SimpleTimer;
         protected float TimerFrequency;
+
+        protected SimpleTimer TimeInSameSpotTimer;
+        protected float SameSpotTimeBeforeUnstuck = 3f;
         public Behaviour(NPC entity,StatusIcon statusIcon, TileManager tileManager, float? timerFrequency)
         {
             Entity = entity;
@@ -32,7 +35,7 @@ namespace EntityEngine.Classes.BehaviourStuff
             timerFrequency = timerFrequency ?? 5f;
             SimpleTimer = new SimpleTimer(timerFrequency.Value, true);
 
-
+            TimeInSameSpotTimer = new SimpleTimer(SameSpotTimeBeforeUnstuck, true);
         }
 
         public void SwitchStage(TileManager tileManager)
@@ -41,6 +44,21 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         }
 
+        protected bool IsStuck(GameTime gameTime)
+        {
+            if (!Entity.HasPointChanged)
+            {
+                if (TimeInSameSpotTimer.Run(gameTime))
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                TimeInSameSpotTimer.ResetToZero();
+            }
+            return false;
+        }
         public virtual void Update(GameTime gameTime, ref Vector2 velocity)
         {
 

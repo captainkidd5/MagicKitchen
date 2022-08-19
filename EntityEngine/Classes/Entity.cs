@@ -254,7 +254,7 @@ namespace EntityEngine.Classes
             //    Velocity = Vector2.Zero;
             if (Animator.IsPerformingAnimation())
                 Halt();
-            MainHullBody.Body.LinearVelocity = Velocity * Speed * (float)gameTime.ElapsedGameTime.Milliseconds;
+            //FinalMove(gameTime);
 
 
            // MainHullBody.Body.ApplyForce(Velocity * 100 * (float)gameTime.ElapsedGameTime.Milliseconds);
@@ -286,6 +286,12 @@ namespace EntityEngine.Classes
 
             _overHeadItemDisplay.Update(gameTime, Position, LayerDepth);
             ToolHandler.Update(gameTime);
+
+        }
+
+        protected virtual void FinalMove(GameTime gameTime)
+        {
+            MainHullBody.Body.LinearVelocity = Velocity * Speed * (float)gameTime.ElapsedGameTime.Milliseconds;
 
         }
         internal bool IsWater(Vector2 position)

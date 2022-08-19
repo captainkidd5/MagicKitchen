@@ -51,25 +51,42 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
             {
                 if (SimpleTimer.Run(gameTime))
                 {
-                    if(Entity.NPCData != null)
+                    if (Entity.NPCData != null)
                     {
                         if (Entity.NPCData.AlwaysSubmerged)
                         {
 
                         }
-                        if (Entity.IsWater(_otherEntity.CenteredPosition)){
+                        if (Entity.IsWater(_otherEntity.CenteredPosition))
+                        {
 
                         }
                     }
                     if (Entity.FindPathTo(_otherEntity.CenteredPosition))
-                  {
+                    {
                         Entity.SetNavigatorTarget(_otherEntity.CenteredPosition);
+                    }
+                    else
+                    {
+                        Vector2Helper.MoveTowardsVector(_otherEntity.CenteredPosition, Entity.Position, ref velocity, gameTime, 15);
+                        if (IsStuck(gameTime))
+                        {
+                            Entity.ResumeDefaultBehaviour();
+                            return;
+                        }
                     }
                 }
             }
-            if (Entity.HasActivePath && ! Entity.Animator.IsPerformingAnimation())
+            if (Entity.HasActivePath && !Entity.Animator.IsPerformingAnimation())
             {
                 Entity.FollowPath(gameTime, ref velocity);
+                if (IsStuck(gameTime))
+                {
+                     if (Entity.FindPathTo(_otherEntity.CenteredPosition))
+                    {
+                        Entity.SetNavigatorTarget(_otherEntity.CenteredPosition);
+                    }
+                }
                 if (Entity.Animator.CurrentActionType != ActionType.Walking)
                 {
                     Entity.Animator.PerformAction(null, Vector2Helper.GetDirectionOfEntityInRelationToEntity(Entity.Position,
@@ -79,7 +96,7 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
             }
             else
             {
-               //Todo, check to make sure entity is within a certain radius of other entity
+                //Todo, check to make sure entity is within a certain radius of other entity
                 if (Entity.Animator.CurrentActionType == ActionType.Attack)
                 {
                     //keep playing attack animation
@@ -94,7 +111,7 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
                         }
                     }
                 }
-              
+
 
 
             }
@@ -103,7 +120,7 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
         public override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
 
-            if(fixtureB.Body.Tag == _otherEntity)
+            if (fixtureB.Body.Tag == _otherEntity)
             {
                 //Todo, check to make sure entity is within a certain radius of other entity
                 if (Entity.Animator.CurrentActionType != ActionType.Attack)
@@ -128,7 +145,7 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
 
                 }
             }
-                return base.OnCollides(fixtureA, fixtureB, contact);
+            return base.OnCollides(fixtureA, fixtureB, contact);
         }
     }
 }

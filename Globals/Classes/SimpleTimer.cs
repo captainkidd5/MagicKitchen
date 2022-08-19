@@ -14,12 +14,12 @@ namespace Globals.Classes
         /// <summary>
         /// If true, will reset to zero every time the target time is reached.
         /// </summary>
-        private bool RunContinuously { get; set; }
+        private bool ResetToZeroAfterTargetReached { get; set; }
         public float TargetTime { get; private set; }
-        public SimpleTimer(float targetTime, bool runContinuously = true)
+        public SimpleTimer(float targetTime, bool resetToZeroAfterTargetReached = true)
         {
             TargetTime = targetTime;
-            RunContinuously = runContinuously;
+            ResetToZeroAfterTargetReached = resetToZeroAfterTargetReached;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Globals.Classes
         {
             if (_currentTime >= TargetTime)
             {
-                if(RunContinuously)
+                if(ResetToZeroAfterTargetReached)
                     ResetToZero();
                 return true;
             }

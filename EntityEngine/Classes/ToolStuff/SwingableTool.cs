@@ -35,7 +35,7 @@ namespace EntityEngine.Classes.ToolStuff
         protected override void LoadSprite()
         {
             base.LoadSprite();
-            Sprite.SwapScale(new Vector2(2f, 2f));
+            Sprite.SwapScale(new Vector2(1f, 1f));
             Sprite.Origin = new Vector2(16, 16);
             Sprite.Rotation = MainHullBody.Body.Rotation;
 
@@ -44,8 +44,8 @@ namespace EntityEngine.Classes.ToolStuff
 
         protected override void CreateBody(Vector2 position)
         {
-            Vector2 startingRectangle = new Vector2(2, 34);
-            Vector2 anchorPoint = new Vector2(1, 32);
+            Vector2 startingRectangle = new Vector2(2, 17);
+            Vector2 anchorPoint = new Vector2(1, 16);
             bool counterClockWise = false;
             float rotation = 0;
             YOffSet = Holder.SubmergenceLevel == SubmergenceLevel.Shallow ? 14 : 0;
