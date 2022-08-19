@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DataModels.DialogueStuff;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,6 @@ namespace Globals.Classes
         {
             return (float)layerDepths * .1f;
         }
-
         public static bool WindowFocused = false;
         public static Random Random;
         private static GraphicsDeviceManager Graphics;

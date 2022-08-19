@@ -696,6 +696,18 @@
 /processor:BitmapFontProcessor
 /build:UI/Font/test_font_1.fnt
 
+#begin UI/Fonts/English/StandardFont.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/Fonts/English/StandardFont.png
+
 #begin UI/Fonts/MyFirstFont.png
 /importer:TextureImporter
 /processor:TextureProcessor

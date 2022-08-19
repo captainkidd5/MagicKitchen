@@ -24,18 +24,18 @@ namespace TextEngine.Classes
         private float _scale;
         public Color Color { get; private set; }
         private Vector2 _position;
-        private BitmapFont _spriteFont;
+        private ImageFont _imageFont;
 
         private float LayerDepth { get; set; }
 
 
-        internal Text(String value, float scale, BitmapFont spriteFont, float layerDepth)
+        internal Text(String value, float scale, ImageFont imageFont, float layerDepth)
         {
             CurrentString = string.Empty;
             FullString = value;
             _scale = scale;
             Color = Color.Black;
-            _spriteFont = spriteFont;
+            _imageFont = imageFont;
 
             LayerDepth = layerDepth;
 

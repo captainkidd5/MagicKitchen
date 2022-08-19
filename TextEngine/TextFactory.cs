@@ -1,4 +1,5 @@
-﻿using Globals.Classes;
+﻿using DataModels.DialogueStuff;
+using Globals.Classes;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.BitmapFonts;
@@ -14,13 +15,16 @@ namespace TextEngine
     {
         public static BitmapFont BitmapFont { get; set; }
 
-        public static Texture2D StandardFontTexture { get; set; }
+        public static Texture2D CurrentFontLanguage { get; set; }
 
+        public static ImageFont ImageFont { get; set; }
         public static void Load(ContentManager content)
         {
             BitmapFont = content.Load<BitmapFont>("UI/Fonts/test_font_1");
-            StandardFontTexture = content.Load<Texture2D>("UI/Fonts/MyFirstFont");
+            CurrentFontLanguage = content.Load<Texture2D>($"UI/Fonts/{Settings.CurrentLanguage.Name}/StandardFont");
 
+            ImageFont = new ImageFont();
+            ImageFont.LoadContent(CurrentFontLanguage);
 
         }
         public static float SingleCharacterWidth(float scale = 1f)
