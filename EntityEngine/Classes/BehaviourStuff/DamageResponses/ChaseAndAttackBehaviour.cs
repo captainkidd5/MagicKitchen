@@ -3,6 +3,7 @@ using EntityEngine.Classes.CharacterStuff;
 using EntityEngine.Classes.NPCStuff;
 using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
+using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Pathfinding;
 using SpriteEngine.Classes.Animations.EntityAnimations;
 using System;
@@ -22,7 +23,8 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
         private readonly NPC _otherEntity;
         //When entity is this distance away from chased entity, stop attacking and chase again (basically, outside of hit zone)
         private int _distanceToReschase = 18;
-        public ChaseAndAttackBehaviour(NPC entity, NPC otherEntity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) : base(entity, statusIcon, tileManager, timerFrequency)
+        public ChaseAndAttackBehaviour(BehaviourManager behaviourManager,NPC entity, NPC otherEntity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
+            base(behaviourManager, entity, statusIcon, tileManager, timerFrequency)
         {
             _otherEntity = otherEntity;
             SimpleTimer.SetNewTargetTime(.25f);
@@ -69,9 +71,9 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
                     else
                     {
                         Vector2Helper.MoveTowardsVector(_otherEntity.CenteredPosition, Entity.Position, ref velocity, gameTime, 15);
-                        
+
                     }
-                  
+
                 }
             }
             if (IsStuck(gameTime))
@@ -86,12 +88,12 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
                 Entity.FollowPath(gameTime, ref velocity);
                 if (IsStuck(gameTime))
                 {
-                  
-                        Entity.ResumeDefaultBehaviour();
+
+                    Entity.ResumeDefaultBehaviour();
                     _otherEntity.TilePositionChanged -= OnChasedEntityPointChanged;
 
                     return;
-                    
+
                 }
                 if (Entity.Animator.CurrentActionType != ActionType.Walking)
                 {
@@ -152,6 +154,18 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
                 }
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
+        }
+        public override bool OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            if (fixtureA.CollisionCategories.HasFlag((Category)PhysCat.ArraySensor))
+            {
+                if (fixtureB.Tag == _otherEntity)
+                {
+                    Entity.ResumeDefaultBehaviour();
+                    _otherEntity.TilePositionChanged -= OnChasedEntityPointChanged;
+                }
+            }
+            return base.OnSeparates(fixtureA, fixtureB, contact);
         }
     }
 }

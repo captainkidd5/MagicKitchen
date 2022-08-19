@@ -37,7 +37,7 @@ namespace PhysicsEngine.Classes
         Projectile = 0x40000,
         Damage = 0x80000,
         ClickBox = 0x100000,
-        Cat22 = 0x200000,
+        ArraySensor = 0x200000,
         Cat23 = 0x400000,
         Cat24 = 0x800000,
         Cat25 = 0x1000000,

@@ -54,6 +54,10 @@ namespace EntityEngine.Classes.NPCStuff
 
 
         public bool OutsideOfPlayArea { get; protected set; }
+
+
+        protected HullBody ArraySensor { get; set; }
+       
         public NPC( GraphicsDevice graphics, ContentManager content) :
             base(graphics, content)
         {
@@ -296,7 +300,15 @@ namespace EntityEngine.Classes.NPCStuff
         {
             base.CreateBody(position);
             CreateDamageBody(position);
+            CreateArraySensorBody(position);
             
+        }
+
+        protected virtual void CreateArraySensorBody(Vector2 position)
+        {
+            ArraySensor = PhysicsManager.CreateCircularHullBody(BodyType.Static, position, 64f, new List<Category>() { (Category)PhysCat.ArraySensor }, new List<Category>() { (Category)PhysCat.NPC },
+              OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
+            AddSecondaryBody(ArraySensor);
         }
 
         protected virtual void CreateDamageBody(Vector2 position)
@@ -348,6 +360,8 @@ namespace EntityEngine.Classes.NPCStuff
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
+            BehaviourManager.OnSeparates(fixtureA, fixtureB, contact);
+
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayArea))
             {
                 OutsideOfPlayArea = true;

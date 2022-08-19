@@ -17,8 +17,8 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
         protected DiningTable TableSeatedAt;
 
-        public PBehaviourBase(PatronBehaviourManager patronBehaviourManager,DiningTable table, NPC entity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
-            base(entity, statusIcon, tileManager, timerFrequency)
+        public PBehaviourBase(BehaviourManager behaviourManager, PatronBehaviourManager patronBehaviourManager,DiningTable table, NPC entity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
+            base(behaviourManager, entity, statusIcon, tileManager, timerFrequency)
         {
             PatronBehaviourManager = patronBehaviourManager;
             TableSeatedAt = table;

@@ -24,9 +24,9 @@ namespace EntityEngine.Classes.BehaviourStuff
    
 
 
-        public RouteBehaviour(NPC entity,StatusIcon statusIcon,TileManager tileManager,
+        public RouteBehaviour(BehaviourManager behaviourManager, NPC entity,StatusIcon statusIcon,TileManager tileManager,
             Schedule activeSchedule, float? scheduleCheckFrequency) :
-            base(entity,statusIcon,tileManager, scheduleCheckFrequency)
+            base(behaviourManager,entity, statusIcon,tileManager, scheduleCheckFrequency)
         {
             _activeSchedule = activeSchedule;
         }

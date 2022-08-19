@@ -161,7 +161,7 @@ namespace EntityEngine.Classes
             if (MainHullBody == null)
                 MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },
                     new List<Category>() { (Category)PhysCat.PlayArea,(Category)PhysCat.Player, (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,
-                        (Category)PhysCat.Grass, (Category)PhysCat.TransparencySensor,  (Category)PhysCat.Portal,(Category)PhysCat.Tool },
+                        (Category)PhysCat.Grass, (Category)PhysCat.TransparencySensor,  (Category)PhysCat.Portal,(Category)PhysCat.Tool,(Category)PhysCat.ArraySensor },
                     OnCollides, OnSeparates, ignoreGravity: true, blocksLight: true, userData: this, mass: 200f);
 
             BigSensorCollidesWithCategories = new List<Category>() { (Category)PhysCat.NPC, (Category)PhysCat.Player, (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh };

@@ -26,9 +26,9 @@ namespace EntityEngine.Classes.BehaviourStuff
         private ScriptAction _currentAction;
         private int _currentActionStep = 0;
         private bool _started;
-        public ScriptBehaviour(NPC entity, StatusIcon statusIcon,
+        public ScriptBehaviour(BehaviourManager behaviourManager, NPC entity, StatusIcon statusIcon,
             TileManager tileManager, float? timerFrequency) :
-            base(entity, statusIcon, tileManager, timerFrequency)
+            base(behaviourManager,entity, statusIcon, tileManager, timerFrequency)
         {
             _tileManager = tileManager;
 

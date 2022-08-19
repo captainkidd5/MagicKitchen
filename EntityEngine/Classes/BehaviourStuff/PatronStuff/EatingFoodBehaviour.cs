@@ -25,9 +25,9 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
         private bool _isEating;
         private readonly Direction _directionSeatedAt;
 
-        public EatingFoodBehaviour(PatronBehaviourManager patronBehaviour, DiningTable diningTable, Direction directionSeatedAt,
+        public EatingFoodBehaviour(BehaviourManager behaviourManager, PatronBehaviourManager patronBehaviour, DiningTable diningTable, Direction directionSeatedAt,
             NPC entity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
-            base(patronBehaviour, diningTable, entity, statusIcon, tileManager, timerFrequency)
+            base(behaviourManager,patronBehaviour, diningTable, entity, statusIcon, tileManager, timerFrequency)
         {
             _directionSeatedAt = directionSeatedAt;
         }

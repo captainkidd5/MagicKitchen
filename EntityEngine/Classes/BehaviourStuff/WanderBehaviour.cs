@@ -2,10 +2,13 @@
 using EntityEngine.Classes.NPCStuff;
 using Globals.Classes;
 using Microsoft.Xna.Framework;
+using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Pathfinding;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes;
 
 namespace EntityEngine.Classes.BehaviourStuff
@@ -13,8 +16,9 @@ namespace EntityEngine.Classes.BehaviourStuff
     internal class WanderBehaviour : Behaviour
     {
         private Point _wanderRange;
-        public WanderBehaviour(NPC entity, StatusIcon statusIcon, TileManager tileManager,
-            Point? wanderRange, float? timerFrequency) : base(entity, statusIcon,tileManager, timerFrequency)
+
+        public WanderBehaviour(BehaviourManager behaviourManager, NPC entity, StatusIcon statusIcon, TileManager tileManager,
+            Point? wanderRange, float? timerFrequency) : base(behaviourManager,entity, statusIcon, tileManager, timerFrequency)
         {
             //Default range is 5
             _wanderRange = wanderRange ?? new Point(5, 5);
@@ -30,9 +34,9 @@ namespace EntityEngine.Classes.BehaviourStuff
                 if (SimpleTimer.Run(gameTime))
                 {
                     Vector2 newRandomPos = GetNewWanderPosition();
-                    if (Entity.FindPathTo( newRandomPos))
+                    if (Entity.FindPathTo(newRandomPos))
                     {
-                        if(Entity.NPCData != null && Entity.NPCData.Name.ToLower() == "boar")
+                        if (Entity.NPCData != null && Entity.NPCData.Name.ToLower() == "boar")
                             Console.WriteLine("test");
                         Entity.SetNavigatorTarget(newRandomPos);
                     }
@@ -41,7 +45,7 @@ namespace EntityEngine.Classes.BehaviourStuff
             if (Entity.NPCData != null && Entity.NPCData.Name.ToLower() == "boar" && Entity.HasActivePath)
                 Console.WriteLine("test");
             if (Entity.HasActivePath)
-                Entity.FollowPath(gameTime,ref velocity);
+                Entity.FollowPath(gameTime, ref velocity);
             else
                 Entity.Halt();
         }
@@ -54,9 +58,9 @@ namespace EntityEngine.Classes.BehaviourStuff
                 lowX -= _wanderRange.X;
 
             int highX = Entity.TileOn.X;
-            if (highX + _wanderRange.X > TileManager.PathGrid.Weight.GetLength(0)- 1)
+            if (highX + _wanderRange.X > TileManager.PathGrid.Weight.GetLength(0) - 1)
                 highX = TileManager.PathGrid.Weight.GetLength(0) - 1;
-            else 
+            else
                 highX += _wanderRange.X;
 
             int lowY = Entity.TileOn.Y;
@@ -75,6 +79,25 @@ namespace EntityEngine.Classes.BehaviourStuff
             int finalY = Settings.Random.Next(lowY, highY);
             return new Vector2(finalX * Settings.TileSize,
                finalY * Settings.TileSize);
+        }
+
+        public override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            if(Entity.NPCData != null && Entity.NPCData.Aggressive)
+            {
+
+            if (fixtureA.CollisionCategories.HasFlag((Category)PhysCat.ArraySensor))
+            {
+                if(fixtureB.Body.Tag != Entity)
+                {
+                    BehaviourManager.ChaseAndAttack(fixtureB.Body.Tag as NPC);
+
+                }
+                return true;
+            }
+            }
+
+            return true;
         }
     }
 }

@@ -26,9 +26,8 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
     {
         private PatronState _patronState;
         private Behaviour _currentPatronBehaviour;
-        public PatronBehaviourManager(NPC entity, StatusIcon statusIcon,
-            TileManager tileManager, float? timerFrequency) :
-            base(entity, statusIcon, tileManager, timerFrequency)
+        public PatronBehaviourManager(BehaviourManager behaviourManager, NPC entity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
+            base(behaviourManager, entity, statusIcon, tileManager, timerFrequency)
         {
             _patronState = PatronState.FindingSeating;
         }
@@ -50,7 +49,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
             if(SimpleTimer.Run(gameTime) && _currentPatronBehaviour == null)
             {
-                _currentPatronBehaviour = new FindingSeatingBehaviour(this, null, Entity, StatusIcon, TileManager, null);
+                _currentPatronBehaviour = new FindingSeatingBehaviour(BehaviourManager, this, null, Entity, StatusIcon, TileManager, null);
 
             }
         }
@@ -60,7 +59,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
             if (_patronState != PatronState.FindingSeating)
                 throw new Exception($"Patron must find seating before being able to order");
             _patronState = PatronState.Ordering;
-            _currentPatronBehaviour = new OrderingFoodBehaviour(this, tableAt, directedSeated, Entity,
+            _currentPatronBehaviour = new OrderingFoodBehaviour(BehaviourManager, this, tableAt, directedSeated, Entity,
                 StatusIcon, TileManager, null);
         }
 
@@ -70,7 +69,7 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
                 throw new Exception($"Patron must have ordered food before can start eating");
             _patronState = PatronState.Eating;
 
-            _currentPatronBehaviour = new EatingFoodBehaviour(this, tableAt, directedSeated, Entity,
+            _currentPatronBehaviour = new EatingFoodBehaviour(BehaviourManager, this, tableAt, directedSeated, Entity,
                 StatusIcon, TileManager, null);
         }
 

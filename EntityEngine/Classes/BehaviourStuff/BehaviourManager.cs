@@ -53,11 +53,11 @@ namespace EntityEngine.Classes.BehaviourStuff
         public void ChaseAndAttack(NPC otherEntity)
         {
             _navigator.Unload();
-            CurrentBehaviour = new ChaseAndAttackBehaviour(_entity, otherEntity, _statusIcon, _tileManager, 2f);
+            CurrentBehaviour = new ChaseAndAttackBehaviour(this, _entity, otherEntity, _statusIcon, _tileManager, 2f);
         }
         public void Flee(Entity otherEntity)
         {
-            CurrentBehaviour = new FleeBehaviour(_entity, otherEntity, _statusIcon, _tileManager, 2f);
+            CurrentBehaviour = new FleeBehaviour(this, _entity, otherEntity, _statusIcon, _tileManager, 2f);
         }
         public void ChangeBehaviour(EndBehaviour newbehaviour)
         {
@@ -69,16 +69,16 @@ namespace EntityEngine.Classes.BehaviourStuff
                 case EndBehaviour.Stationary:
                     return;
                 case EndBehaviour.Wander:
-                    behaviour = new WanderBehaviour(_entity, _statusIcon, _tileManager, new Point(5, 5), 2f);
+                    behaviour = new WanderBehaviour(this,_entity, _statusIcon, _tileManager, new Point(5, 5), 2f);
                     break;
                 case EndBehaviour.Search:
-                    behaviour = new SearchBehaviour(_entity, _statusIcon, _tileManager, new Point(5, 5), 2f);
+                    behaviour = new SearchBehaviour(this, _entity, _statusIcon, _tileManager, new Point(5, 5), 2f);
                     break;
                 case EndBehaviour.Patron:
-                    behaviour = new PatronBehaviourManager(_entity, _statusIcon, _tileManager, 2f);
+                    behaviour = new PatronBehaviourManager(this, _entity, _statusIcon, _tileManager, 2f);
                     break;
                 case EndBehaviour.CustomScript:
-                    behaviour = new ScriptBehaviour(_entity, _statusIcon, _tileManager, 2f);
+                    behaviour = new ScriptBehaviour(this, _entity, _statusIcon, _tileManager, 2f);
                     (behaviour as ScriptBehaviour).InjectSubscript(EntityFactory.GetSubscript(_activeSchedule.CustomScriptName));
                     break;
 
@@ -112,7 +112,7 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         public void InjectScript(SubScript subscript)
         {
-            CurrentBehaviour = new ScriptBehaviour(_entity, _statusIcon, _tileManager, 2f);
+            CurrentBehaviour = new ScriptBehaviour(this, _entity, _statusIcon, _tileManager, 2f);
             (CurrentBehaviour as ScriptBehaviour).InjectSubscript(subscript);
         }
         private void CheckForUpdatedSchedule()
@@ -143,6 +143,11 @@ namespace EntityEngine.Classes.BehaviourStuff
         public virtual bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             return CurrentBehaviour.OnCollides(fixtureA, fixtureB, contact);
+        }
+
+        public virtual bool OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            return CurrentBehaviour.OnSeparates(fixtureA, fixtureB, contact);
         }
     }
 }

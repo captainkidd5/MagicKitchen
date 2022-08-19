@@ -25,9 +25,9 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
 
         //The item the npc actually wants
         private ItemData _desiredItem;
-        public OrderingFoodBehaviour(PatronBehaviourManager patronBehaviour, DiningTable diningTable, Direction directionSeatedAt,
+        public OrderingFoodBehaviour(BehaviourManager behaviourManager, PatronBehaviourManager patronBehaviour, DiningTable diningTable, Direction directionSeatedAt,
             NPC entity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
-            base(patronBehaviour, diningTable, entity, statusIcon, tileManager, timerFrequency)
+            base(behaviourManager,patronBehaviour, diningTable, entity, statusIcon, tileManager, timerFrequency)
         {
             _directionSeated = directionSeatedAt;
 

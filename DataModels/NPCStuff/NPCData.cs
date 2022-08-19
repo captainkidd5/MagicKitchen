@@ -48,5 +48,7 @@ namespace DataModels.NPCStuff
         public NPCSoundData NPCSoundData { get; set; }
 
         public NPCLightData NPCLightData { get; set; }
+
+        public bool Aggressive { get; set; }
     }
 }

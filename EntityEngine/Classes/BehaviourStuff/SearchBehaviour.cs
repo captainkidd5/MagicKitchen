@@ -22,8 +22,8 @@ namespace EntityEngine.Classes.BehaviourStuff
         private Layers _layerOfTile = Layers.foreground;
 
         private bool _readyToInteract;
-        public SearchBehaviour(NPC entity, StatusIcon statusIcon, TileManager tileManager, Point? wanderRange, float? timerFrequency)
-            : base(entity, statusIcon, tileManager, timerFrequency)
+        public SearchBehaviour(BehaviourManager behaviourManager, NPC entity, StatusIcon statusIcon, TileManager tileManager, Point? wanderRange, float? timerFrequency)
+            : base(behaviourManager,entity, statusIcon, tileManager, timerFrequency)
         {
             //Default range is 5
             _wanderRange = wanderRange ?? new Point(5, 5);

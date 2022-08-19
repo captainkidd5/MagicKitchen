@@ -81,6 +81,12 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
 
             StackPanel.Add(stackRow3);
 
+
+            StackRow stackRow4 = new StackRow(BackgroundSpriteDimensions.Width);
+            SetCheckBox(stackRow4, PhysCat.ArraySensor);
+           
+
+            StackPanel.Add(stackRow4);
             //Deactivate();
 
             // NormallyActivated = false;

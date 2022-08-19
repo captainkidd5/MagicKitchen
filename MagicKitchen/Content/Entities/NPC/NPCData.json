@@ -12,6 +12,7 @@
     "CombatResponse":"Retaliate",
     "SpriteWidth": 48,
     "SpriteHeight": 32,
+    "Aggressive" : true,
     
     "AnimationInfo": [
         {

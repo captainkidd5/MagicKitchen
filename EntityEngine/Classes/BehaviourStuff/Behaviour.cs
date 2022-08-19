@@ -27,8 +27,12 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         protected SimpleTimer TimeInSameSpotTimer;
         protected float SameSpotTimeBeforeUnstuck = 3f;
-        public Behaviour(NPC entity,StatusIcon statusIcon, TileManager tileManager, float? timerFrequency)
+
+        protected BehaviourManager BehaviourManager { get; }
+
+        public Behaviour(BehaviourManager behaviourManager, NPC entity,StatusIcon statusIcon, TileManager tileManager, float? timerFrequency)
         {
+            BehaviourManager = behaviourManager;
             Entity = entity;
            StatusIcon = statusIcon;
             TileManager = tileManager;
@@ -133,6 +137,11 @@ namespace EntityEngine.Classes.BehaviourStuff
         }
 
         public virtual bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            return true;
+        }
+
+        public virtual bool OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             return true;
         }

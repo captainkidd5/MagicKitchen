@@ -23,9 +23,9 @@ namespace EntityEngine.Classes.BehaviourStuff.PatronStuff
         public bool HasLocatedTable { get; private set; }
 
 
-        public FindingSeatingBehaviour(PatronBehaviourManager patronBehaviour,DiningTable diningTable,
+        public FindingSeatingBehaviour(BehaviourManager behaviourManager, PatronBehaviourManager patronBehaviour,DiningTable diningTable,
             NPC entity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
-            base(patronBehaviour, diningTable, entity, statusIcon, tileManager, timerFrequency)
+            base(behaviourManager,patronBehaviour, diningTable, entity, statusIcon, tileManager, timerFrequency)
         {
         }
         public override void Update(GameTime gameTime, ref Vector2 velocity)
