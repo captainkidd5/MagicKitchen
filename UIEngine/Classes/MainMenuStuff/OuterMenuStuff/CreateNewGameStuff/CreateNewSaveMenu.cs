@@ -177,7 +177,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             CheckButtonLock();
 
             _nameTypingBox.Update(gameTime);
-            _createNewText.Update(gameTime, _createNewTextPosition);
+            _createNewText.Update(_createNewTextPosition);
             _createNewGameButton.Update(gameTime);
 
             _backButton.Update(gameTime);
@@ -201,7 +201,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         {
             //base.Draw(spriteBatch);
             _nameTypingBox.Draw(spriteBatch);
-            _createNewText.Draw(spriteBatch, true);
+            _createNewText.Draw(spriteBatch);
             _createNewGameButton.Draw(spriteBatch);
             _backButton.Draw(spriteBatch);
             _stackPanel.Draw(spriteBatch);

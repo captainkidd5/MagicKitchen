@@ -19,10 +19,8 @@ namespace UIEngine.Classes.TextStuff
         public DialogueOption DialogueOption { get; set; }
 
         private Rectangle _sourceRectangle = new Rectangle(64, 496, 272, 64);
-        private Text _titleText;
         private NewTextBuilder _titleTextBuilder;
 
-        private Text _dialogueText;
         private NewTextBuilder _dialogueTextBuilder;
 
         private Vector2 _dialogueTextPosition;
@@ -39,8 +37,6 @@ namespace UIEngine.Classes.TextStuff
         public void LoadNewOption( DialogueOption newOption)
         {
             DialogueOption = newOption;
-            _titleText = TextFactory.CreateUIText(DialogueOption.Title, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium), 1.2f);
-            _dialogueText = TextFactory.CreateUIText(DialogueOption.DialogueText,GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium));
             LoadContent();
         }
         public override void LoadContent()
@@ -54,10 +50,11 @@ namespace UIEngine.Classes.TextStuff
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
-            _dialogueTextPosition = new Vector2(Position.X, Position.Y + _titleText.Height * 2);
 
-            _titleTextBuilder = new NewTextBuilder(_titleText);
-            _dialogueTextBuilder = new NewTextBuilder(_dialogueText);
+            _titleTextBuilder = new NewTextBuilder(DialogueOption.Title, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(1.2f,1.2f));
+            _dialogueTextPosition = new Vector2(Position.X, Position.Y + _titleTextBuilder.Height * 2);
+
+            _dialogueTextBuilder = new NewTextBuilder(DialogueOption.DialogueText, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium));
         }
 
         public override void Update(GameTime gameTime)

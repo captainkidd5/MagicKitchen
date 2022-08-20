@@ -68,12 +68,12 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            _text.Update(gameTime, new Vector2(Position.X + 60, Position.Y));
+            _text.Update(new Vector2(Position.X + 60, Position.Y));
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            _text.Draw(spriteBatch, true);
+            _text.Draw(spriteBatch);
         }
 
        

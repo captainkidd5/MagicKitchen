@@ -182,7 +182,7 @@ namespace UIEngine.Classes.Storage
 
                 _storageSlot.RightClickInteraction(ref UI.Cursor.HeldItem, ref UI.Cursor.HeldItemCount);
             }
-            _text.Update(gameTime, Position);
+            _text.Update(Position);
 
             if (_itemDurabilityBar != null)
             {
@@ -201,7 +201,7 @@ namespace UIEngine.Classes.Storage
             base.Draw(spriteBatch);
 
             if (_storageSlot.StoredCount > 0)
-                _text.Draw(spriteBatch, true);
+                _text.Draw(spriteBatch);
 
             _button.Draw(spriteBatch);
             _waterMarkSprite?.Draw(spriteBatch);
@@ -216,7 +216,7 @@ namespace UIEngine.Classes.Storage
             if (item == null)
             {
                 _button.SwapForeGroundSprite(null);
-                _text.SetFullString(string.Empty);
+                _text.Clear();
                 _oldItemId = 0;
                 if(_itemDurabilityBar != null)
                 {
@@ -238,7 +238,7 @@ namespace UIEngine.Classes.Storage
 
             _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
 
-            _text.SetFullString(count.ToString());
+            _text.ClearAndSet(count.ToString());
             _oldItemId = item.Id;
         }
 
@@ -249,7 +249,7 @@ namespace UIEngine.Classes.Storage
             UI.IncrementLD(LayerDepth, true), Color.White, Vector2.Zero, _itemIconSpriteScale));
             _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
 
-            _text.SetFullString(count.ToString());
+            _text.ClearAndSet(count.ToString());
             _oldItemId = item.Id;
 
             if (item.MaxDurability > 0)

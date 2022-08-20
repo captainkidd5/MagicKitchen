@@ -11,6 +11,7 @@ namespace TextEngine.Classes
     public class Text
     {
         private readonly Vector2 _scale;
+        private readonly float _layerDepth;
         private readonly ImageFont _imageFont;
         private readonly FontType _fontType;
         public Color Color { get; set; }
@@ -24,9 +25,10 @@ namespace TextEngine.Classes
 
         
 
-        internal Text(string sentence,  ImageFont imageFont, FontType fontType, Color color, Vector2 scale)
+        internal Text(string sentence, float layerDepth,  ImageFont imageFont, FontType fontType, Color color, Vector2 scale)
         {
             _scale = scale;
+            _layerDepth = layerDepth;
             _imageFont = imageFont;
             _fontType = fontType ;
             Color = color;
@@ -35,6 +37,7 @@ namespace TextEngine.Classes
              AddSentence(sentence);
         }
 
+        public void Clear() => _words.Clear();
         public override string ToString()
         {
             string stringToReturn = string.Empty;
@@ -43,6 +46,11 @@ namespace TextEngine.Classes
                 stringToReturn += word.Str;
             }
             return stringToReturn;
+        }
+        public void ClearAndSet(string sentence)
+        {
+            Clear();
+            AddSentence(sentence);
         }
         public void AddSentence(string fullSentence)
         {
@@ -117,11 +125,18 @@ namespace TextEngine.Classes
         }
         
 
-        public void Draw(SpriteBatch spriteBatch, float layerDepth)
+        public void Draw(SpriteBatch spriteBatch)
         {
             for (int i = _words.Count - 1; i >= 0; i--)
             {
-                _words[i].Draw(spriteBatch,layerDepth);
+                _words[i].Draw(spriteBatch, _layerDepth);
+            }
+        }
+        public void Draw(SpriteBatch spriteBatch, float customLayer)
+        {
+            for (int i = _words.Count - 1; i >= 0; i--)
+            {
+                _words[i].Draw(spriteBatch, customLayer);
             }
         }
 

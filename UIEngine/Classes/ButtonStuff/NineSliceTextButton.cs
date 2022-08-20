@@ -119,7 +119,7 @@ namespace UIEngine.Classes.ButtonStuff
             {
                 Text text = _textList[i];
    
-                text.Update(gameTime, _textPositions[i]);
+                text.Update(_textPositions[i]);
                     //text.ChangeColor(Color);
             }
             if (DidPositionChange)

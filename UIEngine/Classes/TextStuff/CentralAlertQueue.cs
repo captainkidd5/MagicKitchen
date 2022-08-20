@@ -43,8 +43,8 @@ namespace UIEngine.Classes.TextStuff
         }
         public void AddTextToQueue(string str, float scale)
         {
-            Text text = TextFactory.CreateUIText(str, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium), scale);
-            text.ChangeColor(Color.Transparent);
+            Text text = TextFactory.CreateUIText(str, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium), scale: new Vector2(scale,scale));
+            text.Color = Color.Transparent;
             _textQueue.Enqueue(text);
             _textDisplayTimer.SetNewTargetTime(_fadeTime);
         }
@@ -61,15 +61,15 @@ namespace UIEngine.Classes.TextStuff
                 }
 
                 Text text = _textQueue.ElementAt(0);
-                text.Update(gameTime, new Vector2(Position.X - text.TotalStringWidth /2, Position.Y - text.TotalStringHeight));
+                text.Update(new Vector2(Position.X - text.Width /2, Position.Y - text.Height));
                 if (fadingIn)
                 {
-                    text.ChangeColor(Color.Lerp(text.Color, Color.White, .1f));
+                    text.Color = Color.Lerp(text.Color, Color.White, .1f);
 
                 }
                 else if (fadingOut)
                 {
-                    text.ChangeColor(Color.Lerp(text.Color, Color.Transparent, .1f));
+                    text.Color = Color.Lerp(text.Color, Color.Transparent, .1f);
 
                 }
                 if (text.Color.A >= 245)
@@ -97,7 +97,7 @@ namespace UIEngine.Classes.TextStuff
         {
             base.Draw(spriteBatch);
             if (_textQueue.Count > 0)
-                _textQueue.ElementAt(0).Draw(spriteBatch, true);
+                _textQueue.ElementAt(0).Draw(spriteBatch);
 
         }
 

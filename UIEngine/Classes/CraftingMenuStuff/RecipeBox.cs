@@ -164,7 +164,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 _backGroundSprite.Update(gameTime, Position);
                 if (_currentItem != null)
                 {
-                    _nameText.Update(gameTime, _nameTextPosition);
+                    _nameText.Update(_nameTextPosition);
                 }
             }
         }

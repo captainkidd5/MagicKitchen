@@ -12,14 +12,15 @@ namespace TextEngine.Classes
     {
         private readonly Text _text;
 
-        public NewTextBuilder(String value, ImageFont? imageFont = null, FontType? fontType = null, Color? color = null, Vector2? scale = null)
+        public float Height => _text.Height;    
+        public NewTextBuilder(String value,float layerDepth, ImageFont imageFont = null, FontType? fontType = null, Color? color = null, Vector2? scale = null)
         {
-            _text = TextFactory.CreateUIText(value,imageFont,fontType,color,scale);
+            _text = TextFactory.CreateUIText(value, layerDepth,imageFont, fontType,color,scale);
         }
 
-        public void Update(GameTime gameTime, Vector2 position, float lineLimit)
+        public bool Update(GameTime gameTime, Vector2 position, float lineLimit)
         {
-
+            return true;
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -389,8 +389,8 @@ namespace UIEngine.Classes
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
 
-            if (Flags.DisplayFPS)
-                spriteBatch.DrawString(TextFactory.BitmapFont, frameRate.ToString(), Settings.CenterScreen, Color.Black, layerDepth: .99f);
+            //if (Flags.DisplayFPS)
+            //    spriteBatch.DrawString(TextFactory.BitmapFont, frameRate.ToString(), Settings.CenterScreen, Color.Black, layerDepth: .99f);
             Cursor.Draw(spriteBatch);
             foreach (InterfaceSection section in s_activeSections)
             {

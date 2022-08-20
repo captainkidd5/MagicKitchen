@@ -101,8 +101,8 @@ namespace UIEngine.Classes.CursorStuff
             CursorSprite.SwapScale(_cursorScale);
             if (Flags.DisplayMousePosition)
             {
-                MouseDebugText.Update(gameTime, new Vector2(Controls.MouseUIPosition.X - 32, Controls.MouseUIPosition.Y - 32));
-                MouseDebugText.SetFullString($"{Controls.MouseUIPosition.X.ToString()} , {Controls.MouseUIPosition.Y.ToString()}");
+                MouseDebugText.Update( new Vector2(Controls.MouseUIPosition.X - 32, Controls.MouseUIPosition.Y - 32));
+                MouseDebugText.ClearAndSet($"{Controls.MouseUIPosition.X.ToString()} , {Controls.MouseUIPosition.Y.ToString()}");
 
             }
             UpdateCursor();
@@ -143,7 +143,7 @@ namespace UIEngine.Classes.CursorStuff
                 if (HeldItem != null)
                     _toolTip.Draw(spriteBatch);
                 if (Flags.DisplayMousePosition)
-                    MouseDebugText.Draw(spriteBatch, true);
+                    MouseDebugText.Draw(spriteBatch);
             }
 
         }

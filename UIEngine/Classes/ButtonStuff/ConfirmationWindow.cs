@@ -28,6 +28,7 @@ namespace UIEngine.Classes.ButtonStuff
         private string _confirmationText;
         private Text _text;
         private Vector2 _textPosition;
+
         /// <summary>
         /// Default cancel action is to just close this window
         /// </summary>
@@ -61,10 +62,10 @@ namespace UIEngine.Classes.ButtonStuff
             AddSectionToGrid(_cancelButton, 0, 0);
 
 
-            _text = TextFactory.CreateUIText(_confirmationText,.91f);
+            _text = TextFactory.CreateUIText(_confirmationText, GetLayeringDepth(UILayeringDepths.High));
             TotalBounds = _backGroundSprite.HitBox;
 
-            _textPosition = Text.CenterInRectangle(TotalBounds, _text);
+            _textPosition = _text.CenterInRectangle(TotalBounds, 1f);
 
             Deactivate();
             base.LoadContent();
@@ -88,8 +89,8 @@ namespace UIEngine.Classes.ButtonStuff
             base.Update(gameTime);
             if (IsActive)
             {
-                Vector2 textPos = Text.CenterInRectangle(_backGroundSprite.HitBox, _text);
-                _text.Update(gameTime, new Vector2(textPos.X, textPos.Y - _backGroundSprite.HitBox.Height / 3));
+                Vector2 textPos = _text.CenterInRectangle(_backGroundSprite.HitBox, 1f);
+                _text.Update(new Vector2(textPos.X, textPos.Y - _backGroundSprite.HitBox.Height / 3));
 
             }
 
@@ -102,7 +103,7 @@ namespace UIEngine.Classes.ButtonStuff
             if (IsActive)
             {
                 _backGroundSprite.Draw(spriteBatch);
-                _text.Draw(spriteBatch, true);
+                _text.Draw(spriteBatch);
 
             }
         }

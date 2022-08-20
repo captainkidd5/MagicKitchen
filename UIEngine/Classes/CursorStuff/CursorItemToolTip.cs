@@ -33,18 +33,18 @@ namespace UIEngine.Classes.CursorStuff
         public void Update(GameTime gameTime, Vector2 position)
         {
             ItemSprite.Update(gameTime, position + _cursorOffset);
-            _text.Update(gameTime, position + _cursorOffset * 2);
+            _text.Update(position + _cursorOffset * 2);
 
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             ItemSprite.Draw(spriteBatch);
-            _text.Draw(spriteBatch, true);
+            _text.Draw(spriteBatch);
         }
 
         public void UpdateItemCount(int newCount)
         {
-            _text.SetFullString(newCount.ToString());
+            _text.ClearAndSet(newCount.ToString());
         }
         public void SwapSprite(Rectangle newSource, Texture2D texture, Vector2 scale)
         {

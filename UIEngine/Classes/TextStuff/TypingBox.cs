@@ -37,7 +37,6 @@ namespace UIEngine.Classes.TextStuff
         private NineSliceButton SendButton { get; set; }
         private Vector2 _textBuilderPosition;
         private List<Keys> AcceptableKeys { get; set; }
-        private float _textLayerDepth;
 
         //Textbox will be considered full when text length reaches width of nineslice minus this value
         private static int _textCutOffSet = 2;
@@ -50,8 +49,7 @@ namespace UIEngine.Classes.TextStuff
            // SendButton = new NineSliceButton(interfaceSection, graphicsDevice, content,
            //      position,LayerDepth, null, null,null,null);
             _textBuilderPosition  = new Vector2(Position.X + 6, Position.Y + 6);
-            _text = TextFactory.CreateUIText(string.Empty);
-            _textLayerDepth = GetLayeringDepth(UILayeringDepths.Low);
+            _text = TextFactory.CreateUIText(string.Empty, GetLayeringDepth(UILayeringDepths.Low));
         }
         public override void Update(GameTime gameTime)
         {
@@ -73,7 +71,7 @@ namespace UIEngine.Classes.TextStuff
         {
             base.Draw(spriteBatch);
             //SendButton.Draw(spriteBatch);
-            _text.Draw(spriteBatch, _textLayerDepth);
+            _text.Draw(spriteBatch);
             NineSliceSprite.Draw(spriteBatch);
         }
 
@@ -123,8 +121,7 @@ namespace UIEngine.Classes.TextStuff
                             keyValue += "-";
                             break;
                         case Keys.Enter:
-                            OnCommandExecuted(_text.GetText());
-                            TextBuilder.ClearText();
+                            OnCommandExecuted(_text.ToString());
                             break;
                         //Up and Down used to scroll through previous commands.
                         //case Keys.Up:
@@ -143,9 +140,7 @@ namespace UIEngine.Classes.TextStuff
 
             if (wasAnyKeyPressed)
                 Controls.ClearUseableKeys();
-           
-            if(!ExceedsWidth)
-                TextBuilder.Update(gameTime, _textBuilderPosition, NineSliceSprite.Width, keyValue);
+
 
         }
     }

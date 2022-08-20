@@ -47,19 +47,19 @@ namespace UIEngine.Classes
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            ClockTimeText.Update(gameTime, Position);
+            ClockTimeText.Update(Position);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
             BackdropSprite.Draw(spriteBatch);
-            ClockTimeText.Draw(spriteBatch, true);
+            ClockTimeText.Draw(spriteBatch);
         }
 
         private void OnClockTimeChanged(TimeKeeper timeKeeper)
         {
-            ClockTimeText.SetFullString(GetClockDisplayString(timeKeeper.DayOfWeek,
+            ClockTimeText.ClearAndSet(GetClockDisplayString(timeKeeper.DayOfWeek,
                 timeKeeper.Days, timeKeeper.Hours, timeKeeper.Minutes));
 
         }

@@ -76,8 +76,7 @@ namespace UIEngine.Classes.TextStuff
 
             BackdropSprite = SpriteFactory.CreateUISprite(Position, _backgroundSourceRectangle,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back), scale: _scale);
-            TextBuilder = new NewTextBuilder(TextFactory.CreateUIText("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front), .5f),
-                .05f);
+            TextBuilder = new NewTextBuilder("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front), scale: new Vector2(.5f, .5f));
 
             Deactivate();
 
@@ -377,7 +376,7 @@ namespace UIEngine.Classes.TextStuff
             _curerentDialogue = dialogue;
             TextBuilder.ClearText();
             Text text = TextFactory.CreateUIText(dialogue.DialogueText[_curerentDialogueIndex].DialogueText, GetLayeringDepth(UILayeringDepths.Front), scale: 1f);
-            text.SetFullString(text.WrapAutoText(BackdropSprite.HitBox.Width));
+            text.ClearAndSet(text.WrapAutoText(BackdropSprite.HitBox.Width));
 
 
 

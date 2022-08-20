@@ -56,7 +56,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
             List<Text> stepDescription = new List<Text>() { TextFactory.CreateUIText
                 ($"Part {ActiveQuest.CurrentStep + 1}: {ActiveQuest.Steps[ActiveQuest.CurrentStep].StepName}",
                 GetLayeringDepth(UILayeringDepths.High)) };
-           // stepDescription[0].SetFullString(stepDescription[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
+           // stepDescription[0].ClearAndSet(stepDescription[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
 
             NineSliceTextButton stepBtn = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), stepDescription,
                 null, centerText: false)
@@ -68,11 +68,11 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
 
 
             StackRow stackRow = new StackRow((int)(_backGroundSprite.Width * _scale.X));
-            List<Text> text = new List<Text>() { TextFactory.CreateUIText(ActiveQuest.Steps[ActiveQuest.CurrentStep].StartText, GetLayeringDepth(UILayeringDepths.High), _paragraphTextSize) };
-            text[0].SetFullString(text[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
+            List<Text> text = new List<Text>() { TextFactory.CreateUIText(ActiveQuest.Steps[ActiveQuest.CurrentStep].StartText, GetLayeringDepth(UILayeringDepths.High), scale:_paragraphTextSize) };
+            text[0].ClearAndSet(text[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
 
             NineSliceTextButton btn = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), text,
-                null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(text[0].TotalStringHeight), centerText: false)
+                null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(text[0].Height), centerText: false)
             { Displaybackground = false,IgnoreDefaultHoverSoundEffect = true };
             stackRow.AddItem(btn, StackOrientation.Left);
             _stackPanel.Add(stackRow);
@@ -87,11 +87,11 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
             spacerRow.AddSpacer(new Rectangle(0, 0, 16, 32), StackOrientation.Center);
             _stackPanel.Add(spacerRow);
             StackRow rewardsTextStackRow = new StackRow((int)(_backGroundSprite.Width * _scale.X));
-            List<Text> requirementDescriptionText = new List<Text>() { TextFactory.CreateUIText($"Rewards", GetLayeringDepth(UILayeringDepths.High), _paragraphTextSize) };
+            List<Text> requirementDescriptionText = new List<Text>() { TextFactory.CreateUIText($"Rewards", GetLayeringDepth(UILayeringDepths.High),scale: _paragraphTextSize) };
 
             NineSliceTextButton rewardsDescriptionButton = new NineSliceTextButton(_stackPanel, graphics, content, Position,
                 GetLayeringDepth(UILayeringDepths.Medium), requirementDescriptionText,
-                null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementDescriptionText[0].TotalStringHeight + 16), centerText: true)
+                null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementDescriptionText[0].Height + 16), centerText: true)
             { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true };
             rewardsTextStackRow.AddItem(rewardsDescriptionButton, StackOrientation.Center);
             _stackPanel.Add(rewardsTextStackRow);
@@ -103,24 +103,24 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
             foreach(PreRequisite requirement in ActiveQuest.Steps[ActiveQuest.CurrentStep].PreRequisites)
             {
                 StackRow stackRowDescription = new StackRow((int)(_backGroundSprite.Width * _scale.X));
-                List<Text> requirementDescriptionText = new List<Text>() { TextFactory.CreateUIText($"Return to {ActiveQuest.Steps[ActiveQuest.CurrentStep].TurnInto} with", GetLayeringDepth(UILayeringDepths.High), _paragraphTextSize) };
-                requirementDescriptionText[0].SetFullString(requirementDescriptionText[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
+                List<Text> requirementDescriptionText = new List<Text>() { TextFactory.CreateUIText($"Return to {ActiveQuest.Steps[ActiveQuest.CurrentStep].TurnInto} with", GetLayeringDepth(UILayeringDepths.High),scale: _paragraphTextSize) };
+                requirementDescriptionText[0].ClearAndSet(requirementDescriptionText[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
 
                 NineSliceTextButton requirementDescriptionButton = new NineSliceTextButton(_stackPanel, graphics, content, Position,
                     GetLayeringDepth(UILayeringDepths.Medium), requirementDescriptionText,
-                    null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementDescriptionText[0].TotalStringHeight + 16), centerText: true)
+                    null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementDescriptionText[0].Height + 16), centerText: true)
                 { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true };
                 stackRowDescription.AddItem(requirementDescriptionButton, StackOrientation.Left);
                 _stackPanel.Add(stackRowDescription);
                 foreach (QuestItemRequirement itemReq in requirement.ItemRequirements)
                 {
                     StackRow stackRow = new StackRow((int)(_backGroundSprite.Width * _scale.X));
-                    List<Text> requirementText = new List<Text>() { TextFactory.CreateUIText($"{itemReq.ItemName} : x{itemReq.Count}", GetLayeringDepth(UILayeringDepths.High), _paragraphTextSize) };
-                    requirementText[0].SetFullString(requirementText[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
+                    List<Text> requirementText = new List<Text>() { TextFactory.CreateUIText($"{itemReq.ItemName} : x{itemReq.Count}", GetLayeringDepth(UILayeringDepths.High),scale: _paragraphTextSize) };
+                    requirementText[0].ClearAndSet(requirementText[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
 
                     NineSliceTextButton requirementButton = new NineSliceTextButton(_stackPanel, graphics, content, Position,
                         GetLayeringDepth(UILayeringDepths.Medium), requirementText,
-                        null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementText[0].TotalStringHeight + 16), centerText: true)
+                        null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementText[0].Height + 16), centerText: true)
                     { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true };
                     stackRow.AddItem(requirementButton, StackOrientation.Left);
                     _stackPanel.Add(stackRow);

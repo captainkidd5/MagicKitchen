@@ -60,8 +60,8 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 foregroundSprite: itemSprite, scale: _scale.X);
             _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
 
-            _requiredText = TextFactory.CreateUIText($"{_storedCount}/{_craftingIngredient.Count}",GetLayeringDepth(UILayeringDepths.Medium), .75f);
-            _requiredText.ForceSetPosition(Position + _textOffSet);
+            _requiredText = TextFactory.CreateUIText($"{_storedCount}/{_craftingIngredient.Count}",GetLayeringDepth(UILayeringDepths.Medium),scale: new Vector2(.75f,.75f));
+            //_requiredText.ForceSetPosition(Position + _textOffSet);
             base.LoadContent();
 
         }
@@ -71,14 +71,14 @@ namespace UIEngine.Classes.CraftingMenuStuff
             _button.IsSelected = IsSelected;
             if(IsSelected)
                 Console.WriteLine("test");
-            _requiredText.Update(gameTime, Position + _textOffSet);
+            _requiredText.Update(Position + _textOffSet);
             base.Update(gameTime);
 
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            _requiredText.Draw(spriteBatch, true);
+            _requiredText.Draw(spriteBatch);
         }
     }
 }

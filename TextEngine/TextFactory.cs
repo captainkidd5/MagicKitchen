@@ -36,11 +36,18 @@ namespace TextEngine
         }
        
         //UI
-        public static Text CreateUIText(String value, ImageFont? imageFont = null, FontType? fontType = null,Color? color = null, Vector2? scale = null)
+     
+        public static Text CreateUIText(String value, float layerDepth, ImageFont? imageFont = null, FontType? fontType = null, Color? color = null, float? scale = null)
         {
-            return new Text(value, imageFont ?? ImageFont, fontType?? FontType.Standard, color ?? Color.White,scale ?? Vector2.One);
+            Vector2 translatedScale = Vector2.One;
+            if (scale != null)
+                translatedScale = new Vector2(scale.Value, scale.Value);
+            return new Text(value, layerDepth, imageFont ?? ImageFont, fontType ?? FontType.Standard, color ?? Color.White, translatedScale);
         }
 
-        
+        public static Text CreateWorldText(String value, ImageFont? imageFont = null, FontType? fontType = null, Color? color = null, Vector2? scale = null)
+        {
+            return new Text(value,0f, imageFont ?? ImageFont, fontType ?? FontType.Standard, color ?? Color.White, scale ?? Vector2.One);
+        }
     }
 }
