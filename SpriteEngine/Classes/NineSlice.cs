@@ -69,8 +69,8 @@ namespace SpriteEngine.Classes
         
             SharedConstructor(position, texture, layer, color, scale);
 
-            Width = (int)text.TotalStringWidth + (int)TextFactory.SingleCharacterWidth() ;
-            Height = (int)text.TotalStringHeight;// + (int)TextFactory.SingleCharacterWidth() * 4;
+            Width = (int)text.Width;
+            Height = (int)text.Height;// + (int)TextFactory.SingleCharacterWidth() * 4;
 
             if (Height <= 16)
                 Height = 48;
@@ -171,7 +171,7 @@ namespace SpriteEngine.Classes
 
         private Vector2 CenterTextHorizontal(int width, Text text)
         {
-            float textWidth = text.GetTextLength();
+            float textWidth = text.Width;
             float newWidth = (float)width / 2f - textWidth / 2;
             return new Vector2(_position.X + newWidth, _position.Y);
         }

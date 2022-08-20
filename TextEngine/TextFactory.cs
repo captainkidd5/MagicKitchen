@@ -1,5 +1,6 @@
 ﻿using DataModels.DialogueStuff;
 using Globals.Classes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.BitmapFonts;
@@ -15,7 +16,6 @@ namespace TextEngine
     {
         private static ContentManager s_content;
 
-        public static BitmapFont BitmapFont { get; set; }
 
         public static Texture2D CurrentFontLanguage { get; set; }
 
@@ -23,7 +23,6 @@ namespace TextEngine
         public static void Load(ContentManager content)
         {
             s_content = content;
-            BitmapFont = content.Load<BitmapFont>("UI/Fonts/test_font_1");
             
 
         }
@@ -35,36 +34,13 @@ namespace TextEngine
             ImageFont = new ImageFont();
             ImageFont.LoadContent(CurrentFontLanguage);
         }
-        public static float SingleCharacterWidth(float scale = 1f)
-        {
-            return BitmapFont.MeasureString("o").Width * scale;
-
-        }
+       
         //UI
-        public static Text CreateUIText(String value, float layer, float scale = 1f)
+        public static Text CreateUIText(String value, ImageFont? imageFont = null, FontType? fontType = null,Color? color = null, Vector2? scale = null)
         {
-            return new Text(value, scale, ImageFont, layer);
+            return new Text(value, imageFont ?? ImageFont, fontType?? FontType.Standard, color ?? Color.White,scale ?? Vector2.One);
         }
 
-        /// <summary>
-        /// Concats all text into single text separated by new line character
-        /// </summary>
-        /// <param name="texts"></param>
-        /// <param name="layer"></param>
-        /// <returns></returns>
-        public static Text CombineText(List<Text> texts, float layer)
-        {
-            string newString = string.Empty;
-
-            for(int i = 0; i < texts.Count; i++)
-            {
-                newString += texts[i].FullString;
-                if (i < texts.Count - 1)
-                    newString += "\n";
-            }
-           
-            return CreateUIText(newString, layer);
-
-        }
+        
     }
 }

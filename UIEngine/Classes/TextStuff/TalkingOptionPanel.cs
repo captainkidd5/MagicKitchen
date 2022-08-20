@@ -20,10 +20,10 @@ namespace UIEngine.Classes.TextStuff
 
         private Rectangle _sourceRectangle = new Rectangle(64, 496, 272, 64);
         private Text _titleText;
-        private TextBuilder _titleTextBuilder;
+        private NewTextBuilder _titleTextBuilder;
 
         private Text _dialogueText;
-        private TextBuilder _dialogueTextBuilder;
+        private NewTextBuilder _dialogueTextBuilder;
 
         private Vector2 _dialogueTextPosition;
 
@@ -54,10 +54,10 @@ namespace UIEngine.Classes.TextStuff
         public override void MovePosition(Vector2 newPos)
         {
             base.MovePosition(newPos);
-            _dialogueTextPosition = new Vector2(Position.X, Position.Y + _titleText.TotalStringHeight * 2);
+            _dialogueTextPosition = new Vector2(Position.X, Position.Y + _titleText.Height * 2);
 
-            _titleTextBuilder = new TextBuilder(_titleText);
-            _dialogueTextBuilder = new TextBuilder(_dialogueText);
+            _titleTextBuilder = new NewTextBuilder(_titleText);
+            _dialogueTextBuilder = new NewTextBuilder(_dialogueText);
         }
 
         public override void Update(GameTime gameTime)
@@ -74,8 +74,8 @@ namespace UIEngine.Classes.TextStuff
         {
             base.Draw(spriteBatch);
             BackgroundSprite.Draw(spriteBatch);
-            _titleTextBuilder.Draw(spriteBatch, true);
-            _dialogueTextBuilder.Draw(spriteBatch, true);
+            _titleTextBuilder.Draw(spriteBatch);
+            _dialogueTextBuilder.Draw(spriteBatch);
 
         }
     }

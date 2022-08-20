@@ -33,7 +33,7 @@ namespace UIEngine.Classes.TextStuff
         private static readonly int s_portraitWidth = 96;
         private Rectangle _backgroundSourceRectangle = new Rectangle(64, 496, 272, 64);
         private Sprite BackdropSprite { get; set; }
-        private TextBuilder TextBuilder { get; set; }
+        private NewTextBuilder TextBuilder { get; set; }
 
         public Direction DirectionPlayerShouldFace { get; set; }
 
@@ -76,7 +76,7 @@ namespace UIEngine.Classes.TextStuff
 
             BackdropSprite = SpriteFactory.CreateUISprite(Position, _backgroundSourceRectangle,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back), scale: _scale);
-            TextBuilder = new TextBuilder(TextFactory.CreateUIText("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front), .5f),
+            TextBuilder = new NewTextBuilder(TextFactory.CreateUIText("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front), .5f),
                 .05f);
 
             Deactivate();

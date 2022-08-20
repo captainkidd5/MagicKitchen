@@ -11,7 +11,7 @@ namespace TextEngine.Classes
     
     internal class Word
     {
-        private string _str;
+        public string Str { get; private set; }
         private readonly FontType _fontType;
         private readonly ImageFont _imgFont;
         private Vector2 _pos;
@@ -20,13 +20,13 @@ namespace TextEngine.Classes
 
         private Vector2 _scale;
 
-        public float Height => ImageFont.FontDimension * _scale.Y;
-        public float Width => _str.Length * ImageFont.FontDimension;
+        public float Height => _imgFont.FontDimension * _scale.Y;
+        public float Width => Str.Length * _imgFont.FontDimension;
 
-        public bool Empty => String.IsNullOrEmpty(_str);
+        public bool Empty => String.IsNullOrEmpty(Str);
         public Word(string str,FontType fontType, ImageFont imgFont, Color? color = null, Vector2? scale = null)
         {
-            _str = str;
+            Str = str;
             _fontType = fontType;
             _imgFont = imgFont;
 
@@ -39,7 +39,7 @@ namespace TextEngine.Classes
 
         public void Append(char c)
         {
-            _str += c;
+            Str += c;
         }
         /// <summary>
         /// Pos should be the start position of the first character of the word
@@ -53,11 +53,11 @@ namespace TextEngine.Classes
         public void Draw(SpriteBatch spriteBatch, float layerDepth)
         {
             Vector2 currentCharPos = _pos;
-            foreach(char c in _str)
+            foreach(char c in Str)
             {
                 spriteBatch.Draw(_imgFont.GetTexture(_fontType), currentCharPos, _imgFont.GetCharRect(c), _color, 0f, Vector2.Zero, _scale,SpriteEffects.None, layerDepth);
 
-                currentCharPos = new Vector2(_pos.X + ImageFont.FontSpaceWidth, _pos.Y);
+                currentCharPos = new Vector2(_pos.X + _imgFont.FontSpaceWidth, _pos.Y);
             }
         }
     }

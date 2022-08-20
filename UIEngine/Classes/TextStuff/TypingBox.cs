@@ -32,26 +32,26 @@ namespace UIEngine.Classes.TextStuff
        
         public event ExecuteCommand ExecuteCommand;
 
-        public string CurrentString => TextBuilder.GetText();
-        public bool IsEmpty => TextBuilder.GetText().Length == 0 || string.IsNullOrEmpty(TextBuilder.GetText());
+        private Text _text;
         private NineSliceSprite NineSliceSprite { get; set; }
         private NineSliceButton SendButton { get; set; }
-        private TextBuilder TextBuilder { get; set; }
         private Vector2 _textBuilderPosition;
         private List<Keys> AcceptableKeys { get; set; }
+        private float _textLayerDepth;
 
         //Textbox will be considered full when text length reaches width of nineslice minus this value
         private static int _textCutOffSet = 2;
-        private bool ExceedsWidth => TextBuilder.ExceedsWidth(NineSliceSprite.Width - _textCutOffSet, DissallowTypingAfterLine);
 
         public TypingBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth, int? width, int? height, Color? color = null)
             : base(interfaceSection,graphicsDevice, content, position, layerDepth)
         {
-            NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, width ?? DefaultWidth, height ?? DefaultHeight, UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Low), color, null, null);
+            NineSliceSprite = SpriteFactory.CreateNineSliceSprite(position, width ?? DefaultWidth, height ?? DefaultHeight, UI.ButtonTexture,
+                GetLayeringDepth(UILayeringDepths.Low), color, null, null);
            // SendButton = new NineSliceButton(interfaceSection, graphicsDevice, content,
            //      position,LayerDepth, null, null,null,null);
-            TextBuilder = new TextBuilder(TextFactory.CreateUIText(string.Empty, GetLayeringDepth(UILayeringDepths.High)));
-            _textBuilderPosition  = new Vector2(Position.X + 6, Position.Y + 6);    
+            _textBuilderPosition  = new Vector2(Position.X + 6, Position.Y + 6);
+            _text = TextFactory.CreateUIText(string.Empty);
+            _textLayerDepth = GetLayeringDepth(UILayeringDepths.Low);
         }
         public override void Update(GameTime gameTime)
         {
@@ -73,7 +73,7 @@ namespace UIEngine.Classes.TextStuff
         {
             base.Draw(spriteBatch);
             //SendButton.Draw(spriteBatch);
-            TextBuilder.Draw(spriteBatch);
+            _text.Draw(spriteBatch, _textLayerDepth);
             NineSliceSprite.Draw(spriteBatch);
         }
 
@@ -111,7 +111,7 @@ namespace UIEngine.Classes.TextStuff
                             break;
                         //TODO: allow backspace to move back to the previous line.
                         case Keys.Back:
-                            TextBuilder.BackSpace();
+                            _text.BackSpace();
                             break;
                         case Keys.OemPeriod:
                             keyValue += ".";
@@ -123,7 +123,7 @@ namespace UIEngine.Classes.TextStuff
                             keyValue += "-";
                             break;
                         case Keys.Enter:
-                            OnCommandExecuted(TextBuilder.GetText());
+                            OnCommandExecuted(_text.GetText());
                             TextBuilder.ClearText();
                             break;
                         //Up and Down used to scroll through previous commands.

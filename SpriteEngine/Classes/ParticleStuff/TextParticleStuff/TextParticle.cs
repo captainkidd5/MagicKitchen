@@ -22,14 +22,14 @@ namespace SpriteEngine.Classes.ParticleStuff.TextParticleStuff
         public override void Update(GameTime gameTime, Vector2? position = null)
         {
             base.Update(gameTime, position);
-            _text.ChangeColor(Color);
+            _text.Color = Color;
 
-            _text.Update(gameTime, Position);
+            _text.Update(Position);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
            // base.Draw(spriteBatch);
-            _text.Draw(spriteBatch, true);
+            _text.Draw(spriteBatch, SpriteUtility.GetYAxisLayerDepth(Position, _text.Rectangle));
         }
     }
 }

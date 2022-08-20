@@ -16,10 +16,10 @@ namespace TextEngine.Classes
     }
     public class ImageFont
     {
-        public static readonly int FontDimension = 32;
-        public static readonly int FontSpaceWidth = 64;
-
-        public Texture2D StandardFontTexture { get; set; }
+        internal readonly int FontDimension = 32;
+        internal readonly int FontSpaceWidth = 64;
+       
+        internal Texture2D StandardFontTexture { get; set; }
 
         private Dictionary<FontType, Texture2D> _fontTextures;
 
@@ -28,18 +28,18 @@ namespace TextEngine.Classes
 
         }
 
-        public Rectangle GetCharRect(char c)
+        internal Rectangle GetCharRect(char c)
         {
             Point point = LanguageManager.CurrentLanguage.CharPoints[c];
             return new Rectangle(point.X * FontDimension, point.Y * FontDimension, FontDimension, FontDimension);
         }
-        public void LoadContent(Texture2D standardFontTexture)
+        internal void LoadContent(Texture2D standardFontTexture)
         {
             StandardFontTexture = standardFontTexture;
             _fontTextures = new Dictionary<FontType, Texture2D>();
             _fontTextures.Add(FontType.Standard, standardFontTexture);
         }
-        public Texture2D GetTexture(FontType fontType)
+        internal Texture2D GetTexture(FontType fontType)
         {
             return _fontTextures[fontType];
         }

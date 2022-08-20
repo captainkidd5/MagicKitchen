@@ -1,261 +1,133 @@
-﻿using Globals.Classes;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using static Globals.Classes.Settings;
-using MonoGame.Extended.BitmapFonts;
+using System.Threading.Tasks;
 
 namespace TextEngine.Classes
 {
     public class Text
     {
-        public float CurrentStringWidth => GetWidth(CurrentString);
+        private readonly Vector2 _scale;
+        private readonly ImageFont _imageFont;
+        private readonly FontType _fontType;
+        public Color Color { get; set; }
+        private List<Word> _words;
 
-        public float CurrentStringHeight => GetTextHeight(CurrentString);
+        public float Width { get; private set; }
+        public float Height { get; private set; }
 
+        //For now, used for y axis layer depth in world text
+        public Rectangle Rectangle => new Rectangle(0, 0, (int)Width, (int)Height);
 
-        public float TotalStringWidth => GetWidth(FullString);
+        
 
-        public float TotalStringHeight => GetTextHeight(FullString);
-        public string CurrentString { get; set; }
-        public string FullString { get; private set; }
-        private float _scale;
-        public Color Color { get; private set; }
-        private Vector2 _position;
-        private ImageFont _imageFont;
-
-        private float LayerDepth { get; set; }
-
-
-        internal Text(String value, float scale, ImageFont imageFont, float layerDepth)
+        internal Text(string sentence,  ImageFont imageFont, FontType fontType, Color color, Vector2 scale)
         {
-            CurrentString = string.Empty;
-            FullString = value;
             _scale = scale;
-            Color = Color.Black;
             _imageFont = imageFont;
-
-            LayerDepth = layerDepth;
-
+            _fontType = fontType ;
+            Color = color;
+            _words = new List<Word>();
+            if(!string.IsNullOrEmpty(sentence))
+             AddSentence(sentence);
         }
 
-
-        public void ForceSetPosition(Vector2 position)
+        public override string ToString()
         {
-            _position = position;
-        }
-        public void Update(GameTime gameTime, Vector2 position)
-        {
-            _position = position;
-        }
-        //TODO There is currently key delay because a key is only recorded if it was pressed AND released. This needs to be changed so if a key
-        //is pressed and not released, it is recorded. If held longer than a certain interval, it should be repeated.
-        /// <param name="fullString">Set to true if you want to ignore the current string and draw the entire string at once.</param>
-        public void Draw(SpriteBatch spriteBatch, bool fullString = false)
-        {
-            if (fullString)
-                spriteBatch.DrawString(_spriteFont, FullString,
-                    _position, Color, 0f, Vector2.Zero, _scale, SpriteEffects.None, LayerDepth);
-            else
-                spriteBatch.DrawString(_spriteFont, CurrentString,
-                    _position, Color, 0f, Vector2.Zero, _scale, SpriteEffects.None, LayerDepth);
-
-        }
-
-        public void ChangeColor(Color newColor)
-        {
-            Color = newColor;
-        }
-
-        /// <summary>
-        /// Append key presses
-        /// </summary>
-        internal void Append(string letter, int textBoxWidth)
-        {
-            CurrentString += letter;
-
-            if (ExceedsWidth(textBoxWidth))
-                WrapInputText(textBoxWidth);
-
-        }
-
-        internal bool ExceedsWidth(int width, int? line = null)
-        {
-            if (line == null)
-                return GetLengthOfCurrentLine() >= width + 44;
-            else
-                return GetLengthOfLine(line.Value) >= width + 44;
-        }
-       
-        /// <summary>
-        /// Appends the next letter of the target string.
-        /// </summary>
-        /// <returns>Returns true if the string matches the target string (we're done).</returns>
-        internal bool Append(int textBoxWidth)
-        {
-            if (CurrentString.Length < FullString.Length)
+            string stringToReturn = string.Empty;
+            foreach(Word word in _words)
             {
-                if (ExceedsWidth(textBoxWidth))
-                    WrapInputText(textBoxWidth);
-                CurrentString += FullString[CurrentString.Length];
-                return false;
+                stringToReturn += word.Str;
             }
-            return true;
+            return stringToReturn;
         }
-
-        /// <summary>
-        /// Removes the last character in the string.
-        /// </summary>
-        internal void Backspace()
+        public void AddSentence(string fullSentence)
         {
-            if (CurrentString.Length > 0)
-                CurrentString = CurrentString.Remove(CurrentString.Length - 1);
-        }
-        public void SetFullString(string newString)
-        {
-            FullString = newString;
-        }
-
-        /// <summary>
-        /// Called once when dialogue should be parsed, NOT for player input.
-        /// </summary>
-        public String WrapAutoText(float lineLimit)
-        {
-            String line = String.Empty;
-            String returnString = String.Empty;
-            String[] wordArray = FullString.Split(' ');
-
-            foreach (String word in wordArray)
+            string[] strings = fullSentence.Split(' ');
+            foreach(string str in strings)
             {
-                if (_spriteFont.MeasureString(line + word).Width * _scale > lineLimit)
-                {
-                    returnString = returnString + line + '\n';
-                    line = String.Empty;
-                }
-
-                line = line + word + ' ';
+                AddWord(str);
             }
-
-            return returnString + line;
+        }
+        public void AddWord(string str)
+        {
+            Word word = new Word(str, _fontType, _imageFont,Color, _scale);
+            _words.Add(word);
         }
 
-        /// <summary>
-        /// Gets the width of the current text. ONLY SUPPORTS SINGLE LINE.
-        /// </summary>
-        private float GetWidth(string value)
-        {
-            string[] separated = value.Split("\n");
-            string longest = separated[0];
 
-            foreach(string word in separated)
-                if(word.Length > longest.Length)
-                    longest = word;
-            return _spriteFont.MeasureString(longest).Width * _scale;
-        }
-
-      
-        private void WrapInputText(float lineLimit)
+        public void Append(char c)
         {
-            CurrentString += "\n";
-        }
-
-        /// <summary>
-        /// Returns the width of the longest text line, separated at the new line.
-        /// </summary>
-        public float GetTextLength()
-        {
-            String[] lineArray = FullString.Split('\n');
-            float lengthToReturn = 0f;
-            for (int i = 0; i < lineArray.Length; i++)
+            if (c == ' ')
             {
-                float length = _spriteFont.MeasureString(lineArray[i]).Width * _scale;
-                if (length > lengthToReturn)
-                {
-                    lengthToReturn = length;
-                }
+                //Dissallow adding double spaces
+                if (_words[_words.Count - 1].Empty)
+                    return;
+                AddWord("");
+                return;
             }
-
-            return lengthToReturn;
-        }
-
-        internal float GetTextHeight(string value)
-        {
-            String[] lineArray = value.Split('\n');
-            float totalHeight =  16;
-
-            if(lineArray.Length > 1)
+            //appending character to empty sentence
+            if (_words.Count < 1)
             {
-
-            foreach (string line in lineArray)
-            {
-                totalHeight += _spriteFont.MeasureString(line).Height * _scale;
+                AddWord(c.ToString());
+                return;
             }
-            }
-
-            return totalHeight;
-        }
-
-        /// <summary>
-        /// Gets length of the last line in a paragraph separated at the \n
-        /// </summary>
-        /// <returns></returns>
-        public float GetLengthOfCurrentLine()
-        {
-            string[] splitString = CurrentString.Split('\n');
-            return GetLengthOfLine(splitString.Length - 1);
-
-          
-        }
-
-        public float GetLengthOfLine(int line)
-        {
-            string[] splitString = CurrentString.Split('\n');
-            float returnedLength;
             
-            if (splitString.Length > 0)
-                returnedLength = _spriteFont.MeasureString(splitString[line]).Width* _scale;
-            else
-                returnedLength = _spriteFont.MeasureString(CurrentString).Height * _scale;
-            return returnedLength;
+
+             _words[_words.Count - 1].Append(c);
+        }
+        public void BackSpace()
+        {
+            //Todo
         }
 
-        internal void Clear()
+        public void Update(Vector2 position)
         {
-            CurrentString = string.Empty;
-            FullString = string.Empty;
+            foreach (Word word in _words)
+                word.Update(position);
         }
+        public Vector2 Update(Vector2 position, float lineXStart, float lineLimit)
+        {
+            return CalculateWidthAndHeight(position, lineXStart, lineLimit);
+        }
+        public Vector2 CalculateWidthAndHeight(Vector2 position, float lineXStart, float lineLimit)
+        {
+            Height = _imageFont.FontDimension;
+            Width = 0;
+            for (int i = _words.Count - 1; i >= 0; i--)
+            {
+                //Reached line limit, wrap around
+                if (position.X + _words[i].Width > lineLimit)
+                {
+                    position = new Vector2(lineXStart, position.Y + _words[i].Height);
+                    Width = lineLimit;
+                    Height += _words[i].Height;
+                }
 
-        /// <summary>
-        /// Completely replaces text
-        /// </summary>
-        public void ReplaceCurrentText(string value)
-        {
-            CurrentString = value;
-        }
+                _words[i].Update(position);
 
-        /// <summary>
-        /// Sets the current string equal to the full string!
-        /// </summary>
-        internal void ForceComplete(int textBoxWidth)
-        {
-            FullString = WrapAutoText(textBoxWidth);
-            CurrentString = FullString;
-        }
-        internal float GetWidthOfTotalWrappedText(int textBoxWidth)
-        {
-            return GetTextHeight(WrapAutoText(textBoxWidth));
-        }
-
-        /// <summary>
-        /// String width and height already have their scale applied to them, scale parameter is for unscaled rectangle.
-        /// </summary>
-        public static Vector2 CenterInRectangle(Rectangle rectangleToCenterOn,Text text, float scale = 1f)
-        {
-            return new Vector2(rectangleToCenterOn.X + (rectangleToCenterOn.Width / 2) - text.TotalStringWidth / 2,
-                rectangleToCenterOn.Y + (rectangleToCenterOn.Height / 2) - text.TotalStringHeight );
+                position = new Vector2(position.X + _words[i].Width, position.Y);
+                if (Width < lineLimit)
+                    Width += _words[i].Width;
+            }
+            return position;
         }
         
+
+        public void Draw(SpriteBatch spriteBatch, float layerDepth)
+        {
+            for (int i = _words.Count - 1; i >= 0; i--)
+            {
+                _words[i].Draw(spriteBatch,layerDepth);
+            }
+        }
+
+        public Vector2 CenterInRectangle(Rectangle rectangle, float rectangleScale)
+        {
+            return new Vector2(rectangle.X, rectangle.Y + rectangleScale);
+        }
     }
 }
