@@ -69,6 +69,10 @@ namespace TextEngine.Classes
         }
         public Vector2 Update(Vector2 position, float lineXStart, float lineLimit)
         {
+            return CalculateWidthAndHeight(position, lineXStart, lineLimit);
+        }
+        public Vector2 CalculateWidthAndHeight(Vector2 position, float lineXStart, float lineLimit)
+        {
             Height = ImageFont.FontDimension;
             Width = 0;
             for (int i = _words.Count - 1; i >= 0; i--)
@@ -89,6 +93,7 @@ namespace TextEngine.Classes
             }
             return position;
         }
+        
 
         public void Draw(SpriteBatch spriteBatch, float layerDepth)
         {
