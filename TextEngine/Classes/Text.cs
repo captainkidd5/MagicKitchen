@@ -90,9 +90,36 @@ namespace TextEngine.Classes
 
              _words[_words.Count - 1].Append(c);
         }
+        public void Append(string s)
+        {
+            if (s == " ")
+            {
+                //Dissallow adding double spaces
+                if (_words[_words.Count - 1].Empty)
+                    return;
+                AddWord("");
+                return;
+            }
+            //appending character to empty sentence
+            if (_words.Count < 1)
+            {
+                AddWord(s);
+                return;
+            }
+
+
+            _words[_words.Count - 1].Append(s);
+        }
         public void BackSpace()
         {
             //Todo
+            if (_words.Count < 1)
+                return;
+
+            if(_words[_words.Count - 1].BackSpace())
+            {
+                _words.RemoveAt(_words.Count - 1);
+            }
         }
 
         public void Update(Vector2 position)

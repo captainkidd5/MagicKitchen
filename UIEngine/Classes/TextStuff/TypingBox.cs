@@ -26,8 +26,7 @@ namespace UIEngine.Classes.TextStuff
         public static readonly int DefaultWidth = 80;
 
         public static readonly int DefaultHeight = 32;
-        //No 
-        private int DissallowTypingAfterLine = 0;
+  
 
        
         public event ExecuteCommand ExecuteCommand;
@@ -35,7 +34,7 @@ namespace UIEngine.Classes.TextStuff
         private Text _text;
         private NineSliceSprite NineSliceSprite { get; set; }
         private NineSliceButton SendButton { get; set; }
-        private Vector2 _textBuilderPosition;
+        private Vector2 _textPos;
         private List<Keys> AcceptableKeys { get; set; }
 
         //Textbox will be considered full when text length reaches width of nineslice minus this value
@@ -49,8 +48,8 @@ namespace UIEngine.Classes.TextStuff
                 GetLayeringDepth(UILayeringDepths.Low), color, null, null);
            // SendButton = new NineSliceButton(interfaceSection, graphicsDevice, content,
            //      position,LayerDepth, null, null,null,null);
-            _textBuilderPosition  = new Vector2(Position.X + 6, Position.Y + 6);
-            _text = TextFactory.CreateUIText(string.Empty, GetLayeringDepth(UILayeringDepths.Low));
+            _textPos  = new Vector2(Position.X + 6, Position.Y + 6);
+            _text = TextFactory.CreateUIText(string.Empty, GetLayeringDepth(UILayeringDepths.High), scale:2f);
         }
         public override void Update(GameTime gameTime)
         {
@@ -61,6 +60,7 @@ namespace UIEngine.Classes.TextStuff
             if (AcceptableKeys.Count > 0)
                 ProcessKey(gameTime, AcceptableKeys);
             //TextBuilder.Update(gameTime,Position, NineSliceSprite.Width);
+            _text.Update(_textPos, null, NineSliceSprite.Width);
         }
 
 
@@ -142,7 +142,7 @@ namespace UIEngine.Classes.TextStuff
             if (wasAnyKeyPressed)
                 Controls.ClearUseableKeys();
 
-
+            _text.Append(keyValue);
         }
     }
 }
