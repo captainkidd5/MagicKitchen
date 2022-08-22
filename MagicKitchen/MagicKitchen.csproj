@@ -177,5 +177,8 @@
     <None Update="Content\UI\Fonts\DiagnosticsFont.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Content\UI\Fonts\English\English_Language.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

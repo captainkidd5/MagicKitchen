@@ -32,7 +32,7 @@ namespace TextEngine.Classes
             var files = Directory.GetFiles(basePath);
             string jsonString = string.Empty;
 
-            string supportedLanguagesFile = files.FirstOrDefault(x => x.EndsWith("SupportedLangauges"));
+            string supportedLanguagesFile = files.FirstOrDefault(x => x.EndsWith("SupportedLanguages.json"));
 
 
             jsonString = File.ReadAllText(supportedLanguagesFile);

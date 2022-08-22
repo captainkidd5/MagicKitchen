@@ -23,8 +23,8 @@ namespace TextEngine
         public static void Load(ContentManager content)
         {
             s_content = content;
-            
 
+            LanguageManager.LanguageChanged += OnLanguageChanged;
         }
 
         private static void OnLanguageChanged()

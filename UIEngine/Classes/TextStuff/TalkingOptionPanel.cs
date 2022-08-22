@@ -51,7 +51,7 @@ namespace UIEngine.Classes.TextStuff
         {
             base.MovePosition(newPos);
 
-            _titleTextBuilder = new NewTextBuilder(DialogueOption.Title, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(1.2f,1.2f));
+            _titleTextBuilder = new NewTextBuilder(DialogueOption.Title, GetLayeringDepth(UILayeringDepths.Medium), scale: 1.2f);
             _dialogueTextPosition = new Vector2(Position.X, Position.Y + _titleTextBuilder.Height * 2);
 
             _dialogueTextBuilder = new NewTextBuilder(DialogueOption.DialogueText, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium));

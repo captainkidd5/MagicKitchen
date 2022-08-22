@@ -60,7 +60,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 foregroundSprite: itemSprite, scale: _scale.X);
             _button.SetForegroundSpriteOffSet(new Vector2(8, 8));
 
-            _requiredText = TextFactory.CreateUIText($"{_storedCount}/{_craftingIngredient.Count}",GetLayeringDepth(UILayeringDepths.Medium),scale: new Vector2(.75f,.75f));
+            _requiredText = TextFactory.CreateUIText($"{_storedCount}/{_craftingIngredient.Count}",GetLayeringDepth(UILayeringDepths.Medium),scale: .75f);
             //_requiredText.ForceSetPosition(Position + _textOffSet);
             base.LoadContent();
 

@@ -10,12 +10,16 @@ namespace TextEngine.Classes
 {
     public class NewTextBuilder
     {
-        private readonly Text _text;
+        private readonly Text _currentText;
+        private readonly string desiredString;
+        public float Height => _currentText.Height;
 
-        public float Height => _text.Height;    
-        public NewTextBuilder(String value,float layerDepth, ImageFont imageFont = null, FontType? fontType = null, Color? color = null, Vector2? scale = null)
+        public bool IsComplete() => _currentText.ToString() == desiredString;
+        public void ClearCurrent()=> _currentText.Clear();
+        public NewTextBuilder(String value,float layerDepth, ImageFont imageFont = null, FontType? fontType = null, Color? color = null, float? scale = null)
         {
-            _text = TextFactory.CreateUIText(value, layerDepth,imageFont, fontType,color,scale);
+            desiredString = value;
+            _currentText = TextFactory.CreateUIText(string.Empty, layerDepth,imageFont, fontType,color,scale);
         }
 
         public bool Update(GameTime gameTime, Vector2 position, float lineLimit)
@@ -26,6 +30,11 @@ namespace TextEngine.Classes
         public void Draw(SpriteBatch spriteBatch)
         {
 
+        }
+
+        public void ForceComplete()
+        {
+            _currentText.ClearAndSet(desiredString);
         }
     }
 }

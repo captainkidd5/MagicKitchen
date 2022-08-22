@@ -46,36 +46,36 @@ namespace UIEngine.Classes.ButtonStuff
             // base.MovePosition(newPos);
 
             
-            Text combinedtext = TextFactory.CombineText(_textList, LayerDepth);
+            //Text combinedtext = TextFactory.CombineText(_textList, LayerDepth);
 
-            int width = _forcedWidth ?? (int)combinedtext.TotalStringWidth ;
+            //int width = _forcedWidth ?? (int)combinedtext.Width ;
 
-            Position = newPos;
-            //Prevents text from hugging the literal left side of the text box
-            float leftMargin = 8;
-            float topMargin = 4;
-            float newTextPosX = Position.X + leftMargin;
-            float newTextPosY = Position.Y + topMargin; 
-            if (_centerText)
-            {
-                int halfStringWidth = (int)(combinedtext.TotalStringWidth /2);
-                newTextPosX = Position.X + width / 2 - halfStringWidth ;
-            }
-            _textPositions = new List<Vector2>();
-            GeneratePositionsForLines(new Vector2(newTextPosX, newTextPosY));
-            if (_forcedWidth == null)
-                BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X - 8, Position.Y - 8), combinedtext, UI.ButtonTexture, LayerDepth);
-            else
-                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _forcedWidth.Value,
-                    _forcedHeight.Value, UI.ButtonTexture, LayerDepth);
-            Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,  _samplePoint, ButtonTexture.Width);
-            BackGroundSprite.AddSaturateEffect(sampleCol, false);
+            //Position = newPos;
+            ////Prevents text from hugging the literal left side of the text box
+            //float leftMargin = 8;
+            //float topMargin = 4;
+            //float newTextPosX = Position.X + leftMargin;
+            //float newTextPosY = Position.Y + topMargin; 
+            //if (_centerText)
+            //{
+            //    int halfStringWidth = (int)(combinedtext.Width /2);
+            //    newTextPosX = Position.X + width / 2 - halfStringWidth ;
+            //}
+            //_textPositions = new List<Vector2>();
+            //GeneratePositionsForLines(new Vector2(newTextPosX, newTextPosY));
+            //if (_forcedWidth == null)
+            //    BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X - 8, Position.Y - 8), combinedtext, UI.ButtonTexture, LayerDepth);
+            //else
+            //    BackGroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _forcedWidth.Value,
+            //        _forcedHeight.Value, UI.ButtonTexture, LayerDepth);
+            //Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,  _samplePoint, ButtonTexture.Width);
+            //BackGroundSprite.AddSaturateEffect(sampleCol, false);
 
-            if (_centerText)
-            {
-                GeneratePositionsForLines(new Vector2(newTextPosX, newTextPosY));
+            //if (_centerText)
+            //{
+            //    GeneratePositionsForLines(new Vector2(newTextPosX, newTextPosY));
 
-            }
+            //}
 
         }
         /// <summary>
@@ -93,12 +93,12 @@ namespace UIEngine.Classes.ButtonStuff
             {
              
                 if(i > 0)
-                y += _textList[i].TotalStringHeight + extraSpacing;
+                y += _textList[i].Height + extraSpacing;
                 textIndexPos = new Vector2(textIndexPos.X, y);
 
 
                 _textPositions.Add(textIndexPos);
-                _textList[i].ForceSetPosition(textIndexPos);
+               // _textList[i].ForceSetPosition(textIndexPos);
             }
         }
 
@@ -119,7 +119,7 @@ namespace UIEngine.Classes.ButtonStuff
             {
                 Text text = _textList[i];
    
-                text.Update(_textPositions[i]);
+                text.Update(Position);
                     //text.ChangeColor(Color);
             }
             if (DidPositionChange)
@@ -133,7 +133,7 @@ namespace UIEngine.Classes.ButtonStuff
             base.Draw(spriteBatch);
             for (int i = _textList.Count - 1; i >= 0; i--)
             {
-                _textList[i].Draw(spriteBatch, true);
+                _textList[i].Draw(spriteBatch);
 
             }
 

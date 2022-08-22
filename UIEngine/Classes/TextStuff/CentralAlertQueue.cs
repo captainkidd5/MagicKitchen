@@ -43,7 +43,7 @@ namespace UIEngine.Classes.TextStuff
         }
         public void AddTextToQueue(string str, float scale)
         {
-            Text text = TextFactory.CreateUIText(str, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium), scale: new Vector2(scale,scale));
+            Text text = TextFactory.CreateUIText(str, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium), scale:scale);
             text.Color = Color.Transparent;
             _textQueue.Enqueue(text);
             _textDisplayTimer.SetNewTargetTime(_fadeTime);

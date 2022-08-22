@@ -80,12 +80,12 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, parentSection.TotalBounds.Width, parentSection.TotalBounds.Height);
 
             _createNewText = TextFactory.CreateUIText("Create New Game", GetLayeringDepth(UILayeringDepths.High));
-            _createNewTextPosition = Text.CenterInRectangle(parentSection.TotalBounds, _createNewText);
+           // _createNewTextPosition = Text.CenterInRectangle(parentSection.TotalBounds,1f);
             _createNewTextPosition = new Vector2(_createNewTextPosition.X, parentSection.TotalBounds.Y + 8);
-            _createNewText.ForceSetPosition(_createNewTextPosition);
+            //_createNewText.ForceSetPosition(_createNewTextPosition);
 
             Vector2 typingBoxPos = RectangleHelper.CenterRectangleInRectangle(_nameWindowWidth, _nameWindowHeight, parentSection.TotalBounds);
-            typingBoxPos = new Vector2(typingBoxPos.X, _createNewTextPosition.Y + _createNewText.TotalStringHeight * 2);
+            typingBoxPos = new Vector2(typingBoxPos.X, _createNewTextPosition.Y + _createNewText.Height * 2);
 
             Vector2 stackPanelPos = new Vector2(Position.X, typingBoxPos.Y + 64);
             _stackPanel = new StackPanel(this, graphics, content, stackPanelPos, GetLayeringDepth(UILayeringDepths.Low));
@@ -211,30 +211,30 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
         private void CreateNewSaveAction()
         {
-            Dictionary<string, SaveFile> saveFiles = SaveLoadManager.SaveFiles;
+            //Dictionary<string, SaveFile> saveFiles = SaveLoadManager.SaveFiles;
 
-            string regexString = _nameTypingBox.CurrentString.Replace("\n", "");
-            regexString = regexString.Replace(" ", "");
-            if (saveFiles.Keys.Contains(regexString)){
+            //string regexString = _nameTypingBox.CurrentString.Replace("\n", "");
+            //regexString = regexString.Replace(" ", "");
+            //if (saveFiles.Keys.Contains(regexString)){
                 
-                return;
-            }
-            PlayerAvatarData avatarData = new PlayerAvatarData();
-            Color skinColor = SpriteFactory.SkinColors[_skinColorSwapper.SkinIndex];
-            avatarData.SkinRed = skinColor.R;
-            avatarData.SkinGreen = skinColor.G;
-            avatarData.SkinBlue = skinColor.B;
-            avatarData.HairIndex = _hairSwapper.Index;
+            //    return;
+            //}
+            //PlayerAvatarData avatarData = new PlayerAvatarData();
+            //Color skinColor = SpriteFactory.SkinColors[_skinColorSwapper.SkinIndex];
+            //avatarData.SkinRed = skinColor.R;
+            //avatarData.SkinGreen = skinColor.G;
+            //avatarData.SkinBlue = skinColor.B;
+            //avatarData.HairIndex = _hairSwapper.Index;
 
-            Color hairColor = SpriteFactory.SkinColors[_hairColorSwapper.SkinIndex];
-            avatarData.HairRed = hairColor.R;
-            avatarData.HairGreen = hairColor.G;
-            avatarData.HairBlue = hairColor.B;
+            //Color hairColor = SpriteFactory.SkinColors[_hairColorSwapper.SkinIndex];
+            //avatarData.HairRed = hairColor.R;
+            //avatarData.HairGreen = hairColor.G;
+            //avatarData.HairBlue = hairColor.B;
 
-            SaveLoadManager.CreateNewSave(regexString, avatarData);
-            SaveLoadManager.SetCurrentSave(regexString);
-            Flags.IsNewGame = true;
-            UI.LoadGame(SaveLoadManager.CurrentSave);
+            //SaveLoadManager.CreateNewSave(regexString, avatarData);
+            //SaveLoadManager.SetCurrentSave(regexString);
+            //Flags.IsNewGame = true;
+            //UI.LoadGame(SaveLoadManager.CurrentSave);
         }
     }
 }

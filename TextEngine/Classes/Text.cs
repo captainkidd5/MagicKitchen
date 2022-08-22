@@ -23,7 +23,7 @@ namespace TextEngine.Classes
         //For now, used for y axis layer depth in world text
         public Rectangle Rectangle => new Rectangle(0, 0, (int)Width, (int)Height);
 
-        
+        public bool IsEmpty => _words.Count < 1;
 
         internal Text(string sentence, float layerDepth,  ImageFont imageFont, FontType fontType, Color color, Vector2 scale)
         {
@@ -64,6 +64,7 @@ namespace TextEngine.Classes
         {
             Word word = new Word(str, _fontType, _imageFont,Color, _scale);
             _words.Add(word);
+            //CalculateWidthAndHeight()
         }
 
 

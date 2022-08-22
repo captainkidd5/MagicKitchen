@@ -41,6 +41,7 @@ namespace UIEngine.Classes.TextStuff
         //Textbox will be considered full when text length reaches width of nineslice minus this value
         private static int _textCutOffSet = 2;
 
+        public bool IsEmpty => _text.IsEmpty;
         public TypingBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth, int? width, int? height, Color? color = null)
             : base(interfaceSection,graphicsDevice, content, position, layerDepth)
         {

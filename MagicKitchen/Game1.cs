@@ -123,10 +123,11 @@ namespace MagicKitchen
             CommandConsole.Load(consoleComponent);
             _commandList.Load();
             _stageManager.RegisterCommands();
-            LanguageManager.Load(Content);
             Clock.Load();
             MainFont = Content.Load<SpriteFont>("Fonts/Font");
             TextFactory.Load(Content);
+            LanguageManager.Load(Content);
+
             Scheduler.Load(Content);
             TileLoader.LoadContent(Content);
             ItemFactory.LoadContent(Content);

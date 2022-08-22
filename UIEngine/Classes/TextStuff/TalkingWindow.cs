@@ -76,7 +76,7 @@ namespace UIEngine.Classes.TextStuff
 
             BackdropSprite = SpriteFactory.CreateUISprite(Position, _backgroundSourceRectangle,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back), scale: _scale);
-            TextBuilder = new NewTextBuilder("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front), scale: new Vector2(.5f, .5f));
+            TextBuilder = new NewTextBuilder("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front), scale:.5f);
 
             Deactivate();
 
@@ -152,7 +152,7 @@ namespace UIEngine.Classes.TextStuff
 
 
             //Dialogue dialogue = new Dialogue() { DialogueText = new Dictionary<int, DSnippet>() { };  }
-            TextBuilder.ClearText();
+            TextBuilder.ClearCurrent();
 
         }
 
@@ -303,7 +303,7 @@ namespace UIEngine.Classes.TextStuff
                 }
                 if (!_selectNextActionJustOccurred && Hovered && Controls.IsClicked || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
                 {
-                    TextBuilder.ForceComplete(BackdropSprite.HitBox.Width);
+                    //TextBuilder.ForceComplete(BackdropSprite.HitBox.Width);
                 }
             }
 
@@ -374,14 +374,14 @@ namespace UIEngine.Classes.TextStuff
                 dialogue.DialogueText[_curerentDialogueIndex].PortraitIndexY * s_portraitWidth, s_portraitWidth, s_portraitWidth),
                 UI.PortraitsManager.PortraitsTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(2f, 2f));
             _curerentDialogue = dialogue;
-            TextBuilder.ClearText();
+        //    TextBuilder.ClearText();
             Text text = TextFactory.CreateUIText(dialogue.DialogueText[_curerentDialogueIndex].DialogueText, GetLayeringDepth(UILayeringDepths.Front), scale: 1f);
-            text.ClearAndSet(text.WrapAutoText(BackdropSprite.HitBox.Width));
+       //     text.ClearAndSet(text.WrapAutoText(BackdropSprite.HitBox.Width));
 
 
 
-            TextBuilder.SetText(text, BackdropSprite.HitBox.Width, false);
-            float totalTextHeight = TextBuilder.GetWidthOfTotalWrappedText(BackdropSprite.HitBox.Width);
+            //TextBuilder.SetText(text, BackdropSprite.HitBox.Width, false);
+            float totalTextHeight = TextBuilder.Height;
             Activate();
 
             if (ChildSections.Contains(_stackPanel))

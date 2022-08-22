@@ -68,7 +68,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
 
             LoadContent();
             _nameText = TextFactory.CreateUIText(_currentItem.ProperName, GetLayeringDepth(UILayeringDepths.Medium));
-            _nameText.ForceSetPosition(_nameTextPosition);
+            //_nameText.ForceSetPosition(_nameTextPosition);
 
             _mayCraft = true;
             StackRow stackRow1 = new StackRow(TotalBounds.Width);
@@ -177,7 +177,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
                 _backGroundSprite.Draw(spriteBatch);
                 if (_currentItem != null)
                 {
-                    _nameText.Draw(spriteBatch, true);
+                    _nameText.Draw(spriteBatch);
                 }
             }
         }
