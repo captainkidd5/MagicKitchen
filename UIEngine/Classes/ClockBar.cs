@@ -47,14 +47,14 @@ namespace UIEngine.Classes
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            ClockTimeText.Update(Position);
+            //ClockTimeText.Update(Position);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
             BackdropSprite.Draw(spriteBatch);
-            ClockTimeText.Draw(spriteBatch);
+            //ClockTimeText.Draw(spriteBatch);
         }
 
         private void OnClockTimeChanged(TimeKeeper timeKeeper)

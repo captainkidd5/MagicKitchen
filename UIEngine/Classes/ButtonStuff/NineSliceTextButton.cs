@@ -94,7 +94,7 @@ namespace UIEngine.Classes.ButtonStuff
             {
                 Text text = _textList[i];
 
-                text.Update(textPos);
+                text.Update(textPos, null, Width);
                 textPos = new Vector2(textPos.X, textPos.Y + text.Height);
                 //text.ChangeColor(Color);
             }
@@ -103,11 +103,12 @@ namespace UIEngine.Classes.ButtonStuff
         {
             if (Displaybackground)
                 base.Draw(spriteBatch);
-            for (int i = _textList.Count - 1; i >= 0; i--)
+
+            for (int i = 0; i < _textList.Count; i++)
             {
                 _textList[i].Draw(spriteBatch);
-
             }
+
 
         }
 

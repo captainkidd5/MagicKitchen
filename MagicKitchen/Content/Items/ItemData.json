@@ -223,7 +223,7 @@
     {
         "Id": 1300,
         "Name": "Wood",
-        "Description": "Water-logged",
+        "Description": "Water-logged, very very logged",
         "MaxStackSize": 999,
         "FuelValue": 100,
         "Price": 1

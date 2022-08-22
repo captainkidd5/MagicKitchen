@@ -65,7 +65,7 @@ namespace TextEngine.Classes
         }
         public void AddWord(string str)
         {
-            Word word = new Word(str, _fontType, _imageFont,Color, new Vector2(1f,1f));
+            Word word = new Word(str, _fontType, _imageFont,Color, _scale);
             _words.Add(word);
         }
 
@@ -101,31 +101,42 @@ namespace TextEngine.Classes
             //foreach (Word word in _words)
               //  word.Update(position);
         }
-        public Vector2 Update(Vector2 position, float lineXStart, float lineLimit)
+        public Vector2 Update(Vector2 position, float? lineXStart, float? lineLimit)
         {
             return CalculateWidthAndHeight(position, lineXStart, lineLimit);
         }
         public Vector2 CalculateWidthAndHeight(Vector2 position, float? lineXStart, float? lineLimit)
         {
-            Height = _imageFont.FontDimension;
+            Height = _imageFont.FontDimension * _scale.Y;
             Width = 0;
             lineLimit = lineLimit ?? 1000;
             lineXStart = lineXStart ?? position.X;
-            for (int i = _words.Count - 1; i >= 0; i--)
+            if (_words.Count > 5)
+                Console.WriteLine("test");
+            for (int i = 0; i < _words.Count; i++)
             {
-                
+                if (_words.Count > 5)
+                    Console.WriteLine("test");
                 //Reached line limit, wrap around
-                if (position.X + _words[i].Width > lineLimit || (i > 0 && _words[i - 1].Str.Contains("\n")))
+                if (position.X + _words[i].Width > lineXStart + lineLimit || (i > 0 && _words[i - 1].Str.Contains("\n")))
 
                 {
+                    if (_words.Count > 5)
+                        Console.WriteLine("test");
                     position = new Vector2(lineXStart.Value, position.Y + _words[i].Height);
                     Width = lineLimit.Value;
                     Height += _words[i].Height;
+                    _words[i].Update(position);
+
                 }
 
-                _words[i].Update(position);
+                else
+                {
+                    _words[i].Update(position);
 
-                position = new Vector2(position.X + _words[i].Width, position.Y);
+                    position = new Vector2(position.X + _words[i].Width, position.Y);
+                }
+               
                 if (Width < lineLimit)
                     Width += _words[i].Width;
             }

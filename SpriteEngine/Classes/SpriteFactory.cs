@@ -181,7 +181,7 @@ namespace SpriteEngine.Classes
             foreach(Text t in text)
             {
                 if(t.Width > width)
-                    width += (int)t.Width;
+                    width = (int)t.Width;
 
                 height += (int)t.Height;
             }

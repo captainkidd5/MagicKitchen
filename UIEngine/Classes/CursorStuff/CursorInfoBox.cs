@@ -22,6 +22,9 @@ namespace UIEngine.Classes.CursorStuff
         public Vector2 _offSet;
 
         public bool IsDrawn { get; set; } = true;
+
+        private const int _maxWidth = 480;
+
         public CursorInfoBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position,
             float layerDepth) : base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -41,7 +44,7 @@ namespace UIEngine.Classes.CursorStuff
 
             foreach (string s in newText)
             {
-                text.Add(TextFactory.CreateUIText(s, GetLayeringDepth(UILayeringDepths.High)));
+                text.Add(TextFactory.CreateUIText(s,Position, null, _maxWidth, GetLayeringDepth(UILayeringDepths.High),scale:2f));
 
             }
 
