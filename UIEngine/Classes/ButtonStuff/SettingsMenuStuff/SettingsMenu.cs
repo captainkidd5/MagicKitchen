@@ -68,8 +68,12 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             StackRow stackRow2 = new StackRow(_backGroundSpriteDimensions.Width);
 
             NineSliceTextButton _muteMusicText = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                new List<Text>() { TextFactory.CreateUIText("Mute Music",Position, null, null, GetLayeringDepth(UILayeringDepths.Medium))}, null);
+                new List<Text>() { TextFactory.CreateUIText("Mute Music",Position, null, null, GetLayeringDepth(UILayeringDepths.Medium),scale: 2f)}, null);
             _muteMusicText.Displaybackground = false;
+            _muteMusicText.IgnoreDefaultHoverSoundEffect = true;
+            _muteMusicText.IgnoreDefaultClickSoundEffect = true;
+
+
 
             stackRow2.AddItem(_muteMusicText, StackOrientation.Left);
             _muteMusicCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
@@ -81,8 +85,11 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
 
             StackRow stackRow3 = new StackRow(_backGroundSpriteDimensions.Width);
             NineSliceTextButton _enableFullScreenText = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-               new List<Text>() { TextFactory.CreateUIText("Enable FullScreen",Position,null,null, GetLayeringDepth(UILayeringDepths.Medium)) }, null);
+               new List<Text>() { TextFactory.CreateUIText("FullScreen",Position,null,null, GetLayeringDepth(UILayeringDepths.Medium), scale: 2f) }, null);
             _enableFullScreenText.Displaybackground = false;
+            _enableFullScreenText.IgnoreDefaultHoverSoundEffect = true;
+            _enableFullScreenText.IgnoreDefaultClickSoundEffect = true;
+
 
             stackRow3.AddItem(_enableFullScreenText, StackOrientation.Left);
             _enableFullScrenCheckBox = new CheckBox(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
@@ -97,7 +104,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
                UISourceRectangles._backButtonRectangle);
             _backButton = UI.ButtonFactory.CreateButton(this, backButtonPosition,
                 GetLayeringDepth(UILayeringDepths.Medium), UISourceRectangles._backButtonRectangle,
-             UI.MainMenu._outerMenu.ChangeToPlayOrExitState, scale: 2f);
+             UI.MainMenu._outerMenu.ChangeToPlayOrExitState, scale: 1.2f);
             _backButton.CustomClickSoundName = "BackButton1";
 
             Deactivate();

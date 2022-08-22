@@ -42,11 +42,15 @@ namespace UIEngine.Classes.CursorStuff
 ;
             List<Text> text = new List<Text>();
 
-            foreach (string s in newText)
+            for(int i =0; i < newText.Count; i++)
             {
-                text.Add(TextFactory.CreateUIText(s,Position, null, _maxWidth, GetLayeringDepth(UILayeringDepths.High),scale:2f));
+                float scale = 2f;
+                if (i > 0)
+                    scale = 1.5f;
+                text.Add(TextFactory.CreateUIText(newText[i], Position, null, _maxWidth, GetLayeringDepth(UILayeringDepths.High), scale: scale));
 
             }
+      
 
             NineSliceTextButton = new NineSliceTextButton(this, graphics, content, Position,
                GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low), text, null);
