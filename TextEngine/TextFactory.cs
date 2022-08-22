@@ -37,17 +37,17 @@ namespace TextEngine
        
         //UI
      
-        public static Text CreateUIText(String value, float layerDepth, ImageFont? imageFont = null, FontType? fontType = null, Color? color = null, float? scale = null)
+        public static Text CreateUIText(String value, Vector2 position, float? lineXStart, float? lineLimit, float layerDepth, ImageFont? imageFont = null, FontType? fontType = null, Color? color = null, float? scale = null)
         {
             Vector2 translatedScale = Vector2.One;
             if (scale != null)
                 translatedScale = new Vector2(scale.Value, scale.Value);
-            return new Text(value, layerDepth, imageFont ?? ImageFont, fontType ?? FontType.Standard, color ?? Color.White, translatedScale);
+            return new Text(value, position, lineXStart, lineLimit, layerDepth, imageFont ?? ImageFont, fontType ?? FontType.Standard, color ?? Color.White, translatedScale);
         }
 
-        public static Text CreateWorldText(String value, ImageFont? imageFont = null, FontType? fontType = null, Color? color = null, Vector2? scale = null)
+        public static Text CreateWorldText(String value, Vector2 position, float? lineXStart, float? lineLimit, ImageFont? imageFont = null, FontType? fontType = null, Color? color = null, Vector2? scale = null)
         {
-            return new Text(value,0f, imageFont ?? ImageFont, fontType ?? FontType.Standard, color ?? Color.White, scale ?? Vector2.One);
+            return new Text(value, position, lineXStart, lineLimit, 0f, imageFont ?? ImageFont, fontType ?? FontType.Standard, color ?? Color.White, scale ?? Vector2.One);
         }
     }
 }

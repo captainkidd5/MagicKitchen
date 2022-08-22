@@ -15,7 +15,7 @@ namespace SpriteEngine.Classes.ParticleStuff.TextParticleStuff
         private Text _text;
         public TextParticle(string text, Vector2 pos, ParticleData data) : base(pos, data)
         {
-            _text = TextFactory.CreateWorldText(text, scale:new Vector2(.5f,.5f));
+            _text = TextFactory.CreateWorldText(text,pos,null,null, scale:new Vector2(.5f,.5f));
             data.colorStart = Color.Red;
             data.colorEnd = Color.Orange;
         }

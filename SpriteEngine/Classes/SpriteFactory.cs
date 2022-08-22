@@ -159,18 +159,32 @@ namespace SpriteEngine.Classes
         /// Nine slice to support text
         /// </summary>
         /// <returns></returns>
-        public static NineSliceSprite CreateNineSliceTextSprite(Vector2 position, Text text,
+        public static NineSliceSprite CreateNineSliceTextSprite(Vector2 position, List<Text> textList,
             Texture2D texture,float layer, Color? primaryColor = null, Vector2? origin = null, Vector2? scale = null)
         {
+
+            Point p = GetTextListWidthAndHeight(textList);
+
             NineSlice newNineSlice = new NineSlice(position, texture,
-                layer, text, primaryColor ?? Color.White, scale ?? Vector2.One);
+                layer, p.X, p.Y, primaryColor ?? Color.White, scale ?? Vector2.One);
 
 
             return new NineSliceSprite(Graphics, Content, position, newNineSlice, texture,
                 primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, layer);
         }
 
+        private static Point GetTextListWidthAndHeight(List<Text> text)
+        {
+            int width = 0;
+            int height = 0;
+            foreach(Text t in text)
+            {
+                width += (int)t.Width;
+                height += (int)t.Height;
+            }
 
+            return new Point(width,height);
+        }
         /// <summary>
         /// Animated sprite
         /// </summary>

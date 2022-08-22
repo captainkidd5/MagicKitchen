@@ -17,7 +17,7 @@ namespace UIEngine.Classes.ButtonStuff
     internal class NineSliceTextButton : NineSliceButton
     {
         public override bool Hovered { get => base.Hovered; protected set => base.Hovered = value; }
-        
+
         private List<Vector2> _textPositions;
 
         private List<Text> _textList;
@@ -38,14 +38,14 @@ namespace UIEngine.Classes.ButtonStuff
             _forcedHeight = forcedHeight;
             MovePosition(position);
 
-            
+
 
         }
         public override void MovePosition(Vector2 newPos)
         {
             // base.MovePosition(newPos);
 
-            
+
             //Text combinedtext = TextFactory.CombineText(_textList, LayerDepth);
 
             //int width = _forcedWidth ?? (int)combinedtext.Width ;
@@ -63,13 +63,31 @@ namespace UIEngine.Classes.ButtonStuff
             //}
             //_textPositions = new List<Vector2>();
             //GeneratePositionsForLines(new Vector2(newTextPosX, newTextPosY));
-            //if (_forcedWidth == null)
-            //    BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X - 8, Position.Y - 8), combinedtext, UI.ButtonTexture, LayerDepth);
-            //else
-            //    BackGroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _forcedWidth.Value,
-            //        _forcedHeight.Value, UI.ButtonTexture, LayerDepth);
-            //Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat,  _samplePoint, ButtonTexture.Width);
-            //BackGroundSprite.AddSaturateEffect(sampleCol, false);
+            if (_forcedWidth == null)
+            {
+               
+                BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X - 8, Position.Y - 8), _textList, UI.ButtonTexture, LayerDepth);
+            }
+
+            else
+            {
+                BackGroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _forcedWidth.Value,
+                    _forcedHeight.Value, UI.ButtonTexture, LayerDepth);
+            }
+            if(_textList.Count < 1)
+            {
+                TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, 1, 1);
+
+            }
+            else
+            {
+                TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, BackGroundSprite.Width, BackGroundSprite.Height);
+
+            }
+
+
+            Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, _samplePoint, ButtonTexture.Width);
+            BackGroundSprite.AddSaturateEffect(sampleCol, false);
 
             //if (_centerText)
             //{
@@ -85,20 +103,20 @@ namespace UIEngine.Classes.ButtonStuff
         private void GeneratePositionsForLines(Vector2 startPosition, int extraSpacing = 8)
         {
             Vector2 textIndexPos = startPosition;
-           
+
             float y = startPosition.Y;
             //_textList.Clear();
             _textPositions.Clear();
             for (int i = 0; i < _textList.Count; i++)
             {
-             
-                if(i > 0)
-                y += _textList[i].Height + extraSpacing;
+
+                if (i > 0)
+                    y += _textList[i].Height + extraSpacing;
                 textIndexPos = new Vector2(textIndexPos.X, y);
 
 
                 _textPositions.Add(textIndexPos);
-               // _textList[i].ForceSetPosition(textIndexPos);
+                // _textList[i].ForceSetPosition(textIndexPos);
             }
         }
 
@@ -113,24 +131,24 @@ namespace UIEngine.Classes.ButtonStuff
         }
         public override void Update(GameTime gameTime)
         {
-           
+
             base.Update(gameTime);
-            for(int i = _textList.Count - 1; i >= 0; i--)
+            for (int i = _textList.Count - 1; i >= 0; i--)
             {
                 Text text = _textList[i];
-   
+
                 text.Update(Position);
-                    //text.ChangeColor(Color);
+                //text.ChangeColor(Color);
             }
             //if (DidPositionChange)
             //    GeneratePositionsForLines(Position);
-            
+
 
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-          if(Displaybackground)
-            base.Draw(spriteBatch);
+            if (Displaybackground)
+                base.Draw(spriteBatch);
             for (int i = _textList.Count - 1; i >= 0; i--)
             {
                 _textList[i].Draw(spriteBatch);
@@ -146,6 +164,6 @@ namespace UIEngine.Classes.ButtonStuff
             base.ButtonAction();
         }
 
-       
+
     }
 }

@@ -25,7 +25,7 @@ namespace TextEngine.Classes
 
         public bool IsEmpty => _words.Count < 1;
 
-        internal Text(string sentence, float layerDepth,  ImageFont imageFont, FontType fontType, Color color, Vector2 scale)
+        internal Text(string sentence, Vector2 position, float? lineXStart, float? lineLimit, float layerDepth,  ImageFont imageFont, FontType fontType, Color color, Vector2 scale)
         {
             _scale = scale;
             _layerDepth = layerDepth;
@@ -35,6 +35,9 @@ namespace TextEngine.Classes
             _words = new List<Word>();
             if(!string.IsNullOrEmpty(sentence))
              AddSentence(sentence);
+
+            CalculateWidthAndHeight(position,lineXStart, lineLimit);
+
         }
 
         public void Clear() => _words.Clear();
@@ -102,17 +105,19 @@ namespace TextEngine.Classes
         {
             return CalculateWidthAndHeight(position, lineXStart, lineLimit);
         }
-        public Vector2 CalculateWidthAndHeight(Vector2 position, float lineXStart, float lineLimit)
+        public Vector2 CalculateWidthAndHeight(Vector2 position, float? lineXStart, float? lineLimit)
         {
             Height = _imageFont.FontDimension;
             Width = 0;
+            lineLimit = lineLimit ?? 1000;
+            lineXStart = lineXStart ?? position.X;
             for (int i = _words.Count - 1; i >= 0; i--)
             {
                 //Reached line limit, wrap around
                 if (position.X + _words[i].Width > lineLimit)
                 {
-                    position = new Vector2(lineXStart, position.Y + _words[i].Height);
-                    Width = lineLimit;
+                    position = new Vector2(lineXStart.Value, position.Y + _words[i].Height);
+                    Width = lineLimit.Value;
                     Height += _words[i].Height;
                 }
 

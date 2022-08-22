@@ -59,24 +59,7 @@ namespace SpriteEngine.Classes
         }
 
 
-        /// <summary>
-        /// Create a dynamic UI rectangle to support given text.
-        /// </summary>
-        internal NineSlice(
-            Vector2 position, Texture2D? texture,
-            float layer, Text text, Color color, Vector2 scale)
-        {
-        
-            SharedConstructor(position, texture, layer, color, scale);
 
-            Width = (int)text.Width;
-            Height = (int)text.Height;// + (int)TextFactory.SingleCharacterWidth() * 4;
-
-            if (Height <= 16)
-                Height = 48;
-            BuildRectangle(_position);
-
-        }
 
         public void Move(Vector2 newPosition)
         {
