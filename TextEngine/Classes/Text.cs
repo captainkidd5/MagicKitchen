@@ -62,7 +62,7 @@ namespace TextEngine.Classes
         }
         public void AddWord(string str)
         {
-            Word word = new Word(str, _fontType, _imageFont,Color, _scale);
+            Word word = new Word(str, _fontType, _imageFont,Color, new Vector2(3f,3f));
             _words.Add(word);
             //CalculateWidthAndHeight()
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DataModels.JsonConverters;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,8 @@ namespace TextEngine.Classes
     }
     public class ImageFont
     {
-        internal readonly int FontDimension = 32;
-        internal readonly int FontSpaceWidth = 64;
+        internal readonly int FontDimension = 16;
+        internal readonly int FontSpaceWidth = 16;
        
         internal Texture2D StandardFontTexture { get; set; }
 
@@ -30,7 +31,7 @@ namespace TextEngine.Classes
 
         internal Rectangle GetCharRect(char c)
         {
-            Point point = LanguageManager.CurrentLanguage.CharPoints[c];
+            JsonPoint point = LanguageManager.CurrentLanguage.CharPoints[c];
             return new Rectangle(point.X * FontDimension, point.Y * FontDimension, FontDimension, FontDimension);
         }
         internal void LoadContent(Texture2D standardFontTexture)

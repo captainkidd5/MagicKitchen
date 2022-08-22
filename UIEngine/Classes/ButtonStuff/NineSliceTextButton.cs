@@ -122,8 +122,8 @@ namespace UIEngine.Classes.ButtonStuff
                 text.Update(Position);
                     //text.ChangeColor(Color);
             }
-            if (DidPositionChange)
-                GeneratePositionsForLines(Position);
+            //if (DidPositionChange)
+            //    GeneratePositionsForLines(Position);
             
 
         }

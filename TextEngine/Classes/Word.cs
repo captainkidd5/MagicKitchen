@@ -55,9 +55,10 @@ namespace TextEngine.Classes
             Vector2 currentCharPos = _pos;
             foreach(char c in Str)
             {
-                spriteBatch.Draw(_imgFont.GetTexture(_fontType), currentCharPos, _imgFont.GetCharRect(c), _color, 0f, Vector2.Zero, _scale,SpriteEffects.None, layerDepth);
+                Rectangle charSourceRectangle = _imgFont.GetCharRect(c);
+                spriteBatch.Draw(_imgFont.GetTexture(_fontType), currentCharPos, charSourceRectangle, _color, 0f, Vector2.Zero, _scale,SpriteEffects.None, layerDepth);
 
-                currentCharPos = new Vector2(_pos.X + _imgFont.FontSpaceWidth, _pos.Y);
+                currentCharPos = new Vector2(currentCharPos.X + _imgFont.FontSpaceWidth * _scale.X, _pos.Y);
             }
         }
     }
