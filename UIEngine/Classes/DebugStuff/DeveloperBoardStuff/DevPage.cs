@@ -41,7 +41,7 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
 
 
             NineSliceTextButton checkBoxDescription = new NineSliceTextButton(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                new List<Text>() { TextFactory.CreateUIText(text, GetLayeringDepth(UILayeringDepths.Medium)) }, null);
+                new List<Text>() { TextFactory.CreateUIText(text,Position, null, null, GetLayeringDepth(UILayeringDepths.Medium)) }, null);
             checkBoxDescription.Displaybackground = false;
 
             stackRow.AddItem(checkBoxDescription, StackOrientation.Left);

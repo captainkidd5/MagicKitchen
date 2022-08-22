@@ -68,7 +68,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             StackRow stackRow2 = new StackRow(_backGroundSpriteDimensions.Width);
 
             NineSliceTextButton _muteMusicText = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                new List<Text>() { TextFactory.CreateUIText("Mute Music", GetLayeringDepth(UILayeringDepths.Medium))}, null);
+                new List<Text>() { TextFactory.CreateUIText("Mute Music",Position, null, null, GetLayeringDepth(UILayeringDepths.Medium))}, null);
             _muteMusicText.Displaybackground = false;
 
             stackRow2.AddItem(_muteMusicText, StackOrientation.Left);
@@ -81,7 +81,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
 
             StackRow stackRow3 = new StackRow(_backGroundSpriteDimensions.Width);
             NineSliceTextButton _enableFullScreenText = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-               new List<Text>() { TextFactory.CreateUIText("Enable FullScreen", GetLayeringDepth(UILayeringDepths.Medium)) }, null);
+               new List<Text>() { TextFactory.CreateUIText("Enable FullScreen",Position,null,null, GetLayeringDepth(UILayeringDepths.Medium)) }, null);
             _enableFullScreenText.Displaybackground = false;
 
             stackRow3.AddItem(_enableFullScreenText, StackOrientation.Left);

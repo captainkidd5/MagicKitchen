@@ -21,7 +21,7 @@ namespace TextEngine.Classes
         private Vector2 _scale;
 
         public float Height => _imgFont.FontDimension * _scale.Y;
-        public float Width => Str.Length * _imgFont.FontDimension;
+        public float Width => Str.Length * _imgFont.FontDimension * _scale.X;
 
         public bool Empty => String.IsNullOrEmpty(Str);
         public Word(string str,FontType fontType, ImageFont imgFont, Color? color = null, Vector2? scale = null)
@@ -55,6 +55,8 @@ namespace TextEngine.Classes
             Vector2 currentCharPos = _pos;
             foreach(char c in Str)
             {
+                if(c == '\n')
+                    continue;
                 Rectangle charSourceRectangle = _imgFont.GetCharRect(c);
                 spriteBatch.Draw(_imgFont.GetTexture(_fontType), currentCharPos, charSourceRectangle, _color, 0f, Vector2.Zero, _scale,SpriteEffects.None, layerDepth);
 

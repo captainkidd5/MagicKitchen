@@ -65,9 +65,8 @@ namespace TextEngine.Classes
         }
         public void AddWord(string str)
         {
-            Word word = new Word(str, _fontType, _imageFont,Color, new Vector2(3f,3f));
+            Word word = new Word(str, _fontType, _imageFont,Color, new Vector2(1f,1f));
             _words.Add(word);
-            //CalculateWidthAndHeight()
         }
 
 
@@ -98,8 +97,9 @@ namespace TextEngine.Classes
 
         public void Update(Vector2 position)
         {
-            foreach (Word word in _words)
-                word.Update(position);
+            CalculateWidthAndHeight(position, null, null);
+            //foreach (Word word in _words)
+              //  word.Update(position);
         }
         public Vector2 Update(Vector2 position, float lineXStart, float lineLimit)
         {
@@ -113,8 +113,10 @@ namespace TextEngine.Classes
             lineXStart = lineXStart ?? position.X;
             for (int i = _words.Count - 1; i >= 0; i--)
             {
+                
                 //Reached line limit, wrap around
-                if (position.X + _words[i].Width > lineLimit)
+                if (position.X + _words[i].Width > lineLimit || (i > 0 && _words[i - 1].Str.Contains("\n")))
+
                 {
                     position = new Vector2(lineXStart.Value, position.Y + _words[i].Height);
                     Width = lineLimit.Value;
@@ -146,7 +148,7 @@ namespace TextEngine.Classes
             }
         }
 
-        public Vector2 CenterInRectangle(Rectangle rectangle, float rectangleScale)
+        public static Vector2 CenterInRectangle(Rectangle rectangle, float rectangleScale)
         {
             return new Vector2(rectangle.X, rectangle.Y + rectangleScale);
         }

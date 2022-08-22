@@ -16,7 +16,7 @@ namespace TextEngine.Classes
 
         public bool IsComplete() => _currentText.ToString() == desiredString;
         public void ClearCurrent()=> _currentText.Clear();
-        public NewTextBuilder(String value, Vector2 position, float lineXStart, float lineLimit, float layerDepth, ImageFont imageFont = null, FontType? fontType = null, Color? color = null, float? scale = null)
+        public NewTextBuilder(String value, Vector2 position, float? lineXStart, float? lineLimit, float layerDepth, ImageFont imageFont = null, FontType? fontType = null, Color? color = null, float? scale = null)
         {
             desiredString = value;
             _currentText = TextFactory.CreateUIText(string.Empty, position, lineXStart, lineLimit, layerDepth,imageFont, fontType,color,scale);

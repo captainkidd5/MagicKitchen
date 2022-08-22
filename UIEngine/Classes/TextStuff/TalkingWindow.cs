@@ -76,7 +76,7 @@ namespace UIEngine.Classes.TextStuff
 
             BackdropSprite = SpriteFactory.CreateUISprite(Position, _backgroundSourceRectangle,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back), scale: _scale);
-            TextBuilder = new NewTextBuilder("Dialogue Test", GetLayeringDepth(UILayeringDepths.Front), scale:.5f);
+            TextBuilder = new NewTextBuilder("Dialogue Test", Position, null, null, GetLayeringDepth(UILayeringDepths.Front), scale:.5f);
 
             Deactivate();
 

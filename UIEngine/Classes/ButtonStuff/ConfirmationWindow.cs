@@ -61,11 +61,12 @@ namespace UIEngine.Classes.ButtonStuff
             _cancelButton = UI.ButtonFactory.CreateButton(this, cancelButtonPos,.91f, ButtonFactory.s_redExRectangle, _cancelAction);
             AddSectionToGrid(_cancelButton, 0, 0);
 
+            _textPosition = Text.CenterInRectangle(TotalBounds, 1f);
 
-            _text = TextFactory.CreateUIText(_confirmationText, GetLayeringDepth(UILayeringDepths.High));
+            _text = TextFactory.CreateUIText(_confirmationText, _textPosition, null, _backGroundSpriteDimensions.Width, GetLayeringDepth(UILayeringDepths.High));
+
             TotalBounds = _backGroundSprite.HitBox;
 
-            _textPosition = _text.CenterInRectangle(TotalBounds, 1f);
 
             Deactivate();
             base.LoadContent();
@@ -89,7 +90,7 @@ namespace UIEngine.Classes.ButtonStuff
             base.Update(gameTime);
             if (IsActive)
             {
-                Vector2 textPos = _text.CenterInRectangle(_backGroundSprite.HitBox, 1f);
+                Vector2 textPos = Text.CenterInRectangle(_backGroundSprite.HitBox, 1f);
                 _text.Update(new Vector2(textPos.X, textPos.Y - _backGroundSprite.HitBox.Height / 3));
 
             }

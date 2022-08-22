@@ -47,7 +47,7 @@ namespace UIEngine.Classes.SplashScreens
             Sprite = SpriteFactory.CreateUISprite(Position, _sourceRectangle, _profilePicTexture, GetLayeringDepth(UILayeringDepths.Low), scale: _scale);
             _splashDurationTimer = new SimpleTimer(_splashDurationTargetTime, false);
             _text = TextFactory.CreateUIText("A Game by Waiiki", .99f);
-            _textPosition = _text.CenterInRectangle(Settings.ScreenRectangle, 1f);
+            _textPosition = Text.CenterInRectangle(Settings.ScreenRectangle, 1f);
             _textPosition = new Vector2(_textPosition.X, _textPosition.Y + 160);
 
             _chimes = content.Load<SoundEffect>("Audio/SoundEffects/UI/Chimes1");

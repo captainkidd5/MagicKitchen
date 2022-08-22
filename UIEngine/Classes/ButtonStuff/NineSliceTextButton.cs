@@ -18,7 +18,6 @@ namespace UIEngine.Classes.ButtonStuff
     {
         public override bool Hovered { get => base.Hovered; protected set => base.Hovered = value; }
 
-        private List<Vector2> _textPositions;
 
         private List<Text> _textList;
 
@@ -32,40 +31,26 @@ namespace UIEngine.Classes.ButtonStuff
             Sprite? foregroundSprite = null, Point? samplePoint = null, Rectangle? sourceRectangle = null, bool hoverTransparency = true) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, buttonAction, foregroundSprite, samplePoint, hoverTransparency)
         {
+
             _textList = textList;
+            if (_textList.Count < 1)
+            {
+                throw new Exception($"test");
+
+            }
             _centerText = centerText;
             _forcedWidth = forcedWidth;
             _forcedHeight = forcedHeight;
             MovePosition(position);
-
-
+           // IgnoreDefaultHoverSoundEffect = true;
 
         }
         public override void MovePosition(Vector2 newPos)
         {
-            // base.MovePosition(newPos);
-
-
-            //Text combinedtext = TextFactory.CombineText(_textList, LayerDepth);
-
-            //int width = _forcedWidth ?? (int)combinedtext.Width ;
-
-            //Position = newPos;
-            ////Prevents text from hugging the literal left side of the text box
-            //float leftMargin = 8;
-            //float topMargin = 4;
-            //float newTextPosX = Position.X + leftMargin;
-            //float newTextPosY = Position.Y + topMargin; 
-            //if (_centerText)
-            //{
-            //    int halfStringWidth = (int)(combinedtext.Width /2);
-            //    newTextPosX = Position.X + width / 2 - halfStringWidth ;
-            //}
-            //_textPositions = new List<Vector2>();
-            //GeneratePositionsForLines(new Vector2(newTextPosX, newTextPosY));
+            Position = newPos;
             if (_forcedWidth == null)
             {
-               
+
                 BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X - 8, Position.Y - 8), _textList, UI.ButtonTexture, LayerDepth);
             }
 
@@ -74,16 +59,9 @@ namespace UIEngine.Classes.ButtonStuff
                 BackGroundSprite = SpriteFactory.CreateNineSliceSprite(Position, _forcedWidth.Value,
                     _forcedHeight.Value, UI.ButtonTexture, LayerDepth);
             }
-            if(_textList.Count < 1)
-            {
-                TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, 1, 1);
 
-            }
-            else
-            {
-                TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, BackGroundSprite.Width, BackGroundSprite.Height);
+            TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, BackGroundSprite.Width, BackGroundSprite.Height);
 
-            }
 
 
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, _samplePoint, ButtonTexture.Width);
@@ -96,29 +74,7 @@ namespace UIEngine.Classes.ButtonStuff
             //}
 
         }
-        /// <summary>
-        /// Fills <see cref="_textPositions"/> for each line of text provided. Increases by height x => x.Height == text.TotalStringHeight
-        /// </summary>
-        /// <param name="textIndexPos">Increases each loop</param>
-        private void GeneratePositionsForLines(Vector2 startPosition, int extraSpacing = 8)
-        {
-            Vector2 textIndexPos = startPosition;
 
-            float y = startPosition.Y;
-            //_textList.Clear();
-            _textPositions.Clear();
-            for (int i = 0; i < _textList.Count; i++)
-            {
-
-                if (i > 0)
-                    y += _textList[i].Height + extraSpacing;
-                textIndexPos = new Vector2(textIndexPos.X, y);
-
-
-                _textPositions.Add(textIndexPos);
-                // _textList[i].ForceSetPosition(textIndexPos);
-            }
-        }
 
         public override void LoadContent()
         {
@@ -133,17 +89,15 @@ namespace UIEngine.Classes.ButtonStuff
         {
 
             base.Update(gameTime);
-            for (int i = _textList.Count - 1; i >= 0; i--)
+            Vector2 textPos = Position;
+            for (int i = 0; i < _textList.Count; i++)
             {
                 Text text = _textList[i];
 
-                text.Update(Position);
+                text.Update(textPos);
+                textPos = new Vector2(textPos.X, textPos.Y + text.Height);
                 //text.ChangeColor(Color);
             }
-            //if (DidPositionChange)
-            //    GeneratePositionsForLines(Position);
-
-
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
