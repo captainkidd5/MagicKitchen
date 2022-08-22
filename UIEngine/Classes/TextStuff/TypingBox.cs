@@ -142,6 +142,9 @@ namespace UIEngine.Classes.TextStuff
             if (wasAnyKeyPressed)
                 Controls.ClearUseableKeys();
 
+            if (_text.Width + _text.SingleCharacterWidth > NineSliceSprite.Width)
+                return;
+
             _text.Append(keyValue);
         }
     }

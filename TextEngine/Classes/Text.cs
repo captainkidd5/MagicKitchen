@@ -25,6 +25,8 @@ namespace TextEngine.Classes
 
         public bool IsEmpty => _words.Count < 1;
 
+        public float SingleCharacterWidth => _scale.X * _imageFont.FontSpaceWidth;
+
         internal Text(string sentence, Vector2 position, float? lineXStart, float? lineLimit, float layerDepth,  ImageFont imageFont, FontType fontType, Color color, Vector2 scale)
         {
             _scale = scale;
