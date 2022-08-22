@@ -41,6 +41,8 @@ namespace UIEngine.Classes.TextStuff
         private static int _textCutOffSet = 2;
 
         public bool IsEmpty => _text.IsEmpty;
+
+        private TypingEntryPointMarker _entryPointMarker;
         public TypingBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth, int? width, int? height, Color? color = null)
             : base(interfaceSection,graphicsDevice, content, position, layerDepth)
         {
@@ -50,6 +52,8 @@ namespace UIEngine.Classes.TextStuff
            //      position,LayerDepth, null, null,null,null);
             _textPos  = new Vector2(Position.X + 6, Position.Y + 6);
             _text = TextFactory.CreateUIText(string.Empty, GetLayeringDepth(UILayeringDepths.High), scale:2f);
+            _entryPointMarker = new TypingEntryPointMarker();
+            _entryPointMarker.Load(GetLayeringDepth(UILayeringDepths.High));
         }
         public override void Update(GameTime gameTime)
         {
@@ -61,6 +65,7 @@ namespace UIEngine.Classes.TextStuff
                 ProcessKey(gameTime, AcceptableKeys);
             //TextBuilder.Update(gameTime,Position, NineSliceSprite.Width);
             _text.Update(_textPos, null, NineSliceSprite.Width);
+            _entryPointMarker.Update(gameTime, new Vector2(_textPos.X + _text.Width - _text.SingleCharacterWidth, _textPos.Y));
         }
 
 
@@ -74,6 +79,7 @@ namespace UIEngine.Classes.TextStuff
             //SendButton.Draw(spriteBatch);
             _text.Draw(spriteBatch);
             NineSliceSprite.Draw(spriteBatch);
+            _entryPointMarker.Draw(spriteBatch);
         }
 
         /// <summary>
