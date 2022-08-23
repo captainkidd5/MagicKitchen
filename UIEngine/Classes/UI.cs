@@ -196,6 +196,8 @@ namespace UIEngine.Classes
             _saveTimer = new SimpleTimer(_saveFrequency);
 
         }
+
+        public static void DrawLights(SpriteBatch spriteBatch) => MainMenu.DrawLights(spriteBatch);
         public static void LoadQuests(QuestLoader questManager) => QuestLog.QuestLoader = questManager;
         internal static void LoadNewCursorInfo(List<string> text) => CursorInfoBox.LoadNewText(text);
 

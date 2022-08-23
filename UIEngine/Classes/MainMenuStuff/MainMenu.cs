@@ -34,7 +34,7 @@ namespace UIEngine.Classes.MainMenuStuff
         private Texture2D _sandWarriorTexture;
         private Rectangle _backDropDimensions = new Rectangle(0, 0, 640, 360);
         private AnimatedSprite _sandWarriorSprite;
-        private Vector2 _sandWarriorSpritePosition = new Vector2(Settings.CenterScreen.X + 240, Settings.CenterScreen.Y);
+        private Vector2 _sandWarriorSpritePosition = new Vector2(Settings.CenterScreen.X + 200, Settings.CenterScreen.Y - 80);
 
      //   private Sprite _backDropSprite;
         public OuterMenu _outerMenu;
@@ -43,6 +43,7 @@ namespace UIEngine.Classes.MainMenuStuff
 
 
         private LightSprite _light;
+        private LightSprite _light2;
         public MainMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -67,7 +68,8 @@ namespace UIEngine.Classes.MainMenuStuff
                 new AnimationFrame[] { new AnimationFrame(0, 0, 0, .25f), new AnimationFrame(0, 0, 0, .25f) },scale:new Vector2(5f,5f));
             _activeSection = _outerMenu;
             TotalBounds = _backDropDimensions;
-            _light  = SpriteFactory.CreateLight(Position, Vector2.Zero, DataModels.Enums.LightType.Warm,3f);
+            _light  = SpriteFactory.CreateLight(Position, Vector2.Zero, DataModels.Enums.LightType.Nautical,6f);
+            _light2 = SpriteFactory.CreateLight(Position, Vector2.Zero, DataModels.Enums.LightType.Nautical, 6f);
 
             base.LoadContent();
 
@@ -87,6 +89,8 @@ namespace UIEngine.Classes.MainMenuStuff
             _activeSection.Update(gameTime);
             _toggleMusic.Update(gameTime);
             _light.Update(gameTime, _sandWarriorSpritePosition);
+            _light2.Update(gameTime, new Vector2(200,200));
+
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -96,7 +100,12 @@ namespace UIEngine.Classes.MainMenuStuff
             _sandWarriorSprite.Draw(spriteBatch);
             _activeSection.Draw(spriteBatch);
             _toggleMusic.Draw(spriteBatch);
+        }
+
+        public void DrawLights(SpriteBatch spriteBatch)
+        {
             _light.Draw(spriteBatch);
+            _light2.Draw(spriteBatch);
         }
     }
 }
