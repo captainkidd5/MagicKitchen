@@ -151,6 +151,11 @@
   <properties>
    <property name="newSource" value="-16,-64,48,80"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="4" y="7" width="7" height="7">
+    <ellipse/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="737">
   <properties>
@@ -483,6 +488,20 @@
   <properties>
    <property name="newSource" value="0,-48,16,64"/>
   </properties>
+ </tile>
+ <tile id="1817">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="1" y="6" width="14" height="11">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="1818">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="1" y="3" width="16" height="13">
+    <ellipse/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="1847">
   <properties>
