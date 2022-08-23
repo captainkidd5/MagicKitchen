@@ -13,12 +13,12 @@ namespace SpriteEngine.Classes.ParticleStuff.WeatherStuff
         public Weather CurrentWeather;
         public void Update(GameTime gameTime)
         {
-
+            CurrentWeather.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            CurrentWeather.Draw(spriteBatch);
         }
     }
 }
