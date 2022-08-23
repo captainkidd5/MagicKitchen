@@ -31,6 +31,7 @@ using SoundEngine.Classes.SongStuff;
 using InputEngine.Classes;
 using DataModels.QuestStuff;
 using TextEngine.Classes;
+using SpriteEngine.Classes.ParticleStuff.WeatherStuff;
 
 namespace MagicKitchen
 {
@@ -153,6 +154,9 @@ namespace MagicKitchen
             UI.ReturnedToMainMenu += OnReturnToMainMenu;
             CommandConsole.RegisterCommand("save", "saves current game", SaveLoadManager.SaveGame);
             _frameCounter = new FrameCounter(4);
+
+            WeatherManager.SetWeather(WeatherType.SandStorm);
+
         }
 
 
@@ -160,8 +164,8 @@ namespace MagicKitchen
         {
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //    Exit();
-            if (Settings.WindowFocused)
-            {
+            //if (Settings.WindowFocused)
+         //   {
 
                 Controls.Update(gameTime);
                 SongManager.Update(gameTime);
@@ -170,6 +174,7 @@ namespace MagicKitchen
                     _stageManager.Update(gameTime);
 
                 }
+                WeatherManager.Update(gameTime);
                 UI.Update(gameTime);
                 if (!Flags.Pause)
                 {
@@ -178,14 +183,14 @@ namespace MagicKitchen
                 }
 
                 base.Update(gameTime);
-            }
+            //}
 
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            if (Settings.WindowFocused)
-            {
+          //  if (Settings.WindowFocused)
+           // {
 
                 if (SettingsManager.IsNightTime)
                 {
@@ -233,7 +238,7 @@ namespace MagicKitchen
 
                 RenderTargetManager.SetTarget(RenderTargetManager.UITarget);
                 GraphicsDevice.Clear(Color.Transparent);
-
+                WeatherManager.Draw(_spriteBatch);
                 UI.Draw(_spriteBatch, _frameCounter.framerate);
 
                 RenderTargetManager.RemoveRenderTarget();
@@ -254,18 +259,29 @@ namespace MagicKitchen
                     _spriteBatch.End();
                 }
 
+                if (SettingsManager.IsNightTime)
+                {
+                    SpriteFactory.LightEffect.Parameters["MaskTexture"].SetValue(RenderTargetManager.LightsTarget);
 
-                SpriteFactory.LightEffect.Parameters["MaskTexture"].SetValue(RenderTargetManager.LightsTarget);
+                    _spriteBatch.Begin(blendState: BlendState.AlphaBlend, effect: SpriteFactory.LightEffect);
+                    _spriteBatch.Draw(RenderTargetManager.UITarget, Settings.ScreenRectangle, Color.Red);
 
-                _spriteBatch.Begin(blendState: BlendState.AlphaBlend, effect: SpriteFactory.LightEffect);
-                _spriteBatch.Draw(RenderTargetManager.UITarget, Settings.ScreenRectangle, Color.Red);
+                    _spriteBatch.End();
+                }
+                else
+                {
 
-                _spriteBatch.End();
+                    _spriteBatch.Begin(blendState: BlendState.AlphaBlend);
+                    _spriteBatch.Draw(RenderTargetManager.UITarget, Settings.ScreenRectangle, Color.White);
+
+                    _spriteBatch.End();
+                }
+                    
 
 
                 base.Draw(gameTime);
 
-            }
+          //  }
  
 
         }

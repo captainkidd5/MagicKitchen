@@ -11,6 +11,9 @@ namespace SpriteEngine.Classes.ParticleStuff.WeatherStuff
     {
         public Vector2 EmitPosition { get; set; }
 
-
+        public WeatherEmitter(Vector2 emitPosition)
+        {
+            EmitPosition = emitPosition;
+        }
     }
 }

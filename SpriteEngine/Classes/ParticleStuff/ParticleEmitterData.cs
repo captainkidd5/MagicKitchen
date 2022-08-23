@@ -15,8 +15,10 @@ namespace SpriteEngine.Classes.ParticleStuff
         public float LifespanMax = .4f;
         public float SpeedMin = 60f;
         public float SpeedMax = 100f;
+        //time between particle emissions
         public float Interval = .1f;
         public int EmitCount = 1;
+
         public float TotalLifeSpan = .6f;
 
         public ParticleEmitterData()

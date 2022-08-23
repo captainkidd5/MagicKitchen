@@ -8,17 +8,37 @@ using System.Threading.Tasks;
 
 namespace SpriteEngine.Classes.ParticleStuff.WeatherStuff
 {
-    public class WeatherManager
+    public enum WeatherType
     {
-        public Weather CurrentWeather;
-        public void Update(GameTime gameTime)
+        None = 0,
+        SandStorm = 1,
+    }
+    public static class WeatherManager
+    {
+        public static Weather CurrentWeather;
+
+        public static void SetWeather(WeatherType weatherType)
         {
+            switch (weatherType)
+            {
+                case WeatherType.None:
+                    break;
+                case WeatherType.SandStorm:
+                    CurrentWeather = new SandStormWeather();
+                    break;
+            }
+        }
+        public static void Update(GameTime gameTime)
+        {
+            if(CurrentWeather != null)
             CurrentWeather.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public static void Draw(SpriteBatch spriteBatch)
         {
-            CurrentWeather.Draw(spriteBatch);
+            if (CurrentWeather != null)
+                CurrentWeather.Draw(spriteBatch);
         }
     }
+
 }

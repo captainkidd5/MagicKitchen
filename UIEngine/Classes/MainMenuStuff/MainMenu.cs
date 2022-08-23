@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
+using SpriteEngine.Classes.ParticleStuff;
 using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace UIEngine.Classes.MainMenuStuff
         private Texture2D _sandWarriorTexture;
         private Rectangle _backDropDimensions = new Rectangle(0, 0, 640, 360);
         private AnimatedSprite _sandWarriorSprite;
-        private Vector2 _sandWarriorSpritePosition = new Vector2(Settings.CenterScreen.X + 200, Settings.CenterScreen.Y - 80);
+        private Vector2 _sandWarriorSpritePosition = new Vector2(Settings.CenterScreen.X + 180, Settings.CenterScreen.Y - 200);
 
      //   private Sprite _backDropSprite;
         public OuterMenu _outerMenu;
@@ -88,8 +89,10 @@ namespace UIEngine.Classes.MainMenuStuff
             //_backDropSprite.Update(gameTime, Position);
             _activeSection.Update(gameTime);
             _toggleMusic.Update(gameTime);
-            _light.Update(gameTime, _sandWarriorSpritePosition);
+            _light.Update(gameTime, new Vector2(_sandWarriorSpritePosition.X + _sandWarriorSprite.Width /2,
+                _sandWarriorSprite.Position.Y + _sandWarriorSprite.Height * 2));
             _light2.Update(gameTime, new Vector2(200,200));
+            ParticleManager.Update(gameTime);
 
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -100,6 +103,8 @@ namespace UIEngine.Classes.MainMenuStuff
             _sandWarriorSprite.Draw(spriteBatch);
             _activeSection.Draw(spriteBatch);
             _toggleMusic.Draw(spriteBatch);
+            ParticleManager.Draw(spriteBatch);
+
         }
 
         public void DrawLights(SpriteBatch spriteBatch)
