@@ -115,7 +115,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         public override void LoadContent()
         {
             _backGroundSpritePosition = RectangleHelper.CenterRectangleOnScreen(RectangleHelper.RectangleToScale(BackGroundSourceRectangle, new Vector2(2f,2f)));
-            _backGroundSpritePosition = new Vector2(_backGroundSpritePosition.X, _backGroundSpritePosition.Y + 64);
+            _backGroundSpritePosition = new Vector2(80, _backGroundSpritePosition.Y + 64);
 
           
 

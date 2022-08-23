@@ -749,7 +749,7 @@
 /processorParam:TextureFormat=Color
 /build:UI/GeneralInterface.png
 
-#begin UI/MainMenu/EtherCreepLogo.png
+#begin UI/MainMenu/SandBackground.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -759,7 +759,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:UI/MainMenu/EtherCreepLogo.png
+/build:UI/MainMenu/SandBackground.png
+
+#begin UI/MainMenu/SandWarrior.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/MainMenu/SandWarrior.png
 
 #begin UI/MouseIcons.png
 /importer:TextureImporter

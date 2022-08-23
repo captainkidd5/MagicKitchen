@@ -201,7 +201,15 @@ namespace SpriteEngine.Classes
                 texture, animationFrames, standardDuration, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ??Vector2.One, rotation, layer,
                 randomizeLayers, flip, customLayer, idleFrame);
         }
-
+        public static AnimatedSprite CreateUIAnimatedSprite(Vector2 position, Rectangle startingSourceRectangle, Texture2D texture,
+        AnimationFrame[] animationFrames, float standardDuration = .15f, Color? primaryColor = null,
+         Vector2? origin = null, Vector2? scale = null, float rotation = 0f, Layers layer = Layers.buildings,
+        bool randomizeLayers = true, bool flip = false, float? customLayer = null, int idleFrame = -1)
+        {
+            return new AnimatedSprite(Graphics, Content, ElementType.UI, position, startingSourceRectangle,
+                texture, animationFrames, standardDuration, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, rotation, layer,
+                randomizeLayers, flip, customLayer, idleFrame);
+        }
         public static AnimatedSprite AnimationInfoToWorldSprite(Vector2 position, AnimationInfo info,Texture2D texture, Rectangle startingSourceRectangle, int xOffSet, int yOffset, bool flip)
         {
             AnimationFrame[] animationFrames = new AnimationFrame[info.FrameIndicies.Count];
