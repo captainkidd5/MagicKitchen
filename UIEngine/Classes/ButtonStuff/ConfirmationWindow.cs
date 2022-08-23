@@ -63,7 +63,7 @@ namespace UIEngine.Classes.ButtonStuff
 
             _textPosition = Text.CenterInRectangle(TotalBounds, 1f);
 
-            _text = TextFactory.CreateUIText(_confirmationText, _textPosition, null, _backGroundSpriteDimensions.Width, GetLayeringDepth(UILayeringDepths.High));
+            _text = TextFactory.CreateUIText(_confirmationText, _textPosition, null, _backGroundSpriteDimensions.Width, .91f);
 
             TotalBounds = _backGroundSprite.HitBox;
 
@@ -91,7 +91,7 @@ namespace UIEngine.Classes.ButtonStuff
             if (IsActive)
             {
                 Vector2 textPos = Text.CenterInRectangle(_backGroundSprite.HitBox, 1f);
-                _text.Update(new Vector2(textPos.X, textPos.Y - _backGroundSprite.HitBox.Height / 3));
+                _text.Update(new Vector2(textPos.X, textPos.Y ));
 
             }
 

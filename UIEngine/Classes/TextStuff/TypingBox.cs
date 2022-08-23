@@ -31,7 +31,7 @@ namespace UIEngine.Classes.TextStuff
        
         public event ExecuteCommand ExecuteCommand;
 
-        private Text _text;
+        public Text Text { get; private set; }
         private NineSliceSprite NineSliceSprite { get; set; }
         private NineSliceButton SendButton { get; set; }
         private Vector2 _textPos;
@@ -40,7 +40,7 @@ namespace UIEngine.Classes.TextStuff
         //Textbox will be considered full when text length reaches width of nineslice minus this value
         private static int _textCutOffSet = 2;
 
-        public bool IsEmpty => _text.IsEmpty;
+        public bool IsEmpty => Text.IsEmpty;
 
         private TypingEntryPointMarker _entryPointMarker;
         public TypingBox(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth, int? width, int? height, Color? color = null)
@@ -51,7 +51,7 @@ namespace UIEngine.Classes.TextStuff
            // SendButton = new NineSliceButton(interfaceSection, graphicsDevice, content,
            //      position,LayerDepth, null, null,null,null);
             _textPos  = new Vector2(Position.X + 6, Position.Y + 6);
-            _text = TextFactory.CreateUIText(string.Empty, GetLayeringDepth(UILayeringDepths.High), scale:2f);
+            Text = TextFactory.CreateUIText(string.Empty, GetLayeringDepth(UILayeringDepths.High), scale:2f);
             _entryPointMarker = new TypingEntryPointMarker();
             _entryPointMarker.Load(GetLayeringDepth(UILayeringDepths.High));
         }
@@ -64,8 +64,8 @@ namespace UIEngine.Classes.TextStuff
             if (AcceptableKeys.Count > 0)
                 ProcessKey(gameTime, AcceptableKeys);
             //TextBuilder.Update(gameTime,Position, NineSliceSprite.Width);
-            _text.Update(_textPos, null, NineSliceSprite.Width);
-            _entryPointMarker.Update(gameTime, new Vector2(_textPos.X + _text.Width - _text.SingleCharacterWidth, _textPos.Y));
+            Text.Update(_textPos, null, NineSliceSprite.Width);
+            _entryPointMarker.Update(gameTime, new Vector2(_textPos.X + Text.Width - Text.SingleCharacterWidth, _textPos.Y));
         }
 
 
@@ -77,7 +77,7 @@ namespace UIEngine.Classes.TextStuff
         {
             base.Draw(spriteBatch);
             //SendButton.Draw(spriteBatch);
-            _text.Draw(spriteBatch);
+            Text.Draw(spriteBatch);
             NineSliceSprite.Draw(spriteBatch);
             _entryPointMarker.Draw(spriteBatch);
         }
@@ -116,7 +116,7 @@ namespace UIEngine.Classes.TextStuff
                             break;
                         //TODO: allow backspace to move back to the previous line.
                         case Keys.Back:
-                            _text.BackSpace();
+                            Text.BackSpace();
                             break;
                         case Keys.OemPeriod:
                             keyValue += ".";
@@ -128,7 +128,7 @@ namespace UIEngine.Classes.TextStuff
                             keyValue += "-";
                             break;
                         case Keys.Enter:
-                            OnCommandExecuted(_text.ToString());
+                            OnCommandExecuted(Text.ToString());
                             break;
                         //Up and Down used to scroll through previous commands.
                         //case Keys.Up:
@@ -148,10 +148,10 @@ namespace UIEngine.Classes.TextStuff
             if (wasAnyKeyPressed)
                 Controls.ClearUseableKeys();
 
-            if (_text.Width + _text.SingleCharacterWidth > NineSliceSprite.Width)
+            if (Text.Width + Text.SingleCharacterWidth > NineSliceSprite.Width)
                 return;
 
-            _text.Append(keyValue);
+            Text.Append(keyValue);
         }
     }
 }

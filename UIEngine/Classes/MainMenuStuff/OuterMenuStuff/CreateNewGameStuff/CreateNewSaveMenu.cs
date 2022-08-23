@@ -211,30 +211,31 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
         private void CreateNewSaveAction()
         {
-            //Dictionary<string, SaveFile> saveFiles = SaveLoadManager.SaveFiles;
+            Dictionary<string, SaveFile> saveFiles = SaveLoadManager.SaveFiles;
 
-            //string regexString = _nameTypingBox.CurrentString.Replace("\n", "");
-            //regexString = regexString.Replace(" ", "");
-            //if (saveFiles.Keys.Contains(regexString)){
-                
-            //    return;
-            //}
-            //PlayerAvatarData avatarData = new PlayerAvatarData();
-            //Color skinColor = SpriteFactory.SkinColors[_skinColorSwapper.SkinIndex];
-            //avatarData.SkinRed = skinColor.R;
-            //avatarData.SkinGreen = skinColor.G;
-            //avatarData.SkinBlue = skinColor.B;
-            //avatarData.HairIndex = _hairSwapper.Index;
+           // string regexString = _nameTypingBox.CurrentString.Replace("\n", "");
+          //  regexString = regexString.Replace(" ", "");
+            if (saveFiles.Keys.Contains(_nameTypingBox.Text.ToString()))
+            {
 
-            //Color hairColor = SpriteFactory.SkinColors[_hairColorSwapper.SkinIndex];
-            //avatarData.HairRed = hairColor.R;
-            //avatarData.HairGreen = hairColor.G;
-            //avatarData.HairBlue = hairColor.B;
+                return;
+            }
+            PlayerAvatarData avatarData = new PlayerAvatarData();
+            Color skinColor = SpriteFactory.SkinColors[_skinColorSwapper.SkinIndex];
+            avatarData.SkinRed = skinColor.R;
+            avatarData.SkinGreen = skinColor.G;
+            avatarData.SkinBlue = skinColor.B;
+            avatarData.HairIndex = _hairSwapper.Index;
 
-            //SaveLoadManager.CreateNewSave(regexString, avatarData);
-            //SaveLoadManager.SetCurrentSave(regexString);
-            //Flags.IsNewGame = true;
-            //UI.LoadGame(SaveLoadManager.CurrentSave);
+            Color hairColor = SpriteFactory.SkinColors[_hairColorSwapper.SkinIndex];
+            avatarData.HairRed = hairColor.R;
+            avatarData.HairGreen = hairColor.G;
+            avatarData.HairBlue = hairColor.B;
+
+            SaveLoadManager.CreateNewSave(_nameTypingBox.Text.ToString(), avatarData);
+            SaveLoadManager.SetCurrentSave(_nameTypingBox.Text.ToString());
+            Flags.IsNewGame = true;
+            UI.LoadGame(SaveLoadManager.CurrentSave);
         }
     }
 }

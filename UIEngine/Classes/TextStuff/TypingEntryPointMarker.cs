@@ -13,7 +13,7 @@ namespace UIEngine.Classes.TextStuff
     internal class TypingEntryPointMarker
     {
         private SimpleTimer _simpleTimer;
-        private float _blinkRate = .5f;
+        private float _blinkRate = .6f;
         private bool _isDrawn = true;
 
         private Sprite _sprite;
@@ -27,6 +27,7 @@ namespace UIEngine.Classes.TextStuff
         {
             _sprite = SpriteFactory.CreateUISprite(Vector2.Zero, _sourceRectangle, UI.ButtonTexture, layer, scale: new Vector2(2f,2f));
         }
+
 
         public void Update(GameTime gameTime, Vector2 position)
         {
