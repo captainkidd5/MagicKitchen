@@ -35,7 +35,7 @@ namespace UIEngine.Classes.MainMenuStuff
         private Texture2D _sandWarriorTexture;
         private Rectangle _backDropDimensions = new Rectangle(0, 0, 640, 360);
         private AnimatedSprite _sandWarriorSprite;
-        private Vector2 _sandWarriorSpritePosition = new Vector2(Settings.CenterScreen.X + 180, Settings.CenterScreen.Y - 200);
+        private Vector2 _sandWarriorSpritePosition = new Vector2(Settings.CenterScreen.X + 180, Settings.CenterScreen.Y -100);
 
      //   private Sprite _backDropSprite;
         public OuterMenu _outerMenu;
@@ -65,8 +65,32 @@ namespace UIEngine.Classes.MainMenuStuff
                 new Rectangle(0, 0, 32, 32));
             _toggleMusic = new ToggleMusic(this, graphics, content, new Vector2(bottomRightScreen.X-80, bottomRightScreen.Y - 80), GetLayeringDepth(UILayeringDepths.Low));
 
-            _sandWarriorSprite = SpriteFactory.CreateUIAnimatedSprite(_sandWarriorSpritePosition, new Rectangle(16, 0, 32, 64), _sandWarriorTexture,
-                new AnimationFrame[] { new AnimationFrame(0, 0, 0, .25f), new AnimationFrame(0, 0, 0, .25f) },scale:new Vector2(5f,5f));
+            float sandWarriorAnimationDuration = .14f;
+            _sandWarriorSprite = SpriteFactory.CreateUIAnimatedSprite(_sandWarriorSpritePosition, new Rectangle(0, 0, 32, 48), _sandWarriorTexture,
+                new AnimationFrame[] {
+                    new AnimationFrame(0, 0, 0, sandWarriorAnimationDuration),
+                    new AnimationFrame(1, 0, 0, sandWarriorAnimationDuration),
+
+                    new AnimationFrame(2, 0, 0, sandWarriorAnimationDuration),
+
+                    new AnimationFrame(3, 0, 0, sandWarriorAnimationDuration),
+
+                    new AnimationFrame(4, 0, 0, sandWarriorAnimationDuration),
+
+                    new AnimationFrame(5, 0, 0, sandWarriorAnimationDuration),
+
+                    new AnimationFrame(6, 0, 0, sandWarriorAnimationDuration),
+
+                    new AnimationFrame(7, 0, 0, sandWarriorAnimationDuration),
+
+                    new AnimationFrame(8, 0, 0, sandWarriorAnimationDuration),
+                    new AnimationFrame(9, 0, 0, sandWarriorAnimationDuration),
+
+                    new AnimationFrame(10, 0, 0, sandWarriorAnimationDuration),
+
+
+                    new AnimationFrame(11, 0, 0, sandWarriorAnimationDuration) },
+                scale:new Vector2(5f,5f));
             _activeSection = _outerMenu;
             TotalBounds = _backDropDimensions;
             _light  = SpriteFactory.CreateLight(Position, Vector2.Zero, DataModels.Enums.LightType.Nautical,6f);

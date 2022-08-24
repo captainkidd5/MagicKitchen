@@ -10,7 +10,7 @@ namespace SpriteEngine.Classes.ParticleStuff.WeatherStuff
 {
     internal class SandStormWeather : Weather
     {
-        private float _emitterGenerationInterval = .2f;
+        private float _emitterGenerationInterval = .1f;
 
         private SimpleTimer _simpleTimer;
         public SandStormWeather()
@@ -25,8 +25,8 @@ namespace SpriteEngine.Classes.ParticleStuff.WeatherStuff
                 colorEnd = Color.White,
                 opacityStart = 1f,
                 opacityEnd = 0f,
-                sizeStart = 70f,
-                sizeEnd = 100f,
+                sizeStart = 40f,
+                sizeEnd = 50f,
                 speed = 200f,
                 angle = 200f,
                 YVelocityMax = 5,
@@ -43,7 +43,7 @@ namespace SpriteEngine.Classes.ParticleStuff.WeatherStuff
                 LifespanMin = 4f,
                 TotalLifeSpan = .4f,
                 ParticleData = ParticleData,
-                Angle = 90f,
+                Angle = 300f,
                 AngleVariance = 4f,
                 SpeedMax = 1000f,
                 SpeedMin = 900f
@@ -65,7 +65,7 @@ namespace SpriteEngine.Classes.ParticleStuff.WeatherStuff
         }
         protected override Vector2 GetEmitPosition()
         {
-            return new Vector2(0, Settings.Random.Next(0, Settings.ScreenHeight));
+            return new Vector2(Settings.ScreenWidth, Settings.Random.Next(0, Settings.ScreenHeight));
         }
     }
 }
