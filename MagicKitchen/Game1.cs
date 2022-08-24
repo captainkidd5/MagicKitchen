@@ -234,11 +234,15 @@ namespace MagicKitchen
                 RenderTargetManager.RemoveRenderTarget();
                 GraphicsDevice.Clear(Color.Transparent);
 
+            RenderTargetManager.SetTarget(RenderTargetManager.UILightsAffectableTarget);
+            GraphicsDevice.Clear(Color.Transparent);
+            WeatherManager.Draw(_spriteBatch);
+            UI.DrawLightsAffectable(_spriteBatch);
+            RenderTargetManager.RemoveRenderTarget();
+            GraphicsDevice.Clear(Color.Transparent);
 
-
-                RenderTargetManager.SetTarget(RenderTargetManager.UITarget);
+            RenderTargetManager.SetTarget(RenderTargetManager.UITarget);
                 GraphicsDevice.Clear(Color.Transparent);
-                WeatherManager.Draw(_spriteBatch);
                 UI.Draw(_spriteBatch, _frameCounter.framerate);
 
                 RenderTargetManager.RemoveRenderTarget();
@@ -264,18 +268,18 @@ namespace MagicKitchen
                     SpriteFactory.LightEffect.Parameters["MaskTexture"].SetValue(RenderTargetManager.LightsTarget);
 
                     _spriteBatch.Begin(blendState: BlendState.AlphaBlend, effect: SpriteFactory.LightEffect);
-                    _spriteBatch.Draw(RenderTargetManager.UITarget, Settings.ScreenRectangle, Color.Red);
+               // UI.DrawLightsAffectable(_spriteBatch);
+                    _spriteBatch.Draw(RenderTargetManager.UILightsAffectableTarget, Settings.ScreenRectangle, Color.Red);
 
                     _spriteBatch.End();
                 }
-                else
-                {
 
+            
                     _spriteBatch.Begin(blendState: BlendState.AlphaBlend);
                     _spriteBatch.Draw(RenderTargetManager.UITarget, Settings.ScreenRectangle, Color.White);
 
                     _spriteBatch.End();
-                }
+                
                     
 
 

@@ -198,6 +198,12 @@ namespace UIEngine.Classes
         }
 
         public static void DrawLights(SpriteBatch spriteBatch) => MainMenu.DrawLights(spriteBatch);
+        public static void DrawLightsAffectable(SpriteBatch spriteBatch)
+        {
+       MainMenu.DrawLightsAffected(spriteBatch);
+
+        }
+
         public static void LoadQuests(QuestLoader questManager) => QuestLog.QuestLoader = questManager;
         internal static void LoadNewCursorInfo(List<string> text) => CursorInfoBox.LoadNewText(text);
 

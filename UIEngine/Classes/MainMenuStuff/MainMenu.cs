@@ -44,7 +44,6 @@ namespace UIEngine.Classes.MainMenuStuff
 
 
         private LightSprite _light;
-        private LightSprite _light2;
         public MainMenu(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -94,12 +93,23 @@ namespace UIEngine.Classes.MainMenuStuff
             _activeSection = _outerMenu;
             TotalBounds = _backDropDimensions;
             _light  = SpriteFactory.CreateLight(Position, Vector2.Zero, DataModels.Enums.LightType.Nautical,6f);
-            _light2 = SpriteFactory.CreateLight(Position, Vector2.Zero, DataModels.Enums.LightType.Nautical, 6f);
 
             base.LoadContent();
 
         }
 
+        public void DrawLightsAffected(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.LinearWrap);
+            _sandBackgroundSprite.Draw(spriteBatch);
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
+
+            _sandWarriorSprite.Draw(spriteBatch);
+            ParticleManager.Draw(spriteBatch);
+            spriteBatch.End();
+
+        }
 
         public override void Unload()
         {
@@ -107,15 +117,16 @@ namespace UIEngine.Classes.MainMenuStuff
         }
         public override void Update(GameTime gameTime)
         {
+            _sandBackgroundSprite.SwapSourceRectangle(new Rectangle(_sandBackgroundSprite.SourceRectangle.X, _sandBackgroundSprite.SourceRectangle.Y + 1,
+                _sandBackgroundSprite.SourceRectangle.Width, _sandBackgroundSprite.SourceRectangle.Height));
             //base.Update(gameTime);
             _sandBackgroundSprite.Update(gameTime, Vector2.Zero);
             _sandWarriorSprite.Update(gameTime, _sandWarriorSpritePosition);
             //_backDropSprite.Update(gameTime, Position);
             _activeSection.Update(gameTime);
             _toggleMusic.Update(gameTime);
-            _light.Update(gameTime, new Vector2(_sandWarriorSpritePosition.X + _sandWarriorSprite.Width /2,
+            _light.Update(gameTime, new Vector2(_sandWarriorSpritePosition.X + _sandWarriorSprite.Width /2 + 48,
                 _sandWarriorSprite.Position.Y + _sandWarriorSprite.Height * 2));
-            _light2.Update(gameTime, new Vector2(200,200));
             ParticleManager.Update(gameTime);
 
         }
@@ -123,18 +134,15 @@ namespace UIEngine.Classes.MainMenuStuff
         {
             //base.Draw(spriteBatch);
             // _backDropSprite.Draw(spriteBatch);
-            _sandBackgroundSprite.Draw(spriteBatch);
-            _sandWarriorSprite.Draw(spriteBatch);
+            
             _activeSection.Draw(spriteBatch);
             _toggleMusic.Draw(spriteBatch);
-            ParticleManager.Draw(spriteBatch);
 
         }
 
         public void DrawLights(SpriteBatch spriteBatch)
         {
             _light.Draw(spriteBatch);
-            _light2.Draw(spriteBatch);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace SpriteEngine.Classes.RenderTargetStuff
 
         public static RenderTarget2D UITarget;
 
-        public static RenderTarget2D WeatherTarget;
+        public static RenderTarget2D UILightsAffectableTarget;
 
         public static void Load(GraphicsDevice graphics)
         {
@@ -40,7 +40,7 @@ namespace SpriteEngine.Classes.RenderTargetStuff
                 graphics,
                 graphics.PresentationParameters.BackBufferWidth,
                 graphics.PresentationParameters.BackBufferHeight);
-            WeatherTarget = new RenderTarget2D(
+            UILightsAffectableTarget = new RenderTarget2D(
                graphics,
                graphics.PresentationParameters.BackBufferWidth,
                graphics.PresentationParameters.BackBufferHeight);
