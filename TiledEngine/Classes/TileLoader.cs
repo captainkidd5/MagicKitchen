@@ -67,7 +67,7 @@ namespace TiledEngine.Classes
             TmxMap worldMap = new TmxMap(s_mapPath + "LullabyTown.tmx");
             TileSetPackage = new TileSetPackage(worldMap);
 
-            TileSetPackage.LoadContent(content, "maps/BackgroundMasterSpriteSheet_Spaced", "maps/ForegroundMasterSpriteSheet");
+            TileSetPackage.LoadContent(content, "maps/BackgroundMasterSpriteSheet_Spaced", "maps/Foreground2");
 
 
 

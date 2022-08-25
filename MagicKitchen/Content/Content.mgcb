@@ -626,7 +626,7 @@
 /processorParam:TextureFormat=Color
 /build:Maps/BackgroundMasterSpriteSheet_Spaced.png
 
-#begin Maps/ForegroundMasterSpriteSheet.png
+#begin Maps/Foreground2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -636,7 +636,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Maps/ForegroundMasterSpriteSheet.png
+/build:Maps/Foreground2.png
 
 #begin Maps/InteriorBackground_Spaced.png
 /importer:TextureImporter
