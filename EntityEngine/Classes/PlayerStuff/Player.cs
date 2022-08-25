@@ -281,6 +281,9 @@ namespace EntityEngine.Classes.PlayerStuff
                             ActionType? actionType = null;
                            Action actionToTrigger = Container.TileManager.MouseOverTile.Interact(ref actionType,true, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
 
+                            //Just a normal non destructable tile, no possible interaction
+                            if (actionToTrigger == null)
+                                return;
                             if(ToolHandler.WillUseHeldItem(actionType.Value))
                              ChargeHeldItem(gameTime, Controls.MouseWorldPosition);
                             //if (actionToTrigger != null)

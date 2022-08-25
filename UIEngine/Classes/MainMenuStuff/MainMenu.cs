@@ -93,7 +93,6 @@ namespace UIEngine.Classes.MainMenuStuff
             _activeSection = _outerMenu;
             TotalBounds = _backDropDimensions;
             _light  = SpriteFactory.CreateLight(Position, Vector2.Zero, DataModels.Enums.LightType.Nautical,6f);
-
             base.LoadContent();
 
         }

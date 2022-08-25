@@ -10,13 +10,18 @@ namespace SpriteEngine.Classes.ParticleStuff.WeatherStuff
 {
     public abstract class Weather
     {
-       private List<WeatherEmitter> _emitters;
         protected ParticleEmitterData EmitterData { get; set; }
         protected ParticleData ParticleData { get; set; }
 
+        protected bool InGame { get; private set; }
         public Weather()
         {
 
+        }
+
+        public virtual void Load(bool inGame)
+        {
+            InGame = inGame;
         }
         public virtual void Update(GameTime gameTime)
         {

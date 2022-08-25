@@ -17,7 +17,7 @@ namespace SpriteEngine.Classes.ParticleStuff.WeatherStuff
     {
         public static Weather CurrentWeather;
 
-        public static void SetWeather(WeatherType weatherType)
+        public static void SetWeather(WeatherType weatherType, bool inGame)
         {
             switch (weatherType)
             {
@@ -27,7 +27,11 @@ namespace SpriteEngine.Classes.ParticleStuff.WeatherStuff
                     CurrentWeather = new SandStormWeather();
                     break;
             }
+            CurrentWeather.Load(inGame);
         }
+
+
+       
         public static void Update(GameTime gameTime)
         {
             if(CurrentWeather != null)

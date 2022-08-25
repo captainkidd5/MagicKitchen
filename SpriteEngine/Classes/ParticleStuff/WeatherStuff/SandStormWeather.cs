@@ -17,40 +17,87 @@ namespace SpriteEngine.Classes.ParticleStuff.WeatherStuff
         {
 
 
-            ParticleData = new ParticleData()
+            
+        }
+
+        public override void Load(bool inGame)
+        {
+            base.Load(inGame);
+
+            if (inGame)
             {
-                lifespan = 6f,
-                
-                colorStart = Color.White,
-                colorEnd = Color.White,
-                opacityStart = 1f,
-                opacityEnd = 0f,
-                sizeStart = 40f,
-                sizeEnd = 50f,
-                speed = 200f,
-                angle = 200f,
-                YVelocityMax = 5,
-                YVelocityMin = -5,
+                ParticleData = new ParticleData()
+                {
+                    lifespan = 4f,
 
-                SourceRectangle = new Rectangle(0, 32, 32, 32),
-                
-                EnableGravity = false
-            };
+                    colorStart = Color.White,
+                    colorEnd = Color.White,
+                    opacityStart = 1f,
+                    opacityEnd = 0f,
+                    sizeStart = 30f,
+                    sizeEnd = 30f,
+                    speed = 200f,
+                    angle = 200f,
+                    YVelocityMax = 5,
+                    YVelocityMin = -5,
 
-            EmitterData = new ParticleEmitterData()
+                    SourceRectangle = new Rectangle(0, 32, 32, 32),
+
+                    EnableGravity = false
+                };
+
+                EmitterData = new ParticleEmitterData()
+                {
+                    LifespanMax = 8f,
+                    LifespanMin = 4f,
+                    TotalLifeSpan = .4f,
+                    ParticleData = ParticleData,
+                    Angle = 90f,
+                    AngleVariance = 4f,
+                    SpeedMax = 1000f,
+                    SpeedMin = 900f
+
+                };
+
+                _simpleTimer = new SimpleTimer(_emitterGenerationInterval);
+            }
+            else
             {
-                LifespanMax = 8f,
-                LifespanMin = 4f,
-                TotalLifeSpan = .4f,
-                ParticleData = ParticleData,
-                Angle = 300f,
-                AngleVariance = 4f,
-                SpeedMax = 1000f,
-                SpeedMin = 900f
-                
-            };
+                ParticleData = new ParticleData()
+                {
+                    lifespan = 6f,
 
-            _simpleTimer = new SimpleTimer(_emitterGenerationInterval);
+                    colorStart = Color.White,
+                    colorEnd = Color.White,
+                    opacityStart = 1f,
+                    opacityEnd = 0f,
+                    sizeStart = 40f,
+                    sizeEnd = 50f,
+                    speed = 200f,
+                    angle = 200f,
+                    YVelocityMax = 5,
+                    YVelocityMin = -5,
+
+                    SourceRectangle = new Rectangle(0, 32, 32, 32),
+
+                    EnableGravity = false
+                };
+
+                EmitterData = new ParticleEmitterData()
+                {
+                    LifespanMax = 8f,
+                    LifespanMin = 4f,
+                    TotalLifeSpan = .4f,
+                    ParticleData = ParticleData,
+                    Angle = 300f,
+                    AngleVariance = 4f,
+                    SpeedMax = 1000f,
+                    SpeedMin = 900f
+
+                };
+
+                _simpleTimer = new SimpleTimer(_emitterGenerationInterval);
+            }
         }
 
         public override void Update(GameTime gameTime)
@@ -65,7 +112,16 @@ namespace SpriteEngine.Classes.ParticleStuff.WeatherStuff
         }
         protected override Vector2 GetEmitPosition()
         {
-            return new Vector2(Settings.ScreenWidth, Settings.Random.Next(0, Settings.ScreenHeight));
+            if (InGame)
+            {
+                return new Vector2(Settings.ScreenRectangle.X , Settings.Random.Next((int)Settings.Camera.Y, (int)Settings.Camera.Y + Settings.ScreenHeight));
+
+            }
+            else
+            {
+                return new Vector2(Settings.Camera.X + Settings.ScreenWidth, Settings.Random.Next((int)Settings.Camera.Y, (int)Settings.Camera.Y + Settings.ScreenHeight));
+
+            }
         }
     }
 }

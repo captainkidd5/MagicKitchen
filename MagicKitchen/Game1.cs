@@ -155,7 +155,7 @@ namespace MagicKitchen
             CommandConsole.RegisterCommand("save", "saves current game", SaveLoadManager.SaveGame);
             _frameCounter = new FrameCounter(4);
 
-            WeatherManager.SetWeather(WeatherType.SandStorm);
+            WeatherManager.SetWeather(WeatherType.SandStorm, false);
 
         }
 
@@ -248,7 +248,7 @@ namespace MagicKitchen
                 RenderTargetManager.RemoveRenderTarget();
                // GraphicsDevice.Clear(Color.Transparent);
 
-                if (SettingsManager.IsNightTime)
+                if (SettingsManager.IsNightTime )
                 {
                     SpriteFactory.LightEffect.Parameters["MaskTexture"].SetValue(RenderTargetManager.LightsTarget);
                     _spriteBatch.Begin(blendState: BlendState.AlphaBlend, effect: SpriteFactory.LightEffect);
@@ -263,7 +263,7 @@ namespace MagicKitchen
                     _spriteBatch.End();
                 }
 
-                if (SettingsManager.IsNightTime)
+                if (SettingsManager.IsNightTime && UI.GameDisplayState == GameDisplayState.MainMenu)
                 {
                     SpriteFactory.LightEffect.Parameters["MaskTexture"].SetValue(RenderTargetManager.LightsTarget);
 
@@ -322,6 +322,8 @@ namespace MagicKitchen
             _stageManager.LoadSave(reader);
             SaveLoadManager.DestroyReader(reader);
             Flags.FirstBootUp = false;
+            WeatherManager.SetWeather(WeatherType.SandStorm, true);
+
         }
 
 

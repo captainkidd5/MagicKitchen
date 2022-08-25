@@ -397,8 +397,85 @@
         "Weight" : 40
     }
 ]
-}
+},
 
+{
+    "Name": "slime",
+    "Weight": 20,
+    "SpawnSlotValue": 80,
+    "ObjectType" : "EntityEngine.Classes.NPCStuff.NPC",
+    "ScheduleName": "wander_1",
+    "NPCType" : "Enemy",
+    "ShadowSize":"Small",
+    "ShadowOffSetY" : -5,
+    "CombatResponse":"Flee",
+    "SpriteWidth": 16,
+    "SpriteHeight": 16,
+    
+    "AnimationInfo": [
+        {
+        "ActionType": "Walking",
+        "MovementDirection": "Up",
+        "Flip" : false,
+        "SpriteX": 1,
+
+        "SpriteY": 28,
+
+        "FrameIndicies":[
+            0,1,2
+        ]
+    },
+    {
+        "ActionType": "Walking",
+        "MovementDirection": "Down",
+        "Flip" : false,
+        "SpriteX": 1,
+
+        "SpriteY": 28,
+
+        "FrameIndicies":[
+            3,4,5
+        ]
+    },
+    {
+        "ActionType": "Walking",
+        "MovementDirection": "Left",
+        "Flip" : true,
+        "SpriteX": 1,
+
+        "SpriteY": 28,
+
+        "FrameIndicies":[
+            6,7,8
+        ]
+    },
+    {
+        "ActionType": "Walking",
+        "MovementDirection": "Right",
+        "Flip" : false,
+        "SpriteX": 1,
+
+        "SpriteY": 28,
+
+        "FrameIndicies":[
+            6,7,8
+        ]
+    }
+],
+"NPCSoundData":{
+    "Hurt" : "RabbitHurt"
+},
+"LootData":[
+
+    {
+        "ItemName" : "Raw_Meat",
+        "QuantityMin":1,
+        "QuantityMax":2,
+        "Guaranteed":true,
+        "Weight" : 100
+    }
+]
+}
 
 ]
 
