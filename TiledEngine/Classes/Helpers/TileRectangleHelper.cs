@@ -17,8 +17,7 @@ namespace TiledEngine.Classes.Helpers
         /// <returns></returns>
         public static Rectangle GetNormalSourceRectangle(int gid, int tileSetWidth)
         {
-            if(tileSetWidth != 100)
-                Console.WriteLine("test");
+        
             int Column = gid % tileSetWidth;
             int Row = (int)Math.Floor((float)gid / (float)tileSetWidth);
             int tileWidth = Settings.TileSize;
@@ -33,15 +32,11 @@ namespace TiledEngine.Classes.Helpers
         /// <returns></returns>
         public static Rectangle GetBackgroundSourceRectangle(int gid, int tileSetDimension)
         {
-            //if (gid == -1 || gid == 0)
-            //    return NoTextureRectangle;
             int Column = (gid % tileSetDimension);
             int Row = (int)Math.Floor((float)gid / (float)tileSetDimension);
             int tileWidth = Settings.TileSize;
 
             return new Rectangle((tileWidth * Column) + (3 * Column) + 1, (tileWidth * Row) + (3 * Row) + 1, tileWidth, tileWidth);
-
-
         }
 
         public static Rectangle GetDestinationRectangle(TileData tileData)
