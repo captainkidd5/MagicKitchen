@@ -800,6 +800,11 @@
    <frame tileid="530" duration="800"/>
   </animation>
  </tile>
+ <tile id="801">
+  <properties>
+   <property name="step" value="StepSand"/>
+  </properties>
+ </tile>
  <tile id="811">
   <properties>
    <property name="tilingSet" value="jungleGrass"/>

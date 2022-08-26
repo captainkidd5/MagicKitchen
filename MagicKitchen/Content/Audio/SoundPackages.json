@@ -196,6 +196,16 @@
         ]
       },
       {
+        "Name": "StepSand",
+        "SoundChancers": [
+             {
+            "Name": "StepSand",
+            "Weight": 100,
+            "LocalPath": "SoundEffects/Steps"
+          }
+        ]
+      },
+      {
         "Name": "Step",
         "SoundChancers":  [
             {
@@ -351,6 +361,17 @@
               "LocalPath": "SoundEffects/Tiles/Placeables"
             }
           ]
+        },
+        {
+          "Name": "HatchClose",
+          "SoundChancers":[
+              {
+                "Name": "Hatch_Close",
+                "Weight": 50,
+                "LocalPath": "SoundEffects/Tiles/Placeables"
+              }
+            ]
+   
         },
         {
           "Name": "RockTumble",

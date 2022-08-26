@@ -20,6 +20,7 @@
   <properties>
    <property name="EmitOffSet" value="0,-26"/>
    <property name="animate" value="pause"/>
+   <property name="animationSounds" value="0:HatchClose"/>
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
   <objectgroup draworder="index" id="2">

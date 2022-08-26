@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using Globals.Classes.Chance;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System;
@@ -19,7 +20,7 @@ namespace SoundEngine.Classes
             _soundManager = manager;
             soundEffectInstance = soundEffect.CreateInstance();
             soundEffectInstance.Volume = SoundFactory.GetVolumeOfSoundInRelationToPlayer(position);
-
+            soundEffectInstance.Pitch = ChanceHelper.RandomFloat(-.4f, .4f);
             soundEffectInstance.Play();
         }
         public void Dispose()

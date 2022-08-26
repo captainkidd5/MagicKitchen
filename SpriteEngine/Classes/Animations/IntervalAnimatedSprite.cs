@@ -16,7 +16,7 @@ namespace SpriteEngine.Classes.Animations
     {
         //Frames can have different intervals, increment this when the current timer changes but the number of milliseconds isn't right 
         private float _intervalDuration;
-        internal IntervalAnimatedSprite(GraphicsDevice graphics, ContentManager content,
+        public IntervalAnimatedSprite(GraphicsDevice graphics, ContentManager content,
             Settings.ElementType spriteType, Vector2 position, Rectangle sourceRectangle,
             Texture2D texture, AnimationFrame[] animationFrames, float standardDuration,
             Color primaryColor, Vector2 origin, Vector2 scale, float rotation, Layers layer,
@@ -39,7 +39,7 @@ namespace SpriteEngine.Classes.Animations
             }
 
         }
-        public void CheckIfIncreaseFrame()
+        public virtual bool CheckIfIncreaseFrame()
         {
             if (!Paused)
             {
@@ -55,8 +55,10 @@ namespace SpriteEngine.Classes.Animations
                         SpriteEffects = SpriteEffects.FlipHorizontally;
                     else
                         SetEffectToDefault();
+                    return true;
                 }
             }
+            return false;
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes.Helpers;
+using TiledEngine.Classes.TileAnimationStuff;
 using static DataModels.Enums;
 
 namespace TiledEngine.Classes.TileAddons.Actions

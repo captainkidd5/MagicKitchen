@@ -236,6 +236,12 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Tiles/Placeables/Grill/Grilling1.wav
 
+#begin Audio/SoundEffects/Tiles/Placeables/Hatch_Close.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tiles/Placeables/Hatch_Close.wav
+
 #begin Audio/SoundEffects/Tiles/Placeables/PlaceFurniture1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

@@ -12,6 +12,7 @@ using System.Text;
 using TiledEngine.Classes.Helpers;
 using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
+using TiledEngine.Classes.TileAnimationStuff;
 using TiledEngine.Classes.TilePlacementStuff.TilingStuff;
 using TiledSharp;
 using static DataModels.Enums;

@@ -14,7 +14,7 @@ namespace SpriteEngine.Classes.Animations
     public class AnimatedSprite : AnimatedSpriteBase
     {
         public bool Repeat { get; set; } = true;
-        internal AnimatedSprite(GraphicsDevice graphics, ContentManager content, Settings.ElementType spriteType, Vector2 position,
+        public AnimatedSprite(GraphicsDevice graphics, ContentManager content, Settings.ElementType spriteType, Vector2 position,
             Rectangle sourceRectangle, Texture2D texture, AnimationFrame[] animationFrames, float standardDuration, Color primaryColor,
             Vector2 origin, Vector2 scale,
             float rotation, Layers layer, bool randomizeLayers, bool flip, float? customLayer, int idleFrame = 0) 

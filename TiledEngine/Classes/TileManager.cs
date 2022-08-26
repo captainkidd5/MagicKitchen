@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Penumbra;
 using PhysicsEngine.Classes.Pathfinding;
 using SpriteEngine.Classes;
+using SpriteEngine.Classes.Animations;
 using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ using TiledEngine.Classes.Helpers;
 using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.TileAddons.FurnitureStuff;
 using TiledEngine.Classes.TileAddons.LightStuff;
+using TiledEngine.Classes.TileAnimationStuff;
 using TiledEngine.Classes.TilePlacementStuff;
 using TiledEngine.Classes.ZoneStuff;
 using TiledSharp;
@@ -268,7 +270,25 @@ namespace TiledEngine.Classes
 
             }
         }
+        public IntervalTileAnimatedSprite CreateTileIntervalAnimatedSprite(TileObject tileObejct, Vector2 position, Rectangle startingSourceRectangle, Texture2D texture,
+         AnimationFrame[] animationFrames, float standardDuration = .15f, Color? primaryColor = null,
+          Vector2? origin = null, Vector2? scale = null, float rotation = 0f, Layers layer = Layers.buildings,
+         bool randomizeLayers = true, bool flip = false, float? customLayer = null, int idleFrame = -1)
+        {
+            return new IntervalTileAnimatedSprite(tileObejct,graphics, content, ElementType.World, position, startingSourceRectangle,
+                texture, animationFrames, standardDuration, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, rotation, layer,
+                randomizeLayers, flip, customLayer, idleFrame);
+        }
 
+        internal  TileAnimatedSprite CreateSporaticTileAnimatedSprite(TileObject tileObejct, Vector2 position, Rectangle startingSourceRectangle, Texture2D texture,
+           AnimationFrame[] animationFrames, float standardDuration = .15f, Color? primaryColor = null,
+            Vector2? origin = null, Vector2? scale = null, float rotation = 0f, Layers layer = Layers.buildings,
+           bool randomizeLayers = true, bool flip = false, float? customLayer = null, int idleFrame = -1)
+        {
+            return new TileAnimatedSprite(tileObejct,graphics, content, ElementType.World, position, startingSourceRectangle,
+                texture, animationFrames, standardDuration, primaryColor ?? Color.White, origin ?? Vector2.Zero, scale ?? Vector2.One, rotation, layer,
+                randomizeLayers, flip, customLayer, idleFrame);
+        }
         /// <summary>
         /// Loops through all layers of current tile, if any of them are not the default cursor, we should be using that. If
         /// there are more than 1 distinct type, use the top level one.

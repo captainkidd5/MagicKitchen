@@ -87,15 +87,20 @@ namespace SoundEngine.Classes
 
 
 
-        public static void PlaySoundEffect(string effectName)
+        public static void PlaySoundEffect(string effectName, float pitchVariation = .25f)
         {
             SoundChancer chncer = GetChancerFromName(effectName);
-            chncer.SoundEffect.CreateInstance().Play();
+            var effectInstace = chncer.SoundEffect.CreateInstance();
+            effectInstace.Pitch = ChanceHelper.RandomFloat(pitchVariation * -1, pitchVariation);
+            effectInstace.Play();
 
         }
-        public static void PlayEffectPackage(string packageName)
+        public static void PlayEffectPackage(string packageName, float pitchVariation = .25f)
         {
-            PlayPackage(packageName).CreateInstance().Play();
+            var effect = PlayPackage(packageName).CreateInstance();
+            effect.Pitch = ChanceHelper.RandomFloat(pitchVariation * -1, pitchVariation);
+
+            effect.Play();
         }
 
         /// <summary>

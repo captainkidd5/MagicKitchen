@@ -13,7 +13,7 @@ using TiledEngine.Classes.TileAddons;
 using TiledSharp;
 using static DataModels.Enums;
 
-namespace TiledEngine.Classes
+namespace TiledEngine.Classes.TileAnimationStuff
 {
     internal static class TileAnimationHelper
     {
@@ -64,7 +64,7 @@ namespace TiledEngine.Classes
             TmxTilesetTile tmxTileSetTile = tileSetPackage.GetTmxTileSetTile(tileObject.TileData.GID);
             Collection<TmxAnimationFrame> animationFrames = tmxTileSetTile.AnimationFrames;
 
-           
+
             if (animationFrames.Count > 0)
             {
                 int tileSetDimension = tileSetPackage.GetDimension(tileObject.TileData.GID);
@@ -77,7 +77,7 @@ namespace TiledEngine.Classes
                     //First animation frame will already have expanded source rectangle
                     if (i > 0)
                     {
-             
+
                         propertyString = "newSource";
                         if (tileSetPackage.IsForeground(tileObject.TileData.GID))
                             frameRectangle = TileRectangleHelper.GetNormalSourceRectangle(animationFrames[i].Id, tileSetDimension);
@@ -105,18 +105,18 @@ namespace TiledEngine.Classes
                     animationFrames[i].Duration * .001f);
                 }
 
-       
+
                 if (tileObject.TileData.Layer < Layers.foreground)
                     tileObject.DrawLayer = (byte)tileObject.TileData.Layer * .1f;
                 else
-                    tileObject.DrawLayer = TileUtility.AssignTileLayer(tileObject.TileData, tileObject, (Layers)tileObject.TileData.Layer,
+                    tileObject.DrawLayer = TileUtility.AssignTileLayer(tileObject.TileData, tileObject, tileObject.TileData.Layer,
                        tileManager.OffSetLayersDictionary);
 
                 if (tileObject.Addons.Any(x => x.GetType() == typeof(DestructableTile)))
                 {
-                    tileObject.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tileObject.Position, tileObject.SourceRectangle,
+                    tileObject.Sprite = tileManager.CreateSporaticTileAnimatedSprite(tileObject,tileObject.Position, tileObject.SourceRectangle,
                   texture, frames, customLayer: tileObject.DrawLayer, randomizeLayers: false);
-                    (tileObject.Sprite as AnimatedSprite).Paused = true;
+                    (tileObject.Sprite as TileAnimatedSprite).Paused = true;
                     return;
                 }
 
@@ -127,9 +127,9 @@ namespace TiledEngine.Classes
                     switch (propertyString)
                     {
                         case "pause":
-                            tileObject.Sprite = SpriteFactory.CreateWorldAnimatedSprite(tileObject.Position, tileObject.SourceRectangle,
-         texture, frames, customLayer: tileObject.DrawLayer, randomizeLayers: false);
-                            (tileObject.Sprite as AnimatedSprite).PingPong = true;
+                            tileObject.Sprite = tileManager.CreateSporaticTileAnimatedSprite(tileObject, tileObject.Position, tileObject.SourceRectangle,
+                   texture, frames, customLayer: tileObject.DrawLayer, randomizeLayers: false);
+                            (tileObject.Sprite as TileAnimatedSprite).Paused = true;
 
 
                             return;
@@ -138,10 +138,9 @@ namespace TiledEngine.Classes
 
                 }
 
-
-
-                tileObject.Sprite = SpriteFactory.CreateWorldIntervalAnimatedSprite(tileObject.Position, tileObject.SourceRectangle,
+                tileObject.Sprite = tileManager.CreateTileIntervalAnimatedSprite(tileObject, tileObject.Position, tileObject.SourceRectangle,
                 texture, frames, customLayer: tileObject.DrawLayer, randomizeLayers: false);
+
 
 
             }
