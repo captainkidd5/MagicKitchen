@@ -233,18 +233,25 @@ namespace MagicKitchen
 
             RenderTargetManager.RemoveRenderTarget();
             GraphicsDevice.Clear(Color.Transparent);
+            if (SettingsManager.IsNightTime)
+            {
 
-            RenderTargetManager.SetTarget(RenderTargetManager.UILightsAffectableTarget);
-            GraphicsDevice.Clear(Color.Transparent);
-            WeatherManager.Draw(_spriteBatch);
-            UI.DrawLightsAffectable(_spriteBatch);
-            RenderTargetManager.RemoveRenderTarget();
-            GraphicsDevice.Clear(Color.Transparent);
+                RenderTargetManager.SetTarget(RenderTargetManager.UILightsAffectableTarget);
+                GraphicsDevice.Clear(Color.Transparent);
+                WeatherManager.Draw(_spriteBatch);
+                UI.DrawLightsAffectable(_spriteBatch);
+                RenderTargetManager.RemoveRenderTarget();
+                GraphicsDevice.Clear(Color.Transparent);
+            }
 
             RenderTargetManager.SetTarget(RenderTargetManager.UITarget);
             GraphicsDevice.Clear(Color.Transparent);
+            if (UI.GameDisplayState == GameDisplayState.MainMenu && !SettingsManager.IsNightTime)
+            {
+                UI.DrawLightsAffectable(_spriteBatch);
+            }
             UI.Draw(_spriteBatch, _frameCounter.framerate);
-
+           
             RenderTargetManager.RemoveRenderTarget();
             // GraphicsDevice.Clear(Color.Transparent);
 
@@ -275,14 +282,14 @@ namespace MagicKitchen
 
                     _spriteBatch.End();
                 }
-                
+
 
             }
 
 
             _spriteBatch.Begin(blendState: BlendState.AlphaBlend);
-            if(!SettingsManager.IsNightTime)
-                _spriteBatch.Draw(RenderTargetManager.UILightsAffectableTarget, Settings.ScreenRectangle, Color.Red);
+           // if (!SettingsManager.IsNightTime)
+           //     _spriteBatch.Draw(RenderTargetManager.UILightsAffectableTarget, Settings.ScreenRectangle, Color.Red);
 
             _spriteBatch.Draw(RenderTargetManager.UITarget, Settings.ScreenRectangle, Color.White);
 

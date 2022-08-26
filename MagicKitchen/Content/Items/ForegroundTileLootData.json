@@ -1,7 +1,7 @@
 
 [
 {
-    "TileId":233,
+    "TileId":3602,
     "Loot":[
      {
          "ItemName":"Furnace",
@@ -31,7 +31,7 @@
     "DestructionSoundPackageName":"Break"
 },
 {
-    "TileId":940,
+    "TileId":3604,
     "Loot":[
      {
          "ItemName":"Chest",
@@ -46,7 +46,7 @@
     "DestructionSoundPackageName":"Break"
 },
 {
-    "TileId":3134,
+    "TileId":3904,
     "Loot":[
      {
          "ItemName":"Grill",
@@ -121,7 +121,7 @@
     "DestructionSoundPackageName":"Break"
 },
 {
-    "TileId":971,
+    "TileId":233,
     "Loot":[
      {
          "ItemName":"Stone",

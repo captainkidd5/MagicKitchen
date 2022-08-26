@@ -155,6 +155,7 @@ namespace UIEngine.Classes.Storage
             _secondaryInventoryDisplay.Deactivate();
             _secondaryEquipmentMenu.Deactivate();
             SecondaryStorageClosed?.Invoke();
+            TotalBounds = new Rectangle(0, 0, 1, 1);
         }
 
         public void ActivateSecondaryEquipmentMenu(EquipmentStorageContainer equipmentStorageContainer)

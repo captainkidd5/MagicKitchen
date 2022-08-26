@@ -184,6 +184,8 @@ namespace UIEngine.Classes.CursorStuff
 
             if (OldCursorIconType != CursorIconType && HeldItem == null)
             {
+                if(CursorIconType == CursorIconType.Selectable)
+                    Console.WriteLine("test");
                 if (Controls.IsUiHovered && _wasWorldIconChanged)
                 {
                     SwapMouseSpriteRectangle(GetCursorIconSourcRectangleFromType(CursorIconType.None), null);

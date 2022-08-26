@@ -288,9 +288,10 @@ namespace EntityEngine.Classes.PlayerStuff
                              ChargeHeldItem(gameTime, Controls.MouseWorldPosition);
                             //if (actionToTrigger != null)
                             //    Animator.ActionToPerform = actionToTrigger;
-                            Controls.ClickActionTriggeredThisFrame = true;
                             if (actionType != null)
                             {
+                                Controls.ClickActionTriggeredThisFrame = true;
+
                                 //PerformAction(Controls.ControllerConnected ? DirectionMoving :
                                 //   Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition),
                                 //   actionType.Value);

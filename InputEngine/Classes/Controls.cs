@@ -38,7 +38,7 @@ namespace InputEngine.Classes
         public static Point CursorTileIndex { get; private set; }
 
         public static bool ClickActionTriggeredThisFrame { get; set; }
-        public static bool IsUiHovered;
+        public static bool IsUiHovered { get; set; }
         public static bool IsClicked => DidClick() && !ClickActionTriggeredThisFrame;
 
         //Will return true if UI is not currently hovered and controls are clicked
