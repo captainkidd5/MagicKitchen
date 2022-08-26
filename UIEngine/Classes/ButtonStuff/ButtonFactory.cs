@@ -39,29 +39,29 @@ namespace UIEngine.Classes.ButtonStuff
         }
 
         public NineSliceTextButton CreateNSliceTxtBtnManualDimensions(InterfaceSection section, Vector2 pos,
-            int? width, int? height, float layerDepth, List<string> strings, Action? customAction = null)
+            int? width, int? height, float layerDepth, List<string> strings, Action? customAction = null, float? textScale = null)
         {
-            List<Text> text = GetIncrementedText(pos,layerDepth, strings);
+            List<Text> text = GetIncrementedText(pos,layerDepth, strings, textScale ?? 1f);
             return new NineSliceTextButton(section, graphics, content, pos, layerDepth,
                text, customAction,  width,  height, true);
 
         }
         public NineSliceTextButton CreateNSliceTxtBtn(InterfaceSection section, Vector2 pos,
-            float layerDepth, List<string> strings, Action? customAction = null, bool centerText = false)
+            float layerDepth, List<string> strings, Action? customAction = null, bool centerText = false, float? textScale = null)
         {
-            List<Text> text = GetIncrementedText(pos,layerDepth, strings);
+            List<Text> text = GetIncrementedText(pos,layerDepth, strings, textScale ?? 1f);
             return new NineSliceTextButton(section, graphics, content, pos, layerDepth,
                text, customAction, null, null, centerText);
 
         }
 
-        private static List<Text> GetIncrementedText(Vector2 pos, float layerDepth, List<string> strings)
+        private static List<Text> GetIncrementedText(Vector2 pos, float layerDepth, List<string> strings, float scale)
         {
             List<Text> text = new List<Text>();
             float textLD = UI.IncrementLD(layerDepth, false);
             for (int i = 0; i < strings.Count; i++)
             {
-                text.Add(TextFactory.CreateUIText(strings[i], pos, null,null,textLD));
+                text.Add(TextFactory.CreateUIText(strings[i], pos, null,null,textLD, scale: scale));
             }
 
             return text;

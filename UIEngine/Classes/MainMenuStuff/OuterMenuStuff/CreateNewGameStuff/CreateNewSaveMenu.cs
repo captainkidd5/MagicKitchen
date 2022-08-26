@@ -27,7 +27,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
 
         private Text _createNewText;
-        private Vector2 _createNewTextPosition;
+        private NineSliceTextButton _createNewGameTextButton;
 
         private TypingBox _nameTypingBox;
         private int _nameWindowWidth = 180;
@@ -79,20 +79,27 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             Position = new Vector2(parentSection.TotalBounds.X, parentSection.TotalBounds.Y);
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, parentSection.TotalBounds.Width, parentSection.TotalBounds.Height);
 
-            _createNewText = TextFactory.CreateUIText("Create New Game", GetLayeringDepth(UILayeringDepths.High));
-           // _createNewTextPosition = Text.CenterInRectangle(parentSection.TotalBounds,1f);
-            _createNewTextPosition = new Vector2(_createNewTextPosition.X, parentSection.TotalBounds.Y + 8);
-            //_createNewText.ForceSetPosition(_createNewTextPosition);
+            _createNewText = TextFactory.CreateUIText("Create New Game", GetLayeringDepth(UILayeringDepths.High), scale:2f);
 
-            Vector2 typingBoxPos = RectangleHelper.CenterRectangleInRectangle(_nameWindowWidth, _nameWindowHeight, parentSection.TotalBounds);
-            typingBoxPos = new Vector2(typingBoxPos.X, _createNewTextPosition.Y + _createNewText.Height * 2);
 
-            Vector2 stackPanelPos = new Vector2(Position.X, typingBoxPos.Y + 64);
+           
+
+
+
+            Vector2 stackPanelPos = new Vector2(Position.X, Position.Y);
             _stackPanel = new StackPanel(this, graphics, content, stackPanelPos, GetLayeringDepth(UILayeringDepths.Low));
+
+            StackRow createNewGameTitleRow = new StackRow(Width);
+
+            _createNewGameTextButton = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
+               new List<Text>() { _createNewText }, null, centerText: true);
+
+            createNewGameTitleRow.AddItem(_createNewGameTextButton, StackOrientation.Center);
+            _stackPanel.Add(createNewGameTitleRow);
 
             StackRow nameBoxRow = new StackRow(Width);
             
-            _nameTypingBox = new TypingBox(_stackPanel,graphics, content, typingBoxPos, GetLayeringDepth(UILayeringDepths.Low), _nameWindowWidth, _nameWindowHeight);
+            _nameTypingBox = new TypingBox(_stackPanel,graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), _nameWindowWidth, _nameWindowHeight);
             nameBoxRow.AddItem(_nameTypingBox, StackOrientation.Center);
             _stackPanel.Add(nameBoxRow);
           
@@ -173,16 +180,15 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
         public override void Update(GameTime gameTime)
         {
-            //base.Update(gameTime);
+            base.Update(gameTime);
             CheckButtonLock();
 
-            _nameTypingBox.Update(gameTime);
-            _createNewText.Update(_createNewTextPosition);
-            _createNewGameButton.Update(gameTime);
+            //_nameTypingBox.Update(gameTime);
+          //  _createNewGameButton.Update(gameTime);
 
-            _backButton.Update(gameTime);
+           // _backButton.Update(gameTime);
 
-            _stackPanel.Update(gameTime);
+           // _stackPanel.Update(gameTime);
             // _backGroundSprite.Update(gameTime, Position);
         }
 
@@ -199,12 +205,11 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //base.Draw(spriteBatch);
-            _nameTypingBox.Draw(spriteBatch);
-            _createNewText.Draw(spriteBatch);
-            _createNewGameButton.Draw(spriteBatch);
-            _backButton.Draw(spriteBatch);
-            _stackPanel.Draw(spriteBatch);
+            base.Draw(spriteBatch);
+         //   _nameTypingBox.Draw(spriteBatch);
+          //  _createNewGameButton.Draw(spriteBatch);
+           // _backButton.Draw(spriteBatch);
+           // _stackPanel.Draw(spriteBatch);
            // _backGroundSprite.Draw(spriteBatch);  
         }
 

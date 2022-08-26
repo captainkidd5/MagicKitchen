@@ -253,7 +253,6 @@ namespace MagicKitchen
             UI.Draw(_spriteBatch, _frameCounter.framerate);
            
             RenderTargetManager.RemoveRenderTarget();
-            // GraphicsDevice.Clear(Color.Transparent);
 
             if (SettingsManager.IsNightTime)
             {
@@ -282,14 +281,10 @@ namespace MagicKitchen
 
                     _spriteBatch.End();
                 }
-
-
             }
 
-
             _spriteBatch.Begin(blendState: BlendState.AlphaBlend);
-           // if (!SettingsManager.IsNightTime)
-           //     _spriteBatch.Draw(RenderTargetManager.UILightsAffectableTarget, Settings.ScreenRectangle, Color.Red);
+
 
             _spriteBatch.Draw(RenderTargetManager.UITarget, Settings.ScreenRectangle, Color.White);
 

@@ -55,6 +55,17 @@ namespace UIEngine.Classes.TextStuff
             _entryPointMarker = new TypingEntryPointMarker();
             _entryPointMarker.Load(GetLayeringDepth(UILayeringDepths.High));
         }
+        public override void MovePosition(Vector2 newPos)
+        {
+            NineSliceSprite = SpriteFactory.CreateNineSliceSprite(NineSliceSprite.Position, NineSliceSprite.Width , height ?? DefaultHeight, UI.ButtonTexture,
+               GetLayeringDepth(UILayeringDepths.Low), Color.White, null, null);
+            // SendButton = new NineSliceButton(interfaceSection, graphicsDevice, content,
+            //      position,LayerDepth, null, null,null,null);
+            _textPos = new Vector2(Position.X + 6, Position.Y + 6);
+            Text = TextFactory.CreateUIText(string.Empty, GetLayeringDepth(UILayeringDepths.High), scale: 2f);
+            _entryPointMarker = new TypingEntryPointMarker();
+            _entryPointMarker.Load(GetLayeringDepth(UILayeringDepths.High));
+        }
         public override void Update(GameTime gameTime)
         {
             

@@ -51,7 +51,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
 
             _slotButton = UI.ButtonFactory.CreateNSliceTxtBtnManualDimensions(this, Position, _width - ButtonFactory.s_redExRectangle.Width * 2, _height,
                 GetLayeringDepth(UILayeringDepths.Medium), new List<string>() { _saveFile.MetaData.Name, _saveFile.MetaData.DateCreated.Date.ToString("d"),
-                    _saveFile.MetaData.DateCreated.ToString("HH:mm") },  action);
+                    _saveFile.MetaData.DateCreated.ToString("HH:mm") },  action,1.4f);
 
             _slotButton.IgnoreDefaultClickSoundEffect = true;
             base.LoadContent();

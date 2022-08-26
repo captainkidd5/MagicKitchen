@@ -94,7 +94,14 @@ namespace UIEngine.Classes.ButtonStuff
             {
                 Text text = _textList[i];
 
-                text.Update(textPos, null, Width);
+                if (_centerText)
+                {
+                    textPos = new Vector2(BackGroundSprite.Position.X + BackGroundSprite.Width / 2 - text.Width /2, textPos.Y);
+                }
+               
+                    text.Update(textPos, null, Width);
+
+                
                 textPos = new Vector2(textPos.X, textPos.Y + text.Height);
                 //text.ChangeColor(Color);
             }
