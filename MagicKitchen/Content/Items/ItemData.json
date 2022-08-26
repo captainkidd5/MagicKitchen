@@ -502,7 +502,7 @@
         "Description": "Smelts ores into Ingots",
         "MaxStackSize": 1,
         "Price": 1,
-        "PlacedItemGID": 233,
+        "PlacedItemGID": 3602,
         "PlacementSound": "PlaceFurniture",
         "RecipeInfo": {
             "CraftAction": "Craft",
@@ -521,7 +521,7 @@
         "Description": "Basic housing structure",
         "MaxStackSize": 999,
         "Price": 1,
-        "PlacedItemGID": 3994,
+        "PlacedItemGID": 5814,
         "PlacementSound": "PlaceFurniture",
         "RecipeInfo": {
             "CraftAction": "Craft",
@@ -540,7 +540,7 @@
         "Description": "Basic housing structure",
         "MaxStackSize": 999,
         "Price": 1,
-        "PlacedItemGID": 4781,
+        "PlacedItemGID": 5006,
         "PlacementSound": "PlaceFurniture",
         "RecipeInfo": {
             "CraftAction": "Craft",
@@ -559,7 +559,7 @@
         "Description": "Basic housing structure",
         "MaxStackSize": 999,
         "Price": 1,
-        "PlacedItemGID": 4083,
+        "PlacedItemGID": 4515,
         "PlacementSound": "PlaceFurniture",
         "RecipeInfo": {
             "CraftAction": "Craft",
@@ -578,7 +578,7 @@
         "Description": "Stores Items",
         "MaxStackSize": 1,
         "Price": 1,
-        "PlacedItemGID": 940,
+        "PlacedItemGID": 3606,
         "PlacementSound": "PlaceFurniture",
         "RecipeInfo": {
             "CraftAction": "Craft",
@@ -601,7 +601,7 @@
         "Description": "Turns raw food into cooked food",
         "MaxStackSize": 1,
         "Price": 1,
-        "PlacedItemGID": 3134,
+        "PlacedItemGID": 3904,
         "PlacementSound": "PlaceFurniture",
         "RecipeInfo": {
             "CraftAction": "Craft",

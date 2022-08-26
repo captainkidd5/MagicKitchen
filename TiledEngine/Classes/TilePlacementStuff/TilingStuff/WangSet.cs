@@ -56,23 +56,23 @@ namespace TiledEngine.Classes.TilePlacementStuff.TilingStuff
 
         public void FillTall(int centralGID)
         {
-            Set[0].Add(new WangTile(100, centralGID + 104));
-            Set[1].Add(new WangTile(100, centralGID + 103));
+            Set[0].Add(new WangTile(100, centralGID + 8));
+            Set[1].Add(new WangTile(100, centralGID + 6));
 
-            Set[2].Add(new WangTile(100, centralGID + 102));
-            Set[3].Add(new WangTile(100, centralGID + 301));
+            Set[2].Add(new WangTile(100, centralGID + 10));
+            Set[3].Add(new WangTile(100, centralGID + 402));
 
-            Set[4].Add(new WangTile(100, centralGID + 98));
-            Set[5].Add(new WangTile(100, centralGID + 299));
-            Set[6].Add(new WangTile(100, centralGID + 105));
-            Set[7].Add(new WangTile(100, centralGID + 300));
-            Set[8].Add(new WangTile(100, centralGID + 103));
-            Set[9].Add(new WangTile(100, centralGID + 103));
-            Set[10].Add(new WangTile(100, centralGID - 196));
-            Set[11].Add(new WangTile(100, centralGID + 1));
-            Set[12].Add(new WangTile(100, centralGID - 198));
-            Set[13].Add(new WangTile(100, centralGID - 1));
-            Set[14].Add(new WangTile(100, centralGID - 197));
+            Set[4].Add(new WangTile(100, centralGID + 10));
+            Set[5].Add(new WangTile(100, centralGID + 398));
+            Set[6].Add(new WangTile(100, centralGID + 4));
+            Set[7].Add(new WangTile(100, centralGID + 400));
+            Set[8].Add(new WangTile(100, centralGID + 6));
+            Set[9].Add(new WangTile(100, centralGID + 6));
+            Set[10].Add(new WangTile(100, centralGID - 396));
+            Set[11].Add(new WangTile(100, centralGID + 2));
+            Set[12].Add(new WangTile(100, centralGID - 400));
+            Set[13].Add(new WangTile(100, centralGID - 2));
+            Set[14].Add(new WangTile(100, centralGID - 398));
             Set[15].Add(new WangTile(100, centralGID));
         }
 
