@@ -24,6 +24,9 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
         public void Update(GameTime gameTime)
         {
+            //Do not mess with ghost tile stuff if player is looking in a secondary inventory
+            if (UI.StorageDisplayHandler.IsSecondaryStorageOpenAtAll)
+                return;
             Item playeritem = UI.PlayerCurrentSelectedItem;
             if (playeritem != null && playeritem.PlaceableItem)
             {
@@ -43,6 +46,9 @@ namespace TiledEngine.Classes.TilePlacementStuff
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            //Do not mess with ghost tile stuff if player is looking in a secondary inventory
+            if (UI.StorageDisplayHandler.IsSecondaryStorageOpenAtAll)
+                return;
             _ghostTile.Draw(spriteBatch);
         }
     }

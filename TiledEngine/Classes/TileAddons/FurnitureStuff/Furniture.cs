@@ -116,11 +116,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnSeparates(fixtureA, fixtureB, contact);
-            if (fixtureB.CollisionCategories.HasFlag(
-              (Category)PhysCat.FrontalSensor))
-            {
-                UI.DeactivateSecondaryInventoryDisplay();
-            }
+            //if (fixtureB.CollisionCategories.HasFlag(
+            //  (Category)PhysCat.FrontalSensor))
+            //{
+            //    UI.DeactivateSecondaryInventoryDisplay();
+            //}
         }
     }
 }

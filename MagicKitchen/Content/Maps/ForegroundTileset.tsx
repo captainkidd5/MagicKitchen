@@ -42,6 +42,7 @@
   <properties>
    <property name="IconType" value="Break"/>
    <property name="animate" value="pause"/>
+   <property name="animationSounds" value="0:HatchClose"/>
    <property name="furniture" value="StorableFurniture,2,4"/>
    <property name="newHitBox" value="0,0,16,16"/>
    <property name="newSource" value="0,-16,16,32"/>

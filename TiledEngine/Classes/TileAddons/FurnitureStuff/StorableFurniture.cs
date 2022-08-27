@@ -187,6 +187,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
             }
             Tile.TileManager.PlacedItemManager.RemoveAllPlacedItemsFromTile(Tile);
+            if (UI.StorageDisplayHandler.IsThisStorageOpen(StorageContainer))
+                UI.StorageDisplayHandler.DeactivateSecondaryDisplay();
             base.DestroyTileAndGetLoot();
 
         }
@@ -194,13 +196,18 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         {
             Action action = base.Interact(ref actionType, isPlayer, heldItem, entityPosition, directionEntityFacing);
-
+            
             if (action != null)
                 return action;
+            if (UI.StorageDisplayHandler.IsThisStorageOpen(StorageContainer))
+                return null;
             return new Action(() =>
             {
                 if (!FlaggedForDestruction)
                 {
+                   
+                    SoundModuleManager.PlayPackage("HatchOpen");
+                   
                     UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
                         //Subscribe to ui 
                     UI.StorageDisplayHandler.SecondaryStorageClosed += OnUIClosed;
@@ -266,7 +273,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             if (fixtureB.CollisionCategories.HasFlag(
                (Category)PhysCat.FrontalSensor))
             {
-                UI.DeactivateSecondaryInventoryDisplay();
+                if(UI.StorageDisplayHandler.IsThisStorageOpen(StorageContainer))
+                    UI.DeactivateSecondaryInventoryDisplay();
             }
         }
     }

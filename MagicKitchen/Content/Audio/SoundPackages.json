@@ -363,11 +363,22 @@
           ]
         },
         {
+          "Name": "HatchOpen",
+          "SoundChancers":[
+              {
+                "Name": "Hatch_Open",
+                "Weight": 100,
+                "LocalPath": "SoundEffects/Tiles/Placeables"
+              }
+            ]
+   
+        },
+        {
           "Name": "HatchClose",
           "SoundChancers":[
               {
                 "Name": "Hatch_Close",
-                "Weight": 50,
+                "Weight": 100,
                 "LocalPath": "SoundEffects/Tiles/Placeables"
               }
             ]

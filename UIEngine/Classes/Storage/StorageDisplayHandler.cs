@@ -37,6 +37,8 @@ namespace UIEngine.Classes.Storage
 
         private InventoryDisplay _currentlySelectedInventoryDisplay;
 
+        public bool IsThisStorageOpen(StorageContainer storageContainer) => _secondaryInventoryDisplay.StorageContainer == storageContainer;
+        public bool IsSecondaryStorageOpenAtAll => _secondaryInventoryDisplay.IsActive;
         public bool AllowInteractions { get; set; } = true;
         public StorageDisplayHandler(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice,
             ContentManager content, Vector2? position, float layerDepth) :
@@ -104,6 +106,7 @@ namespace UIEngine.Classes.Storage
                             SwapControl(PlayerInventoryDisplay);
                         if (_secondaryInventoryDisplay.IsActive || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
                             PlayerInventoryDisplay.CloseExtendedInventory();
+                        if(_secondaryInventoryDisplay.IsActive)
                         DeactivateSecondaryDisplay();
 
 
@@ -154,6 +157,7 @@ namespace UIEngine.Classes.Storage
         {
             _secondaryInventoryDisplay.Deactivate();
             _secondaryEquipmentMenu.Deactivate();
+            _secondaryInventoryDisplay.WipeStorageContainer();
             SecondaryStorageClosed?.Invoke();
             TotalBounds = new Rectangle(0, 0, 1, 1);
         }

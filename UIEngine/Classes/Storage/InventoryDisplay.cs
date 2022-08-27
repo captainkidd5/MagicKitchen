@@ -97,13 +97,13 @@ namespace UIEngine.Classes.Storage
         {
             base.Deactivate();
             ExtendedInventoryOpen = false;
-
             //Should drop the item if item is grabbed and player closes the inventory
             if (Controls.ControllerConnected && UI.Cursor.IsHoldingItem)
                 UI.Cursor.OnItemDropped();
 
         }
 
+        public void WipeStorageContainer() => StorageContainer = null;
         public override void LoadContent()
         {
             //Overridden because total bounds not set, TODO ?
