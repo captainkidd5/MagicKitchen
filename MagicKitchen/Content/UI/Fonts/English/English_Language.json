@@ -139,6 +139,8 @@
         "W":{
             "X" : 6,
             "Y" : 2,
+            "OverrideGap" : 12,
+
             "Width" : 16,
             "Height" : 16
         },
@@ -297,7 +299,6 @@
         "w":{
             "X" : 0,
             "Y" : 6,
-            "OverrideGap" : 12,
 
             "Width" : 16,
             "Height" : 16

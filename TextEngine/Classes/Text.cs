@@ -27,18 +27,18 @@ namespace TextEngine.Classes
 
         public float SingleCharacterWidth => _scale.X * _imageFont.FontSpaceWidth;
 
-        internal Text(string sentence, Vector2 position, float? lineXStart, float? lineLimit, float layerDepth,  ImageFont imageFont, FontType fontType, Color color, Vector2 scale)
+        internal Text(string sentence, Vector2 position, float? lineXStart, float? lineLimit, float layerDepth, ImageFont imageFont, FontType fontType, Color color, Vector2 scale)
         {
             _scale = scale;
             _layerDepth = layerDepth;
             _imageFont = imageFont;
-            _fontType = fontType ;
+            _fontType = fontType;
             Color = color;
             _words = new List<Word>();
-            if(!string.IsNullOrEmpty(sentence))
-             AddSentence(sentence);
+            if (!string.IsNullOrEmpty(sentence))
+                AddSentence(sentence);
 
-            CalculateWidthAndHeight(position,lineXStart, lineLimit);
+            CalculateWidthAndHeight(position, lineXStart, lineLimit);
 
         }
 
@@ -49,7 +49,7 @@ namespace TextEngine.Classes
             for (int i = 0; i < _words.Count; i++)
             {
                 stringToReturn += _words[i].Str;
-                if(i < _words.Count - 1)
+                if (i < _words.Count - 1)
                     stringToReturn += " ";
             }
 
@@ -63,14 +63,14 @@ namespace TextEngine.Classes
         public void AddSentence(string fullSentence)
         {
             string[] strings = fullSentence.Split(' ');
-            foreach(string str in strings)
+            foreach (string str in strings)
             {
                 AddWord(str);
             }
         }
         public void AddWord(string str)
         {
-            Word word = new Word(str, _fontType, _imageFont,Color, _scale);
+            Word word = new Word(str, _fontType, _imageFont, Color, _scale);
             _words.Add(word);
         }
 
@@ -91,9 +91,9 @@ namespace TextEngine.Classes
                 AddWord(c.ToString());
                 return;
             }
-            
 
-             _words[_words.Count - 1].Append(c);
+
+            _words[_words.Count - 1].Append(c);
         }
         public void Append(string s)
         {
@@ -121,7 +121,7 @@ namespace TextEngine.Classes
             if (_words.Count < 1)
                 return;
 
-            if(_words[_words.Count - 1].BackSpace())
+            if (_words[_words.Count - 1].BackSpace())
             {
                 _words.RemoveAt(_words.Count - 1);
             }
@@ -131,30 +131,58 @@ namespace TextEngine.Classes
         {
             CalculateWidthAndHeight(position, null, null);
             //foreach (Word word in _words)
-              //  word.Update(position);
+            //  word.Update(position);
         }
-        public Vector2 Update(Vector2 position, float? lineXStart, float? lineLimit)
+        public Vector2 Update(Vector2 position, float? lineXStart, float? lineLimit, string entireSentence = null)
         {
-            return CalculateWidthAndHeight(position, lineXStart, lineLimit);
+            if (entireSentence == null)
+                return CalculateWidthAndHeight(position, lineXStart, lineLimit);
+            else
+                return CalculateIncrementedWidthAndHeight(position, lineXStart, lineLimit, entireSentence);
+
         }
-        public Vector2 CalculateWidthAndHeight(Vector2 position, float? lineXStart, float? lineLimit)
+
+        private bool WordExceedsLimit(Word word, Vector2 pos, float lineXStart, float lineLimit)
+        {
+            return pos.X +  _imageFont.FontDimension * 2 +word.Width >= lineXStart + lineLimit;
+        }
+
+        /// <summary>
+        /// Only for use with text builder. All other scenarios should use the other one
+        /// </summary>
+
+        private Vector2 CalculateIncrementedWidthAndHeight(Vector2 position, float? lineXStart, float? lineLimit, string entireSentence)
         {
             Height = _imageFont.FontDimension * _scale.Y;
             Width = 0;
             lineLimit = lineLimit ?? 1000;
             lineXStart = lineXStart ?? position.X;
-   
+            int totalCharacters = 0;
             for (int i = 0; i < _words.Count; i++)
             {
+                if (entireSentence == null)
+                    throw new Exception($"Method should only be used with text builder");
+
+                string _wordWorkingOn = entireSentence.Substring(totalCharacters , entireSentence.Length - totalCharacters );
+                _wordWorkingOn = _wordWorkingOn.Split(' ')[0];
+                Word word = TextFactory.CreatePlaceHolderWord(_wordWorkingOn);
+                if (WordExceedsLimit(word, position, lineXStart.Value, lineLimit.Value) || (i > 0 && word.Str.Contains("\n")))
+                {
+                    position = MoveToNextLineDown(position, lineXStart, lineLimit, i);
+                    if (Width < lineLimit)
+                        Width += _words[i].Width + SingleCharacterWidth;
+                    totalCharacters += _words[i].Str.Length + 1;
+
+                    continue;
+
+                }
+
 
                 //Reached line limit, wrap around
-                if (position.X + _words[i].Width > lineXStart + lineLimit || (i > 0 && _words[i - 1].Str.Contains("\n")))
+                if (WordExceedsLimit(_words[i], position, lineXStart.Value, lineLimit.Value) || (i > 0 && _words[i - 1].Str.Contains("\n")))
 
                 {
-                    position = new Vector2(lineXStart.Value, position.Y + _words[i].Height);
-                    Width = lineLimit.Value;
-                    Height += _words[i].Height;
-                    _words[i].Update(position);
+                    position = MoveToNextLineDown(position, lineXStart, lineLimit, i);
 
                 }
 
@@ -164,16 +192,61 @@ namespace TextEngine.Classes
 
                     position = new Vector2(position.X + _words[i].Width + SingleCharacterWidth, position.Y);
                 }
-               
+
+                if (Width < lineLimit)
+                    Width += _words[i].Width + SingleCharacterWidth;
+                int len = _words[i].Str.Length + 1;// plus 1 to account for space
+                totalCharacters += len;
+
+            }
+            return position;
+        }
+
+
+        public Vector2 CalculateWidthAndHeight(Vector2 position, float? lineXStart, float? lineLimit)
+        {
+            Height = _imageFont.FontDimension * _scale.Y;
+            Width = 0;
+            lineLimit = lineLimit ?? 1000;
+            lineXStart = lineXStart ?? position.X;
+
+            for (int i = 0; i < _words.Count; i++)
+            {
+
+                //Reached line limit, wrap around
+                if (WordExceedsLimit(_words[i], position, lineXStart.Value, lineLimit.Value) || (i > 0 && _words[i - 1].Str.Contains("\n")))
+
+                {
+                    position = MoveToNextLineDown(position, lineXStart, lineLimit, i);
+
+                }
+
+                else
+                {
+                    _words[i].Update(position);
+
+                    position = new Vector2(position.X + _words[i].Width + SingleCharacterWidth, position.Y);
+                }
+
                 if (Width < lineLimit)
                     Width += _words[i].Width + SingleCharacterWidth;
             }
             return position;
         }
-        
+
+        private Vector2 MoveToNextLineDown(Vector2 position, float? lineXStart, float? lineLimit, int i)
+        {
+            position = new Vector2(lineXStart.Value, position.Y + _words[i].Height);
+            Width = lineLimit.Value;
+            Height += _words[i].Height;
+            _words[i].Update(position);
+            position = new Vector2(lineXStart.Value + _words[i].Width + SingleCharacterWidth, position.Y);
+            return position;
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+
             for (int i = _words.Count - 1; i >= 0; i--)
             {
                 _words[i].Draw(spriteBatch, _layerDepth);
@@ -187,9 +260,9 @@ namespace TextEngine.Classes
             }
         }
 
-        public  Vector2 CenterInRectangle(Rectangle rectangle, float rectangleScale)
+        public Vector2 CenterInRectangle(Rectangle rectangle, float rectangleScale)
         {
-            return new Vector2(rectangle.X  + rectangle.Width * rectangleScale/2 - Width/2 , rectangle.Y + rectangle.Height * rectangleScale / 2 - Height / 2);
+            return new Vector2(rectangle.X + rectangle.Width * rectangleScale / 2 - Width / 2, rectangle.Y + rectangle.Height * rectangleScale / 2 - Height / 2);
         }
     }
 }

@@ -40,6 +40,7 @@ namespace TextEngine.Classes
             ClearCurrent();
 
         }
+
         public bool Update(GameTime gameTime, Vector2 position, float lineLimit)
         {
 
@@ -48,13 +49,19 @@ namespace TextEngine.Classes
                 float pauseDuration = GetCharacterPauseDuration();
 
                 _textTimer.SetNewTargetTime(pauseDuration);
-
+                //char c = _desiredString.ElementAt(_currentIndex);
+                //if(c == ' ')
+                //{
+                //    _wordWorkingOn = _desiredString.Substring(_currentIndex + 1, _desiredString.Length - _currentIndex - 1);
+                //    _wordWorkingOn = _wordWorkingOn.Split(' ')[0];
+                //    _word = TextFactory.CreatePlaceHolderWord(_wordWorkingOn);
+                //}
                 _currentText.Append(_desiredString.ElementAt(_currentIndex));
                 _currentIndex++;
 
 
             }
-            _currentText.Update(position, null, lineLimit);
+            _currentText.Update(position, null, lineLimit, _desiredString);
             return IsComplete;
         }
 

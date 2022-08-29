@@ -288,7 +288,10 @@ namespace UIEngine.Classes.TextStuff
                     _goToNextDialogueButton.Update(gameTime);
                 Hovered = Controls.IsHovering(ElementType.UI, BackdropSprite.HitBox);
 
-
+                if (!_selectNextActionJustOccurred && Hovered && Controls.IsClicked || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
+                {
+                    TextBuilder.ForceComplete();
+                }
                 if (TextBuilder.Update(gameTime, Position + _textOffSet, BackdropSprite.HitBox.Width))
                 {
                     //end of text reached
@@ -301,10 +304,7 @@ namespace UIEngine.Classes.TextStuff
 
                     }
                 }
-                if (!_selectNextActionJustOccurred && Hovered && Controls.IsClicked || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
-                {
-                    TextBuilder.ForceComplete();
-                }
+              
             }
 
 

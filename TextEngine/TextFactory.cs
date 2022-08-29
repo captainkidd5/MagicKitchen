@@ -36,6 +36,10 @@ namespace TextEngine
        
         //UI
      
+        public static Word CreatePlaceHolderWord(string val)
+        {
+            return new Word(val, FontType.Standard, ImageFont);
+        }
         public static Text CreateUIText(String value, Vector2 position, float? lineXStart, float? lineLimit, float layerDepth, ImageFont? imageFont = null, FontType? fontType = null, Color? color = null, float? scale = null)
         {
             Vector2 translatedScale = Vector2.One;

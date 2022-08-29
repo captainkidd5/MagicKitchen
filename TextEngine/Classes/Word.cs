@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace TextEngine.Classes
 {
 
-    internal class Word
+    public class Word
     {
         public string Str { get; private set; }
         private readonly FontType _fontType;
