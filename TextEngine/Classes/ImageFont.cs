@@ -18,7 +18,7 @@ namespace TextEngine.Classes
     public class ImageFont
     {
         internal readonly int FontDimension = 16;
-        internal readonly int FontSpaceWidth = 12;
+        internal readonly int FontSpaceWidth = 8;
        
         internal Texture2D StandardFontTexture { get; set; }
 
@@ -31,9 +31,19 @@ namespace TextEngine.Classes
 
         internal Rectangle GetCharRect(char c)
         {
-            JsonPoint point = LanguageManager.CurrentLanguage.CharPoints[c];
-            return new Rectangle(point.X * FontDimension, point.Y * FontDimension, FontDimension, FontDimension);
+            LetterData point = LanguageManager.CurrentLanguage.CharPoints[c];
+            return new Rectangle(point.X * FontDimension, point.Y * FontDimension, point.Width, point.Height);
         }
+
+        /// <summary>
+        /// Gets the spacing between characters. If no spacing is specified, return the default spacing
+        /// </summary>
+        internal int GetCharSpacing(char c)
+        {
+            LetterData point = LanguageManager.CurrentLanguage.CharPoints[c];
+            return point.OverrideGap == 0 ? FontSpaceWidth : point.OverrideGap;
+        }
+
         internal void LoadContent(Texture2D standardFontTexture)
         {
             StandardFontTexture = standardFontTexture;

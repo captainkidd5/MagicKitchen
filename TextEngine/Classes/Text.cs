@@ -140,18 +140,14 @@ namespace TextEngine.Classes
             Width = 0;
             lineLimit = lineLimit ?? 1000;
             lineXStart = lineXStart ?? position.X;
-            if (_words.Count > 5)
-                Console.WriteLine("test");
+   
             for (int i = 0; i < _words.Count; i++)
             {
-                if (_words.Count > 5)
-                    Console.WriteLine("test");
+
                 //Reached line limit, wrap around
                 if (position.X + _words[i].Width > lineXStart + lineLimit || (i > 0 && _words[i - 1].Str.Contains("\n")))
 
                 {
-                    if (_words.Count > 5)
-                        Console.WriteLine("test");
                     position = new Vector2(lineXStart.Value, position.Y + _words[i].Height);
                     Width = lineLimit.Value;
                     Height += _words[i].Height;
@@ -188,9 +184,9 @@ namespace TextEngine.Classes
             }
         }
 
-        public static Vector2 CenterInRectangle(Rectangle rectangle, float rectangleScale)
+        public  Vector2 CenterInRectangle(Rectangle rectangle, float rectangleScale)
         {
-            return new Vector2(rectangle.X, rectangle.Y + rectangleScale);
+            return new Vector2(rectangle.X  + rectangle.Width * rectangleScale/2 - Width/2 , rectangle.Y + rectangle.Height * rectangleScale / 2 - Height / 2);
         }
     }
 }

@@ -80,7 +80,7 @@ namespace TextEngine.Classes
                 Rectangle charSourceRectangle = _imgFont.GetCharRect(c);
                 spriteBatch.Draw(_imgFont.GetTexture(_fontType), currentCharPos, charSourceRectangle, _color, 0f, Vector2.Zero, _scale, SpriteEffects.None, layerDepth);
 
-                currentCharPos = new Vector2(currentCharPos.X + _imgFont.FontSpaceWidth * _scale.X, _pos.Y);
+                currentCharPos = new Vector2(currentCharPos.X + _imgFont.GetCharSpacing(c) * _scale.X, _pos.Y);
             }
         }
     }

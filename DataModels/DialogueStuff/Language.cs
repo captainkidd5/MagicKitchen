@@ -10,6 +10,6 @@ namespace DataModels.DialogueStuff
     {
         public string Name { get; set; }
 
-        public Dictionary<char, JsonPoint> CharPoints { get; set; }
+        public Dictionary<char, LetterData> CharPoints { get; set; }
     }
 }
