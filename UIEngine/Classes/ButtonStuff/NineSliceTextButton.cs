@@ -24,17 +24,19 @@ namespace UIEngine.Classes.ButtonStuff
         private int? _forcedWidth;
         private int? _forcedHeight;
         private bool _centerTextHorizontally;
+        private readonly bool _centerTextVertically;
 
         public bool Displaybackground { get; set; } = true;
         public NineSliceTextButton(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth,
              List<Text> textList, Action buttonAction, int? forcedWidth = null, int? forcedHeight = null, bool centerTextHorizontally = false,
-            Sprite? foregroundSprite = null, Point? samplePoint = null, Rectangle? sourceRectangle = null, bool hoverTransparency = true) :
+            Sprite? foregroundSprite = null, Point? samplePoint = null, Rectangle? sourceRectangle = null, bool hoverTransparency = true, bool centerTextVertically = false) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, buttonAction, foregroundSprite, samplePoint, hoverTransparency)
         {
 
             _textList = textList;
 
             _centerTextHorizontally = centerTextHorizontally;
+            _centerTextVertically = centerTextVertically;
             _forcedWidth = forcedWidth;
             _forcedHeight = forcedHeight;
             MovePosition(position);
@@ -86,6 +88,17 @@ namespace UIEngine.Classes.ButtonStuff
 
             base.Update(gameTime);
             Vector2 textPos = Position;
+
+            if (_centerTextVertically)
+            {
+                int totalHeight = 0;
+                for (int i = 0; i < _textList.Count; i++)
+                {
+                    totalHeight += (int)_textList[i].Height;
+                }
+                textPos = new Vector2(textPos.X, textPos.Y + );
+
+            }
             for (int i = 0; i < _textList.Count; i++)
             {
                 Text text = _textList[i];
@@ -94,6 +107,7 @@ namespace UIEngine.Classes.ButtonStuff
                 {
                     textPos = new Vector2(BackGroundSprite.Position.X + BackGroundSprite.Width / 2 - text.Width / 2, textPos.Y);
                 }
+
 
                 text.Update(textPos, null, Width);
 

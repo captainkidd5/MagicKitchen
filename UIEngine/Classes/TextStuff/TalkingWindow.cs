@@ -133,7 +133,7 @@ namespace UIEngine.Classes.TextStuff
             _availableQuests = new List<NineSliceTextButton>();
             StackRow explanationRow = new StackRow(TotalBounds.Width);
             NineSliceTextButton explBtn = new NineSliceTextButton(_questButtonsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
-                  new List<Text>() { TextFactory.CreateUIText("Talk about which quest?", GetLayeringDepth(UILayeringDepths.High)) }, null, centerTextHorizontally: true)
+                  new List<Text>() { TextFactory.CreateUIText("Talk about which quest?", GetLayeringDepth(UILayeringDepths.High),scale:2f) }, null, centerTextHorizontally: true)
             { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true, };
             explanationRow.AddItem(explBtn, StackOrientation.Center);
             _questButtonsStackPanel.Add(explanationRow);

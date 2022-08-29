@@ -20,6 +20,7 @@ namespace TextEngine.Classes
         {
             _currentText.Clear();
             _currentIndex = 0;
+            _desiredString = String.Empty;
         }
 
         private SimpleTimer _textTimer;
@@ -36,29 +37,24 @@ namespace TextEngine.Classes
 
         public void SetDesiredText(string desiredString)
         {
-            _desiredString = desiredString;
             ClearCurrent();
+
+            _desiredString = desiredString;
 
         }
 
         public bool Update(GameTime gameTime, Vector2 position, float lineLimit)
         {
-
+            if (string.IsNullOrEmpty(_desiredString))
+                return false;
             if (!IsComplete && _textTimer.Run(gameTime))
             {
                 float pauseDuration = GetCharacterPauseDuration();
 
                 _textTimer.SetNewTargetTime(pauseDuration);
-                //char c = _desiredString.ElementAt(_currentIndex);
-                //if(c == ' ')
-                //{
-                //    _wordWorkingOn = _desiredString.Substring(_currentIndex + 1, _desiredString.Length - _currentIndex - 1);
-                //    _wordWorkingOn = _wordWorkingOn.Split(' ')[0];
-                //    _word = TextFactory.CreatePlaceHolderWord(_wordWorkingOn);
-                //}
+
                 _currentText.Append(_desiredString.ElementAt(_currentIndex));
                 _currentIndex++;
-
 
             }
             _currentText.Update(position, null, lineLimit, _desiredString);

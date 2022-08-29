@@ -178,23 +178,8 @@ namespace TextEngine.Classes
                 }
 
 
-                //Reached line limit, wrap around
-                if (WordExceedsLimit(_words[i], position, lineXStart.Value, lineLimit.Value) || (i > 0 && _words[i - 1].Str.Contains("\n")))
+                position = CalculateNextPosition(position, lineXStart, lineLimit, i);
 
-                {
-                    position = MoveToNextLineDown(position, lineXStart, lineLimit, i);
-
-                }
-
-                else
-                {
-                    _words[i].Update(position);
-
-                    position = new Vector2(position.X + _words[i].Width + SingleCharacterWidth, position.Y);
-                }
-
-                if (Width < lineLimit)
-                    Width += _words[i].Width + SingleCharacterWidth;
                 int len = _words[i].Str.Length + 1;// plus 1 to account for space
                 totalCharacters += len;
 
@@ -212,25 +197,31 @@ namespace TextEngine.Classes
 
             for (int i = 0; i < _words.Count; i++)
             {
-
                 //Reached line limit, wrap around
-                if (WordExceedsLimit(_words[i], position, lineXStart.Value, lineLimit.Value) || (i > 0 && _words[i - 1].Str.Contains("\n")))
-
-                {
-                    position = MoveToNextLineDown(position, lineXStart, lineLimit, i);
-
-                }
-
-                else
-                {
-                    _words[i].Update(position);
-
-                    position = new Vector2(position.X + _words[i].Width + SingleCharacterWidth, position.Y);
-                }
-
-                if (Width < lineLimit)
-                    Width += _words[i].Width + SingleCharacterWidth;
+                position = CalculateNextPosition(position, lineXStart, lineLimit, i);
             }
+            return position;
+        }
+
+        //Shared
+        private Vector2 CalculateNextPosition(Vector2 position, float? lineXStart, float? lineLimit, int i)
+        {
+            if (WordExceedsLimit(_words[i], position, lineXStart.Value, lineLimit.Value) || (i > 0 && _words[i - 1].Str.Contains("\n")))
+
+            {
+                position = MoveToNextLineDown(position, lineXStart, lineLimit, i);
+
+            }
+
+            else
+            {
+                _words[i].Update(position);
+
+                position = new Vector2(position.X + _words[i].Width + SingleCharacterWidth, position.Y);
+            }
+
+            if (Width < lineLimit)
+                Width += _words[i].Width + SingleCharacterWidth;
             return position;
         }
 
