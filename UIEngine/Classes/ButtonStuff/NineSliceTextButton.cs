@@ -33,11 +33,7 @@ namespace UIEngine.Classes.ButtonStuff
         {
 
             _textList = textList;
-            if (_textList.Count < 1)
-            {
-                throw new Exception($"test");
 
-            }
             _centerTextHorizontally = centerTextHorizontally;
             _forcedWidth = forcedWidth;
             _forcedHeight = forcedHeight;

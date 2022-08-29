@@ -303,7 +303,7 @@ namespace UIEngine.Classes.TextStuff
                 }
                 if (!_selectNextActionJustOccurred && Hovered && Controls.IsClicked || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
                 {
-                    //TextBuilder.ForceComplete(BackdropSprite.HitBox.Width);
+                    TextBuilder.ForceComplete();
                 }
             }
 
@@ -376,12 +376,12 @@ namespace UIEngine.Classes.TextStuff
                 UI.PortraitsManager.PortraitsTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(2f, 2f));
             _curerentDialogue = dialogue;
         //    TextBuilder.ClearText();
-            Text text = TextFactory.CreateUIText(dialogue.DialogueText[_curerentDialogueIndex].DialogueText, GetLayeringDepth(UILayeringDepths.Front), scale: 1f);
+          //  Text text = TextFactory.CreateUIText(dialogue.DialogueText[_curerentDialogueIndex].DialogueText, GetLayeringDepth(UILayeringDepths.Front), scale: 1f);
        //     text.ClearAndSet(text.WrapAutoText(BackdropSprite.HitBox.Width));
 
 
 
-            //TextBuilder.SetText(text, BackdropSprite.HitBox.Width, false);
+            TextBuilder.SetDesiredText(dialogue.DialogueText[_curerentDialogueIndex].DialogueText);
             float totalTextHeight = TextBuilder.Height;
             Activate();
 

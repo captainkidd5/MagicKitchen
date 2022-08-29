@@ -12,10 +12,10 @@ namespace TextEngine.Classes
     public class TextBuilder
     {
         private readonly Text _currentText;
-        private readonly string desiredString;
+        private string _desiredString;
         public float Height => _currentText.Height;
 
-        public bool IsComplete => _currentText.ToString() == desiredString;
+        public bool IsComplete => _currentText.ToString() == _desiredString;
         public void ClearCurrent()
         {
         _currentText.Clear();
@@ -23,24 +23,38 @@ namespace TextEngine.Classes
         }
 
         private SimpleTimer _textTimer;
-        private float _typeTime = .15f;
+        private float _typeTime = .05f;
+        private float _pauseTime = .2f;
         private int _currentIndex;
         public TextBuilder(String value, Vector2 position, float? lineXStart, float? lineLimit, float layerDepth, ImageFont imageFont = null, FontType? fontType = null, Color? color = null, float? scale = null)
         {
-            desiredString = value;
+            _desiredString = value;
             _currentText = TextFactory.CreateUIText(string.Empty, position, lineXStart, lineLimit, layerDepth,imageFont, fontType,color,scale);
             _textTimer = new SimpleTimer(_typeTime);
         }
 
+
+        public void SetDesiredText(string desiredString)
+        {
+            _desiredString = desiredString;
+            ClearCurrent();
+
+        }
         public bool Update(GameTime gameTime, Vector2 position, float lineLimit)
         {
+        
             if (!IsComplete && _textTimer.Run(gameTime) )
             {
-                _currentText.Append(desiredString.ElementAt(_currentIndex));
+                if (_desiredString.ElementAt(_currentIndex) == ',')
+                    _textTimer.SetNewTargetTime(_pauseTime);
+                else
+                    _textTimer.SetNewTargetTime(_typeTime);
+                _currentText.Append(_desiredString.ElementAt(_currentIndex));
                 _currentIndex++;
+            
 
             }
-            _currentText.Update(position);
+            _currentText.Update(position, null, lineLimit);
             return IsComplete;
         }
 
@@ -51,7 +65,7 @@ namespace TextEngine.Classes
 
         public void ForceComplete()
         {
-            _currentText.ClearAndSet(desiredString);
+            _currentText.ClearAndSet(_desiredString);
         }
     }
 }
