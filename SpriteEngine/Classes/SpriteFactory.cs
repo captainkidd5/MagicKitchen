@@ -164,7 +164,9 @@ namespace SpriteEngine.Classes
         {
 
             Point p = GetTextListWidthAndHeight(textList);
+            p.X += 32;
             p.Y += 32;
+
             NineSlice newNineSlice = new NineSlice(position, texture,
                 layer, p.X, p.Y, primaryColor ?? Color.White, scale ?? Vector2.One);
 

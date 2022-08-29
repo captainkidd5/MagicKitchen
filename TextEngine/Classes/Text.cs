@@ -159,11 +159,11 @@ namespace TextEngine.Classes
                 {
                     _words[i].Update(position);
 
-                    position = new Vector2(position.X + _words[i].Width, position.Y);
+                    position = new Vector2(position.X + _words[i].Width + SingleCharacterWidth, position.Y);
                 }
                
                 if (Width < lineLimit)
-                    Width += _words[i].Width;
+                    Width += _words[i].Width + SingleCharacterWidth;
             }
             return position;
         }

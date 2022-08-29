@@ -96,7 +96,7 @@ namespace UIEngine.Classes.ButtonStuff
 
                 if (_centerText)
                 {
-                    textPos = new Vector2(BackGroundSprite.Position.X + BackGroundSprite.Width / 2 - text.Width /2 +32, textPos.Y);
+                    textPos = new Vector2(BackGroundSprite.Position.X + BackGroundSprite.Width / 2 - text.Width /2, textPos.Y);
                 }
                
                     text.Update(textPos, null, Width);
