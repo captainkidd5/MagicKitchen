@@ -173,7 +173,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-           // _backGroundSprite.Draw(spriteBatch);
+           _backGroundSprite.Draw(spriteBatch);
             if (_activeSection != null)
                 _activeSection.Draw(spriteBatch);
 

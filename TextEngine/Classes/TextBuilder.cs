@@ -3,117 +3,55 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace TextEngine.Classes
 {
     public class TextBuilder
     {
-        public readonly float Slow = .1f;
-        public readonly float Normal = .05f;
-        public readonly float Fast = .02f;
+        private readonly Text _currentText;
+        private readonly string desiredString;
+        public float Height => _currentText.Height;
 
-        private Text _text;
-
-        private float _anchorTextRate;
-        private SimpleTimer _simpleTimer;
-
-
-        public bool ExceedsWidth(int width, int? line) => _text.ExceedsWidth(width, line);
-        /// <summary>
-        /// Constructor for text which should type itself out over a given rate.
-        /// </summary>
-        /// <param name="text">Text to write.</param>
-        /// <param name="textRate">How fast the text should be written.</param>
-        public TextBuilder(Text text, float textRate)
+        public bool IsComplete => _currentText.ToString() == desiredString;
+        public void ClearCurrent()
         {
-            _text = text;
-            _anchorTextRate = textRate;
-            _simpleTimer = new SimpleTimer(textRate);
+        _currentText.Clear();
+            _currentIndex = 0;
         }
 
-        /// <summary>
-        /// Constructor for
-        /// </summary>
-        /// <param name="text"></param>
-        public TextBuilder(Text text)
+        private SimpleTimer _textTimer;
+        private float _typeTime = .15f;
+        private int _currentIndex;
+        public TextBuilder(String value, Vector2 position, float? lineXStart, float? lineLimit, float layerDepth, ImageFont imageFont = null, FontType? fontType = null, Color? color = null, float? scale = null)
         {
-           _text = text;
+            desiredString = value;
+            _currentText = TextFactory.CreateUIText(string.Empty, position, lineXStart, lineLimit, layerDepth,imageFont, fontType,color,scale);
+            _textTimer = new SimpleTimer(_typeTime);
         }
 
-        /// <param name="autoComplete">Set to true if you want the given text to be show, rather than set.</param>
-        public void SetText(Text text,
-            int textBoxWidth, bool autoComplete = true)
+        public bool Update(GameTime gameTime, Vector2 position, float lineLimit)
         {
-            _text = text;
-
-            if (autoComplete)
-                ForceComplete(textBoxWidth);
-        }
-
-        /// <param name="textBoxWidth">Provide if you want the text to wrap.</param>
-        /// <param name="stringToAppend">Leave null if you are not manually typing (Like command console).</param>
-        /// <returns>Returns true if finished with current assignment</returns>
-        public bool Update(GameTime gameTime, Vector2 position, int textBoxWidth, string stringToAppend = null)
-        {
-            _text.Update(gameTime, position);
-            if (_simpleTimer != null)
+            if (!IsComplete && _textTimer.Run(gameTime) )
             {
-                if (_text.CurrentString == _text.FullString)
-                {
-                    return true;
-                }
-                else
-                { 
-                    //text being appended on a timer.
-                    if (_simpleTimer.Run(gameTime))
-                        if (_text.Append(textBoxWidth))
-                            return true;
-
-                }
+                _currentText.Append(desiredString.ElementAt(_currentIndex));
+                _currentIndex++;
 
             }
-            else if (!string.IsNullOrEmpty(stringToAppend))
-            {
-                _text.Append(stringToAppend, textBoxWidth);
-                return true;
-            }
-            return false;
-
+            _currentText.Update(position);
+            return IsComplete;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="spriteBatch"></param>
-        /// <param name="position"></param>
-        /// <param name="fullString">Set to true if you just want to print a predefine string as is.</param>
-        public void Draw(SpriteBatch spriteBatch, bool fullString = false)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            _text.Draw(spriteBatch, fullString);
+            _currentText.Draw(spriteBatch,.99f);
         }
 
-
-
-        public void BackSpace()
+        public void ForceComplete()
         {
-            _text.Backspace();
+            _currentText.ClearAndSet(desiredString);
         }
-
-
-        public string GetText() => _text.CurrentString;
-
-
-        public void ClearText() => _text.Clear();
-
-        /// <summary>
-        /// Forces text current string to equal total string
-        /// </summary>
-        public void ForceComplete(int textBoxWidth) => _text.ForceComplete(textBoxWidth);
-
-        public float GetWidthOfTotalWrappedText(int textBoxWidth) =>  _text.GetWidthOfTotalWrappedText( textBoxWidth);
-
-        public bool IsComplete() => _text.CurrentString == _text.FullString;
-        
     }
 }

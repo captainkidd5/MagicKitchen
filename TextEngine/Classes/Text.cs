@@ -46,10 +46,13 @@ namespace TextEngine.Classes
         public override string ToString()
         {
             string stringToReturn = string.Empty;
-            foreach(Word word in _words)
+            for (int i = 0; i < _words.Count; i++)
             {
-                stringToReturn += word.Str;
+                stringToReturn += _words[i].Str;
+                if(i < _words.Count - 1)
+                    stringToReturn += " ";
             }
+
             return stringToReturn;
         }
         public void ClearAndSet(string sentence)

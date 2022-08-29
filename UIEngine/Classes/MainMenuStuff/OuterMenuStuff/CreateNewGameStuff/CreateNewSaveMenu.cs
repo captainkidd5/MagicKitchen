@@ -92,7 +92,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             StackRow createNewGameTitleRow = new StackRow(Width);
 
             _createNewGameTextButton = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-               new List<Text>() { _createNewText }, null, centerText: true);
+               new List<Text>() { _createNewText }, null, centerTextHorizontally: true);
 
             createNewGameTitleRow.AddItem(_createNewGameTextButton, StackOrientation.Center);
             _stackPanel.Add(createNewGameTitleRow);

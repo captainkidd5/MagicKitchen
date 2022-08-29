@@ -47,7 +47,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
             List<Text> titleText = new List<Text>() { TextFactory.CreateUIText(ActiveQuest.Name, GetLayeringDepth(UILayeringDepths.High)) };
 
             NineSliceTextButton titleButton = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), titleText,
-                null, centerText: false, hoverTransparency: false)
+                null, centerTextHorizontally: false, hoverTransparency: false)
             {IgnoreDefaultHoverSoundEffect = true};
             row1.AddItem(titleButton, StackOrientation.Center);
             _stackPanel.Add(row1);
@@ -59,7 +59,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
            // stepDescription[0].ClearAndSet(stepDescription[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
 
             NineSliceTextButton stepBtn = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), stepDescription,
-                null, centerText: false)
+                null, centerTextHorizontally: false)
             { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true };
             stackRowDescription.AddItem(stepBtn, StackOrientation.Center);
 
@@ -91,7 +91,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
 
             NineSliceTextButton rewardsDescriptionButton = new NineSliceTextButton(_stackPanel, graphics, content, Position,
                 GetLayeringDepth(UILayeringDepths.Medium), requirementDescriptionText,
-                null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementDescriptionText[0].Height + 16), centerText: true)
+                null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementDescriptionText[0].Height + 16), centerTextHorizontally: true)
             { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true };
             rewardsTextStackRow.AddItem(rewardsDescriptionButton, StackOrientation.Center);
             _stackPanel.Add(rewardsTextStackRow);

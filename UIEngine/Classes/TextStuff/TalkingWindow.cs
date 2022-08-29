@@ -33,7 +33,7 @@ namespace UIEngine.Classes.TextStuff
         private static readonly int s_portraitWidth = 96;
         private Rectangle _backgroundSourceRectangle = new Rectangle(64, 496, 272, 64);
         private Sprite BackdropSprite { get; set; }
-        private NewTextBuilder TextBuilder { get; set; }
+        private TextBuilder TextBuilder { get; set; }
 
         public Direction DirectionPlayerShouldFace { get; set; }
 
@@ -76,7 +76,7 @@ namespace UIEngine.Classes.TextStuff
 
             BackdropSprite = SpriteFactory.CreateUISprite(Position, _backgroundSourceRectangle,
                 UI.ButtonTexture, GetLayeringDepth(UILayeringDepths.Back), scale: _scale);
-            TextBuilder = new NewTextBuilder("Dialogue Test", Position, null, null, GetLayeringDepth(UILayeringDepths.Front), scale:.5f);
+            TextBuilder = new TextBuilder("Dialogue Test", Position, null, null, GetLayeringDepth(UILayeringDepths.Front), scale:2f);
 
             Deactivate();
 
@@ -102,11 +102,11 @@ namespace UIEngine.Classes.TextStuff
             _tabsStackPanel = new StackPanel(this, graphics, content, tabsStackPanelPosition, GetLayeringDepth(UILayeringDepths.Low));
             StackRow _tabStackRow = new StackRow(TotalBounds.Width);
             _talkTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                new List<Text>() { TextFactory.CreateUIText("Talk", GetLayeringDepth(UILayeringDepths.Medium)) }, SwitchToTalkTab, forcedWidth: 128, forcedHeight: 64, centerText: true);
+                new List<Text>() { TextFactory.CreateUIText("Talk", GetLayeringDepth(UILayeringDepths.Medium),scale:2f) }, SwitchToTalkTab, forcedWidth: 128, forcedHeight: 64, centerTextHorizontally: true);
             _tabStackRow.AddItem(_talkTab, StackOrientation.Left);
 
             _questTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                new List<Text>() { TextFactory.CreateUIText("Quest", GetLayeringDepth(UILayeringDepths.Medium)) }, SwitchToQuestTab, forcedWidth: 128, forcedHeight: 64, centerText: true);
+                new List<Text>() { TextFactory.CreateUIText("Quest", GetLayeringDepth(UILayeringDepths.Medium), scale: 2f) }, SwitchToQuestTab, forcedWidth: 128, forcedHeight: 64, centerTextHorizontally: true);
             _tabStackRow.AddItem(_questTab, StackOrientation.Left);
 
             _tabsStackPanel.Add(_tabStackRow);
@@ -133,7 +133,7 @@ namespace UIEngine.Classes.TextStuff
             _availableQuests = new List<NineSliceTextButton>();
             StackRow explanationRow = new StackRow(TotalBounds.Width);
             NineSliceTextButton explBtn = new NineSliceTextButton(_questButtonsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
-                  new List<Text>() { TextFactory.CreateUIText("Talk about which quest?", GetLayeringDepth(UILayeringDepths.High)) }, null, centerText: true)
+                  new List<Text>() { TextFactory.CreateUIText("Talk about which quest?", GetLayeringDepth(UILayeringDepths.High)) }, null, centerTextHorizontally: true)
             { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true, };
             explanationRow.AddItem(explBtn, StackOrientation.Center);
             _questButtonsStackPanel.Add(explanationRow);
@@ -282,7 +282,7 @@ namespace UIEngine.Classes.TextStuff
             {
                 if (_portraitSprite != null)
                     _portraitSprite.Update(gameTime, _portraitSpritePosition);
-                _displayNextButton = TextBuilder.IsComplete();
+                _displayNextButton = TextBuilder.IsComplete;
 
                 if (_displayNextButton)
                     _goToNextDialogueButton.Update(gameTime);
@@ -335,6 +335,7 @@ namespace UIEngine.Classes.TextStuff
             UI.ReactiveSections();
             _curerentDialogueIndex = 0;
             _portraitSprite = null;
+            TextBuilder.ClearCurrent();
             base.Deactivate();
 
         }

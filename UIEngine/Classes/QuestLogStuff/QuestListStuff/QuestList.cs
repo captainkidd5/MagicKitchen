@@ -41,7 +41,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
             List<Text> titleText = new List<Text>() { TextFactory.CreateUIText("Active Quests", GetLayeringDepth(UILayeringDepths.High)) };
 
             NineSliceTextButton titleButton = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), titleText,
-                null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: 60,centerText:true, hoverTransparency: false)
+                null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: 60,centerTextHorizontally:true, hoverTransparency: false)
             { IgnoreDefaultHoverSoundEffect = true, };
             row1.AddItem(titleButton, StackOrientation.Left);
             _stackPanel.Add(row1);
@@ -55,7 +55,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
                 List<Text> text = new List<Text>() { TextFactory.CreateUIText(quest.Name, GetLayeringDepth(UILayeringDepths.High)) };
 
                 NineSliceTextButton btn = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), text,
-                    new Action (()=> { SetActiveQuest(quest); }), forcedWidth:(int)(_backGroundSprite.Width* _scale.X), forcedHeight: 60,centerText: true);
+                    new Action (()=> { SetActiveQuest(quest); }), forcedWidth:(int)(_backGroundSprite.Width* _scale.X), forcedHeight: 60,centerTextHorizontally: true);
                 stackRow.AddItem(btn, StackOrientation.Left);
                 _stackPanel.Add(stackRow);
             }

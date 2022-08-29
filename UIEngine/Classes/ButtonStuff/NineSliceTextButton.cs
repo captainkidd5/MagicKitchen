@@ -23,11 +23,11 @@ namespace UIEngine.Classes.ButtonStuff
 
         private int? _forcedWidth;
         private int? _forcedHeight;
-        private bool _centerText;
+        private bool _centerTextHorizontally;
 
         public bool Displaybackground { get; set; } = true;
         public NineSliceTextButton(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2 position, float layerDepth,
-             List<Text> textList, Action buttonAction, int? forcedWidth = null, int? forcedHeight = null, bool centerText = false,
+             List<Text> textList, Action buttonAction, int? forcedWidth = null, int? forcedHeight = null, bool centerTextHorizontally = false,
             Sprite? foregroundSprite = null, Point? samplePoint = null, Rectangle? sourceRectangle = null, bool hoverTransparency = true) :
             base(interfaceSection, graphicsDevice, content, position, layerDepth, sourceRectangle, buttonAction, foregroundSprite, samplePoint, hoverTransparency)
         {
@@ -38,11 +38,11 @@ namespace UIEngine.Classes.ButtonStuff
                 throw new Exception($"test");
 
             }
-            _centerText = centerText;
+            _centerTextHorizontally = centerTextHorizontally;
             _forcedWidth = forcedWidth;
             _forcedHeight = forcedHeight;
             MovePosition(position);
-           // IgnoreDefaultHoverSoundEffect = true;
+            // IgnoreDefaultHoverSoundEffect = true;
 
         }
         public override void MovePosition(Vector2 newPos)
@@ -94,14 +94,14 @@ namespace UIEngine.Classes.ButtonStuff
             {
                 Text text = _textList[i];
 
-                if (_centerText)
+                if (_centerTextHorizontally)
                 {
-                    textPos = new Vector2(BackGroundSprite.Position.X + BackGroundSprite.Width / 2 - text.Width /2, textPos.Y);
+                    textPos = new Vector2(BackGroundSprite.Position.X + BackGroundSprite.Width / 2 - text.Width / 2, textPos.Y);
                 }
-               
-                    text.Update(textPos, null, Width);
 
-                
+                text.Update(textPos, null, Width);
+
+
                 textPos = new Vector2(textPos.X, textPos.Y + text.Height);
                 //text.ChangeColor(Color);
             }
