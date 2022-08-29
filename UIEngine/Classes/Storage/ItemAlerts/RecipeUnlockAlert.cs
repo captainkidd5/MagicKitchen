@@ -30,7 +30,7 @@ namespace UIEngine.Classes.Storage.ItemAlerts
         }
         protected override Text SetInitialText()
         {
-            return TextFactory.CreateUIText($"{ItemData.Name}", GetLayeringDepth(UILayeringDepths.Medium));
+            return TextFactory.CreateUIText($"{ItemData.DisplayName}", GetLayeringDepth(UILayeringDepths.Medium));
         }
         public override void LoadContent()
         {

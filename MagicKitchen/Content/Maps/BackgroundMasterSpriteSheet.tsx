@@ -974,6 +974,36 @@
    <frame tileid="630" duration="800"/>
   </animation>
  </tile>
+ <tile id="839">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
+ <tile id="840">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
+ <tile id="841">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
+ <tile id="842">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
+ <tile id="843">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
+ <tile id="844">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
  <tile id="911">
   <properties>
    <property name="tilingSet" value="jungleGrass"/>
@@ -1037,6 +1067,40 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="939">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
+ <tile id="940">
+  <properties>
+   <property name="step" value="StepGrass1"/>
+   <property name="tilingKey" value="stone_floor,land,back"/>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Dig,Shovel,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="941">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
+ <tile id="942">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
+ <tile id="943">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
  <tile id="1020">
   <properties>
    <property name="tilingSet" value="deepWater"/>
@@ -1086,6 +1150,31 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
+ </tile>
+ <tile id="1039">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
+ <tile id="1040">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
+ <tile id="1041">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
+ <tile id="1042">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
+ </tile>
+ <tile id="1043">
+  <properties>
+   <property name="tilingSet" value="stone_floor"/>
+  </properties>
  </tile>
  <tile id="1120">
   <properties>

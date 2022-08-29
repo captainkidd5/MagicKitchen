@@ -58,7 +58,7 @@ namespace UIEngine.Classes.ButtonStuff.SettingsMenuStuff
             _saveSettingsButton = UI.ButtonFactory.CreateNSliceTxtBtn(_stackPanel, Position,
                 GetLayeringDepth(UILayeringDepths.Low),  new List<string>()
                 { "Save Settings!" },
-                SetSettingsValues,true, 1.4f);
+                SetSettingsValues,true, 2f);
             stackRow1.AddItem(_saveSettingsButton, StackOrientation.Center);
             _stackPanel.Add(stackRow1);
 

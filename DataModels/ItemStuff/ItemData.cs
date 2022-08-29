@@ -51,7 +51,7 @@ namespace DataModels.ItemStuff
         public ushort Id { get; set; }
 
         public string Name { get; set; }
-        public string ProperName => Name.Replace("_", " ");
+        public string DisplayName => Name.Replace("_", " ");
 
         public string Description { get; set; }
 

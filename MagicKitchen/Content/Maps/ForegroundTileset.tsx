@@ -75,6 +75,16 @@
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
+ <tile id="3726">
+  <properties>
+   <property name="newSource" value="-16,-48,32,64"/>
+  </properties>
+  <objectgroup draworder="index" id="4">
+   <object id="3" x="9" y="9" width="6" height="6">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="3728">
   <properties>
    <property name="lightSource" value=".6,-8,8,Warm,immune:false"/>
@@ -144,6 +154,40 @@
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
  </tile>
+ <tile id="4230">
+  <properties>
+   <property name="lightSource" value=".3,8,8,Nautical,immune:true"/>
+   <property name="newHitBox" value="4, -8, 26"/>
+   <property name="newSource" value="0,-64,32,80"/>
+  </properties>
+  <animation>
+   <frame tileid="4230" duration="100"/>
+   <frame tileid="4232" duration="100"/>
+   <frame tileid="4234" duration="100"/>
+   <frame tileid="4236" duration="100"/>
+   <frame tileid="4238" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="4232">
+  <properties>
+   <property name="newSource" value="0,-64,32,80"/>
+  </properties>
+ </tile>
+ <tile id="4234">
+  <properties>
+   <property name="newSource" value="0,-64,32,80"/>
+  </properties>
+ </tile>
+ <tile id="4236">
+  <properties>
+   <property name="newSource" value="0,-64,32,80"/>
+  </properties>
+ </tile>
+ <tile id="4238">
+  <properties>
+   <property name="newSource" value="0,-64,32,80"/>
+  </properties>
+ </tile>
  <tile id="4266">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
@@ -165,6 +209,12 @@
  <tile id="4568">
   <properties>
    <property name="newSource" value="-16,-48,48,64"/>
+  </properties>
+ </tile>
+ <tile id="5231">
+  <properties>
+   <property name="newHitBox" value="0,-16,32,32"/>
+   <property name="newSource" value="0,-80,32,96"/>
   </properties>
  </tile>
  <tile id="5412">

@@ -67,7 +67,7 @@ namespace UIEngine.Classes.CraftingMenuStuff
             _currentItem = itemData;
 
             LoadContent();
-            _nameText = TextFactory.CreateUIText(_currentItem.ProperName, GetLayeringDepth(UILayeringDepths.Medium));
+            _nameText = TextFactory.CreateUIText(_currentItem.DisplayName, GetLayeringDepth(UILayeringDepths.Medium));
             //_nameText.ForceSetPosition(_nameTextPosition);
 
             _mayCraft = true;

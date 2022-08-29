@@ -22,9 +22,6 @@ namespace TiledEngine.Classes.TilePlacementStuff
     {
         public TileObject CurrentTile { get; private set; }
         public int GID { get; set; } = -1;
-
-        public int X { get; set; }
-        public int Y { get; set; }
         private Layers _layer;
         private Sprite _sprite;
         private readonly TileManager _tileManager;

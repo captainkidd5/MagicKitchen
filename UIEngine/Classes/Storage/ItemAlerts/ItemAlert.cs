@@ -49,7 +49,7 @@ namespace UIEngine.Classes.Storage.ItemAlerts
             _simpleTimer.ResetToZero();
             _simpleTimer.SetNewTargetTime(TTl);
             Count += (byte)amt;
-            _text.ClearAndSet($"{ItemData.Name} +({Count})");
+            _text.ClearAndSet($"{ItemData.DisplayName} +({Count})");
             _background.Color = Color.White;
             ChildSections.Remove(_background);
             _background = new NineSliceTextButton(this, graphics, content, Position + BackgroundOffSet,

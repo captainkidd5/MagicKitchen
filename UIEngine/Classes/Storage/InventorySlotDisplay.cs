@@ -149,7 +149,7 @@ namespace UIEngine.Classes.Storage
 
                         List<string> text = new List<string>();
 
-                        text.Add(_storageSlot.Item.Name);
+                        text.Add(_storageSlot.Item.DisplayName);
                         text.Add(_storageSlot.Item.Description);
 
                         UI.LoadNewCursorInfo( text);

@@ -28,6 +28,7 @@ namespace ItemEngine.Classes
         public ushort MaxStackSize => _itemData.MaxStackSize;
         public ushort Id => _itemData.Id;
         public string Name => _itemData.Name;
+        public string DisplayName => _itemData.Name.Replace('_', ' ');
         public string Description => _itemData.Description;
         public RecipeInfo RecipeInfo => _itemData.RecipeInfo;
 
