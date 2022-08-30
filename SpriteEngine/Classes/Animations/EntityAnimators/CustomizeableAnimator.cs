@@ -50,28 +50,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
 
         }
 
-        //private int? EquipmentTypeToBodyPartIndex(EquipmentType equipmentType)
-        //{
-        //    switch (equipmentType)
-        //    {
-        //        case EquipmentType.None:
-        //            goto default;
-        //        case EquipmentType.Helmet:
-        //            return 7;
-        //        case EquipmentType.Torso:
-        //            return 2;
-        //        case EquipmentType.Legs:
-        //            return 0;
 
-        //        case EquipmentType.Boots:
-        //            return 1;
-
-        //        case EquipmentType.Trinket:
-        //            goto default;
-
-        //        default: return null;
-        //    }
-        //}
         public void SetClothingIndex(Type t, int index)
         {
             for (int i = 0; i < BodyPieces.Length; i++)
@@ -79,7 +58,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
                 if (BodyPieces[i].GetType() == t)
                 {
                     BodyPieces[i].SetIndex(index);
-                    BodyPieces[i].Load(this, Position, BodyPieces[i].Scale);
+                    BodyPieces[i].Load(Direction.Down, this, Position, BodyPieces[i].Scale);
                 }
             }
         }
@@ -97,7 +76,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         {
             for (int i = 0; i < BodyPieces.Length; i++)
             {
-                BodyPieces[i].Load(this, entityPosition, scale);
+                BodyPieces[i].Load(Direction.Down,this, entityPosition, scale);
                 BodyPieces[i].ChangeAnimation(ActionType.Walking);
 
                 if (BodyPieces[i].GetType() == typeof(Shoes))
@@ -115,8 +94,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         }
         public override void PerformAction(Action action, Direction direction, ActionType actionType, float speedModifier = 1f)
         {
-            if (CurrentActionType == actionType)
-                Console.WriteLine("test");
+
             base.PerformAction(action, direction, actionType, speedModifier);
             CurrentActionType = actionType;
 

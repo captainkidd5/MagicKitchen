@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Globals.Classes;
-using Penumbra;
 using System.Collections.Generic;
 using Globals.Classes.Console;
 using System;
@@ -117,7 +116,7 @@ namespace PhysicsEngine.Classes
         public static HullBody CreateCircularHullBody(BodyType bodyType, Vector2? position,float? radius, List<Category>? collisionCategories, List<Category>? categoriesCollidesWith,
             OnCollisionEventHandler? cDelegate, OnSeparationEventHandler? sDelegate, float density = 1.5f,
             float restitution = 1f, float friction = 1f, float mass = 1f, float inertia = 0, bool sleepingAllowed = true,bool isSensor = false, bool ignoreGravity = false,
-            object userData = null, int xOffset = 0, int yOffset = 0,bool blocksLight = false, Light light = null)
+            object userData = null, int xOffset = 0, int yOffset = 0,bool blocksLight = false)
         {
             radius = radius ?? 6f;
             position = position ?? Vector2.Zero;
@@ -154,7 +153,7 @@ namespace PhysicsEngine.Classes
         public static HullBody CreateRectangularHullBody(BodyType bodyType, Vector2? position, float? width,float? height, List<Category>? collisionCategories, List<Category>? categoriesCollidesWith,
             OnCollisionEventHandler? cDelegate, OnSeparationEventHandler? sDelegate, float density = 1f, float rotation = 0f,
             float restitution = 1f, float friction = 1f, float mass = 1f, float inertia = 0, bool sleepingAllowed = true, bool isSensor = false, bool ignoreGravity = false,
-            object userData = null, int xOffset = 0, int yOffset = 0, bool blocksLight = false, Light light = null)
+            object userData = null, int xOffset = 0, int yOffset = 0, bool blocksLight = false)
         {
             
             width = width ?? 4f;
@@ -175,7 +174,7 @@ namespace PhysicsEngine.Classes
         public static HullBody CreatePolygonHullBody(BodyType bodyType, Vector2? position, Vertices vertices, List<Category>? collisionCategories, List<Category>? categoriesCollidesWith,
             OnCollisionEventHandler? cDelegate, OnSeparationEventHandler? sDelegate, float density = 1f, float rotation = 0f,
             float restitution = 1f, float friction = 1f, float mass = 1f, float inertia = 0, bool sleepingAllowed = true, bool isSensor = false, bool ignoreGravity = false,
-            object userData = null, int xOffset = 0, int yOffset = 0, bool blocksLight = false, Light light = null)
+            object userData = null, int xOffset = 0, int yOffset = 0, bool blocksLight = false)
         {
 
  

@@ -88,16 +88,16 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             UnderGarmentSavedIndex = Index;
             Index = (byte)yIndex;
             GearEquipped = true;
-            Load(Animator, Vector2.Zero, Scale);
+            Load(CurrentDirection,Animator, Vector2.Zero, Scale);
         }
         public void UnequipGear()
         {
             GearEquipped = false;
             Index = UnderGarmentSavedIndex;
-            Load(Animator, Vector2.Zero, Scale);
+            Load(CurrentDirection,Animator, Vector2.Zero, Scale);
 
         }
-        public virtual void Load(Animator animator, Vector2 entityPosition, Vector2? scale = null)
+        public virtual void Load(Direction direction,Animator animator, Vector2 entityPosition, Vector2? scale = null)
         {
             Scale = scale ?? Vector2.One;
 
@@ -122,7 +122,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
 
             CurrentAction = AllAnimationSets[ActionType.Walking];
-
+            CurrentDirection = direction;
         }
         protected virtual void CreateWalkSet()
         {
@@ -204,12 +204,12 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         public void CycleForward()
         {
             Index = (byte)ScrollHelper.GetIndexFromScroll(Direction.Down, Index, MaxIndex);
-            Load(Animator, Vector2.Zero, Scale);
+            Load(CurrentDirection, Animator, Vector2.Zero, Scale);
         }
         public void CycleBackwards()
         {
             Index = (byte)ScrollHelper.GetIndexFromScroll(Direction.Up, Index, MaxIndex);
-            Load(Animator, Vector2.Zero, Scale);
+            Load(CurrentDirection, Animator, Vector2.Zero, Scale);
         }
         public void Save(BinaryWriter writer)
         {

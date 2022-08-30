@@ -5,7 +5,7 @@ using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Penumbra;
+
 using PhysicsEngine.Classes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;

@@ -22,13 +22,13 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             FrameWidth = 16;
             FrameHeight = 16;
         }
-        public override void Load(Animator animator, Vector2 entityPosition, Vector2? scale = null)
+        public override void Load(Direction direction, Animator animator, Vector2 entityPosition, Vector2? scale = null)
         {
             Texture = SpriteFactory.HairTexture;
             GearEquipX = 48;
             MaxIndex = 3;
 
-            base.Load(animator, entityPosition, scale);
+            base.Load(direction,animator, entityPosition, scale);
 
 
         }

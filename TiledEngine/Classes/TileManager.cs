@@ -7,7 +7,7 @@ using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Penumbra;
+
 using PhysicsEngine.Classes.Pathfinding;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;

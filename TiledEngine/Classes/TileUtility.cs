@@ -2,7 +2,7 @@
 using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Penumbra;
+
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.Animations;
 using System;

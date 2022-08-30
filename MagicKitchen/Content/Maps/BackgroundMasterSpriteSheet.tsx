@@ -121,13 +121,6 @@
    <property name="tilingKey" value="grass,land,back"/>
    <property name="tilingSet" value="grass"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16">
-    <properties>
-     <property name="action" value="Dig,Shovel,Good"/>
-    </properties>
-   </object>
-  </objectgroup>
  </tile>
  <tile id="113">
   <properties>
@@ -176,13 +169,6 @@
    <property name="tilingKey" value="land,water,back"/>
    <property name="tilingSet" value="land"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="16">
-    <properties>
-     <property name="action" value="Dig,Shovel,Good"/>
-    </properties>
-   </object>
-  </objectgroup>
  </tile>
  <tile id="202">
   <properties>

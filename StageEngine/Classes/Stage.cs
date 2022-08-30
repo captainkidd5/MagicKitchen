@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes;
 using SpriteEngine.Classes;
-using Penumbra;
+
 using SpriteEngine.Classes.RenderTargetStuff;
 using System;
 using System.Collections.Generic;

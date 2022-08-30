@@ -6,6 +6,7 @@ using SpriteEngine.Classes.Animations.EntityAnimations;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static DataModels.Enums;
 
 namespace SpriteEngine.Classes.Animations.BodyPartStuff
 {
@@ -17,12 +18,12 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             FrameWidth = 16;
             FrameHeight = 32;
         }
-        public override void Load(Animator animator, Vector2 entityPosition, Vector2? scale = null)
+        public override void Load(Direction direction, Animator animator, Vector2 entityPosition, Vector2? scale = null)
         {
             Texture = SpriteFactory.ShouldersTexture;
             GearEquipX = 176;
 
-            base.Load(animator, entityPosition, scale);
+            base.Load(direction, animator, entityPosition, scale);
 
 
 

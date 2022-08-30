@@ -2,7 +2,6 @@
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Penumbra;
 using PhysicsEngine.Classes;
 using System;
 using System.Collections.Generic;

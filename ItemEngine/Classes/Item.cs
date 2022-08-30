@@ -3,7 +3,7 @@ using DataModels.ItemStuff;
 using Globals.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Penumbra;
+
 using PhysicsEngine.Classes;
 using PhysicsEngine.Classes.Gadgets;
 using SoundEngine.Classes;
