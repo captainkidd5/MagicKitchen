@@ -49,11 +49,18 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.ViewGames
             Action action = LoadSave;
             TotalBounds = new Rectangle((int)Position.X, (int)Position.Y, _width - ButtonFactory.s_redExRectangle.Width * 2, _height);
 
-            _slotButton = UI.ButtonFactory.CreateNSliceTxtBtnManualDimensions(this, Position, _width - ButtonFactory.s_redExRectangle.Width * 2, _height,
-                GetLayeringDepth(UILayeringDepths.Medium), new List<string>() { _saveFile.MetaData.Name, _saveFile.MetaData.DateCreated.Date.ToString("d"),
-                    _saveFile.MetaData.DateCreated.ToString("HH:mm") },  action,1.4f);
+            //_slotButton = UI.ButtonFactory.CreateNSliceTxtBtnManualDimensions(this, Position, _width - ButtonFactory.s_redExRectangle.Width * 2, _height,
+            //    GetLayeringDepth(UILayeringDepths.Medium), new List<string>() { _saveFile.MetaData.Name, _saveFile.MetaData.DateCreated.Date.ToString("d"),
+            //        _saveFile.MetaData.DateCreated.ToString("HH:mm") },  action,1.4f);
 
-            _slotButton.IgnoreDefaultClickSoundEffect = true;
+
+            _slotButton = new NineSliceTextButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
+                  new List<Text>()
+                  {
+                      TextFactory.CreateUIText(_saveFile.MetaData.Name, GetLayeringDepth(UILayeringDepths.High), scale: 1f),
+                      TextFactory.CreateUIText(_saveFile.MetaData.DateCreated.Date.ToString("d"), GetLayeringDepth(UILayeringDepths.High), scale: 1f),
+
+                  }, action,forcedWidth: _width - ButtonFactory.s_redExRectangle.Width * 2,forcedHeight:_height, centerTextHorizontally: true, centerTextVertically: true);
             base.LoadContent();
 
         }

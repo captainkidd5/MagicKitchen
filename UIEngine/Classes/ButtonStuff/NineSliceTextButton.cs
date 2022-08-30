@@ -96,7 +96,7 @@ namespace UIEngine.Classes.ButtonStuff
                 {
                     totalHeight += (int)_textList[i].Height;
                 }
-                textPos = new Vector2(textPos.X, textPos.Y + );
+                textPos = new Vector2(textPos.X, textPos.Y + BackGroundSprite.Height / 2 - totalHeight / 2);
 
             }
             for (int i = 0; i < _textList.Count; i++)

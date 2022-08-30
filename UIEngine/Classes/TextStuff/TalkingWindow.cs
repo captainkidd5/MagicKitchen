@@ -102,11 +102,13 @@ namespace UIEngine.Classes.TextStuff
             _tabsStackPanel = new StackPanel(this, graphics, content, tabsStackPanelPosition, GetLayeringDepth(UILayeringDepths.Low));
             StackRow _tabStackRow = new StackRow(TotalBounds.Width);
             _talkTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                new List<Text>() { TextFactory.CreateUIText("Talk", GetLayeringDepth(UILayeringDepths.Medium),scale:2f) }, SwitchToTalkTab, forcedWidth: 128, forcedHeight: 64, centerTextHorizontally: true);
+                new List<Text>() { TextFactory.CreateUIText("Talk", GetLayeringDepth(UILayeringDepths.Medium),scale:2f) }, SwitchToTalkTab,
+                forcedWidth: 128, forcedHeight: 64, centerTextHorizontally: true, centerTextVertically: true);
             _tabStackRow.AddItem(_talkTab, StackOrientation.Left);
 
             _questTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                new List<Text>() { TextFactory.CreateUIText("Quest", GetLayeringDepth(UILayeringDepths.Medium), scale: 2f) }, SwitchToQuestTab, forcedWidth: 128, forcedHeight: 64, centerTextHorizontally: true);
+                new List<Text>() { TextFactory.CreateUIText("Quest", GetLayeringDepth(UILayeringDepths.Medium), scale: 2f) }, SwitchToQuestTab,
+                forcedWidth: 128, forcedHeight: 64, centerTextHorizontally: true, centerTextVertically: true);
             _tabStackRow.AddItem(_questTab, StackOrientation.Left);
 
             _tabsStackPanel.Add(_tabStackRow);
