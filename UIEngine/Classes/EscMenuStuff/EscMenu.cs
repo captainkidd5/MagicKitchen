@@ -200,6 +200,11 @@ namespace UIEngine.Classes.EscMenuStuff
 
 
         }
+        public override void Activate()
+        {
+            base.Activate();
+            EquipmentMenu.MovePosition(RectangleHelper.CenterRectangleOnScreen(TotalBounds));
+        }
         public override void Deactivate()
         {
             base.Deactivate();

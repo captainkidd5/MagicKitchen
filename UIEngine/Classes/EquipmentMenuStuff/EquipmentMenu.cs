@@ -31,8 +31,8 @@ namespace UIEngine.Classes.EquipmentMenuStuff
         {
             if(ChildSections.Count == 0)
             {
-
-            //TotalBounds = parentSection.TotalBounds;
+                ChildSections.Clear();
+            TotalBounds = parentSection.TotalBounds;
             Position = new Vector2(TotalBounds.X, TotalBounds.Y);
             EquipmentDisplay = new EquipmentDisplay(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low));
             EquipmentDisplay.LoadContent();
@@ -44,6 +44,11 @@ namespace UIEngine.Classes.EquipmentMenuStuff
 
         }
 
+        public override void MovePosition(Vector2 newPos)
+        {
+            base.MovePosition(newPos);
+            EquipmentDisplay.MovePosition(newPos);
+        }
         public override void Update(GameTime gameTime)
         {
             if (Controls.WasKeyTapped(Keys.C))

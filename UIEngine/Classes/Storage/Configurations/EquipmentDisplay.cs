@@ -40,8 +40,14 @@ namespace UIEngine.Classes.Storage.Configurations
             base.Update(gameTime);
         }
 
+        public override void MovePosition(Vector2 newPos)
+        {
+            base.MovePosition(newPos);
+            GenerateUI(false);
+        }
         protected override void GenerateUI(bool displayWallet)
         {
+            ChildSections.Clear();
             Vector2 offSet = new Vector2(32,64);
 
             Position = parentSection.Position;
