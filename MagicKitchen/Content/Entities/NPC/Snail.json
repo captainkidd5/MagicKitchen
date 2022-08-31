@@ -1,0 +1,73 @@
+
+[
+{
+    "Name": "Snail",
+    "ObjectType" : "EntityEngine.Classes.CharacterStuff.Character",
+    "ScheduleName": "wander_1",
+    "NPCType" : "Enemy",
+    "SpriteWidth": 80,
+    "SpriteHeight": 80,
+    "ShadowOffSetX": 0,
+    "ShadowOffSetY" :-4,
+    "ShadowSize":"Small",
+    
+    "ImmediatelySpawn" : true,
+    "StartingStage" : "LullabyTown",
+    "StartingX": 128,
+    "StartingY" : 128,
+    "AnimationInfo": [
+        {
+        "ActionType": "Walking",
+
+        "MovementType": "Walk",
+        "MovementDirection": "Up",
+        "Flip" : false,
+        "SpriteX": 1,
+
+        "SpriteY":31,
+        "FrameIndicies":[
+            0,1
+        ]
+    },
+    {
+        "ActionType": "Walking",
+
+        "MovementType": "Walk",
+        "MovementDirection": "Up",
+        "Flip" : false,
+        "SpriteX": 1,
+
+        "SpriteY":31,
+        "FrameIndicies":[
+            0,1
+        ]
+    },
+    {
+        "ActionType": "Walking",
+
+        "MovementType": "Walk",
+        "MovementDirection": "Up",
+        "Flip" : false,
+        "SpriteX": 1,
+
+        "SpriteY":31,
+        "FrameIndicies":[
+            0,1
+        ]
+    },
+    {
+        "ActionType": "Walking",
+
+        "MovementType": "Walk",
+        "MovementDirection": "Up",
+        "Flip" : false,
+        "SpriteX": 1,
+
+        "SpriteY":31,
+        "FrameIndicies":[
+            0,1
+        ]
+    }
+]
+}
+]
