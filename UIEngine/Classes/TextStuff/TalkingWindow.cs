@@ -115,7 +115,9 @@ namespace UIEngine.Classes.TextStuff
                 new List<Text>() { TextFactory.CreateUIText("Quest", GetLayeringDepth(UILayeringDepths.Medium), scale: 2f) }, SwitchToQuestTab,
                 forcedWidth: 128, forcedHeight: 64, centerTextHorizontally: true, centerTextVertically: true);
             _tabStackRow.AddItem(_questTab, StackOrientation.Left);
-            _tabStackRow.AddSpacer(new Rectangle(0, 0, 96, 64), StackOrientation.Right);
+
+            //Width here should be the same width as the scaled portrait
+            _tabStackRow.AddSpacer(new Rectangle(0, 0, 192, 64), StackOrientation.Right);
             //string name = npcData == null ? "Name" : npcData.Name;
             _nameTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
               new List<Text>() { TextFactory.CreateUIText("Caspar", GetLayeringDepth(UILayeringDepths.Medium), scale: 2f) }, SwitchToQuestTab,

@@ -66,8 +66,8 @@ namespace UIEngine.Classes.Components
                 case StackOrientation.None:
                     throw new Exception($"Invalid orientation");
                 case StackOrientation.Left:
-                    if(centerVertically)
-                      newPos = new Vector2(_currentX, rectangle.Height / 2 * -1);
+                    if (centerVertically)
+                        newPos = new Vector2(_currentX, rectangle.Height / 2 * -1);
                     else
                         newPos = new Vector2(_currentX, 0);
 
@@ -77,7 +77,18 @@ namespace UIEngine.Classes.Components
                     newPos = new Vector2((_maxWidth / 2) - rectangle.Width / 2, 0);
                     break;
                 case StackOrientation.Right:
-                    newPos = new Vector2(_maxWidth - rectangle.Width, 0);
+                    if (_currentX > _currentContentWidth)
+                    {
+                        //Means we've previously added either a center or right side orientation
+                        _currentX = _currentX - rectangle.Width;
+
+                    }
+                    else
+                    {
+                        _currentX = _maxWidth - rectangle.Width;
+
+                    }
+                    newPos = new Vector2(_currentX, 0);
 
                     break;
             }
