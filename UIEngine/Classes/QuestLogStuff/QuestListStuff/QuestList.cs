@@ -38,10 +38,11 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
 
 
             StackRow row1 = new StackRow((int)(_backGroundSprite.Width * _scale.X));
-            List<Text> titleText = new List<Text>() { TextFactory.CreateUIText("Active Quests", GetLayeringDepth(UILayeringDepths.High)) };
+            List<Text> titleText = new List<Text>() { TextFactory.CreateUIText("Active Quests", GetLayeringDepth(UILayeringDepths.High),scale:1.8f) };
 
             NineSliceTextButton titleButton = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), titleText,
-                null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: 60,centerTextHorizontally:true, hoverTransparency: false)
+                null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: 60, centerTextHorizontally: true, hoverTransparency: false,
+                centerTextVertically: true)
             { IgnoreDefaultHoverSoundEffect = true, };
             row1.AddItem(titleButton, StackOrientation.Left);
             _stackPanel.Add(row1);
@@ -52,10 +53,10 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
                 Quest quest = questPair.Value;
                 
                 StackRow stackRow = new StackRow((int)(_backGroundSprite.Width * _scale.X));
-                List<Text> text = new List<Text>() { TextFactory.CreateUIText(quest.Name, GetLayeringDepth(UILayeringDepths.High)) };
+                List<Text> text = new List<Text>() { TextFactory.CreateUIText(quest.ProperName, GetLayeringDepth(UILayeringDepths.High), scale: 1.5f) };
 
                 NineSliceTextButton btn = new NineSliceTextButton(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), text,
-                    new Action (()=> { SetActiveQuest(quest); }), forcedWidth:(int)(_backGroundSprite.Width* _scale.X), forcedHeight: 60,centerTextHorizontally: true);
+                    new Action (()=> { SetActiveQuest(quest); }), forcedWidth:(int)(_backGroundSprite.Width* _scale.X), forcedHeight: 60,centerTextHorizontally: true, centerTextVertically:true);
                 stackRow.AddItem(btn, StackOrientation.Left);
                 _stackPanel.Add(stackRow);
             }

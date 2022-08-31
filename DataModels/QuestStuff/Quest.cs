@@ -10,6 +10,7 @@ namespace DataModels.QuestStuff
     
     public class Quest
     {
+        public string ProperName => Name.Replace('_', ' ');
         public string Name { get; set; }
         public List<PreRequisite> PreRequisites { get; set; }
 
