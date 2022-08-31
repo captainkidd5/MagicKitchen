@@ -78,7 +78,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
 
             Position = positionOffSet;
             bool resetToResting = !isMoving && WasMovingLastFrame;
-
+            Layer = entityLayer;
             _currentAnimation.CustomLayer = entityLayer;
 
             if (resetToResting)

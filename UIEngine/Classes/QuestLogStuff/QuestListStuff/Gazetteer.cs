@@ -26,7 +26,7 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
         private Sprite _backGroundSprite;
         private Vector2 _scale = new Vector2(2f, 2f);
 
-        private float _paragraphTextSize = .7f;
+        private float _paragraphTextSize = 1f;
         public Gazetteer(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) : 
             base(interfaceSection, graphicsDevice, content, position, layerDepth)
         {
@@ -104,12 +104,13 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
             foreach (PreRequisite requirement in ActiveQuest.Steps[ActiveQuest.CurrentStep].PreRequisites)
             {
                 StackRow stackRowDescription = new StackRow((int)(_backGroundSprite.Width * _scale.X));
-                List<Text> requirementDescriptionText = new List<Text>() { TextFactory.CreateUIText($"Return to {ActiveQuest.Steps[ActiveQuest.CurrentStep].TurnInto} with", GetLayeringDepth(UILayeringDepths.High), scale: _paragraphTextSize) };
-                requirementDescriptionText[0].ClearAndSet(requirementDescriptionText[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
+                List<Text> requirementDescriptionText = new List<Text>() { TextFactory.CreateUIText(
+                    $"Return to {ActiveQuest.Steps[ActiveQuest.CurrentStep].TurnInto} with",
+                    GetLayeringDepth(UILayeringDepths.High), scale: _paragraphTextSize) };
 
                 NineSliceTextButton requirementDescriptionButton = new NineSliceTextButton(_stackPanel, graphics, content, Position,
                     GetLayeringDepth(UILayeringDepths.Medium), requirementDescriptionText,
-                    null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementDescriptionText[0].Height + 16), centerText: true)
+                    null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementDescriptionText[0].Height + 16), centerTextVertically: true)
                 { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true };
                 stackRowDescription.AddItem(requirementDescriptionButton, StackOrientation.Left);
                 _stackPanel.Add(stackRowDescription);
@@ -117,11 +118,10 @@ namespace UIEngine.Classes.QuestLogStuff.QuestListStuff
                 {
                     StackRow stackRow = new StackRow((int)(_backGroundSprite.Width * _scale.X));
                     List<Text> requirementText = new List<Text>() { TextFactory.CreateUIText($"{itemReq.ItemName} : x{itemReq.Count}", GetLayeringDepth(UILayeringDepths.High), scale: _paragraphTextSize) };
-                    requirementText[0].ClearAndSet(requirementText[0].WrapAutoText((int)(_backGroundSprite.Width * _scale.X - 16)));
 
                     NineSliceTextButton requirementButton = new NineSliceTextButton(_stackPanel, graphics, content, Position,
                         GetLayeringDepth(UILayeringDepths.Medium), requirementText,
-                        null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementText[0].Height + 16), centerText: true)
+                        null, forcedWidth: (int)(_backGroundSprite.Width * _scale.X), forcedHeight: (int)(requirementText[0].Height + 16), centerTextVertically: true)
                     { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true };
                     stackRow.AddItem(requirementButton, StackOrientation.Left);
                     _stackPanel.Add(stackRow);

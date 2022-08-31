@@ -51,9 +51,9 @@ namespace SpriteEngine.Classes.ShadowStuff
                     break;
             }
         }
-        public void Update(GameTime gameTime, Vector2 position, bool offSet = true)
+        public void Update(float parentLayer, GameTime gameTime, Vector2 position, bool offSet = true)
         {
-            Sprite.CustomLayer = SpriteUtility.GetYAxisLayerDepth(position, Sprite.SourceRectangle) - SpriteUtility.GetMinimumOffSet();
+            Sprite.CustomLayer = parentLayer - SpriteUtility.GetMinimumOffSet();
             if (offSet)
             {
                 Sprite.Update(gameTime, new Vector2(position.X - Sprite.SourceRectangle.Width / 2, position.Y - 4));

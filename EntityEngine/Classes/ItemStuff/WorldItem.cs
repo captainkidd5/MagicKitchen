@@ -213,17 +213,20 @@ namespace EntityEngine.ItemStuff
 
             Sprite.Update(gameTime, CenteredPosition + spriteBehaviourOffSet);
             if (MultipleItemsSprite != null)
+            {
                 MultipleItemsSprite.Update(gameTime, new Vector2(Sprite.Position.X + 4, Sprite.Position.Y + 4));
+                MultipleItemsSprite.CustomLayer = Sprite.LayerDepth + SpriteUtility.GetMinimumOffSet();
+            }
             if (Shadow != null)
             {
                 if (Count > 1)
                 {
-                    Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y + 4), false);
+                    Shadow.Update(Sprite.LayerDepth, gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y + 4), false);
 
                 }
                 else
                 {
-                    Shadow.Update(gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y - 1), false);
+                    Shadow.Update(Sprite.LayerDepth, gameTime, new Vector2(CenteredPosition.X, CenteredPosition.Y - 1), false);
 
                 }
             }

@@ -165,7 +165,7 @@ namespace EntityEngine.Classes.NPCStuff
         
                 int xShadowOffSet = NPCData != null ? NPCData.ShadowOffSetX : 0;
                 int yShadowOffSet = NPCData != null ? (int)Position.Y+ NPCData.ShadowOffSetY : (int)Position.Y - 6;
-                Shadow.Update(gameTime, new Vector2(Position.X + xShadowOffSet, yShadowOffSet));
+                Shadow.Update(LayerDepth, gameTime, new Vector2(Position.X + xShadowOffSet, yShadowOffSet));
 
             }
             if (OutsideOfPlayArea)
