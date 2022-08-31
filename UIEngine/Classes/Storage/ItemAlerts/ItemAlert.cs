@@ -53,7 +53,9 @@ namespace UIEngine.Classes.Storage.ItemAlerts
             _background.Color = Color.White;
             ChildSections.Remove(_background);
             _background = new NineSliceTextButton(this, graphics, content, Position + BackgroundOffSet,
-                GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low), new List<Text>() { _text }, null);
+                GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low), new List<Text>() { _text }, null,
+               centerTextHorizontally: true, centerTextVertically: true, hoverTransparency: false)
+            { IgnoreDefaultClickSoundEffect = true, IgnoreDefaultHoverSoundEffect =true };
         }
         protected virtual Text SetInitialText()
         {
@@ -66,11 +68,18 @@ namespace UIEngine.Classes.Storage.ItemAlerts
             _simpleTimer = new SimpleTimer(TTl, false);
             _text = SetInitialText();
             _background = new NineSliceTextButton(this, graphics, content, Position + BackgroundOffSet,
-               GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low),new List<Text>() { _text }, null);
+               GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low), new List<Text>() { _text }, null,
+               centerTextHorizontally: true, centerTextVertically: true,hoverTransparency:false)
+            { IgnoreDefaultClickSoundEffect = true, IgnoreDefaultHoverSoundEffect = true };
 
             //SpriteFactory.CreateUISprite(Position + _backgroundOffSet, _backgroundSourceRectangle, UI.ButtonTexture,
             //    GetLayeringDepth(UILayeringDepths.Low), scale:new Vector2(2f,2f));
-            _button = new NineSliceButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), null, null, null, null, hoverTransparency: true);
+            _button = new NineSliceButton(this, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium), 
+                null, null, null, null, hoverTransparency: false)
+            {
+                 IgnoreDefaultHoverSoundEffect =true,
+                 IgnoreDefaultClickSoundEffect =true    
+            };
 
             _button.SwapForeGroundSprite(SpriteFactory.CreateUISprite(Position,
             Item.GetItemSourceRectangle(ItemData.Id), ItemFactory.ItemSpriteSheet,

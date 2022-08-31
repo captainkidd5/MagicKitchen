@@ -103,7 +103,10 @@ namespace UIEngine.Classes.ButtonStuff
                 {
                     totalHeight += (int)_textList[i].Height;
                 }
-                textPos = new Vector2(textPos.X, textPos.Y + BackGroundSprite.Height / 2 - totalHeight / 2);
+                if (_forcedHeight > 0)
+                    textPos = new Vector2(textPos.X, textPos.Y + BackGroundSprite.Height / 2 - totalHeight/2);
+                else
+                    textPos = new Vector2(textPos.X, textPos.Y + BackGroundSprite.Height / 2 - totalHeight);
 
             }
             for (int i = 0; i < _textList.Count; i++)
