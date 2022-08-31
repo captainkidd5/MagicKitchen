@@ -379,6 +379,7 @@
  </tile>
  <tile id="431">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -391,6 +392,7 @@
  </tile>
  <tile id="432">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -403,6 +405,7 @@
  </tile>
  <tile id="433">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -415,6 +418,7 @@
  </tile>
  <tile id="434">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -427,6 +431,7 @@
  </tile>
  <tile id="435">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -439,6 +444,7 @@
  </tile>
  <tile id="436">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -458,6 +464,7 @@
  </tile>
  <tile id="531">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -470,7 +477,7 @@
  </tile>
  <tile id="532">
   <properties>
-   <property name="step" value="StepGrass1"/>
+   <property name="step" value="StepWood1"/>
    <property name="tilingKey" value="plank,land,back"/>
    <property name="tilingSet" value="plank"/>
   </properties>
@@ -484,6 +491,7 @@
  </tile>
  <tile id="533">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -496,6 +504,7 @@
  </tile>
  <tile id="534">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -508,6 +517,7 @@
  </tile>
  <tile id="535">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -621,6 +631,7 @@
  </tile>
  <tile id="631">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -633,6 +644,7 @@
  </tile>
  <tile id="632">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -645,6 +657,7 @@
  </tile>
  <tile id="633">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -657,6 +670,7 @@
  </tile>
  <tile id="634">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -669,6 +683,7 @@
  </tile>
  <tile id="635">
   <properties>
+   <property name="step" value="StepWood1"/>
    <property name="tilingSet" value="plank"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -1002,31 +1017,37 @@
  </tile>
  <tile id="839">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
  <tile id="840">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
  <tile id="841">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
  <tile id="842">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
  <tile id="843">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
  <tile id="844">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
@@ -1095,12 +1116,13 @@
  </tile>
  <tile id="939">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
  <tile id="940">
   <properties>
-   <property name="step" value="StepGrass1"/>
+   <property name="step" value="StepStone1"/>
    <property name="tilingKey" value="stone_floor,land,back"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
@@ -1114,16 +1136,19 @@
  </tile>
  <tile id="941">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
  <tile id="942">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
  <tile id="943">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
@@ -1179,26 +1204,31 @@
  </tile>
  <tile id="1039">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
  <tile id="1040">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
  <tile id="1041">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
  <tile id="1042">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>
  <tile id="1043">
   <properties>
+   <property name="step" value="StepStone1"/>
    <property name="tilingSet" value="stone_floor"/>
   </properties>
  </tile>

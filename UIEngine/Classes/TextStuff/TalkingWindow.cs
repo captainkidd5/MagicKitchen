@@ -60,6 +60,9 @@ namespace UIEngine.Classes.TextStuff
         private NineSliceTextButton _talkTab;
         private NineSliceTextButton _questTab;
 
+
+        private NineSliceTextButton _nameTab;
+
         private Quest _activeTalkedQuest;
 
         public TalkingWindow(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
@@ -90,15 +93,16 @@ namespace UIEngine.Classes.TextStuff
                 GetLayerDepth(Layers.midground), _goToNextDialogueButtonSourceRectangle, GoToNext);
             _portraitSpritePosition = new Vector2(Position.X + TotalBounds.Width - s_portraitWidth * 2, Position.Y - s_portraitWidth * 2);
 
-            AddTabs();
+            AddTabs(null);
             base.LoadContent();
         }
 
         /// <summary>
         /// Talk, Quest, and Shop, if available
         /// </summary>
-        private void AddTabs()
+        private void AddTabs(NPCData npcData)
         {
+            ChildSections.Clear();
             Vector2 tabsStackPanelPosition = new Vector2(Position.X, Position.Y - 64);
             _tabsStackPanel = new StackPanel(this, graphics, content, tabsStackPanelPosition, GetLayeringDepth(UILayeringDepths.Low));
             StackRow _tabStackRow = new StackRow(TotalBounds.Width);
@@ -111,6 +115,12 @@ namespace UIEngine.Classes.TextStuff
                 new List<Text>() { TextFactory.CreateUIText("Quest", GetLayeringDepth(UILayeringDepths.Medium), scale: 2f) }, SwitchToQuestTab,
                 forcedWidth: 128, forcedHeight: 64, centerTextHorizontally: true, centerTextVertically: true);
             _tabStackRow.AddItem(_questTab, StackOrientation.Left);
+            _tabStackRow.AddSpacer(new Rectangle(0, 0, 96, 64), StackOrientation.Right);
+            //string name = npcData == null ? "Name" : npcData.Name;
+            _nameTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
+              new List<Text>() { TextFactory.CreateUIText("Caspar", GetLayeringDepth(UILayeringDepths.Medium), scale: 2f) }, SwitchToQuestTab,
+              forcedWidth: 160, forcedHeight: 64, centerTextHorizontally: true, centerTextVertically: true);
+            _tabStackRow.AddItem(_nameTab, StackOrientation.Right);
 
             _tabsStackPanel.Add(_tabStackRow);
         }
@@ -377,6 +387,8 @@ namespace UIEngine.Classes.TextStuff
         public NPCData CurrentNPCTalkingTo { get; set; }
         public void LoadNewConversation(NPCData npcData, Dialogue dialogue)
         {
+            AddTabs(npcData);
+
             _selectNextActionJustOccurred = true;
 
             CurrentNPCTalkingTo = npcData;
