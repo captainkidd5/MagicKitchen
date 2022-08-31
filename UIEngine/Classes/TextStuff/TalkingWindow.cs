@@ -150,8 +150,9 @@ namespace UIEngine.Classes.TextStuff
             StackRow explanationRow = new StackRow(TotalBounds.Width);
 
             NineSliceTextButton explBtn = new NineSliceTextButton(_questButtonsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
-                  new List<Text>() { TextFactory.CreateUIText("Talk about which quest?", GetLayeringDepth(UILayeringDepths.High),scale:2f) }, null, centerTextHorizontally: true, centerTextVertically:true)
-            { Displaybackground = true, IgnoreDefaultHoverSoundEffect = true, };
+                  new List<Text>() { TextFactory.CreateUIText(quests.Any(x => !x.Completed) ? "Talk about which quest?" : "No available quests", GetLayeringDepth(UILayeringDepths.High),scale:2f) },
+                  null, centerTextHorizontally: true, centerTextVertically:true)
+            { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true,IgnoreDefaultClickSoundEffect= true };
 
             explanationRow.AddItem(explBtn, StackOrientation.Center);
             _questButtonsStackPanel.Add(explanationRow);
@@ -177,7 +178,7 @@ namespace UIEngine.Classes.TextStuff
             if (ChildSections.Contains(_questButtonsStackPanel))
                 ChildSections.Remove(_questButtonsStackPanel);
 
-            _questButtonsStackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X, Position.Y + 8), GetLayeringDepth(UILayeringDepths.Low));
+            _questButtonsStackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X, Position.Y + 32), GetLayeringDepth(UILayeringDepths.Low));
 
 
 
