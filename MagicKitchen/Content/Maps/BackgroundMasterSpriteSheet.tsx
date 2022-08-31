@@ -3,6 +3,7 @@
  <image source="BackgroundMasterSpriteSheet.png" width="1600" height="1600"/>
  <tile id="11">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -15,6 +16,7 @@
  </tile>
  <tile id="12">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -27,6 +29,7 @@
  </tile>
  <tile id="13">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -39,6 +42,7 @@
  </tile>
  <tile id="14">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -51,6 +55,7 @@
  </tile>
  <tile id="15">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -63,6 +68,7 @@
  </tile>
  <tile id="16">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -72,6 +78,16 @@
     </properties>
    </object>
   </objectgroup>
+ </tile>
+ <tile id="17">
+  <properties>
+   <property name="step" value="StepGrass1"/>
+  </properties>
+ </tile>
+ <tile id="18">
+  <properties>
+   <property name="step" value="StepGrass1"/>
+  </properties>
  </tile>
  <tile id="100">
   <properties>
@@ -103,8 +119,14 @@
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
+ <tile id="110">
+  <properties>
+   <property name="step" value="StepGrass1"/>
+  </properties>
+ </tile>
  <tile id="111">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -124,6 +146,7 @@
  </tile>
  <tile id="113">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -136,6 +159,7 @@
  </tile>
  <tile id="114">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -148,6 +172,7 @@
  </tile>
  <tile id="115">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -224,6 +249,7 @@
  </tile>
  <tile id="211">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -236,6 +262,7 @@
  </tile>
  <tile id="212">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -248,6 +275,7 @@
  </tile>
  <tile id="213">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -260,6 +288,7 @@
  </tile>
  <tile id="214">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -272,6 +301,7 @@
  </tile>
  <tile id="215">
   <properties>
+   <property name="step" value="StepGrass1"/>
    <property name="tilingSet" value="grass"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -331,6 +361,16 @@
     </properties>
    </object>
   </objectgroup>
+ </tile>
+ <tile id="311">
+  <properties>
+   <property name="step" value="StepGrass1"/>
+  </properties>
+ </tile>
+ <tile id="312">
+  <properties>
+   <property name="step" value="StepGrass1"/>
+  </properties>
  </tile>
  <tile id="428">
   <properties>

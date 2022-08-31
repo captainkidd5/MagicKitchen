@@ -54,6 +54,7 @@ namespace UIEngine.Classes.TextStuff
 
         private Vector2 _portraitSpritePosition;
         private Sprite _portraitSprite;
+        private Sprite _potraitFrameSprite;
 
         private StackPanel _tabsStackPanel;
         private NineSliceTextButton _talkTab;
@@ -283,7 +284,11 @@ namespace UIEngine.Classes.TextStuff
             if (IsActive)
             {
                 if (_portraitSprite != null)
+                {
+                    _potraitFrameSprite.Update(gameTime, _portraitSpritePosition);
                     _portraitSprite.Update(gameTime, _portraitSpritePosition);
+
+                }
                 _displayNextButton = TextBuilder.IsComplete;
 
                 if (_displayNextButton)
@@ -325,7 +330,11 @@ namespace UIEngine.Classes.TextStuff
                     _goToNextDialogueButton.Draw(spriteBatch);
 
                 if (_portraitSprite != null)
+                {
+                    _potraitFrameSprite.Draw(spriteBatch);
                     _portraitSprite.Draw(spriteBatch);
+
+                }
                 BackdropSprite.Draw(spriteBatch);
                 TextBuilder.Draw(spriteBatch);
             }
@@ -376,6 +385,10 @@ namespace UIEngine.Classes.TextStuff
             _portraitSprite = SpriteFactory.CreateUISprite(_portraitSpritePosition, new Rectangle(dialogue.DialogueText[_curerentDialogueIndex].PortraitIndexX * s_portraitWidth,
                 dialogue.DialogueText[_curerentDialogueIndex].PortraitIndexY * s_portraitWidth, s_portraitWidth, s_portraitWidth),
                 UI.PortraitsManager.PortraitsTexture, GetLayeringDepth(UILayeringDepths.Medium), scale: new Vector2(2f, 2f));
+
+            _potraitFrameSprite = SpriteFactory.CreateUISprite(_portraitSpritePosition, new Rectangle(0,0, s_portraitWidth, s_portraitWidth),
+              UI.PortraitsManager.PortraitsTexture, GetLayeringDepth(UILayeringDepths.High), scale: new Vector2(2f, 2f));
+
             _curerentDialogue = dialogue;
         //    TextBuilder.ClearText();
           //  Text text = TextFactory.CreateUIText(dialogue.DialogueText[_curerentDialogueIndex].DialogueText, GetLayeringDepth(UILayeringDepths.Front), scale: 1f);

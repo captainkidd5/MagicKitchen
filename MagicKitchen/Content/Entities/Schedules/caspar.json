@@ -11,14 +11,14 @@
                 "0":  {
                   
                     "DialogueText" : "Hello, I'm Ned. Well, I suppose you're a little confused. This is a Sea Candle, it provides a nearly endless supply of light. A long long long test for you",
-                    "PortraitIndexX" : 0,
+                    "PortraitIndexX" :1,
                     "PortraitIndexY":0,
                     "GoTo":"1"
                 },
                 "1":  {
                   
                     "DialogueText" : "Stay near da light",
-                    "PortraitIndexX" : 1,
+                    "PortraitIndexX" : 2,
                     "PortraitIndexY":0,
                     "GoTo":"End"
                 }

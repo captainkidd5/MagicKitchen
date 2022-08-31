@@ -11,14 +11,14 @@
                 "0":  {
                   
                     "DialogueText" : "Care to see my escargo?",
-                    "PortraitIndexX" : 0,
+                    "PortraitIndexX" : 1,
                     "PortraitIndexY":1,
                     "GoTo":"1"
                 },
                 "1":  {
                   
                     "DialogueText" : "Stay near da light",
-                    "PortraitIndexX" : 0,
+                    "PortraitIndexX" : 1,
                     "PortraitIndexY":1,
                     "GoTo":"End"
                 }
