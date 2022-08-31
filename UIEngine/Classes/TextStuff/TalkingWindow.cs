@@ -118,9 +118,8 @@ namespace UIEngine.Classes.TextStuff
 
             //Width here should be the same width as the scaled portrait
             _tabStackRow.AddSpacer(new Rectangle(0, 0, 192, 64), StackOrientation.Right);
-            //string name = npcData == null ? "Name" : npcData.Name;
             _nameTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-              new List<Text>() { TextFactory.CreateUIText("Caspar", GetLayeringDepth(UILayeringDepths.Medium), scale: 2f) }, SwitchToQuestTab,
+              new List<Text>() { TextFactory.CreateUIText(npcData == null ? "Name" : npcData.Name, GetLayeringDepth(UILayeringDepths.Medium), scale: 2f) }, SwitchToQuestTab,
               forcedWidth: 160, forcedHeight: 64, centerTextHorizontally: true, centerTextVertically: true);
             _tabStackRow.AddItem(_nameTab, StackOrientation.Right);
 
@@ -136,6 +135,8 @@ namespace UIEngine.Classes.TextStuff
         }
         private void SwitchToQuestTab()
         {
+            TextBuilder.ClearCurrent();
+
             //Find all quests which start with this NPC
             List<Quest> quests = UI.QuestLog.QuestLoader.AllQuests.Values.Where(x =>
             x.Steps.First().Value.AcquiredFrom.ToLower() == CurrentNPCTalkingTo.Name.ToLower()).ToList();
@@ -147,9 +148,11 @@ namespace UIEngine.Classes.TextStuff
             _questButtonsStackPanel.Activate();
             _availableQuests = new List<NineSliceTextButton>();
             StackRow explanationRow = new StackRow(TotalBounds.Width);
+
             NineSliceTextButton explBtn = new NineSliceTextButton(_questButtonsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
-                  new List<Text>() { TextFactory.CreateUIText("Talk about which quest?", GetLayeringDepth(UILayeringDepths.High),scale:2f) }, null, centerTextHorizontally: true)
-            { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true, };
+                  new List<Text>() { TextFactory.CreateUIText("Talk about which quest?", GetLayeringDepth(UILayeringDepths.High),scale:2f) }, null, centerTextHorizontally: true, centerTextVertically:true)
+            { Displaybackground = true, IgnoreDefaultHoverSoundEffect = true, };
+
             explanationRow.AddItem(explBtn, StackOrientation.Center);
             _questButtonsStackPanel.Add(explanationRow);
             foreach (Quest quest in quests)
@@ -165,9 +168,7 @@ namespace UIEngine.Classes.TextStuff
             }
 
 
-
             //Dialogue dialogue = new Dialogue() { DialogueText = new Dictionary<int, DSnippet>() { };  }
-            TextBuilder.ClearCurrent();
 
         }
 
@@ -291,10 +292,11 @@ namespace UIEngine.Classes.TextStuff
         private bool _selectNextActionJustOccurred = false;
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
 
             if (IsActive)
             {
+                base.Update(gameTime);
+
                 if (_portraitSprite != null)
                 {
                     _potraitFrameSprite.Update(gameTime, _portraitSpritePosition);
@@ -335,9 +337,10 @@ namespace UIEngine.Classes.TextStuff
         public override void Draw(SpriteBatch spriteBatch)
         {
 
-            base.Draw(spriteBatch);
             if (IsActive)
             {
+                base.Draw(spriteBatch);
+
                 if (_displayNextButton)
                     _goToNextDialogueButton.Draw(spriteBatch);
 
@@ -404,10 +407,6 @@ namespace UIEngine.Classes.TextStuff
               UI.PortraitsManager.PortraitsTexture, GetLayeringDepth(UILayeringDepths.High), scale: new Vector2(2f, 2f));
 
             _curerentDialogue = dialogue;
-        //    TextBuilder.ClearText();
-          //  Text text = TextFactory.CreateUIText(dialogue.DialogueText[_curerentDialogueIndex].DialogueText, GetLayeringDepth(UILayeringDepths.Front), scale: 1f);
-       //     text.ClearAndSet(text.WrapAutoText(BackdropSprite.HitBox.Width));
-
 
 
             TextBuilder.SetDesiredText(dialogue.DialogueText[_curerentDialogueIndex].DialogueText);

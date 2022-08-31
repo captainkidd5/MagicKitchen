@@ -7,8 +7,8 @@
         "Steps": {
             "0": {
                 "StepName": "The Wick",
-                "AcquiredFrom": "Caspar",
-                "TurnInto": "Caspar",
+                "AcquiredFrom": "Ned",
+                "TurnInto": "Ned",
                 "StartText": "Caspar: 'First things first, we need to get this candle up and running. \n I'll need some supplies. These things should do it. Come back to me when you've got them all with you.'",
                 "HelpText" : "Have you managed to get the ingredients I asked for?",
                 "EndText": "Perfect, these will do nicely.",
@@ -23,7 +23,7 @@
                             {
                                 "ItemName": "Stone",
                                 "Count": 3,
-                                "Description": "Caspar would like me to bring him: "
+                                "Description": "Ned would like me to bring him: "
                             }
                         ]
                     }
@@ -40,8 +40,8 @@
             },
             "1": {
                 "StepName": "The Flame",
-                "AcquiredFrom": "Caspar",
-                "TurnInto": "Caspar",
+                "AcquiredFrom": "Ned",
+                "TurnInto": "Ned",
                 "StartText": "Caspar: 'Alright, I'm going to go ahead and get started on repairing the wick. In the meantime why don't you collect some meat.'",
                 "HelpText" : "I'm still working on the wick, come back after you've gathered some meat.",
                 "EndText": "Perfect, these will do nicely.",

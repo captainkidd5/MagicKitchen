@@ -74,9 +74,11 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         }
         public override void Load(SoundModuleManager moduleManager, Vector2 entityPosition, Vector2? scale = null)
         {
+            Position = entityPosition;
+            SetPositionAndGetEntityLayer(Position);
             for (int i = 0; i < BodyPieces.Length; i++)
             {
-                BodyPieces[i].Load(Direction.Down,this, entityPosition, scale);
+                BodyPieces[i].Load(Direction.Down,this, Position, scale);
                 BodyPieces[i].ChangeAnimation(ActionType.Walking);
 
                 if (BodyPieces[i].GetType() == typeof(Shoes))
@@ -107,6 +109,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         public Vector2 PositionLastFrame { get; set; }
         public override void Update(GameTime gameTime, Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
         {
+            
             speedRatio *= SpeedModifier;
             if ((Math.Abs(PositionLastFrame.X - position.X)) > .01
                 || (Math.Abs(PositionLastFrame.Y - position.Y) > .01))

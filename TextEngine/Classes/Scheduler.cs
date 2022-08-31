@@ -48,7 +48,7 @@ namespace TextEngine.Classes
         public static Schedule GetScheduleFromCurrentTime(string entityName)
         {
 
-            return Schedules[entityName.ToLower()].FirstOrDefault(x => x.DayStatus == Clock.DayStatus || x.DayStatus == Enums.DayStatus.Any);
+            return Schedules[entityName].FirstOrDefault(x => x.DayStatus == Clock.DayStatus || x.DayStatus == Enums.DayStatus.Any);
 
 
         }

@@ -47,6 +47,8 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
 
             _cycleRightButton = new Button(this, graphics, content, Position + _rightButtonOffSet, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low),
                _rightSourceRectangle, BackwardsAction);
+            _text.Update(new Vector2(Position.X + 60, Position.Y));
+
         }
 
         public virtual void ForwardAction()

@@ -1,7 +1,7 @@
 
 [
 {
-    "Name": "caspar",
+    "Name": "Ned",
     "ObjectType" : "EntityEngine.Classes.CharacterStuff.Character",
     "ScheduleName": "wander_1",
     "NPCType" : "Enemy",

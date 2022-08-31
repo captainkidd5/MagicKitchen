@@ -49,7 +49,7 @@ namespace UIEngine.Classes.ButtonStuff
             if (_forcedWidth == null)
             {
 
-                BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X - 8, Position.Y - 8), _textList, UI.ButtonTexture, LayerDepth);
+                BackGroundSprite = SpriteFactory.CreateNineSliceTextSprite(new Vector2(Position.X, Position.Y - 8), _textList, UI.ButtonTexture, LayerDepth);
             }
 
             else
@@ -64,6 +64,8 @@ namespace UIEngine.Classes.ButtonStuff
 
             Color sampleCol = TextureHelper.SampleAt(ButtonTextureDat, _samplePoint, ButtonTexture.Width);
             BackGroundSprite.AddSaturateEffect(sampleCol, false);
+            SetTextPositions();
+
 
             //if (_centerText)
             //{
@@ -87,6 +89,11 @@ namespace UIEngine.Classes.ButtonStuff
         {
 
             base.Update(gameTime);
+            SetTextPositions();
+        }
+
+        private void SetTextPositions()
+        {
             Vector2 textPos = Position;
 
             if (_centerTextVertically)
@@ -116,6 +123,7 @@ namespace UIEngine.Classes.ButtonStuff
                 //text.ChangeColor(Color);
             }
         }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (Displaybackground)
