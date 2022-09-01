@@ -23,6 +23,10 @@ namespace DataModels.QuestStuff
         /// <summary>
         /// List of prerequisites to complete this STEP in the overall quest
         /// </summary>
+        /// 
+
+        public string OptionText { get; set; }
+        /// 
         /// <summary>
         /// What the NPC will say to Player at start of sub quest
         /// </summary>

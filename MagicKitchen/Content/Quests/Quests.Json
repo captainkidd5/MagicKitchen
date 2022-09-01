@@ -9,6 +9,8 @@
                 "StepName": "The Master Gardener",
                 "AcquiredFrom": "Ned",
                 "TurnInto": "Dobbin",
+                "OptionText": "Have you heard about a 'Master Gardener'?",
+
                 "StartText": "Rumor has it there's a master gardener in the forest north-west of here. Why don't you try to find him?",
                 "HelpText" : "The master gardener lies in the forest north-west of here.",
                 "EndText": "Hmm. And who might you be?",
@@ -33,6 +35,7 @@
                 "StepName": "The Flame",
                 "AcquiredFrom": "Dobbin",
                 "TurnInto": "Dobbin",
+                "OptionText": "Have you heard about a 'Master Gardener'?",
                 "StartText": "So they sent me a greenhorn, eh? Well, why don't you prove your worth and bring me some seeds.",
                 "HelpText" : "Come talk to me once you've gathered those seeds I've asked for.",
                 "EndText": "Perfect, these will do nicely.",

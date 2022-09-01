@@ -119,70 +119,47 @@ namespace UIEngine.Classes.TextStuff
 
             }
 
-        }
-
-        private StackPanel _questButtonsStackPanel;
-        private List<NineSliceTextButton> _availableQuests;
-
-        private void SwitchToTalkTab()
-        {
-            LoadNewConversation(CurrentNPCTalkingTo, Scheduler.GetScheduleFromCurrentTime(CurrentNPCTalkingTo.Name).Dialogue);
-        }
-        private void SwitchToQuestTab()
-        {
-            TextBuilder.ClearCurrent();
-
-            //Find all quests which start with this NPC
+            //Find all quests which current step starts with this NPC or is turned into this NPC
             List<Quest> quests = UI.QuestLog.QuestLoader.AllQuests.Values.Where(x => !x.Completed &&
             (x.Steps[x.CurrentStep].AcquiredFrom.ToLower() == CurrentNPCTalkingTo.Name.ToLower()) ||
-            x.Steps[x.CurrentStep].TurnInto.ToLower() == CurrentNPCTalkingTo.Name.ToLower() ).ToList();
+            x.Steps[x.CurrentStep].TurnInto.ToLower() == CurrentNPCTalkingTo.Name.ToLower()).ToList();
 
             //And make sure that quest isn't already completed
             quests = quests.Where(x => SaveLoadManager.CurrentSave.GameProgressData.QuestProgress.ContainsKey(x.Name) &&
             !SaveLoadManager.CurrentSave.GameProgressData.QuestProgress[x.Name].Completed).ToList();
-            ClearQuestStackPanel();
-            _questButtonsStackPanel.Activate();
-            _availableQuests = new List<NineSliceTextButton>();
-            StackRow explanationRow = new StackRow(TotalBounds.Width);
 
-            NineSliceTextButton explBtn = new NineSliceTextButton(_questButtonsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
-                  new List<Text>() { TextFactory.CreateUIText(quests.Any(x => !x.Completed) ? "Talk about which quest?" : "No available quests", GetLayeringDepth(UILayeringDepths.High),scale:2f) },
-                  null, centerTextHorizontally: true, centerTextVertically:true)
-            { Displaybackground = false, IgnoreDefaultHoverSoundEffect = true,IgnoreDefaultClickSoundEffect= true };
 
-            explanationRow.AddItem(explBtn, StackOrientation.Center);
-            _questButtonsStackPanel.Add(explanationRow);
+
             foreach (Quest quest in quests)
             {
                 if (quest.Completed)
                     continue;
                 StackRow stackRow = new StackRow(TotalBounds.Width);
-                NineSliceTextButton btn = new NineSliceTextButton(_questButtonsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium),
-                    new List<Text>() { TextFactory.CreateUIText(quest.Name, GetLayeringDepth(UILayeringDepths.High)) },
-                    new Action(() => { DetermineNextQuestDialogue(quest); }));
-                stackRow.AddItem(btn, StackOrientation.Center);
-                _questButtonsStackPanel.Add(stackRow);
+
+
+
+                NineSliceTextButton slice = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position,
+                    GetLayeringDepth(UILayeringDepths.Low),new List<Text>() { TextFactory.CreateUIText(quest.Steps[quest.CurrentStep].OptionText,
+                    GetLayeringDepth(UILayeringDepths.Medium), scale: 1f) },new Action(()=> { DetermineNextQuestDialogue(quest); } ),
+                    forcedWidth: 192, forcedHeight: 64, centerTextHorizontally: true, centerTextVertically: true);
+                stackRow.AddItem(slice, StackOrientation.Left);
+
+                _tabsStackPanel.Add(stackRow);
             }
 
-
-            //Dialogue dialogue = new Dialogue() { DialogueText = new Dictionary<int, DSnippet>() { };  }
-
         }
 
-        private void ClearQuestStackPanel()
+
+        private void SwitchToTalkTab()
         {
-            if (ChildSections.Contains(_questButtonsStackPanel))
-                ChildSections.Remove(_questButtonsStackPanel);
-
-            _questButtonsStackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X, Position.Y + 32), GetLayeringDepth(UILayeringDepths.Low));
-
-
-
+            LoadNewConversation(CurrentNPCTalkingTo, Scheduler.GetScheduleFromCurrentTime(CurrentNPCTalkingTo.Name).Dialogue);
         }
+
+
+
         private void DetermineNextQuestDialogue(Quest quest)
         {
             _activeTalkedQuest = quest;
-            _questButtonsStackPanel.Deactivate();
 
             var completedQuests = SaveLoadManager.CurrentSave.GameProgressData.CompletedQuests();
             QuestStep questStep = quest.Steps[quest.CurrentStep];
@@ -396,7 +373,6 @@ namespace UIEngine.Classes.TextStuff
             _selectNextActionJustOccurred = true;
 
             CurrentNPCTalkingTo = npcData;
-            ClearQuestStackPanel();
 
             _portraitSprite = SpriteFactory.CreateUISprite(_portraitSpritePosition, new Rectangle(dialogue.DialogueText[_curerentDialogueIndex].PortraitIndexX * s_portraitWidth,
                 dialogue.DialogueText[_curerentDialogueIndex].PortraitIndexY * s_portraitWidth, s_portraitWidth, s_portraitWidth),
