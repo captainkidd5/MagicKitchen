@@ -13,14 +13,52 @@
                     "DialogueText" : "And who might you be?",
                     "PortraitIndexX" :1,
                     "PortraitIndexY":2,
-                    "GoTo":"1"
+                    "Options":{
+
+                        "Introduce yourself":{
+                                "DialogueAction":"None",
+                                "GoTo":"1",
+                                "DialogueRequirements":[
+                                    {
+                                        "EventCompleted": "none",
+                                        "ItemId": 0,
+                                        "ItemCount":0
+                                    }
+                                ]
+                        },
+                        "Stay quiet":{
+                            "DialogueAction":"None",
+                            "GoTo":"1",
+                            "DialogueRequirements":[
+                                {
+                                    "EventCompleted": "none",
+                                    "ItemId": 0,
+                                    "ItemCount":0
+                                }
+                            ]
+                    }
+                    }
                 },
                 "1":  {
                   
-                    "DialogueText" : "Best of luck.",
-                    "PortraitIndexX" : 1,
+                    "DialogueText" : "And who might you be?",
+                    "PortraitIndexX" :1,
                     "PortraitIndexY":2,
-                    "GoTo":"End"
+                    "Options":{
+
+                        "Introduce yourself":{
+                                "Title":"Introduce",
+                                "DialogueAction":"None",
+                                "GoTo":"1",
+                                "DialogueRequirements":[
+                                    {
+                                        "EventCompleted": "none",
+                                        "ItemId": 0,
+                                        "ItemCount":0
+                                    }
+                                ]
+                        }
+                    }
                 }
 
             

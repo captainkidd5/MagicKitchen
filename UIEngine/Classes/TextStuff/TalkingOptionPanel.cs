@@ -51,10 +51,10 @@ namespace UIEngine.Classes.TextStuff
         {
             base.MovePosition(newPos);
 
-            _titleTextBuilder = new TextBuilder(DialogueOption.Title,Position, null,null, GetLayeringDepth(UILayeringDepths.Medium), scale: 1.2f);
-            _dialogueTextPosition = new Vector2(Position.X, Position.Y + _titleTextBuilder.Height * 2);
+          //  _titleTextBuilder = new TextBuilder(DialogueOption.Title,Position, null,null, GetLayeringDepth(UILayeringDepths.Medium), scale: 1.2f);
+            //_dialogueTextPosition = new Vector2(Position.X, Position.Y + _titleTextBuilder.Height * 2);
 
-            _dialogueTextBuilder = new TextBuilder(DialogueOption.DialogueText, Position, null, null, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium));
+            //_dialogueTextBuilder = new TextBuilder(DialogueOption.Title, Position, null, null, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Medium));
         }
 
         public override void Update(GameTime gameTime)

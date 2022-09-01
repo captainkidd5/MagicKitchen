@@ -31,7 +31,7 @@ namespace UIEngine.Classes.TextStuff
     internal class TalkingWindow : MenuSection
     {
         private static readonly int s_portraitWidth = 96;
-        private Rectangle _backgroundSourceRectangle = new Rectangle(64, 496, 272, 64);
+        private Rectangle _backgroundSourceRectangle = new Rectangle(64, 496, 192, 64);
         private Sprite BackdropSprite { get; set; }
         private TextBuilder TextBuilder { get; set; }
 
@@ -41,7 +41,6 @@ namespace UIEngine.Classes.TextStuff
 
         private Vector2 _scale = new Vector2(3f, 3f);
 
-        private StackPanel _stackPanel;
 
         private Dialogue _curerentDialogue;
 
@@ -50,18 +49,14 @@ namespace UIEngine.Classes.TextStuff
         private Rectangle _goToNextDialogueButtonSourceRectangle = new Rectangle(144, 0, 32, 16);
         private Button _goToNextDialogueButton;
         private bool _displayNextButton;
-        internal List<TalkingOptionPanel> OptionWindows { get; set; }
 
         private Vector2 _portraitSpritePosition;
         private Sprite _portraitSprite;
         private Sprite _potraitFrameSprite;
 
         private StackPanel _tabsStackPanel;
-        private NineSliceTextButton _talkTab;
-        private NineSliceTextButton _questTab;
 
 
-        private NineSliceTextButton _nameTab;
 
         private Quest _activeTalkedQuest;
 
@@ -91,39 +86,39 @@ namespace UIEngine.Classes.TextStuff
             _goToNextDialogueButton = new Button(null, graphics, content,
                 RectangleHelper.PlaceRectangleAtBottomRightOfParentRectangle(TotalBounds, _goToNextDialogueButtonSourceRectangle),
                 GetLayerDepth(Layers.midground), _goToNextDialogueButtonSourceRectangle, GoToNext);
-            _portraitSpritePosition = new Vector2(Position.X + TotalBounds.Width - s_portraitWidth * 2, Position.Y - s_portraitWidth * 2);
+            _portraitSpritePosition = new Vector2(Position.X, Position.Y - s_portraitWidth * 2);
 
-            AddTabs(null);
             base.LoadContent();
         }
 
         /// <summary>
         /// Talk, Quest, and Shop, if available
         /// </summary>
-        private void AddTabs(NPCData npcData)
+        private void AddTabs(Dialogue dialogue)
         {
+            
             ChildSections.Clear();
-            Vector2 tabsStackPanelPosition = new Vector2(Position.X, Position.Y - 64);
+            if (_tabsStackPanel != null)
+            {
+                _tabsStackPanel.CleanUp();
+                _tabsStackPanel.ChildSections.Clear();
+            }
+
+            Vector2 tabsStackPanelPosition = new Vector2(Position.X + _backgroundSourceRectangle.Width * _scale.X + 64, Position.Y - 64);
             _tabsStackPanel = new StackPanel(this, graphics, content, tabsStackPanelPosition, GetLayeringDepth(UILayeringDepths.Low));
-            StackRow _tabStackRow = new StackRow(TotalBounds.Width);
-            _talkTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                new List<Text>() { TextFactory.CreateUIText("Talk", GetLayeringDepth(UILayeringDepths.Medium),scale:2f) }, SwitchToTalkTab,
-                forcedWidth: 128, forcedHeight: 64, centerTextHorizontally: true, centerTextVertically: true);
-            _tabStackRow.AddItem(_talkTab, StackOrientation.Left);
 
-            _questTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                new List<Text>() { TextFactory.CreateUIText("Quest", GetLayeringDepth(UILayeringDepths.Medium), scale: 2f) }, SwitchToQuestTab,
-                forcedWidth: 128, forcedHeight: 64, centerTextHorizontally: true, centerTextVertically: true);
-            _tabStackRow.AddItem(_questTab, StackOrientation.Left);
+            foreach (var option in dialogue.DialogueText[_curerentDialogueIndex].Options)
+            {
+                StackRow stackRow = new StackRow(TotalBounds.Width);
+                NineSliceTextButton slice = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
+                    new List<Text>() { TextFactory.CreateUIText(option.Key, GetLayeringDepth(UILayeringDepths.Medium), scale: 1f) }, SwitchToTalkTab,
+                    forcedWidth: 192, forcedHeight: 64, centerTextHorizontally: true, centerTextVertically: true);
+                stackRow.AddItem(slice, StackOrientation.Left);
 
-            //Width here should be the same width as the scaled portrait
-            _tabStackRow.AddSpacer(new Rectangle(0, 0, 192, 64), StackOrientation.Right);
-            _nameTab = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-              new List<Text>() { TextFactory.CreateUIText(npcData == null ? "Name" : npcData.Name, GetLayeringDepth(UILayeringDepths.Medium), scale: 2f) }, SwitchToQuestTab,
-              forcedWidth: 160, forcedHeight: 64, centerTextHorizontally: true, centerTextVertically: true);
-            _tabStackRow.AddItem(_nameTab, StackOrientation.Right);
+                _tabsStackPanel.Add(stackRow);
 
-            _tabsStackPanel.Add(_tabStackRow);
+            }
+
         }
 
         private StackPanel _questButtonsStackPanel;
@@ -257,7 +252,7 @@ namespace UIEngine.Classes.TextStuff
                 goToResult = "End";
             else
                 goToResult = "questStep";
-            DSnippet snippet = new DSnippet() { DialogueText = dialogueText, GoTo = goToResult };
+            DSnippet snippet = new DSnippet() { DialogueText = dialogueText };
             snippets.Add(0, snippet);
             Dialogue dialogue = new Dialogue() { DialogueText = snippets };
             _curerentDialogueIndex = 0;
@@ -318,6 +313,8 @@ namespace UIEngine.Classes.TextStuff
                 }
                 if (TextBuilder.Update(gameTime, Position + _textOffSet, BackdropSprite.HitBox.Width))
                 {
+                    AddTabs(_curerentDialogue);
+
                     //end of text reached
                     if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
                     {
@@ -370,7 +367,7 @@ namespace UIEngine.Classes.TextStuff
         }
         private void GoToNext()
         {
-            string goToResult = _curerentDialogue.DialogueText[_curerentDialogueIndex].GoTo;
+            string goToResult =string.Empty;
 
             int newIndex = 0;
 
@@ -395,7 +392,6 @@ namespace UIEngine.Classes.TextStuff
         public NPCData CurrentNPCTalkingTo { get; set; }
         public void LoadNewConversation(NPCData npcData, Dialogue dialogue)
         {
-            AddTabs(npcData);
 
             _selectNextActionJustOccurred = true;
 
@@ -416,23 +412,8 @@ namespace UIEngine.Classes.TextStuff
             float totalTextHeight = TextBuilder.Height;
             Activate();
 
-            if (ChildSections.Contains(_stackPanel))
-                ChildSections.Remove(_stackPanel);
+       
 
-            _stackPanel = new StackPanel(this, graphics, content, new Vector2(Position.X, Position.Y + totalTextHeight), GetLayeringDepth(UILayeringDepths.Medium));
-
-            if (dialogue.Options != null)
-            {
-
-                foreach (var option in dialogue.Options)
-                {
-                    StackRow stackRow = new StackRow((int)((float)_backgroundSourceRectangle.Width / 4 * _scale.X));
-                    TalkingOptionPanel window = new TalkingOptionPanel(_stackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Medium));
-                    window.LoadNewOption(option.Value);
-                    stackRow.AddItem(window, StackOrientation.Left);
-                    _stackPanel.Add(stackRow);
-                }
-            }
 
             UI.DeactivateAllCurrentSectionsExcept(new List<InterfaceSection>() { this, UI.ClockBar });
         }
