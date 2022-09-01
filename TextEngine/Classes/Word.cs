@@ -30,7 +30,7 @@ namespace TextEngine.Classes
             _fontType = fontType;
             _imgFont = imgFont;
 
-            _color = Color.Black;
+            _color = Color.White;
             Scale = scale ?? Vector2.One;
 
 

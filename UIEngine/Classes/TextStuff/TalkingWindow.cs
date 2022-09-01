@@ -138,8 +138,9 @@ namespace UIEngine.Classes.TextStuff
             TextBuilder.ClearCurrent();
 
             //Find all quests which start with this NPC
-            List<Quest> quests = UI.QuestLog.QuestLoader.AllQuests.Values.Where(x =>
-            x.Steps.First().Value.AcquiredFrom.ToLower() == CurrentNPCTalkingTo.Name.ToLower()).ToList();
+            List<Quest> quests = UI.QuestLog.QuestLoader.AllQuests.Values.Where(x => !x.Completed &&
+            (x.Steps[x.CurrentStep].AcquiredFrom.ToLower() == CurrentNPCTalkingTo.Name.ToLower()) ||
+            x.Steps[x.CurrentStep].TurnInto.ToLower() == CurrentNPCTalkingTo.Name.ToLower() ).ToList();
 
             //And make sure that quest isn't already completed
             quests = quests.Where(x => SaveLoadManager.CurrentSave.GameProgressData.QuestProgress.ContainsKey(x.Name) &&
@@ -197,7 +198,8 @@ namespace UIEngine.Classes.TextStuff
 
 
 
-            bool satisfied = true;
+            //make sure this is the correct npc to turn into
+            bool satisfied = questStep.TurnInto.ToLower() == CurrentNPCTalkingTo.Name.ToLower();
             foreach (var preReq in questStep.PreRequisites)
             {
                 if (!preReq.Satisfied(playerStorageContainer.GetItemStoredAsDictionary(), completedQuests))

@@ -6,25 +6,16 @@
         ],
         "Steps": {
             "0": {
-                "StepName": "The Wick",
+                "StepName": "The Master Gardener",
                 "AcquiredFrom": "Ned",
-                "TurnInto": "Ned",
-                "StartText": "Caspar: 'First things first, we need to get this candle up and running. \n I'll need some supplies. These things should do it. Come back to me when you've got them all with you.'",
-                "HelpText" : "Have you managed to get the ingredients I asked for?",
-                "EndText": "Perfect, these will do nicely.",
+                "TurnInto": "Dobbin",
+                "StartText": "Rumor has it there's a master gardener in the forest north-west of here. Why don't you try to find him?",
+                "HelpText" : "The master gardener lies in the forest north-west of here.",
+                "EndText": "Hmm. And who might you be?",
                 "PreRequisites": [
                     {
                         "ItemRequirements": [
-                            {
-                                "ItemName": "Fibre",
-                                "Count": 8,
-                                "Description": "(Have all of these items in your inventory)"
-                            },
-                            {
-                                "ItemName": "Stone",
-                                "Count": 3,
-                                "Description": "Ned would like me to bring him: "
-                            }
+                           
                         ]
                     }
                 ],
@@ -40,10 +31,10 @@
             },
             "1": {
                 "StepName": "The Flame",
-                "AcquiredFrom": "Ned",
-                "TurnInto": "Ned",
-                "StartText": "Caspar: 'Alright, I'm going to go ahead and get started on repairing the wick. In the meantime why don't you collect some meat.'",
-                "HelpText" : "I'm still working on the wick, come back after you've gathered some meat.",
+                "AcquiredFrom": "Dobbin",
+                "TurnInto": "Dobbin",
+                "StartText": "So they sent me a greenhorn, eh? Well, why don't you prove your worth and bring me some seeds.",
+                "HelpText" : "Come talk to me once you've gathered those seeds I've asked for.",
                 "EndText": "Perfect, these will do nicely.",
                 "PreRequisites": [
                     {

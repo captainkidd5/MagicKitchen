@@ -284,7 +284,10 @@ namespace PhysicsEngine.Classes.PathFinding.PatherFinder
                         // Unbreakeable?
                         if (mGrid[mNewLocationX, mNewLocationY] == 0)
                             continue;
-
+                        //MODIFICATION
+                        if (i > 3 && mGrid[mLocationX, mNewLocationY] == 0 && mGrid[mNewLocationX, mLocationY] == 0)
+                            continue;
+                        //
                         if (mHeavyDiagonals && i > 3)
                             mNewG = mCalcGrid[mLocation].G + (int)(mGrid[mNewLocationX, mNewLocationY] * 2.41);
                         else
