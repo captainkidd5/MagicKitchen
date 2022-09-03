@@ -30,7 +30,7 @@ namespace UIEngine.Classes.TextStuff
 {
     internal class TalkingWindow : MenuSection
     {
-        private static readonly int s_portraitWidth = 96;
+        private static readonly int s_portraitWidth = 128;
         private Rectangle _backgroundSourceRectangle = new Rectangle(64, 496, 192, 64);
         private Sprite BackdropSprite { get; set; }
         private TextBuilder TextBuilder { get; set; }
@@ -111,7 +111,10 @@ namespace UIEngine.Classes.TextStuff
             {
                 StackRow stackRow = new StackRow(TotalBounds.Width);
                 NineSliceTextButton slice = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
-                    new List<Text>() { TextFactory.CreateUIText(option.Key, GetLayeringDepth(UILayeringDepths.Medium), scale: 1f) }, SwitchToTalkTab,
+                    new List<Text>() { TextFactory.CreateUIText(option.Key, GetLayeringDepth(UILayeringDepths.Medium), scale: 1f) }, new Action(() =>
+                    {
+                        DetermineDialogueNextAction(option.Value);
+                    }),
                     forcedWidth: 192, forcedHeight: 64, centerTextHorizontally: true, centerTextVertically: true);
                 stackRow.AddItem(slice, StackOrientation.Left);
 
@@ -146,14 +149,33 @@ namespace UIEngine.Classes.TextStuff
 
                 _tabsStackPanel.Add(stackRow);
             }
+            StackRow stackRowEnd = new StackRow(TotalBounds.Width);
+            NineSliceTextButton goodbyebutton = new NineSliceTextButton(_tabsStackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low),
+                new List<Text>() { TextFactory.CreateUIText("Goodbye", GetLayeringDepth(UILayeringDepths.Medium), scale: 1f) }, new Action(() =>
+                {
+                    EndDialogueAndCloseWindow();
+                }),
+                forcedWidth: 192, forcedHeight: 64, centerTextHorizontally: true, centerTextVertically: true);
+            stackRowEnd.AddItem(goodbyebutton, StackOrientation.Left);
+
+            _tabsStackPanel.Add(stackRowEnd);
 
         }
 
-
-        private void SwitchToTalkTab()
+        private void DetermineDialogueNextAction(DialogueOption option)
         {
-            LoadNewConversation(CurrentNPCTalkingTo, Scheduler.GetScheduleFromCurrentTime(CurrentNPCTalkingTo.Name).Dialogue);
+            switch (option.DialogueAction)
+            {
+                case DialogueAction.None:
+                    _curerentDialogueIndex = int.Parse(option.GoTo);
+                    LoadNewConversation(CurrentNPCTalkingTo, Scheduler.GetScheduleFromCurrentTime(CurrentNPCTalkingTo.Name).Dialogue);
+
+                    break;
+                case DialogueAction.OpenShop:
+                    break;
+            }
         }
+
 
 
 
@@ -290,17 +312,21 @@ namespace UIEngine.Classes.TextStuff
                 }
                 if (TextBuilder.Update(gameTime, Position + _textOffSet, BackdropSprite.HitBox.Width))
                 {
-                    AddTabs(_curerentDialogue);
+                    if(_tabsStackPanel == null)
+                      AddTabs(_curerentDialogue);
 
                     //end of text reached
                     if (Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Cancel))
                     {
-                        UI.ReactiveSections();
-                        Deactivate();
-                        _curerentDialogueIndex = 0;
-
+                        EndDialogueAndCloseWindow();
 
                     }
+                }
+                else if(_tabsStackPanel != null)
+                {
+                    ChildSections.Remove(_tabsStackPanel);
+
+                    _tabsStackPanel = null;
                 }
               
             }
@@ -309,6 +335,13 @@ namespace UIEngine.Classes.TextStuff
             _selectNextActionJustOccurred = false;
 
 
+        }
+
+        private void EndDialogueAndCloseWindow()
+        {
+            UI.ReactiveSections();
+            Deactivate();
+            _curerentDialogueIndex = 0;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

@@ -423,6 +423,8 @@
         "?":{
             "X" : 4,
             "Y" : 8,
+            "PauseDuration" : 80,
+
             "Width" : 16,
             "Height" : 16
         },
