@@ -112,7 +112,7 @@
  </tile>
  <tile id="3728">
   <properties>
-   <property name="lightSource" value=".6,-8,8,Warm,immune:false"/>
+   <property name="lightSource" value=".6,4,14,Warm,immune:false"/>
    <property name="newSource" value="-16,-32,32,48"/>
   </properties>
  </tile>
@@ -243,10 +243,12 @@
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="4" y="0" width="13" height="14">
+    <ellipse/>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16">
     <properties>
      <property name="action" value="Break,Hammer,Good"/>
     </properties>
-    <ellipse/>
    </object>
   </objectgroup>
  </tile>
@@ -256,7 +258,8 @@
    <property name="tilingSet" value="woodFence"/>
   </properties>
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="14">
+   <object id="1" x="0" y="0" width="16" height="14"/>
+   <object id="2" x="0" y="0" width="16" height="16">
     <properties>
      <property name="action" value="Break,Hammer,Good"/>
     </properties>
@@ -270,10 +273,12 @@
   </properties>
   <objectgroup draworder="index" id="3">
    <object id="2" x="0" y="0" width="12" height="13">
+    <ellipse/>
+   </object>
+   <object id="3" x="0" y="0" width="16" height="16">
     <properties>
      <property name="action" value="Break,Hammer,Good"/>
     </properties>
-    <ellipse/>
    </object>
   </objectgroup>
  </tile>
@@ -288,6 +293,7 @@
      <property name="action" value="Break,Hammer,Good"/>
     </properties>
    </object>
+   <object id="4" x="4" y="0" width="8" height="15"/>
   </objectgroup>
  </tile>
  <tile id="5003">
@@ -297,10 +303,12 @@
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="3" y="0" width="14" height="14">
+    <ellipse/>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16">
     <properties>
      <property name="action" value="Break,Hammer,Good"/>
     </properties>
-    <ellipse/>
    </object>
   </objectgroup>
  </tile>
@@ -310,7 +318,8 @@
    <property name="tilingSet" value="woodFence"/>
   </properties>
   <objectgroup draworder="index" id="4">
-   <object id="3" x="0" y="0" width="16" height="15">
+   <object id="3" x="0" y="0" width="16" height="15"/>
+   <object id="5" x="0" y="0" width="16" height="16">
     <properties>
      <property name="action" value="Break,Hammer,Good"/>
     </properties>
@@ -324,10 +333,12 @@
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="14" height="14">
+    <ellipse/>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16">
     <properties>
      <property name="action" value="Break,Hammer,Good"/>
     </properties>
-    <ellipse/>
    </object>
   </objectgroup>
  </tile>
@@ -339,10 +350,12 @@
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="4" y="8" width="8" height="8">
+    <ellipse/>
+   </object>
+   <object id="2" x="4" y="0" width="9" height="16">
     <properties>
      <property name="action" value="Break,Hammer,Good"/>
     </properties>
-    <ellipse/>
    </object>
   </objectgroup>
  </tile>

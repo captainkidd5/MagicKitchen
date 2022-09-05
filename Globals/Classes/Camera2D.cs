@@ -49,6 +49,10 @@ namespace Globals.Classes
             position = jumpToPos;
             
         }
+        /// <summary>
+        /// Used to offset mouse world position when camera is zoomed
+        /// </summary>
+        /// <returns></returns>
         public Vector2 GetZoomOffSetPatch()
         {
             switch (Zoom)
@@ -61,6 +65,27 @@ namespace Globals.Classes
                     return new Vector2(164, 80);
                 case 4:
                     return new Vector2(180, 92);
+                default:
+                    return Vector2.Zero;
+            }
+        }
+        /// <summary>
+        /// Used to correctly draw aether2d debugger when camera is zoomed
+        /// </summary>
+        /// <returns></returns>
+        public Vector2 GetDebuggerOffSetPatch()
+        {
+            switch (Zoom)
+            {
+                case 1:
+                    return Vector2.Zero;
+                case 2:
+                    return new Vector2(120, 60);
+                case 3:
+                    return new Vector2(240, 120);
+
+                case 4:
+                    return new Vector2(360, 180);
                 default:
                     return Vector2.Zero;
             }

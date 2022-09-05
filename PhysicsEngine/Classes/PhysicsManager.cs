@@ -104,8 +104,8 @@ namespace PhysicsEngine.Classes
 
         public static void Draw(GraphicsDevice graphics, Camera2D camera)
         {
-            Matrix proj = Matrix.CreateOrthographicOffCenter(new Rectangle((int)(-graphics.Viewport.Width / 2) * (int)camera.Zoom + (int)camera.GetZoomOffSetPatch().X * 2,
-               (int)(-graphics.Viewport.Height / 2) * (int)camera.Zoom + (int)camera.GetZoomOffSetPatch().Y * 2, graphics.Viewport.Width, graphics.Viewport.Height), 1f, -1f);
+            Matrix proj = Matrix.CreateOrthographicOffCenter(new Rectangle((int)(-graphics.Viewport.Width / 2) * (int)camera.Zoom + (int)camera.GetDebuggerOffSetPatch().X * 2,
+               (int)(-graphics.Viewport.Height / 2) * (int)camera.Zoom + (int)camera.GetDebuggerOffSetPatch().Y * 2, graphics.Viewport.Width, graphics.Viewport.Height), 1f, -1f);
             Matrix view = camera.GetViewMatrix(Vector2.One);
 
             PhysicsDebugger.RenderDebugData(proj, view);
