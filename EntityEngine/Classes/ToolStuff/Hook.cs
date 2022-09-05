@@ -147,7 +147,7 @@ namespace EntityEngine.Classes.ToolStuff
         }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Item))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.Item))
             {
                 Return();
                 SoundFactory.PlaySoundEffect("HookGrab");
@@ -155,13 +155,13 @@ namespace EntityEngine.Classes.ToolStuff
 
                 
             }
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.SolidHigh))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.SolidHigh))
             {
                 SoundFactory.PlaySoundEffect("HookMiss");
                 Return();
 
             }
-            else if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Player))
+            else if (fixtureB.CollisionCategories==((Category)PhysCat.Player))
             {
                 if (_hookedItem != null && _hookedItem.MainHullBody!= null)
                     _hookedItem.SetStandardCollides();

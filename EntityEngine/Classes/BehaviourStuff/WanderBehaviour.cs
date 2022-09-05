@@ -86,7 +86,7 @@ namespace EntityEngine.Classes.BehaviourStuff
             if(Entity.NPCData != null && Entity.NPCData.Aggressive)
             {
 
-            if (fixtureA.CollisionCategories.HasFlag((Category)PhysCat.ArraySensor))
+            if (fixtureA.CollisionCategories==((Category)PhysCat.ArraySensor))
             {
                 if(fixtureB.Body.Tag != Entity)
                 {

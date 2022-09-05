@@ -121,7 +121,7 @@ namespace EntityEngine.ItemStuff.ItemStateStuff
 
         public override bool OnCollides(List<PhysicsGadget> gadgets, Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.PlayerBigSensor))
             {
 
 

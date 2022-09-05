@@ -204,7 +204,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
             BigSensor = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, position, 16f, new List<Category>() {
                 (Category)PhysCat.PlayerBigSensor }, new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Tool,(Category)PhysCat.Portal,
-                    (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.NPC, (Category)PhysCat.LightSource,(Category)PhysCat.ActionTile,(Category)PhysCat.SpecialZone  },
+                    (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.NPC, (Category)PhysCat.LightSource,(Category)PhysCat.ClickBox,(Category)PhysCat.SpecialZone  },
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
 
@@ -493,7 +493,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public List<Fixture> LightsTouching { get; set; }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.LightSource))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.LightSource))
             {
                 if (fixtureB.Body.Tag != null && (fixtureB.Body.Tag as LightCollidable).RestoresLumens)
                     LightsTouching.Add(fixtureB);
@@ -504,7 +504,7 @@ namespace EntityEngine.Classes.PlayerStuff
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnSeparates(fixtureA, fixtureB, contact);
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.LightSource))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.LightSource))
             {
                 //if (LightsTouching.Contains(fixtureB))
 

@@ -193,7 +193,7 @@ namespace EntityEngine.Classes
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             //Collision logic changes based on current behaviour!
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Item) && fixtureA.CollisionCategories.HasFlag((Category)PhysCat.Player))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.Item) && fixtureA.CollisionCategories==((Category)PhysCat.Player))
             {
                 WorldItem worldItem = (fixtureB.Body.Tag as WorldItem);
                 InventoryHandler.GiveItem(worldItem);

@@ -40,7 +40,7 @@ namespace EntityEngine.Classes.ToolStuff
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.NPC))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.NPC))
             {
 
                 (fixtureB.Body.Tag as NPC).TakeDamage(Holder, Item.DamageValue, 100 *Vector2Helper.GetVectorFromDirection(Direction));

@@ -257,7 +257,7 @@ namespace EntityEngine.ItemStuff
         {
             if (ItemBehaviour != null)
                 ItemBehaviour.OnCollides(Gadgets, fixtureA, fixtureB, contact);
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.PlayerBigSensor))
             {
                 //  if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)
                 ClearGadgets();
@@ -268,7 +268,7 @@ namespace EntityEngine.ItemStuff
                 return true;
             }
 
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Tool))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.Tool))
             {
 
                 if (Gadgets.FirstOrDefault(x => x.GetType() == typeof(Magnetizer)) == null)

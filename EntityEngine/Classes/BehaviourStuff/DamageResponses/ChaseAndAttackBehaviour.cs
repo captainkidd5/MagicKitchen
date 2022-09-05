@@ -157,7 +157,7 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
         }
         public override bool OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureA.CollisionCategories.HasFlag((Category)PhysCat.ArraySensor))
+            if (fixtureA.CollisionCategories==((Category)PhysCat.ArraySensor))
             {
                 if (fixtureB.Tag == _otherEntity)
                 {

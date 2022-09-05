@@ -353,13 +353,13 @@ namespace EntityEngine.Classes.NPCStuff
         {
             BehaviourManager.OnCollides(fixtureA, fixtureB, contact);
 
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayArea))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.PlayArea))
             {
                 OutsideOfPlayArea = false;
 
             }
 
-            if (fixtureA.CollisionCategories.HasFlag((Category)PhysCat.Damage))
+            if (fixtureA.CollisionCategories==((Category)PhysCat.Damage))
             {
                 (fixtureB.Body.Tag as NPC).TakeDamage(this, 10);
 
@@ -371,7 +371,7 @@ namespace EntityEngine.Classes.NPCStuff
         {
             BehaviourManager.OnSeparates(fixtureA, fixtureB, contact);
 
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayArea))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.PlayArea))
             {
                 OutsideOfPlayArea = true;
             }

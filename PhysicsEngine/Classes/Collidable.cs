@@ -155,8 +155,10 @@ namespace PhysicsEngine.Classes
         }
         protected virtual bool OnClickBoxCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories == (Category)PhysCat.Cursor && fixtureA.CollidesWith ==(Category)PhysCat.Cursor)
+            if (fixtureB.CollisionCategories == (Category)PhysCat.Cursor)
             {
+                Console.WriteLine("test");
+                if(fixtureA.CollidesWith.HasFlag((Category)PhysCat.Cursor))
                 MouseHovering = true;
 
 
@@ -165,24 +167,24 @@ namespace PhysicsEngine.Classes
         }
         protected virtual void OnClickBoxSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Cursor))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.Cursor))
             {
                 MouseHovering = false;
             }
         }
         protected virtual bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            //if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Cursor) && fixtureA.CollidesWith.HasFlag((Category)PhysCat.Cursor))
-            //{
-            //    MouseHovering = true;
+            if (fixtureB.CollisionCategories == ((Category)PhysCat.Cursor) && fixtureA.CollidesWith == ((Category)PhysCat.Cursor))
+            {
+                MouseHovering = true;
 
-                
-            //}
-           if(fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
+
+            }
+            if (fixtureB.CollisionCategories==((Category)PhysCat.PlayerBigSensor))
             {
                 PlayerInClickRange = true;
             }
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.FrontalSensor))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.FrontalSensor))
             {
                 PlayerInControllerActionRange = true;
             }
@@ -191,15 +193,15 @@ namespace PhysicsEngine.Classes
 
         protected virtual void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            //if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Cursor))
-            //{
-            //    MouseHovering = false;
-            //}
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
+            if (fixtureB.CollisionCategories == ((Category)PhysCat.Cursor))
+            {
+                MouseHovering = false;
+            }
+            if (fixtureB.CollisionCategories==((Category)PhysCat.PlayerBigSensor))
             {
                 PlayerInClickRange = false;
             }
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.FrontalSensor))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.FrontalSensor))
             {
                 PlayerInControllerActionRange = false;
             }

@@ -148,7 +148,7 @@ namespace PhysicsEngine.Classes
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.PlayerBigSensor))
             {
                 _mayStartRechargWaitTimer = false;
                 _recharging = false;
@@ -159,7 +159,7 @@ namespace PhysicsEngine.Classes
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.PlayerBigSensor))
+            if (fixtureB.CollisionCategories==((Category)PhysCat.PlayerBigSensor))
                 _mayStartRechargWaitTimer = true;
 
             base.OnSeparates(fixtureA, fixtureB, contact);

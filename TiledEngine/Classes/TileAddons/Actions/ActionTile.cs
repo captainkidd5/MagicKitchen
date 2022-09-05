@@ -32,15 +32,19 @@ namespace TiledEngine.Classes.TileAddons.Actions
         protected override List<Category> GetCollisionCategories()
         {
             if (IndexLayer < Layers.buildings)
-                return new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.ActionTile };
+                return new List<Category>() { (Category)PhysCat.ClickBox };
             else
-                return new List<Category>() { (Category)PhysCat.SolidHigh, (Category)PhysCat.ActionTile };
+                return new List<Category>() {  (Category)PhysCat.ClickBox };
 
 
         }
+        protected override bool OnClickBoxCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            return base.OnClickBoxCollides(fixtureA, fixtureB, contact);
+        }
         protected override List<Category> GetCategoriesCollidesWith()
         {
-            return new List<Category>() { (Category)PhysCat.Player,(Category)PhysCat.Tool, (Category)PhysCat.Cursor, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
+            return new List<Category>() { (Category)PhysCat.Cursor, (Category)PhysCat.PlayerBigSensor };
         }
         protected virtual bool ReturnIsSensor()
         {
@@ -80,10 +84,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
         {
             base.Update(gameTime);
             Move(IntermediateTmxShape.HullPosition);
-            if(this.GetType() == typeof(CraftingTable) && IsHovered(Controls.ControllerConnected))
-            {
-                Console.WriteLine("test");
-            }
+     
             if (WithinRangeOfPlayer())
             {
                 Tile.WithinRangeOfPlayer = true;
@@ -96,9 +97,8 @@ namespace TiledEngine.Classes.TileAddons.Actions
 
             }
 
-
-
         }
+
 
         protected virtual bool WithinRangeOfPlayer()
         {
@@ -153,6 +153,8 @@ namespace TiledEngine.Classes.TileAddons.Actions
         }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
+
+            OnClickBoxCollides(fixtureA, fixtureB, contact);
             return base.OnCollides(fixtureA, fixtureB, contact);
 
 
@@ -160,6 +162,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
+            OnClickBoxSeparates(fixtureA, fixtureB, contact);
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
