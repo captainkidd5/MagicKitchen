@@ -57,7 +57,7 @@ namespace EntityEngine.Classes.NPCStuff
 
 
         protected HullBody ArraySensor { get; set; }
-       
+       protected HullBody ClickBox { get; set; }
         public NPC( GraphicsDevice graphics, ContentManager content) :
             base(graphics, content)
         {
@@ -155,6 +155,8 @@ namespace EntityEngine.Classes.NPCStuff
             base.Update(gameTime);
 
             UpdateBehaviour(gameTime);
+            if(ClickBox != null)
+             ClickBox.Position = new Vector2(Position.X + XOffSet, Position.Y + YOffSet * -1);
             _pointOverLastFrame = _currentPointOver;
 
 
@@ -301,7 +303,7 @@ namespace EntityEngine.Classes.NPCStuff
             base.CreateBody(position);
             CreateDamageBody(position);
             CreateArraySensorBody(position);
-            
+            CreateClickBox(0, 0, 16, 16);
         }
 
         protected virtual void CreateArraySensorBody(Vector2 position)
@@ -311,6 +313,13 @@ namespace EntityEngine.Classes.NPCStuff
             AddSecondaryBody(ArraySensor);
         }
 
+        protected void CreateClickBox(int xOffSet, int yOffSet, int width, int height)
+        {
+            ClickBox = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, new Vector2(Position.X + XOffSet, Position.Y + YOffSet),
+               width, height, new List<Category>() { (Category)PhysCat.ClickBox },
+               new List<Category>() { (Category)PhysCat.Cursor }, OnClickBoxCollides, OnClickBoxSeparates);
+            AddSecondaryBody(ClickBox);
+        }
         protected virtual void CreateDamageBody(Vector2 position)
         {
 

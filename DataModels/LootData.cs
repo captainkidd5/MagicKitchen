@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataModels
 {
-    public class LootData : IWeightable
+    public struct LootData : IWeightable
     {
         public string ItemName { get; set; }
         public bool Guaranteed { get; set; }

@@ -88,6 +88,8 @@ namespace EntityEngine.Classes.HumanoidStuff
             AddSecondaryBody(BigSensor);
 
             CreateArraySensorBody(position);
+            CreateClickBox(XOffSet, YOffSet * -1, 16, 16);
+
 
         }
 

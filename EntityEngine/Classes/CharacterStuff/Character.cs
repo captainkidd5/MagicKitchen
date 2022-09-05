@@ -77,6 +77,9 @@ namespace EntityEngine.Classes.CharacterStuff
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(BigSensor);
 
+            CreateClickBox(XOffSet, YOffSet, 16, 32);
+
+
         }
         public override void LoadContent(EntityContainer container, Vector2? startPos, string name, bool standardAnimator = true)
         {
