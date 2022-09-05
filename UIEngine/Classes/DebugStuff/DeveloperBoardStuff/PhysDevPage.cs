@@ -45,9 +45,21 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
         private void SetCheckBox(StackRow stackRow, PhysCat physCat)
         {
             CheckBox checkBox = new CheckBox(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
-            checkBox.ActionOnSave = new Action(() => { TogglePhysCat(checkBox.Value, physCat); });
+            checkBox.ActionOnSave = new Action(() => { TogglePhysCat(checkBox.Value, physCat);
+                //Tries to add new key, else just changes the value
+                if(!SettingsManager.DebuggableCategories.TryAdd(physCat.ToString(), checkBox.Value))
+                {
+                    SettingsManager.DebuggableCategories[physCat.ToString()] = checkBox.Value;
+                }; });
             AddCheckBox(checkBox, stackRow, physCat.ToString(),
                 PhysicsManager.PhysicsDebugger.DebuggableCategories.HasFlag((Category)physCat));
+
+            bool checkBoxVal = false;
+           bool gotVal = SettingsManager.DebuggableCategories.TryGetValue(physCat.ToString(), out checkBoxVal);
+            checkBox.Value = checkBoxVal;
+
+            if(checkBoxVal)
+                TogglePhysCat(true, physCat);
         }
         public override void LoadContent()
         {

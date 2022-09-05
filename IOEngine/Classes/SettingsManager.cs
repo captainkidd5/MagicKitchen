@@ -77,6 +77,21 @@ namespace IOEngine.Classes
                 SettingsFile.ShowEntityPaths = value;
             }
         }
+
+        public static Dictionary<string,bool> DebuggableCategories
+        {
+            get { return SettingsFile.DebuggableCategories; }
+            set
+            {
+                SettingsFile.DebuggableCategories = value;
+            }
+        }
+
+        public static float CameraZoom
+        {
+            get { return SettingsFile.CameraZoom; }
+            set { SettingsFile.CameraZoom = value; Settings.CameraZoom = value; }
+        }
         public static void LoadSettings()
         {
             SettingsFile = new SettingsFile();
@@ -93,6 +108,7 @@ namespace IOEngine.Classes
             openStrean.Dispose();
 
             FullScreen = SettingsFile.FullScreen;
+            Settings.CameraZoom = SettingsFile.CameraZoom;
         }
 
         public static void SaveSettings()
@@ -100,6 +116,7 @@ namespace IOEngine.Classes
             //Save current screen width and height so when fullscreen is exited it is remembered
             SettingsFile.CurrentScreenWidth = Settings.ScreenWidth;
             SettingsFile.CurrentScreenHeight = Settings.ScreenHeight;
+            SettingsFile.CameraZoom = Settings.CameraZoom;
             var options = new JsonSerializerOptions()
             {
                 WriteIndented = true

@@ -24,6 +24,9 @@ namespace IOEngine.Classes
         public bool DebugVelcro { get; set; }
         public bool DebugGrid { get; set; }
         public static bool ShowEntityPaths { get; set; }
+        public Dictionary<string, bool> DebuggableCategories { get; set; } = new Dictionary<string, bool>();
+
+        public float CameraZoom { get; set; } = 3f;
 
     }
 }
