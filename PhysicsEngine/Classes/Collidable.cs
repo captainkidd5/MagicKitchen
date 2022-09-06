@@ -157,7 +157,6 @@ namespace PhysicsEngine.Classes
         {
             if (fixtureB.CollisionCategories == (Category)PhysCat.Cursor)
             {
-                Console.WriteLine("test");
                 if(fixtureA.CollidesWith.HasFlag((Category)PhysCat.Cursor))
                 MouseHovering = true;
 

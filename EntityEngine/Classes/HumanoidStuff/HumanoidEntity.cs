@@ -77,7 +77,7 @@ namespace EntityEngine.Classes.HumanoidStuff
         protected override void CreateBody(Vector2 position)
         {
             AddPrimaryBody(PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.NPC },
-                new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.Player, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.Cursor,
+                new List<Category>() { (Category)PhysCat.SolidLow, (Category)PhysCat.SolidHigh,  (Category)PhysCat.Player, (Category)PhysCat.PlayerBigSensor,
                     (Category)PhysCat.Grass, (Category)PhysCat.Item, (Category)PhysCat.Portal, (Category)PhysCat.FrontalSensor,(Category)PhysCat.ArraySensor}, OnCollides, OnSeparates, mass: 500f, ignoreGravity: true, blocksLight: true, userData: this));
 
             BigSensorCollidesWithCategories = new List<Category>() { (Category)PhysCat.Item, (Category)PhysCat.Portal,

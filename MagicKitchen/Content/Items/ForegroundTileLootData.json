@@ -91,7 +91,7 @@
     "DestructionSoundPackageName":"Break"
 },
 {
-    "TileId":4781,
+    "TileId":4804,
     "Loot":[
      {
          "ItemName":"Wood_Fence",

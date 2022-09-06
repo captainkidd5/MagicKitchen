@@ -28,7 +28,7 @@ namespace TiledEngine.Classes.TileAddons
         }
         protected override List<Category> GetCategoriesCollidesWith()
         {
-            return new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Cursor, (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
+            return new List<Category>() { (Category)PhysCat.Player,  (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.FrontalSensor };
         }
         public override void Load()
         {
