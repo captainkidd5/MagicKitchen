@@ -29,10 +29,10 @@ namespace EntityEngine.Classes.CharacterStuff
     public class NPCContainer : EntityContainer, ICommandRegisterable
     {
 
-        private MobSpawner _mobSpawner;
+        private NPCSpawner _mobSpawner;
         public NPCContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            _mobSpawner = new MobSpawner();
+            _mobSpawner = new NPCSpawner();
         }
 
         public void RegisterCommands()

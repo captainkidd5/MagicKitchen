@@ -1,6 +1,7 @@
 ﻿using DataModels;
 using EntityEngine.Classes.CharacterStuff;
 using EntityEngine.Classes.NPCStuff;
+using EntityEngine.Classes.PlayerStuff;
 using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
@@ -34,6 +35,11 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
         private void OnChasedEntityPointChanged(Point otherPoint)
         {
             Entity.ResetNavigator();
+
+            if (_otherEntity.GetType() != typeof(Player)){
+                
+                return;
+            }
             if (Entity.FindPathTo(_otherEntity.CenteredPosition))
             {
                 Entity.SetNavigatorTarget(_otherEntity.CenteredPosition);
@@ -64,7 +70,7 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
 
                         }
                     }
-                    if (Entity.FindPathTo(_otherEntity.CenteredPosition))
+                    if (Entity.FindPathTo(_otherEntity.CenteredPosition) && _otherEntity.GetType() == typeof(Player))
                     {
                         Entity.SetNavigatorTarget(_otherEntity.CenteredPosition);
                     }
@@ -85,6 +91,7 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
             }
             if (Entity.HasActivePath && !Entity.Animator.IsPerformingAnimation())
             {
+           
                 Entity.FollowPath(gameTime, ref velocity);
                 if (IsStuck(gameTime))
                 {
@@ -102,7 +109,7 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
 
                 }
             }
-            else
+            else if(InAttackRange)
             {
                 //Todo, check to make sure entity is within a certain radius of other entity
                 if (Entity.Animator.CurrentActionType == ActionType.Attack)
@@ -115,7 +122,8 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
 
                         if (Entity.DamageBody.Body.FixtureList[0].CollidesWith <= tainicom.Aether.Physics2D.Dynamics.Category.None)
                         {
-                            Entity.ActivateDamageBody(null);
+                            Entity.ActivateDamageBody(new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC });
+
                         }
                     }
                 }
@@ -123,11 +131,16 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
 
 
             }
-        }
+            else
+            {
+                Vector2Helper.MoveTowardsVector(_otherEntity.CenteredPosition, Entity.Position, ref velocity, gameTime, 15);
 
+            }
+        }
+        public bool InAttackRange { get; set; }
         public override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-
+          
             if (fixtureB.Body.Tag == _otherEntity)
             {
                 //Todo, check to make sure entity is within a certain radius of other entity
@@ -136,6 +149,8 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
                     Entity.Animator.PerformAction(null, Vector2Helper.GetDirectionOfEntityInRelationToEntity(Entity.Position,
                         _otherEntity.CenteredPosition), ActionType.Attack);
                     Entity.Halt();
+                    InAttackRange = true;
+
                 }
                 else
                 {
@@ -147,7 +162,7 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
 
                         if (Entity.DamageBody.Body.FixtureList[0].CollidesWith <= tainicom.Aether.Physics2D.Dynamics.Category.None)
                         {
-                            Entity.ActivateDamageBody(null);
+                            Entity.ActivateDamageBody(new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.NPC});
                         }
                     }
 
@@ -157,14 +172,14 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
         }
         public override bool OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureA.CollisionCategories==((Category)PhysCat.ArraySensor))
-            {
+           
                 if (fixtureB.Tag == _otherEntity)
                 {
-                    Entity.ResumeDefaultBehaviour();
-                    _otherEntity.TilePositionChanged -= OnChasedEntityPointChanged;
+                InAttackRange = false;
+                    //Entity.ResumeDefaultBehaviour();
+                    //_otherEntity.TilePositionChanged -= OnChasedEntityPointChanged;
                 }
-            }
+            
             return base.OnSeparates(fixtureA, fixtureB, contact);
         }
     }

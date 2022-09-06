@@ -258,6 +258,8 @@ namespace EntityEngine.Classes.NPCStuff
         }
         public virtual void TakeDamage(Entity source, int amt, Vector2? knockBack = null)
         {
+            if (source == this)
+                return;
            
             int newHealth = CurrentHealth - amt;
             if (newHealth <= 0)
@@ -267,10 +269,10 @@ namespace EntityEngine.Classes.NPCStuff
             }
             else
             {
-                CurrentHealth = (byte)newHealth;
                 if (NPCData != null && NPCData.NPCSoundData != null)
                     SoundModuleManager.PlayPackage(NPCData.NPCSoundData.Hurt);
             }
+            CurrentHealth = (byte)newHealth;
 
             if (knockBack != null)
                 MainHullBody.Body.ApplyLinearImpulse(knockBack.Value * 100000000);

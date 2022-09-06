@@ -11,6 +11,8 @@ namespace Globals.Classes
         public static bool ShowTileSelector = true;
 
         public static bool SpawnCharactersOnNewGame = true;
+        public static bool AllowNPCSpawning = true;
+
         public static bool Pause;
         //if true, all buttons will reset their colors to untouched and buttons will not reponse to mouse stuff
         public static bool DisableAllUIUpdates = false;

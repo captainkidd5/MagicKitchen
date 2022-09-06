@@ -28,5 +28,7 @@ namespace IOEngine.Classes
 
         public float CameraZoom { get; set; } = 3f;
 
+        public bool AllowNPCSpawning { get; set; } = true;
+
     }
 }

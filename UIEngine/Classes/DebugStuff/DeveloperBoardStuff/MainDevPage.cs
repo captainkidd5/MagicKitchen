@@ -84,7 +84,16 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
             StackPanel.Add(stackRow2);
 
 
+            StackRow stackRow3 = new StackRow(BackgroundSpriteDimensions.Width);
 
+            CheckBox allowNPCSpawnCheckBox = new CheckBox(StackPanel, graphics, content, Position, GetLayeringDepth(UILayeringDepths.Low), null);
+            allowNPCSpawnCheckBox.ActionOnSave = new Action(() => { SettingsManager.AllowNPCSpawning = allowNPCSpawnCheckBox.Value; });
+
+            AddCheckBox(allowNPCSpawnCheckBox, stackRow3, "Enable spawning", SettingsManager.AllowNPCSpawning);
+
+
+
+            StackPanel.Add(stackRow3);
 
 
 

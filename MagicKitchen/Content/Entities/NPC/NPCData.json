@@ -58,7 +58,7 @@
     {
         "ActionType": "Attack",
         "MovementDirection": "Up",
-        "DamageFrame":2,
+        "DamageFrame":1,
         "Flip" : false,
         "SpriteY" : 2,
         "FrameIndicies":[
@@ -68,7 +68,7 @@
     {
         "ActionType": "Attack",
         "MovementDirection": "Down",
-        "DamageFrame":2,
+        "DamageFrame":1,
         "Flip" : false,
         "SpriteY" : 2,
         "FrameIndicies":[
@@ -78,7 +78,7 @@
     {
         "ActionType": "Attack",
         "MovementDirection": "Left",
-        "DamageFrame":2,
+        "DamageFrame":1,
         "Flip" : false,
         "SpriteY" : 2,
         "FrameIndicies":[
@@ -88,7 +88,7 @@
     {
         "ActionType": "Attack",
         "MovementDirection": "Right",
-        "DamageFrame":2,
+        "DamageFrame":1,
         "Flip" : true,
         "SpriteY" : 2,
         "FrameIndicies":[

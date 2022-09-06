@@ -37,10 +37,9 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
 
              _farEnoughAway = Vector2.Distance(_otherEntity.Position, Entity.Position) > _distanceToStop;
                 
-                
-                
-
-            if (_farEnoughAway)
+            //If far enough away, stop and wait to see if player re-enters flee zone for a small period. If player
+            //doesn't enter for a while, return to wander behaviour
+            if (_farEnoughAway || _otherEntity.FlaggedForRemoval)
             {
                 if(SimpleTimer.Run(gameTime))
                 BehaviourManager.ChangeBehaviour(DataModels.EndBehaviour.Wander);
@@ -49,6 +48,8 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
             }
             else
             {
+                //else, oh shit player is here again, reset timer and book it out of here
+
                 SimpleTimer.ResetToZero();
                 Vector2Helper.MoveAwayFromVector(_otherEntity.CenteredPosition, Entity.Position, ref velocity,
                 gameTime, _distanceToStop, _speedModifier);

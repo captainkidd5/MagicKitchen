@@ -52,6 +52,8 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         public void ChaseAndAttack(NPC otherEntity)
         {
+            if (otherEntity == _entity)
+                return;
             _navigator.Unload();
             CurrentBehaviour = new ChaseAndAttackBehaviour(this, _entity, otherEntity, _statusIcon, _tileManager, 2f);
         }

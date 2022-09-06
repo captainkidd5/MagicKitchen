@@ -12,7 +12,7 @@ using TiledEngine.Classes;
 
 namespace EntityEngine.Classes.NPCStuff
 {
-    internal class MobSpawner
+    internal class NPCSpawner
     {
         private ushort _spawnRate;
         private byte MaxNPCSpawnValue = 5;
@@ -27,6 +27,8 @@ namespace EntityEngine.Classes.NPCStuff
         }
         public void Update(GameTime gameTime)
         {
+            if (!Flags.AllowNPCSpawning)
+                return;
             if (TotalNPCSpawnValue < MaxNPCSpawnValue)
             {
 

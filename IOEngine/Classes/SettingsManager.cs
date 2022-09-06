@@ -92,6 +92,16 @@ namespace IOEngine.Classes
             get { return SettingsFile.CameraZoom; }
             set { SettingsFile.CameraZoom = value; Settings.CameraZoom = value; }
         }
+
+        public static bool AllowNPCSpawning
+        {
+            get { return SettingsFile.AllowNPCSpawning; }
+            set
+            {
+                SettingsFile.AllowNPCSpawning = value;
+                Flags.AllowNPCSpawning = value;
+            }
+        }
         public static void LoadSettings()
         {
             SettingsFile = new SettingsFile();
@@ -109,6 +119,7 @@ namespace IOEngine.Classes
 
             FullScreen = SettingsFile.FullScreen;
             Settings.CameraZoom = SettingsFile.CameraZoom;
+            Flags.AllowNPCSpawning = SettingsFile.AllowNPCSpawning;
         }
 
         public static void SaveSettings()
