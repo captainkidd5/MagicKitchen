@@ -242,6 +242,8 @@ namespace UIEngine.Classes.Storage
             SelectedSlot = InventorySlots[CurrentSelectedPoint.X, CurrentSelectedPoint.Y];
 
             DrawCutOff = 1;
+            SwitchSpriteFromToggleStatus();
+
 
         }
         /// <summary>
@@ -272,7 +274,7 @@ namespace UIEngine.Classes.Storage
 
         }
 
-        private void SwitchSpriteFromToggleStatus()
+        public void SwitchSpriteFromToggleStatus()
         {
             if (ExtendedInventoryOpen)
                 _openBigInventoryButton.SwapBackgroundSprite(_closeBigInventoryUpArrowSourceRectangle);

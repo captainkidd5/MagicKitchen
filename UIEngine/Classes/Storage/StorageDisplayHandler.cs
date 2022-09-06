@@ -215,11 +215,12 @@ namespace UIEngine.Classes.Storage
             _secondaryInventoryDisplay.MovePosition(_secondaryInventoryDisplay.Position + new Vector2(0, -128));
             _secondaryInventoryDisplay.LoadNewEntityInventory(storageContainer, displayWallet);
             TotalBounds = _secondaryInventoryDisplay.TotalBounds;
-
+            
             
             _secondaryInventoryDisplay.Activate();
             //Activate();
             PlayerInventoryDisplay.OpenExtendedInventory();
+            PlayerInventoryDisplay.SwitchSpriteFromToggleStatus();
             PlayerInventoryDisplay.GiveControl();
         }
 

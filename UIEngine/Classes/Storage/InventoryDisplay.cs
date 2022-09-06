@@ -201,6 +201,7 @@ namespace UIEngine.Classes.Storage
         {
             DrawCutOff = Rows;
             ExtendedInventoryOpen = true;
+
         }
 
         public override void Update(GameTime gameTime)

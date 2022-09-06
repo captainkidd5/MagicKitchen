@@ -271,7 +271,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             base.OnSeparates(fixtureA, fixtureB, contact);
             if (fixtureB.CollisionCategories==(
-               (Category)PhysCat.FrontalSensor))
+               (Category)PhysCat.FrontalSensor) || fixtureB.CollisionCategories == (
+               (Category)PhysCat.PlayerBigSensor))
             {
                 if(UI.StorageDisplayHandler.IsThisStorageOpen(StorageContainer))
                     UI.DeactivateSecondaryInventoryDisplay();
