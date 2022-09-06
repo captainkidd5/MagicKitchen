@@ -49,26 +49,31 @@
  </tile>
  <tile id="100">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
  <tile id="101">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
  <tile id="102">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
  <tile id="103">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
  <tile id="104">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
@@ -115,6 +120,7 @@
  </tile>
  <tile id="200">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
@@ -127,16 +133,19 @@
  </tile>
  <tile id="202">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
  <tile id="203">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
  <tile id="204">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
@@ -209,26 +218,31 @@
  </tile>
  <tile id="300">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
  <tile id="301">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
  <tile id="302">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
  <tile id="303">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>
  <tile id="304">
   <properties>
+   <property name="step" value="StepDirt"/>
    <property name="tilingSet" value="land"/>
   </properties>
  </tile>

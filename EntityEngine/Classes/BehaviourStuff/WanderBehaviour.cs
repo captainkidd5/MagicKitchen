@@ -26,8 +26,7 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         public override void Update(GameTime gameTime, ref Vector2 velocity)
         {
-            if (Entity.NPCData != null && Entity.NPCData.Name.ToLower() == "boar")
-                Console.WriteLine("test");
+ 
             base.Update(gameTime, ref velocity);
             if (!Entity.HasActivePath)
             {

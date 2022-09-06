@@ -17,13 +17,14 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
         private readonly Entity _otherEntity;
         //When entity is this distance away from chased entity, stop attacking and chase again (basically, outside of hit zone)
         private int _distanceToStop = 160;
-        private float _speedModifier = 4f;
+        private float _speedModifier = 3f;
+        private bool _farEnoughAway;
         public FleeBehaviour(BehaviourManager behaviourManager, NPC entity, Entity otherEntity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
             base(behaviourManager, entity, statusIcon, tileManager, timerFrequency)
         {
             _otherEntity = otherEntity;
 
-            SimpleTimer.SetNewTargetTime(.25f);
+            SimpleTimer.SetNewTargetTime(6f);
         }
 
         public override void Update(GameTime gameTime, ref Vector2 velocity)
@@ -33,9 +34,25 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
             {
                 Entity.DeactivateDamageBody();
             }
-           bool farEnoughAwayToStop = Vector2Helper.MoveAwayFromVector(_otherEntity.CenteredPosition, Entity.Position, ref velocity,
+
+             _farEnoughAway = Vector2.Distance(_otherEntity.Position, Entity.Position) > _distanceToStop;
+                
+                
+                
+
+            if (_farEnoughAway)
+            {
+                if(SimpleTimer.Run(gameTime))
+                BehaviourManager.ChangeBehaviour(DataModels.EndBehaviour.Wander);
+
+                Entity.Halt();
+            }
+            else
+            {
+                SimpleTimer.ResetToZero();
+                Vector2Helper.MoveAwayFromVector(_otherEntity.CenteredPosition, Entity.Position, ref velocity,
                 gameTime, _distanceToStop, _speedModifier);
-           
+            }
         }
 
     }

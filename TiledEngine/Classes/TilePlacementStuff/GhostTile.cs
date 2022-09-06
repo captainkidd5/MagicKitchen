@@ -1,4 +1,5 @@
-﻿using Globals.Classes.Helpers;
+﻿using Globals.Classes;
+using Globals.Classes.Helpers;
 using InputEngine.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -57,7 +58,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
 
             _sprite = SpriteFactory.CreateWorldSprite(
-                Vector2.Zero, CurrentTile.SourceRectangle,  _tileManager.TileSetPackage.GetTexture(GID),
+                Vector2.Zero, CurrentTile.SourceRectangle, _tileManager.TileSetPackage.GetTexture(GID),
                 Color.White, customLayer: .99f);
 
             //Update once so that changing to valid placed item will immediately show if can place under cursor
@@ -89,7 +90,7 @@ namespace TiledEngine.Classes.TilePlacementStuff
                // {
                     UpdateMayPlace(item);
                 //}
-                _sprite.Update(gameTime, _position);
+                _sprite.Update(gameTime, new Vector2(_position.X , _position.Y - _sprite.SourceRectangle.Height + Settings.TileSize));
 
                 if (Controls.IsClickedWorld)
                 {
@@ -131,11 +132,11 @@ namespace TiledEngine.Classes.TilePlacementStuff
 
             }
 
-            _position = new Vector2(_tileManager.MouseOverTile.Position.X,
-                _tileManager.MouseOverTile.Position.Y - ySubtractionAmt - 16 + _tileManager.MouseOverTile.SourceRectangle.Height);
+            _position = new Vector2(_tileManager.MouseOverTile.TileData.X * 16,
+                _tileManager.MouseOverTile.TileData.Y* 16);
 
             Rectangle rect = RectangleHelper.RectFromPosition(
-              new Vector2(_position.X, _position.Y + ySubtractionAmt), _obstructedArea.Width, _obstructedArea.Height);
+              new Vector2(_position.X, _position.Y), _obstructedArea.Width, _obstructedArea.Height);
 
                 _mayPlace = CurrentTile.TileManager.TileLocationHelper.MayPlaceTile(placedItem,rect,_layer);
 
