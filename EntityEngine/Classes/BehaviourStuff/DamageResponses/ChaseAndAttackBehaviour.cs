@@ -24,6 +24,12 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
         private readonly NPC _otherEntity;
         //When entity is this distance away from chased entity, stop attacking and chase again (basically, outside of hit zone)
         private int _distanceToReschase = 18;
+
+        public bool InAttackRange
+        {
+            get;
+            set;
+        }
         public ChaseAndAttackBehaviour(BehaviourManager behaviourManager, NPC entity, NPC otherEntity, StatusIcon statusIcon, TileManager tileManager, float? timerFrequency) :
             base(behaviourManager, entity, statusIcon, tileManager, timerFrequency)
         {
@@ -154,8 +160,7 @@ namespace EntityEngine.Classes.BehaviourStuff.DamageResponses
           
   
         }
-        public bool InAttackRange { get; 
-            set; }
+   
         public override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
 

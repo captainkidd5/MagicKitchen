@@ -169,6 +169,60 @@
    <property name="newSource" value="0,-16,16,32"/>
   </properties>
  </tile>
+ <tile id="4113">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="4115">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="4117">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="4119">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="4168">
   <properties>
    <property name="newSource" value="-16,-48,48,64"/>
@@ -230,6 +284,119 @@
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
   </properties>
+ </tile>
+ <tile id="4513">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="4515">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingKey" value="stone_wall,land,tall"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="4517">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="4519">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="4521">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="4523">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="4525">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="4527">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="4568">
   <properties>
@@ -294,6 +461,48 @@
     </properties>
    </object>
    <object id="4" x="4" y="0" width="8" height="15"/>
+  </objectgroup>
+ </tile>
+ <tile id="4913">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="4915">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16"/>
+  </objectgroup>
+ </tile>
+ <tile id="4917">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+   <property name="tilingSet" value="stone_wall"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="action" value="Break,Hammer,Good"/>
+    </properties>
+   </object>
+   <object id="2" x="0" y="0" width="16" height="16"/>
   </objectgroup>
  </tile>
  <tile id="5003">

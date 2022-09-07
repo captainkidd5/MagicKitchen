@@ -93,8 +93,8 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
 
             if(_currentAnimation.HasLoopedAtLeastOnce && CurrentActionType != ActionType.Walking)
             {
-                CurrentActionType = ActionType.Walking;
-                PerformAction(ActionToPerform, directionMoving, CurrentActionType);
+                //CurrentActionType = ActionType.Walking;
+                //PerformAction(ActionToPerform, directionMoving, CurrentActionType);
             }
 
 

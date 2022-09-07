@@ -61,7 +61,7 @@
     "DestructionSoundPackageName":"Break"
 },
 {
-    "TileId":3978,
+    "TileId":4515,
     "Loot":[
      {
          "ItemName":"Stone_Wall",
@@ -76,7 +76,7 @@
     "DestructionSoundPackageName":"Break"
 },
 {
-    "TileId":3890,
+    "TileId":5814,
     "Loot":[
      {
          "ItemName":"Wall",
