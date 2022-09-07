@@ -25,6 +25,36 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="733">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="replace" value="1"/>
+  </properties>
+ </tile>
+ <tile id="734">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="replace" value="4"/>
+  </properties>
+ </tile>
+ <tile id="735">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="replace" value="2"/>
+  </properties>
+ </tile>
+ <tile id="736">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="replace" value="3"/>
+  </properties>
+ </tile>
+ <tile id="737">
+  <properties>
+   <property name="newSource" value="0,-16,16,32"/>
+   <property name="replace" value="4"/>
+  </properties>
+ </tile>
  <tile id="1102">
   <properties>
    <property name="newSource" value="-16,-64,48,80"/>
