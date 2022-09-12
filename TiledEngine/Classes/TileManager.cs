@@ -70,7 +70,6 @@ namespace TiledEngine.Classes
 
         public bool JustResizedWindow { get; set; }
 
-        private Chunk[,] _chunks;
         public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera) :
             base(graphics, content)
         {
@@ -111,18 +110,6 @@ namespace TiledEngine.Classes
                 ZoneManager.LoadZones(tmxMap);
         }
 
-        private void AssignChunks()
-        {
-            _chunks = new Chunk[MapWidth, MapWidth];
-            for(int i = 0; i < MapWidth; i++)
-            {
-                for(int j =0; j < MapWidth; j++)
-                {
-                    _chunks[i, j] = new Chunk(this, i, j);
-                    _chunks[i, j].LoadContent(content);
-                }
-            }
-        }
 
       
 

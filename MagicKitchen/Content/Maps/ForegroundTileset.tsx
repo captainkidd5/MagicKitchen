@@ -715,6 +715,22 @@
    <object id="3" x="6" y="-1" width="4" height="17"/>
   </objectgroup>
  </tile>
+ <tile id="5834">
+  <properties>
+   <property name="newSource" value="0,-32,16,48"/>
+  </properties>
+ </tile>
+ <tile id="5835">
+  <properties>
+   <property name="newSource" value="0,-32,32,48"/>
+  </properties>
+ </tile>
+ <tile id="5839">
+  <properties>
+   <property name="newHitBox" value="0,8,32,8"/>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
+ </tile>
  <tile id="6212">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
@@ -741,5 +757,100 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="5" y="0" width="11" height="16"/>
   </objectgroup>
+ </tile>
+ <tile id="6225">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="10" y="10" width="6" height="6">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="6226">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="13" width="16" height="3"/>
+  </objectgroup>
+ </tile>
+ <tile id="6227">
+  <objectgroup draworder="index" id="4">
+   <object id="3" x="0" y="10" width="6" height="6">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="6433">
+  <properties>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
+ </tile>
+ <tile id="6435">
+  <properties>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
+ </tile>
+ <tile id="6437">
+  <properties>
+   <property name="newHitBox" value="8,4,8,4"/>
+   <property name="newSource" value="0,-48,32,64"/>
+  </properties>
+ </tile>
+ <tile id="6440">
+  <properties>
+   <property name="newSource" value="0,-80,16,96"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="5" y="9" width="7" height="7">
+    <ellipse/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="7829">
+  <properties>
+   <property name="newSource" value="-48,-144,144,160"/>
+  </properties>
+ </tile>
+ <tile id="8705">
+  <properties>
+   <property name="newSource" value="-48,-208,144,224"/>
+  </properties>
+ </tile>
+ <tile id="8706">
+  <properties>
+   <property name="newSource" value="-48,-208,144,224"/>
+  </properties>
+ </tile>
+ <tile id="8813">
+  <properties>
+   <property name="newSource" value="-32,-208,112,224"/>
+  </properties>
+ </tile>
+ <tile id="8820">
+  <properties>
+   <property name="newSource" value="-16,-128,144,144"/>
+  </properties>
+ </tile>
+ <tile id="8828">
+  <properties>
+   <property name="newSource" value="0,-96,96,112"/>
+  </properties>
+ </tile>
+ <tile id="8838">
+  <properties>
+   <property name="newSource" value="-64,-176,160,192"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="2" y="7">
+    <polygon points="0,0 5,-4 8,-2 6,3 2,2"/>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="8846">
+  <properties>
+   <property name="newSource" value="-16,-304,144,320"/>
+  </properties>
+ </tile>
+ <tile id="8871">
+  <properties>
+   <property name="newSource" value="-272,-112,304,128"/>
+  </properties>
  </tile>
 </tileset>
