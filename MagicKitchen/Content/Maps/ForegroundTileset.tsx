@@ -598,6 +598,11 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="5141">
+  <properties>
+   <property name="newSource" value="0,-96,224,112"/>
+  </properties>
+ </tile>
  <tile id="5231">
   <properties>
    <property name="newHitBox" value="0,-16,32,32"/>
@@ -731,6 +736,26 @@
    <property name="newSource" value="0,-16,32,32"/>
   </properties>
  </tile>
+ <tile id="5929">
+  <properties>
+   <property name="newSource" value="0,-32,32,48"/>
+  </properties>
+ </tile>
+ <tile id="5931">
+  <properties>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
+ </tile>
+ <tile id="6133">
+  <properties>
+   <property name="newSource" value="0,-32,32,48"/>
+  </properties>
+ </tile>
+ <tile id="6135">
+  <properties>
+   <property name="newSource" value="0,-32,32,48"/>
+  </properties>
+ </tile>
  <tile id="6212">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
@@ -802,6 +827,11 @@
     <ellipse/>
    </object>
   </objectgroup>
+ </tile>
+ <tile id="7306">
+  <properties>
+   <property name="newSource" value="-64,-208,160,224"/>
+  </properties>
  </tile>
  <tile id="7829">
   <properties>
