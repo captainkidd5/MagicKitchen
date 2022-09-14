@@ -828,9 +828,34 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="6520">
+  <properties>
+   <property name="newSource" value="0,-48,48,64"/>
+  </properties>
+ </tile>
+ <tile id="6920">
+  <properties>
+   <property name="newSource" value="0,-48,16,64"/>
+  </properties>
+ </tile>
+ <tile id="6922">
+  <properties>
+   <property name="newSource" value="0,-48,16,64"/>
+  </properties>
+ </tile>
  <tile id="7306">
   <properties>
    <property name="newSource" value="-64,-208,160,224"/>
+  </properties>
+ </tile>
+ <tile id="7357">
+  <properties>
+   <property name="newSource" value="-80,-240,192,256"/>
+  </properties>
+ </tile>
+ <tile id="7514">
+  <properties>
+   <property name="newSource" value="-32,-144,112,160"/>
   </properties>
  </tile>
  <tile id="7829">
