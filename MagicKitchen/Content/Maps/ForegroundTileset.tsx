@@ -853,6 +853,11 @@
    <property name="newSource" value="-80,-240,192,256"/>
   </properties>
  </tile>
+ <tile id="7386">
+  <properties>
+   <property name="newSource" value="-48,-352,160,368"/>
+  </properties>
+ </tile>
  <tile id="7514">
   <properties>
    <property name="newSource" value="-32,-144,112,160"/>

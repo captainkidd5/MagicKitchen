@@ -15,7 +15,7 @@ namespace TiledEngine.Classes.Helpers
 
         ///// <summary>
         ///// For use with the "lightSource" tile property
-        ///// </summary>
+        ///// </summary>`
         public static void AddJustLightSource(TileObject tile, TileManager tileManager, string lightPropertyString)
         {
 
