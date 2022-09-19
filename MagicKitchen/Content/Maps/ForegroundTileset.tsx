@@ -860,8 +860,8 @@
  </tile>
  <tile id="7538">
   <properties>
-   <property name="newSource" value="-32,-176,128,192"/>
-   <property name="transparent" value="-32,-176,128,192"/>
+   <property name="newSource" value="-32,-160,128,176"/>
+   <property name="transparent" value="-32,-160,128,176"/>
   </properties>
  </tile>
  <tile id="7829">
@@ -877,6 +877,16 @@
  <tile id="8706">
   <properties>
    <property name="newSource" value="-48,-208,144,224"/>
+  </properties>
+ </tile>
+ <tile id="8784">
+  <properties>
+   <property name="newSource" value="-144,-192, 160, 208"/>
+  </properties>
+ </tile>
+ <tile id="8785">
+  <properties>
+   <property name="newSource" value="0,-160,144,176"/>
   </properties>
  </tile>
  <tile id="8813">
