@@ -843,6 +843,11 @@
    <property name="newSource" value="0,-48,16,64"/>
   </properties>
  </tile>
+ <tile id="7268">
+  <properties>
+   <property name="newSource" value="-32,-272,176,288"/>
+  </properties>
+ </tile>
  <tile id="7306">
   <properties>
    <property name="newSource" value="-64,-208,160,224"/>
@@ -919,9 +924,9 @@
    </object>
   </objectgroup>
  </tile>
- <tile id="8846">
+ <tile id="8847">
   <properties>
-   <property name="newSource" value="-16,-304,144,320"/>
+   <property name="newSource" value="-32,-336,144,352"/>
   </properties>
  </tile>
  <tile id="8871">
