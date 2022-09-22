@@ -7,7 +7,7 @@ namespace Globals.Classes
     public static class Flags
     {
         //Will show "developed by" screen if true
-        public static bool DisplaySplashScreens = false;
+        public static bool DisplaySplashScreens = true;
         public static bool ShowTileSelector = true;
 
         public static bool SpawnCharactersOnNewGame = true;
