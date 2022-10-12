@@ -1,4 +1,5 @@
-﻿using QuakeConsole;
+﻿using Microsoft.Xna.Framework;
+using QuakeConsole;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,6 +15,8 @@ namespace Globals.Classes.Console
         private static ConsoleComponent s_consoleComponent;
         private static ManualInterpreter s_manualInterpreter;
 
+        private static float s_consoleHeightRation = .8f;
+        private static Color s_consolebackgroundColor = new Color(0, 0, 0, 200);
         public static void Toggle() => s_consoleComponent.ToggleOpenClose();
 
         public static bool IsActive => s_consoleComponent.IsVisible;
@@ -27,7 +30,12 @@ namespace Globals.Classes.Console
             RegisterCommand("toggle", "toggles a number of different flags", ToggleAction);
             RegisterCommand("list", "lists all commands", ListCommandsAction);
 
+
+            consoleComponent.HeightRatio = s_consoleHeightRation;
+            consoleComponent.BackgroundColor = s_consolebackgroundColor;
+
             s_consoleComponent.Output.Append("test output");
+
         }
 
         /// <summary>
