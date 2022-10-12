@@ -18,6 +18,7 @@ using TiledEngine.Classes.TileAddons.FurnitureStuff;
 using static DataModels.Enums;
 using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.Procedural;
+using PhysicsEngine.Classes;
 
 namespace TiledEngine.Classes
 {
@@ -54,6 +55,11 @@ namespace TiledEngine.Classes
 
         public static FurnitureLoader FurnitureLoader;
 
+        public static Dictionary<string, Portal> AllPortals;
+
+        static public ZoneManager ZoneManager;
+        
+
         // <summary>
         /// This should only be called ONCE per save file.
         /// </summary>
@@ -77,6 +83,8 @@ namespace TiledEngine.Classes
 
             FurnitureLoader = new FurnitureLoader();
             FurnitureLoader.LoadContent(content);
+            AllPortals = new Dictionary<string, Portal>();
+            ZoneManager = new ZoneManager();
         }
 
 
@@ -103,6 +111,7 @@ namespace TiledEngine.Classes
                 TmxMap map = new TmxMap(s_mapPath + sd.Value.Path);
                 InsertCustomMapAt(mapData, new Point(sd.Value.InsertionX, sd.Value.InsertionY), map);
                 sd.Value.Load(map.Width);
+                ZoneManager.LoadZones(map);
 
             }
             //InsertCustomMapAt(mapData, new Point(112, 112), testIsland);
@@ -114,7 +123,24 @@ namespace TiledEngine.Classes
 
             tileManager.LoadMap(worldMap, mapData, 512, TileSetPackage);
 
-            s_proceduralPlacer.AddClusterTiles(tileManager);
+            //Need to loop through all tiles to find which ones have been placed that contain a portal property
+            for (int z = 0; z < tileManager.TileData.Count; z++)
+            {
+                for (int x = 0; x < tileManager.TileData[0].GetLength(0) - 1; x++)
+                {
+                    for (int y = 0; y < tileManager.TileData[0].GetLength(1) -1; y++)
+                    {
+                        string val = tileManager.TileData[z][x, y].GetProperty(tileManager.TileSetPackage, "portal", true);
+                        if (!string.IsNullOrEmpty(val))
+                        {
+                            Portal portal = Portal.GetPortal(ref val);
+                            AllPortals.Add(val, portal);
+                        }
+                    }
+                }
+            }
+
+                        s_proceduralPlacer.AddClusterTiles(tileManager);
             //s_proceduralPlacer.AddPoissonTiles(tileManager);
 
         }

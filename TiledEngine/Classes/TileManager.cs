@@ -57,9 +57,6 @@ namespace TiledEngine.Classes
 
         public Dictionary<int, TileObject> DeadTileObjects { get; private set; }
 
-        public ZoneManager ZoneManager { get; set; }
-
-
 
         public TileLocator TileLocator { get; private set; }
         internal PlacedOnItemManager PlacedItemManager { get; set; }
@@ -87,13 +84,13 @@ namespace TiledEngine.Classes
 
             Settings.GameWindow.ClientSizeChanged += Window_ClientSizeChanged;
 
-            ZoneManager = new ZoneManager();
+
         }
 
         /// <summary>
         /// Generic load, should only be called by <see cref="TileLoader.LoadTileManager(string, TileManager)"/>
         /// </summary>
-        internal void LoadMap(TmxMap tmxMap, List<TileData[,]> tiles, int mapWidth, TileSetPackage tileSetPackage, bool newSave = true)
+        internal void LoadMap(TmxMap tmxMap, List<TileData[,]> tiles, int mapWidth, TileSetPackage tileSetPackage)
         {
             _tmxMap = tmxMap;
 
@@ -106,8 +103,7 @@ namespace TiledEngine.Classes
             TileData = tiles;
             TileSelectorSprite = SpriteFactory.CreateWorldSprite(Vector2.Zero, TileSelectorSourceRectangle, TileSetPackage.BackgroundSpriteSheet);
             AssignProperties();
-            if (newSave)
-                ZoneManager.LoadZones(tmxMap);
+
         }
 
 
@@ -117,6 +113,8 @@ namespace TiledEngine.Classes
         {
 
             MapRectangle = new Rectangle(0, 0, Settings.TileSize * MapWidth, Settings.TileSize * MapWidth);
+
+            
         }
 
 
@@ -480,7 +478,7 @@ namespace TiledEngine.Classes
             }
             PlacedItemManager.Save(writer);
             TileLightManager.Save(writer);
-            ZoneManager.Save(writer);
+            TileLoader.ZoneManager.Save(writer);
         }
         public void LoadSave(BinaryReader reader)
         {
@@ -504,8 +502,8 @@ namespace TiledEngine.Classes
             }
             PlacedItemManager.LoadSave(reader);
             TileLightManager.LoadSave(reader);
-            LoadMap(_tmxMap, TileData, MapWidth, TileLoader.TileSetPackage,false);
-            ZoneManager.LoadSave(reader);
+            LoadMap(_tmxMap, TileData, MapWidth, TileLoader.TileSetPackage);
+            TileLoader.ZoneManager.LoadSave(reader);
 
         }
 

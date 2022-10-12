@@ -8,7 +8,27 @@ namespace PhysicsEngine.Classes
 {
     public class Portal
     {
-        public string From { get; set; }
-        public string To { get; set; }
+
+        public Portal(string from, string to)
+        {
+            From = from;
+            To = to;
+        }
+        public string From { get; private set; }
+        public string To { get; private set; }
+
+
+        public static Portal GetPortal(ref string unparsedString)
+        {
+            string[] splitString = unparsedString.Split(',');
+            string from = splitString[0];
+            string to = splitString[1];
+
+            unparsedString = from;
+            return new Portal(from, to);
+
+
+
+        }
     }
 }

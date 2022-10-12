@@ -42,7 +42,7 @@ namespace TiledEngine.Classes.ZoneStuff
             }
 
             LoadMusicZones(tmxMap);
-            _specialZones = zonesList;
+            _specialZones.AddRange(zonesList);
 
         }
 
@@ -62,7 +62,7 @@ namespace TiledEngine.Classes.ZoneStuff
                     (int)specialZone.Height));
                 zonesList.Add(zone);
             }
-            _musicZones = zonesList;
+            _musicZones.AddRange(zonesList);
 
         }
         public void Save(BinaryWriter writer)

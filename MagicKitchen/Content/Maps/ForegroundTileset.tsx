@@ -937,6 +937,7 @@
  <tile id="8838">
   <properties>
    <property name="newSource" value="-64,-176,160,192"/>
+   <property name="portal" value="TestIsland,Hallway"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" x="2" y="7">
