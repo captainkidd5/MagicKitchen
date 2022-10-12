@@ -121,12 +121,12 @@ namespace StageEngine.Classes
             if (Flags.DisplayPlayAreaCollisions)
             {
 
-                _playAreaBody = PhysicsManager.CreateRectangularHullBody(tainicom.Aether.Physics2D.Dynamics.BodyType.Static, _camera.position,
+                _playAreaBody = PhysicsManager.CreateRectangularHullBody(BodyType.Static, _camera.position,
                     Settings.ActiveAreaWidth, Settings.ActiveAreaWidth, new List<Category>() { (Category)PhysCat.None },
                     new List<Category>() { },
                     null, null, isSensor: true);
 
-                _spawnAreaBody = PhysicsManager.CreateRectangularHullBody(tainicom.Aether.Physics2D.Dynamics.BodyType.Static, _camera.position,
+                _spawnAreaBody = PhysicsManager.CreateRectangularHullBody(BodyType.Static, _camera.position,
                    Settings.SpawnableAreaWidth, Settings.SpawnableAreaWidth, new List<Category>() { (Category)PhysCat.PlayArea },
                    new List<Category>() { (Category)PhysCat.NPC },
                    null, null, isSensor: true);

@@ -5,7 +5,7 @@
         "Path":"LullabyTown.tmx",
         "InsertionX":2,
         "InsertionY":2,
-        "IslandDistance" : "Mid",
+
         "AmbientSoundPackageName":"Overworld_Outside"
     },
     {
@@ -14,7 +14,7 @@
         "Path":"Classroom.tmx",
         "InsertionX":15,
         "InsertionY":15,
-        "IslandDistance" : "None",
+
         "AmbientSoundPackageName":"Overworld_Outside"
     },
     {
@@ -23,7 +23,7 @@
         "Path":"Hallway.tmx",
         "InsertionX":248,
         "InsertionY":248,
-        "IslandDistance" : "Inner",
+
         "AmbientSoundPackageName":"Overworld_Outside"
     },
     {
@@ -32,7 +32,7 @@
         "Path":"TestIsland.tmx",
         "InsertionX":112,
         "InsertionY":112,
-        "IslandDistance" : "Outer",
+
         "AmbientSoundPackageName":"Overworld_Outside"
     }
 ]

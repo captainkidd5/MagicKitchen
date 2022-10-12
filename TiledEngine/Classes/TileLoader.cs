@@ -100,7 +100,9 @@ namespace TiledEngine.Classes
 
             foreach(var sd in stageData)
             {
-                InsertCustomMapAt(mapData, new Point(sd.Value.InsertionX, sd.Value.InsertionY), new TmxMap(s_mapPath + sd.Value.Path));
+                TmxMap map = new TmxMap(s_mapPath + sd.Value.Path);
+                InsertCustomMapAt(mapData, new Point(sd.Value.InsertionX, sd.Value.InsertionY), map);
+                sd.Value.Load(map.Width);
 
             }
             //InsertCustomMapAt(mapData, new Point(112, 112), testIsland);
