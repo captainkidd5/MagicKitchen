@@ -535,6 +535,11 @@
    <object id="2" x="0" y="0" width="16" height="16"/>
   </objectgroup>
  </tile>
+ <tile id="4987">
+  <properties>
+   <property name="newSource" value="-32,-208,96,224"/>
+  </properties>
+ </tile>
  <tile id="5003">
   <properties>
    <property name="newSource" value="0,-16,16,32"/>
@@ -644,6 +649,16 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="10" height="16"/>
   </objectgroup>
+ </tile>
+ <tile id="5535">
+  <properties>
+   <property name="newSource" value="0,-48,32,64"/>
+  </properties>
+ </tile>
+ <tile id="5629">
+  <properties>
+   <property name="newSource" value="0,-16,32,32"/>
+  </properties>
  </tile>
  <tile id="5812">
   <properties>
@@ -801,6 +816,11 @@
     <ellipse/>
    </object>
   </objectgroup>
+ </tile>
+ <tile id="6348">
+  <properties>
+   <property name="newSource" value="-16,-64,64,80"/>
+  </properties>
  </tile>
  <tile id="6433">
   <properties>

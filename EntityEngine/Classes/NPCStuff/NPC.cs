@@ -272,6 +272,8 @@ namespace EntityEngine.Classes.NPCStuff
                 if (NPCData != null && NPCData.NPCSoundData != null)
                     SoundModuleManager.PlayPackage(NPCData.NPCSoundData.Hurt);
             }
+            if ((byte)newHealth > 100)
+                newHealth = MaxHealth;
             CurrentHealth = (byte)newHealth;
 
             if (knockBack != null)
