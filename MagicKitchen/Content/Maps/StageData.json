@@ -10,8 +10,8 @@
     },
     {
         "Id":2,
-        "Name":"HomeIsland",
-        "Path":"HomeIsland.tmx",
+        "Name":"Classroom",
+        "Path":"Classroom.tmx",
         "InsertionX":15,
         "InsertionY":15,
         "IslandDistance" : "None",
@@ -19,8 +19,8 @@
     },
     {
         "Id":3,
-        "Name":"Caravan",
-        "Path":"Caravan.tmx",
+        "Name":"Hallway",
+        "Path":"Hallway.tmx",
         "InsertionX":248,
         "InsertionY":248,
         "IslandDistance" : "Inner",
