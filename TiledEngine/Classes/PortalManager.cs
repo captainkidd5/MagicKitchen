@@ -13,7 +13,7 @@ namespace TiledEngine.Classes
     public class PortalManager : ISaveable
     {
 
-        public Dictionary<string, Portal> AllPortals { get; private set; };
+        public Dictionary<string, Portal> AllPortals { get; private set; }
 
         internal PortalManager()
         {
@@ -38,7 +38,7 @@ namespace TiledEngine.Classes
                         string val = tileData[z][x, y].GetProperty(tileSetPackage, "portal", true);
                         if (!string.IsNullOrEmpty(val))
                         {
-                            Portal portal = Portal.GetPortal(ref val);
+                            Portal portal = Portal.GetPortal(ref val,x, y);
                             AllPortals.Add(val, portal);
                         }
                     }
@@ -54,13 +54,19 @@ namespace TiledEngine.Classes
         {
             AllPortals = new Dictionary<string, Portal>();
 
-
-            foreach (var pair in AllPortals)
-                pair.Value.LoadSave(reader);
+            int count = reader.ReadInt32();
+            for(int i = 0; i < count; i++)
+            {
+                Portal portal = new Portal();
+                portal.LoadSave(reader);
+                AllPortals.Add(portal.From, portal);
+            }
+    
         }
 
         public void Save(BinaryWriter writer)
         {
+            writer.Write(AllPortals.Count);
             foreach (var pair in AllPortals)
                 pair.Value.Save(writer);
         }

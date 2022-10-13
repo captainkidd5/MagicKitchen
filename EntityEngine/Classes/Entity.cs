@@ -35,6 +35,7 @@ using DataModels;
 using SpriteEngine.Classes.Animations.EntityAnimations;
 using SpriteEngine.Classes.ParticleStuff;
 using IOEngine.Classes;
+using System.Linq;
 
 namespace EntityEngine.Classes
 {
@@ -103,7 +104,17 @@ namespace EntityEngine.Classes
              
         }
 
+        public virtual void MoveToPortal(string to)
+        {
 
+            Portal portal = TileLoader.Portalmanager.AllPortals.Values.FirstOrDefault(x => x.To == to);
+            if (portal == null)
+            {
+                throw new Exception($"Unable to find portal for destination {to}");
+            }
+
+            Move(portal.Position);
+        }
     
         public void SelectItem(Item item) => _overHeadItemDisplay.SelectItem(item, Position);
         public bool IsProgressComplete() => ProgressBarSprite.FullyCharged;

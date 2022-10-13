@@ -110,6 +110,8 @@ namespace EntityEngine.Classes.PlayerStuff
 
             CommandConsole.RegisterCommand("rem_dur", "removes x durability from all armor on player", (InventoryHandler as PlayerInventoryHandler).RemoveDurabilityCommand);
 
+            CommandConsole.RegisterCommand("warp", "warps to specified TO portal", MoveToPortalCommand);
+
 
             ToolHandler = new PlayerToolHandler(this, InventoryHandler, _lumenHandler);
             _hungerHandler.Load(this);
@@ -153,6 +155,10 @@ namespace EntityEngine.Classes.PlayerStuff
             (Animator as CustomizeableAnimator).SetClothingIndex(typeof(Hair), avatarData.HairIndex);
             ChangeClothingColor(typeof(Hair), new Color(avatarData.HairRed, avatarData.HairGreen, avatarData.HairBlue));
 
+        }
+        private void MoveToPortalCommand(string[] args)
+        {
+            MoveToPortal(args[0]);
         }
         private void TpCommand(string[] args)
         {

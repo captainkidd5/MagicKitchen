@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using Globals.Classes.Helpers;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,25 +14,29 @@ namespace PhysicsEngine.Classes
 {
     public class Portal : Collidable, ISaveable
     {
+        public Portal()
+        {
 
-        public Portal(string from, string to)
+        }
+        public Portal(string from, string to, Vector2 pos)
         {
             From = from;
             To = to;
+            Move(pos);
+
         }
         public string From { get; private set; }
         public string To { get; private set; }
 
 
-        public static Portal GetPortal(ref string unparsedString)
+        public static Portal GetPortal(ref string unparsedString, int tileX, int tileY)
         {
             string[] splitString = unparsedString.Split(',');
             string from = splitString[0];
             string to = splitString[1];
 
             unparsedString = from;
-            return new Portal(from, to);
-
+           return new Portal(from, to, Vector2Helper.GetWorldPositionFromTileIndex(tileX, tileY));
 
 
         }
@@ -40,12 +45,14 @@ namespace PhysicsEngine.Classes
         {
             From = reader.ReadString();
             To = reader.ReadString();
+            Move(Vector2Helper.ReadVector2(reader));
         }
 
         public void Save(BinaryWriter writer)
         {
             writer.Write(From);
             writer.Write(To);
+            Vector2Helper.WriteVector2(writer, Position);
         }
 
         public void SetToDefault()
