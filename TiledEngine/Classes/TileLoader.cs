@@ -54,8 +54,7 @@ namespace TiledEngine.Classes
         private static ProceduralPlacer s_proceduralPlacer;
 
         public static FurnitureLoader FurnitureLoader;
-
-        public static Dictionary<string, Portal> AllPortals;
+        public static PortalManager Portalmanager;
 
         static public ZoneManager ZoneManager;
         
@@ -83,8 +82,8 @@ namespace TiledEngine.Classes
 
             FurnitureLoader = new FurnitureLoader();
             FurnitureLoader.LoadContent(content);
-            AllPortals = new Dictionary<string, Portal>();
-            ZoneManager = new ZoneManager();
+            Portalmanager = new PortalManager();
+             ZoneManager = new ZoneManager();
         }
 
 
@@ -123,22 +122,9 @@ namespace TiledEngine.Classes
 
             tileManager.LoadMap(worldMap, mapData, 512, TileSetPackage);
 
-            //Need to loop through all tiles to find which ones have been placed that contain a portal property
-            for (int z = 0; z < tileManager.TileData.Count; z++)
-            {
-                for (int x = 0; x < tileManager.TileData[0].GetLength(0) - 1; x++)
-                {
-                    for (int y = 0; y < tileManager.TileData[0].GetLength(1) -1; y++)
-                    {
-                        string val = tileManager.TileData[z][x, y].GetProperty(tileManager.TileSetPackage, "portal", true);
-                        if (!string.IsNullOrEmpty(val))
-                        {
-                            Portal portal = Portal.GetPortal(ref val);
-                            AllPortals.Add(val, portal);
-                        }
-                    }
-                }
-            }
+
+            Portalmanager.CreateNewSave(tileManager.TileData, tileManager.TileSetPackage);
+
 
                         s_proceduralPlacer.AddClusterTiles(tileManager);
             //s_proceduralPlacer.AddPoissonTiles(tileManager);

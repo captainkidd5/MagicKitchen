@@ -1,12 +1,17 @@
-﻿using System;
+﻿using Globals.Classes;
+using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tainicom.Aether.Physics2D.Dynamics;
+using tainicom.Aether.Physics2D.Dynamics.Contacts;
 
 namespace PhysicsEngine.Classes
 {
-    public class Portal
+    public class Portal : Collidable, ISaveable
     {
 
         public Portal(string from, string to)
@@ -29,6 +34,48 @@ namespace PhysicsEngine.Classes
 
 
 
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            From = reader.ReadString();
+            To = reader.ReadString();
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+            writer.Write(From);
+            writer.Write(To);
+        }
+
+        public void SetToDefault()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void CreateBody(Vector2 position)
+        {
+            base.CreateBody(position);
+        }
+
+        protected override bool OnClickBoxCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            return base.OnClickBoxCollides(fixtureA, fixtureB, contact);
+        }
+
+        protected override void OnClickBoxSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            base.OnClickBoxSeparates(fixtureA, fixtureB, contact);
+        }
+
+        protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            return base.OnCollides(fixtureA, fixtureB, contact);
+        }
+
+        protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
+        {
+            base.OnSeparates(fixtureA, fixtureB, contact);
         }
     }
 }
