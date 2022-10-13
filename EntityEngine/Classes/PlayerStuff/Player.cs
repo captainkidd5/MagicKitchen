@@ -135,7 +135,8 @@ namespace EntityEngine.Classes.PlayerStuff
 
         private void PortalClicked(Portal portal)
         {
-            Move(TileLoader.Portalmanager.AllPortals.FirstOrDefault(x => x.To == portal.To && x.From == portal.From).Position);
+            Vector2 portalPos = TileLoader.Portalmanager.AllPortals.FirstOrDefault(x => x.To == portal.From && x.From == portal.To).Position;
+            Move(portalPos);
         }
 
         /// <summary>
@@ -525,22 +526,7 @@ namespace EntityEngine.Classes.PlayerStuff
                     LightsTouching.Add(fixtureB);
             }
 
-            if (fixtureB.CollisionCategories.HasFlag(((Category)PhysCat.Portal)))
-            {
-                if (fixtureB.Body.Tag != null)
-                {
-                    if ((fixtureB.Body.Tag as Portal).IsHovered(Controls.ControllerConnected))
-                    {
-                        if (Controls.IsClickedWorld)
-                            MoveToPortal((fixtureB.Body.Tag as Portal).To);
-
-                    }
-                }
-
-
-
-
-            }
+   
             return base.OnCollides(fixtureA, fixtureB, contact);
         }
 

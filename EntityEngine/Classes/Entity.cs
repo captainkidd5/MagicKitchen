@@ -107,7 +107,7 @@ namespace EntityEngine.Classes
         public virtual void MoveToPortal(string to, string from)
         {
 
-            Portal portal = TileLoader.Portalmanager.AllPortals.FirstOrDefault(x => x.To == to && x.From == from);
+            Portal portal = TileLoader.Portalmanager.AllPortals.FirstOrDefault(x => x.To == from && x.From == to);
             if (portal == null)
             {
                 throw new Exception($"Unable to find portal for destination {to}");

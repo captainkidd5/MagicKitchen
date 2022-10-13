@@ -108,7 +108,7 @@ namespace TiledEngine.Classes
                 InsertCustomMapAt(mapData, new Point(sd.Value.InsertionX, sd.Value.InsertionY), map);
                 sd.Value.Load(map.Width);
                 ZoneManager.LoadZones(map);
-                Portalmanager.LoadPortalZones(map);
+                Portalmanager.LoadPortalZones(map, sd.Value.InsertionX, sd.Value.InsertionY);
 
             }
             //InsertCustomMapAt(mapData, new Point(112, 112), testIsland);

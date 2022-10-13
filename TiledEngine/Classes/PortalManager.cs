@@ -55,7 +55,7 @@ namespace TiledEngine.Classes
                 }
             }
         }
-        public void LoadPortalZones(TmxMap tmxMap)
+        public void LoadPortalZones(TmxMap tmxMap, int stageX, int stageY)
         {
             TmxObjectGroup zones;
 
@@ -63,7 +63,8 @@ namespace TiledEngine.Classes
             List<Portal> tempPortalList = new List<Portal>();
             foreach (TmxObject portal in zones.Objects)
             {
-                Portal p = Portal.GetPortal(portal.Properties.ElementAt(0).Value, (int)(portal.X / 16), (int)(portal.Y / 16));
+                Portal p = Portal.GetObjectGroupPortal(portal.Properties.ElementAt(0).Value,(int)(portal.X + stageX * 16),
+                    (int)(portal.Y + stageY * 16), (int)portal.Width, (int)portal.Height);
 
                 tempPortalList.Add(p);
             }

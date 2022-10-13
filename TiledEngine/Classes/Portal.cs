@@ -20,6 +20,8 @@ namespace TiledEngine.Classes
     public class Portal : Collidable, ISaveable
     {
         public event PortalClicked PortalClicked;
+        public Rectangle Rectangle { get; set; }
+
         public Portal()
         {
 
@@ -28,35 +30,49 @@ namespace TiledEngine.Classes
         {
             PortalClicked?.Invoke(this);
         }
-        public Portal(string from, string to, Vector2 pos)
+        public Portal(string from, string to, Rectangle rectangle)
         {
             From = from;
             To = to;
-            Move(pos);
-            CreateBody(pos);
+            Rectangle = rectangle;
+            CreateBody(Vector2.Zero);
 
         }
         public string From { get; private set; }
         public string To { get; private set; }
 
 
-        public static Portal GetPortal(string unparsedString, int tileX, int tileY)
+        /// <summary>
+        /// For TMX Objects in tile properties
+        /// </summary>
+        /// <returns></returns>
+        public static Portal GetPortal(string unparsedString,int x, int y)
+        {
+            string[] splitString = unparsedString.Split(',');
+            string from = splitString[0];
+            string to = splitString[1];
+            int width = int.Parse(splitString[2]);
+            int height = int.Parse(splitString[3]);
+
+            return new Portal(from, to, new Rectangle(x,y,width,height));
+        }
+        /// <summary>
+        /// For object zones
+        /// </summary>
+        /// <returns></returns>
+        public static Portal GetObjectGroupPortal(string unparsedString,int x, int y, int width, int height)
         {
             string[] splitString = unparsedString.Split(',');
             string from = splitString[0];
             string to = splitString[1];
 
-
-           return new Portal(from, to, Vector2Helper.GetWorldPositionFromTileIndex(tileX, tileY));
-
-
+            return new Portal(from, to, new Rectangle(x, y, width, height));
         }
-
         public void LoadSave(BinaryReader reader)
         {
             From = reader.ReadString();
             To = reader.ReadString();
-            Move(Vector2Helper.ReadVector2(reader));
+            Rectangle = RectangleHelper.ReadRectangle(reader);
             CreateBody(Position);
 
         }
@@ -65,7 +81,7 @@ namespace TiledEngine.Classes
         {
             writer.Write(From);
             writer.Write(To);
-            Vector2Helper.WriteVector2(writer, Position);
+            RectangleHelper.WriteRectangle(writer, Rectangle);
         }
 
         public void SetToDefault()
@@ -97,7 +113,8 @@ namespace TiledEngine.Classes
 
         protected override void CreateBody(Vector2 position)
         {
-            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() {
+            Move(Vector2Helper.GetVector2FromRectangle(Rectangle));
+            MainHullBody = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, Position, Rectangle.Width, Rectangle.Height, new List<Category>() {
                 (Category)PhysCat.Portal, (Category)PhysCat.ClickBox },
               new List<Category>() {
                   (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.Cursor, (Category)PhysCat.NPC},
