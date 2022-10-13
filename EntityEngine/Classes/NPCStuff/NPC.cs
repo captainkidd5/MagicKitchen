@@ -138,7 +138,7 @@ namespace EntityEngine.Classes.NPCStuff
         protected virtual void CheckInspection()
         {
             
-            if (((PlayerInClickRange && MouseHovering) || (Controls.ControllerConnected && PlayerInControllerActionRange)))
+            if (((PlayerInClickRange && IsHovered(Controls.ControllerConnected)) || (Controls.ControllerConnected && PlayerInControllerActionRange)))
             {
                 UI.Cursor.ChangeCursorIcon(CursorIconType.Speech);
 

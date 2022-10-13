@@ -34,7 +34,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
             IntervalAnimatedSprite spr = Tile.Sprite as IntervalAnimatedSprite;
 
     
-            if (PlayerInClickRange && MouseHovering && Controls.IsClickedWorld)
+            if (IsHovered(Controls.ControllerConnected) && Controls.IsClickedWorld)
             {
                 if (!IsPlayingASound)
                 {

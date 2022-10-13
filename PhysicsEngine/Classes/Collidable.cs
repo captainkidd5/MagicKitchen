@@ -40,7 +40,7 @@ namespace PhysicsEngine.Classes
 
         protected SoundModuleManager SoundModuleManager { get; set; }
 
-        protected bool MouseHovering { get; private set; }
+        private bool MouseHovering { get; set; }
 
         protected bool PlayerInClickRange { get; private set; }
 
@@ -69,9 +69,19 @@ namespace PhysicsEngine.Classes
         /// Will return if is hovered, regardless of input type
         /// </summary>
         /// <param name="controllerConnected">Physics engine may not reference controls project, must pass in as param</param>
-        protected bool IsHovered(bool controllerConnected)
+        public bool IsHovered(bool controllerConnected)
         {
             return (controllerConnected && PlayerInControllerActionRange) || (MouseHovering);
+        }
+
+        protected virtual bool WithinRangeOfPlayer(bool controllerConnected)
+        {
+            if (PlayerInClickRange)
+            {
+                if (IsHovered(controllerConnected) || PlayerInControllerActionRange)
+                    return true;
+            }
+            return false;
         }
         public Collidable()
         {
@@ -157,7 +167,7 @@ namespace PhysicsEngine.Classes
         {
             if (fixtureB.CollisionCategories == (Category)PhysCat.Cursor)
             {
-                if(fixtureA.CollidesWith.HasFlag((Category)PhysCat.Cursor))
+                if(fixtureA.CollidesWith.HasFlag ((Category)PhysCat.Cursor))
                 MouseHovering = true;
 
 

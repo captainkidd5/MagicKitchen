@@ -85,7 +85,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
             base.Update(gameTime);
             Move(IntermediateTmxShape.HullPosition);
      
-            if (WithinRangeOfPlayer())
+            if (WithinRangeOfPlayer(Controls.ControllerConnected))
             {
                 Tile.WithinRangeOfPlayer = true;
                 if (IsHovered(Controls.ControllerConnected))
@@ -100,15 +100,6 @@ namespace TiledEngine.Classes.TileAddons.Actions
         }
 
 
-        protected virtual bool WithinRangeOfPlayer()
-        {
-            if (PlayerInClickRange)
-            {
-                if (MouseHovering || PlayerInControllerActionRange)
-                    return true;
-            }
-            return false;
-        }
 
         protected virtual void AlterCursorAndAlertTile()
         {

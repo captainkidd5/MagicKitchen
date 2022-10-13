@@ -14,18 +14,18 @@ namespace PhysicsEngine.Classes
 {
     public enum PhysCat
     {
-        None = 0x0,
-        Player = 0x1,
-        SolidLow = 0x2,
-        TransparencySensor = 0x4,
-        SolidHigh = 0x8,
-        Item = 0x10,
-        NPC = 0x20,
-        PlayerBigSensor = 0x40,
-        PlayArea = 0x80,
-        Tool = 0x100,
-        Portal = 0x200,
-        Cursor = 0x400,
+        None = 0x0, //0
+        Player = 0x1,//1
+        SolidLow = 0x2,//2
+        TransparencySensor = 0x4,//3
+        SolidHigh = 0x8,//4
+        Item = 0x10,//5
+        NPC = 0x20,//6
+        PlayerBigSensor = 0x40,//7
+        PlayArea = 0x80,//8
+        Tool = 0x100,//9
+        Portal = 0x200,//10
+        Cursor = 0x400,//11
         NPCBigSensor = 0x800,
         ActionTile = 0x1000,
         LightSource = 0x2000,

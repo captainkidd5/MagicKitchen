@@ -127,7 +127,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
         }
 
- 
+
         /// <summary>
         /// When player dies, do this
         /// </summary>
@@ -167,7 +167,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
         private void TpIslandCommand(string[] args)
         {
-            Move(new Vector2((Container.AllStageData[args[0]].InsertionX +32) * 16 , (Container.AllStageData[args[0]].InsertionY + 32) * 16));
+            Move(new Vector2((Container.AllStageData[args[0]].InsertionX + 32) * 16, (Container.AllStageData[args[0]].InsertionY + 32) * 16));
         }
         private void ReloadAnimationsCommmand(string[] args)
         {
@@ -272,7 +272,13 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void Update(GameTime gameTime)
         {
             Resume();
+            if(UI.Cursor.CursorIconType == CursorIconType.Door)
+            {
+                if (Controls.IsClickedWorld)
+                {
 
+                }
+            }
             if (!Controls.ClickActionTriggeredThisFrame && Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
             {
                 TileObject mouseOverTile = Container.TileManager.MouseOverTile;
@@ -285,13 +291,13 @@ namespace EntityEngine.Classes.PlayerStuff
                         if (!Animator.IsPerformingAnimation())
                         {
                             ActionType? actionType = null;
-                           Action actionToTrigger = Container.TileManager.MouseOverTile.Interact(ref actionType,true, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
+                            Action actionToTrigger = Container.TileManager.MouseOverTile.Interact(ref actionType, true, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
 
                             //Just a normal non destructable tile, no possible interaction
                             if (actionToTrigger == null)
                                 return;
-                            if(ToolHandler.WillUseHeldItem(actionType.Value))
-                             ChargeHeldItem(gameTime, Controls.MouseWorldPosition);
+                            if (ToolHandler.WillUseHeldItem(actionType.Value))
+                                ChargeHeldItem(gameTime, Controls.MouseWorldPosition);
                             //if (actionToTrigger != null)
                             //    Animator.ActionToPerform = actionToTrigger;
                             if (actionType != null)
@@ -302,7 +308,7 @@ namespace EntityEngine.Classes.PlayerStuff
                                 //   Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition),
                                 //   actionType.Value);
                                 DirectionMoving = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition);
-                                PerformAction(actionToTrigger,DirectionMoving, actionType.Value);
+                                PerformAction(actionToTrigger, DirectionMoving, actionType.Value);
                                 if (IsJumpActionType(actionType.Value))
                                 {
                                     ReactToJumpActionType(actionType.Value);
@@ -499,10 +505,27 @@ namespace EntityEngine.Classes.PlayerStuff
         public List<Fixture> LightsTouching { get; set; }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories==((Category)PhysCat.LightSource))
+            if (fixtureB.CollisionCategories == ((Category)PhysCat.LightSource))
             {
                 if (fixtureB.Body.Tag != null && (fixtureB.Body.Tag as LightCollidable).RestoresLumens)
                     LightsTouching.Add(fixtureB);
+            }
+
+            if (fixtureB.CollisionCategories.HasFlag(((Category)PhysCat.Portal)))
+            {
+                if (fixtureB.Body.Tag != null)
+                {
+                    if ((fixtureB.Body.Tag as Portal).IsHovered(Controls.ControllerConnected))
+                    {
+                        if (Controls.IsClickedWorld)
+                            MoveToPortal((fixtureB.Body.Tag as Portal).To);
+
+                    }
+                }
+
+
+
+
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
         }
@@ -510,7 +533,7 @@ namespace EntityEngine.Classes.PlayerStuff
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             base.OnSeparates(fixtureA, fixtureB, contact);
-            if (fixtureB.CollisionCategories==((Category)PhysCat.LightSource))
+            if (fixtureB.CollisionCategories == ((Category)PhysCat.LightSource))
             {
                 //if (LightsTouching.Contains(fixtureB))
 

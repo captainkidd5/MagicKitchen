@@ -1,6 +1,8 @@
 ﻿using Globals.Classes;
 using Globals.Classes.Helpers;
+using InputEngine.Classes;
 using Microsoft.Xna.Framework;
+using PhysicsEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,8 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
+using UIEngine.Classes;
 
-namespace PhysicsEngine.Classes
+namespace TiledEngine.Classes
 {
     public class Portal : Collidable, ISaveable
     {
@@ -65,13 +68,29 @@ namespace PhysicsEngine.Classes
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            //base.Update(gameTime);
+            if (MainHullBody != null)
+               MainHullBody.Position = Position;
+
+            if (WithinRangeOfPlayer(Controls.ControllerConnected))
+            {
+                if (IsHovered(Controls.ControllerConnected))
+                {
+                    //Console.WriteLine("test");
+                    UI.Cursor.ChangeCursorIcon(CursorIconType.Door);
+
+                }
+
+            }
         }
+       
 
         protected override void CreateBody(Vector2 position)
         {
-            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Portal },
-              new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Cursor, (Category)PhysCat.NPC},
+            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() {
+                (Category)PhysCat.Portal, (Category)PhysCat.ClickBox },
+              new List<Category>() {
+                  (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.Cursor, (Category)PhysCat.NPC},
               OnCollides, OnSeparates,userData: this);
 
         }
@@ -88,11 +107,18 @@ namespace PhysicsEngine.Classes
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
+            if (fixtureB.CollisionCategories.HasFlag(((Category)PhysCat.Cursor))){
+                OnClickBoxCollides(fixtureA, fixtureB, contact);
+            }
             return base.OnCollides(fixtureA, fixtureB, contact);
         }
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
+            if (fixtureB.CollisionCategories.HasFlag(((Category)PhysCat.Cursor)))
+            {
+                OnClickBoxSeparates(fixtureA, fixtureB, contact);
+            }
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
     }
