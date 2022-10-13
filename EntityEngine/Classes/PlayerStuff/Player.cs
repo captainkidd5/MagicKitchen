@@ -125,8 +125,17 @@ namespace EntityEngine.Classes.PlayerStuff
             Shadow = new Shadow(SpriteEngine.Classes.ShadowStuff.ShadowType.NPC, CenteredPosition, ShadowSize.Small, SpriteFactory.NPCSheet);
 
 
+            foreach(var portalPairs in TileLoader.Portalmanager.AllPortals)
+            {
+                portalPairs.Value.PortalClicked += PortalClicked;
+            }
+
         }
 
+        private void PortalClicked(Portal portal)
+        {
+            Move(TileLoader.Portalmanager.AllPortals[portal.To].Position);
+        }
 
         /// <summary>
         /// When player dies, do this
@@ -459,6 +468,10 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.CleanUp();
             StorageCapacity = 24;
+            foreach (var portalPairs in TileLoader.Portalmanager.AllPortals)
+            {
+                portalPairs.Value.PortalClicked -= PortalClicked;
+            }
         }
         protected override void UpdateLights(GameTime gameTime)
         {

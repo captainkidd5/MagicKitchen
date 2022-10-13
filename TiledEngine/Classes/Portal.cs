@@ -15,11 +15,18 @@ using UIEngine.Classes;
 
 namespace TiledEngine.Classes
 {
+    public delegate void PortalClicked(Portal portal);
+
     public class Portal : Collidable, ISaveable
     {
+        public event PortalClicked PortalClicked;
         public Portal()
         {
 
+        }
+        protected virtual void OnPortalClicked()
+        {
+            PortalClicked?.Invoke(this);
         }
         public Portal(string from, string to, Vector2 pos)
         {
@@ -78,6 +85,9 @@ namespace TiledEngine.Classes
                 {
                     //Console.WriteLine("test");
                     UI.Cursor.ChangeCursorIcon(CursorIconType.Door);
+
+                    if (Controls.IsClickedWorld)
+                        OnPortalClicked();
 
                 }
 
