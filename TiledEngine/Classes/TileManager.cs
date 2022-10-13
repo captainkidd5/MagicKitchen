@@ -148,6 +148,7 @@ namespace TiledEngine.Classes
         }
         public void Update(GameTime gameTime)
         {
+            Portalmanager.Update(gameTime);
             TopLeftPrecedence = 0;
             DeadTileObjects.Clear();
             CalculateStartAndEndIndexes();

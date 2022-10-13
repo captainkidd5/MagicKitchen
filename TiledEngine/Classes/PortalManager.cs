@@ -1,4 +1,5 @@
 ﻿using Globals.Classes;
+using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,18 @@ namespace TiledEngine.Classes
         {
             AllPortals = new Dictionary<string, Portal>();
         }
-
+   
         public void CleanUp()
         {
-            throw new NotImplementedException();
+            foreach (Portal p in AllPortals.Values)
+                p.CleanUp();
+            AllPortals.Clear();
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            foreach (Portal p in AllPortals.Values)
+                p.Update(gameTime);
         }
 
         //Need to loop through all tiles to find which ones have been placed that contain a portal property
@@ -45,10 +54,7 @@ namespace TiledEngine.Classes
                 }
             }
         }
-        internal void Load()
-        {
-
-        }
+      
 
         public void LoadSave(BinaryReader reader)
         {

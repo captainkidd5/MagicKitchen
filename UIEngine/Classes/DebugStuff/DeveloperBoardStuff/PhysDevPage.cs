@@ -97,7 +97,7 @@ namespace UIEngine.Classes.DebugStuff.DeveloperBoardStuff
             StackRow stackRow4 = new StackRow(BackgroundSpriteDimensions.Width);
             SetCheckBox(stackRow4, PhysCat.ArraySensor);
             SetCheckBox(stackRow4, PhysCat.ClickBox);
-
+            SetCheckBox(stackRow4, PhysCat.Portal);
 
 
             StackPanel.Add(stackRow4);

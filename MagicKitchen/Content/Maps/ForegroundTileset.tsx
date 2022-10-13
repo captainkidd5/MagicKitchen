@@ -738,6 +738,7 @@
  <tile id="5834">
   <properties>
    <property name="newSource" value="0,-32,16,48"/>
+   <property name="portal" value="Hallway,TestIsland"/>
   </properties>
  </tile>
  <tile id="5835">

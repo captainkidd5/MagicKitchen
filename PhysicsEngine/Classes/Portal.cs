@@ -23,6 +23,7 @@ namespace PhysicsEngine.Classes
             From = from;
             To = to;
             Move(pos);
+            CreateBody(pos);
 
         }
         public string From { get; private set; }
@@ -46,6 +47,8 @@ namespace PhysicsEngine.Classes
             From = reader.ReadString();
             To = reader.ReadString();
             Move(Vector2Helper.ReadVector2(reader));
+            CreateBody(Position);
+
         }
 
         public void Save(BinaryWriter writer)
@@ -60,9 +63,17 @@ namespace PhysicsEngine.Classes
             throw new NotImplementedException();
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+
         protected override void CreateBody(Vector2 position)
         {
-            base.CreateBody(position);
+            MainHullBody = PhysicsManager.CreateCircularHullBody(BodyType.Dynamic, Position, 6f, new List<Category>() { (Category)PhysCat.Portal },
+              new List<Category>() { (Category)PhysCat.Player, (Category)PhysCat.Cursor, (Category)PhysCat.NPC},
+              OnCollides, OnSeparates,userData: this);
+
         }
 
         protected override bool OnClickBoxCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
