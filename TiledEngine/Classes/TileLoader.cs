@@ -74,9 +74,6 @@ namespace TiledEngine.Classes
 
             TileSetPackage.LoadContent(content, "maps/BackgroundMasterSpriteSheet_Spaced", "maps/Foreground2");
 
-
-
-
             TileLootManager = new TileLootManager(TileSetPackage);
             TileLootManager.LoadContent(content, TileSetPackage);
 
@@ -111,6 +108,7 @@ namespace TiledEngine.Classes
                 InsertCustomMapAt(mapData, new Point(sd.Value.InsertionX, sd.Value.InsertionY), map);
                 sd.Value.Load(map.Width);
                 ZoneManager.LoadZones(map);
+                Portalmanager.LoadPortalZones(map);
 
             }
             //InsertCustomMapAt(mapData, new Point(112, 112), testIsland);

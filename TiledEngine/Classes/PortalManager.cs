@@ -8,29 +8,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TiledEngine.Classes.TileAddons;
+using TiledSharp;
 
 namespace TiledEngine.Classes
 {
     public class PortalManager : ISaveable
     {
 
-        public Dictionary<string, Portal> AllPortals { get; private set; }
+        public List<Portal> AllPortals { get; private set; }
 
         internal PortalManager()
         {
-            AllPortals = new Dictionary<string, Portal>();
+            AllPortals = new List<Portal>();
         }
    
         public void CleanUp()
         {
-            foreach (Portal p in AllPortals.Values)
+            foreach (Portal p in AllPortals)
                 p.CleanUp();
             AllPortals.Clear();
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (Portal p in AllPortals.Values)
+            foreach (Portal p in AllPortals)
                 p.Update(gameTime);
         }
 
@@ -47,25 +48,40 @@ namespace TiledEngine.Classes
                         string val = tileData[z][x, y].GetProperty(tileSetPackage, "portal", true);
                         if (!string.IsNullOrEmpty(val))
                         {
-                            Portal portal = Portal.GetPortal(ref val,x, y);
-                            AllPortals.Add(val, portal);
+                            Portal portal = Portal.GetPortal(val,x, y);
+                            AllPortals.Add(portal);
                         }
                     }
                 }
             }
         }
-      
+        public void LoadPortalZones(TmxMap tmxMap)
+        {
+            TmxObjectGroup zones;
+
+            tmxMap.ObjectGroups.TryGetValue("Portal", out zones);
+            List<Portal> tempPortalList = new List<Portal>();
+            foreach (TmxObject portal in zones.Objects)
+            {
+                Portal p = Portal.GetPortal(portal.Properties.ElementAt(0).Value, (int)(portal.X / 16), (int)(portal.Y / 16));
+
+                tempPortalList.Add(p);
+            }
+
+            AllPortals.AddRange(tempPortalList);
+
+        }
 
         public void LoadSave(BinaryReader reader)
         {
-            AllPortals = new Dictionary<string, Portal>();
+            AllPortals = new List<Portal>();
 
             int count = reader.ReadInt32();
             for(int i = 0; i < count; i++)
             {
                 Portal portal = new Portal();
                 portal.LoadSave(reader);
-                AllPortals.Add(portal.From, portal);
+                AllPortals.Add(portal);
             }
     
         }
@@ -74,7 +90,7 @@ namespace TiledEngine.Classes
         {
             writer.Write(AllPortals.Count);
             foreach (var pair in AllPortals)
-                pair.Value.Save(writer);
+                pair.Save(writer);
         }
 
         public void SetToDefault()

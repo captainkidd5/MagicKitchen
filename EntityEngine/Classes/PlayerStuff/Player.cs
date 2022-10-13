@@ -33,6 +33,7 @@ using ItemEngine.Classes.StorageStuff;
 using DataModels.ItemStuff;
 using SoundEngine.Classes;
 using EntityEngine.Classes.HumanoidStuff;
+using System.Linq;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -127,14 +128,14 @@ namespace EntityEngine.Classes.PlayerStuff
 
             foreach(var portalPairs in TileLoader.Portalmanager.AllPortals)
             {
-                portalPairs.Value.PortalClicked += PortalClicked;
+                portalPairs.PortalClicked += PortalClicked;
             }
 
         }
 
         private void PortalClicked(Portal portal)
         {
-            Move(TileLoader.Portalmanager.AllPortals[portal.To].Position);
+            Move(TileLoader.Portalmanager.AllPortals.FirstOrDefault(x => x.To == portal.To && x.From == portal.From).Position);
         }
 
         /// <summary>
@@ -167,7 +168,7 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         private void MoveToPortalCommand(string[] args)
         {
-            MoveToPortal(args[0]);
+            MoveToPortal(args[0], args[1]);
         }
         private void TpCommand(string[] args)
         {
@@ -470,7 +471,7 @@ namespace EntityEngine.Classes.PlayerStuff
             StorageCapacity = 24;
             foreach (var portalPairs in TileLoader.Portalmanager.AllPortals)
             {
-                portalPairs.Value.PortalClicked -= PortalClicked;
+                portalPairs.PortalClicked -= PortalClicked;
             }
         }
         protected override void UpdateLights(GameTime gameTime)

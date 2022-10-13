@@ -40,13 +40,13 @@ namespace TiledEngine.Classes
         public string To { get; private set; }
 
 
-        public static Portal GetPortal(ref string unparsedString, int tileX, int tileY)
+        public static Portal GetPortal(string unparsedString, int tileX, int tileY)
         {
             string[] splitString = unparsedString.Split(',');
             string from = splitString[0];
             string to = splitString[1];
 
-            unparsedString = from;
+
            return new Portal(from, to, Vector2Helper.GetWorldPositionFromTileIndex(tileX, tileY));
 
 
