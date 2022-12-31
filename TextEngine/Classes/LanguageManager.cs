@@ -1,5 +1,6 @@
 ﻿using DataModels.DialogueStuff;
 using DataModels.JsonConverters;
+using Globals.XPlatformHelpers;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace TextEngine.Classes
             var options = new JsonSerializerOptions();
             options.Converters.Add(new JsonStringEnumConverter());
 
-            var files = Directory.GetFiles(basePath);
+            var files = AssetLocator.GetFiles(basePath);
             string jsonString = string.Empty;
 
             string supportedLanguagesFile = files.FirstOrDefault(x => x.EndsWith("SupportedLanguages.json"));

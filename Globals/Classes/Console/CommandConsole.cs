@@ -19,22 +19,22 @@ namespace Globals.Classes.Console
         private static Color s_consolebackgroundColor = new Color(0, 0, 0, 200);
         public static void Toggle() => s_consoleComponent.ToggleOpenClose();
 
-        public static bool IsActive => s_consoleComponent.IsVisible;
+        public static bool IsActive => s_consoleComponent != null ? s_consoleComponent.IsVisible : false;
         public static Dictionary<string, string> Commands { get; private set; }
         public static void Load(ConsoleComponent consoleComponent)
         {
-            s_consoleComponent = consoleComponent;
-            s_manualInterpreter = new ManualInterpreter();
-            s_consoleComponent.Interpreter = s_manualInterpreter;
-            Commands = new Dictionary<string, string>();
-            RegisterCommand("toggle", "toggles a number of different flags", ToggleAction);
-            RegisterCommand("list", "lists all commands", ListCommandsAction);
+            //s_consoleComponent = consoleComponent;
+            //s_manualInterpreter = new ManualInterpreter();
+            //s_consoleComponent.Interpreter = s_manualInterpreter;
+            //Commands = new Dictionary<string, string>();
+            //RegisterCommand("toggle", "toggles a number of different flags", ToggleAction);
+            //RegisterCommand("list", "lists all commands", ListCommandsAction);
 
 
-            consoleComponent.HeightRatio = s_consoleHeightRation;
-            consoleComponent.BackgroundColor = s_consolebackgroundColor;
+            //consoleComponent.HeightRatio = s_consoleHeightRation;
+            //consoleComponent.BackgroundColor = s_consolebackgroundColor;
 
-            s_consoleComponent.Output.Append("test output");
+            //s_consoleComponent.Output.Append("test output");
 
         }
 
@@ -81,13 +81,13 @@ namespace Globals.Classes.Console
         }
         public static void RegisterCommand(string commandName, string description, Action<string[]> command)
         {
-            if (!Commands.ContainsKey(commandName))
-            {
-                Commands.Add(commandName, ":---------------" + description);
-                s_manualInterpreter.RegisterCommand(commandName, command);
+            //if (!Commands.ContainsKey(commandName))
+            //{
+            //    Commands.Add(commandName, ":---------------" + description);
+            //    s_manualInterpreter.RegisterCommand(commandName, command);
 
 
-            }
+            //}
 
 
 

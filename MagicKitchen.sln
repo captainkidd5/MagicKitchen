@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UIEngine", "UIEngine\UIEngi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityEngine", "EntityEngine\EntityEngine.csproj", "{170DFD7B-ABAD-4A6C-8726-90D7ADF78784}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_Android_", "_Android_\_Android_.csproj", "{65A1FC37-A944-48BB-BC1E-980AACF3358F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,12 @@ Global
 		{170DFD7B-ABAD-4A6C-8726-90D7ADF78784}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{170DFD7B-ABAD-4A6C-8726-90D7ADF78784}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{170DFD7B-ABAD-4A6C-8726-90D7ADF78784}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65A1FC37-A944-48BB-BC1E-980AACF3358F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65A1FC37-A944-48BB-BC1E-980AACF3358F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65A1FC37-A944-48BB-BC1E-980AACF3358F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{65A1FC37-A944-48BB-BC1E-980AACF3358F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65A1FC37-A944-48BB-BC1E-980AACF3358F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65A1FC37-A944-48BB-BC1E-980AACF3358F}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

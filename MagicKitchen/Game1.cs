@@ -32,6 +32,8 @@ using InputEngine.Classes;
 using DataModels.QuestStuff;
 using TextEngine.Classes;
 using SpriteEngine.Classes.ParticleStuff.WeatherStuff;
+using System.Diagnostics;
+using Globals.XPlatformHelpers;
 
 namespace MagicKitchen
 {
@@ -62,18 +64,22 @@ namespace MagicKitchen
         private FrameCounter _frameCounter;
         public Game1()
         {
+            //throw new Exception("Hit");
+            Debug.WriteLine($"device type is{Globals.Classes.Flags.DeviceType} ");
             _graphics = new GraphicsDeviceManager(this);
             _graphics.HardwareModeSwitch = false;
             Content.RootDirectory = "Content";
             IsMouseVisible = false;
 
-            consoleComponent = new ConsoleComponent(this);
-            Components.Add(consoleComponent);
+            //consoleComponent = new ConsoleComponent(this);
+          //  Components.Add(consoleComponent);
             Window.AllowUserResizing = true;
             Window.ClientSizeChanged += Settings.Window_ClientSizeChanged;
 
             Activated += IsActivated;
             Deactivated += IsDeactivated;
+
+            AssetLocator.GetFiles = Directory.GetFiles;
         }
 
         private void IsDeactivated(object sender, EventArgs e)
@@ -121,28 +127,35 @@ namespace MagicKitchen
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             SaveLoadManager.FetchAllMetadata();
             SettingsManager.LoadSettings();
-            CommandConsole.Load(consoleComponent);
-            _commandList.Load();
-            _stageManager.RegisterCommands();
+           // CommandConsole.Load(consoleComponent);
+           // _commandList.Load();
+            //_stageManager.RegisterCommands();
             Clock.Load();
-            MainFont = Content.Load<SpriteFont>("Fonts/Font");
+
+            //This is the android content issue
+          //  MainFont = Content.Load<SpriteFont>("Fonts/Font");
+            //throw new Exception("Got to text factory");
+
             TextFactory.Load(Content);
             LanguageManager.Load(Content);
-
             Scheduler.Load(Content);
             TileLoader.LoadContent(Content);
             ItemFactory.LoadContent(Content);
+
             EntityFactory.Load(Content);
 
             _questManager = new QuestLoader();
             _questManager.Load(Content);
+
             Controls.Load(Camera, GraphicsDevice, Content);
+
             RenderTargetManager.Load(GraphicsDevice);
 
             SpriteFactory.LoadContent(GraphicsDevice, Content);
 
 
             PhysicsManager.LoadContent(Content, GraphicsDevice, MainFont);
+
             SongManager.Load(Content);
             UI.Load(this, GraphicsDevice, Content, _mainMenuContentManager, _splashScreenContentManager);
             UI.LoadQuests(_questManager);
@@ -152,7 +165,7 @@ namespace MagicKitchen
             SaveLoadManager.SaveLoaded += OnSaveLoaded;
             SaveLoadManager.SaveSaved += OnSaveSaved;
             UI.ReturnedToMainMenu += OnReturnToMainMenu;
-            CommandConsole.RegisterCommand("save", "saves current game", SaveLoadManager.SaveGame);
+            //CommandConsole.RegisterCommand("save", "saves current game", SaveLoadManager.SaveGame);
             _frameCounter = new FrameCounter(4);
 
             WeatherManager.SetWeather(WeatherType.SandStorm, false);
@@ -340,13 +353,13 @@ namespace MagicKitchen
 
         public void OnSaveSaved(object? sender, FileSavedEventArgs e)
         {
-            CommandConsole.Append("Saving current game..");
+           // CommandConsole.Append("Saving current game..");
 
             BinaryWriter writer = e.BinaryWriter;
             Clock.Save(writer);
             _playerManager.Save(writer);
             _stageManager.Save(writer);
-            CommandConsole.Append("...Saved!");
+            //CommandConsole.Append("...Saved!");
             SaveLoadManager.DestroyWriter(writer);
 
         }

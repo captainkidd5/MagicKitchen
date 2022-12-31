@@ -54,7 +54,7 @@ namespace TiledEngine.Classes
             int width = int.Parse(splitString[2]);
             int height = int.Parse(splitString[3]);
 
-            return new Portal(from, to, new Rectangle(x,y,width,height));
+            return new Portal(from, to, new Rectangle(x * 16,y * 16,width,height));
         }
         /// <summary>
         /// For object zones

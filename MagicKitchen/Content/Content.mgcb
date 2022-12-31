@@ -626,6 +626,11 @@
 /processorParam:TextureFormat=Color
 /build:Items/Tools.png
 
+#begin Languages/SupportedLanguages.json
+/importer:TexturePackerJsonImporter
+/processor:TexturePackerProcessor
+/build:Languages/SupportedLanguages.json
+
 #begin Maps/BackgroundMasterSpriteSheet_Spaced.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -673,11 +678,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Maps/InteriorForeground.png
-
-#begin Maps/StageData.xml
-/importer:XmlImporter
-/processor:PassThroughProcessor
-/build:Maps/StageData.xml
 
 #begin p2p3.png
 /importer:TextureImporter
@@ -732,11 +732,6 @@
 /processorParam:TextureFormat=Color
 /build:UI/Fonts/MyFirstFont.png
 
-#begin UI/Fonts/test_font_1.fnt
-/importer:BitmapFontImporter
-/processor:BitmapFontProcessor
-/build:UI/Fonts/test_font_1.fnt
-
 #begin UI/Fonts/test_font_1_0.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -748,6 +743,11 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UI/Fonts/test_font_1_0.png
+
+#begin UI/Fonts/test_font_1.fnt
+/importer:BitmapFontImporter
+/processor:BitmapFontProcessor
+/build:UI/Fonts/test_font_1.fnt
 
 #begin UI/GeneralInterface.png
 /importer:TextureImporter
