@@ -1,5 +1,7 @@
 ﻿using DataModels;
+using DataModels.DialogueStuff;
 using Globals.Classes.Time;
+using Globals.XPlatformHelpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using System;
@@ -25,16 +27,24 @@ namespace TextEngine.Classes
 
 
             Schedules = new Dictionary<string, List<Schedule>>();
-            foreach (var file in Directory.GetFiles(basePath))
+            foreach (var file in AssetLocator.GetFiles(basePath))
             {
-                string jsonString = File.ReadAllText(file);
-                List<Schedule> schedules = JsonSerializer.Deserialize<List<Schedule>>(jsonString, options);
+
+                using (var stream = TitleContainer.OpenStream($"{basePath}/{file}"))
+                {
+                    using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                    var str = reader.ReadToEnd();
+                    List<Schedule> schedules = JsonSerializer.Deserialize<List<Schedule>>(str, options);
+                    Schedules.Add(Path.GetFileName(file).Split(".json")[0], schedules);
+
+
+                }
+
 
                 //foreach (Schedule sch in schedules)
                 //    sch.ConvertTimeString();
 
                 //schedules.Sort(0, schedules.Count, new ScheduleTimeComparer());
-                Schedules.Add(Path.GetFileName(file).Split(".json")[0], schedules);
 
             }
 

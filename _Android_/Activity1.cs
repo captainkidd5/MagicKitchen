@@ -38,13 +38,11 @@ namespace _Android_
 
         protected string[] GetFiles(string path)
         {
-            var store = IsolatedStorageFile.GetUserStoreForApplication();
-            var names = store.GetDirectoryNames();
-            var content = Android.App.Application.Context.Assets.List(path);
-            bool directoryExists = store.DirectoryExists(path + "/Audio");
-            if (directoryExists)
-                return store.GetFileNames(path);
-            throw new System.Exception("Could not find files");
+            string[] content = Android.App.Application.Context.Assets.List(path);
+            if(content.Length == 0)
+                throw new System.Exception("Could not find files");
+
+            return content;
             
         }  
     }

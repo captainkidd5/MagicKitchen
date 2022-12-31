@@ -566,6 +566,30 @@
 /processorParam:TextureFormat=Color
 /build:Entities/Props/Props_1.png
 
+#begin Entities/Schedules/Dobbin.json
+/copy:Entities/Schedules/Dobbin.json
+
+#begin Entities/Schedules/Ned.json
+/copy:Entities/Schedules/Ned.json
+
+#begin Entities/Schedules/patron.json
+/copy:Entities/Schedules/patron.json
+
+#begin Entities/Schedules/player1.json
+/copy:Entities/Schedules/player1.json
+
+#begin Entities/Schedules/snail.json
+/copy:Entities/Schedules/snail.json
+
+#begin Entities/Schedules/Stenson.json
+/copy:Entities/Schedules/Stenson.json
+
+#begin Entities/Schedules/train.json
+/copy:Entities/Schedules/train.json
+
+#begin Entities/Schedules/wander_1.json
+/copy:Entities/Schedules/wander_1.json
+
 #begin Entities/Shirts.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -627,9 +651,7 @@
 /build:Items/Tools.png
 
 #begin Languages/SupportedLanguages.json
-/importer:TexturePackerJsonImporter
-/processor:TexturePackerProcessor
-/build:Languages/SupportedLanguages.json
+/copy:Languages/SupportedLanguages.json
 
 #begin Maps/BackgroundMasterSpriteSheet_Spaced.png
 /importer:TextureImporter
@@ -707,6 +729,9 @@
 /importer:BitmapFontImporter
 /processor:BitmapFontProcessor
 /build:UI/Font/test_font_1.fnt
+
+#begin UI/Fonts/English/English_Language.json
+/copy:UI/Fonts/English/English_Language.json
 
 #begin UI/Fonts/English/StandardFont.png
 /importer:TextureImporter
