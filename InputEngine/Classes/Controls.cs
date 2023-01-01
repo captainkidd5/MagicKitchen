@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 using SpriteEngine.Classes;
 using System;
 using System.Collections.Generic;
@@ -130,8 +131,9 @@ namespace InputEngine.Classes
         public static bool ScrollWheelDecreased => MouseManager.ScrollWheelDecreased;
 
         private static GamepadControls _gamePadControls;
+        private static TouchControls _touchControls;
         public static bool ControllerConnected { get; private set; }
-
+        public static bool TouchControlConnected { get; private set; }
         public static void Load(Camera2D camera, GraphicsDevice graphics, ContentManager content)
         {
             Graphics = graphics;
@@ -141,10 +143,13 @@ namespace InputEngine.Classes
             KeyboardManager = new KeyboardManager();
             MouseManager = new MouseManager(camera, graphics);
             _gamePadControls = new GamepadControls();
-
-            GamePadCapabilities capabilities = GamePad.GetCapabilities(
+            _touchControls = new TouchControls();
+            GamePadCapabilities gamePadCapablities = GamePad.GetCapabilities(
                                               PlayerIndex.One);
-            ControllerConnected = capabilities.IsConnected;
+
+            TouchPanelCapabilities touchPanelCapabilities = TouchPanel.GetCapabilities();
+            ControllerConnected = gamePadCapablities.IsConnected;
+            TouchControlConnected = touchPanelCapabilities.IsConnected;
         }
     
 
@@ -162,6 +167,11 @@ namespace InputEngine.Classes
             if (ControllerConnected)
             {
                 _gamePadControls.Update(gameTime);
+            }
+            else if (TouchControlConnected)
+            {
+                _touchControls.Update(gameTime);
+
             }
             else
             {
