@@ -30,7 +30,7 @@ namespace TextEngine.Classes
             foreach (var file in AssetLocator.GetFiles(basePath))
             {
 
-                using (var stream = TitleContainer.OpenStream($"{basePath}/{file}"))
+                using (var stream = TitleContainer.OpenStream($"{AssetLocator.GetStaticFileDirectory(basePath)}{file}"))
                 {
                     using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
                     var str = reader.ReadToEnd();
@@ -40,7 +40,7 @@ namespace TextEngine.Classes
 
                 }
 
-
+                Console.WriteLine("test");
                 //foreach (Schedule sch in schedules)
                 //    sch.ConvertTimeString();
 

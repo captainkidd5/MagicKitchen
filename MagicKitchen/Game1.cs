@@ -80,6 +80,9 @@ namespace MagicKitchen
             Deactivated += IsDeactivated;
 
             AssetLocator.GetFiles = Directory.GetFiles;
+            //DesktopGl doesn't need any extension
+            AssetLocator.GetStaticFileDirectory = (string path) => { return ""; };
+            AssetLocator.GetContentFileDirectory = () => { return ""; };
         }
 
         private void IsDeactivated(object sender, EventArgs e)
@@ -117,6 +120,8 @@ namespace MagicKitchen
             _stageManager = new StageManager(GraphicsDevice, Content, _playerManager, Camera);
             //Penumbra.SpriteBatchTransformEnabled = true;
             _commandList = new CommandList();
+
+            
             base.Initialize();
 
         }

@@ -1,0 +1,617 @@
+[
+    {
+        "Id": 1,
+        "Name": "Flint_Axe",
+        "Description": "A basic tool for chopping trees",
+        "MaxStackSize": 1,
+        "Price": 25,
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Tool",
+            "Ingredients": [
+                {
+                    "Name": "Flint",
+                    "Count": 3
+                },
+                {
+                    "Name": "Wood",
+                    "Count": 2
+                }
+            ]
+        }
+    },
+    {
+        "Id": 5,
+        "Name": "Wooden_Hook",
+        "Description": "Can grab floating items",
+        "MaxStackSize": 1,
+        "Price": 25,
+        "ToolTier": "Good",
+        "ItemType": "Hook",
+        "MaxDurability": 20,
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Tool",
+            "Ingredients": [
+                {
+                    "Name": "Rope",
+                    "Count": 2
+                },
+                {
+                    "Name": "Wood",
+                    "Count": 2
+                }
+            ]
+        }
+    },
+    {
+        "Id": 100,
+        "Name": "Hammer",
+        "Description": "Capable of smashing rocks and removing furniture",
+        "MaxStackSize": 1,
+        "Price": 25,
+        "ToolTier": "Good",
+        "ItemType": "Hammer",
+        "MaxDurability": 100,
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Tool",
+            "Ingredients": [
+                {
+                    "Name": "Flint",
+                    "Count": 3
+                },
+                {
+                    "Name": "Wood",
+                    "Count": 2
+                }
+            ]
+        }
+    },
+    {
+        "Id": 300,
+        "Name": "Shovel",
+        "Description": "Dig up the ground",
+        "MaxStackSize": 1,
+        "Price": 25,
+        "ToolTier": "Good",
+        "ItemType": "Shovel",
+        "MaxDurability": 100,
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Tool",
+            "Ingredients": [
+                {
+                    "Name": "Flint",
+                    "Count": 1
+                },
+                {
+                    "Name": "Wood",
+                    "Count": 3
+                },
+                {
+                    "Name": "Rope",
+                    "Count": 2
+                }
+            ]
+        }
+    },
+    {
+        "Id": 613,
+        "Name": "Leather",
+        "Description": "Hide",
+        "MaxStackSize": 999,
+        "Price": 1
+    },
+    {
+        "Id": 712,
+        "Name": "Cooked_Meat",
+        "Description": "A slab of tasty meat",
+        "MaxStackSize": 999,
+        "Price": 1,
+        "ItemType": "Food",
+        "FoodValue": 20,
+        "RecipeInfo": {
+            "CraftAction": "Grill",
+            "CookTime": 20,
+            "Ingredients": [
+                {
+                    "Name": "Raw_Meat",
+                    "Count": 1
+                }
+            ]
+        }
+    },
+    {
+        "Id": 713,
+        "Name": "Raw_Meat",
+        "Description": "Uncooked meat",
+        "MaxStackSize": 999,
+        "Price": 1
+    },
+    {
+        "Id": 900,
+        "Name": "Coin",
+        "Description": "Currency",
+        "MaxStackSize": 999,
+        "Price": 1
+    },
+    {
+        "Id": 901,
+        "Name": "Mana",
+        "Description": "Fuel",
+        "FuelValue": 100,
+        "MaxStackSize": 999,
+        "Price": 1
+    },
+    {
+        "Id": 1200,
+        "Name": "Mud",
+        "Description": "Soggy dirt",
+        "MaxStackSize": 999,
+        "Price": 1
+    },
+    {
+        "Id": 1201,
+        "Name": "Plank",
+        "Description": "Wooden flooring",
+        "MaxStackSize": 999,
+        "Price": 1,
+        "PlacedItemGID": 532,
+        "PlacementSound": "PlaceFurniture",
+        "AllowedPlacementTileTypes": [
+            "land"
+        ],
+        "LayerToPlace": "midGround",
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Refined",
+            "Ingredients": [
+                {
+                    "Name": "Wood",
+                    "Count": 3
+                }
+            ]
+        }
+    },
+    {
+        "Id": 1205,
+        "Name": "Mud_Block",
+        "Description": "May be placed on water",
+        "MaxStackSize": 999,
+        "Price": 1,
+        "PlacedItemGID": 201,
+        "PlacementSound": "PlaceFurniture",
+        "AllowedPlacementTileTypes": [
+            "water"
+        ],
+        "LayerToPlace": "background",
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Refined",
+            "Ingredients": [
+                {
+                    "Name": "Mud",
+                    "Count": 3
+                }
+            ]
+        }
+    },
+    {
+        "Id": 1206,
+        "Name": "Grass_Block",
+        "Description": "May be placed on dirt",
+        "MaxStackSize": 999,
+        "Price": 1,
+        "PlacedItemGID": 112,
+        "PlacementSound": "StepGrass",
+        "AllowedPlacementTileTypes": [
+            "land"
+        ],
+        "LayerToPlace": "midGround",
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Refined",
+            "Ingredients": [
+                {
+                    "Name": "Fibre",
+                    "Count": 3
+                }
+            ]
+        }
+    },
+    {
+        "Id": 1300,
+        "Name": "Wood",
+        "Description": "Water-logged, very very logged",
+        "MaxStackSize": 999,
+        "FuelValue": 100,
+        "Price": 1
+    },
+    {
+        "Id": 1601,
+        "Name": "Iron_Ore",
+        "Description": "A basic mineral",
+        "MaxStackSize": 999,
+        "Price": 1
+    },
+    {
+        "Id": 1607,
+        "Name": "Lumen_Pak",
+        "Description": "Increases maximum lumens",
+        "MaxStackSize": 1,
+        "Price": 1,
+        "EquipmentSlot": "Trinket",
+        "EquipmentYIndex": 0,
+        "MaxDurability": 100,
+        "ArmorValue": 2,
+        "MaximumLumenValue": 10,
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Equipment",
+            "Ingredients": [
+                {
+                    "Name": "Iron_Ingot",
+                    "Count": 4
+                },
+                {
+                    "Name": "Rope",
+                    "Count": 4
+                },
+                {
+                    "Name": "Wood",
+                    "Count": 2
+                }
+            ]
+        }
+    },
+    {
+        "Id": 1701,
+        "Name": "Iron_Ingot",
+        "Description": "A basic mineral",
+        "MaxStackSize": 999,
+        "Price": 1,
+        "RecipeInfo": {
+            "CraftAction": "Smelt",
+            "CookTime": 20,
+            "Ingredients": [
+                {
+                    "Name": "Iron_Ore",
+                    "Count": 1
+                }
+            ]
+        }
+    },
+    {
+        "Id": 1801,
+        "Name": "Iron_Torso",
+        "Description": "Sturdy body armor",
+        "MaxStackSize": 1,
+        "Price": 1,
+        "EquipmentSlot": "Torso",
+        "EquipmentYIndex": 0,
+        "MaxDurability": 100,
+        "ArmorValue": 2,
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Equipment",
+            "Ingredients": [
+                {
+                    "Name": "Iron_Ingot",
+                    "Count": 8
+                }
+            ]
+        }
+    },
+    {
+        "Id": 1901,
+        "Name": "Iron_Legs",
+        "Description": "Sturdy leg armor",
+        "MaxStackSize": 1,
+        "Price": 1,
+        "EquipmentSlot": "Legs",
+        "EquipmentYIndex": 0,
+        "MaxDurability": 100,
+        "ArmorValue": 2,
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Equipment",
+            "Ingredients": [
+                {
+                    "Name": "Iron_Ingot",
+                    "Count": 6
+                }
+            ]
+        }
+    },
+    {
+        "Id": 2001,
+        "Name": "Iron_Helmet",
+        "Description": "A helmet forged from iron",
+        "MaxStackSize": 1,
+        "Price": 1,
+        "EquipmentSlot": "Helmet",
+        "EquipmentYIndex": 0,
+        "MaxDurability": 100,
+        "ArmorValue": 1,
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Equipment",
+            "Ingredients": [
+                {
+                    "Name": "Iron_Ingot",
+                    "Count": 3
+                }
+            ]
+        }
+    },
+    {
+        "Id": 2101,
+        "Name": "Iron_Boots",
+        "Description": "Boots forged from iron",
+        "MaxStackSize": 1,
+        "Price": 1,
+        "EquipmentSlot": "Boots",
+        "EquipmentYIndex": 0,
+        "MaxDurability": 100,
+        "ArmorValue": 1,
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Equipment",
+            "Ingredients": [
+                {
+                    "Name": "Iron_Ingot",
+                    "Count": 2
+                }
+            ]
+        }
+    },
+    {
+        "Id": 2201,
+        "Name": "Iron_Sword",
+        "Description": "A sturdy weapon",
+        "MaxStackSize": 1,
+        "Price": 1,
+        "MaxDurability": 100,
+        "ToolTier": "Good",
+        "ItemType": "Sword",
+        "DamageValue": 25,
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "Ingredients": [
+                {
+                    "Name": "Iron_Ingot",
+                    "Count": 4
+                }
+            ]
+        }
+    },
+    {
+        "Id": 2500,
+        "Name": "Flint",
+        "Description": "A surpsingly buoyant stone",
+        "MaxStackSize": 99,
+        "Price": 1
+    },
+    {
+        "Id": 2501,
+        "Name": "Stone",
+        "Description": "Hard, round",
+        "MaxStackSize": 99,
+        "Price": 1
+    },
+    {
+        "Id": 2502,
+        "Name": "Fibre",
+        "Description": "Basic flotsam",
+        "MaxStackSize": 999,
+        "Price": 1
+    },
+    {
+        "Id": 2601,
+        "Name": "Rope",
+        "Description": "Woven Fibre",
+        "MaxStackSize": 999,
+        "Price": 1,
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Refined",
+            "Ingredients": [
+                {
+                    "Name": "Fibre",
+                    "Count": 3
+                }
+            ]
+        }
+    },
+    {
+        "Id": 2615,
+        "Name": "Cooked_Limpet",
+        "Description": "That was shellfish of you",
+        "MaxStackSize": 999,
+        "Price": 1,
+        "ItemType": "Food",
+        "FoodValue": 12,
+        "RecipeInfo": {
+            "CraftAction": "Grill",
+            "CookTime": 20,
+            "Ingredients": [
+                {
+                    "Name": "Limpet",
+                    "Count": 1
+                }
+            ]
+        }
+    },
+    {
+        "Id": 2616,
+        "Name": "Limpet",
+        "Description": "Raw Shellfish",
+        "MaxStackSize": 999,
+        "ItemType": "Food",
+        "FoodValue": 5,
+        "Price": 1
+    },
+    {
+        "Id": 2620,
+        "Name": "Mushroom",
+        "Description": "Probably safe to eat",
+        "MaxStackSize": 999,
+        "ItemType": "Food",
+        "FoodValue": 2,
+        "Price": 1
+    },
+    {
+        "Id": 2711,
+        "Name": "Water",
+        "Description": "A glass of water",
+        "MaxStackSize": 99,
+        "Price": 1
+    },
+    {
+        "Id": 2717,
+        "Name": "Pumpkin Chunk",
+        "Description": "Bright orange and sticky",
+        "MaxStackSize": 99,
+        "Price": 1
+    },
+    {
+        "Id": 3001,
+        "Name": "Crafting_Table",
+        "Description": "Craft more items!",
+        "MaxStackSize": 1,
+        "Price": 1,
+        "PlacedItemGID": 1215,
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Placeable",
+            "PlacementSound": "PlaceFurniture",
+            "CookTime": 1,
+            "Ingredients": [
+                {
+                    "Name": "Iron_Ore",
+                    "Count": 1
+                }
+            ]
+        }
+    },
+
+    {
+        "Id": 3002,
+        "Name": "Furnace",
+        "Description": "Smelts ores into Ingots",
+        "MaxStackSize": 1,
+        "Price": 1,
+        "PlacedItemGID": 3602,
+        "PlacementSound": "PlaceFurniture",
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Placeable",
+            "Ingredients": [
+                {
+                    "Name": "Stone",
+                    "Count": 8
+                }
+            ]
+        }
+    },
+    {
+        "Id": 2903,
+        "Name": "Wall",
+        "Description": "Basic housing structure",
+        "MaxStackSize": 999,
+        "Price": 1,
+        "PlacedItemGID": 5814,
+        "PlacementSound": "PlaceFurniture",
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Placeable",
+            "Ingredients": [
+                {
+                    "Name": "Wood",
+                    "Count": 5
+                }
+            ]
+        }
+    },
+    {
+        "Id": 2902,
+        "Name": "Wood_Fence",
+        "Description": "Basic housing structure",
+        "MaxStackSize": 999,
+        "Price": 1,
+        "PlacedItemGID": 5006,
+        "PlacementSound": "PlaceFurniture",
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Placeable",
+            "Ingredients": [
+                {
+                    "Name": "Wood",
+                    "Count": 5
+                }
+            ]
+        }
+    },
+    {
+        "Id": 2904,
+        "Name": "Stone_Wall",
+        "Description": "Basic housing structure",
+        "MaxStackSize": 999,
+        "Price": 1,
+        "PlacedItemGID": 4515,
+        "PlacementSound": "PlaceFurniture",
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Placeable",
+            "Ingredients": [
+                {
+                    "Name": "Stone",
+                    "Count": 12
+                }
+            ]
+        }
+    },
+    {
+        "Id": 3100,
+        "Name": "Chest",
+        "Description": "Stores Items",
+        "MaxStackSize": 1,
+        "Price": 1,
+        "PlacedItemGID": 3604,
+        "PlacementSound": "PlaceFurniture",
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Placeable",
+            "Ingredients": [
+                {
+                    "Name": "Wood",
+                    "Count": 12
+                },
+                {
+                    "Name": "Rope",
+                    "Count": 3
+                }
+            ]
+        }
+    },
+    {
+        "Id": 3101,
+        "Name": "Grill",
+        "Description": "Turns raw food into cooked food",
+        "MaxStackSize": 1,
+        "Price": 1,
+        "PlacedItemGID": 3904,
+        "PlacementSound": "PlaceFurniture",
+        "RecipeInfo": {
+            "CraftAction": "Craft",
+            "CraftingCategory": "Placeable",
+            "Ingredients": [
+                {
+                    "Name": "Iron_Ingot",
+                    "Count": 4
+                }
+            ]
+        }
+    }
+]

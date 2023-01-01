@@ -1,4 +1,6 @@
 ﻿using DataModels.MapStuff;
+using Globals.XPlatformHelpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
@@ -22,15 +24,20 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
 
         public void LoadContent(ContentManager content)
         {
-            string basePath = content.RootDirectory + "/maps";
+            string basePath = content.RootDirectory + "/Maps";
             var options = new JsonSerializerOptions();
             options.Converters.Add(new JsonStringEnumConverter());
             string jsonString = string.Empty;
+            using (var stream = TitleContainer.OpenStream($"{AssetLocator.GetStaticFileDirectory(basePath)}FurnitureData.json"))
+            {
+                using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
 
-            jsonString = File.ReadAllText(basePath + "/FurnitureData.json");
+                var str = reader.ReadToEnd();
 
-            FurnitureData = JsonSerializer.Deserialize<List<FurnitureData>>(jsonString, options).
-                ToDictionary(x => x.FurnitureType);
+                FurnitureData = JsonSerializer.Deserialize<List<FurnitureData>>(str, options).
+                    ToDictionary(x => x.FurnitureType);
+            }
+               
 
         }
     }

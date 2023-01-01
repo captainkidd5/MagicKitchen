@@ -2,6 +2,7 @@
 using DataModels.ItemStuff;
 using Globals.Classes;
 using Globals.Classes.Chance;
+using Globals.XPlatformHelpers;
 using ItemEngine.Classes.CraftingStuff;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -52,37 +53,42 @@ namespace ItemEngine.Classes
         public static void LoadContent(ContentManager content)
         {
 
-            ItemSpriteSheet = content.Load<Texture2D>("items/ItemSpriteSheet");
-            ToolSheet = content.Load<Texture2D>("items/Tools");
+            ItemSpriteSheet = content.Load<Texture2D>("Items/ItemSpriteSheet");
+            ToolSheet = content.Load<Texture2D>("Items/Tools");
 
             //new
-            string basePath = content.RootDirectory + "/items";
+            string basePath = content.RootDirectory + "/Items";
             var options = new JsonSerializerOptions();
             options.Converters.Add(new JsonStringEnumConverter());
 
-            var files = Directory.GetFiles(basePath);
+            var files = AssetLocator.GetFiles(basePath);
             string jsonString = string.Empty;
             foreach (var file in files)
             {
-                if (file.EndsWith("ItemData.json"))
+                using (var stream = TitleContainer.OpenStream($"{AssetLocator.GetStaticFileDirectory(basePath)}{file}"))
                 {
-                    jsonString = File.ReadAllText(file);
-                    ItemData = JsonSerializer.Deserialize<List<ItemData>>(jsonString, options);
-                    foreach (ItemData item in ItemData)
-                        item.Load();
-                    ItemDictionary = ItemData.ToDictionary(x => x.Name);
-                    IntItemDictionary = ItemData.ToDictionary(x => x.Id);
+                    if (file.EndsWith("ItemData.json"))
+                    {
+                        using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                        var str = reader.ReadToEnd();
+                        ItemData = JsonSerializer.Deserialize<List<ItemData>>(str, options);
+                        foreach (ItemData item in ItemData)
+                            item.Load();
+                        ItemDictionary = ItemData.ToDictionary(x => x.Name);
+                        IntItemDictionary = ItemData.ToDictionary(x => x.Id);
 
-                }
-                else if (file.EndsWith("FlotsamData.json"))
-                {
-                    jsonString = File.ReadAllText(file);
-                    FlotsamData = JsonSerializer.Deserialize<List<FlotsamData>>(jsonString, options);
-                 
-                    FlotsamDictionary = FlotsamData.ToDictionary(x => x.Name);
+                    }
+                    else if (file.EndsWith("FlotsamData.json"))
+                    {
+                        using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                        var str = reader.ReadToEnd();
+                        FlotsamData = JsonSerializer.Deserialize<List<FlotsamData>>(str, options);
+
+                        FlotsamDictionary = FlotsamData.ToDictionary(x => x.Name);
+                    }
                 }
             }
-                
+
 
             CraftingGuide = new CraftingGuide();
             CraftingGuide.LoadContent(ItemData);
@@ -170,7 +176,7 @@ namespace ItemEngine.Classes
         }
 
         public static event EventHandler<WorldItemGeneratedEventArgs> WorldItemGenerated;
-        public static void GenerateWorldItem(string itemName, int count, Vector2 worldPosition, WorldItemState worldItemState,Vector2? jettisonDirection)
+        public static void GenerateWorldItem(string itemName, int count, Vector2 worldPosition, WorldItemState worldItemState, Vector2? jettisonDirection)
         {
             WorldItemGeneratedEventArgs args = new WorldItemGeneratedEventArgs();
             args.Item = new Item(ItemDictionary[itemName]);
@@ -179,7 +185,7 @@ namespace ItemEngine.Classes
             args.WorldItemState = worldItemState;
             args.JettisonDirection = jettisonDirection;
             OnWorldItemGenerated(args);
-           // return new WorldItem(new Item(ItemDictionary[itemName]), count, worldPosition, worldItemState,jettisonDirection);
+            // return new WorldItem(new Item(ItemDictionary[itemName]), count, worldPosition, worldItemState,jettisonDirection);
         }
 
     }

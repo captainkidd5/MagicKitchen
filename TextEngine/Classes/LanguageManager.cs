@@ -37,7 +37,7 @@ namespace TextEngine.Classes
             string jsonString = string.Empty;
 
             string supportedLanguagesFile = files.FirstOrDefault(x => x.EndsWith("SupportedLanguages.json"));
-            using(var stream = TitleContainer.OpenStream(basePath + "/" + supportedLanguagesFile))
+            using(var stream = TitleContainer.OpenStream(AssetLocator.GetStaticFileDirectory(basePath) + supportedLanguagesFile))
             {
                 using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
                 var str = reader.ReadToEnd();
@@ -62,7 +62,7 @@ namespace TextEngine.Classes
 
             string languageFile = files.FirstOrDefault(x => x.EndsWith("_Language.json"));
             using (var stream = TitleContainer.OpenStream(
-                s_content.RootDirectory + $"/UI/Fonts/{language}/{languageFile}"))
+               AssetLocator.GetStaticFileDirectory(path)+ languageFile))
             {
                 using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
                 var str = reader.ReadToEnd();

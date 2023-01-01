@@ -1,6 +1,8 @@
 // Distributed as part of TiledSharp, Copyright 2012 Marshall Ward
 // Licensed under the Apache License, Version 2.0
 // http://www.apache.org/licenses/LICENSE-2.0
+using Globals.XPlatformHelpers;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -56,8 +58,13 @@ namespace TiledSharp
             else
             {
                 // TODO: Check for existence of file
+                string[] files = AssetLocator.GetFiles("Content/Maps");
 
-                xDoc = XDocument.Load(filepath);
+                using (var stream = TitleContainer.OpenStream(filepath))
+                {
+                    xDoc = XDocument.Load(stream);
+                }
+
                 TmxDirectory = Path.GetDirectoryName(filepath);
             }
 

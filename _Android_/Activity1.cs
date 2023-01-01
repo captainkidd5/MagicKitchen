@@ -25,6 +25,8 @@ namespace _Android_
         private Game1 _game;
         private View _view;
 
+        //if you get Content not found exception with no other explanation, re-copy Game.dll
+        //into androidx64 folder
         protected override void OnCreate(Bundle bundle)
         {
             Globals.Classes.Flags.DeviceType = DeviceType.Android;
@@ -32,6 +34,9 @@ namespace _Android_
             _game = new MagicKitchen.Game1();
             _view = _game.Services.GetService(typeof(View)) as View;
             AssetLocator.GetFiles = GetFiles;
+            AssetLocator.GetStaticFileDirectory = GetBaseDirectory;
+            AssetLocator.GetContentFileDirectory = () => { return "/Content/";};
+
             SetContentView(_view);
             _game.Run();
         }
@@ -45,5 +50,10 @@ namespace _Android_
             return content;
             
         }  
+
+        protected string GetBaseDirectory(string path)
+        {
+            return path + "/";
+        }
     }
 }

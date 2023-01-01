@@ -518,6 +518,15 @@
 /processorParam:TextureFormat=Color
 /build:Entities/Heads.png
 
+#begin Entities/NPC/Dobbin.json
+/copy:Entities/NPC/Dobbin.json
+
+#begin Entities/NPC/Ned.json
+/copy:Entities/NPC/Ned.json
+
+#begin Entities/NPC/NPCData.json
+/copy:Entities/NPC/NPCData.json
+
 #begin Entities/NPC/NPCSheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -530,6 +539,9 @@
 /processorParam:TextureFormat=Color
 /build:Entities/NPC/NPCSheet.png
 
+#begin Entities/NPC/Patron.json
+/copy:Entities/NPC/Patron.json
+
 #begin Entities/NPC/Portraits.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -541,6 +553,15 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Entities/NPC/Portraits.png
+
+#begin Entities/NPC/Snail.json
+/copy:Entities/NPC/Snail.json
+
+#begin Entities/NPC/Stenson.json
+/copy:Entities/NPC/Stenson.json
+
+#begin Entities/NPC/Train.json
+/copy:Entities/NPC/Train.json
 
 #begin Entities/Pants.png
 /importer:TextureImporter
@@ -590,6 +611,12 @@
 #begin Entities/Schedules/wander_1.json
 /copy:Entities/Schedules/wander_1.json
 
+#begin Entities/Scripts/HeadToTrainScript.json
+/copy:Entities/Scripts/HeadToTrainScript.json
+
+#begin Entities/Scripts/MoveTrainScript.json
+/copy:Entities/Scripts/MoveTrainScript.json
+
 #begin Entities/Shirts.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -625,6 +652,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Entities/Shoulders.png
+
+#begin Items/BackgroundTileLootData.json
+/copy:Items/BackgroundTileLootData.json
+
+#begin Items/FlotsamData.json
+/copy:Items/FlotsamData.json
+
+#begin Items/ForegroundTileLootData.json
+/copy:Items/ForegroundTileLootData.json
+
+#begin Items/ItemData.json
+/copy:Items/ItemData.json
 
 #begin Items/ItemSpriteSheet.png
 /importer:TextureImporter
@@ -665,6 +704,9 @@
 /processorParam:TextureFormat=Color
 /build:Maps/BackgroundMasterSpriteSheet_Spaced.png
 
+#begin Maps/BackgroundMasterSpriteSheet.tsx
+/copy:Maps/BackgroundMasterSpriteSheet.tsx
+
 #begin Maps/Foreground2.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -676,6 +718,15 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Maps/Foreground2.png
+
+#begin Maps/ForegroundMasterSpriteSheet.tsx
+/copy:Maps/ForegroundMasterSpriteSheet.tsx
+
+#begin Maps/ForegroundTileset.tsx
+/copy:Maps/ForegroundTileset.tsx
+
+#begin Maps/FurnitureData.json
+/copy:Maps/FurnitureData.json
 
 #begin Maps/InteriorBackground_Spaced.png
 /importer:TextureImporter
@@ -700,6 +751,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Maps/InteriorForeground.png
+
+#begin Maps/LullabyTown.tmx
+/copy:Maps/LullabyTown.tmx
+
+#begin Maps/ProceduralData/PoissonData.json
+/copy:Maps/ProceduralData/PoissonData.json
 
 #begin p2p3.png
 /importer:TextureImporter

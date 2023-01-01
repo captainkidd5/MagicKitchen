@@ -1,4 +1,6 @@
 ﻿using DataModels;
+using Globals.XPlatformHelpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
@@ -28,11 +30,11 @@ namespace TiledEngine.Classes
         public void LoadContent(ContentManager content, TileSetPackage exteriorPackage)
         {
 
-            string basePath = content.RootDirectory + "/items";
+            string basePath = content.RootDirectory + "/Items";
             var options = new JsonSerializerOptions();
             options.Converters.Add(new JsonStringEnumConverter());
 
-            var files = Directory.GetFiles(basePath);
+            var files = AssetLocator.GetFiles(basePath);
             string jsonString = string.Empty;
 
             List<TileLootData> foreGroundTileLootData = new List<TileLootData>();
@@ -40,17 +42,24 @@ namespace TiledEngine.Classes
 
             foreach (var file in files)
             {
-                if (file.Contains("ForegroundTileLootData.json"))
+                using (var stream = TitleContainer.OpenStream($"{AssetLocator.GetStaticFileDirectory(basePath)}{file}"))
                 {
-                    jsonString = File.ReadAllText(file);
-                    foreGroundTileLootData = JsonSerializer.Deserialize<List<TileLootData>>(jsonString, options);
+                    using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
 
-                }
-                else if (file.Contains("BackgroundTileLootData.json"))
-                {
-                    jsonString = File.ReadAllText(file);
-                    backGroundTileLootData = JsonSerializer.Deserialize<List<TileLootData>>(jsonString, options);
+                    if (file.Contains("ForegroundTileLootData.json"))
+                    {
+                        var str = reader.ReadToEnd();
 
+                        foreGroundTileLootData = JsonSerializer.Deserialize<List<TileLootData>>(str, options);
+
+                    }
+                    else if (file.Contains("BackgroundTileLootData.json"))
+                    {
+                        var str = reader.ReadToEnd();
+
+                        backGroundTileLootData = JsonSerializer.Deserialize<List<TileLootData>>(str, options);
+
+                    }
                 }
             }
 

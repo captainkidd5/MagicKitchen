@@ -14,11 +14,7 @@
     <ProjectReference Include="..\ItemEngine\ItemEngine.csproj" />
     <ProjectReference Include="..\PhysicsEngine\PhysicsEngine.csproj" />
     <ProjectReference Include="..\SpriteEngine\SpriteEngine.csproj" />
+    <ProjectReference Include="..\TiledSharp\TiledSharp.csproj" />
     <ProjectReference Include="..\UIEngine\UIEngine.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="TiledSharp">
-      <HintPath>..\TiledSharp\bin\Debug\netstandard2.0\TiledSharp.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>

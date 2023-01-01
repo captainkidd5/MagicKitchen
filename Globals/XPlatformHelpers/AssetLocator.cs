@@ -10,7 +10,19 @@ namespace Globals.XPlatformHelpers
     {
         public delegate string[] GetFilesDelegate(string path);
 
+        public delegate string GetStaticDirectory(string path);
+        public delegate string GetContentDirectory();
+
+        //Set this in respective platform program.cs
         public static GetFilesDelegate GetFiles;
+
+
+        //Set this in respective platform program.cs. This is for non xnb
+
+        public static GetStaticDirectory GetStaticFileDirectory;
+
+
+        public static GetContentDirectory GetContentFileDirectory;
 
     }
 }

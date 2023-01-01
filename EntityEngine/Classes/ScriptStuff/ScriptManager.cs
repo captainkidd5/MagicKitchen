@@ -1,4 +1,6 @@
 ﻿using DataModels.ScriptedEventStuff;
+using Globals.XPlatformHelpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
@@ -20,19 +22,24 @@ namespace EntityEngine.Classes.ScriptStuff
         }
         public void LoadScripts(ContentManager content)
         {
-            string basePath = content.RootDirectory + "/entities/Scripts";
+            string basePath = content.RootDirectory + "/Entities/Scripts";
             var options = new JsonSerializerOptions();
             options.Converters.Add(new JsonStringEnumConverter());
-            string[] files = Directory.GetFiles(basePath);
+            string[] files = AssetLocator.GetFiles(basePath);
             foreach (string file in files)
             {
-                string jsonString = File.ReadAllText(file);
-                ScriptedEvent sEvent = JsonSerializer.Deserialize<ScriptedEvent>(jsonString, options);
-                Scripts.Add(sEvent.Name, sEvent);
+                using (var stream = TitleContainer.OpenStream($"{AssetLocator.GetStaticFileDirectory(basePath)}{file}"))
+                {
+                    using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                    var str = reader.ReadToEnd();
+            
+                    ScriptedEvent sEvent = JsonSerializer.Deserialize<ScriptedEvent>(str, options);
+                    Scripts.Add(sEvent.Name, sEvent);
+                }
             }
 
 
-               
+
         }
         public ScriptedEvent GetScript(string scriptName) => Scripts[scriptName];
         public SubScript GetSubscript(string scriptName)

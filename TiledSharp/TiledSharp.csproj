@@ -15,4 +15,8 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Globals\Globals.csproj" />
+  </ItemGroup>
+
 </Project>

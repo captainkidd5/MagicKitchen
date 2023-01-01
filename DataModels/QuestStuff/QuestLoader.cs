@@ -26,7 +26,7 @@ namespace DataModels.QuestStuff
             var options = new JsonSerializerOptions();
             options.Converters.Add(new JsonStringEnumConverter());
 
-            var files = Directory.GetFiles(basePath);
+            var files = AssetLocator.GetFiles(basePath);
             string jsonString = string.Empty;
             foreach (var file in files)
                 if (file.EndsWith("Quests.Json"))

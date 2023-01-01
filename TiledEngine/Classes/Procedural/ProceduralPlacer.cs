@@ -1,4 +1,6 @@
 ﻿using DataModels.MapStuff;
+using Globals.XPlatformHelpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
@@ -26,18 +28,23 @@ namespace TiledEngine.Classes.Procedural
             _poissonSampler = new PoissonSampler();
             _clusterSampler = new ClusterSampler();
 
-            string basePath = content.RootDirectory + "/maps/proceduraldata";
+            string basePath = content.RootDirectory + "/Maps/ProceduralData";
             var options = new JsonSerializerOptions();
             options.Converters.Add(new JsonStringEnumConverter());
 
 
-            var files = Directory.GetFiles(basePath);
+            var files = AssetLocator.GetFiles(basePath);
             string jsonString = string.Empty;
             foreach (var file in files)
                 if (file.EndsWith("PoissonData.json"))
                 {
-                    jsonString = File.ReadAllText(file);
-                    _poissonData = JsonSerializer.Deserialize<List<TileGenerationData>>(jsonString, options);
+                    using (var stream = TitleContainer.OpenStream($"{AssetLocator.GetStaticFileDirectory(basePath)}{file}"))
+                    {
+                        using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                        var str = reader.ReadToEnd();
+                        _poissonData = JsonSerializer.Deserialize<List<TileGenerationData>>(str, options);
+
+                    }
 
 
                 }

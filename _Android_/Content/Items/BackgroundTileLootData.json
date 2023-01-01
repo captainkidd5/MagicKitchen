@@ -1,0 +1,46 @@
+
+[
+    {
+        "TileId":201,
+        "Loot":[
+         {
+             "ItemName":"Mud",
+             "Guaranteed":true,
+
+             "QuantityMin":1,
+             "QuantityMax":1,
+             "Weight":100
+         }   
+        ],
+        "DestructionSoundPackageName":"Break"
+    },
+    {
+        "TileId":112,
+        "Loot":[
+         {
+             "ItemName":"Fibre",
+             "Guaranteed":true,
+
+         "QuantityMin":1,
+         "QuantityMax":1,
+             "Weight":100
+         }   
+        ],
+        "DestructionSoundPackageName":"Break"
+    },
+    {
+        "TileId":532,
+        "Loot":[
+         {
+             "ItemName":"Plank",
+             "Guaranteed":true,
+
+             "QuantityMin":1,
+             "QuantityMax":1,
+             "Weight":100
+         }   
+        ],
+        "DestructionSoundPackageName":"Break"
+    }
+    ]
+    

@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityEngine", "EntityEngin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_Android_", "_Android_\_Android_.csproj", "{65A1FC37-A944-48BB-BC1E-980AACF3358F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiledSharp", "TiledSharp\TiledSharp.csproj", "{A6D4B8DC-57A9-4346-9D11-1DD1CD5A5FE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{65A1FC37-A944-48BB-BC1E-980AACF3358F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65A1FC37-A944-48BB-BC1E-980AACF3358F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{65A1FC37-A944-48BB-BC1E-980AACF3358F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A6D4B8DC-57A9-4346-9D11-1DD1CD5A5FE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6D4B8DC-57A9-4346-9D11-1DD1CD5A5FE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6D4B8DC-57A9-4346-9D11-1DD1CD5A5FE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6D4B8DC-57A9-4346-9D11-1DD1CD5A5FE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,6 +3,7 @@ using DataModels.NPCStuff;
 using DataModels.ScriptedEventStuff;
 using EntityEngine.Classes.ScriptStuff;
 using Globals.Classes;
+using Globals.XPlatformHelpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -35,18 +36,22 @@ namespace EntityEngine.Classes
 
            
 
-            string basePath = content.RootDirectory + "/entities/NPC";
+            string basePath = content.RootDirectory + "/Entities/NPC";
             var options = new JsonSerializerOptions();
             options.Converters.Add(new JsonStringEnumConverter());
 
             NPCData = new Dictionary<string, NPCData>();
-            var files = Directory.GetFiles(basePath);
+            var files = AssetLocator.GetFiles(basePath);
             string jsonString = string.Empty;
             foreach(var file in files)
                 if (file.EndsWith(".json"))
                 {
-                     jsonString = File.ReadAllText(file);
-                    var diction = JsonSerializer.Deserialize<List<NPCData>>(jsonString, options).ToDictionary(x => x.Name);
+                    using (var stream = TitleContainer.OpenStream($"{AssetLocator.GetStaticFileDirectory(basePath)}{file}"))
+                    {
+                        using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                        var str = reader.ReadToEnd();
+
+                        var diction = JsonSerializer.Deserialize<List<NPCData>>(str, options).ToDictionary(x => x.Name);
                     foreach(KeyValuePair<string, NPCData> pair in diction)
                     {
                         if(pair.Value.NPCLightData != null)
@@ -54,6 +59,7 @@ namespace EntityEngine.Classes
                             pair.Value.NPCLightData.RadiusScale *= .01f;
                         }
                         NPCData.Add(pair.Key,pair.Value);
+                    }
                     }
 
                 }
