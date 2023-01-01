@@ -28,7 +28,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             var options = new JsonSerializerOptions();
             options.Converters.Add(new JsonStringEnumConverter());
             string jsonString = string.Empty;
-            using (var stream = TitleContainer.OpenStream($"{AssetLocator.GetStaticFileDirectory(basePath)}FurnitureData.json"))
+            string[] files = AssetLocator.GetFiles(basePath);
+            var file = files.FirstOrDefault(x => x.EndsWith("FurnitureData.json"));
+            if (file == null)
+                throw new Exception($"Unable to find furniture data!");
+            using (var stream = TitleContainer.OpenStream($"{AssetLocator.GetStaticFileDirectory(basePath)}{file}"))
             {
                 using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
 

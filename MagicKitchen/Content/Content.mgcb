@@ -218,11 +218,11 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Tiles/Actions/Harvest/Harvest3.wav
 
-#begin Audio/SoundEffects/Tiles/Actions/Ignite/ignite1.wav
+#begin Audio/SoundEffects/Tiles/Actions/Ignite/Ignite1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Audio/SoundEffects/Tiles/Actions/Ignite/ignite1.wav
+/build:Audio/SoundEffects/Tiles/Actions/Ignite/Ignite1.wav
 
 #begin Audio/SoundEffects/Tiles/Lights/LightRecharge1.wav
 /importer:WavImporter
@@ -278,11 +278,11 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Tiles/Rocks/Rock_Tumble2.wav
 
-#begin Audio/SoundEffects/Tiles/Rocks/rockSmash1.wav
+#begin Audio/SoundEffects/Tiles/Rocks/RockSmash1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Audio/SoundEffects/Tiles/Rocks/rockSmash1.wav
+/build:Audio/SoundEffects/Tiles/Rocks/RockSmash1.wav
 
 #begin Audio/SoundEffects/Tools/FoodBite1.wav
 /importer:WavImporter

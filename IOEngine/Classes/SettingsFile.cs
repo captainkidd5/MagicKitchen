@@ -9,7 +9,7 @@ namespace IOEngine.Classes
 {
     public class SettingsFile
     {
-        public bool MuteMusic { get; set; } = false;
+        public bool MuteMusic { get; set; } = true;
         public float MusicVolume { get; set; } = 1f;
 
         public bool FullScreen { get; set; } = false;

@@ -77,7 +77,7 @@ namespace SoundEngine.Classes
             }
             foreach (SoundPackage soundPackage in soundPckages)
             {
-              //  soundPackage.Load(content,AssetLocator.GetContentFileDirectory());
+                soundPackage.Load(content,AssetLocator.GetContentFileDirectory());
             }
             s_soundPackages = soundPckages.ToDictionary(x => x.Name, x => x);
 

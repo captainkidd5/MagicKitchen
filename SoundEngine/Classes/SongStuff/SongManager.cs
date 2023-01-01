@@ -113,6 +113,7 @@ namespace SoundEngine.Classes.SongStuff
                 s_recentlyPlayedQueue.Dequeue();
             _songTimer.ResetToZero();
             MediaPlayer.Volume = 1f;
+            //TODO: Change this back
             MediaPlayer.Play(_currentSong);
         }
 

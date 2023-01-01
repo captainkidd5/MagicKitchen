@@ -16,7 +16,10 @@ namespace DataModels.SoundStuff
 
             foreach (SoundChancer chancer in SoundChancers)
             {
-                chancer.SoundEffect = content.Load<SoundEffect>($"{basePath}Audio/{chancer.LocalPath}/{chancer.Name}");
+                if (chancer.Name == "RockSmash1")
+                    continue;
+                chancer.SoundEffect = content.Load<SoundEffect>($"Audio/{chancer.LocalPath}/{chancer.Name}");
+                Console.WriteLine(chancer.Name);
             }
 
         }
