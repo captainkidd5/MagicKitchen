@@ -3,6 +3,7 @@ using DataModels.SoundStuff;
 using Globals.Classes;
 using Globals.Classes.Chance;
 using Globals.Classes.Console;
+using Globals.XPlatformHelpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -55,23 +56,28 @@ namespace SoundEngine.Classes
             string basePath = content.RootDirectory + "/Audio";
             var options = new JsonSerializerOptions();
             options.Converters.Add(new JsonStringEnumConverter());
+            string[] files = AssetLocator.GetFiles(basePath);
 
-            var files = Directory.GetFiles(basePath);
             string jsonString = string.Empty;
             List<SoundPackage> soundPckages = new List<SoundPackage>();
             foreach (var file in files)
             {
                 if (file.EndsWith("SoundPackages.json"))
                 {
-                    jsonString = File.ReadAllText(file);
+                    using (var stream = TitleContainer.OpenStream($"{AssetLocator.GetStaticFileDirectory(basePath)}{file}"))
+                    {
+                        using StreamReader reader = new StreamReader(stream, Encoding.UTF8);
+                        var str = reader.ReadToEnd();
 
-                    soundPckages = JsonSerializer.Deserialize<List<SoundPackage>>(jsonString, options);
-                    break;
+
+                        soundPckages = JsonSerializer.Deserialize<List<SoundPackage>>(str, options);
+                        break;
+                    }
                 }
             }
             foreach (SoundPackage soundPackage in soundPckages)
             {
-                soundPackage.Load(content);
+              //  soundPackage.Load(content,AssetLocator.GetContentFileDirectory());
             }
             s_soundPackages = soundPckages.ToDictionary(x => x.Name, x => x);
 

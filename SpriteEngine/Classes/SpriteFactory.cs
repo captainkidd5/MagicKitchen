@@ -55,7 +55,7 @@ namespace SpriteEngine.Classes
         {
             Graphics = graphics;
             Content = content;
-            StatusIconTexture = content.Load<Texture2D>("entities/characters/statusicons");
+            StatusIconTexture = content.Load<Texture2D>("Entities/Characters/StatusIcons");
             LightEffect = content.Load<Effect>("Effects/Lighting/lighteffect");
             FlashEffect = content.Load<Effect>("Effects/Shaders/FlashEffect");
 

@@ -410,6 +410,12 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/UI/StartGame2.wav
 
+#begin Audio/SoundPackages.json
+/copy:Audio/SoundPackages.json
+
+#begin DiagnosticsFont.xnb
+/copy:DiagnosticsFont.xnb
+
 #begin Effects/Lighting/lighteffect.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -769,6 +775,9 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:p2p3.png
+
+#begin Quests/Quests.Json
+/copy:Quests/Quests.Json
 
 #begin UI/Buttons.png
 /importer:TextureImporter

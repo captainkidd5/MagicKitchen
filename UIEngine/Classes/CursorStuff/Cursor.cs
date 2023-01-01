@@ -76,7 +76,7 @@ namespace UIEngine.Classes.CursorStuff
         }
         public void LoadContent(ContentManager content)
         {
-            CursorTexture = content.Load<Texture2D>("ui/MouseIcons");
+            CursorTexture = content.Load<Texture2D>("UI/MouseIcons");
 
             CursorSprite = SpriteFactory.CreateUISprite(Vector2.Zero, CursorSourceRectangle,
                 CursorTexture, _cursorLayerDepth, Color.White, null);

@@ -34,6 +34,7 @@ using TextEngine.Classes;
 using SpriteEngine.Classes.ParticleStuff.WeatherStuff;
 using System.Diagnostics;
 using Globals.XPlatformHelpers;
+using UIEngine.Classes.QuestLogStuff;
 
 namespace MagicKitchen
 {
@@ -53,7 +54,7 @@ namespace MagicKitchen
 
         private PlayerManager _playerManager;
 
-        private QuestLoader _questManager;
+        private QuestManager _questManager;
         public Player Player1 => _playerManager.Player1;
 
         public static SpriteFont MainFont { get; set; }
@@ -149,7 +150,7 @@ namespace MagicKitchen
 
             EntityFactory.Load(Content);
 
-            _questManager = new QuestLoader();
+            _questManager = new QuestManager();
             _questManager.Load(Content);
 
             Controls.Load(Camera, GraphicsDevice, Content);

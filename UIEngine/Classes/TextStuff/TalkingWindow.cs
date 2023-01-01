@@ -123,7 +123,7 @@ namespace UIEngine.Classes.TextStuff
             }
 
             //Find all quests which current step starts with this NPC or is turned into this NPC
-            List<Quest> quests = UI.QuestLog.QuestLoader.AllQuests.Values.Where(x => !x.Completed &&
+            List<Quest> quests = UI.QuestLog.QuestManager.AllQuests.Values.Where(x => !x.Completed &&
             (x.Steps[x.CurrentStep].AcquiredFrom.ToLower() == CurrentNPCTalkingTo.Name.ToLower()) ||
             x.Steps[x.CurrentStep].TurnInto.ToLower() == CurrentNPCTalkingTo.Name.ToLower()).ToList();
 

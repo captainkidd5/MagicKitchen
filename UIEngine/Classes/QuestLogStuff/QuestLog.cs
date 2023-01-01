@@ -21,7 +21,7 @@ namespace UIEngine.Classes.QuestLogStuff
         private QuestList _activeQuestList;
         private Rectangle _totalSourceRectangleBounds;
         private Gazetteer _gazetteer;
-        public QuestLoader QuestLoader { get; set; }
+        public QuestManager QuestManager { get; set; }
 
         private Dictionary<string, Quest> _quests => SaveLoadManager.CurrentSave.GameProgressData.QuestProgress;
         public QuestLog(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content,
@@ -49,10 +49,10 @@ namespace UIEngine.Classes.QuestLogStuff
         }
         private void StartNewQuest(string[] args)
         {
-            SaveLoadManager.CurrentSave.GameProgressData.StartNewQuest(QuestLoader.AllQuests[args[0]]);
+            SaveLoadManager.CurrentSave.GameProgressData.StartNewQuest(QuestManager.AllQuests[args[0]]);
             _activeQuestList.LoadContent();
 
-            UI.CentralAlertQueue.AddTextToQueue($"Quest Started: {QuestLoader.AllQuests[args[0]].Name}", 2f);
+            UI.CentralAlertQueue.AddTextToQueue($"Quest Started: {QuestManager.AllQuests[args[0]].Name}", 2f);
 
         }
         public void SetActiveQuest(Quest quest)

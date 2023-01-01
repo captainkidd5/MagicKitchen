@@ -200,11 +200,12 @@ namespace UIEngine.Classes
         public static void DrawLights(SpriteBatch spriteBatch) => MainMenu.DrawLights(spriteBatch);
         public static void DrawLightsAffectable(SpriteBatch spriteBatch)
         {
-       MainMenu.DrawLightsAffected(spriteBatch);
+            if(GameDisplayState == GameDisplayState.MainMenu)
+                 MainMenu.DrawLightsAffected(spriteBatch);
 
         }
 
-        public static void LoadQuests(QuestLoader questManager) => QuestLog.QuestLoader = questManager;
+        public static void LoadQuests(QuestManager questManager) => QuestLog.QuestManager = questManager;
         internal static void LoadNewCursorInfo(List<string> text) => CursorInfoBox.LoadNewText(text);
 
         public static void ActivateSecondaryInventoryDisplay(FurnitureType? t, StorageContainer storageContainer, bool displayWallet = false)

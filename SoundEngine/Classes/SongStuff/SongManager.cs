@@ -1,6 +1,7 @@
 ﻿using DataModels.SoundStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
+using Globals.XPlatformHelpers;
 using IOEngine.Classes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -62,7 +63,7 @@ namespace SoundEngine.Classes.SongStuff
             AllSongs = content.Load<List<SongPackage>>(songRootPath + "SongPackages");
 
             foreach (SongPackage songPackage in AllSongs)
-                songPackage.LoadContent(content, songRootPath);
+                songPackage.LoadContent(content, AssetLocator.GetContentFileDirectory() + songRootPath);
 
             s_currentPlayList = new List<SongPackage>();
             s_currentPlayList = GetPlayList("MainMenu-Outer");

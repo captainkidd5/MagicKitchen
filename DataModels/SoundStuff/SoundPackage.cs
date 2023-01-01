@@ -11,12 +11,12 @@ namespace DataModels.SoundStuff
         public string Name { get; set; }
         public List<SoundChancer> SoundChancers { get; set; }
 
-        public void Load(ContentManager content)
+        public void Load(ContentManager content, string basePath)
         {
 
             foreach (SoundChancer chancer in SoundChancers)
             {
-                chancer.SoundEffect = content.Load<SoundEffect>($"Audio/{chancer.LocalPath}/{chancer.Name}");
+                chancer.SoundEffect = content.Load<SoundEffect>($"{basePath}Audio/{chancer.LocalPath}/{chancer.Name}");
             }
 
         }

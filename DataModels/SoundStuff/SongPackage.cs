@@ -27,7 +27,7 @@ namespace DataModels.SoundStuff
         }
         public void LoadContent(ContentManager content,string songRootPath)
         {
-            Song = content.Load<Song>($"{songRootPath}/{LocalPath}");
+            //Song = content.Load<Song>($"{songRootPath}/{LocalPath}");
         }
     }
 }
