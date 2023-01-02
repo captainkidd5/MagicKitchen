@@ -83,6 +83,8 @@ namespace InputEngine.Classes
         } 
         public static Vector2 MouseUIPosition => MouseManager.UIPosition;
         public static Vector2 MouseWorldPosition => MouseManager.WorldPosition;
+
+        public static Vector2 LatestTouchUIPosition = new Vector2(0, 0);
         public static bool WasKeyTapped(Keys key) => TappedKeys.Contains(key);
 
         public static bool IsKeyPressed(Keys key) => PressedKeys.Contains(key);
@@ -134,6 +136,8 @@ namespace InputEngine.Classes
         private static TouchControls _touchControls;
         public static bool ControllerConnected { get; private set; }
         public static bool TouchControlConnected { get; private set; }
+
+        
         public static void Load(Camera2D camera, GraphicsDevice graphics, ContentManager content)
         {
             Graphics = graphics;
@@ -151,10 +155,10 @@ namespace InputEngine.Classes
             ControllerConnected = gamePadCapablities.IsConnected;
             TouchControlConnected = touchPanelCapabilities.IsConnected;
         }
-    
 
 
 
+        public static bool DidTouchOccurHere(Rectangle rectangle) => _touchControls.DidTouchOccurHere(rectangle);
         public static void Update(GameTime gameTime)
         {
             OldCursorTileIndex = CursorTileIndex; 

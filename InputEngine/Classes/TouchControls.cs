@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input.Touch;
+using SpriteEngine.Classes.RenderTargetStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +20,28 @@ namespace InputEngine.Classes
             NewTouchState = TouchPanel.GetState();
             foreach (TouchLocation touch in NewTouchState)
             {
-                
+
                 if (touch.State == TouchLocationState.Moved || touch.State == TouchLocationState.Pressed)
                 {
-                    Console.WriteLine("test");
-                    //do what you want here when users tap the screen
+                    Controls.LatestTouchUIPosition = GetUIOffSet(touch.Position);
+
                 }
             }
 
             OldTouchState = NewTouchState;
         }
 
+        public bool DidTouchOccurHere(Rectangle rectangle)
+        {
+
+            return rectangle.Contains(Controls.LatestTouchUIPosition);
+        }
+        private Vector2 GetUIOffSet(Vector2 unadjustedPos)
+        {
+            Vector2 renderTargetResolution = new Vector2(RenderTargetManager.CurrentOverlayTarget.Width / (float)Settings.ScreenRectangle.Width, RenderTargetManager.CurrentOverlayTarget.Height / (float)Settings.ScreenRectangle.Height);
+
+            return unadjustedPos * renderTargetResolution;
+        }
         //public bool IsHeld(TouchLocation touch)
         //{
         //    return (OldTouchState.IsButtonDown(_gamePadMappings[gamePadActionType].Button) &&

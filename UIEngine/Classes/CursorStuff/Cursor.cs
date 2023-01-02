@@ -95,7 +95,7 @@ namespace UIEngine.Classes.CursorStuff
 
 
             Move(Controls.MouseWorldPosition);
-            CursorSprite.Update(gameTime, Controls.MouseUIPosition);
+            CursorSprite.Update(gameTime, Controls.TouchControlConnected ? Controls.LatestTouchUIPosition : Controls.MouseUIPosition);
             float scale = _cursorScalePulser.Update(gameTime);
             _cursorScale = new Vector2(scale, scale);
             CursorSprite.SwapScale(_cursorScale);

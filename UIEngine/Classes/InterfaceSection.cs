@@ -100,7 +100,7 @@ namespace UIEngine.Classes
             {
                 interfaceSection.ChildSections.Add(this);
             }
-         
+
         }
         public virtual void MovePosition(Vector2 newPos)
         {
@@ -117,7 +117,7 @@ namespace UIEngine.Classes
             CleanUp();
             IsActive = false;
         }
-        
+
         protected float GetLayeringDepth(UILayeringDepths depth)
         {
             return LayeringDepths[(int)depth];
@@ -165,7 +165,9 @@ namespace UIEngine.Classes
                 BlockInteractions = false;
 
 
-                if (Controls.IsHovering(ElementType.UI, TotalBounds) || Hovered)
+                if (Controls.IsHovering(ElementType.UI, TotalBounds) ||
+                    Hovered ||
+                    Controls.TouchControlConnected)
                 {
 
 
@@ -216,18 +218,30 @@ namespace UIEngine.Classes
         }
         private void CheckChildHovers()
         {
-            
-                Hovered = true;
-                if (Controls.IsClicked || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
-                {
-                    Clicked = true;
-                }
-                if (Controls.IsRightClicked)
-                {
-                    RightClicked = true;
+            if (Controls.TouchControlConnected)
+            {
+                Hovered = false;
 
+                if (Controls.DidTouchOccurHere(TotalBounds))
+                {
+                    Hovered = true;
+                    Clicked = true;
+                    return;
                 }
-            
+                
+            }
+ 
+            Hovered = true;
+            if (Controls.IsClicked || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
+            {
+                Clicked = true;
+            }
+            if (Controls.IsRightClicked)
+            {
+                RightClicked = true;
+
+            }
+
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -265,8 +279,8 @@ namespace UIEngine.Classes
             for (int i = ChildSections.Count - 1; i >= 0; i--)
             {
                 //if(!ChildSections[i].NormallyActivated)
-                     ChildSections[i].CleanUp();
-                
+                ChildSections[i].CleanUp();
+
             }
         }
     }
