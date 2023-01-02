@@ -72,8 +72,8 @@ namespace MagicKitchen
             Content.RootDirectory = "Content";
             IsMouseVisible = false;
 
-            //consoleComponent = new ConsoleComponent(this);
-          //  Components.Add(consoleComponent);
+            consoleComponent = new ConsoleComponent(this);
+            Components.Add(consoleComponent);
             Window.AllowUserResizing = true;
             Window.ClientSizeChanged += Settings.Window_ClientSizeChanged;
 
@@ -133,9 +133,9 @@ namespace MagicKitchen
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             SaveLoadManager.FetchAllMetadata();
             SettingsManager.LoadSettings();
-           // CommandConsole.Load(consoleComponent);
-           // _commandList.Load();
-            //_stageManager.RegisterCommands();
+            CommandConsole.Load(consoleComponent);
+            _commandList.Load();
+            _stageManager.RegisterCommands();
             Clock.Load();
 
             //This is the android content issue

@@ -4,13 +4,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
+    <PackageReference Include="MonoGame.QuakeConsole.DesktopGL" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataModels\DataModels.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="MonoGame.QuakeConsole.DesktopGL">
-      <HintPath>..\Quake\debug\MonoGame.QuakeConsole.DesktopGL.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>
