@@ -1,0 +1,39 @@
+
+{
+    "Name": "MoveTrain",
+    "Subscripts": [
+        {
+        "CharacterName": "Train",
+        "ScriptActions": [
+            {
+                "Type":"Move",
+                "ZoneStart": "train,start",
+                "ZoneEnd": "train,dock",
+                "Speed": 10
+
+            },
+            {
+                "Type":"Unload",
+                "PauseForSeconds":3
+
+            },
+            {
+                "Type":"Pause",
+                "PauseForSeconds":3
+
+            },
+            {
+                "Type":"Move",
+
+                "ZoneStart": "train,dock",
+                "ZoneEnd": "train,end",
+                "Speed": 10
+
+            }
+        ]
+        
+    }   
+]
+}
+
+    

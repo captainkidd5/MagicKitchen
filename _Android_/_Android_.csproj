@@ -12,14 +12,15 @@
     <None Remove="Content\Content.mgcb" />
   </ItemGroup>-->
   <ItemGroup>
-    <MonoGameContentReference Include="../MagicKitchen/Content/Content.mgcb" />
+    <MonoGameContentReference Include="../Core/Content/Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
 	  <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
-    <PackageReference Include="MonoGame.Framework.Android" Version="3.8.1.303" />
+	  <PackageReference Include="MonoGame.Framework.Android" Version="3.8.1.303" />
+
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\magickitchen\MagicKitchen.csproj" />
+    <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.QuakeConsole.DesktopGL">

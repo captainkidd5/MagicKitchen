@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/tucke/Desktop/MagicKitchen/Content/Maps/StageData.xml</SourceFile>
+  <SourceTime>2021-07-26T12:31:12.053502-10:00</SourceTime>
+  <DestFile>C:/Users/tucke/Desktop/MagicKitchen/Content/Maps/StageData.xnb</DestFile>
+  <DestTime>2021-07-26T13:21:15.8420333-10:00</DestTime>
+  <Importer>XmlImporter</Importer>
+  <ImporterTime>2018-09-23T11:55:52-10:00</ImporterTime>
+  <Processor>PassThroughProcessor</Processor>
+  <ProcessorTime>2018-09-23T11:55:52-10:00</ProcessorTime>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

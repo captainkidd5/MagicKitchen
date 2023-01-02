@@ -5,7 +5,7 @@ using Android.Views;
 using Globals.Classes;
 using Globals.XPlatformHelpers;
 using Java.Lang;
-using MagicKitchen;
+using Core;
 using Microsoft.Xna.Framework;
 using System.IO.IsolatedStorage;
 
@@ -20,6 +20,7 @@ namespace _Android_
         ScreenOrientation = ScreenOrientation.Landscape,
         ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden | ConfigChanges.ScreenSize
     )]
+    //If can't find androidgameactivity, go into core project and set PrivateAssets="All" in monogame reference
     public class Activity1 : AndroidGameActivity
     {
         private Game1 _game;
@@ -31,7 +32,7 @@ namespace _Android_
         {
             Globals.Classes.Flags.DeviceType = DeviceType.Android;
             base.OnCreate(bundle);
-            _game = new MagicKitchen.Game1();
+            _game = new Core.Game1();
             _view = _game.Services.GetService(typeof(View)) as View;
             AssetLocator.GetFiles = GetFiles;
             AssetLocator.GetStaticFileDirectory = GetBaseDirectory;

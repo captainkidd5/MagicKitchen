@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:ns="Microsoft.Xna.Framework">
+    <Asset Type="DataModels.StageData">
+
+            <Id>1</Id>
+            <Name>LullabyTown</Name>
+            <Path>LullabyTown.tmx</Path>
+            <InsertionX>2</InsertionX>
+            <InsertionY>2</InsertionY>
+            <AmbientSoundPackageName>Overworld_Outside</AmbientSoundPackageName>
+
+
+    </Asset>
+</XnaContent>

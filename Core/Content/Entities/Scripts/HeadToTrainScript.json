@@ -1,0 +1,20 @@
+
+{
+    "Name": "HeadToTrain",
+    "Subscripts": [
+        {
+        "CharacterName": "Patron",
+        "ScriptActions": [
+            {
+                "Type":"Move",
+                "ZoneEnd": "passenger,loading",
+                "Speed": 3
+
+            }
+        ]
+        
+    }   
+]
+}
+
+    
