@@ -157,7 +157,7 @@ namespace InputEngine.Classes
 
         public static void Update(GameTime gameTime)
         {
-            OldCursorTileIndex = CursorTileIndex;
+            OldCursorTileIndex = CursorTileIndex; 
 
             GamePadCapabilities capabilities = GamePad.GetCapabilities(
                                               PlayerIndex.One);

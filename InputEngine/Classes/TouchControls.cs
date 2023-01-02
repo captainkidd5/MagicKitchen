@@ -16,9 +16,10 @@ namespace InputEngine.Classes
         public void Update(GameTime gameTime)
         {
             NewTouchState = TouchPanel.GetState();
-            foreach (var touch in NewTouchState)
+            foreach (TouchLocation touch in NewTouchState)
             {
-                if (touch.State == TouchLocationState.Pressed)
+                
+                if (touch.State == TouchLocationState.Moved || touch.State == TouchLocationState.Pressed)
                 {
                     Console.WriteLine("test");
                     //do what you want here when users tap the screen
@@ -27,5 +28,16 @@ namespace InputEngine.Classes
 
             OldTouchState = NewTouchState;
         }
+
+        //public bool IsHeld(TouchLocation touch)
+        //{
+        //    return (OldTouchState.IsButtonDown(_gamePadMappings[gamePadActionType].Button) &&
+        //       _newGamePadState.IsButtonDown(_gamePadMappings[gamePadActionType].Button));
+        //}
+        //public bool WasTapped(TouchLocation touch)
+        //{
+        //    return (_oldGamePadState.IsButtonDown(_gamePadMappings[gamePadActionType].Button) &&
+        //        _newGamePadState.IsButtonUp(_gamePadMappings[gamePadActionType].Button));
+        //}
     }
 }
