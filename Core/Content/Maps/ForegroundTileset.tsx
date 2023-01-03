@@ -894,6 +894,11 @@
    <property name="transparent" value="-32,-160,128,176"/>
   </properties>
  </tile>
+ <tile id="7828">
+  <properties>
+   <property name="newSource" value="-32,-144,128,160"/>
+  </properties>
+ </tile>
  <tile id="7829">
   <properties>
    <property name="newSource" value="-48,-144,144,160"/>
