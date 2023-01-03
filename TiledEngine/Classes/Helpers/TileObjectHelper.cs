@@ -218,7 +218,8 @@ namespace TiledEngine.Classes.Helpers
             }
             catch(Exception e)
             {
-                throw new Exception($"Invalid rectangle parameters: {info}");
+                throw new Exception($"Invalid rectangle parameters: {info} \n Ensure parameters" +
+                    $"are in format 0,0,1,1");
             }
            
         }

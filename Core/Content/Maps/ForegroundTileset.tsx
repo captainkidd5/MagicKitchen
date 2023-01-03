@@ -603,6 +603,11 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="5076">
+  <properties>
+   <property name="newSource" value="-16,-240,160,256"/>
+  </properties>
+ </tile>
  <tile id="5141">
   <properties>
    <property name="newSource" value="0,-96,224,112"/>
@@ -875,7 +880,7 @@
  </tile>
  <tile id="7357">
   <properties>
-   <property name="newSource" value="-80,-240,192,256"/>
+   <property name="newSource" value="-48,-240,192,256"/>
   </properties>
  </tile>
  <tile id="7386">
@@ -894,23 +899,15 @@
    <property name="transparent" value="-32,-160,128,176"/>
   </properties>
  </tile>
- <tile id="7828">
-  <properties>
-   <property name="newSource" value="-32,-144,128,160"/>
-  </properties>
- </tile>
  <tile id="7829">
   <properties>
+   <property name="newHitBox" value="-48,-144,144,160"/>
    <property name="newSource" value="-48,-144,144,160"/>
   </properties>
  </tile>
  <tile id="8705">
   <properties>
-   <property name="newSource" value="-48,-208,144,224"/>
-  </properties>
- </tile>
- <tile id="8706">
-  <properties>
+   <property name="newHitBox" value="-48,-208,144,224"/>
    <property name="newSource" value="-48,-208,144,224"/>
   </properties>
  </tile>
@@ -926,6 +923,7 @@
  </tile>
  <tile id="8813">
   <properties>
+   <property name="newHitBox" value="-32,-208,112,224"/>
    <property name="newSource" value="-32,-208,112,224"/>
   </properties>
  </tile>

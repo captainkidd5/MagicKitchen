@@ -1189,6 +1189,26 @@
    <object id="2" x="0" y="0" width="16" height="1"/>
   </objectgroup>
  </tile>
+ <tile id="1719">
+  <properties>
+   <property name="step" value="StepStone1"/>
+  </properties>
+ </tile>
+ <tile id="1720">
+  <properties>
+   <property name="step" value="StepStone1"/>
+  </properties>
+ </tile>
+ <tile id="1819">
+  <properties>
+   <property name="step" value="StepStone1"/>
+  </properties>
+ </tile>
+ <tile id="1820">
+  <properties>
+   <property name="step" value="StepStone1"/>
+  </properties>
+ </tile>
  <tile id="2509">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="2" height="16"/>
@@ -1223,5 +1243,10 @@
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
+ </tile>
+ <tile id="2722">
+  <properties>
+   <property name="step" value="StepStone1"/>
+  </properties>
  </tile>
 </tileset>
