@@ -43,7 +43,6 @@ namespace TiledEngine.Classes.ZoneStuff
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            SongManager.CurrentPlayListName = Value;
             return base.OnCollides(fixtureA, fixtureB, contact);
         }
 
@@ -52,14 +51,14 @@ namespace TiledEngine.Classes.ZoneStuff
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
 
-        public void Save(BinaryWriter writer)
+        public virtual void Save(BinaryWriter writer)
         {
             writer.Write(Property);
             writer.Write(Value);
             RectangleHelper.WriteRectangle(writer, Rectangle);
         }
 
-        public void LoadSave(BinaryReader reader)
+        public virtual void LoadSave(BinaryReader reader)
         {
             Property = reader.ReadString();
             Value = reader.ReadString();

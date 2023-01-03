@@ -58,10 +58,10 @@ namespace TiledEngine.Classes.ZoneStuff
             TmxObjectGroup Zones;
 
             tmxMap.ObjectGroups.TryGetValue("MusicZones", out Zones);
-            List<Zone> zonesList = new List<Zone>();
+            List<MusicZone> zonesList = new List<MusicZone>();
             foreach (TmxObject specialZone in Zones.Objects)
             {
-                Zone zone = new Zone(specialZone.Properties.ElementAt(0).Key,
+                MusicZone zone = new MusicZone(specialZone.Properties.ElementAt(0).Key,
                     specialZone.Properties.ElementAt(0).Value, new Rectangle(
                     (int)specialZone.X + (int)specialZone.Width/2,
                     (int)specialZone.Y +(int)specialZone.Height/2,

@@ -926,24 +926,22 @@
  </tile>
  <tile id="8820">
   <properties>
+   <property name="newHitBox" value="-16,16;0,0;0,-128;136,-128;137,-63;49,-63;48,0"/>
    <property name="newSource" value="-16,-128,144,144"/>
   </properties>
  </tile>
  <tile id="8828">
   <properties>
+   <property name="newHitBox" value="0,16;0,0;94,0;94,-106;0,-106"/>
    <property name="newSource" value="0,-96,96,112"/>
   </properties>
  </tile>
  <tile id="8838">
   <properties>
+   <property name="newHitBox" value="-56,8;0,0;3,8;124,8;123,-92;0,-91"/>
    <property name="newSource" value="-64,-176,160,192"/>
    <property name="portal" value="TestIsland,Hallway,16,32"/>
   </properties>
-  <objectgroup draworder="index" id="2">
-   <object id="1" x="2" y="7">
-    <polygon points="0,0 5,-4 8,-2 6,3 2,2"/>
-   </object>
-  </objectgroup>
  </tile>
  <tile id="8847">
   <properties>

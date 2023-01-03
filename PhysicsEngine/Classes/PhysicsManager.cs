@@ -63,11 +63,12 @@ namespace PhysicsEngine.Classes
             {
                 PhysicsDebugger = new DebugView(VelcroWorld);
 
+                //tainicom.Aether.Physics2D.Settings.MaxPolygonVertices = 15;
+              //  tainicom.Aether.Physics2D.Settings.UseConvexHullPolygons = false;
 
-                
             }
 
- 
+
             Random = new Random();
         }
 

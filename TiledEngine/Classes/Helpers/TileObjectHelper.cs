@@ -159,20 +159,33 @@ namespace TiledEngine.Classes.Helpers
 
         }
 
+        /// <summary>
+        /// Steps to create -
+        /// 1). Create shape of object in a tiled object layer and save
+        /// 2). Open map.tmx in text editor and locate shape within the object grou
+        /// 3). Change all spaces to semi colons
+        /// 4). Paste in tile newhitbox property
+        /// 5). ???
+        /// 6). Profit
+        /// </summary>
+        /// <param name="infoToParse"></param>
+        /// <returns></returns>
         private static List<Vector2> VerticesFromNewHitBox(string infoToParse)
         {
             List<Vector2> points = new List<Vector2>();
-            string[] splitInfo = infoToParse.Split(", ");
+            string[] splitInfo = infoToParse.Split(";");
 
 
             Vector2 subtractionAmt = Vector2.Zero;
             //NOTE: First pair should NOT be added to this list of points. First pair is the amount to subtract from
             //all subsquent points
-            for(int i =0; i < splitInfo.Length; i++)
+            //Example: -56,8;0,0;3,8;124,8;123,-92;0,-91
+            //Where the first point (-56,8) will offset the entire shape left 56 and down 8
+            for (int i =0; i < splitInfo.Length; i++)
             {
 
-                splitInfo[i] = splitInfo[i].Remove(0, 1);
-                splitInfo[i] = splitInfo[i].Remove(splitInfo[i].Length - 1, 1);
+                //splitInfo[i] = splitInfo[i].Remove(0, 1);
+                //splitInfo[i] = splitInfo[i].Remove(splitInfo[i].Length - 1, 1);
                 string[] pair = splitInfo[i].Split(',');
                 int x = int.Parse(pair[0]);
                 int y = int.Parse(pair[1]);
