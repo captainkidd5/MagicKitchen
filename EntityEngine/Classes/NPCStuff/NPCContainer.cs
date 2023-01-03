@@ -66,7 +66,7 @@ namespace EntityEngine.Classes.CharacterStuff
         internal void AddTrain()
         {
             Train train = new Train(graphics, content);
-            train.LoadContent(this, null, null);
+            train.LoadContent(this,null, "train");
             Entities.Add(train);
         }
 
@@ -161,7 +161,6 @@ namespace EntityEngine.Classes.CharacterStuff
                 if (entity.NPCData != null && entity.NPCData.Name.ToLower() == "boar")
                     totalBoarCount++;
             }
-            Console.WriteLine($"{ totalBoarCount}");
             _mobSpawner.TotalNPCSpawnValue = totalSpawnVal;
 
             foreach (Entity entity in EntitiesToAdd)

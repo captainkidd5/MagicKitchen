@@ -8,7 +8,7 @@
     "SpriteWidth": 360,
     "SpriteHeight": 80,
     "ImmediatelySpawn" : true,
-    "StartingStage" : "LullabyTown",
+    "StartingStage" : "TestIsland",
     "AnimationInfo": [
         {
         "ActionType": "Walking",

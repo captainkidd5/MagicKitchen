@@ -12,24 +12,31 @@ namespace TiledEngine.Classes.ZoneStuff
 {
     public class ZoneManager : ISaveable
     {
-        private List<Zone> _specialZones;
+        public List<Zone> SpecialZones { get; private set; }
 
         private List<Zone> _Zones;
 
         public ZoneManager()
         {
-            _specialZones = new List<Zone>();
+            SpecialZones = new List<Zone>();
             _Zones = new List<Zone>();
         }
 
 
+        public Zone GetZone(string property, string value)
+        {
+            Zone zone = SpecialZones.FirstOrDefault(x => x.Property == property && x.Value == value);
 
+            if (zone == null) throw new Exception($"Unable to find zone {property} zone");
+
+            return zone;
+        }
         public void LoadZones(TmxMap tmxMap)
         {
             List<Zone> zonesList = LoadSpecialZones(tmxMap);
 
             LoadMusicZones(tmxMap);
-            _specialZones.AddRange(zonesList);
+            SpecialZones.AddRange(zonesList);
 
         }
 
@@ -63,8 +70,8 @@ namespace TiledEngine.Classes.ZoneStuff
             {
                 MusicZone zone = new MusicZone(specialZone.Properties.ElementAt(0).Key,
                     specialZone.Properties.ElementAt(0).Value, new Rectangle(
-                    (int)specialZone.X + (int)specialZone.Width/2,
-                    (int)specialZone.Y +(int)specialZone.Height/2,
+                    (int)specialZone.X + (int)specialZone.Width / 2,
+                    (int)specialZone.Y + (int)specialZone.Height / 2,
                     (int)specialZone.Width,
                     (int)specialZone.Height));
                 zonesList.Add(zone);
@@ -74,8 +81,8 @@ namespace TiledEngine.Classes.ZoneStuff
         }
         public void Save(BinaryWriter writer)
         {
-            writer.Write(_specialZones.Count);
-            foreach (Zone zone in _specialZones)
+            writer.Write(SpecialZones.Count);
+            foreach (Zone zone in SpecialZones)
             {
                 zone.Save(writer);
             }
@@ -95,7 +102,7 @@ namespace TiledEngine.Classes.ZoneStuff
             {
                 Zone zone = new Zone();
                 zone.LoadSave(reader);
-                _specialZones.Add(zone);
+                SpecialZones.Add(zone);
             }
 
             int ZoneCount = reader.ReadInt32();
@@ -111,8 +118,8 @@ namespace TiledEngine.Classes.ZoneStuff
 
         public void CleanUp()
         {
-            _specialZones.Clear();
-            foreach(var zone in _Zones)
+            SpecialZones.Clear();
+            foreach (var zone in _Zones)
             {
                 zone.CleanUp();
             }

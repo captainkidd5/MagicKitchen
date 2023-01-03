@@ -104,6 +104,8 @@ namespace EntityEngine.Classes.PlayerStuff
 
             CommandConsole.RegisterCommand("tp", "teleports player to mouse position", TpCommand);
             CommandConsole.RegisterCommand("tpi", "teleports player to give island name", TpIslandCommand);
+            CommandConsole.RegisterCommand("tpv", "teleports player to vector2", TpPositionCommand);
+
 
             CommandConsole.RegisterCommand("ra", "Reloads player animations", ReloadAnimationsCommmand);
             CommandConsole.RegisterCommand("pa", "Plays specified animation", PlayAnimationCommand);
@@ -179,6 +181,11 @@ namespace EntityEngine.Classes.PlayerStuff
         private void TpIslandCommand(string[] args)
         {
             Move(new Vector2((Container.AllStageData[args[0]].InsertionX + 32) * 16, (Container.AllStageData[args[0]].InsertionY + 32) * 16));
+        }
+
+        private void TpPositionCommand(string[] args)
+        {
+            Move(new Vector2(int.Parse(args[0]), int.Parse(args[1])));
         }
         private void ReloadAnimationsCommmand(string[] args)
         {

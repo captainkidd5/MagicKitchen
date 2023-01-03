@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="256" height="256" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="99">
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="256" height="256" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="103">
  <tileset firstgid="1" source="BackgroundMasterSpriteSheet.tsx"/>
  <tileset firstgid="10001" source="ForegroundTileset.tsx"/>
  <layer id="1" name="background" width="256" height="256">
@@ -1324,6 +1324,21 @@
   <object id="63" x="194" y="357" width="18" height="17.5588">
    <properties>
     <property name="passenger" value="loading"/>
+   </properties>
+  </object>
+  <object id="99" x="592" y="507" width="69" height="100">
+   <properties>
+    <property name="train" value="start"/>
+   </properties>
+  </object>
+  <object id="101" x="1081" y="474" width="69" height="100">
+   <properties>
+    <property name="train" value="dock"/>
+   </properties>
+  </object>
+  <object id="102" x="1579" y="477" width="69" height="100">
+   <properties>
+    <property name="train" value="end"/>
    </properties>
   </object>
  </objectgroup>

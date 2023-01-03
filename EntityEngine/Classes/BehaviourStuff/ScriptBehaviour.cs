@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes;
+using TiledEngine.Classes.ZoneStuff;
 
 namespace EntityEngine.Classes.BehaviourStuff
 {
@@ -132,6 +133,9 @@ namespace EntityEngine.Classes.BehaviourStuff
                 case ScriptActionType.Move:
                     GetStepPath();
                     break;
+                case ScriptActionType.Teleport:
+                    GetTeleportLocation();
+                    break;
                 case ScriptActionType.Pause:
                     SimpleTimer.SetNewTargetTime(_currentAction.PauseForSeconds);
                     break;
@@ -139,6 +143,21 @@ namespace EntityEngine.Classes.BehaviourStuff
             Entity.Speed = _currentAction.Speed;
         }
 
+        /// <summary>
+        /// For use with the Teleport enum in <see cref="ScriptAction.ScriptAction"/>
+        /// Will use world position if zones are not specified
+        /// </summary>
+        private void GetTeleportLocation()
+        {
+            if (string.IsNullOrEmpty(_currentAction.ZoneStart))
+            {
+                Entity.Move(new Vector2(_currentAction.TileX, _currentAction.TileY));
+                return;
+            }
+            Entity.Move(
+                TileLoader.ZoneManager.GetZone(_currentAction.ZoneStart.Split(',')[0],
+                _currentAction.ZoneStart.Split(',')[1]).Position);
+        }
         public override void DrawDebug(SpriteBatch spriteBatch)
         {
             base.DrawDebug(spriteBatch);
@@ -151,9 +170,21 @@ namespace EntityEngine.Classes.BehaviourStuff
 
             Vector2 targetpos = Vector2.Zero;
 
+            if (!string.IsNullOrEmpty(_currentAction.ZoneEnd))
+            {
+                Zone zone = TileLoader.ZoneManager.SpecialZones.FirstOrDefault(
+                    x => x.Property == _currentAction.ZoneStart.Split(',')[0] && x.Value == _currentAction.ZoneEnd.Split(',')[1]);
 
-            targetpos = Vector2Helper.GetWorldPositionFromTileIndex(
-            _currentAction.TileX, _currentAction.TileY);
+                if (zone == null)
+                    throw new Exception($"Could not find zone {_currentAction.ZoneEnd}");
+                targetpos = zone.Position;
+            }
+            else
+            {
+                targetpos = Vector2Helper.GetWorldPositionFromTileIndex(
+           _currentAction.TileX, _currentAction.TileY);
+            }
+           
 
 
             base.GetPath(targetpos);

@@ -10,6 +10,7 @@ namespace DataModels.ScriptedEventStuff
         Move = 1,
         Pause = 2,
         Unload = 3,
+        Teleport = 4
     }
     public class ScriptAction
     {

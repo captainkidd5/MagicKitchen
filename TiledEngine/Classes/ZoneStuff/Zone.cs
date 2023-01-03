@@ -15,7 +15,7 @@ using tainicom.Aether.Physics2D.Dynamics.Contacts;
 
 namespace TiledEngine.Classes.ZoneStuff
 {
-    internal class Zone : Collidable, ISaveable
+    public class Zone : Collidable, ISaveable
     {
         public string Property { get; private set; }
         public string Value { get; private set; }
