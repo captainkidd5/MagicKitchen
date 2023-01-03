@@ -271,6 +271,12 @@
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Tiles/Placeables/PressureRelease1.wav
 
+#begin Audio/SoundEffects/Tiles/Rocks/Break.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SoundEffects/Tiles/Rocks/Break.wav
+
 #begin Audio/SoundEffects/Tiles/Rocks/Rock_Tumble1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -282,12 +288,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/SoundEffects/Tiles/Rocks/Rock_Tumble2.wav
-
-#begin Audio/SoundEffects/Tiles/Rocks/RockSmash1.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/SoundEffects/Tiles/Rocks/RockSmash1.wav
 
 #begin Audio/SoundEffects/Tools/FoodBite1.wav
 /importer:WavImporter

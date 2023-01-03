@@ -4,7 +4,7 @@
         "Name": "Break",
         "SoundChancers": [
           {
-            "Name": "RockSmash1",
+            "Name": "Break",
             "Weight": 100,
             "LocalPath": "SoundEffects/Tiles/Rocks"
           }
