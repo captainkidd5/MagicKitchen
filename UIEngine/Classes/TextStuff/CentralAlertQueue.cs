@@ -34,7 +34,7 @@ namespace UIEngine.Classes.TextStuff
             //base.LoadContent();
             _textDisplayTimer = new SimpleTimer(_fadeTime);
             _textQueue = new Queue<Text>();
-            CommandConsole.RegisterCommand("cen_alert", "adds central alert to screen", AddCentralAlert);
+            CommandConsole.RegisterCommand("cen_alert", "adds central alert to screen. {string Text} {float scale}", AddCentralAlert);
             AddTextToQueue("clear_buffer", 2f);
         }
         private void AddCentralAlert(string[] args)

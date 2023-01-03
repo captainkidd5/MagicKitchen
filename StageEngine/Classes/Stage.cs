@@ -32,8 +32,8 @@ namespace StageEngine.Classes
     {
         public string Name => _stageData.Name;
 
-        private  PlayerManager _playerManager;
-        private  StageData _stageData;
+        private PlayerManager _playerManager;
+        private StageData _stageData;
         public NPCContainer NPCContainer { get; private set; }
 
         private readonly ContentManager _content;
@@ -66,7 +66,7 @@ namespace StageEngine.Classes
             _content = content;
             _graphics = graphics;
             _camera = camera;
-            
+
 
         }
 
@@ -104,7 +104,6 @@ namespace StageEngine.Classes
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
 
-
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: _camera.GetTransform(_graphics));
             _graphics.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
             TileManager.Draw(spriteBatch);
@@ -131,13 +130,10 @@ namespace StageEngine.Classes
         /// </summary>
         public void CreateNewSave(Dictionary<string, StageData> allStageData)
         {
-
             TileLoader.CreateNewSave(allStageData, TileManager, _content);
             MapRectangle = TileManager.MapRectangle;
 
             SaveToStageFile();
-
-
         }
 
 
@@ -158,10 +154,10 @@ namespace StageEngine.Classes
             LoadSave(stageReader);
             SaveLoadManager.DestroyReader(stageReader);
             MapRectangle = TileManager.MapRectangle;
-            
+
 
         }
-      
+
         public void Save(BinaryWriter writer)
         {
             TileManager.Save(writer);
@@ -174,7 +170,7 @@ namespace StageEngine.Classes
         {
             TileManager.LoadSave(reader);
             ItemManager.LoadSave(reader);
-            NPCContainer.LoadContent(Name, TileManager, ItemManager,StageManager.AllStageData);
+            NPCContainer.LoadContent(Name, TileManager, ItemManager, StageManager.AllStageData);
 
             NPCContainer.LoadSave(reader);
 
@@ -193,8 +189,8 @@ namespace StageEngine.Classes
             TileManager?.SetToDefault();
             ItemManager?.SetToDefault();
             NPCContainer?.SetToDefault();
-            if(ItemManager != null)
-            ItemFactory.WorldItemGenerated -= ItemManager.OnWorldItemGenerated;
+            if (ItemManager != null)
+                ItemFactory.WorldItemGenerated -= ItemManager.OnWorldItemGenerated;
 
         }
     }

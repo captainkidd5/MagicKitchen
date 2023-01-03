@@ -51,7 +51,6 @@ namespace UIEngine.Classes.MainMenuStuff
             _backgroundSprite = SpriteFactory.CreateUISprite(Vector2.Zero, _backDropDimensions, _background, 0f, scale:new Vector2(1f,1f));
 
             Vector2 scale = new Vector2(.5f, .5f);
-           // _backDropSprite = SpriteFactory.CreateUISprite(Vector2.Zero, _backDropDimensions, _mainMenuBackDropTexture, LayerDepth, scale:scale);
             _outerMenu = new OuterMenu(this, graphics, content, null, LayerDepth);
             _outerMenu.LoadContent();
 
@@ -84,9 +83,6 @@ namespace UIEngine.Classes.MainMenuStuff
         }
         public override void Update(GameTime gameTime)
         {
-            //_backgroundSprite.SwapSourceRectangle(new Rectangle(_backgroundSprite.SourceRectangle.X, _backgroundSprite.SourceRectangle.Y + 1,
-            //    _backgroundSprite.SourceRectangle.Width, _backgroundSprite.SourceRectangle.Height));
-            //base.Update(gameTime);
             _backgroundSprite.Update(gameTime, Vector2.Zero);
             _activeSection.Update(gameTime);
             _toggleMusic.Update(gameTime);
@@ -95,8 +91,6 @@ namespace UIEngine.Classes.MainMenuStuff
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //base.Draw(spriteBatch);
-            // _backDropSprite.Draw(spriteBatch);
             
             _activeSection.Draw(spriteBatch);
             _toggleMusic.Draw(spriteBatch);

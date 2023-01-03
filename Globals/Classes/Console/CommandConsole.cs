@@ -28,7 +28,7 @@ namespace Globals.Classes.Console
             s_consoleComponent.Interpreter = s_manualInterpreter;
             Commands = new Dictionary<string, string>();
             RegisterCommand("toggle", "toggles a number of different flags", ToggleAction);
-            RegisterCommand("list", "lists all commands", ListCommandsAction);
+            RegisterCommand("help", "lists all commands", ListCommandsAction);
 
 
             consoleComponent.HeightRatio = s_consoleHeightRation;
@@ -83,7 +83,7 @@ namespace Globals.Classes.Console
         {
             if (!Commands.ContainsKey(commandName))
             {
-                Commands.Add(commandName, ":---------------" + description);
+                Commands.Add(commandName, ":          " + description);
                 s_manualInterpreter.RegisterCommand(commandName, command);
 
 

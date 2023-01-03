@@ -102,13 +102,7 @@ namespace StageEngine.Classes
         internal void EnterWorld()
         {
 
-
-
-
             ItemFactory.WorldItemGenerated += CurrentStage.ItemManager.OnWorldItemGenerated;
-
-
-
 
             _camera.Jump(Player1.Position);
 
@@ -187,12 +181,7 @@ namespace StageEngine.Classes
         {
             SetToDefault();
 
-
-            
-
-
-
-           // StageData stageData = content.Load<StageData>("maps/StageData");
+            // StageData stageData = content.Load<StageData>("maps/StageData");
             CurrentStage = new Stage(content, graphics, _camera);
 
             CurrentStage.Load(AllStageData["LullabyTown"], this, _playerManager);
@@ -200,16 +189,11 @@ namespace StageEngine.Classes
             CurrentStage.CreateNewSave(AllStageData);
             _playerManager.Save(writer);
 
-
-
-
         }
 
         public void CleanUp()
         {
             CurrentStage.CleanUp();
-
-
             CurrentStage = null;
 
         }
