@@ -21,6 +21,8 @@ namespace TiledEngine.Classes.ZoneStuff
         public string Value { get; private set; }
 
         public Rectangle Rectangle { get; private set; }
+
+        
         public Zone(string name, string value, Rectangle rectangle)
         {
             Property = name;

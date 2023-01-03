@@ -29,7 +29,7 @@ namespace EntityEngine.Classes.BehaviourStuff
         private bool _started;
         public ScriptBehaviour(BehaviourManager behaviourManager, NPC entity, StatusIcon statusIcon,
             TileManager tileManager, float? timerFrequency) :
-            base(behaviourManager,entity, statusIcon, tileManager, timerFrequency)
+            base(behaviourManager, entity, statusIcon, tileManager, timerFrequency)
         {
             _tileManager = tileManager;
 
@@ -67,6 +67,18 @@ namespace EntityEngine.Classes.BehaviourStuff
             switch (_currentAction.Type)
             {
                 case ScriptActionType.None:
+                    break;
+                case ScriptActionType.Teleport:
+                    Vector2 teleportLocation = GetTeleportLocation();
+                    if (Vector2Helper.WithinRangeOf(Entity.Position, teleportLocation))
+                    {
+                        CompleteStep();
+                        GetNextStep();
+                    }
+                    else
+                    {
+                        Entity.Move(teleportLocation);
+                    }
                     break;
                 case ScriptActionType.Move:
                     if (Entity.HasActivePath)
@@ -134,7 +146,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                     GetStepPath();
                     break;
                 case ScriptActionType.Teleport:
-                    GetTeleportLocation();
+                    Entity.Move(GetTeleportLocation());
                     break;
                 case ScriptActionType.Pause:
                     SimpleTimer.SetNewTargetTime(_currentAction.PauseForSeconds);
@@ -147,16 +159,15 @@ namespace EntityEngine.Classes.BehaviourStuff
         /// For use with the Teleport enum in <see cref="ScriptAction.ScriptAction"/>
         /// Will use world position if zones are not specified
         /// </summary>
-        private void GetTeleportLocation()
+        private Vector2 GetTeleportLocation()
         {
             if (string.IsNullOrEmpty(_currentAction.ZoneStart))
             {
-                Entity.Move(new Vector2(_currentAction.TileX, _currentAction.TileY));
-                return;
+                return new Vector2(_currentAction.TileX, _currentAction.TileY);
             }
-            Entity.Move(
-                TileLoader.ZoneManager.GetZone(_currentAction.ZoneStart.Split(',')[0],
-                _currentAction.ZoneStart.Split(',')[1]).Position);
+            Zone zone = TileLoader.ZoneManager.GetZone(_currentAction.ZoneStart.Split(',')[0],
+                _currentAction.ZoneStart.Split(',')[1]);
+            return new Vector2(zone.Rectangle.X, zone.Rectangle.Y);
         }
         public override void DrawDebug(SpriteBatch spriteBatch)
         {
@@ -177,6 +188,9 @@ namespace EntityEngine.Classes.BehaviourStuff
 
                 if (zone == null)
                     throw new Exception($"Could not find zone {_currentAction.ZoneEnd}");
+                if (zone.Rectangle.X > 0 || zone.Rectangle.Y > 0)
+                    targetpos = new Vector2(zone.Rectangle.X, zone.Rectangle.Y);
+                else
                 targetpos = zone.Position;
             }
             else
@@ -184,7 +198,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                 targetpos = Vector2Helper.GetWorldPositionFromTileIndex(
            _currentAction.TileX, _currentAction.TileY);
             }
-           
+
 
 
             base.GetPath(targetpos);

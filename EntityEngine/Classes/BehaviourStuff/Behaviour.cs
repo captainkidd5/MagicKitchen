@@ -70,47 +70,47 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         protected void GetPath(Vector2 newPosition)
         {
-            //Vector2 targetPosition = Vector2.Zero;
-            ////Trying to find path to new stage!
-            //if (Entity.CurrentStageName != destinationStageName)
-            //{
-            //    if (TileLoader.HasEdge(Entity.CurrentStageName, destinationStageName))
-            //    {
-            //        string newStage = TileLoader.GetNextNodeStageName(Entity.CurrentStageName, destinationStageName);
-            //        if (string.IsNullOrEmpty(newStage))
-            //            throw new Exception($"Node may not be empty");
-            //        Rectangle portalDestinationRectangle = TileLoader.GetNextNodePortalRectangle(Entity.CurrentStageName, newStage);
-            //        targetPosition = new Vector2(portalDestinationRectangle.X + portalDestinationRectangle.Width / 2, portalDestinationRectangle.Y + portalDestinationRectangle.Height / 2);
+            Vector2 targetPosition = Vector2.Zero;
+            //Trying to find path to new stage!
+            if (Entity.CurrentStageName != destinationStageName)
+            {
+                if (TileLoader.HasEdge(Entity.CurrentStageName, destinationStageName))
+                {
+                    string newStage = TileLoader.GetNextNodeStageName(Entity.CurrentStageName, destinationStageName);
+                    if (string.IsNullOrEmpty(newStage))
+                        throw new Exception($"Node may not be empty");
+                    Rectangle portalDestinationRectangle = TileLoader.GetNextNodePortalRectangle(Entity.CurrentStageName, newStage);
+                    targetPosition = new Vector2(portalDestinationRectangle.X + portalDestinationRectangle.Width / 2, portalDestinationRectangle.Y + portalDestinationRectangle.Height / 2);
 
 
-            //    }
-            //    else
-            //    {
-            //        string nextStage = TileLoader.GetNextNodeStageName(Entity.CurrentStageName, destinationStageName);
-            //        if (string.IsNullOrEmpty(nextStage))
-            //        {
-            //            throw new Exception($"No intermediate stages between {Entity.CurrentStageName} and {destinationStageName}");
-            //        }
-            //        Rectangle portalDestinationRectangle = TileLoader.GetNextNodePortalRectangle(Entity.CurrentStageName, nextStage);
-            //        targetPosition = new Vector2(portalDestinationRectangle.X + portalDestinationRectangle.Width / 2, portalDestinationRectangle.Y + portalDestinationRectangle.Height / 2);
+                }
+                else
+                {
+                    string nextStage = TileLoader.GetNextNodeStageName(Entity.CurrentStageName, destinationStageName);
+                    if (string.IsNullOrEmpty(nextStage))
+                    {
+                        throw new Exception($"No intermediate stages between {Entity.CurrentStageName} and {destinationStageName}");
+                    }
+                    Rectangle portalDestinationRectangle = TileLoader.GetNextNodePortalRectangle(Entity.CurrentStageName, nextStage);
+                    targetPosition = new Vector2(portalDestinationRectangle.X + portalDestinationRectangle.Width / 2, portalDestinationRectangle.Y + portalDestinationRectangle.Height / 2);
 
-            //    }
-            //}
-            //else
-            //{
-            //    //Find portal in same stage
-            //    targetPosition = newPosition;
-            //}
+                }
+            }
+            else
+            {
+                //Find portal in same stage
+                targetPosition = newPosition;
+            }
 
-            //if (Navigator.FindPathTo(Entity.Position, targetPosition))
-            //{
-            //    Navigator.SetTarget(targetPosition);
-            //}
-            //else
-          //  {
-                //give visual cue that couldn't find path.
+            if (Navigator.FindPathTo(Entity.Position, targetPosition))
+            {
+                Navigator.SetTarget(targetPosition);
+            }
+            else
+            {
+                give visual cue that couldn't find path.
                 StatusIcon.SetStatus(StatusIconType.NoPath);
-            //}
+            }
 
         }
 

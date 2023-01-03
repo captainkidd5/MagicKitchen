@@ -3,8 +3,8 @@
         "Id":1,
         "Name":"LullabyTown",
         "Path":"LullabyTown.tmx",
-        "InsertionX":2,
-        "InsertionY":2,
+        "InsertionX":122,
+        "InsertionY":122,
 
         "AmbientSoundPackageName":"Overworld_Outside"
     },
@@ -30,8 +30,8 @@
         "Id":4,
         "Name":"TestIsland",
         "Path":"TestIsland.tmx",
-        "InsertionX":112,
-        "InsertionY":112,
+        "InsertionX":0,
+        "InsertionY":0,
 
         "AmbientSoundPackageName":"Overworld_Outside"
     }
