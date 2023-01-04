@@ -8,5 +8,13 @@ namespace DataModels.ScriptedEventStuff
     {
         public string CharacterName { get; set; }
         public List<ScriptAction> ScriptActions { get; set; }
+
+        public void ValidateScrips()
+        {
+            foreach(ScriptAction action in ScriptActions)
+            {
+                action.ValidateScript();
+            }
+        }
     }
 }

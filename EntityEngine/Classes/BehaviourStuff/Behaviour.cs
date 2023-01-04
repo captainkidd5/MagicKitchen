@@ -11,6 +11,7 @@ using System.Text;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using TiledEngine.Classes;
+using TiledEngine.Classes.ZoneStuff;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
 
@@ -68,15 +69,22 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         }
 
-        protected void GetPath(Vector2 newPosition, string destinationStageName)
+        protected void GetPath(Vector2 newPosition, string destinationName, bool isZone)
         {
             Vector2 targetPosition = Vector2.Zero;
-            //Trying to find path to new stage!
-            if (Entity.CurrentStageName != destinationStageName)
+
+            if (isZone)
             {
-                if (MapLoader.HasEdge(Entity.CurrentStageName, destinationStageName))
+                Console.WriteLine("test");
+                Zone zone = MapLoader.ZoneManager.GetZone(destinationName.Split(',')[0], destinationName.Split(',')[1]);
+                destinationName = zone.StageName;
+            }
+            //Trying to find path to new stage!
+            if (Entity.CurrentStageName != destinationName)
+            {
+                if (MapLoader.HasEdge(Entity.CurrentStageName, destinationName))
                 {
-                    string newStage = MapLoader.GetNextNodeStageName(Entity.CurrentStageName, destinationStageName);
+                    string newStage = MapLoader.GetNextNodeStageName(Entity.CurrentStageName, destinationName);
                     if (string.IsNullOrEmpty(newStage))
                         throw new Exception($"Node may not be empty");
                     Rectangle portalDestinationRectangle = MapLoader.GetNextPortalRectangle(Entity.CurrentStageName, newStage);
@@ -86,10 +94,10 @@ namespace EntityEngine.Classes.BehaviourStuff
                 }
                 else
                 {
-                    string nextStage = MapLoader.GetNextNodeStageName(Entity.CurrentStageName, destinationStageName);
+                    string nextStage = MapLoader.GetNextNodeStageName(Entity.CurrentStageName, destinationName);
                     if (string.IsNullOrEmpty(nextStage))
                     {
-                        throw new Exception($"No intermediate stages between {Entity.CurrentStageName} and {destinationStageName}");
+                        throw new Exception($"No intermediate stages between {Entity.CurrentStageName} and {destinationName}");
                     }
                     Rectangle portalDestinationRectangle = MapLoader.GetNextPortalRectangle(Entity.CurrentStageName, nextStage);
                     targetPosition = new Vector2(portalDestinationRectangle.X + portalDestinationRectangle.Width / 2, portalDestinationRectangle.Y + portalDestinationRectangle.Height / 2);

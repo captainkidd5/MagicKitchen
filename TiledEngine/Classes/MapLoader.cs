@@ -99,7 +99,7 @@ namespace TiledEngine.Classes
         /// </summary>
         public static void CreateNewSave(Dictionary<string, StageData> stageData, TileManager tileManager, ContentManager content)
         {
-            TmxMap worldMap = new TmxMap(s_mapPath + stageData["LullabyTown"].Path);
+            TmxMap worldMap = new TmxMap(s_mapPath + stageData["TestIsland"].Path);
             //TmxMap town = new TmxMap(s_mapPath + stageData["HomeIsland"].Path);
             //TmxMap caravan = new TmxMap(s_mapPath + stageData["Caravan"].Path);
             //TmxMap testIsland = new TmxMap(s_mapPath + stageData["TestIsland"].Path);

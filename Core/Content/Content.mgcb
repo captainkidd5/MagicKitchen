@@ -940,9 +940,6 @@
 #begin Maps/InteriorSpriteSheet1.tsx
 /copy:Maps/InteriorSpriteSheet1.tsx
 
-#begin Maps/LullabyTown.tmx
-/copy:Maps/LullabyTown.tmx
-
 #begin Maps/ProceduralData/PoissonData.json
 /copy:Maps/ProceduralData/PoissonData.json
 

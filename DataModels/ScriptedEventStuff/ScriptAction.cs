@@ -18,6 +18,10 @@ namespace DataModels.ScriptedEventStuff
         public int TileX { get; set; }
         public int TileY { get; set; }
 
+        /// <summary>
+        /// Stage end is MUTUALLY EXCLUSIVE with Zone Start and Zone End
+        /// </summary>
+        public string StageEnd { get; set; }
         public string ZoneStart { get; set; }
         public string ZoneEnd { get; set; }
 
@@ -25,5 +29,20 @@ namespace DataModels.ScriptedEventStuff
         public int PauseForSeconds { get; set; }
 
         public int Speed { get; set; }
+
+        public void ValidateScript()
+        {
+            if (TileX > 0 || TileY > 0)
+            {
+                if (!string.IsNullOrEmpty(ZoneStart))
+                    throw new Exception($"May not specify zone start if TileX or TileY has a non-zero value");
+                if (!string.IsNullOrEmpty(ZoneEnd))
+                    throw new Exception($"May not specify zone end if TileX or TileY has a non-zero value");
+
+                if (string.IsNullOrEmpty(StageEnd))
+                    throw new Exception($"MUST specify stage end if providing tilex and tiley");
+
+            }
+        }
     }
 }

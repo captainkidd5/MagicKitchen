@@ -109,7 +109,7 @@
     <property name="directionToFace" value="Up"/>
     <property name="from" value="Classroom"/>
     <property name="portal" value="Classroom,TestIsland"/>
-    <property name="to" value="testIsland"/>
+    <property name="to" value="TestIsland"/>
     <property name="xOffSet" value="0"/>
     <property name="yOffSet" value="0"/>
    </properties>

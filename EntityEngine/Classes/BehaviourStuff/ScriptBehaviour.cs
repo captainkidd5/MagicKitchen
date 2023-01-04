@@ -192,7 +192,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                 if (zone.Rectangle.X > 0 || zone.Rectangle.Y > 0)
                     targetpos = new Vector2(zone.Rectangle.X, zone.Rectangle.Y);
                 else
-                targetpos = zone.Position;
+                    targetpos = zone.Position;
             }
             else
             {
@@ -201,10 +201,12 @@ namespace EntityEngine.Classes.BehaviourStuff
             }
 
 
-
-            //if zone end isn't null, use that. Otherwise end location is in current entity stage, so use that
-            base.GetPath(targetpos, !string.IsNullOrEmpty(_currentAction.ZoneEnd) ?
-                _currentAction.ZoneEnd : Entity.CurrentStageName);
+            //Finding path to zone
+            if (string.IsNullOrEmpty(_currentAction.StageEnd))
+                base.GetPath(targetpos, _currentAction.ZoneEnd, true);
+            //Finding path to stage with tile x and y
+            else
+                base.GetPath(targetpos, _currentAction.StageEnd, false);
 
 
         }

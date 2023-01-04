@@ -62,7 +62,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                 string currentStageName = Entity.CurrentStageName;
                 Vector2 targetpos = GetTargetFromSchedule( _activeSchedule, out currentStageName);
 
-                base.GetPath(targetpos, currentStageName);
+                base.GetPath(targetpos, currentStageName,false);
 
                 if (Vector2Helper.WithinRangeOf(Entity.Position, targetpos))
                 {

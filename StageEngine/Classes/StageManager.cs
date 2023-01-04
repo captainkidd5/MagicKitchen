@@ -94,7 +94,7 @@ namespace StageEngine.Classes
 
             //CurrentStage.Load(stageData, this, _playerManager);
             //CurrentStage.SaveToStageFile();
-            _playerManager.LoadContent("LullabyTown", CurrentStage.TileManager, CurrentStage.ItemManager, AllStageData);
+            _playerManager.LoadContent("TestIsland", CurrentStage.TileManager, CurrentStage.ItemManager, AllStageData);
 
             Flags.Pause = true;
 
@@ -168,7 +168,7 @@ namespace StageEngine.Classes
         public void LoadSave(BinaryReader reader)
         {
 
-            StageData stageData = AllStageData["LullabyTown"];
+            StageData stageData = AllStageData["TestIsland"];
             CurrentStage = new Stage(content, graphics, _camera);
 
             CurrentStage.Load(stageData, this, _playerManager);
@@ -184,7 +184,7 @@ namespace StageEngine.Classes
             // StageData stageData = content.Load<StageData>("maps/StageData");
             CurrentStage = new Stage(content, graphics, _camera);
 
-            CurrentStage.Load(AllStageData["LullabyTown"], this, _playerManager);
+            CurrentStage.Load(AllStageData["TestIsland"], this, _playerManager);
 
             CurrentStage.CreateNewSave(AllStageData);
             _playerManager.Save(writer);

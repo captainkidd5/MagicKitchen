@@ -38,6 +38,10 @@ namespace EntityEngine.Classes.ScriptStuff
                 }
             }
 
+            foreach(ScriptedEvent sa in Scripts.Values)
+            {
+                sa.ValidateScripts();
+            }
 
 
         }

@@ -1,10 +1,10 @@
 [
     {
         "Id":1,
-        "Name":"LullabyTown",
-        "Path":"LullabyTown.tmx",
-        "InsertionX":122,
-        "InsertionY":122,
+        "Name":"TestIsland",
+        "Path":"TestIsland.tmx",
+        "InsertionX":0,
+        "InsertionY":0,
 
         "AmbientSoundPackageName":"Overworld_Outside"
     },
@@ -16,15 +16,7 @@
         "InsertionY":15,
 
         "AmbientSoundPackageName":"Overworld_Outside"
-    },
-
-    {
-        "Id":3,
-        "Name":"TestIsland",
-        "Path":"TestIsland.tmx",
-        "InsertionX":0,
-        "InsertionY":0,
-
-        "AmbientSoundPackageName":"Overworld_Outside"
     }
+
+  
 ]
