@@ -25,15 +25,19 @@ namespace TiledEngine.Classes.ZoneStuff
 
         public Zone GetZone(string property, string value)
         {
-            Zone zone = SpecialZones.FirstOrDefault(x => x.Value.Property == property && x.Value == value);
 
-            if (zone == null) throw new Exception($"Unable to find zone {property} zone");
-
-            return zone;
+            foreach(var pair in SpecialZones)
+            {
+                Zone z = pair.Value.FirstOrDefault(x => x.Property== property && x.Value == value);
+                if (z != null)
+                    return z;
+            }
+            throw new Exception($"Unable to find zone {property} zone");
         }
+
         public void LoadZones(TmxMap tmxMap, string mapName)
         {
-            List<Zone> zonesList = LoadSpecialZones(tmxMap);
+            List<Zone> zonesList = LoadSpecialZones(tmxMap, mapName);
 
             LoadMusicZones(tmxMap, mapName);
             SpecialZones.Add(mapName, zonesList);
@@ -86,7 +90,9 @@ namespace TiledEngine.Classes.ZoneStuff
             foreach(var pair in SpecialZones)
             {
                 writer.Write(pair.Value.Count);
-                foreach(Zone zone in pair.Value)
+                writer.Write(pair.Key);
+
+                foreach (Zone zone in pair.Value)
                 {
                     zone.Save(writer);
 
@@ -96,6 +102,7 @@ namespace TiledEngine.Classes.ZoneStuff
             foreach (var pair in _musicZones)
             {
                 writer.Write(pair.Value.Count);
+                writer.Write(pair.Key);
                 foreach (Zone zone in pair.Value)
                 {
                     zone.Save(writer);
@@ -108,20 +115,36 @@ namespace TiledEngine.Classes.ZoneStuff
         {
 
 
-            int zoneCount = reader.ReadInt32();
-            for (int j = 0; j < zoneCount; j++)
+            int zoneDictCount = reader.ReadInt32();
+            for (int j = 0; j < zoneDictCount; j++)
             {
-                Zone zone = new Zone();
-                zone.LoadSave(reader);
-                SpecialZones.Add(zone);
+                int zoneListCount = reader.ReadInt32();
+                string key = reader.ReadString();
+                List<Zone> zones = new List<Zone>();
+                for(int z = 0; z < zoneListCount; z++)
+                {
+                    Zone zone = new Zone();
+                    zone.LoadSave(reader);
+                    zones.Add(zone);
+                }
+                    SpecialZones.Add(key,zones);
+
             }
 
-            int ZoneCount = reader.ReadInt32();
-            for (int j = 0; j < ZoneCount; j++)
+            int musicZoneDictCount = reader.ReadInt32();
+            for (int j = 0; j < musicZoneDictCount; j++)
             {
-                Zone zone = new Zone();
-                zone.LoadSave(reader);
-                _musicZones.Add(zone);
+                int zoneListCount = reader.ReadInt32();
+                string key = reader.ReadString();
+                List<MusicZone> zones = new List<MusicZone>();
+                for (int z = 0; z < zoneListCount; z++)
+                {
+                    MusicZone zone = new MusicZone();
+                    zone.LoadSave(reader);
+                    zones.Add(zone);
+                }
+                _musicZones.Add(key, zones);
+
             }
 
 
@@ -129,10 +152,22 @@ namespace TiledEngine.Classes.ZoneStuff
 
         public void CleanUp()
         {
-            SpecialZones.Clear();
-            foreach (var zone in _musicZones)
+            foreach (var pair in SpecialZones)
             {
-                zone.CleanUp();
+                foreach (var zone in pair.Value)
+                {
+                    zone.CleanUp();
+
+                }
+            }
+            SpecialZones.Clear();
+            foreach (var pair in _musicZones)
+            {
+                foreach(var zone in pair.Value)
+                {
+                    zone.CleanUp();
+
+                }
             }
             _musicZones.Clear();
         }

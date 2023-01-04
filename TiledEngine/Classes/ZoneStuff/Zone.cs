@@ -59,6 +59,7 @@ namespace TiledEngine.Classes.ZoneStuff
             writer.Write(Property);
             writer.Write(Value);
             RectangleHelper.WriteRectangle(writer, Rectangle);
+            writer.Write(StageName);
         }
 
         public virtual void LoadSave(BinaryReader reader)
@@ -66,6 +67,7 @@ namespace TiledEngine.Classes.ZoneStuff
             Property = reader.ReadString();
             Value = reader.ReadString();
             Rectangle = RectangleHelper.ReadRectangle(reader);
+            StageName = reader.ReadString();
             CreateBody(Vector2Helper.GetVector2FromRectangle(Rectangle));
         }
 

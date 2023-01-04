@@ -15,7 +15,10 @@ namespace TiledEngine.Classes.ZoneStuff
         public MusicZone(string name, string value, Rectangle rectangle, string mapName) : base(name, value, rectangle, mapName)
         {
         }
+        public MusicZone()
+        {
 
+        }
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             SongManager.CurrentPlayListName = Value;
