@@ -36,6 +36,7 @@ using SpriteEngine.Classes.Animations.EntityAnimations;
 using SpriteEngine.Classes.ParticleStuff;
 using IOEngine.Classes;
 using System.Linq;
+using TiledEngine.Classes.PortalStuff;
 
 namespace EntityEngine.Classes
 {

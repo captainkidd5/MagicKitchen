@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using TiledEngine.Classes.TileAddons;
 using TiledSharp;
 
-namespace TiledEngine.Classes
+namespace TiledEngine.Classes.PortalStuff
 {
     public class PortalManager : ISaveable
     {
@@ -21,7 +21,7 @@ namespace TiledEngine.Classes
         {
             AllPortals = new List<Portal>();
         }
-   
+
         public void CleanUp()
         {
             foreach (Portal p in AllPortals)
@@ -48,7 +48,7 @@ namespace TiledEngine.Classes
                         string val = tileData[z][x, y].GetProperty(tileSetPackage, "portal", true);
                         if (!string.IsNullOrEmpty(val))
                         {
-                            Portal portal = Portal.GetPortal(val,x, y);
+                            Portal portal = Portal.GetPortal(val, x, y);
                             AllPortals.Add(portal);
                         }
                     }
@@ -63,7 +63,7 @@ namespace TiledEngine.Classes
             List<Portal> tempPortalList = new List<Portal>();
             foreach (TmxObject portal in zones.Objects)
             {
-                Portal p = Portal.GetObjectGroupPortal(portal.Properties.ElementAt(0).Value,(int)(portal.X + stageX * 16),
+                Portal p = Portal.GetObjectGroupPortal(portal.Properties.ElementAt(0).Value, (int)(portal.X + stageX * 16),
                     (int)(portal.Y + stageY * 16), (int)portal.Width, (int)portal.Height);
 
                 tempPortalList.Add(p);
@@ -78,13 +78,13 @@ namespace TiledEngine.Classes
             AllPortals = new List<Portal>();
 
             int count = reader.ReadInt32();
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
                 Portal portal = new Portal();
                 portal.LoadSave(reader);
                 AllPortals.Add(portal);
             }
-    
+
         }
 
         public void Save(BinaryWriter writer)

@@ -19,6 +19,7 @@ using static DataModels.Enums;
 using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.Procedural;
 using PhysicsEngine.Classes;
+using TiledEngine.Classes.PortalStuff;
 
 namespace TiledEngine.Classes
 {

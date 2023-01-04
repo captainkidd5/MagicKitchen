@@ -91,7 +91,7 @@ namespace EntityEngine.Classes.BehaviourStuff
                     {
                         throw new Exception($"No intermediate stages between {Entity.CurrentStageName} and {destinationStageName}");
                     }
-                    Rectangle portalDestinationRectangle = TileLoader.GetNextNodePortalRectangle(Entity.CurrentStageName, nextStage);
+                    Rectangle portalDestinationRectangle = TileLoaderGetNextNodePortalRectangle(Entity.CurrentStageName, nextStage);
                     targetPosition = new Vector2(portalDestinationRectangle.X + portalDestinationRectangle.Width / 2, portalDestinationRectangle.Y + portalDestinationRectangle.Height / 2);
 
                 }
@@ -108,7 +108,7 @@ namespace EntityEngine.Classes.BehaviourStuff
             }
             else
             {
-                give visual cue that couldn't find path.
+                //give visual cue that couldn't find path.
                 StatusIcon.SetStatus(StatusIconType.NoPath);
             }
 

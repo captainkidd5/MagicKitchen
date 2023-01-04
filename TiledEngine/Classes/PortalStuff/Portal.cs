@@ -13,7 +13,7 @@ using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
 using UIEngine.Classes;
 
-namespace TiledEngine.Classes
+namespace TiledEngine.Classes.PortalStuff
 {
     public delegate void PortalClicked(Portal portal);
 
@@ -46,7 +46,7 @@ namespace TiledEngine.Classes
         /// For TMX Objects in tile properties
         /// </summary>
         /// <returns></returns>
-        public static Portal GetPortal(string unparsedString,int x, int y)
+        public static Portal GetPortal(string unparsedString, int x, int y)
         {
             string[] splitString = unparsedString.Split(',');
             string from = splitString[0];
@@ -54,13 +54,13 @@ namespace TiledEngine.Classes
             int width = int.Parse(splitString[2]);
             int height = int.Parse(splitString[3]);
 
-            return new Portal(from, to, new Rectangle(x * 16,y * 16,width,height));
+            return new Portal(from, to, new Rectangle(x * 16, y * 16, width, height));
         }
         /// <summary>
         /// For object zones
         /// </summary>
         /// <returns></returns>
-        public static Portal GetObjectGroupPortal(string unparsedString,int x, int y, int width, int height)
+        public static Portal GetObjectGroupPortal(string unparsedString, int x, int y, int width, int height)
         {
             string[] splitString = unparsedString.Split(',');
             string from = splitString[0];
@@ -93,7 +93,7 @@ namespace TiledEngine.Classes
         {
             //base.Update(gameTime);
             if (MainHullBody != null)
-               MainHullBody.Position = Position;
+                MainHullBody.Position = Position;
 
             if (WithinRangeOfPlayer(Controls.ControllerConnected))
             {
@@ -109,7 +109,7 @@ namespace TiledEngine.Classes
 
             }
         }
-       
+
 
         protected override void CreateBody(Vector2 position)
         {
@@ -118,7 +118,7 @@ namespace TiledEngine.Classes
                 (Category)PhysCat.Portal, (Category)PhysCat.ClickBox },
               new List<Category>() {
                   (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.Cursor, (Category)PhysCat.NPC},
-              OnCollides, OnSeparates,userData: this);
+              OnCollides, OnSeparates, userData: this);
 
         }
 
@@ -134,7 +134,8 @@ namespace TiledEngine.Classes
 
         protected override bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag(((Category)PhysCat.Cursor))){
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Cursor))
+            {
                 OnClickBoxCollides(fixtureA, fixtureB, contact);
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
@@ -142,7 +143,7 @@ namespace TiledEngine.Classes
 
         protected override void OnSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories.HasFlag(((Category)PhysCat.Cursor)))
+            if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Cursor))
             {
                 OnClickBoxSeparates(fixtureA, fixtureB, contact);
             }

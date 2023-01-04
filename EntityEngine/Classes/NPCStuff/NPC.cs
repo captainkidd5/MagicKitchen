@@ -58,6 +58,8 @@ namespace EntityEngine.Classes.NPCStuff
 
         protected HullBody ArraySensor { get; set; }
        protected HullBody ClickBox { get; set; }
+
+        public string CurrentStageName { get; set; }
         public NPC( GraphicsDevice graphics, ContentManager content) :
             base(graphics, content)
         {
