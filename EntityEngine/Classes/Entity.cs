@@ -92,7 +92,7 @@ namespace EntityEngine.Classes
 
         public HullBody DamageBody { get; protected set; }
 
-        public string CurrentStageName { get; set; }
+        public string CurrentStageName => Container.StageName;
 
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
         {
@@ -143,7 +143,7 @@ namespace EntityEngine.Classes
         {
 
         }
-        public virtual void LoadContent(EntityContainer container, string stageName)
+        public virtual void LoadContent(EntityContainer container)
         {
             Container = container;
             StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
@@ -159,7 +159,6 @@ namespace EntityEngine.Classes
 
             InventoryHandler.SwapItemManager(Container.ItemManager);
 
-            CurrentStageName = stageName;
             
         }
 

@@ -81,9 +81,9 @@ namespace EntityEngine.Classes.CharacterStuff
 
 
         }
-        public override void LoadContent(EntityContainer container,string stageName, Vector2? startPos, string name, bool standardAnimator = true)
+        public override void LoadContent(EntityContainer container,Vector2? startPos, string name, bool standardAnimator = true)
         {
-            base.LoadContent(container,stageName, startPos, name, standardAnimator);
+            base.LoadContent(container, startPos, name, standardAnimator);
             XOffSet = 0;
             YOffSet = 8;
         }

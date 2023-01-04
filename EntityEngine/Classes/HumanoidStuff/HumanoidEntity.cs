@@ -115,7 +115,7 @@ namespace EntityEngine.Classes.HumanoidStuff
         }
         internal override void ChangeClothingColor(Type t, Color color) =>
             (Animator as CustomizeableAnimator).ChangeClothingColor(t, color);
-        public override void LoadContent(EntityContainer entityContainer,string stageName, Vector2? startPos, string name, bool standardAnimator = false)
+        public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string name, bool standardAnimator = false)
         {
             if (GetType() != typeof(Player))
             {
@@ -128,7 +128,7 @@ namespace EntityEngine.Classes.HumanoidStuff
             SubscribeEquipmentSlots();
             //XOffSet = 0;
             //YOffSet = 8;
-            base.LoadContent(entityContainer, stageName, startPos, name, standardAnimator);
+            base.LoadContent(entityContainer, startPos, name, standardAnimator);
 
         }
 

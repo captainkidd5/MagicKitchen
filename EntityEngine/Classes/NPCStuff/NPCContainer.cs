@@ -30,6 +30,7 @@ namespace EntityEngine.Classes.CharacterStuff
     {
 
         private NPCSpawner _mobSpawner;
+
         public NPCContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             _mobSpawner = new NPCSpawner();
@@ -51,13 +52,12 @@ namespace EntityEngine.Classes.CharacterStuff
 
         public override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager, Dictionary<string, StageData> allStageData)
         {
-            TileManager = tileManager;
-            ItemManager = itemManager;
-            AllStageData = allStageData;
+            base.LoadContent(stageName,tileManager, itemManager, allStageData);
+
             foreach (NPC entity in Entities)
             {
 
-                entity.LoadContent(this, stageName, null, entity.Name, false);
+                entity.LoadContent(this, null, entity.Name, false);
             }
             _mobSpawner.Load(this, tileManager);
             RegisterCommands();

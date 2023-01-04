@@ -94,9 +94,9 @@ namespace EntityEngine.Classes.PlayerStuff
 
         }
 
-        public override void LoadContent(EntityContainer entityContainer,string stageName, Vector2? startPos, string? name, bool standardAnimator = false)
+        public override void LoadContent(EntityContainer entityContainer , Vector2? startPos, string? name, bool standardAnimator = false)
         {
-            base.LoadContent(entityContainer, stageName, startPos, name, standardAnimator);
+            base.LoadContent(entityContainer, startPos, name, standardAnimator);
             // UI.LoadPlayerInventory(StorageContainer);
 
             UI.Cursor.ItemDropped -= DropHeldItem;

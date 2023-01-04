@@ -26,6 +26,7 @@ namespace EntityEngine.Classes
         internal virtual Entity GetEntity(string name) => Entities.FirstOrDefault(x => x.Name == name);
 
 
+        public string StageName { get; private set; }
 
         public TileManager TileManager;
         public ItemManager ItemManager;
@@ -37,13 +38,14 @@ namespace EntityEngine.Classes
  public Dictionary<string,StageData> AllStageData { get; protected set; }
         public virtual void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager, Dictionary<string, StageData> allStageData)
         {
+            StageName = stageName;
             TileManager = tileManager;
             ItemManager = itemManager;
-            foreach (Entity entity in Entities)
-            {
+            //foreach (Entity entity in Entities)
+            //{
 
-                entity.LoadContent(this, stageName);
-            }
+            //    entity.LoadContent(this);
+            //}
             AllStageData = allStageData;
         }
 
