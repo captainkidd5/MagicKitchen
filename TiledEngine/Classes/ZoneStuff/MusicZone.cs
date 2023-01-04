@@ -12,7 +12,7 @@ namespace TiledEngine.Classes.ZoneStuff
 {
     internal class MusicZone : Zone
     {
-        public MusicZone(string name, string value, Rectangle rectangle) : base(name, value, rectangle)
+        public MusicZone(string name, string value, Rectangle rectangle, string mapName) : base(name, value, rectangle, mapName)
         {
         }
 

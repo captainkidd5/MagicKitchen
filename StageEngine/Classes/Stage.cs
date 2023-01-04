@@ -130,7 +130,7 @@ namespace StageEngine.Classes
         /// </summary>
         public void CreateNewSave(Dictionary<string, StageData> allStageData)
         {
-            TileLoader.CreateNewSave(allStageData, TileManager, _content);
+            MapLoader.CreateNewSave(allStageData, TileManager, _content);
             MapRectangle = TileManager.MapRectangle;
 
             SaveToStageFile();

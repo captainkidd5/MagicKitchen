@@ -165,7 +165,7 @@ namespace EntityEngine.Classes.BehaviourStuff
             {
                 return new Vector2(_currentAction.TileX, _currentAction.TileY);
             }
-            Zone zone = TileLoader.ZoneManager.GetZone(_currentAction.ZoneStart.Split(',')[0],
+            Zone zone = MapLoader.ZoneManager.GetZone(_currentAction.ZoneStart.Split(',')[0],
                 _currentAction.ZoneStart.Split(',')[1]);
             return new Vector2(zone.Rectangle.X, zone.Rectangle.Y);
         }
@@ -183,7 +183,7 @@ namespace EntityEngine.Classes.BehaviourStuff
 
             if (!string.IsNullOrEmpty(_currentAction.ZoneEnd))
             {
-                Zone zone = TileLoader.ZoneManager.SpecialZones.FirstOrDefault(
+                Zone zone = MapLoader.ZoneManager.SpecialZones.FirstOrDefault(
                     x => x.Property == _currentAction.ZoneStart.Split(',')[0] && x.Value == _currentAction.ZoneEnd.Split(',')[1]);
 
                 if (zone == null)

@@ -29,7 +29,7 @@ using TiledSharp;
 using UIEngine.Classes;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
-using static TiledEngine.Classes.TileLoader;
+using static TiledEngine.Classes.MapLoader;
 
 namespace TiledEngine.Classes
 {
@@ -88,7 +88,7 @@ namespace TiledEngine.Classes
         }
 
         /// <summary>
-        /// Generic load, should only be called by <see cref="TileLoader.LoadTileManager(string, TileManager)"/>
+        /// Generic load, should only be called by <see cref="MapLoader.LoadTileManager(string, TileManager)"/>
         /// </summary>
         internal void LoadMap(TmxMap tmxMap, List<TileData[,]> tiles, int mapWidth, TileSetPackage tileSetPackage)
         {
@@ -479,8 +479,8 @@ namespace TiledEngine.Classes
             }
             PlacedItemManager.Save(writer);
             TileLightManager.Save(writer);
-            TileLoader.ZoneManager.Save(writer);
-            TileLoader.Portalmanager.Save(writer);
+            MapLoader.ZoneManager.Save(writer);
+            MapLoader.Portalmanager.Save(writer);
         }
         public void LoadSave(BinaryReader reader)
         {
@@ -504,9 +504,9 @@ namespace TiledEngine.Classes
             }
             PlacedItemManager.LoadSave(reader);
             TileLightManager.LoadSave(reader);
-            LoadMap(_tmxMap, TileData, MapWidth, TileLoader.TileSetPackage);
-            TileLoader.ZoneManager.LoadSave(reader);
-            TileLoader.Portalmanager.LoadSave(reader);
+            LoadMap(_tmxMap, TileData, MapWidth, MapLoader.TileSetPackage);
+            MapLoader.ZoneManager.LoadSave(reader);
+            MapLoader.Portalmanager.LoadSave(reader);
 
         }
 

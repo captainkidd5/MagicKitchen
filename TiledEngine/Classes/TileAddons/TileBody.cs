@@ -133,7 +133,7 @@ namespace TiledEngine.Classes.TileAddons
 
         protected void GenerateLoot()
         {
-            TileLootData tileLootData = TileLoader.TileLootManager.GetLootData(Tile.TileData.GID);
+            TileLootData tileLootData = MapLoader.TileLootManager.GetLootData(Tile.TileData.GID);
 
             List<LootData> trimmedLoot = ChanceHelper.GetWeightedSelection(
                 tileLootData.Loot.Where(x => !x.Guaranteed).Cast<IWeightable>().ToList(),
@@ -149,7 +149,7 @@ namespace TiledEngine.Classes.TileAddons
 
         protected string GetTileLootSound()
         {
-            string destructionSoundName = TileLoader.TileLootManager.GetLootData(Tile.TileData.GID).DestructionSoundPackageName;
+            string destructionSoundName = MapLoader.TileLootManager.GetLootData(Tile.TileData.GID).DestructionSoundPackageName;
             if (string.IsNullOrEmpty(destructionSoundName))
                 throw new Exception($"Must provide a destruction sound name in tilelootdata.xml");
             return destructionSoundName;

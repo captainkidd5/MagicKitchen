@@ -32,7 +32,7 @@ namespace TiledEngine.Classes
         Huge = 4096
 
     }
-    public static class TileLoader
+    public static class MapLoader
     {
         public static float[] MapDepths = new float[5]
             {
@@ -58,7 +58,11 @@ namespace TiledEngine.Classes
         public static PortalManager Portalmanager;
 
         static public ZoneManager ZoneManager;
-        
+        private static PortalLoader _portalLoader;
+        public static bool HasEdge(string stageFromName, string stageToName) => _portalLoader.HasEdge(stageFromName, stageToName);
+        public static string GetNextNodeStageName(string stageFromName, string stageToName) => _portalLoader.GetNextNodeStageName(stageFromName, stageToName);
+        public static Rectangle GetNextPortalRectangle(string stageFrom, string stageTo) => 
+            _portalLoader.GetNextPortalRectangle(stageFrom, stageTo);
 
         // <summary>
         /// This should only be called ONCE per save file.
@@ -82,8 +86,10 @@ namespace TiledEngine.Classes
             FurnitureLoader.LoadContent(content);
             Portalmanager = new PortalManager();
              ZoneManager = new ZoneManager();
-        }
 
+            _portalLoader = new PortalLoader();
+
+        }
 
 
         /// <summary>
@@ -110,8 +116,9 @@ namespace TiledEngine.Classes
                 sd.Value.Load(map.Width);
                 ZoneManager.LoadZones(map);
                 Portalmanager.LoadPortalZones(map, sd.Value.InsertionX, sd.Value.InsertionY);
-
+                _portalLoader.LoadPortals(map);
             }
+            _portalLoader.FillPortalGraph();
             //InsertCustomMapAt(mapData, new Point(112, 112), testIsland);
             //InsertCustomMapAt(mapData, new Point(96, 96), caravan);
 

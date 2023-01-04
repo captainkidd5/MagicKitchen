@@ -51,7 +51,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
         {
             string[] parsedValue = value.Split(',');
             FurnitureType furnitureType = (FurnitureType)Enum.Parse(typeof(FurnitureType), parsedValue[0]);
-            FurnitureData data = TileLoader.FurnitureLoader.FurnitureData[furnitureType];
+            FurnitureData data = MapLoader.FurnitureLoader.FurnitureData[furnitureType];
 
             if (parsedValue.Length > 1)
             {

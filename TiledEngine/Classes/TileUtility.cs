@@ -17,7 +17,7 @@ using TiledEngine.Classes.TilePlacementStuff.TilingStuff;
 using TiledSharp;
 using static DataModels.Enums;
 using static Globals.Classes.Settings;
-using static TiledEngine.Classes.TileLoader;
+using static TiledEngine.Classes.MapLoader;
 using static TiledEngine.Classes.TileManager;
 
 namespace TiledEngine.Classes
@@ -222,7 +222,7 @@ namespace TiledEngine.Classes
                 if (tileData.GID != 0)
                     return GetTileVariedLayerDepth(tile.Position, tile.SourceRectangle, tileLayerOffsetDictionary);
             }
-            return TileLoader.MapDepths[(int)layer];
+            return MapLoader.MapDepths[(int)layer];
 
         }
 

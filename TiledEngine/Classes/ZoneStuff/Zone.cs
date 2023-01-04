@@ -17,18 +17,19 @@ namespace TiledEngine.Classes.ZoneStuff
 {
     public class Zone : Collidable, ISaveable
     {
+        public string StageName { get; private set; }
         public string Property { get; private set; }
         public string Value { get; private set; }
 
         public Rectangle Rectangle { get; private set; }
 
         
-        public Zone(string name, string value, Rectangle rectangle)
+        public Zone(string name, string value, Rectangle rectangle, string stageName)
         {
             Property = name;
             Value = value;
             Rectangle = rectangle;
-
+            StageName = stageName;
         }
         public Zone()
         {

@@ -145,7 +145,7 @@ namespace Core
             TextFactory.Load(Content);
             LanguageManager.Load(Content);
             Scheduler.Load(Content);
-            TileLoader.LoadContent(Content);
+            MapLoader.LoadContent(Content);
             ItemFactory.LoadContent(Content);
 
             EntityFactory.Load(Content);

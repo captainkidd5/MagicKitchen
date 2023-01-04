@@ -97,7 +97,7 @@ namespace EntityEngine.Classes.NPCStuff
                 Name = name;
             base.LoadContent(container);
 
-            BehaviourManager = new BehaviourManager(this, StatusIcon, Navigator, Container.TileManager);
+            BehaviourManager = new BehaviourManager(this, StatusIcon, Container.TileManager);
             BehaviourManager.Load();
             BehaviourManager.SwitchStage(Container.TileManager);
 

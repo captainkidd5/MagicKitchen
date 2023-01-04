@@ -129,7 +129,7 @@ namespace EntityEngine.Classes.PlayerStuff
             Shadow = new Shadow(SpriteEngine.Classes.ShadowStuff.ShadowType.NPC, CenteredPosition, ShadowSize.Small, SpriteFactory.NPCSheet);
 
 
-            foreach(var portalPairs in TileLoader.Portalmanager.AllPortals)
+            foreach(var portalPairs in MapLoader.Portalmanager.AllPortals)
             {
                 portalPairs.PortalClicked += PortalClicked;
             }
@@ -138,7 +138,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
         private void PortalClicked(Portal portal)
         {
-            Vector2 portalPos = TileLoader.Portalmanager.AllPortals.FirstOrDefault(x => x.To == portal.From && x.From == portal.To).Position;
+            Vector2 portalPos = MapLoader.Portalmanager.AllPortals.FirstOrDefault(x => x.To == portal.From && x.From == portal.To).Position;
             Move(portalPos);
         }
 
@@ -478,7 +478,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.CleanUp();
             StorageCapacity = 24;
-            foreach (var portalPairs in TileLoader.Portalmanager.AllPortals)
+            foreach (var portalPairs in MapLoader.Portalmanager.AllPortals)
             {
                 portalPairs.PortalClicked -= PortalClicked;
             }

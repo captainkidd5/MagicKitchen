@@ -12,35 +12,35 @@ namespace TiledEngine.Classes.ZoneStuff
 {
     public class ZoneManager : ISaveable
     {
-        public List<Zone> SpecialZones { get; private set; }
+        public Dictionary<string, List<Zone>> SpecialZones { get; private set; }
 
-        private List<Zone> _Zones;
+        private Dictionary<string,List<MusicZone>> _musicZones;
 
         public ZoneManager()
         {
-            SpecialZones = new List<Zone>();
-            _Zones = new List<Zone>();
+            SpecialZones = new Dictionary<string, List<Zone>>();
+            _musicZones = new Dictionary<string, List<MusicZone>>();
         }
 
 
         public Zone GetZone(string property, string value)
         {
-            Zone zone = SpecialZones.FirstOrDefault(x => x.Property == property && x.Value == value);
+            Zone zone = SpecialZones.FirstOrDefault(x => x.Value.Property == property && x.Value == value);
 
             if (zone == null) throw new Exception($"Unable to find zone {property} zone");
 
             return zone;
         }
-        public void LoadZones(TmxMap tmxMap)
+        public void LoadZones(TmxMap tmxMap, string mapName)
         {
             List<Zone> zonesList = LoadSpecialZones(tmxMap);
 
-            LoadMusicZones(tmxMap);
-            SpecialZones.AddRange(zonesList);
+            LoadMusicZones(tmxMap, mapName);
+            SpecialZones.Add(mapName, zonesList);
 
         }
 
-        private static List<Zone> LoadSpecialZones(TmxMap tmxMap)
+        private static List<Zone> LoadSpecialZones(TmxMap tmxMap, string mapName)
         {
             TmxObjectGroup zones;
 
@@ -53,14 +53,14 @@ namespace TiledEngine.Classes.ZoneStuff
                     (int)specialZone.X,
                     (int)specialZone.Y,
                     (int)specialZone.Width,
-                    (int)specialZone.Height));
+                    (int)specialZone.Height), mapName);
                 zonesList.Add(zone);
             }
 
             return zonesList;
         }
 
-        public void LoadMusicZones(TmxMap tmxMap)
+        public void LoadMusicZones(TmxMap tmxMap, string mapName)
         {
             TmxObjectGroup Zones;
 
@@ -73,25 +73,36 @@ namespace TiledEngine.Classes.ZoneStuff
                     (int)specialZone.X + (int)specialZone.Width / 2,
                     (int)specialZone.Y + (int)specialZone.Height / 2,
                     (int)specialZone.Width,
-                    (int)specialZone.Height));
+                    (int)specialZone.Height),mapName);
                 zonesList.Add(zone);
             }
-            _Zones.AddRange(zonesList);
+
+            _musicZones.Add(mapName, zonesList);
 
         }
         public void Save(BinaryWriter writer)
         {
             writer.Write(SpecialZones.Count);
-            foreach (Zone zone in SpecialZones)
+            foreach(var pair in SpecialZones)
             {
-                zone.Save(writer);
+                writer.Write(pair.Value.Count);
+                foreach(Zone zone in pair.Value)
+                {
+                    zone.Save(writer);
+
+                }
             }
 
-            writer.Write(_Zones.Count);
-            foreach (Zone zone in _Zones)
+            foreach (var pair in _musicZones)
             {
-                zone.Save(writer);
+                writer.Write(pair.Value.Count);
+                foreach (Zone zone in pair.Value)
+                {
+                    zone.Save(writer);
+
+                }
             }
+         
         }
         public void LoadSave(BinaryReader reader)
         {
@@ -110,7 +121,7 @@ namespace TiledEngine.Classes.ZoneStuff
             {
                 Zone zone = new Zone();
                 zone.LoadSave(reader);
-                _Zones.Add(zone);
+                _musicZones.Add(zone);
             }
 
 
@@ -119,11 +130,11 @@ namespace TiledEngine.Classes.ZoneStuff
         public void CleanUp()
         {
             SpecialZones.Clear();
-            foreach (var zone in _Zones)
+            foreach (var zone in _musicZones)
             {
                 zone.CleanUp();
             }
-            _Zones.Clear();
+            _musicZones.Clear();
         }
 
         public void SetToDefault()

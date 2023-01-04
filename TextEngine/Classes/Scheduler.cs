@@ -70,9 +70,10 @@ namespace TextEngine.Classes
         /// <param name="schedule"></param>
         /// <param name="tileManager"></param>
         /// <returns></returns>
-        public static Vector2 GetTargetFromSchedule(Schedule schedule)
+        public static Vector2 GetTargetFromSchedule(Schedule schedule, out string stageName)
         {
             //TODO Reimplement with zones
+            if(schedule.)
             return Vector2.Zero;
             // return Vector2Helper.GetWorldPositionFromTileIndex(schedule.TileX, schedule.TileY);
 

@@ -28,17 +28,15 @@ namespace EntityEngine.Classes.BehaviourStuff
     {
         private NPC _entity;
         private StatusIcon _statusIcon;
-        private Navigator _navigator;
         private TileManager _tileManager;
         private SimpleTimer _simpleTimer;
         private Schedule _activeSchedule;
 
         protected Behaviour CurrentBehaviour { get; set; }
-        public BehaviourManager(NPC entity, StatusIcon statusIcon, Navigator navigator, TileManager tileManager)
+        public BehaviourManager(NPC entity, StatusIcon statusIcon, TileManager tileManager)
         {
             _entity = entity;
             _statusIcon = statusIcon;
-            _navigator = navigator;
             _tileManager = tileManager;
         }
 
@@ -54,7 +52,7 @@ namespace EntityEngine.Classes.BehaviourStuff
         {
             if (otherEntity == _entity || otherEntity.Name == _entity.Name)
                 return;
-            _navigator.Unload();
+            _entity.ResetNavigator();
             CurrentBehaviour = new ChaseAndAttackBehaviour(this, _entity, otherEntity, _statusIcon, _tileManager, 2f);
         }
         public void Flee(Entity otherEntity)
