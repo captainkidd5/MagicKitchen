@@ -91,6 +91,9 @@ namespace EntityEngine.Classes
         public bool FlaggedForRemoval { get; set; }
 
         public HullBody DamageBody { get; protected set; }
+
+        public string CurrentStageName { get; set; }
+
         public Entity(GraphicsDevice graphics, ContentManager content) : base()
         {
             _graphics = graphics;
@@ -140,7 +143,7 @@ namespace EntityEngine.Classes
         {
 
         }
-        public virtual void LoadContent(EntityContainer container)
+        public virtual void LoadContent(EntityContainer container, string stageName)
         {
             Container = container;
             StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
@@ -155,6 +158,9 @@ namespace EntityEngine.Classes
             Navigator.Load(container.TileManager.PathGrid);
 
             InventoryHandler.SwapItemManager(Container.ItemManager);
+
+            CurrentStageName = stageName;
+            
         }
 
 

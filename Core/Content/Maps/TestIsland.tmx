@@ -1303,14 +1303,15 @@
 </data>
  </layer>
  <objectgroup id="5" name="Portal">
-  <object id="86" x="1458" y="277" width="34" height="28">
-   <properties>
-    <property name="portal" value="Hallway,TestIsland"/>
-   </properties>
-  </object>
   <object id="87" x="868" y="298" width="34" height="27">
    <properties>
+    <property name="click" value="false"/>
+    <property name="directionToFace" value="Up"/>
+    <property name="from" value="testIsland"/>
     <property name="portal" value="TestIsland,Classroom"/>
+    <property name="to" value="testIsland"/>
+    <property name="xOffSet" value="0"/>
+    <property name="yOffSet" value="0"/>
    </properties>
   </object>
  </objectgroup>

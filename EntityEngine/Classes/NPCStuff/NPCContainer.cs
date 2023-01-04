@@ -57,7 +57,7 @@ namespace EntityEngine.Classes.CharacterStuff
             foreach (NPC entity in Entities)
             {
 
-                entity.LoadContent(this, null, entity.Name, false);
+                entity.LoadContent(this, stageName, null, entity.Name, false);
             }
             _mobSpawner.Load(this, tileManager);
             RegisterCommands();

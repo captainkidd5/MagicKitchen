@@ -63,20 +63,5 @@ namespace TextEngine.Classes
 
         }
 
-        /// <summary>
-        /// Note: this DOES NOT account for the stage being different than the current stage.
-        /// </summary>
-        /// <param name="currentEntityStage"></param>
-        /// <param name="schedule"></param>
-        /// <param name="tileManager"></param>
-        /// <returns></returns>
-        public static Vector2 GetTargetFromSchedule(Schedule schedule, out string stageName)
-        {
-            //TODO Reimplement with zones
-            if(schedule.)
-            return Vector2.Zero;
-            // return Vector2Helper.GetWorldPositionFromTileIndex(schedule.TileX, schedule.TileY);
-
-        }
     }
 }

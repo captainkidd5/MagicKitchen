@@ -42,7 +42,7 @@ namespace EntityEngine.Classes
             foreach (Entity entity in Entities)
             {
 
-                entity.LoadContent(this);
+                entity.LoadContent(this, stageName);
             }
             AllStageData = allStageData;
         }

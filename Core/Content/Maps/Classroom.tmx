@@ -105,7 +105,13 @@
  <objectgroup id="5" name="Portal">
   <object id="84" x="131" y="212" width="25" height="20">
    <properties>
+    <property name="click" value="false"/>
+    <property name="directionToFace" value="Up"/>
+    <property name="from" value="Classroom"/>
     <property name="portal" value="Classroom,TestIsland"/>
+    <property name="to" value="testIsland"/>
+    <property name="xOffSet" value="0"/>
+    <property name="yOffSet" value="0"/>
    </properties>
   </object>
  </objectgroup>

@@ -895,9 +895,6 @@
 #begin Maps/FurnitureData.json
 /copy:Maps/FurnitureData.json
 
-#begin Maps/Hallway.tmx
-/copy:Maps/Hallway.tmx
-
 #begin Maps/InteriorBackground_Spaced.png
 /importer:TextureImporter
 /processor:TextureProcessor

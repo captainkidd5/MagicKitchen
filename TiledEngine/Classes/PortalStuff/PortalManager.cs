@@ -63,8 +63,8 @@ namespace TiledEngine.Classes.PortalStuff
             List<Portal> tempPortalList = new List<Portal>();
             foreach (TmxObject portal in zones.Objects)
             {
-                Portal p = Portal.GetObjectGroupPortal(portal.Properties.ElementAt(0).Value, (int)(portal.X + stageX * 16),
-                    (int)(portal.Y + stageY * 16), (int)portal.Width, (int)portal.Height);
+                Portal p = Portal.GetObjectGroupPortal(portal.Properties["portal"], (int)(portal.X + stageX * Settings.TileSize),
+                    (int)(portal.Y + stageY * Settings.TileSize), (int)portal.Width, (int)portal.Height);
 
                 tempPortalList.Add(p);
             }

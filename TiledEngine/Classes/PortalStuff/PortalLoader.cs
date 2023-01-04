@@ -30,7 +30,8 @@ namespace TiledEngine.Classes.PortalStuff
         }
 
         /// <summary>
-        /// Note: the portal dictionary sort of manually generates an enum for the stages. The actual keys generated are not specifically important, as long as they
+        /// Note: the portal dictionary sort of manually generates an enum for the stages. 
+        /// The actual keys generated are not specifically important, as long as they
         /// differentiate between stages with an int key. Each From Portal should only ever generate a key once per loadup.
         /// </summary>
         public void FillPortalGraph()
@@ -74,9 +75,15 @@ namespace TiledEngine.Classes.PortalStuff
             tmxMap.ObjectGroups.TryGetValue("Portal", out portals);
             foreach (TmxObject portal in portals.Objects)
             {
+                if (!portal.Properties.ContainsKey("from") || !portal.Properties.ContainsKey("to")
+                    || !portal.Properties.ContainsKey("xOffSet")
+                    || !portal.Properties.ContainsKey("yOffSet")
+                    || !portal.Properties.ContainsKey("directionToFace")
+                    || !portal.Properties.ContainsKey("click"))
+                    throw new Exception("Portal properties must contain 'from','to','xOffSet', 'yOffSet', 'directionToFace', and 'click' properties");
                 s_allPortalData.Add(new PortalData(new Rectangle((int)portal.X, (int)portal.Y, (int)portal.Width, (int)portal.Height),
                     portal.Properties["from"], portal.Properties["to"], int.Parse(portal.Properties["xOffSet"]), int.Parse(portal.Properties["yOffSet"]),
-                    (Direction)Enum.Parse(typeof(Direction), portal.Properties["directionToFace"]), bool.Parse(portal.Properties["Click"])));
+                    (Direction)Enum.Parse(typeof(Direction), portal.Properties["directionToFace"]), bool.Parse(portal.Properties["click"])));
             }
         }
 

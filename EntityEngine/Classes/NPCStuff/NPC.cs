@@ -59,7 +59,6 @@ namespace EntityEngine.Classes.NPCStuff
         protected HullBody ArraySensor { get; set; }
        protected HullBody ClickBox { get; set; }
 
-        public string CurrentStageName { get; set; }
         public NPC( GraphicsDevice graphics, ContentManager content) :
             base(graphics, content)
         {
@@ -71,7 +70,7 @@ namespace EntityEngine.Classes.NPCStuff
             TilePositionChanged?.Invoke(newPoint);
         }
         public bool Inspectable { get; set; }
-        public virtual void LoadContent(EntityContainer container, Vector2? startPos, string? name, bool standardAnimator = true)
+        public virtual void LoadContent(EntityContainer container,string stageName, Vector2? startPos, string? name, bool standardAnimator = true)
         {
             if (!string.IsNullOrEmpty(name))
             {
@@ -95,7 +94,7 @@ namespace EntityEngine.Classes.NPCStuff
             }
             if (name != null)
                 Name = name;
-            base.LoadContent(container);
+            base.LoadContent(container, stageName);
 
             BehaviourManager = new BehaviourManager(this, StatusIcon, Container.TileManager);
             BehaviourManager.Load();

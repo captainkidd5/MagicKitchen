@@ -114,19 +114,15 @@ namespace TiledEngine.Classes
                 TmxMap map = new TmxMap(s_mapPath + sd.Value.Path);
                 InsertCustomMapAt(mapData, new Point(sd.Value.InsertionX, sd.Value.InsertionY), map);
                 sd.Value.Load(map.Width);
-                ZoneManager.LoadZones(map);
+                ZoneManager.LoadZones(map, sd.Key);
                 Portalmanager.LoadPortalZones(map, sd.Value.InsertionX, sd.Value.InsertionY);
                 _portalLoader.LoadPortals(map);
             }
             _portalLoader.FillPortalGraph();
-            //InsertCustomMapAt(mapData, new Point(112, 112), testIsland);
-            //InsertCustomMapAt(mapData, new Point(96, 96), caravan);
-
-            //InsertCustomMapAt(mapData, new Point(24, 24), town);
-            //InsertCustomMapAt(mapData, new Point(2, 2), worldMap);
+          
 
 
-            tileManager.LoadMap(worldMap, mapData, 512, TileSetPackage);
+            tileManager.LoadMap(worldMap, mapData, worldMap.Width, TileSetPackage);
 
 
             Portalmanager.CreateNewSave(tileManager.TileData, tileManager.TileSetPackage);

@@ -59,10 +59,10 @@ namespace EntityEngine.Classes.BehaviourStuff
             {
                 _activeSchedule = Scheduler.GetScheduleFromCurrentTime(Entity.Name);
 
+                string currentStageName = Entity.CurrentStageName;
+                Vector2 targetpos = GetTargetFromSchedule( _activeSchedule, out currentStageName);
 
-                Vector2 targetpos = Scheduler.GetTargetFromSchedule( _activeSchedule);
-
-                base.GetPath(targetpos);
+                base.GetPath(targetpos, currentStageName);
 
                 if (Vector2Helper.WithinRangeOf(Entity.Position, targetpos))
                 {
@@ -75,7 +75,9 @@ namespace EntityEngine.Classes.BehaviourStuff
 
         public bool HasReachedEndOfScheduledRoute()
         {
-            return Vector2Helper.WithinRangeOf(Entity.Position, Scheduler.GetTargetFromSchedule(_activeSchedule), 16);
+            string currentStageName = Entity.CurrentStageName;
+
+            return Vector2Helper.WithinRangeOf(Entity.Position, GetTargetFromSchedule(_activeSchedule, out currentStageName), 16);
         }
 
 
@@ -84,6 +86,18 @@ namespace EntityEngine.Classes.BehaviourStuff
         {
             return base.OnCollides(fixtureA, fixtureB, contact);
         }
+        /// <summary>
+        /// Note: this DOES NOT account for the stage being different than the current stage.
+        /// </summary>
 
+        private Vector2 GetTargetFromSchedule(Schedule schedule, out string stageName)
+        {
+            //TODO Reimplement with zones
+            stageName = "";
+            //if (schedule.)
+                return Vector2.Zero;
+            // return Vector2Helper.GetWorldPositionFromTileIndex(schedule.TileX, schedule.TileY);
+
+        }
     }
 }

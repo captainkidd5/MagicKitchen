@@ -9,8 +9,8 @@ namespace TiledEngine.Classes.ZoneStuff
 {
     internal class ComplexShape : Zone
     {
-        public ComplexShape(string name, string value, Rectangle rectangle) :
-            base(name, value, rectangle)
+        public ComplexShape(string name, string value, Rectangle rectangle, string stageName) :
+            base(name, value, rectangle, stageName)
         {
         }
     }

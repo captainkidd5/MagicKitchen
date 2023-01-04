@@ -17,17 +17,9 @@
 
         "AmbientSoundPackageName":"Overworld_Outside"
     },
+
     {
         "Id":3,
-        "Name":"Hallway",
-        "Path":"Hallway.tmx",
-        "InsertionX":248,
-        "InsertionY":248,
-
-        "AmbientSoundPackageName":"Overworld_Outside"
-    },
-    {
-        "Id":4,
         "Name":"TestIsland",
         "Path":"TestIsland.tmx",
         "InsertionX":0,

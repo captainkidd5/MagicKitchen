@@ -22,7 +22,10 @@ namespace TiledEngine.Classes.ZoneStuff
             _musicZones = new Dictionary<string, List<MusicZone>>();
         }
 
-
+        /// <summary>
+        /// Searches through all maps to find specified zone with propety and value. 
+        /// Removes the need to specify which map we're looking for when trying to locate a zone
+        /// </summary>
         public Zone GetZone(string property, string value)
         {
 
@@ -98,6 +101,7 @@ namespace TiledEngine.Classes.ZoneStuff
 
                 }
             }
+            writer.Write(_musicZones.Count);
 
             foreach (var pair in _musicZones)
             {
@@ -114,7 +118,7 @@ namespace TiledEngine.Classes.ZoneStuff
         public void LoadSave(BinaryReader reader)
         {
 
-
+            CleanUp();
             int zoneDictCount = reader.ReadInt32();
             for (int j = 0; j < zoneDictCount; j++)
             {

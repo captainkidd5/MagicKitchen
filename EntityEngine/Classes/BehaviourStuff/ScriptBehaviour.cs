@@ -180,11 +180,12 @@ namespace EntityEngine.Classes.BehaviourStuff
         {
 
             Vector2 targetpos = Vector2.Zero;
-
+            //TODO: If zone is in separate stage, need to instead now locate portal which goes to that stage, 
+            //and then repeat
             if (!string.IsNullOrEmpty(_currentAction.ZoneEnd))
             {
-                Zone zone = MapLoader.ZoneManager.SpecialZones.FirstOrDefault(
-                    x => x.Property == _currentAction.ZoneStart.Split(',')[0] && x.Value == _currentAction.ZoneEnd.Split(',')[1]);
+                Zone zone = MapLoader.ZoneManager.GetZone(_currentAction.ZoneStart.Split(',')[0],
+                    _currentAction.ZoneEnd.Split(',')[1]);
 
                 if (zone == null)
                     throw new Exception($"Could not find zone {_currentAction.ZoneEnd}");
@@ -201,7 +202,9 @@ namespace EntityEngine.Classes.BehaviourStuff
 
 
 
-            base.GetPath(targetpos);
+            //if zone end isn't null, use that. Otherwise end location is in current entity stage, so use that
+            base.GetPath(targetpos, !string.IsNullOrEmpty(_currentAction.ZoneEnd) ?
+                _currentAction.ZoneEnd : Entity.CurrentStageName);
 
 
         }

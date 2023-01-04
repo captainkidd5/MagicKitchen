@@ -25,6 +25,7 @@ using EntityEngine.Classes.Generators;
 using SpriteEngine.Classes.ShadowStuff;
 using EntityEngine.ItemStuff;
 using SpriteEngine.Classes.ParticleStuff;
+using TiledEngine.Classes.ZoneStuff;
 
 namespace StageEngine.Classes
 {
@@ -180,7 +181,7 @@ namespace StageEngine.Classes
         {
             TileManager.CleanUp();
             ItemManager.CleanUp();
-
+            
             NPCContainer.CleanUp();
         }
 
