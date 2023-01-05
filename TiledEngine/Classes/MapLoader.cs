@@ -20,6 +20,7 @@ using TiledEngine.Classes.TileAddons;
 using TiledEngine.Classes.Procedural;
 using PhysicsEngine.Classes;
 using TiledEngine.Classes.PortalStuff;
+using MonoGame.Extended.Timers;
 
 namespace TiledEngine.Classes
 {
@@ -96,12 +97,8 @@ namespace TiledEngine.Classes
         }
 
 
-        /// <summary>
-        /// This should only be called ONCE per stage, per save file.
-        /// First load loads all the tiles in from the TMX maps, from then on
-        /// all the tiles will be loaded with the binary reader
-        /// </summary>
-        public static void AssimilateStage(GraphicsDevice graphics, StageData stageData, ContentManager content)
+     
+        public static TileManager CreateTileManagerFromTmxMap(GraphicsDevice graphics, StageData stageData, ContentManager content)
         {
             TmxMap map = new TmxMap(s_mapPath + stageData.Path);
 
@@ -127,10 +124,18 @@ namespace TiledEngine.Classes
             s_proceduralPlacer.AddClusterTiles(tileManager);
 
             TileManagers.Add(stageData.Name, tileManager);
-
+            return tileManager;
         }
 
+        public static void Update(GameTime gameTime, StageData stageData)
+        {
+            TileManagers[stageData.Name].Update(gameTime);
+        }
+        public static void Draw(SpriteBatch spriteBatch, StageData stageData)
+        {
+            TileManagers[stageData.Name].Draw(spriteBatch);
 
+        }
         /// <summary>
         /// Generates the first iteration of the background layer of the entire map
         /// </summary>

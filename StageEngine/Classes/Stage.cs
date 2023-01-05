@@ -43,7 +43,6 @@ namespace StageEngine.Classes
 
 
         private string _ambientSoundPackageName => _stageData.AmbientSoundPackageName;
-        internal TileManager TileManager { get; private set; }
         private Rectangle MapRectangle { get; set; }
 
         private string _pathExtension => Name + ".dat";
@@ -53,10 +52,10 @@ namespace StageEngine.Classes
         private Player Player1 => _playerManager.Player1;
 
 
-        private PathGrid _pathGrid => TileManager.PathGrid;
 
         internal bool CamLock = true;
 
+        private TileManager _tileManager;
         public List<ILightDrawable> LightDrawables { get; set; }
 
         private FlotsamGenerator _flotsamGenerator;
@@ -76,14 +75,13 @@ namespace StageEngine.Classes
             _stageData = stageData;
             NPCContainer = new NPCContainer(_graphics, _content);
 
-            TileManager = new TileManager(_graphics, _content, _camera);
+            _tileManager = MapLoader.CreateTileManagerFromTmxMap(_graphics, _stageData, _content);
 
-            ItemManager = new ItemManager(Name, TileManager);
+            ItemManager = new ItemManager(Name, _tileManager);
 
-            _flotsamGenerator = new FlotsamGenerator(ItemManager, TileManager);
+            _flotsamGenerator = new FlotsamGenerator(ItemManager, _tileManager);
             _playerManager = playerManager;
-            LightDrawables = new List<ILightDrawable>() { TileManager, NPCContainer, _playerManager };
-
+            LightDrawables = new List<ILightDrawable>() { _tileManager, NPCContainer, _playerManager };
         }
 
         public void Update(GameTime gameTime)
@@ -91,8 +89,7 @@ namespace StageEngine.Classes
             Clock.Update(gameTime);
             _camera.Follow(Player1.Position, MapRectangle);
 
-            TileManager.Update(gameTime);
-
+            MapLoader.Update(gameTime, _stageData);
             ItemManager.Update(gameTime);
             _flotsamGenerator.Update(gameTime);
 
@@ -107,13 +104,13 @@ namespace StageEngine.Classes
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: _camera.GetTransform(_graphics));
             _graphics.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
-            TileManager.Draw(spriteBatch);
+            MapLoader.Draw(spriteBatch, _stageData);
             ItemManager.Draw(spriteBatch);
             _playerManager.Draw(spriteBatch);
             NPCContainer.Draw(spriteBatch);
 #if DEBUG
-            if (SettingsManager.DebugGrid)
-                _pathGrid.DrawDebug(spriteBatch);
+           // if (SettingsManager.DebugGrid)
+                //_pathGrid.DrawDebug(spriteBatch);
 #endif
             ParticleManager.Draw(spriteBatch);
 
@@ -129,7 +126,7 @@ namespace StageEngine.Classes
 
         public void CreateNewSave()
         {
-            MapRectangle = TileManager.MapRectangle;
+            MapRectangle = _tileManager.MapRectangle;
 
             SaveToStageFile();
         }
@@ -151,14 +148,14 @@ namespace StageEngine.Classes
             BinaryReader stageReader = SaveLoadManager.GetCurrentSaveFileReader(@"\Stages\" + _pathExtension);
             LoadSave(stageReader);
             SaveLoadManager.DestroyReader(stageReader);
-            MapRectangle = TileManager.MapRectangle;
+            MapRectangle = _tileManager.MapRectangle;
 
 
         }
 
         public void Save(BinaryWriter writer)
         {
-            TileManager.Save(writer);
+            _tileManager.Save(writer);
             ItemManager.Save(writer);
             NPCContainer.Save(writer);
 
@@ -166,9 +163,9 @@ namespace StageEngine.Classes
 
         public void LoadSave(BinaryReader reader)
         {
-            TileManager.LoadSave(reader);
+            _tileManager.LoadSave(reader);
             ItemManager.LoadSave(reader);
-            NPCContainer.LoadContent(Name, TileManager, ItemManager, StageManager.AllStageData);
+            NPCContainer.LoadContent(Name, _tileManager, ItemManager, StageManager.AllStageData);
 
             NPCContainer.LoadSave(reader);
 
@@ -176,7 +173,7 @@ namespace StageEngine.Classes
 
         public void CleanUp()
         {
-            TileManager.CleanUp();
+            _tileManager.CleanUp();
             ItemManager.CleanUp();
             
             NPCContainer.CleanUp();
@@ -184,7 +181,7 @@ namespace StageEngine.Classes
 
         public void SetToDefault()
         {
-            TileManager?.SetToDefault();
+            _tileManager?.SetToDefault();
             ItemManager?.SetToDefault();
             NPCContainer?.SetToDefault();
             if (ItemManager != null)

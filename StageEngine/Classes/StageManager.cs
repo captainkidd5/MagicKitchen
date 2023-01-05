@@ -97,7 +97,7 @@ namespace StageEngine.Classes
 
             //CurrentStage.Load(stageData, this, _playerManager);
             //CurrentStage.SaveToStageFile();
-            _playerManager.LoadContent("TestIsland", CurrentStage.TileManager, CurrentStage.ItemManager, AllStageData);
+            _playerManager.LoadContent("TestIsland", MapLoader.TileManagers["TestIsland"], CurrentStage.ItemManager, AllStageData);
 
             Flags.Pause = true;
 
@@ -170,11 +170,11 @@ namespace StageEngine.Classes
 
         public void LoadSave(BinaryReader reader)
         {
+            MapLoader.LoadContent(content);
+            LoadStages();
 
-            StageData stageData = AllStageData["TestIsland"];
-            CurrentStage = new Stage(content, graphics, _camera);
+            CurrentStage = _allStages["TestIsland"];
 
-            CurrentStage.Load(stageData, this, _playerManager);
             CurrentStage.LoadFromStageFile();
 
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
@@ -183,21 +183,24 @@ namespace StageEngine.Classes
         public void CreateNewSave(BinaryWriter writer)
         {
             SetToDefault();
-
-            foreach (var kvp in AllStageData)
-            {
-               StageData stageData = kvp.Value;
-                Stage stage = new Stage(content, graphics, _camera);
-                stage.Load(stageData, this, _playerManager);
-                MapLoader.AssimilateStage(stageData, stage.TileManager, content);
-                _allStages.Add(stageData.Name, stage);
-            }
-
+            LoadStages();
 
             CurrentStage = _allStages["TestIsland"];
-            CurrentStage.CreateNewSave(AllStageData);
+            CurrentStage.CreateNewSave();
             _playerManager.Save(writer);
 
+        }
+
+        private void LoadStages()
+        {
+            _allStages.Clear();
+            foreach (var kvp in AllStageData)
+            {
+                StageData stageData = kvp.Value;
+                Stage stage = new Stage(content, graphics, _camera);
+                stage.Load(stageData, this, _playerManager);
+                _allStages.Add(stageData.Name, stage);
+            }
         }
 
         public void CleanUp()

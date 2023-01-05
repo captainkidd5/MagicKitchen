@@ -16,6 +16,15 @@
         "InsertionY":15,
 
         "AmbientSoundPackageName":"Overworld_Outside"
+    },
+    {
+        "Id":3,
+        "Name":"RamenShop",
+        "Path":"RamenShop.tmx",
+        "InsertionX":0,
+        "InsertionY":0,
+
+        "AmbientSoundPackageName":"Overworld_Outside"
     }
 
   

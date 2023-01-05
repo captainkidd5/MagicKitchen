@@ -943,6 +943,9 @@
 #begin Maps/ProceduralData/PoissonData.json
 /copy:Maps/ProceduralData/PoissonData.json
 
+#begin Maps/RamenShop.tmx
+/copy:Maps/RamenShop.tmx
+
 #begin Maps/StageData.json
 /copy:Maps/StageData.json
 
