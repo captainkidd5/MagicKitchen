@@ -42,6 +42,8 @@ namespace StageEngine.Classes
 
         public Stage CurrentStage { get; private set; }
 
+        private Dictionary<string,Stage> _allStages { get; set; }
+
         private HullBody _playAreaBody;
         private HullBody _spawnAreaBody;
 
@@ -54,6 +56,7 @@ namespace StageEngine.Classes
             _playerManager = playerManager;
 
             _camera = camera;
+            _allStages = new Dictionary<string, Stage>();
             CurrentStage = new Stage(content, graphics, _camera);
 
         }
@@ -181,7 +184,15 @@ namespace StageEngine.Classes
         {
             SetToDefault();
 
-            CurrentStage = new Stage(content, graphics, _camera);
+            foreach (var kvp in AllStageData)
+            {
+               StageData stageData = kvp.Value;
+                Stage stage = new Stage(content, graphics, _camera);
+                stage.Load(stageData, this, _playerManager);
+                MapLoader.AssimilateStage(stageData, stage.TileManager, content);
+                _allStages.Add(stageData.Name, stage);
+            }
+
 
             CurrentStage.Load(AllStageData["TestIsland"], this, _playerManager);
 

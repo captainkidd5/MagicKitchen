@@ -126,12 +126,9 @@ namespace StageEngine.Classes
             for (int i = 0; i < LightDrawables.Count; i++)
                 LightDrawables[i].DrawLights(spriteBatch);
         }
-        /// <summary>
-        /// Loads tiles into memory, then saves them, from tmx map. Should only be called ONCE per stage, per save
-        /// </summary>
-        public void CreateNewSave(Dictionary<string, StageData> allStageData)
+
+        public void CreateNewSave()
         {
-            MapLoader.CreateNewSave(allStageData, TileManager, _content);
             MapRectangle = TileManager.MapRectangle;
 
             SaveToStageFile();

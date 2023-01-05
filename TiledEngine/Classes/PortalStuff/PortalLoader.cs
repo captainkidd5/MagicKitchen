@@ -68,7 +68,7 @@ namespace TiledEngine.Classes.PortalStuff
         /// <summary>
         /// Grabs all of the objects from tmx map LAYER "Portal"
         /// </summary>
-        internal void LoadPortals(TmxMap tmxMap)
+        internal void AssimilatePortalObjectLayer(TmxMap tmxMap)
         {
             TmxObjectGroup portals;
 

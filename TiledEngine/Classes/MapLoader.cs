@@ -97,67 +97,35 @@ namespace TiledEngine.Classes
         /// First load loads all the tiles in from the TMX maps, from then on
         /// all the tiles will be loaded with the binary reader
         /// </summary>
-        public static void CreateNewSave(Dictionary<string, StageData> stageData, TileManager tileManager, ContentManager content)
+        public static void AssimilateStage( StageData stageData, TileManager tileManager, ContentManager content)
         {
-            TmxMap worldMap = new TmxMap(s_mapPath + stageData["TestIsland"].Path);
-            //TmxMap town = new TmxMap(s_mapPath + stageData["HomeIsland"].Path);
-            //TmxMap caravan = new TmxMap(s_mapPath + stageData["Caravan"].Path);
-            //TmxMap testIsland = new TmxMap(s_mapPath + stageData["TestIsland"].Path);
+            TmxMap map = new TmxMap(s_mapPath + stageData.Path);
+   
 
-
-            List<TileData[,]> mapData = ExtractTilesFromPreloadedMap(tileManager, worldMap);
-          //  mapData = GenerateEmptyMapArray(tileManager, worldMap, (int)s_currentWorldSize);
-            //mapData[0] = GenerateAutomataLayer((int)s_currentWorldSize);
-
-            foreach(var sd in stageData)
-            {
-                TmxMap map = new TmxMap(s_mapPath + sd.Value.Path);
-                InsertCustomMapAt(mapData, new Point(sd.Value.InsertionX, sd.Value.InsertionY), map);
-                sd.Value.Load(map.Width);
-                ZoneManager.LoadZones(map, sd.Key);
-                Portalmanager.LoadPortalZones(map, sd.Value.InsertionX, sd.Value.InsertionY);
-                _portalLoader.LoadPortals(map);
-            }
+            List<TileData[,]> mapData = ExtractTilesFromPreloadedMap(tileManager, map);
+         
+           
+               // InsertCustomMapAt(mapData, new Point(stageData.InsertionX, stageData.InsertionY), map);
+            stageData.Load(map.Width);
+                ZoneManager.LoadZones(map, stageData.Name);
+                Portalmanager.LoadPortalZones(map, stageData.InsertionX, stageData.InsertionY);
+                _portalLoader.AssimilatePortalObjectLayer(map);
+            
             _portalLoader.FillPortalGraph();
           
 
 
-            tileManager.LoadMap(worldMap, mapData, worldMap.Width, TileSetPackage);
+            tileManager.LoadMap(map, mapData, map.Width, TileSetPackage);
 
 
             Portalmanager.CreateNewSave(tileManager.TileData, tileManager.TileSetPackage);
 
 
                         s_proceduralPlacer.AddClusterTiles(tileManager);
-            //s_proceduralPlacer.AddPoissonTiles(tileManager);
 
         }
 
-        private static void InsertCustomMapAt(List<TileData[,]> fullMapData, Point insertionPoint, TmxMap map)
-        {
-            List<TmxLayer> allLayers = new List<TmxLayer>()
-            {
-                map.TileLayers["background"],
-            map.TileLayers["midground"],
-           map.TileLayers["buildings"],
-           map.TileLayers["foreground"],
-           map.TileLayers["front"]
-        };
-
-            for (int i = 0; i < MapDepths.Length; i++)
-            {
-                foreach (TmxLayerTile layerNameTile in allLayers[i].Tiles)
-                {
-             
-                    fullMapData[i][insertionPoint.X + layerNameTile.X, insertionPoint.Y + layerNameTile.Y] =
-                                          new TileData((ushort)layerNameTile.Gid, (ushort)(insertionPoint.X + layerNameTile.X),
-                                          (ushort)(insertionPoint.Y + layerNameTile.Y), (Layers)i);
-
-
-                }
-
-            }
-        }
+        
         /// <summary>
         /// Generates the first iteration of the background layer of the entire map
         /// </summary>

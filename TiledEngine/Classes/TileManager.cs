@@ -102,20 +102,10 @@ namespace TiledEngine.Classes
 
             TileData = tiles;
             TileSelectorSprite = SpriteFactory.CreateWorldSprite(Vector2.Zero, TileSelectorSourceRectangle, TileSetPackage.BackgroundSpriteSheet);
-            AssignProperties();
-
-        }
-
-
-      
-
-        private void AssignProperties()
-        {
-
             MapRectangle = new Rectangle(0, 0, Settings.TileSize * MapWidth, Settings.TileSize * MapWidth);
 
-            
         }
+
 
 
 

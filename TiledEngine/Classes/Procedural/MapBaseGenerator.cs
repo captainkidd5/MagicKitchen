@@ -54,5 +54,31 @@ namespace TiledEngine.Classes.Procedural
 
             return tileDataToReturn;
         }
+
+        private static void InsertCustomMapAt(List<TileData[,]> fullMapData, Point insertionPoint, TmxMap map)
+        {
+            List<TmxLayer> allLayers = new List<TmxLayer>()
+            {
+                map.TileLayers["background"],
+            map.TileLayers["midground"],
+           map.TileLayers["buildings"],
+           map.TileLayers["foreground"],
+           map.TileLayers["front"]
+        };
+
+            for (int i = 0; i < MapDepths.Length; i++)
+            {
+                foreach (TmxLayerTile layerNameTile in allLayers[i].Tiles)
+                {
+
+                    fullMapData[i][insertionPoint.X + layerNameTile.X, insertionPoint.Y + layerNameTile.Y] =
+                                          new TileData((ushort)layerNameTile.Gid, (ushort)(insertionPoint.X + layerNameTile.X),
+                                          (ushort)(insertionPoint.Y + layerNameTile.Y), (Layers)i);
+
+
+                }
+
+            }
+        }
     }
 }
