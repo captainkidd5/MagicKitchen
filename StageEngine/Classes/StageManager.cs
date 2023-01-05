@@ -194,8 +194,7 @@ namespace StageEngine.Classes
             }
 
 
-            CurrentStage.Load(AllStageData["TestIsland"], this, _playerManager);
-
+            CurrentStage = _allStages["TestIsland"];
             CurrentStage.CreateNewSave(AllStageData);
             _playerManager.Save(writer);
 

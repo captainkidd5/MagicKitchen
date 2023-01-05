@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using static DataModels.Enums;
 using TiledEngine.Classes.TileAddons;
 using TiledSharp;
+using Microsoft.Xna.Framework;
 
 namespace TiledEngine.Classes.Procedural
 {
@@ -66,7 +67,7 @@ namespace TiledEngine.Classes.Procedural
            map.TileLayers["front"]
         };
 
-            for (int i = 0; i < MapDepths.Length; i++)
+            for (int i = 0; i < MapLoader.MapDepths.Length; i++)
             {
                 foreach (TmxLayerTile layerNameTile in allLayers[i].Tiles)
                 {
