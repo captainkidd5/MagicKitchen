@@ -25,7 +25,7 @@ namespace TiledEngine.Classes
 {
     public enum WorldSize
     {
-        None =0,
+        None = 0,
         Small = 512,
         Medium = 1024,
         Large = 2048,
@@ -61,14 +61,18 @@ namespace TiledEngine.Classes
         private static PortalLoader _portalLoader;
         public static bool HasEdge(string stageFromName, string stageToName) => _portalLoader.HasEdge(stageFromName, stageToName);
         public static string GetNextNodeStageName(string stageFromName, string stageToName) => _portalLoader.GetNextNodeStageName(stageFromName, stageToName);
-        public static Rectangle GetNextPortalRectangle(string stageFrom, string stageTo) => 
+        public static Rectangle GetNextPortalRectangle(string stageFrom, string stageTo) =>
             _portalLoader.GetNextPortalRectangle(stageFrom, stageTo);
+
+
+        public static Dictionary<string, TileManager> TileManagers;
 
         // <summary>
         /// This should only be called ONCE per save file.
         /// </summary>
         public static void LoadContent(ContentManager content)
         {
+            TileManagers = new Dictionary<string, TileManager>();
             s_currentWorldSize = WorldSize.Small;
             s_proceduralPlacer = new ProceduralPlacer();
             s_proceduralPlacer.Load(content);
@@ -85,7 +89,7 @@ namespace TiledEngine.Classes
             FurnitureLoader = new FurnitureLoader();
             FurnitureLoader.LoadContent(content);
             Portalmanager = new PortalManager();
-             ZoneManager = new ZoneManager();
+            ZoneManager = new ZoneManager();
 
             _portalLoader = new PortalLoader();
 
@@ -97,22 +101,21 @@ namespace TiledEngine.Classes
         /// First load loads all the tiles in from the TMX maps, from then on
         /// all the tiles will be loaded with the binary reader
         /// </summary>
-        public static void AssimilateStage( StageData stageData, TileManager tileManager, ContentManager content)
+        public static void AssimilateStage(GraphicsDevice graphics, StageData stageData, ContentManager content)
         {
             TmxMap map = new TmxMap(s_mapPath + stageData.Path);
-   
 
+            TileManager tileManager = new TileManager(graphics, content, Camera);
             List<TileData[,]> mapData = ExtractTilesFromPreloadedMap(tileManager, map);
-         
-           
-               // InsertCustomMapAt(mapData, new Point(stageData.InsertionX, stageData.InsertionY), map);
+
+
             stageData.Load(map.Width);
-                ZoneManager.LoadZones(map, stageData.Name);
-                Portalmanager.LoadPortalZones(map, stageData.InsertionX, stageData.InsertionY);
-                _portalLoader.AssimilatePortalObjectLayer(map);
-            
+            ZoneManager.LoadZones(map, stageData.Name);
+            Portalmanager.LoadPortalZones(map, stageData.InsertionX, stageData.InsertionY);
+            _portalLoader.AssimilatePortalObjectLayer(map);
+
             _portalLoader.FillPortalGraph();
-          
+
 
 
             tileManager.LoadMap(map, mapData, map.Width, TileSetPackage);
@@ -121,17 +124,19 @@ namespace TiledEngine.Classes
             Portalmanager.CreateNewSave(tileManager.TileData, tileManager.TileSetPackage);
 
 
-                        s_proceduralPlacer.AddClusterTiles(tileManager);
+            s_proceduralPlacer.AddClusterTiles(tileManager);
+
+            TileManagers.Add(stageData.Name, tileManager);
 
         }
 
-        
+
         /// <summary>
         /// Generates the first iteration of the background layer of the entire map
         /// </summary>
         /// <param name="mapWidth"></param>
         /// <returns></returns>
-      
+
         /// <summary>
         /// Create new tiles based on tiles found in TMX map file. This should
         /// only be done once per map per save.
@@ -157,7 +162,7 @@ namespace TiledEngine.Classes
             return tilesToReturn;
         }
 
-       
+
 
     }
 }
