@@ -181,7 +181,6 @@ namespace StageEngine.Classes
         {
             SetToDefault();
 
-            // StageData stageData = content.Load<StageData>("maps/StageData");
             CurrentStage = new Stage(content, graphics, _camera);
 
             CurrentStage.Load(AllStageData["TestIsland"], this, _playerManager);
