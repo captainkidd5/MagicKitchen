@@ -15,7 +15,8 @@ namespace TiledEngine.Classes.PortalStuff
     public class PortalManager : ISaveable
     {
 
-        public List<Portal> AllPortals { get; private set; }
+        public List<Portal> AllPortals { get; 
+            private set; }
 
         internal PortalManager()
         {

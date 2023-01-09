@@ -58,7 +58,6 @@ namespace StageEngine.Classes
 
             _camera = camera;
             _allStages = new Dictionary<string, Stage>();
-            CurrentStage = new Stage(content, graphics, _camera);
 
         }
 
@@ -100,7 +99,7 @@ namespace StageEngine.Classes
             CurrentStage = _allStages[newStage];
             CurrentStage.LoadFromStageFile();
 
-            _playerManager.LoadContent("TestIsland", MapLoader.TileManagers["TestIsland"], CurrentStage.ItemManager, AllStageData);
+            _playerManager.LoadContent(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager, AllStageData);
             foreach (Portal p in MapLoader.Portalmanager.AllPortals)
             {
                 p.PortalClicked += OnPortalClicked;
@@ -176,12 +175,23 @@ namespace StageEngine.Classes
 
         public void LoadSave(BinaryReader reader)
         {
+            SetToDefault();
+
             MapLoader.LoadContent(content);
-            LoadStages();
+            InitializeStages();
 
             CurrentStage = _allStages["TestIsland"];
-
-            CurrentStage.LoadFromStageFile();
+            foreach(var kvp in _allStages)
+            {
+              
+                    //Loading from stage file will add necessary portal data to map loader
+                    kvp.Value.LoadFromStageFile();
+                if (kvp.Value != CurrentStage)
+                {
+                    kvp.Value.CleanUp();
+                }
+              
+            }
             //TODO
             //Do we need to unsubscribe from these somewhere on exiting game and loading separate save?
             foreach (Portal p in MapLoader.Portalmanager.AllPortals)
@@ -194,30 +204,29 @@ namespace StageEngine.Classes
         public void CreateNewSave(BinaryWriter writer)
         {
             SetToDefault();
-            LoadStages();
+            InitializeStages();
             foreach(KeyValuePair<string, Stage> kvp in _allStages)
             {
                 kvp.Value.CreateNewSave();
             }
             CurrentStage = _allStages["TestIsland"];
-            CurrentStage.CreateNewSave();
             _playerManager.Save(writer);
 
         }
 
-        private void LoadStages()
+        private void InitializeStages()
         {
             _allStages.Clear();
             foreach (var kvp in AllStageData)
             {
                 StageData stageData = kvp.Value;
-                Stage stage = new Stage(content, graphics, _camera);
-                stage.Load(stageData, this, _playerManager);
+                Stage stage = new Stage(content, graphics, _camera, stageData, this, _playerManager);
                 _allStages.Add(stageData.Name, stage);
+                MapLoader.TileManagers.Add(stage.Name, stage.TileManager);
             }
 
           
-            MapLoader.LastPass();
+            MapLoader.FillPortalGraph();
 
         }
         void OnPortalClicked(Portal p)
@@ -239,7 +248,11 @@ namespace StageEngine.Classes
 
         public void SetToDefault()
         {
-            CurrentStage?.SetToDefault();
+            foreach (KeyValuePair<string, Stage> kvp in _allStages)
+            {
+                kvp.Value.SetToDefault();
+            }
+            MapLoader.TileManagers.Clear();
             _playerManager.SetToDefault();
 
         }

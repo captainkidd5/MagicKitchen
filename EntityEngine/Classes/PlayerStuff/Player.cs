@@ -94,7 +94,7 @@ namespace EntityEngine.Classes.PlayerStuff
 
         }
 
-        public override void LoadContent(EntityContainer entityContainer , Vector2? startPos, string? name, bool standardAnimator = false)
+        public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string? name, bool standardAnimator = false)
         {
             base.LoadContent(entityContainer, startPos, name, standardAnimator);
             // UI.LoadPlayerInventory(StorageContainer);
@@ -129,11 +129,11 @@ namespace EntityEngine.Classes.PlayerStuff
             Shadow = new Shadow(SpriteEngine.Classes.ShadowStuff.ShadowType.NPC, CenteredPosition, ShadowSize.Small, SpriteFactory.NPCSheet);
 
 
-   
+
 
         }
 
-  
+
 
         /// <summary>
         /// When player dies, do this
@@ -284,7 +284,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void Update(GameTime gameTime)
         {
             Resume();
-            if(UI.Cursor.CursorIconType == CursorIconType.Door)
+            if (UI.Cursor.CursorIconType == CursorIconType.Door)
             {
                 if (Controls.IsClickedWorld)
                 {
@@ -471,7 +471,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.CleanUp();
             StorageCapacity = 24;
-           
+
         }
         protected override void UpdateLights(GameTime gameTime)
         {
@@ -523,8 +523,18 @@ namespace EntityEngine.Classes.PlayerStuff
                 if (fixtureB.Body.Tag != null && (fixtureB.Body.Tag as LightCollidable).RestoresLumens)
                     LightsTouching.Add(fixtureB);
             }
+            if (fixtureB.CollisionCategories == ((Category)PhysCat.Portal))
+            {
 
-   
+                if (!(fixtureB.Body.Tag as Portal).MustBeClicked)
+                {
+                    (fixtureB.Body.Tag as Portal).OnPortalClicked();
+
+                }
+            }
+
+
+
             return base.OnCollides(fixtureA, fixtureB, contact);
         }
 

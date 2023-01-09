@@ -188,7 +188,7 @@
     <property name="click" value="false"/>
     <property name="directionToFace" value="Down"/>
     <property name="from" value="RamenShop"/>
-    <property name="portal" value="RamenShop,TestIsland"/>
+    <property name="portal" value="RamenShop,TestIsland,false"/>
     <property name="to" value="TestIsland"/>
     <property name="xOffSet" value="0"/>
     <property name="yOffSet" value="0"/>

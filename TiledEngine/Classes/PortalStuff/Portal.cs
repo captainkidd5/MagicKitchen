@@ -22,20 +22,22 @@ namespace TiledEngine.Classes.PortalStuff
         public event PortalClicked PortalClicked;
         public Rectangle Rectangle { get; set; }
 
+        public bool MustBeClicked { get; private set; }
         public Portal()
         {
 
         }
-        protected virtual void OnPortalClicked()
+        public virtual void OnPortalClicked()
         {
             PortalClicked?.Invoke(this);
         }
-        public Portal(string from, string to, Rectangle rectangle)
+        public Portal(string from, string to, Rectangle rectangle, bool mustBeClicked)
         {
             From = from;
             To = to;
             Rectangle = rectangle;
             CreateBody(Vector2.Zero);
+            MustBeClicked = mustBeClicked;
 
         }
         public string From { get; private set; }
@@ -53,8 +55,10 @@ namespace TiledEngine.Classes.PortalStuff
             string to = splitString[1];
             int width = int.Parse(splitString[2]);
             int height = int.Parse(splitString[3]);
+            bool mustBeClicked = bool.Parse(splitString[4]);
 
-            return new Portal(from, to, new Rectangle(x * 16, y * 16, width, height));
+
+            return new Portal(from, to, new Rectangle(x * 16, y * 16, width, height), mustBeClicked);
         }
         /// <summary>
         /// For object zones
@@ -65,8 +69,8 @@ namespace TiledEngine.Classes.PortalStuff
             string[] splitString = unparsedString.Split(',');
             string from = splitString[0];
             string to = splitString[1];
-
-            return new Portal(from, to, new Rectangle(x, y, width, height));
+            bool mustBeClicked = bool.Parse(splitString[2]);
+            return new Portal(from, to, new Rectangle(x, y, width, height), mustBeClicked);
         }
         public void LoadSave(BinaryReader reader)
         {
@@ -96,7 +100,7 @@ namespace TiledEngine.Classes.PortalStuff
             if (MainHullBody != null)
                 MainHullBody.Position = Position;
 
-            if (WithinRangeOfPlayer(Controls.ControllerConnected))
+            if (MustBeClicked && WithinRangeOfPlayer(Controls.ControllerConnected))
             {
                 if (IsHovered(Controls.ControllerConnected))
                 {

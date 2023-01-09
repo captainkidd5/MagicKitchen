@@ -55,33 +55,42 @@ namespace StageEngine.Classes
 
         internal bool CamLock = true;
 
-        private TileManager _tileManager;
+        public TileManager TileManager { get; private set; }
         public List<ILightDrawable> LightDrawables { get; set; }
 
         private FlotsamGenerator _flotsamGenerator;
         public Stage(ContentManager content,
-            GraphicsDevice graphics, Camera2D camera)
+            GraphicsDevice graphics, Camera2D camera, StageData stageData,
+            StageManager stageManager, PlayerManager playerManager)
         {
 
             _content = content;
             _graphics = graphics;
             _camera = camera;
 
-
-        }
-
-        public void Load(StageData stageData, StageManager stageManager, PlayerManager playerManager)
-        {
             _stageData = stageData;
             NPCContainer = new NPCContainer(_graphics, _content);
-            _tileManager = new TileManager(_graphics, _content, _camera);
+            TileManager = new TileManager(_graphics, _content, _camera);
 
-            ItemManager = new ItemManager(Name, _tileManager);
+            ItemManager = new ItemManager(Name, TileManager);
 
-            _flotsamGenerator = new FlotsamGenerator(ItemManager, _tileManager);
+            _flotsamGenerator = new FlotsamGenerator(ItemManager, TileManager);
             _playerManager = playerManager;
-            LightDrawables = new List<ILightDrawable>() { _tileManager, NPCContainer, _playerManager };
+            LightDrawables = new List<ILightDrawable>() { TileManager, NPCContainer, _playerManager };
         }
+
+        //public void Load(StageData stageData, StageManager stageManager, PlayerManager playerManager)
+        //{
+        //    _stageData = stageData;
+        //    NPCContainer = new NPCContainer(_graphics, _content);
+        //    _tileManager = new TileManager(_graphics, _content, _camera);
+
+        //    ItemManager = new ItemManager(Name, _tileManager);
+
+        //    _flotsamGenerator = new FlotsamGenerator(ItemManager, _tileManager);
+        //    _playerManager = playerManager;
+        //    LightDrawables = new List<ILightDrawable>() { _tileManager, NPCContainer, _playerManager };
+        //}
 
         public void Update(GameTime gameTime)
         {
@@ -125,9 +134,9 @@ namespace StageEngine.Classes
 
         public void CreateNewSave()
         {
-            _tileManager = MapLoader.CreateTileManagerFromTmxMap(_graphics, _stageData, _content);
+            TileManager = MapLoader.CreateTileManagerFromTmxMap(_graphics, _stageData, _content);
 
-            MapRectangle = _tileManager.MapRectangle;
+            MapRectangle = TileManager.MapRectangle;
 
             SaveToStageFile();
         }
@@ -149,14 +158,14 @@ namespace StageEngine.Classes
             BinaryReader stageReader = SaveLoadManager.GetCurrentSaveFileReader(@"\Stages\" + _pathExtension);
             LoadSave(stageReader);
             SaveLoadManager.DestroyReader(stageReader);
-            MapRectangle = _tileManager.MapRectangle;
+            MapRectangle = TileManager.MapRectangle;
 
 
         }
 
         public void Save(BinaryWriter writer)
         {
-            _tileManager.Save(writer);
+            TileManager.Save(writer);
             ItemManager.Save(writer);
             NPCContainer.Save(writer);
 
@@ -164,9 +173,9 @@ namespace StageEngine.Classes
 
         public void LoadSave(BinaryReader reader)
         {
-            _tileManager.LoadSave(reader);
+            TileManager.LoadSave(reader);
             ItemManager.LoadSave(reader);
-            NPCContainer.LoadContent(Name, _tileManager, ItemManager, StageManager.AllStageData);
+            NPCContainer.LoadContent(Name, TileManager, ItemManager, StageManager.AllStageData);
 
             NPCContainer.LoadSave(reader);
 
@@ -174,7 +183,7 @@ namespace StageEngine.Classes
 
         public void CleanUp()
         {
-            _tileManager.CleanUp();
+            TileManager.CleanUp();
             ItemManager.CleanUp();
             
             NPCContainer.CleanUp();
@@ -182,7 +191,7 @@ namespace StageEngine.Classes
 
         public void SetToDefault()
         {
-            _tileManager?.SetToDefault();
+            TileManager?.SetToDefault();
             ItemManager?.SetToDefault();
             NPCContainer?.SetToDefault();
             if (ItemManager != null)

@@ -122,11 +122,10 @@ namespace TiledEngine.Classes
 
             s_proceduralPlacer.AddClusterTiles(tileManager);
 
-            TileManagers.Add(stageData.Name, tileManager);
             return tileManager;
         }
 
-        public static void LastPass()
+        public static void FillPortalGraph()
         {
             _portalLoader.FillPortalGraph();
 
