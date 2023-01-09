@@ -416,6 +416,8 @@ namespace UIEngine.Classes
         public static void DropCurtain(float rate, Action actionOnDrop) => Curtain.FadeIn(rate, actionOnDrop);
         public static void RaiseCurtain(float rate) => Curtain.FadeOut(rate);
 
+        public static bool IsCurtainRaised => Curtain.IsCurtainRaised;
+
         /// <summary>
         /// Returns a float value which is at least slightly larger than the given layerDepth
         /// </summary>

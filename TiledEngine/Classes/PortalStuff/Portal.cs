@@ -33,6 +33,10 @@ namespace TiledEngine.Classes.PortalStuff
         {
 
         }
+        public override void CleanUp()
+        {
+            base.CleanUp();
+        }
         public virtual void OnPortalClicked()
         {
             PortalClicked?.Invoke(this);
@@ -159,8 +163,8 @@ namespace TiledEngine.Classes.PortalStuff
             }
             else if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Player))
             {
-                Console.WriteLine("test");
-                OnPortalClicked();
+                if(UI.IsCurtainRaised)
+                    OnPortalClicked();
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
         }

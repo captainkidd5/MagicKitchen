@@ -58,6 +58,8 @@ namespace TiledEngine.Classes.PortalStuff
                         if (!string.IsNullOrEmpty(val))
                         {
                             Portal portal = Portal.GetPortal(val, x, y);
+                            AlreadyContainsMatchingPortal(portal);
+
                             AllPortals.Add(portal);
                         }
                     }
@@ -74,7 +76,7 @@ namespace TiledEngine.Classes.PortalStuff
             {
                 Portal p = Portal.GetObjectGroupPortal(portal.Properties["portal"], (int)(portal.X + stageX * Settings.TileSize),
                     (int)(portal.Y + stageY * Settings.TileSize), (int)portal.Width, (int)portal.Height);
-
+                AlreadyContainsMatchingPortal(p);
                 tempPortalList.Add(p);
             }
 
@@ -82,6 +84,13 @@ namespace TiledEngine.Classes.PortalStuff
 
         }
 
+        private void AlreadyContainsMatchingPortal(Portal portal)
+        {
+            if(AllPortals.FirstOrDefault(x => x.From == portal.From && x.To == portal.To & x.Rectangle == portal.Rectangle) != null)
+            {
+                throw new Exception($"Already contains portal");
+            }
+        }
         public void LoadSave(BinaryReader reader)
         {
             AllPortals = new List<Portal>();

@@ -19,10 +19,10 @@ namespace UIEngine.Classes
         private Action _actionOnDrop;
 
         public static readonly float DropRate = .00055f;
-        public bool FullyDropped => Opacity >= 1f;
 
         private readonly float _layerDepth = .95f;
 
+        public bool IsCurtainRaised => Opacity <= 0f;
 
         public Curtain(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection,graphicsDevice, content, position, layerDepth)

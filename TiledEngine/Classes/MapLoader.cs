@@ -68,9 +68,7 @@ namespace TiledEngine.Classes
 
         public static Dictionary<string, TileManager> TileManagers;
 
-        // <summary>
-        /// This should only be called ONCE per save file.
-        /// </summary>
+    
         public static void LoadContent(ContentManager content)
         {
             TileManagers = new Dictionary<string, TileManager>();
@@ -89,6 +87,10 @@ namespace TiledEngine.Classes
 
             FurnitureLoader = new FurnitureLoader();
             FurnitureLoader.LoadContent(content);
+            if(Portalmanager != null)
+            {
+                Portalmanager.CleanUp();
+            }
             Portalmanager = new PortalManager();
             ZoneManager = new ZoneManager();
 
