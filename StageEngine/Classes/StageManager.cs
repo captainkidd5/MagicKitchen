@@ -195,7 +195,10 @@ namespace StageEngine.Classes
         {
             SetToDefault();
             LoadStages();
-
+            foreach(KeyValuePair<string, Stage> kvp in _allStages)
+            {
+                kvp.Value.CreateNewSave();
+            }
             CurrentStage = _allStages["TestIsland"];
             CurrentStage.CreateNewSave();
             _playerManager.Save(writer);

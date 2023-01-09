@@ -74,8 +74,7 @@ namespace StageEngine.Classes
         {
             _stageData = stageData;
             NPCContainer = new NPCContainer(_graphics, _content);
-
-            _tileManager = MapLoader.CreateTileManagerFromTmxMap(_graphics, _stageData, _content);
+            _tileManager = new TileManager(_graphics, _content, _camera);
 
             ItemManager = new ItemManager(Name, _tileManager);
 
@@ -126,6 +125,8 @@ namespace StageEngine.Classes
 
         public void CreateNewSave()
         {
+            _tileManager = MapLoader.CreateTileManagerFromTmxMap(_graphics, _stageData, _content);
+
             MapRectangle = _tileManager.MapRectangle;
 
             SaveToStageFile();
