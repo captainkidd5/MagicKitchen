@@ -51,6 +51,7 @@ namespace StageEngine.Classes
 
         public static Dictionary<string, StageData> AllStageData;
 
+        private bool _firstLoad = true;
         public StageManager(GraphicsDevice graphics, ContentManager content, PlayerManager playerManager, Camera2D camera) : base(graphics, content)
         {
 
@@ -93,23 +94,24 @@ namespace StageEngine.Classes
         /// <exception cref="Exception"></exception>
         public void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
-            UI.DropCurtain(UI.CurtainDropRate, new Action(EnterWorld));
+            UI.DropCurtain(UI.CurtainDropRate, new Action(()=> EnterWorld(newStage, newPlayerPos)));
+           
+            Flags.Pause = true;
+
+        }
+        internal void EnterWorld(string newStage, Vector2 newPlayerPos)
+        {
             CurrentStage.SaveToStageFile();
             CurrentStage.CleanUp();
             CurrentStage = _allStages[newStage];
             CurrentStage.LoadFromStageFile();
 
             _playerManager.LoadContent(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager, AllStageData);
+            Player1.Move(newPlayerPos);
             foreach (Portal p in MapLoader.Portalmanager.AllPortals)
             {
                 p.PortalClicked += OnPortalClicked;
             }
-            Flags.Pause = true;
-
-        }
-        internal void EnterWorld()
-        {
-
             ItemFactory.WorldItemGenerated += CurrentStage.ItemManager.OnWorldItemGenerated;
 
             _camera.Jump(Player1.Position);
@@ -133,13 +135,13 @@ namespace StageEngine.Classes
                    new List<Category>() { (Category)PhysCat.NPC },
                    null, null, isSensor: true);
             }
-
+            _firstLoad = false;
         }
 
         public void Update(GameTime gameTime)
         {
 
-            if (!Flags.Pause)
+            if (!Flags.Pause && !_firstLoad)
             {
                 CurrentStage.Update(gameTime);
 
@@ -157,7 +159,7 @@ namespace StageEngine.Classes
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-
+            if(!_firstLoad)
             CurrentStage.Draw(spriteBatch, gameTime);
         }
 
@@ -232,13 +234,13 @@ namespace StageEngine.Classes
         void OnPortalClicked(Portal p)
         {
             Portal returnPortal = MapLoader.Portalmanager.GetCorrespondingPortal(p);
-            RequestSwitchStage(p.To, returnPortal.Position);
+            RequestSwitchStage(p.To, returnPortal.Position + returnPortal.OffSetEntry);
         }
         public void CleanUp()
         {
             CurrentStage.CleanUp();
             CurrentStage = null;
-
+            _firstLoad = true;
         }
 
         public void RegisterCommands()

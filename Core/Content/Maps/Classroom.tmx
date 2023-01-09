@@ -108,7 +108,7 @@
     <property name="click" value="false"/>
     <property name="directionToFace" value="Up"/>
     <property name="from" value="Classroom"/>
-    <property name="portal" value="Classroom,TestIsland,false"/>
+    <property name="portal" value="Classroom,TestIsland,false,0,-32"/>
     <property name="to" value="TestIsland"/>
     <property name="xOffSet" value="0"/>
     <property name="yOffSet" value="0"/>

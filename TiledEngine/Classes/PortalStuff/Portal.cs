@@ -20,9 +20,15 @@ namespace TiledEngine.Classes.PortalStuff
     public class Portal : Collidable, ISaveable
     {
         public event PortalClicked PortalClicked;
-        public Rectangle Rectangle { get; set; }
+        public Rectangle Rectangle { get; private set; }
 
         public bool MustBeClicked { get; private set; }
+
+        /// <summary>
+        /// This is where the player will end up in relation to this portal's position (If this is ramen shop and offset is -16,-32 then player
+        /// will arrive at this portal and be offset left 16 and up 32
+        /// </summary>
+        public Vector2 OffSetEntry { get; private set; }
         public Portal()
         {
 
@@ -31,13 +37,14 @@ namespace TiledEngine.Classes.PortalStuff
         {
             PortalClicked?.Invoke(this);
         }
-        public Portal(string from, string to, Rectangle rectangle, bool mustBeClicked)
+        public Portal(string from, string to, Rectangle rectangle, bool mustBeClicked, Vector2 offSetEntry)
         {
             From = from;
             To = to;
             Rectangle = rectangle;
             CreateBody(Vector2.Zero);
             MustBeClicked = mustBeClicked;
+            OffSetEntry = offSetEntry;
 
         }
         public string From { get; private set; }
@@ -56,9 +63,11 @@ namespace TiledEngine.Classes.PortalStuff
             int width = int.Parse(splitString[2]);
             int height = int.Parse(splitString[3]);
             bool mustBeClicked = bool.Parse(splitString[4]);
+            float xOffSet = float.Parse(splitString[5]);
+            float yOffSet = float.Parse(splitString[6]);
+            
 
-
-            return new Portal(from, to, new Rectangle(x * 16, y * 16, width, height), mustBeClicked);
+            return new Portal(from, to, new Rectangle(x * 16, y * 16, width, height), mustBeClicked, new Vector2(xOffSet, yOffSet));
         }
         /// <summary>
         /// For object zones
@@ -70,13 +79,17 @@ namespace TiledEngine.Classes.PortalStuff
             string from = splitString[0];
             string to = splitString[1];
             bool mustBeClicked = bool.Parse(splitString[2]);
-            return new Portal(from, to, new Rectangle(x, y, width, height), mustBeClicked);
+
+            float xOffSet = float.Parse(splitString[3]);
+            float yOffSet = float.Parse(splitString[4]);
+            return new Portal(from, to, new Rectangle(x, y, width, height), mustBeClicked, new Vector2(xOffSet, yOffSet));
         }
         public void LoadSave(BinaryReader reader)
         {
             From = reader.ReadString();
             To = reader.ReadString();
             Rectangle = RectangleHelper.ReadRectangle(reader);
+            OffSetEntry = Vector2Helper.ReadVector2(reader);
             Move(new Vector2(Rectangle.X, Rectangle.Y));
             CreateBody(Position);
 
@@ -87,6 +100,7 @@ namespace TiledEngine.Classes.PortalStuff
             writer.Write(From);
             writer.Write(To);
             RectangleHelper.WriteRectangle(writer, Rectangle);
+            Vector2Helper.WriteVector2(writer,OffSetEntry);
         }
 
         public void SetToDefault()
@@ -119,10 +133,10 @@ namespace TiledEngine.Classes.PortalStuff
         protected override void CreateBody(Vector2 position)
         {
             Move(Vector2Helper.GetVector2FromRectangle(Rectangle));
-            MainHullBody = PhysicsManager.CreateRectangularHullBody(BodyType.Dynamic, Position, Rectangle.Width, Rectangle.Height, new List<Category>() {
+            MainHullBody = PhysicsManager.CreateRectangularHullBody(BodyType.Static, Position, Rectangle.Width, Rectangle.Height, new List<Category>() {
                 (Category)PhysCat.Portal, (Category)PhysCat.ClickBox },
               new List<Category>() {
-                  (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.Cursor, (Category)PhysCat.NPC},
+                  (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.Cursor, (Category)PhysCat.NPC, (Category)PhysCat.Player},
               OnCollides, OnSeparates, userData: this);
 
         }
@@ -142,6 +156,11 @@ namespace TiledEngine.Classes.PortalStuff
             if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Cursor))
             {
                 OnClickBoxCollides(fixtureA, fixtureB, contact);
+            }
+            else if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Player))
+            {
+                Console.WriteLine("test");
+                OnPortalClicked();
             }
             return base.OnCollides(fixtureA, fixtureB, contact);
         }

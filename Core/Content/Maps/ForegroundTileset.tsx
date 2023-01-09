@@ -943,7 +943,7 @@
   <properties>
    <property name="newHitBox" value="-56,8;0,0;3,8;124,8;123,-92;0,-91"/>
    <property name="newSource" value="-64,-176,160,192"/>
-   <property name="portal" value="TestIsland,Hallway,16,32,true"/>
+   <property name="portal" value="TestIsland,Hallway,16,32,true,16,48"/>
   </properties>
  </tile>
  <tile id="8847">
