@@ -27,6 +27,7 @@ using ItemEngine.Classes;
 using tainicom.Aether.Physics2D.Dynamics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using TiledEngine.Classes.PortalStuff;
 
 namespace StageEngine.Classes
 {
@@ -94,11 +95,16 @@ namespace StageEngine.Classes
         public void RequestSwitchStage(string newStage, Vector2 newPlayerPos)
         {
             UI.DropCurtain(UI.CurtainDropRate, new Action(EnterWorld));
+            CurrentStage.SaveToStageFile();
+            CurrentStage.CleanUp();
+            CurrentStage = _allStages[newStage];
+            CurrentStage.LoadFromStageFile();
 
-            //CurrentStage.Load(stageData, this, _playerManager);
-            //CurrentStage.SaveToStageFile();
             _playerManager.LoadContent("TestIsland", MapLoader.TileManagers["TestIsland"], CurrentStage.ItemManager, AllStageData);
-
+            foreach (Portal p in MapLoader.Portalmanager.AllPortals)
+            {
+                p.PortalClicked += OnPortalClicked;
+            }
             Flags.Pause = true;
 
         }
@@ -176,7 +182,12 @@ namespace StageEngine.Classes
             CurrentStage = _allStages["TestIsland"];
 
             CurrentStage.LoadFromStageFile();
-
+            //TODO
+            //Do we need to unsubscribe from these somewhere on exiting game and loading separate save?
+            foreach (Portal p in MapLoader.Portalmanager.AllPortals)
+            {
+                p.PortalClicked += OnPortalClicked;
+            }
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
         }
 
@@ -201,8 +212,16 @@ namespace StageEngine.Classes
                 stage.Load(stageData, this, _playerManager);
                 _allStages.Add(stageData.Name, stage);
             }
-        }
 
+          
+            MapLoader.LastPass();
+
+        }
+        void OnPortalClicked(Portal p)
+        {
+            Portal returnPortal = MapLoader.Portalmanager.GetCorrespondingPortal(p);
+            RequestSwitchStage(p.To, returnPortal.Position);
+        }
         public void CleanUp()
         {
             CurrentStage.CleanUp();

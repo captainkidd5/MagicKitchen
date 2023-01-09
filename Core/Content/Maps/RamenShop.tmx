@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="85">
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="86">
  <tileset firstgid="1" source="BackgroundMasterSpriteSheet.tsx"/>
  <tileset firstgid="10001" source="ForegroundTileset.tsx"/>
  <layer id="1" name="background" width="32" height="32">
@@ -182,7 +182,19 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="5" name="Portal"/>
+ <objectgroup id="5" name="Portal">
+  <object id="85" x="255" y="420" width="34" height="27">
+   <properties>
+    <property name="click" value="false"/>
+    <property name="directionToFace" value="Down"/>
+    <property name="from" value="RamenShop"/>
+    <property name="portal" value="RamenShop,TestIsland"/>
+    <property name="to" value="TestIsland"/>
+    <property name="xOffSet" value="0"/>
+    <property name="yOffSet" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="12" name="CharacterSpawnZone"/>
  <objectgroup id="9" name="SpecialZone"/>
  <objectgroup id="11" name="MusicZones"/>

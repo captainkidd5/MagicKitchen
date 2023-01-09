@@ -22,6 +22,14 @@ namespace TiledEngine.Classes.PortalStuff
             AllPortals = new List<Portal>();
         }
 
+        public Portal GetCorrespondingPortal(Portal p)
+        {
+            Portal newPortal = AllPortals.FirstOrDefault(x => x.From == p.To);
+            if (newPortal == null)
+                throw new Exception($"Unable to find corresponding portal for {p.To}");
+
+            return newPortal;
+        }
         public void CleanUp()
         {
             foreach (Portal p in AllPortals)

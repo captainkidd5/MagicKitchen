@@ -129,18 +129,11 @@ namespace EntityEngine.Classes.PlayerStuff
             Shadow = new Shadow(SpriteEngine.Classes.ShadowStuff.ShadowType.NPC, CenteredPosition, ShadowSize.Small, SpriteFactory.NPCSheet);
 
 
-            foreach(var portalPairs in MapLoader.Portalmanager.AllPortals)
-            {
-                portalPairs.PortalClicked += PortalClicked;
-            }
+   
 
         }
 
-        private void PortalClicked(Portal portal)
-        {
-            Vector2 portalPos = MapLoader.Portalmanager.AllPortals.FirstOrDefault(x => x.To == portal.From && x.From == portal.To).Position;
-            Move(portalPos);
-        }
+  
 
         /// <summary>
         /// When player dies, do this
@@ -478,10 +471,7 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             base.CleanUp();
             StorageCapacity = 24;
-            foreach (var portalPairs in MapLoader.Portalmanager.AllPortals)
-            {
-                portalPairs.PortalClicked -= PortalClicked;
-            }
+           
         }
         protected override void UpdateLights(GameTime gameTime)
         {

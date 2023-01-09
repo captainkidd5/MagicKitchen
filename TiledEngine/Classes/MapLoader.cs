@@ -111,7 +111,6 @@ namespace TiledEngine.Classes
             Portalmanager.LoadPortalZones(map, stageData.InsertionX, stageData.InsertionY);
             _portalLoader.AssimilatePortalObjectLayer(map);
 
-            _portalLoader.FillPortalGraph();
 
 
 
@@ -127,6 +126,11 @@ namespace TiledEngine.Classes
             return tileManager;
         }
 
+        public static void LastPass()
+        {
+            _portalLoader.FillPortalGraph();
+
+        }
         public static void Update(GameTime gameTime, StageData stageData)
         {
             TileManagers[stageData.Name].Update(gameTime);

@@ -73,6 +73,7 @@ namespace TiledEngine.Classes.PortalStuff
             From = reader.ReadString();
             To = reader.ReadString();
             Rectangle = RectangleHelper.ReadRectangle(reader);
+            Move(new Vector2(Rectangle.X, Rectangle.Y));
             CreateBody(Position);
 
         }
