@@ -470,7 +470,6 @@ namespace TiledEngine.Classes
             PlacedItemManager.Save(writer);
             TileLightManager.Save(writer);
             MapLoader.ZoneManager.Save(writer);
-            MapLoader.Portalmanager.Save(writer);
         }
         public void LoadSave(BinaryReader reader)
         {
@@ -496,7 +495,6 @@ namespace TiledEngine.Classes
             TileLightManager.LoadSave(reader);
             LoadMap(_tmxMap, TileData, MapWidth, MapLoader.TileSetPackage);
             MapLoader.ZoneManager.LoadSave(reader);
-            MapLoader.Portalmanager.LoadSave(reader);
 
         }
 

@@ -212,7 +212,6 @@ namespace StageEngine.Classes
                 kvp.Value.CreateNewSave();
             }
             CurrentStage = _allStages["TestIsland"];
-            _playerManager.Save(writer);
 
         }
 

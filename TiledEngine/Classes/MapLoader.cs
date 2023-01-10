@@ -111,7 +111,7 @@ namespace TiledEngine.Classes
             stageData.Load(map.Width);
             ZoneManager.LoadZones(map, stageData.Name);
             Portalmanager.LoadPortalZones(map, stageData.InsertionX, stageData.InsertionY);
-            _portalLoader.AssimilatePortalObjectLayer(map);
+            //_portalLoader.AssimilatePortalObjectLayer(map);
 
 
 

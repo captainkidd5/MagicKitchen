@@ -333,8 +333,10 @@ namespace Core
             BinaryWriter writer = e.BinaryWriter;
             Clock.SetToDefault();
             Clock.Save(writer);
+            _playerManager.Save(writer);
 
             _stageManager.CreateNewSave(writer);
+            MapLoader.Portalmanager.Save(writer);
             _playerManager.Player1.GiveItem("Wooden_Hook", 1);
             SaveLoadManager.DestroyWriter(writer);
             Flags.FirstBootUp = false;
@@ -349,6 +351,8 @@ namespace Core
 
             _playerManager.LoadSave(reader);
             _stageManager.LoadSave(reader);
+            MapLoader.Portalmanager.LoadSave(reader);
+
             SaveLoadManager.DestroyReader(reader);
             Flags.FirstBootUp = false;
             WeatherManager.SetWeather(WeatherType.SandStorm, true);

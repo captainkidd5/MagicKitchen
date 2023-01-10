@@ -29,6 +29,8 @@ namespace TiledEngine.Classes.PortalStuff
         /// will arrive at this portal and be offset left 16 and up 32
         /// </summary>
         public Vector2 OffSetEntry { get; private set; }
+        public string From { get; private set; }
+        public string To { get; private set; }
         public Portal()
         {
 
@@ -46,13 +48,12 @@ namespace TiledEngine.Classes.PortalStuff
             From = from;
             To = to;
             Rectangle = rectangle;
-            CreateBody(Vector2.Zero);
             MustBeClicked = mustBeClicked;
             OffSetEntry = offSetEntry;
 
         }
-        public string From { get; private set; }
-        public string To { get; private set; }
+    
+
 
 
         /// <summary>
