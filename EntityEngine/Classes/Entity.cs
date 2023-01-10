@@ -37,6 +37,7 @@ using SpriteEngine.Classes.ParticleStuff;
 using IOEngine.Classes;
 using System.Linq;
 using TiledEngine.Classes.PortalStuff;
+using EntityEngine.Classes.StageStuff;
 
 namespace EntityEngine.Classes
 {
@@ -80,7 +81,6 @@ namespace EntityEngine.Classes
         public Point TileOn => Vector2Helper.GetTileIndexPosition(Position);
 
 
-        protected EntityContainer Container { get; set; }
 
         private OverheadItemDisplay _overHeadItemDisplay { get; set; }
 
@@ -92,10 +92,17 @@ namespace EntityEngine.Classes
 
         public HullBody DamageBody { get; protected set; }
 
-        public string CurrentStageName => Container.StageName;
+        public string CurrentStageName { get; protected set; }
 
-        public Entity(GraphicsDevice graphics, ContentManager content) : base()
+        protected StageManager StageManager { get; set; }
+
+        protected TileManager TileManager => StageManager.AllStages[CurrentStageName].TileManager;
+        protected ItemManager ItemManager => StageManager.AllStages[CurrentStageName].ItemManager;
+
+        public Entity(string stageName, StageManager stagemanager, GraphicsDevice graphics, ContentManager content) : base()
         {
+            CurrentStageName = stageName;
+            StageManager = stagemanager;
             _graphics = graphics;
             _content = content;
             Name = GetType().ToString();
@@ -143,9 +150,8 @@ namespace EntityEngine.Classes
         {
 
         }
-        public virtual void LoadContent(EntityContainer container)
+        public virtual void LoadContent()
         {
-            Container = container;
             StatusIcon = new StatusIcon(new Vector2(XOffSet, YOffSet));
 
             CreateBody(Position);
@@ -155,9 +161,9 @@ namespace EntityEngine.Classes
             _overHeadItemDisplay = new OverheadItemDisplay();
 
             ToolHandler = new ToolHandler(this, InventoryHandler);
-            Navigator.Load(container.TileManager.PathGrid);
+            Navigator.Load(TileManager.PathGrid);
 
-            InventoryHandler.SwapItemManager(Container.ItemManager);
+            InventoryHandler.SwapItemManager(ItemManager);
 
             
         }

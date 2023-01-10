@@ -50,15 +50,15 @@ namespace EntityEngine.Classes.CharacterStuff
             AddTrain();
         }
 
-        public override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
+        public override void LoadContent()
         {
-            base.LoadContent(stageName,tileManager, itemManager);
+            base.LoadContent();
 
             foreach (NPC entity in Entities)
             {
                 entity.LoadContent(this, null, entity.Name, false);
             }
-            _mobSpawner.Load(this, tileManager);
+            _mobSpawner.Load(this);
             RegisterCommands();
         }
 

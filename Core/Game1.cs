@@ -13,7 +13,6 @@ using Microsoft.Xna.Framework.Input;
 using PhysicsEngine.Classes;
 using SpriteEngine.Classes;
 using SpriteEngine.Classes.RenderTargetStuff;
-using StageEngine.Classes;
 using System.Collections.Generic;
 using System.IO;
 using TextEngine;
@@ -35,6 +34,7 @@ using SpriteEngine.Classes.ParticleStuff.WeatherStuff;
 using System.Diagnostics;
 using Globals.XPlatformHelpers;
 using UIEngine.Classes.QuestLogStuff;
+using EntityEngine.Classes.StageStuff;
 
 namespace Core
 {

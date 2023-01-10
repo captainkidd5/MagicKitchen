@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using EntityEngine.Classes.StageStuff;
 using EntityEngine.ItemStuff;
 using Globals.Classes;
 using ItemEngine.Classes;
@@ -28,18 +29,19 @@ namespace EntityEngine.Classes
 
         public string StageName { get; private set; }
 
-        public TileManager TileManager;
-        public ItemManager ItemManager;
-        public EntityContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+       
+        private readonly StageManager _stageManager;
+
+        public EntityContainer(StageManager stageManager, GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             Entities = new List<Entity>();
             EntitiesToAdd = new List<Entity>();
+            _stageManager = stageManager;
         }
-        public virtual void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
+        public virtual void LoadContent(string stageName)
         {
             StageName = stageName;
-            TileManager = tileManager;
-            ItemManager = itemManager;
+
             //foreach (Entity entity in Entities)
             //{
 

@@ -1,5 +1,6 @@
 ﻿using DataModels.NPCStuff;
 using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.StageStuff;
 using Globals.Classes;
 using Globals.Classes.Chance;
 using Microsoft.Xna.Framework;
@@ -16,14 +17,13 @@ namespace EntityEngine.Classes.NPCStuff
     {
         private ushort _spawnRate;
         private byte MaxNPCSpawnValue = 5;
-        private TileManager _tileManager;
-        private NPCContainer _npcContainer;
+
         public float TotalNPCSpawnValue { get; set; }
 
-        public void Load(NPCContainer npcContainer, TileManager tileManager)
+        private StageManager _stageManager;
+        public void Load(StageManager stageManager)
         {
-            _npcContainer = npcContainer;
-            _tileManager = tileManager;
+            _stageManager = stageManager;
         }
         public void Update(GameTime gameTime)
         {
@@ -36,10 +36,10 @@ namespace EntityEngine.Classes.NPCStuff
                 {
                     NPCData spawnedNPC = GetWeightedSpawn();
                     string requiredTileType = spawnedNPC.AlwaysSubmerged ? "water" : "land";
-                    Vector2? emptyTile = _tileManager.TileLocationHelper.RandomClearPositionWithinRange(Settings.Random,tileType: requiredTileType);
+                    Vector2? emptyTile = _stageManager.CurrentStage.TileManager.TileLocationHelper.RandomClearPositionWithinRange(Settings.Random, tileType: requiredTileType);
                     if (emptyTile != null)
                     {
-                        _npcContainer.CreateNPC(spawnedNPC.Name, emptyTile.Value, true);
+                        _stageManager.CurrentStage.NPCContainer.CreateNPC(spawnedNPC.Name, emptyTile.Value, true);
                         //TotalNPCSpawnValue += (float)spawnedNPC.SpawnSlotValue / 100;
 
                     }

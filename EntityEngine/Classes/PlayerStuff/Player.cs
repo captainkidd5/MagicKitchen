@@ -107,7 +107,7 @@ namespace EntityEngine.Classes.PlayerStuff
             UI.Cursor.ItemDropped += DropHeldItem;
 
             CommandConsole.RegisterCommand("tp", "teleports player to mouse position", TpCommand);
-            CommandConsole.RegisterCommand("tpi", "teleports player to give island name", TpIslandCommand);
+
             CommandConsole.RegisterCommand("tpv", "teleports player to vector2", TpPositionCommand);
 
 
@@ -175,10 +175,7 @@ namespace EntityEngine.Classes.PlayerStuff
             Move(Controls.MouseWorldPosition);
         }
 
-        private void TpIslandCommand(string[] args)
-        {
-            Move(new Vector2((Container.AllStageData[args[0]].InsertionX + 32) * 16, (Container.AllStageData[args[0]].InsertionY + 32) * 16));
-        }
+
 
         private void TpPositionCommand(string[] args)
         {
@@ -296,7 +293,7 @@ namespace EntityEngine.Classes.PlayerStuff
             }
             if (!Controls.ClickActionTriggeredThisFrame && Controls.IsClickedWorld || Controls.WasGamePadButtonTapped(GamePadActionType.Select))
             {
-                TileObject mouseOverTile = Container.TileManager.MouseOverTile;
+                TileObject mouseOverTile = TileManager.MouseOverTile;
                 if (mouseOverTile != null)
                 {
                     if (UI.Cursor.CursorIconType != CursorIconType.None && UI.Cursor.CursorIconType != CursorIconType.Speech)
@@ -306,7 +303,7 @@ namespace EntityEngine.Classes.PlayerStuff
                         if (!Animator.IsPerformingAnimation())
                         {
                             ActionType? actionType = null;
-                            Action actionToTrigger = Container.TileManager.MouseOverTile.Interact(ref actionType, true, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
+                            Action actionToTrigger = TileManager.MouseOverTile.Interact(ref actionType, true, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
 
                             //Just a normal non destructable tile, no possible interaction
                             if (actionToTrigger == null)
@@ -322,7 +319,7 @@ namespace EntityEngine.Classes.PlayerStuff
                                 //PerformAction(Controls.ControllerConnected ? DirectionMoving :
                                 //   Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition),
                                 //   actionType.Value);
-                                DirectionMoving = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, Container.TileManager.MouseOverTile.CentralPosition);
+                                DirectionMoving = Vector2Helper.GetDirectionOfEntityInRelationToEntity(Position, TileManager.MouseOverTile.CentralPosition);
                                 PerformAction(actionToTrigger, DirectionMoving, actionType.Value);
                                 if (IsJumpActionType(actionType.Value))
                                 {

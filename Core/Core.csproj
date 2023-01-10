@@ -34,7 +34,6 @@
     <ProjectReference Include="..\PhysicsEngine\PhysicsEngine.csproj" />
     <ProjectReference Include="..\SoundEngine\SoundEngine.csproj" />
     <ProjectReference Include="..\SpriteEngine\SpriteEngine.csproj" />
-    <ProjectReference Include="..\StageEngine\StageEngine.csproj" />
     <ProjectReference Include="..\UIEngine\UIEngine.csproj" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">

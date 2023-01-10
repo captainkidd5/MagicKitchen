@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOEngine", "IOEngine\IOEngi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhysicsEngine", "PhysicsEngine\PhysicsEngine.csproj", "{546F7501-6D85-4BC1-B7C8-6E151008F285}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StageEngine", "StageEngine\StageEngine.csproj", "{10FD66FC-72A0-45F1-B7B5-ABE00F407983}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundEngine", "SoundEngine\SoundEngine.csproj", "{3F51AA8E-F3BC-4E2C-92FF-06024767F8F2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextEngine", "TextEngine\TextEngine.csproj", "{1316FCBA-1E38-40D9-9850-10C5222BAFBE}"
@@ -33,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_Android_", "_Android_\_And
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TiledSharp", "TiledSharp\TiledSharp.csproj", "{A6D4B8DC-57A9-4346-9D11-1DD1CD5A5FE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{5B6F6AC5-2449-4D16-8E0D-7ED4919A1240}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{5B6F6AC5-2449-4D16-8E0D-7ED4919A1240}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +63,6 @@ Global
 		{546F7501-6D85-4BC1-B7C8-6E151008F285}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{546F7501-6D85-4BC1-B7C8-6E151008F285}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{546F7501-6D85-4BC1-B7C8-6E151008F285}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10FD66FC-72A0-45F1-B7B5-ABE00F407983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10FD66FC-72A0-45F1-B7B5-ABE00F407983}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10FD66FC-72A0-45F1-B7B5-ABE00F407983}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10FD66FC-72A0-45F1-B7B5-ABE00F407983}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3F51AA8E-F3BC-4E2C-92FF-06024767F8F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3F51AA8E-F3BC-4E2C-92FF-06024767F8F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F51AA8E-F3BC-4E2C-92FF-06024767F8F2}.Release|Any CPU.ActiveCfg = Release|Any CPU

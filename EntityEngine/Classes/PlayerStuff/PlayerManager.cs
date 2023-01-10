@@ -1,4 +1,5 @@
 ﻿using DataModels;
+using EntityEngine.Classes.StageStuff;
 using EntityEngine.ItemStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
@@ -20,7 +21,7 @@ namespace EntityEngine.Classes.PlayerStuff
     {
 
         public Player Player1 { get; set; }
-        public PlayerManager( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public PlayerManager(StageManager stageManager, GraphicsDevice graphics, ContentManager content) : base(stageManager,graphics, content)
         {
             Player1 = new Player(graphics, content);
             Entities.Add(Player1);
@@ -41,11 +42,9 @@ namespace EntityEngine.Classes.PlayerStuff
             Player1.UpdateFromInput();
             base.Update(gameTime);
         }
-        public override void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager, Dictionary<string, StageData> allStageData)
+        public override void LoadContent(string stageName)
         {
-            AllStageData = allStageData;
-            TileManager = tileManager;
-            ItemManager = itemManager;
+ 
             Player1.LoadContent(this, null, null, false);
             
             CommandConsole.RegisterCommand("give", "gives player item with id", GivePlayerItem);

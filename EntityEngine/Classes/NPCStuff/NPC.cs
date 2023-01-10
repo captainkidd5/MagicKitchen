@@ -4,6 +4,7 @@ using DataModels.ScriptedEventStuff;
 using EntityEngine.Classes.BehaviourStuff;
 using EntityEngine.Classes.BehaviourStuff.DamageResponses;
 using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.StageStuff;
 using EntityEngine.Classes.ToolStuff;
 using EntityEngine.ItemStuff;
 using Globals.Classes;
@@ -59,8 +60,8 @@ namespace EntityEngine.Classes.NPCStuff
         protected HullBody ArraySensor { get; set; }
        protected HullBody ClickBox { get; set; }
 
-        public NPC( GraphicsDevice graphics, ContentManager content) :
-            base(graphics, content)
+        public NPC(string stageName, StageManager stageManager, GraphicsDevice graphics, ContentManager content) :
+            base(stageName,stageManager, graphics, content)
         {
             XOffSet = 8;
             YOffSet = 4;
@@ -94,11 +95,11 @@ namespace EntityEngine.Classes.NPCStuff
             }
             if (name != null)
                 Name = name;
-            base.LoadContent(container);
+            base.LoadContent();
 
-            BehaviourManager = new BehaviourManager(this, StatusIcon, Container.TileManager);
+            BehaviourManager = new BehaviourManager(this, StatusIcon, TileManager);
             BehaviourManager.Load();
-            BehaviourManager.SwitchStage(Container.TileManager);
+            BehaviourManager.SwitchStage(TileManager);
 
             if (startPos != null)
                 Move(startPos.Value);
