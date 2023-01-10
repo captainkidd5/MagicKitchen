@@ -24,6 +24,7 @@ using static DataModels.Enums;
 using SpriteEngine.Classes.ShadowStuff;
 using EntityEngine.Classes.NPCStuff;
 using UIEngine.Classes;
+using EntityEngine.Classes.StageStuff;
 
 namespace EntityEngine.Classes.HumanoidStuff
 {
@@ -38,7 +39,8 @@ namespace EntityEngine.Classes.HumanoidStuff
         public bool ImmunteToDamage { get; set; }
         public EquipmentStorageContainer EquipmentStorageContainer => (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer;
 
-        public HumanoidEntity(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public HumanoidEntity(string stageName, StageManager stageManager, GraphicsDevice graphics, ContentManager content) :
+            base(stageName, stageManager, graphics, content)
         {
             BodyPiece[] bodyPieces = new BodyPiece[]
            {

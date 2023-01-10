@@ -23,7 +23,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public Player Player1 { get; set; }
         public PlayerManager(StageManager stageManager, GraphicsDevice graphics, ContentManager content) : base(stageManager,graphics, content)
         {
-            Player1 = new Player(graphics, content);
+            Player1 = new Player("TestIsland",stageManager,graphics, content);
             Entities.Add(Player1);
 
         }

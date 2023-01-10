@@ -1,5 +1,6 @@
 ﻿using DataModels;
 using EntityEngine.Classes.CharacterStuff;
+using EntityEngine.Classes.StageStuff;
 using Globals.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -35,8 +36,8 @@ namespace EntityEngine.Classes.NPCStuff.Props
 
         private int _currentPassengerCount;
 
-        public Train(GraphicsDevice graphics, ContentManager content) : 
-            base(graphics, content)
+        public Train(string stageName, StageManager stageManager, GraphicsDevice graphics, ContentManager content) : 
+            base(stageName, stageManager, graphics, content)
         {
             _unloadTimer = new SimpleTimer(_unloadSpeed);
         }
@@ -67,7 +68,7 @@ namespace EntityEngine.Classes.NPCStuff.Props
             if(_unloadTimer.Run(gameTime))
             {
                 _currentPassengerCount--;
-                (Container as NPCContainer).CreateNPC("patron", new Vector2(
+                NPCContainer.CreateNPC("patron", new Vector2(
                     Position.X + Settings.Random.Next(0,20),
                     Position.Y + Settings.Random.Next(40, 60) * -1), false);
             }

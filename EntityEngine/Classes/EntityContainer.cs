@@ -30,13 +30,13 @@ namespace EntityEngine.Classes
         public string StageName { get; private set; }
 
        
-        private readonly StageManager _stageManager;
+        protected StageManager StageManager { get; private set; }   
 
         public EntityContainer(StageManager stageManager, GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
             Entities = new List<Entity>();
             EntitiesToAdd = new List<Entity>();
-            _stageManager = stageManager;
+            StageManager = stageManager;
         }
         public virtual void LoadContent(string stageName)
         {

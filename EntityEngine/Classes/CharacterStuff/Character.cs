@@ -25,6 +25,7 @@ using EntityEngine.ItemStuff;
 using PhysicsEngine.Classes;
 using tainicom.Aether.Physics2D.Dynamics;
 using TextEngine.Classes;
+using EntityEngine.Classes.StageStuff;
 
 namespace EntityEngine.Classes.CharacterStuff
 {
@@ -35,7 +36,8 @@ namespace EntityEngine.Classes.CharacterStuff
         private Schedule ActiveSchedule { get; set; }
 
 
-        public Character(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public Character(string stageName, StageManager stageManager, GraphicsDevice graphics, ContentManager content) : 
+            base(stageName, stageManager, graphics, content)
         {
             
 

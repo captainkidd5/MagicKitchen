@@ -117,7 +117,7 @@ namespace Core
 
 
 
-            _playerManager = new PlayerManager(GraphicsDevice, Content);
+            _playerManager = new PlayerManager(_stageManager, GraphicsDevice, Content);
             _stageManager = new StageManager(GraphicsDevice, Content, _playerManager, Camera);
             //Penumbra.SpriteBatchTransformEnabled = true;
             _commandList = new CommandList();
@@ -336,6 +336,7 @@ namespace Core
             _playerManager.Save(writer);
 
             _stageManager.CreateNewSave(writer);
+            _stageManager.GlobalNPCContainer.Save(writer);
             MapLoader.Portalmanager.Save(writer);
             _playerManager.Player1.GiveItem("Wooden_Hook", 1);
             SaveLoadManager.DestroyWriter(writer);
@@ -351,6 +352,7 @@ namespace Core
 
             _playerManager.LoadSave(reader);
             _stageManager.LoadSave(reader);
+            _stageManager.GlobalNPCContainer.LoadSave(reader);
             MapLoader.Portalmanager.LoadSave(reader);
 
             SaveLoadManager.DestroyReader(reader);
@@ -369,6 +371,8 @@ namespace Core
             Clock.Save(writer);
             _playerManager.Save(writer);
             _stageManager.Save(writer);
+            _stageManager.GlobalNPCContainer.Save(writer);
+
             //CommandConsole.Append("...Saved!");
             SaveLoadManager.DestroyWriter(writer);
 

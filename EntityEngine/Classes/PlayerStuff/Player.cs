@@ -35,6 +35,7 @@ using SoundEngine.Classes;
 using EntityEngine.Classes.HumanoidStuff;
 using System.Linq;
 using TiledEngine.Classes.PortalStuff;
+using EntityEngine.Classes.StageStuff;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -78,10 +79,10 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         public void ConsumeFood(byte amt) => _hungerHandler.ConsumeFood(amt);
 
-        public Player(GraphicsDevice graphics, ContentManager content, string name = "playerName")
-            : base(graphics, content)
+        public Player(string stageName, StageManager stageManager, GraphicsDevice graphics, ContentManager content) :
+            base(stageName, stageManager, graphics, content)
         {
-            Name = name;
+            Name = "player1";
             ScheduleName = "player1";
             Move(StartingPosition);
             StorageCapacity = 24;

@@ -4,6 +4,7 @@ using DataModels.QuestStuff;
 using EntityEngine.Classes.HumanoidStuff;
 using EntityEngine.Classes.NPCStuff;
 using EntityEngine.Classes.NPCStuff.Props;
+using EntityEngine.Classes.StageStuff;
 using EntityEngine.ItemStuff;
 using Globals.Classes;
 using Globals.Classes.Console;
@@ -31,7 +32,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
         private NPCSpawner _mobSpawner;
 
-        public NPCContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public NPCContainer(StageManager stageManager, GraphicsDevice graphics, ContentManager content) : base(stageManager, graphics, content)
         {
             _mobSpawner = new NPCSpawner();
         }
@@ -58,13 +59,13 @@ namespace EntityEngine.Classes.CharacterStuff
             {
                 entity.LoadContent(this, null, entity.Name, false);
             }
-            _mobSpawner.Load(this);
+          //  _mobSpawner.Load(StageManager);
             RegisterCommands();
         }
 
         internal void AddTrain()
         {
-            Train train = new Train(graphics, content);
+            Train train = new Train("TestIsland", StageManager, graphics, content);
             train.LoadContent(this,null, "train");
             Entities.Add(train);
         }
@@ -98,7 +99,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
                             NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                                 .CreateInstance(npcData.ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
-                                null, new object[] { graphics, content }, null, null);
+                                null, new object[] {string.Empty,StageManager, graphics, content }, null, null);
 
 
                             npc.LoadContent(this, null, npcData.Name, npc.GetType() != typeof(HumanoidEntity));

@@ -28,7 +28,6 @@ using tainicom.Aether.Physics2D.Dynamics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TiledEngine.Classes.PortalStuff;
-using EntityEngine.Classes.ItemStuff;
 
 namespace EntityEngine.Classes.StageStuff
 {
@@ -51,6 +50,7 @@ namespace EntityEngine.Classes.StageStuff
 
 
         public static Dictionary<string, StageData> AllStageData;
+        public NPCContainer GlobalNPCContainer { get; private set; }
 
         private bool _firstLoad = true;
         public StageManager(GraphicsDevice graphics, ContentManager content, PlayerManager playerManager, Camera2D camera) : base(graphics, content)
@@ -60,7 +60,7 @@ namespace EntityEngine.Classes.StageStuff
 
             _camera = camera;
             AllStages = new Dictionary<string, Stage>();
-
+            GlobalNPCContainer = new NPCContainer(this, graphics, content);
         }
 
         public override void LoadContent()
@@ -226,7 +226,6 @@ namespace EntityEngine.Classes.StageStuff
                 Stage stage = new Stage(content, graphics, _camera, stageData, this, _playerManager);
                 AllStages.Add(stageData.Name, stage);
                 MapLoader.TileManagers.Add(stage.Name, stage.TileManager);
-                ItemHub.LoadItemManager(stage.Name, stage.ItemManager);
             }
 
           

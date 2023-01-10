@@ -98,7 +98,7 @@ namespace EntityEngine.Classes
 
         protected TileManager TileManager => StageManager.AllStages[CurrentStageName].TileManager;
         protected ItemManager ItemManager => StageManager.AllStages[CurrentStageName].ItemManager;
-
+        protected NPCContainer NPCContainer => StageManager.AllStages[CurrentStageName].NPCContainer;
         public Entity(string stageName, StageManager stagemanager, GraphicsDevice graphics, ContentManager content) : base()
         {
             CurrentStageName = stageName;
@@ -545,13 +545,14 @@ namespace EntityEngine.Classes
         public virtual void Save(BinaryWriter writer)
         {
 
-
+            writer.Write(CurrentStageName);
             Vector2Helper.WriteVector2(writer, Position);
             InventoryHandler.Save(writer);
             writer.Write(ScheduleName);
         }
         public virtual void LoadSave(BinaryReader reader)
         {
+            CurrentStageName = reader.ReadString(); 
             Move(Vector2Helper.ReadVector2(reader));
 
 

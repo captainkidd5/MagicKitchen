@@ -35,6 +35,8 @@ namespace EntityEngine.Classes.StageStuff
 
         private PlayerManager _playerManager;
         private StageData _stageData;
+        private readonly StageManager _stageManager;
+
         public NPCContainer NPCContainer { get; private set; }
 
         private readonly ContentManager _content;
@@ -69,7 +71,8 @@ namespace EntityEngine.Classes.StageStuff
             _camera = camera;
 
             _stageData = stageData;
-            NPCContainer = new NPCContainer(_graphics, _content);
+            _stageManager = stageManager;
+            NPCContainer = new NPCContainer(_stageManager,_graphics, _content);
             TileManager = new TileManager(_graphics, _content, _camera);
 
             ItemManager = new ItemManager(Name, TileManager);
@@ -175,7 +178,7 @@ namespace EntityEngine.Classes.StageStuff
         {
             TileManager.LoadSave(reader);
             ItemManager.LoadSave(reader);
-            NPCContainer.LoadContent(Name, TileManager, ItemManager, StageManager.AllStageData);
+            NPCContainer.LoadContent();
 
             NPCContainer.LoadSave(reader);
 
