@@ -20,6 +20,9 @@ namespace TiledEngine.Classes.PortalStuff
     public class Portal : Collidable, ISaveable
     {
         public event PortalClicked PortalClicked;
+
+
+        public int Key { get; set; }
         public Rectangle Rectangle { get; private set; }
 
         public bool MustBeClicked { get; private set; }

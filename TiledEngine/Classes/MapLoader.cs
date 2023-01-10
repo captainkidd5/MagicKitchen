@@ -67,7 +67,6 @@ namespace TiledEngine.Classes
 
 
         public static Dictionary<string, TileManager> TileManagers;
-
     
         public static void LoadContent(ContentManager content)
         {

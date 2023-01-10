@@ -41,6 +41,7 @@ namespace ItemEngine.Classes
 
         public static CraftingGuide CraftingGuide { get; private set; }
 
+
         public static List<ItemData> ItemDataByCraftingCategory(CraftingCategory craftingCategory)
         {
             return ItemData.Where(x => x.RecipeInfo != null && x.RecipeInfo.CraftingCategory == craftingCategory).ToList();

@@ -28,6 +28,7 @@ using tainicom.Aether.Physics2D.Dynamics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TiledEngine.Classes.PortalStuff;
+using EntityEngine.Classes.ItemStuff;
 
 namespace StageEngine.Classes
 {
@@ -106,7 +107,7 @@ namespace StageEngine.Classes
             CurrentStage = _allStages[newStage];
             CurrentStage.LoadFromStageFile();
 
-            _playerManager.LoadContent(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager, AllStageData);
+            //_playerManager.LoadContent(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager, AllStageData);
             Player1.Move(newPlayerPos);
             foreach (Portal p in MapLoader.Portalmanager.AllPortals)
             {
@@ -201,6 +202,7 @@ namespace StageEngine.Classes
                 p.PortalClicked += OnPortalClicked;
             }
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
+            _playerManager.LoadContent(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager, AllStageData);
         }
 
         public void CreateNewSave(BinaryWriter writer)
@@ -224,6 +226,7 @@ namespace StageEngine.Classes
                 Stage stage = new Stage(content, graphics, _camera, stageData, this, _playerManager);
                 _allStages.Add(stageData.Name, stage);
                 MapLoader.TileManagers.Add(stage.Name, stage.TileManager);
+                ItemHub.LoadItemManager(stage.Name, stage.ItemManager);
             }
 
           

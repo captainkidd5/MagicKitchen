@@ -245,13 +245,13 @@ namespace EntityEngine.Classes
             base.Update(gameTime);
             SubmergenceLevel = SubmergenceLevel.None;
             Speed = BaseSpeed;
-            if (Container.TileManager.IsTypeOfTile("water", Position))
+            if (MapLoader.TileManagers[CurrentStageName].IsTypeOfTile("water", Position))
             {
                 SubmergenceLevel = SubmergenceLevel.Shallow;
                 Speed = BaseSpeed * .5f;
 
             }
-            if (Container.TileManager.IsTypeOfTile("deepWater", Position))
+            if (MapLoader.TileManagers[CurrentStageName].IsTypeOfTile("deepWater", Position))
             {
                 SubmergenceLevel = SubmergenceLevel.Deep;
 
@@ -314,7 +314,7 @@ namespace EntityEngine.Classes
         }
         internal bool IsWater(Vector2 position)
         {
-            return Container.TileManager.IsTypeOfTile("water", position) || Container.TileManager.IsTypeOfTile("deepWater", position);
+            return MapLoader.TileManagers[CurrentStageName].IsTypeOfTile("water", position) || MapLoader.TileManagers[CurrentStageName].IsTypeOfTile("deepWater", position);
         }
         protected void UseHeldItem() => ToolHandler.UseHeldItem();
 
@@ -442,7 +442,7 @@ namespace EntityEngine.Classes
         public void PlayStepSoundFromTile()
         {
 
-            string soundName = Container.TileManager.GetStepSoundFromPosition(Position);
+            string soundName = MapLoader.TileManagers[CurrentStageName].GetStepSoundFromPosition(Position);
             if (string.IsNullOrEmpty(soundName))
                 return;
 
@@ -470,11 +470,11 @@ namespace EntityEngine.Classes
 
         internal void InteractWithTile(Point tilePoint, Layers tileLayer)
         {
-            TileData? tile = Container.TileManager.GetTileDataFromPoint(tilePoint, tileLayer);
+            TileData? tile = MapLoader.TileManagers[CurrentStageName].GetTileDataFromPoint(tilePoint, tileLayer);
             if (tile == null)
                 throw new Exception($"No tile at {tilePoint} at layer {tileLayer.ToString()}!");
             ActionType? actionType = null;
-           Action action = Container.TileManager.TileObjects[tile.Value.GetKey()].Interact(ref actionType,false, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
+           Action action = MapLoader.TileManagers[CurrentStageName].TileObjects[tile.Value.GetKey()].Interact(ref actionType,false, InventoryHandler.HeldItem, CenteredPosition, DirectionMoving);
             if (actionType != null && IsJumpActionType(actionType.Value))
             {
                 ReactToJumpActionType(actionType.Value);
@@ -507,8 +507,8 @@ namespace EntityEngine.Classes
                 default:
                     throw new Exception($"Invalid actiontype provided");
             }
-
-            if (Container.TileManager.IsTypeOfTile("water", Position))
+                
+            if (MapLoader.TileManagers[CurrentStageName].IsTypeOfTile("water", Position))
             {
                 SoundModuleManager.PlayPackage("Splash");
             }

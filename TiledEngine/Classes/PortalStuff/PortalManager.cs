@@ -18,11 +18,72 @@ namespace TiledEngine.Classes.PortalStuff
         public List<Portal> AllPortals { get; 
             private set; }
 
+        private Dictionary<string, int> s_portalDictionary;
+        private PortalGraph s_portalgraph;
+        private GraphTraverser s_graphTraverser;
         internal PortalManager()
         {
             AllPortals = new List<Portal>();
         }
+        /// <summary>
+        /// Note: the portal dictionary sort of manually generates an enum for the stages. 
+        /// The actual keys generated are not specifically important, as long as they
+        /// differentiate between stages with an int key. Each From Portal should only ever generate a key once per loadup.
+        /// </summary>
+        public void FillPortalGraph()
+        {
+            s_portalgraph = new PortalGraph(AllPortals.Count);
+            int portalKey = 0;
+            s_portalDictionary = new Dictionary<string, int>();
+            foreach (Portal portal in AllPortals)
+            {
+                if (s_portalDictionary.ContainsKey(portal.From))
+                {
+                    portal.Key = s_portalDictionary[portal.From];
+                }
+                else
+                {
+                    s_portalDictionary.Add(portal.From, portalKey);
+                    portal.Key = portalKey;
+                    portalKey++;
 
+                }
+            }
+
+            foreach (Portal portal in AllPortals)
+            {
+                if (!s_portalgraph.HasEdge(portal.Key, s_portalDictionary[portal.To]))
+                {
+                    s_portalgraph.AddEdge(portal.Key, s_portalDictionary[portal.To]);
+                }
+            }
+            s_graphTraverser = new GraphTraverser(s_portalgraph);
+
+        }
+        /// <summary>
+        /// Checks to see if two stages are somehow connected, directly or indirectly
+        /// </summary>
+        /// <returns>Returns true if there is any connection</returns>
+        public bool HasEdge(string stageFromName, string stageToName)
+        {
+            return s_portalgraph.HasEdge(s_portalDictionary[stageFromName], s_portalDictionary[stageToName]);
+        }
+
+        /// <summary>
+        /// Gets the next stage in the connection between two nodes
+        /// </summary>
+        /// <returns>Returns the next stage name if found, otherwise returns null</returns>
+        public string GetNextNodeStageName(string stageFromName, string stageToName)
+        {
+            int nextNode = s_graphTraverser.GetNextNodeInPath(
+                s_portalDictionary[stageFromName], s_portalDictionary[stageToName]);
+
+            string name = s_portalDictionary.FirstOrDefault(x => x.Value == nextNode).Key;
+
+            if (string.IsNullOrEmpty(name))
+                return null;
+            return name;
+        }
         public Portal GetCorrespondingPortal(Portal p)
         {
             Portal newPortal = AllPortals.FirstOrDefault(x => x.From == p.To);

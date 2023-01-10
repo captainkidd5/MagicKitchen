@@ -35,8 +35,7 @@ namespace EntityEngine.Classes
             Entities = new List<Entity>();
             EntitiesToAdd = new List<Entity>();
         }
- public Dictionary<string,StageData> AllStageData { get; protected set; }
-        public virtual void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager, Dictionary<string, StageData> allStageData)
+        public virtual void LoadContent(string stageName, TileManager tileManager, ItemManager itemManager)
         {
             StageName = stageName;
             TileManager = tileManager;
@@ -46,12 +45,11 @@ namespace EntityEngine.Classes
 
             //    entity.LoadContent(this);
             //}
-            AllStageData = allStageData;
         }
 
         public virtual void Update(GameTime gameTime)
         {
-            for(int i= Entities.Count - 1; i >= 0; i--)
+            for (int i = Entities.Count - 1; i >= 0; i--)
             {
                 Entity entity = Entities[i];
                 entity.Update(gameTime);
@@ -62,9 +60,9 @@ namespace EntityEngine.Classes
 
                 }
             }
-  
 
-            foreach(Entity entity in EntitiesToAdd)
+
+            foreach (Entity entity in EntitiesToAdd)
                 Entities.Add(entity);
 
             EntitiesToAdd.Clear();
@@ -88,7 +86,7 @@ namespace EntityEngine.Classes
             }
         }
         internal void GiveEntityItem(string entityName, WorldItem worldItem)
-        { 
+        {
             Entity entity = GetEntity(entityName);
             if (entity == null)
             {

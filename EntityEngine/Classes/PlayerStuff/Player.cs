@@ -93,7 +93,10 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
         }
+        public void SwitchStage(string newStageName)
+        {
 
+        }
         public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string? name, bool standardAnimator = false)
         {
             base.LoadContent(entityContainer, startPos, name, standardAnimator);
