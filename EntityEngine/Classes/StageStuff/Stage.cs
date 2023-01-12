@@ -61,9 +61,10 @@ namespace EntityEngine.Classes.StageStuff
         public List<ILightDrawable> LightDrawables { get; set; }
 
         private FlotsamGenerator _flotsamGenerator;
-        public Stage(ContentManager content,
+        public Stage(StageData stageData,ContentManager content,
             GraphicsDevice graphics)
         {
+            _stageData = stageData;
 
             _content = content;
             _graphics = graphics;
@@ -71,10 +72,9 @@ namespace EntityEngine.Classes.StageStuff
    
         }
 
-        public void Initialize(Camera2D camera, StageData stageData,
+        public void Initialize(Camera2D camera,
             StageManager stageManager, PlayerManager playerManager)
         {
-            _stageData = stageData;
             _stageManager = stageManager;
             NPCContainer = new NPCContainer(_graphics, _content);
             NPCContainer.Initialize(_stageManager);

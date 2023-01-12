@@ -55,7 +55,8 @@ namespace TiledEngine.Classes.ZoneStuff
             List<Zone> zonesList = new List<Zone>();
             foreach (TmxObject specialZone in zones.Objects)
             {
-                Zone zone = new Zone(specialZone.Properties.ElementAt(0).Key,
+                Zone zone = new Zone();
+                zone.Initialize(specialZone.Properties.ElementAt(0).Key,
                     specialZone.Properties.ElementAt(0).Value, new Rectangle(
                     (int)specialZone.X,
                     (int)specialZone.Y,
@@ -75,12 +76,13 @@ namespace TiledEngine.Classes.ZoneStuff
             List<MusicZone> zonesList = new List<MusicZone>();
             foreach (TmxObject specialZone in Zones.Objects)
             {
-                MusicZone zone = new MusicZone(specialZone.Properties.ElementAt(0).Key,
+                MusicZone zone = new MusicZone();
+                zone.Initialize(specialZone.Properties.ElementAt(0).Key,
                     specialZone.Properties.ElementAt(0).Value, new Rectangle(
                     (int)specialZone.X + (int)specialZone.Width / 2,
                     (int)specialZone.Y + (int)specialZone.Height / 2,
                     (int)specialZone.Width,
-                    (int)specialZone.Height),mapName);
+                    (int)specialZone.Height), mapName);
                 zonesList.Add(zone);
             }
 

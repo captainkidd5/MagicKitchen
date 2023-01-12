@@ -24,12 +24,13 @@ namespace TiledEngine.Classes.ZoneStuff
         public Rectangle Rectangle { get; private set; }
 
         
-        public Zone(string name, string value, Rectangle rectangle, string stageName)
+        public void Initialize(string name, string value, Rectangle rectangle, string stageName)
         {
             Property = name;
             Value = value;
             Rectangle = rectangle;
             StageName = stageName;
+            base.Initialize();
         }
         public Zone()
         {
@@ -71,9 +72,9 @@ namespace TiledEngine.Classes.ZoneStuff
             CreateBody(Vector2Helper.GetVector2FromRectangle(Rectangle));
         }
 
-        public void SetToDefault()
+        public override void SetToDefault()
         {
-            throw new NotImplementedException();
+            base.SetToDefault();
         }
     }
 }

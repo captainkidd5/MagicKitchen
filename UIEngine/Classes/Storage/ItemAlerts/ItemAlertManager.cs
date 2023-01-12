@@ -46,13 +46,18 @@ namespace UIEngine.Classes.Storage.ItemAlerts
             int count = int.Parse(args[1]);
             AddNormalItemAlert(ItemFactory.GetItem(name), count);
         }
-        public override void LoadContent()
+
+        public void Initialize()
         {
             _alerts = new Dictionary<int, ItemAlert>();
             _recipeAlerts = new Queue<RecipeUnlockAlert>();
             Position = new Vector2(Settings.CenterScreen.X + Settings.NativeWidth / 4, Settings.CenterScreen.Y + 80);
             _recipeUnlockPosition = new Vector2(Settings.CenterScreen.X - 80, 80);
             RegisterCommands();
+        }
+        public override void LoadContent()
+        {
+           
         }
         public void AddNormalItemAlert(Item item, int count)
         {

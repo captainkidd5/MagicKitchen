@@ -164,7 +164,7 @@ namespace UIEngine.Classes
             Curtain = new Curtain(null, graphics, content, null, .95f);
             StorageDisplayHandler = new StorageDisplayHandler(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             ItemAlertManager = new ItemAlertManager(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
-
+            ItemAlertManager.Initialize();
             CursorInfoBox = new CursorInfoBox(null, graphics, content, null, .9f);
             s_developerBoard = new DeveloperBoard(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));
             CentralAlertQueue = new CentralAlertQueue(null, graphics, content, null, GetLayeringDepth(UILayeringDepths.High));

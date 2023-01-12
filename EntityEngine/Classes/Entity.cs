@@ -111,6 +111,7 @@ namespace EntityEngine.Classes
 
         public virtual void Initialize(string stageName, StageManager stagemanager)
         {
+            base.Initialize();
             CurrentStageName = stageName;
             StageManager = stagemanager;
             Name = GetType().ToString();
@@ -120,6 +121,8 @@ namespace EntityEngine.Classes
             Speed = BaseSpeed;
 
             InventoryHandler = new InventoryHandler(StorageCapacity);
+
+            
         }
 
         public virtual void MoveToPortal(string to, string from)

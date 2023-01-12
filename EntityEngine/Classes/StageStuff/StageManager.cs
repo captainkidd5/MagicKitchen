@@ -109,11 +109,12 @@ namespace EntityEngine.Classes.StageStuff
             Flags.Pause = true;
 
         }
-        internal void EnterWorld(string newStage, Vector2 newPlayerPos)
+        public void EnterWorld(string newStage, Vector2 newPlayerPos)
         {
             CurrentStage.SaveToStageFile();
             CurrentStage.SetToDefault();
             CurrentStage = AllStages[newStage];
+            
             CurrentStage.LoadFromStageFile();
 
             //_playerManager.LoadContent(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager, AllStageData);
@@ -194,7 +195,6 @@ namespace EntityEngine.Classes.StageStuff
             MapLoader.Initialize(content);
             InitializeStages();
 
-            CurrentStage = AllStages["TestIsland"];
             foreach(var kvp in AllStages)
             {
               
@@ -219,7 +219,6 @@ namespace EntityEngine.Classes.StageStuff
             {
                 kvp.Value.CreateNewSave();
             }
-            CurrentStage = AllStages["TestIsland"];
 
         }
 
@@ -229,13 +228,19 @@ namespace EntityEngine.Classes.StageStuff
             foreach (var kvp in AllStageData)
             {
                 StageData stageData = kvp.Value;
-                Stage stage = new Stage(content, graphics);
-                stage.Initialize(_camera, stageData, this, PlayerManager);
+                Stage stage = new Stage(stageData,content, graphics);
                 AllStages.Add(stageData.Name, stage);
                 MapLoader.TileManagers.Add(stage.Name, stage.TileManager);
             }
+            CurrentStage = AllStages["TestIsland"];
 
-          
+            foreach (var kvp in AllStages)
+            {
+                kvp.Value.Initialize(_camera, this, PlayerManager);
+
+            }
+
+
             MapLoader.FillPortalGraph();
 
         }

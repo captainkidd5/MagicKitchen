@@ -143,7 +143,6 @@ namespace Core
 
             //This is the android content issue
           //  MainFont = Content.Load<SpriteFont>("Fonts/Font");
-            //throw new Exception("Got to text factory");
 
             TextFactory.Load(Content);
             LanguageManager.Load(Content);
@@ -184,8 +183,7 @@ namespace Core
 
         protected override void Update(GameTime gameTime)
         {
-            //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            //    Exit();
+  
             //if (Settings.WindowFocused)
             //   {
 
@@ -337,18 +335,21 @@ namespace Core
             BinaryWriter writer = e.BinaryWriter;
             Clock.SetToDefault();
             Clock.Save(writer);
+            _stageManager.CreateNewSave(writer);
+            _stageManager.Initialize(_playerManager, Camera);
+            _stageManager.GlobalNPCContainer.Save(writer);
+
             _playerManager.Initialize(_stageManager);
             _playerManager.Save(writer);
             _playerManager.LoadContent();
 
-            _stageManager.CreateNewSave(writer);
-            _stageManager.GlobalNPCContainer.Save(writer);
 
             MapLoader.Portalmanager.Save(writer);
 
             _playerManager.Player1.GiveItem("Wooden_Hook", 1);
             SaveLoadManager.DestroyWriter(writer);
             Flags.FirstBootUp = false;
+            _stageManager.EnterWorld(_stageManager.CurrentStage.Name, Player1.Position);
 
         }
         public void OnSaveLoaded(object? sender, FileLoadedEventArgs e)
@@ -356,11 +357,12 @@ namespace Core
             //_playerManager.LoadContent();
             _stageManager.LoadContent();
             BinaryReader reader = e.BinaryReader;
-            Clock.Load(reader);
 
-            _playerManager.LoadSave(reader);
+            Clock.Load(reader);
             _stageManager.LoadSave(reader);
             _stageManager.GlobalNPCContainer.LoadSave(reader);
+            _playerManager.LoadSave(reader);
+           
             MapLoader.Portalmanager.LoadSave(reader);
 
             SaveLoadManager.DestroyReader(reader);
@@ -377,9 +379,10 @@ namespace Core
 
             BinaryWriter writer = e.BinaryWriter;
             Clock.Save(writer);
-            _playerManager.Save(writer);
             _stageManager.Save(writer);
             _stageManager.GlobalNPCContainer.Save(writer);
+            _playerManager.Save(writer);
+      
             MapLoader.Portalmanager.Save(writer);
 
             //CommandConsole.Append("...Saved!");
