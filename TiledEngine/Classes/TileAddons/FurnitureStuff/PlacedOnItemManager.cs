@@ -16,12 +16,21 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
     public class PlacedOnItemManager : ISaveable
     {
         private Dictionary<int, List<PlacedOnItem>> _placedItemDictionary;
-        private readonly TileManager _tileManager;
+        private TileManager _tileManager;
 
-        public PlacedOnItemManager(TileManager tileManager)
+        public PlacedOnItemManager()
+        {
+           
+        }
+  
+        public void Initialize(TileManager tileManager)
         {
             _placedItemDictionary = new Dictionary<int, List<PlacedOnItem>>();
             _tileManager = tileManager;
+        }
+        public void SetToDefault()
+        {
+            _placedItemDictionary.Clear();
         }
         public void AddNewItem(PlacedOnItem placedItem)
         {
@@ -96,20 +105,8 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             }
         }
 
-        public void CleanUp()
-        {
-            _placedItemDictionary.Clear();
-        }
+     
 
-        public void SetToDefault(BinaryWriter writer)
-        {
-           //
 
-        }
-
-        public void SetToDefault()
-        {
-            CleanUp();
-        }
     }
 }

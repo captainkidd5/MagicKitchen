@@ -240,7 +240,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
             SaveLoadManager.CreateNewSave(_nameTypingBox.Text.ToString(), avatarData);
             SaveLoadManager.SetCurrentSave(_nameTypingBox.Text.ToString());
             Flags.IsNewGame = true;
-            UI.LoadGame(SaveLoadManager.CurrentSave);
+            UI.EnterNewGame(SaveLoadManager.CurrentSave);
         }
     }
 }

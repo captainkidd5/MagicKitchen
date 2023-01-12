@@ -34,11 +34,11 @@ namespace EntityEngine.Classes.StageStuff
     public class StageManager : Component, ISaveable, ICommandRegisterable
     {
 
-        private readonly PlayerManager _playerManager;
+        public PlayerManager PlayerManager { get; set; }
 
 
 
-        public Player Player1 => _playerManager.Player1;
+        public Player Player1 => PlayerManager.Player1;
         private Camera2D _camera;
 
         public Stage CurrentStage { get; private set; }
@@ -56,14 +56,19 @@ namespace EntityEngine.Classes.StageStuff
         public StageManager(GraphicsDevice graphics, ContentManager content, PlayerManager playerManager, Camera2D camera) : base(graphics, content)
         {
 
-            _playerManager = playerManager;
+            PlayerManager = playerManager;
 
             _camera = camera;
             AllStages = new Dictionary<string, Stage>();
             GlobalNPCContainer = new NPCContainer(this, graphics, content);
         }
-
+        
         public override void LoadContent()
+        {
+            base.LoadContent();
+        }
+
+        public void LoadStageDataFromJson()
         {
             string basePath = content.RootDirectory + "/Maps";
             var options = new JsonSerializerOptions();
@@ -80,7 +85,6 @@ namespace EntityEngine.Classes.StageStuff
                     break;
 
                 }
-            base.LoadContent();
         }
 
 
@@ -103,7 +107,7 @@ namespace EntityEngine.Classes.StageStuff
         internal void EnterWorld(string newStage, Vector2 newPlayerPos)
         {
             CurrentStage.SaveToStageFile();
-            CurrentStage.CleanUp();
+            CurrentStage.SetToDefault();
             CurrentStage = AllStages[newStage];
             CurrentStage.LoadFromStageFile();
 
@@ -111,6 +115,8 @@ namespace EntityEngine.Classes.StageStuff
             Player1.Move(newPlayerPos);
             foreach (Portal p in MapLoader.Portalmanager.AllPortals)
             {
+                p.PortalClicked -= OnPortalClicked;
+
                 p.PortalClicked += OnPortalClicked;
             }
             ItemFactory.WorldItemGenerated += CurrentStage.ItemManager.OnWorldItemGenerated;
@@ -122,7 +128,7 @@ namespace EntityEngine.Classes.StageStuff
 
             Settings.Camera.LockBounds = CurrentStage.CamLock;
             if (_playAreaBody != null)
-                _playAreaBody.Destroy();
+                _playAreaBody.DestroyFromPhysicsWorld();
             if (Flags.DisplayPlayAreaCollisions)
             {
 
@@ -146,7 +152,7 @@ namespace EntityEngine.Classes.StageStuff
             {
                 CurrentStage.Update(gameTime);
 
-                _playerManager.Update(gameTime);
+                PlayerManager.Update(gameTime);
 
                 if (Flags.DisplayPlayAreaCollisions)
                 {
@@ -180,7 +186,7 @@ namespace EntityEngine.Classes.StageStuff
         {
             SetToDefault();
 
-            MapLoader.LoadContent(content);
+            MapLoader.Initialize(content);
             InitializeStages();
 
             CurrentStage = AllStages["TestIsland"];
@@ -191,23 +197,18 @@ namespace EntityEngine.Classes.StageStuff
                     kvp.Value.LoadFromStageFile();
                 if (kvp.Value != CurrentStage)
                 {
-                    kvp.Value.CleanUp();
+                    kvp.Value.SetToDefault();
                 }
               
             }
-            //TODO
-            //Do we need to unsubscribe from these somewhere on exiting game and loading separate save?
-            foreach (Portal p in MapLoader.Portalmanager.AllPortals)
-            {
-                p.PortalClicked += OnPortalClicked;
-            }
+   
             RequestSwitchStage(CurrentStage.Name, Player1.Position);
-            _playerManager.LoadContent(CurrentStage.Name);
+           // PlayerManager.LoadContent();
         }
 
         public void CreateNewSave(BinaryWriter writer)
         {
-            SetToDefault();
+            //SetToDefault();
             InitializeStages();
             foreach(KeyValuePair<string, Stage> kvp in AllStages)
             {
@@ -223,7 +224,8 @@ namespace EntityEngine.Classes.StageStuff
             foreach (var kvp in AllStageData)
             {
                 StageData stageData = kvp.Value;
-                Stage stage = new Stage(content, graphics, _camera, stageData, this, _playerManager);
+                Stage stage = new Stage(content, graphics);
+                stage.Initialize(_camera, stageData, this, PlayerManager);
                 AllStages.Add(stageData.Name, stage);
                 MapLoader.TileManagers.Add(stage.Name, stage.TileManager);
             }
@@ -237,9 +239,9 @@ namespace EntityEngine.Classes.StageStuff
             Portal returnPortal = MapLoader.Portalmanager.GetCorrespondingPortal(p);
             RequestSwitchStage(p.To, returnPortal.Position + returnPortal.OffSetEntry);
         }
-        public void CleanUp()
+        public void SetToDefault()
         {
-            CurrentStage.CleanUp();
+            CurrentStage.SetToDefault();
             CurrentStage = null;
             _firstLoad = true;
         }
@@ -256,7 +258,7 @@ namespace EntityEngine.Classes.StageStuff
                 kvp.Value.SetToDefault();
             }
             MapLoader.TileManagers.Clear();
-            _playerManager.SetToDefault();
+            PlayerManager.SetToDefault();
 
         }
     }

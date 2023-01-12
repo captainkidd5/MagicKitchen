@@ -480,7 +480,21 @@ namespace UIEngine.Classes
                 SaveLoadManager.SetCurrentSave(saveFile.MetaData.Name);
                 SaveLoadManager.Load(saveFile);
                 s_requestedGameState = GameDisplayState.InGame;
-                SaveLoadManager.SaveGame(null);
+                //SaveLoadManager.SaveGame(null);
+                Flags.DisableAllUIUpdates = false;
+                SongManager.CurrentPlayListName = "LullabyTown";
+                FinishChangeGameState();
+
+            }));
+        }
+
+        public static void EnterNewGame(SaveFile saveFile)
+        {
+            Flags.DisableAllUIUpdates = true;
+            DropCurtain(CurtainDropRate, new Action(() =>
+            {
+               
+                s_requestedGameState = GameDisplayState.InGame;
                 Flags.DisableAllUIUpdates = false;
                 SongManager.CurrentPlayListName = "LullabyTown";
                 FinishChangeGameState();

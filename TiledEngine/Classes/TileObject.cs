@@ -189,7 +189,7 @@ namespace TiledEngine.Classes
         {
             foreach (ITileAddon addon in Addons)
             {
-                addon.CleanUp();
+                addon.SetToDefault();
             }
             Addons.Clear();
             Sprite = null;

@@ -68,7 +68,7 @@ namespace TiledEngine.Classes
 
         public static Dictionary<string, TileManager> TileManagers;
     
-        public static void LoadContent(ContentManager content)
+        public static void Initialize(ContentManager content)
         {
             TileManagers = new Dictionary<string, TileManager>();
             s_currentWorldSize = WorldSize.Small;
@@ -88,7 +88,7 @@ namespace TiledEngine.Classes
             FurnitureLoader.LoadContent(content);
             if(Portalmanager != null)
             {
-                Portalmanager.CleanUp();
+                Portalmanager.SetToDefault();
             }
             Portalmanager = new PortalManager();
             ZoneManager = new ZoneManager();

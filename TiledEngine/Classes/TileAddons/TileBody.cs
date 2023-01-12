@@ -81,11 +81,11 @@ namespace TiledEngine.Classes.TileAddons
             }
           
         }
-        public override void CleanUp()
+        public override void SetToDefault()
         {
             //CleanGrid();
 
-            base.CleanUp();
+            base.SetToDefault();
         }
 
         public virtual Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing)

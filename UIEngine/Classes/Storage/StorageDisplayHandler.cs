@@ -29,7 +29,8 @@ namespace UIEngine.Classes.Storage
         public void RemovePlayerSelectedItem(int amt) => PlayerInventoryDisplay.DetractCurrentlySelectedItem(amt);
 
 
-        internal PlayerInventoryDisplay PlayerInventoryDisplay;
+        internal PlayerInventoryDisplay PlayerInventoryDisplay { get; 
+            set; }
         private int _playerInventoryTotalSlots = 10;
         private int _playerSlotWidth = 64;
 

@@ -133,6 +133,7 @@ namespace EntityEngine.Classes.PlayerStuff
             Shadow = new Shadow(SpriteEngine.Classes.ShadowStuff.ShadowType.NPC, CenteredPosition, ShadowSize.Small, SpriteFactory.NPCSheet);
 
 
+            UI.LoadPlayerInventory(StorageContainer, EquipmentStorageContainer);
 
 
         }
@@ -468,9 +469,9 @@ namespace EntityEngine.Classes.PlayerStuff
             }
         }
 
-        public override void CleanUp()
+        public override void SetToDefault()
         {
-            base.CleanUp();
+            base.SetToDefault();
             StorageCapacity = 24;
 
         }

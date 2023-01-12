@@ -31,7 +31,7 @@ namespace PhysicsEngine.Classes.Gadgets
        
         public override void Destroy()
         {
-            FloorBody.Destroy();
+            FloorBody.DestroyFromPhysicsWorld();
         }
     }
 }

@@ -92,10 +92,10 @@ namespace TiledEngine.Classes.PortalStuff
 
             return newPortal;
         }
-        public void CleanUp()
+        public void SetToDefault()
         {
             foreach (Portal p in AllPortals)
-                p.CleanUp();
+                p.SetToDefault();
             AllPortals.Clear();
         }
 

@@ -185,13 +185,7 @@
  <objectgroup id="5" name="Portal">
   <object id="85" x="256" y="457" width="34" height="27">
    <properties>
-    <property name="click" value="false"/>
-    <property name="directionToFace" value="Down"/>
-    <property name="from" value="RamenShop"/>
     <property name="portal" value="RamenShop,TestIsland,false,0,-112"/>
-    <property name="to" value="TestIsland"/>
-    <property name="xOffSet" value="0"/>
-    <property name="yOffSet" value="-32"/>
    </properties>
   </object>
  </objectgroup>

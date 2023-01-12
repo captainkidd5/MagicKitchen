@@ -15,7 +15,7 @@ namespace Globals.Classes.Time
         public int Hours { get; internal set; }
         public int Minutes { get; internal set; }
 
-        public void CleanUp()
+        public void SetToDefault()
         {
             throw new NotImplementedException();
         }
@@ -44,6 +44,11 @@ namespace Globals.Classes.Time
             Hours = 0;
             Minutes = 0;
 
+        }
+
+        public void Initialize()
+        {
+            throw new NotImplementedException();
         }
     }
 }

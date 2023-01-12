@@ -161,9 +161,9 @@ namespace EntityEngine.Classes.HumanoidStuff
             ChangeClothingColor(typeof(Shoes), ColorHelper.GetRandomColor());
         }
 
-        public override void CleanUp()
+        public override void SetToDefault()
         {
-            base.CleanUp();
+            base.SetToDefault();
         }
         public override void Update(GameTime gameTime)
         {

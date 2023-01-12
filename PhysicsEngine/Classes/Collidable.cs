@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Globals.Classes;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PhysicsEngine.Classes.Gadgets;
 using SoundEngine.Classes;
@@ -7,6 +8,7 @@ using SpriteEngine.Classes.ParticleStuff;
 using SpriteEngine.Classes.ShadowStuff;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using tainicom.Aether.Physics2D.Dynamics;
 using tainicom.Aether.Physics2D.Dynamics.Contacts;
@@ -17,7 +19,7 @@ namespace PhysicsEngine.Classes
     /// <summary>
     /// Inherit from this if your class should be collidable!
     /// </summary>
-    public class Collidable : ILightDrawable, IEmitter
+    public class Collidable : ILightDrawable, IEmitter, ISaveable
     {
         public Vector2 Position { get; protected set; }
 
@@ -30,7 +32,7 @@ namespace PhysicsEngine.Classes
         //primary hull, defaults to HullBodies[0]
         public HullBody MainHullBody { get; protected set; }
 
-        private List<HullBody> HullBodies { get; set; }
+        private List<HullBody> _hullBodies { get; set; }
 
         /// <summary>
         /// These modify the position of the Collidable
@@ -40,7 +42,7 @@ namespace PhysicsEngine.Classes
 
         protected SoundModuleManager SoundModuleManager { get; set; }
 
-        private bool MouseHovering { get; set; }
+        private bool _mouseHovering { get; set; }
 
         protected bool PlayerInClickRange { get; private set; }
 
@@ -71,7 +73,7 @@ namespace PhysicsEngine.Classes
         /// <param name="controllerConnected">Physics engine may not reference controls project, must pass in as param</param>
         public bool IsHovered(bool controllerConnected)
         {
-            return (controllerConnected && PlayerInControllerActionRange) || (MouseHovering);
+            return (controllerConnected && PlayerInControllerActionRange) || (_mouseHovering);
         }
 
         protected virtual bool WithinRangeOfPlayer(bool controllerConnected)
@@ -85,11 +87,32 @@ namespace PhysicsEngine.Classes
         }
         public Collidable()
         {
-            HullBodies = new List<HullBody>();
-            Gadgets = new List<PhysicsGadget>();
-            SoundModuleManager = new SoundModuleManager();
+            SetToDefault();
         }
+     
+        public virtual void SetToDefault()
+        {
+            foreach (HullBody body in _hullBodies)
+            {
+                body.DestroyFromPhysicsWorld();
+            }
+            if (MainHullBody != null)
+                MainHullBody.DestroyFromPhysicsWorld();
+            MainHullBody = null;
+            _hullBodies.Clear();
+            if (LightsCollidable != null)
+            {
+                foreach (LightCollidable lightCollidable in LightsCollidable)
+                {
+                    lightCollidable.SetToDefault();
+                }
+                LightsCollidable.Clear();
+                LightsCollidable = null;
+            }
 
+            if (BigSensor != null)
+                BigSensor.DestroyFromPhysicsWorld();
+        }
         protected void AddPrimaryBody(HullBody body)
         {
             MainHullBody = body;
@@ -97,7 +120,7 @@ namespace PhysicsEngine.Classes
         }
         protected void AddSecondaryBody(HullBody body)
         {
-            HullBodies.Add(body);
+            _hullBodies.Add(body);
         }
         public void SetPrimaryCollidesWith( List<Category> collisionCategories)
         {
@@ -129,7 +152,7 @@ namespace PhysicsEngine.Classes
             {
                 gadget.Update(gameTime);
             }
-            foreach (HullBody body in HullBodies)
+            foreach (HullBody body in _hullBodies)
             {
                 body.Position = Position;
             }
@@ -168,7 +191,7 @@ namespace PhysicsEngine.Classes
             if (fixtureB.CollisionCategories == (Category)PhysCat.Cursor)
             {
                 if(fixtureA.CollidesWith.HasFlag ((Category)PhysCat.Cursor))
-                MouseHovering = true;
+                _mouseHovering = true;
 
 
             }
@@ -178,14 +201,14 @@ namespace PhysicsEngine.Classes
         {
             if (fixtureB.CollisionCategories==((Category)PhysCat.Cursor))
             {
-                MouseHovering = false;
+                _mouseHovering = false;
             }
         }
         protected virtual bool OnCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
             if (fixtureB.CollisionCategories == ((Category)PhysCat.Cursor) && fixtureA.CollidesWith == ((Category)PhysCat.Cursor))
             {
-                MouseHovering = true;
+                _mouseHovering = true;
 
 
             }
@@ -204,7 +227,7 @@ namespace PhysicsEngine.Classes
         {
             if (fixtureB.CollisionCategories == ((Category)PhysCat.Cursor))
             {
-                MouseHovering = false;
+                _mouseHovering = false;
             }
             if (fixtureB.CollisionCategories==((Category)PhysCat.PlayerBigSensor))
             {
@@ -226,7 +249,7 @@ namespace PhysicsEngine.Classes
         {
             Position = newPosition;
 
-            foreach (HullBody body in HullBodies)
+            foreach (HullBody body in _hullBodies)
             {
                 body.Position = Position;
             }
@@ -256,26 +279,7 @@ namespace PhysicsEngine.Classes
             MainHullBody.Body.SetFriction(0);
             MainHullBody.Body.Mass = bodyMass;
         }
-        public virtual void CleanUp()
-        {
-            foreach(HullBody body in HullBodies)
-            {
-                body.Destroy();
-            }
-            if(MainHullBody != null)
-                MainHullBody.Destroy();
-            MainHullBody = null;
-            HullBodies.Clear();
-            if(LightsCollidable != null)
-            {
-                foreach(LightCollidable lightCollidable in LightsCollidable)
-                {
-                    lightCollidable.CleanUp();
-                }
-                LightsCollidable.Clear();
-                LightsCollidable = null;
-            }
-        }
+       
         protected void AddGadget(PhysicsGadget gadget)
         {
             Gadgets.Add(gadget);
@@ -309,5 +313,28 @@ namespace PhysicsEngine.Classes
             }
             
         }
+
+       
+        public void LoadContent()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnloadContent()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LoadSave(BinaryReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+      
     }
 }

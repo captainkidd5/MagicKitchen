@@ -27,7 +27,14 @@ namespace TiledEngine.Classes.PortalStuff
         public Direction DirectionToFace { get; set; }
 
 
-        public PortalData(Rectangle rectangle, string from, string to, int xOffSet, int yOffSet, Direction directionToFace, bool mustBeClicked = false)
+        public PortalData()
+        {
+        
+
+        }
+
+
+        public void Initialize(Rectangle rectangle, string from, string to, int xOffSet, int yOffSet, Direction directionToFace, bool mustBeClicked = false)
         {
             Rectangle = rectangle;
             From = from;
@@ -36,15 +43,11 @@ namespace TiledEngine.Classes.PortalStuff
             YOffSet = yOffSet;
             DirectionToFace = directionToFace;
             MustBeClicked = mustBeClicked;
-
         }
-
-        // for loading
-        public PortalData()
+        public void SetToDefault()
         {
-
+            throw new NotImplementedException();
         }
-
         /// <summary>
         /// Parses the "portal" tile property in a tileset
         /// true,Town,Cafe,32,-16,32,32,0,0
@@ -53,8 +56,8 @@ namespace TiledEngine.Classes.PortalStuff
         /// </summary>
         public static PortalData PortalFromPropertyString(string info, Vector2 tilePosition)
         {
-
-            return new PortalData(new Rectangle(int.Parse(info.Split(',')[3]) + (int)tilePosition.X,
+            PortalData portalData = new PortalData();
+            portalData.Initialize(new Rectangle(int.Parse(info.Split(',')[3]) + (int)tilePosition.X,
                 int.Parse(info.Split(',')[4]) + (int)tilePosition.Y,
                 int.Parse(info.Split(',')[5]),
                 int.Parse(info.Split(',')[6])),
@@ -63,7 +66,7 @@ namespace TiledEngine.Classes.PortalStuff
                 int.Parse(info.Split(',')[7]),
                 int.Parse(info.Split(',')[8]), (Direction)Enum.Parse(typeof(Direction), info.Split(',')[9]), bool.Parse(info.Split(',')[0]));
 
-
+            return portalData;
         }
 
 
@@ -90,14 +93,8 @@ namespace TiledEngine.Classes.PortalStuff
             DirectionToFace = (Direction)reader.ReadInt32();
         }
 
-        public void CleanUp()
-        {
-            throw new NotImplementedException();
-        }
 
-        public void SetToDefault()
-        {
-            throw new NotImplementedException();
-        }
+
+  
     }
 }

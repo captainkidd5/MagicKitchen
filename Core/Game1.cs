@@ -117,8 +117,9 @@ namespace Core
 
 
 
-            _playerManager = new PlayerManager(_stageManager, GraphicsDevice, Content);
             _stageManager = new StageManager(GraphicsDevice, Content, _playerManager, Camera);
+            _playerManager = new PlayerManager(_stageManager, GraphicsDevice, Content);
+            _stageManager.PlayerManager = _playerManager;
             //Penumbra.SpriteBatchTransformEnabled = true;
             _commandList = new CommandList();
 
@@ -145,7 +146,7 @@ namespace Core
             TextFactory.Load(Content);
             LanguageManager.Load(Content);
             Scheduler.Load(Content);
-            MapLoader.LoadContent(Content);
+            MapLoader.Initialize(Content);
             ItemFactory.LoadContent(Content);
 
             EntityFactory.Load(Content);
@@ -326,18 +327,22 @@ namespace Core
         /// <param name="e"></param>
         public void OnSaveCreated(object? sender, FileCreatedEventArgs e)
         {
-            _stageManager.LoadContent();
-
             Flags.IsNewGame = true;
+
+            _stageManager.LoadStageDataFromJson();
+
 
             BinaryWriter writer = e.BinaryWriter;
             Clock.SetToDefault();
             Clock.Save(writer);
             _playerManager.Save(writer);
+            _playerManager.LoadContent();
 
             _stageManager.CreateNewSave(writer);
             _stageManager.GlobalNPCContainer.Save(writer);
+
             MapLoader.Portalmanager.Save(writer);
+
             _playerManager.Player1.GiveItem("Wooden_Hook", 1);
             SaveLoadManager.DestroyWriter(writer);
             Flags.FirstBootUp = false;
@@ -372,6 +377,7 @@ namespace Core
             _playerManager.Save(writer);
             _stageManager.Save(writer);
             _stageManager.GlobalNPCContainer.Save(writer);
+            MapLoader.Portalmanager.Save(writer);
 
             //CommandConsole.Append("...Saved!");
             SaveLoadManager.DestroyWriter(writer);
@@ -380,7 +386,7 @@ namespace Core
 
         public void OnReturnToMainMenu(object? sender, EventArgs e)
         {
-            _stageManager.CleanUp();
+            _stageManager.SetToDefault();
             UI.RaiseCurtain(UI.CurtainDropRate);
         }
 

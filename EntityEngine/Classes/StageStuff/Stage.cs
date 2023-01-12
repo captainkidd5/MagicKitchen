@@ -35,7 +35,7 @@ namespace EntityEngine.Classes.StageStuff
 
         private PlayerManager _playerManager;
         private StageData _stageData;
-        private readonly StageManager _stageManager;
+        private StageManager _stageManager;
 
         public NPCContainer NPCContainer { get; private set; }
 
@@ -62,39 +62,29 @@ namespace EntityEngine.Classes.StageStuff
 
         private FlotsamGenerator _flotsamGenerator;
         public Stage(ContentManager content,
-            GraphicsDevice graphics, Camera2D camera, StageData stageData,
-            StageManager stageManager, PlayerManager playerManager)
+            GraphicsDevice graphics)
         {
 
             _content = content;
             _graphics = graphics;
-            _camera = camera;
 
+   
+        }
+
+        public void Initialize(Camera2D camera, StageData stageData,
+            StageManager stageManager, PlayerManager playerManager)
+        {
             _stageData = stageData;
             _stageManager = stageManager;
-            NPCContainer = new NPCContainer(_stageManager,_graphics, _content);
-            TileManager = new TileManager(_graphics, _content, _camera);
-
+            NPCContainer = new NPCContainer(_stageManager, _graphics, _content);
+            TileManager = new TileManager(_graphics, _content);
+            TileManager.Initialize(_camera);
             ItemManager = new ItemManager(Name, TileManager);
 
             _flotsamGenerator = new FlotsamGenerator(ItemManager, TileManager);
             _playerManager = playerManager;
             LightDrawables = new List<ILightDrawable>() { TileManager, NPCContainer, _playerManager };
         }
-
-        //public void Load(StageData stageData, StageManager stageManager, PlayerManager playerManager)
-        //{
-        //    _stageData = stageData;
-        //    NPCContainer = new NPCContainer(_graphics, _content);
-        //    _tileManager = new TileManager(_graphics, _content, _camera);
-
-        //    ItemManager = new ItemManager(Name, _tileManager);
-
-        //    _flotsamGenerator = new FlotsamGenerator(ItemManager, _tileManager);
-        //    _playerManager = playerManager;
-        //    LightDrawables = new List<ILightDrawable>() { _tileManager, NPCContainer, _playerManager };
-        //}
-
         public void Update(GameTime gameTime)
         {
             Clock.Update(gameTime);
@@ -184,14 +174,7 @@ namespace EntityEngine.Classes.StageStuff
 
         }
 
-        public void CleanUp()
-        {
-            TileManager.CleanUp();
-            ItemManager.CleanUp();
-            
-            NPCContainer.CleanUp();
-        }
-
+ 
         public void SetToDefault()
         {
             TileManager?.SetToDefault();

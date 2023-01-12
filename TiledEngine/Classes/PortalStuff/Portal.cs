@@ -38,9 +38,9 @@ namespace TiledEngine.Classes.PortalStuff
         {
 
         }
-        public override void CleanUp()
+        public override void SetToDefault()
         {
-            base.CleanUp();
+            base.SetToDefault();
         }
         public virtual void OnPortalClicked()
         {

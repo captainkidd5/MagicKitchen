@@ -9,17 +9,17 @@ namespace Globals.Classes
 {
     public class Camera2D : ISaveable
     {
-        private readonly Viewport viewport;
+        private readonly Viewport _viewPort;
 
-        private Vector2 origin { get; set; }
+        private Vector2 _origin { get; set; }
         public Vector2 position;
-        private float zoom { get; set; }
-        private float Rotation { get; set; }
+        private float _zoom { get; set; }
+        private float _rotation { get; set; }
 
         private Rectangle _viewPortRectangle;
 
      
-        public float Zoom { get { return zoom; } set { zoom = value; if (zoom < 0.1f) zoom = 0.1f; } }
+        public float Zoom { get { return _zoom; } set { _zoom = value; if (_zoom < 0.1f) _zoom = 0.1f; } }
 
         public float X { get { return position.X; } }
         public float Y { get { return position.Y; } }
@@ -28,13 +28,18 @@ namespace Globals.Classes
 
         public Camera2D(Viewport viewport)
         {
-            Zoom =3.0f;
-            Rotation = 0.0f;
+          SetToDefault();
+            _origin = new Vector2(viewport.Width / 2.0f, viewport.Height / 2.0f);
+            _viewPort = viewport;
+        }
+        public void SetToDefault()
+        {
+            Zoom = 3.0f;
+            _rotation = 0.0f;
             position = Vector2.Zero;
             LockBounds = true;
-            origin = new Vector2(viewport.Width / 2.0f, viewport.Height / 2.0f);
-            this.viewport = viewport;
         }
+
         public Vector2 WorldToScreen(Vector2 worldPosition)
         {
             return Vector2.Transform(worldPosition, GetViewMatrix(Vector2.Zero));
@@ -42,7 +47,7 @@ namespace Globals.Classes
 
         public Vector2 ScreenToWorld(Vector2 screenPosition)
         {
-            return Vector2.Transform(screenPosition - new Vector2(viewport.X, viewport.Y) , Matrix.Invert(GetViewMatrix(Vector2.One))) ;
+            return Vector2.Transform(screenPosition - new Vector2(_viewPort.X, _viewPort.Y) , Matrix.Invert(GetViewMatrix(Vector2.One))) ;
         }
         public void Jump(Vector2 jumpToPos)
         {
@@ -151,7 +156,7 @@ namespace Globals.Classes
 
             return Matrix.CreateTranslation(
                 new Vector3(-X, -Y, 0)) *
-                Matrix.CreateRotationZ(Rotation) *
+                Matrix.CreateRotationZ(_rotation) *
                 Matrix.CreateScale(new Vector3(Zoom, Zoom, 0)) *
                 Matrix.CreateTranslation(
                     new Vector3(graphicsDevice.Viewport.Width * 0.5f,
@@ -162,30 +167,32 @@ namespace Globals.Classes
         {
             // To add parallax, simply multiply it by the position
             return Matrix.CreateTranslation(new Vector3(-position * parallax, 0.0f)) *
-                Matrix.CreateTranslation(new Vector3(-origin, 0.0f)) *
-                Matrix.CreateRotationZ(Rotation) *
+                Matrix.CreateTranslation(new Vector3(-_origin, 0.0f)) *
+                Matrix.CreateRotationZ(_rotation) *
                 Matrix.CreateScale(Zoom, Zoom, 1) *
-                Matrix.CreateTranslation(new Vector3(origin, 0.0f));
+                Matrix.CreateTranslation(new Vector3(_origin, 0.0f));
         }
-
+ 
         public void Save(BinaryWriter writer)
         {
-            writer.Write(this.Zoom);
+            writer.Write(Zoom);
         }
 
         public void LoadSave(BinaryReader reader)
         {
-            this.Zoom = reader.ReadSingle();
+          Zoom = reader.ReadSingle();
         }
 
-        public void CleanUp()
+    
+
+        public void LoadContent()
         {
             throw new NotImplementedException();
         }
 
-        public void SetToDefault( )
+        public void UnloadContent()
         {
-           // throw new NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

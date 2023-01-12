@@ -44,7 +44,7 @@ namespace PhysicsEngine.Classes
 
 
 
-        public virtual void Destroy( )
+        public virtual void DestroyFromPhysicsWorld( )
         {
             PhysicsManager.VelcroWorld.RemoveAsync(Body);
             Destroyed = true;

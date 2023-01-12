@@ -118,7 +118,7 @@ namespace TiledEngine.Classes.ZoneStuff
         public void LoadSave(BinaryReader reader)
         {
 
-            CleanUp();
+            SetToDefault();
             int zoneDictCount = reader.ReadInt32();
             for (int j = 0; j < zoneDictCount; j++)
             {
@@ -154,13 +154,13 @@ namespace TiledEngine.Classes.ZoneStuff
 
         }
 
-        public void CleanUp()
+        public void SetToDefault()
         {
             foreach (var pair in SpecialZones)
             {
                 foreach (var zone in pair.Value)
                 {
-                    zone.CleanUp();
+                    zone.SetToDefault();
 
                 }
             }
@@ -169,7 +169,7 @@ namespace TiledEngine.Classes.ZoneStuff
             {
                 foreach(var zone in pair.Value)
                 {
-                    zone.CleanUp();
+                    zone.SetToDefault();
 
                 }
             }
@@ -178,7 +178,7 @@ namespace TiledEngine.Classes.ZoneStuff
 
         public void SetToDefault()
         {
-            CleanUp();
+            SetToDefault();
         }
     }
 }

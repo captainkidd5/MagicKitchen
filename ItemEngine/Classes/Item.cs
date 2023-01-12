@@ -55,8 +55,13 @@ namespace ItemEngine.Classes
         internal Item(ItemData data)
         {
             _itemData = data;
-            CurrentDurability = MaxDurability;
+            SetToDefault();
         }
+        public void SetToDefault()
+        {
+            CurrentDurability = _itemData.MaxDurability;
+        }
+
         public Item()
         {
         }
@@ -89,10 +94,7 @@ namespace ItemEngine.Classes
 
 
 
-        public void CleanUp()
-        {
-            throw new NotImplementedException();
-        }
+     
 
         public void Save(BinaryWriter writer)
         {
@@ -107,9 +109,15 @@ namespace ItemEngine.Classes
 
         }
 
-        public void SetToDefault( )
+   
+        public void LoadContent()
         {
-            CurrentDurability = _itemData.MaxDurability;
+            throw new NotImplementedException();
+        }
+
+        public void UnloadContent()
+        {
+            throw new NotImplementedException();
         }
     }
 }

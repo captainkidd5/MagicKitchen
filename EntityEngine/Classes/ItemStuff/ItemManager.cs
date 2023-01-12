@@ -25,7 +25,20 @@ namespace EntityEngine.ItemStuff
             _tileManager = tileManager;
             _items = new List<WorldItem>();
         }
+        public void SetToDefault()
+        {
+            for (int i = 0; i < _items.Count; i++)
+            {
+                WorldItem item = _items[i];
+                item.SetToDefault();
+            }
+            _items.Clear();
+        }
 
+        public void LoadContent()
+        {
+            throw new NotImplementedException();
+        }
         public void Update(GameTime gameTime)
         {
             for (int i = _items.Count - 1; i >= 0; i--)
@@ -34,7 +47,7 @@ namespace EntityEngine.ItemStuff
                 item.Update(gameTime);
                 if (item.FlaggedForRemoval)
                 {
-                    item.CleanUp();
+                    item.SetToDefault();
                     _items.RemoveAt(i);
                 }
             }
@@ -61,11 +74,7 @@ namespace EntityEngine.ItemStuff
 
         }
 
-        public void SetToDefault()
-        {
-            CleanUp();
-        }
-
+     
         public void Save(BinaryWriter writer)
         {
             writer.Write(_items.Count);
@@ -94,14 +103,6 @@ namespace EntityEngine.ItemStuff
             //throw new NotImplementedException();
         }
 
-        public void CleanUp()
-        {
-            for (int i = 0; i < _items.Count; i++)
-            {
-                WorldItem item = _items[i];
-                item.CleanUp();
-            }
-            _items.Clear();
-        }
+    
     }
 }

@@ -38,9 +38,9 @@ namespace EntityEngine.Classes
             EntitiesToAdd = new List<Entity>();
             StageManager = stageManager;
         }
-        public virtual void LoadContent(string stageName)
+        public virtual void LoadContent()
         {
-            StageName = stageName;
+            StageName = StageManager.CurrentStage.Name;
 
             //foreach (Entity entity in Entities)
             //{
@@ -57,7 +57,7 @@ namespace EntityEngine.Classes
                 entity.Update(gameTime);
                 if (entity.FlaggedForRemoval)
                 {
-                    entity.CleanUp();
+                    entity.SetToDefault();
                     Entities.RemoveAt(i);
 
                 }
@@ -114,18 +114,18 @@ namespace EntityEngine.Classes
 
         }
 
-        public virtual void CleanUp()
+        public virtual void SetToDefault()
         {
             foreach (Entity entity in Entities)
             {
-                entity.CleanUp();
+                entity.SetToDefault();
             }
             Entities.Clear();
         }
 
         public virtual void SetToDefault()
         {
-            CleanUp();
+            SetToDefault();
         }
     }
 }

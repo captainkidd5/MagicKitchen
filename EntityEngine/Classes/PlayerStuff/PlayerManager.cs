@@ -42,7 +42,7 @@ namespace EntityEngine.Classes.PlayerStuff
             Player1.UpdateFromInput();
             base.Update(gameTime);
         }
-        public override void LoadContent(string stageName)
+        public override void LoadContent()
         {
  
             Player1.LoadContent(this, null, null, false);
@@ -63,10 +63,10 @@ namespace EntityEngine.Classes.PlayerStuff
               base.LoadSave(reader);
         }
 
-        public override void CleanUp()
+        public override void SetToDefault()
         {
             //base.CleanUp();
-            Player1.CleanUp();
+            Player1.SetToDefault();
         }
         public override void SetToDefault()
         {

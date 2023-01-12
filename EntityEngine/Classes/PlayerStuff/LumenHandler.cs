@@ -170,7 +170,7 @@ namespace EntityEngine.Classes.PlayerStuff
             _lumenRechargeRate = reader.ReadSingle();
         }
 
-        public void CleanUp()
+        public void SetToDefault()
         {
             throw new NotImplementedException();
         }

@@ -42,7 +42,7 @@ namespace TiledEngine.Classes
         //How many tiles outside of the viewport should be rendered.
         //some tiles (trees, buildings) are quite large so we have to extend culling a bit so as to not cut them off!
         private readonly int _cullingLeeWay = 8;
-        private readonly Camera2D _camera;
+        private Camera2D _camera;
 
         private TilePlacementManager _tilePlacementManager;
         public PathGrid PathGrid { get; private set; }
@@ -67,13 +67,21 @@ namespace TiledEngine.Classes
 
         public bool JustResizedWindow { get; set; }
 
-        public TileManager(GraphicsDevice graphics, ContentManager content, Camera2D camera) :
+        public TileManager(GraphicsDevice graphics, ContentManager content) :
             base(graphics, content)
         {
-            OffSetLayersDictionary = new Dictionary<int, float>();
+           
+
+
+        }
+
+        public void Initialize(Camera2D camera)
+        {
             _camera = camera;
+            OffSetLayersDictionary = new Dictionary<int, float>();
             TileLocator = new TileLocator();
-            PlacedItemManager = new PlacedOnItemManager(this);
+            PlacedItemManager = new PlacedOnItemManager();
+            PlacedItemManager.Initialize(this);
             TileLightManager = new TileLightManager();
             _tilePlacementManager = new TilePlacementManager(this);
             TileLocationHelper = new TileLocationHelper(this);
@@ -83,7 +91,6 @@ namespace TiledEngine.Classes
             Settings.GameWindow.ClientSizeChanged -= Window_ClientSizeChanged;
 
             Settings.GameWindow.ClientSizeChanged += Window_ClientSizeChanged;
-
 
         }
 
@@ -521,7 +528,7 @@ namespace TiledEngine.Classes
 
             return false;
         }
-        public void CleanUp()
+        public void SetToDefault()
         {
             foreach (var tileObject in TileObjects)
             {
@@ -530,13 +537,10 @@ namespace TiledEngine.Classes
             TileObjects.Clear();
             TileData.Clear();
             TileLocator.CleanUp();
-            PlacedItemManager.CleanUp();
-            TileLightManager.CleanUp();
+            PlacedItemManager.SetToDefault();
+            TileLightManager.SetToDefault();
         }
 
-        public void SetToDefault( )
-        {
-            CleanUp();
-        }
+   
     }
 }

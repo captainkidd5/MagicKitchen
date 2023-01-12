@@ -895,6 +895,9 @@
 #begin Maps/FurnitureData.json
 /copy:Maps/FurnitureData.json
 
+#begin Maps/Haneda.tmx
+/copy:Maps/Haneda.tmx
+
 #begin Maps/InteriorBackground_Spaced.png
 /importer:TextureImporter
 /processor:TextureProcessor

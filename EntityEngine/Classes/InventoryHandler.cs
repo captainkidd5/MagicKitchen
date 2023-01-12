@@ -23,7 +23,16 @@ namespace EntityEngine.Classes
             StorageContainer = new StorageContainer(capacity);
         }
 
+        public void SetToDefault()
+        {
+            StorageContainer.SetToDefault();
+            ItemManager.SetToDefault();
+        }
 
+        public void LoadContent()
+        {
+            throw new NotImplementedException();
+        }
         /// <summary>
         /// Need reference to new stage items
         /// </summary>
@@ -81,14 +90,11 @@ namespace EntityEngine.Classes
             StorageContainer.LoadSave(reader);
         }
 
-        public void CleanUp()
-        {
-            //ItemManager.CleanUp();
-        }
+      
 
-        public void SetToDefault()
+        public void UnloadContent()
         {
-            StorageContainer.SetToDefault();
+            throw new NotImplementedException();
         }
     }
 }

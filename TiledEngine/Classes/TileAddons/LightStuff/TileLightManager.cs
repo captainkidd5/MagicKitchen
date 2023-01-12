@@ -72,20 +72,10 @@ namespace TiledEngine.Classes.TileAddons.LightStuff
             }
         }
 
-        public void CleanUp()
+        public void SetToDefault()
         {
             _lightDictionary.Clear();
         }
 
-        public void SetToDefault(BinaryWriter writer)
-        {
-            //
-
-        }
-
-        public void SetToDefault()
-        {
-            CleanUp();
-        }
     }
 }

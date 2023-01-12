@@ -111,11 +111,11 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
                 if (submergenceLevel > SubmergenceLevel.None && !alwaysSubmerged)
                     _currentAnimation.SwapSourceRectangle(
                         new Rectangle(_currentAnimation.SourceRectangle.X, _currentAnimation.SourceRectangle.Y,
-                        _currentAnimation.SourceRectangle.Width, yOffset / 2));
+                        _currentAnimation.SourceRectangle.Width, YOffset / 2));
                 else
                     _currentAnimation.SwapSourceRectangle(
                      new Rectangle(_currentAnimation.SourceRectangle.X, _currentAnimation.SourceRectangle.Y,
-                     _currentAnimation.SourceRectangle.Width, yOffset));
+                     _currentAnimation.SourceRectangle.Width, YOffset));
                 _currentAnimation.Draw(spriteBatch);
 
             }

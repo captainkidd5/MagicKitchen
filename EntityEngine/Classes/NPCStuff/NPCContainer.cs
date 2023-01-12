@@ -99,7 +99,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
                             NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                                 .CreateInstance(npcData.ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
-                                null, new object[] {string.Empty,StageManager, graphics, content }, null, null);
+                                null, new object[] {"TestIsland",StageManager, graphics, content }, null, null);
 
 
                             npc.LoadContent(this, null, npcData.Name, npc.GetType() != typeof(HumanoidEntity));
@@ -117,10 +117,10 @@ namespace EntityEngine.Classes.CharacterStuff
                 for (int i = 0; i < count; i++)
                 {
                     string savedType = reader.ReadString();
-
+                    //TODO: Give npcdata a starting stage string
                     NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                         .CreateInstance(savedType, true, System.Reflection.BindingFlags.CreateInstance,
-                        null, new object[] { graphics, content }, null, null);
+                        null, new object[] {"TestIsland", StageManager, graphics, content }, null, null);
                     npc.LoadSave(reader);
                     npc.LoadContent(this, null, npc.Name, npc.GetType() != typeof(HumanoidEntity));
                     Entities.Add(npc);
@@ -136,7 +136,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
             NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                     .CreateInstance(EntityFactory.NPCData[name].ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
-                    null, new object[] { graphics, content }, null, null);
+                    null, new object[] {"TestIsland", StageManager, graphics, content }, null, null);
             npc.LoadContent(this, position, name, EntityFactory.NPCData[name].NPCType == NPCType.Enemy);
             EntitiesToAdd.Add(npc);
         }
@@ -154,7 +154,7 @@ namespace EntityEngine.Classes.CharacterStuff
                 totalSpawnVal += (float)entity.NPCData.SpawnSlotValue / 100;
                 if (entity.FlaggedForRemoval)
                 {
-                    entity.CleanUp();
+                    entity.SetToDefault();
                     Entities.RemoveAt(i);
 
                 }

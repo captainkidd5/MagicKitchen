@@ -29,9 +29,9 @@ namespace TiledEngine.Classes.TileAddons
            base.Load();
             Tile.TileManager.TileLocator.AddItem(Key, SubKey, Tile);
         }
-        public override void CleanUp()
+        public override void SetToDefault()
         {
-            base.CleanUp();
+            base.SetToDefault();
             Tile.TileManager.TileLocator.RemoveItem(Key, SubKey, Tile);
         }
        

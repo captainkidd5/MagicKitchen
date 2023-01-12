@@ -559,17 +559,14 @@ namespace EntityEngine.Classes
             InventoryHandler.LoadSave(reader);
             ScheduleName = reader.ReadString();
         }
-        public override void CleanUp()
+        public override void SetToDefault()
         {
-            base.CleanUp();
+            base.SetToDefault();
             Speed = BaseSpeed;
             StorageCapacity = 4;
-            InventoryHandler.CleanUp();
+            InventoryHandler.SetToDefault();
             CurrentHealth = MaxHealth;
         }
-        public virtual void SetToDefault()
-        {
-            CleanUp();
-        }
+     
     }
 }

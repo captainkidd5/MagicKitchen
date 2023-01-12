@@ -20,7 +20,7 @@ namespace TiledEngine.Classes.TileAddons
         void Draw(SpriteBatch spriteBatch);
 
 
-        void CleanUp();
+        void SetToDefault();
 
         Action Interact(ref ActionType? actionType, bool isPlayer, Item heldItem, Vector2 entityPosition, Direction directionEntityFacing);
     }

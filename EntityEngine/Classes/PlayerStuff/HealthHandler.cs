@@ -29,6 +29,15 @@ namespace EntityEngine.Classes.PlayerStuff
         public HealthHandler()
         {
         }
+        public void SetToDefault()
+        {
+            CurrentHealth = MaxHealth;
+            _currentHealthRegenRate = _baseHealthRegenRate;
+        }
+        public void SetupForPlay()
+        {
+            throw new NotImplementedException();
+        }
         public void Load(Player player, HungerHandler hungerHandler)
         {
             _player = player;
@@ -74,15 +83,20 @@ namespace EntityEngine.Classes.PlayerStuff
             MaxHealth = reader.ReadByte();
         }
 
-        public void CleanUp()
+   
+
+   
+
+   
+
+        public void LoadContent()
         {
             throw new NotImplementedException();
         }
 
-        public void SetToDefault()
+        public void UnloadContent()
         {
-            CurrentHealth = MaxHealth;
-            _currentHealthRegenRate = _baseHealthRegenRate;
+            throw new NotImplementedException();
         }
     }
 }

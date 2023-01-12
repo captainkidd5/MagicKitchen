@@ -33,6 +33,11 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             ListIndex = (byte)listIndex;
             Key= tileKey;
         }
+
+        public void SetToDefault()
+        {
+            _slot.ItemChanged -= ItemChanged;
+        }
         public void Load(Vector2 position, StorageSlot storageSlot, float layerDepth)
         {
             _position = new Vector2(position.X - s_Width / 2, position.Y - s_Width / 2);
@@ -80,10 +85,6 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
             ItemCount = (ushort)count;
         }
 
-        public void CleanUp()
-        {
-            throw new NotImplementedException();
-        }
 
         public void LoadSave(BinaryReader reader)
         {
@@ -100,9 +101,6 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
        
         }
 
-        public void SetToDefault()
-        {
-            //throw new NotImplementedException();
-        }
+      
     }
 }

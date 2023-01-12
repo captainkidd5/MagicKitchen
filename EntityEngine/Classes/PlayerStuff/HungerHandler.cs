@@ -82,7 +82,7 @@ namespace EntityEngine.Classes.PlayerStuff
             MaxHunger = reader.ReadByte();
         }
 
-        public void CleanUp()
+        public void SetToDefault()
         {
             throw new NotImplementedException();
         }

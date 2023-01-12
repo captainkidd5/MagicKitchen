@@ -25,6 +25,15 @@
         "InsertionY":0,
 
         "AmbientSoundPackageName":"Overworld_Outside"
+    },
+    {
+        "Id":4,
+        "Name":"Haneda",
+        "Path":"Haneda.tmx",
+        "InsertionX":0,
+        "InsertionY":0,
+
+        "AmbientSoundPackageName":"Overworld_Outside"
     }
 
   

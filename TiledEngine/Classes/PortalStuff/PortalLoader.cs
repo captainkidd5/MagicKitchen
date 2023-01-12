@@ -152,7 +152,7 @@ namespace TiledEngine.Classes.PortalStuff
             }
         }
 
-        public void CleanUp()
+        public void SetToDefault()
         {
             s_allPortalData.Clear();
         }

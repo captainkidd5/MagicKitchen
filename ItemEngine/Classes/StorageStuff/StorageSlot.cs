@@ -32,6 +32,24 @@ namespace ItemEngine.Classes.StorageStuff
         public StorageSlot()
         {
         }
+        public void SetToDefault()
+        {
+            StoredCount = 0;
+            Item.
+            Item = null;
+            PlaceLocked = false;
+            BlacklistedItems.Clear();
+            HoldsVisibleFurnitureItem= false;
+        }
+        public void LoadContent()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnloadContent()
+        {
+            throw new NotImplementedException();
+        }
         public void SetPlaceLock()
         {
             if (PlaceLocked)
@@ -304,16 +322,6 @@ namespace ItemEngine.Classes.StorageStuff
             OnItemChanged();
         }
 
-        public void CleanUp()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetToDefault( )
-        {
-            StoredCount = 0;
-            Item = null;
-            PlaceLocked = false;
-        }
+      
     }
 }

@@ -34,7 +34,6 @@ namespace EntityEngine.Classes.ToolStuff
         protected Entity Holder { get; set; }
 
         public bool IsCharging { get; set; }
-        public int ChargeAmt { get; set; }
 
         protected Point BaseOffSet = new Point(2, 7);
 
@@ -78,7 +77,6 @@ namespace EntityEngine.Classes.ToolStuff
         {
             IsCharging = true;
             Holder = holder;
-            // Load();
         }
         public virtual void ChargeUpTool(GameTime gameTime, Vector2 aimPosition)
         {
@@ -134,7 +132,7 @@ namespace EntityEngine.Classes.ToolStuff
         {
             ClearGadgets();
             if (MainHullBody != null)
-                MainHullBody.Destroy();
+                MainHullBody.DestroyFromPhysicsWorld();
             Dirty = true;
 
         }

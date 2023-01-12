@@ -19,9 +19,9 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
     {
         public Action ActionToPerform { get; set; }
         //Half of the width of a character
-        protected readonly int xOffset = 8;
+        protected int XOffSet = 8;
         //Entire height of a character
-        protected readonly int yOffset = 32;
+        protected int YOffset = 32;
         protected AnimatedSprite[] AnimatedSprites { get; set; }
         public float Layer { get; protected set; }
 
@@ -49,10 +49,16 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         }
         public Animator( int? xOffset , int? yOffset)
         {
-            this.xOffset = xOffset ?? 8;
-            this.yOffset = yOffset ?? 32;
+            XOffSet = xOffset ?? 8;
+            YOffset = yOffset ?? 32;
 
         }
+        public virtual void SetToDefault()
+        {
+            XOffSet = 8;
+            YOffset = 32;
+        }
+
         public virtual void Load(SoundModuleManager moduleManager, Vector2 entityPosition, Vector2? scale = null)
         {
 
@@ -97,7 +103,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         }
         public Rectangle GetClickRectangle()
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, xOffset * 2, yOffset);
+            return new Rectangle((int)Position.X, (int)Position.Y, XOffSet * 2, YOffset);
         }
         public virtual void Update(GameTime gameTime, Direction directionMoving, bool isMoving, Vector2 position, float speedRatio)
         {
@@ -109,8 +115,8 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
 
         protected virtual float SetPositionAndGetEntityLayer(Vector2 position)
         {
-            Position = new Vector2(position.X - xOffset, position.Y - yOffset);
-            return SpriteUtility.GetYAxisLayerDepth(Position, new Rectangle(0, 0, xOffset * 2, yOffset));
+            Position = new Vector2(position.X - XOffSet, position.Y - YOffset);
+            return SpriteUtility.GetYAxisLayerDepth(Position, new Rectangle(0, 0, XOffSet * 2, YOffset));
         }
 
         /// <summary>
@@ -123,7 +129,9 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
         {
 
         }
-
+        public virtual void Initialize()
+        {
+        }
         public virtual void Save(BinaryWriter writer)
         {
             //throw new NotImplementedException();
@@ -134,14 +142,16 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             //throw new NotImplementedException();
         }
 
-        public virtual void CleanUp()
+   
+
+        public void LoadContent()
         {
             throw new NotImplementedException();
         }
 
-        public void SetToDefault( )
+        public void UnloadContent()
         {
-         //   throw new NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

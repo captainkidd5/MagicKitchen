@@ -118,12 +118,12 @@ namespace TiledEngine.Classes.TileAddons.LightStuff
             return bool.Parse(lightString.Split(',')[4].Split(':')[1]);
 
         }
-        public override void CleanUp()
+        public override void SetToDefault()
         {
             //when unloaded make sure tile light manager gets the updated values
             Tile.TileManager.TileLightManager.Update(new TileLightDataDTO(Tile.TileData.GetKey(), _light.TimeSinceFull, _light.CurrentLumens));
 
-            base.CleanUp();
+            base.SetToDefault();
         }
     }
 }

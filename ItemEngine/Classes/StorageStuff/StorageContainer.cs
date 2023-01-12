@@ -132,8 +132,12 @@ namespace ItemEngine.Classes.StorageStuff
             }
         }
 
-        public void CleanUp()
+        public void SetToDefault()
         {
+            foreach (StorageSlot slot in Slots)
+            {
+                slot.SetToDefault();
+            }
             Slots.Clear();
         }
 
@@ -169,28 +173,8 @@ namespace ItemEngine.Classes.StorageStuff
             }
             return dictionaryToReturn;
         }
-        //public int GetStoredCount(string itemName)
-        //{
-        //    int totalCount = 0;
-        //    foreach (StorageSlot slot in Slots)
-        //    {
-        //        if (!slot.Empty)
-        //        {
-        //            if (slot.Item.Name == itemName)
-        //                totalCount += slot.StoredCount;
 
-        //        }
-        //    }
-        //    return totalCount;
-        //}
 
-        public void SetToDefault( )
-        {
-            foreach (StorageSlot slot in Slots)
-            {
-                slot.SetToDefault();
-            }
-        }
     }
 
   

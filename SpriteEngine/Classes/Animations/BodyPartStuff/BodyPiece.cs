@@ -25,7 +25,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         protected int GearEquipX { get; set; }
         protected BodyParts BodyPart { get; set; }
         protected float LayerOffSet { get; set; }
-       
+
 
 
         public byte Index { get; protected set; }
@@ -34,7 +34,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         /// If no gear equipped, just start at left of sprite sheet,
         /// else if wearing gear, start the animation on the gear side of the sheet
         /// </summary>
-       protected int StartX => GearEquipped ? GearEquipX : 0;
+        protected int StartX => GearEquipped ? GearEquipX : 0;
         protected int FrameWidth { get; set; }
         protected int FrameHeight { get; set; }
 
@@ -55,9 +55,9 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
 
 
-        protected static float InteractDownAnimationDuration = .1f;
+        protected readonly static float InteractDownAnimationDuration = .1f;
 
-        protected static float InteractLeftAnimationDuration = .1f;
+        protected readonly static float InteractLeftAnimationDuration = .1f;
 
 
         public AnimateAction CurrentAction { get; private set; }
@@ -82,22 +82,43 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         {
             Index = (byte)index;
         }
+        public void SetToDefault()
+        {
+            GearEquipped = false;
+            GearEquipX = 0;
+            LayerOffSet = 0;
+            WalkDownAnimationDuration = .15f;
+            WalkLeftAnimationDuration = .15f;
+            SmashAnimationDuration = .15f;
+            ClothingBaseColor = Color.White;
+            CurrentDirection = Direction.Down;
 
+            Animator.SetToDefault();
+            Scale = Vector2.One;
+            MaxIndex = 1;
+        }
+
+
+
+        public void LoadContent()
+        {
+            throw new NotImplementedException();
+        }
         public void EquipGear(int yIndex)
         {
             UnderGarmentSavedIndex = Index;
             Index = (byte)yIndex;
             GearEquipped = true;
-            Load(CurrentDirection,Animator, Vector2.Zero, Scale);
+            Load(CurrentDirection, Animator, Vector2.Zero, Scale);
         }
         public void UnequipGear()
         {
             GearEquipped = false;
             Index = UnderGarmentSavedIndex;
-            Load(CurrentDirection,Animator, Vector2.Zero, Scale);
+            Load(CurrentDirection, Animator, Vector2.Zero, Scale);
 
         }
-        public virtual void Load(Direction direction,Animator animator, Vector2 entityPosition, Vector2? scale = null)
+        public virtual void Load(Direction direction, Animator animator, Vector2 entityPosition, Vector2? scale = null)
         {
             Scale = scale ?? Vector2.One;
 
@@ -141,7 +162,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             return (int)BodyPart * .000001f;
         }
 
-        internal virtual void Update(GameTime gameTime,Direction direction, Vector2 position, float entityLayer, bool isMoving, float entitySpeed )
+        internal virtual void Update(GameTime gameTime, Direction direction, Vector2 position, float entityLayer, bool isMoving, float entitySpeed)
         {
 
 
@@ -150,18 +171,18 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             if (direction != Direction.None)
             {
 
-                CurrentAction.Update(gameTime, (Direction)CurrentDirection, hasChanged,position, entityLayer + LayerOffSet, isMoving, entitySpeed);
+                CurrentAction.Update(gameTime, (Direction)CurrentDirection, hasChanged, position, entityLayer + LayerOffSet, isMoving, entitySpeed);
             }
 
 
-            
+
         }
 
         /// <summary>
         /// Resets sprite to resting frame for specified direction
         /// </summary>
         public void SetRestingFrameIndex() => CurrentAction.SetRestingFrame((Direction)CurrentDirection);
-       
+
 
 
 
@@ -181,7 +202,7 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
 
         internal void ChangeParentSet(ActionType actionType)
         {
-           Animator.PerformAction(null, CurrentDirection, actionType);
+            Animator.PerformAction(null, CurrentDirection, actionType);
 
         }
 
@@ -189,12 +210,12 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
         {
 
             _tint = color;
-            foreach(var item in AllAnimationSets)
+            foreach (var item in AllAnimationSets)
             {
                 item.Value.ChangeColor(color);
-   
+
             }
-          
+
         }
 
         public void SetIndex(int index)
@@ -211,6 +232,10 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             Index = (byte)ScrollHelper.GetIndexFromScroll(Direction.Up, Index, MaxIndex);
             Load(CurrentDirection, Animator, Vector2.Zero, Scale);
         }
+        public void Initialize()
+        {
+            throw new NotImplementedException();
+        }
         public void Save(BinaryWriter writer)
         {
             ColorHelper.WriteColor(writer, _tint);
@@ -223,14 +248,6 @@ namespace SpriteEngine.Classes.Animations.BodyPartStuff
             UnderGarmentSavedIndex = reader.ReadByte();
         }
 
-        public void CleanUp()
-        {
-            throw new NotImplementedException();
-        }
 
-        public void SetToDefault()
-        {
-            //throw new NotImplementedException();
-        }
     }
 }

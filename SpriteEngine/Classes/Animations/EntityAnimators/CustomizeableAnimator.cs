@@ -189,7 +189,7 @@ namespace SpriteEngine.Classes.Animations.EntityAnimations
             }
         }
 
-        public override void CleanUp()
+        public override void SetToDefault()
         {
             throw new NotImplementedException();
         }

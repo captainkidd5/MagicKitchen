@@ -52,10 +52,10 @@ namespace SpriteEngine.Classes
         public bool IsOpaque => PrimaryColor.A == 255;
         public bool IsTransparent => PrimaryColor.A == 51;
 
-        ColorShifter ColorShifter { get; set; }
+        private ColorShifter _colorShifter { get; set; }
 
         public virtual void ResetColors()  {
-        if(ColorShifter!= null)ColorShifter.Reset(this); 
+        if(_colorShifter!= null)_colorShifter.Reset(this); 
         }
 
         public Vector2 OffSet { get; set; } = Vector2.Zero;
@@ -125,11 +125,11 @@ namespace SpriteEngine.Classes
         {
             if (updatePeripheralActoins)
             {
-                if (ColorShifter != null)
+                if (_colorShifter != null)
                 {
-                    ColorShifter.Update(gameTime, this);
-                    if (ColorShifter.FlaggedForRemovalUponFinish && ColorShifter.IsNormal)
-                        ColorShifter = null;
+                    _colorShifter.Update(gameTime, this);
+                    if (_colorShifter.FlaggedForRemovalUponFinish && _colorShifter.IsNormal)
+                        _colorShifter = null;
                 }
             }
             
@@ -148,23 +148,23 @@ namespace SpriteEngine.Classes
 
         public void TriggerIntensityEffect()
         {
-            ColorShifter.TriggerIntensifyEffect();
+            _colorShifter.TriggerIntensifyEffect();
         }
         public void TriggerReduceEffect()
         {
-            ColorShifter.TriggerReduceEffect();
+            _colorShifter.TriggerReduceEffect();
         }
 
         public void AddFaderEffect(float? maxOpac, float? speed, bool immediatelyTriggerFade = false)
         {
-            ColorShifter = new ColorShifter(PrimaryColor, speed, maxOpac);
+            _colorShifter = new ColorShifter(PrimaryColor, speed, maxOpac);
             if(immediatelyTriggerFade)
                 TriggerIntensityEffect(); 
         }
 
         public void AddSaturateEffect(Color? targetColor, bool immediatelyTriggerSaturation = false)
         {
-            ColorShifter = new ColorShifter(PrimaryColor,null, targetColor);
+            _colorShifter = new ColorShifter(PrimaryColor,null, targetColor);
             if (immediatelyTriggerSaturation)
                 TriggerIntensityEffect();
         }
@@ -175,15 +175,15 @@ namespace SpriteEngine.Classes
         /// <param name="flagForRemoval">Will remove fader after fader has returned opacity to full</param>
         public void RemoveColorEffect(bool flagForRemoval = false)
         {
-            if (ColorShifter == null)
+            if (_colorShifter == null)
                 throw (new Exception($"Fader does not exists"));
             if (flagForRemoval)
             {
-                ColorShifter.FlaggedForRemovalUponFinish = true;
-                ColorShifter.TriggerReduceEffect();
+                _colorShifter.FlaggedForRemovalUponFinish = true;
+                _colorShifter.TriggerReduceEffect();
             }
             else
-                ColorShifter = null;
+                _colorShifter = null;
         }
         public void SetEffectToDefault()
         {

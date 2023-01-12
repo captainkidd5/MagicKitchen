@@ -49,7 +49,7 @@ namespace TiledEngine.Classes.TileAddons
             throw new NotImplementedException();
         }
 
-        public void CleanUp()
+        public void SetToDefault()
         {
             //throw new NotImplementedException();
         }

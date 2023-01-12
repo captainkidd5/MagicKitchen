@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="256" height="256" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="101">
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="256" height="256" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="102">
  <tileset firstgid="1" source="BackgroundMasterSpriteSheet.tsx"/>
  <tileset firstgid="10001" source="ForegroundTileset.tsx"/>
  <layer id="1" name="background" width="256" height="256">
@@ -1305,13 +1305,12 @@
  <objectgroup id="5" name="Portal">
   <object id="87" x="475" y="499" width="34" height="27">
    <properties>
-    <property name="click" value="false"/>
-    <property name="directionToFace" value="Up"/>
-    <property name="from" value="TestIsland"/>
     <property name="portal" value="TestIsland,RamenShop,false,0,-112"/>
-    <property name="to" value="RamenShop"/>
-    <property name="xOffSet" value="0"/>
-    <property name="yOffSet" value="0"/>
+   </properties>
+  </object>
+  <object id="101" x="948" y="394" width="34" height="27">
+   <properties>
+    <property name="portal" value="TestIsland,Haneda,false,0,-112"/>
    </properties>
   </object>
  </objectgroup>
