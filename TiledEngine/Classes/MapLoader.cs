@@ -94,6 +94,7 @@ namespace TiledEngine.Classes
             ZoneManager = new ZoneManager();
 
             _portalLoader = new PortalLoader();
+            _portalLoader.Initialize();
 
         }
 
@@ -103,7 +104,8 @@ namespace TiledEngine.Classes
         {
             TmxMap map = new TmxMap(s_mapPath + stageData.Path);
 
-            TileManager tileManager = new TileManager(graphics, content, Camera);
+            TileManager tileManager = new TileManager(graphics, content);
+            tileManager.Initialize(Camera);
             List<TileData[,]> mapData = ExtractTilesFromPreloadedMap(tileManager, map);
 
 

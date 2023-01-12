@@ -17,7 +17,12 @@ namespace Globals.Classes.Time
 
         public void SetToDefault()
         {
-            throw new NotImplementedException();
+            Month = Month.Jan;
+            DayOfWeek = DayOfWeek.Sunday;
+            Days = 1;
+            Hours = 0;
+            Minutes = 0;
+
         }
         public void Save(BinaryWriter writer)
         {
@@ -36,15 +41,7 @@ namespace Globals.Classes.Time
             Minutes = reader.ReadInt32();
         }
 
-        public void SetToDefault( )
-        {
-            Month = Month.Jan;
-            DayOfWeek = DayOfWeek.Sunday;
-            Days = 1;
-            Hours = 0;
-            Minutes = 0;
-
-        }
+      
 
         public void Initialize()
         {

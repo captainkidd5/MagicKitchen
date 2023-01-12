@@ -39,11 +39,18 @@ namespace EntityEngine.Classes.HumanoidStuff
         public bool ImmunteToDamage { get; set; }
         public EquipmentStorageContainer EquipmentStorageContainer => (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer;
 
-        public HumanoidEntity(string stageName, StageManager stageManager, GraphicsDevice graphics, ContentManager content) :
-            base(stageName, stageManager, graphics, content)
+        public HumanoidEntity(GraphicsDevice graphics, ContentManager content) :
+            base( graphics, content)
         {
+          
+            //  (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
+        }
+
+        public override void Initialize(string stageName, StageManager stagemanager)
+        {
+            base.Initialize(stageName, stagemanager);
             BodyPiece[] bodyPieces = new BodyPiece[]
-           {
+         {
                     new Pants(0),
                     new Shoes(0),
                     new Shirt(0),
@@ -55,15 +62,12 @@ namespace EntityEngine.Classes.HumanoidStuff
 
                       new Hair(0),
 
-           };
+         };
             Animator = new CustomizeableAnimator(bodyPieces);
             InventoryHandler = new HumanoidInventoryHandler(StorageCapacity);
             _damageImmunityTimer = new SimpleTimer(_damageImmunityTime, true);
             Inspectable = true;
-            //  (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
         }
-
-
         public override void TakeDamage(Entity source, int amt, Vector2? knockBack = null)
         {
             if (!ImmunteToDamage)

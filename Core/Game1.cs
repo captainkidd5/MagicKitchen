@@ -117,8 +117,10 @@ namespace Core
 
 
 
-            _stageManager = new StageManager(GraphicsDevice, Content, _playerManager, Camera);
-            _playerManager = new PlayerManager(_stageManager, GraphicsDevice, Content);
+            _stageManager = new StageManager(GraphicsDevice, Content);
+          //  _stageManager.Initialize(_playerManager, Camera);
+            _playerManager = new PlayerManager(GraphicsDevice, Content);
+           // _playerManager.Initialize(_stageManager);
             _stageManager.PlayerManager = _playerManager;
             //Penumbra.SpriteBatchTransformEnabled = true;
             _commandList = new CommandList();
@@ -335,6 +337,7 @@ namespace Core
             BinaryWriter writer = e.BinaryWriter;
             Clock.SetToDefault();
             Clock.Save(writer);
+            _playerManager.Initialize(_stageManager);
             _playerManager.Save(writer);
             _playerManager.LoadContent();
 

@@ -35,7 +35,6 @@ namespace ItemEngine.Classes.StorageStuff
         public void SetToDefault()
         {
             StoredCount = 0;
-            Item.
             Item = null;
             PlaceLocked = false;
             BlacklistedItems.Clear();

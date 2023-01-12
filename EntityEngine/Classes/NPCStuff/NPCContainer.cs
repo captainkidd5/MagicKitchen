@@ -32,11 +32,16 @@ namespace EntityEngine.Classes.CharacterStuff
 
         private NPCSpawner _mobSpawner;
 
-        public NPCContainer(StageManager stageManager, GraphicsDevice graphics, ContentManager content) : base(stageManager, graphics, content)
+        public NPCContainer( GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            _mobSpawner = new NPCSpawner();
         }
 
+        public override void Initialize(StageManager stageManager)
+        {
+            base.Initialize(stageManager);
+            _mobSpawner = new NPCSpawner();
+
+        }
         public void RegisterCommands()
         {
             CommandConsole.RegisterCommand("add_npc", "adds npc to current stage", AddNPCCommand);
@@ -65,7 +70,8 @@ namespace EntityEngine.Classes.CharacterStuff
 
         internal void AddTrain()
         {
-            Train train = new Train("TestIsland", StageManager, graphics, content);
+            Train train = new Train(graphics, content);
+            train.Initialize("TestIsland", StageManager);
             train.LoadContent(this,null, "train");
             Entities.Add(train);
         }

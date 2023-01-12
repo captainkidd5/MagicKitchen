@@ -60,8 +60,8 @@ namespace EntityEngine.Classes.NPCStuff
         protected HullBody ArraySensor { get; set; }
        protected HullBody ClickBox { get; set; }
 
-        public NPC(string stageName, StageManager stageManager, GraphicsDevice graphics, ContentManager content) :
-            base(stageName,stageManager, graphics, content)
+        public NPC(GraphicsDevice graphics, ContentManager content) :
+            base(graphics, content)
         {
             XOffSet = 8;
             YOffSet = 4;

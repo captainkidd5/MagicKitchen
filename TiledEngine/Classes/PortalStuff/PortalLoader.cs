@@ -26,7 +26,16 @@ namespace TiledEngine.Classes.PortalStuff
 
         public PortalLoader()
         {
+        }
+        public void SetToDefault()
+        {
+            s_allPortalData.Clear();
+        }
+
+        public void Initialize()
+        {
             s_allPortalData = new List<PortalData>();
+
         }
 
         /// <summary>
@@ -81,9 +90,11 @@ namespace TiledEngine.Classes.PortalStuff
                     || !portal.Properties.ContainsKey("directionToFace")
                     || !portal.Properties.ContainsKey("click"))
                     throw new Exception("Portal properties must contain 'from','to','xOffSet', 'yOffSet', 'directionToFace', and 'click' properties");
-                s_allPortalData.Add(new PortalData(new Rectangle((int)portal.X, (int)portal.Y, (int)portal.Width, (int)portal.Height),
+                PortalData portalData = new PortalData();
+                portalData.Initialize(new Rectangle((int)portal.X, (int)portal.Y, (int)portal.Width, (int)portal.Height),
                     portal.Properties["from"], portal.Properties["to"], int.Parse(portal.Properties["xOffSet"]), int.Parse(portal.Properties["yOffSet"]),
-                    (Direction)Enum.Parse(typeof(Direction), portal.Properties["directionToFace"]), bool.Parse(portal.Properties["click"])));
+                    (Direction)Enum.Parse(typeof(Direction), portal.Properties["directionToFace"]), bool.Parse(portal.Properties["click"]));
+                s_allPortalData.Add(portalData);
             }
         }
 
@@ -152,14 +163,7 @@ namespace TiledEngine.Classes.PortalStuff
             }
         }
 
-        public void SetToDefault()
-        {
-            s_allPortalData.Clear();
-        }
+     
 
-        public void SetToDefault()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

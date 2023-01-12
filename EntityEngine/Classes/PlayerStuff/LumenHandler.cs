@@ -35,9 +35,14 @@ namespace EntityEngine.Classes.PlayerStuff
         private LightCollidable _lightCollidable;
         private List<Fixture> _lightsTouching;
         private Player _player;
-        public LumenHandler(HullBody lightSensor)
+        public LumenHandler()
+        {
+        }
+
+        public void Initialize(HullBody lightSensor)
         {
             LightSensor = lightSensor;
+
         }
         public void Load(Player player, LightCollidable lightCollidable, List<Fixture> lightsTouching)
         {
@@ -168,11 +173,6 @@ namespace EntityEngine.Classes.PlayerStuff
         {
             CurrentLumens = reader.ReadInt32();
             _lumenRechargeRate = reader.ReadSingle();
-        }
-
-        public void SetToDefault()
-        {
-            throw new NotImplementedException();
         }
 
         public void SetToDefault()

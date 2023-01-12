@@ -99,12 +99,20 @@ namespace EntityEngine.Classes
         protected TileManager TileManager => StageManager.AllStages[CurrentStageName].TileManager;
         protected ItemManager ItemManager => StageManager.AllStages[CurrentStageName].ItemManager;
         protected NPCContainer NPCContainer => StageManager.AllStages[CurrentStageName].NPCContainer;
-        public Entity(string stageName, StageManager stagemanager, GraphicsDevice graphics, ContentManager content) : base()
+        public Entity( GraphicsDevice graphics, ContentManager content) : base()
+        {
+          
+            _graphics = graphics;
+            _content = content;
+          
+             
+        }
+
+
+        public virtual void Initialize(string stageName, StageManager stagemanager)
         {
             CurrentStageName = stageName;
             StageManager = stagemanager;
-            _graphics = graphics;
-            _content = content;
             Name = GetType().ToString();
 
             StorageCapacity = 6;
@@ -112,7 +120,6 @@ namespace EntityEngine.Classes
             Speed = BaseSpeed;
 
             InventoryHandler = new InventoryHandler(StorageCapacity);
-             
         }
 
         public virtual void MoveToPortal(string to, string from)

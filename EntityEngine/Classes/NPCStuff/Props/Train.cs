@@ -36,12 +36,16 @@ namespace EntityEngine.Classes.NPCStuff.Props
 
         private int _currentPassengerCount;
 
-        public Train(string stageName, StageManager stageManager, GraphicsDevice graphics, ContentManager content) : 
-            base(stageName, stageManager, graphics, content)
+        public Train(GraphicsDevice graphics, ContentManager content) : 
+            base( graphics, content)
         {
-            _unloadTimer = new SimpleTimer(_unloadSpeed);
         }
+        public override void Initialize(string stageName, StageManager stagemanager)
+        {
+            base.Initialize(stageName, stagemanager);
+            _unloadTimer = new SimpleTimer(_unloadSpeed);
 
+        }
         public override void LoadContent(EntityContainer container, Vector2? startPos, string name, bool standardAnimator = true)
         {
             base.LoadContent(container, startPos, name, standardAnimator);

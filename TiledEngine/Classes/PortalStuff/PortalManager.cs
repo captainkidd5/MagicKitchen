@@ -173,9 +173,6 @@ namespace TiledEngine.Classes.PortalStuff
                 pair.Save(writer);
         }
 
-        public void SetToDefault()
-        {
-            AllPortals.Clear();
-        }
+   
     }
 }

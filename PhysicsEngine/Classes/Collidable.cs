@@ -87,7 +87,12 @@ namespace PhysicsEngine.Classes
         }
         public Collidable()
         {
-            SetToDefault();
+            //SetToDefault();
+        }
+
+        public void Initialize()
+        {
+            _hullBodies= new List<HullBody>();
         }
      
         public virtual void SetToDefault()

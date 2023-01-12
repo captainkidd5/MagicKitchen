@@ -21,13 +21,18 @@ namespace EntityEngine.Classes.PlayerStuff
     {
 
         public Player Player1 { get; set; }
-        public PlayerManager(StageManager stageManager, GraphicsDevice graphics, ContentManager content) : base(stageManager,graphics, content)
+        public PlayerManager(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
-            Player1 = new Player("TestIsland",stageManager,graphics, content);
-            Entities.Add(Player1);
+         
 
         }
-
+        public override void Initialize(StageManager stageManager)
+        {
+            base.Initialize(stageManager);
+            Player1 = new Player(graphics, content);
+            Player1.Initialize("TestIsland", stageManager);
+            Entities.Add(Player1);
+        }
         public void GivePlayerItem(string[] commands)
         {
             Player1.GiveItem(commands[0].FirstCharToUpper(), int.Parse(commands[1]));
@@ -63,11 +68,7 @@ namespace EntityEngine.Classes.PlayerStuff
               base.LoadSave(reader);
         }
 
-        public override void SetToDefault()
-        {
-            //base.CleanUp();
-            Player1.SetToDefault();
-        }
+
         public override void SetToDefault()
         {
             base.SetToDefault();

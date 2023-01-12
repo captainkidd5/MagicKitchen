@@ -53,16 +53,21 @@ namespace EntityEngine.Classes.StageStuff
         public NPCContainer GlobalNPCContainer { get; private set; }
 
         private bool _firstLoad = true;
-        public StageManager(GraphicsDevice graphics, ContentManager content, PlayerManager playerManager, Camera2D camera) : base(graphics, content)
+        public StageManager(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
 
+            AllStages = new Dictionary<string, Stage>();
+            GlobalNPCContainer = new NPCContainer(graphics, content);
+        }
+        
+        public void Initialize(PlayerManager playerManager, Camera2D camera)
+        {
             PlayerManager = playerManager;
 
             _camera = camera;
-            AllStages = new Dictionary<string, Stage>();
-            GlobalNPCContainer = new NPCContainer(this, graphics, content);
+          
+            GlobalNPCContainer.Initialize(this);
         }
-        
         public override void LoadContent()
         {
             base.LoadContent();
@@ -239,12 +244,7 @@ namespace EntityEngine.Classes.StageStuff
             Portal returnPortal = MapLoader.Portalmanager.GetCorrespondingPortal(p);
             RequestSwitchStage(p.To, returnPortal.Position + returnPortal.OffSetEntry);
         }
-        public void SetToDefault()
-        {
-            CurrentStage.SetToDefault();
-            CurrentStage = null;
-            _firstLoad = true;
-        }
+
 
         public void RegisterCommands()
         {
@@ -253,6 +253,9 @@ namespace EntityEngine.Classes.StageStuff
 
         public void SetToDefault()
         {
+            CurrentStage.SetToDefault();
+            CurrentStage = null;
+            _firstLoad = true;
             foreach (KeyValuePair<string, Stage> kvp in AllStages)
             {
                 kvp.Value.SetToDefault();

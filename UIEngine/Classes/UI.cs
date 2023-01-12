@@ -172,6 +172,7 @@ namespace UIEngine.Classes
                 EscMenu, StorageDisplayHandler, ItemAlertManager, CursorInfoBox, s_developerBoard, QuestLog, CentralAlertQueue };
 
             Cursor = new Cursor();
+            Cursor.Initialize();
             Cursor.LoadContent(content);
 
             MainMenu = new MainMenu(null, graphics, mainMenuContentManager, null, GetLayeringDepth(UILayeringDepths.Back));

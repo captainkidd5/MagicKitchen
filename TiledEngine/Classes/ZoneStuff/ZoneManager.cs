@@ -176,9 +176,6 @@ namespace TiledEngine.Classes.ZoneStuff
             _musicZones.Clear();
         }
 
-        public void SetToDefault()
-        {
-            SetToDefault();
-        }
+
     }
 }

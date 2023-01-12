@@ -36,17 +36,22 @@ namespace EntityEngine.Classes.CharacterStuff
         private Schedule ActiveSchedule { get; set; }
 
 
-        public Character(string stageName, StageManager stageManager, GraphicsDevice graphics, ContentManager content) : 
-            base(stageName, stageManager, graphics, content)
+        public Character(GraphicsDevice graphics, ContentManager content) : 
+            base(graphics, content)
         {
             
+
+        }
+
+        public override void Initialize(string stageName, StageManager stagemanager)
+        {
+            base.Initialize(stageName, stagemanager);
 
             Speed = 2f;
             XOffSet = 0;
             YOffSet = 8;
             Inspectable = true;
         }
-
 
         public override void Update(GameTime gameTime)
         {

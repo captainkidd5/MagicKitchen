@@ -84,11 +84,6 @@ namespace EntityEngine.Classes.PlayerStuff
 
         public void SetToDefault()
         {
-            throw new NotImplementedException();
-        }
-
-        public void SetToDefault()
-        {
             CurrentHunger = MaxHunger;
             _currentHungerDrainRate = _baseHungerDrainRate;
         }

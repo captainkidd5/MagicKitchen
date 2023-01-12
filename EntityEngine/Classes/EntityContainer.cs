@@ -32,21 +32,18 @@ namespace EntityEngine.Classes
        
         protected StageManager StageManager { get; private set; }   
 
-        public EntityContainer(StageManager stageManager, GraphicsDevice graphics, ContentManager content) : base(graphics, content)
+        public EntityContainer(GraphicsDevice graphics, ContentManager content) : base(graphics, content)
         {
+          
+        }
+
+        public virtual void Initialize(StageManager stageManager)
+        {
+            StageManager = stageManager;
             Entities = new List<Entity>();
             EntitiesToAdd = new List<Entity>();
-            StageManager = stageManager;
-        }
-        public virtual void LoadContent()
-        {
             StageName = StageManager.CurrentStage.Name;
 
-            //foreach (Entity entity in Entities)
-            //{
-
-            //    entity.LoadContent(this);
-            //}
         }
 
         public virtual void Update(GameTime gameTime)
@@ -123,9 +120,6 @@ namespace EntityEngine.Classes
             Entities.Clear();
         }
 
-        public virtual void SetToDefault()
-        {
-            SetToDefault();
-        }
+
     }
 }

@@ -79,9 +79,16 @@ namespace EntityEngine.Classes.PlayerStuff
         }
         public void ConsumeFood(byte amt) => _hungerHandler.ConsumeFood(amt);
 
-        public Player(string stageName, StageManager stageManager, GraphicsDevice graphics, ContentManager content) :
-            base(stageName, stageManager, graphics, content)
+        public Player(GraphicsDevice graphics, ContentManager content) :
+            base(graphics, content)
         {
+            
+
+        }
+
+        public override void Initialize(string stageName, StageManager stagemanager)
+        {
+            base.Initialize(stageName, stagemanager);
             Name = "player1";
             ScheduleName = "player1";
             Move(StartingPosition);
@@ -91,7 +98,6 @@ namespace EntityEngine.Classes.PlayerStuff
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
             _hungerHandler = new HungerHandler();
             _healthHandler = new HealthHandler();
-
 
         }
         public void SwitchStage(string newStageName)
@@ -240,7 +246,8 @@ namespace EntityEngine.Classes.PlayerStuff
                OnCollides, OnSeparates, sleepingAllowed: true, isSensor: true, userData: this);
             AddSecondaryBody(LightSensor);
 
-            _lumenHandler = new LumenHandler(LightSensor);
+            _lumenHandler = new LumenHandler();
+            _lumenHandler.Initialize(LightSensor);
             //AddLight(LightType.Warm,new Vector2(XOffSet * -1, YOffSet * -1), 1f);
         }
 
@@ -468,13 +475,13 @@ namespace EntityEngine.Classes.PlayerStuff
 
             }
         }
-
         public override void SetToDefault()
         {
             base.SetToDefault();
             StorageCapacity = 24;
-
+            InventoryHandler.SetToDefault();
         }
+
         protected override void UpdateLights(GameTime gameTime)
         {
             LightsCollidable[0].SetCurrentLumens((byte)_lumenHandler.CurrentLumens);
@@ -552,11 +559,6 @@ namespace EntityEngine.Classes.PlayerStuff
         }
 
 
-        public override void SetToDefault()
-        {
-            base.SetToDefault();
-            StorageCapacity = 24;
-            InventoryHandler.SetToDefault();
-        }
+     
     }
 }

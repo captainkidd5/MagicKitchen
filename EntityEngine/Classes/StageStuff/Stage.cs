@@ -76,7 +76,8 @@ namespace EntityEngine.Classes.StageStuff
         {
             _stageData = stageData;
             _stageManager = stageManager;
-            NPCContainer = new NPCContainer(_stageManager, _graphics, _content);
+            NPCContainer = new NPCContainer(_graphics, _content);
+            NPCContainer.Initialize(_stageManager);
             TileManager = new TileManager(_graphics, _content);
             TileManager.Initialize(_camera);
             ItemManager = new ItemManager(Name, TileManager);

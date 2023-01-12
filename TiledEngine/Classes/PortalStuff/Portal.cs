@@ -111,10 +111,7 @@ namespace TiledEngine.Classes.PortalStuff
             Vector2Helper.WriteVector2(writer,OffSetEntry);
         }
 
-        public void SetToDefault()
-        {
-            throw new NotImplementedException();
-        }
+    
 
         public override void Update(GameTime gameTime)
         {
