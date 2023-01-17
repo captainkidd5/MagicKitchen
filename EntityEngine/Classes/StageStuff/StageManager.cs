@@ -125,6 +125,8 @@ namespace EntityEngine.Classes.StageStuff
 
                 p.PortalClicked += OnPortalClicked;
             }
+            ItemFactory.WorldItemGenerated -= CurrentStage.ItemManager.OnWorldItemGenerated;
+
             ItemFactory.WorldItemGenerated += CurrentStage.ItemManager.OnWorldItemGenerated;
 
             _camera.Jump(Player1.Position);
@@ -230,13 +232,13 @@ namespace EntityEngine.Classes.StageStuff
                 StageData stageData = kvp.Value;
                 Stage stage = new Stage(stageData,content, graphics);
                 AllStages.Add(stageData.Name, stage);
-                MapLoader.TileManagers.Add(stage.Name, stage.TileManager);
             }
             CurrentStage = AllStages["TestIsland"];
 
             foreach (var kvp in AllStages)
             {
                 kvp.Value.Initialize(_camera, this, PlayerManager);
+
 
             }
 
@@ -265,7 +267,6 @@ namespace EntityEngine.Classes.StageStuff
             {
                 kvp.Value.SetToDefault();
             }
-            MapLoader.TileManagers.Clear();
             PlayerManager.SetToDefault();
 
         }

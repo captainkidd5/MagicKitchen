@@ -50,7 +50,7 @@ namespace EntityEngine.Classes.PlayerStuff
         public override void LoadContent()
         {
  
-            Player1.LoadContent(this, null, null, false);
+            Player1.Initialize(StageManager, null, null, false);
             
             CommandConsole.RegisterCommand("give", "gives player item with id", GivePlayerItem);
 

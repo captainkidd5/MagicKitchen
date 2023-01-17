@@ -1,4 +1,5 @@
-﻿using EntityEngine.ItemStuff;
+﻿using EntityEngine.Classes.StageStuff;
+using EntityEngine.ItemStuff;
 using Globals.Classes;
 using Globals.Classes.Helpers;
 using ItemEngine.Classes;
@@ -17,7 +18,7 @@ namespace EntityEngine.Classes.Generators
     {
 
 
-        public FlotsamGenerator(ItemManager itemManager, TileManager tileManager) : base(itemManager, tileManager)
+        public FlotsamGenerator(Stage stage) : base(stage)
         {
             SpawnRadius = 600;
             SpawnInterval = 1f;

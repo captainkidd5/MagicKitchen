@@ -27,7 +27,6 @@ namespace EntityEngine.Classes
         internal virtual Entity GetEntity(string name) => Entities.FirstOrDefault(x => x.Name == name);
 
 
-        public string StageName { get; private set; }
 
        
         protected StageManager StageManager { get; private set; }   
@@ -42,7 +41,6 @@ namespace EntityEngine.Classes
             StageManager = stageManager;
             Entities = new List<Entity>();
             EntitiesToAdd = new List<Entity>();
-            StageName = StageManager.CurrentStage.Name;
 
         }
 

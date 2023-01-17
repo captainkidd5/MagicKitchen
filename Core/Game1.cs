@@ -335,8 +335,9 @@ namespace Core
             BinaryWriter writer = e.BinaryWriter;
             Clock.SetToDefault();
             Clock.Save(writer);
-            _stageManager.CreateNewSave(writer);
             _stageManager.Initialize(_playerManager, Camera);
+
+            _stageManager.CreateNewSave(writer);
             _stageManager.GlobalNPCContainer.Save(writer);
 
             _playerManager.Initialize(_stageManager);

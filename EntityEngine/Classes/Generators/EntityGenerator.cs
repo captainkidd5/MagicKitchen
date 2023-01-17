@@ -1,4 +1,5 @@
-﻿using EntityEngine.ItemStuff;
+﻿using EntityEngine.Classes.StageStuff;
+using EntityEngine.ItemStuff;
 using Globals.Classes;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
@@ -14,17 +15,18 @@ namespace EntityEngine.Classes.Generators
 {
     public abstract class EntityGenerator
     {
-        protected ItemManager ItemManager { get; set; }
-        protected TileManager TileManager { get; set; }
+        protected ItemManager ItemManager => Stage.ItemManager;
+        protected TileManager TileManager => Stage.TileManager;
         protected SimpleTimer SpawnTimer { get; set; }
         protected float SpawnInterval { get; set; }
 
         protected int SpawnRadius { get; set; }
-        public EntityGenerator(ItemManager itemManager, TileManager tileManager)
-        {
-            ItemManager = itemManager;
-            TileManager = tileManager;
+        public Stage Stage { get; private set; }
 
+        public EntityGenerator(Stage stage)
+        {
+
+            Stage = stage;
         }
 
         public virtual void Load()

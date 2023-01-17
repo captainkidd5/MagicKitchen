@@ -130,6 +130,7 @@ namespace TiledEngine.Classes.ZoneStuff
                 for(int z = 0; z < zoneListCount; z++)
                 {
                     Zone zone = new Zone();
+                    zone.Initialize();
                     zone.LoadSave(reader);
                     zones.Add(zone);
                 }
@@ -146,6 +147,7 @@ namespace TiledEngine.Classes.ZoneStuff
                 for (int z = 0; z < zoneListCount; z++)
                 {
                     MusicZone zone = new MusicZone();
+                    zone.Initialize();
                     zone.LoadSave(reader);
                     zones.Add(zone);
                 }

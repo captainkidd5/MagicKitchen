@@ -36,6 +36,7 @@ using EntityEngine.Classes.HumanoidStuff;
 using System.Linq;
 using TiledEngine.Classes.PortalStuff;
 using EntityEngine.Classes.StageStuff;
+using System.Reflection.PortableExecutable;
 
 namespace EntityEngine.Classes.PlayerStuff
 {
@@ -104,9 +105,9 @@ namespace EntityEngine.Classes.PlayerStuff
         {
 
         }
-        public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string? name, bool standardAnimator = false)
+        public override void Initialize(StageManager stageManager, Vector2? startPos, string? name, bool standardAnimator = false)
         {
-            base.LoadContent(entityContainer, startPos, name, standardAnimator);
+            base.Initialize(stageManager, startPos, name, standardAnimator);
             // UI.LoadPlayerInventory(StorageContainer);
 
             UI.Cursor.ItemDropped -= DropHeldItem;
@@ -140,6 +141,17 @@ namespace EntityEngine.Classes.PlayerStuff
 
 
             UI.LoadPlayerInventory(StorageContainer, EquipmentStorageContainer);
+
+            Animator.Load(SoundModuleManager, Position);
+            LoadWardrobe();
+            InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
+            SubscribeEquipmentSlots();
+
+            UI.LoadPlayerInventory(StorageContainer, EquipmentStorageContainer);
+
+            Animator.SoundPlayed -= PlayStepSoundFromTile;
+
+            Animator.SoundPlayed += PlayStepSoundFromTile;
 
 
         }

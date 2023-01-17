@@ -71,7 +71,7 @@ namespace EntityEngine.Classes.NPCStuff
             TilePositionChanged?.Invoke(newPoint);
         }
         public bool Inspectable { get; set; }
-        public virtual void LoadContent(EntityContainer container, Vector2? startPos, string? name, bool standardAnimator = true)
+        public virtual void Initialize(StageManager stageManager, Vector2? startPos, string? name, bool standardAnimator = true)
         {
             if (!string.IsNullOrEmpty(name))
             {
@@ -95,7 +95,8 @@ namespace EntityEngine.Classes.NPCStuff
             }
             if (name != null)
                 Name = name;
-            base.LoadContent();
+            StageManager = stageManager;
+            base.Initialize(StageManager);
 
             BehaviourManager = new BehaviourManager(this, StatusIcon, TileManager);
             BehaviourManager.Load();

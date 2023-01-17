@@ -62,7 +62,7 @@ namespace EntityEngine.Classes.CharacterStuff
 
             foreach (NPC entity in Entities)
             {
-                entity.LoadContent(this, null, entity.Name, false);
+                entity.Initialize(StageManager, null, entity.Name, false);
             }
           //  _mobSpawner.Load(StageManager);
             RegisterCommands();
@@ -72,7 +72,7 @@ namespace EntityEngine.Classes.CharacterStuff
         {
             Train train = new Train(graphics, content);
             train.Initialize("TestIsland", StageManager);
-            train.LoadContent(this,null, "train");
+            train.Initialize(StageManager, null, "train");
             Entities.Add(train);
         }
 
@@ -105,10 +105,10 @@ namespace EntityEngine.Classes.CharacterStuff
 
                             NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                                 .CreateInstance(npcData.ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
-                                null, new object[] {"TestIsland",StageManager, graphics, content }, null, null);
+                                null, new object[] { graphics, content }, null, null);
 
 
-                            npc.LoadContent(this, null, npcData.Name, npc.GetType() != typeof(HumanoidEntity));
+                            npc.Initialize(StageManager, null, npcData.Name, npc.GetType() != typeof(HumanoidEntity));
                             Entities.Add(npc);
                         }
                     }
@@ -126,9 +126,9 @@ namespace EntityEngine.Classes.CharacterStuff
                     //TODO: Give npcdata a starting stage string
                     NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                         .CreateInstance(savedType, true, System.Reflection.BindingFlags.CreateInstance,
-                        null, new object[] {"TestIsland", StageManager, graphics, content }, null, null);
+                        null, new object[] { graphics, content }, null, null);
                     npc.LoadSave(reader);
-                    npc.LoadContent(this, null, npc.Name, npc.GetType() != typeof(HumanoidEntity));
+                    npc.Initialize(StageManager, null, npc.Name, npc.GetType() != typeof(HumanoidEntity));
                     Entities.Add(npc);
                 }
             }
@@ -142,8 +142,8 @@ namespace EntityEngine.Classes.CharacterStuff
 
             NPC npc = (NPC)System.Reflection.Assembly.GetExecutingAssembly()
                     .CreateInstance(EntityFactory.NPCData[name].ObjectType, true, System.Reflection.BindingFlags.CreateInstance,
-                    null, new object[] {"TestIsland", StageManager, graphics, content }, null, null);
-            npc.LoadContent(this, position, name, EntityFactory.NPCData[name].NPCType == NPCType.Enemy);
+                    null, new object[] { graphics, content }, null, null);
+            npc.Initialize(StageManager, position, name, EntityFactory.NPCData[name].NPCType == NPCType.Enemy);
             EntitiesToAdd.Add(npc);
         }
 

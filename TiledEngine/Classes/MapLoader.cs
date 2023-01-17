@@ -66,11 +66,9 @@ namespace TiledEngine.Classes
             _portalLoader.GetNextPortalRectangle(stageFrom, stageTo);
 
 
-        public static Dictionary<string, TileManager> TileManagers;
     
         public static void Initialize(ContentManager content)
         {
-            TileManagers = new Dictionary<string, TileManager>();
             s_currentWorldSize = WorldSize.Small;
             s_proceduralPlacer = new ProceduralPlacer();
             s_proceduralPlacer.Load(content);
@@ -133,15 +131,7 @@ namespace TiledEngine.Classes
             _portalLoader.FillPortalGraph();
 
         }
-        public static void Update(GameTime gameTime, StageData stageData)
-        {
-            TileManagers[stageData.Name].Update(gameTime);
-        }
-        public static void Draw(SpriteBatch spriteBatch, StageData stageData)
-        {
-            TileManagers[stageData.Name].Draw(spriteBatch);
 
-        }
         /// <summary>
         /// Generates the first iteration of the background layer of the entire map
         /// </summary>

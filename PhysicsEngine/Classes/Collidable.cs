@@ -23,8 +23,8 @@ namespace PhysicsEngine.Classes
     {
         public Vector2 Position { get; protected set; }
 
-        protected int XOffSet { get; set; } 
-        protected int YOffSet { get; set; } 
+        protected int XOffSet { get; set; }
+        protected int YOffSet { get; set; }
 
         //This is the "center" of your sprite, useful for collisions and things like magnetizing sprites
         public Vector2 CenteredPosition { get { return new Vector2(Position.X - XOffSet, Position.Y - YOffSet); } }
@@ -92,19 +92,26 @@ namespace PhysicsEngine.Classes
 
         public void Initialize()
         {
-            _hullBodies= new List<HullBody>();
+            _hullBodies = new List<HullBody>();
+            Gadgets = new List<PhysicsGadget>();
+            LightsCollidable = new List<LightCollidable>();
         }
-     
+
         public virtual void SetToDefault()
         {
-            foreach (HullBody body in _hullBodies)
+            if(_hullBodies != null)
             {
-                body.DestroyFromPhysicsWorld();
+                foreach (HullBody body in _hullBodies)
+                {
+                    body.DestroyFromPhysicsWorld();
+                }
+                _hullBodies.Clear();
+
             }
+          
             if (MainHullBody != null)
                 MainHullBody.DestroyFromPhysicsWorld();
             MainHullBody = null;
-            _hullBodies.Clear();
             if (LightsCollidable != null)
             {
                 foreach (LightCollidable lightCollidable in LightsCollidable)
@@ -112,7 +119,6 @@ namespace PhysicsEngine.Classes
                     lightCollidable.SetToDefault();
                 }
                 LightsCollidable.Clear();
-                LightsCollidable = null;
             }
 
             if (BigSensor != null)
@@ -127,7 +133,7 @@ namespace PhysicsEngine.Classes
         {
             _hullBodies.Add(body);
         }
-        public void SetPrimaryCollidesWith( List<Category> collisionCategories)
+        public void SetPrimaryCollidesWith(List<Category> collisionCategories)
         {
 
             MainHullBody.Body.SetCollidesWith(PhysicsManager.GetCat(collisionCategories));
@@ -135,9 +141,9 @@ namespace PhysicsEngine.Classes
         }
         public void SetCollidesWith(Body body, List<Category> collisionCategories)
         {
-     
-                body.SetCollidesWith(PhysicsManager.GetCat(collisionCategories));
-            
+
+            body.SetCollidesWith(PhysicsManager.GetCat(collisionCategories));
+
         }
 
         protected void SetCategories(Body body, List<Category> collisionCategories)
@@ -153,17 +159,21 @@ namespace PhysicsEngine.Classes
         }
         public virtual void Update(GameTime gameTime)
         {
-            foreach (PhysicsGadget gadget in Gadgets)
-            {
-                gadget.Update(gameTime);
-            }
-            foreach (HullBody body in _hullBodies)
-            {
-                body.Position = Position;
-            }
+            if (Gadgets != null)
+                foreach (PhysicsGadget gadget in Gadgets)
+                {
+                    gadget.Update(gameTime);
+                }
+            if (_hullBodies != null)
+
+                foreach (HullBody body in _hullBodies)
+                {
+                    body.Position = Position;
+                }
 
             UpdateLights(gameTime);
 
+            if(SoundModuleManager != null)
             SoundModuleManager.Update(CenteredPosition);
 
 
@@ -195,8 +205,8 @@ namespace PhysicsEngine.Classes
         {
             if (fixtureB.CollisionCategories == (Category)PhysCat.Cursor)
             {
-                if(fixtureA.CollidesWith.HasFlag ((Category)PhysCat.Cursor))
-                _mouseHovering = true;
+                if (fixtureA.CollidesWith.HasFlag((Category)PhysCat.Cursor))
+                    _mouseHovering = true;
 
 
             }
@@ -204,7 +214,7 @@ namespace PhysicsEngine.Classes
         }
         protected virtual void OnClickBoxSeparates(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            if (fixtureB.CollisionCategories==((Category)PhysCat.Cursor))
+            if (fixtureB.CollisionCategories == ((Category)PhysCat.Cursor))
             {
                 _mouseHovering = false;
             }
@@ -217,11 +227,11 @@ namespace PhysicsEngine.Classes
 
 
             }
-            if (fixtureB.CollisionCategories==((Category)PhysCat.PlayerBigSensor))
+            if (fixtureB.CollisionCategories == ((Category)PhysCat.PlayerBigSensor))
             {
                 PlayerInClickRange = true;
             }
-            if (fixtureB.CollisionCategories==((Category)PhysCat.FrontalSensor))
+            if (fixtureB.CollisionCategories == ((Category)PhysCat.FrontalSensor))
             {
                 PlayerInControllerActionRange = true;
             }
@@ -234,17 +244,17 @@ namespace PhysicsEngine.Classes
             {
                 _mouseHovering = false;
             }
-            if (fixtureB.CollisionCategories==((Category)PhysCat.PlayerBigSensor))
+            if (fixtureB.CollisionCategories == ((Category)PhysCat.PlayerBigSensor))
             {
                 PlayerInClickRange = false;
             }
-            if (fixtureB.CollisionCategories==((Category)PhysCat.FrontalSensor))
+            if (fixtureB.CollisionCategories == ((Category)PhysCat.FrontalSensor))
             {
                 PlayerInControllerActionRange = false;
             }
         }
 
-     
+
 
         /// <summary>
         /// Use this instead of setting position so that all associated bodies have their positions updated as well
@@ -254,12 +264,13 @@ namespace PhysicsEngine.Classes
         {
             Position = newPosition;
 
+            if(_hullBodies != null)
             foreach (HullBody body in _hullBodies)
             {
                 body.Position = Position;
             }
-            if(MainHullBody != null)
-             MainHullBody.Position = Position;
+            if (MainHullBody != null)
+                MainHullBody.Position = Position;
         }
 
 
@@ -273,10 +284,10 @@ namespace PhysicsEngine.Classes
         /// Jetison's body in given direction
         /// </summary>
         /// <param name="directionVector"></param>
-        public void Jettison(Vector2 directionVector, Vector2? pointAppliedTo, float speed = 1f, bool ignoreGrav = false, float gScaleUp = 4f,float gScaleDown = 15f, float restitution = 1f,
+        public void Jettison(Vector2 directionVector, Vector2? pointAppliedTo, float speed = 1f, bool ignoreGrav = false, float gScaleUp = 4f, float gScaleDown = 15f, float restitution = 1f,
             float linearDamp = 2f, float friction = .15f, float bodyMass = 1f)
         {
-            MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000 * speed, pointAppliedTo ?? new Vector2(0,0));
+            MainHullBody.Body.ApplyLinearImpulse(directionVector * 1000 * speed, pointAppliedTo ?? new Vector2(0, 0));
             MainHullBody.Body.IgnoreGravity = ignoreGrav;
 
             MainHullBody.Body.SetRestitution(restitution);
@@ -284,20 +295,20 @@ namespace PhysicsEngine.Classes
             MainHullBody.Body.SetFriction(0);
             MainHullBody.Body.Mass = bodyMass;
         }
-       
+
         protected void AddGadget(PhysicsGadget gadget)
         {
             Gadgets.Add(gadget);
         }
         protected void ClearGadgets()
         {
-            for(int i = Gadgets.Count - 1; i >= 0; i--)
+            for (int i = Gadgets.Count - 1; i >= 0; i--)
             {
                 Gadgets[i].Destroy();
                 Gadgets.RemoveAt(i);
             }
         }
-        protected LightCollidable AddLight(LightType lightType,Vector2 offSet,bool immuneToDrain, bool restoresLumens = true, float scale = 1)
+        protected LightCollidable AddLight(LightType lightType, Vector2 offSet, bool immuneToDrain, bool restoresLumens = true, float scale = 1)
         {
             if (LightsCollidable == null)
                 LightsCollidable = new List<LightCollidable>();
@@ -309,17 +320,17 @@ namespace PhysicsEngine.Classes
         }
         public void DrawLights(SpriteBatch spriteBatch)
         {
-            if(LightsCollidable != null)
+            if (LightsCollidable != null)
             {
                 for (int i = 0; i < LightsCollidable.Count; i++)
                 {
                     LightsCollidable[i].Draw(spriteBatch);
                 }
             }
-            
+
         }
 
-       
+
         public void LoadContent()
         {
             throw new NotImplementedException();
@@ -340,6 +351,6 @@ namespace PhysicsEngine.Classes
             throw new NotImplementedException();
         }
 
-      
+
     }
 }

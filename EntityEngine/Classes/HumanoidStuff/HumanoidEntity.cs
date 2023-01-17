@@ -121,20 +121,20 @@ namespace EntityEngine.Classes.HumanoidStuff
         }
         internal override void ChangeClothingColor(Type t, Color color) =>
             (Animator as CustomizeableAnimator).ChangeClothingColor(t, color);
-        public override void LoadContent(EntityContainer entityContainer, Vector2? startPos, string name, bool standardAnimator = false)
+        public override void Initialize(StageManager stageManager, Vector2? startPos, string name, bool standardAnimator = false)
         {
+          
+            Shadow = new Shadow(ShadowType.NPC, CenteredPosition, ShadowSize.Small, SpriteFactory.NPCSheet);
+            base.Initialize(stageManager, startPos, name, standardAnimator);
+
+            SubscribeEquipmentSlots();
+            //XOffSet = 0;
+            //YOffSet = 8;
             if (GetType() != typeof(Player))
             {
                 LoadAnimations(Animator);
                 LoadWardrobe();
             }
-
-            Shadow = new Shadow(ShadowType.NPC, CenteredPosition, ShadowSize.Small, SpriteFactory.NPCSheet);
-
-            SubscribeEquipmentSlots();
-            //XOffSet = 0;
-            //YOffSet = 8;
-            base.LoadContent(entityContainer, startPos, name, standardAnimator);
 
         }
 
@@ -144,6 +144,11 @@ namespace EntityEngine.Classes.HumanoidStuff
         /// </summary>
         protected void SubscribeEquipmentSlots()
         {
+            (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged -= (Animator as CustomizeableAnimator).OnEquipmentChanged;
+            (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.TorsoEquipmentSlot.EquipmentChanged -= (Animator as CustomizeableAnimator).OnEquipmentChanged;
+            (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.LegsEquipmentSlot.EquipmentChanged -= (Animator as CustomizeableAnimator).OnEquipmentChanged;
+            (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.BootsEquipmentSlot.EquipmentChanged -= (Animator as CustomizeableAnimator).OnEquipmentChanged;
+
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.HelmetEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.TorsoEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;
             (InventoryHandler as HumanoidInventoryHandler).EquipmentStorageContainer.LegsEquipmentSlot.EquipmentChanged += (Animator as CustomizeableAnimator).OnEquipmentChanged;

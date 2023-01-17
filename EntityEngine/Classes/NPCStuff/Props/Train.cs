@@ -46,9 +46,9 @@ namespace EntityEngine.Classes.NPCStuff.Props
             _unloadTimer = new SimpleTimer(_unloadSpeed);
 
         }
-        public override void LoadContent(EntityContainer container, Vector2? startPos, string name, bool standardAnimator = true)
+        public override void Initialize(StageManager stageManager, Vector2? startPos, string name, bool standardAnimator = true)
         {
-            base.LoadContent(container, startPos, name, standardAnimator);
+            base.Initialize(stageManager, startPos, name, standardAnimator);
         }
 
         public override void Update(GameTime gameTime)
