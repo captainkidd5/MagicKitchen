@@ -6,463 +6,463 @@
         "A":{
             "X" : 0,
             "Y" : 0,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "B":{
             "X" : 1,
             "Y" : 0,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "C":{
             "X" : 2,
             "Y" : 0,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "D":{
             "X" : 3,
             "Y" : 0,
-            "OverrideGap" : 12,
-            "Width" : 16,
-            "Height" : 16
+            "OverrideGap" : 24,
+            "Width" : 32,
+            "Height" : 32
         },
         "E":{
             "X" : 4,
             "Y" : 0,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "F":{
             "X" : 5,
             "Y" : 0,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "G":{
             "X" : 6,
             "Y" : 0,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "H":{
             "X" : 7,
             "Y" : 0,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "I":{
             "X" : 0,
             "Y" : 1,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "J":{
             "X" : 1,
             "Y" : 1,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "K":{
             "X" : 2,
             "Y" : 1,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "L":{
             "X" : 3,
             "Y" : 1,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "M":{
             "X" : 4,
             "Y" : 1,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "N":{
             "X" : 5,
             "Y" : 1,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "O":{
             "X" : 6,
             "Y" : 1,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "P":{
             "X" : 7,
             "Y" : 1,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "Q":{
             "X" : 0,
             "Y" : 2,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "R":{
             "X" : 1,
             "Y" : 2,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "S":{
             "X" : 2,
             "Y" : 2,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "T":{
             "X" : 3,
             "Y" : 2,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "U":{
             "X" : 4,
             "Y" : 2,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "V":{
             "X" : 5,
             "Y" : 2,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "W":{
             "X" : 6,
             "Y" : 2,
-            "OverrideGap" : 12,
+            "OverrideGap" : 24,
 
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "X":{
             "X" : 7,
             "Y" : 2,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "Y":{
             "X" : 0,
             "Y" : 3,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "Z":{
             "X" : 1,
             "Y" : 3,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "a":{
             "X" : 2,
             "Y" : 3,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "b":{
             "X" : 3,
             "Y" : 3,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "c":{
             "X" : 4,
             "Y" : 3,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "d":{
             "X" : 5,
             "Y" : 3,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "e":{
             "X" : 6,
             "Y" : 3,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "f":{
             "X" : 7,
             "Y" : 3,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "g":{
             "X" : 0,
             "Y" : 4,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "h":{
             "X" : 1,
             "Y" : 4,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "i":{
             "X" : 2,
             "Y" : 4,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "j":{
             "X" : 3,
             "Y" : 4,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "k":{
             "X" : 4,
             "Y" : 4,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "l":{
             "X" : 5,
             "Y" : 4,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "m":{
             "X" : 6,
             "Y" : 4,
-            "OverrideGap" : 11,
-            "Width" : 16,
-            "Height" : 16
+            "OverrideGap" : 22,
+            "Width" : 32,
+            "Height" : 32
         },
 
         "n":{
             "X" : 7,
             "Y" : 4,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "o":{
             "X" : 0,
             "Y" : 5,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "p":{
             "X" : 1,
             "Y" : 5,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "q":{
             "X" : 2,
             "Y" : 5,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "r":{
             "X" : 3,
             "Y" : 5,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "s":{
             "X" : 4,
             "Y" : 5,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "t":{
             "X" : 5,
             "Y" : 5,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "u":{
             "X" : 6,
             "Y" : 5,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "v":{
             "X" : 7,
             "Y" : 5,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "w":{
             "X" : 0,
             "Y" : 6,
 
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "x":{
             "X" : 1,
             "Y" : 6,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "y":{
             "X" : 2,
             "Y" : 6,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "z":{
             "X" : 3,
             "Y" : 6,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "0":{
             "X" : 4,
             "Y" : 6,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "1":{
             "X" : 5,
             "Y" : 6,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "2":{
             "X" : 6,
             "Y" : 6,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "3":{
             "X" : 7,
             "Y" : 6,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "4":{
             "X" : 0,
             "Y" : 7,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "5":{
             "X" : 1,
             "Y" : 7,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "6":{
             "X" : 2,
             "Y" : 7,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "7":{
             "X" : 3,
             "Y" : 7,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "8":{
             "X" : 4,
             "Y" : 7,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "9":{
             "X" : 5,
             "Y" : 7,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "/":{
             "X" : 6,
             "Y" : 7,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "\\":{
             "X" : 7,
             "Y" : 7,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         ".":{
             "X" : 0,
             "Y" : 8,
             "PauseDuration" : 80,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         ",":{
             "X" : 1,
             "Y" : 8,
-            "Width" : 16,
+            "Width" : 32,
             "PauseDuration" : 40,
 
-            "Height" : 16
+            "Height" : 32
         },
         ")":{
             "X" : 2,
             "Y" : 8,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "(":{
             "X" : 3,
             "Y" : 8,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "?":{
             "X" : 4,
             "Y" : 8,
             "PauseDuration" : 80,
 
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         ":":{
             "X" : 5,
             "Y" : 8,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "'":{
             "X" : 6,
             "Y" : 8,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "_":{
             "X" : 7,
             "Y" : 8,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "-":{
             "X" : 0,
             "Y" : 9,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "!":{
             "X" : 1,
             "Y" : 9,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         },
         "+":{
             "X" : 2,
             "Y" : 9,
-            "Width" : 16,
-            "Height" : 16
+            "Width" : 32,
+            "Height" : 32
         }
 
 

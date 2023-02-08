@@ -17,8 +17,10 @@ namespace TextEngine.Classes
     }
     public class ImageFont
     {
-        internal readonly int FontDimension = 16;
-        internal readonly int FontSpaceWidth = 8;
+        internal readonly int FontDimension = 32;
+        internal readonly int FontSpaceWidth = 16;
+
+        internal float FontScale =.5f;
        
         internal Texture2D StandardFontTexture { get; set; }
 

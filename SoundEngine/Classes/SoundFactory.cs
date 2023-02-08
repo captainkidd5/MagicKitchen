@@ -104,6 +104,8 @@ namespace SoundEngine.Classes
         public static void PlayEffectPackage(string packageName, float pitchVariation = .25f)
         {
             var effect = PlayPackage(packageName).CreateInstance();
+            if (effect == null)
+                return;
             effect.Pitch = ChanceHelper.RandomFloat(pitchVariation * -1, pitchVariation);
 
             effect.Play();
@@ -117,6 +119,11 @@ namespace SoundEngine.Classes
         /// <exception cref="Exception"></exception>
         internal static SoundEffect PlayPackage(string soundPackageName)
         {
+            if(soundPackageName == null)
+            {
+                Console.WriteLine("Invalid sound package name");
+                return null;
+            }
             SoundPackage package = new SoundPackage();
             if (s_soundPackages.TryGetValue(soundPackageName, out package))
             {

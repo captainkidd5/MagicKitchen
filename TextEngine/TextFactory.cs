@@ -28,7 +28,8 @@ namespace TextEngine
 
         private static void OnLanguageChanged()
         {
-            CurrentFontLanguage = s_content.Load<Texture2D>($"UI/Fonts/{LanguageManager.CurrentLanguage.Name}/StandardFont");
+            //CurrentFontLanguage = s_content.Load<Texture2D>($"UI/Fonts/{LanguageManager.CurrentLanguage.Name}/StandardFont");
+            CurrentFontLanguage = s_content.Load<Texture2D>($"UI/Fonts/{LanguageManager.CurrentLanguage.Name}/LargerFont");
 
             ImageFont = new ImageFont();
             ImageFont.LoadContent(CurrentFontLanguage);
@@ -38,7 +39,7 @@ namespace TextEngine
      
         public static Word CreatePlaceHolderWord(string val)
         {
-            return new Word(val, FontType.Standard, ImageFont);
+            return new Word(val, FontType.Standard, ImageFont,null, new Vector2(ImageFont.FontScale,ImageFont.FontScale));
         }
         public static Text CreateUIText(String value, Vector2 position, float? lineXStart, float? lineLimit, float layerDepth, ImageFont? imageFont = null, FontType? fontType = null, Color? color = null, float? scale = null)
         {

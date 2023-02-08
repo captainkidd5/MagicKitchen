@@ -70,7 +70,7 @@ namespace TextEngine.Classes
         }
         public void AddWord(string str)
         {
-            Word word = new Word(str, _fontType, _imageFont, Color, _scale);
+            Word word = new Word(str, _fontType, _imageFont, Color, _scale * _imageFont.FontScale);
             _words.Add(word);
         }
 

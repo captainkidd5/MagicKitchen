@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -34,7 +35,9 @@ namespace SoundEngine.Classes
 
         public void PlayPackage(string soundName)
         {
-            Sounds.Add(new SoundModule(this, SoundFactory.PlayPackage(soundName)));
+            SoundEffect effect = SoundFactory.PlayPackage(soundName);
+            if(effect != null)
+                Sounds.Add(new SoundModule(this, effect));
         }
         public void PlaySpecificSound(string soundName)
         {
