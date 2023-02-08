@@ -206,7 +206,7 @@ namespace TiledEngine.Classes.TileAddons.FurnitureStuff
                 if (!FlaggedForDestruction)
                 {
                    
-                    SoundModuleManager.PlayPackage("HatchOpen");
+                    //SoundModuleManager.PlayPackage("HatchOpen");
                    
                     UI.ActivateSecondaryInventoryDisplay(FurnitureData.FurnitureType, StorageContainer);
                         //Subscribe to ui 

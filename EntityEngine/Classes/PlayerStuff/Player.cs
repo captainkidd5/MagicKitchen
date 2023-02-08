@@ -139,12 +139,13 @@ namespace EntityEngine.Classes.PlayerStuff
             LightsCollidable[0].MaxLumens = (byte)_lumenHandler.MaxLumens;
             Shadow = new Shadow(SpriteEngine.Classes.ShadowStuff.ShadowType.NPC, CenteredPosition, ShadowSize.Small, SpriteFactory.NPCSheet);
 
-
             UI.LoadPlayerInventory(StorageContainer, EquipmentStorageContainer);
 
             Animator.Load(SoundModuleManager, Position);
             LoadWardrobe();
             InventoryHandler = new PlayerInventoryHandler(StorageCapacity);
+            InventoryHandler.SwapItemManager(StageManager.CurrentStage.ItemManager);
+
             SubscribeEquipmentSlots();
 
             UI.LoadPlayerInventory(StorageContainer, EquipmentStorageContainer);

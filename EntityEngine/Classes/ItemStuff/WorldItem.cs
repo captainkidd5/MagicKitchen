@@ -51,8 +51,17 @@ namespace EntityEngine.ItemStuff
         internal ItemBehaviour ItemBehaviour { get; set; }
 
 
-        internal new void AddGadget(PhysicsGadget gadget) => Gadgets.Add(gadget);
-        internal new void ClearGadgets() => Gadgets.Clear();
+        internal new void AddGadget(PhysicsGadget gadget)
+        {
+            if (Gadgets == null)
+                Gadgets = new List<PhysicsGadget>();
+            Gadgets.Add(gadget);
+        } 
+        internal new void ClearGadgets()
+        {
+            if (Gadgets != null)
+                Gadgets.Clear();
+        }
 
         internal void IgnoreGravity(bool val) => MainHullBody.Body.IgnoreGravity = val;
 
@@ -301,8 +310,9 @@ namespace EntityEngine.ItemStuff
         }
 
 
-        public void SetToDefault()
+        public override void SetToDefault()
         {
+            base.SetToDefault();
             //throw new NotImplementedException();
         }
     }

@@ -38,7 +38,7 @@ namespace PhysicsEngine.Classes
         /// These modify the position of the Collidable
         /// </summary>
         /// 
-        protected List<PhysicsGadget> Gadgets { get; private set; }
+        public List<PhysicsGadget> Gadgets { get; protected set; }
 
         protected SoundModuleManager SoundModuleManager { get; set; }
 
@@ -155,7 +155,7 @@ namespace PhysicsEngine.Classes
 
         public void PlayPackage(string soundName)
         {
-            SoundModuleManager.PlayPackage(soundName);
+            //SoundModuleManager.PlayPackage(soundName);
         }
         public virtual void Update(GameTime gameTime)
         {
@@ -302,6 +302,8 @@ namespace PhysicsEngine.Classes
         }
         protected void ClearGadgets()
         {
+            if (Gadgets == null)
+                return;
             for (int i = Gadgets.Count - 1; i >= 0; i--)
             {
                 Gadgets[i].Destroy();

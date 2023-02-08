@@ -82,15 +82,7 @@ namespace EntityEngine.Classes
 
             }
         }
-        internal void GiveEntityItem(string entityName, WorldItem worldItem)
-        {
-            Entity entity = GetEntity(entityName);
-            if (entity == null)
-            {
-                throw new Exception($"Could not find entity with name {entityName}");
-            }
-            entity.GiveItem(worldItem);
-        }
+
 
         public virtual void LoadSave(BinaryReader reader)
         {

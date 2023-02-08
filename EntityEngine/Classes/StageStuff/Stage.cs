@@ -170,6 +170,8 @@ namespace EntityEngine.Classes.StageStuff
         {
             TileManager.LoadSave(reader);
             ItemManager.LoadSave(reader);
+            ItemManager.LoadTileManager(TileManager);
+            
             NPCContainer.LoadContent();
 
             NPCContainer.LoadSave(reader);

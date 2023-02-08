@@ -26,7 +26,7 @@ namespace SoundEngine.Classes
     }
     public static class SoundFactory
     {
-        private const string effectRootPath = "Audio/SoundEffects/";
+        private const string _effectRootPath = "Audio/SoundEffects/";
         private static ContentManager s_content;
         private static Random s_random;
 

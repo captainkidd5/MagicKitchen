@@ -49,6 +49,7 @@ namespace EntityEngine.Classes
             int count = worldItem.Count;
             StorageContainer.AddItem(worldItem.Item, ref count);
             worldItem.Remove(worldItem.Count - count);
+            
         }
         /// <summary>
         /// Gives as much of item as possible to entity. May not give all or any.Remainder can be found in count

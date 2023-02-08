@@ -17,7 +17,7 @@ namespace EntityEngine.ItemStuff
     {
         public string StageName { get; private set; }
         private List<WorldItem> _items;
-        private readonly TileManager _tileManager;
+        private TileManager _tileManager;
 
         public ItemManager(string stageName,TileManager tileManager)
         {
@@ -34,7 +34,10 @@ namespace EntityEngine.ItemStuff
             }
             _items.Clear();
         }
-
+        public void LoadTileManager(TileManager tileManager)
+        {
+            _tileManager = tileManager;
+        }
         public void LoadContent()
         {
             throw new NotImplementedException();
