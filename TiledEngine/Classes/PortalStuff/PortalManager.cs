@@ -81,6 +81,16 @@ namespace TiledEngine.Classes.PortalStuff
             return s_portalgraph.HasEdge(s_portalDictionary[stageFromName], s_portalDictionary[stageToName]);
         }
 
+
+        public void CreatePortalObjects()
+        {
+            foreach(var portal in AllPortals)
+            {
+                portal.SetToDefault();
+                portal.LoadContent();
+            }
+        }
+
         /// <summary>
         /// Gets the next stage in the connection between two nodes
         /// </summary>

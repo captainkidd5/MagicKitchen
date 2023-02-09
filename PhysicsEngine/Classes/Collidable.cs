@@ -339,7 +339,7 @@ namespace PhysicsEngine.Classes
         }
 
 
-        public void LoadContent()
+        public virtual void LoadContent()
         {
             throw new NotImplementedException();
         }

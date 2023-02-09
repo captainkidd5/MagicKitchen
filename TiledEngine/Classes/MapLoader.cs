@@ -130,6 +130,8 @@ namespace TiledEngine.Classes
 
         }
 
+        public static void CreatePortalObjects() => Portalmanager.CreatePortalObjects();
+
         /// <summary>
         /// Generates the first iteration of the background layer of the entire map
         /// </summary>

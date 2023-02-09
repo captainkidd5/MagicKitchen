@@ -109,7 +109,7 @@ namespace EntityEngine.Classes.StageStuff
             Flags.Pause = true;
 
         }
-        public void EnterWorld(string newStage, Vector2 newPlayerPos)
+        private void EnterWorld(string newStage, Vector2 newPlayerPos)
         {
             CurrentStage.SaveToStageFile();
             CurrentStage.SetToDefault();
@@ -221,7 +221,8 @@ namespace EntityEngine.Classes.StageStuff
             {
                 kvp.Value.CreateNewSave();
             }
-
+            MapLoader.FillPortalGraph();
+            MapLoader.CreatePortalObjects();
         }
 
         private void InitializeStages()
@@ -244,6 +245,7 @@ namespace EntityEngine.Classes.StageStuff
 
 
             MapLoader.FillPortalGraph();
+            MapLoader.CreatePortalObjects();
 
         }
         void OnPortalClicked(Portal p)

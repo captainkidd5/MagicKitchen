@@ -350,7 +350,8 @@ namespace Core
             _playerManager.Player1.GiveItem("Wooden_Hook", 1);
             SaveLoadManager.DestroyWriter(writer);
             Flags.FirstBootUp = false;
-            _stageManager.EnterWorld(_stageManager.CurrentStage.Name, Player1.Position);
+            _stageManager.RequestSwitchStage(_stageManager.CurrentStage.Name, Player1.Position);
+           // _stageManager.EnterWorld(_stageManager.CurrentStage.Name, Player1.Position);
 
         }
         public void OnSaveLoaded(object? sender, FileLoadedEventArgs e)

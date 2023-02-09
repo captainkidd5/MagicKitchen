@@ -16,8 +16,9 @@ namespace UIEngine.Classes
         private float FadeRate { get; set; }
         private bool IsFadingIn { get; set; }
 
-        private Action _actionOnDrop;
+      //  private Action _actionOnDrop;
 
+        private List<Action> _actionsOnDrop;
         public static readonly float DropRate = .00055f;
 
         private readonly float _layerDepth = .95f;
@@ -35,6 +36,7 @@ namespace UIEngine.Classes
 
             TotalBounds = Settings.ScreenRectangle;
             Opacity = 1f;
+            _actionsOnDrop = new List<Action>();
             base.LoadContent();
 
 
@@ -75,7 +77,11 @@ namespace UIEngine.Classes
                 IsFadingIn = false;
                 Deactivate();
 
-                _actionOnDrop();
+                foreach(var action in _actionsOnDrop)
+                    action();
+
+                _actionsOnDrop.Clear();
+                //_actionOnDrop = null;
             }
 
         }
@@ -89,13 +95,19 @@ namespace UIEngine.Classes
             }
         }
 
+        public void AppendAction(Action action)
+        {
+            _actionsOnDrop.Add(action);
+        }
         public void FadeIn(float rate, Action actionOnDrop)
         {
             FadeRate = rate;
             IsFadingIn = true;
             Activate();
-
-            _actionOnDrop = actionOnDrop;
+            //if (_actionOnDrop != null)
+            //    throw new Exception($"Curtain already has action {actionOnDrop.ToString()}");
+            _actionsOnDrop.Add(actionOnDrop);
+            //_actionOnDrop = actionOnDrop;
         }
 
         public void FadeOut(float rate)

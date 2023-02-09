@@ -38,6 +38,12 @@ namespace TiledEngine.Classes.PortalStuff
         {
 
         }
+        public override void LoadContent()
+        {
+            CreateBody(Vector2.Zero);
+
+        }
+ 
         public override void SetToDefault()
         {
             base.SetToDefault();
@@ -55,8 +61,17 @@ namespace TiledEngine.Classes.PortalStuff
             OffSetEntry = offSetEntry;
 
         }
-    
 
+        protected override void CreateBody(Vector2 position)
+        {
+            Move(Vector2Helper.GetVector2FromRectangle(Rectangle));
+            MainHullBody = PhysicsManager.CreateRectangularHullBody(BodyType.Static, Position, Rectangle.Width, Rectangle.Height, new List<Category>() {
+                (Category)PhysCat.Portal, (Category)PhysCat.ClickBox },
+              new List<Category>() {
+                  (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.Cursor, (Category)PhysCat.NPC, (Category)PhysCat.Player},
+              OnCollides, OnSeparates, userData: this);
+
+        }
 
 
         /// <summary>
@@ -135,16 +150,7 @@ namespace TiledEngine.Classes.PortalStuff
         }
 
 
-        protected override void CreateBody(Vector2 position)
-        {
-            Move(Vector2Helper.GetVector2FromRectangle(Rectangle));
-            MainHullBody = PhysicsManager.CreateRectangularHullBody(BodyType.Static, Position, Rectangle.Width, Rectangle.Height, new List<Category>() {
-                (Category)PhysCat.Portal, (Category)PhysCat.ClickBox },
-              new List<Category>() {
-                  (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.Cursor, (Category)PhysCat.NPC, (Category)PhysCat.Player},
-              OnCollides, OnSeparates, userData: this);
-
-        }
+    
 
         protected override bool OnClickBoxCollides(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
@@ -178,5 +184,7 @@ namespace TiledEngine.Classes.PortalStuff
             }
             base.OnSeparates(fixtureA, fixtureB, contact);
         }
+
+      
     }
 }
