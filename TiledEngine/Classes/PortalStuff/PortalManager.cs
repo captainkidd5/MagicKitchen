@@ -60,6 +60,18 @@ namespace TiledEngine.Classes.PortalStuff
             s_graphTraverser = new GraphTraverser(s_portalgraph);
 
         }
+
+        public Rectangle GetNextPortalRectangle(string stageFrom, string stageTo)
+        {
+
+
+            var data = AllPortals.FirstOrDefault(x => x.From == stageFrom && x.To == stageTo);
+
+            if (data == null)
+                throw new Exception($"Could not find portal from {stageFrom} to {stageTo}");
+
+            return data.Rectangle;
+        }
         /// <summary>
         /// Checks to see if two stages are somehow connected, directly or indirectly
         /// </summary>

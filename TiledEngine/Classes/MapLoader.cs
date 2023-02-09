@@ -56,14 +56,13 @@ namespace TiledEngine.Classes
         private static ProceduralPlacer s_proceduralPlacer;
 
         public static FurnitureLoader FurnitureLoader;
-        public static PortalManager Portalmanager;
+        public static PortalManager Portalmanager { get; set; }
 
         static public ZoneManager ZoneManager;
-        private static PortalLoader _portalLoader;
-        public static bool HasEdge(string stageFromName, string stageToName) => _portalLoader.HasEdge(stageFromName, stageToName);
-        public static string GetNextNodeStageName(string stageFromName, string stageToName) => _portalLoader.GetNextNodeStageName(stageFromName, stageToName);
+        public static bool HasEdge(string stageFromName, string stageToName) => Portalmanager.HasEdge(stageFromName, stageToName);
+        public static string GetNextNodeStageName(string stageFromName, string stageToName) => Portalmanager.GetNextNodeStageName(stageFromName, stageToName);
         public static Rectangle GetNextPortalRectangle(string stageFrom, string stageTo) =>
-            _portalLoader.GetNextPortalRectangle(stageFrom, stageTo);
+            Portalmanager.GetNextPortalRectangle(stageFrom, stageTo);
 
 
     
@@ -91,8 +90,7 @@ namespace TiledEngine.Classes
             Portalmanager = new PortalManager();
             ZoneManager = new ZoneManager();
 
-            _portalLoader = new PortalLoader();
-            _portalLoader.Initialize();
+  
 
         }
 
@@ -128,7 +126,7 @@ namespace TiledEngine.Classes
 
         public static void FillPortalGraph()
         {
-            _portalLoader.FillPortalGraph();
+            Portalmanager.FillPortalGraph();
 
         }
 
