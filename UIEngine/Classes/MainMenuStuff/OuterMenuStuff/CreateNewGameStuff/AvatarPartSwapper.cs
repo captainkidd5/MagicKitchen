@@ -41,7 +41,7 @@ namespace UIEngine.Classes.MainMenuStuff.OuterMenuStuff.CreateNewGameStuff
         {
             base.MovePosition(newPos);
             ChildSections.Clear();
-            _text = TextFactory.CreateUIText(_textString, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low));
+            _text = TextFactory.CreateUIText(_textString, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low), scale:2f);
             _cycleLeftButton = new Button(this, graphics, content, Position + _leftButtonOffSet, GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low),
                _leftSourceRectangle, ForwardAction);
 

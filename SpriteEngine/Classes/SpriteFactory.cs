@@ -164,6 +164,7 @@ namespace SpriteEngine.Classes
         {
 
             Point p = GetTextListWidthAndHeight(textList);
+            //These are just extra buffer
             p.X += 32;
             p.Y += 32;
 

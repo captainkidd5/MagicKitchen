@@ -104,9 +104,9 @@ namespace UIEngine.Classes.ButtonStuff
                     totalHeight += (int)_textList[i].Height;
                 }
                 if (_forcedHeight > 0)
-                    textPos = new Vector2(textPos.X, textPos.Y + BackGroundSprite.Height / 2 - totalHeight/2);
+                    textPos = new Vector2(textPos.X, textPos.Y + BackGroundSprite.Height  - totalHeight/2);
                 else
-                    textPos = new Vector2(textPos.X, textPos.Y + BackGroundSprite.Height / 2 - totalHeight);
+                    textPos = new Vector2(textPos.X, textPos.Y + BackGroundSprite.Height/2 - totalHeight /2);
 
             }
             for (int i = 0; i < _textList.Count; i++)
@@ -117,9 +117,9 @@ namespace UIEngine.Classes.ButtonStuff
                 {
                     textPos = new Vector2(BackGroundSprite.Position.X + BackGroundSprite.Width / 2 - text.Width / 2, textPos.Y);
                 }
+                //Not sure why this is times two but whatever
 
-
-                text.Update(textPos, null, Width);
+                text.Update(textPos, null, Width * 2);
 
 
                 textPos = new Vector2(textPos.X, textPos.Y + text.Height);

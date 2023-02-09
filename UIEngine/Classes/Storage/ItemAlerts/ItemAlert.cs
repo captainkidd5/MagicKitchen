@@ -49,17 +49,21 @@ namespace UIEngine.Classes.Storage.ItemAlerts
             _simpleTimer.ResetToZero();
             _simpleTimer.SetNewTargetTime(TTl);
             Count += (byte)amt;
-            _text.ClearAndSet($"{ItemData.DisplayName} +({Count})");
             _background.Color = Color.White;
             ChildSections.Remove(_background);
-            _background = new NineSliceTextButton(this, graphics, content, Position + BackgroundOffSet,
+            _text= TextFactory.CreateUIText($"{ItemData.DisplayName} +({Count})", GetLayeringDepth(UILayeringDepths.Medium), scale: 1f);
+
+            _background = new NineSliceTextButton(this, graphics, content, Position ,
                 GetLayeringDepth(SpriteEngine.Classes.UILayeringDepths.Low), new List<Text>() { _text }, null,
                centerTextHorizontally: true, centerTextVertically: true, hoverTransparency: false)
             { IgnoreDefaultClickSoundEffect = true, IgnoreDefaultHoverSoundEffect =true };
+
+            _background.MovePosition(new Vector2(_background.Position.X + _button.Width, _button.Position.Y + 8));
+           // _background.LoadContent();
         }
         protected virtual Text SetInitialText()
         {
-            return TextFactory.CreateUIText($"", GetLayeringDepth(UILayeringDepths.Medium));
+            return TextFactory.CreateUIText($"", GetLayeringDepth(UILayeringDepths.Medium), scale: 2f);
 
         }
         public override void LoadContent()

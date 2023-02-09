@@ -88,7 +88,7 @@ namespace TiledEngine.Classes.TileAddons
 
 
 
-                if (!IsPlayingASound)
+                if (!IsPlayingASound())
                     PlayPackage(GetTileLootSound());
             });
                 

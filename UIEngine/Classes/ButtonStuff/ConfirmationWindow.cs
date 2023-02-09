@@ -62,7 +62,7 @@ namespace UIEngine.Classes.ButtonStuff
             AddSectionToGrid(_cancelButton, 0, 0);
 
 
-            _text = TextFactory.CreateUIText(_confirmationText, _textPosition, null, _backGroundSpriteDimensions.Width, .91f);
+            _text = TextFactory.CreateUIText(_confirmationText, _textPosition, null, _backGroundSpriteDimensions.Width, .91f, scale: 2f);
             _textPosition = _text.CenterInRectangle(TotalBounds, 1f);
 
             TotalBounds = _backGroundSprite.HitBox;

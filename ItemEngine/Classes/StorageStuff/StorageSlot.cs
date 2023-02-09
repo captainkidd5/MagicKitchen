@@ -37,7 +37,8 @@ namespace ItemEngine.Classes.StorageStuff
             StoredCount = 0;
             Item = null;
             PlaceLocked = false;
-            BlacklistedItems.Clear();
+            if(BlacklistedItems != null)
+                BlacklistedItems.Clear();
             HoldsVisibleFurnitureItem= false;
         }
         public void LoadContent()

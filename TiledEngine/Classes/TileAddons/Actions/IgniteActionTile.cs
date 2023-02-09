@@ -36,7 +36,7 @@ namespace TiledEngine.Classes.TileAddons.Actions
     
             if (IsHovered(Controls.ControllerConnected) && Controls.IsClickedWorld)
             {
-                if (!IsPlayingASound)
+                if (!IsPlayingASound())
                 {
                     PlayPackage(Tile.GetCursorIconType().ToString());
 

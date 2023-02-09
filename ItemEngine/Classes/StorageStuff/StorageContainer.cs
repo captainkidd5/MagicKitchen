@@ -75,12 +75,15 @@ namespace ItemEngine.Classes.StorageStuff
                 }
                 else if (item.Stackable)
                 {
+                    int c = count;
                     while (count > 0 && (emptySlot.Add(item.Name)))
                     {
                         count--;
-                        ItemAdded?.Invoke(item, 1);
+                        //ItemAdded?.Invoke(item, 1);
 
                     }
+                    ItemAdded?.Invoke(item, c - count);
+
                 }
 
             }

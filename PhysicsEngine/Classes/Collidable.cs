@@ -48,7 +48,11 @@ namespace PhysicsEngine.Classes
 
         //for when controller is plugged in
         protected bool PlayerInControllerActionRange { get; private set; }
-        public bool IsPlayingASound => SoundModuleManager.IsPlayingASound;
+        public bool IsPlayingASound() {
+            if(SoundModuleManager == null) return false;
+
+            return SoundModuleManager.IsPlayingASound;
+        } 
 
         protected HullBody BigSensor { get; set; }
         protected List<Category> BigSensorCollidesWithCategories { get; set; }
@@ -121,8 +125,6 @@ namespace PhysicsEngine.Classes
                 LightsCollidable.Clear();
             }
 
-            if (BigSensor != null)
-                BigSensor.DestroyFromPhysicsWorld();
         }
         protected void AddPrimaryBody(HullBody body)
         {
@@ -155,7 +157,11 @@ namespace PhysicsEngine.Classes
 
         public void PlayPackage(string soundName)
         {
-            //SoundModuleManager.PlayPackage(soundName);
+            if (SoundModuleManager == null)
+                SoundModuleManager = new SoundModuleManager();
+
+
+            SoundModuleManager.PlayPackage(soundName);
         }
         public virtual void Update(GameTime gameTime)
         {

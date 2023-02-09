@@ -5,6 +5,7 @@ using Globals.Classes.Helpers;
 using ItemEngine.Classes;
 using Microsoft.Xna.Framework;
 using PhysicsEngine.Classes;
+using SoundEngine.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,8 @@ namespace EntityEngine.Classes.ToolStuff
         public override void ReleaseTool(Direction direction, Vector2 directionVector, Entity holder)
         {
             base.ReleaseTool(direction, directionVector, holder);
+            if (SoundModuleManager == null)
+                SoundModuleManager = new SoundModuleManager();
             SoundModuleManager.PlayPackage("Slash");
       
 
