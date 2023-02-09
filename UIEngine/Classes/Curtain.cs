@@ -11,19 +11,18 @@ namespace UIEngine.Classes
 {
     internal class Curtain : InterfaceSection
     {
-        public Sprite BackdropSprite { get; set; }
-        private float Opacity { get; set; } = 0f;
-        private float FadeRate { get; set; }
-        private bool IsFadingIn { get; set; }
+        private Sprite _backDropSprite;
+        private float _opacity  = 0f;
+        private float _fadeRate;
+        private bool _isFadingIn;
 
-      //  private Action _actionOnDrop;
 
         private List<Action> _actionsOnDrop;
         public static readonly float DropRate = .00055f;
 
         private readonly float _layerDepth = .95f;
 
-        public bool IsCurtainRaised => Opacity <= 0f;
+        public bool IsCurtainRaised => _opacity <= 0f;
 
         public Curtain(InterfaceSection interfaceSection, GraphicsDevice graphicsDevice, ContentManager content, Vector2? position, float layerDepth) :
             base(interfaceSection,graphicsDevice, content, position, layerDepth)
@@ -32,10 +31,10 @@ namespace UIEngine.Classes
         public override void LoadContent()
         {
 
-            BackdropSprite = SpriteFactory.CreateUISprite(Vector2.Zero,Settings.ScreenRectangle,Settings.DebugTexture, _layerDepth, Color.White);
+            _backDropSprite = SpriteFactory.CreateUISprite(Vector2.Zero,Settings.ScreenRectangle,Settings.DebugTexture, _layerDepth, Color.White);
 
             TotalBounds = Settings.ScreenRectangle;
-            Opacity = 1f;
+            _opacity = 1f;
             _actionsOnDrop = new List<Action>();
             base.LoadContent();
 
@@ -47,41 +46,41 @@ namespace UIEngine.Classes
             if (IsActive)
             {
 
-                if (IsFadingIn)
+                if (_isFadingIn)
                     IncreaseOpacity(gameTime);
                 else
                     DecreaseOpacity(gameTime);
 
                 
-                BackdropSprite.UpdateColor(Color.Black * Opacity);
+                _backDropSprite.UpdateColor(Color.Black * _opacity);
 
             }
         }
 
         private void DecreaseOpacity(GameTime gameTime)
         {
-            Opacity -= (float)gameTime.ElapsedGameTime.TotalMilliseconds * FadeRate;
-            if (Opacity <= 0f)
+            _opacity -= (float)gameTime.ElapsedGameTime.TotalMilliseconds * _fadeRate;
+            if (_opacity <= 0f)
             {
                 Deactivate();
 
-                IsFadingIn = false;
+                _isFadingIn = false;
 
             }
         }
         private void IncreaseOpacity(GameTime gameTime)
         {
-            Opacity += (float)gameTime.ElapsedGameTime.TotalMilliseconds * FadeRate;
-            if (Opacity >= 1f)
+            _opacity += (float)gameTime.ElapsedGameTime.TotalMilliseconds * _fadeRate;
+            if (_opacity >= 1f)
             {
-                IsFadingIn = false;
+                _isFadingIn = false;
                 Deactivate();
 
                 foreach(var action in _actionsOnDrop)
                     action();
 
                 _actionsOnDrop.Clear();
-                //_actionOnDrop = null;
+        
             }
 
         }
@@ -90,7 +89,7 @@ namespace UIEngine.Classes
             if (IsActive)
             {
                 base.Draw(spriteBatch);
-                BackdropSprite.Draw(spriteBatch);
+                _backDropSprite.Draw(spriteBatch);
 
             }
         }
@@ -101,19 +100,18 @@ namespace UIEngine.Classes
         }
         public void FadeIn(float rate, Action actionOnDrop)
         {
-            FadeRate = rate;
-            IsFadingIn = true;
+            _fadeRate = rate;
+            _isFadingIn = true;
             Activate();
-            //if (_actionOnDrop != null)
-            //    throw new Exception($"Curtain already has action {actionOnDrop.ToString()}");
+     
             _actionsOnDrop.Add(actionOnDrop);
-            //_actionOnDrop = actionOnDrop;
+       
         }
 
         public void FadeOut(float rate)
         {
-            FadeRate = rate;
-            IsFadingIn = false;
+            _fadeRate = rate;
+            _isFadingIn = false;
             Activate();
 
 

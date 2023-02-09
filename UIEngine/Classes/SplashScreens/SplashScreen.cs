@@ -53,6 +53,8 @@ namespace UIEngine.Classes.SplashScreens
             _chimes = content.Load<SoundEffect>("Audio/SoundEffects/UI/Chimes1");
             _chimesInstance = _chimes.CreateInstance();
         }
+
+        private bool _requestedReturnToMainMenu;
         public override void Update(GameTime gameTime)
         {
             if(_chimesInstance.State == SoundState.Stopped)
@@ -62,8 +64,9 @@ namespace UIEngine.Classes.SplashScreens
             base.Update(gameTime);
             Sprite.Update(gameTime, Position);
             _text.Update(_textPosition);
-                if (_splashDurationTimer.Run(gameTime) || Controls.IsClicked)
+                if (!_requestedReturnToMainMenu && (_splashDurationTimer.Run(gameTime) || Controls.IsClicked))
                 {
+                _requestedReturnToMainMenu = true;
                     UI.ReturnToMainMenu(false);
                 if(_chimesInstance.Volume > 0)
                 {
