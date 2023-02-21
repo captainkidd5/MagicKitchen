@@ -96,7 +96,7 @@ namespace EntityEngine.Classes.StageStuff
             _flotsamGenerator.Update(gameTime);
 
 
-            NPCContainer.Update(gameTime);
+           // NPCContainer.Update(gameTime);
 
             ParticleManager.Update(gameTime);
 
@@ -110,7 +110,7 @@ namespace EntityEngine.Classes.StageStuff
 
             ItemManager.Draw(spriteBatch);
             _playerManager.Draw(spriteBatch);
-            NPCContainer.Draw(spriteBatch);
+            //NPCContainer.Draw(spriteBatch);
 #if DEBUG
            // if (SettingsManager.DebugGrid)
                 //_pathGrid.DrawDebug(spriteBatch);

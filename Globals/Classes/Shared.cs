@@ -10,5 +10,6 @@ namespace Globals.Classes
     public static class Shared
     {
         public static Vector2 PlayerPosition;
+        public static string CurrentStageName;
     }
 }

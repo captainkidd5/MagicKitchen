@@ -69,7 +69,7 @@ namespace TiledEngine.Classes.PortalStuff
                 (Category)PhysCat.Portal, (Category)PhysCat.ClickBox },
               new List<Category>() {
                   (Category)PhysCat.PlayerBigSensor, (Category)PhysCat.Cursor, (Category)PhysCat.NPC, (Category)PhysCat.Player},
-              OnCollides, OnSeparates, userData: this);
+              OnCollides, OnSeparates,isSensor: true, userData: this);
 
         }
 
@@ -134,7 +134,7 @@ namespace TiledEngine.Classes.PortalStuff
             if (MainHullBody != null)
                 MainHullBody.Position = Position;
 
-            if (MustBeClicked && WithinRangeOfPlayer(Controls.ControllerConnected))
+            if (MustBeClicked && WithinRangeOfPlayer(Controls.ControllerConnected) && Shared.CurrentStageName == From)
             {
                 if (IsHovered(Controls.ControllerConnected))
                 {
@@ -168,8 +168,9 @@ namespace TiledEngine.Classes.PortalStuff
             {
                 OnClickBoxCollides(fixtureA, fixtureB, contact);
             }
-            else if (fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Player))
+            else if  (Shared.CurrentStageName == From && fixtureB.CollisionCategories.HasFlag((Category)PhysCat.Player))
             {
+                //if(fixtureB.Body.Tag as Entity)
                 if(UI.IsCurtainRaised)
                     OnPortalClicked();
             }

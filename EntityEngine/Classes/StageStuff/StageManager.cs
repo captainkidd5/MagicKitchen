@@ -117,7 +117,6 @@ namespace EntityEngine.Classes.StageStuff
             
             CurrentStage.LoadFromStageFile();
 
-            //_playerManager.LoadContent(CurrentStage.Name, CurrentStage.TileManager, CurrentStage.ItemManager, AllStageData);
             Player1.Move(newPlayerPos);
             foreach (Portal p in MapLoader.Portalmanager.AllPortals)
             {
@@ -158,6 +157,7 @@ namespace EntityEngine.Classes.StageStuff
 
             if (!Flags.Pause && !_firstLoad)
             {
+                Shared.CurrentStageName = CurrentStage.Name;
                 CurrentStage.Update(gameTime);
 
                 PlayerManager.Update(gameTime);
